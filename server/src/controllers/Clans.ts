@@ -2,7 +2,7 @@ import {
   ClanChallengeBossResponse,
   ClanCreateResponse,
   ClanGetResponse, ClanGetThreadResponse,
-  ClanGetThreadsResponse, ClanListResponse, ExpectedError, bosses, getFightsLeft,
+  ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError, bosses, getFightsLeft,
   randomItem,
 } from '@labrute/core';
 import {
@@ -39,6 +39,8 @@ const Clans = {
         throw new ExpectedError('Invalid search parameter');
       }
 
+      const sort = req.query.sort ? +req.query.sort as ClanSort : ClanSort.points;
+
       let clans: (Clan & {
         'brutesId': string[],
         'masterName': string,
@@ -52,7 +54,7 @@ const Clans = {
           LEFT JOIN "Brute" AS m ON c."masterId" = m.id
           WHERE c."deletedAt" IS NULL AND c.name ILIKE ${`%${search}%`}
           GROUP BY c.id, m.name
-          ORDER BY c.points DESC, c.name ASC
+          ORDER BY ${Prisma.sql([sort === ClanSort.points ? 'points' : 'elo'])} DESC, c.name ASC
           OFFSET ${(page - 1) * 15}
           LIMIT 15;
         `;
@@ -64,7 +66,7 @@ const Clans = {
           LEFT JOIN "Brute" AS m ON c."masterId" = m.id
           WHERE c."deletedAt" IS NULL
           GROUP BY c.id, m.name
-          ORDER BY c.points DESC, c.name ASC
+          ORDER BY ${Prisma.sql([sort === ClanSort.points ? 'points' : 'elo'])} DESC, c.name ASC
           OFFSET ${(page - 1) * 15}
           LIMIT 15;
         `;

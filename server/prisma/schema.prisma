@@ -632,6 +632,7 @@ model Clan {
 
   @@unique([name, deletedAt])
   @@index([deletedAt, name, points])
+  @@index([deletedAt, name, elo])
 }
 
 model ClanThread {

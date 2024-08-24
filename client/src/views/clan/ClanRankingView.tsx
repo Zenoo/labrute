@@ -1,6 +1,6 @@
-import { ClanListResponse } from '@labrute/core';
+import { ClanListResponse, ClanSort } from '@labrute/core';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import FantasyButton from '../../components/FantasyButton';
@@ -23,9 +23,10 @@ const ClanRankingView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const Alert = useAlert();
 
-  const [page, setPage] = React.useState(1);
-  const [search, setSearch] = React.useState('');
-  const [clans, setClans] = React.useState<ClanListResponse | null>(null);
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState<ClanSort>(ClanSort.points);
+  const [search, setSearch] = useState('');
+  const [clans, setClans] = useState<ClanListResponse | null>(null);
 
   // Fetch clans (debounce if search not empty)
   useEffect(() => {
@@ -33,6 +34,7 @@ const ClanRankingView = () => {
       Server.Clan.list({
         page,
         search,
+        sort,
       }).then((response) => {
         setClans(response);
       }).catch((error: ErrorType) => {
@@ -50,7 +52,7 @@ const ClanRankingView = () => {
 
     fetchClans();
     return () => { };
-  }, [Alert, page, search]);
+  }, [Alert, page, search, sort]);
 
   const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClans(null);
@@ -61,6 +63,12 @@ const ClanRankingView = () => {
   const changePage = (delta: number) => () => {
     setClans(null);
     setPage(page + delta);
+  };
+
+  const changeSort = (newSort: ClanSort) => () => {
+    if (sort === newSort) return;
+    setClans(null);
+    setSort(newSort);
   };
 
   return (
@@ -131,8 +139,18 @@ const ClanRankingView = () => {
                       <TableCell>{t('clan')}</TableCell>
                       <TableCell>{t('master')}</TableCell>
                       <TableCell>{t('members')}</TableCell>
-                      <TableCell>{t('elo')}</TableCell>
-                      <TableCell align="right">{t('points')}</TableCell>
+                      <TableCell onClick={changeSort(ClanSort.elo)} sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                        {t('elo')}
+                        {sort === ClanSort.elo && (
+                          <Box component="img" src="/images/clan/sort.webp" sx={{ width: 9, verticalAlign: 'middle', ml: 0.5 }} />
+                        )}
+                      </TableCell>
+                      <TableCell align="right" onClick={changeSort(ClanSort.points)} sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                        {t('points')}
+                        {sort === ClanSort.points && (
+                          <Box component="img" src="/images/clan/sort.webp" sx={{ width: 9, verticalAlign: 'middle', ml: 0.5 }} />
+                        )}
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>

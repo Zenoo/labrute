@@ -305,3 +305,8 @@ export type ClanWarGetHistoryResponse = (ClanWar & {
 })[];
 export type ClanWarGetAvailableFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
 export type ClanWarGetUsedFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
+
+export enum ClanSort {
+  points,
+  elo,
+}

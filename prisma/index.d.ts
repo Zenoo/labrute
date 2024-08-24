@@ -32438,6 +32438,7 @@ export namespace Prisma {
 
   export type TournamentAchievementWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    achievement_bruteId?: TournamentAchievementAchievementBruteIdCompoundUniqueInput
     AND?: TournamentAchievementWhereInput | TournamentAchievementWhereInput[]
     OR?: TournamentAchievementWhereInput[]
     NOT?: TournamentAchievementWhereInput | TournamentAchievementWhereInput[]
@@ -32446,7 +32447,7 @@ export namespace Prisma {
     achievement?: EnumAchievementNameFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntFilter<"TournamentAchievement"> | number
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
-  }, "id" | "id">
+  }, "id" | "id" | "achievement_bruteId">
 
   export type TournamentAchievementOrderByWithAggregationInput = {
     id?: SortOrder
@@ -36634,6 +36635,11 @@ export namespace Prisma {
     in?: $Enums.AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
     notIn?: $Enums.AchievementName[] | ListEnumAchievementNameFieldRefInput<$PrismaModel>
     not?: NestedEnumAchievementNameFilter<$PrismaModel> | $Enums.AchievementName
+  }
+
+  export type TournamentAchievementAchievementBruteIdCompoundUniqueInput = {
+    achievement: $Enums.AchievementName
+    bruteId: string
   }
 
   export type TournamentAchievementCountOrderByAggregateInput = {
