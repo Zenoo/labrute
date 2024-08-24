@@ -5,6 +5,7 @@ import {
   DailyModifierCountOdds,
   DailyModifierOdds,
   DailyModifierSpawnChance,
+  EventPauseDuration,
   Fighter,
   getNewElo,
   getWinsNeededToRankUp,
@@ -15,8 +16,10 @@ import {
   weightedRandom,
 } from '@labrute/core';
 import {
+  AchievementName,
   ClanWarStatus,
   ClanWarType,
+  EventStatus,
   FightModifier,
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
@@ -27,6 +30,8 @@ import ServerState from './utils/ServerState.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 import updateClanPoints from './utils/clan/updateClanPoints.js';
+import { resetBrute } from './utils/brute/resetBrute.js';
+import { increaseAchievement } from './controllers/Achievements.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
@@ -1506,6 +1511,295 @@ const handleClanWars = async (
   }
 };
 
+const handleEventFinish = async (prisma: PrismaClient) => {
+  // Get last event
+  const lastEvent = await prisma.event.findFirst({
+    orderBy: {
+      date: 'desc',
+    },
+    take: 1,
+  });
+
+  // Don't start another if last one is not finished
+  if (lastEvent?.status !== EventStatus.finished) {
+    return;
+  }
+
+  // Don't start another if the pause is not over
+  if (lastEvent && moment.utc().isBefore(moment.utc(lastEvent.date).add(lastEvent.duration + EventPauseDuration, 'day'))) {
+    return;
+  }
+
+  // Create new event
+  await prisma.event.create({
+    data: {},
+  });
+};
+
+const handleEventTournament = async (
+  prisma: PrismaClient,
+  modifiers: FightModifier[],
+) => {
+  // Get last event
+  const lastEvent = await prisma.event.findFirst({
+    where: {
+      status: { not: EventStatus.finished },
+    },
+    orderBy: {
+      date: 'desc',
+    },
+    take: 1,
+    include: {
+      brutes: {
+        select: { id: true },
+        orderBy: {
+          name: 'asc',
+        },
+      },
+      tournament: {
+        select: {
+          id: true,
+          rounds: true,
+          participants: { select: { id: true } },
+        },
+      },
+    },
+  });
+
+  if (!lastEvent || !lastEvent.brutes.length) {
+    return;
+  }
+
+  LOGGER.log(`Event ${lastEvent.id} ongoing with ${lastEvent.brutes.length} brutes`);
+
+  let { tournament } = lastEvent;
+
+  if (!lastEvent.tournament) {
+    // Create tournament
+    const createdTournament = await prisma.tournament.create({
+      data: {
+        date: lastEvent.date,
+        type: TournamentType.WEEKLY_EVENT,
+        rounds: 0,
+        eventId: lastEvent.id,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    // Separate brutes 1000 by 1000
+    const brutesChunks = Array(Math.ceil(lastEvent.brutes.length / 1000))
+      .fill([])
+      .map((_, index) => lastEvent.brutes.slice(index * 1000, index * 1000 + 1000));
+
+    // Set tourmanent participants separately, 1000 by 1000 to avoid insert error
+    for (const brutesChunk of brutesChunks) {
+      await prisma.tournament.update({
+        where: { id: createdTournament.id },
+        data: {
+          participants: {
+            connect: brutesChunk.map((brute) => ({ id: brute.id })),
+          },
+        },
+        select: { id: true },
+      });
+    }
+
+    // Get updated tournament
+    tournament = await prisma.tournament.findUnique({
+      where: { id: createdTournament.id },
+      select: {
+        id: true,
+        rounds: true,
+        participants: { select: { id: true } },
+      },
+    });
+  }
+
+  if (!tournament) {
+    throw new Error('Tournament not found');
+  }
+
+  // For the weekly event tournament, fight.tournamentStep represents the round number
+  const round = tournament.rounds + 1;
+  const roundBrutes = [...lastEvent.brutes];
+  let nextBrutes: typeof lastEvent.brutes = [];
+
+  // Handle byes for first round (power of 2)
+  if (roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
+    // Get number of byes
+    const byesCount = 2 ** (Math.floor(Math.log2(roundBrutes.length)) + 1) - roundBrutes.length;
+
+    // Add byes
+    nextBrutes = [...roundBrutes.splice(roundBrutes.length - byesCount, byesCount)];
+  }
+
+  LOGGER.log(`Round ${round}`);
+
+  for (let i = 0; i < roundBrutes.length - 1; i += 2) {
+    const roundBrute1 = roundBrutes[i];
+    const roundBrute2 = roundBrutes[i + 1];
+
+    if (!roundBrute1 || !roundBrute2) {
+      throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
+    }
+    const brute1 = await prisma.brute.findUnique({
+      where: { id: roundBrute1.id },
+    });
+    const brute2 = await prisma.brute.findUnique({
+      where: { id: roundBrute2.id },
+    });
+
+    if (!brute1 || !brute2) {
+      throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
+    }
+
+    if (brute1.name === brute2.name) {
+      throw new Error('Attempting to fight a brute against itself');
+    }
+
+    // Skip if no adversary
+    if (!brute2) {
+      nextBrutes.push(brute1);
+      continue;
+    }
+
+    // Generate fight (retry if failed)
+    let generatedFight: Prisma.FightCreateInput | null = null;
+    let retries = 0;
+
+    while (!generatedFight) {
+      // Stop at 10 retries
+      if (retries > 10) {
+        throw new Error('Too many retries');
+      }
+
+      try {
+        const newGeneratedFight = await generateFight({
+          prisma,
+          team1: { brutes: [brute1] },
+          team2: { brutes: [brute2] },
+          modifiers,
+          backups: false,
+          achievements: false,
+        });
+        generatedFight = newGeneratedFight.data;
+      } catch (error: unknown) {
+        if (!(error instanceof Error)) {
+          throw error;
+        }
+        LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
+        DISCORD.sendError(error);
+      }
+
+      retries++;
+    }
+
+    // Create fight
+    await prisma.fight.create({
+      data: {
+        ...generatedFight,
+        tournamentStep: round,
+        tournament: { connect: { id: tournament.id } },
+      },
+      select: { id: true },
+    });
+
+    // Add winner to next round
+    nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
+  }
+
+  // Tournament ends if only one brute left
+  if (nextBrutes.length === 1) {
+    const winner = nextBrutes[0];
+
+    if (!winner) {
+      throw new Error('Winner brute not found');
+    }
+
+    // Update event
+    await prisma.event.update({
+      where: { id: lastEvent.id },
+      data: {
+        status: EventStatus.finished,
+        winnerId: winner.id,
+      },
+    });
+
+    // Delete all other brutes
+    const brutesToDelete = lastEvent.tournament?.participants
+      .filter((brute) => brute.id !== winner.id) ?? [];
+
+    // Separate brutes 1000 by 1000
+    const brutesChunks = Array(Math.ceil(brutesToDelete.length / 1000))
+      .fill([])
+      .map((_, index) => brutesToDelete.slice(index * 1000, index * 1000 + 1000));
+
+    for (const brutesChunk of brutesChunks) {
+      await prisma.brute.updateMany({
+        where: {
+          id: {
+            in: brutesChunk.map((brute) => brute.id),
+          },
+        },
+        data: {
+          willBeDeletedAt: moment.utc().add(2, 'day').toDate(),
+          deletionReason: BruteDeletionReason.EVENT_LOSS,
+        },
+      });
+    }
+
+    LOGGER.log(`Deleted ${brutesToDelete.length} brutes from event ${lastEvent.id}`);
+
+    // Make winner an official brute
+    const winnerBrute = await prisma.brute.update({
+      where: { id: winner.id },
+      data: {
+        eventId: null,
+      },
+      select: {
+        id: true,
+        userId: true,
+        destinyPath: true,
+        level: true,
+        ranking: true,
+      },
+    });
+
+    // Reset brute
+    await resetBrute({
+      prisma,
+      brute: winnerBrute,
+      free: true,
+    });
+
+    if (!winnerBrute.userId) {
+      throw new Error('Winner user not found');
+    }
+
+    // Add achievement
+    await increaseAchievement(prisma, winnerBrute.userId, winnerBrute.id, AchievementName.eventWin);
+
+    LOGGER.log(`Event ${lastEvent.id} finished with winner ${winnerBrute.id}`);
+  }
+
+  // Update tournament with rounds
+  await prisma.tournament.update({
+    where: { id: tournament.id },
+    data: { rounds: round },
+    select: { id: true },
+  });
+
+  if (lastEvent.status === EventStatus.starting) {
+    // Update event status
+    await prisma.event.update({
+      where: { id: lastEvent.id },
+      data: { status: EventStatus.ongoing },
+    });
+  }
+};
+
 const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Releases
@@ -1530,6 +1824,10 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Handle clan wars
     await handleClanWars(prisma, modifiers);
+
+    // Handle events
+    await handleEventFinish(prisma);
+    await handleEventTournament(prisma, modifiers);
 
     // Update server state to release traffic
     ServerState.setReady(true);

@@ -189,7 +189,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   canRankUpSince: 'canRankUpSince',
   favorite: 'favorite',
   wantToJoinClanId: 'wantToJoinClanId',
-  tournamentWins: 'tournamentWins'
+  tournamentWins: 'tournamentWins',
+  eventId: 'eventId'
 };
 
 exports.Prisma.BruteStartingStatsScalarFieldEnum = {
@@ -249,7 +250,8 @@ exports.Prisma.TournamentScalarFieldEnum = {
   id: 'id',
   date: 'date',
   type: 'type',
-  rounds: 'rounds'
+  rounds: 'rounds',
+  eventId: 'eventId'
 };
 
 exports.Prisma.TournamentAchievementScalarFieldEnum = {
@@ -388,6 +390,15 @@ exports.Prisma.InventoryItemScalarFieldEnum = {
 exports.Prisma.ReleaseScalarFieldEnum = {
   version: 'version',
   date: 'date'
+};
+
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  type: 'type',
+  duration: 'duration',
+  status: 'status',
+  winnerId: 'winnerId'
 };
 
 exports.Prisma.SortOrder = {
@@ -553,7 +564,8 @@ exports.BruteStat = exports.$Enums.BruteStat = {
 exports.TournamentType = exports.$Enums.TournamentType = {
   DAILY: 'DAILY',
   GLOBAL: 'GLOBAL',
-  CUSTOM: 'CUSTOM'
+  CUSTOM: 'CUSTOM',
+  WEEKLY_EVENT: 'WEEKLY_EVENT'
 };
 
 exports.AchievementName = exports.$Enums.AchievementName = {
@@ -657,6 +669,7 @@ exports.AchievementName = exports.$Enums.AchievementName = {
   winAgainst4: 'winAgainst4',
   winAsLower: 'winAsLower',
   win: 'win',
+  eventWin: 'eventWin',
   rankUp10: 'rankUp10',
   rankUp9: 'rankUp9',
   rankUp8: 'rankUp8',
@@ -707,6 +720,16 @@ exports.InventoryItemType = exports.$Enums.InventoryItemType = {
   favoriteFight: 'favoriteFight'
 };
 
+exports.EventType = exports.$Enums.EventType = {
+  weekly: 'weekly'
+};
+
+exports.EventStatus = exports.$Enums.EventStatus = {
+  starting: 'starting',
+  ongoing: 'ongoing',
+  finished: 'finished'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Brute: 'Brute',
@@ -731,7 +754,8 @@ exports.Prisma.ModelName = {
   ClanWar: 'ClanWar',
   ClanWarFighters: 'ClanWarFighters',
   InventoryItem: 'InventoryItem',
-  Release: 'Release'
+  Release: 'Release',
+  Event: 'Event'
 };
 
 /**

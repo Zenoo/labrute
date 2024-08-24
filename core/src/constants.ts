@@ -90,6 +90,7 @@ export enum BruteDeletionReason {
   DUPLICATE_NAME = 'DUPLICATE_NAME',
   INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',
   BANNED_USER = 'BANNED_USER',
+  EVENT_LOSS = 'EVENT_LOSS',
 }
 
 export const DailyModifierOdds = [
@@ -123,3 +124,5 @@ export const FightLogTemplateCount = 48;
 
 export const ClanWarMaxParticipants = 7;
 export const ClanWarPointReward = 1000;
+
+export const EventPauseDuration = 3;

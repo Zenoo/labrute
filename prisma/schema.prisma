@@ -249,6 +249,9 @@ model Brute {
   followers                    User[]                  @relation("Followers")
   inClanWarAttackerFighters    ClanWarFighters[]       @relation("ClanWarAttackerFighters")
   inClanWarDefenderFighters    ClanWarFighters[]       @relation("ClanWarDefenderFighters")
+  event                        Event?                  @relation(fields: [eventId], references: [id])
+  eventId                      String?                 @db.Uuid
+  wonEvents                    Event[]                 @relation("EventBruteWinner")
 }
 
 model BruteStartingStats {
@@ -378,6 +381,7 @@ enum TournamentType {
   DAILY
   GLOBAL
   CUSTOM
+  WEEKLY_EVENT
 }
 
 model Tournament {
@@ -387,6 +391,8 @@ model Tournament {
   participants Brute[]
   rounds       Int
   fights       Fight[]
+  event        Event?         @relation(fields: [eventId], references: [id])
+  eventId      String?        @unique @db.Uuid
 
   @@index([type, date])
 }
@@ -525,6 +531,7 @@ enum AchievementName {
   winAgainst4
   winAsLower
   win
+  eventWin
   // Ranks
   rankUp10
   rankUp9
@@ -746,4 +753,29 @@ model Release {
   date    DateTime @default(now()) @db.Timestamp()
 
   @@index([date])
+}
+
+// Events
+enum EventType {
+  weekly
+}
+
+enum EventStatus {
+  starting
+  ongoing
+  finished
+}
+
+model Event {
+  id         String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date       DateTime    @default(now()) @db.Timestamp()
+  type       EventType   @default(weekly)
+  duration   Int         @default(7)
+  status     EventStatus @default(ongoing)
+  brutes     Brute[]
+  tournament Tournament?
+  winner     Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
+  winnerId   String?     @db.Uuid
+
+  @@index([date, type, status])
 }
