@@ -106,5 +106,7 @@
   "opponentWarOngoing": "Вражеский клан уже участвует в войне",
   "warNotFound": "Война не найдена",
   "maxFightersReached": "Вы достигли максимальное количество бойцов",
-  "cantFightOwnClan": "Нельзя воевать со своим собственным кланом"
+  "cantFightOwnClan": "Нельзя воевать со своим собственным кланом",
+  "oneBrutePerEvent": "You can only have one brute per event",
+  "eventNotFound": "Event not found"
 }
