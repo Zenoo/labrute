@@ -1082,6 +1082,7 @@ const Brutes = {
           destinyPath: true,
           clanId: true,
           level: true,
+          eventId: true,
         },
       });
 

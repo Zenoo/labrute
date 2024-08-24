@@ -1781,6 +1781,7 @@ const handleEventTournament = async (
         destinyPath: true,
         level: true,
         ranking: true,
+        eventId: true,
       },
     });
 

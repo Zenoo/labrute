@@ -22,7 +22,7 @@ import getOpponents from './getOpponents.js';
 type Props = {
   prisma: PrismaClient,
   user?: Pick<User, 'id' | 'lang'>
-  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level'>,
+  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId'>,
   free: boolean,
   rankUp?: boolean,
 };
@@ -100,8 +100,8 @@ export const resetBrute = async ({
       previousDestinyPath: brute.destinyPath,
       // Reset destiny
       destinyPath: [],
-      // Reset fights left
-      fightsLeft: getMaxFightsPerDay(stats, randomSkill),
+      // Reset fights left (not for event brutes)
+      fightsLeft: brute.eventId ? undefined : getMaxFightsPerDay(stats, randomSkill),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
       canRankUpSince: rankUp ? null : undefined,
