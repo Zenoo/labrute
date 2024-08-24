@@ -106,5 +106,7 @@
   "opponentWarOngoing": "Der gegnerische Klan befindet sich bereits im Krieg",
   "warNotFound": "Krieg nicht gefunden",
   "maxFightersReached": "Du hast die maximale Anzahl an Kämpfern erreicht",
-  "cantFightOwnClan": "Man kann nicht gegen den eigenen Klan kämpfen"
+  "cantFightOwnClan": "Man kann nicht gegen den eigenen Klan kämpfen",
+  "oneBrutePerEvent": "You can only have one brute per event",
+  "eventNotFound": "Event not found"
 }
