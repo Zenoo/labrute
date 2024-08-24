@@ -456,6 +456,7 @@ const Users = {
           lastFight: true,
           fightsLeft: true,
           skills: true,
+          eventId: true,
         },
       });
 
@@ -554,6 +555,7 @@ const Users = {
           skills: true,
           lastFight: true,
           fightsLeft: true,
+          eventId: true,
         },
       });
 

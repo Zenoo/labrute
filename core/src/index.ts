@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -32,6 +32,7 @@ export * from './brute/getBruteGoldValue';
 export * from './brute/getFinalStats';
 export * from './brute/getHP';
 export * from './brute/getRandomStartingStats';
+export * from './brute/getResetCost';
 export * from './brute/getTempSkill';
 export * from './brute/getTempWeapon';
 export * from './brute/getXPNeeded';
@@ -310,3 +311,15 @@ export enum ClanSort {
   points,
   elo,
 }
+
+export type EventListResponse = (Event & {
+  winner: Pick<Brute, 'name'> | null,
+})[];
+export type EventGetResponse = {
+  event: Event & {
+    tournament: Pick<Tournament, 'id'> | null,
+  },
+  fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+  lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+};
+export type EventGetFightResponse = FightGetResponse;

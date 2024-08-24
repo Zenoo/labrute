@@ -158,13 +158,13 @@ const CellMain = ({
         </FantasyButton>
       ))}
       {/* TOURNAMENT */}
-      {!smallScreen && (
+      {!smallScreen && !brute.eventId && (
         <CellTournament
           language={language}
         />
       )}
       {/* GLOBAL TOURNAMENT */}
-      {!smallScreen && (
+      {!smallScreen && !brute.eventId && (
         <CellGlobalTournament sx={{ mt: 3 }} />
       )}
       {/* BRUTE SACRIFICE */}

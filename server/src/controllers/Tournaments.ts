@@ -74,6 +74,7 @@ const Tournaments = {
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
+          eventId: null,
           userId: user.id,
         },
         select: {

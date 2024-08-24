@@ -1,4 +1,4 @@
-import { RESET_PRICE, getBruteGoldValue } from '@labrute/core';
+import { RESET_PRICE, getBruteGoldValue, getResetCost } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -86,7 +86,7 @@ const CellView = () => {
   const confirmReset = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('reset'), t('resetConfirm', { gold: RESET_PRICE }), () => {
+    Confirm.open(t('reset'), t('resetConfirm', { gold: getResetCost(brute) }), () => {
       Server.Brute.reset(brute.name).then((newBrute) => {
         Alert.open('success', t('resetSuccess'));
 
@@ -331,7 +331,7 @@ const CellView = () => {
               </Tooltip>
 
               {/* CLAN */}
-              {(owner || !!brute.clanId) && (
+              {(owner || !!brute.clanId) && !brute.eventId && (
                 <CellClan brute={brute} sx={{ ml: 4 }} />
               )}
               {/* ADVERT */}

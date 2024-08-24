@@ -1,6 +1,7 @@
 import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
   GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
+  getXPNeeded,
   randomBetween,
 } from '@labrute/core';
 import {
@@ -180,13 +181,16 @@ const Fights = {
       });
 
       // Get XP gained (0 for non arena fights)
+      // (+1 level for an event brute)
       // (+2 for a win against a brute at least 2 level below you)
       // (+1 for a win against a brute at least 10 level below you)
       // (+0 otherwise)
       const levelDifference = brute1.level - brute2.level;
       const xpGained = arenaFight
         ? generatedFight.winner === brute1.name
-          ? levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
+          ? brute1.eventId
+            ? getXPNeeded(brute1.level)
+            : levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
           : levelDifference > 10 ? 0 : 1
         : 0;
 

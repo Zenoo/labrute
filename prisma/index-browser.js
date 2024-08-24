@@ -190,7 +190,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   favorite: 'favorite',
   wantToJoinClanId: 'wantToJoinClanId',
   tournamentWins: 'tournamentWins',
-  eventId: 'eventId'
+  eventId: 'eventId',
+  resets: 'resets'
 };
 
 exports.Prisma.BruteStartingStatsScalarFieldEnum = {
@@ -396,9 +397,11 @@ exports.Prisma.EventScalarFieldEnum = {
   id: 'id',
   date: 'date',
   type: 'type',
-  duration: 'duration',
+  maxLevel: 'maxLevel',
+  maxRound: 'maxRound',
   status: 'status',
-  winnerId: 'winnerId'
+  winnerId: 'winnerId',
+  finishedAt: 'finishedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -565,7 +568,7 @@ exports.TournamentType = exports.$Enums.TournamentType = {
   DAILY: 'DAILY',
   GLOBAL: 'GLOBAL',
   CUSTOM: 'CUSTOM',
-  WEEKLY_EVENT: 'WEEKLY_EVENT'
+  BATTLE_ROYALE: 'BATTLE_ROYALE'
 };
 
 exports.AchievementName = exports.$Enums.AchievementName = {
@@ -721,7 +724,7 @@ exports.InventoryItemType = exports.$Enums.InventoryItemType = {
 };
 
 exports.EventType = exports.$Enums.EventType = {
-  weekly: 'weekly'
+  battleRoyale: 'battleRoyale'
 };
 
 exports.EventStatus = exports.$Enums.EventStatus = {

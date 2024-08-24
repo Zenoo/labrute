@@ -162,6 +162,7 @@ const HomeView = () => {
     // Get referer
     const url = new URL(window.location.href);
     const referer = url.searchParams.get('ref');
+    const eventId = url.searchParams.get('event');
 
     const response = await Server.Brute.create(
       name,
@@ -169,7 +170,8 @@ const HomeView = () => {
       gender,
       body,
       colors,
-      referer
+      referer,
+      eventId
     ).catch(catchError(Alert));
 
     if (response?.brute) {

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Event" ADD COLUMN     "maxRound" INTEGER NOT NULL DEFAULT 999;

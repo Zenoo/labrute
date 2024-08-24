@@ -102,13 +102,20 @@ export const resetBrute = async ({
       // Reset destiny
       destinyPath: [],
       // Reset fights left (not for event brutes)
-      fightsLeft: brute.eventId ? undefined : getMaxFightsPerDay(stats, randomSkill),
+      fightsLeft: brute.eventId ? undefined : getMaxFightsPerDay({
+        ...stats,
+        eventId: null,
+      }, randomSkill),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
       canRankUpSince: rankUp ? null : undefined,
       tournamentWins: rankUp ? 0 : undefined,
       // Restore XP for event brutes
       xp: brute.eventId ? getTotalXP(brute) : stats.xp,
+      // Track resets
+      resets: {
+        increment: 1,
+      },
     },
     include: {
       master: {

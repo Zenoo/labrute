@@ -11,7 +11,7 @@ import {
   BrutesGetLevelUpChoicesResponse,
   BrutesGetOpponentsResponse,
   BrutesGetRankingResponse,
-  DestinyBranch, ExpectedError,
+  DestinyBranch, EventFreeResets, ExpectedError,
   HookBrute,
   MAX_FAVORITE_BRUTES,
   RESET_PRICE,
@@ -195,6 +195,7 @@ const Brutes = {
       body: string,
       colors: string,
       master: string | null,
+      eventId: string | null,
     }>,
     res: Response<BrutesCreateResponse>,
   ) => {
@@ -251,7 +252,7 @@ const Brutes = {
           bruteLimit: true,
           brutes: {
             where: { deletedAt: null },
-            select: { id: true },
+            select: { id: true, eventId: true },
           },
         },
       });
@@ -260,8 +261,14 @@ const Brutes = {
         throw new Error(translate('userNotFound', authed));
       }
 
+      // Only one brute per event
+      if (req.body.eventId && user.brutes.some((b) => b.eventId === req.body.eventId)) {
+        throw new ExpectedError(translate('oneBrutePerEvent', authed));
+      }
+
       let goldLost = 0;
       let newLimit = user.bruteLimit;
+
       // Refuse if user has too many brutes and not enough gold
       if (user.brutes.length >= user.bruteLimit) {
         const gold = getGoldNeededForNewBrute(user);
@@ -305,6 +312,7 @@ const Brutes = {
           body: req.body.body,
           colors: req.body.colors,
           master: master ? { connect: { id: master.id } } : undefined,
+          event: req.body.eventId ? { connect: { id: req.body.eventId } } : undefined,
         },
       });
 
@@ -488,6 +496,7 @@ const Brutes = {
           ranking: true,
           lastFight: true,
           fightsLeft: true,
+          eventId: true,
         },
       });
 
@@ -1231,6 +1240,7 @@ const Brutes = {
           fightsLeft: true,
           lastFight: true,
           skills: true,
+          eventId: true,
         },
       });
 
@@ -1457,7 +1467,10 @@ const Brutes = {
       }
 
       // Check if user has enough gold
-      if (!brute.user || brute.user.gold < RESET_PRICE) {
+      if (!brute.user || (
+        (!brute.eventId || brute.resets >= EventFreeResets)
+        && brute.user.gold < RESET_PRICE
+      )) {
         throw new ExpectedError(translate('notEnoughGold', authed));
       }
 

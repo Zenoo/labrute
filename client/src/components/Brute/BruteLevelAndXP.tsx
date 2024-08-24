@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Text, { TextProps } from '../Text';
 
 interface BruteLevelAndXPProps extends BoxProps {
-  brute: Brute;
+  brute: Pick<Brute, 'level' | 'xp' | 'eventId'>;
   textProps?: Omit<TextProps, 'children'>;
 }
 
@@ -25,7 +25,14 @@ const BruteLevelAndXP = ({
 
   return (
     <Box {...rest}>
-      <Text bold h3 smallCaps color="secondary" {...textProps}>{t('level')} {brute.level}</Text>
+      <Text bold h3 smallCaps color="secondary" {...textProps}>
+        {brute.eventId && (
+          <Tooltip title={t('eventBrute')}>
+            <Box component="img" src="/images/event.webp" sx={{ width: 12, mr: 1 }} />
+          </Tooltip>
+        )}
+        {t('level')} {brute.level}
+      </Text>
       {/* LEVEL BAR */}
       <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
         <Box sx={{ bgcolor: 'divider', p: '2px', width: 120 }}>

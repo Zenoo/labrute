@@ -252,6 +252,7 @@ model Brute {
   event                        Event?                  @relation(fields: [eventId], references: [id])
   eventId                      String?                 @db.Uuid
   wonEvents                    Event[]                 @relation("EventBruteWinner")
+  resets                       Int                     @default(0)
 }
 
 model BruteStartingStats {
@@ -381,7 +382,7 @@ enum TournamentType {
   DAILY
   GLOBAL
   CUSTOM
-  WEEKLY_EVENT
+  BATTLE_ROYALE
 }
 
 model Tournament {
@@ -757,7 +758,7 @@ model Release {
 
 // Events
 enum EventType {
-  weekly
+  battleRoyale
 }
 
 enum EventStatus {
@@ -769,13 +770,15 @@ enum EventStatus {
 model Event {
   id         String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date       DateTime    @default(now()) @db.Date
-  type       EventType   @default(weekly)
-  duration   Int         @default(7)
+  type       EventType   @default(battleRoyale)
+  maxLevel   Int
+  maxRound   Int         @default(999)
   status     EventStatus @default(ongoing)
   brutes     Brute[]
   tournament Tournament?
   winner     Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
   winnerId   String?     @db.Uuid
+  finishedAt DateTime?   @db.Date
 
   @@index([date, type, status])
 }

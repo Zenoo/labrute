@@ -8,7 +8,7 @@ import getFightsLeft from './getFightsLeft';
 type BruteData = Pick<Brute, 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
   | 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
   | 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
-  | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp' | 'fightsLeft' | 'lastFight'>;
+  | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp' | 'fightsLeft' | 'lastFight' | 'eventId'>;
 
 const updateStat = (brute: BruteData, stat: BruteStat, value: number) => {
   switch (stat) {

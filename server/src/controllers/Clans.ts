@@ -107,6 +107,7 @@ const Clans = {
         where: {
           name: ilike(req.params.brute),
           deletedAt: null,
+          eventId: null,
           userId: user.id,
         },
         select: {
@@ -333,6 +334,7 @@ const Clans = {
         where: {
           name: ilike(req.params.brute),
           deletedAt: null,
+          eventId: null,
           userId: user.id,
         },
         select: { id: true, clanId: true },

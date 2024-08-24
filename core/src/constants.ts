@@ -126,3 +126,5 @@ export const ClanWarMaxParticipants = 7;
 export const ClanWarPointReward = 1000;
 
 export const EventPauseDuration = 3;
+export const EventFightsPerDay = 10;
+export const EventFreeResets = 3;

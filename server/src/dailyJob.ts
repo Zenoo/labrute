@@ -140,6 +140,7 @@ const handleDailyTournaments = async (
   const registeredBrutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
+      eventId: null,
       registeredForTournament: true,
       nextTournamentDate: {
         lt: tomorrow.toDate(),
@@ -496,6 +497,7 @@ const handleGlobalTournament = async (
   const brutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
+      eventId: null,
       lastFight: {
         gte: moment.utc().subtract(1, 'day').toDate(),
       },
@@ -968,6 +970,7 @@ const deleteBrutes = async (prisma: PrismaClient) => {
       clanId: true,
       level: true,
       ranking: true,
+      masterId: true,
     },
   });
 
@@ -992,10 +995,22 @@ const deleteBrutes = async (prisma: PrismaClient) => {
     },
   });
 
-  // Update clan points
   for (const brute of brutes) {
+    // Update clan points
     if (brute.clanId) {
       await updateClanPoints(prisma, brute.clanId, 'remove', brute);
+    }
+
+    // Update master pupils count
+    if (brute.masterId) {
+      await prisma.brute.update({
+        where: { id: brute.masterId },
+        data: {
+          pupilsCount: {
+            decrement: 1,
+          },
+        },
+      });
     }
   }
 
@@ -1526,14 +1541,19 @@ const handleEventFinish = async (prisma: PrismaClient) => {
   }
 
   // Don't start another if the pause is not over
-  if (lastEvent && moment.utc().isBefore(moment.utc(lastEvent.date).add(lastEvent.duration + EventPauseDuration, 'day'))) {
+  if (lastEvent && moment.utc().isBefore(moment.utc(lastEvent.finishedAt).add(EventPauseDuration, 'day'))) {
     return;
   }
 
   // Create new event
+  const maxLevel = randomBetween(20, 120);
   await prisma.event.create({
-    data: {},
+    data: {
+      maxLevel,
+    },
   });
+
+  LOGGER.log(`New event created with max level ${maxLevel}`);
 };
 
 const handleEventTournament = async (
@@ -1589,7 +1609,7 @@ const handleEventTournament = async (
     const createdTournament = await prisma.tournament.create({
       data: {
         date: lastEvent.date,
-        type: TournamentType.WEEKLY_EVENT,
+        type: TournamentType.BATTLE_ROYALE,
         rounds: 0,
         eventId: lastEvent.id,
       },
@@ -1638,13 +1658,14 @@ const handleEventTournament = async (
 
   LOGGER.log(`Event ${lastEvent.id} ongoing with ${lastEvent.brutes.length} brutes`);
 
-  // For the weekly event tournament, fight.tournamentStep represents the round number
+  // For the battle royale event tournament, fight.tournamentStep represents the round number
   const round = tournament.rounds + 1;
   const roundBrutes = [...lastEvent.brutes];
   let nextBrutes: typeof lastEvent.brutes = [];
 
   // Handle byes for first round (power of 2)
-  if (roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
+  if (lastEvent.tournament?.rounds === 0
+      && roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
     // Get number of byes
     const byesCount = 2 ** (Math.floor(Math.log2(roundBrutes.length)) + 1) - roundBrutes.length;
 
@@ -1741,6 +1762,7 @@ const handleEventTournament = async (
       data: {
         status: EventStatus.finished,
         winnerId: winner.id,
+        finishedAt: new Date(),
       },
     });
 
@@ -1803,6 +1825,32 @@ const handleEventTournament = async (
     LOGGER.log(`Event ${lastEvent.id} finished with winner ${winnerBrute.id}`);
   }
 
+  // Separate brutes 1000 by 1000
+  const nextBrutesChunks = Array(Math.ceil(nextBrutes.length / 1000))
+    .fill([])
+    .map((_, index) => nextBrutes.slice(index * 1000, index * 1000 + 1000));
+
+  // Update event brutes
+  await prisma.event.update({
+    where: { id: lastEvent.id },
+    data: {
+      brutes: {
+        set: [],
+      },
+    },
+  });
+
+  for (const nextBrutesChunk of nextBrutesChunks) {
+    await prisma.event.update({
+      where: { id: lastEvent.id },
+      data: {
+        brutes: {
+          connect: nextBrutesChunk.map((brute) => ({ id: brute.id })),
+        },
+      },
+    });
+  }
+
   // Update tournament with rounds
   await prisma.tournament.update({
     where: { id: tournament.id },
@@ -1814,7 +1862,10 @@ const handleEventTournament = async (
     // Update event status
     await prisma.event.update({
       where: { id: lastEvent.id },
-      data: { status: EventStatus.ongoing },
+      data: {
+        status: EventStatus.ongoing,
+        maxRound: Math.ceil(Math.log2(lastEvent.brutes.length)),
+      },
     });
   }
 };

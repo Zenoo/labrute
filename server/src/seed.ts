@@ -35,6 +35,7 @@ const generateBrute = (
     pupilsCount: 0,
     lastFight: moment.utc().toDate() as Date | null,
     fightsLeft: FIGHTS_PER_DAY,
+    eventId: null,
     ...createRandomBruteStats(),
   };
 
@@ -55,6 +56,7 @@ const generateBrute = (
         data,
         levelUpChoice,
       ),
+      eventId: null,
     };
   }
 
