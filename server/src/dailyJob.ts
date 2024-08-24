@@ -1570,8 +1570,6 @@ const handleEventTournament = async (
     return;
   }
 
-  LOGGER.log(`Event ${lastEvent.id} ongoing with ${lastEvent.brutes.length} brutes`);
-
   let { tournament } = lastEvent;
 
   if (!lastEvent.tournament) {
@@ -1620,6 +1618,13 @@ const handleEventTournament = async (
   if (!tournament) {
     throw new Error('Tournament not found');
   }
+
+  // Check if today's round is already done
+  if (tournament.rounds >= moment.utc().diff(moment.utc(lastEvent.date), 'days')) {
+    return;
+  }
+
+  LOGGER.log(`Event ${lastEvent.id} ongoing with ${lastEvent.brutes.length} brutes`);
 
   // For the weekly event tournament, fight.tournamentStep represents the round number
   const round = tournament.rounds + 1;
