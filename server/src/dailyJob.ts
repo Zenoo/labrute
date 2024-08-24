@@ -1566,7 +1566,19 @@ const handleEventTournament = async (
     },
   });
 
-  if (!lastEvent || !lastEvent.brutes.length) {
+  if (!lastEvent) {
+    return;
+  }
+
+  if (!lastEvent.brutes.length) {
+    // Reset event date
+    await prisma.event.update({
+      where: { id: lastEvent.id },
+      data: {
+        date: new Date(),
+      },
+    });
+
     return;
   }
 
