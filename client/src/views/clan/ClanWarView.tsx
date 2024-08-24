@@ -179,7 +179,7 @@ export const ClanWarView = () => {
                     && (
                       <TableRow>
                         <TableCell colSpan={3} sx={{ textAlign: 'center' }}>
-                          <Text body2>{t('clanWar.earlyEnd')}</Text>
+                          <Text body2>{(Math.max(war.defenderWins, war.attackerWins) > (war.duration / 2)) ? t('clanWar.earlyEndVictories') : t('clanWar.earlyEnd')}</Text>
                         </TableCell>
                       </TableRow>
                     )}
