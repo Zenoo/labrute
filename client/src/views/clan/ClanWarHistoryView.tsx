@@ -34,9 +34,16 @@ export const ClanWarHistoryView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('clanWarHistory')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+        px: 0,
+        overflowX: 'auto',
+      }}
+      >
         <Table sx={{
           maxWidth: 1,
+          mx: 2,
           '& th': {
             bgcolor: 'secondary.main',
             color: 'secondary.contrastText',
