@@ -768,7 +768,7 @@ enum EventStatus {
 
 model Event {
   id         String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date       DateTime    @default(now()) @db.Timestamp()
+  date       DateTime    @default(now()) @db.Date
   type       EventType   @default(weekly)
   duration   Int         @default(7)
   status     EventStatus @default(ongoing)
