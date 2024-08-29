@@ -1491,5 +1491,7 @@
   "event.battleRoyale.rule.6": "The winner will keep its destiny, reset to level 1 and become a regular brute",
   "event.battleRoyale.rule.7": "All other brutes will be permanently deleted",
   "event.battleRoyale.rule.8": "The next event will start {{count}} days after the end of the current event",
-  "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore."
+  "event.battleRoyale.rule.9": "Every event has a random maximum level, the current event maximum level is {{count}}",
+  "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore.",
+  "event.started": "A new event just started, come participate before it's too late!"
 }
