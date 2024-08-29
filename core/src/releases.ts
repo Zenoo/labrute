@@ -7,24 +7,32 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.70.0',
-  date: '2024-08-07',
-  features: [
-    'You can now declare friendly clan wars. The clan master can declare a friendly war from the opponent clan page. No rewards are given, but it\'s a good way to practice and have fun!',
-  ],
+  version: '2.72.0',
+  date: '2024-08-31',
+  features: [],
   fixes: [
-    '`Flash flood` now correctly throws 3 weapons',
-    '`Flash flood` deals less damage and triggers less often',
-    'When arriving in a fight with a weapon equipped, you now have less chances to throw it away immediately',
-    'Brute ranks now have double the impact on clan points',
-    'Defender clans who don\'t select their fighters can\'t select them on a later fight anymore',
-    'Removed the follow button on your own brutes cell',
   ],
   attachments: [],
 };
 
 export const releases: Release[] = [
   LAST_RELEASE,
+  {
+    version: '2.70.0',
+    date: '2024-08-07',
+    features: [
+      'You can now declare friendly clan wars. The clan master can declare a friendly war from the opponent clan page. No rewards are given, but it\'s a good way to practice and have fun!',
+    ],
+    fixes: [
+      '`Flash flood` now correctly throws 3 weapons',
+      '`Flash flood` deals less damage and triggers less often',
+      'When arriving in a fight with a weapon equipped, you now have less chances to throw it away immediately',
+      'Brute ranks now have double the impact on clan points',
+      'Defender clans who don\'t select their fighters can\'t select them on a later fight anymore',
+      'Removed the follow button on your own brutes cell',
+    ],
+    attachments: [],
+  },
   {
     version: '2.69.0',
     date: '2024-08-05',
