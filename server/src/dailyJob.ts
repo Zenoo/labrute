@@ -1580,7 +1580,12 @@ const handleEventTournament = async (
         select: {
           id: true,
           rounds: true,
-          participants: { select: { id: true } },
+          participants: {
+            select: { id: true },
+            orderBy: {
+              name: 'asc',
+            },
+          },
         },
       },
     },
@@ -1656,12 +1661,12 @@ const handleEventTournament = async (
     return;
   }
 
-  LOGGER.log(`Event ${lastEvent.id} ongoing with ${lastEvent.brutes.length} brutes`);
+  LOGGER.log(`Event ${lastEvent.id} ongoing with ${tournament.participants.length} brutes`);
 
   // For the battle royale event tournament, fight.tournamentStep represents the round number
   const round = tournament.rounds + 1;
-  const roundBrutes = [...lastEvent.brutes];
-  let nextBrutes: typeof lastEvent.brutes = [];
+  const roundBrutes = [...tournament.participants];
+  let nextBrutes: typeof tournament.participants = [];
 
   // Handle byes for first round (power of 2)
   if (lastEvent.tournament?.rounds === 0
@@ -1674,6 +1679,8 @@ const handleEventTournament = async (
   }
 
   LOGGER.log(`Round ${round}`);
+
+  const loserIds: string[] = [];
 
   for (let i = 0; i < roundBrutes.length - 1; i += 2) {
     const roundBrute1 = roundBrutes[i];
@@ -1746,6 +1753,26 @@ const handleEventTournament = async (
 
     // Add winner to next round
     nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
+
+    // Add loser to losers
+    loserIds.push(brute1.name !== generatedFight.winner ? brute1.id : brute2.id);
+  }
+
+  // Separate losers 1000 by 1000
+  const loserIdsChunks = Array(Math.ceil(loserIds.length / 1000))
+    .fill([])
+    .map((_, index) => loserIds.slice(index * 1000, index * 1000 + 1000));
+
+  // Remove losers from tournament
+  for (const loserIdsChunk of loserIdsChunks) {
+    await prisma.tournament.update({
+      where: { id: tournament.id },
+      data: {
+        participants: {
+          disconnect: loserIdsChunk.map((id) => ({ id })),
+        },
+      },
+    });
   }
 
   // Tournament ends if only one brute left
@@ -1767,8 +1794,7 @@ const handleEventTournament = async (
     });
 
     // Delete all other brutes
-    const brutesToDelete = lastEvent.tournament?.participants
-      .filter((brute) => brute.id !== winner.id) ?? [];
+    const brutesToDelete = lastEvent.brutes.filter((brute) => brute.id !== winner.id) ?? [];
 
     // Separate brutes 1000 by 1000
     const brutesChunks = Array(Math.ceil(brutesToDelete.length / 1000))
@@ -1789,7 +1815,7 @@ const handleEventTournament = async (
       });
     }
 
-    LOGGER.log(`Deleted ${brutesToDelete.length} brutes from event ${lastEvent.id}`);
+    LOGGER.log(`Marked ${brutesToDelete.length} brutes for deletion from event ${lastEvent.id}`);
 
     // Make winner an official brute
     const winnerBrute = await prisma.brute.update({
@@ -1830,32 +1856,6 @@ const handleEventTournament = async (
     LOGGER.log(`Event ${lastEvent.id} finished with winner ${winnerBrute.id}`);
   }
 
-  // Separate brutes 1000 by 1000
-  const nextBrutesChunks = Array(Math.ceil(nextBrutes.length / 1000))
-    .fill([])
-    .map((_, index) => nextBrutes.slice(index * 1000, index * 1000 + 1000));
-
-  // Update event brutes
-  await prisma.event.update({
-    where: { id: lastEvent.id },
-    data: {
-      brutes: {
-        set: [],
-      },
-    },
-  });
-
-  for (const nextBrutesChunk of nextBrutesChunks) {
-    await prisma.event.update({
-      where: { id: lastEvent.id },
-      data: {
-        brutes: {
-          connect: nextBrutesChunk.map((brute) => ({ id: brute.id })),
-        },
-      },
-    });
-  }
-
   // Update tournament with rounds
   await prisma.tournament.update({
     where: { id: tournament.id },
@@ -1869,7 +1869,7 @@ const handleEventTournament = async (
       where: { id: lastEvent.id },
       data: {
         status: EventStatus.ongoing,
-        maxRound: Math.ceil(Math.log2(lastEvent.brutes.length)),
+        maxRound: Math.ceil(Math.log2(tournament.participants.length)),
       },
     });
   }
