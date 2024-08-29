@@ -778,8 +778,8 @@
   "achievements.winAsLower.description": "Gewinne einen Wettkampf gegen einen Brutalo, dessen Stufe höher ist, als deine.",
   "achievements.win": "Erster Erfolg",
   "achievements.win.description": "Gewinne einen Wettkampf.",
-  "achievements.battleRoyaleWin": "Battle Royale winner",
-  "achievements.battleRoyaleWin.description": "Win a Battle Royale event.",
+  "achievements.battleRoyaleWin": "Battle Royale Sieger",
+  "achievements.battleRoyaleWin.description": "Gewinne ein Battle Royale Ereignis.",
   "achievements.rankUp10": "Kleinvieh",
   "achievements.rankUp10.description": "Steige mit einem Brutalo zum Wüstendrescher auf.",
   "achievements.rankUp9": "Zwangsenthaarung",
@@ -1491,5 +1491,7 @@
   "event.battleRoyale.rule.6": "Der Sieger behält sein Schicksal, kehrt auf Stufe 1 zurück und wird zu einem regulären Brutalo",
   "event.battleRoyale.rule.7": "Alle anderen Brutalos werden unwiderruflich gelöscht",
   "event.battleRoyale.rule.8": "Das nächste Ereignis startet {{count}} Tage nach Beendigung des aktuellen",
-  "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore."
+  "event.battleRoyale.rule.9": "Every event has a random maximum level, the current event maximum level is {{count}}",
+  "event.ongoing": "Das Ereignis ist bereits im Gange. Du kannst mit einem Brutalo nicht mehr teilnehmen.",
+  "event.started": "A new event just started, come participate before it's too late!"
 }
