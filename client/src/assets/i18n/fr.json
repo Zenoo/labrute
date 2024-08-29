@@ -778,8 +778,8 @@
   "achievements.winAsLower.description": "Gagnez un tournoi contre une brute dont le niveau est supérieur au vôtre.",
   "achievements.win": "Premier succès",
   "achievements.win.description": "Gagnez un tournoi.",
-  "achievements.eventWin": "Event winner",
-  "achievements.eventWin.description": "Win an event tournament.",
+  "achievements.battleRoyaleWin": "Battle Royale winner",
+  "achievements.battleRoyaleWin.description": "Win a Battle Royale event.",
   "achievements.rankUp10": "Petite frappe",
   "achievements.rankUp10.description": "Montez une brute au rang de Pichenette du Désert",
   "achievements.rankUp9": "Épilation forcée",
@@ -1490,5 +1490,6 @@
   "event.battleRoyale.rule.5": "A tournament round will be played every day until only one brute remains",
   "event.battleRoyale.rule.6": "The winner will keep its destiny, reset to level 1 and become a regular brute",
   "event.battleRoyale.rule.7": "All other brutes will be permanently deleted",
-  "event.battleRoyale.rule.8": "The next event will start {{count}} days after the end of the current event"
+  "event.battleRoyale.rule.8": "The next event will start {{count}} days after the end of the current event",
+  "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore."
 }
