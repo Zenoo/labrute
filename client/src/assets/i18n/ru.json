@@ -778,8 +778,8 @@
   "achievements.winAsLower.description": "В финале турнира победите Брутала, уровень которого превышает ваш.",
   "achievements.win": "Первый успех",
   "achievements.win.description": "Выиграно турниров.",
-  "achievements.eventWin": "Победитель мероприятия",
-  "achievements.eventWin.description": "Выиграйте мероприятие особого турнира.",
+  "achievements.battleRoyaleWin": "Battle Royale winner",
+  "achievements.battleRoyaleWin.description": "Win a Battle Royale event.",
   "achievements.rankUp10": "Мелкая сошка",
   "achievements.rankUp10.description": "Бруталов, заслуживших звание «Пустынный Бандюга»",
   "achievements.rankUp9": "Принудительная эпиляция",
@@ -1490,5 +1490,6 @@
   "event.battleRoyale.rule.5": "Ежедневно будет разыгран один этап турнира до тех пор, пока не останется лишь один Брутал",
   "event.battleRoyale.rule.6": "Победитель сохранит судьбу, сбросится на уровень 1 и станет обычным Бруталом",
   "event.battleRoyale.rule.7": "Все остальные Бруталы будут удалены безвозвратно",
-  "event.battleRoyale.rule.8": "Следующее мероприятие начнется через {{count}} дней после окончания текущего"
+  "event.battleRoyale.rule.8": "Следующее мероприятие начнется через {{count}} дней после окончания текущего",
+  "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore."
 }
