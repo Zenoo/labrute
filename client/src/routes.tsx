@@ -39,6 +39,8 @@ import ClanView from './views/clan/ClanView';
 import ClanWarFightView from './views/clan/ClanWarFightView';
 import { ClanWarHistoryView } from './views/clan/ClanWarHistoryView';
 import { ClanWarView } from './views/clan/ClanWarView';
+import { EventView } from './views/event/EventView';
+import { EventHistoryView } from './views/event/EventHistoryView';
 
 const routes: RouteObject[] = [
   {
@@ -110,6 +112,13 @@ const routes: RouteObject[] = [
                   }
                 ],
               },
+            ],
+          },
+          {
+            path: 'event',
+            children: [
+              { path: ':id', element: <EventView /> },
+              { path: 'history', element: <EventHistoryView /> },
             ],
           },
           // Redirect :name to :name/cell

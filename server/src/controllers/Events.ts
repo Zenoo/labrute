@@ -1,5 +1,5 @@
 import {
-  EventGetFightResponse, EventGetResponse, EventListResponse, ExpectedError,
+  EventGetResponse, EventListResponse, ExpectedError,
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -131,37 +131,6 @@ const Events = {
         fights,
         lastRounds,
       });
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  getFight: (prisma: PrismaClient) => async (
-    req: Request<{ id: string }>,
-    res: Response<EventGetFightResponse>,
-  ) => {
-    try {
-      if (!req.params.id) {
-        throw new ExpectedError(translate('invalidParameters'));
-      }
-
-      // Get fight
-      const fight = await prisma.fight.findFirst({
-        where: {
-          id: req.params.id,
-          tournamentId: { not: null },
-        },
-        include: {
-          favoritedBy: {
-            select: { id: true },
-          },
-        },
-      });
-
-      if (!fight) {
-        throw new ExpectedError(translate('fightNotFound'));
-      }
-
-      res.status(200).send(fight);
     } catch (error) {
       sendError(res, error);
     }

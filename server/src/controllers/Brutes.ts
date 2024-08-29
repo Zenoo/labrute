@@ -520,6 +520,22 @@ const Brutes = {
         throw new Error(translate('bruteNotFound', authed));
       }
 
+      // Check event max level
+      if (brute.eventId) {
+        const event = await prisma.event.findFirst({
+          where: { id: brute.eventId },
+          select: { maxLevel: true },
+        });
+
+        if (!event) {
+          throw new ExpectedError(translate('eventNotFound', authed));
+        }
+
+        if (brute.level >= event.maxLevel) {
+          throw new ExpectedError(translate('eventMaxLevelReached', authed));
+        }
+      }
+
       const xpNeeded = getXPNeeded(brute.level + 1);
 
       // Check if brute has enough XP

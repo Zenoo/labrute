@@ -322,4 +322,3 @@ export type EventGetResponse = {
   fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
   lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
 };
-export type EventGetFightResponse = FightGetResponse;
