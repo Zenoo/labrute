@@ -109,6 +109,6 @@
   "cantFightOwnClan": "Man kann nicht gegen den eigenen Klan kämpfen",
   "oneBrutePerEvent": "Man kann nur einen Brutalo pro Ereignis haben",
   "eventNotFound": "Ereignis nicht gefunden",
-  "eventAlreadyStarted": "Event already started",
-  "eventMaxLevelReached": "You reached the maximum level for this event"
+  "eventAlreadyStarted": "Ereignis bereits begonnen",
+  "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht"
 }
