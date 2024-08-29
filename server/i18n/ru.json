@@ -108,5 +108,7 @@
   "maxFightersReached": "Вы достигли максимальное количество бойцов",
   "cantFightOwnClan": "Нельзя воевать со своим собственным кланом",
   "oneBrutePerEvent": "В мероприятии может участвовать лишь один из ваших Бруталов",
-  "eventNotFound": "Мероприятие не найдено"
+  "eventNotFound": "Мероприятие не найдено",
+  "eventAlreadyStarted": "Event already started",
+  "eventMaxLevelReached": "You reached the maximum level for this event"
 }
