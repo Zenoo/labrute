@@ -672,7 +672,7 @@ exports.AchievementName = exports.$Enums.AchievementName = {
   winAgainst4: 'winAgainst4',
   winAsLower: 'winAsLower',
   win: 'win',
-  eventWin: 'eventWin',
+  battleRoyaleWin: 'battleRoyaleWin',
   rankUp10: 'rankUp10',
   rankUp9: 'rankUp9',
   rankUp8: 'rankUp8',

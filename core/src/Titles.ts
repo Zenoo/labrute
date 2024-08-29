@@ -113,7 +113,7 @@ export const TitleRequirements: Record<AchievementName, number[]> = {
   winAgainst4: BaseTitleRequirements[AchievementData.winAgainst4.rarety],
   winAsLower: BaseTitleRequirements[AchievementData.winAsLower.rarety],
   win: BaseTitleRequirements[AchievementData.win.rarety],
-  eventWin: BruteUniqueTitleRequirements,
+  battleRoyaleWin: BruteUniqueTitleRequirements,
   rankUp10: BaseTitleRequirements[AchievementData.rankUp10.rarety],
   rankUp9: BaseTitleRequirements[AchievementData.rankUp9.rarety],
   rankUp8: BaseTitleRequirements[AchievementData.rankUp8.rarety],

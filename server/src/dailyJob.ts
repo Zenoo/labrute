@@ -1820,7 +1820,12 @@ const handleEventTournament = async (
     }
 
     // Add achievement
-    await increaseAchievement(prisma, winnerBrute.userId, winnerBrute.id, AchievementName.eventWin);
+    await increaseAchievement(
+      prisma,
+      winnerBrute.userId,
+      winnerBrute.id,
+      AchievementName.battleRoyaleWin,
+    );
 
     LOGGER.log(`Event ${lastEvent.id} finished with winner ${winnerBrute.id}`);
   }

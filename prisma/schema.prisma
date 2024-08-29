@@ -532,7 +532,7 @@ enum AchievementName {
   winAgainst4
   winAsLower
   win
-  eventWin
+  battleRoyaleWin
   // Ranks
   rankUp10
   rankUp9

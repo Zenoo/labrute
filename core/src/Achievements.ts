@@ -512,7 +512,7 @@ export const AchievementData: Record<
     rarety: AchievementRarety.uncommon,
     illustration: 'win.svg',
   },
-  eventWin: {
+  battleRoyaleWin: {
     rarety: AchievementRarety.legendary,
   },
   rankUp10: {

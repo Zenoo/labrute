@@ -28,7 +28,7 @@ import {
 } from '@labrute/core';
 import {
   Brute,
-  DestinyChoiceSide, DestinyChoiceType, Gender,
+  DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
   InventoryItemType, LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -264,6 +264,22 @@ const Brutes = {
       // Only one brute per event
       if (req.body.eventId && user.brutes.some((b) => b.eventId === req.body.eventId)) {
         throw new ExpectedError(translate('oneBrutePerEvent', authed));
+      }
+
+      // No creation for started events
+      if (req.body.eventId) {
+        const event = await prisma.event.findFirst({
+          where: { id: req.body.eventId },
+          select: { status: true },
+        });
+
+        if (!event) {
+          throw new ExpectedError(translate('eventNotFound', authed));
+        }
+
+        if (event.status !== EventStatus.starting) {
+          throw new ExpectedError(translate('eventAlreadyStarted', authed));
+        }
       }
 
       let goldLost = 0;
