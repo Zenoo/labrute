@@ -20,7 +20,7 @@ const Events = {
       const events = await prisma.event.findMany({
         orderBy: { date: 'desc' },
         take: 7,
-        skip: +req.query.page * 7,
+        skip: (+req.query.page - 1) * 7,
         include: {
           winner: {
             select: { name: true },
@@ -34,25 +34,11 @@ const Events = {
     }
   },
   get: (prisma: PrismaClient) => async (
-    req: Request<{ bruteId: string; id?: string }>,
+    req: Request<{ bruteId: string; id: string }>,
     res: Response<EventGetResponse>,
   ) => {
     try {
-      let { id } = req.params;
-
-      if (!id) {
-        // Get last event
-        const lastEvent = await prisma.event.findFirst({
-          orderBy: { date: 'desc' },
-          select: { id: true },
-        });
-
-        if (!lastEvent) {
-          throw new ExpectedError(translate('eventNotFound'));
-        }
-
-        id = lastEvent.id;
-      }
+      const { id } = req.params;
 
       // Get brute
       const brute = await prisma.brute.findFirst({
@@ -87,6 +73,9 @@ const Events = {
       const fights = brute.eventId === event.id ? await prisma.fight.findMany({
         where: {
           tournamentId: event.tournament.id,
+          tournamentStep: {
+            lt: event.maxRound - 2,
+          },
           OR: [
             { brute1Id: brute.id },
             { brute2Id: brute.id },

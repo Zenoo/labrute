@@ -160,6 +160,12 @@ const CellMobileView = ({
           {t('tournaments')}
         </FantasyButton>
       </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <FantasyButton to={`/${brute.name}/event/history`} color="primary" sx={{ m: 1 }}>
+          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          {t('eventHistory')}
+        </FantasyButton>
+      </Box>
       {/* BRUTE SACRIFICE */}
       {owner
         && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')

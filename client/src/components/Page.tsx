@@ -36,7 +36,7 @@ const Page = ({
 }: Props) => {
   const { t } = useTranslation();
   const Alert = useAlert();
-  const { authing, user, signout, signin, updateData, randomSkill } = useAuth();
+  const { authing, user, signout, signin, updateData, randomSkill, currentEvent } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const theme = useTheme();
@@ -130,6 +130,14 @@ const Page = ({
     navigate('/hall');
   }, [navigate]);
 
+  // Redirect to Event page
+  const goToEvent = useCallback(() => {
+    if (!currentEvent || !user || !user.brutes.length) return;
+
+    setOpen(false);
+    navigate(`/${user.brutes[0]?.name}/event/${currentEvent.id}`);
+  }, [currentEvent, navigate, user]);
+
   const ColorModeIcon = theme.palette.mode === 'dark' ? Brightness7 : Brightness4;
 
   return (
@@ -145,6 +153,20 @@ const Page = ({
       </Helmet>
       {/* HEADER */}
       <Header url={headerUrl} />
+      {/* EVENT */}
+      {currentEvent && !!user?.brutes.length && (
+        <MuiAlert
+          severity="info"
+          variant="filled"
+          onClick={goToEvent}
+          sx={{
+            my: 1,
+            cursor: 'pointer',
+          }}
+        >
+          <Text>{t('event.started')}</Text>
+        </MuiAlert>
+      )}
       {children}
       {/* AUTH */}
       {!user ? (

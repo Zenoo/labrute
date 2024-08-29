@@ -3,13 +3,14 @@ import moment from 'moment';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
-import { FightModifier } from '@labrute/prisma';
+import { Event, FightModifier } from '@labrute/prisma';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
   modifiers: FightModifier[],
   randomSkill: number | null,
   randomWeapon: number | null,
+  currentEvent: Event | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
   signin: () => void,
@@ -22,6 +23,7 @@ const AuthContext = React.createContext<AuthContextInterface>({
   modifiers: [],
   randomSkill: null,
   randomWeapon: null,
+  currentEvent: null,
   authing: false,
   setAuthing: () => {
     console.error('AuthContext.setAuthing() not implemented');
@@ -49,6 +51,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [modifiers, setModifiers] = useState<FightModifier[]>([]);
   const [randomSkill, setRandomSkill] = useState<number | null>(null);
   const [randomWeapon, setRandomWeapon] = useState<number | null>(null);
+  const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
@@ -67,6 +70,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setModifiers(response.modifiers);
           setRandomSkill(response.randomSkill);
           setRandomWeapon(response.randomWeapon);
+          setCurrentEvent(response.currentEvent);
           setAuthing(false);
 
           // Update language
@@ -103,12 +107,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     modifiers,
     randomSkill,
     randomWeapon,
+    currentEvent,
     authing,
     setAuthing,
     signin,
     signout,
     updateData
-  }), [authing, modifiers, randomSkill, randomWeapon, signin, signout, updateData, user]);
+  }), [authing, currentEvent, modifiers,
+    randomSkill, randomWeapon, signin, signout, updateData, user]);
 
   return (
     <AuthContext.Provider value={methods}>

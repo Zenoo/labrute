@@ -12,6 +12,7 @@ import catchError from '../../utils/catchError';
 import moment from 'moment';
 import Loader from '../../components/Loader';
 import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
 
 export const EventHistoryView = () => {
   const { t } = useTranslation();
@@ -75,7 +76,6 @@ export const EventHistoryView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell />
                   <TableCell>{t('date')}</TableCell>
                   <TableCell>{t('event')}</TableCell>
                 </TableRow>
@@ -86,7 +86,11 @@ export const EventHistoryView = () => {
                     <TableCell component="th" scope="row">
                       {moment.utc(event.date).format('DD/MM/YYYY')}
                     </TableCell>
-                    <TableCell>{t(`event.${event.type}`)}</TableCell>
+                    <TableCell>
+                      <Link to={`/${bruteName}/event/${event.id}`}>
+                        {t(`event.${event.type}`)}
+                      </Link>
+                    </TableCell>
                   </TableRow>
                 ))) : (
                   <TableRow>

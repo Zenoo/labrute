@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, EventGetFightResponse, EventGetResponse, EventListResponse, FightCreateResponse, FightGetResponse, HookBrute, LogGetForUserFeedResponse, LogListResponse, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, EventGetResponse, EventListResponse, FightCreateResponse, FightGetResponse, HookBrute, LogGetForUserFeedResponse, LogListResponse, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, DestinyChoiceSide, FightModifier, Gender, InventoryItemType, Lang, Prisma } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -167,8 +167,7 @@ const Server = {
   },
   Event: {
     list: (page: number) => Fetch<EventListResponse>('/api/event/list', { page }),
-    get: (id?: string) => Fetch<EventGetResponse>(`/api/event/${id || ''}`),
-    getFight: (id: string) => Fetch<EventGetFightResponse>(`/api/event/fight/${id}`),
+    get: (bruteId: string, id: string) => Fetch<EventGetResponse>(`/api/event/${id}/brute/${bruteId}`),
   },
 };
 

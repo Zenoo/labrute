@@ -1,7 +1,7 @@
 import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter } from '@labrute/core';
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
 import { Close, History } from '@mui/icons-material';
-import { Box, List, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +33,7 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 const eventRules = {
-  [EventType.battleRoyale]: 9,
+  [EventType.battleRoyale]: 10,
 };
 
 export const EventView = () => {
@@ -50,7 +50,9 @@ export const EventView = () => {
 
   // Fetch event
   useEffect(() => {
-    Server.Event.get(id)
+    if (!brute || !id) return;
+
+    Server.Event.get(brute.id, id)
       .then((d) => {
         setData(d);
 
@@ -65,11 +67,11 @@ export const EventView = () => {
       })
       .catch(catchError(Alert))
       .finally(() => setLoading(false));
-  }, [Alert, id]);
+  }, [Alert, brute, id]);
 
-  const watchingRound = useMemo(() => ((data?.event.finishedAt || !owner)
+  const watchingRound = useMemo(() => (!data ? 0 : (data.event.finishedAt || !owner)
     ? 999
-    : +(localStorage.getItem(`eventRoundWatched-${data?.event.id}`) || 0)), [data, owner]);
+    : +(localStorage.getItem(`eventRoundWatched-${data?.event.id}`) || 1)), [data, owner]);
 
   const lastRoundsFirstStep = data?.lastRounds[0]?.tournamentStep ?? 0;
 
@@ -93,17 +95,10 @@ export const EventView = () => {
     if (!data) return;
 
     if (owner && !skipUpdate && round >= watchingRound) {
-      localStorage.setItem(`eventRoundWatched-${data.event.id}`, round.toString());
+      localStorage.setItem(`eventRoundWatched-${data.event.id}`, (round + 1).toString());
     }
 
     navigate(`/${currentBrute}/fight/${fightId}`);
-  };
-
-  // Skip watching fights
-  const skipWatching = () => {
-    if (!data || !owner) return;
-
-    localStorage.setItem(`eventRoundWatched-${data.event.id}`, '999');
   };
 
   // Last fights renderer
@@ -262,7 +257,6 @@ export const EventView = () => {
       <Paper sx={{
         bgcolor: 'background.paperLight',
         mt: -2,
-        px: 0,
         overflowX: 'auto',
       }}
       >
@@ -272,27 +266,37 @@ export const EventView = () => {
           </Box>
         ) : data ? (
           <>
-            <Text h4 bold upperCase sx={{ mx: 1 }}>{t(`event.${data.event.type}`)}</Text>
-            <Text>{t(`event.${data.event.type}.desc`)}</Text>
+            <Text h4 bold upperCase sx={{ mx: 1, my: 1 }}>{t(`event.${data.event.type}`)}</Text>
+            <Text my={1}>{t(`event.${data.event.type}.desc`)}</Text>
             {/* RULES */}
-            <Text bold>{t('event.rules')}:</Text>
             <List
               dense
               subheader={(
                 <ListSubheader component="div">
-                  {t('event.rules')}:
+                  <Text bold py={1}>{t('event.rules')}</Text>
                 </ListSubheader>
               )}
+              sx={{
+                border: '1px solid',
+                borderColor: theme.palette.border.shadow,
+                pb: 0,
+              }}
             >
               {Array.from({ length: eventRules[data.event.type] }).map((_, i) => (
-                <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {
-                  count: data.event.type === EventType.battleRoyale
-                    ? i === 3 ? EventFightsPerDay
-                      : i === 4 ? EventFreeResets
-                        : i === 8 ? EventPauseDuration
-                          : undefined : undefined,
-                })}
-                />
+                // eslint-disable-next-line react/no-array-index-key
+                <ListItem disablePadding key={i}>
+                  <ListItemButton>
+                    <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {
+                      count: data.event.type === EventType.battleRoyale
+                        ? i === 3 ? EventFightsPerDay
+                          : i === 4 ? EventFreeResets
+                            : i === 8 ? EventPauseDuration
+                              : i === 9 ? data.event.maxLevel
+                                : undefined : undefined,
+                    })}
+                    />
+                  </ListItemButton>
+                </ListItem>
               ))}
             </List>
             {/* CREATE BRUTE */}
@@ -314,7 +318,7 @@ export const EventView = () => {
             {/* FIGHTS */}
             <Box sx={{
               mt: 1,
-              bgcolor: 'background.paperLight',
+              bgcolor: 'background.paper',
               border: '1px solid',
               borderColor: theme.palette.border.shadow,
               textAlign: 'left',
@@ -323,7 +327,9 @@ export const EventView = () => {
             }}
             >
               {/* Rounds */}
-              {Array.from({ length: data.event.maxRound - 3 }).map((_, i) => {
+              {Array.from({
+                length: data.fights.length
+              }).map((_, i) => {
                 const fight = data.fights.find((f) => f.tournamentStep === i + 1);
 
                 // Free bye
@@ -351,7 +357,7 @@ export const EventView = () => {
                         }
                       }}
                     >
-                      <Text bold color="text.disabled" sx={{ width: 30 }}>{t('day', { day: i + 1 })}</Text>
+                      <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: 1 })}</Text>
                       <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
                     </Box>
                   );
@@ -396,9 +402,9 @@ export const EventView = () => {
                         <Text
                           bold
                           color="warning.main"
-                          sx={{ width: 30 }}
+                          sx={{ width: 50 }}
                         >
-                          {t('day', { day: i + 1 })}
+                          {t('day', { day: fight.tournamentStep })}
                         </Text>
                         <Text
                           bold
@@ -442,9 +448,9 @@ export const EventView = () => {
                       <Text
                         bold
                         color={won ? 'success.main' : 'error'}
-                        sx={{ width: 30 }}
+                        sx={{ width: 50 }}
                       >
-                        {t('day', { day: i + 1 })}
+                        {t('day', { day: fight.tournamentStep })}
                       </Text>
                       <Box
                         component="img"
@@ -488,7 +494,7 @@ export const EventView = () => {
                     }}
                     >
                       <Text bold sx={{ flexBasis: '100%' }}>
-                        {t('day', { day: lastRoundsFirstStep + 1 })}
+                        {t('day', { day: lastRoundsFirstStep })}
                         {' '}
                         {t('quarterFinals')}
                       </Text>
@@ -522,7 +528,7 @@ export const EventView = () => {
                     }}
                     >
                       <Text bold sx={{ flexBasis: '100%' }}>
-                        {t('day', { day: lastRoundsFirstStep + 2 })}
+                        {t('day', { day: lastRoundsFirstStep + 1 })}
                         {' '}
                         {t('semiFinals')}
                       </Text>
@@ -558,7 +564,7 @@ export const EventView = () => {
                     }}
                     >
                       <Text bold sx={{ flexBasis: '100%' }}>
-                        {t('day', { day: lastRoundsFirstStep + 3 })}
+                        {t('day', { day: lastRoundsFirstStep + 2 })}
                         {' '}
                         {t('finals')}
                       </Text>
@@ -571,28 +577,10 @@ export const EventView = () => {
                       && renderLostMarker()}
                   </>
                 )}
-              {/* Skip watching fights */}
-              {owner && watchingRound <= data.event.maxRound && (
-                <Box
-                  onClick={skipWatching}
-                  sx={{
-                    px: 0.5,
-                    py: 0.25,
-                    borderBottom: '1px solid',
-                    cursor: 'pointer',
-                    borderBottomColor: theme.palette.border.shadow,
-                    '&:last-child': {
-                      borderBottom: 'none',
-                    }
-                  }}
-                >
-                  <Text smallCaps subtitle2 center>{t('setAsWatched')}</Text>
-                </Box>
-              )}
             </Box>
           </>
         ) : (
-          <Text>{t('noEvent')}</Text>
+          <Text center>{t('noEvent')}</Text>
         )}
         <Box sx={{ display: 'flex', mt: 2, justifyContent: 'center' }}>
           <FantasyButton color="secondary" to="/event/history" sx={{ m: 1 }}>

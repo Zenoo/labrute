@@ -363,6 +363,12 @@ const CellView = () => {
                   {t('tournaments')}
                 </FantasyButton>
               </Box>
+              <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                <FantasyButton color="primary" to={`/${brute.name}/event/history`} sx={{ m: 1 }}>
+                  <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                  {t('eventHistory')}
+                </FantasyButton>
+              </Box>
               <Text
                 smallCaps
                 subtitle2

@@ -4,9 +4,10 @@ import { Box, BoxProps, Tooltip } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Text, { TextProps } from '../Text';
+import { useNavigate } from 'react-router';
 
 interface BruteLevelAndXPProps extends BoxProps {
-  brute: Pick<Brute, 'level' | 'xp' | 'eventId'>;
+  brute: Pick<Brute, 'level' | 'xp' | 'eventId' | 'name'>;
   textProps?: Omit<TextProps, 'children'>;
 }
 
@@ -16,6 +17,7 @@ const BruteLevelAndXP = ({
   ...rest
 }: BruteLevelAndXPProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute.level]);
   const limitedXP = useMemo(() => Math.min(
@@ -23,12 +25,21 @@ const BruteLevelAndXP = ({
     xpNeededForNextLevel,
   ), [brute.xp, xpNeededForNextLevel]);
 
+  const goToEvent = () => {
+    navigate(`/${brute.name}/event/${brute.eventId}`);
+  };
+
   return (
     <Box {...rest}>
       <Text bold h3 smallCaps color="secondary" {...textProps}>
         {brute.eventId && (
           <Tooltip title={t('eventBrute')}>
-            <Box component="img" src="/images/event.webp" sx={{ width: 12, mr: 1 }} />
+            <Box
+              component="img"
+              src="/images/event.webp"
+              sx={{ width: 18, mr: 1, cursor: 'pointer' }}
+              onClick={goToEvent}
+            />
           </Tooltip>
         )}
         {t('level')} {brute.level}

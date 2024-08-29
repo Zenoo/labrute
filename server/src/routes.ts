@@ -15,6 +15,7 @@ import Clans from './controllers/Clans.js';
 import { Config } from './config.js';
 import { LOGGER } from './context.js';
 import ClanWars from './controllers/ClanWars.js';
+import Events from './controllers/Events.js';
 
 export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
   app.get('/api', (req: Request, res: Response) => res.status(200).send({
@@ -161,4 +162,8 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.delete('/api/clan/war', ClanWars.cancel(prisma));
   app.post('/api/clan/war/accept', ClanWars.accept(prisma));
   app.get('/api/clan/war/:warId/fight/:fightId', ClanWars.getFight(prisma));
+
+  // Event
+  app.get('/api/event/list', Events.list(prisma));
+  app.get('/api/event/:id/brute/:bruteId', Events.get(prisma));
 }

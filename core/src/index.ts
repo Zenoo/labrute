@@ -152,6 +152,7 @@ export type UsersAuthenticateResponse = {
   modifiers: FightModifier[],
   randomSkill: number | null,
   randomWeapon: number | null,
+  currentEvent: Event | null,
 };
 
 export type BruteReportsListRequest = {

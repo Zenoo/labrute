@@ -78,7 +78,7 @@ const CellMain = ({
           variant="filled"
         >
           <AlertTitle>{t('taggedForDeletion', { days: moment.utc(brute.willBeDeletedAt).diff(moment.utc(), 'days') })}</AlertTitle>
-          {t(`deletionReason.${brute.deletionReason}`)}
+          {t(`deletionReason.${brute.deletionReason}`, { days: moment.utc(brute.willBeDeletedAt).diff(moment.utc(), 'days') })}
         </MuiAlert>
       )}
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>

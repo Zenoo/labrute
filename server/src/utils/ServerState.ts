@@ -1,4 +1,6 @@
-import { FightModifier, PrismaClient } from '@labrute/prisma';
+import {
+  Event, EventStatus, FightModifier, PrismaClient,
+} from '@labrute/prisma';
 import moment from 'moment';
 import { LOGGER } from '../context.js';
 
@@ -8,6 +10,7 @@ let RANDOM_SKILL: number | undefined;
 let RANDOM_WEAPON: number | undefined;
 let BANNED_IPS: string[] | null = null;
 let NEXT_MODIFIERS: FightModifier[] | null = null;
+let CURRENT_EVENT: Event | null = null;
 
 const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
@@ -252,6 +255,25 @@ const getNextModifiers = async (prisma: PrismaClient) => {
   return serverState?.nextModifiers || [];
 };
 
+const getCurrentEvent = async (prisma: PrismaClient) => {
+  if (CURRENT_EVENT) {
+    return CURRENT_EVENT;
+  }
+
+  const event = await prisma.event.findFirst({
+    where: { status: EventStatus.starting },
+    orderBy: { date: 'asc' },
+  });
+
+  CURRENT_EVENT = event;
+
+  return CURRENT_EVENT;
+};
+
+const setCurrentEvent = (event: Event | null) => {
+  CURRENT_EVENT = event;
+};
+
 export default {
   setReady,
   isReady,
@@ -270,4 +292,6 @@ export default {
   removeBannedIps,
   setNextModifiers,
   getNextModifiers,
+  getCurrentEvent,
+  setCurrentEvent,
 };

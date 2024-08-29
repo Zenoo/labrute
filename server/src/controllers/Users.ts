@@ -124,6 +124,7 @@ const Users = {
         modifiers: await ServerState.getModifiers(prisma),
         randomSkill: await ServerState.getRandomSkill(prisma),
         randomWeapon: await ServerState.getRandomWeapon(prisma),
+        currentEvent: await ServerState.getCurrentEvent(prisma),
       });
     } catch (error) {
       sendError(res, error);

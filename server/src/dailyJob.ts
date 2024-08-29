@@ -1535,8 +1535,10 @@ const handleEventFinish = async (prisma: PrismaClient) => {
     take: 1,
   });
 
+  ServerState.setCurrentEvent(lastEvent || null);
+
   // Don't start another if last one is not finished
-  if (lastEvent?.status !== EventStatus.finished) {
+  if (lastEvent && lastEvent.status !== EventStatus.finished) {
     return;
   }
 
@@ -1547,11 +1549,14 @@ const handleEventFinish = async (prisma: PrismaClient) => {
 
   // Create new event
   const maxLevel = randomBetween(20, 120);
-  await prisma.event.create({
+  const newEvent = await prisma.event.create({
     data: {
       maxLevel,
     },
   });
+
+  // Set current event
+  ServerState.setCurrentEvent(newEvent);
 
   LOGGER.log(`New event created with max level ${maxLevel}`);
 };
@@ -1809,7 +1814,7 @@ const handleEventTournament = async (
           },
         },
         data: {
-          willBeDeletedAt: moment.utc().add(2, 'day').toDate(),
+          willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
           deletionReason: BruteDeletionReason.EVENT_LOSS,
         },
       });
@@ -1873,6 +1878,8 @@ const handleEventTournament = async (
       },
     });
   }
+
+  LOGGER.log(`Round ${round} of event ${lastEvent.id} completed`);
 };
 
 const dailyJob = (prisma: PrismaClient) => async () => {
