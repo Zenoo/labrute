@@ -108,5 +108,7 @@
   "maxFightersReached": "You reached the maximum number of fighters",
   "cantFightOwnClan": "You cannot fight your own clan",
   "oneBrutePerEvent": "You can only have one brute per event",
-  "eventNotFound": "Event not found"
+  "eventNotFound": "Event not found",
+  "eventAlreadyStarted": "Event already started",
+  "eventMaxLevelReached": "You reached the maximum level for this event"
 }
