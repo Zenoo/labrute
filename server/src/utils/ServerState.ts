@@ -10,7 +10,7 @@ let RANDOM_SKILL: number | undefined;
 let RANDOM_WEAPON: number | undefined;
 let BANNED_IPS: string[] | null = null;
 let NEXT_MODIFIERS: FightModifier[] | null = null;
-let CURRENT_EVENT: Event | null = null;
+let CURRENT_EVENT: Event | null | undefined;
 
 const setReady = (ready: boolean) => {
   LOGGER.log(`Updating server state to ${ready ? 'release' : 'hold'} traffic`);
@@ -256,7 +256,7 @@ const getNextModifiers = async (prisma: PrismaClient) => {
 };
 
 const getCurrentEvent = async (prisma: PrismaClient) => {
-  if (CURRENT_EVENT) {
+  if (typeof CURRENT_EVENT !== 'undefined') {
     return CURRENT_EVENT;
   }
 
@@ -270,7 +270,7 @@ const getCurrentEvent = async (prisma: PrismaClient) => {
   return CURRENT_EVENT;
 };
 
-const setCurrentEvent = (event: Event | null) => {
+const setCurrentEvent = (event: Event | null | undefined) => {
   CURRENT_EVENT = event;
 };
 

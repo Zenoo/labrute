@@ -1535,8 +1535,6 @@ const handleEventFinish = async (prisma: PrismaClient) => {
     take: 1,
   });
 
-  ServerState.setCurrentEvent(lastEvent || null);
-
   // Don't start another if last one is not finished
   if (lastEvent && lastEvent.status !== EventStatus.finished) {
     return;
@@ -1549,14 +1547,12 @@ const handleEventFinish = async (prisma: PrismaClient) => {
 
   // Create new event
   const maxLevel = randomBetween(20, 120);
-  const newEvent = await prisma.event.create({
+  await prisma.event.create({
     data: {
       maxLevel,
     },
+    select: { id: true },
   });
-
-  // Set current event
-  ServerState.setCurrentEvent(newEvent);
 
   LOGGER.log(`New event created with max level ${maxLevel}`);
 };
@@ -1910,6 +1906,7 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     // Handle events
     await handleEventFinish(prisma);
     await handleEventTournament(prisma, modifiers);
+    ServerState.setCurrentEvent(undefined);
 
     // Update server state to release traffic
     ServerState.setReady(true);
