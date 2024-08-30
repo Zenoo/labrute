@@ -1491,7 +1491,7 @@
   "event.battleRoyale.rule.6": "Победитель сохранит судьбу, сбросится на уровень 1 и станет обычным Бруталом",
   "event.battleRoyale.rule.7": "Все остальные Бруталы будут удалены безвозвратно",
   "event.battleRoyale.rule.8": "Следующее мероприятие начнется через {{count}} дней после окончания текущего",
-  "event.battleRoyale.rule.9": "Every event has a random maximum level, the current event maximum level is {{count}}",
+  "event.battleRoyale.rule.9": "Каждое событие имеет случайный максимальный уровень. Максимальный уровень текущего: {{count}}",
   "event.ongoing": "Мероприятие уже в процессе, и участие Брутала невозможно.",
-  "event.started": "A new event just started, come participate before it's too late!"
+  "event.started": "Только что началось новое мероприятие. Не опоздайте принять участие!"
 }
