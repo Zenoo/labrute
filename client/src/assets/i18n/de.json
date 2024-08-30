@@ -1491,7 +1491,7 @@
   "event.battleRoyale.rule.6": "Der Sieger behält sein Schicksal, kehrt auf Stufe 1 zurück und wird zu einem regulären Brutalo",
   "event.battleRoyale.rule.7": "Alle anderen Brutalos werden unwiderruflich gelöscht",
   "event.battleRoyale.rule.8": "Das nächste Ereignis startet {{count}} Tage nach Beendigung des aktuellen",
-  "event.battleRoyale.rule.9": "Every event has a random maximum level, the current event maximum level is {{count}}",
+  "event.battleRoyale.rule.9": "Für jedes Ereignis ist eine zufällige maximale Stufe vorgesehen. Das aktuelle Maximum ist {{count}}",
   "event.ongoing": "Das Ereignis ist bereits im Gange. Du kannst mit einem Brutalo nicht mehr teilnehmen.",
-  "event.started": "A new event just started, come participate before it's too late!"
+  "event.started": "Es hat soeben ein neues Ereignis begonnen. Komm und nimm teil, bevor es zu spät ist!"
 }
