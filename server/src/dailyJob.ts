@@ -978,22 +978,30 @@ const deleteBrutes = async (prisma: PrismaClient) => {
     return;
   }
 
-  // Delete brutes
-  await prisma.brute.updateMany({
-    where: {
-      id: {
-        in: brutes.map((brute) => brute.id),
+  // Separate brutes by chunk of 1000
+  const bruteIds = brutes.map((brute) => brute.id);
+  const bruteChunks = Array(Math.ceil(bruteIds.length / 1000))
+    .fill([])
+    .map((_, index) => bruteIds.slice(index * 1000, index * 1000 + 1000));
+
+  // Delete brutes in chunks
+  for (const chunk of bruteChunks) {
+    await prisma.brute.updateMany({
+      where: {
+        id: {
+          in: chunk,
+        },
       },
-    },
-    data: {
-      deletedAt: new Date(),
-      willBeDeletedAt: null,
-      // Remove from clan
-      clanId: null,
-      // Delete join requests
-      wantToJoinClanId: null,
-    },
-  });
+      data: {
+        deletedAt: new Date(),
+        willBeDeletedAt: null,
+        // Remove from clan
+        clanId: null,
+        // Delete join requests
+        wantToJoinClanId: null,
+      },
+    });
+  }
 
   for (const brute of brutes) {
     // Update clan points
@@ -1679,8 +1687,6 @@ const handleEventTournament = async (
     nextBrutes = [...roundBrutes.splice(roundBrutes.length - byesCount, byesCount)];
   }
 
-  LOGGER.log(`Round ${round}`);
-
   const loserIds: string[] = [];
 
   for (let i = 0; i < roundBrutes.length - 1; i += 2) {
@@ -1908,6 +1914,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     await handleEventTournament(prisma, modifiers);
     ServerState.setCurrentEvent(undefined);
 
+    // Delete brutes tagged for deletion
+    await deleteBrutes(prisma);
+
     // Update server state to release traffic
     ServerState.setReady(true);
 
@@ -1925,9 +1934,6 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Check name duplicates
     await checkNameDuplicates(prisma);
-
-    // Delete brutes tagged for deletion
-    await deleteBrutes(prisma);
 
     // Clean up DB
     await cleanup(prisma);

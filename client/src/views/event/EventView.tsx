@@ -583,7 +583,7 @@ export const EventView = () => {
           <Text center>{t('noEvent')}</Text>
         )}
         <Box sx={{ display: 'flex', mt: 2, justifyContent: 'center' }}>
-          <FantasyButton color="secondary" to="/event/history" sx={{ m: 1 }}>
+          <FantasyButton color="secondary" to="../history" sx={{ m: 1 }}>
             <History sx={{ verticalAlign: 'middle', mr: 1 }} />
             {t('eventHistory')}
           </FantasyButton>

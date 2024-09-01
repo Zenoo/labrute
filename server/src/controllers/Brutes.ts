@@ -1144,6 +1144,7 @@ const Brutes = {
         prisma,
         brute: userBrute,
         free: true,
+        rankUp: true,
       });
 
       // Achievement
@@ -1510,7 +1511,7 @@ const Brutes = {
         prisma,
         brute,
         user: authed,
-        free: false,
+        free: !!brute.eventId && brute.resets < EventFreeResets,
       });
 
       // Update clan points

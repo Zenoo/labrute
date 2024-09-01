@@ -773,7 +773,7 @@ model Event {
   type       EventType   @default(battleRoyale)
   maxLevel   Int
   maxRound   Int         @default(999)
-  status     EventStatus @default(ongoing)
+  status     EventStatus @default(starting)
   brutes     Brute[]
   tournament Tournament?
   winner     Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])

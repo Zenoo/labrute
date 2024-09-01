@@ -86,7 +86,7 @@ const CellView = () => {
   const confirmReset = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('reset'), t('resetConfirm', { gold: getResetCost(brute) }), () => {
+    Confirm.open(t('reset'), t(brute.eventId ? 'resetEventConfirm' : 'resetConfirm', { gold: getResetCost(brute) }), () => {
       Server.Brute.reset(brute.name).then((newBrute) => {
         Alert.open('success', t('resetSuccess'));
 
