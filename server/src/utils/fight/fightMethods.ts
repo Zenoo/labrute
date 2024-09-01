@@ -1537,7 +1537,7 @@ export const checkDeaths = (
       }
 
       // Set loser if team has no brutes or bosses alive
-      if (fightData.fighters.filter((f) => f.team === fighter.team
+      if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
         && !f.master
         && f.hp > 0).length === 0) {
         fightData.loser = fighter.id;
