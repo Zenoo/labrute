@@ -1482,6 +1482,7 @@
   "eventHistory": "Event history",
   "event.battleRoyale": "Battle Royale",
   "event.battleRoyale.desc": "In this event, players can create a new special brute that will participate in a battle royale. The event winner will get to keep the winning brute. Other brutes will be permanently deleted after the event.",
+  "createABrute": "Create a brute",
   "event.rules": "Event rules",
   "event.battleRoyale.rule.0": "One brute per player",
   "event.battleRoyale.rule.1": "Daily and global tournaments disabled",
