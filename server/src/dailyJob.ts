@@ -1604,8 +1604,8 @@ const handleEventTournament = async (
     return;
   }
 
+  // No brutes, reset event date
   if (!lastEvent.brutes.length) {
-    // Reset event date
     await prisma.event.update({
       where: { id: lastEvent.id },
       data: {
@@ -1613,6 +1613,11 @@ const handleEventTournament = async (
       },
     });
 
+    return;
+  }
+
+  // Less than 2 days, skip
+  if (moment.utc().diff(moment.utc(lastEvent.date), 'days') < 2) {
     return;
   }
 

@@ -8,7 +8,7 @@ export type Release = {
 
 export const LAST_RELEASE: Release = {
   version: '2.72.0',
-  date: '2024-08-31',
+  date: '2024-09-01',
   features: [],
   fixes: [
   ],
