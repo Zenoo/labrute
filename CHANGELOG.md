@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.72.1](https://github.com/Zenoo/labrute/compare/labrute-v2.72.0...labrute-v2.72.1) (2024-09-01)
+
+
+### Bug Fixes
+
+* Event not found in event view ([900ae32](https://github.com/Zenoo/labrute/commit/900ae32e0caede2aaa4514901c052d8700f6f2f6))
+
 ## [2.72.0](https://github.com/Zenoo/labrute/compare/labrute-v2.71.9...labrute-v2.72.0) (2024-09-01)
 
 
