@@ -9,8 +9,29 @@ export type Release = {
 export const LAST_RELEASE: Release = {
   version: '2.72.0',
   date: '2024-09-01',
-  features: [],
+  features: [
+    'Recurring events are now available! The first one implemented is a Battle Royale. Have fun discovering the new event!',
+    'Used fighters are now displayed on the clan war page',
+    'Fighters are now displayed below clan war fights',
+    'Clans can be ordered by points or elo on the clan ranking page',
+    'The PioPio has been reworked, it now gives 50% Evasion and 50% Disarm. Thrown weapons that have a disarm bonus can now disarm.'
+  ],
   fixes: [
+    'Clan wars now store the correct winner for each fight',
+    'Brutes with pets gain the HP they lost back in clan wars, since pets are not allowed',
+    'Points from brute ranks are now correctly given to clans upon joining',
+    'Beating a boss now rerolls another one without needing to fight the beaten one in an additional fight',
+    'Changed your own brute highlight color in the daily tournament view for color blind users',
+    'Elo changes are now correctly displayed on the clan war page',
+    'Clan names are now clickable on the clan war page',
+    'Some obscure conditions allowed pets in clan wars, it has been fixed',
+    'Wins and losses are displayed in the clan war history',
+    'Winning more than half of the required points in a clan war ends the war instead of waiting for the last fight',
+    'Clan searches now wait for you to stop typing before searching',
+    'Weapon and skill randomness increased when rolling the respective modifiers',
+    'The modifier doubling agility now correctly displays the doubled value',
+    'The clan war history table doesn\'t overflow on mobile anymore',
+    'The correct loser is now displayed if a brute dies at the same time as its pet',
   ],
   attachments: [],
 };
