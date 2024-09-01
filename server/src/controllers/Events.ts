@@ -65,37 +65,39 @@ const Events = {
         },
       });
 
-      if (!event || !event.tournament) {
+      if (!event) {
         throw new ExpectedError(translate('eventNotFound'));
       }
 
       // Get brute fights
-      const fights = brute.eventId === event.id ? await prisma.fight.findMany({
-        where: {
-          tournamentId: event.tournament.id,
-          tournamentStep: {
-            lt: event.maxRound - 2,
+      const fights = (brute.eventId === event.id && event.tournament)
+        ? await prisma.fight.findMany({
+          where: {
+            tournamentId: event.tournament.id,
+            tournamentStep: {
+              lt: event.maxRound - 2,
+            },
+            OR: [
+              { brute1Id: brute.id },
+              { brute2Id: brute.id },
+            ],
           },
-          OR: [
-            { brute1Id: brute.id },
-            { brute2Id: brute.id },
-          ],
-        },
-        orderBy: {
-          tournamentStep: 'asc',
-        },
-        select: {
-          id: true,
-          tournamentStep: true,
-          winner: true,
-          fighters: true,
-          brute1Id: true,
-          brute2Id: true,
-        },
-      }) : [];
+          orderBy: {
+            tournamentStep: 'asc',
+          },
+          select: {
+            id: true,
+            tournamentStep: true,
+            winner: true,
+            fighters: true,
+            brute1Id: true,
+            brute2Id: true,
+          },
+        })
+        : [];
 
       // Get last rounds
-      const lastRounds = await prisma.fight.findMany({
+      const lastRounds = event.tournament ? await prisma.fight.findMany({
         where: {
           tournamentId: event.tournament.id,
           tournamentStep: {
@@ -113,7 +115,7 @@ const Events = {
           brute1Id: true,
           brute2Id: true,
         },
-      });
+      }) : [];
 
       res.status(200).send({
         event,
