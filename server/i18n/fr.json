@@ -107,8 +107,8 @@
   "warNotFound": "Guerre introuvable",
   "maxFightersReached": "Vous avez atteint le nombre maximum de combattants",
   "cantFightOwnClan": "Vous ne pouvez pas combattre votre propre clan",
-  "oneBrutePerEvent": "You can only have one brute per event",
-  "eventNotFound": "Event not found",
-  "eventAlreadyStarted": "Event already started",
-  "eventMaxLevelReached": "You reached the maximum level for this event"
+  "oneBrutePerEvent": "Vous ne pouvez avoir qu'une brute par événement",
+  "eventNotFound": "Événement non trouvé",
+  "eventAlreadyStarted": "L'événement a déjà commencé",
+  "eventMaxLevelReached": "Vous avez atteint le niveau maximum pour cet événement"
 }
