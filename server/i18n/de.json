@@ -106,5 +106,9 @@
   "opponentWarOngoing": "Der gegnerische Klan befindet sich bereits im Krieg",
   "warNotFound": "Krieg nicht gefunden",
   "maxFightersReached": "Du hast die maximale Anzahl an Kämpfern erreicht",
-  "cantFightOwnClan": "Man kann nicht gegen den eigenen Klan kämpfen"
+  "cantFightOwnClan": "Man kann nicht gegen den eigenen Klan kämpfen",
+  "oneBrutePerEvent": "Man kann nur einen Brutalo pro Ereignis haben",
+  "eventNotFound": "Ereignis nicht gefunden",
+  "eventAlreadyStarted": "Ereignis bereits begonnen",
+  "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht"
 }

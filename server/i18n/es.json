@@ -106,5 +106,9 @@
   "opponentWarOngoing": "El clan rival ya está en una guerra",
   "warNotFound": "Guerra no encontrada",
   "maxFightersReached": "Has alcanzado el número máximo de peleadores",
-  "cantFightOwnClan": "No puedes enfrentarte a tu propio clan"
+  "cantFightOwnClan": "No puedes enfrentarte a tu propio clan",
+  "oneBrutePerEvent": "You can only have one brute per event",
+  "eventNotFound": "Event not found",
+  "eventAlreadyStarted": "Event already started",
+  "eventMaxLevelReached": "You reached the maximum level for this event"
 }
