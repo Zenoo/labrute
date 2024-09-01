@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.72.0](https://github.com/Zenoo/labrute/compare/labrute-v2.71.9...labrute-v2.72.0) (2024-09-01)
+
+
+### Features
+
+* Battle Royale event. Fixes [#852](https://github.com/Zenoo/labrute/issues/852) ([6443fd8](https://github.com/Zenoo/labrute/commit/6443fd80022e820bb175f1fda2997316fc0225d2))
+* Event rules. [#852](https://github.com/Zenoo/labrute/issues/852) ([c1e4ea1](https://github.com/Zenoo/labrute/commit/c1e4ea1e337bedb2b6c937a3cbfab33f565ba028))
+* Fighters list below clan war fight ([3dbd8ea](https://github.com/Zenoo/labrute/commit/3dbd8ea46c0d3aa06c21f51180ded0b5254a8167))
+* Full event views. [#852](https://github.com/Zenoo/labrute/issues/852) ([1a39b75](https://github.com/Zenoo/labrute/commit/1a39b7551955a9303e86ad6f24ce3eb4e810168a))
+* Order clans by elo or points. Fixes [#927](https://github.com/Zenoo/labrute/issues/927) ([5004434](https://github.com/Zenoo/labrute/commit/50044341d6b29c45a53255b3473e146dad910da2))
+* Piopio rework. Evasion + disarm. Fixes [#928](https://github.com/Zenoo/labrute/issues/928) ([5ca4901](https://github.com/Zenoo/labrute/commit/5ca49013eff9b82dfebcdb112d80548a7749fdfc))
+* Weekly events lifecycle. [#852](https://github.com/Zenoo/labrute/issues/852) ([096f7e9](https://github.com/Zenoo/labrute/commit/096f7e9db27adebfb10ed0d76c883e1c08f7934e))
+
+
+### Bug Fixes
+
+* Agility not doubled visually with modifier ([53c97fb](https://github.com/Zenoo/labrute/commit/53c97fb6bced34c80b85fcc8360bea7962ebbc15))
+* Clan war history table overflowing on mobile. Fixes [#931](https://github.com/Zenoo/labrute/issues/931) ([6e2a8df](https://github.com/Zenoo/labrute/commit/6e2a8df742f0de910e5897ccee24d5ba0fa741ab))
+* Don't reset fights on event brute resets ([47d1c36](https://github.com/Zenoo/labrute/commit/47d1c36967d2647cdf67cf5e7d617b7ae7537daa))
+* Early war end message on 4-X victories. Fixes [#934](https://github.com/Zenoo/labrute/issues/934) ([f3f4f23](https://github.com/Zenoo/labrute/commit/f3f4f2337146f2ed36a1619a3b50aad0b199a218))
+* Event date without time. [#852](https://github.com/Zenoo/labrute/issues/852) ([baeb8f2](https://github.com/Zenoo/labrute/commit/baeb8f23ec9528038aabec52be41bff1067003ee))
+* Event participants logic. [#852](https://github.com/Zenoo/labrute/issues/852) ([25ce0cf](https://github.com/Zenoo/labrute/commit/25ce0cffccc3a218996ff3a27e576a9f2161a2f7))
+* oauth upsert logic ([00ae8e9](https://github.com/Zenoo/labrute/commit/00ae8e98ba69bc362fa3adbbf47a376dfc6b1353))
+* Only start event 2 days after its creation ([8366975](https://github.com/Zenoo/labrute/commit/83669751c3bc3c13ad20d0445fd3b5d83ddca9f8))
+* Prevent events from progressing more than once a day. [#852](https://github.com/Zenoo/labrute/issues/852) ([4a0905e](https://github.com/Zenoo/labrute/commit/4a0905e3ebf24ebf022ae74a15c3479d2e663635))
+* Refresh current event daily ([f804cff](https://github.com/Zenoo/labrute/commit/f804cff69ffce3c191689e4e87a1e50ecf048e95))
+* Report event if no brutes registered. [#852](https://github.com/Zenoo/labrute/issues/852) ([3274cfd](https://github.com/Zenoo/labrute/commit/3274cfde5e1463cd7daf500932ab1f625d46b2cb))
+* Restore XP on reset for event brutes. [#852](https://github.com/Zenoo/labrute/issues/852) ([0724298](https://github.com/Zenoo/labrute/commit/07242985feebe9e4033d849c89a795f2f05282fd))
+* Some request parameters safe checks ([11d662a](https://github.com/Zenoo/labrute/commit/11d662a6032d605472e411ae54ce40b35c6d5150))
+* Wrong loser set when pet + brute die at the same time. Fixes [#938](https://github.com/Zenoo/labrute/issues/938) ([5baeede](https://github.com/Zenoo/labrute/commit/5baeedeec3d137495be1c74656fb2ecbd48f89a5))
+* Wrong victory/defeat counter in clan wars. Fixes [#936](https://github.com/Zenoo/labrute/issues/936) ([36b3e9f](https://github.com/Zenoo/labrute/commit/36b3e9faa6f23ba4e967c93c9ba4eb967730a97e))
+
 ## [2.71.9](https://github.com/Zenoo/labrute/compare/labrute-v2.71.8...labrute-v2.71.9) (2024-08-19)
 
 
