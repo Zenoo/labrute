@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.72.2](https://github.com/Zenoo/labrute/compare/labrute-v2.72.1...labrute-v2.72.2) (2024-09-02)
+
+
+### Bug Fixes
+
+* Disallow backups for event brutes ([35d5a5c](https://github.com/Zenoo/labrute/commit/35d5a5c2059d3ba999c08290285905e5d1c4f3e5))
+* Stop throwing if no weapon to throw ([6e644e9](https://github.com/Zenoo/labrute/commit/6e644e99a9a9cb27f687a95671ead73d8201d467))
+
 ## [2.72.1](https://github.com/Zenoo/labrute/compare/labrute-v2.72.0...labrute-v2.72.1) (2024-09-01)
 
 
