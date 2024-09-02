@@ -1794,7 +1794,7 @@ export const playFighterTurn = (
 
     while (firstThrow || (keepWeapon && random < combo)) {
       if (!fighter.activeWeapon) {
-        throw new Error('Trying to throw a weapon but no weapon is active');
+        break;
       }
 
       // Check if fighter is not dead (hit by a deflected weapond for example)
