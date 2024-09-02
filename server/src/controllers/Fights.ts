@@ -152,7 +152,8 @@ const Fights = {
             team1: { brutes: [brute1] },
             team2: { brutes: [brute2] },
             modifiers,
-            backups: true,
+            // No backups for event brutes
+            backups: !brute1.eventId,
             achievements: arenaFight,
           });
           generatedFight = newGeneratedFight.data;
