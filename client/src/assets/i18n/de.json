@@ -1482,7 +1482,7 @@
   "eventHistory": "Ereignisverlauf",
   "event.battleRoyale": "Battle Royale",
   "event.battleRoyale.desc": "In diesem Ereignis können Spieler einen neuen, speziellen Brutalo erstellen, der an einem Battle Royale teilnehmen wird. Nur der Sieger wird am Ende seinen Brutalo behalten können. Alle anderen Brutalos werden nach dem Ereignis unwiderruflich gelöscht.",
-  "createABrute": "Create a brute",
+  "createABrute": "Brutalo erschaffen",
   "event.rules": "Ereignisregeln",
   "event.battleRoyale.rule.0": "Ein Brutalo pro Spieler",
   "event.battleRoyale.rule.1": "Tägliche und globale Wettkämpfe sind deaktiviert",
