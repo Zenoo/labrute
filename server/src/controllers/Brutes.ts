@@ -753,6 +753,7 @@ const Brutes = {
           clanId: true,
           level: true,
           ranking: true,
+          eventId: true,
         },
       });
 
@@ -763,6 +764,22 @@ const Brutes = {
       // Prevent sacrificing the day of creation
       if (moment.utc().isSame(moment.utc(brute.createdAt), 'day')) {
         throw new ExpectedError(translate('cannotSacrificeSameDay', authed));
+      }
+
+      // Prevent sacrificing for started events
+      if (brute.eventId) {
+        const event = await prisma.event.findFirst({
+          where: { id: brute.eventId },
+          select: { status: true },
+        });
+
+        if (!event) {
+          throw new ExpectedError(translate('eventNotFound', authed));
+        }
+
+        if (event.status !== EventStatus.starting) {
+          throw new ExpectedError(translate('eventAlreadyStarted', authed));
+        }
       }
 
       // Check if brute is master of a clan

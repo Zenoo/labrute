@@ -1,5 +1,5 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
-import { Lang } from '@labrute/prisma';
+import { EventStatus, Lang } from '@labrute/prisma';
 import { Alert as MuiAlert, Box, BoxProps, Stack, Tooltip, AlertTitle } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
@@ -38,7 +38,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { randomSkill, user, authing } = useAuth();
+  const { randomSkill, user, authing, currentEvent } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -92,28 +92,30 @@ const CellMain = ({
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
       {/* Tournament wins until rank up */}
-      {(!owner || (!brute.tournaments.length || brute.currentTournamentStepWatched === 6)) && (
-        <Tooltip title={t('tournamentVictoriesUntilRankUp', { value: getWinsNeededToRankUp(brute) })}>
-          <Box textAlign="center">
-            <Box component="img" src="/images/ranking.png" alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
-            {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
-              <Box
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
-                sx={{
-                  height: 20,
-                  width: 12,
-                  mr: 0.25,
-                  display: 'inline-block',
-                  border: '2px solid',
-                  borderColor: 'divider',
-                  bgcolor: brute.tournamentWins > i ? 'success.light' : 'transparent',
-                }}
-              />
-            ))}
-          </Box>
-        </Tooltip>
-      )}
+      {(!owner || (!brute.tournaments.length || brute.currentTournamentStepWatched === 6))
+        && !brute.eventId
+        && (
+          <Tooltip title={t('tournamentVictoriesUntilRankUp', { value: getWinsNeededToRankUp(brute) })}>
+            <Box textAlign="center">
+              <Box component="img" src="/images/ranking.png" alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
+              {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
+                <Box
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={i}
+                  sx={{
+                    height: 20,
+                    width: 12,
+                    mr: 0.25,
+                    display: 'inline-block',
+                    border: '2px solid',
+                    borderColor: 'divider',
+                    bgcolor: brute.tournamentWins > i ? 'success.light' : 'transparent',
+                  }}
+                />
+              ))}
+            </Box>
+          </Tooltip>
+        )}
 
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
@@ -170,6 +172,7 @@ const CellMain = ({
       {/* BRUTE SACRIFICE */}
       {owner
         && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
+        && (!brute.eventId || !currentEvent || currentEvent.status === EventStatus.starting)
         && !!confirmSacrifice
         && (
           <FantasyButton
