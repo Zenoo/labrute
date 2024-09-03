@@ -1671,7 +1671,7 @@ const handleEventTournament = async (
   }
 
   // Check if today's round is already done
-  if (tournament.rounds >= moment.utc().diff(moment.utc(lastEvent.date), 'days')) {
+  if (tournament.rounds + 1 >= moment.utc().diff(moment.utc(lastEvent.date), 'days')) {
     return;
   }
 
