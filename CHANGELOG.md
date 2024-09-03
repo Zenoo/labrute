@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.72.3](https://github.com/Zenoo/labrute/compare/labrute-v2.72.2...labrute-v2.72.3) (2024-09-03)
+
+
+### Bug Fixes
+
+* Disable sacrifices during event. FIxes [#950](https://github.com/Zenoo/labrute/issues/950) ([0d6df2a](https://github.com/Zenoo/labrute/commit/0d6df2a02c678926952d01e9bb00993698630671))
+
 ## [2.72.2](https://github.com/Zenoo/labrute/compare/labrute-v2.72.1...labrute-v2.72.2) (2024-09-02)
 
 
