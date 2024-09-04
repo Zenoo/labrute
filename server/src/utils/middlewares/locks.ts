@@ -2,6 +2,10 @@ import { ExpectedError } from '@labrute/core';
 import type { Request, Response, NextFunction } from 'express';
 import sendError from '../sendError.js';
 
+const allowedRoutes = [
+  '/api/user/authenticate',
+];
+
 const locks = new Map<string, NodeJS.Timeout>();
 
 function deleteLock(key: string) {
@@ -21,6 +25,10 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
 
     if (!id || id === 'null') {
       return sendError(res, new ExpectedError('Invalid authorization header content'));
+    }
+
+    if (allowedRoutes.includes(path)) {
+      return next();
     }
 
     const key = `${method}:${path.toLowerCase().replace(/\//g, '')}:${id}`;

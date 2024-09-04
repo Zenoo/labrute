@@ -1713,7 +1713,7 @@ const handleEventTournament = async (
     }
 
     if (brute1.name === brute2.name) {
-      throw new Error('Attempting to fight a brute against itself');
+      throw new Error(`Attempted to fight same brute: ${brute1.name}`);
     }
 
     // Skip if no adversary
