@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.72.4](https://github.com/Zenoo/labrute/compare/labrute-v2.72.3...labrute-v2.72.4) (2024-09-05)
+
+
+### Bug Fixes
+
+* Allow multiple auth requests at once ([e7dbb01](https://github.com/Zenoo/labrute/commit/e7dbb010587e8324e34f9890ffa08dfab6d7b524))
+* Don't start multiple event rounds per day ([068c788](https://github.com/Zenoo/labrute/commit/068c78813255677d1b71df7f4bfae038d915ef3d))
+* Tournament rewards not given + Event tournament stuck ([f349ded](https://github.com/Zenoo/labrute/commit/f349dedce60530c4b54166d5cb57b54aa82123e8))
+
 ## [2.72.3](https://github.com/Zenoo/labrute/compare/labrute-v2.72.2...labrute-v2.72.3) (2024-09-03)
 
 
