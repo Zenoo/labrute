@@ -1712,7 +1712,7 @@ const handleEventTournament = async (
       throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
     }
 
-    if (brute1.name === brute2.name) {
+    if (brute1.id === brute2.id) {
       throw new Error(`Attempted to fight same brute: ${brute1.name}`);
     }
 
