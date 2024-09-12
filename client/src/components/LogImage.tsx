@@ -23,7 +23,7 @@ export const LogImage = ({
       src={`/images/${log.type === LogType.bossDefeat
         ? 'rankings/lvl_0'
         : log.type === LogType.lvl
-          ? `rankings/lvl_${log.level || BruteRankings[0]}`
+          ? `rankings/lvl_${log.level ?? BruteRankings[0]}`
           : log.type === LogType.tournament
             ? 'log/lose'
             : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
