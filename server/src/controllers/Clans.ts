@@ -986,6 +986,64 @@ const Clans = {
       sendError(res, error);
     }
   },
+  updateThread: (prisma: PrismaClient) => async (
+    req: Request<{ brute: string, id: string, threadId: string },
+      unknown, { title: string, content: string, postId: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id || !isUuid(req.params.id)) {
+        throw new ExpectedError(translate('missingClanId', user));
+      }
+
+      if (!req.body.title || !req.body.content || !req.body.postId) {
+        throw new ExpectedError(translate('missingParameters', user));
+      }
+
+      const { id, threadId } = req.params;
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.brute),
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true, clanId: true },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Check if the brute is in the clan
+      if (brute.clanId !== id) {
+        throw new ExpectedError(translate('notYourClan', user));
+      }
+
+      const thread = await prisma.clanThread.update({
+        where: { id: threadId },
+        data: {
+          title: req.body.title,
+          clan: { connect: { id } },
+          creator: { connect: { id: brute.id } },
+        },
+        select: { id: true },
+      });
+      await prisma.clanPost.update({
+        where: { id: req.body.postId },
+        data: {
+          message: req.body.content,
+        },
+        select: { id: true },
+      });
+
+      res.status(200).send(thread);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
   createPost: (prisma: PrismaClient) => async (
     req: Request<
       { brute: string, id: string },
@@ -1457,6 +1515,68 @@ const Clans = {
         select: { id: true },
       });
 
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  deleteThread: (prisma: PrismaClient) => async (
+    req: Request<{ brute: string, id: string, threadId: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id
+        || !isUuid(req.params.id)
+        || !req.params.threadId
+        || !isUuid(req.params.id)) {
+        throw new ExpectedError(translate('missingId', user));
+      }
+
+      const { id, threadId } = req.params;
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.brute),
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: { id: true },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      const clan = await prisma.clan.findFirst({
+        where: {
+          id, deletedAt: null,
+        },
+        select: { id: true, masterId: true },
+      });
+
+      if (!clan) {
+        throw new ExpectedError(translate('clanNotFound', user));
+      }
+
+      await prisma.clanPost.deleteMany({
+        where: {
+          threadId,
+        },
+      });
+
+      const thread = await prisma.clanThread.delete({
+        where: {
+          id: threadId,
+          clanId: clan.id,
+        },
+        select: { id: true },
+      });
+
+      if (!thread) {
+        throw new ExpectedError(translate('threadNotFound', user));
+      }
       res.status(200).send({ message: 'ok' });
     } catch (error) {
       sendError(res, error);

@@ -1,7 +1,11 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { ClanGetThreadResponse } from '@labrute/core';
 import { Box, Paper, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useLocation } from 'react-router';
+import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
@@ -9,18 +13,22 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import FantasyButton from '../../components/FantasyButton';
+import { Brute, ClanPost } from '@labrute/prisma';
 
 const ClanPostView = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const action = queryParams.get('action');
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
   const { palette: { mode } } = useTheme();
 
   const [title, setTitle] = useState('');
+  const [post, setPost] = useState<(ClanPost & {
+    author: Brute,
+  })>();
   const [content, setContent] = useState('');
 
   const changeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +59,13 @@ const ClanPostView = () => {
         Alert.open('success', t('threadCreated'));
         navigate(`/${bruteName}/clan/${id}/forum`);
       }).catch(catchError(Alert));
-    } else {
+    } else if (!action) {
       Server.Clan.createPost(bruteName || '', tid, content).then(() => {
+        Alert.open('success', t('replyPosted'));
+        navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
+      }).catch(catchError(Alert));
+    } else if (post && action && action === 'update') {
+      Server.Clan.updateThread(bruteName || '', id, title, content, tid, post.id).then(() => {
         Alert.open('success', t('replyPosted'));
         navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
       }).catch(catchError(Alert));
@@ -74,6 +87,22 @@ const ClanPostView = () => {
     return () => { head.removeChild(link); };
   }, [mode]);
 
+  useEffect(() => {
+    if (bruteName && id && tid && action && action === 'update' && tid !== '0') {
+      Server.Clan.getThread(bruteName, id, tid, 1)
+        .then((thread: ClanGetThreadResponse) => {
+          const firstPost = thread.posts.sort(
+            (postA, postB) => new Date(postA.date).getTime() - new Date(postB.date).getTime()
+          )[0];
+          if (firstPost) {
+            setPost(firstPost);
+          }
+          setTitle(thread.title);
+          setContent(firstPost ? firstPost.message : 'DD');
+        })
+        .catch(catchError(Alert));
+    }
+  }, [Alert, action, bruteName, id, mode, tid]);
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -98,7 +127,7 @@ const ClanPostView = () => {
             <Text bold smallCaps>{t('myClan')}</Text>
           </Link>
         </Box>
-        {tid === '0' && (
+        {(tid === '0' || action !== 'update') && (
           <Box sx={{
             display: 'flex',
             flexWrap: 'wrap',
@@ -117,6 +146,7 @@ const ClanPostView = () => {
         )}
         <CKEditor
           editor={ClassicEditor}
+          data={content}
           onChange={changeContent}
           config={{
             // Doesn't work since there is a commonJS issue
