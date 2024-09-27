@@ -57,6 +57,7 @@
   "missingClanId": "ID do clã ausente",
   "masterCannotLeave": "O mestre não pode deixar um clã que tenha membros",
   "threadNotFound": "Tópico não encontrado",
+  "missingId": "Missing ID",
   "notYourClan": "Este não é o seu clã",
   "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
   "alreadyClaimed": "You already claimed this reward",
