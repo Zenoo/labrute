@@ -80,6 +80,20 @@ const ClanThreadView = () => {
     }).catch(catchError(Alert));
   };
 
+  // Delete thread
+  const deleteThread = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (!bruteName || !id || !tid) return;
+
+    Server.Clan.deleteThread(bruteName, id, tid).then(() => {
+      Alert.open('success', t('threadDeleted'));
+
+      // Go to forum
+      navigate(`/${bruteName}/clan/${id}/forum`);
+    }).catch(catchError(Alert));
+  };
+
   const changePage = (delta: number) => () => {
     setPage(page + delta);
   };
@@ -99,6 +113,7 @@ const ClanThreadView = () => {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
+              gap: 1,
             }}
             >
               <Link to={`/${bruteName || ''}/cell`}>
@@ -123,6 +138,16 @@ const ClanThreadView = () => {
               {brute.id === thread.clan.masterId && thread.pinned && (
                 <Link href="#" onClick={unpinThread}>
                   <Text bold smallCaps>{t('unpinThread')}</Text>
+                </Link>
+              )}
+              {(brute.id === thread.clan.masterId || brute.id === thread.creatorId) && (
+                <Link href="#" onClick={deleteThread}>
+                  <Text bold smallCaps>{t('deleteThread')}</Text>
+                </Link>
+              )}
+              {brute.id === thread.creatorId && (
+                <Link to={`/${bruteName}/clan/${id}/post/${thread.id}/edit`}>
+                  <Text bold smallCaps>{t('editThread')}</Text>
                 </Link>
               )}
             </Box>

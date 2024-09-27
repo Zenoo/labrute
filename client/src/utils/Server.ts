@@ -128,6 +128,14 @@ const Server = {
       title: string,
       content: string,
     ) => Fetch<ClanGetThreadsResponse>(`/api/brute/${brute}/clan/${id}/thread/create`, { title, content }, 'POST'),
+    updateThread: (
+      brute: string,
+      id: string,
+      title: string,
+      content: string,
+      threadId: string,
+      postId: string,
+    ) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { title, content, postId }, 'PATCH'),
     createPost: (
       brute: string,
       id: string,
@@ -135,6 +143,7 @@ const Server = {
     ) => Fetch<never>(`/api/brute/${brute}/thread/${id}/post/create`, { content }, 'POST'),
     lockThread: (brute: string, id: string, threadId: string) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/lock`),
     pinThread: (brute: string, id: string, threadId: string) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/pin`),
+    deleteThread: (brute: string, id: string, threadId: string) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, {}, 'DELETE'),
     unpinThread: (brute: string, id: string, threadId: string) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}/unpin`),
     getThread: (brute: string, id: string, threadId: string, page: number) => Fetch<ClanGetThreadResponse>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { page }),
     challengeBoss: (brute: string, id: string) => Fetch<ClanChallengeBossResponse>(`/api/brute/${brute}/clan/${id}/challenge-boss`),

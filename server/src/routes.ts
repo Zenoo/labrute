@@ -147,6 +147,8 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.post('/api/brute/:brute/thread/:id/post/create', Clans.createPost(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/lock', Clans.lockThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/pin', Clans.pinThread(prisma));
+  app.delete('/api/brute/:brute/clan/:id/thread/:threadId', Clans.deleteThread(prisma));
+  app.patch('/api/brute/:brute/clan/:id/thread/:threadId', Clans.updateThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId/unpin', Clans.unpinThread(prisma));
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
