@@ -1,4 +1,4 @@
-import { RESET_PRICE, getBruteGoldValue, getResetCost } from '@labrute/core';
+import { getBruteGoldValue, getResetCost } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import { History } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -93,7 +93,7 @@ const CellView = () => {
         // Update user data
         updateData((data) => (data ? ({
           ...data,
-          gold: data.gold - RESET_PRICE,
+          gold: data.gold - getResetCost(brute),
           brutes: data.brutes.map((b) => (b.name === brute.name ? newBrute : b)),
         }) : null));
 
