@@ -234,6 +234,7 @@ const getFighters = async ({
       positiveIndex++;
       const fighter: DetailedFighter = {
         id: brute.id,
+        eventId: brute.eventId ?? undefined,
         index: positiveIndex,
         team: teamSide,
         name: brute.name,

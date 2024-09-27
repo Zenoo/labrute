@@ -85,10 +85,12 @@ const CellMain = ({
         {/* LEVEL + XP */}
         <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />
         {/* RANKING */}
-        <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-          <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.webp`} />
-          <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
-        </Box>
+        {!brute.eventId && (
+          <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
+            <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.webp`} />
+            <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
+          </Box>
+        )}
       </Box>
       <BruteBodyAndStats brute={brute} sx={{ mb: 1 }} />
       {/* Tournament wins until rank up */}

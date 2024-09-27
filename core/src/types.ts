@@ -32,6 +32,7 @@ export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b'
 export interface DetailedFighter {
   // Metadata
   id: string;
+  eventId?: string;
   index: number;
   team: 'L' | 'R';
   name: string;
@@ -134,6 +135,7 @@ export interface Fighter {
   weapons: WeaponId[];
   skills: SkillId[];
   shield: boolean;
+  eventId?: string;
 }
 
 export enum StepType {

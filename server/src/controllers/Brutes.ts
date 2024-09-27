@@ -695,6 +695,7 @@ const Brutes = {
               body: true,
               colors: true,
               skills: true,
+              eventId: true,
             },
           },
         },

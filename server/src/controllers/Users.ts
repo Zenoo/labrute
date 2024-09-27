@@ -367,6 +367,7 @@ const Users = {
               colors: true,
               ranking: true,
               skills: true,
+              eventId: true,
             },
             where: {
               deletedAt: null,

@@ -67,6 +67,7 @@ const getOpponents = async (
         body: true,
         colors: true,
         skills: true,
+        eventId: true,
       },
     });
 

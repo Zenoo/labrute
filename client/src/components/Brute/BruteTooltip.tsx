@@ -27,7 +27,8 @@ interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
     'speedModifier' |
     'speedValue' |
     'skills' |
-    'ranking'
+    'ranking' |
+    'eventId'
   >;
   fighter?: Fighter | null;
   displaySkills?: boolean;
@@ -49,6 +50,7 @@ const BruteTooltip = ({
 
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
+
   const hp = fighter
     ? fighter.hp
     : brute ? getFinalHP(brute, randomSkill) : 0;
@@ -79,15 +81,27 @@ const BruteTooltip = ({
           <Text bold smallCaps color="text.primary">
             {t('level')}
             <Text component="span" bold color="secondary"> {target.level}</Text>
-            <Box
-              component="img"
-              src={`/images/rankings/lvl_${ranking}.webp`}
-              sx={{
-                verticalAlign: 'middle',
-                height: 16,
-                ml: 0.5,
-              }}
-            />
+            {target.eventId ? (
+              <Box
+                component="img"
+                src="/images/event.webp"
+                sx={{
+                  verticalAlign: 'sub',
+                  height: 18,
+                  ml: 0.5,
+                }}
+              />
+            ) : (
+              <Box
+                component="img"
+                src={`/images/rankings/lvl_${ranking}.webp`}
+                sx={{
+                  verticalAlign: 'middle',
+                  height: 16,
+                  ml: 0.5,
+                }}
+              />
+            )}
           </Text>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <BruteHP hp={hp} />

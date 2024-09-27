@@ -13,7 +13,7 @@ import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & {
-  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' |'skills'>;
+  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
 };
 
@@ -79,15 +79,27 @@ const BruteButton = ({
         <Text bold smallCaps color="text.primary">
           {t('level')}
           <Text component="span" bold color="secondary"> {brute.level}</Text>
-          <Box
-            component="img"
-            src={`/images/rankings/lvl_${brute.ranking}.webp`}
-            sx={{
-              verticalAlign: 'middle',
-              height: 16,
-              ml: 0.5,
-            }}
-          />
+          {brute.eventId ? (
+            <Box
+              component="img"
+              src="/images/event.webp"
+              sx={{
+                verticalAlign: 'sub',
+                height: 18,
+                ml: 0.5,
+              }}
+            />
+          ) : (
+            <Box
+              component="img"
+              src={`/images/rankings/lvl_${brute.ranking}.webp`}
+              sx={{
+                verticalAlign: 'middle',
+                height: 16,
+                ml: 0.5,
+              }}
+            />
+          )}
         </Text>
         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
           <BruteHP hp={getFinalHP(brute, randomSkill)} />

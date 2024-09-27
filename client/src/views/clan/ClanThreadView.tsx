@@ -165,7 +165,11 @@ const ClanThreadView = () => {
                 }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
+                    {post.author.eventId ? (
+                      <Box component="img" src="/images/event.webp" sx={{ height: 18, mr: 1 }} />
+                    ) : (
+                      <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
+                    )}
                     <Link to={`/${post.author.name}/cell`}>
                       <Text bold color="primary">{post.author.name}</Text>
                     </Link>

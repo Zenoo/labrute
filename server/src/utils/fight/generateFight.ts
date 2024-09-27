@@ -236,27 +236,35 @@ const generateFight = async ({
   });
 
   // Reduce the size of the fighters data
-  const fighters: Fighter[] = fightData.initialFighters.map((fighter) => ({
-    id: fighter.id,
-    index: fighter.index,
-    team: fighter.team,
-    name: fighter.name,
-    gender: fighter.gender,
-    body: fighter.body,
-    colors: fighter.colors,
-    rank: fighter.rank,
-    level: fighter.level,
-    agility: fighter.agility,
-    strength: fighter.strength,
-    speed: fighter.speed,
-    type: fighter.type,
-    master: fighter.master,
-    maxHp: fighter.maxHp,
-    hp: fighter.hp,
-    weapons: fighter.weapons.map((weapon) => WeaponByName[weapon.name]),
-    skills: fighter.skills.map((skill) => SkillByName[skill.name]),
-    shield: fighter.shield,
-  }));
+  const fighters: Fighter[] = fightData.initialFighters.map((fighter) => {
+    const object: Fighter = {
+      id: fighter.id,
+      index: fighter.index,
+      team: fighter.team,
+      name: fighter.name,
+      gender: fighter.gender,
+      body: fighter.body,
+      colors: fighter.colors,
+      rank: fighter.rank,
+      level: fighter.level,
+      agility: fighter.agility,
+      strength: fighter.strength,
+      speed: fighter.speed,
+      type: fighter.type,
+      master: fighter.master,
+      maxHp: fighter.maxHp,
+      hp: fighter.hp,
+      weapons: fighter.weapons.map((weapon) => WeaponByName[weapon.name]),
+      skills: fighter.skills.map((skill) => SkillByName[skill.name]),
+      shield: fighter.shield,
+    };
+
+    if (fighter.eventId) {
+      object.eventId = fighter.eventId;
+    }
+
+    return object;
+  });
 
   const brute1 = team1.brutes?.[0];
   const brute2 = team2.brutes?.[0];

@@ -93,7 +93,7 @@ export type BrutesGetOpponentsResponse = Pick<Brute,
   'agilityValue' |
   'speedStat' |
   'speedModifier' |
-  'speedValue' | 'body' | 'colors' | 'skills'>[];
+  'speedValue' | 'body' | 'colors' | 'skills' | 'eventId'>[];
 export type BrutesExistsResponse = {
   exists: false
 } | {
@@ -241,7 +241,8 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'>
     'ranking' |
     'body' |
     'colors' |
-    'skills'
+    'skills' |
+    'eventId'
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
   favoriteFights: (Pick<Fight, 'id' | 'date'> & {
