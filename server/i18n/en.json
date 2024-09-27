@@ -57,6 +57,7 @@
   "missingClanId": "Missing clan ID",
   "masterCannotLeave": "The master cannot leave a clan that has members",
   "threadNotFound": "Thread not found",
+  "missingId": "Missing ID",
   "notYourClan": "This is not your clan",
   "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
   "alreadyClaimed": "You already claimed this reward",

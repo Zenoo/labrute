@@ -1010,7 +1010,10 @@ const Clans = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       });
 
       if (!brute) {
@@ -1022,15 +1025,28 @@ const Clans = {
         throw new ExpectedError(translate('notYourClan', user));
       }
 
-      const thread = await prisma.clanThread.update({
+      const thread = await prisma.clanThread.findFirst({
+        where: { id: threadId },
+        select: { id: true, creatorId: true },
+      });
+
+      if (!thread) {
+        throw new ExpectedError(translate('threadNotFound', user));
+      }
+
+      // Check if the brute is the thread creator
+      if (brute.id !== thread.creatorId) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
+      await prisma.clanThread.update({
         where: { id: threadId },
         data: {
           title: req.body.title,
-          clan: { connect: { id } },
-          creator: { connect: { id: brute.id } },
         },
         select: { id: true },
       });
+
       await prisma.clanPost.update({
         where: { id: req.body.postId },
         data: {
@@ -1039,7 +1055,9 @@ const Clans = {
         select: { id: true },
       });
 
-      res.status(200).send(thread);
+      res.status(200).send({
+        message: 'ok',
+      });
     } catch (error) {
       sendError(res, error);
     }
@@ -1560,23 +1578,36 @@ const Clans = {
         throw new ExpectedError(translate('clanNotFound', user));
       }
 
+      const thread = await prisma.clanThread.findFirst({
+        where: {
+          id: threadId,
+          clanId: clan.id,
+        },
+        select: { id: true, creatorId: true },
+      });
+
+      if (!thread) {
+        throw new ExpectedError(translate('threadNotFound', user));
+      }
+
+      // Check if brute is the clan master or the thread creator
+      if (clan.masterId !== brute.id && thread.creatorId !== brute.id) {
+        throw new ExpectedError(translate('unauthorized', user));
+      }
+
       await prisma.clanPost.deleteMany({
         where: {
           threadId,
         },
       });
 
-      const thread = await prisma.clanThread.delete({
+      await prisma.clanThread.delete({
         where: {
           id: threadId,
           clanId: clan.id,
         },
-        select: { id: true },
       });
 
-      if (!thread) {
-        throw new ExpectedError(translate('threadNotFound', user));
-      }
       res.status(200).send({ message: 'ok' });
     } catch (error) {
       sendError(res, error);

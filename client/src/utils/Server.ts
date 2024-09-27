@@ -135,7 +135,7 @@ const Server = {
       content: string,
       threadId: string,
       postId: string,
-    ) => Fetch<ClanGetThreadsResponse>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { title, content, postId }, 'PATCH'),
+    ) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { title, content, postId }, 'PATCH'),
     createPost: (
       brute: string,
       id: string,

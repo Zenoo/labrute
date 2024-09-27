@@ -79,7 +79,8 @@ const ClanThreadView = () => {
       navigate(`/${bruteName}/clan/${id}/forum`);
     }).catch(catchError(Alert));
   };
-  // Unpin thread
+
+  // Delete thread
   const deleteThread = (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -145,7 +146,7 @@ const ClanThreadView = () => {
               )}
               {brute.id === thread.creatorId && (
                 <Link to={`/${bruteName}/clan/${id}/post/${thread.id}?action=update`}>
-                  <Text bold smallCaps>{t('modifyThread')}</Text>
+                  <Text bold smallCaps>{t('editThread')}</Text>
                 </Link>
               )}
             </Box>
