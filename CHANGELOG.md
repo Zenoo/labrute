@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.73.0](https://github.com/Zenoo/labrute/compare/labrute-v2.72.4...labrute-v2.73.0) (2024-09-27)
+
+
+### Features
+
+* Allow to delete/edit threads for owners ([#961](https://github.com/Zenoo/labrute/issues/961)) ([ec9bbe8](https://github.com/Zenoo/labrute/commit/ec9bbe8a5d372662431b8591ce3c13e944a51a3d))
+* Event ranking page. Fixes [#969](https://github.com/Zenoo/labrute/issues/969) ([95a12ca](https://github.com/Zenoo/labrute/commit/95a12ca69f7a91203481671197e32efed4c2860e))
+* Language per host ([19d7523](https://github.com/Zenoo/labrute/commit/19d752354c074b80e0ccbdc43ac04ce682d16a60))
+
+
+### Bug Fixes
+
+* Allow sacrificing event brutes in ongoing events ([72aae27](https://github.com/Zenoo/labrute/commit/72aae277f540deb80ee1956868e850f10cd62f91))
+* Display event icon instead of rank for event brutes. Fixes [#962](https://github.com/Zenoo/labrute/issues/962) ([e733306](https://github.com/Zenoo/labrute/commit/e7333060609c0beba8d862f31796d7d5176ee81b))
+* Don't decrease gold on free resets. Fixes [#953](https://github.com/Zenoo/labrute/issues/953) ([594199e](https://github.com/Zenoo/labrute/commit/594199e58e45dedc9c6ccd463028c5f03d4a76b4))
+* Don't focus backups with focus modifier. Fixes [#966](https://github.com/Zenoo/labrute/issues/966) ([d4dd15a](https://github.com/Zenoo/labrute/commit/d4dd15a9c564442acb6e6b257726015b7fc4311f))
+* Give half a level for event fights lost. Fixes [#949](https://github.com/Zenoo/labrute/issues/949) ([8b627c5](https://github.com/Zenoo/labrute/commit/8b627c5bef770c18b707b06a20e092e58bb45eac))
+* Hide event tournaments in tournament history. Fixes [#957](https://github.com/Zenoo/labrute/issues/957) ([557c3e9](https://github.com/Zenoo/labrute/commit/557c3e94ad7f4a0b9628c1a61b53c91c3bd00f7e))
+* Neutral pronouns ([b727b12](https://github.com/Zenoo/labrute/commit/b727b12af203f27d8e714397a954e9265a3b8c0c))
+* No gold on event brute sacrifice. Fixes [#952](https://github.com/Zenoo/labrute/issues/952) ([ea1dbc4](https://github.com/Zenoo/labrute/commit/ea1dbc4ad7c58121e0c451cb9af46c05d399d9c1))
+* Untrap VFX + treat buff. Fixes [#965](https://github.com/Zenoo/labrute/issues/965) ([ca5b009](https://github.com/Zenoo/labrute/commit/ca5b009562ddd4520fec94213a79c63069c6ad78))
+* Wrong log image for last rank rankup logs ([5f09c47](https://github.com/Zenoo/labrute/commit/5f09c47262adf78dc0f8d7f0e85fe340cb20c46b))
+
 ## [2.72.4](https://github.com/Zenoo/labrute/compare/labrute-v2.72.3...labrute-v2.72.4) (2024-09-05)
 
 
