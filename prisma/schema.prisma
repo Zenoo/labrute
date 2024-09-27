@@ -24,7 +24,7 @@ enum Lang {
 
 model User {
   id              String           @id @unique @db.Uuid
-  lang            Lang             @default(fr)
+  lang            Lang             @default(en)
   name            String           @db.VarChar(255)
   admin           Boolean          @default(false)
   moderator       Boolean          @default(false)

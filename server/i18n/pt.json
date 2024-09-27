@@ -32,7 +32,7 @@
   "destinyChoiceNotFound": "Escolha de destino não encontrada",
   "slowDown": "Wooow, diminua a velocidade dos seus cliques!",
   "cannotSacrificeSameDay": "Você não pode sacrificar seu bruto no dia da criação",
-  "cannotSacrificeClanMaster": "You cannot sacrifice the master of a clan",
+  "cannotSacrificeClanMaster": "Você não pode sacrificar o mestre de um clã",
   "missingName": "Nome em falta",
   "bruteCannotRankUp": "Seu bruto não pode subir de rank",
   "bruteAlreadyMaxRank": "Seu bruto já está na classificação mais alta",
@@ -106,9 +106,9 @@
   "opponentWarOngoing": "The opponent clan is already in a war",
   "warNotFound": "War not found",
   "maxFightersReached": "You reached the maximum number of fighters",
-  "cantFightOwnClan": "You cannot fight your own clan",
-  "oneBrutePerEvent": "You can only have one brute per event",
-  "eventNotFound": "Event not found",
-  "eventAlreadyStarted": "Event already started",
-  "eventMaxLevelReached": "You reached the maximum level for this event"
+  "cantFightOwnClan": "Não se pode lutar contra o teu próprio clã",
+  "oneBrutePerEvent": "Você pode ter apenas um bruto por evento",
+  "eventNotFound": "Evento não encontrado",
+  "eventAlreadyStarted": "Evento já iniciado",
+  "eventMaxLevelReached": "Você atingiu o nível máximo para este evento"
 }
