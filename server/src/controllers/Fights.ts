@@ -183,7 +183,7 @@ const Fights = {
 
       // Get XP gained (0 for non arena fights)
       // (+1 level for a win as an event brute)
-      // (+0 XP for a loss as an event brute)
+      // (+0.5 level for a loss as an event brute)
       // (+2 for a win against a brute at least 2 level below you)
       // (+1 for a win against a brute at least 10 level below you)
       // (+0 otherwise)
@@ -194,7 +194,7 @@ const Fights = {
             ? getXPNeeded(brute1.level + 1)
             : levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
           : brute1.eventId
-            ? 0
+            ? Math.ceil(getXPNeeded(brute1.level) / 2)
             : levelDifference > 10 ? 0 : 1
         : 0;
 
