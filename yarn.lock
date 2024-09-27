@@ -3633,7 +3633,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^6.13.2"
     "@typescript-eslint/parser": "npm:^6.13.2"
     bcrypt: "npm:^5.1.0"
-    body-parser: "npm:^1.20.0"
+    body-parser: "npm:^1.20.3"
     discord.js: "npm:^14.7.1"
     dotenv: "npm:^16.0.3"
     eslint: "npm:^8.55.0"
@@ -7361,7 +7361,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.20.2, body-parser@npm:^1.20.0":
+"body-parser@npm:1.20.2":
   version: 1.20.2
   resolution: "body-parser@npm:1.20.2"
   dependencies:
@@ -7381,7 +7381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.20.3":
+"body-parser@npm:1.20.3, body-parser@npm:^1.20.3":
   version: 1.20.3
   resolution: "body-parser@npm:1.20.3"
   dependencies:
