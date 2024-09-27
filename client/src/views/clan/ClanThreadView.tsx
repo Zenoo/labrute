@@ -113,6 +113,7 @@ const ClanThreadView = () => {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
+              gap: 1,
             }}
             >
               <Link to={`/${bruteName || ''}/cell`}>
@@ -145,7 +146,7 @@ const ClanThreadView = () => {
                 </Link>
               )}
               {brute.id === thread.creatorId && (
-                <Link to={`/${bruteName}/clan/${id}/post/${thread.id}?action=update`}>
+                <Link to={`/${bruteName}/clan/${id}/post/${thread.id}/edit`}>
                   <Text bold smallCaps>{t('editThread')}</Text>
                 </Link>
               )}

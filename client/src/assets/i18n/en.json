@@ -221,6 +221,7 @@
   "threadPinned": "The thread has been pinned.",
   "threadUnpinned": "The thread has been unpinned.",
   "threadDeleted": "The thread has been deleted.",
+  "threadEdited": "The thread has been edited.",
   "pinned": "Pinned",
   "locked": "Locked",
   "clanMaster": "Clan master",

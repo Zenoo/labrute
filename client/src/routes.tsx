@@ -97,6 +97,7 @@ const routes: RouteObject[] = [
                   { path: 'forum', element: <ClanForumView /> },
                   { path: 'thread/:tid', element: <ClanThreadView /> },
                   { path: 'post/:tid', element: <ClanPostView /> },
+                  { path: 'post/:tid/edit', element: <ClanPostView /> },
                   {
                     path: 'war',
                     children: [

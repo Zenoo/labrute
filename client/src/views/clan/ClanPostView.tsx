@@ -2,9 +2,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClanGetThreadResponse } from '@labrute/core';
 import { Box, Paper, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams, useLocation } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
@@ -13,23 +13,19 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import { Brute, ClanPost } from '@labrute/prisma';
 
 const ClanPostView = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const action = queryParams.get('action');
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
   const { palette: { mode } } = useTheme();
 
   const [title, setTitle] = useState('');
-  const [post, setPost] = useState<(ClanPost & {
-    author: Brute,
-  })>();
+  const [post, setPost] = useState<ClanGetThreadResponse['posts'][number]>();
   const [content, setContent] = useState('');
+  const editing = useMemo(() => location.pathname.endsWith('/edit'), [location.pathname]);
 
   const changeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -59,14 +55,14 @@ const ClanPostView = () => {
         Alert.open('success', t('threadCreated'));
         navigate(`/${bruteName}/clan/${id}/forum`);
       }).catch(catchError(Alert));
-    } else if (!action) {
+    } else if (!editing) {
       Server.Clan.createPost(bruteName || '', tid, content).then(() => {
         Alert.open('success', t('replyPosted'));
         navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
       }).catch(catchError(Alert));
-    } else if (post && action && action === 'update') {
+    } else if (post && editing) {
       Server.Clan.updateThread(bruteName || '', id, title, content, tid, post.id).then(() => {
-        Alert.open('success', t('replyPosted'));
+        Alert.open('success', t('threadEdited'));
         navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
       }).catch(catchError(Alert));
     }
@@ -88,21 +84,19 @@ const ClanPostView = () => {
   }, [mode]);
 
   useEffect(() => {
-    if (bruteName && id && tid && action && action === 'update' && tid !== '0') {
+    if (bruteName && id && tid && editing && tid !== '0') {
       Server.Clan.getThread(bruteName, id, tid, 1)
-        .then((thread: ClanGetThreadResponse) => {
-          const firstPost = thread.posts.sort(
-            (postA, postB) => new Date(postA.date).getTime() - new Date(postB.date).getTime()
-          )[0];
+        .then((thread) => {
+          const firstPost = thread.posts[0];
           if (firstPost) {
             setPost(firstPost);
+            setContent(firstPost.message);
           }
           setTitle(thread.title);
-          setContent(firstPost ? firstPost.message : 'DD');
         })
         .catch(catchError(Alert));
     }
-  }, [Alert, action, bruteName, id, mode, tid]);
+  }, [Alert, bruteName, editing, id, tid]);
   return (
     <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -115,6 +109,7 @@ const ClanPostView = () => {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-between',
+          gap: 1,
         }}
         >
           <Link to={`/${bruteName || ''}/cell`}>
@@ -127,7 +122,7 @@ const ClanPostView = () => {
             <Text bold smallCaps>{t('myClan')}</Text>
           </Link>
         </Box>
-        {(tid === '0' || action !== 'update') && (
+        {(tid === '0' || editing) && (
           <Box sx={{
             display: 'flex',
             flexWrap: 'wrap',
