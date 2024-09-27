@@ -536,6 +536,7 @@ const Tournaments = {
       const tournaments = await prisma.tournament.findMany({
         where: {
           date: { lt: new Date() },
+          type: { not: TournamentType.BATTLE_ROYALE },
           participants: {
             some: {
               id: brute.id,
