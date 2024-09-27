@@ -1,12 +1,14 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
-import { EventStatus, Lang } from '@labrute/prisma';
-import { Alert as MuiAlert, Box, BoxProps, Stack, Tooltip, AlertTitle } from '@mui/material';
+import { Lang } from '@labrute/prisma';
+import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
+import Fetch from '../../utils/Fetch';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
@@ -17,8 +19,6 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
-import { useAuth } from '../../hooks/useAuth';
-import Fetch from '../../utils/Fetch';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -38,7 +38,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { randomSkill, user, authing, currentEvent } = useAuth();
+  const { randomSkill, user, authing } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -174,7 +174,6 @@ const CellMain = ({
       {/* BRUTE SACRIFICE */}
       {owner
         && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
-        && (!brute.eventId || !currentEvent || currentEvent.status === EventStatus.starting)
         && !!confirmSacrifice
         && (
           <FantasyButton
