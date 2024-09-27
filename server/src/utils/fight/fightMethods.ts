@@ -201,10 +201,12 @@ const getRandomOpponent = ({
   petOnly?: boolean;
   nonTrappedOnly?: boolean;
 }) => {
+  const focusOpponent = fightData.modifiers.includes(FightModifier.focusOpponent);
+
   let opponents = getOpponents({
     fightData,
     fighter,
-    bruteOnly: bruteOnly || fightData.modifiers.includes(FightModifier.focusOpponent),
+    bruteOnly: bruteOnly || focusOpponent,
     petOnly,
   });
 
@@ -214,6 +216,11 @@ const getRandomOpponent = ({
   if (nonTrappedOnly) {
     // Filter out trapped brutes
     opponents = opponents.filter((f) => !f.trapped);
+  }
+
+  // Filter out backups if `focusOpponent` modifier
+  if (focusOpponent) {
+    opponents = opponents.filter((f) => !f.master);
   }
 
   if (!opponents.length) {
