@@ -5,6 +5,7 @@ import { Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
 import { displayHeal } from './utils/displayHeal';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import { untrap } from './untrap';
 
 export const treat = async (
   app: Application,
@@ -36,4 +37,7 @@ export const treat = async (
 
   // Wait for animation to complete
   await animationEnded;
+
+  // Untrap pet
+  untrap(app, pet);
 };

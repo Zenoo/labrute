@@ -110,6 +110,8 @@ export interface DetailedFighter {
   stunned?: boolean,
   // Bare hand hit (for the fight modifier)
   bareHandHit?: boolean;
+  // Damage immunity
+  immune?: boolean;
 }
 
 export interface Fighter {

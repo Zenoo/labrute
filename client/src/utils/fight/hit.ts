@@ -9,6 +9,7 @@ import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import { untrap } from './untrap';
 
 const HIT_VFX = ['blood', 'impact-1', 'impact-2'];
 
@@ -41,6 +42,9 @@ const hit = async (
   const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
     ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
     : 'hit';
+
+  // Untrap target
+  untrap(app, target);
 
   // Set animation to the correct hit animation
   target.animation.setAnimation(animation);

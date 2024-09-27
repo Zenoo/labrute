@@ -9,6 +9,7 @@ import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import { untrap } from './untrap';
 
 export const haste = async (
   app: Application,
@@ -67,6 +68,9 @@ export const haste = async (
     : 'hit';
 
   const animationEnded = target.animation.waitForEvent(`${animation}:end`);
+
+  // Untrap target
+  untrap(app, target);
 
   // Set target animation to the correct hit animation
   target.animation.setAnimation(animation);

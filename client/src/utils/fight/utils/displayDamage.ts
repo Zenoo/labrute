@@ -1,9 +1,9 @@
+import { BossName } from '@labrute/prisma';
+import { OutlineFilter } from '@pixi/filter-outline';
+import { Tweener } from 'pixi-tweener';
 import { Application, Text } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import insideXBounds from './insideXBounds';
-import { OutlineFilter } from '@pixi/filter-outline';
-import { Tweener } from 'pixi-tweener';
-import { BossName } from '@labrute/prisma';
 
 const displayDamage = (
   app: Application,

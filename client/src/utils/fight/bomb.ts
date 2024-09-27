@@ -8,6 +8,7 @@ import stagger from './stagger';
 import updateHp from './updateHp';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import { untrap } from './untrap';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -149,6 +150,9 @@ const bomb = async (
   const staggers = [];
 
   for (const target of targets) {
+    // Untrap target
+    untrap(app, target);
+
     // Get damage
     const damage = getBombDamage(step.d, target);
 

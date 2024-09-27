@@ -11,6 +11,7 @@ import stagger from './stagger';
 import updateHp from './updateHp';
 import updateWeapons from './updateWeapons';
 import { WeaponName } from '@labrute/prisma';
+import { untrap } from './untrap';
 
 const flashFlood = async (
   app: Application,
@@ -103,6 +104,9 @@ const flashFlood = async (
     x: end.x,
     y: end.y,
   }).then(() => {
+    // Untrap target
+    untrap(app, target);
+
     // Get hit animation (random for male brute)
     const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`

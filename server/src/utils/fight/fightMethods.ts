@@ -308,8 +308,8 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
-  // Filter out treat if no pets lost hp and not trapped
-  if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && f.hp < f.maxHp && !f.trapped).length === 0) {
+  // Filter out treat if no pets lost hp or no pet trapped
+  if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && ((f.hp < f.maxHp) || f.trapped)).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.treat);
   }
 
@@ -466,8 +466,8 @@ const registerHit = (
       opponent.initiative = fightData.initiative + 0.5;
     }
 
+    // Max damage to 20% of opponent's health if `resistant`
     if (opponent.skills.find((sk) => sk.name === 'resistant')) {
-      // Max damage to 20% of opponent's health if `resistant`
       actualDamage[opponent.index] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
 
       if ((actualDamage[opponent.index] ?? damage) < damage) {
@@ -477,6 +477,20 @@ const registerHit = (
           b: opponent.index,
         });
       }
+    }
+
+    // 0 damage if immune
+    if (opponent.immune) {
+      actualDamage[opponent.index] = 0;
+
+      // Remove immune status
+      opponent.immune = false;
+
+      // Add resist step
+      fightData.steps.push({
+        a: StepType.Resist,
+        b: opponent.index,
+      });
     }
 
     const opponentDamage = actualDamage[opponent.index] ?? damage;
@@ -1073,7 +1087,7 @@ const activateSuper = (
     case SkillName.treat: {
       // Choose random ally pet
       const pets = fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && f.hp > 0);
-      const pet = pets.find((p) => p.hp < p.maxHp && !p.trapped);
+      const pet = pets.find((p) => (p.hp < p.maxHp) || p.trapped);
 
       if (!pet) {
         return false;
@@ -1085,6 +1099,17 @@ const activateSuper = (
         pet.maxHp - pet.hp,
       );
       pet.hp += heal;
+
+      // Untrap pet
+      if (pet.trapped) {
+        pet.trapped = false;
+      }
+
+      // Set pet initiative to fighter initiative (to act right after)
+      pet.initiative = fighter.initiative;
+
+      // Give immunity to pet
+      pet.immune = true;
 
       // Add move step
       fightData.steps.push({

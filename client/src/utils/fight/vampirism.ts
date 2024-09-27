@@ -9,6 +9,7 @@ import findFighter, { AnimationFighter } from './utils/findFighter';
 import { displayHeal } from './utils/displayHeal';
 import displayDamage from './utils/displayDamage';
 import updateHp from './updateHp';
+import { untrap } from './untrap';
 
 export const vampirism = async (
   app: Application,
@@ -48,6 +49,9 @@ export const vampirism = async (
 
   // Play steal SFX
   void sound.play('skills/tragicPotion', { speed: speed.current });
+
+  // Untrap target
+  untrap(app, target);
 
   // Set target animation to `stolen`
   if (target.type === 'brute') {
