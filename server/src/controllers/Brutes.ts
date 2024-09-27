@@ -877,12 +877,17 @@ const Brutes = {
         rank = +req.params.rank;
       }
 
+      // rank -1 means event brutes
+      const rankOrEvent = rank === -1
+        ? { eventId: { not: null } }
+        : { ranking: rank };
+
       // Get first 15 brutes of the same rank with the highest level and XP
       const topBrutes = await prisma.brute.findMany({
         where: {
-          ranking: rank,
           deletedAt: null,
           userId: { not: null },
+          ...rankOrEvent,
         },
         orderBy: [
           { level: 'desc' },
@@ -903,9 +908,9 @@ const Brutes = {
       // Get total brutes of the same rank
       const total = await prisma.brute.count({
         where: {
-          ranking: rank,
           deletedAt: null,
           userId: { not: null },
+          ...rankOrEvent,
         },
       });
 
@@ -921,9 +926,9 @@ const Brutes = {
         const brute = await prisma.brute.findFirst({
           where: {
             name: ilike(req.params.name),
-            ranking: rank,
             deletedAt: null,
             userId: { not: null },
+            ...rankOrEvent,
           },
           select: {
             id: true,
@@ -942,7 +947,7 @@ const Brutes = {
           // Find the brute position in the list
           const position = await prisma.brute.count({
             where: {
-              ranking: rank,
+              ...rankOrEvent,
               deletedAt: null,
               id: { not: brute.id },
               userId: { not: null },
@@ -956,7 +961,7 @@ const Brutes = {
           // Find the brutes around the current brute
           const nearbyHigherBrutes = await prisma.brute.findMany({
             where: {
-              ranking: rank,
+              ...rankOrEvent,
               deletedAt: null,
               name: { not: brute.name },
               userId: { not: null },
@@ -983,7 +988,7 @@ const Brutes = {
 
           const nearbyLowerBrutes = await prisma.brute.findMany({
             where: {
-              ranking: rank,
+              ...rankOrEvent,
               deletedAt: null,
               name: { not: brute.name },
               userId: { not: null },

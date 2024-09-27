@@ -1,5 +1,5 @@
 import { getFightsLeft, getGoldNeededForNewBrute, LAST_RELEASE, Version } from '@labrute/core';
-import { Lang } from '@labrute/prisma';
+import { EventStatus, Lang } from '@labrute/prisma';
 import { AccountCircle, Add, AdminPanelSettings, Brightness4, Brightness7, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
 import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
 import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -154,7 +154,7 @@ const Page = ({
       {/* HEADER */}
       <Header url={headerUrl} />
       {/* EVENT */}
-      {currentEvent && !!user?.brutes.length && (
+      {currentEvent?.status === EventStatus.starting && !!user?.brutes.length && (
         <MuiAlert
           severity="info"
           variant="filled"

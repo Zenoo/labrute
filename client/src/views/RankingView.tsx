@@ -11,14 +11,16 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import { useAuth } from '../hooks/useAuth';
 
 const RankingView = () => {
   const { t } = useTranslation();
   const { bruteName, rank } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
+  const { currentEvent } = useAuth();
 
-  const ranking = useMemo(() => (typeof rank === 'undefined' ? undefined : +rank), [rank]);
+  const ranking = useMemo(() => (typeof rank === 'undefined' ? undefined : rank === 'event' ? -1 : +rank), [rank]);
 
   const rankingProps = useMemo(() => ({
     name: bruteName || '',
@@ -70,6 +72,28 @@ const RankingView = () => {
           justifyContent: 'center',
         }}
         >
+          {currentEvent && (
+            <Tooltip title={t('event')}>
+              <RouterLink to={`/${bruteName || ''}/ranking/event`}>
+                <StyledButton
+                  image={rankingSelected === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
+                  imageHover={rankingSelected === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
+                  shadow={false}
+                  contrast={false}
+                  sx={{
+                    height: 65,
+                    width: 65,
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src="/images/event.webp"
+                    sx={{ width: 25 }}
+                  />
+                </StyledButton>
+              </RouterLink>
+            </Tooltip>
+          )}
           {BruteRankings.map((bruteRanking) => (
             <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`)}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>

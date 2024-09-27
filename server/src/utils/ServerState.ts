@@ -261,8 +261,7 @@ const getCurrentEvent = async (prisma: PrismaClient) => {
   }
 
   const event = await prisma.event.findFirst({
-    where: { status: EventStatus.starting },
-    orderBy: { date: 'asc' },
+    where: { status: { not: EventStatus.finished } },
   });
 
   CURRENT_EVENT = event;
