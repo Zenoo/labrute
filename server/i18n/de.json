@@ -57,7 +57,7 @@
   "missingClanId": "Klan-ID fehlt",
   "masterCannotLeave": "Der Anführer kann einen Klan nicht verlassen, solange dieser noch andere Mitglieder hat",
   "threadNotFound": "Thema nicht gefunden",
-  "missingId": "Missing ID",
+  "missingId": "ID fehlt",
   "notYourClan": "Das ist nicht dein Klan",
   "invalidName": "Ungültiger Name. Akzeptable Zeichen sind a-z, A-Z, 0-9, '_' und '-'. Muss zwischen 3 und 16 Zeichen enthalten.",
   "alreadyClaimed": "Du hast diese Belohnung bereits erhalten",
