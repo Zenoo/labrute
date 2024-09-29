@@ -31,11 +31,8 @@ const hammer = async (
 
   // Set target animation to `grabbed`
   fighter.animation.setAnimation('grabbed');
-
   // Skill SFX
-  void sound.play('skills/hammer', {
-    speed: speed.current,
-  });
+  void sound.play('mybrutesounds', { sprite: 'hammer' });
 
   // Stagger both
   stagger(fighter, speed).catch(console.error);

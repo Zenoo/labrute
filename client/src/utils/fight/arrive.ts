@@ -48,7 +48,7 @@ const arrive = async (
 
   // Wait 0.25s before playing arrive SFX
   setTimeout(() => {
-    void sound.play('arrive', { speed: speed.current });
+    void sound.play('mybrutesounds', { sprite: 'arrive' });
   }, 250 / speed.current);
 
   // Move fighter to the position

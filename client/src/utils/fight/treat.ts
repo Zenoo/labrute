@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { TreatStep } from '@labrute/core';
+import { randomBetween, TreatStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
@@ -27,11 +27,8 @@ export const treat = async (
 
   // Set brute animation to `eat`
   brute.animation.setAnimation('eat');
-
   // Play eat SFX
-  void sound.play('skills/tamer', {
-    speed: speed.current,
-  });
+  void sound.play('mybrutesounds', { sprite: `tamer${randomBetween(1, 2)}` });
 
   displayHeal(app, pet, step.h, speed);
 

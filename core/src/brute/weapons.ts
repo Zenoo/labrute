@@ -617,15 +617,63 @@ export const WEAPONS_SFX: Record<WeaponName, string[]> = {
 
     // Special SFX for some weapons
     if (weapon.name === 'fryingPan') {
-      acc[weapon.name] = ['fryingPan'];
+      acc[weapon.name] = ['fryingPan1', 'fryingPan2'];
+      return acc;
+    }
+    if (weapon.name === 'baton') {
+      acc[weapon.name] = ['baton1', 'baton2', 'baton3'];
       return acc;
     }
     if (weapon.name === 'lance') {
       acc[weapon.name] = ['lance1', 'lance2'];
       return acc;
     }
+    if (weapon.name === 'axe') {
+      acc[weapon.name] = ['axe1', 'axe2'];
+      return acc;
+    }
+    if (weapon.name === 'keyboard') {
+      acc[weapon.name] = ['keyboard1', 'keyboard2'];
+      return acc;
+    }
+    if (weapon.name === 'broadsword') {
+      acc[weapon.name] = ['broadsword1', 'broadsword2'];
+      return acc;
+    }
+    if (weapon.name === 'hatchet') {
+      acc[weapon.name] = ['hatchet1', 'hatchet2'];
+      return acc;
+    }
+    if (weapon.name === 'knife') {
+      acc[weapon.name] = ['knife1', 'knife2'];
+      return acc;
+    }
+    if (weapon.name === 'noodleBowl') {
+      acc[weapon.name] = ['noodleBowl1', 'noodleBowl2'];
+      return acc;
+    }
+    if (weapon.name === 'fan') {
+      acc[weapon.name] = ['fan1', 'fan2'];
+      return acc;
+    }
     if (weapon.name === 'piopio') {
       acc[weapon.name] = ['piopio'];
+      return acc;
+    }
+    if (weapon.name === 'shuriken') {
+      acc[weapon.name] = ['shuriken'];
+      return acc;
+    }
+    if (weapon.name === 'racquet') {
+      acc[weapon.name] = ['racquet'];
+      return acc;
+    }
+    if (weapon.name === 'scimitar') {
+      acc[weapon.name] = ['scimitar1', 'scimitar2'];
+      return acc;
+    }
+    if (weapon.name === 'mammothBone') {
+      acc[weapon.name] = ['mammothBone'];
       return acc;
     }
     if (weapon.name === 'sword') {
@@ -633,11 +681,15 @@ export const WEAPONS_SFX: Record<WeaponName, string[]> = {
       return acc;
     }
     if (weapon.name === 'trombone') {
-      acc[weapon.name] = ['trombone1', 'trombone2'];
+      acc[weapon.name] = ['trombone1', 'trombone2', 'trombone3', 'trombone4'];
       return acc;
     }
     if (weapon.name === 'whip') {
       acc[weapon.name] = ['whip'];
+      return acc;
+    }
+    if (weapon.name === 'leek') {
+      acc[weapon.name] = ['leek'];
       return acc;
     }
 

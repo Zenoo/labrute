@@ -37,9 +37,8 @@ const steal = async (
 
   // Set brute animation to `steal`
   brute.animation.setAnimation('steal');
-
   // Play steal SFX
-  void sound.play('skills/thief', { speed: speed.current });
+  void sound.play('mybrutesounds', { sprite: 'thief' });
 
   const animationEnded = target.animation.waitForEvent('stolen:end');
 

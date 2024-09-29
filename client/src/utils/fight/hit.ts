@@ -1,9 +1,9 @@
 /* eslint-disable no-void */
 import { FIGHTER_HIT_ANCHOR, HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { sound } from '@pixi/sound';
-import { AnimatedSprite, Application } from 'pixi.js';
 
+import { AnimatedSprite, Application } from 'pixi.js';
+import { sound } from '@pixi/sound';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
@@ -48,36 +48,25 @@ const hit = async (
 
   // Set animation to the correct hit animation
   target.animation.setAnimation(animation);
-
   // Play hitting SFX
   if (step.a === StepType.Poison) {
     // Poison SFX
-    void sound.play('hit/poison', {
-      speed: speed.current,
-    });
+    void sound.play('mybrutesounds', { sprite: 'poison' });
   } else if (typeof step.w !== 'undefined') {
     // Weapon SFX
-    void sound.play(`hitting/${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}`, {
-      speed: speed.current,
-    });
+    void sound.play('mybrutesounds', { sprite: `${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}` });
   } else if (fighter.type === 'pet') {
     // Sword SFX for pets
-    void sound.play('hitting/sword', {
-      speed: speed.current,
-    });
+    void sound.play('mybrutesounds', { sprite: 'sword' });
   } else {
     // Fist SFX
-    void sound.play(`hitting/fist${randomBetween(1, 3)}`, {
-      speed: speed.current,
-    });
+    void sound.play('mybrutesounds', { sprite: `fist${randomBetween(1, 3)}` });
   }
 
   // Play hit SFX
   if (target.type === 'pet') {
     // Remove numbers from pet name
-    void sound.play(`hit/${target.name.replace(/\d/g, '')}`, {
-      speed: speed.current,
-    });
+    void sound.play('mybrutesounds', { sprite: `${target.name.replace(/\d/g, '')}` });
   }
 
   let vfx = null;
@@ -143,6 +132,7 @@ const hit = async (
   // Set animation to `death` if target is stunned
   if (step.s) {
     target.animation.setAnimation('death');
+    void sound.play('mybrutesounds', { sprite: 'chaining' });
   } else {
     // Set animation to `idle`
     target.animation.setAnimation('idle');
