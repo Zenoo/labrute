@@ -253,6 +253,8 @@ model Brute {
   eventId                      String?                 @db.Uuid
   wonEvents                    Event[]                 @relation("EventBruteWinner")
   resets                       Int                     @default(0)
+
+  @@index([deletedAt, eventId, ranking])
 }
 
 model BruteStartingStats {

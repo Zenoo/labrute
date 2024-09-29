@@ -3,6 +3,7 @@ import {
   AdminPanelBrute,
   BruteDeletionReason,
   BruteGetInventoryResponse,
+  BruteRankings,
   BruteRestoreResponse,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse,
@@ -864,7 +865,10 @@ const Brutes = {
       // rank -1 means event brutes
       const rankOrEvent = rank === -1
         ? { eventId: { not: null } }
-        : { ranking: rank };
+        : rank === BruteRankings[0]
+          // Hide event brutes from the first rank
+          ? { eventId: null, ranking: rank }
+          : { ranking: rank };
 
       // Get first 15 brutes of the same rank with the highest level and XP
       const topBrutes = await prisma.brute.findMany({
