@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.73.1](https://github.com/Zenoo/labrute/compare/labrute-v2.73.0...labrute-v2.73.1) (2024-09-29)
+
+
+### Bug Fixes
+
+* Fight crash on immunity to bomb damage ([846a453](https://github.com/Zenoo/labrute/commit/846a453acb10005fc1b423b1d1b454177ae57219))
+* Hide event brutes from padawan ranking ([d4b0819](https://github.com/Zenoo/labrute/commit/d4b081949cc3da22e315d52a6b3118fa8e92404a))
+
 ## [2.73.0](https://github.com/Zenoo/labrute/compare/labrute-v2.72.4...labrute-v2.73.0) (2024-09-27)
 
 
