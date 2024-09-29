@@ -13,7 +13,7 @@ import { untrap } from './untrap';
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
 
-  if (!targetDamage) {
+  if (typeof targetDamage !== 'number') {
     throw new Error('Target damage not found');
   }
 
