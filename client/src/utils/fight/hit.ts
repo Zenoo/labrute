@@ -51,22 +51,22 @@ const hit = async (
   // Play hitting SFX
   if (step.a === StepType.Poison) {
     // Poison SFX
-    void sound.play('mybrutesounds', { sprite: 'poison' });
+    void sound.play('sfx', { sprite: 'poison' });
   } else if (typeof step.w !== 'undefined') {
     // Weapon SFX
-    void sound.play('mybrutesounds', { sprite: `${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}` });
+    void sound.play('sfx', { sprite: `${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}` });
   } else if (fighter.type === 'pet') {
     // Sword SFX for pets
-    void sound.play('mybrutesounds', { sprite: 'sword' });
+    void sound.play('sfx', { sprite: 'sword' });
   } else {
     // Fist SFX
-    void sound.play('mybrutesounds', { sprite: `fist${randomBetween(1, 3)}` });
+    void sound.play('sfx', { sprite: `fist${randomBetween(1, 3)}` });
   }
 
   // Play hit SFX
   if (target.type === 'pet') {
     // Remove numbers from pet name
-    void sound.play('mybrutesounds', { sprite: `${target.name.replace(/\d/g, '')}` });
+    void sound.play('sfx', { sprite: `${target.name.replace(/\d/g, '')}` });
   }
 
   let vfx = null;
@@ -132,7 +132,7 @@ const hit = async (
   // Set animation to `death` if target is stunned
   if (step.s) {
     target.animation.setAnimation('death');
-    void sound.play('mybrutesounds', { sprite: 'chaining' });
+    void sound.play('sfx', { sprite: 'chaining' });
   } else {
     // Set animation to `idle`
     target.animation.setAnimation('idle');

@@ -64,6 +64,15 @@ Every
 
 Should have a corresponding documentation.
 
+## Shape all sound in one sound with sprites using audiosprite
+
+Command line in the sound folder : `audiosprite $(find . -type f -name '_.mp3' -o -name '_.wav') -o mybruteaudio -u .`
+
+audiosprite will check every folder of the location that has mp3 or wav extension and fuse them in one sound named "sfx"
+There will be 4 outputs : mp3, gg, m4a and ac3.
+**You can just keep one of them (mp3 os the more common)**
+**You have to adapt the resources values ( in this case add '/sfx/')**
+**You have to move the json file in the src folder because it cannot be import from the public folder**
 
 ## File Structure
 

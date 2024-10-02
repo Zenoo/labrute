@@ -16,7 +16,7 @@ import translateFightStep from '../../utils/translateFightStep';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
-import myBruteAudio from './mybruteaudio';
+import sfx from './mybruteaudio';
 
 const sounds = [
   'arrive',
@@ -225,13 +225,13 @@ const FightComponent = ({
     const spritesNew: { [key: string]: { start: number; end: number; loop: boolean } } = {};
     sounds.forEach((soundName) => {
       spritesNew[soundName] = {
-        start: myBruteAudio.spritemap[soundName]?.start ?? 0,
-        end: myBruteAudio.spritemap[soundName]?.end ?? 0,
-        loop: myBruteAudio.spritemap[soundName]?.loop ?? false
+        start: sfx.spritemap[soundName]?.start ?? 0,
+        end: sfx.spritemap[soundName]?.end ?? 0,
+        loop: sfx.spritemap[soundName]?.loop ?? false
       };
     });
 
-    sound.add('mybrutesounds', { url: myBruteAudio.resources[0], sprites: spritesNew, preload: true });
+    sound.add('sfx', { url: sfx.resources[0], sprites: spritesNew, preload: true });
 
     // Mute all sounds
     sound.volumeAll = 0;

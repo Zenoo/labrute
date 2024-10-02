@@ -37,7 +37,7 @@ export const haste = async (
     throw new Error('Target not found');
   }
   // Play skill SFX
-  void sound.play('mybrutesounds', { sprite: 'haste' });
+  void sound.play('sfx', { sprite: 'haste' });
 
   const windUpEnded = brute.animation.waitForEvent('strengthen:end');
 

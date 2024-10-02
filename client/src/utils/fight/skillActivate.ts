@@ -29,7 +29,7 @@ const skillActivate = async (
 
   // Play skill SFX
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute].includes(step.s)) {
-    void sound.play('mybrutesounds', { sprite: `${SkillById[step.s]}` });
+    void sound.play('sfx', { sprite: `${SkillById[step.s]}` });
   }
 
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute, SkillId.hammer].includes(step.s)) {

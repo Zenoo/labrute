@@ -27,7 +27,7 @@ const equip = async (
   // Update active weapon
   brute.animation.weapon = WeaponById[step.w];
   // Play equip SFX
-  void sound.play('mybrutesounds', { sprite: 'equip' });
+  void sound.play('sfx', { sprite: 'equip' });
 
   // Wait for animation to complete
   await animationEnded;

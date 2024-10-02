@@ -90,7 +90,7 @@ const flashFlood = async (
     updateWeapons(app, fighter, step.w, 'remove');
   }
   // Play throw SFX
-  void sound.play('mybrutesounds', { sprite: 'flashFlood' });
+  void sound.play('sfx', { sprite: 'flashFlood' });
 
   // Move thrown weapon
   Tweener.add({

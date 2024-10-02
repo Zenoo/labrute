@@ -40,7 +40,7 @@ const eat = async (
     width: 0,
   }).catch(console.error);
   // Play eat SFX
-  void sound.play('mybrutesounds', { sprite: `tamer${randomBetween(1, 2)}` });
+  void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 
   displayHeal(app, brute, step.h, speed);
 

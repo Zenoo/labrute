@@ -44,7 +44,7 @@ const bomb = async (
   // Set animation to `launch`
   fighter.animation.setAnimation('launch');
   // Play launch SFX
-  void sound.play('mybrutesounds', { sprite: 'net' });
+  void sound.play('sfx', { sprite: 'net' });
 
   // Create bomb sprite
   const bombSprite = new AnimatedSprite(spritesheet.animations.bomb || []);
@@ -129,7 +129,7 @@ const bomb = async (
   fighter.animation.setAnimation('idle');
 
   // Play bomb SFX
-  void sound.play('mybrutesounds', { sprite: 'bomb' });
+  void sound.play('sfx', { sprite: 'bomb' });
 
   // Get targets
   const targets = step.t.map((t) => {

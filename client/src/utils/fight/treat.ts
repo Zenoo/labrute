@@ -28,7 +28,7 @@ export const treat = async (
   // Set brute animation to `eat`
   brute.animation.setAnimation('eat');
   // Play eat SFX
-  void sound.play('mybrutesounds', { sprite: `tamer${randomBetween(1, 2)}` });
+  void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 
   displayHeal(app, pet, step.h, speed);
 

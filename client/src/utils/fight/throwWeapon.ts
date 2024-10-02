@@ -93,7 +93,7 @@ const throwWeapon = async (
   // Add to stage
   app.stage.addChild(thrownWeapon);
   // Play throw SFX
-  void sound.play('mybrutesounds', { sprite: 'net' });
+  void sound.play('sfx', { sprite: 'net' });
 
   // Move thrown weapon
   await Tweener.add({

@@ -35,7 +35,7 @@ const heal = async (
   // Set animation to `drink`
   brute.animation.setAnimation('drink');
   // Play heal SFX
-  void sound.play('mybrutesounds', { sprite: 'tragicPotion' });
+  void sound.play('sfx', { sprite: 'tragicPotion' });
 
   displayHeal(app, brute, step.h, speed);
 

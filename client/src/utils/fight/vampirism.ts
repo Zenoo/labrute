@@ -47,7 +47,7 @@ export const vampirism = async (
   // Set brute animation to `steal`
   brute.animation.setAnimation('steal');
   // Play steal SFX
-  void sound.play('mybrutesounds', { sprite: 'vampirism' });
+  void sound.play('sfx', { sprite: 'vampirism' });
 
   // Untrap target
   untrap(app, target);

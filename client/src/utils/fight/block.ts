@@ -24,7 +24,7 @@ const block = async (
   fighter.animation.setAnimation('block', 3);
 
   // Play block SFX
-  void sound.play('mybrutesounds', { sprite: `block${randomBetween(1, 4)}` });
+  void sound.play('sfx', { sprite: `block${randomBetween(1, 4)}` });
 
   // Wait for animation to complete
   await animationEnded;

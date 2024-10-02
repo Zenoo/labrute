@@ -23,7 +23,7 @@ const spy = async (
   const animations: Promise<unknown>[] = [];
 
   // Play steal SFX
-  void sound.play('mybrutesounds', { sprite: 'spy' });
+  void sound.play('sfx', { sprite: 'spy' });
 
   // Give brute weapons to opponent
   for (const weaponToSwap of step.s) {

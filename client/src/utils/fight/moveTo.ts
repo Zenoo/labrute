@@ -26,7 +26,7 @@ const moveTo = async (
   // Play running SFX
   if (fighter.type === 'pet') {
     // Remove numbers from pet name
-    void sound.play('mybrutesounds', { sprite: `${fighter.name.replace(/\d/g, '')}` });
+    void sound.play('sfx', { sprite: `${fighter.name.replace(/\d/g, '')}` });
   }
 
   const targetX = target.animation.container.x;

@@ -34,7 +34,7 @@ const trap = async (
   // Set fighter animation to `launch`
   brute.animation.setAnimation('launch');
   // Play trap SFX
-  void sound.play('mybrutesounds', { sprite: 'net' });
+  void sound.play('sfx', { sprite: 'net' });
 
   // Create net sprite
   const net = new Sprite(spritesheet.textures['thrown-net.png']);
