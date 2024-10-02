@@ -50,9 +50,11 @@ const HomeView = () => {
     const code = url.searchParams.get('code');
 
     // Default URL to website root, clear all OAuth search params.
-    url.pathname = '/';
-    url.searchParams.delete('code');
-    url.searchParams.delete('state');
+    if (url.pathname === '/oauth/callback') {
+      url.pathname = '/';
+      url.searchParams.delete('code');
+      url.searchParams.delete('state');
+    }
 
     if (code && !authing && !user) {
       setAuthing(true);
