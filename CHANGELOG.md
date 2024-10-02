@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.73.2](https://github.com/Zenoo/labrute/compare/labrute-v2.73.1...labrute-v2.73.2) (2024-10-02)
+
+
+### Bug Fixes
+
+* always clear OAuth search params ([86aae1c](https://github.com/Zenoo/labrute/commit/86aae1c2792df05bed5d6ab3bd054c6866900654))
+* Don't redirect evrything to / on Home ([9ea155f](https://github.com/Zenoo/labrute/commit/9ea155fab33e21fe8cb137ea8dc983916146188e))
+
 ## [2.73.1](https://github.com/Zenoo/labrute/compare/labrute-v2.73.0...labrute-v2.73.1) (2024-09-29)
 
 
