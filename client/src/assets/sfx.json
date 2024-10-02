@@ -1,5 +1,5 @@
 {
-  "resources": ["/sfx/sfx.mp3", "/sfx/sfx.ogg", "/sfx/sfx.m4a", "/sfx/sfx.ac3"],
+  "resources": ["sfx.mp3", "sfx.ogg", "sfx.m4a", "sfx.ac3"],
   "spritemap": {
     "poison": {
       "start": 0,

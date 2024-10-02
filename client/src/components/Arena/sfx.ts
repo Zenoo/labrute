@@ -15,7 +15,7 @@ interface AudioSpriteData {
 }
 
 const sfx: AudioSpriteData = {
-  resources: sfxJson.resources,
+  resources: sfxJson.resources.map((source : string) => `/sfx/${source}`),
   spritemap: sfxJson.spritemap
 
 };
