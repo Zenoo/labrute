@@ -27,6 +27,7 @@
     "audit": "yarn npm audit --recursive --all --environment production",
     "add:client": "yarn workspace @labrute/client add",
     "add:server": "yarn workspace @labrute/server add",
+    "sfx:geenrate" : "cd ./client/sfx && audiosprite $(find . -type f -name '*.mp3' -o -name '*.wav') -o sfx -u . && mv ./public/sfx/sfx.json ./src/assets/",
     "remove:client": "yarn workspace @labrute/client remove",
     "remove:server": "yarn workspace @labrute/server remove",
     "run:retrieveFirstBonus": "cd server && yarn run:retrieveFirstBonus",

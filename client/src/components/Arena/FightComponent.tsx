@@ -16,7 +16,7 @@ import translateFightStep from '../../utils/translateFightStep';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
-import sfx from './mybruteaudio';
+import sfx from './sfx';
 
 const sounds = [
   'arrive',

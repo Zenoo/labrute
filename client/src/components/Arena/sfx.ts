@@ -1,4 +1,4 @@
-import sfxJson from './sfx.json';
+import sfxJson from '../../assets/sfx.json';
 
 // Interface definition for data
 interface SoundSprite {
