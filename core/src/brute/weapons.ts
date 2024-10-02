@@ -681,7 +681,7 @@ export const WEAPONS_SFX: Record<WeaponName, string[]> = {
       return acc;
     }
     if (weapon.name === 'trombone') {
-      acc[weapon.name] = ['trombone1', 'trombone2', 'trombone3', 'trombone4'];
+      acc[weapon.name] = ['trombone1', 'trombone2'];
       return acc;
     }
     if (weapon.name === 'whip') {
