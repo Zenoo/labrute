@@ -36,11 +36,8 @@ export const haste = async (
   if (!target) {
     throw new Error('Target not found');
   }
-
   // Play skill SFX
-  void sound.play('skills/fierceBrute', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'haste' });
 
   const windUpEnded = brute.animation.waitForEvent('strengthen:end');
 

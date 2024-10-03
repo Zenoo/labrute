@@ -1,5 +1,6 @@
+/* eslint-disable no-void */
 import { SpyStep, WeaponId, randomBetween } from '@labrute/core';
-
+import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 
@@ -9,6 +10,7 @@ const spy = async (
   speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
+
   if (!brute) {
     throw new Error('Brute not found');
   }
@@ -19,6 +21,9 @@ const spy = async (
   }
 
   const animations: Promise<unknown>[] = [];
+
+  // Play steal SFX
+  void sound.play('sfx', { sprite: 'spy' });
 
   // Give brute weapons to opponent
   for (const weaponToSwap of step.s) {
