@@ -468,7 +468,8 @@ export type BruteReportStatus = (typeof BruteReportStatus)[keyof typeof BruteRep
 
 export const BossName: {
   GoldClaw: 'GoldClaw',
-  EmberFang: 'EmberFang'
+  EmberFang: 'EmberFang',
+  Cerberus: 'Cerberus'
 };
 
 export type BossName = (typeof BossName)[keyof typeof BossName]

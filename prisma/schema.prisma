@@ -619,6 +619,7 @@ model BannedIp {
 enum BossName {
   GoldClaw
   EmberFang
+  Cerberus
 }
 
 model Clan {
