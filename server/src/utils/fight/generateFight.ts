@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
+  FIRST_BOSS_GOLD_REWARD,
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
@@ -12,7 +13,7 @@ import {
   weightedRandom,
 } from '@labrute/core';
 import {
-  Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
+  Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient, BossName
 } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
@@ -359,13 +360,15 @@ const generateFight = async ({
           count: 1,
         })),
       });
-
+      
+      // Filter out Cerberus from potential bosses most of the time
+      const potentialBosses = bosses.filter((boss) => boss.name != BossName.Cerberus || Math.random() * 4 < 1)
       // Update clan
       await prisma.clan.update({
         where: { id: clanId },
         data: {
           // Set new boss
-          boss: randomItem(bosses).name,
+          boss: randomItem(potentialBosses).name,
           damageOnBoss: 0,
           // Increase clan limit
           limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
@@ -383,7 +386,8 @@ const generateFight = async ({
       clan.bossDamages.forEach((damage) => {
         userIds.add(damage.brute.userId || '');
       });
-      const goldGains = Math.floor(BOSS_GOLD_REWARD / userIds.size);
+      const goldReward = bossFighter.name === BossName.Cerberus ? FIRST_BOSS_GOLD_REWARD : BOSS_GOLD_REWARD;
+      const goldGains = Math.floor(goldReward / userIds.size);
 
       await prisma.user.updateMany({
         where: { id: { in: Array.from(userIds) } },
