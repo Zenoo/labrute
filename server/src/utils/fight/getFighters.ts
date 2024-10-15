@@ -447,8 +447,8 @@ const getFighters = async ({
     }
 
     // Boss
-    positiveIndex++;
     for (const boss of team.bosses) {
+      positiveIndex++;
       spawnedPets++;
 
       fighters.push({
@@ -460,7 +460,7 @@ const getFighters = async ({
         level: 0,
         type: 'boss' as const,
         maxHp: boss.hp,
-        hp: boss.startHP,
+        hp: boss.startHP > 0 ? boss.startHP : 1,
         strength: boss.strength,
         agility: boss.agility,
         speed: boss.speed,

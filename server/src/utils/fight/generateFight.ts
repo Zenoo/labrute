@@ -130,6 +130,16 @@ const generateFight = async ({
     }
   }
 
+    if(team1.bosses?.length || team2.bosses?.length){
+        // Handle bosses coming as multiple instances
+        team1.bosses?.forEach(boss => {
+            team1.bosses?.push(...Array(boss.count - 1).fill({ ...boss }));
+        });
+        team2.bosses?.forEach(boss => {
+            team2.bosses?.push(...Array(boss.count - 1).fill({ ...boss }));
+        });
+   }
+
   // Global fight data
   const fightDataFighters = await getFighters({
     prisma,
@@ -291,8 +301,9 @@ const generateFight = async ({
 
   if (team1.bosses?.length || team2.bosses?.length) {
     // Update clan limit and boss if boss slain
-    const bossFighter = fightData.fighters.find((fighter) => fighter.type === 'boss');
-    if (bossFighter && bossFighter.hp <= 0) {
+    const bossFighters = fightData.fighters.filter(fighter => fighter.type === 'boss');
+    const aliveBossFighters = bossFighters.filter(boss => boss.hp > 0);
+    if (bossFighters.length && !aliveBossFighters.length) {
       const clan = await prisma.clan.findUnique({
         where: { id: clanId },
         select: {
@@ -386,7 +397,7 @@ const generateFight = async ({
       clan.bossDamages.forEach((damage) => {
         userIds.add(damage.brute.userId || '');
       });
-      const goldReward = bossFighter.name === BossName.Cerberus ? FIRST_BOSS_GOLD_REWARD : BOSS_GOLD_REWARD;
+      const goldReward = bossFighters.find((boss) => boss.name === BossName.Cerberus) ? FIRST_BOSS_GOLD_REWARD : BOSS_GOLD_REWARD;
       const goldGains = Math.floor(goldReward / userIds.size);
 
       await prisma.user.updateMany({
@@ -411,16 +422,18 @@ const generateFight = async ({
       };
     } else {
       // Update damage on boss + store it
-      const initialBoss = fightData.initialFighters.find((fighter) => fighter.type === 'boss');
-      const finalBoss = fightData.fighters.find((fighter) => fighter.type === 'boss');
-      if (!initialBoss || !finalBoss) {
-        throw new Error('Boss not found');
-      }
+      const initialBossesHp = fightData.initialFighters
+          .filter(fighter => fighter.type === 'boss')
+          .reduce((sum, boss) => boss.hp > 0 ? sum + boss.hp : sum, 0);
+      const finalBossesHp = fightData.fighters
+          .filter(fighter => fighter.type === 'boss')
+          .reduce((sum, boss) => boss.hp > 0 ? sum + boss.hp : sum, 0);
+
       if (!clanId) {
         throw new Error('Clan ID not found');
       }
 
-      const damage = initialBoss.hp - finalBoss.hp;
+      const damage = initialBossesHp - finalBossesHp;
 
       await prisma.clan.update({
         where: { id: clanId },
