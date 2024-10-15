@@ -1357,7 +1357,7 @@ const Clans = {
           const newGeneratedFight = await generateFight({
             prisma,
             team1: { brutes: [brute] },
-            team2: { bosses: [{ ...boss, startHP: boss.hp - clan.damageOnBoss }] },
+            team2: { bosses: [{ ...boss, startHP: boss.hp - Math.floor(clan.damageOnBoss / boss.count) }] },
             modifiers,
             backups: false,
             achievements: false,

@@ -19,6 +19,8 @@ export interface Boss {
   damage: number;
   reach: number;
   count: number;
+  reward: number;
+  odds: number;
 }
 
 const bear = pets.find((p) => p.name === PetName.bear) as Pet;
@@ -44,6 +46,8 @@ const bosses: Boss[] = [
     damage: bear.damage,
     reach: 3,
     count: 1,
+    reward: 1,
+    odds: 5,
   },
   {
     name: BossName.EmberFang,
@@ -63,6 +67,8 @@ const bosses: Boss[] = [
     damage: panther.damage,
     reach: 3,
     count: 1,
+    reward: 1,
+    odds: 5,
   },
   {
     name: BossName.Cerberus,
@@ -72,7 +78,7 @@ const bosses: Boss[] = [
     strength: dog1.strength * 7.5,
     agility: dog1.agility,
     speed: dog1.speed,
-    hp: 30000,
+    hp: 10000,
     counter: dog1.counter,
     combo: 0,
     block: dog1.block,
@@ -82,6 +88,8 @@ const bosses: Boss[] = [
     damage: dog1.damage,
     reach: 1,
     count: 3,
+    reward: 0.2,
+    odds: 1,
   },
 ];
 

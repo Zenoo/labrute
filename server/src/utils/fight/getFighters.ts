@@ -460,7 +460,7 @@ const getFighters = async ({
         level: 0,
         type: 'boss' as const,
         maxHp: boss.hp,
-        hp: boss.startHP > 0 ? boss.startHP : 1,
+        hp: boss.startHP,
         strength: boss.strength,
         agility: boss.agility,
         speed: boss.speed,

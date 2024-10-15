@@ -659,7 +659,7 @@ const ClanView = () => {
               <Text h4 bold color="secondary" center>{t('boss')}</Text>
               <Text bold h5 smallCaps color="primary.text">{clan.boss}</Text>
               {/* HP BAR */}
-              <Tooltip title={`${boss.hp - clan.damageOnBoss} / ${boss.hp}`}>
+              <Tooltip title={`${boss.hp * boss.count - clan.damageOnBoss} / ${boss.hp * boss.count}`}>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: 'flex-end',

@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
-  FIRST_BOSS_GOLD_REWARD,
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
@@ -301,9 +300,11 @@ const generateFight = async ({
 
   if (team1.bosses?.length || team2.bosses?.length) {
     // Update clan limit and boss if boss slain
-    const bossFighters = fightData.fighters.filter(fighter => fighter.type === 'boss');
-    const aliveBossFighters = bossFighters.filter(boss => boss.hp > 0);
-    if (bossFighters.length && !aliveBossFighters.length) {
+    const bossFighter = fightData.fighters.find(fighter => fighter.type === 'boss');
+    const aliveBossFighters = fightData.fighters
+      .filter((fighter) => fighter.type === 'boss' && fighter.hp > 0);
+    if (bossFighter && !aliveBossFighters.length) {
+      const boss = bosses.find((boss) => boss.name === bossFighter.name)
       const clan = await prisma.clan.findUnique({
         where: { id: clanId },
         select: {
@@ -327,6 +328,9 @@ const generateFight = async ({
         },
       });
 
+      if (!boss) {
+        throw new Error('Boss not found');
+      }
       if (!clan) {
         throw new Error('Clan not found');
       }
@@ -372,14 +376,12 @@ const generateFight = async ({
         })),
       });
       
-      // Filter out Cerberus from potential bosses most of the time
-      const potentialBosses = bosses.filter((boss) => boss.name != BossName.Cerberus || Math.random() * 4 < 1)
       // Update clan
       await prisma.clan.update({
         where: { id: clanId },
         data: {
           // Set new boss
-          boss: randomItem(potentialBosses).name,
+          boss: weightedRandom(bosses).name,
           damageOnBoss: 0,
           // Increase clan limit
           limit: Math.min(CLAN_SIZE_LIMIT, clan.limit + 5),
@@ -397,8 +399,7 @@ const generateFight = async ({
       clan.bossDamages.forEach((damage) => {
         userIds.add(damage.brute.userId || '');
       });
-      const goldReward = bossFighters.find((boss) => boss.name === BossName.Cerberus) ? FIRST_BOSS_GOLD_REWARD : BOSS_GOLD_REWARD;
-      const goldGains = Math.floor(goldReward / userIds.size);
+      const goldGains = Math.floor(boss.reward * BOSS_GOLD_REWARD / userIds.size);
 
       await prisma.user.updateMany({
         where: { id: { in: Array.from(userIds) } },
