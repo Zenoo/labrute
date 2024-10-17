@@ -47,7 +47,7 @@ const bosses: Boss[] = [
     reach: 3,
     count: 1,
     reward: 1,
-    odds: 5,
+    odds: 10,
   },
   {
     name: BossName.EmberFang,
@@ -68,7 +68,7 @@ const bosses: Boss[] = [
     reach: 3,
     count: 1,
     reward: 1,
-    odds: 5,
+    odds: 10,
   },
   {
     name: BossName.Cerberus,

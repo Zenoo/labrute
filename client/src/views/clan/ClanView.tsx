@@ -672,7 +672,7 @@ const ClanView = () => {
                   <Box sx={{
                     bgcolor: 'level',
                     height: 3,
-                    width: (boss.hp - clan.damageOnBoss) / boss.hp,
+                    width: (boss.hp * boss.count - clan.damageOnBoss) / (boss.hp * boss.count),
                   }}
                   />
                 </Box>
