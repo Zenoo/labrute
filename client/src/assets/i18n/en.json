@@ -487,6 +487,7 @@
   "setAsWatched": "Set as watched",
   "rankUp": "Rank up",
   "tournamentVictoriesUntilRankUp": "You need {{value}} daily tournament victories to rank up.",
+  "tournamentVictoriesUntilAscend": "You need {{value}} daily tournament victories to ascend.",
   "rankUpConfirm": "Do you really want to rank up? Your brute will return to level 1 with the same destiny.",
   "finals": "Finals",
   "semiFinals": "Semi-finals",

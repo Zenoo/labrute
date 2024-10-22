@@ -50,6 +50,27 @@ const CellMain = ({
     [brute, modifiers],
   );
 
+  const getRankUpIcon = useMemo(
+    () => {
+      if (!brute) return '';
+
+      return `/images/${brute.ranking === 0 ? 'ascend' : 'ranking'}.png`;
+    },
+    [brute]
+  );
+
+  const getRankUpText = useMemo(
+    () => {
+      if (!brute) return '';
+
+      return t(
+        brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
+        { value: getWinsNeededToRankUp(brute) }
+      );
+    },
+    [brute, t]
+  );
+
   // Rank up
   const rankUp = useCallback(() => {
     if (!brute) return;
@@ -97,9 +118,9 @@ const CellMain = ({
       {(!owner || (!brute.tournaments.length || brute.currentTournamentStepWatched === 6))
         && !brute.eventId
         && (
-          <Tooltip title={t('tournamentVictoriesUntilRankUp', { value: getWinsNeededToRankUp(brute) })}>
+          <Tooltip title={getRankUpText}>
             <Box textAlign="center">
-              <Box component="img" src="/images/ranking.png" alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
+              <Box component="img" src={getRankUpIcon} alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
               {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
                 <Box
                   // eslint-disable-next-line react/no-array-index-key

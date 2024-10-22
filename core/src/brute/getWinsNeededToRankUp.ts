@@ -3,4 +3,7 @@ import { BruteRankings } from '../constants';
 
 export const getWinsNeededToRankUp = (
   brute: Pick<Brute, 'ranking'>
-) => BruteRankings[0] + 1 - brute.ranking;
+) => (brute.ranking === 0
+  ? BruteRankings[0] + 1 - brute.ranking // TODO: take current ascensions count into account
+  : BruteRankings[0] + 1 - brute.ranking
+);
