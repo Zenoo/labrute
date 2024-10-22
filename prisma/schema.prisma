@@ -207,8 +207,10 @@ model Brute {
   colors                       String                  @default("00000000000000000000000000000000") @db.VarChar(32)
   weapons                      WeaponName[]            @default([])
   skills                       SkillName[]             @default([])
-  ascendedSkills               SkillName[]             @default([])
   pets                         PetName[]               @default([])
+  ascendedWeapons              WeaponName[]            @default([])
+  ascendedSkills               SkillName[]             @default([])
+  ascendedPets                 PetName[]               @default([])
   master                       Brute?                  @relation("Master", fields: [masterId], references: [id])
   masterId                     String?                 @db.Uuid
   pupils                       Brute[]                 @relation("Master")

@@ -31,7 +31,8 @@ import {
 import {
   Brute,
   DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
-  InventoryItemType, LogType, Prisma, PrismaClient, SkillName, TournamentType,
+  InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
+  WeaponName,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
@@ -1137,7 +1138,9 @@ const Brutes = {
           level: true,
           eventId: true,
           xp: true,
+          ascendedWeapons: true,
           ascendedSkills: true,
+          ascendedPets: true,
         },
       });
 
@@ -1209,10 +1212,14 @@ const Brutes = {
         throw new Error(translate('missingChoice', authed));
       }
 
-      if (!Object.values(SkillName).includes(choice as SkillName)) {
-        throw new Error('Skill not found');
+      const isWeapon = Object.values(WeaponName).includes(choice as WeaponName);
+      const isSkill = Object.values(SkillName).includes(choice as SkillName);
+      const isPet = Object.values(PetName).includes(choice as PetName);
+      if (!isWeapon && !isSkill && !isPet) {
+        throw new Error('Wrong choice type');
       }
-      const skillName = choice as SkillName;
+
+      const ascendChoice = choice as WeaponName | SkillName | PetName;
 
       const userBrute = await prisma.brute.findFirst({
         where: {
@@ -1229,8 +1236,12 @@ const Brutes = {
           level: true,
           eventId: true,
           xp: true,
+          weapons: true,
           skills: true,
+          pets: true,
+          ascendedWeapons: true,
           ascendedSkills: true,
+          ascendedPets: true,
           destinyChoices: true,
         },
       });
@@ -1247,19 +1258,36 @@ const Brutes = {
         throw new ExpectedError(translate('bruteNotMaxRank', authed));
       }
 
-      if (!userBrute.skills.includes(skillName)) {
-        throw new ExpectedError(translate('bruteMissingSkill', authed));
+      if (isWeapon) {
+        if (!userBrute.weapons.includes(ascendChoice as WeaponName)) {
+          throw new ExpectedError(translate('bruteMissingWeapon', authed));
+        }
+        if (userBrute.ascendedWeapons.includes(ascendChoice as WeaponName)) {
+          throw new ExpectedError(translate('bruteWeaponAlreadyAscended', authed));
+        }
       }
-
-      if (userBrute.ascendedSkills.includes(skillName)) {
-        throw new ExpectedError(translate('bruteSkillAlreadyAscended', authed));
+      if (isSkill) {
+        if (!userBrute.skills.includes(ascendChoice as SkillName)) {
+          throw new ExpectedError(translate('bruteMissingSkill', authed));
+        }
+        if (userBrute.ascendedSkills.includes(ascendChoice as SkillName)) {
+          throw new ExpectedError(translate('bruteSkillAlreadyAscended', authed));
+        }
+      }
+      if (isPet) {
+        if (!userBrute.pets.includes(ascendChoice as PetName)) {
+          throw new ExpectedError(translate('bruteMissingPet', authed));
+        }
+        if (userBrute.ascendedPets.includes(ascendChoice as PetName)) {
+          throw new ExpectedError(translate('brutePetAlreadyAscended', authed));
+        }
       }
 
       const brute = await resetBrute({
         prisma,
         brute: userBrute,
         free: true,
-        ascendedSkill: skillName,
+        ascended: ascendChoice,
       });
 
       // Achievement

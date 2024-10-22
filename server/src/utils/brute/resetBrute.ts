@@ -6,29 +6,30 @@ import {
   getMaxFightsPerDay,
   getRandomStartingStats,
   getTotalXP,
-  randomBetween,
   randomItem,
 } from '@labrute/core';
 import {
   Brute,
-  BruteStat,
   DestinyChoiceType,
+  PetName,
   PrismaClient, SkillName, TournamentType,
   User,
+  WeaponName,
 } from '@labrute/prisma';
 import moment from 'moment';
 import ServerState from '../ServerState.js';
 import translate from '../translate.js';
 import checkLevelUpAchievements from './checkLevelUpAchievements.js';
 import getOpponents from './getOpponents.js';
+import { removeDestinyChoiceFromDestinyPath } from './removeDestinyChoiceFromDestinyPath.js';
 
 type Props = {
   prisma: PrismaClient,
   user?: Pick<User, 'id' | 'lang'>
-  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp' | 'ascendedSkills'>,
+  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp' | 'ascendedSkills' | 'ascendedWeapons' | 'ascendedPets'>,
   free: boolean,
   rankUp?: boolean,
-  ascendedSkill?: SkillName,
+  ascended?: WeaponName | SkillName | PetName,
 };
 
 export const resetBrute = async ({
@@ -37,7 +38,7 @@ export const resetBrute = async ({
   brute,
   free,
   rankUp,
-  ascendedSkill,
+  ascended,
 }: Props) => {
   // Get first bonus
   const firstBonus = await prisma.destinyChoice.findFirst({
@@ -98,52 +99,30 @@ export const resetBrute = async ({
   // Get current modifiers
   const modifiers = await ServerState.getModifiers(prisma);
 
+  const ascendedWeapons = brute.ascendedWeapons || [];
   const ascendedSkills = brute.ascendedSkills || [];
+  const ascendedPets = brute.ascendedPets || [];
 
-  // Assign ascended skills and replace destiny choices
-  if (ascendedSkill) {
-    ascendedSkills.push(ascendedSkill);
-
-    const destinyChoices = await prisma.destinyChoice.findMany({
-      where: {
-        bruteId: brute.id,
-      },
-    });
-
-    // Replace the skill in destiny path with random stats
-    const bruteStats = Object.values(BruteStat);
-    for (const choice of destinyChoices) {
-      if (choice.type !== DestinyChoiceType.skill || choice.skill !== ascendedSkill) {
-        continue;
-      }
-      // Create a stat choice of either +1/+1 or +2
-      const { [randomBetween(0, bruteStats.length - 1)]: firstStat } = bruteStats;
-      let { [randomBetween(0, bruteStats.length - 1)]: secondStat } = bruteStats;
-
-      const statValue = randomBetween(1, 2);
-
-      // Avoid duplicates
-      while (secondStat === firstStat) {
-        secondStat = bruteStats[randomBetween(0, bruteStats.length - 1)];
-      }
-
-      await prisma.destinyChoice.update({
-        where: { id: choice.id },
-        data: {
-          ...choice,
-          type: DestinyChoiceType.stats,
-          skill: null,
-          stat1: firstStat as BruteStat,
-          stat1Value: statValue,
-          stat2: statValue === 1 ? secondStat as BruteStat : null,
-          stat2Value: statValue === 1 ? 1 : null,
-        },
-      });
+  // Add new ascent to the correspond ascended list
+  if (ascended !== undefined) {
+    if (Object.values(WeaponName).includes(ascended as WeaponName)) {
+      ascendedWeapons.push(ascended as WeaponName);
     }
+    if (Object.values(SkillName).includes(ascended as SkillName)) {
+      ascendedSkills.push(ascended as SkillName);
+    }
+    if (Object.values(PetName).includes(ascended as PetName)) {
+      ascendedPets.push(ascended as PetName);
+    }
+
+    // Replace the destiny choice in destiny path with random stats
+    await removeDestinyChoiceFromDestinyPath(prisma, brute, ascended);
   }
 
-  // Add ascended skills to the brute
+  // Add ascended perks
+  stats.weapons = stats.weapons.concat(brute.ascendedWeapons);
   stats.skills = stats.skills.concat(brute.ascendedSkills);
+  stats.pets = stats.pets.concat(brute.ascendedPets);
 
   // Update the brute
   const updatedBrute: HookBrute = await prisma.brute.update({
@@ -162,7 +141,9 @@ export const resetBrute = async ({
       }, modifiers),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
+      ascendedWeapons,
       ascendedSkills,
+      ascendedPets,
       canRankUpSince: rankUp ? null : undefined,
       tournamentWins: rankUp ? 0 : undefined,
       // Restore XP for event brutes
