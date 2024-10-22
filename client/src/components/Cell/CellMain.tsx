@@ -51,23 +51,15 @@ const CellMain = ({
   );
 
   const getRankUpIcon = useMemo(
-    () => {
-      if (!brute) return '';
-
-      return `/images/${brute.ranking === 0 ? 'ascend' : 'ranking'}.png`;
-    },
+    () => `/images/${brute && brute.ranking === 0 ? 'ascend' : 'ranking'}.png`,
     [brute]
   );
 
   const getRankUpText = useMemo(
-    () => {
-      if (!brute) return '';
-
-      return t(
-        brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
-        { value: getWinsNeededToRankUp(brute) }
-      );
-    },
+    () => (!brute ? '' : t(
+      brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
+      { value: getWinsNeededToRankUp(brute) }
+    )),
     [brute, t]
   );
 
