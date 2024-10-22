@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import SkillTooltip from '../Brute/SkillTooltip';
+import { SkillName } from '@labrute/prisma';
 
 const CellSkills = ({
   sx,
@@ -15,6 +16,15 @@ const CellSkills = ({
   const randomSkill = useMemo(
     () => (brute ? getTempSkill(brute, modifiers) : null),
     [brute, modifiers]
+  );
+
+  const getFilter = useMemo(
+    () => (skill: SkillName) => {
+      if (randomSkill === skill) return 'drop-shadow(0 0 0.5rem #ff0000)';
+      if (brute?.ascendedSkills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff9400)';
+      return 'none';
+    },
+    [randomSkill, brute]
   );
 
   return brute && (
@@ -37,7 +47,7 @@ const CellSkills = ({
               src={`/images/skills/${skill.name}.svg`}
               sx={{
                 boxShadow: 4,
-                filter: randomSkill === skill.name ? 'drop-shadow(0 0 5px #ee82ee)' : 'none',
+                filter: getFilter(skill.name),
               }}
             />
           </SkillTooltip>

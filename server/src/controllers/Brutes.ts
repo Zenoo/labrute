@@ -31,7 +31,7 @@ import {
 import {
   Brute,
   DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
-  InventoryItemType, LogType, Prisma, PrismaClient, TournamentType,
+  InventoryItemType, LogType, Prisma, PrismaClient, SkillName, TournamentType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
@@ -1137,6 +1137,7 @@ const Brutes = {
           level: true,
           eventId: true,
           xp: true,
+          ascendedSkills: true,
         },
       });
 
@@ -1182,6 +1183,107 @@ const Brutes = {
         name: brute.name,
         ranking: brute.ranking,
         level: userBrute.level,
+      });
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  ascend: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const { params: { name, choice } } = req;
+
+      const authed = await auth(prisma, req);
+
+      if (!name) {
+        throw new Error(translate('missingName', authed));
+      }
+
+      if (!choice) {
+        throw new Error(translate('missingChoice', authed));
+      }
+
+      if (!Object.values(SkillName).includes(choice as SkillName)) {
+        throw new Error('Skill not found');
+      }
+      const skillName = choice as SkillName;
+
+      const userBrute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(name),
+          deletedAt: null,
+          userId: authed.id,
+        },
+        select: {
+          id: true,
+          ranking: true,
+          canRankUpSince: true,
+          destinyPath: true,
+          clanId: true,
+          level: true,
+          eventId: true,
+          xp: true,
+          skills: true,
+          ascendedSkills: true,
+          destinyChoices: true,
+        },
+      });
+
+      if (!userBrute) {
+        throw new ExpectedError(translate('bruteNotFound', authed));
+      }
+
+      if (!userBrute.canRankUpSince) {
+        throw new ExpectedError(translate('bruteCannotRankUp', authed));
+      }
+
+      if (userBrute.ranking !== 0) {
+        throw new ExpectedError(translate('bruteNotMaxRank', authed));
+      }
+
+      if (!userBrute.skills.includes(skillName)) {
+        throw new ExpectedError(translate('bruteMissingSkill', authed));
+      }
+
+      if (userBrute.ascendedSkills.includes(skillName)) {
+        throw new ExpectedError(translate('bruteSkillAlreadyAscended', authed));
+      }
+
+      const brute = await resetBrute({
+        prisma,
+        brute: userBrute,
+        free: true,
+        ascendedSkill: skillName,
+      });
+
+      // Achievement
+      await increaseAchievement(prisma, authed.id, brute.id, 'ascend');
+
+      // Add ascend log
+      await prisma.log.create({
+        data: {
+          currentBruteId: brute.id,
+          type: LogType.ascend,
+          level: brute.ascendedSkills.length,
+        },
+        select: { id: true },
+      });
+
+      // Update clan points
+      if (userBrute.clanId) {
+        await updateClanPoints(prisma, userBrute.clanId, 'add', brute, userBrute);
+      }
+
+      // Send notification
+      DISCORD.sendAscendNotification({
+        name: brute.name,
+        ascendedSkills: brute.ascendedSkills,
       });
 
       res.send({

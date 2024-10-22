@@ -125,6 +125,7 @@ export const TitleRequirements: Record<AchievementName, number[]> = {
   rankUp2: BaseTitleRequirements[AchievementData.rankUp2.rarety],
   rankUp1: BaseTitleRequirements[AchievementData.rankUp1.rarety],
   rankUp0: BaseTitleRequirements[AchievementData.rankUp0.rarety],
+  ascend: BaseTitleRequirements[AchievementData.ascend.rarety],
   sacrifice: BaseTitleRequirements[AchievementData.sacrifice.rarety],
   beta: BaseTitleRequirements[AchievementData.beta.rarety],
   bug: BaseTitleRequirements[AchievementData.bug.rarety],

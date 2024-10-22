@@ -83,6 +83,19 @@ const CellMain = ({
     });
   }, [Alert, Confirm, brute, t]);
 
+  // Ascend
+  const ascend = useCallback(() => {
+    if (!brute) return;
+
+    Confirm.open(t('ascend'), t('ascendConfirm'), () => {
+      // TODO : Prompt for choice
+      Server.Brute.ascend(brute.name, 'regeneration').then(() => {
+        // Reload page
+        window.location.reload();
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, brute, t]);
+
   // Login
   const login = useCallback(() => {
     Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
@@ -144,6 +157,12 @@ const CellMain = ({
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
           {t('rankUp')}
+        </FantasyButton>
+      )}
+      {/* Ascend */}
+      {owner && brute.canRankUpSince && brute.ranking === 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
+        <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }}>
+          {t('ascend')}
         </FantasyButton>
       )}
       {!authing && !user && (

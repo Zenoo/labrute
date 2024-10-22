@@ -207,6 +207,7 @@ model Brute {
   colors                       String                  @default("00000000000000000000000000000000") @db.VarChar(32)
   weapons                      WeaponName[]            @default([])
   skills                       SkillName[]             @default([])
+  ascendedSkills               SkillName[]             @default([])
   pets                         PetName[]               @default([])
   master                       Brute?                  @relation("Master", fields: [masterId], references: [id])
   masterId                     String?                 @db.Uuid
@@ -322,6 +323,7 @@ enum LogType {
   childup
   up
   lvl
+  ascend
   tournament
   tournamentXp
   bossDefeat
@@ -550,6 +552,8 @@ enum AchievementName {
   rankUp2
   rankUp1
   rankUp0
+  // Ascend
+  ascend
   // User
   sacrifice
   beta

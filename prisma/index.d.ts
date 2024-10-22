@@ -291,6 +291,7 @@ export const LogType: {
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
+  ascend: 'ascend',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
   bossDefeat: 'bossDefeat'
@@ -442,6 +443,7 @@ export const AchievementName: {
   rankUp2: 'rankUp2',
   rankUp1: 'rankUp1',
   rankUp0: 'rankUp0',
+  ascend: 'ascend',
   sacrifice: 'sacrifice',
   beta: 'beta',
   bug: 'bug'
@@ -5670,6 +5672,7 @@ export namespace Prisma {
     colors: number
     weapons: number
     skills: number
+    ascendedSkills: number
     pets: number
     masterId: number
     pupilsCount: number
@@ -5881,6 +5884,7 @@ export namespace Prisma {
     colors?: true
     weapons?: true
     skills?: true
+    ascendedSkills?: true
     pets?: true
     masterId?: true
     pupilsCount?: true
@@ -6023,6 +6027,7 @@ export namespace Prisma {
     colors: string
     weapons: $Enums.WeaponName[]
     skills: $Enums.SkillName[]
+    ascendedSkills: $Enums.SkillName[]
     pets: $Enums.PetName[]
     masterId: string | null
     pupilsCount: number
@@ -6097,6 +6102,7 @@ export namespace Prisma {
     colors?: boolean
     weapons?: boolean
     skills?: boolean
+    ascendedSkills?: boolean
     pets?: boolean
     masterId?: boolean
     pupilsCount?: boolean
@@ -6181,6 +6187,7 @@ export namespace Prisma {
     colors?: boolean
     weapons?: boolean
     skills?: boolean
+    ascendedSkills?: boolean
     pets?: boolean
     masterId?: boolean
     pupilsCount?: boolean
@@ -6241,6 +6248,7 @@ export namespace Prisma {
     colors?: boolean
     weapons?: boolean
     skills?: boolean
+    ascendedSkills?: boolean
     pets?: boolean
     masterId?: boolean
     pupilsCount?: boolean
@@ -6265,7 +6273,7 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "ascendedSkills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
@@ -6368,6 +6376,7 @@ export namespace Prisma {
       colors: string
       weapons: $Enums.WeaponName[]
       skills: $Enums.SkillName[]
+      ascendedSkills: $Enums.SkillName[]
       pets: $Enums.PetName[]
       masterId: string | null
       pupilsCount: number
@@ -6841,6 +6850,7 @@ export namespace Prisma {
     readonly colors: FieldRef<"Brute", 'String'>
     readonly weapons: FieldRef<"Brute", 'WeaponName[]'>
     readonly skills: FieldRef<"Brute", 'SkillName[]'>
+    readonly ascendedSkills: FieldRef<"Brute", 'SkillName[]'>
     readonly pets: FieldRef<"Brute", 'PetName[]'>
     readonly masterId: FieldRef<"Brute", 'String'>
     readonly pupilsCount: FieldRef<"Brute", 'Int'>
@@ -32291,6 +32301,7 @@ export namespace Prisma {
     colors: 'colors',
     weapons: 'weapons',
     skills: 'skills',
+    ascendedSkills: 'ascendedSkills',
     pets: 'pets',
     masterId: 'masterId',
     pupilsCount: 'pupilsCount',
@@ -33129,6 +33140,7 @@ export namespace Prisma {
     colors?: StringFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
@@ -33212,6 +33224,7 @@ export namespace Prisma {
     colors?: SortOrder
     weapons?: SortOrder
     skills?: SortOrder
+    ascendedSkills?: SortOrder
     pets?: SortOrder
     masterId?: SortOrderInput | SortOrder
     pupilsCount?: SortOrder
@@ -33298,6 +33311,7 @@ export namespace Prisma {
     colors?: StringFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
@@ -33381,6 +33395,7 @@ export namespace Prisma {
     colors?: SortOrder
     weapons?: SortOrder
     skills?: SortOrder
+    ascendedSkills?: SortOrder
     pets?: SortOrder
     masterId?: SortOrderInput | SortOrder
     pupilsCount?: SortOrder
@@ -33444,6 +33459,7 @@ export namespace Prisma {
     colors?: StringWithAggregatesFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
     pupilsCount?: IntWithAggregatesFilter<"Brute"> | number
@@ -35164,6 +35180,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -35243,6 +35260,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -35320,6 +35338,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -35399,6 +35418,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -35477,6 +35497,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -35531,6 +35552,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -35582,6 +35604,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -37688,6 +37711,7 @@ export namespace Prisma {
     colors?: SortOrder
     weapons?: SortOrder
     skills?: SortOrder
+    ascendedSkills?: SortOrder
     pets?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
@@ -39430,6 +39454,10 @@ export namespace Prisma {
     set: $Enums.SkillName[]
   }
 
+  export type BruteCreateascendedSkillsInput = {
+    set: $Enums.SkillName[]
+  }
+
   export type BruteCreatepetsInput = {
     set: $Enums.PetName[]
   }
@@ -39800,6 +39828,11 @@ export namespace Prisma {
   }
 
   export type BruteUpdateskillsInput = {
+    set?: $Enums.SkillName[]
+    push?: $Enums.SkillName | $Enums.SkillName[]
+  }
+
+  export type BruteUpdateascendedSkillsInput = {
     set?: $Enums.SkillName[]
     push?: $Enums.SkillName | $Enums.SkillName[]
   }
@@ -42478,6 +42511,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -42555,6 +42589,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -42774,6 +42809,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -42852,6 +42888,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -42953,6 +42990,7 @@ export namespace Prisma {
     colors?: StringFilter<"Brute"> | string
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
@@ -43219,6 +43257,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -43297,6 +43336,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -43378,6 +43418,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -43456,6 +43497,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     clanId?: string | null
@@ -43770,6 +43812,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -43848,6 +43891,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -43929,6 +43973,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -44007,6 +44052,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -44638,6 +44684,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -44716,6 +44763,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -45492,6 +45540,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -45570,6 +45619,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -45662,6 +45712,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -45740,6 +45791,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -45816,6 +45868,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -45894,6 +45947,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -45975,6 +46029,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -46053,6 +46108,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -46294,6 +46350,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -46372,6 +46429,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -46459,6 +46517,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -46537,6 +46596,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -46717,6 +46777,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -46795,6 +46856,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -46959,6 +47021,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -47037,6 +47100,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -47197,6 +47261,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -47275,6 +47340,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -47403,6 +47469,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -47481,6 +47548,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -47573,6 +47641,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -47651,6 +47720,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -47872,6 +47942,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -47950,6 +48021,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -48042,6 +48114,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -48120,6 +48193,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -48308,6 +48382,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -48386,6 +48461,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -48478,6 +48554,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -48556,6 +48633,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -48632,6 +48710,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -48710,6 +48789,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -48855,6 +48935,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -48933,6 +49014,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -49068,6 +49150,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -49146,6 +49229,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -49243,6 +49327,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -49321,6 +49406,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -49466,6 +49552,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -49544,6 +49631,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -49636,6 +49724,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -49714,6 +49803,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -49795,6 +49885,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -49873,6 +49964,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -49959,6 +50051,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -50037,6 +50130,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -50316,6 +50410,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -50394,6 +50489,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -50643,6 +50739,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -50721,6 +50818,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -50886,6 +50984,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -50964,6 +51063,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -51085,6 +51185,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -51163,6 +51264,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -51290,6 +51392,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -51368,6 +51471,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -51444,6 +51548,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -51522,6 +51627,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -51657,6 +51763,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -51735,6 +51842,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -52273,6 +52381,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -52351,6 +52460,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -52432,6 +52542,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -52510,6 +52621,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -52666,6 +52778,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -52744,6 +52857,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -52889,6 +53003,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -52967,6 +53082,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -53102,6 +53218,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -53180,6 +53297,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -53289,6 +53407,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -53367,6 +53486,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -53504,6 +53624,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -53582,6 +53703,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -53658,6 +53780,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -53732,6 +53855,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -53809,6 +53933,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -53886,6 +54011,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -54077,6 +54203,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -54155,6 +54282,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -54232,6 +54360,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -54287,6 +54416,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     pupilsCount?: number
     clanId?: string | null
@@ -54465,6 +54595,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -54543,6 +54674,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54620,6 +54752,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54877,6 +55010,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -54955,6 +55089,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -55032,6 +55167,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -55086,6 +55222,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -55164,6 +55301,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -55241,6 +55379,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -55819,6 +55958,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -55897,6 +56037,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -55974,6 +56115,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -56077,6 +56219,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -56155,6 +56298,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -56232,6 +56376,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -56353,6 +56498,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -56407,6 +56553,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -56519,6 +56666,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -56597,6 +56745,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -56674,6 +56823,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -56727,6 +56877,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -56805,6 +56956,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -56882,6 +57034,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -57242,6 +57395,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -57320,6 +57474,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -57397,6 +57552,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -57451,6 +57607,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -57529,6 +57686,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -57606,6 +57764,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -57661,6 +57820,7 @@ export namespace Prisma {
     colors?: string
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
@@ -57714,6 +57874,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -57792,6 +57953,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
@@ -57869,6 +58031,7 @@ export namespace Prisma {
     colors?: StringFieldUpdateOperationsInput | string
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number

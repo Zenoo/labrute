@@ -6,12 +6,14 @@ import {
   getMaxFightsPerDay,
   getRandomStartingStats,
   getTotalXP,
+  randomBetween,
   randomItem,
 } from '@labrute/core';
 import {
   Brute,
+  BruteStat,
   DestinyChoiceType,
-  PrismaClient, TournamentType,
+  PrismaClient, SkillName, TournamentType,
   User,
 } from '@labrute/prisma';
 import moment from 'moment';
@@ -23,9 +25,10 @@ import getOpponents from './getOpponents.js';
 type Props = {
   prisma: PrismaClient,
   user?: Pick<User, 'id' | 'lang'>
-  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp'>,
+  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp' | 'ascendedSkills'>,
   free: boolean,
   rankUp?: boolean,
+  ascendedSkill?: SkillName,
 };
 
 export const resetBrute = async ({
@@ -34,6 +37,7 @@ export const resetBrute = async ({
   brute,
   free,
   rankUp,
+  ascendedSkill,
 }: Props) => {
   // Get first bonus
   const firstBonus = await prisma.destinyChoice.findFirst({
@@ -94,6 +98,53 @@ export const resetBrute = async ({
   // Get current modifiers
   const modifiers = await ServerState.getModifiers(prisma);
 
+  const ascendedSkills = brute.ascendedSkills || [];
+
+  // Assign ascended skills and replace destiny choices
+  if (ascendedSkill) {
+    ascendedSkills.push(ascendedSkill);
+
+    const destinyChoices = await prisma.destinyChoice.findMany({
+      where: {
+        bruteId: brute.id,
+      },
+    });
+
+    // Replace the skill in destiny path with random stats
+    const bruteStats = Object.values(BruteStat);
+    for (const choice of destinyChoices) {
+      if (choice.type !== DestinyChoiceType.skill || choice.skill !== ascendedSkill) {
+        continue;
+      }
+      // Create a stat choice of either +1/+1 or +2
+      const { [randomBetween(0, bruteStats.length - 1)]: firstStat } = bruteStats;
+      let { [randomBetween(0, bruteStats.length - 1)]: secondStat } = bruteStats;
+
+      const statValue = randomBetween(1, 2);
+
+      // Avoid duplicates
+      while (secondStat === firstStat) {
+        secondStat = bruteStats[randomBetween(0, bruteStats.length - 1)];
+      }
+
+      await prisma.destinyChoice.update({
+        where: { id: choice.id },
+        data: {
+          ...choice,
+          type: DestinyChoiceType.stats,
+          skill: null,
+          stat1: firstStat as BruteStat,
+          stat1Value: statValue,
+          stat2: statValue === 1 ? secondStat as BruteStat : null,
+          stat2Value: statValue === 1 ? 1 : null,
+        },
+      });
+    }
+  }
+
+  // Add ascended skills to the brute
+  stats.skills = stats.skills.concat(brute.ascendedSkills);
+
   // Update the brute
   const updatedBrute: HookBrute = await prisma.brute.update({
     where: { id: brute.id },
@@ -111,6 +162,7 @@ export const resetBrute = async ({
       }, modifiers),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
+      ascendedSkills,
       canRankUpSince: rankUp ? null : undefined,
       tournamentWins: rankUp ? 0 : undefined,
       // Restore XP for event brutes
