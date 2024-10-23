@@ -37,7 +37,7 @@ function formatEmbedTitle(title: string) {
 export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
   sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
-  sendAscendNotification(brute: Pick<Brute, 'name' | 'ascendedSkills'>): void;
+  sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number): void;
   sendModifiersNotification(modifiers: FightModifier[]): void;
   sendRelease(release: Release): Promise<void>;
   sendMessage(message: string): Promise<void>;
@@ -51,9 +51,9 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
     // eslint-disable-next-line no-console
     console.log(`Rank up: ${brute.name} is now ${brute.ranking} at level ${brute.level}`);
   },
-  sendAscendNotification(brute) {
+  sendAscendNotification(brute, ascensions) {
     // eslint-disable-next-line no-console
-    console.log(`Rank up: ${brute.name} has now ascended ${brute.ascendedSkills.length} times`);
+    console.log(`Rank up: ${brute.name} has now ascended ${ascensions} times`);
   },
   sendModifiersNotification(modifiers) {
     // eslint-disable-next-line no-console
@@ -220,10 +220,10 @@ ${error.stack}
     });
   }
 
-  public sendAscendNotification(brute: Pick<Brute, 'name' | 'ascendedSkills'>) {
+  public sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number) {
     const embed = new EmbedBuilder()
       .setColor(0xeb8770)
-      .setTitle(formatEmbedTitle(`${brute.name} ascended ${translate(`rank.${brute.ascendedSkills.length}`)} times`))
+      .setTitle(formatEmbedTitle(`${brute.name} ascended ${translate(`rank.${ascensions}`)} times`))
       .setURL(`${this.#server}${brute.name}/cell`)
       .setAuthor({
         name: 'LaBrute',
