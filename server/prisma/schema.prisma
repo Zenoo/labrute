@@ -208,6 +208,7 @@ model Brute {
   weapons                      WeaponName[]            @default([])
   skills                       SkillName[]             @default([])
   pets                         PetName[]               @default([])
+  ascensions                   Int                     @default(0)
   ascendedWeapons              WeaponName[]            @default([])
   ascendedSkills               SkillName[]             @default([])
   ascendedPets                 PetName[]               @default([])

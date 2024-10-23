@@ -1836,6 +1836,7 @@ const handleEventTournament = async (
         ranking: true,
         eventId: true,
         xp: true,
+        ascensions: true,
         ascendedWeapons: true,
         ascendedSkills: true,
         ascendedPets: true,

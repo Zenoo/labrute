@@ -35,6 +35,7 @@
   "cannotSacrificeClanMaster": "You cannot sacrifice the master of a clan",
   "missingName": "Missing name",
   "missingChoice": "Missing choice",
+  "multipleChoices": "Multiple choices were made when only one was expected",
   "bruteCannotRankUp": "Your brute cannot rank up",
   "bruteAlreadyMaxRank": "Your brute is already at the highest rank",
   "bruteNotMaxRank": "Your brute needs to be at the highest rank",

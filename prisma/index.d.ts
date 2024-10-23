@@ -5504,6 +5504,7 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    ascensions: number | null
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
@@ -5531,6 +5532,7 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    ascensions: number | null
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
@@ -5568,6 +5570,7 @@ export namespace Prisma {
     userId: string | null
     body: string | null
     colors: string | null
+    ascensions: number | null
     masterId: string | null
     pupilsCount: number | null
     clanId: string | null
@@ -5618,6 +5621,7 @@ export namespace Prisma {
     userId: string | null
     body: string | null
     colors: string | null
+    ascensions: number | null
     masterId: string | null
     pupilsCount: number | null
     clanId: string | null
@@ -5673,6 +5677,7 @@ export namespace Prisma {
     weapons: number
     skills: number
     pets: number
+    ascensions: number
     ascendedWeapons: number
     ascendedSkills: number
     ascendedPets: number
@@ -5718,6 +5723,7 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    ascensions?: true
     pupilsCount?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
@@ -5745,6 +5751,7 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    ascensions?: true
     pupilsCount?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
@@ -5782,6 +5789,7 @@ export namespace Prisma {
     userId?: true
     body?: true
     colors?: true
+    ascensions?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -5832,6 +5840,7 @@ export namespace Prisma {
     userId?: true
     body?: true
     colors?: true
+    ascensions?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -5887,6 +5896,7 @@ export namespace Prisma {
     weapons?: true
     skills?: true
     pets?: true
+    ascensions?: true
     ascendedWeapons?: true
     ascendedSkills?: true
     ascendedPets?: true
@@ -6032,6 +6042,7 @@ export namespace Prisma {
     weapons: $Enums.WeaponName[]
     skills: $Enums.SkillName[]
     pets: $Enums.PetName[]
+    ascensions: number
     ascendedWeapons: $Enums.WeaponName[]
     ascendedSkills: $Enums.SkillName[]
     ascendedPets: $Enums.PetName[]
@@ -6109,6 +6120,7 @@ export namespace Prisma {
     weapons?: boolean
     skills?: boolean
     pets?: boolean
+    ascensions?: boolean
     ascendedWeapons?: boolean
     ascendedSkills?: boolean
     ascendedPets?: boolean
@@ -6196,6 +6208,7 @@ export namespace Prisma {
     weapons?: boolean
     skills?: boolean
     pets?: boolean
+    ascensions?: boolean
     ascendedWeapons?: boolean
     ascendedSkills?: boolean
     ascendedPets?: boolean
@@ -6259,6 +6272,7 @@ export namespace Prisma {
     weapons?: boolean
     skills?: boolean
     pets?: boolean
+    ascensions?: boolean
     ascendedWeapons?: boolean
     ascendedSkills?: boolean
     ascendedPets?: boolean
@@ -6285,7 +6299,7 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascensions" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
@@ -6389,6 +6403,7 @@ export namespace Prisma {
       weapons: $Enums.WeaponName[]
       skills: $Enums.SkillName[]
       pets: $Enums.PetName[]
+      ascensions: number
       ascendedWeapons: $Enums.WeaponName[]
       ascendedSkills: $Enums.SkillName[]
       ascendedPets: $Enums.PetName[]
@@ -6865,6 +6880,7 @@ export namespace Prisma {
     readonly weapons: FieldRef<"Brute", 'WeaponName[]'>
     readonly skills: FieldRef<"Brute", 'SkillName[]'>
     readonly pets: FieldRef<"Brute", 'PetName[]'>
+    readonly ascensions: FieldRef<"Brute", 'Int'>
     readonly ascendedWeapons: FieldRef<"Brute", 'WeaponName[]'>
     readonly ascendedSkills: FieldRef<"Brute", 'SkillName[]'>
     readonly ascendedPets: FieldRef<"Brute", 'PetName[]'>
@@ -32318,6 +32334,7 @@ export namespace Prisma {
     weapons: 'weapons',
     skills: 'skills',
     pets: 'pets',
+    ascensions: 'ascensions',
     ascendedWeapons: 'ascendedWeapons',
     ascendedSkills: 'ascendedSkills',
     ascendedPets: 'ascendedPets',
@@ -33159,6 +33176,7 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntFilter<"Brute"> | number
     ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
     ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     ascendedPets?: EnumPetNameNullableListFilter<"Brute">
@@ -33245,6 +33263,7 @@ export namespace Prisma {
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
+    ascensions?: SortOrder
     ascendedWeapons?: SortOrder
     ascendedSkills?: SortOrder
     ascendedPets?: SortOrder
@@ -33334,6 +33353,7 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntFilter<"Brute"> | number
     ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
     ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     ascendedPets?: EnumPetNameNullableListFilter<"Brute">
@@ -33420,6 +33440,7 @@ export namespace Prisma {
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
+    ascensions?: SortOrder
     ascendedWeapons?: SortOrder
     ascendedSkills?: SortOrder
     ascendedPets?: SortOrder
@@ -33486,6 +33507,7 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntWithAggregatesFilter<"Brute"> | number
     ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
     ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     ascendedPets?: EnumPetNameNullableListFilter<"Brute">
@@ -35209,6 +35231,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -35291,6 +35314,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -35371,6 +35395,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -35453,6 +35478,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -35534,6 +35560,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -35591,6 +35618,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -35645,6 +35673,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -37754,6 +37783,7 @@ export namespace Prisma {
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
+    ascensions?: SortOrder
     ascendedWeapons?: SortOrder
     ascendedSkills?: SortOrder
     ascendedPets?: SortOrder
@@ -37797,6 +37827,7 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    ascensions?: SortOrder
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
@@ -37834,6 +37865,7 @@ export namespace Prisma {
     userId?: SortOrder
     body?: SortOrder
     colors?: SortOrder
+    ascensions?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -37884,6 +37916,7 @@ export namespace Prisma {
     userId?: SortOrder
     body?: SortOrder
     colors?: SortOrder
+    ascensions?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -37924,6 +37957,7 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    ascensions?: SortOrder
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
@@ -42574,6 +42608,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -42654,6 +42689,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -42876,6 +42912,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -42957,6 +42994,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -43061,6 +43099,7 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntFilter<"Brute"> | number
     ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
     ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
     ascendedPets?: EnumPetNameNullableListFilter<"Brute">
@@ -43330,6 +43369,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -43411,6 +43451,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -43495,6 +43536,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -43576,6 +43618,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -43893,6 +43936,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -43974,6 +44018,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -44058,6 +44103,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -44139,6 +44185,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -44773,6 +44820,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -44854,6 +44902,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -45633,6 +45682,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -45714,6 +45764,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -45809,6 +45860,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -45890,6 +45942,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -45969,6 +46022,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -46050,6 +46104,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -46134,6 +46189,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -46215,6 +46271,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -46459,6 +46516,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -46540,6 +46598,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -46630,6 +46689,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -46711,6 +46771,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -46894,6 +46955,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -46975,6 +47037,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -47142,6 +47205,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -47223,6 +47287,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -47386,6 +47451,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -47467,6 +47533,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -47598,6 +47665,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -47679,6 +47747,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -47774,6 +47843,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -47855,6 +47925,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -48079,6 +48150,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -48160,6 +48232,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -48255,6 +48328,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -48336,6 +48410,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -48527,6 +48602,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -48608,6 +48684,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -48703,6 +48780,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -48784,6 +48862,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -48863,6 +48942,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -48944,6 +49024,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -49092,6 +49173,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -49173,6 +49255,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -49311,6 +49394,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -49392,6 +49476,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -49492,6 +49577,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -49573,6 +49659,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -49721,6 +49808,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -49802,6 +49890,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -49897,6 +49986,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -49978,6 +50068,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -50062,6 +50153,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -50143,6 +50235,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -50232,6 +50325,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -50313,6 +50407,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -50595,6 +50690,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -50676,6 +50772,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -50928,6 +51025,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -51009,6 +51107,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -51177,6 +51276,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -51258,6 +51358,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -51382,6 +51483,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -51463,6 +51565,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -51593,6 +51696,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -51674,6 +51778,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -51753,6 +51858,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -51834,6 +51940,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -51972,6 +52079,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -52053,6 +52161,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -52594,6 +52703,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -52675,6 +52785,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -52759,6 +52870,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -52840,6 +52952,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -52999,6 +53112,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -53080,6 +53194,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -53228,6 +53343,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -53309,6 +53425,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -53447,6 +53564,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -53528,6 +53646,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -53640,6 +53759,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -53721,6 +53841,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -53861,6 +53982,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -53942,6 +54064,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54021,6 +54144,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -54098,6 +54222,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54178,6 +54303,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54258,6 +54384,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54452,6 +54579,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54533,6 +54661,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54613,6 +54742,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54671,6 +54801,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -54852,6 +54983,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -54933,6 +55065,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55013,6 +55146,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55273,6 +55407,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55354,6 +55489,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55434,6 +55570,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55491,6 +55628,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55572,6 +55710,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -55652,6 +55791,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56233,6 +56373,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56314,6 +56455,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56394,6 +56536,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56500,6 +56643,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56581,6 +56725,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56661,6 +56806,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -56785,6 +56931,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -56842,6 +56989,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -56957,6 +57105,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57038,6 +57187,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57118,6 +57268,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57174,6 +57325,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57255,6 +57407,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57335,6 +57488,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57698,6 +57852,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57779,6 +57934,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57859,6 +58015,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57916,6 +58073,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -57997,6 +58155,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -58077,6 +58236,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -58135,6 +58295,7 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
     ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
@@ -58191,6 +58352,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -58272,6 +58434,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
@@ -58352,6 +58515,7 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
     ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
     ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
     ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]

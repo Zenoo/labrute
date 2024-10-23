@@ -21,15 +21,19 @@ import ServerState from '../ServerState.js';
 import translate from '../translate.js';
 import checkLevelUpAchievements from './checkLevelUpAchievements.js';
 import getOpponents from './getOpponents.js';
-import { removeDestinyChoiceFromDestinyPath } from './removeDestinyChoiceFromDestinyPath.js';
+import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
 
 type Props = {
   prisma: PrismaClient,
   user?: Pick<User, 'id' | 'lang'>
-  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp' | 'ascendedSkills' | 'ascendedWeapons' | 'ascendedPets'>,
+  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp' | 'ascensions' | 'ascendedSkills' | 'ascendedWeapons' | 'ascendedPets'>,
   free: boolean,
   rankUp?: boolean,
-  ascended?: WeaponName | SkillName | PetName,
+  ascended?: {
+    weapon?: WeaponName,
+    skill?: SkillName,
+    pet?: PetName
+  }
 };
 
 export const resetBrute = async ({
@@ -99,24 +103,29 @@ export const resetBrute = async ({
   // Get current modifiers
   const modifiers = await ServerState.getModifiers(prisma);
 
+  const { weapon, skill, pet } = ascended || {};
   const ascendedWeapons = brute.ascendedWeapons || [];
   const ascendedSkills = brute.ascendedSkills || [];
   const ascendedPets = brute.ascendedPets || [];
 
   // Add new ascent to the correspond ascended list
+  let { ascensions } = brute;
   if (ascended !== undefined) {
-    if (Object.values(WeaponName).includes(ascended as WeaponName)) {
-      ascendedWeapons.push(ascended as WeaponName);
+    if (weapon && Object.values(WeaponName).includes(weapon as WeaponName)) {
+      ascendedWeapons.push(weapon as WeaponName);
+      ascensions++;
     }
-    if (Object.values(SkillName).includes(ascended as SkillName)) {
-      ascendedSkills.push(ascended as SkillName);
+    if (skill && Object.values(SkillName).includes(skill as SkillName)) {
+      ascendedSkills.push(skill as SkillName);
+      ascensions++;
     }
-    if (Object.values(PetName).includes(ascended as PetName)) {
-      ascendedPets.push(ascended as PetName);
+    if (pet && Object.values(PetName).includes(pet as PetName)) {
+      ascendedPets.push(pet as PetName);
+      ascensions++;
     }
 
     // Replace the destiny choice in destiny path with random stats
-    await removeDestinyChoiceFromDestinyPath(prisma, brute, ascended);
+    await removeChoiceFromDestiny(prisma, brute, ascended);
   }
 
   // Add ascended perks
@@ -141,6 +150,7 @@ export const resetBrute = async ({
       }, modifiers),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
+      ascensions,
       ascendedWeapons,
       ascendedSkills,
       ascendedPets,

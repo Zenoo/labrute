@@ -18,14 +18,11 @@ const CellSkills = ({
     [brute, modifiers]
   );
 
-  const getFilter = useMemo(
-    () => (skill: SkillName) => {
-      if (randomSkill === skill) return 'drop-shadow(0 0 0.5rem #ff0000)';
-      if (brute?.ascendedSkills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff9400)';
-      return 'none';
-    },
-    [randomSkill, brute]
-  );
+  const getFilter = (skill: SkillName) => {
+    if (randomSkill === skill) return 'drop-shadow(0 0 0.5rem #ff0000)';
+    if (brute?.ascendedSkills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    return 'none';
+  };
 
   return brute && (
     <Grid container spacing={1} sx={{ pt: 1, ...sx }} {...props}>
