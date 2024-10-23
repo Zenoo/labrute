@@ -880,6 +880,7 @@ const Brutes = {
           ...rankOrEvent,
         },
         orderBy: [
+          { ascensions: 'desc' },
           { level: 'desc' },
           { xp: 'desc' },
         ],
