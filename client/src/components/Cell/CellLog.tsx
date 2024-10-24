@@ -88,9 +88,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                 ? t('log.lvl', { brute: log.currentBrute.name, value: t(`lvl_${log.level}`) })
                 : log.type === LogType.up
                   ? t('log.up', { brute: log.currentBrute.name, value: log.level ?? 0 })
-                  : log.type === LogType.tournament
-                    ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
-                    : t(`log.${log.type}`, { value: log.brute })}
+                  : log.type === LogType.ascend
+                    ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { brute: log.currentBrute.name, value: log.level ?? 0 })
+                    : log.type === LogType.tournament
+                      ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
+                      : t(`log.${log.type}`, { value: log.brute })}
             </Text>
           )}
         {(!!log.xp || !!log.gold) && (

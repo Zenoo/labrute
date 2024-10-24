@@ -97,9 +97,13 @@ const CellMain = ({
       {(!owner || (!brute.tournaments.length || brute.currentTournamentStepWatched === 6))
         && !brute.eventId
         && (
-          <Tooltip title={t('tournamentVictoriesUntilRankUp', { value: getWinsNeededToRankUp(brute) })}>
+          <Tooltip title={t(
+            brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
+            { value: getWinsNeededToRankUp(brute) }
+          )}
+          >
             <Box textAlign="center">
-              <Box component="img" src="/images/ranking.png" alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
+              <Box component="img" src={`/images/${brute && brute.ranking === 0 ? 'ascend' : 'ranking'}.png`} alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
               {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
                 <Box
                   // eslint-disable-next-line react/no-array-index-key
@@ -124,6 +128,21 @@ const CellMain = ({
         <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
           {t('rankUp')}
         </FantasyButton>
+      )}
+      {/* Ascend */}
+      {owner && brute.canRankUpSince && brute.ranking === 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
+        <Link
+          to={`/${brute.name}/ascend`}
+          sx={{
+            '&:hover': {
+              textDecoration: 'none',
+            },
+          }}
+        >
+          <FantasyButton color="warning" sx={{ mb: 1 }}>
+            {t('ascend')}
+          </FantasyButton>
+        </Link>
       )}
       {!authing && !user && (
         <FantasyButton

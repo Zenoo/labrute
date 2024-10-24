@@ -1,14 +1,18 @@
 import { getTempSkill, skills } from '@labrute/core';
 import { Box, Grid, PaperProps } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import SkillTooltip from '../Brute/SkillTooltip';
+import { SkillName } from '@labrute/prisma';
 
 const CellSkills = ({
   sx,
+  selectCallback,
   ...props
-}: PaperProps) => {
+}: PaperProps & {
+  selectCallback?: (skill: SkillName) => void,
+}) => {
   const { brute } = useBrute();
   const { randomSkill: randomSkillIndex } = useAuth();
 
@@ -16,6 +20,22 @@ const CellSkills = ({
     () => (brute ? getTempSkill(brute, randomSkillIndex) : null),
     [brute, randomSkillIndex]
   );
+
+  const getFilter = (skill: SkillName) => {
+    if (randomSkill === skill) return 'drop-shadow(0 0 0.5rem #ff0000)';
+    if (brute?.ascendedSkills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    return 'none';
+  };
+
+  const onSkillClick = useCallback((clicked: SkillName) => () => {
+    if (selectCallback === undefined) {
+      return;
+    }
+    if (!brute?.skills.includes(clicked)) {
+      return;
+    }
+    selectCallback(clicked);
+  }, [brute?.skills, selectCallback]);
 
   return brute && (
     <Grid container spacing={1} sx={{ pt: 1, ...sx }} {...props}>
@@ -30,6 +50,7 @@ const CellSkills = ({
               ? 1
               : 0.4
           }}
+          onClick={onSkillClick(skill.name)}
         >
           <SkillTooltip skill={skill}>
             <Box
@@ -37,7 +58,7 @@ const CellSkills = ({
               src={`/images/skills/${skill.name}.svg`}
               sx={{
                 boxShadow: 4,
-                filter: randomSkill === skill.name ? 'drop-shadow(0 0 5px #ee82ee)' : 'none',
+                filter: getFilter(skill.name),
               }}
             />
           </SkillTooltip>
