@@ -1,14 +1,17 @@
 import { PetName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import PetTooltip from '../Brute/PetTooltip';
 import { pets } from '@labrute/core';
 
 const CellPets = ({
   sx,
+  selectCallback,
   ...rest
-}: BoxProps) => {
+}: BoxProps & {
+  selectCallback?: (pet: PetName) => void,
+}) => {
   const { brute } = useBrute();
   const [hoveredPet, setHoveredPet] = useState<PetName | null>(null);
 
@@ -20,6 +23,16 @@ const CellPets = ({
     setHoveredPet(null);
   };
 
+  const onPetClick = useCallback((clicked: PetName) => () => {
+    if (selectCallback === undefined) {
+      return;
+    }
+    if (!brute?.pets.includes(clicked)) {
+      return;
+    }
+    selectCallback(clicked);
+  }, [brute?.pets, selectCallback]);
+
   return brute && (brute.pets.length ? (
     <PetTooltip
       pet={pets.find((p) => p.name === hoveredPet)}
@@ -29,19 +42,19 @@ const CellPets = ({
         <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="261.55px" xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, -34.0, 208.15)">
             {brute.pets.includes(PetName.dog1) && (
-              <use onMouseEnter={hoverPet(PetName.dog1)} onMouseLeave={leavePet} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" />
+              <use onMouseEnter={hoverPet(PetName.dog1)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" />
             )}
             {brute.pets.includes(PetName.dog2) && !brute.pets.includes(PetName.dog3) && (
-              <use onMouseEnter={hoverPet(PetName.dog2)} onMouseLeave={leavePet} height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" />
+              <use onMouseEnter={hoverPet(PetName.dog2)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" />
             )}
             {brute.pets.includes(PetName.dog3) && (
-              <use onMouseEnter={hoverPet(PetName.dog3)} onMouseLeave={leavePet} height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" />
+              <use onMouseEnter={hoverPet(PetName.dog3)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" />
             )}
             {brute.pets.includes(PetName.panther) && (
-              <use onMouseEnter={hoverPet(PetName.panther)} onMouseLeave={leavePet} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" />
+              <use onMouseEnter={hoverPet(PetName.panther)} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" />
             )}
             {brute.pets.includes(PetName.bear) && (
-              <use onMouseEnter={hoverPet(PetName.bear)} onMouseLeave={leavePet} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" />
+              <use onMouseEnter={hoverPet(PetName.bear)} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" />
             )}
           </g>
           <defs>

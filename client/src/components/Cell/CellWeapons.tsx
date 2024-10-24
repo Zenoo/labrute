@@ -41,7 +41,14 @@ const weaponSvgProps: Record<WeaponName, {
   [WeaponName.broadsword]: { id: '_w2', height: '41.3', transform: 'matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)', width: '81.15', xlinkHref: '#sprite4' },
 };
 
-const CellWeapons = (props: BoxProps) => {
+const CellWeapons = (
+  {
+    selectCallback,
+    ...props
+  }: BoxProps & {
+    selectCallback?: (weapon: WeaponName) => void,
+  }
+) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
   const { modifiers } = useAuth();
@@ -64,12 +71,29 @@ const CellWeapons = (props: BoxProps) => {
     [brute, modifiers]
   );
 
+  const onWeaponClick = useCallback((clicked: WeaponName | 'bare-hands' | null) => () => {
+    if (selectCallback === undefined) {
+      return;
+    }
+    if (clicked === null) {
+      return;
+    }
+    if (clicked === 'bare-hands') {
+      return;
+    }
+    if (!brute?.weapons.includes(clicked)) {
+      return;
+    }
+    selectCallback(clicked);
+  }, [brute?.weapons, selectCallback]);
+
   return brute && (
     <WeaponTooltip
       weapon={detailedWeapons.find((w) => w.name === hoveredWeapon)}
       open={hoveredWeapon !== null}
       bareHands={hoveredWeapon === 'bare-hands'}
       placement="bottom"
+      onClick={onWeaponClick(hoveredWeapon)}
     >
       <Box component="svg" xmlnsXlink="http://www.w3.org/1999/xlink" height="209.9px" width="310.9px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310.9 209.9" {...props}>
         {/* ALERT: THIS SVG IS HEAVILY OPTIMIZABLE */}

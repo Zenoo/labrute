@@ -154,8 +154,8 @@ export const resetBrute = async ({
       ascendedWeapons,
       ascendedSkills,
       ascendedPets,
-      canRankUpSince: rankUp ? null : undefined,
-      tournamentWins: rankUp ? 0 : undefined,
+      canRankUpSince: (rankUp || ascended) ? null : undefined,
+      tournamentWins: (rankUp || ascended) ? 0 : undefined,
       // Restore XP for event brutes
       xp: brute.eventId ? getTotalXP(brute) : stats.xp,
       // Track resets

@@ -1503,5 +1503,13 @@
   "event.battleRoyale.rule.8": "The next event will start {{count}} days after the end of the current event",
   "event.battleRoyale.rule.9": "Every event has a random maximum level, the current event maximum level is {{count}}",
   "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore.",
-  "event.started": "A new event just started, come participate before it's too late!"
+  "event.started": "A new event just started, come participate before it's too late!",
+  "perkType.weapon": "Weapon",
+  "perkType.skill": "Skill",
+  "perkType.pet": "Pet",
+  "ascendWith.firstDog": "one pet Dog",
+  "ascendWith.secondDog": "a second pet dog",
+  "ascendWith.thirdDog": "a third pet dog",
+  "youWillAscendWithDog": "You will ascend with {{one_or_a_second_pet_dog}}",
+  "youWillAscendWith": "You will ascend with the {{perkName}} {{perkType}}"
 }

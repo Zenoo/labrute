@@ -42,6 +42,7 @@
   "bruteMissingWeapon": "Your brute is missing this weapon",
   "bruteMissingSkill": "Your brute is missing this skill",
   "bruteMissingPet": "Your brute is missing this pet",
+  "bruteMissingDogAscend": "Your brute must ascend with each dog in order",
   "bruteSkillAlreadyWeapon": "Your brute has already ascended with this weapon",
   "bruteSkillAlreadyAscended": "Your brute has already ascended with this skill",
   "bruteSkillAlreadyPet": "Your brute has already ascended with this pet",

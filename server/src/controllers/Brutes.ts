@@ -1295,6 +1295,13 @@ const Brutes = {
         if (userBrute.ascendedPets.includes(pet as PetName)) {
           throw new ExpectedError(translate('brutePetAlreadyAscended', authed));
         }
+
+        if (pet === PetName.dog2 && !userBrute.ascendedPets.includes(PetName.dog1)) {
+          throw new ExpectedError(translate('bruteMissingPet', authed));
+        }
+        if (pet === PetName.dog3 && !userBrute.ascendedPets.includes(PetName.dog2)) {
+          throw new ExpectedError(translate('bruteMissingPet', authed));
+        }
       }
 
       const brute = await resetBrute({
