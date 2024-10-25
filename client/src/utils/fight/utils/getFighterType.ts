@@ -8,7 +8,8 @@ const getFighterType = (
   if (fighter.type === 'pet') {
     type = fighter.name.startsWith('dog') ? 'dog' : fighter.name as 'bear' | 'panther';
   } else if (fighter.type === 'boss') {
-    type = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' || 'bear';
+    const bossType = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' | 'dog1' || 'bear';
+    type = bossType === 'dog1' ? 'dog' : bossType;
   }
 
   return type;

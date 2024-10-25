@@ -447,8 +447,8 @@ const getFighters = async ({
     }
 
     // Boss
-    positiveIndex++;
     for (const boss of team.bosses) {
+      positiveIndex++;
       spawnedPets++;
 
       fighters.push({

@@ -3,10 +3,9 @@ import {
   ClanCreateResponse,
   ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError, bosses, getFightsLeft,
-  randomItem,
 } from '@labrute/core';
 import {
-  Clan, ClanWarStatus, Prisma, PrismaClient,
+  Clan, ClanWarStatus, Prisma, PrismaClient, BossName
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
@@ -165,7 +164,7 @@ const Clans = {
           name: clanName,
           master: { connect: { id: brute.id } },
           brutes: { connect: { id: brute.id } },
-          boss: randomItem(bosses).name,
+          boss: BossName.Cerberus,
         },
         select: { id: true, name: true },
       });
@@ -1358,7 +1357,7 @@ const Clans = {
           const newGeneratedFight = await generateFight({
             prisma,
             team1: { brutes: [brute] },
-            team2: { bosses: [{ ...boss, startHP: boss.hp - clan.damageOnBoss }] },
+            team2: { bosses: [{ ...boss, startHP: boss.hp - Math.floor(clan.damageOnBoss / boss.count) }] },
             modifiers,
             backups: false,
             achievements: false,
