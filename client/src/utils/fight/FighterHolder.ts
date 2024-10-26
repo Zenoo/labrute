@@ -497,8 +497,8 @@ export default class FighterHolder {
     } else if (this.type === 'pet') {
       this.#animationType = (fighter.name.startsWith('dog') || fighter.name === 'panther') ? 'dog' : 'bear';
     } else {
-      const bossType = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' || 'bear';
-      this.#animationType = bossType === 'panther' ? 'dog' : bossType;
+      const bossType = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' | 'dog1' || 'bear';
+      this.#animationType = bossType === 'dog1' || bossType === 'panther' ? 'dog' : bossType;
     }
 
     // Get all animations
@@ -577,6 +577,13 @@ export default class FighterHolder {
             red: 2.2,
             green: 0.8,
             blue: 0.8,
+          })];
+        } else if (fighter.name === BossName.Cerberus) {
+          this.container.filters = [new AdjustmentFilter({
+            gamma: 1,
+            brightness: 0.37,
+            red: 1.1,
+            blue: 1.02,
           })];
         }
       }

@@ -701,7 +701,8 @@ exports.BruteReportStatus = exports.$Enums.BruteReportStatus = {
 
 exports.BossName = exports.$Enums.BossName = {
   GoldClaw: 'GoldClaw',
-  EmberFang: 'EmberFang'
+  EmberFang: 'EmberFang',
+  Cerberus: 'Cerberus'
 };
 
 exports.ClanWarType = exports.$Enums.ClanWarType = {
