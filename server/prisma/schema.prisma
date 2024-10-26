@@ -369,19 +369,22 @@ enum BruteStat {
 }
 
 model DestinyChoice {
-  id         String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute      Brute               @relation(fields: [bruteId], references: [id])
-  bruteId    String              @db.Uuid
-  path       DestinyChoiceSide[]
-  type       DestinyChoiceType
-  skill      SkillName?
-  weapon     WeaponName?
-  pet        PetName?
-  stat1      BruteStat?
-  stat1Value Int?
-  stat2      BruteStat?
-  stat2Value Int?
-  logs       Log[]
+  id                 String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  brute              Brute               @relation(fields: [bruteId], references: [id])
+  bruteId            String              @db.Uuid
+  path               DestinyChoiceSide[]
+  type               DestinyChoiceType
+  skill              SkillName?
+  weapon             WeaponName?
+  pet                PetName?
+  originalSkill      SkillName?
+  originalWeapon     WeaponName?
+  originalPet        PetName?
+  stat1              BruteStat?
+  stat1Value         Int?
+  stat2              BruteStat?
+  stat2Value         Int?
+  logs               Log[]
 
   @@index([bruteId, path])
 }

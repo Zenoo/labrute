@@ -11398,6 +11398,9 @@ export namespace Prisma {
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
     pet: $Enums.PetName | null
+    originalSkill: $Enums.SkillName | null
+    originalWeapon: $Enums.WeaponName | null
+    originalPet: $Enums.PetName | null
     stat1: $Enums.BruteStat | null
     stat1Value: number | null
     stat2: $Enums.BruteStat | null
@@ -11411,6 +11414,9 @@ export namespace Prisma {
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
     pet: $Enums.PetName | null
+    originalSkill: $Enums.SkillName | null
+    originalWeapon: $Enums.WeaponName | null
+    originalPet: $Enums.PetName | null
     stat1: $Enums.BruteStat | null
     stat1Value: number | null
     stat2: $Enums.BruteStat | null
@@ -11425,6 +11431,9 @@ export namespace Prisma {
     skill: number
     weapon: number
     pet: number
+    originalSkill: number
+    originalWeapon: number
+    originalPet: number
     stat1: number
     stat1Value: number
     stat2: number
@@ -11450,6 +11459,9 @@ export namespace Prisma {
     skill?: true
     weapon?: true
     pet?: true
+    originalSkill?: true
+    originalWeapon?: true
+    originalPet?: true
     stat1?: true
     stat1Value?: true
     stat2?: true
@@ -11463,6 +11475,9 @@ export namespace Prisma {
     skill?: true
     weapon?: true
     pet?: true
+    originalSkill?: true
+    originalWeapon?: true
+    originalPet?: true
     stat1?: true
     stat1Value?: true
     stat2?: true
@@ -11477,6 +11492,9 @@ export namespace Prisma {
     skill?: true
     weapon?: true
     pet?: true
+    originalSkill?: true
+    originalWeapon?: true
+    originalPet?: true
     stat1?: true
     stat1Value?: true
     stat2?: true
@@ -11578,6 +11596,9 @@ export namespace Prisma {
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
     pet: $Enums.PetName | null
+    originalSkill: $Enums.SkillName | null
+    originalWeapon: $Enums.WeaponName | null
+    originalPet: $Enums.PetName | null
     stat1: $Enums.BruteStat | null
     stat1Value: number | null
     stat2: $Enums.BruteStat | null
@@ -11611,6 +11632,9 @@ export namespace Prisma {
     skill?: boolean
     weapon?: boolean
     pet?: boolean
+    originalSkill?: boolean
+    originalWeapon?: boolean
+    originalPet?: boolean
     stat1?: boolean
     stat1Value?: boolean
     stat2?: boolean
@@ -11628,6 +11652,9 @@ export namespace Prisma {
     skill?: boolean
     weapon?: boolean
     pet?: boolean
+    originalSkill?: boolean
+    originalWeapon?: boolean
+    originalPet?: boolean
     stat1?: boolean
     stat1Value?: boolean
     stat2?: boolean
@@ -11643,13 +11670,16 @@ export namespace Prisma {
     skill?: boolean
     weapon?: boolean
     pet?: boolean
+    originalSkill?: boolean
+    originalWeapon?: boolean
+    originalPet?: boolean
     stat1?: boolean
     stat1Value?: boolean
     stat2?: boolean
     stat2Value?: boolean
   }
 
-  export type DestinyChoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "path" | "type" | "skill" | "weapon" | "pet" | "stat1" | "stat1Value" | "stat2" | "stat2Value", ExtArgs["result"]["destinyChoice"]>
+  export type DestinyChoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "path" | "type" | "skill" | "weapon" | "pet" | "originalSkill" | "originalWeapon" | "originalPet" | "stat1" | "stat1Value" | "stat2" | "stat2Value", ExtArgs["result"]["destinyChoice"]>
   export type DestinyChoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
     logs?: boolean | DestinyChoice$logsArgs<ExtArgs>
@@ -11673,6 +11703,9 @@ export namespace Prisma {
       skill: $Enums.SkillName | null
       weapon: $Enums.WeaponName | null
       pet: $Enums.PetName | null
+      originalSkill: $Enums.SkillName | null
+      originalWeapon: $Enums.WeaponName | null
+      originalPet: $Enums.PetName | null
       stat1: $Enums.BruteStat | null
       stat1Value: number | null
       stat2: $Enums.BruteStat | null
@@ -12079,6 +12112,9 @@ export namespace Prisma {
     readonly skill: FieldRef<"DestinyChoice", 'SkillName'>
     readonly weapon: FieldRef<"DestinyChoice", 'WeaponName'>
     readonly pet: FieldRef<"DestinyChoice", 'PetName'>
+    readonly originalSkill: FieldRef<"DestinyChoice", 'SkillName'>
+    readonly originalWeapon: FieldRef<"DestinyChoice", 'WeaponName'>
+    readonly originalPet: FieldRef<"DestinyChoice", 'PetName'>
     readonly stat1: FieldRef<"DestinyChoice", 'BruteStat'>
     readonly stat1Value: FieldRef<"DestinyChoice", 'Int'>
     readonly stat2: FieldRef<"DestinyChoice", 'BruteStat'>
@@ -32420,6 +32456,9 @@ export namespace Prisma {
     skill: 'skill',
     weapon: 'weapon',
     pet: 'pet',
+    originalSkill: 'originalSkill',
+    originalWeapon: 'originalWeapon',
+    originalPet: 'originalPet',
     stat1: 'stat1',
     stat1Value: 'stat1Value',
     stat2: 'stat2',
@@ -33812,6 +33851,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -33828,6 +33870,9 @@ export namespace Prisma {
     skill?: SortOrderInput | SortOrder
     weapon?: SortOrderInput | SortOrder
     pet?: SortOrderInput | SortOrder
+    originalSkill?: SortOrderInput | SortOrder
+    originalWeapon?: SortOrderInput | SortOrder
+    originalPet?: SortOrderInput | SortOrder
     stat1?: SortOrderInput | SortOrder
     stat1Value?: SortOrderInput | SortOrder
     stat2?: SortOrderInput | SortOrder
@@ -33847,6 +33892,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -33863,6 +33911,9 @@ export namespace Prisma {
     skill?: SortOrderInput | SortOrder
     weapon?: SortOrderInput | SortOrder
     pet?: SortOrderInput | SortOrder
+    originalSkill?: SortOrderInput | SortOrder
+    originalWeapon?: SortOrderInput | SortOrder
+    originalPet?: SortOrderInput | SortOrder
     stat1?: SortOrderInput | SortOrder
     stat1Value?: SortOrderInput | SortOrder
     stat2?: SortOrderInput | SortOrder
@@ -33885,6 +33936,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableWithAggregatesFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -35980,6 +36034,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -35996,6 +36053,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -36010,6 +36070,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -36026,6 +36089,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -36041,6 +36107,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -36054,6 +36123,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -36068,6 +36140,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -38281,6 +38356,9 @@ export namespace Prisma {
     skill?: SortOrder
     weapon?: SortOrder
     pet?: SortOrder
+    originalSkill?: SortOrder
+    originalWeapon?: SortOrder
+    originalPet?: SortOrder
     stat1?: SortOrder
     stat1Value?: SortOrder
     stat2?: SortOrder
@@ -38299,6 +38377,9 @@ export namespace Prisma {
     skill?: SortOrder
     weapon?: SortOrder
     pet?: SortOrder
+    originalSkill?: SortOrder
+    originalWeapon?: SortOrder
+    originalPet?: SortOrder
     stat1?: SortOrder
     stat1Value?: SortOrder
     stat2?: SortOrder
@@ -38312,6 +38393,9 @@ export namespace Prisma {
     skill?: SortOrder
     weapon?: SortOrder
     pet?: SortOrder
+    originalSkill?: SortOrder
+    originalWeapon?: SortOrder
+    originalPet?: SortOrder
     stat1?: SortOrder
     stat1Value?: SortOrder
     stat2?: SortOrder
@@ -43851,6 +43935,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -43865,6 +43952,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -45108,6 +45198,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -47137,6 +47230,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -47152,6 +47248,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -47399,6 +47498,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -47414,6 +47516,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -54877,6 +54982,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -55316,6 +55424,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -55330,6 +55441,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -55344,6 +55458,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null

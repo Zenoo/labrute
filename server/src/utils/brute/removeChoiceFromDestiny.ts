@@ -49,6 +49,18 @@ export const removeChoiceFromDestiny = async (
     destinyChoiceType = DestinyChoiceType.pet;
   }
 
+  let originalDestinyChoiceType: 'originalWeapon' | 'originalSkill' | 'originalPet';
+  if (isWeapon) {
+    originalDestinyChoiceType = 'originalWeapon';
+  } else if (isSkill) {
+    originalDestinyChoiceType = 'originalSkill';
+  } else {
+    if (!isPet) {
+      throw new Error('Invalid destiny choice type');
+    }
+    originalDestinyChoiceType = 'originalPet';
+  }
+
   const destinyChoicesToRemove = await prisma.destinyChoice.findMany({
     where: {
       bruteId: brute.id,
@@ -76,6 +88,7 @@ export const removeChoiceFromDestiny = async (
       where: { id: choice.id },
       data: {
         ...choice,
+        [originalDestinyChoiceType]: destinyChoice,
         type: DestinyChoiceType.stats,
         skill: null,
         pet: null,
