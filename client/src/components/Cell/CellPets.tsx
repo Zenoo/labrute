@@ -1,6 +1,6 @@
 import { PetName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import PetTooltip from '../Brute/PetTooltip';
 import { pets } from '@labrute/core';
@@ -34,7 +34,7 @@ const CellPets = ({
     setHoveredPet(null);
   };
 
-  const onPetClick = useCallback((clicked: PetName) => () => {
+  const onPetClick = (clicked: PetName) => () => {
     if (selectCallback === undefined) {
       return;
     }
@@ -42,7 +42,7 @@ const CellPets = ({
       return;
     }
     selectCallback(clicked);
-  }, [brute?.pets, selectCallback]);
+  };
 
   return brute && (brute.pets.length ? (
     <PetTooltip

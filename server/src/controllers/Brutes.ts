@@ -879,11 +879,16 @@ const Brutes = {
           userId: { not: null },
           ...rankOrEvent,
         },
-        orderBy: [
-          { ascensions: 'desc' },
-          { level: 'desc' },
-          { xp: 'desc' },
-        ],
+        orderBy: rank === 0
+          ? [
+            { ascensions: 'desc' },
+            { level: 'desc' },
+            { xp: 'desc' },
+          ]
+          : [
+            { level: 'desc' },
+            { xp: 'desc' },
+          ],
         take: 15,
         select: {
           id: true,
@@ -1071,20 +1076,25 @@ const Brutes = {
           deletedAt: null,
           id: { not: brute.id },
           userId: { not: null },
-          OR: [
-            { ascensions: { gt: brute.ascensions } },
-            {
-              AND: [
-                { ascensions: { equals: brute.ascensions } },
-                {
-                  OR: [
-                    { level: { gt: brute.level } },
-                    { level: brute.level, xp: { gt: brute.xp } },
-                  ],
-                },
-              ],
-            },
-          ],
+          OR: rank === 0
+            ? [
+              { ascensions: { gt: brute.ascensions } },
+              {
+                AND: [
+                  { ascensions: { equals: brute.ascensions } },
+                  {
+                    OR: [
+                      { level: { gt: brute.level } },
+                      { level: brute.level, xp: { gt: brute.xp } },
+                    ],
+                  },
+                ],
+              },
+            ]
+            : [
+              { level: { gt: brute.level } },
+              { level: brute.level, xp: { gt: brute.xp } },
+            ],
         },
       });
 

@@ -262,6 +262,7 @@ model Brute {
   resets                       Int                     @default(0)
 
   @@index([deletedAt, eventId, ranking])
+  @@index([ascensions, level, xp])
 }
 
 model BruteStartingStats {

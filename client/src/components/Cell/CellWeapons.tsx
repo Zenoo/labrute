@@ -83,7 +83,7 @@ const CellWeapons = (
     return 'none';
   };
 
-  const onWeaponClick = useCallback((clicked: WeaponName | 'bare-hands' | null) => () => {
+  const onWeaponClick = (clicked: WeaponName | 'bare-hands' | null) => () => {
     if (selectCallback === undefined) {
       return;
     }
@@ -97,7 +97,7 @@ const CellWeapons = (
       return;
     }
     selectCallback(clicked);
-  }, [brute?.weapons, selectCallback]);
+  };
 
   return brute && (
     <WeaponTooltip

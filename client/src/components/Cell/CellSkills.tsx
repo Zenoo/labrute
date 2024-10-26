@@ -1,6 +1,6 @@
 import { getTempSkill, skills } from '@labrute/core';
 import { Box, Grid, PaperProps } from '@mui/material';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import SkillTooltip from '../Brute/SkillTooltip';
@@ -35,7 +35,7 @@ const CellSkills = ({
     return 'none';
   };
 
-  const onSkillClick = useCallback((clicked: SkillName) => () => {
+  const onSkillClick = (clicked: SkillName) => () => {
     if (selectCallback === undefined) {
       return;
     }
@@ -43,7 +43,7 @@ const CellSkills = ({
       return;
     }
     selectCallback(clicked);
-  }, [brute?.skills, selectCallback]);
+  };
 
   return brute && (
     <Grid container spacing={1} sx={{ pt: 1, ...sx }} {...props}>

@@ -93,7 +93,7 @@ const CellMain = ({
               { brute.ascensions > 0 && (
                 <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
                   <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
-                  <Box component="img" sx={{ width: 16, height: 16 }} src="/images/oreille.gif" />
+                  <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />
                 </Box>
               )}
             </Box>

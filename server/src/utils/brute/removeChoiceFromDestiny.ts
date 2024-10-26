@@ -38,26 +38,18 @@ export const removeChoiceFromDestiny = async (
   }
 
   let destinyChoiceType: DestinyChoiceType;
-  if (isWeapon) {
-    destinyChoiceType = DestinyChoiceType.weapon;
-  } else if (isSkill) {
-    destinyChoiceType = DestinyChoiceType.skill;
-  } else {
-    if (!isPet) {
-      throw new Error('Invalid destiny choice type');
-    }
-    destinyChoiceType = DestinyChoiceType.pet;
-  }
-
   let originalDestinyChoiceType: 'originalWeapon' | 'originalSkill' | 'originalPet';
   if (isWeapon) {
+    destinyChoiceType = DestinyChoiceType.weapon;
     originalDestinyChoiceType = 'originalWeapon';
   } else if (isSkill) {
+    destinyChoiceType = DestinyChoiceType.skill;
     originalDestinyChoiceType = 'originalSkill';
   } else {
     if (!isPet) {
       throw new Error('Invalid destiny choice type');
     }
+    destinyChoiceType = DestinyChoiceType.pet;
     originalDestinyChoiceType = 'originalPet';
   }
 
