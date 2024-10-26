@@ -417,8 +417,8 @@ export const fighterArrives = (
     }
   }
 
-  // Poison fighters (not for bosses)
-  if (fighter.skills.find((skill) => skill.name === SkillName.chef)) {
+  // Poison fighters (not on bosses) (doesn't trigger for backups)
+  if (!fighter.master && fighter.skills.find((skill) => skill.name === SkillName.chef)) {
     getOpponents({ fightData, fighter }).forEach((opponent) => {
       if (opponent.type !== 'boss') {
         opponent.poisoned = true;
