@@ -5,6 +5,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import WeaponTooltip from '../Brute/WeaponTooltip';
+import { PerkColor } from '../../utils/StatColor';
 
 const weaponSvgProps: Record<WeaponName, {
   id: string;
@@ -71,15 +72,15 @@ const CellWeapons = (
   }, [brute]);
 
   const randomWeapon = useMemo(
-    () => (brute ? getTempWeapon(brute, modifiers) : null),
-    [brute, modifiers]
+    () => (brute && !hoverSelectAscend ? getTempWeapon(brute, modifiers) : null),
+    [brute, hoverSelectAscend, modifiers]
   );
 
   const getFilter = (weapon: WeaponName) => {
-    if (randomWeapon === weapon) return 'drop-shadow(0 0 4px rgb(255, 255, 0))';
-    if (brute?.ascendedWeapons.includes(weapon)) return 'drop-shadow(0 0 0.5rem #ff9400)';
-    if (selectedWeapon === weapon) return 'drop-shadow(0 0 0.5rem #ff9400)';
-    if (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons.includes(weapon)) return 'drop-shadow(0 0 0.5rem #ff0072)';
+    if (randomWeapon === weapon) return `drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
+    if (brute?.ascendedWeapons.includes(weapon)
+      || selectedWeapon === weapon
+      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons.includes(weapon))) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
     return 'none';
   };
 
@@ -152,6 +153,7 @@ const CellWeapons = (
               onMouseEnter={hoverWeapon(weapon)}
               onMouseLeave={leaveWeapon}
               filter={getFilter(weapon)}
+              cursor="pointer"
             />
           ))}
           {unownedWeapons.map((weapon) => (weapon === randomWeapon ? null : (

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import PetTooltip from '../Brute/PetTooltip';
 import { pets } from '@labrute/core';
+import { PerkColor } from '../../utils/StatColor';
 
 const CellPets = ({
   sx,
@@ -20,9 +21,9 @@ const CellPets = ({
   const [hoveredPet, setHoveredPet] = useState<PetName | null>(null);
 
   const getFilter = (pet: PetName) => {
-    if (brute?.ascendedPets.includes(pet)) return 'drop-shadow(0 0 0.5rem #ff9400)';
-    if (selectedPet === pet) return 'drop-shadow(0 0 0.5rem #ff9400)';
-    if (hoverSelectAscend && hoveredPet === pet) return 'drop-shadow(0 0 0.5rem #ff0072)';
+    if (brute?.ascendedPets.includes(pet)
+      || selectedPet === pet
+      || (hoverSelectAscend && hoveredPet === pet)) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
     return 'none';
   };
 
@@ -50,8 +51,8 @@ const CellPets = ({
       open={hoveredPet !== null}
     >
       <Box sx={{ textAlign: 'center', ...sx }} {...rest}>
-        <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="261.55px" xmlns="http://www.w3.org/2000/svg">
-          <g transform="matrix(1.0, 0.0, 0.0, 1.0, -34.0, 208.15)">
+        <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="271.55px" xmlns="http://www.w3.org/2000/svg">
+          <g transform="matrix(1.0, 0.0, 0.0, 1.0, -24.0, 208.15)">
             {brute.pets.includes(PetName.dog1) && (
               <use onMouseEnter={hoverPet(PetName.dog1)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1) }} />
             )}

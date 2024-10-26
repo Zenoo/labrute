@@ -670,6 +670,19 @@ const AdminView = () => {
                   </Grid>
                   <Grid item xs={6} sm={3}>
                     <StyledInput
+                      label="Tournament wins"
+                      value={brute.tournamentWins}
+                      onChange={(event) => {
+                        setBrute((b) => (b ? ({
+                          ...b,
+                          tournamentWins: +event.target.value,
+                        }) : null));
+                      }}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <StyledInput
                       label="Body"
                       value={brute.body}
                       onChange={(event) => {

@@ -90,11 +90,13 @@ const CellMain = ({
             <Box component="img" sx={{ width: 40, height: 40 }} src={`/images/rankings/lvl_${brute.ranking}.webp`} />
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
-              { brute.ascensions > 0 && (
-                <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
-                  <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
-                  <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />
-                </Box>
+              {brute.ascensions > 0 && (
+                <Tooltip title={t('ascensions')}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
+                    <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
+                    <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />
+                  </Box>
+                </Tooltip>
               )}
             </Box>
           </Box>

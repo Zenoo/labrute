@@ -750,7 +750,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Code\\labrute-zen\\labrute\\prisma",
+      "value": "C:\\Users\\perso\\Documents\\GitHub\\labrute\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -777,7 +777,7 @@ const config = {
       "relationJoins",
       "omitApi"
     ],
-    "sourceFilePath": "C:\\Code\\labrute-zen\\labrute\\server\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\perso\\Documents\\GitHub\\labrute\\server\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
