@@ -11,8 +11,6 @@ import {
   getWinsNeededToRankUp,
   LAST_RELEASE,
   randomBetween,
-  skills,
-  weapons,
   weightedRandom,
 } from '@labrute/core';
 import {
@@ -1066,14 +1064,6 @@ const handleModifiers = async (prisma: PrismaClient) => {
   await ServerState.setModifiers(prisma, rolledModifiers);
 
   if (rolledModifiers.length) {
-    // Handle random skill/weapon modifiers
-    if (rolledModifiers.some((modifier) => modifier === FightModifier.randomSkill)) {
-      await ServerState.setRandomSkill(prisma, weapons.length + randomBetween(0, 99));
-    }
-    if (rolledModifiers.some((modifier) => modifier === FightModifier.randomWeapon)) {
-      await ServerState.setRandomWeapon(prisma, skills.length + randomBetween(0, 99));
-    }
-
     DISCORD.sendModifiersNotification(rolledModifiers);
   }
 

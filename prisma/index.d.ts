@@ -19697,36 +19697,20 @@ export namespace Prisma {
 
   export type AggregateServerState = {
     _count: ServerStateCountAggregateOutputType | null
-    _avg: ServerStateAvgAggregateOutputType | null
-    _sum: ServerStateSumAggregateOutputType | null
     _min: ServerStateMinAggregateOutputType | null
     _max: ServerStateMaxAggregateOutputType | null
-  }
-
-  export type ServerStateAvgAggregateOutputType = {
-    randomWeapon: number | null
-    randomSkill: number | null
-  }
-
-  export type ServerStateSumAggregateOutputType = {
-    randomWeapon: number | null
-    randomSkill: number | null
   }
 
   export type ServerStateMinAggregateOutputType = {
     id: string | null
     globalTournamentValid: boolean | null
     modifiersEndAt: Date | null
-    randomWeapon: number | null
-    randomSkill: number | null
   }
 
   export type ServerStateMaxAggregateOutputType = {
     id: string | null
     globalTournamentValid: boolean | null
     modifiersEndAt: Date | null
-    randomWeapon: number | null
-    randomSkill: number | null
   }
 
   export type ServerStateCountAggregateOutputType = {
@@ -19734,37 +19718,21 @@ export namespace Prisma {
     globalTournamentValid: number
     activeModifiers: number
     modifiersEndAt: number
-    randomWeapon: number
-    randomSkill: number
     nextModifiers: number
     _all: number
   }
 
 
-  export type ServerStateAvgAggregateInputType = {
-    randomWeapon?: true
-    randomSkill?: true
-  }
-
-  export type ServerStateSumAggregateInputType = {
-    randomWeapon?: true
-    randomSkill?: true
-  }
-
   export type ServerStateMinAggregateInputType = {
     id?: true
     globalTournamentValid?: true
     modifiersEndAt?: true
-    randomWeapon?: true
-    randomSkill?: true
   }
 
   export type ServerStateMaxAggregateInputType = {
     id?: true
     globalTournamentValid?: true
     modifiersEndAt?: true
-    randomWeapon?: true
-    randomSkill?: true
   }
 
   export type ServerStateCountAggregateInputType = {
@@ -19772,8 +19740,6 @@ export namespace Prisma {
     globalTournamentValid?: true
     activeModifiers?: true
     modifiersEndAt?: true
-    randomWeapon?: true
-    randomSkill?: true
     nextModifiers?: true
     _all?: true
   }
@@ -19816,18 +19782,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ServerStateAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ServerStateSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ServerStateMinAggregateInputType
@@ -19858,8 +19812,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ServerStateCountAggregateInputType | true
-    _avg?: ServerStateAvgAggregateInputType
-    _sum?: ServerStateSumAggregateInputType
     _min?: ServerStateMinAggregateInputType
     _max?: ServerStateMaxAggregateInputType
   }
@@ -19869,12 +19821,8 @@ export namespace Prisma {
     globalTournamentValid: boolean
     activeModifiers: $Enums.FightModifier[]
     modifiersEndAt: Date | null
-    randomWeapon: number | null
-    randomSkill: number | null
     nextModifiers: $Enums.FightModifier[]
     _count: ServerStateCountAggregateOutputType | null
-    _avg: ServerStateAvgAggregateOutputType | null
-    _sum: ServerStateSumAggregateOutputType | null
     _min: ServerStateMinAggregateOutputType | null
     _max: ServerStateMaxAggregateOutputType | null
   }
@@ -19898,8 +19846,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: boolean
     modifiersEndAt?: boolean
-    randomWeapon?: boolean
-    randomSkill?: boolean
     nextModifiers?: boolean
   }, ExtArgs["result"]["serverState"]>
 
@@ -19908,8 +19854,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: boolean
     modifiersEndAt?: boolean
-    randomWeapon?: boolean
-    randomSkill?: boolean
     nextModifiers?: boolean
   }, ExtArgs["result"]["serverState"]>
 
@@ -19918,12 +19862,10 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: boolean
     modifiersEndAt?: boolean
-    randomWeapon?: boolean
-    randomSkill?: boolean
     nextModifiers?: boolean
   }
 
-  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt" | "randomWeapon" | "randomSkill" | "nextModifiers", ExtArgs["result"]["serverState"]>
+  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt" | "nextModifiers", ExtArgs["result"]["serverState"]>
 
   export type $ServerStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ServerState"
@@ -19933,8 +19875,6 @@ export namespace Prisma {
       globalTournamentValid: boolean
       activeModifiers: $Enums.FightModifier[]
       modifiersEndAt: Date | null
-      randomWeapon: number | null
-      randomSkill: number | null
       nextModifiers: $Enums.FightModifier[]
     }, ExtArgs["result"]["serverState"]>
     composites: {}
@@ -20333,8 +20273,6 @@ export namespace Prisma {
     readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
     readonly activeModifiers: FieldRef<"ServerState", 'FightModifier[]'>
     readonly modifiersEndAt: FieldRef<"ServerState", 'DateTime'>
-    readonly randomWeapon: FieldRef<"ServerState", 'Int'>
-    readonly randomSkill: FieldRef<"ServerState", 'Int'>
     readonly nextModifiers: FieldRef<"ServerState", 'FightModifier[]'>
   }
     
@@ -32481,8 +32419,6 @@ export namespace Prisma {
     globalTournamentValid: 'globalTournamentValid',
     activeModifiers: 'activeModifiers',
     modifiersEndAt: 'modifiersEndAt',
-    randomWeapon: 'randomWeapon',
-    randomSkill: 'randomSkill',
     nextModifiers: 'nextModifiers'
   };
 
@@ -34237,8 +34173,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
-    randomWeapon?: IntNullableFilter<"ServerState"> | number | null
-    randomSkill?: IntNullableFilter<"ServerState"> | number | null
     nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }
 
@@ -34247,8 +34181,6 @@ export namespace Prisma {
     globalTournamentValid?: SortOrder
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrderInput | SortOrder
-    randomWeapon?: SortOrderInput | SortOrder
-    randomSkill?: SortOrderInput | SortOrder
     nextModifiers?: SortOrder
   }
 
@@ -34260,8 +34192,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
-    randomWeapon?: IntNullableFilter<"ServerState"> | number | null
-    randomSkill?: IntNullableFilter<"ServerState"> | number | null
     nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }, "id" | "id">
 
@@ -34270,14 +34200,10 @@ export namespace Prisma {
     globalTournamentValid?: SortOrder
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrderInput | SortOrder
-    randomWeapon?: SortOrderInput | SortOrder
-    randomSkill?: SortOrderInput | SortOrder
     nextModifiers?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
-    _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
     _min?: ServerStateMinOrderByAggregateInput
-    _sum?: ServerStateSumOrderByAggregateInput
   }
 
   export type ServerStateScalarWhereWithAggregatesInput = {
@@ -34288,8 +34214,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableWithAggregatesFilter<"ServerState"> | Date | string | null
-    randomWeapon?: IntNullableWithAggregatesFilter<"ServerState"> | number | null
-    randomSkill?: IntNullableWithAggregatesFilter<"ServerState"> | number | null
     nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }
 
@@ -36362,8 +36286,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
-    randomWeapon?: number | null
-    randomSkill?: number | null
     nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36372,8 +36294,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
-    randomWeapon?: number | null
-    randomSkill?: number | null
     nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36382,8 +36302,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36392,8 +36310,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36402,8 +36318,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
-    randomWeapon?: number | null
-    randomSkill?: number | null
     nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36412,8 +36326,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36422,8 +36334,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -38574,35 +38484,19 @@ export namespace Prisma {
     globalTournamentValid?: SortOrder
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrder
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
     nextModifiers?: SortOrder
-  }
-
-  export type ServerStateAvgOrderByAggregateInput = {
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
   }
 
   export type ServerStateMaxOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
     modifiersEndAt?: SortOrder
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
   }
 
   export type ServerStateMinOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
     modifiersEndAt?: SortOrder
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
-  }
-
-  export type ServerStateSumOrderByAggregateInput = {
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
   }
 
   export type BannedWordCountOrderByAggregateInput = {

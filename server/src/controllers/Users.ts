@@ -122,8 +122,6 @@ const Users = {
       res.send({
         user,
         modifiers: await ServerState.getModifiers(prisma),
-        randomSkill: await ServerState.getRandomSkill(prisma),
-        randomWeapon: await ServerState.getRandomWeapon(prisma),
         currentEvent: await ServerState.getCurrentEvent(prisma),
       });
     } catch (error) {
@@ -455,6 +453,7 @@ const Users = {
           deletedAt: null,
         },
         select: {
+          id: true,
           lastFight: true,
           fightsLeft: true,
           skills: true,
@@ -466,8 +465,8 @@ const Users = {
         throw new ExpectedError('No brutes found');
       }
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
-      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, randomSkill) === 0);
+      const modifiers = await ServerState.getModifiers(prisma);
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, modifiers) === 0);
 
       res.send(isDoneForToday);
     } catch (error) {
@@ -561,10 +560,10 @@ const Users = {
         },
       });
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
+      const modifiers = await ServerState.getModifiers(prisma);
 
       for (const brute of brutes) {
-        const fightsLeft = getFightsLeft(brute, randomSkill) + 1;
+        const fightsLeft = getFightsLeft(brute, modifiers) + 1;
 
         await prisma.brute.update({
           where: {

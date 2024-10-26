@@ -24,7 +24,7 @@ const ClanView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
   const Alert = useAlert();
-  const { user, updateData, randomSkill } = useAuth();
+  const { user, updateData, modifiers } = useAuth();
   const navigate = useNavigate();
   const Confirm = useConfirm();
   const { brute, updateBrute, owner } = useBrute();
@@ -283,7 +283,7 @@ const ClanView = () => {
     if (!clan || !brute) return;
 
     // Check if brute still has fights left
-    if (getFightsLeft(brute, randomSkill) <= 0) {
+    if (getFightsLeft(brute, modifiers) <= 0) {
       Alert.open('error', t('noFightsLeft'));
       return;
     }
@@ -294,7 +294,7 @@ const ClanView = () => {
         ...data,
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b,
-          fightsLeft: getFightsLeft(b, randomSkill) - 1,
+          fightsLeft: getFightsLeft(b, modifiers) - 1,
           lastFight: new Date(),
         } : b)),
       }) : null));
@@ -304,7 +304,7 @@ const ClanView = () => {
 
         return {
           ...b,
-          fightsLeft: getFightsLeft(b, randomSkill) - 1,
+          fightsLeft: getFightsLeft(b, modifiers) - 1,
           lastFight: new Date(),
         };
       });

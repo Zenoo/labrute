@@ -11,6 +11,7 @@ import { useAuth } from '../../hooks/useAuth';
 interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
   brute?: Pick<
     Brute,
+    'id' |
     'name' |
     'hp' |
     'level' |
@@ -46,23 +47,23 @@ const BruteTooltip = ({
   ...rest
 }: BruteTooltipProps) => {
   const { t } = useTranslation();
-  const { randomSkill, modifiers } = useAuth();
+  const { modifiers } = useAuth();
 
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
 
   const hp = fighter
     ? fighter.hp
-    : brute ? getFinalHP(brute, randomSkill) : 0;
+    : brute ? getFinalHP(brute, modifiers) : 0;
   const strength = fighter
     ? fighter.strength
-    : brute ? getFinalStat(brute, 'strength', modifiers, randomSkill) : 0;
+    : brute ? getFinalStat(brute, 'strength', modifiers) : 0;
   const agility = fighter
     ? fighter.agility
-    : brute ? getFinalStat(brute, 'agility', modifiers, randomSkill) : 0;
+    : brute ? getFinalStat(brute, 'agility', modifiers) : 0;
   const speed = fighter
     ? fighter.speed
-    : brute ? getFinalStat(brute, 'speed', modifiers, randomSkill) : 0;
+    : brute ? getFinalStat(brute, 'speed', modifiers) : 0;
 
   return (
     <Tooltip

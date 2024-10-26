@@ -5,7 +5,7 @@ import { LevelUpChoice } from './getLevelUpChoices';
 import { pets, Pet } from './pets';
 import getFightsLeft from './getFightsLeft';
 
-type BruteData = Pick<Brute, 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
+type BruteData = Pick<Brute, 'id' | 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
   | 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
   | 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
   | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp' | 'fightsLeft' | 'lastFight' | 'eventId'>;
@@ -60,7 +60,7 @@ const updateBruteData = (
 
     // Handle +2 fights for `regeneration`
     if (skillName === SkillName.regeneration) {
-      updatedBrute.fightsLeft = getFightsLeft(updatedBrute, null) + 2;
+      updatedBrute.fightsLeft = getFightsLeft(updatedBrute, []) + 2;
     }
 
     updatedBrute.skills.push(skillName);

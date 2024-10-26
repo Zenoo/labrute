@@ -38,7 +38,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { randomSkill, user, authing, currentEvent } = useAuth();
+  const { user, authing, currentEvent, modifiers } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -46,8 +46,8 @@ const CellMain = ({
   );
 
   const fightsLeft = useMemo(
-    () => (brute ? getFightsLeft(brute, randomSkill) : 0),
-    [brute, randomSkill],
+    () => (brute ? getFightsLeft(brute, modifiers) : 0),
+    [brute, modifiers],
   );
 
   // Rank up
@@ -154,7 +154,7 @@ const CellMain = ({
       ) : (
         <Box sx={{ textAlign: 'center' }}>
           <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, randomSkill) })}</Text>
+          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, modifiers) })}</Text>
         </Box>
       ) : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
         <FantasyButton color="success" to={`/${brute.name}/level-up`}>

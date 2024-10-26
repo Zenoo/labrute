@@ -44,7 +44,7 @@ const weaponSvgProps: Record<WeaponName, {
 const CellWeapons = (props: BoxProps) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
-  const { randomWeapon: randomWeaponIndex } = useAuth();
+  const { modifiers } = useAuth();
 
   const hoverWeapon = useCallback((weapon: WeaponName | 'bare-hands') => () => {
     setHoveredWeapon(weapon);
@@ -60,8 +60,8 @@ const CellWeapons = (props: BoxProps) => {
   }, [brute]);
 
   const randomWeapon = useMemo(
-    () => (brute ? getTempWeapon(brute, randomWeaponIndex) : null),
-    [brute, randomWeaponIndex]
+    () => (brute ? getTempWeapon(brute, modifiers) : null),
+    [brute, modifiers]
   );
 
   return brute && (

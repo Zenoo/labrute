@@ -21,7 +21,7 @@ const BruteBodyAndStats = ({
   ...rest
 }: BruteBodyAndStatsProps) => {
   const { t } = useTranslation();
-  const { randomSkill, modifiers } = useAuth();
+  const { modifiers } = useAuth();
 
   return (
     <Box
@@ -43,21 +43,21 @@ const BruteBodyAndStats = ({
           <>
             <code>{readableHPFormula(t('level'), t('endurance'))}</code>
             <Divider />
-            <code>{readableHPFormula(brute.level, getFinalStat(brute, 'endurance', modifiers, randomSkill))}</code>
+            <code>{readableHPFormula(brute.level, getFinalStat(brute, 'endurance', modifiers))}</code>
           </>
         )}
         >
           <Box>
-            <BruteHP hp={getFinalHP(brute, randomSkill)} />
+            <BruteHP hp={getFinalHP(brute, modifiers)} />
             <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
           </Box>
         </Tooltip>
         {/* STRENGTH */}
-        <CellStats value={getFinalStat(brute, 'strength', modifiers, randomSkill)} stat="strength" />
+        <CellStats value={getFinalStat(brute, 'strength', modifiers)} stat="strength" />
         {/* AGILITY */}
-        <CellStats value={getFinalStat(brute, 'agility', modifiers, randomSkill)} stat="agility" />
+        <CellStats value={getFinalStat(brute, 'agility', modifiers)} stat="agility" />
         {/* SPEED */}
-        <CellStats value={getFinalStat(brute, 'speed', modifiers, randomSkill)} stat="speed" />
+        <CellStats value={getFinalStat(brute, 'speed', modifiers)} stat="speed" />
       </Stack>
     </Box>
   );

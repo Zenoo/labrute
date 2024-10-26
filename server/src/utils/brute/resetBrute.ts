@@ -90,7 +90,9 @@ export const resetBrute = async ({
         ? firstBonus.weapon
         : firstBonus.skill,
   );
-  const randomSkill = await ServerState.getRandomSkill(prisma);
+
+  // Get current modifiers
+  const modifiers = await ServerState.getModifiers(prisma);
 
   // Update the brute
   const updatedBrute: HookBrute = await prisma.brute.update({
@@ -104,8 +106,9 @@ export const resetBrute = async ({
       // Reset fights left (not for event brutes)
       fightsLeft: brute.eventId ? undefined : getMaxFightsPerDay({
         ...stats,
+        id: brute.id,
         eventId: null,
-      }, randomSkill),
+      }, modifiers),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
       canRankUpSince: rankUp ? null : undefined,

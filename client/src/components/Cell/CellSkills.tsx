@@ -10,11 +10,11 @@ const CellSkills = ({
   ...props
 }: PaperProps) => {
   const { brute } = useBrute();
-  const { randomSkill: randomSkillIndex } = useAuth();
+  const { modifiers } = useAuth();
 
   const randomSkill = useMemo(
-    () => (brute ? getTempSkill(brute, randomSkillIndex) : null),
-    [brute, randomSkillIndex]
+    () => (brute ? getTempSkill(brute, modifiers) : null),
+    [brute, modifiers]
   );
 
   return brute && (

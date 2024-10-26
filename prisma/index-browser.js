@@ -305,8 +305,6 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   globalTournamentValid: 'globalTournamentValid',
   activeModifiers: 'activeModifiers',
   modifiersEndAt: 'modifiersEndAt',
-  randomWeapon: 'randomWeapon',
-  randomSkill: 'randomSkill',
   nextModifiers: 'nextModifiers'
 };
 

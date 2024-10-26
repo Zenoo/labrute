@@ -23,7 +23,7 @@ const UserView = () => {
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
-  const { user: authedUser, updateData, randomSkill } = useAuth();
+  const { user: authedUser, updateData, modifiers } = useAuth();
   const Confirm = useConfirm();
 
   const [user, setUser] = useState<UserGetProfileResponse | null>(null);
@@ -50,12 +50,12 @@ const UserView = () => {
         dinorpgDone: new Date(),
         brutes: data.brutes.map((brute) => ({
           ...brute,
-          fightsLeft: getFightsLeft(brute, randomSkill) + 1,
+          fightsLeft: getFightsLeft(brute, modifiers) + 1,
           lastFight: new Date(),
         })),
       }) : null));
     }).catch(catchError(Alert));
-  }, [Alert, authedUser, randomSkill, t, updateData]);
+  }, [Alert, authedUser, modifiers, t, updateData]);
 
   // Ban user
   const banUser = useCallback(() => {

@@ -3592,6 +3592,7 @@ __metadata:
   dependencies:
     "@labrute/prisma": "workspace:*"
     moment: "npm:^2.29.4"
+    rand-seed: "npm:^2.1.7"
     typescript: "npm:^5.3.2"
   languageName: unknown
   linkType: soft
@@ -15768,6 +15769,13 @@ __metadata:
   dependencies:
     performance-now: "npm:^2.1.0"
   checksum: 4c4b4c826b09d2aec6ca809f1a3c3c12136e7ec8d13fbb91f495dd2c99cd43345240e003da3bfd16036a432e635049fc6d9f69f9187f5f22ea88bb146ec75881
+  languageName: node
+  linkType: hard
+
+"rand-seed@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "rand-seed@npm:2.1.7"
+  checksum: 7e2aa1511b6653fd2ccaea9a85b1e01d8f1f4e1dfa9289c89529b94d949781035e7de5af3d44dc35360c55d4feba758b31b97d9256a0e1a52d99f50e050aaec0
   languageName: node
   linkType: hard
 

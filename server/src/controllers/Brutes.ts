@@ -1281,6 +1281,7 @@ const Brutes = {
       const brute = await prisma.brute.findFirst({
         where: { name: ilike(name), deletedAt: null },
         select: {
+          id: true,
           fightsLeft: true,
           lastFight: true,
           skills: true,
@@ -1292,8 +1293,10 @@ const Brutes = {
         throw new ExpectedError('Brute not found');
       }
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
-      const fightsLeft = getFightsLeft(brute, randomSkill);
+      // Get current modifiers
+      const modifiers = await ServerState.getModifiers(prisma);
+
+      const fightsLeft = getFightsLeft(brute, modifiers);
 
       res.send({
         fightsLeft,
