@@ -21,8 +21,8 @@ const CellPets = ({
 
   const getFilter = (pet: PetName) => {
     if (brute?.ascendedPets.includes(pet)) return 'drop-shadow(0 0 0.5rem #ff9400)';
-    if (selectedPet === pet) return 'drop-shadow(0 0 0.5rem #00ff00)';
-    if (hoverSelectAscend && hoveredPet === pet) return 'drop-shadow(0 0 0.5rem #ff0000)';
+    if (selectedPet === pet) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    if (hoverSelectAscend && hoveredPet === pet) return 'drop-shadow(0 0 0.5rem #ff0072)';
     return 'none';
   };
 

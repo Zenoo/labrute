@@ -30,8 +30,8 @@ const CellSkills = ({
   const getFilter = (skill: SkillName) => {
     if (randomSkill === skill) return 'drop-shadow(0 0 0.5rem #ff0000)';
     if (brute?.ascendedSkills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff9400)';
-    if (selectedSkill === skill) return 'drop-shadow(0 0 0.5rem #00ff00)';
-    if (hoverSelectAscend && hoveredSkill === skill && brute?.skills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff0000)';
+    if (selectedSkill === skill) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    if (hoverSelectAscend && hoveredSkill === skill && brute?.skills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff0072)';
     return 'none';
   };
 

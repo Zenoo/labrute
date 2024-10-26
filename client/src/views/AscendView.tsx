@@ -121,6 +121,10 @@ const AscendView = () => {
     setSelectedPerkType('pet');
   };
 
+  const goToCell = useCallback((name: string) => () => {
+    navigate(`/${name}/cell`);
+  }, [navigate]);
+
   const getAscendWithLabel = useCallback(() => {
     const getSelectedPerkLabel = () => {
       if (!selectedPerk) {
@@ -165,11 +169,12 @@ const AscendView = () => {
     Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, () => {
       Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk })
         .then(() => {
+          goToCell(brute.name)();
           window.location.reload();
         })
         .catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute, getAscendWithLabel, selectedPerk, selectedPerkType, t]);
+  }, [Alert, Confirm, brute, getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
 
   return brute && (
     <Page title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
