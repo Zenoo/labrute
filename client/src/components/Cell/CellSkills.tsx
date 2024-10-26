@@ -1,6 +1,6 @@
 import { getTempSkill, skills } from '@labrute/core';
 import { Box, Grid, PaperProps } from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import SkillTooltip from '../Brute/SkillTooltip';
@@ -9,12 +9,18 @@ import { SkillName } from '@labrute/prisma';
 const CellSkills = ({
   sx,
   selectCallback,
+  hoverSelectAscend = false,
+  selectedSkill = null,
   ...props
 }: PaperProps & {
   selectCallback?: (skill: SkillName) => void,
+  hoverSelectAscend?: boolean,
+  selectedSkill?: SkillName | null,
 }) => {
   const { brute } = useBrute();
   const { modifiers } = useAuth();
+
+  const [hoveredSkill, setHoveredSkill] = useState<SkillName | null>(null);
 
   const randomSkill = useMemo(
     () => (brute ? getTempSkill(brute, modifiers) : null),
@@ -24,6 +30,8 @@ const CellSkills = ({
   const getFilter = (skill: SkillName) => {
     if (randomSkill === skill) return 'drop-shadow(0 0 0.5rem #ff0000)';
     if (brute?.ascendedSkills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    if (selectedSkill === skill) return 'drop-shadow(0 0 0.5rem #00ff00)';
+    if (hoverSelectAscend && hoveredSkill === skill && brute?.skills.includes(skill)) return 'drop-shadow(0 0 0.5rem #ff0000)';
     return 'none';
   };
 
@@ -51,6 +59,8 @@ const CellSkills = ({
               : 0.4
           }}
           onClick={onSkillClick(skill.name)}
+          onMouseEnter={() => setHoveredSkill(skill.name)}
+          onMouseLeave={() => setHoveredSkill(null)}
         >
           <SkillTooltip skill={skill}>
             <Box
@@ -59,6 +69,7 @@ const CellSkills = ({
               sx={{
                 boxShadow: 4,
                 filter: getFilter(skill.name),
+                transition: 'filter 0.3s',
               }}
             />
           </SkillTooltip>

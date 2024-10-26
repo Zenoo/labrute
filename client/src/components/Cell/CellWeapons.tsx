@@ -44,9 +44,13 @@ const weaponSvgProps: Record<WeaponName, {
 const CellWeapons = (
   {
     selectCallback,
+    hoverSelectAscend = false,
+    selectedWeapon = null,
     ...props
   }: BoxProps & {
     selectCallback?: (weapon: WeaponName) => void,
+    hoverSelectAscend?: boolean,
+    selectedWeapon?: WeaponName | null,
   }
 ) => {
   const { brute } = useBrute();
@@ -70,6 +74,14 @@ const CellWeapons = (
     () => (brute ? getTempWeapon(brute, modifiers) : null),
     [brute, modifiers]
   );
+
+  const getFilter = (weapon: WeaponName) => {
+    if (randomWeapon === weapon) return 'drop-shadow(0 0 4px rgb(255, 255, 0))';
+    if (brute?.ascendedWeapons.includes(weapon)) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    if (selectedWeapon === weapon) return 'drop-shadow(0 0 0.5rem #00ff00)';
+    if (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons.includes(weapon)) return 'drop-shadow(0 0 0.5rem #ff0000)';
+    return 'none';
+  };
 
   const onWeaponClick = useCallback((clicked: WeaponName | 'bare-hands' | null) => () => {
     if (selectCallback === undefined) {
@@ -139,6 +151,7 @@ const CellWeapons = (
               xlinkHref={weaponSvgProps[weapon].xlinkHref}
               onMouseEnter={hoverWeapon(weapon)}
               onMouseLeave={leaveWeapon}
+              filter={getFilter(weapon)}
             />
           ))}
           {unownedWeapons.map((weapon) => (weapon === randomWeapon ? null : (
@@ -163,8 +176,7 @@ const CellWeapons = (
               xlinkHref={weaponSvgProps[randomWeapon].xlinkHref}
               onMouseEnter={hoverWeapon(randomWeapon)}
               onMouseLeave={leaveWeapon}
-              // Add outer glow
-              filter="drop-shadow(0 0 4px rgb(255, 255, 0))"
+              filter={getFilter(randomWeapon)}
             />
           )}
         </g>

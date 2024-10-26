@@ -87,8 +87,16 @@ const CellMain = ({
         {/* RANKING */}
         {!brute.eventId && (
           <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-            <Box component="img" src={`/images/rankings/lvl_${brute.ranking}.webp`} />
-            <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
+            <Box component="img" sx={{ width: 40, height: 40 }} src={`/images/rankings/lvl_${brute.ranking}.webp`} />
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
+              { brute.ascensions > 0 && (
+                <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
+                  <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
+                  <Box component="img" sx={{ width: 16, height: 16 }} src="/images/oreille.gif" />
+                </Box>
+              )}
+            </Box>
           </Box>
         )}
       </Box>

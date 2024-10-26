@@ -8,12 +8,23 @@ import { pets } from '@labrute/core';
 const CellPets = ({
   sx,
   selectCallback,
+  hoverSelectAscend = false,
+  selectedPet = null,
   ...rest
 }: BoxProps & {
   selectCallback?: (pet: PetName) => void,
+  hoverSelectAscend?: boolean,
+  selectedPet?: PetName | null,
 }) => {
   const { brute } = useBrute();
   const [hoveredPet, setHoveredPet] = useState<PetName | null>(null);
+
+  const getFilter = (pet: PetName) => {
+    if (brute?.ascendedPets.includes(pet)) return 'drop-shadow(0 0 0.5rem #ff9400)';
+    if (selectedPet === pet) return 'drop-shadow(0 0 0.5rem #00ff00)';
+    if (hoverSelectAscend && hoveredPet === pet) return 'drop-shadow(0 0 0.5rem #ff0000)';
+    return 'none';
+  };
 
   const hoverPet = (pet: PetName) => () => {
     setHoveredPet(pet);
@@ -42,19 +53,19 @@ const CellPets = ({
         <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="261.55px" xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, -34.0, 208.15)">
             {brute.pets.includes(PetName.dog1) && (
-              <use onMouseEnter={hoverPet(PetName.dog1)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" />
+              <use onMouseEnter={hoverPet(PetName.dog1)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1) }} />
             )}
             {brute.pets.includes(PetName.dog2) && !brute.pets.includes(PetName.dog3) && (
-              <use onMouseEnter={hoverPet(PetName.dog2)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" />
+              <use onMouseEnter={hoverPet(PetName.dog2)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" style={{ filter: getFilter(PetName.dog1) }} />
             )}
             {brute.pets.includes(PetName.dog3) && (
-              <use onMouseEnter={hoverPet(PetName.dog3)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" />
+              <use onMouseEnter={hoverPet(PetName.dog3)} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" style={{ filter: getFilter(PetName.dog1) }} />
             )}
             {brute.pets.includes(PetName.panther) && (
-              <use onMouseEnter={hoverPet(PetName.panther)} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" />
+              <use onMouseEnter={hoverPet(PetName.panther)} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" style={{ filter: getFilter(PetName.panther) }} />
             )}
             {brute.pets.includes(PetName.bear) && (
-              <use onMouseEnter={hoverPet(PetName.bear)} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" />
+              <use onMouseEnter={hoverPet(PetName.bear)} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" style={{ filter: getFilter(PetName.bear) }} />
             )}
           </g>
           <defs>

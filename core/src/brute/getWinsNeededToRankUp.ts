@@ -2,7 +2,7 @@ import { Brute } from '@labrute/prisma';
 import { BruteRankings } from '../constants';
 
 export const getWinsNeededToRankUp = (
-  brute: Pick<Brute, 'ranking' | 'ascendedSkills' | 'ascendedWeapons' | 'ascendedPets'>
+  brute: Pick<Brute, 'ranking' | 'ascensions'>
 ) => {
   const regularRequirement = BruteRankings[0] + 1 - brute.ranking;
 
@@ -12,9 +12,5 @@ export const getWinsNeededToRankUp = (
   }
 
   // ascend
-  const ascensions = brute.ascendedSkills.length
-  + brute.ascendedWeapons.length
-  + brute.ascendedPets.length;
-
-  return regularRequirement + ascensions;
+  return regularRequirement + brute.ascensions;
 };

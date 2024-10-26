@@ -113,6 +113,9 @@ const AscendView = () => {
         setSelectedPerk('dog3');
       }
     } else {
+      if (brute?.ascendedPets.includes(pet)) {
+        return;
+      }
       setSelectedPerk(pet);
     }
     setSelectedPerkType('pet');
@@ -159,7 +162,7 @@ const AscendView = () => {
       return;
     }
 
-    Confirm.open(t('ascend'), getAscendWithLabel(), () => {
+    Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, () => {
       Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk })
         .then(() => {
           window.location.reload();
@@ -183,6 +186,15 @@ const AscendView = () => {
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container>
+          {isMd && (
+            <>
+              <Grid item xs={12} md={3.4}>
+                <Text bold fontSize="82%">{t('ascensionExplanationText')}</Text>
+                <Text bold fontSize="85%">{t('rankingPrioritizeAscensions')}</Text>
+              </Grid>
+              <Grid item xs={12} md={1} sx={{ height: 10 }} />
+            </>
+          )}
           <Grid item xs={12} md={4}>
             <Text h4 bold color="secondary" center>{brute.name}</Text>
             <BruteLevelAndXP
@@ -190,22 +202,25 @@ const AscendView = () => {
               textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
               sx={{ mb: 1, width: 120, mx: 'auto' }}
             />
-            <BruteBodyAndStats brute={brute} isMd={isMd} />
+            <BruteBodyAndStats brute={brute} isMd={isMd} centered />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>
                 <Text bold>{t('backToCell')}</Text>
               </Link>
             </Box>
           </Grid>
-          <Grid item xs={12} md={5.6}>
-            <Grid container spacing={1}>
+          {isMd && (
+            <Grid item xs={12} md={1} sx={{ height: 10 }} />
+          )}
+          <Grid item xs={12} md={4.6} sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
               <Box sx={{ width: 315, marginLeft: 1 }}>
                 {/* WEAPONS */}
-                <CellWeapons selectCallback={onWeaponClick} />
+                <CellWeapons selectCallback={onWeaponClick} hoverSelectAscend selectedWeapon={(selectedPerkType === 'weapon' && selectedPerk as WeaponName | null) || null} />
                 {/* SKILLS */}
-                <CellSkills selectCallback={onSkillClick} />
+                <CellSkills selectCallback={onSkillClick} hoverSelectAscend selectedSkill={(selectedPerkType === 'skill' && selectedPerk as SkillName | null) || null} />
                 {/* PETS */}
-                <CellPets selectCallback={onPetClick} sx={{ mt: 2 }} />
+                <CellPets selectCallback={onPetClick} sx={{ mt: 2 }} hoverSelectAscend selectedPet={(selectedPerkType === 'pet' && selectedPerk as PetName | null) || null} />
               </Box>
             </Grid>
             {/* Show currently selected type and perk */}
@@ -213,16 +228,20 @@ const AscendView = () => {
               {selectedPerk && selectedPerkType && (
                 <Text bold>{getAscendWithLabel()}</Text>
               )}
+              {(!selectedPerk || !selectedPerkType) && (
+                <Text bold>{t('youMustSelectToAscend')}</Text>
+              )}
             </Box>
             <Box sx={{ width: 315, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
-              <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }}>
+              <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }} disabled={!selectedPerk || !selectedPerkType}>
                 {t('ascend')}
               </FantasyButton>
             </Box>
           </Grid>
           {!isMd && (
-            <Grid item xs={12} md={2.4}>
-              <Text bold>{t('ascensionExplanationText')}</Text>
+            <Grid item xs={12} md={3.4}>
+              <Text bold fontSize="82%">{t('ascensionExplanationText')}</Text>
+              <Text bold fontSize="85%">{t('rankingPrioritizeAscensions')}</Text>
             </Grid>
           )}
         </Grid>

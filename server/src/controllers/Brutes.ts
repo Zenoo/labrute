@@ -893,6 +893,7 @@ const Brutes = {
           gender: true,
           ranking: true,
           level: true,
+          ascensions: true,
         },
       });
 
@@ -930,6 +931,7 @@ const Brutes = {
             ranking: true,
             level: true,
             xp: true,
+            ascensions: true,
           },
         });
 
@@ -974,6 +976,7 @@ const Brutes = {
               gender: true,
               ranking: true,
               level: true,
+              ascensions: true,
             },
           });
 
@@ -1001,6 +1004,7 @@ const Brutes = {
               gender: true,
               ranking: true,
               level: true,
+              ascensions: true,
             },
           });
 
@@ -1042,6 +1046,7 @@ const Brutes = {
           level: true,
           xp: true,
           userId: true,
+          ascensions: true,
         },
       });
 
@@ -1067,8 +1072,18 @@ const Brutes = {
           id: { not: brute.id },
           userId: { not: null },
           OR: [
-            { level: { gt: brute.level } },
-            { level: brute.level, xp: { gt: brute.xp } },
+            { ascensions: { gt: brute.ascensions } },
+            {
+              AND: [
+                { ascensions: { equals: brute.ascensions } },
+                {
+                  OR: [
+                    { level: { gt: brute.level } },
+                    { level: brute.level, xp: { gt: brute.xp } },
+                  ],
+                },
+              ],
+            },
           ],
         },
       });
@@ -1314,16 +1329,12 @@ const Brutes = {
       // Achievement
       await increaseAchievement(prisma, authed.id, brute.id, 'ascend');
 
-      const ascensions = brute.ascendedSkills.length
-        + brute.ascendedWeapons.length
-        + brute.ascendedPets.length;
-
       // Add ascend log
       await prisma.log.create({
         data: {
           currentBruteId: brute.id,
           type: LogType.ascend,
-          level: ascensions,
+          level: brute.ascensions,
         },
         select: { id: true },
       });
@@ -1336,7 +1347,7 @@ const Brutes = {
       // Send notification
       DISCORD.sendAscendNotification({
         name: brute.name,
-      }, ascensions);
+      }, brute.ascensions);
 
       res.send({
         success: true,
