@@ -13,6 +13,7 @@ export const LAST_RELEASE: Release = {
     'The ascension system is here! After reaching the top rank and winning some tournaments, you can ascend your brute and collect ears. Each ascension allows you to choose a perk you unlocked, but at level 1, replacing it in your destiny by stats.',
   ],
   fixes: [
+    'Throwing chances are now influenced by the weapon hit speed. THe more hit speed, the less likely the weapon is to be thrown',
     '`Chef` poison disabled for backup brutes',
     'Achievements disabled for event brutes (retroactive)',
     'Wrong achievement count in some cases (retroactive)',
