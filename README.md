@@ -64,6 +64,11 @@ Every
 
 Should have a corresponding documentation.
 
+## Generate the sound spritesheet after editing a sound using audiosprite
+
+- Run the script : `yarn sfx:generate`
+
+- audiosprite will gather every mp3 or wav sound in the sfx folder and fuse them in one sound named "sfx"
 
 ## File Structure
 

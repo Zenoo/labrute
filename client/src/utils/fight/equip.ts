@@ -10,7 +10,6 @@ const equip = async (
   app: Application,
   fighters: AnimationFighter[],
   step: EquipStep,
-  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -27,11 +26,8 @@ const equip = async (
 
   // Update active weapon
   brute.animation.weapon = WeaponById[step.w];
-
   // Play equip SFX
-  void sound.play('equip', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'equip' });
 
   // Wait for animation to complete
   await animationEnded;
