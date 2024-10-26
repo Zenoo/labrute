@@ -1527,7 +1527,7 @@ const Brutes = {
 
       // Update clan points
       if (brute.clanId) {
-        await updateClanPoints(prisma, brute.clanId, 'add', brute, updatedBrute);
+        await updateClanPoints(prisma, brute.clanId, 'add', updatedBrute, brute);
       }
 
       res.send(updatedBrute);
