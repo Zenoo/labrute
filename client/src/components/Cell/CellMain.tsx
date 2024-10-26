@@ -38,7 +38,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { randomSkill, user, authing } = useAuth();
+  const { randomSkill, user, authing, currentEvent } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -156,11 +156,11 @@ const CellMain = ({
           <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
           <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, randomSkill) })}</Text>
         </Box>
-      ) : (
+      ) : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
         <FantasyButton color="success" to={`/${brute.name}/level-up`}>
           {t('levelUp')}
         </FantasyButton>
-      ))}
+      ) : null)}
       {/* TOURNAMENT */}
       {!smallScreen && !brute.eventId && (
         <CellTournament
