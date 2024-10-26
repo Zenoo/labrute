@@ -10,6 +10,7 @@ import { BannedUsersView } from './views/BannedUsersView';
 import BruteNotFoundView from './views/BruteNotFoundView';
 import CellView from './views/CellView';
 import DestinyView from './views/DestinyView';
+import AscendView from './views/AscendView';
 import FightView from './views/FightView';
 import { FollowingFeedView } from './views/FollowingFeedView';
 import GeneratingView from './views/GeneratingView';
@@ -81,6 +82,7 @@ const routes: RouteObject[] = [
           { path: 'ranking', element: <RankingView /> },
           { path: 'ranking/:rank', element: <RankingView /> },
           { path: 'destiny', element: <DestinyView /> },
+          { path: 'ascend', element: <AscendView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
           { path: 'reset-visuals', element: <ResetVisualsView /> },

@@ -552,6 +552,9 @@ export const AchievementData: Record<
   rankUp0: {
     rarety: AchievementRarety.legendary,
   },
+  ascend: {
+    rarety: AchievementRarety.legendary,
+  },
   sacrifice: {
     rarety: AchievementRarety.common,
     illustration: 'sacrifice.svg',

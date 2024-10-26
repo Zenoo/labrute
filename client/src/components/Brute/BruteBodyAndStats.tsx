@@ -13,11 +13,13 @@ import { useAuth } from '../../hooks/useAuth';
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: Brute;
   isMd?: boolean;
+  centered?: boolean;
 }
 
 const BruteBodyAndStats = ({
   brute,
   isMd,
+  centered = false,
   ...rest
 }: BruteBodyAndStatsProps) => {
   const { t } = useTranslation();
@@ -32,7 +34,7 @@ const BruteBodyAndStats = ({
       {...rest}
     >
       {/* BRUTE */}
-      <Box flexGrow={1}>
+      <Box flexGrow={centered ? 0 : 1} sx={{ width: centered ? 115 : 'fit-content' }}>
         <Box width={80} mx="auto">
           <BruteRender brute={brute} />
         </Box>

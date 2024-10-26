@@ -31,7 +31,8 @@ import {
 import {
   Brute,
   DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
-  InventoryItemType, LogType, Prisma, PrismaClient, TournamentType,
+  InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
+  WeaponName,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
@@ -878,10 +879,16 @@ const Brutes = {
           userId: { not: null },
           ...rankOrEvent,
         },
-        orderBy: [
-          { level: 'desc' },
-          { xp: 'desc' },
-        ],
+        orderBy: rank === 0
+          ? [
+            { ascensions: 'desc' },
+            { level: 'desc' },
+            { xp: 'desc' },
+          ]
+          : [
+            { level: 'desc' },
+            { xp: 'desc' },
+          ],
         take: 15,
         select: {
           id: true,
@@ -891,6 +898,7 @@ const Brutes = {
           gender: true,
           ranking: true,
           level: true,
+          ascensions: true,
         },
       });
 
@@ -928,6 +936,7 @@ const Brutes = {
             ranking: true,
             level: true,
             xp: true,
+            ascensions: true,
           },
         });
 
@@ -972,6 +981,7 @@ const Brutes = {
               gender: true,
               ranking: true,
               level: true,
+              ascensions: true,
             },
           });
 
@@ -999,6 +1009,7 @@ const Brutes = {
               gender: true,
               ranking: true,
               level: true,
+              ascensions: true,
             },
           });
 
@@ -1040,6 +1051,7 @@ const Brutes = {
           level: true,
           xp: true,
           userId: true,
+          ascensions: true,
         },
       });
 
@@ -1064,10 +1076,25 @@ const Brutes = {
           deletedAt: null,
           id: { not: brute.id },
           userId: { not: null },
-          OR: [
-            { level: { gt: brute.level } },
-            { level: brute.level, xp: { gt: brute.xp } },
-          ],
+          OR: rank === 0
+            ? [
+              { ascensions: { gt: brute.ascensions } },
+              {
+                AND: [
+                  { ascensions: { equals: brute.ascensions } },
+                  {
+                    OR: [
+                      { level: { gt: brute.level } },
+                      { level: brute.level, xp: { gt: brute.xp } },
+                    ],
+                  },
+                ],
+              },
+            ]
+            : [
+              { level: { gt: brute.level } },
+              { level: brute.level, xp: { gt: brute.xp } },
+            ],
         },
       });
 
@@ -1137,6 +1164,10 @@ const Brutes = {
           level: true,
           eventId: true,
           xp: true,
+          ascensions: true,
+          ascendedWeapons: true,
+          ascendedSkills: true,
+          ascendedPets: true,
         },
       });
 
@@ -1183,6 +1214,150 @@ const Brutes = {
         ranking: brute.ranking,
         level: userBrute.level,
       });
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  ascend: (prisma: PrismaClient) => async (
+    req: Request<{
+      name: string,
+    }, unknown, {
+      data: {
+        weapon?: WeaponName,
+        skill?: SkillName,
+        pet?: PetName
+      }
+    }>,
+    res: Response,
+  ) => {
+    try {
+      const { name } = req.params;
+      const { data: { weapon, skill, pet } } = req.body;
+
+      const authed = await auth(prisma, req);
+
+      if (!name) {
+        throw new Error(translate('missingName', authed));
+      }
+
+      if (!weapon && !skill && !pet) {
+        throw new Error(translate('missingChoice', authed));
+      }
+
+      if ((weapon && skill) || (weapon && pet) || (skill && pet)) {
+        throw new Error(translate('multipleChoices', authed));
+      }
+
+      const isWeapon = Object.values(WeaponName).includes(weapon as WeaponName);
+      const isSkill = Object.values(SkillName).includes(skill as SkillName);
+      const isPet = Object.values(PetName).includes(pet as PetName);
+      if (!isWeapon && !isSkill && !isPet) {
+        throw new Error('Wrong choice type');
+      }
+
+      const userBrute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(name),
+          deletedAt: null,
+          userId: authed.id,
+        },
+        select: {
+          id: true,
+          ranking: true,
+          canRankUpSince: true,
+          destinyPath: true,
+          clanId: true,
+          level: true,
+          eventId: true,
+          xp: true,
+          weapons: true,
+          skills: true,
+          pets: true,
+          ascensions: true,
+          ascendedWeapons: true,
+          ascendedSkills: true,
+          ascendedPets: true,
+          destinyChoices: true,
+        },
+      });
+
+      if (!userBrute) {
+        throw new ExpectedError(translate('bruteNotFound', authed));
+      }
+
+      if (!userBrute.canRankUpSince) {
+        throw new ExpectedError(translate('bruteCannotRankUp', authed));
+      }
+
+      if (userBrute.ranking !== 0) {
+        throw new ExpectedError(translate('bruteNotMaxRank', authed));
+      }
+
+      if (isWeapon) {
+        if (!userBrute.weapons.includes(weapon as WeaponName)) {
+          throw new ExpectedError(translate('bruteMissingWeapon', authed));
+        }
+        if (userBrute.ascendedWeapons.includes(weapon as WeaponName)) {
+          throw new ExpectedError(translate('bruteWeaponAlreadyAscended', authed));
+        }
+      }
+      if (isSkill) {
+        if (!userBrute.skills.includes(skill as SkillName)) {
+          throw new ExpectedError(translate('bruteMissingSkill', authed));
+        }
+        if (userBrute.ascendedSkills.includes(skill as SkillName)) {
+          throw new ExpectedError(translate('bruteSkillAlreadyAscended', authed));
+        }
+      }
+      if (isPet) {
+        if (!userBrute.pets.includes(pet as PetName)) {
+          throw new ExpectedError(translate('bruteMissingPet', authed));
+        }
+        if (userBrute.ascendedPets.includes(pet as PetName)) {
+          throw new ExpectedError(translate('brutePetAlreadyAscended', authed));
+        }
+
+        if (pet === PetName.dog2 && !userBrute.ascendedPets.includes(PetName.dog1)) {
+          throw new ExpectedError(translate('bruteMissingPet', authed));
+        }
+        if (pet === PetName.dog3 && !userBrute.ascendedPets.includes(PetName.dog2)) {
+          throw new ExpectedError(translate('bruteMissingPet', authed));
+        }
+      }
+
+      const brute = await resetBrute({
+        prisma,
+        brute: userBrute,
+        free: true,
+        ascended: { weapon, skill, pet },
+      });
+
+      // Achievement
+      await increaseAchievement(prisma, authed.id, brute.id, 'ascend');
+
+      // Add ascend log
+      await prisma.log.create({
+        data: {
+          currentBruteId: brute.id,
+          type: LogType.ascend,
+          level: brute.ascensions,
+        },
+        select: { id: true },
+      });
+
+      // Update clan points
+      if (userBrute.clanId) {
+        await updateClanPoints(prisma, userBrute.clanId, 'add', brute, userBrute);
+      }
+
+      // Send notification
+      DISCORD.sendAscendNotification({
+        name: brute.name,
+      }, brute.ascensions);
 
       res.send({
         success: true,

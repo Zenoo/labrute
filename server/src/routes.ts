@@ -86,6 +86,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/ranking', Brutes.getRanking(prisma));
   app.get('/api/brute/:name/exists', Brutes.exists(prisma));
   app.get('/api/brute/:name/rank-up', Brutes.rankUp(prisma));
+  app.post('/api/brute/:name/ascend', Brutes.ascend(prisma));
   app.get('/api/brute/:name/destiny', Brutes.getDestiny(prisma));
   app.post('/api/brute/:name/admin-update', Brutes.adminUpdate(prisma));
   app.get('/api/brute/:id/restore', Brutes.restore(prisma));
