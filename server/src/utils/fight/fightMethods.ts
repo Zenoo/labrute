@@ -1198,7 +1198,7 @@ const drawWeapon = (fightData: DetailedFight, fighter: DetailedFighter): boolean
   const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
 
   // Decrease `keepWeaponChance` each turn and abort until true
-  if (!drawEveryWeapon && Math.random() < fighter.keepWeaponChance) {
+  if (fighter.activeWeapon && !drawEveryWeapon && Math.random() < fighter.keepWeaponChance) {
     fighter.keepWeaponChance *= 0.5;
     return false;
   }

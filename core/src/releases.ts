@@ -7,31 +7,51 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.73.0',
-  date: '2024-09-27',
+  version: '2.74.0',
+  date: '2024-10-28',
   features: [
-    'Thread creators can now delete their threads, along with their clan master',
-    'Thread creators can now edit their threads',
-    '`Treat` has been reworked. In addition to the heal, it now makes the pet immune to the next attack and makes it attack next',
-    'A new tab has been added to the ranking page, displaying event brutes',
+    'The ascension system is here! After reaching the top rank and winning some tournaments, you can ascend your brute and collect ears. Each ascension allows you to choose a perk you unlocked, but at level 1, replacing it in your destiny by stats.',
   ],
   fixes: [
-    'Losing a fight with an event brute now gives half a level instead of 0 XP',
-    'Event brutes can now be sacrificed whenever, after the first day, though they don\'t give any gold',
-    'Gendered pronouns have been replaced with neutral ones. Please notify me if you find any remaining',
-    'Backups are now disabled in events',
-    'Many minor visual fixes regarding the events',
-    'Brutal Legends rank up notification now displays the correct rank',
-    'The Focus daily modifier now correctly prevents backup brutes from being targeted',
-    'New untrap animation',
-    'Event brutes now show the event icon instead of the ranking icon',
-    'Gold doesn\'t visually decrease anymore when using a free reset'
+    '`Chef` poison disabled for backup brutes',
+    'Achievements disabled for event brutes (retroactive)',
+    'Wrong achievement count in some cases (retroactive)',
+    'Event brutes removed from the padawan rankings',
+    'Clan points recalculation after resetting a brute could remove points instead of adding them',
+    'Some fights crashes when damaging immune pets',
+    'Level up button hidden after reaching the max level for event brutes',
+    'Random skills/weapons are now seeded per brute, which should increase the randomness and avoid similar unlocks for most brutes',
+    'The last patch note read is now stored server-side, meaning that dismissing it on one device will dismiss it on all devices',
+    'The last fight watched in the even tournament is now stored server-side, meaning that watching a fight on one device will mark it as watched on all devices',
   ],
   attachments: [],
 };
 
 export const releases: Release[] = [
   LAST_RELEASE,
+  {
+    version: '2.73.0',
+    date: '2024-09-27',
+    features: [
+      'Thread creators can now delete their threads, along with their clan master',
+      'Thread creators can now edit their threads',
+      '`Treat` has been reworked. In addition to the heal, it now makes the pet immune to the next attack and makes it attack next',
+      'A new tab has been added to the ranking page, displaying event brutes',
+    ],
+    fixes: [
+      'Losing a fight with an event brute now gives half a level instead of 0 XP',
+      'Event brutes can now be sacrificed whenever, after the first day, though they don\'t give any gold',
+      'Gendered pronouns have been replaced with neutral ones. Please notify me if you find any remaining',
+      'Backups are now disabled in events',
+      'Many minor visual fixes regarding the events',
+      'Brutal Legends rank up notification now displays the correct rank',
+      'The Focus daily modifier now correctly prevents backup brutes from being targeted',
+      'New untrap animation',
+      'Event brutes now show the event icon instead of the ranking icon',
+      'Gold doesn\'t visually decrease anymore when using a free reset'
+    ],
+    attachments: [],
+  },
   {
     version: '2.72.0',
     date: '2024-09-01',
