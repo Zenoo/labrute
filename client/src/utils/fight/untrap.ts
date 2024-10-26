@@ -17,6 +17,8 @@ export const untrap = (
   if (fighter.animation.animation === 'trapped') {
     // Set animation to `idle`
     fighter.animation.setAnimation('idle');
+    // eslint-disable-next-line no-param-reassign
+    fighter.trapped = false;
 
     // Create 6 net parts
     for (let i = 0; i < 6; i += 1) {

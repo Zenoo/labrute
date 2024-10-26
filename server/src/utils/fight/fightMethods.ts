@@ -459,11 +459,18 @@ const registerHit = (
       : damage,
   }), {});
 
+  const previousTrappedOpponents = opponents.filter((opponent) => opponent.trapped);
+
   opponents.forEach((opponent) => {
     // Remove the net and reset initiative
     if (opponent.trapped) {
       opponent.trapped = false;
       opponent.initiative = fightData.initiative + 0.5;
+
+      // Stun brute opponents
+      if (opponent.type === 'brute') {
+        opponent.stunned = true;
+      }
     }
 
     // Max damage to 20% of opponent's health if `resistant`
@@ -578,7 +585,7 @@ const registerHit = (
       }
 
       // Remove stun if hit while stunned
-      if (opponent.stunned) {
+      if (!previousTrappedOpponents.some((o) => o.id === opponent.id) && opponent.stunned) {
         opponent.stunned = false;
       }
 

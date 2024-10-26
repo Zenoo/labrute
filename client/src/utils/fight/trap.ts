@@ -115,6 +115,7 @@ const trap = async (
 
   // Set target animation to `trapped`
   target.animation.setAnimation('trapped');
+  target.trapped = true;
 };
 
 export default trap;
