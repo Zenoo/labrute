@@ -25,6 +25,7 @@ export const LAST_RELEASE: Release = {
     'Random skills/weapons are now seeded per brute, which should increase the randomness and avoid similar unlocks for most brutes',
     'The last patch note read is now stored server-side, meaning that dismissing it on one device will dismiss it on all devices',
     'The last fight watched in the even tournament is now stored server-side, meaning that watching a fight on one device will mark it as watched on all devices',
+    '`Treat` doesn\'t use any initiative anymore',
   ],
   attachments: [],
 };

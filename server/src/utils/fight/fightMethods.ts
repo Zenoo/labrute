@@ -1113,7 +1113,7 @@ const activateSuper = (
       }
 
       // Set pet initiative to fighter initiative (to act right after)
-      pet.initiative = fighter.initiative;
+      pet.initiative = fighter.initiative - 0.01;
 
       // Give immunity to pet
       pet.immune = true;
@@ -1139,9 +1139,6 @@ const activateSuper = (
         a: StepType.MoveBack,
         f: fighter.index,
       });
-
-      // Increase own initiative
-      fighter.initiative += 0.3 + fighter.tempo;
       break;
     }
     default:
