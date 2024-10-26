@@ -68,6 +68,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/user/next-modifiers', Users.getNextModifiers(prisma));
   app.post('/api/user/next-modifiers', Users.setNextModifiers(prisma));
   app.get('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));
+  app.patch('/api/user/last-release', Users.updateLastReleaseSeen(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
@@ -95,6 +96,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
   app.put('/api/brute/item', Brutes.giveItem(prisma));
   app.get('/api/brute/:name/master-clan-id', Brutes.getClanIdAsMaster(prisma));
+  app.get('/api/brute/:name/update-event-round-watched/:fight', Brutes.updateEventRoundWatched(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));

@@ -4179,6 +4179,7 @@ export namespace Prisma {
     dinorpgDone: Date | null
     bannedAt: Date | null
     banReason: string | null
+    lastReleaseSeen: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4195,6 +4196,7 @@ export namespace Prisma {
     dinorpgDone: Date | null
     bannedAt: Date | null
     banReason: string | null
+    lastReleaseSeen: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4212,6 +4214,7 @@ export namespace Prisma {
     ips: number
     bannedAt: number
     banReason: number
+    lastReleaseSeen: number
     _all: number
   }
 
@@ -4242,6 +4245,7 @@ export namespace Prisma {
     dinorpgDone?: true
     bannedAt?: true
     banReason?: true
+    lastReleaseSeen?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4258,6 +4262,7 @@ export namespace Prisma {
     dinorpgDone?: true
     bannedAt?: true
     banReason?: true
+    lastReleaseSeen?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4275,6 +4280,7 @@ export namespace Prisma {
     ips?: true
     bannedAt?: true
     banReason?: true
+    lastReleaseSeen?: true
     _all?: true
   }
 
@@ -4379,6 +4385,7 @@ export namespace Prisma {
     ips: string[]
     bannedAt: Date | null
     banReason: string | null
+    lastReleaseSeen: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -4415,6 +4422,7 @@ export namespace Prisma {
     ips?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    lastReleaseSeen?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -4440,6 +4448,7 @@ export namespace Prisma {
     ips?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    lastReleaseSeen?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4457,9 +4466,10 @@ export namespace Prisma {
     ips?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    lastReleaseSeen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "bannedAt" | "banReason", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "bannedAt" | "banReason" | "lastReleaseSeen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -4498,6 +4508,7 @@ export namespace Prisma {
       ips: string[]
       bannedAt: Date | null
       banReason: string | null
+      lastReleaseSeen: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4912,6 +4923,7 @@ export namespace Prisma {
     readonly ips: FieldRef<"User", 'String[]'>
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
+    readonly lastReleaseSeen: FieldRef<"User", 'String'>
   }
     
 
@@ -5493,6 +5505,7 @@ export namespace Prisma {
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
+    eventTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
     tournamentWins: number | null
@@ -5519,6 +5532,7 @@ export namespace Prisma {
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
+    eventTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
     tournamentWins: number | null
@@ -5561,6 +5575,8 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     globalTournamentWatchedDate: Date | null
     globalTournamentRoundWatched: number | null
+    eventTournamentWatchedDate: Date | null
+    eventTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
@@ -5609,6 +5625,8 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     globalTournamentWatchedDate: Date | null
     globalTournamentRoundWatched: number | null
+    eventTournamentWatchedDate: Date | null
+    eventTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
@@ -5662,6 +5680,8 @@ export namespace Prisma {
     currentTournamentStepWatched: number
     globalTournamentWatchedDate: number
     globalTournamentRoundWatched: number
+    eventTournamentWatchedDate: number
+    eventTournamentRoundWatched: number
     lastFight: number
     fightsLeft: number
     victories: number
@@ -5696,6 +5716,7 @@ export namespace Prisma {
     pupilsCount?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
+    eventTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
     tournamentWins?: true
@@ -5722,6 +5743,7 @@ export namespace Prisma {
     pupilsCount?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
+    eventTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
     tournamentWins?: true
@@ -5764,6 +5786,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     globalTournamentWatchedDate?: true
     globalTournamentRoundWatched?: true
+    eventTournamentWatchedDate?: true
+    eventTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -5812,6 +5836,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     globalTournamentWatchedDate?: true
     globalTournamentRoundWatched?: true
+    eventTournamentWatchedDate?: true
+    eventTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -5865,6 +5891,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     globalTournamentWatchedDate?: true
     globalTournamentRoundWatched?: true
+    eventTournamentWatchedDate?: true
+    eventTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
@@ -6005,6 +6033,8 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     globalTournamentWatchedDate: Date | null
     globalTournamentRoundWatched: number | null
+    eventTournamentWatchedDate: Date | null
+    eventTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number
     victories: number
@@ -6077,6 +6107,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: boolean
     globalTournamentWatchedDate?: boolean
     globalTournamentRoundWatched?: boolean
+    eventTournamentWatchedDate?: boolean
+    eventTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
@@ -6159,6 +6191,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: boolean
     globalTournamentWatchedDate?: boolean
     globalTournamentRoundWatched?: boolean
+    eventTournamentWatchedDate?: boolean
+    eventTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
@@ -6217,6 +6251,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: boolean
     globalTournamentWatchedDate?: boolean
     globalTournamentRoundWatched?: boolean
+    eventTournamentWatchedDate?: boolean
+    eventTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
@@ -6229,7 +6265,7 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
@@ -6342,6 +6378,8 @@ export namespace Prisma {
       currentTournamentStepWatched: number | null
       globalTournamentWatchedDate: Date | null
       globalTournamentRoundWatched: number | null
+      eventTournamentWatchedDate: Date | null
+      eventTournamentRoundWatched: number | null
       lastFight: Date | null
       fightsLeft: number
       victories: number
@@ -6813,6 +6851,8 @@ export namespace Prisma {
     readonly currentTournamentStepWatched: FieldRef<"Brute", 'Int'>
     readonly globalTournamentWatchedDate: FieldRef<"Brute", 'DateTime'>
     readonly globalTournamentRoundWatched: FieldRef<"Brute", 'Int'>
+    readonly eventTournamentWatchedDate: FieldRef<"Brute", 'DateTime'>
+    readonly eventTournamentRoundWatched: FieldRef<"Brute", 'Int'>
     readonly lastFight: FieldRef<"Brute", 'DateTime'>
     readonly fightsLeft: FieldRef<"Brute", 'Int'>
     readonly victories: FieldRef<"Brute", 'Int'>
@@ -32205,7 +32245,8 @@ export namespace Prisma {
     dinorpgDone: 'dinorpgDone',
     ips: 'ips',
     bannedAt: 'bannedAt',
-    banReason: 'banReason'
+    banReason: 'banReason',
+    lastReleaseSeen: 'lastReleaseSeen'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -32260,6 +32301,8 @@ export namespace Prisma {
     currentTournamentStepWatched: 'currentTournamentStepWatched',
     globalTournamentWatchedDate: 'globalTournamentWatchedDate',
     globalTournamentRoundWatched: 'globalTournamentRoundWatched',
+    eventTournamentWatchedDate: 'eventTournamentWatchedDate',
+    eventTournamentRoundWatched: 'eventTournamentRoundWatched',
     lastFight: 'lastFight',
     fightsLeft: 'fightsLeft',
     victories: 'victories',
@@ -32945,6 +32988,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -32969,6 +33013,7 @@ export namespace Prisma {
     ips?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
+    lastReleaseSeen?: SortOrderInput | SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -32996,6 +33041,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -33020,6 +33066,7 @@ export namespace Prisma {
     ips?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
+    lastReleaseSeen?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -33045,6 +33092,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type BruteWhereInput = {
@@ -33091,6 +33139,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
@@ -33172,6 +33222,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrderInput | SortOrder
     globalTournamentWatchedDate?: SortOrderInput | SortOrder
     globalTournamentRoundWatched?: SortOrderInput | SortOrder
+    eventTournamentWatchedDate?: SortOrderInput | SortOrder
+    eventTournamentRoundWatched?: SortOrderInput | SortOrder
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -33256,6 +33308,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
@@ -33337,6 +33391,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrderInput | SortOrder
     globalTournamentWatchedDate?: SortOrderInput | SortOrder
     globalTournamentRoundWatched?: SortOrderInput | SortOrder
+    eventTournamentWatchedDate?: SortOrderInput | SortOrder
+    eventTournamentRoundWatched?: SortOrderInput | SortOrder
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -33398,6 +33454,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     fightsLeft?: IntWithAggregatesFilter<"Brute"> | number
     victories?: IntWithAggregatesFilter<"Brute"> | number
@@ -34937,6 +34995,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -34961,6 +35020,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -34985,6 +35045,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -35009,6 +35070,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -35033,6 +35095,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -35050,6 +35113,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -35067,6 +35131,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateInput = {
@@ -35107,6 +35172,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35186,6 +35253,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35259,6 +35328,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35338,6 +35409,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35414,6 +35487,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -35464,6 +35539,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -35515,6 +35592,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -37201,6 +37280,7 @@ export namespace Prisma {
     ips?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    lastReleaseSeen?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -37223,6 +37303,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    lastReleaseSeen?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -37239,6 +37320,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    lastReleaseSeen?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -37616,6 +37698,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     globalTournamentWatchedDate?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentWatchedDate?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -37648,6 +37732,7 @@ export namespace Prisma {
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
     tournamentWins?: SortOrder
@@ -37690,6 +37775,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     globalTournamentWatchedDate?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentWatchedDate?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -37738,6 +37825,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     globalTournamentWatchedDate?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentWatchedDate?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
@@ -37770,6 +37859,7 @@ export namespace Prisma {
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
     tournamentWins?: SortOrder
@@ -42396,6 +42486,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -42473,6 +42565,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -42688,6 +42782,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -42766,6 +42862,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -42865,6 +42963,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
@@ -43051,6 +43151,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -43074,6 +43175,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -43125,6 +43227,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43203,6 +43307,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43280,6 +43386,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43357,6 +43465,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43668,6 +43778,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43746,6 +43858,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43823,6 +43937,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -43901,6 +44017,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -44281,6 +44399,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -44304,6 +44423,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -44444,6 +44564,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -44467,6 +44588,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -44524,6 +44646,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -44602,6 +44726,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -45227,6 +45353,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableFilter<"User"> | string | null
   }
 
   export type ClanWarFightersUpsertWithWhereUniqueWithoutAttackersInput = {
@@ -45373,6 +45500,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -45451,6 +45580,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -45539,6 +45670,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -45617,6 +45750,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -45689,6 +45824,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -45767,6 +45904,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -45844,6 +45983,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -45922,6 +46063,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -46035,6 +46178,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -46058,6 +46202,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -46157,6 +46302,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -46235,6 +46382,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -46318,6 +46467,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -46396,6 +46547,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -46572,6 +46725,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -46650,6 +46805,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -46810,6 +46967,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -46888,6 +47047,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -47044,6 +47205,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -47122,6 +47285,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -47246,6 +47411,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -47324,6 +47491,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -47412,6 +47581,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -47490,6 +47661,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -47707,6 +47880,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -47785,6 +47960,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -47873,6 +48050,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -47951,6 +48130,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -48000,6 +48181,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -48023,6 +48205,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -48062,6 +48245,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -48085,6 +48269,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -48131,6 +48316,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -48209,6 +48396,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -48297,6 +48486,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -48375,6 +48566,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -48447,6 +48640,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -48525,6 +48720,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -48579,6 +48776,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -48602,6 +48800,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -48664,6 +48863,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -48742,6 +48943,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -48802,6 +49005,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -48825,6 +49029,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -48871,6 +49076,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -48949,6 +49156,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49042,6 +49251,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49120,6 +49331,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49174,6 +49387,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -49197,6 +49411,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -49259,6 +49474,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -49337,6 +49554,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -49425,6 +49644,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49503,6 +49724,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49580,6 +49803,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49657,6 +49882,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49740,6 +49967,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -49818,6 +50047,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -50093,6 +50324,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -50171,6 +50404,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -50416,6 +50651,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -50494,6 +50731,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -50655,6 +50894,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -50733,6 +50974,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -50850,6 +51093,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -50928,6 +51173,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -51051,6 +51298,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -51129,6 +51378,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -51201,6 +51452,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -51279,6 +51532,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -51410,6 +51665,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -51488,6 +51745,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -52022,6 +52281,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52100,6 +52361,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52177,6 +52440,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52255,6 +52520,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52407,6 +52674,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52485,6 +52754,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52539,6 +52810,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -52562,6 +52834,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -52624,6 +52897,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -52702,6 +52977,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -52762,6 +53039,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -52785,6 +53063,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -52831,6 +53110,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -52909,6 +53190,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -53014,6 +53297,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -53092,6 +53377,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -53225,6 +53512,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53303,6 +53592,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53377,6 +53668,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -53447,6 +53740,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53524,6 +53819,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53599,6 +53896,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53786,6 +54085,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53864,6 +54165,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53939,6 +54242,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -53991,6 +54296,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -54166,6 +54473,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54243,6 +54552,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54318,6 +54629,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54572,6 +54885,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54650,6 +54965,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54725,6 +55042,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54775,6 +55094,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54853,6 +55174,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -54928,6 +55251,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55154,6 +55479,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -55177,6 +55503,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -55200,6 +55527,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ClanWarFightersUpdateWithoutAttackersInput = {
@@ -55343,6 +55671,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -55366,6 +55695,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -55389,6 +55719,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogCreateManyDestinyChoiceInput = {
@@ -55496,6 +55827,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55574,6 +55907,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55649,6 +55984,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55748,6 +56085,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55826,6 +56165,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55901,6 +56242,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -55928,6 +56271,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -55951,6 +56295,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -55974,6 +56319,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateManyClanInput = {
@@ -56016,6 +56362,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -56069,6 +56417,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -56177,6 +56527,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56254,6 +56606,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56329,6 +56683,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56379,6 +56735,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56457,6 +56815,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56532,6 +56892,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56888,6 +57250,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -56966,6 +57330,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57041,6 +57407,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57091,6 +57459,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57169,6 +57539,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57244,6 +57616,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57297,6 +57671,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
@@ -57346,6 +57722,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57424,6 +57802,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
@@ -57499,6 +57879,8 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number

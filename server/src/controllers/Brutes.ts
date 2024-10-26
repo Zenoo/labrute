@@ -5,6 +5,7 @@ import {
   BruteGetInventoryResponse,
   BruteRankings,
   BruteRestoreResponse,
+  BruteUpdateEventRoundWatchedResponse,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse,
   BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
@@ -1855,6 +1856,80 @@ const Brutes = {
       const clanId = brute.clan?.masterId === brute.id ? brute.clanId : null;
 
       res.send({ id: clanId });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  updateEventRoundWatched: (prisma: PrismaClient) => async (
+    req: Request<{ name: string, fight: string }>,
+    res: Response<BruteUpdateEventRoundWatchedResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.name) {
+        throw new Error(translate('missingParameters', user));
+      }
+
+      // Get brute
+      const brute = await prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.name),
+          deletedAt: null,
+          userId: user.id,
+          eventId: { not: null },
+        },
+        select: {
+          id: true,
+          eventTournamentRoundWatched: true,
+          eventTournamentWatchedDate: true,
+          name: true,
+        },
+      });
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Get fight
+      const fight = await prisma.fight.findFirst({
+        where: {
+          id: req.params.fight,
+        },
+        select: {
+          loser: true,
+          tournamentStep: true,
+        },
+      });
+
+      if (!fight) {
+        throw new ExpectedError(translate('fightNotFound', user));
+      }
+
+      const now = moment.utc();
+      let roundWatched = fight.tournamentStep;
+
+      // Skip to last round if brute lost
+      if (fight.loser === brute.name) {
+        roundWatched = 999;
+      }
+
+      // Update brute watched tournament step
+      await prisma.brute.update({
+        where: {
+          id: brute.id,
+        },
+        data: {
+          eventTournamentRoundWatched: roundWatched,
+          eventTournamentWatchedDate: now.toDate(),
+        },
+        select: { id: true },
+      });
+
+      res.send({
+        eventTournamentRoundWatched: roundWatched,
+        eventTournamentWatchedDate: now.toDate(),
+      });
     } catch (error) {
       sendError(res, error);
     }

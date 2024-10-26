@@ -37,6 +37,7 @@ model User {
   ips             String[]         @default([])
   bannedAt        DateTime?        @db.Date
   banReason       String?
+  lastReleaseSeen String?
   brutes          Brute[]
   achievements    Achievement[]
   reports         BruteReport[]
@@ -219,6 +220,8 @@ model Brute {
   currentTournamentStepWatched Int?                    @default(0)
   globalTournamentWatchedDate  DateTime?               @db.Date
   globalTournamentRoundWatched Int?
+  eventTournamentWatchedDate   DateTime?               @db.Date
+  eventTournamentRoundWatched  Int?
   lastFight                    DateTime?               @db.Date
   fightsLeft                   Int                     @default(6)
   victories                    Int                     @default(0)

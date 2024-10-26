@@ -59,9 +59,7 @@ const Page = ({
   useEffect(() => {
     if (!user) return;
 
-    const lastPatchNotes = localStorage.getItem('patchNotes');
-
-    if (lastPatchNotes !== LAST_RELEASE.version) {
+    if (user.lastReleaseSeen !== LAST_RELEASE.version) {
       Alert.open('info', t('newPatchNotesAvailable'), '/patch-notes');
     }
   }, [Alert, t, user]);

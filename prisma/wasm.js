@@ -133,7 +133,8 @@ exports.Prisma.UserScalarFieldEnum = {
   dinorpgDone: 'dinorpgDone',
   ips: 'ips',
   bannedAt: 'bannedAt',
-  banReason: 'banReason'
+  banReason: 'banReason',
+  lastReleaseSeen: 'lastReleaseSeen'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -182,6 +183,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   currentTournamentStepWatched: 'currentTournamentStepWatched',
   globalTournamentWatchedDate: 'globalTournamentWatchedDate',
   globalTournamentRoundWatched: 'globalTournamentRoundWatched',
+  eventTournamentWatchedDate: 'eventTournamentWatchedDate',
+  eventTournamentRoundWatched: 'eventTournamentRoundWatched',
   lastFight: 'lastFight',
   fightsLeft: 'fightsLeft',
   victories: 'victories',

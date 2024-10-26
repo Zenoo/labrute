@@ -163,6 +163,7 @@ export type BruteReportsSendRequest = {
   reason: BruteReportReason,
 };
 export type BruteGetInventoryResponse = InventoryItem[];
+export type BruteUpdateEventRoundWatchedResponse = Pick<Brute, 'eventTournamentRoundWatched' | 'eventTournamentWatchedDate'>;
 
 export type TournamentHistoryResponse = (Pick<
   Tournament,
