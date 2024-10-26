@@ -12,7 +12,7 @@ import {
   weightedRandom,
 } from '@labrute/core';
 import {
-  Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient, BossName
+  Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import applySpy from './applySpy.js';
 import {
@@ -81,6 +81,7 @@ const generateFight = async ({
   team1.brutes?.concat(team2.brutes ?? []).forEach((brute) => {
     achievementsStore[brute.id] = {
       userId: brute.userId,
+      eventId: brute.eventId,
       achievements: {},
     };
 
@@ -129,15 +130,15 @@ const generateFight = async ({
     }
   }
 
-    if(team1.bosses?.length || team2.bosses?.length){
-        // Handle bosses coming as multiple instances
-        team1.bosses?.forEach(boss => {
-            team1.bosses?.push(...Array(boss.count - 1).fill({ ...boss }));
-        });
-        team2.bosses?.forEach(boss => {
-            team2.bosses?.push(...Array(boss.count - 1).fill({ ...boss }));
-        });
-   }
+  if (team1.bosses?.length || team2.bosses?.length) {
+    // Handle bosses coming as multiple instances
+    team1.bosses?.forEach((boss) => {
+      team1.bosses?.push(...Array(boss.count - 1).fill({ ...boss }) as typeof boss[]);
+    });
+    team2.bosses?.forEach((boss) => {
+      team2.bosses?.push(...Array(boss.count - 1).fill({ ...boss }) as typeof boss[]);
+    });
+  }
 
   // Global fight data
   const fightDataFighters = await getFighters({
@@ -300,11 +301,11 @@ const generateFight = async ({
 
   if (team1.bosses?.length || team2.bosses?.length) {
     // Update clan limit and boss if boss slain
-    const bossFighter = fightData.fighters.find(fighter => fighter.type === 'boss');
+    const bossFighter = fightData.fighters.find((fighter) => fighter.type === 'boss');
     const anyBossStillAlive = fightData.fighters
       .some((fighter) => fighter.type === 'boss' && fighter.hp > 0);
     if (bossFighter && !anyBossStillAlive) {
-      const boss = bosses.find((boss) => boss.name === bossFighter.name)
+      const boss = bosses.find((b) => b.name === bossFighter.name);
       const clan = await prisma.clan.findUnique({
         where: { id: clanId },
         select: {
@@ -375,7 +376,7 @@ const generateFight = async ({
           count: 1,
         })),
       });
-      
+
       // Update clan
       await prisma.clan.update({
         where: { id: clanId },
@@ -399,7 +400,8 @@ const generateFight = async ({
       clan.bossDamages.forEach((damage) => {
         userIds.add(damage.brute.userId || '');
       });
-      const goldGains = Math.floor(boss.reward * BOSS_GOLD_REWARD / userIds.size);
+
+      const goldGains = Math.floor((boss.reward * BOSS_GOLD_REWARD) / userIds.size);
 
       await prisma.user.updateMany({
         where: { id: { in: Array.from(userIds) } },
@@ -424,11 +426,11 @@ const generateFight = async ({
     } else {
       // Update damage on boss + store it
       const initialBossesHp = fightData.initialFighters
-          .filter(fighter => fighter.type === 'boss')
-          .reduce((sum, boss) => boss.hp > 0 ? sum + boss.hp : sum, 0);
+        .filter((fighter) => fighter.type === 'boss')
+        .reduce((sum, boss) => (boss.hp > 0 ? sum + boss.hp : sum), 0);
       const finalBossesHp = fightData.fighters
-          .filter(fighter => fighter.type === 'boss')
-          .reduce((sum, boss) => boss.hp > 0 ? sum + boss.hp : sum, 0);
+        .filter((fighter) => fighter.type === 'boss')
+        .reduce((sum, boss) => (boss.hp > 0 ? sum + boss.hp : sum), 0);
 
       if (!clanId) {
         throw new Error('Clan ID not found');

@@ -9,6 +9,11 @@ const updateAchievements = async (
   const bruteAchievements = [];
   const bruteAchievementsTournamentRelated = [];
   for (const [bruteId, bruteStore] of Object.entries(store)) {
+    // Disable achievements for event brutes
+    if (bruteStore.eventId) {
+      continue;
+    }
+
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
       const achievementName = _name as AchievementName;
       if (isTournamentFight && TournamentAchievements.includes(achievementName)) {

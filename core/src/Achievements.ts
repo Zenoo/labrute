@@ -568,6 +568,7 @@ export const AchievementData: Record<
 
 export type AchievementsStore = Record<string, {
   userId: string | null;
+  eventId: string | null;
   achievements: Partial<Record<AchievementName, number>>;
 }>;
 
