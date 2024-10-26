@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.73.3](https://github.com/Zenoo/labrute/compare/labrute-v2.73.2...labrute-v2.73.3) (2024-10-26)
+
+
+### Bug Fixes
+
+* Decrease chance to not draw a weapon when not holding one. Fixes [#987](https://github.com/Zenoo/labrute/issues/987) ([18277a4](https://github.com/Zenoo/labrute/commit/18277a4ea1c241055a3cdb7205ddd2517355deb3))
+* Disable achievements for event brutes. FIxes [#980](https://github.com/Zenoo/labrute/issues/980) ([b7c5bbf](https://github.com/Zenoo/labrute/commit/b7c5bbff6afed3607653c190b91f04cd80782b60))
+* Disable chef poison from backups. Fixes [#973](https://github.com/Zenoo/labrute/issues/973) ([1caf76b](https://github.com/Zenoo/labrute/commit/1caf76bcb92c811c327a10b03ce879ef07217711))
+* Hide level up after reaching event max level. Fixes [#976](https://github.com/Zenoo/labrute/issues/976) ([7896006](https://github.com/Zenoo/labrute/commit/7896006c4eab7059c536f0621daf62a06eebc58e))
+* Missing achievements. Fixes [#979](https://github.com/Zenoo/labrute/issues/979) ([67126c3](https://github.com/Zenoo/labrute/commit/67126c36b937f445ed9eced8afd44da8aa9bffba))
+* Random weapon/skill seeded per brute, not per server. Fixes [#955](https://github.com/Zenoo/labrute/issues/955) ([093e01b](https://github.com/Zenoo/labrute/commit/093e01b69383cf74151bd403a4ded24c93149e2f))
+* Remove initiative cost for treat. Fixes [#990](https://github.com/Zenoo/labrute/issues/990) ([b043262](https://github.com/Zenoo/labrute/commit/b0432621b3970f3ffb5873947be380033a8044b0))
+* Store last release seen and event step watched in DB. Fixes [#970](https://github.com/Zenoo/labrute/issues/970) ([8fa8807](https://github.com/Zenoo/labrute/commit/8fa8807dc0331a2c0bd4ee0e127f021037c5a948))
+* Trapped brutes stunned on untrap. Fixes [#989](https://github.com/Zenoo/labrute/issues/989) ([ad37278](https://github.com/Zenoo/labrute/commit/ad372787c4345fae57115b5aec8816c21ee0c894))
+* Weapon hit speed influences throwing chances (more hit speed = less likely to throw). Fixes [#988](https://github.com/Zenoo/labrute/issues/988) ([e327b97](https://github.com/Zenoo/labrute/commit/e327b9794511d3e201424e1162985e8f8375e215))
+
 ## [2.73.2](https://github.com/Zenoo/labrute/compare/labrute-v2.73.1...labrute-v2.73.2) (2024-10-02)
 
 
