@@ -569,7 +569,9 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   [SkillName.spy]: [],
   [SkillName.saboteur]: [],
   [SkillName.backup]: [],
-  [SkillName.hideaway]: [],
+  [SkillName.hideaway]: [
+    { stat: FightStat.BLOCK, value: 25, percent: true, details: 'againstThrows' },
+  ],
   [SkillName.monk]: [
     { stat: FightStat.COUNTER, value: 40, percent: true },
     { stat: FightStat.INITIATIVE, value: -200 },

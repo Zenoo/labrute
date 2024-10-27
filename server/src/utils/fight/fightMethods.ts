@@ -1261,7 +1261,17 @@ const drawWeapon = (fightData: DetailedFight, fighter: DetailedFighter): boolean
   return false;
 };
 
-const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) => {
+const block = ({
+  fighter,
+  opponent,
+  thrown = false,
+  ease = 1,
+}: {
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
+  thrown?: boolean,
+  ease?: number,
+}) => {
   // No block if opponent is dead
   if (opponent.hp <= 0) return false;
 
@@ -1274,9 +1284,15 @@ const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) =>
   // No block for pets and bosses
   if (opponent.type === 'pet' || opponent.type === 'boss') return false;
 
+  let opponentBlock = getFighterStat(opponent, 'block');
+
+  // +25% block if blocking a throwing a weapon with `Hideaway`
+  if (thrown && opponent.skills.find((sk) => sk.name === SkillName.hideaway)) {
+    opponentBlock += 0.25;
+  }
+
   return Math.random() * ease
-    < (getFighterStat(opponent, 'block')
-      - getFighterStat(fighter, 'accuracy', 'weapon'));
+    < (opponentBlock - getFighterStat(fighter, 'accuracy', 'weapon'));
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
@@ -1391,7 +1407,7 @@ const attack = (
   // Get damage
   let damage = getDamage(fighter, opponent);
 
-  const blocked = block(fighter, opponent);
+  const blocked = block({ fighter, opponent });
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
 
@@ -1874,7 +1890,12 @@ export const playFighterTurn = (
         checkAchievements(stats, achievements);
 
         // Check if opponent blocked (harder than melee)
-        if (!deflected && block(currentFighter, currentOpponent, 2)) {
+        if (!deflected && block({
+          fighter: currentFighter,
+          opponent: currentOpponent,
+          thrown: true,
+          ease: 2,
+        })) {
           damage = 0;
           // Add block step
           fightData.steps.push({
