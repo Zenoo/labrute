@@ -137,7 +137,7 @@ const ArenaView = () => {
                 value={search}
                 sx={{ mr: 2 }}
               />
-              <Button onClick={searchOpponent} variant="contained">{t('arena.search')}</Button>
+              <Button onClick={searchOpponent} variant="mybrute">{t('arena.search')}</Button>
             </Box>
           </Grid>
           {!isMd && (

@@ -109,7 +109,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
         <DialogActions>
           <Button
             onClick={cancel}
-            variant="contained"
+            variant="mybrute"
             sx={{ color: 'text.secondary' }}
           >
             {t('cancel')}
@@ -117,7 +117,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
           <Button
             onClick={accept}
             autoFocus
-            variant="contained"
+            variant="mybrute"
             sx={{ color: 'error.main' }}
           >
             {t('continue')}

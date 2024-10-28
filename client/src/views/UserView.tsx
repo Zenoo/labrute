@@ -259,7 +259,7 @@ const UserView = () => {
                     sx={{ m: 1 }}
                   >
                     <Check sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('eternalDinoRPG')}
+                    {t('dinorpg')}
                   </FantasyButton>
                 </Box>
               </>

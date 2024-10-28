@@ -81,7 +81,7 @@ const ClanCreateView = () => {
               onChange={changeName}
               value={name}
             />
-            <Button onClick={createClan} variant="contained">{t('create')}</Button>
+            <Button onClick={createClan} variant="mybrute">{t('create')}</Button>
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3}>
