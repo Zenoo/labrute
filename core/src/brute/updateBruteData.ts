@@ -59,7 +59,7 @@ const updateBruteData = (
     }
 
     // Handle +2 fights for `regeneration`
-    if (skillName === SkillName.regeneration) {
+    if (skillName === SkillName.regeneration && !brute.eventId) {
       updatedBrute.fightsLeft = getFightsLeft(updatedBrute, []) + 2;
     }
 
