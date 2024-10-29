@@ -5,10 +5,14 @@ import {
   DailyModifierCountOdds,
   DailyModifierOdds,
   DailyModifierSpawnChance,
+  DailyTournamentGoldReward,
+  DailyTournamentXpReward,
   EventPauseDuration,
   Fighter,
   getNewElo,
   getWinsNeededToRankUp,
+  GlobalTournamentGoldReward,
+  GlobalTournamentXpReward,
   LAST_RELEASE,
   randomBetween,
   weightedRandom,
@@ -359,9 +363,9 @@ const handleDailyTournaments = async (
         // Store XP for winner
         const winnerGains = gains[winnerId];
         if (!winnerGains) {
-          gains[winnerId] = [1, 0];
+          gains[winnerId] = [DailyTournamentXpReward, 0];
         } else {
-          winnerGains[0] += 1;
+          winnerGains[0] += DailyTournamentXpReward;
         }
 
         step++;
@@ -415,7 +419,7 @@ const handleDailyTournaments = async (
         data: {
           userId: winnerBrute.userId,
           date: today.toDate(),
-          gold: 100,
+          gold: DailyTournamentGoldReward,
         },
         select: { id: true },
       });
@@ -423,9 +427,9 @@ const handleDailyTournaments = async (
       // Store gains
       const winnerGains = gains[winnerBrute.id];
       if (!winnerGains) {
-        gains[winnerBrute.id] = [0, 100];
+        gains[winnerBrute.id] = [0, DailyTournamentGoldReward];
       } else {
-        winnerGains[1] += 100;
+        winnerGains[1] += DailyTournamentGoldReward;
       }
 
       // Add 1 tournament win to winner brute
@@ -637,9 +641,9 @@ const handleGlobalTournament = async (
       // Store XP for winner
       const winnerGains = gains[winnerId];
       if (!winnerGains) {
-        gains[winnerId] = [1, 0];
+        gains[winnerId] = [GlobalTournamentXpReward, 0];
       } else {
-        winnerGains[0] += 1;
+        winnerGains[0] += GlobalTournamentXpReward;
       }
     }
 
@@ -679,7 +683,7 @@ const handleGlobalTournament = async (
     data: {
       userId: winnerUser.id,
       date: today.toDate(),
-      gold: 150,
+      gold: GlobalTournamentGoldReward,
     },
     select: { id: true },
   });
@@ -687,9 +691,9 @@ const handleGlobalTournament = async (
   // Store gains
   const winnerGains = gains[winnerBrute.id];
   if (!winnerGains) {
-    gains[winnerBrute.id] = [0, 150];
+    gains[winnerBrute.id] = [0, GlobalTournamentGoldReward];
   } else {
-    winnerGains[1] += 150;
+    winnerGains[1] += GlobalTournamentGoldReward;
   }
 
   // Update tournament with rounds
