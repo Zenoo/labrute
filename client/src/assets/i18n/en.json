@@ -1524,5 +1524,7 @@
   "youWillAscendWith": "You have chosen to ascend with the {{perkName}} {{perkType}}.",
   "youMustSelectToAscend": "You must select a weapon, skill or pet to ascend.",
   "ascensionExplanationText": "Ascending allows you to start over with one additional permanent perk. You will reset to level 1 but keep your rank, previous ascension rewards, and the perk you are about to select.",
-  "rankingPrioritizeAscensions": "The rankings prioritize the amount of ascensions over experience and level !"
+  "rankingPrioritizeAscensions": "The rankings prioritize the amount of ascensions over experience and level !",
+  "fasterFights": "Faster fights",
+  "displayVersusPage": "Display versus page"
 }

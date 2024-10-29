@@ -23,28 +23,29 @@ enum Lang {
 }
 
 model User {
-  id              String           @id @unique @db.Uuid
-  lang            Lang             @default(en)
-  name            String           @db.VarChar(255)
-  admin           Boolean          @default(false)
-  moderator       Boolean          @default(false)
-  connexionToken  String           @db.Uuid
-  bruteLimit      Int              @default(3)
-  gold            Int              @default(0)
-  fightSpeed      Int              @default(2)
-  backgroundMusic Boolean          @default(true)
-  dinorpgDone     DateTime?        @db.Date
-  ips             String[]         @default([])
-  bannedAt        DateTime?        @db.Date
-  banReason       String?
-  lastReleaseSeen String?
-  brutes          Brute[]
-  achievements    Achievement[]
-  reports         BruteReport[]
-  tournamentGolds TournamentGold[]
-  inventory       InventoryItem[]
-  favoriteFights  Fight[]          @relation("FavoriteFights")
-  following       Brute[]          @relation("Followers")
+  id                String           @id @unique @db.Uuid
+  lang              Lang             @default(en)
+  name              String           @db.VarChar(255)
+  admin             Boolean          @default(false)
+  moderator         Boolean          @default(false)
+  connexionToken    String           @db.Uuid
+  bruteLimit        Int              @default(3)
+  gold              Int              @default(0)
+  fightSpeed        Int              @default(2)
+  backgroundMusic   Boolean          @default(true)
+  dinorpgDone       DateTime?        @db.Date
+  ips               String[]         @default([])
+  bannedAt          DateTime?        @db.Date
+  banReason         String?
+  lastReleaseSeen   String?
+  displayVersusPage Boolean          @default(true)
+  brutes            Brute[]
+  achievements      Achievement[]
+  reports           BruteReport[]
+  tournamentGolds   TournamentGold[]
+  inventory         InventoryItem[]
+  favoriteFights    Fight[]          @relation("FavoriteFights")
+  following         Brute[]          @relation("Followers")
 }
 
 enum DestinyChoiceSide {

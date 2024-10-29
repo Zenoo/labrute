@@ -1,8 +1,8 @@
-import { getFightsLeft, LAST_RELEASE } from '@labrute/core';
+import { getFightsLeft, LAST_RELEASE, UserUpdateSettingsRequest } from '@labrute/core';
 import { EventStatus, Lang } from '@labrute/prisma';
-import { Add, AdminPanelSettings, DarkMode, DoNotDisturb, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, NewReleases, Person, RssFeed } from '@mui/icons-material';
-import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, Alert as MuiAlert, ThemeProvider, useTheme } from '@mui/material';
-import React, { useCallback, useContext, useState } from 'react';
+import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
+import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, useTheme } from '@mui/material';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
 import ActionButton from '../components/ActionButton';
@@ -28,6 +28,22 @@ const Main = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
+  const [settings, setSettings] = useState<UserUpdateSettingsRequest>({
+    fightSpeed: 2,
+    backgroundMusic: false,
+    displayVersusPage: true,
+  });
+
+  // Sync settings with user
+  useEffect(() => {
+    if (!user) return;
+
+    setSettings({
+      fightSpeed: user.fightSpeed,
+      backgroundMusic: user.backgroundMusic,
+      displayVersusPage: user.displayVersusPage,
+    });
+  }, [user]);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -64,6 +80,32 @@ const Main = () => {
   // Redirect to page
   const goTo = (path: string) => () => {
     navigate(path);
+  };
+
+  // Toggle setting
+  const toggle = (key: keyof UserUpdateSettingsRequest) => () => {
+    const newSettings: UserUpdateSettingsRequest = {
+      fightSpeed: settings.fightSpeed,
+      backgroundMusic: settings.backgroundMusic,
+      displayVersusPage: settings.displayVersusPage,
+    };
+
+    if (key === 'fightSpeed') {
+      newSettings.fightSpeed = settings.fightSpeed === 2 ? 1 : 2;
+    } else {
+      newSettings[key] = !settings[key];
+    }
+
+    setSettings(newSettings);
+
+    Server.User.updateSettings(newSettings).then(() => {
+      updateData((d) => (d ? {
+        ...d,
+        fightSpeed: newSettings.fightSpeed,
+        backgroundMusic: newSettings.backgroundMusic,
+        displayVersusPage: newSettings.displayVersusPage,
+      } : null));
+    }).catch(catchError(Alert));
   };
 
   return (
@@ -245,13 +287,8 @@ const Main = () => {
                   title={t('profile')}
                 />
                 <ActionButton
-                  Icon={DoNotDisturb}
-                  // Icon={Settings}
-                  title={t('settings')}
-                />
-                <ActionButton
-                  Icon={DoNotDisturb}
-                  // Icon={Info}
+                  to="/wiki"
+                  Icon={Info}
                   title={t('wiki')}
                 />
                 <ActionButton
@@ -344,6 +381,56 @@ const Main = () => {
                   <Text>{t('event.started')}</Text>
                 </MuiAlert>
               )}
+              <List
+                dense
+                subheader={<ListSubheader sx={{ lineHeight: 'inherit', py: 1 }}>{t('settings')}</ListSubheader>}
+              >
+                <ListItem>
+                  <ListItemIcon>
+                    <Speed />
+                  </ListItemIcon>
+                  <ListItemText id="switch-fightSpeed" primary={t('fasterFights')} />
+                  <Switch
+                    edge="end"
+                    size="small"
+                    onChange={toggle('fightSpeed')}
+                    checked={settings.fightSpeed === 2}
+                    inputProps={{
+                      'aria-labelledby': 'switch-fightSpeed',
+                    }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <MusicNote />
+                  </ListItemIcon>
+                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic')} />
+                  <Switch
+                    edge="end"
+                    size="small"
+                    onChange={toggle('backgroundMusic')}
+                    checked={settings.backgroundMusic}
+                    inputProps={{
+                      'aria-labelledby': 'switch-backgroundMusic',
+                    }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <SportsKabaddi />
+                  </ListItemIcon>
+                  <ListItemText id="switch-displayVersusPage" primary={t('displayVersusPage')} />
+                  <Switch
+                    edge="end"
+                    size="small"
+                    onChange={toggle('displayVersusPage')}
+                    checked={settings.displayVersusPage}
+                    inputProps={{
+                      'aria-labelledby': 'switch-displayVersusPage',
+                    }}
+                  />
+                </ListItem>
+              </List>
             </ThemeProvider>
           </>
         )}

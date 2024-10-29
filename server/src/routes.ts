@@ -69,6 +69,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.post('/api/user/next-modifiers', Users.setNextModifiers(prisma));
   app.get('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));
   app.patch('/api/user/last-release', Users.updateLastReleaseSeen(prisma));
+  app.post('/api/user/settings', Users.updateSettings(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
