@@ -13,7 +13,8 @@ export const LAST_RELEASE: Release = {
     'The ascension system is here! After reaching the top rank and winning some tournaments, you can ascend your brute and collect ears. Each ascension allows you to choose a perk you unlocked, but at level 1, replacing it in your destiny by stats.',
     'The user menu has been reworked, you can now see your brutes in the top left, and access your user menu top right.',
     'A wiki was added, you can find it in your user menu.',
-    'A new option to skip the versus page has been added to the user menu'
+    'A new option to skip the versus page has been added to the user menu',
+    'A new easier boss has been added, it will always be the first boss you fight, and has a lower chance to appear later on',
   ],
   fixes: [
     'Damage decreased by 45% while holding a shield',
