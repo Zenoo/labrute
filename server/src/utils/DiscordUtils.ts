@@ -223,14 +223,14 @@ ${error.stack}
   public sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number) {
     const embed = new EmbedBuilder()
       .setColor(0xeb8770)
-      .setTitle(formatEmbedTitle(`${brute.name} ascended ${translate(`rank.${ascensions}`)} times`))
+      .setTitle(formatEmbedTitle(`${brute.name} ascended ${ascensions} times`))
       .setURL(`${this.#server}${brute.name}/cell`)
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${this.#server}/favicon.png`,
         url: `${this.#server}${brute.name}/ranking`,
       })
-      .setThumbnail(`${this.#server}/images/rankings/lvl_0.webp`)
+      .setThumbnail(`${this.#server}/images/ear.gif`)
       .setTimestamp();
 
     this.#rankUpClient.send({ embeds: [embed] }).catch((err) => {
