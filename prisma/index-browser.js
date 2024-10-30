@@ -410,7 +410,8 @@ exports.Prisma.EventScalarFieldEnum = {
   maxRound: 'maxRound',
   status: 'status',
   winnerId: 'winnerId',
-  finishedAt: 'finishedAt'
+  finishedAt: 'finishedAt',
+  sortedBrutes: 'sortedBrutes'
 };
 
 exports.Prisma.SortOrder = {

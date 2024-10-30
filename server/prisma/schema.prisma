@@ -784,17 +784,18 @@ enum EventStatus {
 }
 
 model Event {
-  id         String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date       DateTime    @default(now()) @db.Date
-  type       EventType   @default(battleRoyale)
-  maxLevel   Int
-  maxRound   Int         @default(999)
-  status     EventStatus @default(starting)
-  brutes     Brute[]
-  tournament Tournament?
-  winner     Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
-  winnerId   String?     @db.Uuid
-  finishedAt DateTime?   @db.Date
+  id           String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date         DateTime    @default(now()) @db.Date
+  type         EventType   @default(battleRoyale)
+  maxLevel     Int
+  maxRound     Int         @default(999)
+  status       EventStatus @default(starting)
+  brutes       Brute[]
+  tournament   Tournament?
+  winner       Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
+  winnerId     String?     @db.Uuid
+  finishedAt   DateTime?   @db.Date
+  sortedBrutes String[]    @default([])
 
   @@index([date, type, status])
 }

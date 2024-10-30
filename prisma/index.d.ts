@@ -31227,6 +31227,7 @@ export namespace Prisma {
     status: number
     winnerId: number
     finishedAt: number
+    sortedBrutes: number
     _all: number
   }
 
@@ -31272,6 +31273,7 @@ export namespace Prisma {
     status?: true
     winnerId?: true
     finishedAt?: true
+    sortedBrutes?: true
     _all?: true
   }
 
@@ -31370,6 +31372,7 @@ export namespace Prisma {
     status: $Enums.EventStatus
     winnerId: string | null
     finishedAt: Date | null
+    sortedBrutes: string[]
     _count: EventCountAggregateOutputType | null
     _avg: EventAvgAggregateOutputType | null
     _sum: EventSumAggregateOutputType | null
@@ -31400,6 +31403,7 @@ export namespace Prisma {
     status?: boolean
     winnerId?: boolean
     finishedAt?: boolean
+    sortedBrutes?: boolean
     brutes?: boolean | Event$brutesArgs<ExtArgs>
     tournament?: boolean | Event$tournamentArgs<ExtArgs>
     winner?: boolean | Event$winnerArgs<ExtArgs>
@@ -31415,6 +31419,7 @@ export namespace Prisma {
     status?: boolean
     winnerId?: boolean
     finishedAt?: boolean
+    sortedBrutes?: boolean
     winner?: boolean | Event$winnerArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -31427,9 +31432,10 @@ export namespace Prisma {
     status?: boolean
     winnerId?: boolean
     finishedAt?: boolean
+    sortedBrutes?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "type" | "maxLevel" | "maxRound" | "status" | "winnerId" | "finishedAt", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "type" | "maxLevel" | "maxRound" | "status" | "winnerId" | "finishedAt" | "sortedBrutes", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | Event$brutesArgs<ExtArgs>
     tournament?: boolean | Event$tournamentArgs<ExtArgs>
@@ -31456,6 +31462,7 @@ export namespace Prisma {
       status: $Enums.EventStatus
       winnerId: string | null
       finishedAt: Date | null
+      sortedBrutes: string[]
     }, ExtArgs["result"]["event"]>
     composites: {}
   }
@@ -31860,6 +31867,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Event", 'EventStatus'>
     readonly winnerId: FieldRef<"Event", 'String'>
     readonly finishedAt: FieldRef<"Event", 'DateTime'>
+    readonly sortedBrutes: FieldRef<"Event", 'String[]'>
   }
     
 
@@ -32687,7 +32695,8 @@ export namespace Prisma {
     maxRound: 'maxRound',
     status: 'status',
     winnerId: 'winnerId',
-    finishedAt: 'finishedAt'
+    finishedAt: 'finishedAt',
+    sortedBrutes: 'sortedBrutes'
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
@@ -35052,6 +35061,7 @@ export namespace Prisma {
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
     winnerId?: UuidNullableFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    sortedBrutes?: StringNullableListFilter<"Event">
     brutes?: BruteListRelationFilter
     tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
     winner?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
@@ -35066,6 +35076,7 @@ export namespace Prisma {
     status?: SortOrder
     winnerId?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
+    sortedBrutes?: SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     tournament?: TournamentOrderByWithRelationInput
     winner?: BruteOrderByWithRelationInput
@@ -35083,6 +35094,7 @@ export namespace Prisma {
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
     winnerId?: UuidNullableFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    sortedBrutes?: StringNullableListFilter<"Event">
     brutes?: BruteListRelationFilter
     tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
     winner?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
@@ -35097,6 +35109,7 @@ export namespace Prisma {
     status?: SortOrder
     winnerId?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
+    sortedBrutes?: SortOrder
     _count?: EventCountOrderByAggregateInput
     _avg?: EventAvgOrderByAggregateInput
     _max?: EventMaxOrderByAggregateInput
@@ -35116,6 +35129,7 @@ export namespace Prisma {
     status?: EnumEventStatusWithAggregatesFilter<"Event"> | $Enums.EventStatus
     winnerId?: UuidNullableWithAggregatesFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+    sortedBrutes?: StringNullableListFilter<"Event">
   }
 
   export type UserCreateInput = {
@@ -37234,6 +37248,7 @@ export namespace Prisma {
     maxRound?: number
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     brutes?: BruteCreateNestedManyWithoutEventInput
     tournament?: TournamentCreateNestedOneWithoutEventInput
     winner?: BruteCreateNestedOneWithoutWonEventsInput
@@ -37248,6 +37263,7 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     winnerId?: string | null
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
     tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
   }
@@ -37260,6 +37276,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     brutes?: BruteUpdateManyWithoutEventNestedInput
     tournament?: TournamentUpdateOneWithoutEventNestedInput
     winner?: BruteUpdateOneWithoutWonEventsNestedInput
@@ -37274,6 +37291,7 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
     tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
   }
@@ -37287,6 +37305,7 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     winnerId?: string | null
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
   }
 
   export type EventUpdateManyMutationInput = {
@@ -37297,6 +37316,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
   }
 
   export type EventUncheckedUpdateManyInput = {
@@ -37308,6 +37328,7 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -39255,6 +39276,7 @@ export namespace Prisma {
     status?: SortOrder
     winnerId?: SortOrder
     finishedAt?: SortOrder
+    sortedBrutes?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
@@ -42018,6 +42040,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInventoryInput, UserUpdateWithoutInventoryInput>, UserUncheckedUpdateWithoutInventoryInput>
   }
 
+  export type EventCreatesortedBrutesInput = {
+    set: string[]
+  }
+
   export type BruteCreateNestedManyWithoutEventInput = {
     create?: XOR<BruteCreateWithoutEventInput, BruteUncheckedCreateWithoutEventInput> | BruteCreateWithoutEventInput[] | BruteUncheckedCreateWithoutEventInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutEventInput | BruteCreateOrConnectWithoutEventInput[]
@@ -42056,6 +42082,11 @@ export namespace Prisma {
 
   export type EnumEventStatusFieldUpdateOperationsInput = {
     set?: $Enums.EventStatus
+  }
+
+  export type EventUpdatesortedBrutesInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type BruteUpdateManyWithoutEventNestedInput = {
@@ -44786,6 +44817,7 @@ export namespace Prisma {
     maxRound?: number
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     tournament?: TournamentCreateNestedOneWithoutEventInput
     winner?: BruteCreateNestedOneWithoutWonEventsInput
   }
@@ -44799,6 +44831,7 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     winnerId?: string | null
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
   }
 
@@ -44815,6 +44848,7 @@ export namespace Prisma {
     maxRound?: number
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     brutes?: BruteCreateNestedManyWithoutEventInput
     tournament?: TournamentCreateNestedOneWithoutEventInput
   }
@@ -44827,6 +44861,7 @@ export namespace Prisma {
     maxRound?: number
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
     tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
   }
@@ -45733,6 +45768,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     tournament?: TournamentUpdateOneWithoutEventNestedInput
     winner?: BruteUpdateOneWithoutWonEventsNestedInput
   }
@@ -45746,6 +45782,7 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
   }
 
@@ -45777,6 +45814,7 @@ export namespace Prisma {
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
     winnerId?: UuidNullableFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
+    sortedBrutes?: StringNullableListFilter<"Event">
   }
 
   export type BruteCreateWithoutStartingStatsInput = {
@@ -48173,6 +48211,7 @@ export namespace Prisma {
     maxRound?: number
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     brutes?: BruteCreateNestedManyWithoutEventInput
     winner?: BruteCreateNestedOneWithoutWonEventsInput
   }
@@ -48186,6 +48225,7 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     winnerId?: string | null
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
     brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
   }
 
@@ -48245,6 +48285,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     brutes?: BruteUpdateManyWithoutEventNestedInput
     winner?: BruteUpdateOneWithoutWonEventsNestedInput
   }
@@ -48258,6 +48299,7 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
   }
 
@@ -55109,6 +55151,7 @@ export namespace Prisma {
     maxRound?: number
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
   }
 
   export type BruteUpdateWithoutMasterInput = {
@@ -56302,6 +56345,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     brutes?: BruteUpdateManyWithoutEventNestedInput
     tournament?: TournamentUpdateOneWithoutEventNestedInput
   }
@@ -56314,6 +56358,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
     brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
     tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
   }
@@ -56326,6 +56371,7 @@ export namespace Prisma {
     maxRound?: IntFieldUpdateOperationsInput | number
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
   }
 
   export type LogCreateManyFightInput = {
