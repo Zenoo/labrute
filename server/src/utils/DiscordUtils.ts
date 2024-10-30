@@ -223,7 +223,7 @@ ${error.stack}
   public sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number) {
     const embed = new EmbedBuilder()
       .setColor(0xeb8770)
-      .setTitle(formatEmbedTitle(ascensions === 1 ? `${brute.name} has ascended` : `${brute.name} ascended ${ascensions} times`))
+      .setTitle(formatEmbedTitle(ascensions === 1 ? `${brute.name} has ascended` : `${brute.name} has now ascended ${ascensions} times`))
       .setURL(`${this.#server}${brute.name}/cell`)
       .setAuthor({
         name: 'LaBrute',
