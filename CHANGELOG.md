@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.0](https://github.com/Zenoo/labrute/compare/labrute-v2.73.2...labrute-v2.74.0) (2024-10-30)
+
+
+### Features
+
+* -45% damage while wearing a shield. Fixes [#992](https://github.com/Zenoo/labrute/issues/992) ([a9cc4e0](https://github.com/Zenoo/labrute/commit/a9cc4e0fa02cb1cd71ec690d3e1575b2906cde00))
+* +25% block against throws for `Hideaway`. Fixes [#991](https://github.com/Zenoo/labrute/issues/991) ([73bce57](https://github.com/Zenoo/labrute/commit/73bce57de18f960628301dc5712a957dc9ff1cfe))
+* New user menu. [#948](https://github.com/Zenoo/labrute/issues/948) ([fa0cbcb](https://github.com/Zenoo/labrute/commit/fa0cbcb2c9bf69dfe1da019ffb3454d0798212ee))
+* Settings in user menu + skip versus view. [#948](https://github.com/Zenoo/labrute/issues/948) ([41330a1](https://github.com/Zenoo/labrute/commit/41330a132c8b4c3a79b36e3546a5f9435f3b4da6))
+* Wiki. Fixes [#586](https://github.com/Zenoo/labrute/issues/586) ([3317e81](https://github.com/Zenoo/labrute/commit/3317e8169042828fab73f94d3fb280aa6cc6bec0))
+
+
+### Bug Fixes
+
+* Decrease chance to not draw a weapon when not holding one. Fixes [#987](https://github.com/Zenoo/labrute/issues/987) ([18277a4](https://github.com/Zenoo/labrute/commit/18277a4ea1c241055a3cdb7205ddd2517355deb3))
+* Disable achievements for event brutes. FIxes [#980](https://github.com/Zenoo/labrute/issues/980) ([b7c5bbf](https://github.com/Zenoo/labrute/commit/b7c5bbff6afed3607653c190b91f04cd80782b60))
+* Disable chef poison from backups. Fixes [#973](https://github.com/Zenoo/labrute/issues/973) ([1caf76b](https://github.com/Zenoo/labrute/commit/1caf76bcb92c811c327a10b03ce879ef07217711))
+* Hide level up after reaching event max level. Fixes [#976](https://github.com/Zenoo/labrute/issues/976) ([7896006](https://github.com/Zenoo/labrute/commit/7896006c4eab7059c536f0621daf62a06eebc58e))
+* Missing achievements. Fixes [#979](https://github.com/Zenoo/labrute/issues/979) ([67126c3](https://github.com/Zenoo/labrute/commit/67126c36b937f445ed9eced8afd44da8aa9bffba))
+* No additional fights when unlocking `Regeneration` for event brutes. Fixes [#994](https://github.com/Zenoo/labrute/issues/994) ([f355577](https://github.com/Zenoo/labrute/commit/f3555776a60d31d04816a55277e95188c22246e1))
+* Random event brute sorting + fix uneven event participants in rounds. Fixes [#956](https://github.com/Zenoo/labrute/issues/956) ([d3ad48a](https://github.com/Zenoo/labrute/commit/d3ad48a3365e0163d9f2bf510250369402fd9434))
+* Random weapon/skill seeded per brute, not per server. Fixes [#955](https://github.com/Zenoo/labrute/issues/955) ([093e01b](https://github.com/Zenoo/labrute/commit/093e01b69383cf74151bd403a4ded24c93149e2f))
+* Remove initiative cost for treat. Fixes [#990](https://github.com/Zenoo/labrute/issues/990) ([b043262](https://github.com/Zenoo/labrute/commit/b0432621b3970f3ffb5873947be380033a8044b0))
+* Store last release seen and event step watched in DB. Fixes [#970](https://github.com/Zenoo/labrute/issues/970) ([8fa8807](https://github.com/Zenoo/labrute/commit/8fa8807dc0331a2c0bd4ee0e127f021037c5a948))
+* Trapped brutes stunned on untrap. Fixes [#989](https://github.com/Zenoo/labrute/issues/989) ([ad37278](https://github.com/Zenoo/labrute/commit/ad372787c4345fae57115b5aec8816c21ee0c894))
+* Weapon hit speed influences throwing chances (more hit speed = less likely to throw). Fixes [#988](https://github.com/Zenoo/labrute/issues/988) ([e327b97](https://github.com/Zenoo/labrute/commit/e327b9794511d3e201424e1162985e8f8375e215))
+
 ## [2.73.2](https://github.com/Zenoo/labrute/compare/labrute-v2.73.1...labrute-v2.73.2) (2024-10-02)
 
 
