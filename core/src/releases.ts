@@ -11,8 +11,11 @@ export const LAST_RELEASE: Release = {
   date: '2024-10-28',
   features: [
     'The ascension system is here! After reaching the top rank and winning some tournaments, you can ascend your brute and collect ears. Each ascension allows you to choose a perk you unlocked, but at level 1, replacing it in your destiny by stats.',
+    'The user menu has been reworked, you can now see your brutes in the top left, and access your user menu top right.',
+    'A new option to skip the versus page has been added to the user menu'
   ],
   fixes: [
+    'Damage decreased by 45% while holding a shield',
     'Hitting a trapped brute now stuns it',
     'Throwing chances are now influenced by the weapon hit speed. THe more hit speed, the less likely the weapon is to be thrown',
     '`Chef` poison disabled for backup brutes',
@@ -26,8 +29,13 @@ export const LAST_RELEASE: Release = {
     'The last patch note read is now stored server-side, meaning that dismissing it on one device will dismiss it on all devices',
     'The last fight watched in the even tournament is now stored server-side, meaning that watching a fight on one device will mark it as watched on all devices',
     '`Treat` doesn\'t use any initiative anymore',
+    '`Hideaway` now gives +25% block against throws',
+    'Chance to not draw a weapon when not holding one decreased',
+    '`Regeneration` doesn\'t give +2 fights on the day it is unlocked for event brutes',
+    'Event participants are now randomized on event start',
+    'Event rounds shouldn\'t be running with an odd number of participants anymore',
   ],
-  attachments: [],
+  attachments: ['new-user-menu.jpg'],
 };
 
 export const releases: Release[] = [

@@ -70,7 +70,7 @@ const Page = ({
               sx={{ verticalAlign: 'text-top' }}
             />
           </Link>
-          {' '}| v{Version} | Made with 💖
+          {' '}| v{Version} | Developed with 💖
         </Text>
       </Box>
       <MuiAlert
