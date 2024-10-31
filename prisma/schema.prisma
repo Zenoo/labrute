@@ -222,6 +222,7 @@ model Brute {
   lastFight                    DateTime?               @db.Date
   fightsLeft                   Int                     @default(6)
   victories                    Int                     @default(0)
+  losses                       Int                     @default(0)
   fights                       Fight[]
   fightsAsAdversary            Fight[]                 @relation("Adversary")
   logs                         Log[]

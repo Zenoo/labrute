@@ -5494,6 +5494,7 @@ export namespace Prisma {
     globalTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     tournamentWins: number | null
     resets: number | null
   }
@@ -5520,6 +5521,7 @@ export namespace Prisma {
     globalTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     tournamentWins: number | null
     resets: number | null
   }
@@ -5563,6 +5565,7 @@ export namespace Prisma {
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
@@ -5611,6 +5614,7 @@ export namespace Prisma {
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
@@ -5664,6 +5668,7 @@ export namespace Prisma {
     lastFight: number
     fightsLeft: number
     victories: number
+    losses: number
     opponentsGeneratedAt: number
     canRankUpSince: number
     favorite: number
@@ -5697,6 +5702,7 @@ export namespace Prisma {
     globalTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     tournamentWins?: true
     resets?: true
   }
@@ -5723,6 +5729,7 @@ export namespace Prisma {
     globalTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     tournamentWins?: true
     resets?: true
   }
@@ -5766,6 +5773,7 @@ export namespace Prisma {
     lastFight?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
@@ -5814,6 +5822,7 @@ export namespace Prisma {
     lastFight?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
@@ -5867,6 +5876,7 @@ export namespace Prisma {
     lastFight?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
@@ -6007,6 +6017,7 @@ export namespace Prisma {
     lastFight: Date | null
     fightsLeft: number
     victories: number
+    losses: number
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean
@@ -6079,6 +6090,7 @@ export namespace Prisma {
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
+    losses?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
@@ -6161,6 +6173,7 @@ export namespace Prisma {
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
+    losses?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
@@ -6219,6 +6232,7 @@ export namespace Prisma {
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
+    losses?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
@@ -6228,7 +6242,7 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "losses" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
@@ -6344,6 +6358,7 @@ export namespace Prisma {
       lastFight: Date | null
       fightsLeft: number
       victories: number
+      losses: number
       opponentsGeneratedAt: Date | null
       canRankUpSince: Date | null
       favorite: boolean
@@ -6815,6 +6830,7 @@ export namespace Prisma {
     readonly lastFight: FieldRef<"Brute", 'DateTime'>
     readonly fightsLeft: FieldRef<"Brute", 'Int'>
     readonly victories: FieldRef<"Brute", 'Int'>
+    readonly losses: FieldRef<"Brute", 'Int'>
     readonly opponentsGeneratedAt: FieldRef<"Brute", 'DateTime'>
     readonly canRankUpSince: FieldRef<"Brute", 'DateTime'>
     readonly favorite: FieldRef<"Brute", 'Boolean'>
@@ -32324,6 +32340,7 @@ export namespace Prisma {
     lastFight: 'lastFight',
     fightsLeft: 'fightsLeft',
     victories: 'victories',
+    losses: 'losses',
     opponentsGeneratedAt: 'opponentsGeneratedAt',
     canRankUpSince: 'canRankUpSince',
     favorite: 'favorite',
@@ -33157,6 +33174,7 @@ export namespace Prisma {
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
+    losses?: IntFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
@@ -33238,6 +33256,7 @@ export namespace Prisma {
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrderInput | SortOrder
     canRankUpSince?: SortOrderInput | SortOrder
     favorite?: SortOrder
@@ -33322,6 +33341,7 @@ export namespace Prisma {
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
+    losses?: IntFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
@@ -33403,6 +33423,7 @@ export namespace Prisma {
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrderInput | SortOrder
     canRankUpSince?: SortOrderInput | SortOrder
     favorite?: SortOrder
@@ -33464,6 +33485,7 @@ export namespace Prisma {
     lastFight?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     fightsLeft?: IntWithAggregatesFilter<"Brute"> | number
     victories?: IntWithAggregatesFilter<"Brute"> | number
+    losses?: IntWithAggregatesFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     favorite?: BoolWithAggregatesFilter<"Brute"> | boolean
@@ -35185,6 +35207,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -35264,6 +35287,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -35337,6 +35361,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35416,6 +35441,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35492,6 +35518,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -35542,6 +35569,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35593,6 +35621,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -37708,6 +37737,7 @@ export namespace Prisma {
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
@@ -37739,6 +37769,7 @@ export namespace Prisma {
     globalTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     tournamentWins?: SortOrder
     resets?: SortOrder
   }
@@ -37782,6 +37813,7 @@ export namespace Prisma {
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
@@ -37830,6 +37862,7 @@ export namespace Prisma {
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
@@ -37861,6 +37894,7 @@ export namespace Prisma {
     globalTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     tournamentWins?: SortOrder
     resets?: SortOrder
   }
@@ -42504,6 +42538,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42581,6 +42616,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42796,6 +42832,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42874,6 +42911,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42973,6 +43011,7 @@ export namespace Prisma {
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
+    losses?: IntFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
@@ -43233,6 +43272,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43311,6 +43351,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43388,6 +43429,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43465,6 +43507,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43776,6 +43819,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43854,6 +43898,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43931,6 +43976,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -44009,6 +44055,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -44632,6 +44679,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -44710,6 +44758,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -45481,6 +45530,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45559,6 +45609,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45647,6 +45698,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -45725,6 +45777,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -45797,6 +45850,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45875,6 +45929,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45952,6 +46007,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46030,6 +46086,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46265,6 +46322,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46343,6 +46401,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46426,6 +46485,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46504,6 +46564,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46680,6 +46741,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46758,6 +46820,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46918,6 +46981,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46996,6 +47060,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -47152,6 +47217,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47230,6 +47296,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47354,6 +47421,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -47432,6 +47500,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -47520,6 +47589,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47598,6 +47668,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47815,6 +47886,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47893,6 +47965,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47981,6 +48054,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48059,6 +48133,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48239,6 +48314,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48317,6 +48393,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48405,6 +48482,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48483,6 +48561,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48555,6 +48634,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48633,6 +48713,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48772,6 +48853,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48850,6 +48932,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48979,6 +49062,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49057,6 +49141,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49150,6 +49235,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49228,6 +49314,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49367,6 +49454,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -49445,6 +49533,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -49533,6 +49622,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49611,6 +49701,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49688,6 +49779,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49765,6 +49857,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49848,6 +49941,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49926,6 +50020,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -50201,6 +50296,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50279,6 +50375,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50524,6 +50621,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -50602,6 +50700,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -50763,6 +50862,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50841,6 +50941,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50958,6 +51059,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51036,6 +51138,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51159,6 +51262,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -51237,6 +51341,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -51309,6 +51414,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51387,6 +51493,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51518,6 +51625,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -51596,6 +51704,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -52130,6 +52239,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52208,6 +52318,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52285,6 +52396,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52363,6 +52475,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52515,6 +52628,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52593,6 +52707,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52732,6 +52847,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -52810,6 +52926,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -52939,6 +53056,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53017,6 +53135,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53122,6 +53241,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53200,6 +53320,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53333,6 +53454,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53411,6 +53533,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53485,6 +53608,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53555,6 +53679,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53632,6 +53757,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53707,6 +53833,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53894,6 +54021,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53972,6 +54100,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54047,6 +54176,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54099,6 +54229,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -54274,6 +54405,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54351,6 +54483,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54426,6 +54559,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54680,6 +54814,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54758,6 +54893,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54833,6 +54969,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54883,6 +55020,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54961,6 +55099,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55036,6 +55175,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55604,6 +55744,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55682,6 +55823,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55757,6 +55899,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55856,6 +55999,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55934,6 +56078,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56009,6 +56154,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56124,6 +56270,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -56177,6 +56324,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -56285,6 +56433,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56362,6 +56511,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56437,6 +56587,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56487,6 +56638,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56565,6 +56717,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56640,6 +56793,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56996,6 +57150,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57074,6 +57229,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57149,6 +57305,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57199,6 +57356,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57277,6 +57435,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57352,6 +57511,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57405,6 +57565,7 @@ export namespace Prisma {
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -57454,6 +57615,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57532,6 +57694,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57607,6 +57770,7 @@ export namespace Prisma {
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean

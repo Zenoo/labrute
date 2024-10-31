@@ -198,13 +198,14 @@ const Fights = {
             : levelDifference > 10 ? 0 : 1
         : 0;
 
-      // Update brute XP and victories if arena fight
+      // Update brute XP, victories and losses if arena fight
       if (arenaFight) {
         await prisma.brute.update({
           where: { id: brute1.id },
           data: {
             xp: { increment: xpGained },
             victories: { increment: generatedFight.winner === brute1.name ? 1 : 0 },
+            losses: { increment: generatedFight.winner === brute1.name ? 0 : 1 },
           },
           select: { id: true },
         });
@@ -266,6 +267,7 @@ const Fights = {
         xpWon: arenaFight ? xpGained : 0,
         fightsLeft: arenaFight ? fightsLeft - 1 : fightsLeft,
         victories: arenaFight ? generatedFight.winner === brute1.name ? 1 : 0 : 0,
+        losses: arenaFight ? generatedFight.winner !== brute1.name ? 1 : 0 : 0,
       });
     } catch (error) {
       sendError(res, error);
