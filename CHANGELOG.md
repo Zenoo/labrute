@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.2](https://github.com/Zenoo/labrute/compare/labrute-v2.74.1...labrute-v2.74.2) (2024-10-31)
+
+
+### Bug Fixes
+
+* Reduce shield reduced damage ([050ae1f](https://github.com/Zenoo/labrute/commit/050ae1ff65f6683c9e669a890e7811d812b9e3bf))
+
 ## [2.74.1](https://github.com/Zenoo/labrute/compare/labrute-v2.74.0...labrute-v2.74.1) (2024-10-31)
 
 
