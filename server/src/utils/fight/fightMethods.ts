@@ -35,6 +35,18 @@ export type Stats = Record<string, {
   hpHealed?: number;
 }>;
 
+const skillTargetsFilter = (skill: SkillName) => {
+  switch (skill) {
+    case SkillName.tamer: {
+      // Target non-eaten dead pets
+      return (f: DetailedFighter) => f.type === 'pet' && f.hp <= 0 && !f.eaten;
+    }
+    default: {
+      return () => true;
+    }
+  }
+};
+
 const getFighterStat = (
   fighter: DetailedFighter,
   stat: FighterStat,
@@ -265,8 +277,9 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   if (!supers.length) return null;
 
-  // Filter out tamer if no dead pets
-  if (fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0).length === 0) {
+  // Filter out tamer if no valid target and lost less than 20% HP
+  if (fightData.fighters.filter(skillTargetsFilter(SkillName.tamer)).length === 0
+    && fighter.hp > fighter.maxHp * 0.8) {
     supers = supers.filter((skill) => skill.name !== SkillName.tamer);
   }
 
@@ -298,13 +311,9 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
     supers = supers.filter((skill) => skill.name !== SkillName.net);
   }
 
-  // Filter out vampirism if more than 50% hp
-  if (fighter.hp > fighter.maxHp / 2) {
-    supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
-  }
-
-  // Filter out vampirism if no brute opponent
-  if (getOpponents({ fightData, fighter, bruteOnly: true }).length === 0) {
+  // Filter out vampirism if more than 50% hp or no brute opponent
+  if (fighter.hp > fighter.maxHp / 2
+    || getOpponents({ fightData, fighter, bruteOnly: true }).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
@@ -657,14 +666,23 @@ const activateSuper = (
     // Steal opponent's weapon if he has one
     case SkillName.thief: {
       // Choose brute opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponents = getOpponents({ fightData, fighter, bruteOnly: true })
+        .filter((f) => f.activeWeapon);
+
+      if (!opponents.length) {
+        return false;
+      }
+
+      const opponent = randomItem(opponents);
 
       if (!opponent) {
         return false;
       }
 
       // Abort if no weapon
-      if (!opponent.activeWeapon) return false;
+      if (!opponent.activeWeapon) {
+        throw new Error('No weapon to steal');
+      }
 
       // 20% chance to steal if fighter already has a weapon
       if (fighter.activeWeapon && randomBetween(1, 5) !== 1) {
@@ -987,13 +1005,10 @@ const activateSuper = (
       break;
     }
     case SkillName.tamer: {
-      // Get non eaten dead pets
-      const deadPets = fightData.fighters.filter((f) => f.type === 'pet' && f.hp <= 0 && !f.eaten);
+      // Get targets
+      const deadPets = fightData.fighters.filter(skillTargetsFilter(SkillName.tamer));
 
       if (deadPets.length === 0) return false;
-
-      // Abort if less than 20 HP lost
-      if (fighter.hp > fighter.maxHp - 20) return false;
 
       // Get random dead pet
       const pet = randomItem(deadPets);
