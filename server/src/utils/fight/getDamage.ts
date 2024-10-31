@@ -24,7 +24,7 @@ const getDamage = (
   if (!piledriver) {
     // +100% damage for `martialArts` without a weapon or with a mug
     if ((!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug)
-      && fighter.skills.find((sk) => sk.name === SkillName.weaponsMaster)
+      && fighter.skills.find((sk) => sk.name === SkillName.martialArts)
       && !thrown) {
       skillsMultiplier += 1;
     }
