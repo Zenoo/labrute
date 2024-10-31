@@ -24,7 +24,7 @@ const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute } = useBrute();
-  const { randomSkill } = useAuth();
+  const { modifiers } = useAuth();
 
   const [opponents, setOpponents] = useState<BrutesGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
@@ -33,8 +33,8 @@ const ArenaView = () => {
     && getXPNeeded(brute.level + 1), [brute]);
 
   const fightsLeft = useMemo(
-    () => (brute && getFightsLeft(brute, randomSkill)) ?? 0,
-    [brute, randomSkill]
+    () => (brute && getFightsLeft(brute, modifiers)) ?? 0,
+    [brute, modifiers]
   );
 
   // Fetch random opponents
@@ -99,7 +99,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, randomSkill) }) : t('youHaveOneFightLeft')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, modifiers) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
@@ -137,7 +137,7 @@ const ArenaView = () => {
                 value={search}
                 sx={{ mr: 2 }}
               />
-              <Button onClick={searchOpponent} variant="contained">{t('arena.search')}</Button>
+              <Button onClick={searchOpponent} variant="mybrute">{t('arena.search')}</Button>
             </Box>
           </Grid>
           {!isMd && (

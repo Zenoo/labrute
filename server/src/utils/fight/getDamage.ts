@@ -1,4 +1,5 @@
-import { DetailedFighter, Weapon } from '@labrute/core';
+import { DetailedFighter, Weapon, WeaponType } from '@labrute/core';
+import { SkillName, WeaponName } from '@labrute/prisma';
 
 const getDamage = (
   fighter: DetailedFighter,
@@ -11,16 +12,20 @@ const getDamage = (
   let skillsMultiplier = 1;
 
   // Using Piledriver ?
-  const piledriver = fighter.activeSkills.find((sk) => sk.name === 'hammer');
+  const piledriver = fighter.activeSkills.find((sk) => sk.name === SkillName.hammer);
 
   // +50% damage for `weaponsMaster` on sharp weapons
-  if (fighter.activeWeapon?.types.includes('sharp') && fighter.skills.find((sk) => sk.name === 'weaponsMaster') && !thrown) {
+  if (fighter.activeWeapon?.types.includes(WeaponType.SHARP)
+    && fighter.skills.find((sk) => sk.name === SkillName.weaponsMaster)
+    && !thrown) {
     skillsMultiplier += 0.5;
   }
 
   if (!piledriver) {
     // +100% damage for `martialArts` without a weapon or with a mug
-    if ((!fighter.activeWeapon || fighter.activeWeapon.name === 'mug') && fighter.skills.find((sk) => sk.name === 'martialArts') && !thrown) {
+    if ((!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug)
+      && fighter.skills.find((sk) => sk.name === SkillName.weaponsMaster)
+      && !thrown) {
       skillsMultiplier += 1;
     }
   }
@@ -62,6 +67,11 @@ const getDamage = (
   // -25% damage if fighter uses a damaged weapon
   if (fighter.activeWeapon && fighter.damagedWeapons.includes(fighter.activeWeapon.name)) {
     damage = Math.floor(damage * 0.75);
+  }
+
+  // -45% damage for `shield`
+  if (fighter.shield) {
+    damage = Math.floor(damage * 0.55);
   }
 
   // Reduce damage with opponent's armor if not thrown

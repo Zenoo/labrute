@@ -357,12 +357,14 @@ const CellView = () => {
               <Box sx={{ ml: 2, mt: 1 }}>
                 {logs.map((log) => <CellLog key={log.id} log={log} />)}
               </Box>
-              <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
-                <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
-                  <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                  {t('tournaments')}
-                </FantasyButton>
-              </Box>
+              {!brute.eventId && (
+                <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                  <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
+                    <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                    {t('tournaments')}
+                  </FantasyButton>
+                </Box>
+              )}
               <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
                 <FantasyButton color="primary" to={`/${brute.name}/event/history`} sx={{ m: 1 }}>
                   <History sx={{ verticalAlign: 'middle', mr: 1 }} />

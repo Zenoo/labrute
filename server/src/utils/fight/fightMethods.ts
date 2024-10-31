@@ -417,8 +417,8 @@ export const fighterArrives = (
     }
   }
 
-  // Poison fighters (not for bosses)
-  if (fighter.skills.find((skill) => skill.name === SkillName.chef)) {
+  // Poison fighters (not on bosses) (doesn't trigger for backups)
+  if (!fighter.master && fighter.skills.find((skill) => skill.name === SkillName.chef)) {
     getOpponents({ fightData, fighter }).forEach((opponent) => {
       if (opponent.type !== 'boss') {
         opponent.poisoned = true;
@@ -459,11 +459,18 @@ const registerHit = (
       : damage,
   }), {});
 
+  const previousTrappedOpponents = opponents.filter((opponent) => opponent.trapped);
+
   opponents.forEach((opponent) => {
     // Remove the net and reset initiative
     if (opponent.trapped) {
       opponent.trapped = false;
       opponent.initiative = fightData.initiative + 0.5;
+
+      // Stun brute opponents
+      if (opponent.type === 'brute') {
+        opponent.stunned = true;
+      }
     }
 
     // Max damage to 20% of opponent's health if `resistant`
@@ -578,7 +585,7 @@ const registerHit = (
       }
 
       // Remove stun if hit while stunned
-      if (opponent.stunned) {
+      if (!previousTrappedOpponents.some((o) => o.id === opponent.id) && opponent.stunned) {
         opponent.stunned = false;
       }
 
@@ -1106,7 +1113,7 @@ const activateSuper = (
       }
 
       // Set pet initiative to fighter initiative (to act right after)
-      pet.initiative = fighter.initiative;
+      pet.initiative = fighter.initiative - 0.01;
 
       // Give immunity to pet
       pet.immune = true;
@@ -1132,9 +1139,6 @@ const activateSuper = (
         a: StepType.MoveBack,
         f: fighter.index,
       });
-
-      // Increase own initiative
-      fighter.initiative += 0.3 + fighter.tempo;
       break;
     }
     default:
@@ -1198,7 +1202,7 @@ const drawWeapon = (fightData: DetailedFight, fighter: DetailedFighter): boolean
   const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons);
 
   // Decrease `keepWeaponChance` each turn and abort until true
-  if (!drawEveryWeapon && Math.random() < fighter.keepWeaponChance) {
+  if (fighter.activeWeapon && !drawEveryWeapon && Math.random() < fighter.keepWeaponChance) {
     fighter.keepWeaponChance *= 0.5;
     return false;
   }
@@ -1257,7 +1261,17 @@ const drawWeapon = (fightData: DetailedFight, fighter: DetailedFighter): boolean
   return false;
 };
 
-const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) => {
+const block = ({
+  fighter,
+  opponent,
+  thrown = false,
+  ease = 1,
+}: {
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
+  thrown?: boolean,
+  ease?: number,
+}) => {
   // No block if opponent is dead
   if (opponent.hp <= 0) return false;
 
@@ -1270,9 +1284,15 @@ const block = (fighter: DetailedFighter, opponent: DetailedFighter, ease = 1) =>
   // No block for pets and bosses
   if (opponent.type === 'pet' || opponent.type === 'boss') return false;
 
+  let opponentBlock = getFighterStat(opponent, 'block');
+
+  // +25% block if blocking a throwing a weapon with `Hideaway`
+  if (thrown && opponent.skills.find((sk) => sk.name === SkillName.hideaway)) {
+    opponentBlock += 0.25;
+  }
+
   return Math.random() * ease
-    < (getFighterStat(opponent, 'block')
-      - getFighterStat(fighter, 'accuracy', 'weapon'));
+    < (opponentBlock - getFighterStat(fighter, 'accuracy', 'weapon'));
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
@@ -1387,7 +1407,7 @@ const attack = (
   // Get damage
   let damage = getDamage(fighter, opponent);
 
-  const blocked = block(fighter, opponent);
+  const blocked = block({ fighter, opponent });
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
 
@@ -1748,8 +1768,9 @@ export const playFighterTurn = (
         ? randomBetween(0, 1) === 0
           ? 'thrown'
           : 'melee'
-        // 1/28 chance to throw a weapon otherwise
-        : randomBetween(0, 27) === 0
+        // 1/33 chance to throw a weapon otherwise
+        // (influenced by weapon hit speed)
+        : randomBetween(0, Math.round(33 - fighter.activeWeapon.tempo * 5)) === 0
           ? 'thrown' : 'melee'
       : 'melee';
 
@@ -1869,7 +1890,12 @@ export const playFighterTurn = (
         checkAchievements(stats, achievements);
 
         // Check if opponent blocked (harder than melee)
-        if (!deflected && block(currentFighter, currentOpponent, 2)) {
+        if (!deflected && block({
+          fighter: currentFighter,
+          opponent: currentOpponent,
+          thrown: true,
+          ease: 2,
+        })) {
           damage = 0;
           // Add block step
           fightData.steps.push({

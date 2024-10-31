@@ -57,6 +57,9 @@ const RankingView = () => {
         </Box>
       </TableCell>
       <TableCell align="right">{t('level')} {brute.level}</TableCell>
+      {rankingSelected === 0 && (
+        <TableCell align="right">{brute.ascensions}</TableCell>
+      )}
     </TableRow>
   );
 
@@ -145,6 +148,9 @@ const RankingView = () => {
                   <TableCell />
                   <TableCell>{t('brute')}</TableCell>
                   <TableCell align="right">{t('experience')}</TableCell>
+                  {rankingSelected === 0 && (
+                    <TableCell align="right">{t('ascensions')}</TableCell>
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -173,7 +179,7 @@ const RankingView = () => {
                   <TableCell component="th" scope="row">
                     {t('total')}
                   </TableCell>
-                  <TableCell component="th" scope="row" colSpan={2} align="right">
+                  <TableCell component="th" scope="row" colSpan={rankingSelected === 0 ? 3 : 2} align="right">
                     {rankings.total}
                   </TableCell>
                 </TableRow>

@@ -8,8 +8,6 @@ import { Event, FightModifier } from '@labrute/prisma';
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
   modifiers: FightModifier[],
-  randomSkill: number | null,
-  randomWeapon: number | null,
   currentEvent: Event | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
@@ -21,8 +19,6 @@ interface AuthContextInterface {
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
   modifiers: [],
-  randomSkill: null,
-  randomWeapon: null,
   currentEvent: null,
   authing: false,
   setAuthing: () => {
@@ -49,8 +45,6 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [modifiers, setModifiers] = useState<FightModifier[]>([]);
-  const [randomSkill, setRandomSkill] = useState<number | null>(null);
-  const [randomWeapon, setRandomWeapon] = useState<number | null>(null);
   const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
@@ -68,8 +62,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         Server.User.authenticate(userId, token).then((response) => {
           setUser(response.user);
           setModifiers(response.modifiers);
-          setRandomSkill(response.randomSkill);
-          setRandomWeapon(response.randomWeapon);
           setCurrentEvent(response.currentEvent);
           setAuthing(false);
 
@@ -105,8 +97,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const methods = useMemo(() => ({
     user,
     modifiers,
-    randomSkill,
-    randomWeapon,
     currentEvent,
     authing,
     setAuthing,
@@ -114,7 +104,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signout,
     updateData
   }), [authing, currentEvent, modifiers,
-    randomSkill, randomWeapon, signin, signout, updateData, user]);
+    signin, signout, updateData, user]);
 
   return (
     <AuthContext.Provider value={methods}>

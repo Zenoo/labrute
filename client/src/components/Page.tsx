@@ -1,24 +1,13 @@
-import { getFightsLeft, getGoldNeededForNewBrute, LAST_RELEASE, Version } from '@labrute/core';
-import { EventStatus, Lang } from '@labrute/prisma';
-import { AccountCircle, Add, AdminPanelSettings, Brightness4, Brightness7, DoNotDisturb, Login, Logout, MilitaryTech, MoreHoriz } from '@mui/icons-material';
-import { AlertTitle, Badge, Box, BoxProps, CircularProgress, Fab, Alert as MuiAlert, SpeedDial, SpeedDialAction, Tooltip, useTheme } from '@mui/material';
-import React, { Fragment, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { isMobile } from 'react-device-detect';
+import { Version } from '@labrute/core';
+import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Tooltip } from '@mui/material';
+import React, { Fragment, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
-import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import { useLanguage } from '../hooks/useLanguage';
-import { ColorModeContext } from '../theme/ColorModeContext';
 import ads, { AdName } from '../utils/ads';
-import catchError from '../utils/catchError';
-import Fetch from '../utils/Fetch';
-import Server from '../utils/Server';
-import BruteRender from './Brute/Body/BruteRender';
 import Header from './Header';
-import Text from './Text';
 import Link from './Link';
+import Text from './Text';
 
 interface Props extends BoxProps {
   title: string,
@@ -35,18 +24,7 @@ const Page = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  const Alert = useAlert();
-  const { authing, user, signout, signin, updateData, randomSkill, currentEvent } = useAuth();
-  const navigate = useNavigate();
-  const { language, setLanguage } = useLanguage();
-  const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
-
-  // Speed dial state
-  const [open, setOpen] = useState(false);
-
-  // Gold needed for a new brute
-  const goldNeeded = useMemo(() => (user ? getGoldNeededForNewBrute(user) : 0), [user]);
+  const { authing, user, signin } = useAuth();
 
   // Auth on page load
   useEffect(() => {
@@ -54,91 +32,6 @@ const Page = ({
       signin();
     }
   }, [authing, signin, user]);
-
-  // Check last patch notes seen
-  useEffect(() => {
-    if (!user) return;
-
-    const lastPatchNotes = localStorage.getItem('patchNotes');
-
-    if (lastPatchNotes !== LAST_RELEASE.version) {
-      Alert.open('info', t('newPatchNotesAvailable'), '/patch-notes');
-    }
-  }, [Alert, t, user]);
-
-  // Open speed dial
-  const openSpeedDial = useCallback(() => {
-    // Don't do anything on mobile
-    if (isMobile) return;
-
-    setOpen(true);
-  }, []);
-
-  // Close speed dial
-  const toggleSpeedDial = useCallback(() => {
-    setOpen((prev) => !prev);
-  }, []);
-
-  const goToCell = useCallback((name: string) => () => {
-    setOpen(false);
-    navigate(`/${name}/cell`);
-  }, [navigate]);
-
-  const oauth = useCallback(() => {
-    Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
-      window.location.href = url;
-    }).catch(catchError(Alert));
-  }, [Alert]);
-
-  // Logout
-  const logout = useCallback(() => {
-    setOpen(false);
-    signout();
-    Alert.open('success', t('logoutSuccess'));
-  }, [Alert, signout, t]);
-
-  // Change language
-  const changeLanguage = useCallback((lang: Lang) => () => {
-    setLanguage(lang);
-
-    // Update user language if logged in
-    if (user && user.lang !== lang) {
-      Server.User.changeLanguage(lang).then(() => {
-        updateData(({
-          ...user,
-          lang,
-        }));
-      }).catch(catchError(Alert));
-    }
-  }, [Alert, setLanguage, updateData, user]);
-
-  // Redirect to Home page
-  const goHome = useCallback(() => {
-    setOpen(false);
-    navigate('/');
-  }, [navigate]);
-
-  // Redirect to User profile
-  const GoToUserProfile = useCallback(() => {
-    setOpen(false);
-    navigate(`/user/${user?.id}`);
-  }, [navigate, user]);
-
-  // Redirect to Hall page
-  const goToHall = useCallback(() => {
-    setOpen(false);
-    navigate('/hall');
-  }, [navigate]);
-
-  // Redirect to Event page
-  const goToEvent = useCallback(() => {
-    if (!currentEvent || !user || !user.brutes.length) return;
-
-    setOpen(false);
-    navigate(`/${user.brutes[0]?.name}/event/${currentEvent.id}`);
-  }, [currentEvent, navigate, user]);
-
-  const ColorModeIcon = theme.palette.mode === 'dark' ? Brightness7 : Brightness4;
 
   return (
     <Box
@@ -153,114 +46,7 @@ const Page = ({
       </Helmet>
       {/* HEADER */}
       <Header url={headerUrl} />
-      {/* EVENT */}
-      {currentEvent?.status === EventStatus.starting && !!user?.brutes.length && (
-        <MuiAlert
-          severity="info"
-          variant="filled"
-          onClick={goToEvent}
-          sx={{
-            my: 1,
-            cursor: 'pointer',
-          }}
-        >
-          <Text>{t('event.started')}</Text>
-        </MuiAlert>
-      )}
       {children}
-      {/* AUTH */}
-      {!user ? (
-        <Tooltip title={t('login')}>
-          <Fab
-            onClick={oauth}
-            sx={{
-              position: 'fixed',
-              bottom: 16,
-              right: 16,
-              zIndex: 101,
-              bgcolor: 'success.light',
-              '&:hover': { bgcolor: 'success.main' },
-            }}
-          >
-            {authing
-              ? <CircularProgress color="success" sx={{ width: '20px !important', height: '20px !important' }} />
-              : <Login />}
-          </Fab>
-        </Tooltip>
-      ) : (
-        <SpeedDial
-          ariaLabel={t('account')}
-          open={open}
-          onMouseEnter={openSpeedDial}
-          onClick={toggleSpeedDial}
-          sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 101 }}
-          FabProps={{ sx: { bgcolor: 'success.light', '&:hover': { bgcolor: 'success.main' } } }}
-          icon={(
-            <Tooltip title={user.name}>
-              <AccountCircle />
-            </Tooltip>
-          )}
-        >
-          <SpeedDialAction
-            icon={<Logout color="error" />}
-            tooltipTitle={t('logout')}
-            tooltipOpen
-            onClick={logout}
-          />
-          <SpeedDialAction
-            icon={user.gold}
-            tooltipTitle={t('gold')}
-            tooltipOpen
-          />
-          <SpeedDialAction
-            icon={<MilitaryTech color="warning" />}
-            tooltipTitle={t('userProfile', { user: user.name })}
-            tooltipOpen
-            onClick={GoToUserProfile}
-            sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
-          />
-          {user.brutes.slice(0, 3).map((brute) => (
-            <SpeedDialAction
-              key={brute.name}
-              icon={(
-                <Badge badgeContent={getFightsLeft(brute, randomSkill)} color="secondary">
-                  <Box sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: '50%',
-                    overflow: 'hidden',
-                    p: 0.25,
-                  }}
-                  >
-                    <BruteRender
-                      brute={brute}
-                      looking="left"
-                    />
-                  </Box>
-                </Badge>
-              )}
-              tooltipTitle={brute.name}
-              tooltipOpen
-              onClick={goToCell(brute.name)}
-            />
-          ))}
-          {user.brutes.length > 3 && (
-            <SpeedDialAction
-              icon={<MoreHoriz color="secondary" />}
-              tooltipTitle={t('hall')}
-              tooltipOpen
-              onClick={goToHall}
-            />
-          )}
-          <SpeedDialAction
-            icon={user.gold >= goldNeeded ? <Add color="success" /> : <DoNotDisturb color="error" />}
-            tooltipTitle={`${t('newBrute')}${getGoldNeededForNewBrute(user) > 0 ? ` (${getGoldNeededForNewBrute(user)} ${t('gold')})` : ''}`}
-            tooltipOpen
-            onClick={user.gold >= goldNeeded ? goHome : undefined}
-            sx={{ textAlign: 'right', whiteSpace: 'nowrap' }}
-          />
-        </SpeedDial>
-      )}
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
@@ -274,47 +60,17 @@ const Page = ({
             </Fragment>
           ))}
         </Text>
-        <Text color="secondary" sx={{ fontWeight: 'bold' }}>
+        <Text color="secondary" bold>
           &copy; 2008{' '}
           <Link href="http://www.motion-twin.com/">
             <Box
               component="img"
               src="/images/motiontwin.gif"
               alt="Motion Twin"
-              sx={{ verticalAlign: 'middle' }}
+              sx={{ verticalAlign: 'text-top' }}
             />
           </Link>
-          {' '}| v{Version}{' '}
-          <Link to="/patch-notes" sx={{ fontStyle: 'italic' }}>({t('patchNotes')})</Link>
-          {' '}Remade with love at{' '}
-          <Link href="https://eternal-twin.net/">Eternal Twin</Link>
-          {/* LANGUAGE */}
-          {Object.values(Lang).map((lang) => lang !== language && (
-            <Tooltip title={t(`${lang}-version`)} key={lang}>
-              <Box
-                component="img"
-                src={`/images/${lang}/flag.svg`}
-                alt={lang}
-                onClick={changeLanguage(lang)}
-                sx={{ ml: 1, cursor: 'pointer', width: 15 }}
-              />
-            </Tooltip>
-          ))}
-          {/* LIGHT/DARK MODE */}
-          <Tooltip title={theme.palette.mode === 'dark' ? t('lightMode') : t('darkMode')}>
-            <ColorModeIcon
-              onClick={colorMode.toggleColorMode}
-              sx={{ cursor: 'pointer', fontSize: 14, ml: 1 }}
-            />
-          </Tooltip>
-          {/* ADMIN PANEL */}
-          {user && user.admin && (
-            <Tooltip title={t('adminPanel')}>
-              <Link href="/admin-panel" sx={{ ml: 1 }}>
-                <AdminPanelSettings sx={{ fontSize: 14 }} />
-              </Link>
-            </Tooltip>
-          )}
+          {' '}| v{Version} | Made with 💖
         </Text>
       </Box>
       <MuiAlert

@@ -1,7 +1,7 @@
 import { randomItem } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 
-export type AdName = 'myHordes' | 'eMush' | 'eternalDinoRPG' | 'neoparc' | 'eternalfest' | 'eternalKingdom' | 'directquiz' | 'ePopotamo';
+export type AdName = 'myHordes' | 'eMush' | 'dinorpg' | 'neoparc' | 'eternalfest' | 'eternalKingdom' | 'directquiz' | 'ePopotamo';
 
 export interface AdResult {
   name: AdName;
@@ -37,7 +37,7 @@ const ads: Record<AdName, AdProps> = {
       pt: ['mush_en.gif'],
     },
   },
-  eternalDinoRPG: {
+  dinorpg: {
     url: 'https://dinorpg.eternaltwin.org/',
     illustrations: {
       fr: ['dinorpg_2.jpg', 'dinorpg_3.jpg', 'dinorpg-tw-brute-en.gif'],

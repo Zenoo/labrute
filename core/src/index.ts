@@ -71,8 +71,8 @@ export type PrismaInclude = {
 // Server return types
 export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
 export type BrutesGetForRankResponse = {
-  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
-  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level'>[],
+  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
   position: number,
   total: number,
 };
@@ -150,8 +150,6 @@ export type UsersAdminUpdateRequest = {
 export type UsersAuthenticateResponse = {
   user: UserWithBrutesBodyColor,
   modifiers: FightModifier[],
-  randomSkill: number | null,
-  randomWeapon: number | null,
   currentEvent: Event | null,
 };
 
@@ -165,6 +163,7 @@ export type BruteReportsSendRequest = {
   reason: BruteReportReason,
 };
 export type BruteGetInventoryResponse = InventoryItem[];
+export type BruteUpdateEventRoundWatchedResponse = Pick<Brute, 'eventTournamentRoundWatched' | 'eventTournamentWatchedDate'>;
 
 export type TournamentHistoryResponse = (Pick<
   Tournament,

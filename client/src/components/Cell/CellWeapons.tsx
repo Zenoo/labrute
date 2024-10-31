@@ -5,6 +5,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import WeaponTooltip from '../Brute/WeaponTooltip';
+import { PerkColor } from '../../utils/StatColor';
 
 const weaponSvgProps: Record<WeaponName, {
   id: string;
@@ -41,10 +42,21 @@ const weaponSvgProps: Record<WeaponName, {
   [WeaponName.broadsword]: { id: '_w2', height: '41.3', transform: 'matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)', width: '81.15', xlinkHref: '#sprite4' },
 };
 
-const CellWeapons = (props: BoxProps) => {
+const CellWeapons = (
+  {
+    selectCallback,
+    hoverSelectAscend = false,
+    selectedWeapon = null,
+    ...props
+  }: BoxProps & {
+    selectCallback?: (weapon: WeaponName) => void,
+    hoverSelectAscend?: boolean,
+    selectedWeapon?: WeaponName | null,
+  }
+) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
-  const { randomWeapon: randomWeaponIndex } = useAuth();
+  const { modifiers } = useAuth();
 
   const hoverWeapon = useCallback((weapon: WeaponName | 'bare-hands') => () => {
     setHoveredWeapon(weapon);
@@ -60,9 +72,33 @@ const CellWeapons = (props: BoxProps) => {
   }, [brute]);
 
   const randomWeapon = useMemo(
-    () => (brute ? getTempWeapon(brute, randomWeaponIndex) : null),
-    [brute, randomWeaponIndex]
+    () => (brute && !hoverSelectAscend ? getTempWeapon(brute, modifiers) : null),
+    [brute, hoverSelectAscend, modifiers]
   );
+
+  const getFilter = (weapon: WeaponName) => {
+    if (randomWeapon === weapon) return `drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
+    if (brute?.ascendedWeapons.includes(weapon)
+      || selectedWeapon === weapon
+      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons.includes(weapon))) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
+    return 'none';
+  };
+
+  const onWeaponClick = (clicked: WeaponName | 'bare-hands' | null) => () => {
+    if (selectCallback === undefined) {
+      return;
+    }
+    if (clicked === null) {
+      return;
+    }
+    if (clicked === 'bare-hands') {
+      return;
+    }
+    if (!brute?.weapons.includes(clicked)) {
+      return;
+    }
+    selectCallback(clicked);
+  };
 
   return brute && (
     <WeaponTooltip
@@ -70,6 +106,7 @@ const CellWeapons = (props: BoxProps) => {
       open={hoveredWeapon !== null}
       bareHands={hoveredWeapon === 'bare-hands'}
       placement="bottom"
+      onClick={onWeaponClick(hoveredWeapon)}
     >
       <Box component="svg" xmlnsXlink="http://www.w3.org/1999/xlink" height="209.9px" width="310.9px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310.9 209.9" {...props}>
         {/* ALERT: THIS SVG IS HEAVILY OPTIMIZABLE */}
@@ -115,6 +152,8 @@ const CellWeapons = (props: BoxProps) => {
               xlinkHref={weaponSvgProps[weapon].xlinkHref}
               onMouseEnter={hoverWeapon(weapon)}
               onMouseLeave={leaveWeapon}
+              filter={getFilter(weapon)}
+              cursor="pointer"
             />
           ))}
           {unownedWeapons.map((weapon) => (weapon === randomWeapon ? null : (
@@ -139,8 +178,7 @@ const CellWeapons = (props: BoxProps) => {
               xlinkHref={weaponSvgProps[randomWeapon].xlinkHref}
               onMouseEnter={hoverWeapon(randomWeapon)}
               onMouseLeave={leaveWeapon}
-              // Add outer glow
-              filter="drop-shadow(0 0 4px rgb(255, 255, 0))"
+              filter={getFilter(randomWeapon)}
             />
           )}
         </g>

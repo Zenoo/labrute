@@ -23,4 +23,9 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.DAMAGE]: 'red',
 };
 
+export const PerkColor = {
+  Random: '#8686ff',
+  Ascended: '#ff9400',
+} as const;
+
 export default StatColor;

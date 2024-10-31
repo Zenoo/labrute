@@ -1,5 +1,5 @@
 import {
-  AchievementData, BruteDeletionReason, ExpectedError, RaretyOrder,
+  AchievementData, BruteDeletionReason, ExpectedError, LAST_RELEASE, RaretyOrder,
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
@@ -122,8 +122,6 @@ const Users = {
       res.send({
         user,
         modifiers: await ServerState.getModifiers(prisma),
-        randomSkill: await ServerState.getRandomSkill(prisma),
-        randomWeapon: await ServerState.getRandomWeapon(prisma),
         currentEvent: await ServerState.getCurrentEvent(prisma),
       });
     } catch (error) {
@@ -455,6 +453,7 @@ const Users = {
           deletedAt: null,
         },
         select: {
+          id: true,
           lastFight: true,
           fightsLeft: true,
           skills: true,
@@ -466,8 +465,8 @@ const Users = {
         throw new ExpectedError('No brutes found');
       }
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
-      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, randomSkill) === 0);
+      const modifiers = await ServerState.getModifiers(prisma);
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, modifiers) === 0);
 
       res.send(isDoneForToday);
     } catch (error) {
@@ -561,10 +560,10 @@ const Users = {
         },
       });
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
+      const modifiers = await ServerState.getModifiers(prisma);
 
       for (const brute of brutes) {
-        const fightsLeft = getFightsLeft(brute, randomSkill) + 1;
+        const fightsLeft = getFightsLeft(brute, modifiers) + 1;
 
         await prisma.brute.update({
           where: {
@@ -933,6 +932,45 @@ const Users = {
           },
         });
       }
+
+      res.send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  updateLastReleaseSeen: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: { lastReleaseSeen: true },
+      });
+
+      if (!user) {
+        throw new Error(translate('userNotFound', authed));
+      }
+
+      // Check if the user already saw the last release
+      if (user.lastReleaseSeen === LAST_RELEASE.version) {
+        res.send({
+          success: true,
+        });
+        return;
+      }
+
+      // Update last release seen
+      await prisma.user.update({
+        where: { id: authed.id },
+        data: {
+          lastReleaseSeen: LAST_RELEASE.version,
+        },
+      });
 
       res.send({
         success: true,

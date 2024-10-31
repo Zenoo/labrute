@@ -11,7 +11,6 @@ import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
   Brute, FightModifier, PrismaClient, SkillName,
 } from '@labrute/prisma';
-import ServerState from '../ServerState.js';
 
 interface Team {
   brutes: Brute[];
@@ -151,10 +150,9 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
 const handleModifiers = (
   brute: Brute,
-  randomWeaponIndex: number | null,
-  randomSkillIndex: number | null,
+  modifiers: FightModifier[],
 ) => {
-  const randomWeaponName = getTempWeapon(brute, randomWeaponIndex);
+  const randomWeaponName = getTempWeapon(brute, modifiers);
 
   if (randomWeaponName) {
     const randomWeapon = weapons.find((weapon) => weapon.name === randomWeaponName);
@@ -166,7 +164,7 @@ const handleModifiers = (
     brute.weapons.push(randomWeaponName);
   }
 
-  const randomSkillName = getTempSkill(brute, randomSkillIndex);
+  const randomSkillName = getTempSkill(brute, modifiers);
 
   if (randomSkillName) {
     const randomSkill = skills.find((skill) => skill.name === randomSkillName);
@@ -189,16 +187,12 @@ type GetFightersParams = {
   clanFight?: boolean,
 };
 
-const getFighters = async ({
-  prisma,
+const getFighters = ({
   team1,
   team2,
   modifiers,
   clanFight,
-}: GetFightersParams): Promise<DetailedFighter[]> => {
-  const randomWeaponIndex = await ServerState.getRandomWeapon(prisma);
-  const randomSkillIndex = await ServerState.getRandomSkill(prisma);
-
+}: GetFightersParams): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
@@ -223,12 +217,12 @@ const getFighters = async ({
 
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const bruteHP = getFinalHP(brute, randomSkillIndex);
-      const bruteSpeed = getFinalStat(brute, 'speed', modifiers, randomSkillIndex);
-      const bruteStrength = getFinalStat(brute, 'strength', modifiers, randomSkillIndex);
-      const bruteAgility = getFinalStat(brute, 'agility', modifiers, randomSkillIndex);
+      const bruteHP = getFinalHP(brute, modifiers);
+      const bruteSpeed = getFinalStat(brute, 'speed', modifiers);
+      const bruteStrength = getFinalStat(brute, 'strength', modifiers);
+      const bruteAgility = getFinalStat(brute, 'agility', modifiers);
 
-      handleModifiers(brute, randomWeaponIndex, randomSkillIndex);
+      handleModifiers(brute, modifiers);
 
       // Brute stats
       positiveIndex++;
@@ -372,12 +366,12 @@ const getFighters = async ({
 
       // Fetch backup stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const backupHP = getFinalHP(backup, randomSkillIndex);
-      const backupSpeed = getFinalStat(backup, 'speed', modifiers, randomSkillIndex);
-      const backupStrength = getFinalStat(backup, 'strength', modifiers, randomSkillIndex);
-      const backupAgility = getFinalStat(backup, 'agility', modifiers, randomSkillIndex);
+      const backupHP = getFinalHP(backup, modifiers);
+      const backupSpeed = getFinalStat(backup, 'speed', modifiers);
+      const backupStrength = getFinalStat(backup, 'strength', modifiers);
+      const backupAgility = getFinalStat(backup, 'agility', modifiers);
 
-      handleModifiers(backup, randomWeaponIndex, randomSkillIndex);
+      handleModifiers(backup, modifiers);
 
       spawnedPets++;
       const backupFighter: DetailedFighter = {
@@ -447,8 +441,8 @@ const getFighters = async ({
     }
 
     // Boss
-    positiveIndex++;
     for (const boss of team.bosses) {
+      positiveIndex++;
       spawnedPets++;
 
       fighters.push({
