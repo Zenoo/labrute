@@ -69,9 +69,9 @@ const getDamage = (
     damage = Math.floor(damage * 0.75);
   }
 
-  // -45% damage for `shield`
+  // -25% damage for `shield`
   if (fighter.shield) {
-    damage = Math.floor(damage * 0.55);
+    damage = Math.floor(damage * 0.75);
   }
 
   // Reduce damage with opponent's armor if not thrown
