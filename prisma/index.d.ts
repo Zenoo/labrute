@@ -15,127 +15,127 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 /**
  * Model User
- *
+ * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
  * Model Brute
- *
+ * 
  */
 export type Brute = $Result.DefaultSelection<Prisma.$BrutePayload>
 /**
  * Model BruteStartingStats
- *
+ * 
  */
 export type BruteStartingStats = $Result.DefaultSelection<Prisma.$BruteStartingStatsPayload>
 /**
  * Model Fight
- *
+ * 
  */
 export type Fight = $Result.DefaultSelection<Prisma.$FightPayload>
 /**
  * Model Log
- *
+ * 
  */
 export type Log = $Result.DefaultSelection<Prisma.$LogPayload>
 /**
  * Model DestinyChoice
- *
+ * 
  */
 export type DestinyChoice = $Result.DefaultSelection<Prisma.$DestinyChoicePayload>
 /**
  * Model Tournament
- *
+ * 
  */
 export type Tournament = $Result.DefaultSelection<Prisma.$TournamentPayload>
 /**
  * Model TournamentAchievement
- *
+ * 
  */
 export type TournamentAchievement = $Result.DefaultSelection<Prisma.$TournamentAchievementPayload>
 /**
  * Model TournamentGold
- *
+ * 
  */
 export type TournamentGold = $Result.DefaultSelection<Prisma.$TournamentGoldPayload>
 /**
  * Model TournamentXp
- *
+ * 
  */
 export type TournamentXp = $Result.DefaultSelection<Prisma.$TournamentXpPayload>
 /**
  * Model Achievement
- *
+ * 
  */
 export type Achievement = $Result.DefaultSelection<Prisma.$AchievementPayload>
 /**
  * Model Title
- *
+ * 
  */
 export type Title = $Result.DefaultSelection<Prisma.$TitlePayload>
 /**
  * Model BruteReport
- *
+ * 
  */
 export type BruteReport = $Result.DefaultSelection<Prisma.$BruteReportPayload>
 /**
  * Model ServerState
- *
+ * 
  */
 export type ServerState = $Result.DefaultSelection<Prisma.$ServerStatePayload>
 /**
  * Model BannedWord
- *
+ * 
  */
 export type BannedWord = $Result.DefaultSelection<Prisma.$BannedWordPayload>
 /**
  * Model BannedIp
- *
+ * 
  */
 export type BannedIp = $Result.DefaultSelection<Prisma.$BannedIpPayload>
 /**
  * Model Clan
- *
+ * 
  */
 export type Clan = $Result.DefaultSelection<Prisma.$ClanPayload>
 /**
  * Model ClanThread
- *
+ * 
  */
 export type ClanThread = $Result.DefaultSelection<Prisma.$ClanThreadPayload>
 /**
  * Model ClanPost
- *
+ * 
  */
 export type ClanPost = $Result.DefaultSelection<Prisma.$ClanPostPayload>
 /**
  * Model BossDamage
- *
+ * 
  */
 export type BossDamage = $Result.DefaultSelection<Prisma.$BossDamagePayload>
 /**
  * Model ClanWar
- *
+ * 
  */
 export type ClanWar = $Result.DefaultSelection<Prisma.$ClanWarPayload>
 /**
  * Model ClanWarFighters
- *
+ * 
  */
 export type ClanWarFighters = $Result.DefaultSelection<Prisma.$ClanWarFightersPayload>
 /**
  * Model InventoryItem
- *
+ * 
  */
 export type InventoryItem = $Result.DefaultSelection<Prisma.$InventoryItemPayload>
 /**
  * Model Release
- *
+ * 
  */
 export type Release = $Result.DefaultSelection<Prisma.$ReleasePayload>
 /**
  * Model Event
- *
+ * 
  */
 export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
 
@@ -291,6 +291,7 @@ export const LogType: {
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
+  ascend: 'ascend',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
   bossDefeat: 'bossDefeat'
@@ -442,6 +443,7 @@ export const AchievementName: {
   rankUp2: 'rankUp2',
   rankUp1: 'rankUp1',
   rankUp0: 'rankUp0',
+  ascend: 'ascend',
   sacrifice: 'sacrifice',
   beta: 'beta',
   bug: 'bug'
@@ -468,7 +470,8 @@ export type BruteReportStatus = (typeof BruteReportStatus)[keyof typeof BruteRep
 
 export const BossName: {
   GoldClaw: 'GoldClaw',
-  EmberFang: 'EmberFang'
+  EmberFang: 'EmberFang',
+  Cerberus: 'Cerberus'
 };
 
 export type BossName = (typeof BossName)[keyof typeof BossName]
@@ -601,7 +604,7 @@ export const EventStatus: typeof $Enums.EventStatus
 
 /**
  * ##  Prisma Client ʲˢ
- *
+ * 
  * Type-safe database client for TypeScript & Node.js
  * @example
  * ```
@@ -610,7 +613,7 @@ export const EventStatus: typeof $Enums.EventStatus
  * const users = await prisma.user.findMany()
  * ```
  *
- *
+ * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 export class PrismaClient<
@@ -622,7 +625,7 @@ export class PrismaClient<
 
     /**
    * ##  Prisma Client ʲˢ
-   *
+   * 
    * Type-safe database client for TypeScript & Node.js
    * @example
    * ```
@@ -631,7 +634,7 @@ export class PrismaClient<
    * const users = await prisma.user.findMany()
    * ```
    *
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
@@ -661,7 +664,7 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
@@ -673,7 +676,7 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
@@ -684,7 +687,7 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
@@ -696,7 +699,7 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
@@ -711,7 +714,7 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
@@ -1011,7 +1014,7 @@ export namespace Prisma {
   export type DecimalJsLike = runtime.DecimalJsLike
 
   /**
-   * Metrics
+   * Metrics 
    */
   export type Metrics = runtime.Metrics
   export type Metric<T> = runtime.Metric<T>
@@ -1036,7 +1039,7 @@ export namespace Prisma {
     client: string
   }
 
-  export const prismaVersion: PrismaVersion
+  export const prismaVersion: PrismaVersion 
 
   /**
    * Utility Types
@@ -1045,7 +1048,7 @@ export namespace Prisma {
   /**
    * From https://github.com/sindresorhus/type-fest/
    * Matches a JSON object.
-   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from.
+   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
    */
   export type JsonObject = {[Key in string]?: JsonValue}
 
@@ -1090,15 +1093,15 @@ export namespace Prisma {
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
-   *
+   * 
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   namespace NullTypes {
     /**
     * Type of `Prisma.DbNull`.
-    *
+    * 
     * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
-    *
+    * 
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class DbNull {
@@ -1108,9 +1111,9 @@ export namespace Prisma {
 
     /**
     * Type of `Prisma.JsonNull`.
-    *
+    * 
     * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
-    *
+    * 
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class JsonNull {
@@ -1120,9 +1123,9 @@ export namespace Prisma {
 
     /**
     * Type of `Prisma.AnyNull`.
-    *
+    * 
     * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
-    *
+    * 
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class AnyNull {
@@ -1133,21 +1136,21 @@ export namespace Prisma {
 
   /**
    * Helper for filtering JSON entries that have `null` on the database (empty on the db)
-   *
+   * 
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const DbNull: NullTypes.DbNull
 
   /**
    * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
-   *
+   * 
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const JsonNull: NullTypes.JsonNull
 
   /**
    * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
-   *
+   * 
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const AnyNull: NullTypes.AnyNull
@@ -3288,7 +3291,7 @@ export namespace Prisma {
      * ```
      * // Defaults to stdout
      * log: ['query', 'info', 'warn', 'error']
-     *
+     * 
      * // Emit as events
      * log: [
      *   { emit: 'stdout', level: 'query' },
@@ -3312,7 +3315,7 @@ export namespace Prisma {
     }
     /**
      * Global configuration for omitting model fields by default.
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -4178,6 +4181,7 @@ export namespace Prisma {
     dinorpgDone: Date | null
     bannedAt: Date | null
     banReason: string | null
+    lastReleaseSeen: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4194,6 +4198,7 @@ export namespace Prisma {
     dinorpgDone: Date | null
     bannedAt: Date | null
     banReason: string | null
+    lastReleaseSeen: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4211,6 +4216,7 @@ export namespace Prisma {
     ips: number
     bannedAt: number
     banReason: number
+    lastReleaseSeen: number
     _all: number
   }
 
@@ -4241,6 +4247,7 @@ export namespace Prisma {
     dinorpgDone?: true
     bannedAt?: true
     banReason?: true
+    lastReleaseSeen?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4257,6 +4264,7 @@ export namespace Prisma {
     dinorpgDone?: true
     bannedAt?: true
     banReason?: true
+    lastReleaseSeen?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4274,6 +4282,7 @@ export namespace Prisma {
     ips?: true
     bannedAt?: true
     banReason?: true
+    lastReleaseSeen?: true
     _all?: true
   }
 
@@ -4284,55 +4293,55 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Users
     **/
     _count?: true | UserCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: UserAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: UserSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: UserMaxAggregateInputType
@@ -4378,6 +4387,7 @@ export namespace Prisma {
     ips: string[]
     bannedAt: Date | null
     banReason: string | null
+    lastReleaseSeen: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -4414,6 +4424,7 @@ export namespace Prisma {
     ips?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    lastReleaseSeen?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -4439,6 +4450,7 @@ export namespace Prisma {
     ips?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    lastReleaseSeen?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4456,9 +4468,10 @@ export namespace Prisma {
     ips?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    lastReleaseSeen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "bannedAt" | "banReason", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "bannedAt" | "banReason" | "lastReleaseSeen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -4497,13 +4510,14 @@ export namespace Prisma {
       ips: string[]
       bannedAt: Date | null
       banReason: string | null
+      lastReleaseSeen: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
 
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
 
-  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: UserCountAggregateInputType | true
     }
@@ -4524,7 +4538,7 @@ export namespace Prisma {
     findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * Find one User that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
      * @example
@@ -4576,13 +4590,13 @@ export namespace Prisma {
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
-     *
+     * 
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -4596,7 +4610,7 @@ export namespace Prisma {
      *     // ... data to create a User
      *   }
      * })
-     *
+     * 
      */
     create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -4610,7 +4624,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4624,9 +4638,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.createManyAndReturn({
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -4634,7 +4648,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -4648,7 +4662,7 @@ export namespace Prisma {
      *     // ... filter to delete one User
      *   }
      * })
-     *
+     * 
      */
     delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -4665,7 +4679,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -4679,7 +4693,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4698,7 +4712,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4787,7 +4801,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends UserGroupByArgs,
@@ -4895,7 +4909,7 @@ export namespace Prisma {
 
   /**
    * Fields of the User model
-   */
+   */ 
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly lang: FieldRef<"User", 'Lang'>
@@ -4911,8 +4925,9 @@ export namespace Prisma {
     readonly ips: FieldRef<"User", 'String[]'>
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
+    readonly lastReleaseSeen: FieldRef<"User", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -4983,31 +4998,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -5036,31 +5051,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -5089,25 +5104,25 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
@@ -5489,11 +5504,14 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    ascensions: number | null
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
+    eventTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     tournamentWins: number | null
     resets: number | null
   }
@@ -5515,11 +5533,14 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    ascensions: number | null
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
     globalTournamentRoundWatched: number | null
+    eventTournamentRoundWatched: number | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     tournamentWins: number | null
     resets: number | null
   }
@@ -5551,6 +5572,7 @@ export namespace Prisma {
     userId: string | null
     body: string | null
     colors: string | null
+    ascensions: number | null
     masterId: string | null
     pupilsCount: number | null
     clanId: string | null
@@ -5560,9 +5582,12 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     globalTournamentWatchedDate: Date | null
     globalTournamentRoundWatched: number | null
+    eventTournamentWatchedDate: Date | null
+    eventTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
@@ -5599,6 +5624,7 @@ export namespace Prisma {
     userId: string | null
     body: string | null
     colors: string | null
+    ascensions: number | null
     masterId: string | null
     pupilsCount: number | null
     clanId: string | null
@@ -5608,9 +5634,12 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     globalTournamentWatchedDate: Date | null
     globalTournamentRoundWatched: number | null
+    eventTournamentWatchedDate: Date | null
+    eventTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number | null
     victories: number | null
+    losses: number | null
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean | null
@@ -5652,6 +5681,10 @@ export namespace Prisma {
     weapons: number
     skills: number
     pets: number
+    ascensions: number
+    ascendedWeapons: number
+    ascendedSkills: number
+    ascendedPets: number
     masterId: number
     pupilsCount: number
     clanId: number
@@ -5661,9 +5694,12 @@ export namespace Prisma {
     currentTournamentStepWatched: number
     globalTournamentWatchedDate: number
     globalTournamentRoundWatched: number
+    eventTournamentWatchedDate: number
+    eventTournamentRoundWatched: number
     lastFight: number
     fightsLeft: number
     victories: number
+    losses: number
     opponentsGeneratedAt: number
     canRankUpSince: number
     favorite: number
@@ -5692,11 +5728,14 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    ascensions?: true
     pupilsCount?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
+    eventTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     tournamentWins?: true
     resets?: true
   }
@@ -5718,11 +5757,14 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    ascensions?: true
     pupilsCount?: true
     currentTournamentStepWatched?: true
     globalTournamentRoundWatched?: true
+    eventTournamentRoundWatched?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     tournamentWins?: true
     resets?: true
   }
@@ -5754,6 +5796,7 @@ export namespace Prisma {
     userId?: true
     body?: true
     colors?: true
+    ascensions?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -5763,9 +5806,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     globalTournamentWatchedDate?: true
     globalTournamentRoundWatched?: true
+    eventTournamentWatchedDate?: true
+    eventTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
@@ -5802,6 +5848,7 @@ export namespace Prisma {
     userId?: true
     body?: true
     colors?: true
+    ascensions?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -5811,9 +5858,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     globalTournamentWatchedDate?: true
     globalTournamentRoundWatched?: true
+    eventTournamentWatchedDate?: true
+    eventTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
@@ -5855,6 +5905,10 @@ export namespace Prisma {
     weapons?: true
     skills?: true
     pets?: true
+    ascensions?: true
+    ascendedWeapons?: true
+    ascendedSkills?: true
+    ascendedPets?: true
     masterId?: true
     pupilsCount?: true
     clanId?: true
@@ -5864,9 +5918,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: true
     globalTournamentWatchedDate?: true
     globalTournamentRoundWatched?: true
+    eventTournamentWatchedDate?: true
+    eventTournamentRoundWatched?: true
     lastFight?: true
     fightsLeft?: true
     victories?: true
+    losses?: true
     opponentsGeneratedAt?: true
     canRankUpSince?: true
     favorite?: true
@@ -5884,55 +5941,55 @@ export namespace Prisma {
     where?: BruteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Brutes to fetch.
      */
     orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: BruteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Brutes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Brutes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Brutes
     **/
     _count?: true | BruteCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: BruteAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: BruteSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BruteMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: BruteMaxAggregateInputType
@@ -5995,6 +6052,10 @@ export namespace Prisma {
     weapons: $Enums.WeaponName[]
     skills: $Enums.SkillName[]
     pets: $Enums.PetName[]
+    ascensions: number
+    ascendedWeapons: $Enums.WeaponName[]
+    ascendedSkills: $Enums.SkillName[]
+    ascendedPets: $Enums.PetName[]
     masterId: string | null
     pupilsCount: number
     clanId: string | null
@@ -6004,9 +6065,12 @@ export namespace Prisma {
     currentTournamentStepWatched: number | null
     globalTournamentWatchedDate: Date | null
     globalTournamentRoundWatched: number | null
+    eventTournamentWatchedDate: Date | null
+    eventTournamentRoundWatched: number | null
     lastFight: Date | null
     fightsLeft: number
     victories: number
+    losses: number
     opponentsGeneratedAt: Date | null
     canRankUpSince: Date | null
     favorite: boolean
@@ -6067,6 +6131,10 @@ export namespace Prisma {
     weapons?: boolean
     skills?: boolean
     pets?: boolean
+    ascensions?: boolean
+    ascendedWeapons?: boolean
+    ascendedSkills?: boolean
+    ascendedPets?: boolean
     masterId?: boolean
     pupilsCount?: boolean
     clanId?: boolean
@@ -6076,9 +6144,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: boolean
     globalTournamentWatchedDate?: boolean
     globalTournamentRoundWatched?: boolean
+    eventTournamentWatchedDate?: boolean
+    eventTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
+    losses?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
@@ -6149,6 +6220,10 @@ export namespace Prisma {
     weapons?: boolean
     skills?: boolean
     pets?: boolean
+    ascensions?: boolean
+    ascendedWeapons?: boolean
+    ascendedSkills?: boolean
+    ascendedPets?: boolean
     masterId?: boolean
     pupilsCount?: boolean
     clanId?: boolean
@@ -6158,9 +6233,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: boolean
     globalTournamentWatchedDate?: boolean
     globalTournamentRoundWatched?: boolean
+    eventTournamentWatchedDate?: boolean
+    eventTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
+    losses?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
@@ -6207,6 +6285,10 @@ export namespace Prisma {
     weapons?: boolean
     skills?: boolean
     pets?: boolean
+    ascensions?: boolean
+    ascendedWeapons?: boolean
+    ascendedSkills?: boolean
+    ascendedPets?: boolean
     masterId?: boolean
     pupilsCount?: boolean
     clanId?: boolean
@@ -6216,9 +6298,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: boolean
     globalTournamentWatchedDate?: boolean
     globalTournamentRoundWatched?: boolean
+    eventTournamentWatchedDate?: boolean
+    eventTournamentRoundWatched?: boolean
     lastFight?: boolean
     fightsLeft?: boolean
     victories?: boolean
+    losses?: boolean
     opponentsGeneratedAt?: boolean
     canRankUpSince?: boolean
     favorite?: boolean
@@ -6228,7 +6313,7 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascensions" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "losses" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
@@ -6332,6 +6417,10 @@ export namespace Prisma {
       weapons: $Enums.WeaponName[]
       skills: $Enums.SkillName[]
       pets: $Enums.PetName[]
+      ascensions: number
+      ascendedWeapons: $Enums.WeaponName[]
+      ascendedSkills: $Enums.SkillName[]
+      ascendedPets: $Enums.PetName[]
       masterId: string | null
       pupilsCount: number
       clanId: string | null
@@ -6341,9 +6430,12 @@ export namespace Prisma {
       currentTournamentStepWatched: number | null
       globalTournamentWatchedDate: Date | null
       globalTournamentRoundWatched: number | null
+      eventTournamentWatchedDate: Date | null
+      eventTournamentRoundWatched: number | null
       lastFight: Date | null
       fightsLeft: number
       victories: number
+      losses: number
       opponentsGeneratedAt: Date | null
       canRankUpSince: Date | null
       favorite: boolean
@@ -6357,7 +6449,7 @@ export namespace Prisma {
 
   type BruteGetPayload<S extends boolean | null | undefined | BruteDefaultArgs> = $Result.GetResult<Prisma.$BrutePayload, S>
 
-  type BruteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type BruteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<BruteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BruteCountAggregateInputType | true
     }
@@ -6378,7 +6470,7 @@ export namespace Prisma {
     findUnique<T extends BruteFindUniqueArgs>(args: SelectSubset<T, BruteFindUniqueArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Brute that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Brute that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {BruteFindUniqueOrThrowArgs} args - Arguments to find a Brute
      * @example
@@ -6430,13 +6522,13 @@ export namespace Prisma {
      * @example
      * // Get all Brutes
      * const brutes = await prisma.brute.findMany()
-     *
+     * 
      * // Get first 10 Brutes
      * const brutes = await prisma.brute.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const bruteWithIdOnly = await prisma.brute.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends BruteFindManyArgs>(args?: SelectSubset<T, BruteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -6450,7 +6542,7 @@ export namespace Prisma {
      *     // ... data to create a Brute
      *   }
      * })
-     *
+     * 
      */
     create<T extends BruteCreateArgs>(args: SelectSubset<T, BruteCreateArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -6464,7 +6556,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends BruteCreateManyArgs>(args?: SelectSubset<T, BruteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6478,9 +6570,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Brutes and only return the `id`
-     * const bruteWithIdOnly = await prisma.brute.createManyAndReturn({
+     * const bruteWithIdOnly = await prisma.brute.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -6488,7 +6580,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends BruteCreateManyAndReturnArgs>(args?: SelectSubset<T, BruteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -6502,7 +6594,7 @@ export namespace Prisma {
      *     // ... filter to delete one Brute
      *   }
      * })
-     *
+     * 
      */
     delete<T extends BruteDeleteArgs>(args: SelectSubset<T, BruteDeleteArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -6519,7 +6611,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends BruteUpdateArgs>(args: SelectSubset<T, BruteUpdateArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -6533,7 +6625,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends BruteDeleteManyArgs>(args?: SelectSubset<T, BruteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6552,7 +6644,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends BruteUpdateManyArgs>(args: SelectSubset<T, BruteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6641,7 +6733,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends BruteGroupByArgs,
@@ -6770,7 +6862,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Brute model
-   */
+   */ 
   interface BruteFieldRefs {
     readonly id: FieldRef<"Brute", 'String'>
     readonly name: FieldRef<"Brute", 'String'>
@@ -6803,6 +6895,10 @@ export namespace Prisma {
     readonly weapons: FieldRef<"Brute", 'WeaponName[]'>
     readonly skills: FieldRef<"Brute", 'SkillName[]'>
     readonly pets: FieldRef<"Brute", 'PetName[]'>
+    readonly ascensions: FieldRef<"Brute", 'Int'>
+    readonly ascendedWeapons: FieldRef<"Brute", 'WeaponName[]'>
+    readonly ascendedSkills: FieldRef<"Brute", 'SkillName[]'>
+    readonly ascendedPets: FieldRef<"Brute", 'PetName[]'>
     readonly masterId: FieldRef<"Brute", 'String'>
     readonly pupilsCount: FieldRef<"Brute", 'Int'>
     readonly clanId: FieldRef<"Brute", 'String'>
@@ -6812,9 +6908,12 @@ export namespace Prisma {
     readonly currentTournamentStepWatched: FieldRef<"Brute", 'Int'>
     readonly globalTournamentWatchedDate: FieldRef<"Brute", 'DateTime'>
     readonly globalTournamentRoundWatched: FieldRef<"Brute", 'Int'>
+    readonly eventTournamentWatchedDate: FieldRef<"Brute", 'DateTime'>
+    readonly eventTournamentRoundWatched: FieldRef<"Brute", 'Int'>
     readonly lastFight: FieldRef<"Brute", 'DateTime'>
     readonly fightsLeft: FieldRef<"Brute", 'Int'>
     readonly victories: FieldRef<"Brute", 'Int'>
+    readonly losses: FieldRef<"Brute", 'Int'>
     readonly opponentsGeneratedAt: FieldRef<"Brute", 'DateTime'>
     readonly canRankUpSince: FieldRef<"Brute", 'DateTime'>
     readonly favorite: FieldRef<"Brute", 'Boolean'>
@@ -6823,7 +6922,7 @@ export namespace Prisma {
     readonly eventId: FieldRef<"Brute", 'String'>
     readonly resets: FieldRef<"Brute", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -6894,31 +6993,31 @@ export namespace Prisma {
     where?: BruteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Brutes to fetch.
      */
     orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Brutes.
      */
     cursor?: BruteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Brutes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Brutes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Brutes.
      */
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
@@ -6947,31 +7046,31 @@ export namespace Prisma {
     where?: BruteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Brutes to fetch.
      */
     orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Brutes.
      */
     cursor?: BruteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Brutes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Brutes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Brutes.
      */
     distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
@@ -7000,25 +7099,25 @@ export namespace Prisma {
     where?: BruteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Brutes to fetch.
      */
     orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Brutes.
      */
     cursor?: BruteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Brutes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Brutes.
      */
     skip?: number
@@ -7948,55 +8047,55 @@ export namespace Prisma {
     where?: BruteStartingStatsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteStartingStats to fetch.
      */
     orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: BruteStartingStatsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteStartingStats from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteStartingStats.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned BruteStartingStats
     **/
     _count?: true | BruteStartingStatsCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: BruteStartingStatsAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: BruteStartingStatsSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BruteStartingStatsMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: BruteStartingStatsMaxAggregateInputType
@@ -8110,7 +8209,7 @@ export namespace Prisma {
 
   type BruteStartingStatsGetPayload<S extends boolean | null | undefined | BruteStartingStatsDefaultArgs> = $Result.GetResult<Prisma.$BruteStartingStatsPayload, S>
 
-  type BruteStartingStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type BruteStartingStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<BruteStartingStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BruteStartingStatsCountAggregateInputType | true
     }
@@ -8131,7 +8230,7 @@ export namespace Prisma {
     findUnique<T extends BruteStartingStatsFindUniqueArgs>(args: SelectSubset<T, BruteStartingStatsFindUniqueArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one BruteStartingStats that matches the filter or throw an error with `error.code='P2025'`
+     * Find one BruteStartingStats that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {BruteStartingStatsFindUniqueOrThrowArgs} args - Arguments to find a BruteStartingStats
      * @example
@@ -8183,13 +8282,13 @@ export namespace Prisma {
      * @example
      * // Get all BruteStartingStats
      * const bruteStartingStats = await prisma.bruteStartingStats.findMany()
-     *
+     * 
      * // Get first 10 BruteStartingStats
      * const bruteStartingStats = await prisma.bruteStartingStats.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const bruteStartingStatsWithIdOnly = await prisma.bruteStartingStats.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends BruteStartingStatsFindManyArgs>(args?: SelectSubset<T, BruteStartingStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -8203,7 +8302,7 @@ export namespace Prisma {
      *     // ... data to create a BruteStartingStats
      *   }
      * })
-     *
+     * 
      */
     create<T extends BruteStartingStatsCreateArgs>(args: SelectSubset<T, BruteStartingStatsCreateArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -8217,7 +8316,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends BruteStartingStatsCreateManyArgs>(args?: SelectSubset<T, BruteStartingStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8231,9 +8330,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many BruteStartingStats and only return the `id`
-     * const bruteStartingStatsWithIdOnly = await prisma.bruteStartingStats.createManyAndReturn({
+     * const bruteStartingStatsWithIdOnly = await prisma.bruteStartingStats.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -8241,7 +8340,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends BruteStartingStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, BruteStartingStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -8255,7 +8354,7 @@ export namespace Prisma {
      *     // ... filter to delete one BruteStartingStats
      *   }
      * })
-     *
+     * 
      */
     delete<T extends BruteStartingStatsDeleteArgs>(args: SelectSubset<T, BruteStartingStatsDeleteArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -8272,7 +8371,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends BruteStartingStatsUpdateArgs>(args: SelectSubset<T, BruteStartingStatsUpdateArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -8286,7 +8385,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends BruteStartingStatsDeleteManyArgs>(args?: SelectSubset<T, BruteStartingStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8305,7 +8404,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends BruteStartingStatsUpdateManyArgs>(args: SelectSubset<T, BruteStartingStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8394,7 +8493,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends BruteStartingStatsGroupByArgs,
@@ -8496,7 +8595,7 @@ export namespace Prisma {
 
   /**
    * Fields of the BruteStartingStats model
-   */
+   */ 
   interface BruteStartingStatsFieldRefs {
     readonly id: FieldRef<"BruteStartingStats", 'String'>
     readonly endurance: FieldRef<"BruteStartingStats", 'Int'>
@@ -8505,7 +8604,7 @@ export namespace Prisma {
     readonly speed: FieldRef<"BruteStartingStats", 'Int'>
     readonly bruteId: FieldRef<"BruteStartingStats", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -8576,31 +8675,31 @@ export namespace Prisma {
     where?: BruteStartingStatsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteStartingStats to fetch.
      */
     orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BruteStartingStats.
      */
     cursor?: BruteStartingStatsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteStartingStats from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteStartingStats.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BruteStartingStats.
      */
     distinct?: BruteStartingStatsScalarFieldEnum | BruteStartingStatsScalarFieldEnum[]
@@ -8629,31 +8728,31 @@ export namespace Prisma {
     where?: BruteStartingStatsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteStartingStats to fetch.
      */
     orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BruteStartingStats.
      */
     cursor?: BruteStartingStatsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteStartingStats from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteStartingStats.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BruteStartingStats.
      */
     distinct?: BruteStartingStatsScalarFieldEnum | BruteStartingStatsScalarFieldEnum[]
@@ -8682,25 +8781,25 @@ export namespace Prisma {
     where?: BruteStartingStatsWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteStartingStats to fetch.
      */
     orderBy?: BruteStartingStatsOrderByWithRelationInput | BruteStartingStatsOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing BruteStartingStats.
      */
     cursor?: BruteStartingStatsWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteStartingStats from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteStartingStats.
      */
     skip?: number
@@ -9019,55 +9118,55 @@ export namespace Prisma {
     where?: FightWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Fights to fetch.
      */
     orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: FightWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Fights from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Fights.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Fights
     **/
     _count?: true | FightCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: FightAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: FightSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: FightMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: FightMaxAggregateInputType
@@ -9239,7 +9338,7 @@ export namespace Prisma {
 
   type FightGetPayload<S extends boolean | null | undefined | FightDefaultArgs> = $Result.GetResult<Prisma.$FightPayload, S>
 
-  type FightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type FightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<FightFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: FightCountAggregateInputType | true
     }
@@ -9260,7 +9359,7 @@ export namespace Prisma {
     findUnique<T extends FightFindUniqueArgs>(args: SelectSubset<T, FightFindUniqueArgs<ExtArgs>>): Prisma__FightClient<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Fight that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Fight that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {FightFindUniqueOrThrowArgs} args - Arguments to find a Fight
      * @example
@@ -9312,13 +9411,13 @@ export namespace Prisma {
      * @example
      * // Get all Fights
      * const fights = await prisma.fight.findMany()
-     *
+     * 
      * // Get first 10 Fights
      * const fights = await prisma.fight.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const fightWithIdOnly = await prisma.fight.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends FightFindManyArgs>(args?: SelectSubset<T, FightFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -9332,7 +9431,7 @@ export namespace Prisma {
      *     // ... data to create a Fight
      *   }
      * })
-     *
+     * 
      */
     create<T extends FightCreateArgs>(args: SelectSubset<T, FightCreateArgs<ExtArgs>>): Prisma__FightClient<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -9346,7 +9445,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends FightCreateManyArgs>(args?: SelectSubset<T, FightCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9360,9 +9459,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Fights and only return the `id`
-     * const fightWithIdOnly = await prisma.fight.createManyAndReturn({
+     * const fightWithIdOnly = await prisma.fight.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -9370,7 +9469,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends FightCreateManyAndReturnArgs>(args?: SelectSubset<T, FightCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -9384,7 +9483,7 @@ export namespace Prisma {
      *     // ... filter to delete one Fight
      *   }
      * })
-     *
+     * 
      */
     delete<T extends FightDeleteArgs>(args: SelectSubset<T, FightDeleteArgs<ExtArgs>>): Prisma__FightClient<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -9401,7 +9500,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends FightUpdateArgs>(args: SelectSubset<T, FightUpdateArgs<ExtArgs>>): Prisma__FightClient<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -9415,7 +9514,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends FightDeleteManyArgs>(args?: SelectSubset<T, FightDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9434,7 +9533,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends FightUpdateManyArgs>(args: SelectSubset<T, FightUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9523,7 +9622,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends FightGroupByArgs,
@@ -9630,7 +9729,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Fight model
-   */
+   */ 
   interface FightFieldRefs {
     readonly id: FieldRef<"Fight", 'String'>
     readonly date: FieldRef<"Fight", 'DateTime'>
@@ -9646,7 +9745,7 @@ export namespace Prisma {
     readonly background: FieldRef<"Fight", 'String'>
     readonly clanWarId: FieldRef<"Fight", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -9717,31 +9816,31 @@ export namespace Prisma {
     where?: FightWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Fights to fetch.
      */
     orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Fights.
      */
     cursor?: FightWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Fights from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Fights.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Fights.
      */
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
@@ -9770,31 +9869,31 @@ export namespace Prisma {
     where?: FightWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Fights to fetch.
      */
     orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Fights.
      */
     cursor?: FightWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Fights from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Fights.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Fights.
      */
     distinct?: FightScalarFieldEnum | FightScalarFieldEnum[]
@@ -9823,25 +9922,25 @@ export namespace Prisma {
     where?: FightWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Fights to fetch.
      */
     orderBy?: FightOrderByWithRelationInput | FightOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Fights.
      */
     cursor?: FightWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Fights from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Fights.
      */
     skip?: number
@@ -10265,55 +10364,55 @@ export namespace Prisma {
     where?: LogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Logs to fetch.
      */
     orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: LogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Logs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Logs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Logs
     **/
     _count?: true | LogCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: LogAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: LogSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: LogMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: LogMaxAggregateInputType
@@ -10462,7 +10561,7 @@ export namespace Prisma {
 
   type LogGetPayload<S extends boolean | null | undefined | LogDefaultArgs> = $Result.GetResult<Prisma.$LogPayload, S>
 
-  type LogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type LogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<LogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: LogCountAggregateInputType | true
     }
@@ -10483,7 +10582,7 @@ export namespace Prisma {
     findUnique<T extends LogFindUniqueArgs>(args: SelectSubset<T, LogFindUniqueArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Log that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Log that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {LogFindUniqueOrThrowArgs} args - Arguments to find a Log
      * @example
@@ -10535,13 +10634,13 @@ export namespace Prisma {
      * @example
      * // Get all Logs
      * const logs = await prisma.log.findMany()
-     *
+     * 
      * // Get first 10 Logs
      * const logs = await prisma.log.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const logWithIdOnly = await prisma.log.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends LogFindManyArgs>(args?: SelectSubset<T, LogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -10555,7 +10654,7 @@ export namespace Prisma {
      *     // ... data to create a Log
      *   }
      * })
-     *
+     * 
      */
     create<T extends LogCreateArgs>(args: SelectSubset<T, LogCreateArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -10569,7 +10668,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends LogCreateManyArgs>(args?: SelectSubset<T, LogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10583,9 +10682,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Logs and only return the `id`
-     * const logWithIdOnly = await prisma.log.createManyAndReturn({
+     * const logWithIdOnly = await prisma.log.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -10593,7 +10692,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends LogCreateManyAndReturnArgs>(args?: SelectSubset<T, LogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -10607,7 +10706,7 @@ export namespace Prisma {
      *     // ... filter to delete one Log
      *   }
      * })
-     *
+     * 
      */
     delete<T extends LogDeleteArgs>(args: SelectSubset<T, LogDeleteArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -10624,7 +10723,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends LogUpdateArgs>(args: SelectSubset<T, LogUpdateArgs<ExtArgs>>): Prisma__LogClient<$Result.GetResult<Prisma.$LogPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -10638,7 +10737,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends LogDeleteManyArgs>(args?: SelectSubset<T, LogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10657,7 +10756,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends LogUpdateManyArgs>(args: SelectSubset<T, LogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10746,7 +10845,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends LogGroupByArgs,
@@ -10850,7 +10949,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Log model
-   */
+   */ 
   interface LogFieldRefs {
     readonly id: FieldRef<"Log", 'String'>
     readonly date: FieldRef<"Log", 'DateTime'>
@@ -10864,7 +10963,7 @@ export namespace Prisma {
     readonly template: FieldRef<"Log", 'String'>
     readonly destinyChoiceId: FieldRef<"Log", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -10935,31 +11034,31 @@ export namespace Prisma {
     where?: LogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Logs to fetch.
      */
     orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Logs.
      */
     cursor?: LogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Logs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Logs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Logs.
      */
     distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
@@ -10988,31 +11087,31 @@ export namespace Prisma {
     where?: LogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Logs to fetch.
      */
     orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Logs.
      */
     cursor?: LogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Logs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Logs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Logs.
      */
     distinct?: LogScalarFieldEnum | LogScalarFieldEnum[]
@@ -11041,25 +11140,25 @@ export namespace Prisma {
     where?: LogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Logs to fetch.
      */
     orderBy?: LogOrderByWithRelationInput | LogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Logs.
      */
     cursor?: LogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Logs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Logs.
      */
     skip?: number
@@ -11315,6 +11414,9 @@ export namespace Prisma {
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
     pet: $Enums.PetName | null
+    originalSkill: $Enums.SkillName | null
+    originalWeapon: $Enums.WeaponName | null
+    originalPet: $Enums.PetName | null
     stat1: $Enums.BruteStat | null
     stat1Value: number | null
     stat2: $Enums.BruteStat | null
@@ -11328,6 +11430,9 @@ export namespace Prisma {
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
     pet: $Enums.PetName | null
+    originalSkill: $Enums.SkillName | null
+    originalWeapon: $Enums.WeaponName | null
+    originalPet: $Enums.PetName | null
     stat1: $Enums.BruteStat | null
     stat1Value: number | null
     stat2: $Enums.BruteStat | null
@@ -11342,6 +11447,9 @@ export namespace Prisma {
     skill: number
     weapon: number
     pet: number
+    originalSkill: number
+    originalWeapon: number
+    originalPet: number
     stat1: number
     stat1Value: number
     stat2: number
@@ -11367,6 +11475,9 @@ export namespace Prisma {
     skill?: true
     weapon?: true
     pet?: true
+    originalSkill?: true
+    originalWeapon?: true
+    originalPet?: true
     stat1?: true
     stat1Value?: true
     stat2?: true
@@ -11380,6 +11491,9 @@ export namespace Prisma {
     skill?: true
     weapon?: true
     pet?: true
+    originalSkill?: true
+    originalWeapon?: true
+    originalPet?: true
     stat1?: true
     stat1Value?: true
     stat2?: true
@@ -11394,6 +11508,9 @@ export namespace Prisma {
     skill?: true
     weapon?: true
     pet?: true
+    originalSkill?: true
+    originalWeapon?: true
+    originalPet?: true
     stat1?: true
     stat1Value?: true
     stat2?: true
@@ -11408,55 +11525,55 @@ export namespace Prisma {
     where?: DestinyChoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of DestinyChoices to fetch.
      */
     orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: DestinyChoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` DestinyChoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` DestinyChoices.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned DestinyChoices
     **/
     _count?: true | DestinyChoiceCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: DestinyChoiceAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: DestinyChoiceSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: DestinyChoiceMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: DestinyChoiceMaxAggregateInputType
@@ -11495,6 +11612,9 @@ export namespace Prisma {
     skill: $Enums.SkillName | null
     weapon: $Enums.WeaponName | null
     pet: $Enums.PetName | null
+    originalSkill: $Enums.SkillName | null
+    originalWeapon: $Enums.WeaponName | null
+    originalPet: $Enums.PetName | null
     stat1: $Enums.BruteStat | null
     stat1Value: number | null
     stat2: $Enums.BruteStat | null
@@ -11528,6 +11648,9 @@ export namespace Prisma {
     skill?: boolean
     weapon?: boolean
     pet?: boolean
+    originalSkill?: boolean
+    originalWeapon?: boolean
+    originalPet?: boolean
     stat1?: boolean
     stat1Value?: boolean
     stat2?: boolean
@@ -11545,6 +11668,9 @@ export namespace Prisma {
     skill?: boolean
     weapon?: boolean
     pet?: boolean
+    originalSkill?: boolean
+    originalWeapon?: boolean
+    originalPet?: boolean
     stat1?: boolean
     stat1Value?: boolean
     stat2?: boolean
@@ -11560,13 +11686,16 @@ export namespace Prisma {
     skill?: boolean
     weapon?: boolean
     pet?: boolean
+    originalSkill?: boolean
+    originalWeapon?: boolean
+    originalPet?: boolean
     stat1?: boolean
     stat1Value?: boolean
     stat2?: boolean
     stat2Value?: boolean
   }
 
-  export type DestinyChoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "path" | "type" | "skill" | "weapon" | "pet" | "stat1" | "stat1Value" | "stat2" | "stat2Value", ExtArgs["result"]["destinyChoice"]>
+  export type DestinyChoiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "path" | "type" | "skill" | "weapon" | "pet" | "originalSkill" | "originalWeapon" | "originalPet" | "stat1" | "stat1Value" | "stat2" | "stat2Value", ExtArgs["result"]["destinyChoice"]>
   export type DestinyChoiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
     logs?: boolean | DestinyChoice$logsArgs<ExtArgs>
@@ -11590,6 +11719,9 @@ export namespace Prisma {
       skill: $Enums.SkillName | null
       weapon: $Enums.WeaponName | null
       pet: $Enums.PetName | null
+      originalSkill: $Enums.SkillName | null
+      originalWeapon: $Enums.WeaponName | null
+      originalPet: $Enums.PetName | null
       stat1: $Enums.BruteStat | null
       stat1Value: number | null
       stat2: $Enums.BruteStat | null
@@ -11600,7 +11732,7 @@ export namespace Prisma {
 
   type DestinyChoiceGetPayload<S extends boolean | null | undefined | DestinyChoiceDefaultArgs> = $Result.GetResult<Prisma.$DestinyChoicePayload, S>
 
-  type DestinyChoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type DestinyChoiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<DestinyChoiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: DestinyChoiceCountAggregateInputType | true
     }
@@ -11621,7 +11753,7 @@ export namespace Prisma {
     findUnique<T extends DestinyChoiceFindUniqueArgs>(args: SelectSubset<T, DestinyChoiceFindUniqueArgs<ExtArgs>>): Prisma__DestinyChoiceClient<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one DestinyChoice that matches the filter or throw an error with `error.code='P2025'`
+     * Find one DestinyChoice that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {DestinyChoiceFindUniqueOrThrowArgs} args - Arguments to find a DestinyChoice
      * @example
@@ -11673,13 +11805,13 @@ export namespace Prisma {
      * @example
      * // Get all DestinyChoices
      * const destinyChoices = await prisma.destinyChoice.findMany()
-     *
+     * 
      * // Get first 10 DestinyChoices
      * const destinyChoices = await prisma.destinyChoice.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const destinyChoiceWithIdOnly = await prisma.destinyChoice.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends DestinyChoiceFindManyArgs>(args?: SelectSubset<T, DestinyChoiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -11693,7 +11825,7 @@ export namespace Prisma {
      *     // ... data to create a DestinyChoice
      *   }
      * })
-     *
+     * 
      */
     create<T extends DestinyChoiceCreateArgs>(args: SelectSubset<T, DestinyChoiceCreateArgs<ExtArgs>>): Prisma__DestinyChoiceClient<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -11707,7 +11839,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends DestinyChoiceCreateManyArgs>(args?: SelectSubset<T, DestinyChoiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -11721,9 +11853,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many DestinyChoices and only return the `id`
-     * const destinyChoiceWithIdOnly = await prisma.destinyChoice.createManyAndReturn({
+     * const destinyChoiceWithIdOnly = await prisma.destinyChoice.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -11731,7 +11863,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends DestinyChoiceCreateManyAndReturnArgs>(args?: SelectSubset<T, DestinyChoiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -11745,7 +11877,7 @@ export namespace Prisma {
      *     // ... filter to delete one DestinyChoice
      *   }
      * })
-     *
+     * 
      */
     delete<T extends DestinyChoiceDeleteArgs>(args: SelectSubset<T, DestinyChoiceDeleteArgs<ExtArgs>>): Prisma__DestinyChoiceClient<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -11762,7 +11894,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends DestinyChoiceUpdateArgs>(args: SelectSubset<T, DestinyChoiceUpdateArgs<ExtArgs>>): Prisma__DestinyChoiceClient<$Result.GetResult<Prisma.$DestinyChoicePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -11776,7 +11908,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends DestinyChoiceDeleteManyArgs>(args?: SelectSubset<T, DestinyChoiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -11795,7 +11927,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends DestinyChoiceUpdateManyArgs>(args: SelectSubset<T, DestinyChoiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -11884,7 +12016,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends DestinyChoiceGroupByArgs,
@@ -11987,7 +12119,7 @@ export namespace Prisma {
 
   /**
    * Fields of the DestinyChoice model
-   */
+   */ 
   interface DestinyChoiceFieldRefs {
     readonly id: FieldRef<"DestinyChoice", 'String'>
     readonly bruteId: FieldRef<"DestinyChoice", 'String'>
@@ -11996,12 +12128,15 @@ export namespace Prisma {
     readonly skill: FieldRef<"DestinyChoice", 'SkillName'>
     readonly weapon: FieldRef<"DestinyChoice", 'WeaponName'>
     readonly pet: FieldRef<"DestinyChoice", 'PetName'>
+    readonly originalSkill: FieldRef<"DestinyChoice", 'SkillName'>
+    readonly originalWeapon: FieldRef<"DestinyChoice", 'WeaponName'>
+    readonly originalPet: FieldRef<"DestinyChoice", 'PetName'>
     readonly stat1: FieldRef<"DestinyChoice", 'BruteStat'>
     readonly stat1Value: FieldRef<"DestinyChoice", 'Int'>
     readonly stat2: FieldRef<"DestinyChoice", 'BruteStat'>
     readonly stat2Value: FieldRef<"DestinyChoice", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -12072,31 +12207,31 @@ export namespace Prisma {
     where?: DestinyChoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of DestinyChoices to fetch.
      */
     orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for DestinyChoices.
      */
     cursor?: DestinyChoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` DestinyChoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` DestinyChoices.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of DestinyChoices.
      */
     distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
@@ -12125,31 +12260,31 @@ export namespace Prisma {
     where?: DestinyChoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of DestinyChoices to fetch.
      */
     orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for DestinyChoices.
      */
     cursor?: DestinyChoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` DestinyChoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` DestinyChoices.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of DestinyChoices.
      */
     distinct?: DestinyChoiceScalarFieldEnum | DestinyChoiceScalarFieldEnum[]
@@ -12178,25 +12313,25 @@ export namespace Prisma {
     where?: DestinyChoiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of DestinyChoices to fetch.
      */
     orderBy?: DestinyChoiceOrderByWithRelationInput | DestinyChoiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing DestinyChoices.
      */
     cursor?: DestinyChoiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` DestinyChoices from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` DestinyChoices.
      */
     skip?: number
@@ -12495,55 +12630,55 @@ export namespace Prisma {
     where?: TournamentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Tournaments to fetch.
      */
     orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TournamentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Tournaments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Tournaments.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Tournaments
     **/
     _count?: true | TournamentCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TournamentAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TournamentSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TournamentMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TournamentMaxAggregateInputType
@@ -12660,7 +12795,7 @@ export namespace Prisma {
 
   type TournamentGetPayload<S extends boolean | null | undefined | TournamentDefaultArgs> = $Result.GetResult<Prisma.$TournamentPayload, S>
 
-  type TournamentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type TournamentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<TournamentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentCountAggregateInputType | true
     }
@@ -12681,7 +12816,7 @@ export namespace Prisma {
     findUnique<T extends TournamentFindUniqueArgs>(args: SelectSubset<T, TournamentFindUniqueArgs<ExtArgs>>): Prisma__TournamentClient<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Tournament that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Tournament that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {TournamentFindUniqueOrThrowArgs} args - Arguments to find a Tournament
      * @example
@@ -12733,13 +12868,13 @@ export namespace Prisma {
      * @example
      * // Get all Tournaments
      * const tournaments = await prisma.tournament.findMany()
-     *
+     * 
      * // Get first 10 Tournaments
      * const tournaments = await prisma.tournament.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const tournamentWithIdOnly = await prisma.tournament.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TournamentFindManyArgs>(args?: SelectSubset<T, TournamentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -12753,7 +12888,7 @@ export namespace Prisma {
      *     // ... data to create a Tournament
      *   }
      * })
-     *
+     * 
      */
     create<T extends TournamentCreateArgs>(args: SelectSubset<T, TournamentCreateArgs<ExtArgs>>): Prisma__TournamentClient<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -12767,7 +12902,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TournamentCreateManyArgs>(args?: SelectSubset<T, TournamentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -12781,9 +12916,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Tournaments and only return the `id`
-     * const tournamentWithIdOnly = await prisma.tournament.createManyAndReturn({
+     * const tournamentWithIdOnly = await prisma.tournament.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -12791,7 +12926,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TournamentCreateManyAndReturnArgs>(args?: SelectSubset<T, TournamentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -12805,7 +12940,7 @@ export namespace Prisma {
      *     // ... filter to delete one Tournament
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TournamentDeleteArgs>(args: SelectSubset<T, TournamentDeleteArgs<ExtArgs>>): Prisma__TournamentClient<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -12822,7 +12957,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TournamentUpdateArgs>(args: SelectSubset<T, TournamentUpdateArgs<ExtArgs>>): Prisma__TournamentClient<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -12836,7 +12971,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TournamentDeleteManyArgs>(args?: SelectSubset<T, TournamentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -12855,7 +12990,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TournamentUpdateManyArgs>(args: SelectSubset<T, TournamentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -12944,7 +13079,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TournamentGroupByArgs,
@@ -13048,7 +13183,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Tournament model
-   */
+   */ 
   interface TournamentFieldRefs {
     readonly id: FieldRef<"Tournament", 'String'>
     readonly date: FieldRef<"Tournament", 'DateTime'>
@@ -13056,7 +13191,7 @@ export namespace Prisma {
     readonly rounds: FieldRef<"Tournament", 'Int'>
     readonly eventId: FieldRef<"Tournament", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -13127,31 +13262,31 @@ export namespace Prisma {
     where?: TournamentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Tournaments to fetch.
      */
     orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Tournaments.
      */
     cursor?: TournamentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Tournaments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Tournaments.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Tournaments.
      */
     distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
@@ -13180,31 +13315,31 @@ export namespace Prisma {
     where?: TournamentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Tournaments to fetch.
      */
     orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Tournaments.
      */
     cursor?: TournamentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Tournaments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Tournaments.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Tournaments.
      */
     distinct?: TournamentScalarFieldEnum | TournamentScalarFieldEnum[]
@@ -13233,25 +13368,25 @@ export namespace Prisma {
     where?: TournamentWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Tournaments to fetch.
      */
     orderBy?: TournamentOrderByWithRelationInput | TournamentOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Tournaments.
      */
     cursor?: TournamentWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Tournaments from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Tournaments.
      */
     skip?: number
@@ -13593,55 +13728,55 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentAchievements to fetch.
      */
     orderBy?: TournamentAchievementOrderByWithRelationInput | TournamentAchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TournamentAchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentAchievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentAchievements.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned TournamentAchievements
     **/
     _count?: true | TournamentAchievementCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TournamentAchievementAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TournamentAchievementSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TournamentAchievementMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TournamentAchievementMaxAggregateInputType
@@ -13750,7 +13885,7 @@ export namespace Prisma {
 
   type TournamentAchievementGetPayload<S extends boolean | null | undefined | TournamentAchievementDefaultArgs> = $Result.GetResult<Prisma.$TournamentAchievementPayload, S>
 
-  type TournamentAchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type TournamentAchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<TournamentAchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentAchievementCountAggregateInputType | true
     }
@@ -13771,7 +13906,7 @@ export namespace Prisma {
     findUnique<T extends TournamentAchievementFindUniqueArgs>(args: SelectSubset<T, TournamentAchievementFindUniqueArgs<ExtArgs>>): Prisma__TournamentAchievementClient<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one TournamentAchievement that matches the filter or throw an error with `error.code='P2025'`
+     * Find one TournamentAchievement that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {TournamentAchievementFindUniqueOrThrowArgs} args - Arguments to find a TournamentAchievement
      * @example
@@ -13823,13 +13958,13 @@ export namespace Prisma {
      * @example
      * // Get all TournamentAchievements
      * const tournamentAchievements = await prisma.tournamentAchievement.findMany()
-     *
+     * 
      * // Get first 10 TournamentAchievements
      * const tournamentAchievements = await prisma.tournamentAchievement.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const tournamentAchievementWithIdOnly = await prisma.tournamentAchievement.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TournamentAchievementFindManyArgs>(args?: SelectSubset<T, TournamentAchievementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -13843,7 +13978,7 @@ export namespace Prisma {
      *     // ... data to create a TournamentAchievement
      *   }
      * })
-     *
+     * 
      */
     create<T extends TournamentAchievementCreateArgs>(args: SelectSubset<T, TournamentAchievementCreateArgs<ExtArgs>>): Prisma__TournamentAchievementClient<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -13857,7 +13992,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TournamentAchievementCreateManyArgs>(args?: SelectSubset<T, TournamentAchievementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -13871,9 +14006,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many TournamentAchievements and only return the `id`
-     * const tournamentAchievementWithIdOnly = await prisma.tournamentAchievement.createManyAndReturn({
+     * const tournamentAchievementWithIdOnly = await prisma.tournamentAchievement.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -13881,7 +14016,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TournamentAchievementCreateManyAndReturnArgs>(args?: SelectSubset<T, TournamentAchievementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -13895,7 +14030,7 @@ export namespace Prisma {
      *     // ... filter to delete one TournamentAchievement
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TournamentAchievementDeleteArgs>(args: SelectSubset<T, TournamentAchievementDeleteArgs<ExtArgs>>): Prisma__TournamentAchievementClient<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -13912,7 +14047,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TournamentAchievementUpdateArgs>(args: SelectSubset<T, TournamentAchievementUpdateArgs<ExtArgs>>): Prisma__TournamentAchievementClient<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -13926,7 +14061,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TournamentAchievementDeleteManyArgs>(args?: SelectSubset<T, TournamentAchievementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -13945,7 +14080,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TournamentAchievementUpdateManyArgs>(args: SelectSubset<T, TournamentAchievementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -14034,7 +14169,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TournamentAchievementGroupByArgs,
@@ -14136,7 +14271,7 @@ export namespace Prisma {
 
   /**
    * Fields of the TournamentAchievement model
-   */
+   */ 
   interface TournamentAchievementFieldRefs {
     readonly id: FieldRef<"TournamentAchievement", 'String'>
     readonly bruteId: FieldRef<"TournamentAchievement", 'String'>
@@ -14144,7 +14279,7 @@ export namespace Prisma {
     readonly achievement: FieldRef<"TournamentAchievement", 'AchievementName'>
     readonly achievementCount: FieldRef<"TournamentAchievement", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -14215,31 +14350,31 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentAchievements to fetch.
      */
     orderBy?: TournamentAchievementOrderByWithRelationInput | TournamentAchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for TournamentAchievements.
      */
     cursor?: TournamentAchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentAchievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentAchievements.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of TournamentAchievements.
      */
     distinct?: TournamentAchievementScalarFieldEnum | TournamentAchievementScalarFieldEnum[]
@@ -14268,31 +14403,31 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentAchievements to fetch.
      */
     orderBy?: TournamentAchievementOrderByWithRelationInput | TournamentAchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for TournamentAchievements.
      */
     cursor?: TournamentAchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentAchievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentAchievements.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of TournamentAchievements.
      */
     distinct?: TournamentAchievementScalarFieldEnum | TournamentAchievementScalarFieldEnum[]
@@ -14321,25 +14456,25 @@ export namespace Prisma {
     where?: TournamentAchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentAchievements to fetch.
      */
     orderBy?: TournamentAchievementOrderByWithRelationInput | TournamentAchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing TournamentAchievements.
      */
     cursor?: TournamentAchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentAchievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentAchievements.
      */
     skip?: number
@@ -14608,55 +14743,55 @@ export namespace Prisma {
     where?: TournamentGoldWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentGolds to fetch.
      */
     orderBy?: TournamentGoldOrderByWithRelationInput | TournamentGoldOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TournamentGoldWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentGolds from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentGolds.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned TournamentGolds
     **/
     _count?: true | TournamentGoldCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TournamentGoldAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TournamentGoldSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TournamentGoldMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TournamentGoldMaxAggregateInputType
@@ -14760,7 +14895,7 @@ export namespace Prisma {
 
   type TournamentGoldGetPayload<S extends boolean | null | undefined | TournamentGoldDefaultArgs> = $Result.GetResult<Prisma.$TournamentGoldPayload, S>
 
-  type TournamentGoldCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type TournamentGoldCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<TournamentGoldFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentGoldCountAggregateInputType | true
     }
@@ -14781,7 +14916,7 @@ export namespace Prisma {
     findUnique<T extends TournamentGoldFindUniqueArgs>(args: SelectSubset<T, TournamentGoldFindUniqueArgs<ExtArgs>>): Prisma__TournamentGoldClient<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one TournamentGold that matches the filter or throw an error with `error.code='P2025'`
+     * Find one TournamentGold that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {TournamentGoldFindUniqueOrThrowArgs} args - Arguments to find a TournamentGold
      * @example
@@ -14833,13 +14968,13 @@ export namespace Prisma {
      * @example
      * // Get all TournamentGolds
      * const tournamentGolds = await prisma.tournamentGold.findMany()
-     *
+     * 
      * // Get first 10 TournamentGolds
      * const tournamentGolds = await prisma.tournamentGold.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const tournamentGoldWithIdOnly = await prisma.tournamentGold.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TournamentGoldFindManyArgs>(args?: SelectSubset<T, TournamentGoldFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -14853,7 +14988,7 @@ export namespace Prisma {
      *     // ... data to create a TournamentGold
      *   }
      * })
-     *
+     * 
      */
     create<T extends TournamentGoldCreateArgs>(args: SelectSubset<T, TournamentGoldCreateArgs<ExtArgs>>): Prisma__TournamentGoldClient<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -14867,7 +15002,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TournamentGoldCreateManyArgs>(args?: SelectSubset<T, TournamentGoldCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -14881,9 +15016,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many TournamentGolds and only return the `id`
-     * const tournamentGoldWithIdOnly = await prisma.tournamentGold.createManyAndReturn({
+     * const tournamentGoldWithIdOnly = await prisma.tournamentGold.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -14891,7 +15026,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TournamentGoldCreateManyAndReturnArgs>(args?: SelectSubset<T, TournamentGoldCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -14905,7 +15040,7 @@ export namespace Prisma {
      *     // ... filter to delete one TournamentGold
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TournamentGoldDeleteArgs>(args: SelectSubset<T, TournamentGoldDeleteArgs<ExtArgs>>): Prisma__TournamentGoldClient<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -14922,7 +15057,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TournamentGoldUpdateArgs>(args: SelectSubset<T, TournamentGoldUpdateArgs<ExtArgs>>): Prisma__TournamentGoldClient<$Result.GetResult<Prisma.$TournamentGoldPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -14936,7 +15071,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TournamentGoldDeleteManyArgs>(args?: SelectSubset<T, TournamentGoldDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -14955,7 +15090,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TournamentGoldUpdateManyArgs>(args: SelectSubset<T, TournamentGoldUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -15044,7 +15179,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TournamentGoldGroupByArgs,
@@ -15146,14 +15281,14 @@ export namespace Prisma {
 
   /**
    * Fields of the TournamentGold model
-   */
+   */ 
   interface TournamentGoldFieldRefs {
     readonly id: FieldRef<"TournamentGold", 'String'>
     readonly date: FieldRef<"TournamentGold", 'DateTime'>
     readonly userId: FieldRef<"TournamentGold", 'String'>
     readonly gold: FieldRef<"TournamentGold", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -15224,31 +15359,31 @@ export namespace Prisma {
     where?: TournamentGoldWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentGolds to fetch.
      */
     orderBy?: TournamentGoldOrderByWithRelationInput | TournamentGoldOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for TournamentGolds.
      */
     cursor?: TournamentGoldWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentGolds from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentGolds.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of TournamentGolds.
      */
     distinct?: TournamentGoldScalarFieldEnum | TournamentGoldScalarFieldEnum[]
@@ -15277,31 +15412,31 @@ export namespace Prisma {
     where?: TournamentGoldWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentGolds to fetch.
      */
     orderBy?: TournamentGoldOrderByWithRelationInput | TournamentGoldOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for TournamentGolds.
      */
     cursor?: TournamentGoldWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentGolds from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentGolds.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of TournamentGolds.
      */
     distinct?: TournamentGoldScalarFieldEnum | TournamentGoldScalarFieldEnum[]
@@ -15330,25 +15465,25 @@ export namespace Prisma {
     where?: TournamentGoldWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentGolds to fetch.
      */
     orderBy?: TournamentGoldOrderByWithRelationInput | TournamentGoldOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing TournamentGolds.
      */
     cursor?: TournamentGoldWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentGolds from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentGolds.
      */
     skip?: number
@@ -15617,55 +15752,55 @@ export namespace Prisma {
     where?: TournamentXpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentXps to fetch.
      */
     orderBy?: TournamentXpOrderByWithRelationInput | TournamentXpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TournamentXpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentXps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentXps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned TournamentXps
     **/
     _count?: true | TournamentXpCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TournamentXpAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TournamentXpSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TournamentXpMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TournamentXpMaxAggregateInputType
@@ -15769,7 +15904,7 @@ export namespace Prisma {
 
   type TournamentXpGetPayload<S extends boolean | null | undefined | TournamentXpDefaultArgs> = $Result.GetResult<Prisma.$TournamentXpPayload, S>
 
-  type TournamentXpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type TournamentXpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<TournamentXpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TournamentXpCountAggregateInputType | true
     }
@@ -15790,7 +15925,7 @@ export namespace Prisma {
     findUnique<T extends TournamentXpFindUniqueArgs>(args: SelectSubset<T, TournamentXpFindUniqueArgs<ExtArgs>>): Prisma__TournamentXpClient<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one TournamentXp that matches the filter or throw an error with `error.code='P2025'`
+     * Find one TournamentXp that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {TournamentXpFindUniqueOrThrowArgs} args - Arguments to find a TournamentXp
      * @example
@@ -15842,13 +15977,13 @@ export namespace Prisma {
      * @example
      * // Get all TournamentXps
      * const tournamentXps = await prisma.tournamentXp.findMany()
-     *
+     * 
      * // Get first 10 TournamentXps
      * const tournamentXps = await prisma.tournamentXp.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const tournamentXpWithIdOnly = await prisma.tournamentXp.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TournamentXpFindManyArgs>(args?: SelectSubset<T, TournamentXpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -15862,7 +15997,7 @@ export namespace Prisma {
      *     // ... data to create a TournamentXp
      *   }
      * })
-     *
+     * 
      */
     create<T extends TournamentXpCreateArgs>(args: SelectSubset<T, TournamentXpCreateArgs<ExtArgs>>): Prisma__TournamentXpClient<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -15876,7 +16011,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TournamentXpCreateManyArgs>(args?: SelectSubset<T, TournamentXpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -15890,9 +16025,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many TournamentXps and only return the `id`
-     * const tournamentXpWithIdOnly = await prisma.tournamentXp.createManyAndReturn({
+     * const tournamentXpWithIdOnly = await prisma.tournamentXp.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -15900,7 +16035,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TournamentXpCreateManyAndReturnArgs>(args?: SelectSubset<T, TournamentXpCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -15914,7 +16049,7 @@ export namespace Prisma {
      *     // ... filter to delete one TournamentXp
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TournamentXpDeleteArgs>(args: SelectSubset<T, TournamentXpDeleteArgs<ExtArgs>>): Prisma__TournamentXpClient<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -15931,7 +16066,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TournamentXpUpdateArgs>(args: SelectSubset<T, TournamentXpUpdateArgs<ExtArgs>>): Prisma__TournamentXpClient<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -15945,7 +16080,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TournamentXpDeleteManyArgs>(args?: SelectSubset<T, TournamentXpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -15964,7 +16099,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TournamentXpUpdateManyArgs>(args: SelectSubset<T, TournamentXpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -16053,7 +16188,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TournamentXpGroupByArgs,
@@ -16155,14 +16290,14 @@ export namespace Prisma {
 
   /**
    * Fields of the TournamentXp model
-   */
+   */ 
   interface TournamentXpFieldRefs {
     readonly id: FieldRef<"TournamentXp", 'String'>
     readonly date: FieldRef<"TournamentXp", 'DateTime'>
     readonly bruteId: FieldRef<"TournamentXp", 'String'>
     readonly xp: FieldRef<"TournamentXp", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -16233,31 +16368,31 @@ export namespace Prisma {
     where?: TournamentXpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentXps to fetch.
      */
     orderBy?: TournamentXpOrderByWithRelationInput | TournamentXpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for TournamentXps.
      */
     cursor?: TournamentXpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentXps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentXps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of TournamentXps.
      */
     distinct?: TournamentXpScalarFieldEnum | TournamentXpScalarFieldEnum[]
@@ -16286,31 +16421,31 @@ export namespace Prisma {
     where?: TournamentXpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentXps to fetch.
      */
     orderBy?: TournamentXpOrderByWithRelationInput | TournamentXpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for TournamentXps.
      */
     cursor?: TournamentXpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentXps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentXps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of TournamentXps.
      */
     distinct?: TournamentXpScalarFieldEnum | TournamentXpScalarFieldEnum[]
@@ -16339,25 +16474,25 @@ export namespace Prisma {
     where?: TournamentXpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of TournamentXps to fetch.
      */
     orderBy?: TournamentXpOrderByWithRelationInput | TournamentXpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing TournamentXps.
      */
     cursor?: TournamentXpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` TournamentXps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` TournamentXps.
      */
     skip?: number
@@ -16632,55 +16767,55 @@ export namespace Prisma {
     where?: AchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Achievements to fetch.
      */
     orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: AchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Achievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Achievements.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Achievements
     **/
     _count?: true | AchievementCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: AchievementAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: AchievementSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: AchievementMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: AchievementMaxAggregateInputType
@@ -16794,7 +16929,7 @@ export namespace Prisma {
 
   type AchievementGetPayload<S extends boolean | null | undefined | AchievementDefaultArgs> = $Result.GetResult<Prisma.$AchievementPayload, S>
 
-  type AchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type AchievementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<AchievementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: AchievementCountAggregateInputType | true
     }
@@ -16815,7 +16950,7 @@ export namespace Prisma {
     findUnique<T extends AchievementFindUniqueArgs>(args: SelectSubset<T, AchievementFindUniqueArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Achievement that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Achievement that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {AchievementFindUniqueOrThrowArgs} args - Arguments to find a Achievement
      * @example
@@ -16867,13 +17002,13 @@ export namespace Prisma {
      * @example
      * // Get all Achievements
      * const achievements = await prisma.achievement.findMany()
-     *
+     * 
      * // Get first 10 Achievements
      * const achievements = await prisma.achievement.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const achievementWithIdOnly = await prisma.achievement.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends AchievementFindManyArgs>(args?: SelectSubset<T, AchievementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -16887,7 +17022,7 @@ export namespace Prisma {
      *     // ... data to create a Achievement
      *   }
      * })
-     *
+     * 
      */
     create<T extends AchievementCreateArgs>(args: SelectSubset<T, AchievementCreateArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -16901,7 +17036,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends AchievementCreateManyArgs>(args?: SelectSubset<T, AchievementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -16915,9 +17050,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Achievements and only return the `id`
-     * const achievementWithIdOnly = await prisma.achievement.createManyAndReturn({
+     * const achievementWithIdOnly = await prisma.achievement.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -16925,7 +17060,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends AchievementCreateManyAndReturnArgs>(args?: SelectSubset<T, AchievementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -16939,7 +17074,7 @@ export namespace Prisma {
      *     // ... filter to delete one Achievement
      *   }
      * })
-     *
+     * 
      */
     delete<T extends AchievementDeleteArgs>(args: SelectSubset<T, AchievementDeleteArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -16956,7 +17091,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends AchievementUpdateArgs>(args: SelectSubset<T, AchievementUpdateArgs<ExtArgs>>): Prisma__AchievementClient<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -16970,7 +17105,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends AchievementDeleteManyArgs>(args?: SelectSubset<T, AchievementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -16989,7 +17124,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends AchievementUpdateManyArgs>(args: SelectSubset<T, AchievementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -17078,7 +17213,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends AchievementGroupByArgs,
@@ -17181,7 +17316,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Achievement model
-   */
+   */ 
   interface AchievementFieldRefs {
     readonly id: FieldRef<"Achievement", 'String'>
     readonly name: FieldRef<"Achievement", 'AchievementName'>
@@ -17189,7 +17324,7 @@ export namespace Prisma {
     readonly bruteId: FieldRef<"Achievement", 'String'>
     readonly userId: FieldRef<"Achievement", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -17260,31 +17395,31 @@ export namespace Prisma {
     where?: AchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Achievements to fetch.
      */
     orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Achievements.
      */
     cursor?: AchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Achievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Achievements.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Achievements.
      */
     distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
@@ -17313,31 +17448,31 @@ export namespace Prisma {
     where?: AchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Achievements to fetch.
      */
     orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Achievements.
      */
     cursor?: AchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Achievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Achievements.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Achievements.
      */
     distinct?: AchievementScalarFieldEnum | AchievementScalarFieldEnum[]
@@ -17366,25 +17501,25 @@ export namespace Prisma {
     where?: AchievementWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Achievements to fetch.
      */
     orderBy?: AchievementOrderByWithRelationInput | AchievementOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Achievements.
      */
     cursor?: AchievementWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Achievements from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Achievements.
      */
     skip?: number
@@ -17685,55 +17820,55 @@ export namespace Prisma {
     where?: TitleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Titles to fetch.
      */
     orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TitleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Titles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Titles.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Titles
     **/
     _count?: true | TitleCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TitleAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TitleSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TitleMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TitleMaxAggregateInputType
@@ -17831,7 +17966,7 @@ export namespace Prisma {
 
   type TitleGetPayload<S extends boolean | null | undefined | TitleDefaultArgs> = $Result.GetResult<Prisma.$TitlePayload, S>
 
-  type TitleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type TitleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<TitleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: TitleCountAggregateInputType | true
     }
@@ -17852,7 +17987,7 @@ export namespace Prisma {
     findUnique<T extends TitleFindUniqueArgs>(args: SelectSubset<T, TitleFindUniqueArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Title that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Title that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {TitleFindUniqueOrThrowArgs} args - Arguments to find a Title
      * @example
@@ -17904,13 +18039,13 @@ export namespace Prisma {
      * @example
      * // Get all Titles
      * const titles = await prisma.title.findMany()
-     *
+     * 
      * // Get first 10 Titles
      * const titles = await prisma.title.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const titleWithIdOnly = await prisma.title.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TitleFindManyArgs>(args?: SelectSubset<T, TitleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -17924,7 +18059,7 @@ export namespace Prisma {
      *     // ... data to create a Title
      *   }
      * })
-     *
+     * 
      */
     create<T extends TitleCreateArgs>(args: SelectSubset<T, TitleCreateArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -17938,7 +18073,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TitleCreateManyArgs>(args?: SelectSubset<T, TitleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -17952,9 +18087,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Titles and only return the `id`
-     * const titleWithIdOnly = await prisma.title.createManyAndReturn({
+     * const titleWithIdOnly = await prisma.title.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -17962,7 +18097,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TitleCreateManyAndReturnArgs>(args?: SelectSubset<T, TitleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -17976,7 +18111,7 @@ export namespace Prisma {
      *     // ... filter to delete one Title
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TitleDeleteArgs>(args: SelectSubset<T, TitleDeleteArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -17993,7 +18128,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TitleUpdateArgs>(args: SelectSubset<T, TitleUpdateArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -18007,7 +18142,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TitleDeleteManyArgs>(args?: SelectSubset<T, TitleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -18026,7 +18161,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TitleUpdateManyArgs>(args: SelectSubset<T, TitleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -18115,7 +18250,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TitleGroupByArgs,
@@ -18217,13 +18352,13 @@ export namespace Prisma {
 
   /**
    * Fields of the Title model
-   */
+   */ 
   interface TitleFieldRefs {
     readonly id: FieldRef<"Title", 'String'>
     readonly name: FieldRef<"Title", 'AchievementName'>
     readonly count: FieldRef<"Title", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -18294,31 +18429,31 @@ export namespace Prisma {
     where?: TitleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Titles to fetch.
      */
     orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Titles.
      */
     cursor?: TitleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Titles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Titles.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Titles.
      */
     distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
@@ -18347,31 +18482,31 @@ export namespace Prisma {
     where?: TitleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Titles to fetch.
      */
     orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Titles.
      */
     cursor?: TitleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Titles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Titles.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Titles.
      */
     distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
@@ -18400,25 +18535,25 @@ export namespace Prisma {
     where?: TitleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Titles to fetch.
      */
     orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Titles.
      */
     cursor?: TitleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Titles from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Titles.
      */
     skip?: number
@@ -18719,55 +18854,55 @@ export namespace Prisma {
     where?: BruteReportWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteReports to fetch.
      */
     orderBy?: BruteReportOrderByWithRelationInput | BruteReportOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: BruteReportWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteReports from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteReports.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned BruteReports
     **/
     _count?: true | BruteReportCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: BruteReportAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: BruteReportSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BruteReportMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: BruteReportMaxAggregateInputType
@@ -18886,7 +19021,7 @@ export namespace Prisma {
 
   type BruteReportGetPayload<S extends boolean | null | undefined | BruteReportDefaultArgs> = $Result.GetResult<Prisma.$BruteReportPayload, S>
 
-  type BruteReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type BruteReportCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<BruteReportFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BruteReportCountAggregateInputType | true
     }
@@ -18907,7 +19042,7 @@ export namespace Prisma {
     findUnique<T extends BruteReportFindUniqueArgs>(args: SelectSubset<T, BruteReportFindUniqueArgs<ExtArgs>>): Prisma__BruteReportClient<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one BruteReport that matches the filter or throw an error with `error.code='P2025'`
+     * Find one BruteReport that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {BruteReportFindUniqueOrThrowArgs} args - Arguments to find a BruteReport
      * @example
@@ -18959,13 +19094,13 @@ export namespace Prisma {
      * @example
      * // Get all BruteReports
      * const bruteReports = await prisma.bruteReport.findMany()
-     *
+     * 
      * // Get first 10 BruteReports
      * const bruteReports = await prisma.bruteReport.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const bruteReportWithIdOnly = await prisma.bruteReport.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends BruteReportFindManyArgs>(args?: SelectSubset<T, BruteReportFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -18979,7 +19114,7 @@ export namespace Prisma {
      *     // ... data to create a BruteReport
      *   }
      * })
-     *
+     * 
      */
     create<T extends BruteReportCreateArgs>(args: SelectSubset<T, BruteReportCreateArgs<ExtArgs>>): Prisma__BruteReportClient<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -18993,7 +19128,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends BruteReportCreateManyArgs>(args?: SelectSubset<T, BruteReportCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -19007,9 +19142,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many BruteReports and only return the `id`
-     * const bruteReportWithIdOnly = await prisma.bruteReport.createManyAndReturn({
+     * const bruteReportWithIdOnly = await prisma.bruteReport.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -19017,7 +19152,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends BruteReportCreateManyAndReturnArgs>(args?: SelectSubset<T, BruteReportCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -19031,7 +19166,7 @@ export namespace Prisma {
      *     // ... filter to delete one BruteReport
      *   }
      * })
-     *
+     * 
      */
     delete<T extends BruteReportDeleteArgs>(args: SelectSubset<T, BruteReportDeleteArgs<ExtArgs>>): Prisma__BruteReportClient<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -19048,7 +19183,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends BruteReportUpdateArgs>(args: SelectSubset<T, BruteReportUpdateArgs<ExtArgs>>): Prisma__BruteReportClient<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -19062,7 +19197,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends BruteReportDeleteManyArgs>(args?: SelectSubset<T, BruteReportDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -19081,7 +19216,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends BruteReportUpdateManyArgs>(args: SelectSubset<T, BruteReportUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -19170,7 +19305,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends BruteReportGroupByArgs,
@@ -19273,7 +19408,7 @@ export namespace Prisma {
 
   /**
    * Fields of the BruteReport model
-   */
+   */ 
   interface BruteReportFieldRefs {
     readonly id: FieldRef<"BruteReport", 'String'>
     readonly bruteId: FieldRef<"BruteReport", 'String'>
@@ -19282,7 +19417,7 @@ export namespace Prisma {
     readonly date: FieldRef<"BruteReport", 'DateTime'>
     readonly status: FieldRef<"BruteReport", 'BruteReportStatus'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -19353,31 +19488,31 @@ export namespace Prisma {
     where?: BruteReportWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteReports to fetch.
      */
     orderBy?: BruteReportOrderByWithRelationInput | BruteReportOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BruteReports.
      */
     cursor?: BruteReportWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteReports from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteReports.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BruteReports.
      */
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
@@ -19406,31 +19541,31 @@ export namespace Prisma {
     where?: BruteReportWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteReports to fetch.
      */
     orderBy?: BruteReportOrderByWithRelationInput | BruteReportOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BruteReports.
      */
     cursor?: BruteReportWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteReports from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteReports.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BruteReports.
      */
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
@@ -19459,25 +19594,25 @@ export namespace Prisma {
     where?: BruteReportWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BruteReports to fetch.
      */
     orderBy?: BruteReportOrderByWithRelationInput | BruteReportOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing BruteReports.
      */
     cursor?: BruteReportWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BruteReports from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BruteReports.
      */
     skip?: number
@@ -19696,36 +19831,20 @@ export namespace Prisma {
 
   export type AggregateServerState = {
     _count: ServerStateCountAggregateOutputType | null
-    _avg: ServerStateAvgAggregateOutputType | null
-    _sum: ServerStateSumAggregateOutputType | null
     _min: ServerStateMinAggregateOutputType | null
     _max: ServerStateMaxAggregateOutputType | null
-  }
-
-  export type ServerStateAvgAggregateOutputType = {
-    randomWeapon: number | null
-    randomSkill: number | null
-  }
-
-  export type ServerStateSumAggregateOutputType = {
-    randomWeapon: number | null
-    randomSkill: number | null
   }
 
   export type ServerStateMinAggregateOutputType = {
     id: string | null
     globalTournamentValid: boolean | null
     modifiersEndAt: Date | null
-    randomWeapon: number | null
-    randomSkill: number | null
   }
 
   export type ServerStateMaxAggregateOutputType = {
     id: string | null
     globalTournamentValid: boolean | null
     modifiersEndAt: Date | null
-    randomWeapon: number | null
-    randomSkill: number | null
   }
 
   export type ServerStateCountAggregateOutputType = {
@@ -19733,37 +19852,21 @@ export namespace Prisma {
     globalTournamentValid: number
     activeModifiers: number
     modifiersEndAt: number
-    randomWeapon: number
-    randomSkill: number
     nextModifiers: number
     _all: number
   }
 
 
-  export type ServerStateAvgAggregateInputType = {
-    randomWeapon?: true
-    randomSkill?: true
-  }
-
-  export type ServerStateSumAggregateInputType = {
-    randomWeapon?: true
-    randomSkill?: true
-  }
-
   export type ServerStateMinAggregateInputType = {
     id?: true
     globalTournamentValid?: true
     modifiersEndAt?: true
-    randomWeapon?: true
-    randomSkill?: true
   }
 
   export type ServerStateMaxAggregateInputType = {
     id?: true
     globalTournamentValid?: true
     modifiersEndAt?: true
-    randomWeapon?: true
-    randomSkill?: true
   }
 
   export type ServerStateCountAggregateInputType = {
@@ -19771,8 +19874,6 @@ export namespace Prisma {
     globalTournamentValid?: true
     activeModifiers?: true
     modifiersEndAt?: true
-    randomWeapon?: true
-    randomSkill?: true
     nextModifiers?: true
     _all?: true
   }
@@ -19784,55 +19885,43 @@ export namespace Prisma {
     where?: ServerStateWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ServerStates to fetch.
      */
     orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ServerStateWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ServerStates from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ServerStates.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned ServerStates
     **/
     _count?: true | ServerStateCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
-     * Select which fields to average
-    **/
-    _avg?: ServerStateAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
-     * Select which fields to sum
-    **/
-    _sum?: ServerStateSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ServerStateMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ServerStateMaxAggregateInputType
@@ -19857,8 +19946,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ServerStateCountAggregateInputType | true
-    _avg?: ServerStateAvgAggregateInputType
-    _sum?: ServerStateSumAggregateInputType
     _min?: ServerStateMinAggregateInputType
     _max?: ServerStateMaxAggregateInputType
   }
@@ -19868,12 +19955,8 @@ export namespace Prisma {
     globalTournamentValid: boolean
     activeModifiers: $Enums.FightModifier[]
     modifiersEndAt: Date | null
-    randomWeapon: number | null
-    randomSkill: number | null
     nextModifiers: $Enums.FightModifier[]
     _count: ServerStateCountAggregateOutputType | null
-    _avg: ServerStateAvgAggregateOutputType | null
-    _sum: ServerStateSumAggregateOutputType | null
     _min: ServerStateMinAggregateOutputType | null
     _max: ServerStateMaxAggregateOutputType | null
   }
@@ -19897,8 +19980,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: boolean
     modifiersEndAt?: boolean
-    randomWeapon?: boolean
-    randomSkill?: boolean
     nextModifiers?: boolean
   }, ExtArgs["result"]["serverState"]>
 
@@ -19907,8 +19988,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: boolean
     modifiersEndAt?: boolean
-    randomWeapon?: boolean
-    randomSkill?: boolean
     nextModifiers?: boolean
   }, ExtArgs["result"]["serverState"]>
 
@@ -19917,12 +19996,10 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: boolean
     modifiersEndAt?: boolean
-    randomWeapon?: boolean
-    randomSkill?: boolean
     nextModifiers?: boolean
   }
 
-  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt" | "randomWeapon" | "randomSkill" | "nextModifiers", ExtArgs["result"]["serverState"]>
+  export type ServerStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "globalTournamentValid" | "activeModifiers" | "modifiersEndAt" | "nextModifiers", ExtArgs["result"]["serverState"]>
 
   export type $ServerStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ServerState"
@@ -19932,8 +20009,6 @@ export namespace Prisma {
       globalTournamentValid: boolean
       activeModifiers: $Enums.FightModifier[]
       modifiersEndAt: Date | null
-      randomWeapon: number | null
-      randomSkill: number | null
       nextModifiers: $Enums.FightModifier[]
     }, ExtArgs["result"]["serverState"]>
     composites: {}
@@ -19941,7 +20016,7 @@ export namespace Prisma {
 
   type ServerStateGetPayload<S extends boolean | null | undefined | ServerStateDefaultArgs> = $Result.GetResult<Prisma.$ServerStatePayload, S>
 
-  type ServerStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ServerStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ServerStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ServerStateCountAggregateInputType | true
     }
@@ -19962,7 +20037,7 @@ export namespace Prisma {
     findUnique<T extends ServerStateFindUniqueArgs>(args: SelectSubset<T, ServerStateFindUniqueArgs<ExtArgs>>): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one ServerState that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ServerState that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ServerStateFindUniqueOrThrowArgs} args - Arguments to find a ServerState
      * @example
@@ -20014,13 +20089,13 @@ export namespace Prisma {
      * @example
      * // Get all ServerStates
      * const serverStates = await prisma.serverState.findMany()
-     *
+     * 
      * // Get first 10 ServerStates
      * const serverStates = await prisma.serverState.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const serverStateWithIdOnly = await prisma.serverState.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ServerStateFindManyArgs>(args?: SelectSubset<T, ServerStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -20034,7 +20109,7 @@ export namespace Prisma {
      *     // ... data to create a ServerState
      *   }
      * })
-     *
+     * 
      */
     create<T extends ServerStateCreateArgs>(args: SelectSubset<T, ServerStateCreateArgs<ExtArgs>>): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -20048,7 +20123,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ServerStateCreateManyArgs>(args?: SelectSubset<T, ServerStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -20062,9 +20137,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many ServerStates and only return the `id`
-     * const serverStateWithIdOnly = await prisma.serverState.createManyAndReturn({
+     * const serverStateWithIdOnly = await prisma.serverState.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -20072,7 +20147,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ServerStateCreateManyAndReturnArgs>(args?: SelectSubset<T, ServerStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -20086,7 +20161,7 @@ export namespace Prisma {
      *     // ... filter to delete one ServerState
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ServerStateDeleteArgs>(args: SelectSubset<T, ServerStateDeleteArgs<ExtArgs>>): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -20103,7 +20178,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ServerStateUpdateArgs>(args: SelectSubset<T, ServerStateUpdateArgs<ExtArgs>>): Prisma__ServerStateClient<$Result.GetResult<Prisma.$ServerStatePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -20117,7 +20192,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ServerStateDeleteManyArgs>(args?: SelectSubset<T, ServerStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -20136,7 +20211,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ServerStateUpdateManyArgs>(args: SelectSubset<T, ServerStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -20225,7 +20300,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ServerStateGroupByArgs,
@@ -20326,17 +20401,15 @@ export namespace Prisma {
 
   /**
    * Fields of the ServerState model
-   */
+   */ 
   interface ServerStateFieldRefs {
     readonly id: FieldRef<"ServerState", 'String'>
     readonly globalTournamentValid: FieldRef<"ServerState", 'Boolean'>
     readonly activeModifiers: FieldRef<"ServerState", 'FightModifier[]'>
     readonly modifiersEndAt: FieldRef<"ServerState", 'DateTime'>
-    readonly randomWeapon: FieldRef<"ServerState", 'Int'>
-    readonly randomSkill: FieldRef<"ServerState", 'Int'>
     readonly nextModifiers: FieldRef<"ServerState", 'FightModifier[]'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -20395,31 +20468,31 @@ export namespace Prisma {
     where?: ServerStateWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ServerStates to fetch.
      */
     orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ServerStates.
      */
     cursor?: ServerStateWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ServerStates from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ServerStates.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ServerStates.
      */
     distinct?: ServerStateScalarFieldEnum | ServerStateScalarFieldEnum[]
@@ -20444,31 +20517,31 @@ export namespace Prisma {
     where?: ServerStateWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ServerStates to fetch.
      */
     orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ServerStates.
      */
     cursor?: ServerStateWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ServerStates from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ServerStates.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ServerStates.
      */
     distinct?: ServerStateScalarFieldEnum | ServerStateScalarFieldEnum[]
@@ -20493,25 +20566,25 @@ export namespace Prisma {
     where?: ServerStateWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ServerStates to fetch.
      */
     orderBy?: ServerStateOrderByWithRelationInput | ServerStateOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing ServerStates.
      */
     cursor?: ServerStateWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ServerStates from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ServerStates.
      */
     skip?: number
@@ -20726,43 +20799,43 @@ export namespace Prisma {
     where?: BannedWordWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedWords to fetch.
      */
     orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: BannedWordWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedWords from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedWords.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned BannedWords
     **/
     _count?: true | BannedWordCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BannedWordMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: BannedWordMaxAggregateInputType
@@ -20842,7 +20915,7 @@ export namespace Prisma {
 
   type BannedWordGetPayload<S extends boolean | null | undefined | BannedWordDefaultArgs> = $Result.GetResult<Prisma.$BannedWordPayload, S>
 
-  type BannedWordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type BannedWordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<BannedWordFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BannedWordCountAggregateInputType | true
     }
@@ -20863,7 +20936,7 @@ export namespace Prisma {
     findUnique<T extends BannedWordFindUniqueArgs>(args: SelectSubset<T, BannedWordFindUniqueArgs<ExtArgs>>): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one BannedWord that matches the filter or throw an error with `error.code='P2025'`
+     * Find one BannedWord that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {BannedWordFindUniqueOrThrowArgs} args - Arguments to find a BannedWord
      * @example
@@ -20915,13 +20988,13 @@ export namespace Prisma {
      * @example
      * // Get all BannedWords
      * const bannedWords = await prisma.bannedWord.findMany()
-     *
+     * 
      * // Get first 10 BannedWords
      * const bannedWords = await prisma.bannedWord.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const bannedWordWithIdOnly = await prisma.bannedWord.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends BannedWordFindManyArgs>(args?: SelectSubset<T, BannedWordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -20935,7 +21008,7 @@ export namespace Prisma {
      *     // ... data to create a BannedWord
      *   }
      * })
-     *
+     * 
      */
     create<T extends BannedWordCreateArgs>(args: SelectSubset<T, BannedWordCreateArgs<ExtArgs>>): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -20949,7 +21022,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends BannedWordCreateManyArgs>(args?: SelectSubset<T, BannedWordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -20963,9 +21036,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many BannedWords and only return the `id`
-     * const bannedWordWithIdOnly = await prisma.bannedWord.createManyAndReturn({
+     * const bannedWordWithIdOnly = await prisma.bannedWord.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -20973,7 +21046,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends BannedWordCreateManyAndReturnArgs>(args?: SelectSubset<T, BannedWordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -20987,7 +21060,7 @@ export namespace Prisma {
      *     // ... filter to delete one BannedWord
      *   }
      * })
-     *
+     * 
      */
     delete<T extends BannedWordDeleteArgs>(args: SelectSubset<T, BannedWordDeleteArgs<ExtArgs>>): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -21004,7 +21077,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends BannedWordUpdateArgs>(args: SelectSubset<T, BannedWordUpdateArgs<ExtArgs>>): Prisma__BannedWordClient<$Result.GetResult<Prisma.$BannedWordPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -21018,7 +21091,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends BannedWordDeleteManyArgs>(args?: SelectSubset<T, BannedWordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -21037,7 +21110,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends BannedWordUpdateManyArgs>(args: SelectSubset<T, BannedWordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -21126,7 +21199,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends BannedWordGroupByArgs,
@@ -21227,12 +21300,12 @@ export namespace Prisma {
 
   /**
    * Fields of the BannedWord model
-   */
+   */ 
   interface BannedWordFieldRefs {
     readonly id: FieldRef<"BannedWord", 'String'>
     readonly word: FieldRef<"BannedWord", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -21291,31 +21364,31 @@ export namespace Prisma {
     where?: BannedWordWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedWords to fetch.
      */
     orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BannedWords.
      */
     cursor?: BannedWordWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedWords from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedWords.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BannedWords.
      */
     distinct?: BannedWordScalarFieldEnum | BannedWordScalarFieldEnum[]
@@ -21340,31 +21413,31 @@ export namespace Prisma {
     where?: BannedWordWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedWords to fetch.
      */
     orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BannedWords.
      */
     cursor?: BannedWordWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedWords from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedWords.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BannedWords.
      */
     distinct?: BannedWordScalarFieldEnum | BannedWordScalarFieldEnum[]
@@ -21389,25 +21462,25 @@ export namespace Prisma {
     where?: BannedWordWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedWords to fetch.
      */
     orderBy?: BannedWordOrderByWithRelationInput | BannedWordOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing BannedWords.
      */
     cursor?: BannedWordWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedWords from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedWords.
      */
     skip?: number
@@ -21616,43 +21689,43 @@ export namespace Prisma {
     where?: BannedIpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedIps to fetch.
      */
     orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: BannedIpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedIps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedIps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned BannedIps
     **/
     _count?: true | BannedIpCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BannedIpMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: BannedIpMaxAggregateInputType
@@ -21727,7 +21800,7 @@ export namespace Prisma {
 
   type BannedIpGetPayload<S extends boolean | null | undefined | BannedIpDefaultArgs> = $Result.GetResult<Prisma.$BannedIpPayload, S>
 
-  type BannedIpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type BannedIpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<BannedIpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BannedIpCountAggregateInputType | true
     }
@@ -21748,7 +21821,7 @@ export namespace Prisma {
     findUnique<T extends BannedIpFindUniqueArgs>(args: SelectSubset<T, BannedIpFindUniqueArgs<ExtArgs>>): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one BannedIp that matches the filter or throw an error with `error.code='P2025'`
+     * Find one BannedIp that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {BannedIpFindUniqueOrThrowArgs} args - Arguments to find a BannedIp
      * @example
@@ -21800,13 +21873,13 @@ export namespace Prisma {
      * @example
      * // Get all BannedIps
      * const bannedIps = await prisma.bannedIp.findMany()
-     *
+     * 
      * // Get first 10 BannedIps
      * const bannedIps = await prisma.bannedIp.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const bannedIpWithIdOnly = await prisma.bannedIp.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends BannedIpFindManyArgs>(args?: SelectSubset<T, BannedIpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -21820,7 +21893,7 @@ export namespace Prisma {
      *     // ... data to create a BannedIp
      *   }
      * })
-     *
+     * 
      */
     create<T extends BannedIpCreateArgs>(args: SelectSubset<T, BannedIpCreateArgs<ExtArgs>>): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -21834,7 +21907,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends BannedIpCreateManyArgs>(args?: SelectSubset<T, BannedIpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -21848,9 +21921,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many BannedIps and only return the `id`
-     * const bannedIpWithIdOnly = await prisma.bannedIp.createManyAndReturn({
+     * const bannedIpWithIdOnly = await prisma.bannedIp.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -21858,7 +21931,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends BannedIpCreateManyAndReturnArgs>(args?: SelectSubset<T, BannedIpCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -21872,7 +21945,7 @@ export namespace Prisma {
      *     // ... filter to delete one BannedIp
      *   }
      * })
-     *
+     * 
      */
     delete<T extends BannedIpDeleteArgs>(args: SelectSubset<T, BannedIpDeleteArgs<ExtArgs>>): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -21889,7 +21962,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends BannedIpUpdateArgs>(args: SelectSubset<T, BannedIpUpdateArgs<ExtArgs>>): Prisma__BannedIpClient<$Result.GetResult<Prisma.$BannedIpPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -21903,7 +21976,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends BannedIpDeleteManyArgs>(args?: SelectSubset<T, BannedIpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -21922,7 +21995,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends BannedIpUpdateManyArgs>(args: SelectSubset<T, BannedIpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -22011,7 +22084,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends BannedIpGroupByArgs,
@@ -22112,11 +22185,11 @@ export namespace Prisma {
 
   /**
    * Fields of the BannedIp model
-   */
+   */ 
   interface BannedIpFieldRefs {
     readonly id: FieldRef<"BannedIp", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -22175,31 +22248,31 @@ export namespace Prisma {
     where?: BannedIpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedIps to fetch.
      */
     orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BannedIps.
      */
     cursor?: BannedIpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedIps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedIps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BannedIps.
      */
     distinct?: BannedIpScalarFieldEnum | BannedIpScalarFieldEnum[]
@@ -22224,31 +22297,31 @@ export namespace Prisma {
     where?: BannedIpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedIps to fetch.
      */
     orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BannedIps.
      */
     cursor?: BannedIpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedIps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedIps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BannedIps.
      */
     distinct?: BannedIpScalarFieldEnum | BannedIpScalarFieldEnum[]
@@ -22273,25 +22346,25 @@ export namespace Prisma {
     where?: BannedIpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BannedIps to fetch.
      */
     orderBy?: BannedIpOrderByWithRelationInput | BannedIpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing BannedIps.
      */
     cursor?: BannedIpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BannedIps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BannedIps.
      */
     skip?: number
@@ -22584,55 +22657,55 @@ export namespace Prisma {
     where?: ClanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Clans to fetch.
      */
     orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ClanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Clans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Clans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Clans
     **/
     _count?: true | ClanCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: ClanAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: ClanSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ClanMaxAggregateInputType
@@ -22789,7 +22862,7 @@ export namespace Prisma {
 
   type ClanGetPayload<S extends boolean | null | undefined | ClanDefaultArgs> = $Result.GetResult<Prisma.$ClanPayload, S>
 
-  type ClanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ClanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ClanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanCountAggregateInputType | true
     }
@@ -22810,7 +22883,7 @@ export namespace Prisma {
     findUnique<T extends ClanFindUniqueArgs>(args: SelectSubset<T, ClanFindUniqueArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Clan that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Clan that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ClanFindUniqueOrThrowArgs} args - Arguments to find a Clan
      * @example
@@ -22862,13 +22935,13 @@ export namespace Prisma {
      * @example
      * // Get all Clans
      * const clans = await prisma.clan.findMany()
-     *
+     * 
      * // Get first 10 Clans
      * const clans = await prisma.clan.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const clanWithIdOnly = await prisma.clan.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ClanFindManyArgs>(args?: SelectSubset<T, ClanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -22882,7 +22955,7 @@ export namespace Prisma {
      *     // ... data to create a Clan
      *   }
      * })
-     *
+     * 
      */
     create<T extends ClanCreateArgs>(args: SelectSubset<T, ClanCreateArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -22896,7 +22969,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ClanCreateManyArgs>(args?: SelectSubset<T, ClanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -22910,9 +22983,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Clans and only return the `id`
-     * const clanWithIdOnly = await prisma.clan.createManyAndReturn({
+     * const clanWithIdOnly = await prisma.clan.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -22920,7 +22993,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ClanCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -22934,7 +23007,7 @@ export namespace Prisma {
      *     // ... filter to delete one Clan
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ClanDeleteArgs>(args: SelectSubset<T, ClanDeleteArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -22951,7 +23024,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ClanUpdateArgs>(args: SelectSubset<T, ClanUpdateArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -22965,7 +23038,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ClanDeleteManyArgs>(args?: SelectSubset<T, ClanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -22984,7 +23057,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ClanUpdateManyArgs>(args: SelectSubset<T, ClanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -23073,7 +23146,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ClanGroupByArgs,
@@ -23182,7 +23255,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Clan model
-   */
+   */ 
   interface ClanFieldRefs {
     readonly id: FieldRef<"Clan", 'String'>
     readonly name: FieldRef<"Clan", 'String'>
@@ -23195,7 +23268,7 @@ export namespace Prisma {
     readonly masterId: FieldRef<"Clan", 'String'>
     readonly participateInClanWar: FieldRef<"Clan", 'Boolean'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -23266,31 +23339,31 @@ export namespace Prisma {
     where?: ClanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Clans to fetch.
      */
     orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Clans.
      */
     cursor?: ClanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Clans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Clans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Clans.
      */
     distinct?: ClanScalarFieldEnum | ClanScalarFieldEnum[]
@@ -23319,31 +23392,31 @@ export namespace Prisma {
     where?: ClanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Clans to fetch.
      */
     orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Clans.
      */
     cursor?: ClanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Clans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Clans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Clans.
      */
     distinct?: ClanScalarFieldEnum | ClanScalarFieldEnum[]
@@ -23372,25 +23445,25 @@ export namespace Prisma {
     where?: ClanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Clans to fetch.
      */
     orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Clans.
      */
     cursor?: ClanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Clans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Clans.
      */
     skip?: number
@@ -23876,55 +23949,55 @@ export namespace Prisma {
     where?: ClanThreadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanThreads to fetch.
      */
     orderBy?: ClanThreadOrderByWithRelationInput | ClanThreadOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ClanThreadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanThreads from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanThreads.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned ClanThreads
     **/
     _count?: true | ClanThreadCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: ClanThreadAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: ClanThreadSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanThreadMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ClanThreadMaxAggregateInputType
@@ -24063,7 +24136,7 @@ export namespace Prisma {
 
   type ClanThreadGetPayload<S extends boolean | null | undefined | ClanThreadDefaultArgs> = $Result.GetResult<Prisma.$ClanThreadPayload, S>
 
-  type ClanThreadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ClanThreadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ClanThreadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanThreadCountAggregateInputType | true
     }
@@ -24084,7 +24157,7 @@ export namespace Prisma {
     findUnique<T extends ClanThreadFindUniqueArgs>(args: SelectSubset<T, ClanThreadFindUniqueArgs<ExtArgs>>): Prisma__ClanThreadClient<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one ClanThread that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ClanThread that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ClanThreadFindUniqueOrThrowArgs} args - Arguments to find a ClanThread
      * @example
@@ -24136,13 +24209,13 @@ export namespace Prisma {
      * @example
      * // Get all ClanThreads
      * const clanThreads = await prisma.clanThread.findMany()
-     *
+     * 
      * // Get first 10 ClanThreads
      * const clanThreads = await prisma.clanThread.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const clanThreadWithIdOnly = await prisma.clanThread.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ClanThreadFindManyArgs>(args?: SelectSubset<T, ClanThreadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -24156,7 +24229,7 @@ export namespace Prisma {
      *     // ... data to create a ClanThread
      *   }
      * })
-     *
+     * 
      */
     create<T extends ClanThreadCreateArgs>(args: SelectSubset<T, ClanThreadCreateArgs<ExtArgs>>): Prisma__ClanThreadClient<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -24170,7 +24243,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ClanThreadCreateManyArgs>(args?: SelectSubset<T, ClanThreadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -24184,9 +24257,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many ClanThreads and only return the `id`
-     * const clanThreadWithIdOnly = await prisma.clanThread.createManyAndReturn({
+     * const clanThreadWithIdOnly = await prisma.clanThread.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -24194,7 +24267,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ClanThreadCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanThreadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -24208,7 +24281,7 @@ export namespace Prisma {
      *     // ... filter to delete one ClanThread
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ClanThreadDeleteArgs>(args: SelectSubset<T, ClanThreadDeleteArgs<ExtArgs>>): Prisma__ClanThreadClient<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -24225,7 +24298,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ClanThreadUpdateArgs>(args: SelectSubset<T, ClanThreadUpdateArgs<ExtArgs>>): Prisma__ClanThreadClient<$Result.GetResult<Prisma.$ClanThreadPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -24239,7 +24312,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ClanThreadDeleteManyArgs>(args?: SelectSubset<T, ClanThreadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -24258,7 +24331,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ClanThreadUpdateManyArgs>(args: SelectSubset<T, ClanThreadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -24347,7 +24420,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ClanThreadGroupByArgs,
@@ -24451,7 +24524,7 @@ export namespace Prisma {
 
   /**
    * Fields of the ClanThread model
-   */
+   */ 
   interface ClanThreadFieldRefs {
     readonly id: FieldRef<"ClanThread", 'String'>
     readonly clanId: FieldRef<"ClanThread", 'String'>
@@ -24463,7 +24536,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"ClanThread", 'DateTime'>
     readonly updatedAt: FieldRef<"ClanThread", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -24534,31 +24607,31 @@ export namespace Prisma {
     where?: ClanThreadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanThreads to fetch.
      */
     orderBy?: ClanThreadOrderByWithRelationInput | ClanThreadOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanThreads.
      */
     cursor?: ClanThreadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanThreads from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanThreads.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanThreads.
      */
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
@@ -24587,31 +24660,31 @@ export namespace Prisma {
     where?: ClanThreadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanThreads to fetch.
      */
     orderBy?: ClanThreadOrderByWithRelationInput | ClanThreadOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanThreads.
      */
     cursor?: ClanThreadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanThreads from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanThreads.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanThreads.
      */
     distinct?: ClanThreadScalarFieldEnum | ClanThreadScalarFieldEnum[]
@@ -24640,25 +24713,25 @@ export namespace Prisma {
     where?: ClanThreadWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanThreads to fetch.
      */
     orderBy?: ClanThreadOrderByWithRelationInput | ClanThreadOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing ClanThreads.
      */
     cursor?: ClanThreadWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanThreads from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanThreads.
      */
     skip?: number
@@ -24939,43 +25012,43 @@ export namespace Prisma {
     where?: ClanPostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanPosts to fetch.
      */
     orderBy?: ClanPostOrderByWithRelationInput | ClanPostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ClanPostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanPosts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanPosts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned ClanPosts
     **/
     _count?: true | ClanPostCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanPostMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ClanPostMaxAggregateInputType
@@ -25085,7 +25158,7 @@ export namespace Prisma {
 
   type ClanPostGetPayload<S extends boolean | null | undefined | ClanPostDefaultArgs> = $Result.GetResult<Prisma.$ClanPostPayload, S>
 
-  type ClanPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ClanPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ClanPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanPostCountAggregateInputType | true
     }
@@ -25106,7 +25179,7 @@ export namespace Prisma {
     findUnique<T extends ClanPostFindUniqueArgs>(args: SelectSubset<T, ClanPostFindUniqueArgs<ExtArgs>>): Prisma__ClanPostClient<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one ClanPost that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ClanPost that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ClanPostFindUniqueOrThrowArgs} args - Arguments to find a ClanPost
      * @example
@@ -25158,13 +25231,13 @@ export namespace Prisma {
      * @example
      * // Get all ClanPosts
      * const clanPosts = await prisma.clanPost.findMany()
-     *
+     * 
      * // Get first 10 ClanPosts
      * const clanPosts = await prisma.clanPost.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const clanPostWithIdOnly = await prisma.clanPost.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ClanPostFindManyArgs>(args?: SelectSubset<T, ClanPostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -25178,7 +25251,7 @@ export namespace Prisma {
      *     // ... data to create a ClanPost
      *   }
      * })
-     *
+     * 
      */
     create<T extends ClanPostCreateArgs>(args: SelectSubset<T, ClanPostCreateArgs<ExtArgs>>): Prisma__ClanPostClient<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -25192,7 +25265,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ClanPostCreateManyArgs>(args?: SelectSubset<T, ClanPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -25206,9 +25279,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many ClanPosts and only return the `id`
-     * const clanPostWithIdOnly = await prisma.clanPost.createManyAndReturn({
+     * const clanPostWithIdOnly = await prisma.clanPost.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -25216,7 +25289,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ClanPostCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanPostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -25230,7 +25303,7 @@ export namespace Prisma {
      *     // ... filter to delete one ClanPost
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ClanPostDeleteArgs>(args: SelectSubset<T, ClanPostDeleteArgs<ExtArgs>>): Prisma__ClanPostClient<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -25247,7 +25320,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ClanPostUpdateArgs>(args: SelectSubset<T, ClanPostUpdateArgs<ExtArgs>>): Prisma__ClanPostClient<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -25261,7 +25334,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ClanPostDeleteManyArgs>(args?: SelectSubset<T, ClanPostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -25280,7 +25353,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ClanPostUpdateManyArgs>(args: SelectSubset<T, ClanPostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -25369,7 +25442,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ClanPostGroupByArgs,
@@ -25472,7 +25545,7 @@ export namespace Prisma {
 
   /**
    * Fields of the ClanPost model
-   */
+   */ 
   interface ClanPostFieldRefs {
     readonly id: FieldRef<"ClanPost", 'String'>
     readonly threadId: FieldRef<"ClanPost", 'String'>
@@ -25480,7 +25553,7 @@ export namespace Prisma {
     readonly date: FieldRef<"ClanPost", 'DateTime'>
     readonly message: FieldRef<"ClanPost", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -25551,31 +25624,31 @@ export namespace Prisma {
     where?: ClanPostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanPosts to fetch.
      */
     orderBy?: ClanPostOrderByWithRelationInput | ClanPostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanPosts.
      */
     cursor?: ClanPostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanPosts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanPosts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanPosts.
      */
     distinct?: ClanPostScalarFieldEnum | ClanPostScalarFieldEnum[]
@@ -25604,31 +25677,31 @@ export namespace Prisma {
     where?: ClanPostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanPosts to fetch.
      */
     orderBy?: ClanPostOrderByWithRelationInput | ClanPostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanPosts.
      */
     cursor?: ClanPostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanPosts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanPosts.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanPosts.
      */
     distinct?: ClanPostScalarFieldEnum | ClanPostScalarFieldEnum[]
@@ -25657,25 +25730,25 @@ export namespace Prisma {
     where?: ClanPostWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanPosts to fetch.
      */
     orderBy?: ClanPostOrderByWithRelationInput | ClanPostOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing ClanPosts.
      */
     cursor?: ClanPostWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanPosts from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanPosts.
      */
     skip?: number
@@ -25944,55 +26017,55 @@ export namespace Prisma {
     where?: BossDamageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BossDamages to fetch.
      */
     orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: BossDamageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BossDamages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BossDamages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned BossDamages
     **/
     _count?: true | BossDamageCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: BossDamageAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: BossDamageSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BossDamageMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: BossDamageMaxAggregateInputType
@@ -26101,7 +26174,7 @@ export namespace Prisma {
 
   type BossDamageGetPayload<S extends boolean | null | undefined | BossDamageDefaultArgs> = $Result.GetResult<Prisma.$BossDamagePayload, S>
 
-  type BossDamageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type BossDamageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<BossDamageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: BossDamageCountAggregateInputType | true
     }
@@ -26122,7 +26195,7 @@ export namespace Prisma {
     findUnique<T extends BossDamageFindUniqueArgs>(args: SelectSubset<T, BossDamageFindUniqueArgs<ExtArgs>>): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one BossDamage that matches the filter or throw an error with `error.code='P2025'`
+     * Find one BossDamage that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {BossDamageFindUniqueOrThrowArgs} args - Arguments to find a BossDamage
      * @example
@@ -26174,13 +26247,13 @@ export namespace Prisma {
      * @example
      * // Get all BossDamages
      * const bossDamages = await prisma.bossDamage.findMany()
-     *
+     * 
      * // Get first 10 BossDamages
      * const bossDamages = await prisma.bossDamage.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const bossDamageWithIdOnly = await prisma.bossDamage.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends BossDamageFindManyArgs>(args?: SelectSubset<T, BossDamageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -26194,7 +26267,7 @@ export namespace Prisma {
      *     // ... data to create a BossDamage
      *   }
      * })
-     *
+     * 
      */
     create<T extends BossDamageCreateArgs>(args: SelectSubset<T, BossDamageCreateArgs<ExtArgs>>): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -26208,7 +26281,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends BossDamageCreateManyArgs>(args?: SelectSubset<T, BossDamageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -26222,9 +26295,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many BossDamages and only return the `id`
-     * const bossDamageWithIdOnly = await prisma.bossDamage.createManyAndReturn({
+     * const bossDamageWithIdOnly = await prisma.bossDamage.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -26232,7 +26305,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends BossDamageCreateManyAndReturnArgs>(args?: SelectSubset<T, BossDamageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -26246,7 +26319,7 @@ export namespace Prisma {
      *     // ... filter to delete one BossDamage
      *   }
      * })
-     *
+     * 
      */
     delete<T extends BossDamageDeleteArgs>(args: SelectSubset<T, BossDamageDeleteArgs<ExtArgs>>): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -26263,7 +26336,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends BossDamageUpdateArgs>(args: SelectSubset<T, BossDamageUpdateArgs<ExtArgs>>): Prisma__BossDamageClient<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -26277,7 +26350,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends BossDamageDeleteManyArgs>(args?: SelectSubset<T, BossDamageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -26296,7 +26369,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends BossDamageUpdateManyArgs>(args: SelectSubset<T, BossDamageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -26385,7 +26458,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends BossDamageGroupByArgs,
@@ -26488,14 +26561,14 @@ export namespace Prisma {
 
   /**
    * Fields of the BossDamage model
-   */
+   */ 
   interface BossDamageFieldRefs {
     readonly id: FieldRef<"BossDamage", 'String'>
     readonly bruteId: FieldRef<"BossDamage", 'String'>
     readonly clanId: FieldRef<"BossDamage", 'String'>
     readonly damage: FieldRef<"BossDamage", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -26566,31 +26639,31 @@ export namespace Prisma {
     where?: BossDamageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BossDamages to fetch.
      */
     orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BossDamages.
      */
     cursor?: BossDamageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BossDamages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BossDamages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BossDamages.
      */
     distinct?: BossDamageScalarFieldEnum | BossDamageScalarFieldEnum[]
@@ -26619,31 +26692,31 @@ export namespace Prisma {
     where?: BossDamageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BossDamages to fetch.
      */
     orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for BossDamages.
      */
     cursor?: BossDamageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BossDamages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BossDamages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of BossDamages.
      */
     distinct?: BossDamageScalarFieldEnum | BossDamageScalarFieldEnum[]
@@ -26672,25 +26745,25 @@ export namespace Prisma {
     where?: BossDamageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of BossDamages to fetch.
      */
     orderBy?: BossDamageOrderByWithRelationInput | BossDamageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing BossDamages.
      */
     cursor?: BossDamageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` BossDamages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` BossDamages.
      */
     skip?: number
@@ -27023,55 +27096,55 @@ export namespace Prisma {
     where?: ClanWarWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWars to fetch.
      */
     orderBy?: ClanWarOrderByWithRelationInput | ClanWarOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ClanWarWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWars from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWars.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned ClanWars
     **/
     _count?: true | ClanWarCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: ClanWarAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: ClanWarSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanWarMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ClanWarMaxAggregateInputType
@@ -27233,7 +27306,7 @@ export namespace Prisma {
 
   type ClanWarGetPayload<S extends boolean | null | undefined | ClanWarDefaultArgs> = $Result.GetResult<Prisma.$ClanWarPayload, S>
 
-  type ClanWarCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ClanWarCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ClanWarFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanWarCountAggregateInputType | true
     }
@@ -27254,7 +27327,7 @@ export namespace Prisma {
     findUnique<T extends ClanWarFindUniqueArgs>(args: SelectSubset<T, ClanWarFindUniqueArgs<ExtArgs>>): Prisma__ClanWarClient<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one ClanWar that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ClanWar that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ClanWarFindUniqueOrThrowArgs} args - Arguments to find a ClanWar
      * @example
@@ -27306,13 +27379,13 @@ export namespace Prisma {
      * @example
      * // Get all ClanWars
      * const clanWars = await prisma.clanWar.findMany()
-     *
+     * 
      * // Get first 10 ClanWars
      * const clanWars = await prisma.clanWar.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const clanWarWithIdOnly = await prisma.clanWar.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ClanWarFindManyArgs>(args?: SelectSubset<T, ClanWarFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -27326,7 +27399,7 @@ export namespace Prisma {
      *     // ... data to create a ClanWar
      *   }
      * })
-     *
+     * 
      */
     create<T extends ClanWarCreateArgs>(args: SelectSubset<T, ClanWarCreateArgs<ExtArgs>>): Prisma__ClanWarClient<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -27340,7 +27413,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ClanWarCreateManyArgs>(args?: SelectSubset<T, ClanWarCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -27354,9 +27427,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many ClanWars and only return the `id`
-     * const clanWarWithIdOnly = await prisma.clanWar.createManyAndReturn({
+     * const clanWarWithIdOnly = await prisma.clanWar.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -27364,7 +27437,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ClanWarCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanWarCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -27378,7 +27451,7 @@ export namespace Prisma {
      *     // ... filter to delete one ClanWar
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ClanWarDeleteArgs>(args: SelectSubset<T, ClanWarDeleteArgs<ExtArgs>>): Prisma__ClanWarClient<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -27395,7 +27468,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ClanWarUpdateArgs>(args: SelectSubset<T, ClanWarUpdateArgs<ExtArgs>>): Prisma__ClanWarClient<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -27409,7 +27482,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ClanWarDeleteManyArgs>(args?: SelectSubset<T, ClanWarDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -27428,7 +27501,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ClanWarUpdateManyArgs>(args: SelectSubset<T, ClanWarUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -27517,7 +27590,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ClanWarGroupByArgs,
@@ -27623,7 +27696,7 @@ export namespace Prisma {
 
   /**
    * Fields of the ClanWar model
-   */
+   */ 
   interface ClanWarFieldRefs {
     readonly id: FieldRef<"ClanWar", 'String'>
     readonly duration: FieldRef<"ClanWar", 'Int'>
@@ -27638,7 +27711,7 @@ export namespace Prisma {
     readonly defenderWins: FieldRef<"ClanWar", 'Int'>
     readonly winnerId: FieldRef<"ClanWar", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -27709,31 +27782,31 @@ export namespace Prisma {
     where?: ClanWarWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWars to fetch.
      */
     orderBy?: ClanWarOrderByWithRelationInput | ClanWarOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanWars.
      */
     cursor?: ClanWarWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWars from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWars.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanWars.
      */
     distinct?: ClanWarScalarFieldEnum | ClanWarScalarFieldEnum[]
@@ -27762,31 +27835,31 @@ export namespace Prisma {
     where?: ClanWarWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWars to fetch.
      */
     orderBy?: ClanWarOrderByWithRelationInput | ClanWarOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanWars.
      */
     cursor?: ClanWarWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWars from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWars.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanWars.
      */
     distinct?: ClanWarScalarFieldEnum | ClanWarScalarFieldEnum[]
@@ -27815,25 +27888,25 @@ export namespace Prisma {
     where?: ClanWarWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWars to fetch.
      */
     orderBy?: ClanWarOrderByWithRelationInput | ClanWarOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing ClanWars.
      */
     cursor?: ClanWarWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWars from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWars.
      */
     skip?: number
@@ -28163,55 +28236,55 @@ export namespace Prisma {
     where?: ClanWarFightersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWarFighters to fetch.
      */
     orderBy?: ClanWarFightersOrderByWithRelationInput | ClanWarFightersOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ClanWarFightersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWarFighters from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWarFighters.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned ClanWarFighters
     **/
     _count?: true | ClanWarFightersCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: ClanWarFightersAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: ClanWarFightersSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanWarFightersMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ClanWarFightersMaxAggregateInputType
@@ -28318,7 +28391,7 @@ export namespace Prisma {
 
   type ClanWarFightersGetPayload<S extends boolean | null | undefined | ClanWarFightersDefaultArgs> = $Result.GetResult<Prisma.$ClanWarFightersPayload, S>
 
-  type ClanWarFightersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ClanWarFightersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ClanWarFightersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ClanWarFightersCountAggregateInputType | true
     }
@@ -28339,7 +28412,7 @@ export namespace Prisma {
     findUnique<T extends ClanWarFightersFindUniqueArgs>(args: SelectSubset<T, ClanWarFightersFindUniqueArgs<ExtArgs>>): Prisma__ClanWarFightersClient<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one ClanWarFighters that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ClanWarFighters that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ClanWarFightersFindUniqueOrThrowArgs} args - Arguments to find a ClanWarFighters
      * @example
@@ -28391,13 +28464,13 @@ export namespace Prisma {
      * @example
      * // Get all ClanWarFighters
      * const clanWarFighters = await prisma.clanWarFighters.findMany()
-     *
+     * 
      * // Get first 10 ClanWarFighters
      * const clanWarFighters = await prisma.clanWarFighters.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const clanWarFightersWithIdOnly = await prisma.clanWarFighters.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ClanWarFightersFindManyArgs>(args?: SelectSubset<T, ClanWarFightersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -28411,7 +28484,7 @@ export namespace Prisma {
      *     // ... data to create a ClanWarFighters
      *   }
      * })
-     *
+     * 
      */
     create<T extends ClanWarFightersCreateArgs>(args: SelectSubset<T, ClanWarFightersCreateArgs<ExtArgs>>): Prisma__ClanWarFightersClient<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -28425,7 +28498,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ClanWarFightersCreateManyArgs>(args?: SelectSubset<T, ClanWarFightersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -28439,9 +28512,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many ClanWarFighters and only return the `id`
-     * const clanWarFightersWithIdOnly = await prisma.clanWarFighters.createManyAndReturn({
+     * const clanWarFightersWithIdOnly = await prisma.clanWarFighters.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -28449,7 +28522,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ClanWarFightersCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanWarFightersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -28463,7 +28536,7 @@ export namespace Prisma {
      *     // ... filter to delete one ClanWarFighters
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ClanWarFightersDeleteArgs>(args: SelectSubset<T, ClanWarFightersDeleteArgs<ExtArgs>>): Prisma__ClanWarFightersClient<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -28480,7 +28553,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ClanWarFightersUpdateArgs>(args: SelectSubset<T, ClanWarFightersUpdateArgs<ExtArgs>>): Prisma__ClanWarFightersClient<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -28494,7 +28567,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ClanWarFightersDeleteManyArgs>(args?: SelectSubset<T, ClanWarFightersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -28513,7 +28586,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ClanWarFightersUpdateManyArgs>(args: SelectSubset<T, ClanWarFightersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -28602,7 +28675,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ClanWarFightersGroupByArgs,
@@ -28706,13 +28779,13 @@ export namespace Prisma {
 
   /**
    * Fields of the ClanWarFighters model
-   */
+   */ 
   interface ClanWarFightersFieldRefs {
     readonly id: FieldRef<"ClanWarFighters", 'String'>
     readonly clanWarId: FieldRef<"ClanWarFighters", 'String'>
     readonly day: FieldRef<"ClanWarFighters", 'Int'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -28783,31 +28856,31 @@ export namespace Prisma {
     where?: ClanWarFightersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWarFighters to fetch.
      */
     orderBy?: ClanWarFightersOrderByWithRelationInput | ClanWarFightersOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanWarFighters.
      */
     cursor?: ClanWarFightersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWarFighters from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWarFighters.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanWarFighters.
      */
     distinct?: ClanWarFightersScalarFieldEnum | ClanWarFightersScalarFieldEnum[]
@@ -28836,31 +28909,31 @@ export namespace Prisma {
     where?: ClanWarFightersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWarFighters to fetch.
      */
     orderBy?: ClanWarFightersOrderByWithRelationInput | ClanWarFightersOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for ClanWarFighters.
      */
     cursor?: ClanWarFightersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWarFighters from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWarFighters.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of ClanWarFighters.
      */
     distinct?: ClanWarFightersScalarFieldEnum | ClanWarFightersScalarFieldEnum[]
@@ -28889,25 +28962,25 @@ export namespace Prisma {
     where?: ClanWarFightersWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of ClanWarFighters to fetch.
      */
     orderBy?: ClanWarFightersOrderByWithRelationInput | ClanWarFightersOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing ClanWarFighters.
      */
     cursor?: ClanWarFightersWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` ClanWarFighters from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` ClanWarFighters.
      */
     skip?: number
@@ -29230,55 +29303,55 @@ export namespace Prisma {
     where?: InventoryItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of InventoryItems to fetch.
      */
     orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: InventoryItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` InventoryItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` InventoryItems.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned InventoryItems
     **/
     _count?: true | InventoryItemCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: InventoryItemAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: InventoryItemSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: InventoryItemMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: InventoryItemMaxAggregateInputType
@@ -29392,7 +29465,7 @@ export namespace Prisma {
 
   type InventoryItemGetPayload<S extends boolean | null | undefined | InventoryItemDefaultArgs> = $Result.GetResult<Prisma.$InventoryItemPayload, S>
 
-  type InventoryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type InventoryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<InventoryItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: InventoryItemCountAggregateInputType | true
     }
@@ -29413,7 +29486,7 @@ export namespace Prisma {
     findUnique<T extends InventoryItemFindUniqueArgs>(args: SelectSubset<T, InventoryItemFindUniqueArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one InventoryItem that matches the filter or throw an error with `error.code='P2025'`
+     * Find one InventoryItem that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {InventoryItemFindUniqueOrThrowArgs} args - Arguments to find a InventoryItem
      * @example
@@ -29465,13 +29538,13 @@ export namespace Prisma {
      * @example
      * // Get all InventoryItems
      * const inventoryItems = await prisma.inventoryItem.findMany()
-     *
+     * 
      * // Get first 10 InventoryItems
      * const inventoryItems = await prisma.inventoryItem.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const inventoryItemWithIdOnly = await prisma.inventoryItem.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends InventoryItemFindManyArgs>(args?: SelectSubset<T, InventoryItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -29485,7 +29558,7 @@ export namespace Prisma {
      *     // ... data to create a InventoryItem
      *   }
      * })
-     *
+     * 
      */
     create<T extends InventoryItemCreateArgs>(args: SelectSubset<T, InventoryItemCreateArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -29499,7 +29572,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends InventoryItemCreateManyArgs>(args?: SelectSubset<T, InventoryItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -29513,9 +29586,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many InventoryItems and only return the `id`
-     * const inventoryItemWithIdOnly = await prisma.inventoryItem.createManyAndReturn({
+     * const inventoryItemWithIdOnly = await prisma.inventoryItem.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -29523,7 +29596,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends InventoryItemCreateManyAndReturnArgs>(args?: SelectSubset<T, InventoryItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -29537,7 +29610,7 @@ export namespace Prisma {
      *     // ... filter to delete one InventoryItem
      *   }
      * })
-     *
+     * 
      */
     delete<T extends InventoryItemDeleteArgs>(args: SelectSubset<T, InventoryItemDeleteArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -29554,7 +29627,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends InventoryItemUpdateArgs>(args: SelectSubset<T, InventoryItemUpdateArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -29568,7 +29641,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends InventoryItemDeleteManyArgs>(args?: SelectSubset<T, InventoryItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -29587,7 +29660,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends InventoryItemUpdateManyArgs>(args: SelectSubset<T, InventoryItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -29676,7 +29749,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends InventoryItemGroupByArgs,
@@ -29779,7 +29852,7 @@ export namespace Prisma {
 
   /**
    * Fields of the InventoryItem model
-   */
+   */ 
   interface InventoryItemFieldRefs {
     readonly id: FieldRef<"InventoryItem", 'String'>
     readonly type: FieldRef<"InventoryItem", 'InventoryItemType'>
@@ -29787,7 +29860,7 @@ export namespace Prisma {
     readonly bruteId: FieldRef<"InventoryItem", 'String'>
     readonly userId: FieldRef<"InventoryItem", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -29858,31 +29931,31 @@ export namespace Prisma {
     where?: InventoryItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of InventoryItems to fetch.
      */
     orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for InventoryItems.
      */
     cursor?: InventoryItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` InventoryItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` InventoryItems.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of InventoryItems.
      */
     distinct?: InventoryItemScalarFieldEnum | InventoryItemScalarFieldEnum[]
@@ -29911,31 +29984,31 @@ export namespace Prisma {
     where?: InventoryItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of InventoryItems to fetch.
      */
     orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for InventoryItems.
      */
     cursor?: InventoryItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` InventoryItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` InventoryItems.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of InventoryItems.
      */
     distinct?: InventoryItemScalarFieldEnum | InventoryItemScalarFieldEnum[]
@@ -29964,25 +30037,25 @@ export namespace Prisma {
     where?: InventoryItemWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of InventoryItems to fetch.
      */
     orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing InventoryItems.
      */
     cursor?: InventoryItemWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` InventoryItems from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` InventoryItems.
      */
     skip?: number
@@ -30259,43 +30332,43 @@ export namespace Prisma {
     where?: ReleaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Releases to fetch.
      */
     orderBy?: ReleaseOrderByWithRelationInput | ReleaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ReleaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Releases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Releases.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Releases
     **/
     _count?: true | ReleaseCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ReleaseMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ReleaseMaxAggregateInputType
@@ -30375,7 +30448,7 @@ export namespace Prisma {
 
   type ReleaseGetPayload<S extends boolean | null | undefined | ReleaseDefaultArgs> = $Result.GetResult<Prisma.$ReleasePayload, S>
 
-  type ReleaseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type ReleaseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<ReleaseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: ReleaseCountAggregateInputType | true
     }
@@ -30396,7 +30469,7 @@ export namespace Prisma {
     findUnique<T extends ReleaseFindUniqueArgs>(args: SelectSubset<T, ReleaseFindUniqueArgs<ExtArgs>>): Prisma__ReleaseClient<$Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Release that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Release that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {ReleaseFindUniqueOrThrowArgs} args - Arguments to find a Release
      * @example
@@ -30448,13 +30521,13 @@ export namespace Prisma {
      * @example
      * // Get all Releases
      * const releases = await prisma.release.findMany()
-     *
+     * 
      * // Get first 10 Releases
      * const releases = await prisma.release.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `version`
      * const releaseWithVersionOnly = await prisma.release.findMany({ select: { version: true } })
-     *
+     * 
      */
     findMany<T extends ReleaseFindManyArgs>(args?: SelectSubset<T, ReleaseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -30468,7 +30541,7 @@ export namespace Prisma {
      *     // ... data to create a Release
      *   }
      * })
-     *
+     * 
      */
     create<T extends ReleaseCreateArgs>(args: SelectSubset<T, ReleaseCreateArgs<ExtArgs>>): Prisma__ReleaseClient<$Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -30482,7 +30555,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ReleaseCreateManyArgs>(args?: SelectSubset<T, ReleaseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -30496,9 +30569,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Releases and only return the `version`
-     * const releaseWithVersionOnly = await prisma.release.createManyAndReturn({
+     * const releaseWithVersionOnly = await prisma.release.createManyAndReturn({ 
      *   select: { version: true },
      *   data: [
      *     // ... provide data here
@@ -30506,7 +30579,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ReleaseCreateManyAndReturnArgs>(args?: SelectSubset<T, ReleaseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -30520,7 +30593,7 @@ export namespace Prisma {
      *     // ... filter to delete one Release
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ReleaseDeleteArgs>(args: SelectSubset<T, ReleaseDeleteArgs<ExtArgs>>): Prisma__ReleaseClient<$Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -30537,7 +30610,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ReleaseUpdateArgs>(args: SelectSubset<T, ReleaseUpdateArgs<ExtArgs>>): Prisma__ReleaseClient<$Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -30551,7 +30624,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ReleaseDeleteManyArgs>(args?: SelectSubset<T, ReleaseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -30570,7 +30643,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ReleaseUpdateManyArgs>(args: SelectSubset<T, ReleaseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -30659,7 +30732,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ReleaseGroupByArgs,
@@ -30760,12 +30833,12 @@ export namespace Prisma {
 
   /**
    * Fields of the Release model
-   */
+   */ 
   interface ReleaseFieldRefs {
     readonly version: FieldRef<"Release", 'String'>
     readonly date: FieldRef<"Release", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -30824,31 +30897,31 @@ export namespace Prisma {
     where?: ReleaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Releases to fetch.
      */
     orderBy?: ReleaseOrderByWithRelationInput | ReleaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Releases.
      */
     cursor?: ReleaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Releases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Releases.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Releases.
      */
     distinct?: ReleaseScalarFieldEnum | ReleaseScalarFieldEnum[]
@@ -30873,31 +30946,31 @@ export namespace Prisma {
     where?: ReleaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Releases to fetch.
      */
     orderBy?: ReleaseOrderByWithRelationInput | ReleaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Releases.
      */
     cursor?: ReleaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Releases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Releases.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Releases.
      */
     distinct?: ReleaseScalarFieldEnum | ReleaseScalarFieldEnum[]
@@ -30922,25 +30995,25 @@ export namespace Prisma {
     where?: ReleaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Releases to fetch.
      */
     orderBy?: ReleaseOrderByWithRelationInput | ReleaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Releases.
      */
     cursor?: ReleaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Releases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Releases.
      */
     skip?: number
@@ -31213,55 +31286,55 @@ export namespace Prisma {
     where?: EventWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Events to fetch.
      */
     orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: EventWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Events from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Events.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Events
     **/
     _count?: true | EventCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: EventAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: EventSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: EventMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: EventMaxAggregateInputType
@@ -31393,7 +31466,7 @@ export namespace Prisma {
 
   type EventGetPayload<S extends boolean | null | undefined | EventDefaultArgs> = $Result.GetResult<Prisma.$EventPayload, S>
 
-  type EventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+  type EventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
     Omit<EventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
       select?: EventCountAggregateInputType | true
     }
@@ -31414,7 +31487,7 @@ export namespace Prisma {
     findUnique<T extends EventFindUniqueArgs>(args: SelectSubset<T, EventFindUniqueArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
 
     /**
-     * Find one Event that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Event that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
      * @param {EventFindUniqueOrThrowArgs} args - Arguments to find a Event
      * @example
@@ -31466,13 +31539,13 @@ export namespace Prisma {
      * @example
      * // Get all Events
      * const events = await prisma.event.findMany()
-     *
+     * 
      * // Get first 10 Events
      * const events = await prisma.event.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const eventWithIdOnly = await prisma.event.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends EventFindManyArgs>(args?: SelectSubset<T, EventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", ClientOptions>>
 
@@ -31486,7 +31559,7 @@ export namespace Prisma {
      *     // ... data to create a Event
      *   }
      * })
-     *
+     * 
      */
     create<T extends EventCreateArgs>(args: SelectSubset<T, EventCreateArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -31500,7 +31573,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends EventCreateManyArgs>(args?: SelectSubset<T, EventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -31514,9 +31587,9 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Events and only return the `id`
-     * const eventWithIdOnly = await prisma.event.createManyAndReturn({
+     * const eventWithIdOnly = await prisma.event.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -31524,7 +31597,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends EventCreateManyAndReturnArgs>(args?: SelectSubset<T, EventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
 
@@ -31538,7 +31611,7 @@ export namespace Prisma {
      *     // ... filter to delete one Event
      *   }
      * })
-     *
+     * 
      */
     delete<T extends EventDeleteArgs>(args: SelectSubset<T, EventDeleteArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -31555,7 +31628,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends EventUpdateArgs>(args: SelectSubset<T, EventUpdateArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
 
@@ -31569,7 +31642,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends EventDeleteManyArgs>(args?: SelectSubset<T, EventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -31588,7 +31661,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends EventUpdateManyArgs>(args: SelectSubset<T, EventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -31677,7 +31750,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends EventGroupByArgs,
@@ -31781,7 +31854,7 @@ export namespace Prisma {
 
   /**
    * Fields of the Event model
-   */
+   */ 
   interface EventFieldRefs {
     readonly id: FieldRef<"Event", 'String'>
     readonly date: FieldRef<"Event", 'DateTime'>
@@ -31792,7 +31865,7 @@ export namespace Prisma {
     readonly winnerId: FieldRef<"Event", 'String'>
     readonly finishedAt: FieldRef<"Event", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -31863,31 +31936,31 @@ export namespace Prisma {
     where?: EventWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Events to fetch.
      */
     orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Events.
      */
     cursor?: EventWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Events from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Events.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Events.
      */
     distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
@@ -31916,31 +31989,31 @@ export namespace Prisma {
     where?: EventWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Events to fetch.
      */
     orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Events.
      */
     cursor?: EventWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Events from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Events.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Events.
      */
     distinct?: EventScalarFieldEnum | EventScalarFieldEnum[]
@@ -31969,25 +32042,25 @@ export namespace Prisma {
     where?: EventWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Events to fetch.
      */
     orderBy?: EventOrderByWithRelationInput | EventOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Events.
      */
     cursor?: EventWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Events from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Events.
      */
     skip?: number
@@ -32266,7 +32339,8 @@ export namespace Prisma {
     dinorpgDone: 'dinorpgDone',
     ips: 'ips',
     bannedAt: 'bannedAt',
-    banReason: 'banReason'
+    banReason: 'banReason',
+    lastReleaseSeen: 'lastReleaseSeen'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -32312,6 +32386,10 @@ export namespace Prisma {
     weapons: 'weapons',
     skills: 'skills',
     pets: 'pets',
+    ascensions: 'ascensions',
+    ascendedWeapons: 'ascendedWeapons',
+    ascendedSkills: 'ascendedSkills',
+    ascendedPets: 'ascendedPets',
     masterId: 'masterId',
     pupilsCount: 'pupilsCount',
     clanId: 'clanId',
@@ -32321,9 +32399,12 @@ export namespace Prisma {
     currentTournamentStepWatched: 'currentTournamentStepWatched',
     globalTournamentWatchedDate: 'globalTournamentWatchedDate',
     globalTournamentRoundWatched: 'globalTournamentRoundWatched',
+    eventTournamentWatchedDate: 'eventTournamentWatchedDate',
+    eventTournamentRoundWatched: 'eventTournamentRoundWatched',
     lastFight: 'lastFight',
     fightsLeft: 'fightsLeft',
     victories: 'victories',
+    losses: 'losses',
     opponentsGeneratedAt: 'opponentsGeneratedAt',
     canRankUpSince: 'canRankUpSince',
     favorite: 'favorite',
@@ -32392,6 +32473,9 @@ export namespace Prisma {
     skill: 'skill',
     weapon: 'weapon',
     pet: 'pet',
+    originalSkill: 'originalSkill',
+    originalWeapon: 'originalWeapon',
+    originalPet: 'originalPet',
     stat1: 'stat1',
     stat1Value: 'stat1Value',
     stat2: 'stat2',
@@ -32480,8 +32564,6 @@ export namespace Prisma {
     globalTournamentValid: 'globalTournamentValid',
     activeModifiers: 'activeModifiers',
     modifiersEndAt: 'modifiersEndAt',
-    randomWeapon: 'randomWeapon',
-    randomSkill: 'randomSkill',
     nextModifiers: 'nextModifiers'
   };
 
@@ -32640,7 +32722,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references
+   * Field references 
    */
 
 
@@ -32648,343 +32730,343 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-
+    
 
 
   /**
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Lang'
    */
   export type EnumLangFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Lang'>
-
+    
 
 
   /**
    * Reference to a field of type 'Lang[]'
    */
   export type ListEnumLangFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Lang[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-
+    
 
 
   /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-
+    
 
 
   /**
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-
+    
 
 
   /**
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'DestinyChoiceSide[]'
    */
   export type ListEnumDestinyChoiceSideFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceSide[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'DestinyChoiceSide'
    */
   export type EnumDestinyChoiceSideFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceSide'>
-
+    
 
 
   /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-
+    
 
 
   /**
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Gender'
    */
   export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
-
+    
 
 
   /**
    * Reference to a field of type 'Gender[]'
    */
   export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'WeaponName[]'
    */
   export type ListEnumWeaponNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeaponName[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'WeaponName'
    */
   export type EnumWeaponNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WeaponName'>
-
+    
 
 
   /**
    * Reference to a field of type 'SkillName[]'
    */
   export type ListEnumSkillNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillName[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'SkillName'
    */
   export type EnumSkillNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SkillName'>
-
+    
 
 
   /**
    * Reference to a field of type 'PetName[]'
    */
   export type ListEnumPetNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetName[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'PetName'
    */
   export type EnumPetNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PetName'>
-
+    
 
 
   /**
    * Reference to a field of type 'FightModifier[]'
    */
   export type ListEnumFightModifierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FightModifier[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'FightModifier'
    */
   export type EnumFightModifierFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FightModifier'>
-
+    
 
 
   /**
    * Reference to a field of type 'LogType'
    */
   export type EnumLogTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogType'>
-
+    
 
 
   /**
    * Reference to a field of type 'LogType[]'
    */
   export type ListEnumLogTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LogType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'DestinyChoiceType'
    */
   export type EnumDestinyChoiceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceType'>
-
+    
 
 
   /**
    * Reference to a field of type 'DestinyChoiceType[]'
    */
   export type ListEnumDestinyChoiceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DestinyChoiceType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'BruteStat'
    */
   export type EnumBruteStatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteStat'>
-
+    
 
 
   /**
    * Reference to a field of type 'BruteStat[]'
    */
   export type ListEnumBruteStatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteStat[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'TournamentType'
    */
   export type EnumTournamentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TournamentType'>
-
+    
 
 
   /**
    * Reference to a field of type 'TournamentType[]'
    */
   export type ListEnumTournamentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TournamentType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'AchievementName'
    */
   export type EnumAchievementNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementName'>
-
+    
 
 
   /**
    * Reference to a field of type 'AchievementName[]'
    */
   export type ListEnumAchievementNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementName[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'BruteReportReason'
    */
   export type EnumBruteReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportReason'>
-
+    
 
 
   /**
    * Reference to a field of type 'BruteReportReason[]'
    */
   export type ListEnumBruteReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportReason[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'BruteReportStatus'
    */
   export type EnumBruteReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportStatus'>
-
+    
 
 
   /**
    * Reference to a field of type 'BruteReportStatus[]'
    */
   export type ListEnumBruteReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportStatus[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'BossName'
    */
   export type EnumBossNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BossName'>
-
+    
 
 
   /**
    * Reference to a field of type 'BossName[]'
    */
   export type ListEnumBossNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BossName[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'ClanWarType'
    */
   export type EnumClanWarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarType'>
-
+    
 
 
   /**
    * Reference to a field of type 'ClanWarType[]'
    */
   export type ListEnumClanWarTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'ClanWarStatus'
    */
   export type EnumClanWarStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarStatus'>
-
+    
 
 
   /**
    * Reference to a field of type 'ClanWarStatus[]'
    */
   export type ListEnumClanWarStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarStatus[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'InventoryItemType'
    */
   export type EnumInventoryItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemType'>
-
+    
 
 
   /**
    * Reference to a field of type 'InventoryItemType[]'
    */
   export type ListEnumInventoryItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryItemType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'EventType'
    */
   export type EnumEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventType'>
-
+    
 
 
   /**
    * Reference to a field of type 'EventType[]'
    */
   export type ListEnumEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'EventStatus'
    */
   export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
-
+    
 
 
   /**
    * Reference to a field of type 'EventStatus[]'
    */
   export type ListEnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus[]'>
-
+    
   /**
    * Deep Input Types
    */
@@ -33008,6 +33090,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -33032,6 +33115,7 @@ export namespace Prisma {
     ips?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
+    lastReleaseSeen?: SortOrderInput | SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -33059,6 +33143,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -33083,6 +33168,7 @@ export namespace Prisma {
     ips?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
+    lastReleaseSeen?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -33108,6 +33194,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type BruteWhereInput = {
@@ -33145,6 +33232,10 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntFilter<"Brute"> | number
+    ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedPets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
     clanId?: UuidNullableFilter<"Brute"> | string | null
@@ -33154,9 +33245,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
+    losses?: IntFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
@@ -33226,6 +33320,10 @@ export namespace Prisma {
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
+    ascensions?: SortOrder
+    ascendedWeapons?: SortOrder
+    ascendedSkills?: SortOrder
+    ascendedPets?: SortOrder
     masterId?: SortOrderInput | SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrderInput | SortOrder
@@ -33235,9 +33333,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrderInput | SortOrder
     globalTournamentWatchedDate?: SortOrderInput | SortOrder
     globalTournamentRoundWatched?: SortOrderInput | SortOrder
+    eventTournamentWatchedDate?: SortOrderInput | SortOrder
+    eventTournamentRoundWatched?: SortOrderInput | SortOrder
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrderInput | SortOrder
     canRankUpSince?: SortOrderInput | SortOrder
     favorite?: SortOrder
@@ -33310,6 +33411,10 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntFilter<"Brute"> | number
+    ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedPets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
     clanId?: UuidNullableFilter<"Brute"> | string | null
@@ -33319,9 +33424,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
+    losses?: IntFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
@@ -33391,6 +33499,10 @@ export namespace Prisma {
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
+    ascensions?: SortOrder
+    ascendedWeapons?: SortOrder
+    ascendedSkills?: SortOrder
+    ascendedPets?: SortOrder
     masterId?: SortOrderInput | SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrderInput | SortOrder
@@ -33400,9 +33512,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrderInput | SortOrder
     globalTournamentWatchedDate?: SortOrderInput | SortOrder
     globalTournamentRoundWatched?: SortOrderInput | SortOrder
+    eventTournamentWatchedDate?: SortOrderInput | SortOrder
+    eventTournamentRoundWatched?: SortOrderInput | SortOrder
     lastFight?: SortOrderInput | SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrderInput | SortOrder
     canRankUpSince?: SortOrderInput | SortOrder
     favorite?: SortOrder
@@ -33452,6 +33567,10 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntWithAggregatesFilter<"Brute"> | number
+    ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedPets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
     pupilsCount?: IntWithAggregatesFilter<"Brute"> | number
     clanId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
@@ -33461,9 +33580,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableWithAggregatesFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     fightsLeft?: IntWithAggregatesFilter<"Brute"> | number
     victories?: IntWithAggregatesFilter<"Brute"> | number
+    losses?: IntWithAggregatesFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     favorite?: BoolWithAggregatesFilter<"Brute"> | boolean
@@ -33751,6 +33873,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -33767,6 +33892,9 @@ export namespace Prisma {
     skill?: SortOrderInput | SortOrder
     weapon?: SortOrderInput | SortOrder
     pet?: SortOrderInput | SortOrder
+    originalSkill?: SortOrderInput | SortOrder
+    originalWeapon?: SortOrderInput | SortOrder
+    originalPet?: SortOrderInput | SortOrder
     stat1?: SortOrderInput | SortOrder
     stat1Value?: SortOrderInput | SortOrder
     stat2?: SortOrderInput | SortOrder
@@ -33786,6 +33914,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -33802,6 +33933,9 @@ export namespace Prisma {
     skill?: SortOrderInput | SortOrder
     weapon?: SortOrderInput | SortOrder
     pet?: SortOrderInput | SortOrder
+    originalSkill?: SortOrderInput | SortOrder
+    originalWeapon?: SortOrderInput | SortOrder
+    originalPet?: SortOrderInput | SortOrder
     stat1?: SortOrderInput | SortOrder
     stat1Value?: SortOrderInput | SortOrder
     stat2?: SortOrderInput | SortOrder
@@ -33824,6 +33958,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableWithAggregatesFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableWithAggregatesFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -34236,8 +34373,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
-    randomWeapon?: IntNullableFilter<"ServerState"> | number | null
-    randomSkill?: IntNullableFilter<"ServerState"> | number | null
     nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }
 
@@ -34246,8 +34381,6 @@ export namespace Prisma {
     globalTournamentValid?: SortOrder
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrderInput | SortOrder
-    randomWeapon?: SortOrderInput | SortOrder
-    randomSkill?: SortOrderInput | SortOrder
     nextModifiers?: SortOrder
   }
 
@@ -34259,8 +34392,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableFilter<"ServerState"> | Date | string | null
-    randomWeapon?: IntNullableFilter<"ServerState"> | number | null
-    randomSkill?: IntNullableFilter<"ServerState"> | number | null
     nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }, "id" | "id">
 
@@ -34269,14 +34400,10 @@ export namespace Prisma {
     globalTournamentValid?: SortOrder
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrderInput | SortOrder
-    randomWeapon?: SortOrderInput | SortOrder
-    randomSkill?: SortOrderInput | SortOrder
     nextModifiers?: SortOrder
     _count?: ServerStateCountOrderByAggregateInput
-    _avg?: ServerStateAvgOrderByAggregateInput
     _max?: ServerStateMaxOrderByAggregateInput
     _min?: ServerStateMinOrderByAggregateInput
-    _sum?: ServerStateSumOrderByAggregateInput
   }
 
   export type ServerStateScalarWhereWithAggregatesInput = {
@@ -34287,8 +34414,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolWithAggregatesFilter<"ServerState"> | boolean
     activeModifiers?: EnumFightModifierNullableListFilter<"ServerState">
     modifiersEndAt?: DateTimeNullableWithAggregatesFilter<"ServerState"> | Date | string | null
-    randomWeapon?: IntNullableWithAggregatesFilter<"ServerState"> | number | null
-    randomSkill?: IntNullableWithAggregatesFilter<"ServerState"> | number | null
     nextModifiers?: EnumFightModifierNullableListFilter<"ServerState">
   }
 
@@ -35012,6 +35137,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -35036,6 +35162,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -35060,6 +35187,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -35084,6 +35212,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -35108,6 +35237,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -35125,6 +35255,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -35142,6 +35273,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateInput = {
@@ -35175,6 +35307,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -35182,9 +35318,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -35252,6 +35391,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -35261,9 +35404,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -35327,6 +35473,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35334,9 +35484,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35404,6 +35557,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35413,9 +35570,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35480,6 +35640,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -35489,9 +35653,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -35532,6 +35699,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35539,9 +35710,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35581,6 +35755,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35590,9 +35768,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -35882,6 +36063,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -35898,6 +36082,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -35912,6 +36099,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -35928,6 +36118,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -35943,6 +36136,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -35956,6 +36152,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -35970,6 +36169,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -36361,8 +36563,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
-    randomWeapon?: number | null
-    randomSkill?: number | null
     nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36371,8 +36571,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
-    randomWeapon?: number | null
-    randomSkill?: number | null
     nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36381,8 +36579,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36391,8 +36587,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36401,8 +36595,6 @@ export namespace Prisma {
     globalTournamentValid?: boolean
     activeModifiers?: ServerStateCreateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: Date | string | null
-    randomWeapon?: number | null
-    randomSkill?: number | null
     nextModifiers?: ServerStateCreatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36411,8 +36603,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -36421,8 +36611,6 @@ export namespace Prisma {
     globalTournamentValid?: BoolFieldUpdateOperationsInput | boolean
     activeModifiers?: ServerStateUpdateactiveModifiersInput | $Enums.FightModifier[]
     modifiersEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    randomWeapon?: NullableIntFieldUpdateOperationsInput | number | null
-    randomSkill?: NullableIntFieldUpdateOperationsInput | number | null
     nextModifiers?: ServerStateUpdatenextModifiersInput | $Enums.FightModifier[]
   }
 
@@ -37290,6 +37478,7 @@ export namespace Prisma {
     ips?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    lastReleaseSeen?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -37312,6 +37501,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    lastReleaseSeen?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -37328,6 +37518,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    lastReleaseSeen?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -37696,6 +37887,10 @@ export namespace Prisma {
     weapons?: SortOrder
     skills?: SortOrder
     pets?: SortOrder
+    ascensions?: SortOrder
+    ascendedWeapons?: SortOrder
+    ascendedSkills?: SortOrder
+    ascendedPets?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -37705,9 +37900,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     globalTournamentWatchedDate?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentWatchedDate?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
@@ -37734,11 +37932,14 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    ascensions?: SortOrder
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     tournamentWins?: SortOrder
     resets?: SortOrder
   }
@@ -37770,6 +37971,7 @@ export namespace Prisma {
     userId?: SortOrder
     body?: SortOrder
     colors?: SortOrder
+    ascensions?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -37779,9 +37981,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     globalTournamentWatchedDate?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentWatchedDate?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
@@ -37818,6 +38023,7 @@ export namespace Prisma {
     userId?: SortOrder
     body?: SortOrder
     colors?: SortOrder
+    ascensions?: SortOrder
     masterId?: SortOrder
     pupilsCount?: SortOrder
     clanId?: SortOrder
@@ -37827,9 +38033,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: SortOrder
     globalTournamentWatchedDate?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentWatchedDate?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     lastFight?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     opponentsGeneratedAt?: SortOrder
     canRankUpSince?: SortOrder
     favorite?: SortOrder
@@ -37856,11 +38065,14 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    ascensions?: SortOrder
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
     globalTournamentRoundWatched?: SortOrder
+    eventTournamentRoundWatched?: SortOrder
     fightsLeft?: SortOrder
     victories?: SortOrder
+    losses?: SortOrder
     tournamentWins?: SortOrder
     resets?: SortOrder
   }
@@ -38178,6 +38390,9 @@ export namespace Prisma {
     skill?: SortOrder
     weapon?: SortOrder
     pet?: SortOrder
+    originalSkill?: SortOrder
+    originalWeapon?: SortOrder
+    originalPet?: SortOrder
     stat1?: SortOrder
     stat1Value?: SortOrder
     stat2?: SortOrder
@@ -38196,6 +38411,9 @@ export namespace Prisma {
     skill?: SortOrder
     weapon?: SortOrder
     pet?: SortOrder
+    originalSkill?: SortOrder
+    originalWeapon?: SortOrder
+    originalPet?: SortOrder
     stat1?: SortOrder
     stat1Value?: SortOrder
     stat2?: SortOrder
@@ -38209,6 +38427,9 @@ export namespace Prisma {
     skill?: SortOrder
     weapon?: SortOrder
     pet?: SortOrder
+    originalSkill?: SortOrder
+    originalWeapon?: SortOrder
+    originalPet?: SortOrder
     stat1?: SortOrder
     stat1Value?: SortOrder
     stat2?: SortOrder
@@ -38573,35 +38794,19 @@ export namespace Prisma {
     globalTournamentValid?: SortOrder
     activeModifiers?: SortOrder
     modifiersEndAt?: SortOrder
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
     nextModifiers?: SortOrder
-  }
-
-  export type ServerStateAvgOrderByAggregateInput = {
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
   }
 
   export type ServerStateMaxOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
     modifiersEndAt?: SortOrder
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
   }
 
   export type ServerStateMinOrderByAggregateInput = {
     id?: SortOrder
     globalTournamentValid?: SortOrder
     modifiersEndAt?: SortOrder
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
-  }
-
-  export type ServerStateSumOrderByAggregateInput = {
-    randomWeapon?: SortOrder
-    randomSkill?: SortOrder
   }
 
   export type BannedWordCountOrderByAggregateInput = {
@@ -39449,6 +39654,18 @@ export namespace Prisma {
     set: $Enums.PetName[]
   }
 
+  export type BruteCreateascendedWeaponsInput = {
+    set: $Enums.WeaponName[]
+  }
+
+  export type BruteCreateascendedSkillsInput = {
+    set: $Enums.SkillName[]
+  }
+
+  export type BruteCreateascendedPetsInput = {
+    set: $Enums.PetName[]
+  }
+
   export type UserCreateNestedOneWithoutBrutesInput = {
     create?: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: UserCreateOrConnectWithoutBrutesInput
@@ -39820,6 +40037,21 @@ export namespace Prisma {
   }
 
   export type BruteUpdatepetsInput = {
+    set?: $Enums.PetName[]
+    push?: $Enums.PetName | $Enums.PetName[]
+  }
+
+  export type BruteUpdateascendedWeaponsInput = {
+    set?: $Enums.WeaponName[]
+    push?: $Enums.WeaponName | $Enums.WeaponName[]
+  }
+
+  export type BruteUpdateascendedSkillsInput = {
+    set?: $Enums.SkillName[]
+    push?: $Enums.SkillName | $Enums.SkillName[]
+  }
+
+  export type BruteUpdateascendedPetsInput = {
     set?: $Enums.PetName[]
     push?: $Enums.PetName | $Enums.PetName[]
   }
@@ -42494,6 +42726,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -42501,9 +42737,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42569,6 +42808,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -42578,9 +42821,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42786,6 +43032,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -42793,9 +43043,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42862,6 +43115,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -42871,9 +43128,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -42961,6 +43221,10 @@ export namespace Prisma {
     weapons?: EnumWeaponNameNullableListFilter<"Brute">
     skills?: EnumSkillNameNullableListFilter<"Brute">
     pets?: EnumPetNameNullableListFilter<"Brute">
+    ascensions?: IntFilter<"Brute"> | number
+    ascendedWeapons?: EnumWeaponNameNullableListFilter<"Brute">
+    ascendedSkills?: EnumSkillNameNullableListFilter<"Brute">
+    ascendedPets?: EnumPetNameNullableListFilter<"Brute">
     masterId?: UuidNullableFilter<"Brute"> | string | null
     pupilsCount?: IntFilter<"Brute"> | number
     clanId?: UuidNullableFilter<"Brute"> | string | null
@@ -42970,9 +43234,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: IntNullableFilter<"Brute"> | number | null
     globalTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
     globalTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
+    eventTournamentWatchedDate?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    eventTournamentRoundWatched?: IntNullableFilter<"Brute"> | number | null
     lastFight?: DateTimeNullableFilter<"Brute"> | Date | string | null
     fightsLeft?: IntFilter<"Brute"> | number
     victories?: IntFilter<"Brute"> | number
+    losses?: IntFilter<"Brute"> | number
     opponentsGeneratedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     canRankUpSince?: DateTimeNullableFilter<"Brute"> | Date | string | null
     favorite?: BoolFilter<"Brute"> | boolean
@@ -43156,6 +43423,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -43179,6 +43447,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -43223,6 +43492,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -43230,9 +43503,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43299,6 +43575,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -43308,9 +43588,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43378,6 +43661,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -43385,9 +43672,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43454,6 +43744,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     clanId?: string | null
     registeredForTournament?: boolean
@@ -43462,9 +43756,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43681,6 +43978,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -43695,6 +43995,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -43766,6 +44069,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -43773,9 +44080,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43842,6 +44152,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -43851,9 +44165,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43921,6 +44238,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -43928,9 +44249,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -43997,6 +44321,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -44006,9 +44334,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -44386,6 +44717,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -44409,6 +44741,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -44549,6 +44882,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -44572,6 +44906,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -44622,6 +44957,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -44629,9 +44968,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -44698,6 +45040,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44707,9 +45053,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -44898,6 +45247,9 @@ export namespace Prisma {
     skill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
     weapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
     pet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
+    originalSkill?: EnumSkillNameNullableFilter<"DestinyChoice"> | $Enums.SkillName | null
+    originalWeapon?: EnumWeaponNameNullableFilter<"DestinyChoice"> | $Enums.WeaponName | null
+    originalPet?: EnumPetNameNullableFilter<"DestinyChoice"> | $Enums.PetName | null
     stat1?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
@@ -45332,6 +45684,7 @@ export namespace Prisma {
     ips?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    lastReleaseSeen?: StringNullableFilter<"User"> | string | null
   }
 
   export type ClanWarFightersUpsertWithWhereUniqueWithoutAttackersInput = {
@@ -45471,6 +45824,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -45478,9 +45835,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45547,6 +45907,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -45556,9 +45920,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45637,6 +46004,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -45644,9 +46015,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -45713,6 +46087,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45722,9 +46100,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -45787,6 +46168,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -45794,9 +46179,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45863,6 +46251,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -45872,9 +46264,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -45942,6 +46337,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -45949,9 +46348,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46018,6 +46420,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -46027,9 +46433,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46140,6 +46549,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -46163,6 +46573,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -46255,6 +46666,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -46262,9 +46677,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46331,6 +46749,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46340,9 +46762,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46416,6 +46841,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -46423,9 +46852,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46492,6 +46924,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46501,9 +46937,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46670,6 +47109,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -46677,9 +47120,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46746,6 +47192,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -46755,9 +47205,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -46840,6 +47293,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -46855,6 +47311,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -46908,6 +47367,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -46915,9 +47378,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -46984,6 +47450,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46993,9 +47463,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -47090,6 +47563,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -47105,6 +47581,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -47142,6 +47621,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -47149,9 +47632,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47218,6 +47704,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -47227,9 +47717,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47344,6 +47837,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47351,9 +47848,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -47420,6 +47920,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47429,9 +47933,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -47510,6 +48017,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -47517,9 +48028,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47586,6 +48100,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -47595,9 +48113,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47805,6 +48326,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -47812,9 +48337,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47881,6 +48409,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -47890,9 +48422,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -47971,6 +48506,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -47978,9 +48517,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48047,6 +48589,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48056,9 +48602,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48105,6 +48654,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -48128,6 +48678,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -48167,6 +48718,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -48190,6 +48742,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -48229,6 +48782,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -48236,9 +48793,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48305,6 +48865,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -48314,9 +48878,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48395,6 +48962,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48402,9 +48973,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48471,6 +49045,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48480,9 +49058,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48545,6 +49126,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -48552,9 +49137,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48621,6 +49209,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -48630,9 +49222,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -48684,6 +49279,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -48707,6 +49303,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -48762,6 +49359,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48769,9 +49370,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48838,6 +49442,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48847,9 +49455,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -48907,6 +49518,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -48930,6 +49542,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -48969,6 +49582,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -48976,9 +49593,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49045,6 +49665,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -49054,9 +49678,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49140,6 +49767,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -49147,9 +49778,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49216,6 +49850,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -49225,9 +49863,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49279,6 +49920,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -49302,6 +49944,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -49357,6 +50000,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49364,9 +50011,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -49433,6 +50083,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49442,9 +50096,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -49523,6 +50180,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -49530,9 +50191,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49599,6 +50263,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -49608,9 +50276,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49678,6 +50349,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -49685,9 +50360,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49754,6 +50432,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -49762,9 +50444,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49838,6 +50523,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -49845,9 +50534,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -49914,6 +50606,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -49923,9 +50619,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -50191,6 +50890,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50198,9 +50901,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50267,6 +50973,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50276,9 +50986,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50514,6 +51227,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -50521,9 +51238,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -50590,6 +51310,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -50599,9 +51323,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -50753,6 +51480,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50760,9 +51491,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50829,6 +51563,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50838,9 +51576,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -50948,6 +51689,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -50955,9 +51700,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51024,6 +51772,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -51033,9 +51785,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51149,6 +51904,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51156,9 +51915,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -51225,6 +51987,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51234,9 +52000,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -51299,6 +52068,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -51306,9 +52079,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51375,6 +52151,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -51384,9 +52164,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -51508,6 +52291,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51515,9 +52302,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -51584,6 +52374,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51593,9 +52387,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -52120,6 +52917,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -52127,9 +52928,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52196,6 +53000,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -52205,9 +53013,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52275,6 +53086,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -52282,9 +53097,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52351,6 +53169,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -52360,9 +53182,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52505,6 +53330,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -52512,9 +53341,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52581,6 +53413,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -52590,9 +53426,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -52644,6 +53483,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -52667,6 +53507,7 @@ export namespace Prisma {
     ips?: UserCreateipsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
+    lastReleaseSeen?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -52722,6 +53563,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -52729,9 +53574,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -52798,6 +53646,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52807,9 +53659,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -52867,6 +53722,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -52890,6 +53746,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -52929,6 +53786,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -52936,9 +53797,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53005,6 +53869,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -53014,9 +53882,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53112,6 +53983,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     registeredForTournament?: boolean
     nextTournamentDate?: Date | string | null
@@ -53119,9 +53994,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53188,6 +54066,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -53197,9 +54079,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53323,6 +54208,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -53330,9 +54219,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53399,6 +54291,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53408,9 +54304,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53473,6 +54372,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -53482,9 +54385,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -53545,6 +54451,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -53552,9 +54462,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53620,6 +54533,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53629,9 +54546,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53695,6 +54615,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53704,9 +54628,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53884,6 +54811,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -53891,9 +54822,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -53960,6 +54894,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53969,9 +54907,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54035,6 +54976,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54044,9 +54989,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54088,6 +55036,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: number
     clanId?: string | null
     registeredForTournament?: boolean
@@ -54096,9 +55048,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -54158,6 +55113,9 @@ export namespace Prisma {
     skill?: $Enums.SkillName | null
     weapon?: $Enums.WeaponName | null
     pet?: $Enums.PetName | null
+    originalSkill?: $Enums.SkillName | null
+    originalWeapon?: $Enums.WeaponName | null
+    originalPet?: $Enums.PetName | null
     stat1?: $Enums.BruteStat | null
     stat1Value?: number | null
     stat2?: $Enums.BruteStat | null
@@ -54264,6 +55222,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -54271,9 +55233,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54340,6 +55305,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -54348,9 +55317,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54415,6 +55387,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -54423,9 +55399,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54579,6 +55558,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -54593,6 +55575,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -54607,6 +55592,9 @@ export namespace Prisma {
     skill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
     weapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
     pet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
+    originalSkill?: NullableEnumSkillNameFieldUpdateOperationsInput | $Enums.SkillName | null
+    originalWeapon?: NullableEnumWeaponNameFieldUpdateOperationsInput | $Enums.WeaponName | null
+    originalPet?: NullableEnumPetNameFieldUpdateOperationsInput | $Enums.PetName | null
     stat1?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
     stat1Value?: NullableIntFieldUpdateOperationsInput | number | null
     stat2?: NullableEnumBruteStatFieldUpdateOperationsInput | $Enums.BruteStat | null
@@ -54670,6 +55658,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -54677,9 +55669,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54746,6 +55741,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54755,9 +55754,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54821,6 +55823,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54830,9 +55836,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54873,6 +55882,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -54880,9 +55893,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -54949,6 +55965,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54958,9 +55978,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55024,6 +56047,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55033,9 +56060,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55259,6 +56289,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -55282,6 +56313,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -55305,6 +56337,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ClanWarFightersUpdateWithoutAttackersInput = {
@@ -55448,6 +56481,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -55471,6 +56505,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -55494,6 +56529,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogCreateManyDestinyChoiceInput = {
@@ -55594,6 +56630,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -55601,9 +56641,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55670,6 +56713,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55679,9 +56726,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55745,6 +56795,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55754,9 +56808,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55846,6 +56903,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -55853,9 +56914,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55922,6 +56986,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55931,9 +56999,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -55997,6 +57068,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56006,9 +57081,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56033,6 +57111,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -56056,6 +57135,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -56079,6 +57159,7 @@ export namespace Prisma {
     ips?: UserUpdateipsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReleaseSeen?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateManyClanInput = {
@@ -56113,6 +57194,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     registeredForTournament?: boolean
@@ -56121,9 +57206,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -56165,6 +57253,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -56174,9 +57266,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -56275,6 +57370,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -56282,9 +57381,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56351,6 +57453,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -56359,9 +57465,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56426,6 +57535,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
@@ -56434,9 +57547,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56477,6 +57593,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -56484,9 +57604,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56553,6 +57676,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56562,9 +57689,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56628,6 +57758,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56637,9 +57771,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -56986,6 +58123,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -56993,9 +58134,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57062,6 +58206,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57071,9 +58219,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57137,6 +58288,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57146,9 +58301,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57189,6 +58347,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -57196,9 +58358,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57265,6 +58430,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57274,9 +58443,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57340,6 +58512,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57349,9 +58525,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57393,6 +58572,10 @@ export namespace Prisma {
     weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
     skills?: BruteCreateskillsInput | $Enums.SkillName[]
     pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
     masterId?: string | null
     pupilsCount?: number
     clanId?: string | null
@@ -57402,9 +58585,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: number | null
     globalTournamentWatchedDate?: Date | string | null
     globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
     lastFight?: Date | string | null
     fightsLeft?: number
     victories?: number
+    losses?: number
     opponentsGeneratedAt?: Date | string | null
     canRankUpSince?: Date | string | null
     favorite?: boolean
@@ -57444,6 +58630,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     pupilsCount?: IntFieldUpdateOperationsInput | number
     registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
     nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -57451,9 +58641,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57520,6 +58713,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57529,9 +58726,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
@@ -57595,6 +58795,10 @@ export namespace Prisma {
     weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
     skills?: BruteUpdateskillsInput | $Enums.SkillName[]
     pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
     masterId?: NullableStringFieldUpdateOperationsInput | string | null
     pupilsCount?: IntFieldUpdateOperationsInput | number
     clanId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57604,9 +58808,12 @@ export namespace Prisma {
     currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
     globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
     lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fightsLeft?: IntFieldUpdateOperationsInput | number
     victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
     opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorite?: BoolFieldUpdateOperationsInput | boolean
