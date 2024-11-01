@@ -123,6 +123,8 @@
   "master": "Maitre",
   "ranking": "Classement",
   "victories": "Victoires",
+  "winrate": "Winrate",
+  "wins-losses": "{{wins}}W / {{losses}}L",
   "pupils": "Élèves",
   "weaponsBonuses": "Armes et bonus disponibles en combat",
   "inventory": "Inventaire",
