@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.3](https://github.com/Zenoo/labrute/compare/labrute-v2.74.2...labrute-v2.74.3) (2024-11-01)
+
+
+### Bug Fixes
+
+* Tamer trigger after 20% missing HP ([fecbdf1](https://github.com/Zenoo/labrute/commit/fecbdf121b85ed0278febf4cb0a884e86d4156ce))
+* Wrong filter out for Tamer skill ([8350805](https://github.com/Zenoo/labrute/commit/8350805023c3582ed7a2a8b8dec9845df0a5f9ef))
+
 ## [2.74.2](https://github.com/Zenoo/labrute/compare/labrute-v2.74.1...labrute-v2.74.2) (2024-10-31)
 
 
