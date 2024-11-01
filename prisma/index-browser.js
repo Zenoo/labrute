@@ -193,6 +193,7 @@ exports.Prisma.BruteScalarFieldEnum = {
   lastFight: 'lastFight',
   fightsLeft: 'fightsLeft',
   victories: 'victories',
+  losses: 'losses',
   opponentsGeneratedAt: 'opponentsGeneratedAt',
   canRankUpSince: 'canRankUpSince',
   favorite: 'favorite',
