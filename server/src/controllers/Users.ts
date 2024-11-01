@@ -3,6 +3,7 @@ import {
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
+  UserUpdateSettingsRequest,
   UsersAdminUpdateRequest,
   UsersAuthenticateResponse,
   getFightsLeft,
@@ -975,6 +976,36 @@ const Users = {
       res.send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  updateSettings: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, UserUpdateSettingsRequest>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      const { fightSpeed, backgroundMusic, displayVersusPage } = req.body;
+
+      if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean') {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          fightSpeed,
+          backgroundMusic,
+          displayVersusPage,
+        },
+        select: { id: true },
+      });
+
+      res.send({ message: 'Settings updated' });
     } catch (error) {
       sendError(res, error);
     }

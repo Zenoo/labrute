@@ -134,7 +134,8 @@ exports.Prisma.UserScalarFieldEnum = {
   ips: 'ips',
   bannedAt: 'bannedAt',
   banReason: 'banReason',
-  lastReleaseSeen: 'lastReleaseSeen'
+  lastReleaseSeen: 'lastReleaseSeen',
+  displayVersusPage: 'displayVersusPage'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -410,7 +411,8 @@ exports.Prisma.EventScalarFieldEnum = {
   maxRound: 'maxRound',
   status: 'status',
   winnerId: 'winnerId',
-  finishedAt: 'finishedAt'
+  finishedAt: 'finishedAt',
+  sortedBrutes: 'sortedBrutes'
 };
 
 exports.Prisma.SortOrder = {

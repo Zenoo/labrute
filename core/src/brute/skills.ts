@@ -512,7 +512,7 @@ export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
   ],
   [SkillName.shield]: [
     { stat: FightStat.BLOCK, value: 45, percent: true },
-    { stat: FightStat.DAMAGE, value: -45, percent: true },
+    { stat: FightStat.DAMAGE, value: -25, percent: true },
   ],
   [SkillName.armor]: [
     { stat: FightStat.ARMOR, value: 25, percent: true },

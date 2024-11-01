@@ -128,3 +128,8 @@ export const ClanWarPointReward = 1000;
 export const EventPauseDuration = 3;
 export const EventFightsPerDay = 10;
 export const EventFreeResets = 3;
+
+export const DailyTournamentGoldReward = 100;
+export const DailyTournamentXpReward = 1;
+export const GlobalTournamentGoldReward = 150;
+export const GlobalTournamentXpReward = 1;

@@ -23,28 +23,29 @@ enum Lang {
 }
 
 model User {
-  id              String           @id @unique @db.Uuid
-  lang            Lang             @default(en)
-  name            String           @db.VarChar(255)
-  admin           Boolean          @default(false)
-  moderator       Boolean          @default(false)
-  connexionToken  String           @db.Uuid
-  bruteLimit      Int              @default(3)
-  gold            Int              @default(0)
-  fightSpeed      Int              @default(2)
-  backgroundMusic Boolean          @default(true)
-  dinorpgDone     DateTime?        @db.Date
-  ips             String[]         @default([])
-  bannedAt        DateTime?        @db.Date
-  banReason       String?
-  lastReleaseSeen String?
-  brutes          Brute[]
-  achievements    Achievement[]
-  reports         BruteReport[]
-  tournamentGolds TournamentGold[]
-  inventory       InventoryItem[]
-  favoriteFights  Fight[]          @relation("FavoriteFights")
-  following       Brute[]          @relation("Followers")
+  id                String           @id @unique @db.Uuid
+  lang              Lang             @default(en)
+  name              String           @db.VarChar(255)
+  admin             Boolean          @default(false)
+  moderator         Boolean          @default(false)
+  connexionToken    String           @db.Uuid
+  bruteLimit        Int              @default(3)
+  gold              Int              @default(0)
+  fightSpeed        Int              @default(2)
+  backgroundMusic   Boolean          @default(true)
+  dinorpgDone       DateTime?        @db.Date
+  ips               String[]         @default([])
+  bannedAt          DateTime?        @db.Date
+  banReason         String?
+  lastReleaseSeen   String?
+  displayVersusPage Boolean          @default(true)
+  brutes            Brute[]
+  achievements      Achievement[]
+  reports           BruteReport[]
+  tournamentGolds   TournamentGold[]
+  inventory         InventoryItem[]
+  favoriteFights    Fight[]          @relation("FavoriteFights")
+  following         Brute[]          @relation("Followers")
 }
 
 enum DestinyChoiceSide {
@@ -372,22 +373,22 @@ enum BruteStat {
 }
 
 model DestinyChoice {
-  id                 String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute              Brute               @relation(fields: [bruteId], references: [id])
-  bruteId            String              @db.Uuid
-  path               DestinyChoiceSide[]
-  type               DestinyChoiceType
-  skill              SkillName?
-  weapon             WeaponName?
-  pet                PetName?
-  originalSkill      SkillName?
-  originalWeapon     WeaponName?
-  originalPet        PetName?
-  stat1              BruteStat?
-  stat1Value         Int?
-  stat2              BruteStat?
-  stat2Value         Int?
-  logs               Log[]
+  id             String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  brute          Brute               @relation(fields: [bruteId], references: [id])
+  bruteId        String              @db.Uuid
+  path           DestinyChoiceSide[]
+  type           DestinyChoiceType
+  skill          SkillName?
+  weapon         WeaponName?
+  pet            PetName?
+  originalSkill  SkillName?
+  originalWeapon WeaponName?
+  originalPet    PetName?
+  stat1          BruteStat?
+  stat1Value     Int?
+  stat2          BruteStat?
+  stat2Value     Int?
+  logs           Log[]
 
   @@index([bruteId, path])
 }
@@ -784,17 +785,18 @@ enum EventStatus {
 }
 
 model Event {
-  id         String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date       DateTime    @default(now()) @db.Date
-  type       EventType   @default(battleRoyale)
-  maxLevel   Int
-  maxRound   Int         @default(999)
-  status     EventStatus @default(starting)
-  brutes     Brute[]
-  tournament Tournament?
-  winner     Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
-  winnerId   String?     @db.Uuid
-  finishedAt DateTime?   @db.Date
+  id           String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date         DateTime    @default(now()) @db.Date
+  type         EventType   @default(battleRoyale)
+  maxLevel     Int
+  maxRound     Int         @default(999)
+  status       EventStatus @default(starting)
+  brutes       Brute[]
+  tournament   Tournament?
+  winner       Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
+  winnerId     String?     @db.Uuid
+  finishedAt   DateTime?   @db.Date
+  sortedBrutes String[]    @default([])
 
   @@index([date, type, status])
 }

@@ -6,11 +6,22 @@ import AchievementRankingView from './views/AchievementRankingView';
 import AchievementsView from './views/AchievementsView';
 import AdminView from './views/AdminView';
 import ArenaView from './views/ArenaView';
+import AscendView from './views/AscendView';
 import { BannedUsersView } from './views/BannedUsersView';
 import BruteNotFoundView from './views/BruteNotFoundView';
 import CellView from './views/CellView';
+import ClanCreateView from './views/clan/ClanCreateView';
+import ClanForumView from './views/clan/ClanForumView';
+import ClanPostView from './views/clan/ClanPostView';
+import ClanRankingView from './views/clan/ClanRankingView';
+import ClanThreadView from './views/clan/ClanThreadView';
+import ClanView from './views/clan/ClanView';
+import ClanWarFightView from './views/clan/ClanWarFightView';
+import { ClanWarHistoryView } from './views/clan/ClanWarHistoryView';
+import { ClanWarView } from './views/clan/ClanWarView';
 import DestinyView from './views/DestinyView';
-import AscendView from './views/AscendView';
+import { EventHistoryView } from './views/event/EventHistoryView';
+import { EventView } from './views/event/EventView';
 import FightView from './views/FightView';
 import { FollowingFeedView } from './views/FollowingFeedView';
 import GeneratingView from './views/GeneratingView';
@@ -31,17 +42,7 @@ import TournamentView from './views/TournamentView';
 import UserAdminView from './views/UserAdminView';
 import UserView from './views/UserView';
 import VersusView from './views/VersusView';
-import ClanCreateView from './views/clan/ClanCreateView';
-import ClanForumView from './views/clan/ClanForumView';
-import ClanPostView from './views/clan/ClanPostView';
-import ClanRankingView from './views/clan/ClanRankingView';
-import ClanThreadView from './views/clan/ClanThreadView';
-import ClanView from './views/clan/ClanView';
-import ClanWarFightView from './views/clan/ClanWarFightView';
-import { ClanWarHistoryView } from './views/clan/ClanWarHistoryView';
-import { ClanWarView } from './views/clan/ClanWarView';
-import { EventView } from './views/event/EventView';
-import { EventHistoryView } from './views/event/EventHistoryView';
+import { WikiView } from './views/WikiView';
 
 const routes: RouteObject[] = [
   {
@@ -60,6 +61,7 @@ const routes: RouteObject[] = [
       { path: 'generating-tournaments', element: <GeneratingView /> },
       { path: 'hall', element: <HallView /> },
       { path: 'patch-notes', element: <PatchNotesView /> },
+      { path: 'wiki', element: <WikiView /> },
       {
         path: 'user/:userId',
         children: [
