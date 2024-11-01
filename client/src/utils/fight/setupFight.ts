@@ -1,7 +1,8 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
 import { Fighter, FightStep, StepType } from '@labrute/core';
-import { Fight, Gender } from '@labrute/prisma';
+import { BossName, Fight, Gender } from '@labrute/prisma';
+import moment from 'moment';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 import { GlowFilter } from '@pixi/filter-glow';
@@ -338,7 +339,16 @@ const setupFight: (
     app.stage?.addChild(bossHeader);
 
     // Boss name
-    const bossName = new PIXI.Text(boss.name.toLocaleUpperCase(), {
+    const displayedBossName = (
+      // Normal day Display
+      !moment().isSame(moment('04-01', 'MM-DD'), 'day') ? boss.name
+        // April Fools Display
+        : boss.name === BossName.EmberFang ? 'EmberFool'
+          : boss.name === BossName.GoldClaw ? 'GoldClown'
+            : boss.name
+    );
+
+    const bossName = new PIXI.Text(displayedBossName.toLocaleUpperCase(), {
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
     });
     bossName.anchor.x = 1;
