@@ -123,6 +123,8 @@
   "master": "Anführer",
   "ranking": "Rangliste",
   "victories": "Siege",
+  "winrate": "Winrate",
+  "wins-losses": "{{wins}}W / {{losses}}L",
   "pupils": "Schüler",
   "weaponsBonuses": "Im Kampf verfügbare Waffen und Boni",
   "inventory": "Inventar",
