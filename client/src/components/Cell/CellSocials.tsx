@@ -125,12 +125,14 @@ const CellSocials = ({
               </Link>
             </Grid>
             <Grid item xs={6}>
-              <Text bold color="secondary" component="span">{t('Win Rate')}: </Text>
-              <Text bold component="span">
-                {(brute.victories + brute.losses) === 0
-                  ? '0%'
-                  : `${((brute.victories / (brute.victories + brute.losses)) * 100).toLocaleString(undefined, { maximumFractionDigits: 2 })}%`}
-              </Text>
+              <Text bold color="secondary" component="span">{t('winrate')}: </Text>
+              <Tooltip title={t('wins-losses', { wins: brute.victories, losses: brute.losses })}>
+                <Text bold component="span">
+                  {(brute.victories + brute.losses) === 0
+                    ? '0%'
+                    : `${((brute.victories / (brute.victories + brute.losses)) * 100).toLocaleString(undefined, { maximumFractionDigits: 2 })}%`}
+                </Text>
+              </Tooltip>
             </Grid>
             <Grid item xs={6}>
               <Tooltip title={t('created', { date: moment.utc(brute.createdAt).format('LLL') })}>
