@@ -29,7 +29,7 @@ const availableBodyParts: {
   male: {
     p2: 7,
     p3: 11,
-    p4: 4,
+    p4: 5,
     p7: 6,
     p1: 1,
     p1a: 1,
