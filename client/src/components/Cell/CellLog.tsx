@@ -14,6 +14,8 @@ export interface CellLogProps extends PaperProps {
 }
 
 const negativeLogs: LogType[] = [LogType.lose, LogType.tournament];
+const combatLogs: LogType[] = [LogType.lose, LogType.win];
+const childLogs: LogType[] = [LogType.child, LogType.childup];
 
 const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
   const { t } = useTranslation();
@@ -57,11 +59,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           flexGrow: 1,
         }}
       >
-        {log.type === LogType.win || log.type === LogType.lose
+        {combatLogs.includes(log.type) || childLogs.includes(log.type)
           ? (
-            <Tooltip title={t('seeFight')}>
+            <Tooltip title={combatLogs.includes(log.type) ? t('seeFight') : t('bruteCell', { name: log.brute })}>
               <Link
-                to={`/${log.currentBrute.name}/fight/${log.fightId || 0}`}
+                to={combatLogs.includes(log.type) ? `/${log.currentBrute.name}/fight/${log.fightId || 0}` : `/${log.brute}/cell`}
                 sx={{
                   textDecoration: 'none',
                   '&:hover': {
@@ -74,15 +76,16 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                 }}
               >
                 <Text bold color={log.type === LogType.lose ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
-                  {t(`log.fight.${log.template ?? '0'}`, {
-                    winner: log.type === LogType.lose ? log.brute : log.currentBrute.name,
-                    loser: log.type === LogType.lose ? log.currentBrute.name : log.brute,
-                  })}
+                  {combatLogs.includes(log.type)
+                    ? t(`log.fight.${log.template ?? '0'}`, {
+                      winner: log.type === LogType.lose ? log.brute : log.currentBrute.name,
+                      loser: log.type === LogType.lose ? log.currentBrute.name : log.brute,
+                    })
+                    : t(`log.${log.type}`, { value: log.brute })}
                 </Text>
               </Link>
             </Tooltip>
-          )
-          : (
+          ) : (
             <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
               {log.type === LogType.lvl
                 ? t('log.lvl', { brute: log.currentBrute.name, value: t(`lvl_${log.level}`) })
@@ -90,9 +93,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   ? t('log.up', { brute: log.currentBrute.name, value: log.level ?? 0 })
                   : log.type === LogType.ascend
                     ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { brute: log.currentBrute.name, value: log.level ?? 0 })
-                    : log.type === LogType.tournament
-                      ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
-                      : t(`log.${log.type}`, { value: log.brute })}
+                    : t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })}
             </Text>
           )}
         {(!!log.xp || !!log.gold) && (
