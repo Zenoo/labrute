@@ -5,17 +5,22 @@ import { sound } from '@pixi/sound';
 import { Application } from 'pixi.js';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateWeapons from './updateWeapons';
+import setHUDFocus from './setHUDFocus';
 
 const equip = async (
   app: Application,
   fighters: AnimationFighter[],
   step: EquipStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
+
+  // Display brute in HUD
+  setHUDFocus(app, fighters, brute, speed, isClanWar);
 
   const animationEnded = brute.animation.waitForEvent('equip:end');
 

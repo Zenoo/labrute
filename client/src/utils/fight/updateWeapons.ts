@@ -20,13 +20,13 @@ const updateWeapons = (
     throw new Error('Spritesheet not found');
   }
 
-  // Only affect the UI for main brutes
-  if (brute.bust) {
+  // Only affect the HUD for the focused brutes
+  if (brute.HUDFocused) {
     // Empty list
     brute.weaponsIllustrations.forEach((illustration) => {
       illustration.destroy();
     });
-    brute.weaponsIllustrations = [];
+    brute.weaponsIllustrations.splice(0);
   }
 
   // Add new weapon
@@ -48,8 +48,8 @@ const updateWeapons = (
     }
   }
 
-  // Only affect the UI for main brutes
-  if (brute.bust) {
+  // Only affect the HUD for the focused brutes
+  if (brute.HUDFocused) {
     // Generate new list
     brute.weapons.forEach((w, index) => {
       const texture = spritesheet.textures[`weapons/${WeaponById[w]}.png`];

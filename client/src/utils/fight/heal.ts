@@ -5,6 +5,7 @@ import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import updateHp from './updateHp';
+import setHUDFocus from './setHUDFocus';
 import { displayHeal } from './utils/displayHeal';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import insideXBounds from './utils/insideXBounds';
@@ -29,6 +30,9 @@ const heal = async (
   if (!brute) {
     throw new Error('Brute not found');
   }
+
+  // Display brute in HUD
+  setHUDFocus(app, fighters, brute, speed, isClanWar);
 
   const animationEnded = brute.animation.waitForEvent('drink:end');
 

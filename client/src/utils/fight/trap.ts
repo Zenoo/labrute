@@ -6,12 +6,14 @@ import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
+import setHUDFocus from './setHUDFocus';
 
 const trap = async (
   app: Application,
   fighters: AnimationFighter[],
   step: TrapStep,
   speed: React.MutableRefObject<number>,
+  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -30,6 +32,10 @@ const trap = async (
   if (!target) {
     throw new Error('Target not found');
   }
+
+  // Display brute and target in HUD
+  setHUDFocus(app, fighters, brute, speed, isClanWar);
+  setHUDFocus(app, fighters, target, speed, isClanWar);
 
   // Set fighter animation to `launch`
   brute.animation.setAnimation('launch');
