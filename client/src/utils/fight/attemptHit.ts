@@ -64,9 +64,9 @@ const attemptHit = async (
     // Set position
     trashedShield.position.set(
       target.team === 'L'
-        ? target.animation.container.x + FIGHTER_WIDTH.brute / 4
-        : target.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
-      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
+        ? target.animation.container.x + FIGHTER_WIDTH.brute * 0.25
+        : target.animation.container.x + FIGHTER_WIDTH.brute * 0.25,
+      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.3,
     );
 
     // Set angle
