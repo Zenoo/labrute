@@ -1,7 +1,7 @@
-import { getFightsLeft, LAST_RELEASE, UserUpdateSettingsRequest } from '@labrute/core';
+import { getFightsLeft, getGoldNeededForNewBrute, LAST_RELEASE, UserUpdateSettingsRequest } from '@labrute/core';
 import { EventStatus, Lang } from '@labrute/prisma';
 import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
-import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, useTheme } from '@mui/material';
+import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -189,10 +189,12 @@ const Main = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {user && (
-            <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
-              {user.gold}
-              <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
-            </Text>
+            <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
+              <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
+                {user.gold}
+                <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
+              </Text>
+            </Tooltip>
           )}
           <Divider
             orientation="vertical"

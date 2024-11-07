@@ -470,6 +470,7 @@
   "allRead": "All read",
   "newBrute": "New Brute",
   "gold": "Gold",
+  "goldNeededForNewBrute": "You need {{gold}} Gold to create a new Brute.",
   "sacrifice": "Sacrifice",
   "sacrificeConfirm": "Are you sure you want to sacrifice your brute for {{gold}} Gold ? This action cannot be undone.",
   "sacrificeSuccess": "Sacrifice success, you gained {{gold}} Gold",
