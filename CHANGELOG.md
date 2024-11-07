@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.5](https://github.com/Zenoo/labrute/compare/labrute-v2.74.4...labrute-v2.74.5) (2024-11-07)
+
+
+### Bug Fixes
+
+* Topbar visual bug ([baaeb59](https://github.com/Zenoo/labrute/commit/baaeb594b001daf14804c48317b767638028160b))
+
 ## [2.74.4](https://github.com/Zenoo/labrute/compare/labrute-v2.74.3...labrute-v2.74.4) (2024-11-07)
 
 
