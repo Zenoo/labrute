@@ -987,6 +987,11 @@ const activateSuper = (
         return false;
       }
 
+      // Drop shield
+      if(fighter.shield){
+        dropShield(fightData, fighter);
+      }
+
       // Shuffle weapons
       const shuffledWeapons = [...fighter.weapons].sort(() => Math.random() - 0.5);
       // Get 3 weapons
