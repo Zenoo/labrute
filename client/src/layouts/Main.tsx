@@ -138,6 +138,7 @@ const Main = () => {
           alignItems: 'center',
           minWidth: 0,
           overflowX: 'auto',
+          overflowY: 'hidden',
           '&::-webkit-scrollbar-track': {
             bgcolor: 'transparent',
           },
