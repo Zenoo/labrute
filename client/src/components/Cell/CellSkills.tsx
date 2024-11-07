@@ -72,7 +72,7 @@ const CellSkills = ({
                 sx={{
                   boxShadow: 4,
                   filter: getFilter(skill.name),
-                  cursor: hasSkill ? 'pointer' : 'default',
+                  cursor: (hoverSelectAscend && hasSkill) ? 'pointer' : 'default',
                   transition: 'filter 0.3s',
                 }}
               />
