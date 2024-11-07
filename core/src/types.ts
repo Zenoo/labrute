@@ -484,6 +484,8 @@ export interface TreatStep {
   t: number;
   /** HP healed */
   h: number;
+  /** Cured poison? */
+  c?: 1 | 0;
 }
 
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep

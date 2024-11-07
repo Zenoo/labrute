@@ -8,7 +8,7 @@ import {
   NO_WEAPON_TOSS,
   randomBetween, randomItem,
   Skill,
-  SkillByName, SkillModifiers, StepType, updateAchievement, Weapon,
+  SkillByName, SkillModifiers, StepType, TreatStep, updateAchievement, Weapon,
   WeaponByName,
   WeaponType,
 } from '@labrute/core';
@@ -1128,6 +1128,13 @@ const activateSuper = (
       );
       pet.hp += heal;
 
+      let poisonHeal = false;
+
+      if (pet.poisoned) {
+        pet.poisoned = false;
+        poisonHeal = true;
+      }
+
       // Untrap pet
       if (pet.trapped) {
         pet.trapped = false;
@@ -1148,12 +1155,18 @@ const activateSuper = (
       });
 
       // Add treat step
-      fightData.steps.push({
+      const step: TreatStep = {
         a: StepType.Treat,
         b: fighter.index,
         t: pet.index,
         h: heal,
-      });
+      };
+
+      if (poisonHeal) {
+        step.c = 1;
+      }
+
+      fightData.steps.push(step);
 
       // Add moveBack step
       fightData.steps.push({
