@@ -1355,6 +1355,18 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
+const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
+  // Remove brute's shield
+  fighter.shield = false;
+  fighter.block -= SHIELD_BLOCK_ODDS;
+
+  // Add dropShield step
+  fightData.steps.push({
+    a: StepType.DropShield,
+    b: fighter.index,
+  });
+};
+
 const disarm = (
   fighter: DetailedFighter,
   opponent: DetailedFighter,
@@ -1426,19 +1438,15 @@ const attack = (
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
 
-  // Prepare attempt step
-  const attemptStep: AttemptHitStep = {
+  // Add attempt step
+  fightData.steps.push({
     a: StepType.AttemptHit,
     f: fighter.index,
     t: opponent.index,
     w: fighter.activeWeapon ? WeaponByName[fighter.activeWeapon.name] : undefined,
-  };
-
+  });
   // Check if opponent evaded
   if (evaded) {
-    // Add attempt step as is
-    fightData.steps.push(attemptStep);
-
     damage = 0;
 
     // Add evade step
@@ -1460,17 +1468,9 @@ const attack = (
       // Update disarm stat
       updateStats(stats, fighter.id, 'disarms', 1);
 
-      // Add attempt step with shield break
-      attemptStep.b = 1;
-      fightData.steps.push(attemptStep);
-
       // Remove shield from opponent
-      opponent.shield = false;
-      opponent.block -= SHIELD_BLOCK_ODDS;
-    } else {
-      // Add attempt step as is
-      fightData.steps.push(attemptStep);
-    }
+      dropShield(fightData, opponent)
+    };
 
     // Check if opponent blocked
     if (blocked) {

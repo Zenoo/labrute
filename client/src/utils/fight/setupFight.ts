@@ -49,6 +49,7 @@ import updateWeapons from './updateWeapons';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
 import { vampirism } from './vampirism';
+import dropShield from './dropShield';
 
 const setupFight: (
   theme: Theme,
@@ -610,6 +611,10 @@ const setupFight: (
       }
       case StepType.Treat: {
         await treat(app, fighters, step, speed);
+        break;
+      }
+      case StepType.DropShield: {
+        dropShield(app, fighters, step, speed);
         break;
       }
       case StepType.Counter: {

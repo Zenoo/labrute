@@ -173,6 +173,7 @@ export enum StepType {
   Vampirism,
   Haste,
   Treat,
+  DropShield,
 }
 
 export interface SaboteurStep {
@@ -341,6 +342,8 @@ export interface AttemptHitStep {
   /** Weapon ID */
   w?: WeaponId;
   /** Broke shield? */
+  // Necessary since dropShield was added later
+  // TODO: Remove on release
   b?: 1 | 0;
 }
 
@@ -486,13 +489,20 @@ export interface TreatStep {
   h: number;
 }
 
+export interface DropShieldStep {
+  /** Action */
+  a: StepType.DropShield;
+  /** Fighter ID */
+  b: number;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
-  | VampirismStep | HasteStep | TreatStep;
+  | VampirismStep | HasteStep | TreatStep | DropShieldStep;
 
 export interface DetailedFight {
   modifiers: FightModifier[];

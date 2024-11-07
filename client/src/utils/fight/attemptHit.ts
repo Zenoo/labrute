@@ -50,6 +50,8 @@ const attemptHit = async (
   }).catch(console.error);
 
   // Handle shield breaking
+  // Necessary since dropShield was added later
+  // TODO: Remove on release
   if (step.b) {
     target.animation.shield = false;
 
