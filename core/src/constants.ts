@@ -60,7 +60,7 @@ export const FIGHTER_HIT_ANCHOR = {
   dog: { x: 30, y: 30 },
 } as const;
 
-export const MAX_FAVORITE_BRUTES = 3;
+export const MAX_FAVORITE_BRUTES = 30;
 
 export const BASE_FIGHTER_STATS = {
   reversal: 0,

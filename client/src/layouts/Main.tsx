@@ -34,6 +34,8 @@ const Main = () => {
     displayVersusPage: true,
   });
 
+  const favoriteCount = user?.brutes.filter((b) => b.favorite).length || 0;
+
   // Sync settings with user
   useEffect(() => {
     if (!user) return;
@@ -134,9 +136,21 @@ const Main = () => {
         <Box sx={{
           display: 'flex',
           alignItems: 'center',
+          minWidth: 0,
+          overflowX: 'auto',
+          '&::-webkit-scrollbar-track': {
+            bgcolor: 'transparent',
+          },
+          '&::-webkit-scrollbar': {
+            width: '2px',
+            bgcolor: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            bgcolor: theme.palette.topbar.divider,
+          },
         }}
         >
-          {user?.brutes.slice(0, 3).map((brute) => (
+          {user?.brutes.slice(0, favoriteCount || 3).map((brute) => (
             <Box
               key={brute.id}
               mr={1}
@@ -175,7 +189,7 @@ const Main = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {user && (
-            <Text color={theme.palette.topbar.contrast}>
+            <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
               {user.gold}
               <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
             </Text>
