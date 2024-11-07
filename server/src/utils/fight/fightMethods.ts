@@ -1307,7 +1307,7 @@ const block = ({
   }
 
   return Math.random() * ease
-    < (opponentBlock - getFighterStat(fighter, 'accuracy', 'weapon'));
+    < (opponentBlock - getFighterStat(fighter, 'accuracy'));
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
@@ -1342,7 +1342,7 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
     < Math.min(
       (getFighterStat(opponent, 'evasion')
         + agilityDifference * 0.01
-        - getFighterStat(fighter, 'accuracy', 'fighter')
+        - getFighterStat(fighter, 'accuracy')
         - getFighterStat(fighter, 'dexterity')),
       0.9,
     );
