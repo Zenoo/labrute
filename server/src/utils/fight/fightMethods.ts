@@ -832,6 +832,11 @@ const activateSuper = (
         }
       }
 
+      // Drop shield
+      if(fighter.shield){
+        dropShield(fightData, fighter);
+      }
+
       // Choose opponent
       const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
 
@@ -861,6 +866,29 @@ const activateSuper = (
       });
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
+
+      // Add dropShield step
+      if(opponent.shield){
+        dropShield(fightData, opponent);
+
+        // Update disarm stat
+        updateStats(stats, fighter.id, 'disarms', 1);
+      }
+
+      // Add disarm step
+      if(opponent.activeWeapon){
+        fightData.steps.push({
+          a: StepType.Disarm,
+          f: fighter.index,
+          t: opponent.index,
+          w: WeaponByName[opponent.activeWeapon.name],
+        });
+
+        opponent.activeWeapon = null;
+
+        // Update disarm stat
+        updateStats(stats, fighter.id, 'disarms', 1);
+      }
 
       // Add move back step
       fightData.steps.push({
