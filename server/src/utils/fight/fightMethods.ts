@@ -1702,7 +1702,7 @@ const startAttack = (
     }
 
     // Check if the opponent reverses the attack
-    if (!opponentWasTrapped && attackResult.reversed) {
+    if (!opponentWasTrapped && attackResult.reversed && opponent.hp > 0) {
       // Update reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);
