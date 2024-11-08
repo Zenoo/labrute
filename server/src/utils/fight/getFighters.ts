@@ -2,10 +2,10 @@
 import {
   BARE_HANDS_DAMAGE,
   BruteRanking,
-  DetailedFighter, getFinalHP, getFinalStat, getPetStat,
+  DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetStat,
   getTempSkill,
   getTempWeapon,
-  pets, randomBetween, SHIELD_BLOCK_ODDS, skills, weapons,
+  pets, randomBetween, SkillModifiers, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
@@ -21,130 +21,72 @@ interface Team {
 }
 
 const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
-  /* INITIATIVE */
+  for (const skill of brute.skills) {
+    // Stat changes
+    for (const [unsafeStat, modifier] of Object.entries(SkillModifiers[skill])) {
+      const stat = unsafeStat as FightStat;
 
-  // -2 initiative for `firstStrike`
-  if (brute.skills.includes(SkillName.firstStrike)) {
-    fighter.initiative -= 2;
-  }
-  // +2 initiative for `reconnaissance`
-  if (brute.skills.includes(SkillName.reconnaissance)) {
-    fighter.initiative += 2;
-  }
+      // Ignore some stats handled elsewhere
+      if (stat === FightStat.DEXTERITY
+        || stat === FightStat.DAMAGE
+        || stat === FightStat.HIT_SPEED
+        || stat === FightStat.ENDURANCE
+        || stat === FightStat.STRENGTH
+        || stat === FightStat.AGILITY
+        || stat === FightStat.SPEED) continue;
 
-  /* COUNTER */
+      if (modifier.flat) {
+        if (stat === FightStat.INITIATIVE) {
+          fighter.initiative -= modifier.flat / 100;
+        } else {
+          fighter[stat] += modifier.flat;
+        }
+      }
+      if (modifier.percent) {
+        fighter[stat] += modifier.percent / 100;
+      }
+    }
 
-  // +10% counter for `sixthSense`
-  if (brute.skills.includes(SkillName.sixthSense)) {
-    fighter.counter += 0.1;
-  }
+    // Passives
+    if (skill === SkillName.shield) {
+      fighter.shield = true;
+    }
 
-  // +40% counter / +2 initiative for `monk`
-  if (brute.skills.includes(SkillName.monk)) {
-    fighter.counter += 0.4;
-    fighter.initiative += 2;
-  }
+    if (skill === SkillName.saboteur) {
+      fighter.saboteur = true;
+    }
 
-  /* COMBO */
+    if (skill === SkillName.sabotage) {
+      fighter.sabotage = true;
+    }
 
-  // +20% combo for `fistsOfFury`
-  if (brute.skills.includes(SkillName.fistsOfFury)) {
-    fighter.combo += 0.2;
-  }
+    if (skill === SkillName.bodybuilder) {
+      fighter.bodybuilder = true;
+    }
 
-  /* REVERSAL */
+    if (skill === SkillName.survival) {
+      fighter.survival = true;
+    }
 
-  // +30% reversal for `hostility`
-  if (brute.skills.includes(SkillName.hostility)) {
-    fighter.reversal += 0.30;
-  }
+    if (skill === SkillName.balletShoes) {
+      fighter.balletShoes = true;
+    }
 
-  /* BLOCK */
+    if (skill === SkillName.determination) {
+      fighter.determination = true;
+    }
 
-  // +XX% block for `shield`
-  if (brute.skills.includes(SkillName.shield)) {
-    fighter.block += SHIELD_BLOCK_ODDS;
-    fighter.shield = true;
-  }
+    if (skill === SkillName.ironHead) {
+      fighter.ironHead = true;
+    }
 
-  // +10% block for `counterAttack`
-  if (brute.skills.includes(SkillName.counterAttack)) {
-    fighter.block += 0.1;
-  }
+    if (skill === SkillName.resistant) {
+      fighter.resistant = true;
+    }
 
-  /* ACCURACY */
-
-  // +30% accuracy for `relentless`
-  if (brute.skills.includes(SkillName.relentless)) {
-    fighter.accuracy += 0.3;
-  }
-
-  /* ARMOR */
-
-  // +25% armor for `armor`
-  if (brute.skills.includes(SkillName.armor)) {
-    fighter.armor += 0.25;
-  }
-
-  // +10% armor for `toughenedSkin`
-  if (brute.skills.includes(SkillName.toughenedSkin)) {
-    fighter.armor += 0.1;
-  }
-
-  /* DISARM */
-
-  // +50% disarm for `shock`
-  if (brute.skills.includes(SkillName.shock)) {
-    fighter.disarm += 0.5;
-  }
-
-  /* EVASION */
-
-  // +30% evasion for `untouchable`
-  if (brute.skills.includes(SkillName.untouchable)) {
-    fighter.evasion += 0.3;
-  }
-
-  // +10% evasion for `balletShoes
-  if (brute.skills.includes(SkillName.balletShoes)) {
-    fighter.evasion += 0.1;
-  }
-
-  /* DEFLECT */
-
-  // +30% deflect for `repulse`
-  if (brute.skills.includes(SkillName.repulse)) {
-    fighter.deflect += 0.3;
-  }
-
-  /* PASSIVES */
-
-  if (brute.skills.includes(SkillName.saboteur)) {
-    fighter.saboteur = true;
-  }
-  if (brute.skills.includes(SkillName.sabotage)) {
-    fighter.sabotage = true;
-  }
-  if (brute.skills.includes(SkillName.bodybuilder)) {
-    fighter.bodybuilder = true;
-  }
-  if (brute.skills.includes(SkillName.survival)) {
-    fighter.survival = true;
-  }
-  if (brute.skills.includes(SkillName.balletShoes)) {
-    fighter.balletShoes = true;
-  }
-  if (brute.skills.includes(SkillName.determination)) {
-    fighter.determination = true;
-  }
-  if (brute.skills.includes(SkillName.ironHead)) {
-    fighter.ironHead = true;
-  }
-  if (brute.skills.includes(SkillName.resistant)) {
-    fighter.resistant = true;
-  }
-  if (brute.skills.includes(SkillName.monk)) {
-    fighter.monk = true;
+    if (skill === SkillName.monk) {
+      fighter.monk = true;
+    }
   }
 };
 

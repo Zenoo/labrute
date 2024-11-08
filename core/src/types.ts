@@ -487,6 +487,8 @@ export interface TreatStep {
   t: number;
   /** HP healed */
   h: number;
+  /** Cured poison? */
+  c?: 1 | 0;
 }
 
 export interface DropShieldStep {

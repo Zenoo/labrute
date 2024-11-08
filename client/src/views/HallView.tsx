@@ -52,7 +52,7 @@ const HallView = () => {
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b, favorite: !wasFavorite,
         } : b)).sort((a, b) => (a.favorite === b.favorite
-          ? a.createdAt.getTime() - b.createdAt.getTime()
+          ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
           : a.favorite ? -1 : 1)),
       }) : null));
     }).catch(catchError(Alert));

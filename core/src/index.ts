@@ -270,6 +270,7 @@ export type FightCreateResponse = {
   fightsLeft: number,
   xpWon: number,
   victories: number,
+  losses: number,
 };
 export type FightGetResponse = Fight & {
   favoritedBy: Pick<Brute, 'id'>[],

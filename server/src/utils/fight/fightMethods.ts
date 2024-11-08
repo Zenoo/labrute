@@ -4,10 +4,11 @@ import {
   ArriveStep,
   AttemptHitStep,
   BASE_FIGHTER_STATS,
-  DetailedFight, DetailedFighter, FighterStat, HitStep, LeaveStep,
+  DetailedFight, DetailedFighter, FighterStat, FightStat, HitStep, LeaveStep,
   NO_WEAPON_TOSS,
-  randomBetween, randomItem, SHIELD_BLOCK_ODDS, Skill,
-  SkillByName, StepType, updateAchievement, Weapon,
+  randomBetween, randomItem,
+  Skill,
+  SkillByName, SkillModifiers, StepType, TreatStep, updateAchievement, Weapon,
   WeaponByName,
   WeaponType,
 } from '@labrute/core';
@@ -59,9 +60,10 @@ const getFighterStat = (
     if (fighter.activeWeapon) {
       const weaponStat = fighter.activeWeapon[stat];
 
-      // +10% dexterity if `bodybuilder` and using a heavy weapon
+      // BODYBUILDER
       if (fighter.bodybuilder && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
-        return weaponStat + 0.1;
+        return weaponStat
+          + (SkillModifiers[SkillName.bodybuilder][FightStat.DEXTERITY]?.percent ?? 0) / 100;
       }
 
       return weaponStat;
@@ -385,13 +387,17 @@ const increaseInitiative = (fighter: DetailedFighter) => {
     + (random / 100);
 
   // Reduce tempo lost if fighter has `bodybuilder` and is using a heavy weapon
-  if (fighter.activeWeapon && fighter.bodybuilder && fighter.activeWeapon.types.includes('heavy')) {
-    tempo *= 0.75;
+  if (fighter.activeWeapon
+    && fighter.bodybuilder
+    && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
+    tempo *= (100 - (SkillModifiers[SkillName.bodybuilder][FightStat.HIT_SPEED]?.percent ?? 0))
+      / 100;
   }
 
   // Increase tempo lost if fighter has `monk`
   if (fighter.monk) {
-    tempo *= 2;
+    tempo *= (100 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0))
+      / 100;
   }
 
   fighter.initiative += tempo;
@@ -1155,6 +1161,13 @@ const activateSuper = (
       );
       pet.hp += heal;
 
+      let poisonHeal = false;
+
+      if (pet.poisoned) {
+        pet.poisoned = false;
+        poisonHeal = true;
+      }
+
       // Untrap pet
       if (pet.trapped) {
         pet.trapped = false;
@@ -1175,12 +1188,18 @@ const activateSuper = (
       });
 
       // Add treat step
-      fightData.steps.push({
+      const step: TreatStep = {
         a: StepType.Treat,
         b: fighter.index,
         t: pet.index,
         h: heal,
-      });
+      };
+
+      if (poisonHeal) {
+        step.c = 1;
+      }
+
+      fightData.steps.push(step);
 
       // Add moveBack step
       fightData.steps.push({
@@ -1334,13 +1353,13 @@ const block = ({
 
   let opponentBlock = getFighterStat(opponent, 'block');
 
-  // +25% block if blocking a throwing a weapon with `Hideaway`
+  // increase block if blocking a throwing a weapon with `Hideaway`
   if (thrown && opponent.skills.find((sk) => sk.name === SkillName.hideaway)) {
-    opponentBlock += 0.25;
+    opponentBlock += (SkillModifiers[SkillName.hideaway][FightStat.BLOCK]?.percent ?? 0) / 100;
   }
 
   return Math.random() * ease
-    < (opponentBlock - getFighterStat(fighter, 'accuracy', 'weapon'));
+    < (opponentBlock - getFighterStat(fighter, 'accuracy'));
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
@@ -1375,7 +1394,7 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
     < Math.min(
       (getFighterStat(opponent, 'evasion')
         + agilityDifference * 0.01
-        - getFighterStat(fighter, 'accuracy', 'fighter')
+        - getFighterStat(fighter, 'accuracy')
         - getFighterStat(fighter, 'dexterity')),
       0.9,
     );
@@ -1430,9 +1449,10 @@ const reversal = (opponent: DetailedFighter, blocked: boolean) => {
 
   let reversalStat = getFighterStat(opponent, 'reversal');
 
-  // Special case when blocking with counterAttack (+90%)
+  // Incrase reversal when blocking with counterAttack
   if (blocked && opponent.skills.find((sk) => sk.name === SkillName.counterAttack)) {
-    reversalStat += 0.9;
+    reversalStat += (SkillModifiers[SkillName.counterAttack][FightStat.REVERSAL]?.percent ?? 0)
+      / 100;
   }
 
   return random < reversalStat;
@@ -1714,7 +1734,7 @@ const startAttack = (
     }
 
     // Check if the opponent reverses the attack
-    if (!opponentWasTrapped && attackResult.reversed) {
+    if (!opponentWasTrapped && attackResult.reversed && opponent.hp > 0) {
       // Update reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
       checkAchievements(stats, achievements);

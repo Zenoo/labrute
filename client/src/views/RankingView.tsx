@@ -12,6 +12,7 @@ import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import { useAuth } from '../hooks/useAuth';
+import { useBrute } from '../hooks/useBrute';
 
 const RankingView = () => {
   const { t } = useTranslation();
@@ -19,8 +20,9 @@ const RankingView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { currentEvent } = useAuth();
+  const { brute } = useBrute();
 
-  const ranking = useMemo(() => (typeof rank === 'undefined' ? undefined : rank === 'event' ? -1 : +rank), [rank]);
+  const ranking = useMemo(() => (typeof rank === 'undefined' ? brute?.eventId ? -1 : undefined : rank === 'event' ? -1 : +rank), [brute?.eventId, rank]);
 
   const rankingProps = useMemo(() => ({
     name: bruteName || '',
@@ -34,9 +36,9 @@ const RankingView = () => {
       ? rankings.topBrutes[0]?.ranking
       : undefined)), [ranking, rankings]);
 
-  const bruteRow = (brute: BrutesGetForRankResponse['topBrutes'][number], index: number) => (
+  const bruteRow = (b: BrutesGetForRankResponse['topBrutes'][number], index: number) => (
     <TableRow
-      key={brute.id}
+      key={b.id}
     >
       <TableCell component="th" scope="row">
         {index + 1}
@@ -49,16 +51,16 @@ const RankingView = () => {
         }}
         >
           <Box width={24} height={1}>
-            <BruteRender brute={brute} y={-5} />
+            <BruteRender brute={b} y={-5} />
           </Box>
-          <Link to={`/${brute.name}/cell`} sx={{ ml: 1 }}>
-            <Text bold>{brute.name}</Text>
+          <Link to={`/${b.name}/cell`} sx={{ ml: 1 }}>
+            <Text bold>{b.name}</Text>
           </Link>
         </Box>
       </TableCell>
-      <TableCell align="right">{t('level')} {brute.level}</TableCell>
+      <TableCell align="right">{t('level')} {b.level}</TableCell>
       {rankingSelected === 0 && (
-        <TableCell align="right">{brute.ascensions}</TableCell>
+        <TableCell align="right">{b.ascensions}</TableCell>
       )}
     </TableRow>
   );
@@ -154,7 +156,7 @@ const RankingView = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rankings.topBrutes.map((brute, index) => bruteRow(brute, index))}
+                {rankings.topBrutes.map((b, index) => bruteRow(b, index))}
                 {!!rankings.nearbyBrutes.length && (
                   <>
                     {rankings.position > 18 && (
@@ -165,8 +167,8 @@ const RankingView = () => {
                       </TableRow>
                     )}
                     {rankings.nearbyBrutes.map(
-                      (brute, index) => bruteRow(
-                        brute,
+                      (b, index) => bruteRow(
+                        b,
                         [16, 17].includes(rankings.position)
                           ? 15 + index
                           : rankings.position - 3 + index,

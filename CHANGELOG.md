@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.5](https://github.com/Zenoo/labrute/compare/labrute-v2.74.4...labrute-v2.74.5) (2024-11-07)
+
+
+### Bug Fixes
+
+* Topbar visual bug ([baaeb59](https://github.com/Zenoo/labrute/commit/baaeb594b001daf14804c48317b767638028160b))
+
+## [2.74.4](https://github.com/Zenoo/labrute/compare/labrute-v2.74.3...labrute-v2.74.4) (2024-11-07)
+
+
+### Bug Fixes
+
+* 30 max favorited brutes. Fixes [#1009](https://github.com/Zenoo/labrute/issues/1009) ([3508f1e](https://github.com/Zenoo/labrute/commit/3508f1e06b924f5e16f16fcb9038c4a1d1813c8e))
+* Decrease sai disarm, increase sai deflect. Fixes [#1001](https://github.com/Zenoo/labrute/issues/1001) ([052a3c4](https://github.com/Zenoo/labrute/commit/052a3c4c411a01e319f9e147110ff2111d696789))
+* Display gold needed for a new Brute. Fixes [#1019](https://github.com/Zenoo/labrute/issues/1019) ([805643f](https://github.com/Zenoo/labrute/commit/805643f3a15dda640ca61ecd85e83792d7a5bad6))
+* Don't trigger reversal when at 0 HP. Fixes [#998](https://github.com/Zenoo/labrute/issues/998) ([b7afbd9](https://github.com/Zenoo/labrute/commit/b7afbd92bc54400bfbe1e8282c886828ea450b56))
+* Get skill modifiers from a single source. Fixes [#1016](https://github.com/Zenoo/labrute/issues/1016) ([e391031](https://github.com/Zenoo/labrute/commit/e391031c6e93176004973451ad5cc6cc6f244e76))
+* Redirect to event ranking from event brute cells. Fixes [#999](https://github.com/Zenoo/labrute/issues/999) ([cfe4478](https://github.com/Zenoo/labrute/commit/cfe447883f4624c2811689adf219545c11740a52))
+* Simplify accuracy use in fights ([099ff45](https://github.com/Zenoo/labrute/commit/099ff45c2a04ca54b6b91de4225e8a08e3102d93))
+* Treat cures Chef's poison. Fixes [#1002](https://github.com/Zenoo/labrute/issues/1002) ([119f8d2](https://github.com/Zenoo/labrute/commit/119f8d289ea8b64bd631bad1affbbffae118029d))
+
 ## [2.74.3](https://github.com/Zenoo/labrute/compare/labrute-v2.74.2...labrute-v2.74.3) (2024-11-01)
 
 
