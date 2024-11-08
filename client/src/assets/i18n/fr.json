@@ -576,7 +576,6 @@
   "fight.step.stun": "{{brute}} a été étourdi.",
   "fight.step.haste": "{{brute}} s'est précipité sur {{opponent}} et lui a infligé {{damage}} dégâts.",
   "fight.step.treat": "{{brute}} a donné une friandise à son familier {{target}} et l'a soigné de {{heal}}PV.",
-  "fight.step.dropShield": "{{brute}} a lâché son bouclier.",
   "fight.wonTheFight": "{{brute}} a gagné le match",
   "fight.play": "Jouer",
   "fight.pause": "Pause",

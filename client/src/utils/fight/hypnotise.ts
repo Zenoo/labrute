@@ -5,14 +5,12 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import setHUDFocus from './setHUDFocus';
 
 const hypnotise = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HypnotiseStep,
   speed: React.MutableRefObject<number>,
-  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -27,9 +25,6 @@ const hypnotise = async (
   if (!brute) {
     throw new Error('Brute not found');
   }
-
-  // Display brute in HUD
-  setHUDFocus(app, fighters, brute, speed, isClanWar);
 
   const animationEnded = brute.animation.waitForEvent('strengthen:end');
 

@@ -9,7 +9,6 @@ import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import setHUDFocus from './setHUDFocus';
 import updateWeapons from './updateWeapons';
 import { WeaponName } from '@labrute/prisma';
 import { untrap } from './untrap';
@@ -38,10 +37,6 @@ const flashFlood = async (
   if (!target) {
     throw new Error('Target not found');
   }
-
-  // Display fighter and target in HUD
-  setHUDFocus(app, fighters, fighter, speed, isClanWar);
-  setHUDFocus(app, fighters, target, speed, isClanWar);
 
   const startedWithAWeapon = fighter.animation.weapon !== null;
 

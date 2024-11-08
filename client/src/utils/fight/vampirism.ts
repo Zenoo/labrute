@@ -8,7 +8,6 @@ import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { displayHeal } from './utils/displayHeal';
 import displayDamage from './utils/displayDamage';
-import setHUDFocus from './setHUDFocus';
 import updateHp from './updateHp';
 import { untrap } from './untrap';
 
@@ -27,10 +26,6 @@ export const vampirism = async (
   if (!target) {
     throw new Error('Target not found');
   }
-
-  // Display brute and target in HUD
-  setHUDFocus(app, fighters, brute, speed, isClanWar);
-  setHUDFocus(app, fighters, target, speed, isClanWar);
 
   // Move brute to target position
   await Tweener.add({

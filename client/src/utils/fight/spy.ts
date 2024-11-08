@@ -30,7 +30,7 @@ const spy = async (
     // Remove weapon from brute
     brute.weapons.splice(index, 1);
 
-    const illustrationIndex = brute.weaponsIllustrations
+    const illustrationIndex = brute.teamWeaponsIllustrations
       .findIndex((weapon) => (+weapon.name as WeaponId) === weaponToSwap);
 
     if (illustrationIndex === -1) {
@@ -38,7 +38,7 @@ const spy = async (
     }
 
     // Remove weapon illustration from brute
-    const [weaponIllustration] = brute.weaponsIllustrations.splice(illustrationIndex, 1);
+    const [weaponIllustration] = brute.teamWeaponsIllustrations.splice(illustrationIndex, 1);
 
     if (!weaponIllustration) {
       throw new Error('Weapon illustration not found');
@@ -46,7 +46,7 @@ const spy = async (
 
     // Add weapon to opponent
     opponent.weapons.push(weaponToSwap);
-    opponent.weaponsIllustrations.push(weaponIllustration);
+    opponent.teamWeaponsIllustrations.push(weaponIllustration);
   }
 
   // Give opponent weapons to brute
@@ -59,7 +59,7 @@ const spy = async (
     // Remove weapon from opponent
     opponent.weapons.splice(index, 1);
 
-    const illustrationIndex = opponent.weaponsIllustrations
+    const illustrationIndex = opponent.teamWeaponsIllustrations
       .findIndex((weapon) => (+weapon.name as WeaponId) === weaponToSwap);
 
     if (illustrationIndex === -1) {
@@ -67,7 +67,7 @@ const spy = async (
     }
 
     // Remove weapon illustration from opponent
-    const [weaponIllustration] = opponent.weaponsIllustrations.splice(illustrationIndex, 1);
+    const [weaponIllustration] = opponent.teamWeaponsIllustrations.splice(illustrationIndex, 1);
 
     if (!weaponIllustration) {
       throw new Error('Weapon illustration not found');
@@ -75,21 +75,21 @@ const spy = async (
 
     // Add weapon to brute
     brute.weapons.push(weaponToSwap);
-    brute.weaponsIllustrations.push(weaponIllustration);
+    brute.teamWeaponsIllustrations.push(weaponIllustration);
   }
 
   // Sort weapons
   brute.weapons.sort((a, b) => a - b);
   opponent.weapons.sort((a, b) => a - b);
-  brute.weaponsIllustrations.sort((a, b) => +a.name - +b.name);
-  opponent.weaponsIllustrations.sort((a, b) => +a.name - +b.name);
+  brute.teamWeaponsIllustrations.sort((a, b) => +a.name - +b.name);
+  opponent.teamWeaponsIllustrations.sort((a, b) => +a.name - +b.name);
 
   // Swap weapon illustrations
-  [brute.weaponsIllustrations, opponent.weaponsIllustrations]
-    .forEach((weaponsIllustrations, index) => {
+  [brute.teamWeaponsIllustrations, opponent.teamWeaponsIllustrations]
+    .forEach((teamWeaponsIllustrations, index) => {
       const fighter = index === 0 ? opponent : brute;
 
-      weaponsIllustrations
+      teamWeaponsIllustrations
         .forEach((weapon, i) => {
           // Get random duration
           const duration = 1 + randomBetween(1, 10) / 10;

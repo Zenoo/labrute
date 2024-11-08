@@ -6,14 +6,12 @@ import { BevelFilter } from '@pixi/filter-bevel';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import setHUDFocus from './setHUDFocus';
 
 const trash = async (
   app: Application,
   fighters: AnimationFighter[],
   step: TrashStep,
   speed: React.MutableRefObject<number>,
-  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -28,9 +26,6 @@ const trash = async (
   if (!brute) {
     throw new Error('Brute not found');
   }
-
-  // Display brute in HUD
-  setHUDFocus(app, fighters, brute, speed, isClanWar);
 
   const animationEnded = brute.animation.waitForEvent('trash:end');
 

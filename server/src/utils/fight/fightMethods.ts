@@ -1410,7 +1410,8 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
 const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
   // Remove brute's shield
   fighter.shield = false;
-  fighter.block -= SHIELD_BLOCK_ODDS;
+  fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
+  fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
 
   // Add dropShield step
   fightData.steps.push({

@@ -576,7 +576,6 @@
   "fight.step.stun": "{{brute}} was stunned.",
   "fight.step.haste": "{{brute}} rushed past {{opponent}} and dealt {{damage}} damage.",
   "fight.step.treat": "{{brute}} gave their pet {{target}} a treat and healed them for {{heal}}HP.",
-  "fight.step.dropShield": "{{brute}} dropped it's shield.",
   "fight.wonTheFight": "{{brute}} venceu a luta",
   "fight.play": "Reproduzir",
   "fight.pause": "Pausar",

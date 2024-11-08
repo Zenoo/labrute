@@ -3,7 +3,7 @@ import { Fighter } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 
 async function createBustImage(
-  brute: Fighter,
+  brute: Omit<Fighter, 'shield'>,
   renderer: RendererContextInterface,
 ): Promise<HTMLImageElement | null> {
   return new Promise<HTMLImageElement | null>((resolve) => {

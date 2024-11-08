@@ -5,14 +5,12 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
-import setHUDFocus from './setHUDFocus';
 
 const throwWeapon = async (
   app: Application,
   fighters: AnimationFighter[],
   step: ThrowStep,
   speed: React.MutableRefObject<number>,
-  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -32,10 +30,6 @@ const throwWeapon = async (
   if (!target) {
     throw new Error('Opponent not found');
   }
-
-  // Display fighter and target in HUD
-  setHUDFocus(app, fighters, fighter, speed, isClanWar);
-  setHUDFocus(app, fighters, target, speed, isClanWar);
 
   // Weapon return
   if (step.r) {

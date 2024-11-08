@@ -6,14 +6,12 @@ import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import setHUDFocus from './setHUDFocus';
 
 const skillActivate = async (
   app: Application,
   fighters: AnimationFighter[],
   step: SkillActivateStep,
   speed: React.MutableRefObject<number>,
-  isClanWar: boolean,
 ) => {
   if (!app.loader) {
     return;
@@ -28,9 +26,6 @@ const skillActivate = async (
   if (!brute) {
     throw new Error('Brute not found');
   }
-
-  // Display brute in HUD
-  setHUDFocus(app, fighters, brute, speed, isClanWar);
 
   // Play skill SFX
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute].includes(step.s)) {

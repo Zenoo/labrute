@@ -6,10 +6,10 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   type: 'brute' | 'pet' | 'boss';
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
-  weaponsIllustrations: PIXI.Sprite[];
+  teamWeaponsIllustrations: PIXI.Sprite[];
   HUDFocused: boolean;
   animation: FighterHolder;
-  bustImage: HTMLImageElement | undefined;
+  bustImage: HTMLImageElement | null;
   bust: PIXI.Sprite | undefined;
   text: PIXI.Text | undefined;
   trapped?: boolean;
@@ -26,7 +26,7 @@ export const findHUDFocusedFighter = (
   team: string,
 ) => {
   const animationFighter = fighters.find((f) => f.HUDFocused && f.team === team);
-  return fightFighters?.find((f) => f.id === animationFighter?.id);
+  return fightFighters.find((f) => f.id === animationFighter?.id);
 };
 
 export default findFighter;

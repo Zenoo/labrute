@@ -50,6 +50,7 @@ import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
+import setHUDFocus from './setHUDFocus';
 
 const setupFight: (
   theme: Theme,
@@ -381,79 +382,75 @@ const setupFight: (
   await sound.play('background', { loop: true });
 
   // Get fighters animations
-  fighters = await Promise.all(
-    fightFighters.map(async (fighter) => {
-      // Necessary since .team was added later
-      // TODO: Remove on release
-      if (!fighter.team) {
-        fighter.team = (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
-      }
+  fighters = fightFighters.map((fighter) => {
+    // Necessary since .team was added later
+    // TODO: Remove on release
+    if (!fighter.team) {
+      fighter.team = (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
+    }
 
-      const animationFighter: AnimationFighter = {
-        ...fighter,
-        hpBar: (fighter.master
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1HpBar
-            : fighter.team === brute2?.team
-              ? team2HpBar
-              : fighter.id === boss?.id
-                ? bossHpBar
-                : undefined) ?? undefined,
-        hpBarPhantom: (fighter.master
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1PhantomHpBar
-            : fighter.team === brute2?.team
-              ? team2PhantomHpBar
-              : fighter.id === boss?.id
-                ? bossPhantomHpBar
-                : undefined) ?? undefined,
-        bustImage: (fighter.master
-          ? undefined
-          : fighter.id === brute1.id
-            ? brute1BustImg
-            : fighter.id === brute2?.id
-              ? brute2BustImg
-              : fighter.type === 'brute'
-                ? await createBustImage(fighter, renderer)
-                : undefined) ?? undefined,
-        bust: (fighter.master
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1Bust
-            : fighter.team === brute2?.team
-              ? team2Bust
+    const animationFighter: AnimationFighter = {
+      ...fighter,
+      hpBar: (fighter.master
+        ? undefined
+        : fighter.team === brute1.team
+          ? team1HpBar
+          : fighter.team === brute2?.team
+            ? team2HpBar
+            : fighter.id === boss?.id
+              ? bossHpBar
               : undefined) ?? undefined,
-        text: (fighter.master
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1Text
-            : fighter.team === brute2?.team
-              ? team2Text
+      hpBarPhantom: (fighter.master
+        ? undefined
+        : fighter.team === brute1.team
+          ? team1PhantomHpBar
+          : fighter.team === brute2?.team
+            ? team2PhantomHpBar
+            : fighter.id === boss?.id
+              ? bossPhantomHpBar
               : undefined) ?? undefined,
-        weaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
-        HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
-        animation: new FighterHolder(
-          app,
-          fighter,
-          speed
-        ),
-      };
+      bustImage: (fighter.master
+        ? null
+        : fighter.id === brute1.id
+          ? brute1BustImg
+          : fighter.id === brute2?.id
+            ? brute2BustImg
+            : null) ?? null,
+      bust: (fighter.master
+        ? undefined
+        : fighter.team === brute1.team
+          ? team1Bust
+          : fighter.team === brute2?.team
+            ? team2Bust
+            : undefined) ?? undefined,
+      text: (fighter.master
+        ? undefined
+        : fighter.team === brute1.team
+          ? team1Text
+          : fighter.team === brute2?.team
+            ? team2Text
+            : undefined) ?? undefined,
+      teamWeaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
+      HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
+      animation: new FighterHolder(
+        app,
+        fighter,
+        speed
+      ),
+    };
 
-      // Set position
-      animationFighter.animation.container.x = fighter.team === 'L' ? -100 : 600;
-      animationFighter.animation.container.y = 150;
+    // Set position
+    animationFighter.animation.container.x = fighter.team === 'L' ? -100 : 600;
+    animationFighter.animation.container.y = 150;
 
-      // Add to stage
-      app.stage?.addChild(animationFighter.animation.container);
+    // Add to stage
+    app.stage?.addChild(animationFighter.animation.container);
 
-      // Update brute weapons
-      updateWeapons(app, animationFighter);
+    // Update brute weapons
+    updateWeapons(app, animationFighter);
 
-      return animationFighter;
-    })
-  );
+    return animationFighter;
+  });
 
   // Wait for all fighters to be loaded
   while (fighters.some((fighter) => !fighter.animation.loaded)) {
@@ -478,9 +475,22 @@ const setupFight: (
       throw new Error('Step not found');
     }
 
+    // Display step's brute in HUD
+    if ('b' in step && step.a !== StepType.AttemptHit) {
+      void setHUDFocus(app, renderer, fighters, step.b, speed, isClanWar);
+    }
+    // Display step's fighter in HUD
+    if ('f' in step) {
+      void setHUDFocus(app, renderer, fighters, step.f, speed, isClanWar);
+    }
+    // Display step's target in HUD
+    if ('t' in step && step.a !== StepType.Bomb) {
+      void setHUDFocus(app, renderer, fighters, step.t, speed, isClanWar);
+    }
+
     switch (step.a) {
       case StepType.Move: {
-        await moveTo(app, fighters, step, speed, isClanWar);
+        await moveTo(app, fighters, step, speed);
         break;
       }
       case StepType.MoveBack: {
@@ -529,15 +539,15 @@ const setupFight: (
         break;
       }
       case StepType.Steal: {
-        await steal(app, fighters, step, speed, isClanWar);
+        await steal(app, fighters, step, speed);
         break;
       }
       case StepType.Throw: {
-        await throwWeapon(app, fighters, step, speed, isClanWar);
+        await throwWeapon(app, fighters, step, speed);
         break;
       }
       case StepType.Trash: {
-        await trash(app, fighters, step, speed, isClanWar);
+        await trash(app, fighters, step, speed);
         break;
       }
       case StepType.Eat: {
@@ -553,7 +563,7 @@ const setupFight: (
         break;
       }
       case StepType.Trap: {
-        await trap(app, fighters, step, speed, isClanWar);
+        await trap(app, fighters, step, speed);
         break;
       }
       case StepType.Block: {
@@ -561,7 +571,7 @@ const setupFight: (
         break;
       }
       case StepType.SkillActivate: {
-        await skillActivate(app, fighters, step, speed, isClanWar);
+        await skillActivate(app, fighters, step, speed);
         break;
       }
       case StepType.SkillExpire: {
@@ -573,11 +583,11 @@ const setupFight: (
         break;
       }
       case StepType.Hypnotise: {
-        await hypnotise(app, fighters, step, speed, isClanWar);
+        await hypnotise(app, fighters, step, speed);
         break;
       }
       case StepType.Equip: {
-        await equip(app, fighters, step, speed, isClanWar);
+        await equip(app, fighters, step, speed);
         break;
       }
       case StepType.Sabotage: {

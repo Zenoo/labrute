@@ -6,14 +6,12 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import setHUDFocus from './setHUDFocus';
 
 const steal = async (
   app: Application,
   fighters: AnimationFighter[],
   step: StealStep,
   speed: React.MutableRefObject<number>,
-  isClanWar: boolean,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -23,10 +21,6 @@ const steal = async (
   if (!target) {
     throw new Error('Target not found');
   }
-
-  // Display brute and target in HUD
-  setHUDFocus(app, fighters, brute, speed, isClanWar);
-  setHUDFocus(app, fighters, target, speed, isClanWar);
 
   // Move brute to target position
   await Tweener.add({

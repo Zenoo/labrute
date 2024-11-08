@@ -9,7 +9,6 @@ import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import setHUDFocus from './setHUDFocus';
 import { untrap } from './untrap';
 
 export const haste = async (
@@ -37,10 +36,6 @@ export const haste = async (
   if (!target) {
     throw new Error('Target not found');
   }
-
-  // Display brute and target in HUD
-  setHUDFocus(app, fighters, brute, speed, isClanWar);
-  setHUDFocus(app, fighters, target, speed, isClanWar);
 
   // Play skill SFX
   void sound.play('skills/fierceBrute', {

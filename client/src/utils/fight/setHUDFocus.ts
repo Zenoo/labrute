@@ -1,16 +1,24 @@
 /* eslint-disable no-param-reassign */
-import { AnimationFighter } from './utils/findFighter';
+import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateHp from './updateHp';
 import updateWeapons from './updateWeapons';
 import { Application, Texture } from 'pixi.js';
+import createBustImage from './utils/createBustImage';
+import { RendererContextInterface } from '../../hooks/useRenderer';
 
-const setHUDFocus = (
+const setHUDFocus = async (
   app: Application,
+  renderer: RendererContextInterface,
   fighters: AnimationFighter[],
-  fighter: AnimationFighter,
+  fighterIndex: number,
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
+  const fighter = findFighter(fighters, fighterIndex);
+  if (!fighter) {
+    throw new Error('Fighter not found');
+  }
+
   if (fighter.HUDFocused || fighter.master) return;
 
   fighters.forEach((f) => {
@@ -22,6 +30,10 @@ const setHUDFocus = (
 
   if (fighter.text) {
     fighter.text.text = fighter.name.toLocaleUpperCase();
+  }
+
+  if (!fighter.bustImage && fighter.type === 'brute') {
+    fighter.bustImage = await createBustImage(fighter, renderer);
   }
 
   if (fighter.bust && fighter.bustImage) {

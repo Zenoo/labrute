@@ -68,7 +68,7 @@ const attemptHit = async (
       target.team === 'L'
         ? target.animation.container.x + FIGHTER_WIDTH.brute * 0.25
         : target.animation.container.x + FIGHTER_WIDTH.brute * 0.25,
-      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.3,
+      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.4,
     );
 
     // Set angle

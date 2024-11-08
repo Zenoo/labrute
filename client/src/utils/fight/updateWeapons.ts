@@ -23,10 +23,10 @@ const updateWeapons = (
   // Only affect the HUD for the focused brutes
   if (brute.HUDFocused) {
     // Empty list
-    brute.weaponsIllustrations.forEach((illustration) => {
+    brute.teamWeaponsIllustrations.forEach((illustration) => {
       illustration.destroy();
     });
-    brute.weaponsIllustrations.splice(0);
+    brute.teamWeaponsIllustrations.length = 0;
   }
 
   // Add new weapon
@@ -71,7 +71,7 @@ const updateWeapons = (
       sprite.y = Math.floor(index / 9) * 20 + 40;
       sprite.filters = [new OutlineFilter()];
       app.stage.addChild(sprite);
-      brute.weaponsIllustrations.push(sprite);
+      brute.teamWeaponsIllustrations.push(sprite);
     });
   }
 };

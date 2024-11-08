@@ -6,7 +6,6 @@ import { AnimatedSprite, Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
 import stagger from './stagger';
 import updateHp from './updateHp';
-import setHUDFocus from './setHUDFocus';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { untrap } from './untrap';
@@ -41,9 +40,6 @@ const bomb = async (
   if (!fighter) {
     throw new Error('Fighter not found');
   }
-
-  // Display fighter in HUD
-  setHUDFocus(app, fighters, fighter, speed, isClanWar);
 
   // Set animation to `launch`
   fighter.animation.setAnimation('launch');
