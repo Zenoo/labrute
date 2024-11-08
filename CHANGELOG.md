@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.6](https://github.com/Zenoo/labrute/compare/labrute-v2.74.5...labrute-v2.74.6) (2024-11-08)
+
+
+### Bug Fixes
+
+* Counter attack triggering without blocking ([b769448](https://github.com/Zenoo/labrute/commit/b769448f5f66164335c74a23d8eb703d6e0c71f6))
+
 ## [2.74.5](https://github.com/Zenoo/labrute/compare/labrute-v2.74.4...labrute-v2.74.5) (2024-11-07)
 
 

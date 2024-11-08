@@ -26,6 +26,9 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     for (const [unsafeStat, modifier] of Object.entries(SkillModifiers[skill])) {
       const stat = unsafeStat as FightStat;
 
+      // Ignore conditional modifiers
+      if (modifier.details) continue;
+
       // Ignore some stats handled elsewhere
       if (stat === FightStat.DEXTERITY
         || stat === FightStat.DAMAGE
