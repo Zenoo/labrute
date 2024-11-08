@@ -1487,7 +1487,7 @@ const attack = (
       // Remove shield from opponent
       opponent.shield = false;
       opponent.skills = opponent.skills.filter((sk) => sk.name !== SkillName.shield);
-      opponent.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
+      opponent.block -= (SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0) / 100;
     } else {
       // Add attempt step as is
       fightData.steps.push(attemptStep);
