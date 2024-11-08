@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.74.7](https://github.com/Zenoo/labrute/compare/labrute-v2.74.6...labrute-v2.74.7) (2024-11-08)
+
+
+### Bug Fixes
+
+* Wrong block calculation ([9f0ee74](https://github.com/Zenoo/labrute/commit/9f0ee74704fb217f22b9f0eb8c3d61514afa9f5a))
+
 ## [2.74.6](https://github.com/Zenoo/labrute/compare/labrute-v2.74.5...labrute-v2.74.6) (2024-11-08)
 
 
