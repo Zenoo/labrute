@@ -1411,7 +1411,7 @@ const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
   // Remove brute's shield
   fighter.shield = false;
   fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
-  fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
+  fighter.block -= (SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0) / 100;
 
   // Add dropShield step
   fightData.steps.push({

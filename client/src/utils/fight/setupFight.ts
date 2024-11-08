@@ -476,15 +476,15 @@ const setupFight: (
     }
 
     // Display step's brute in HUD
-    if ('b' in step && step.a !== StepType.AttemptHit) {
+    if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
       void setHUDFocus(app, renderer, fighters, step.b, speed, isClanWar);
     }
     // Display step's fighter in HUD
-    if ('f' in step) {
+    if ('f' in step && Object.hasOwn(step, 'f')) {
       void setHUDFocus(app, renderer, fighters, step.f, speed, isClanWar);
     }
     // Display step's target in HUD
-    if ('t' in step && step.a !== StepType.Bomb) {
+    if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb) {
       void setHUDFocus(app, renderer, fighters, step.t, speed, isClanWar);
     }
 
