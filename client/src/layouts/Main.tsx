@@ -423,10 +423,15 @@ const Main = () => {
                 <MuiAlert
                   key={notification.id}
                   variant="outlined"
-                  severity="info"
+                  severity={notification.severity}
                   icon={false}
                   action={notification.link && (
-                    <Button color="inherit" size="small" onClick={goTo(notification.link)}>
+                    <Button
+                      color={notification.severity}
+                      size="small"
+                      variant="outlined"
+                      onClick={goTo(notification.link)}
+                    >
                       {t('go')}
                     </Button>
                   )}
