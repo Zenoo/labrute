@@ -590,6 +590,7 @@
   "experience": "Expérience",
   "brute": "Brute",
   "destinyOf": "Destinée de",
+  "moderation": "Moderation",
   "adminPanel": "Panneau d'administration",
   "disableSound": "Désactiver le son",
   "enableSound": "Activer le son",
@@ -1568,5 +1569,14 @@
   "wiki.whatPupilBenefits": "Quels sont leurs avantages ?",
   "wiki.pupilBenefits": "Aucun (pour l'instant)",
   "wiki.pupilExplanation": "Les élèves ne donnent pas d'XP comme dans les versions précédentes du jeu. Mais vous pouvez toujours obtenir des élèves en partageant le lien en haut à droite de votre cellule.",
-  "bruteSetForDeletion": "Une de vos brutes a été marquée pour suppression."
+  "bruteSetForDeletion": "Une de vos brutes a été marquée pour suppression.",
+  "reportAccepted": "Report accepted",
+  "reportRejected": "Report rejected",
+  "status": "Status",
+  "pending": "Pending",
+  "accepted": "Accepted",
+  "rejected": "Rejected",
+  "unknown": "Unknown",
+  "reportedBy": "Reported by",
+  "handledBy": "Handled by"
 }
