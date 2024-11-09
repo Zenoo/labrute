@@ -590,6 +590,7 @@
   "experience": "Experiencia",
   "brute": "Bruto",
   "destinyOf": "Destino de",
+  "moderation": "Moderation",
   "adminPanel": "Panel de administración",
   "disableSound": "Desactivar sonido",
   "enableSound": "Activar sonido",
@@ -1568,5 +1569,14 @@
   "wiki.whatPupilBenefits": "¿Qué beneficios tiene?",
   "wiki.pupilBenefits": "Ninguno (por ahora)",
   "wiki.pupilExplanation": "Los alumnos ya no dan experiencia como en versiones anteriores. Aun así, tu bruto todavía puede tener alumnos compartiendo el enlace en la esquina derecha de su celda.",
-  "bruteSetForDeletion": "One of your brutes has been set for deletion."
+  "bruteSetForDeletion": "One of your brutes has been set for deletion.",
+  "reportAccepted": "Report accepted",
+  "reportRejected": "Report rejected",
+  "status": "Status",
+  "pending": "Pending",
+  "accepted": "Accepted",
+  "rejected": "Rejected",
+  "unknown": "Unknown",
+  "reportedBy": "Reported by",
+  "handledBy": "Handled by"
 }

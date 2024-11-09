@@ -121,5 +121,6 @@
   "oneBrutePerEvent": "В мероприятии может участвовать лишь один из ваших Бруталов",
   "eventNotFound": "Мероприятие не найдено",
   "eventAlreadyStarted": "Мероприятие уже началось",
-  "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии"
+  "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии",
+  "reportAlreadyHandled": "Report already handled"
 }

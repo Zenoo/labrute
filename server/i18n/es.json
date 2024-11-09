@@ -121,5 +121,6 @@
   "oneBrutePerEvent": "Solo puedes tener un bruto por evento",
   "eventNotFound": "No se ha encontrado el evento",
   "eventAlreadyStarted": "El evento ya está en curso",
-  "eventMaxLevelReached": "Has alcanzado el nivel máximo para este evento"
+  "eventMaxLevelReached": "Has alcanzado el nivel máximo para este evento",
+  "reportAlreadyHandled": "Report already handled"
 }
