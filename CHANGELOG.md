@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.76.0](https://github.com/Zenoo/labrute/compare/labrute-v2.75.0...labrute-v2.76.0) (2024-11-09)
+
+
+### Features
+
+* Moderator panel. Fixes [#1014](https://github.com/Zenoo/labrute/issues/1014) ([0d1d9b4](https://github.com/Zenoo/labrute/commit/0d1d9b4557406a0ecbc9fa7c528a0ef631a7c6ae))
+
 ## [2.75.0](https://github.com/Zenoo/labrute/compare/labrute-v2.74.7...labrute-v2.75.0) (2024-11-09)
 
 
