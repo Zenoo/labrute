@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.75.0](https://github.com/Zenoo/labrute/compare/labrute-v2.74.7...labrute-v2.75.0) (2024-11-09)
+
+
+### Features
+
+* Notification system (display notif count in the topbar). Fixes [#1020](https://github.com/Zenoo/labrute/issues/1020) ([042a38d](https://github.com/Zenoo/labrute/commit/042a38dbfdbdfefd9722a8a9de0bf57ebe597036))
+
+
+### Bug Fixes
+
+* Adjust weapon dexterity for clearer impact ([cec0009](https://github.com/Zenoo/labrute/commit/cec000946f5b45b4f116b91c3cb412fad990faa3))
+* Multiple QoL fixes. See [#1017](https://github.com/Zenoo/labrute/issues/1017) desc ([5adac47](https://github.com/Zenoo/labrute/commit/5adac47338e219bfea5c91103237c781101e0e1b))
+* Notification link visibility ([8540a33](https://github.com/Zenoo/labrute/commit/8540a332336b33bf7b6b05179f283dac81f9273b))
+* Update prisma. Fixes [#1022](https://github.com/Zenoo/labrute/issues/1022) ([0c03a0f](https://github.com/Zenoo/labrute/commit/0c03a0fb71751b2d94bc13a77fa7b24da7099d5c))
+
 ## [2.74.7](https://github.com/Zenoo/labrute/compare/labrute-v2.74.6...labrute-v2.74.7) (2024-11-08)
 
 
