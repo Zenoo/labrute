@@ -121,5 +121,6 @@
   "oneBrutePerEvent": "You can only have one brute per event",
   "eventNotFound": "Event not found",
   "eventAlreadyStarted": "Event already started",
-  "eventMaxLevelReached": "You reached the maximum level for this event"
+  "eventMaxLevelReached": "You reached the maximum level for this event",
+  "reportAlreadyHandled": "Report already handled"
 }
