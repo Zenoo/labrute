@@ -258,26 +258,6 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
         }
       ]
     },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: ({ theme }) => theme.unstable_sx({
-          color: 'secondary.main',
-        }),
-        notchedOutline: ({ theme }) => theme.unstable_sx({
-          border: 'none',
-        }),
-        input: ({ theme }) => theme.unstable_sx({
-          fontWeight: 'bold',
-        })
-      }
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: ({ theme }) => theme.unstable_sx({
-          textTransform: 'uppercase',
-        }),
-      }
-    },
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
@@ -343,6 +323,24 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
           boxShadow: 1,
         })
       }
-    }
+    },
+    MuiMenu: {
+      defaultProps: {
+        slotProps: {
+          paper: {
+            variant: 'elevation',
+          }
+        }
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme }) => theme.unstable_sx({
+          '&.Mui-selected': {
+            bgcolor: 'background.paperDark'
+          }
+        })
+      }
+    },
   },
 });

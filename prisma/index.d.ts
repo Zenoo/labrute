@@ -3522,6 +3522,7 @@ export namespace Prisma {
     favoriteFights: number
     following: number
     notifications: number
+    reportsHandled: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3533,6 +3534,7 @@ export namespace Prisma {
     favoriteFights?: boolean | UserCountOutputTypeCountFavoriteFightsArgs
     following?: boolean | UserCountOutputTypeCountFollowingArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    reportsHandled?: boolean | UserCountOutputTypeCountReportsHandledArgs
   }
 
   // Custom InputTypes
@@ -3600,6 +3602,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReportsHandledArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteReportWhereInput
   }
 
 
@@ -4508,6 +4517,7 @@ export namespace Prisma {
     favoriteFights?: boolean | User$favoriteFightsArgs<ExtArgs>
     following?: boolean | User$followingArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    reportsHandled?: boolean | User$reportsHandledArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4557,6 +4567,7 @@ export namespace Prisma {
     favoriteFights?: boolean | User$favoriteFightsArgs<ExtArgs>
     following?: boolean | User$followingArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    reportsHandled?: boolean | User$reportsHandledArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4572,6 +4583,7 @@ export namespace Prisma {
       favoriteFights: Prisma.$FightPayload<ExtArgs>[]
       following: Prisma.$BrutePayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      reportsHandled: Prisma.$BruteReportPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4961,6 +4973,7 @@ export namespace Prisma {
     favoriteFights<T extends User$favoriteFightsArgs<ExtArgs> = {}>(args?: Subset<T, User$favoriteFightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     following<T extends User$followingArgs<ExtArgs> = {}>(args?: Subset<T, User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    reportsHandled<T extends User$reportsHandledArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsHandledArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5557,6 +5570,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.reportsHandled
+   */
+  export type User$reportsHandledArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteReport
+     */
+    select?: BruteReportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteReport
+     */
+    omit?: BruteReportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteReportInclude<ExtArgs> | null
+    where?: BruteReportWhereInput
+    orderBy?: BruteReportOrderByWithRelationInput | BruteReportOrderByWithRelationInput[]
+    cursor?: BruteReportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
   }
 
   /**
@@ -18892,6 +18929,8 @@ export namespace Prisma {
     count: number | null
     date: Date | null
     status: $Enums.BruteReportStatus | null
+    handlerId: string | null
+    handledAt: Date | null
   }
 
   export type BruteReportMaxAggregateOutputType = {
@@ -18901,6 +18940,8 @@ export namespace Prisma {
     count: number | null
     date: Date | null
     status: $Enums.BruteReportStatus | null
+    handlerId: string | null
+    handledAt: Date | null
   }
 
   export type BruteReportCountAggregateOutputType = {
@@ -18910,6 +18951,8 @@ export namespace Prisma {
     count: number
     date: number
     status: number
+    handlerId: number
+    handledAt: number
     _all: number
   }
 
@@ -18929,6 +18972,8 @@ export namespace Prisma {
     count?: true
     date?: true
     status?: true
+    handlerId?: true
+    handledAt?: true
   }
 
   export type BruteReportMaxAggregateInputType = {
@@ -18938,6 +18983,8 @@ export namespace Prisma {
     count?: true
     date?: true
     status?: true
+    handlerId?: true
+    handledAt?: true
   }
 
   export type BruteReportCountAggregateInputType = {
@@ -18947,6 +18994,8 @@ export namespace Prisma {
     count?: true
     date?: true
     status?: true
+    handlerId?: true
+    handledAt?: true
     _all?: true
   }
 
@@ -19043,6 +19092,8 @@ export namespace Prisma {
     count: number
     date: Date
     status: $Enums.BruteReportStatus
+    handlerId: string | null
+    handledAt: Date | null
     _count: BruteReportCountAggregateOutputType | null
     _avg: BruteReportAvgAggregateOutputType | null
     _sum: BruteReportSumAggregateOutputType | null
@@ -19071,8 +19122,11 @@ export namespace Prisma {
     count?: boolean
     date?: boolean
     status?: boolean
+    handlerId?: boolean
+    handledAt?: boolean
     brute?: boolean | BruteDefaultArgs<ExtArgs>
     users?: boolean | BruteReport$usersArgs<ExtArgs>
+    handler?: boolean | BruteReport$handlerArgs<ExtArgs>
     _count?: boolean | BruteReportCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bruteReport"]>
 
@@ -19083,7 +19137,10 @@ export namespace Prisma {
     count?: boolean
     date?: boolean
     status?: boolean
+    handlerId?: boolean
+    handledAt?: boolean
     brute?: boolean | BruteDefaultArgs<ExtArgs>
+    handler?: boolean | BruteReport$handlerArgs<ExtArgs>
   }, ExtArgs["result"]["bruteReport"]>
 
   export type BruteReportSelectScalar = {
@@ -19093,16 +19150,20 @@ export namespace Prisma {
     count?: boolean
     date?: boolean
     status?: boolean
+    handlerId?: boolean
+    handledAt?: boolean
   }
 
-  export type BruteReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "reason" | "count" | "date" | "status", ExtArgs["result"]["bruteReport"]>
+  export type BruteReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "reason" | "count" | "date" | "status" | "handlerId" | "handledAt", ExtArgs["result"]["bruteReport"]>
   export type BruteReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
     users?: boolean | BruteReport$usersArgs<ExtArgs>
+    handler?: boolean | BruteReport$handlerArgs<ExtArgs>
     _count?: boolean | BruteReportCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BruteReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
+    handler?: boolean | BruteReport$handlerArgs<ExtArgs>
   }
 
   export type $BruteReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19110,6 +19171,7 @@ export namespace Prisma {
     objects: {
       brute: Prisma.$BrutePayload<ExtArgs>
       users: Prisma.$UserPayload<ExtArgs>[]
+      handler: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19118,6 +19180,8 @@ export namespace Prisma {
       count: number
       date: Date
       status: $Enums.BruteReportStatus
+      handlerId: string | null
+      handledAt: Date | null
     }, ExtArgs["result"]["bruteReport"]>
     composites: {}
   }
@@ -19484,6 +19548,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
     users<T extends BruteReport$usersArgs<ExtArgs> = {}>(args?: Subset<T, BruteReport$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    handler<T extends BruteReport$handlerArgs<ExtArgs> = {}>(args?: Subset<T, BruteReport$handlerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19519,6 +19584,8 @@ export namespace Prisma {
     readonly count: FieldRef<"BruteReport", 'Int'>
     readonly date: FieldRef<"BruteReport", 'DateTime'>
     readonly status: FieldRef<"BruteReport", 'BruteReportStatus'>
+    readonly handlerId: FieldRef<"BruteReport", 'String'>
+    readonly handledAt: FieldRef<"BruteReport", 'DateTime'>
   }
     
 
@@ -19907,6 +19974,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * BruteReport.handler
+   */
+  export type BruteReport$handlerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -33675,7 +33761,9 @@ export namespace Prisma {
     reason: 'reason',
     count: 'count',
     date: 'date',
-    status: 'status'
+    status: 'status',
+    handlerId: 'handlerId',
+    handledAt: 'handledAt'
   };
 
   export type BruteReportScalarFieldEnum = (typeof BruteReportScalarFieldEnum)[keyof typeof BruteReportScalarFieldEnum]
@@ -34249,6 +34337,7 @@ export namespace Prisma {
     favoriteFights?: FightListRelationFilter
     following?: BruteListRelationFilter
     notifications?: NotificationListRelationFilter
+    reportsHandled?: BruteReportListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -34275,6 +34364,7 @@ export namespace Prisma {
     favoriteFights?: FightOrderByRelationAggregateInput
     following?: BruteOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    reportsHandled?: BruteReportOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -34304,6 +34394,7 @@ export namespace Prisma {
     favoriteFights?: FightListRelationFilter
     following?: BruteListRelationFilter
     notifications?: NotificationListRelationFilter
+    reportsHandled?: BruteReportListRelationFilter
   }, "id" | "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -35463,8 +35554,11 @@ export namespace Prisma {
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
+    handlerId?: UuidNullableFilter<"BruteReport"> | string | null
+    handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
     users?: UserListRelationFilter
+    handler?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
   export type BruteReportOrderByWithRelationInput = {
@@ -35474,8 +35568,11 @@ export namespace Prisma {
     count?: SortOrder
     date?: SortOrder
     status?: SortOrder
+    handlerId?: SortOrderInput | SortOrder
+    handledAt?: SortOrderInput | SortOrder
     brute?: BruteOrderByWithRelationInput
     users?: UserOrderByRelationAggregateInput
+    handler?: UserOrderByWithRelationInput
   }
 
   export type BruteReportWhereUniqueInput = Prisma.AtLeast<{
@@ -35488,8 +35585,11 @@ export namespace Prisma {
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
+    handlerId?: UuidNullableFilter<"BruteReport"> | string | null
+    handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
     brute?: XOR<BruteRelationFilter, BruteWhereInput>
     users?: UserListRelationFilter
+    handler?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "id" | "id">
 
   export type BruteReportOrderByWithAggregationInput = {
@@ -35499,6 +35599,8 @@ export namespace Prisma {
     count?: SortOrder
     date?: SortOrder
     status?: SortOrder
+    handlerId?: SortOrderInput | SortOrder
+    handledAt?: SortOrderInput | SortOrder
     _count?: BruteReportCountOrderByAggregateInput
     _avg?: BruteReportAvgOrderByAggregateInput
     _max?: BruteReportMaxOrderByAggregateInput
@@ -35516,6 +35618,8 @@ export namespace Prisma {
     count?: IntWithAggregatesFilter<"BruteReport"> | number
     date?: DateTimeWithAggregatesFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusWithAggregatesFilter<"BruteReport"> | $Enums.BruteReportStatus
+    handlerId?: UuidNullableWithAggregatesFilter<"BruteReport"> | string | null
+    handledAt?: DateTimeNullableWithAggregatesFilter<"BruteReport"> | Date | string | null
   }
 
   export type ServerStateWhereInput = {
@@ -36369,6 +36473,7 @@ export namespace Prisma {
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -36395,6 +36500,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUpdateInput = {
@@ -36421,6 +36527,7 @@ export namespace Prisma {
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -36447,6 +36554,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -37725,8 +37833,10 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handledAt?: Date | string | null
     brute: BruteCreateNestedOneWithoutReportsInput
     users?: UserCreateNestedManyWithoutReportsInput
+    handler?: UserCreateNestedOneWithoutReportsHandledInput
   }
 
   export type BruteReportUncheckedCreateInput = {
@@ -37736,6 +37846,8 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handlerId?: string | null
+    handledAt?: Date | string | null
     users?: UserUncheckedCreateNestedManyWithoutReportsInput
   }
 
@@ -37745,8 +37857,10 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
     users?: UserUpdateManyWithoutReportsNestedInput
+    handler?: UserUpdateOneWithoutReportsHandledNestedInput
   }
 
   export type BruteReportUncheckedUpdateInput = {
@@ -37756,6 +37870,8 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: UserUncheckedUpdateManyWithoutReportsNestedInput
   }
 
@@ -37766,6 +37882,8 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handlerId?: string | null
+    handledAt?: Date | string | null
   }
 
   export type BruteReportUpdateManyMutationInput = {
@@ -37774,6 +37892,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteReportUncheckedUpdateManyInput = {
@@ -37783,6 +37902,8 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServerStateCreateInput = {
@@ -40054,6 +40175,8 @@ export namespace Prisma {
     count?: SortOrder
     date?: SortOrder
     status?: SortOrder
+    handlerId?: SortOrder
+    handledAt?: SortOrder
   }
 
   export type BruteReportAvgOrderByAggregateInput = {
@@ -40067,6 +40190,8 @@ export namespace Prisma {
     count?: SortOrder
     date?: SortOrder
     status?: SortOrder
+    handlerId?: SortOrder
+    handledAt?: SortOrder
   }
 
   export type BruteReportMinOrderByAggregateInput = {
@@ -40076,6 +40201,8 @@ export namespace Prisma {
     count?: SortOrder
     date?: SortOrder
     status?: SortOrder
+    handlerId?: SortOrder
+    handledAt?: SortOrder
   }
 
   export type BruteReportSumOrderByAggregateInput = {
@@ -40733,6 +40860,13 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type BruteReportCreateNestedManyWithoutHandlerInput = {
+    create?: XOR<BruteReportCreateWithoutHandlerInput, BruteReportUncheckedCreateWithoutHandlerInput> | BruteReportCreateWithoutHandlerInput[] | BruteReportUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutHandlerInput | BruteReportCreateOrConnectWithoutHandlerInput[]
+    createMany?: BruteReportCreateManyHandlerInputEnvelope
+    connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -40784,6 +40918,13 @@ export namespace Prisma {
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
     createMany?: NotificationCreateManyUserInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type BruteReportUncheckedCreateNestedManyWithoutHandlerInput = {
+    create?: XOR<BruteReportCreateWithoutHandlerInput, BruteReportUncheckedCreateWithoutHandlerInput> | BruteReportCreateWithoutHandlerInput[] | BruteReportUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutHandlerInput | BruteReportCreateOrConnectWithoutHandlerInput[]
+    createMany?: BruteReportCreateManyHandlerInputEnvelope
+    connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -40928,6 +41069,20 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type BruteReportUpdateManyWithoutHandlerNestedInput = {
+    create?: XOR<BruteReportCreateWithoutHandlerInput, BruteReportUncheckedCreateWithoutHandlerInput> | BruteReportCreateWithoutHandlerInput[] | BruteReportUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutHandlerInput | BruteReportCreateOrConnectWithoutHandlerInput[]
+    upsert?: BruteReportUpsertWithWhereUniqueWithoutHandlerInput | BruteReportUpsertWithWhereUniqueWithoutHandlerInput[]
+    createMany?: BruteReportCreateManyHandlerInputEnvelope
+    set?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    disconnect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    delete?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    update?: BruteReportUpdateWithWhereUniqueWithoutHandlerInput | BruteReportUpdateWithWhereUniqueWithoutHandlerInput[]
+    updateMany?: BruteReportUpdateManyWithWhereWithoutHandlerInput | BruteReportUpdateManyWithWhereWithoutHandlerInput[]
+    deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -41035,6 +41190,20 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type BruteReportUncheckedUpdateManyWithoutHandlerNestedInput = {
+    create?: XOR<BruteReportCreateWithoutHandlerInput, BruteReportUncheckedCreateWithoutHandlerInput> | BruteReportCreateWithoutHandlerInput[] | BruteReportUncheckedCreateWithoutHandlerInput[]
+    connectOrCreate?: BruteReportCreateOrConnectWithoutHandlerInput | BruteReportCreateOrConnectWithoutHandlerInput[]
+    upsert?: BruteReportUpsertWithWhereUniqueWithoutHandlerInput | BruteReportUpsertWithWhereUniqueWithoutHandlerInput[]
+    createMany?: BruteReportCreateManyHandlerInputEnvelope
+    set?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    disconnect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    delete?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
+    update?: BruteReportUpdateWithWhereUniqueWithoutHandlerInput | BruteReportUpdateWithWhereUniqueWithoutHandlerInput[]
+    updateMany?: BruteReportUpdateManyWithWhereWithoutHandlerInput | BruteReportUpdateManyWithWhereWithoutHandlerInput[]
+    deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
   }
 
   export type BruteCreatedestinyPathInput = {
@@ -42659,6 +42828,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type UserCreateNestedOneWithoutReportsHandledInput = {
+    create?: XOR<UserCreateWithoutReportsHandledInput, UserUncheckedCreateWithoutReportsHandledInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReportsHandledInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type UserUncheckedCreateNestedManyWithoutReportsInput = {
     create?: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput> | UserCreateWithoutReportsInput[] | UserUncheckedCreateWithoutReportsInput[]
     connectOrCreate?: UserCreateOrConnectWithoutReportsInput | UserCreateOrConnectWithoutReportsInput[]
@@ -42692,6 +42867,16 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutReportsInput | UserUpdateWithWhereUniqueWithoutReportsInput[]
     updateMany?: UserUpdateManyWithWhereWithoutReportsInput | UserUpdateManyWithWhereWithoutReportsInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutReportsHandledNestedInput = {
+    create?: XOR<UserCreateWithoutReportsHandledInput, UserUncheckedCreateWithoutReportsHandledInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReportsHandledInput
+    upsert?: UserUpsertWithoutReportsHandledInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportsHandledInput, UserUpdateWithoutReportsHandledInput>, UserUncheckedUpdateWithoutReportsHandledInput>
   }
 
   export type UserUncheckedUpdateManyWithoutReportsNestedInput = {
@@ -44346,7 +44531,9 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handledAt?: Date | string | null
     brute: BruteCreateNestedOneWithoutReportsInput
+    handler?: UserCreateNestedOneWithoutReportsHandledInput
   }
 
   export type BruteReportUncheckedCreateWithoutUsersInput = {
@@ -44356,6 +44543,8 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handlerId?: string | null
+    handledAt?: Date | string | null
   }
 
   export type BruteReportCreateOrConnectWithoutUsersInput = {
@@ -44645,6 +44834,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BruteReportCreateWithoutHandlerInput = {
+    id?: string
+    reason?: $Enums.BruteReportReason
+    count?: number
+    date?: Date | string
+    status?: $Enums.BruteReportStatus
+    handledAt?: Date | string | null
+    brute: BruteCreateNestedOneWithoutReportsInput
+    users?: UserCreateNestedManyWithoutReportsInput
+  }
+
+  export type BruteReportUncheckedCreateWithoutHandlerInput = {
+    id?: string
+    bruteId: string
+    reason?: $Enums.BruteReportReason
+    count?: number
+    date?: Date | string
+    status?: $Enums.BruteReportStatus
+    handledAt?: Date | string | null
+    users?: UserUncheckedCreateNestedManyWithoutReportsInput
+  }
+
+  export type BruteReportCreateOrConnectWithoutHandlerInput = {
+    where: BruteReportWhereUniqueInput
+    create: XOR<BruteReportCreateWithoutHandlerInput, BruteReportUncheckedCreateWithoutHandlerInput>
+  }
+
+  export type BruteReportCreateManyHandlerInputEnvelope = {
+    data: BruteReportCreateManyHandlerInput | BruteReportCreateManyHandlerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BruteUpsertWithWhereUniqueWithoutUserInput = {
     where: BruteWhereUniqueInput
     update: XOR<BruteUpdateWithoutUserInput, BruteUncheckedUpdateWithoutUserInput>
@@ -44777,6 +44998,8 @@ export namespace Prisma {
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
+    handlerId?: UuidNullableFilter<"BruteReport"> | string | null
+    handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
   }
 
   export type TournamentGoldUpsertWithWhereUniqueWithoutUserInput = {
@@ -44912,6 +45135,22 @@ export namespace Prisma {
     date?: DateTimeFilter<"Notification"> | Date | string
   }
 
+  export type BruteReportUpsertWithWhereUniqueWithoutHandlerInput = {
+    where: BruteReportWhereUniqueInput
+    update: XOR<BruteReportUpdateWithoutHandlerInput, BruteReportUncheckedUpdateWithoutHandlerInput>
+    create: XOR<BruteReportCreateWithoutHandlerInput, BruteReportUncheckedCreateWithoutHandlerInput>
+  }
+
+  export type BruteReportUpdateWithWhereUniqueWithoutHandlerInput = {
+    where: BruteReportWhereUniqueInput
+    data: XOR<BruteReportUpdateWithoutHandlerInput, BruteReportUncheckedUpdateWithoutHandlerInput>
+  }
+
+  export type BruteReportUpdateManyWithWhereWithoutHandlerInput = {
+    where: BruteReportScalarWhereInput
+    data: XOR<BruteReportUpdateManyMutationInput, BruteReportUncheckedUpdateManyWithoutHandlerInput>
+  }
+
   export type UserCreateWithoutBrutesInput = {
     id: string
     lang?: $Enums.Lang
@@ -44935,6 +45174,7 @@ export namespace Prisma {
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutBrutesInput = {
@@ -44960,6 +45200,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutBrutesInput = {
@@ -45912,7 +46153,9 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handledAt?: Date | string | null
     users?: UserCreateNestedManyWithoutReportsInput
+    handler?: UserCreateNestedOneWithoutReportsHandledInput
   }
 
   export type BruteReportUncheckedCreateWithoutBruteInput = {
@@ -45921,6 +46164,8 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handlerId?: string | null
+    handledAt?: Date | string | null
     users?: UserUncheckedCreateNestedManyWithoutReportsInput
   }
 
@@ -46231,6 +46476,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutUserInput
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -46256,6 +46502,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -46402,6 +46649,7 @@ export namespace Prisma {
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBrutesInput = {
@@ -46427,6 +46675,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type BruteUpsertWithoutPupilsInput = {
@@ -48074,6 +48323,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutUserInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteFightsInput = {
@@ -48099,6 +48349,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteFightsInput = {
@@ -50185,6 +50436,7 @@ export namespace Prisma {
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutTournamentGoldsInput = {
@@ -50210,6 +50462,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutTournamentGoldsInput = {
@@ -50251,6 +50504,7 @@ export namespace Prisma {
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTournamentGoldsInput = {
@@ -50276,6 +50530,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type BruteCreateWithoutTournamentXpsInput = {
@@ -50814,6 +51069,7 @@ export namespace Prisma {
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutAchievementsInput = {
@@ -50839,6 +51095,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutAchievementsInput = {
@@ -51055,6 +51312,7 @@ export namespace Prisma {
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAchievementsInput = {
@@ -51080,6 +51338,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type BruteCreateWithoutTitlesInput = {
@@ -51459,6 +51718,7 @@ export namespace Prisma {
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutReportsInput = {
@@ -51484,11 +51744,69 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutReportsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutReportsInput, UserUncheckedCreateWithoutReportsInput>
+  }
+
+  export type UserCreateWithoutReportsHandledInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReportsHandledInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReportsHandledInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReportsHandledInput, UserUncheckedCreateWithoutReportsHandledInput>
   }
 
   export type BruteUpsertWithoutReportsInput = {
@@ -51680,6 +51998,69 @@ export namespace Prisma {
   export type UserUpdateManyWithWhereWithoutReportsInput = {
     where: UserScalarWhereInput
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutReportsInput>
+  }
+
+  export type UserUpsertWithoutReportsHandledInput = {
+    update: XOR<UserUpdateWithoutReportsHandledInput, UserUncheckedUpdateWithoutReportsHandledInput>
+    create: XOR<UserCreateWithoutReportsHandledInput, UserUncheckedCreateWithoutReportsHandledInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReportsHandledInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReportsHandledInput, UserUncheckedUpdateWithoutReportsHandledInput>
+  }
+
+  export type UserUpdateWithoutReportsHandledInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReportsHandledInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
@@ -55024,6 +55405,7 @@ export namespace Prisma {
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutInventoryInput = {
@@ -55049,6 +55431,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutInventoryInput = {
@@ -55265,6 +55648,7 @@ export namespace Prisma {
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryInput = {
@@ -55290,6 +55674,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type BruteCreateWithoutEventInput = {
@@ -55901,6 +56286,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutUserInput
     favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
     following?: BruteCreateNestedManyWithoutFollowersInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -55926,6 +56312,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
     favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -55967,6 +56354,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutUserNestedInput
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -55992,6 +56380,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type BruteCreateManyUserInput = {
@@ -56080,6 +56469,16 @@ export namespace Prisma {
     link?: string | null
     read?: boolean
     date?: Date | string
+  }
+
+  export type BruteReportCreateManyHandlerInput = {
+    id?: string
+    bruteId: string
+    reason?: $Enums.BruteReportReason
+    count?: number
+    date?: Date | string
+    status?: $Enums.BruteReportStatus
+    handledAt?: Date | string | null
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -56332,7 +56731,9 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
+    handler?: UserUpdateOneWithoutReportsHandledNestedInput
   }
 
   export type BruteReportUncheckedUpdateWithoutUsersInput = {
@@ -56342,6 +56743,8 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteReportUncheckedUpdateManyWithoutUsersInput = {
@@ -56351,6 +56754,8 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TournamentGoldUpdateWithoutUserInput = {
@@ -56693,6 +57098,38 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BruteReportUpdateWithoutHandlerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
+    users?: UserUpdateManyWithoutReportsNestedInput
+  }
+
+  export type BruteReportUncheckedUpdateWithoutHandlerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    users?: UserUncheckedUpdateManyWithoutReportsNestedInput
+  }
+
+  export type BruteReportUncheckedUpdateManyWithoutHandlerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
+    count?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type BruteCreateManyMasterInput = {
     id?: string
     name: string
@@ -56824,6 +57261,8 @@ export namespace Prisma {
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
+    handlerId?: string | null
+    handledAt?: Date | string | null
   }
 
   export type ClanPostCreateManyAuthorInput = {
@@ -57792,7 +58231,9 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: UserUpdateManyWithoutReportsNestedInput
+    handler?: UserUpdateOneWithoutReportsHandledNestedInput
   }
 
   export type BruteReportUncheckedUpdateWithoutBruteInput = {
@@ -57801,6 +58242,8 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: UserUncheckedUpdateManyWithoutReportsNestedInput
   }
 
@@ -57810,6 +58253,8 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
+    handlerId?: NullableStringFieldUpdateOperationsInput | string | null
+    handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TitleUpdateWithoutBrutesInput = {
@@ -57987,6 +58432,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutUserNestedInput
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -58012,6 +58458,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFollowingInput = {
@@ -58184,6 +58631,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutUserNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteFightsInput = {
@@ -58209,6 +58657,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFavoriteFightsInput = {
@@ -58816,6 +59265,7 @@ export namespace Prisma {
     favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsInput = {
@@ -58841,6 +59291,7 @@ export namespace Prisma {
     favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutReportsInput = {

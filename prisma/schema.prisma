@@ -46,6 +46,7 @@ model User {
   favoriteFights    Fight[]          @relation("FavoriteFights")
   following         Brute[]          @relation("Followers")
   notifications     Notification[]
+  reportsHandled    BruteReport[]    @relation("BruteReportHandler")
 }
 
 enum DestinyChoiceSide {
@@ -600,14 +601,19 @@ enum BruteReportReason {
 }
 
 model BruteReport {
-  id      String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute   Brute             @relation(fields: [bruteId], references: [id])
-  bruteId String            @db.Uuid
-  users   User[]
-  reason  BruteReportReason @default(name)
-  count   Int               @default(1)
-  date    DateTime          @default(now()) @db.Date
-  status  BruteReportStatus @default(pending)
+  id        String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  brute     Brute             @relation(fields: [bruteId], references: [id])
+  bruteId   String            @db.Uuid
+  users     User[]
+  reason    BruteReportReason @default(name)
+  count     Int               @default(1)
+  date      DateTime          @default(now()) @db.Date
+  status    BruteReportStatus @default(pending)
+  handler   User?             @relation(name: "BruteReportHandler", fields: [handlerId], references: [id])
+  handlerId String?           @db.Uuid
+  handledAt DateTime?         @db.Timestamptz()
+
+  @@index([status])
 }
 
 // SERVER STATE

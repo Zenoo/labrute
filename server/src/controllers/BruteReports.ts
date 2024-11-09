@@ -24,11 +24,11 @@ const BruteReports = {
 
       const user = await prisma.user.findFirst({
         where: { id: authed.id },
-        select: { admin: true },
+        select: { admin: true, moderator: true },
       });
 
-      // Admin only
-      if (!user?.admin) {
+      // Admin or moderator only
+      if (!user?.admin && !user?.moderator) {
         throw new ExpectedError(translate('unauthorized', authed));
       }
 
@@ -37,6 +37,8 @@ const BruteReports = {
         where: {
           status: req.params.status,
         },
+        take: 20,
+        skip: +req.params.page * 20,
         include: {
           brute: {
             select: {
@@ -45,6 +47,12 @@ const BruteReports = {
             },
           },
           users: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          handler: {
             select: {
               id: true,
               name: true,
@@ -174,11 +182,11 @@ const BruteReports = {
 
       const user = await prisma.user.findFirst({
         where: { id: authed.id },
-        select: { admin: true },
+        select: { admin: true, moderator: true },
       });
 
-      // Admin only
-      if (!user?.admin) {
+      // Admin or moderator only
+      if (!user?.admin && !user?.moderator) {
         throw new ExpectedError(translate('unauthorized', authed));
       }
 
@@ -213,12 +221,18 @@ const BruteReports = {
         throw new ExpectedError(translate('reportNotFound', authed));
       }
 
+      if (report.handledAt) {
+        throw new ExpectedError(translate('reportAlreadyHandled', authed));
+      }
+
       await prisma.bruteReport.update({
         where: {
           id: report.id,
         },
         data: {
           status: BruteReportStatus.accepted,
+          handlerId: authed.id,
+          handledAt: new Date(),
         },
         select: { id: true },
       });
@@ -295,11 +309,11 @@ const BruteReports = {
 
       const user = await prisma.user.findFirst({
         where: { id: authed.id },
-        select: { admin: true },
+        select: { admin: true, moderator: true },
       });
 
-      // Admin only
-      if (!user?.admin) {
+      // Admin or moderator only
+      if (!user?.admin && !user?.moderator) {
         throw new ExpectedError(translate('unauthorized', authed));
       }
 
@@ -313,12 +327,18 @@ const BruteReports = {
         throw new ExpectedError(translate('reportNotFound', authed));
       }
 
+      if (report.handledAt) {
+        throw new ExpectedError(translate('reportAlreadyHandled', authed));
+      }
+
       await prisma.bruteReport.update({
         where: {
           id: report.id,
         },
         data: {
           status: BruteReportStatus.rejected,
+          handlerId: authed.id,
+          handledAt: new Date(),
         },
         select: { id: true },
       });

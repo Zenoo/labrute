@@ -1,6 +1,6 @@
 import { AdminPanelBrute } from '@labrute/core';
 import { DestinyChoiceSide, FightModifier, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack } from '@mui/material';
+import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
-import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
@@ -175,7 +174,9 @@ const AdminView = () => {
             <FantasyButton color="success" onClick={saveNextModifiers}>Save</FantasyButton>
             <Divider />
             <Text bold h3 smallCaps color="secondary">{t('brute')}</Text>
-            <StyledInput
+            <TextField
+              label="Brute name"
+              variant="outlined"
               onChange={changeBruteName}
               value={bruteName}
             />
@@ -187,7 +188,7 @@ const AdminView = () => {
                 </Box>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Destiny path"
                       value={brute.destinyPath}
                       onChange={(event) => {
@@ -200,7 +201,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Level"
                       value={brute.level}
                       onChange={(event) => {
@@ -213,7 +214,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="XP"
                       value={brute.xp}
                       onChange={(event) => {
@@ -226,7 +227,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="HP"
                       value={brute.hp}
                       onChange={(event) => {
@@ -239,7 +240,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Endurance stat"
                       value={brute.enduranceStat}
                       onChange={(event) => {
@@ -252,7 +253,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Endurance modifier"
                       value={brute.enduranceModifier}
                       onChange={(event) => {
@@ -265,7 +266,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Endurance value"
                       value={brute.enduranceValue}
                       onChange={(event) => {
@@ -278,7 +279,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Strength stat"
                       value={brute.strengthStat}
                       onChange={(event) => {
@@ -291,7 +292,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Strength modifier"
                       value={brute.strengthModifier}
                       onChange={(event) => {
@@ -304,7 +305,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Strength value"
                       value={brute.strengthValue}
                       onChange={(event) => {
@@ -317,7 +318,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Agility stat"
                       value={brute.agilityStat}
                       onChange={(event) => {
@@ -330,7 +331,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Agility modifier"
                       value={brute.agilityModifier}
                       onChange={(event) => {
@@ -343,7 +344,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Agility value"
                       value={brute.agilityValue}
                       onChange={(event) => {
@@ -356,7 +357,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Speed stat"
                       value={brute.speedStat}
                       onChange={(event) => {
@@ -369,7 +370,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Speed modifier"
                       value={brute.speedModifier}
                       onChange={(event) => {
@@ -382,7 +383,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Speed value"
                       value={brute.speedValue}
                       onChange={(event) => {
@@ -395,7 +396,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Ranking"
                       value={brute.ranking}
                       onChange={(event) => {
@@ -426,7 +427,7 @@ const AdminView = () => {
                     </FormControl>
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="User ID"
                       value={brute.userId || ''}
                       onChange={(event) => {
@@ -505,7 +506,7 @@ const AdminView = () => {
                     </FormControl>
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Master ID"
                       value={brute.masterId || ''}
                       onChange={(event) => {
@@ -518,7 +519,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Pupils counts"
                       value={brute.pupilsCount}
                       onChange={(event) => {
@@ -531,7 +532,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Clan ID"
                       value={brute.clanId || ''}
                       onChange={(event) => {
@@ -588,7 +589,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Current tournament step watched"
                       value={brute.currentTournamentStepWatched}
                       onChange={(event) => {
@@ -615,7 +616,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Fights left"
                       value={brute.fightsLeft}
                       onChange={(event) => {
@@ -628,7 +629,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Victories"
                       value={brute.victories}
                       onChange={(event) => {
@@ -669,7 +670,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Tournament wins"
                       value={brute.tournamentWins}
                       onChange={(event) => {
@@ -682,7 +683,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Body"
                       value={brute.body}
                       onChange={(event) => {
@@ -695,7 +696,7 @@ const AdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <StyledInput
+                    <TextField
                       label="Colors"
                       value={brute.colors}
                       onChange={(event) => {
@@ -725,7 +726,7 @@ const AdminView = () => {
             <Divider />
             <Text bold h3 smallCaps color="secondary">Restore brute with ID</Text>
             <Box sx={{ display: 'flex' }}>
-              <StyledInput
+              <TextField
                 onChange={changeBruteId}
                 value={bruteId}
                 sx={{ mr: 2 }}

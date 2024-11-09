@@ -311,7 +311,9 @@ exports.Prisma.BruteReportScalarFieldEnum = {
   reason: 'reason',
   count: 'count',
   date: 'date',
-  status: 'status'
+  status: 'status',
+  handlerId: 'handlerId',
+  handledAt: 'handledAt'
 };
 
 exports.Prisma.ServerStateScalarFieldEnum = {

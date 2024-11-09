@@ -117,7 +117,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/achievements/rankings/all', Achievements.getRankings(prisma));
 
   // BruteReport
-  app.get('/api/report/list/:status', BruteReports.list(prisma));
+  app.get('/api/report/list/:status/:page', BruteReports.list(prisma));
   app.get('/api/report/send/:name/:reason', BruteReports.send(prisma));
   app.get('/api/report/:id/accept', BruteReports.accept(prisma));
   app.get('/api/report/:id/reject', BruteReports.reject(prisma));

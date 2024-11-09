@@ -154,6 +154,7 @@ export type UsersAuthenticateResponse = {
 
 export type BruteReportsListRequest = {
   status: BruteReportStatus,
+  page: string,
 };
 export type BruteReportsListResponse = BruteReportWithNames[];
 

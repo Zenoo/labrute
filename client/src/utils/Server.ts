@@ -107,7 +107,7 @@ const Server = {
     getRankings: (byUser: boolean) => Fetch<AchievementGetRankingsResponse>('/api/achievements/rankings/all', { byUser }),
   },
   BruteReport: {
-    list: (status: BruteReportStatus) => Fetch<BruteReportsListResponse>(`/api/report/list/${status}`),
+    list: (status: BruteReportStatus, page: number) => Fetch<BruteReportsListResponse>(`/api/report/list/${status}/${page}`),
     send: (name: string, reason: BruteReportReason) => Fetch<never>(`/api/report/send/${name}/${reason}`),
     accept: (id: string) => Fetch<never>(`/api/report/${id}/accept`),
     reject: (id: string) => Fetch<never>(`/api/report/${id}/reject`),

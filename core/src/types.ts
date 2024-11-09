@@ -566,4 +566,8 @@ export type BruteReportWithNames = BruteReport & {
     id: string;
     name: string;
   }[],
+  handler: {
+    id: string;
+    name: string;
+  } | null;
 };

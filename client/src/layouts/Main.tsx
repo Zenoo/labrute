@@ -1,6 +1,6 @@
 import { getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
+import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
 import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -357,6 +357,14 @@ const Main = () => {
                   iconColor={theme.palette.mode === 'dark' ? theme.palette.topbar.contrastLight : theme.palette.topbar.color}
                   title={theme.palette.mode === 'dark' ? t('lightMode') : t('darkMode')}
                 />
+                {user.moderator && (
+                  <ActionButton
+                    to="/admin-panel/report"
+                    Icon={Policy}
+                    iconColor={theme.palette.info.main}
+                    title={t('moderation')}
+                  />
+                )}
                 {user.admin && (
                   <ActionButton
                     to="/admin-panel"
