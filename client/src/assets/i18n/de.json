@@ -467,6 +467,7 @@
   "wiki": "Wiki",
   "feed": "Feed",
   "notifications": "Benachrichtigungen",
+  "noNotifications": "Everything is quiet here.",
   "allRead": "Alles gelesen",
   "newBrute": "Neuer Brutalo",
   "gold": "Gold",
@@ -1565,5 +1566,6 @@
   "wiki.pupils": "Schüler",
   "wiki.whatPupilBenefits": "Was sind ihre Vorteile?",
   "wiki.pupilBenefits": "Keine (momentan)",
-  "wiki.pupilExplanation": "Schüler geben keine EP wie in vorherigen Versionen des Spiels. Aber es ist immer noch möglich, Schüler zu rekrutieren, indem du den Link in der rechten oberen Ecke deiner Zelle teilst."
+  "wiki.pupilExplanation": "Schüler geben keine EP wie in vorherigen Versionen des Spiels. Aber es ist immer noch möglich, Schüler zu rekrutieren, indem du den Link in der rechten oberen Ecke deiner Zelle teilst.",
+  "bruteSetForDeletion": "One of your brutes has been set for deletion."
 }
