@@ -467,7 +467,7 @@
   "wiki": "Wiki",
   "feed": "Feed",
   "notifications": "Benachrichtigungen",
-  "noNotifications": "Everything is quiet here.",
+  "noNotifications": "Hier ist alles ruhig.",
   "allRead": "Alles gelesen",
   "newBrute": "Neuer Brutalo",
   "gold": "Gold",
@@ -577,7 +577,7 @@
   "fight.step.stun": "{{brute}} wurde betäubt.",
   "fight.step.haste": "{{brute}} ist an {{opponent}} vorbeigestürmt und hat dabei {{damage}} Schaden zugefügt.",
   "fight.step.treat": "{{brute}} hat dem Tierbegleiter {{target}} ein Leckerli gegeben und ihn um {{heal}} LP geheilt.",
-  "fight.step.dropShield": "{{brute}} dropped their shield.",
+  "fight.step.dropShield": "{{brute}} hat sein Schild fallen lassen.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.play": "Abspielen",
   "fight.pause": "Pausieren",
@@ -1568,5 +1568,5 @@
   "wiki.whatPupilBenefits": "Was sind ihre Vorteile?",
   "wiki.pupilBenefits": "Keine (momentan)",
   "wiki.pupilExplanation": "Schüler geben keine EP wie in vorherigen Versionen des Spiels. Aber es ist immer noch möglich, Schüler zu rekrutieren, indem du den Link in der rechten oberen Ecke deiner Zelle teilst.",
-  "bruteSetForDeletion": "One of your brutes has been set for deletion."
+  "bruteSetForDeletion": "Einer deiner Brutalos wurde zum Löschen vorgesehen."
 }
