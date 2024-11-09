@@ -1,5 +1,5 @@
-import { getFightsLeft, getGoldNeededForNewBrute, LAST_RELEASE, UserUpdateSettingsRequest } from '@labrute/core';
-import { EventStatus, Lang } from '@labrute/prisma';
+import { getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest } from '@labrute/core';
+import { Lang } from '@labrute/prisma';
 import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
 import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
@@ -17,15 +17,17 @@ import dark from '../theme/dark';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
+import { useBrute } from '../hooks/useBrute';
 
 const Main = () => {
   const theme = useTheme();
-  const { authing, user, signout, modifiers, updateData, currentEvent } = useAuth();
+  const { authing, user, signout, modifiers, updateData } = useAuth();
   const Alert = useAlert();
   const { t } = useTranslation();
   const colorMode = useContext(ColorModeContext);
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
+  const { brute } = useBrute();
 
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<UserUpdateSettingsRequest>({
@@ -81,7 +83,15 @@ const Main = () => {
 
   // Redirect to page
   const goTo = (path: string) => () => {
-    navigate(path);
+    let processedPath = path;
+
+    if (path.includes('{bruteName}')) {
+      if (!brute && !user?.brutes[0]) return;
+
+      processedPath = path.replace('{bruteName}', brute?.name ?? user?.brutes[0]?.name ?? '');
+    }
+
+    navigate(processedPath);
   };
 
   // Toggle setting
@@ -106,6 +116,16 @@ const Main = () => {
         fightSpeed: newSettings.fightSpeed,
         backgroundMusic: newSettings.backgroundMusic,
         displayVersusPage: newSettings.displayVersusPage,
+      } : null));
+    }).catch(catchError(Alert));
+  };
+
+  // All notifications read
+  const allRead = () => {
+    Server.Notification.setAllRead().then(() => {
+      updateData((d) => (d ? {
+        ...d,
+        notifications: [],
       } : null));
     }).catch(catchError(Alert));
   };
@@ -151,13 +171,13 @@ const Main = () => {
           },
         }}
         >
-          {user?.brutes.slice(0, favoriteCount || 3).map((brute) => (
+          {user?.brutes.slice(0, favoriteCount || 3).map((b) => (
             <Box
-              key={brute.id}
+              key={b.id}
               mr={1}
             >
               <Badge
-                badgeContent={getFightsLeft(brute, modifiers)}
+                badgeContent={getFightsLeft(b, modifiers)}
                 color="info"
                 componentsProps={{
                   badge: { style: { marginTop: 4 } },
@@ -170,10 +190,10 @@ const Main = () => {
                     borderRadius: '50%',
                     cursor: 'pointer',
                   }}
-                  to={`/${brute.name}/cell`}
+                  to={`/${b.name}/cell`}
                 >
                   <BruteRender
-                    brute={brute}
+                    brute={b}
                   />
                 </Link>
               </Badge>
@@ -206,15 +226,23 @@ const Main = () => {
             }}
           />
           {user ? (
-            <Button
-              onClick={toggleDrawer(true)}
-              endIcon={<Person />}
-              variant="outlined"
-              size="small"
-              color="info"
+            <Badge
+              badgeContent={user.notifications.length}
+              color="success"
+              componentsProps={{
+                badge: { style: { marginTop: 4 } },
+              }}
             >
-              {user.name.length > 10 ? `${user.name.slice(0, 10)}…` : user.name}
-            </Button>
+              <Button
+                onClick={toggleDrawer(true)}
+                endIcon={<Person />}
+                variant="outlined"
+                size="small"
+                color="info"
+              >
+                {user.name.length > 10 ? `${user.name.slice(0, 10)}…` : user.name}
+              </Button>
+            </Badge>
           ) : authing ? null : (
             <Button
               onClick={oauth}
@@ -382,21 +410,36 @@ const Main = () => {
               p: 1,
             }}
             >
-              <Text h3 color={theme.palette.topbar.colorDark}>{t('notifications')}</Text>
-              <Button size="small" sx={{ color: theme.palette.topbar.contrast }}>{t('allRead')}</Button>
+              <Badge
+                badgeContent={user.notifications.length}
+                color="success"
+              >
+                <Text h3 color={theme.palette.topbar.colorDark}>{t('notifications')}</Text>
+              </Badge>
+              <Button size="small" onClick={allRead} sx={{ color: theme.palette.topbar.contrast }}>{t('allRead')}</Button>
             </Box>
             <ThemeProvider theme={dark}>
-              {/* PATCH NOTES */}
-              {user.lastReleaseSeen !== LAST_RELEASE.version && (
-                <MuiAlert onClick={goTo('/patch-notes')} variant="outlined" severity="warning" icon={false} sx={{ cursor: 'pointer' }}>
-                  <Text>{t('newPatchNotesAvailable')}</Text>
+              {user.notifications.length > 0 ? user.notifications.map((notification) => (
+                <MuiAlert
+                  key={notification.id}
+                  variant="outlined"
+                  severity="info"
+                  icon={false}
+                  action={notification.link && (
+                    <Button color="inherit" size="small" onClick={goTo(notification.link)}>
+                      {t('go')}
+                    </Button>
+                  )}
+                  sx={{
+                    '& .MuiAlert-action': {
+                      alignItems: 'center',
+                    }
+                  }}
+                >
+                  <Text>{t(notification.message)}</Text>
                 </MuiAlert>
-              )}
-              {/* EVENT */}
-              {currentEvent?.status === EventStatus.starting && !!user.brutes.length && (
-                <MuiAlert onClick={goTo(`/${user.brutes[0]?.name}/event/${currentEvent.id}`)} variant="outlined" severity="info" icon={false} sx={{ cursor: 'pointer' }}>
-                  <Text>{t('event.started')}</Text>
-                </MuiAlert>
+              )) : (
+                <Text center color={theme.palette.topbar.colorDark} sx={{ py: 2 }}>{t('noNotifications')}</Text>
               )}
               <List
                 dense

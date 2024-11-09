@@ -1,5 +1,6 @@
 import {
-  AchievementData, BruteDeletionReason, ExpectedError, LAST_RELEASE, RaretyOrder,
+  AchievementData, BruteDeletionReason, ExpectedError,
+  RaretyOrder,
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
@@ -112,6 +113,9 @@ const Users = {
           },
           following: {
             select: { id: true },
+          },
+          notifications: {
+            where: { read: false },
           },
         },
       });
@@ -933,45 +937,6 @@ const Users = {
           },
         });
       }
-
-      res.send({
-        success: true,
-      });
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  updateLastReleaseSeen: (prisma: PrismaClient) => async (
-    req: Request,
-    res: Response,
-  ) => {
-    try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { lastReleaseSeen: true },
-      });
-
-      if (!user) {
-        throw new Error(translate('userNotFound', authed));
-      }
-
-      // Check if the user already saw the last release
-      if (user.lastReleaseSeen === LAST_RELEASE.version) {
-        res.send({
-          success: true,
-        });
-        return;
-      }
-
-      // Update last release seen
-      await prisma.user.update({
-        where: { id: authed.id },
-        data: {
-          lastReleaseSeen: LAST_RELEASE.version,
-        },
-      });
 
       res.send({
         success: true,

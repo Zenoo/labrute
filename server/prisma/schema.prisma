@@ -37,7 +37,6 @@ model User {
   ips               String[]         @default([])
   bannedAt          DateTime?        @db.Date
   banReason         String?
-  lastReleaseSeen   String?
   displayVersusPage Boolean          @default(true)
   brutes            Brute[]
   achievements      Achievement[]
@@ -46,6 +45,7 @@ model User {
   inventory         InventoryItem[]
   favoriteFights    Fight[]          @relation("FavoriteFights")
   following         Brute[]          @relation("Followers")
+  notifications     Notification[]
 }
 
 enum DestinyChoiceSide {
@@ -799,4 +799,26 @@ model Event {
   sortedBrutes String[]    @default([])
 
   @@index([date, type, status])
+}
+
+// Notifications
+enum NotificationSeverity {
+  info
+  success
+  warning
+  error
+}
+
+model Notification {
+  id       String               @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user     User                 @relation(fields: [userId], references: [id])
+  userId   String               @db.Uuid
+  message  String               @db.Text
+  severity NotificationSeverity @default(info)
+  link     String?              @db.Text
+  read     Boolean              @default(false)
+  date     DateTime             @default(now()) @db.Timestamp()
+
+  @@index([userId, read])
+  @@index([date])
 }

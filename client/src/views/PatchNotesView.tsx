@@ -1,30 +1,17 @@
 import { LAST_RELEASE, releases } from '@labrute/core';
+import { Circle } from '@mui/icons-material';
 import { ImageList, ImageListItem, List, ListItem, ListItemIcon, ListItemText, Paper } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
-import { useAuth } from '../hooks/useAuth';
-import FantasyButton from '../components/FantasyButton';
-import { Circle } from '@mui/icons-material';
-import moment from 'moment';
-import Server from '../utils/Server';
-import catchError from '../utils/catchError';
-import { useAlert } from '../hooks/useAlert';
 
 const PatchNotesView = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
-  const Alert = useAlert();
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
-
-  // Set last patch notes seen
-  useEffect(() => {
-    if (!user) return;
-
-    Server.User.updateLastReleaseSeen().catch(catchError(Alert));
-  }, [Alert, user]);
 
   // Show 5 more releases
   const showMoreReleases = () => {

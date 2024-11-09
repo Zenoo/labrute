@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Notification, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -13,7 +13,6 @@ import getRandomBody from './brute/getRandomBody';
 import getRandomBonus from './brute/getRandomBonus';
 import getRandomColors from './brute/getRandomColors';
 import { isNameValid } from './brute/isNameValid';
-import skills from './brute/skills';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
 import { BruteReportWithNames, DestinyBranch, UserWithBrutesBodyColor } from './types';
@@ -57,7 +56,7 @@ export {
   getMaxFightsPerDay,
   getRandomBody,
   getRandomBonus,
-  getRandomColors, hexToRgba, isNameValid, pad, randomBetween, skills,
+  getRandomColors, hexToRgba, isNameValid, pad, randomBetween,
   updateBruteData, Version, weapons,
   weightedRandom
 };
@@ -325,3 +324,5 @@ export type EventGetResponse = {
   fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
   lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
 };
+
+export type NotificationListResponse = Notification[];

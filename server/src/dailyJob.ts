@@ -1089,9 +1089,19 @@ const handleReleases = async (prisma: PrismaClient) => {
     return;
   }
 
-  // Send release notification
+  // Send release notifications
   try {
+    // Discord notification
     await DISCORD.sendRelease(LAST_RELEASE);
+
+    // User notifications
+    const notifCount = await prisma.$executeRaw`
+      INSERT INTO "Notification" ("userId", "message", "link", "severity")
+      SELECT id, 'newPatchNotesAvailable', '/patch-notes', 'warning'
+      FROM "User";
+    `;
+
+    LOGGER.log(`Sent ${notifCount} release notifications`);
 
     // Store latest release
     await prisma.release.create({
@@ -1111,6 +1121,15 @@ const handleReleases = async (prisma: PrismaClient) => {
 const cleanup = async (prisma: PrismaClient) => {
   // Delete logs older than 30 days
   await prisma.log.deleteMany({
+    where: {
+      date: {
+        lt: moment.utc().subtract(30, 'day').toDate(),
+      },
+    },
+  });
+
+  // Delete notifications older than 30 days
+  await prisma.notification.deleteMany({
     where: {
       date: {
         lt: moment.utc().subtract(30, 'day').toDate(),
@@ -1557,7 +1576,14 @@ const handleEventFinish = async (prisma: PrismaClient) => {
     select: { id: true },
   });
 
-  LOGGER.log(`New event created with max level ${maxLevel}`);
+  // Notify users
+  const notifications = await prisma.$executeRaw`
+    INSERT INTO "Notification" ("userId", "message", "link")
+    (SELECT id, 'event.started', ${`{bruteName}/event/${lastEvent?.id}`}
+    FROM "User");
+  `;
+
+  LOGGER.log(`New event created with max level ${maxLevel}. ${notifications} notifications sent`);
 };
 
 const handleEventTournament = async (

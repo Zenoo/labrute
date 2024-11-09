@@ -4,7 +4,7 @@ import {
   ExpectedError,
 } from '@labrute/core';
 import {
-  BruteReportReason, BruteReportStatus, InventoryItemType, PrismaClient,
+  BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
@@ -239,6 +239,17 @@ const BruteReports = {
         data: {
           willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
           deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
+        },
+        select: { id: true },
+      });
+
+      // Send notification to user
+      await prisma.notification.create({
+        data: {
+          userId: report.brute.id,
+          message: 'bruteSetForDeletion',
+          severity: NotificationSeverity.error,
+          link: `/${report.brute.name}/cell`,
         },
         select: { id: true },
       });

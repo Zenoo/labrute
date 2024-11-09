@@ -593,5 +593,3 @@ export const SkillDamageModifiers = Object.entries(SkillModifiers)
     skill: skill as SkillName,
     ...modifiers[FightStat.DAMAGE],
   }));
-
-export default skills;

@@ -137,7 +137,6 @@ exports.Prisma.UserScalarFieldEnum = {
   ips: 'ips',
   bannedAt: 'bannedAt',
   banReason: 'banReason',
-  lastReleaseSeen: 'lastReleaseSeen',
   displayVersusPage: 'displayVersusPage'
 };
 
@@ -416,6 +415,16 @@ exports.Prisma.EventScalarFieldEnum = {
   winnerId: 'winnerId',
   finishedAt: 'finishedAt',
   sortedBrutes: 'sortedBrutes'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  severity: 'severity',
+  link: 'link',
+  read: 'read',
+  date: 'date'
 };
 
 exports.Prisma.SortOrder = {
@@ -750,6 +759,13 @@ exports.EventStatus = exports.$Enums.EventStatus = {
   finished: 'finished'
 };
 
+exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  error: 'error'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Brute: 'Brute',
@@ -775,7 +791,8 @@ exports.Prisma.ModelName = {
   ClanWarFighters: 'ClanWarFighters',
   InventoryItem: 'InventoryItem',
   Release: 'Release',
-  Event: 'Event'
+  Event: 'Event',
+  Notification: 'Notification'
 };
 
 /**

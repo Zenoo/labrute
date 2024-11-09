@@ -1,5 +1,5 @@
 import { Brute, FightModifier, SkillName } from '@labrute/prisma';
-import skills from './skills';
+import { skills } from './skills';
 import Rand from 'rand-seed';
 import moment from 'moment';
 import randomBetween from '../utils/randomBetween';

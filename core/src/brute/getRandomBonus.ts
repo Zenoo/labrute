@@ -2,7 +2,7 @@ import { Brute, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labru
 import randomBetween from '../utils/randomBetween';
 import weightedRandom from '../utils/weightedRandom';
 import { pets } from './pets';
-import skills from './skills';
+import { skills } from './skills';
 import weapons, { MAX_LIMITED_WEAPONS, limitedWeapons } from './weapons';
 
 const preventSomeBonuses = (
