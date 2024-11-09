@@ -467,6 +467,7 @@
   "wiki": "Wiki",
   "feed": "Seguidos",
   "notifications": "Notificaciones",
+  "noNotifications": "Everything is quiet here.",
   "allRead": "Marcar como leído",
   "newBrute": "Nuevo Bruto",
   "gold": "Oro",
@@ -1565,5 +1566,6 @@
   "wiki.pupils": "Alumnos",
   "wiki.whatPupilBenefits": "¿Qué beneficios tiene?",
   "wiki.pupilBenefits": "Ninguno (por ahora)",
-  "wiki.pupilExplanation": "Los alumnos ya no dan experiencia como en versiones anteriores. Aun así, tu bruto todavía puede tener alumnos compartiendo el enlace en la esquina derecha de su celda."
+  "wiki.pupilExplanation": "Los alumnos ya no dan experiencia como en versiones anteriores. Aun así, tu bruto todavía puede tener alumnos compartiendo el enlace en la esquina derecha de su celda.",
+  "bruteSetForDeletion": "One of your brutes has been set for deletion."
 }
