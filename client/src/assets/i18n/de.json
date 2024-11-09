@@ -590,6 +590,7 @@
   "experience": "Erfahrung",
   "brute": "Brutalo",
   "destinyOf": "Schicksal von",
+  "moderation": "Moderation",
   "adminPanel": "Admin-Konsole",
   "disableSound": "Sound deaktivieren",
   "enableSound": "Sound aktivieren",
@@ -1568,5 +1569,14 @@
   "wiki.whatPupilBenefits": "Was sind ihre Vorteile?",
   "wiki.pupilBenefits": "Keine (momentan)",
   "wiki.pupilExplanation": "Schüler geben keine EP wie in vorherigen Versionen des Spiels. Aber es ist immer noch möglich, Schüler zu rekrutieren, indem du den Link in der rechten oberen Ecke deiner Zelle teilst.",
-  "bruteSetForDeletion": "Einer deiner Brutalos wurde zum Löschen vorgesehen."
+  "bruteSetForDeletion": "Einer deiner Brutalos wurde zum Löschen vorgesehen.",
+  "reportAccepted": "Report accepted",
+  "reportRejected": "Report rejected",
+  "status": "Status",
+  "pending": "Pending",
+  "accepted": "Accepted",
+  "rejected": "Rejected",
+  "unknown": "Unknown",
+  "reportedBy": "Reported by",
+  "handledBy": "Handled by"
 }
