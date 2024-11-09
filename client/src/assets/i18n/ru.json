@@ -467,6 +467,7 @@
   "wiki": "Вики",
   "feed": "Лента",
   "notifications": "Уведомления",
+  "noNotifications": "Everything is quiet here.",
   "allRead": "Всё прочитано",
   "newBrute": "Новый Брутал",
   "gold": "Золото",
@@ -576,6 +577,7 @@
   "fight.step.stun": "{{brute}} ошеломлён.",
   "fight.step.haste": "{{brute}} пронзает {{opponent}}, нанося {{damage}} урона.",
   "fight.step.treat": "{{brute}} кормит своего питомца {{target}}, исцеляя ему {{heal}} ОЗ.",
+  "fight.step.dropShield": "{{brute}} dropped their shield.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.play": "Воспроизвести",
   "fight.pause": "Приостановить",
@@ -1565,5 +1567,6 @@
   "wiki.pupils": "Ученики",
   "wiki.whatPupilBenefits": "Какие у них преимущества?",
   "wiki.pupilBenefits": "Никаких (пока что)",
-  "wiki.pupilExplanation": "Ученики не дают опыта как это было в предыдущих версиях игры. Но до сих пор можно набирать игроков в ученики, посылая им ссылку, которая находится в верхнем правом углу вашей клетки."
+  "wiki.pupilExplanation": "Ученики не дают опыта как это было в предыдущих версиях игры. Но до сих пор можно набирать игроков в ученики, посылая им ссылку, которая находится в верхнем правом углу вашей клетки.",
+  "bruteSetForDeletion": "One of your brutes has been set for deletion."
 }
