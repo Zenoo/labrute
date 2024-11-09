@@ -467,6 +467,7 @@
   "wiki": "Wiki",
   "feed": "Feed",
   "notifications": "Notifications",
+  "noNotifications": "Everything is quiet here.",
   "allRead": "All read",
   "newBrute": "Novo Bruto",
   "gold": "Ouro",
@@ -1565,5 +1566,6 @@
   "wiki.pupils": "Pupils",
   "wiki.whatPupilBenefits": "What are their benefits?",
   "wiki.pupilBenefits": "None (for now)",
-  "wiki.pupilExplanation": "Pupils don't give XP as they used to in previous game versions. But you can still get pupils by sharing the link in the top right corner of your cell."
+  "wiki.pupilExplanation": "Pupils don't give XP as they used to in previous game versions. But you can still get pupils by sharing the link in the top right corner of your cell.",
+  "bruteSetForDeletion": "One of your brutes has been set for deletion."
 }
