@@ -590,6 +590,7 @@
   "experience": "Experience",
   "brute": "Brute",
   "destinyOf": "Destiny of",
+  "moderation": "Moderation",
   "adminPanel": "Admin panel",
   "disableSound": "Disable sound",
   "enableSound": "Enable sound",
@@ -1568,5 +1569,14 @@
   "wiki.whatPupilBenefits": "What are their benefits?",
   "wiki.pupilBenefits": "None (for now)",
   "wiki.pupilExplanation": "Pupils don't give XP as they used to in previous game versions. But you can still get pupils by sharing the link in the top right corner of your cell.",
-  "bruteSetForDeletion": "One of your brutes has been set for deletion."
+  "bruteSetForDeletion": "One of your brutes has been set for deletion.",
+  "reportAccepted": "Report accepted",
+  "reportRejected": "Report rejected",
+  "status": "Status",
+  "pending": "Pending",
+  "accepted": "Accepted",
+  "rejected": "Rejected",
+  "unknown": "Unknown",
+  "reportedBy": "Reported by",
+  "handledBy": "Handled by"
 }
