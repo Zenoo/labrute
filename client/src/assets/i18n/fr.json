@@ -467,7 +467,7 @@
   "wiki": "Wiki",
   "feed": "Flux",
   "notifications": "Notifications",
-  "noNotifications": "Everything is quiet here.",
+  "noNotifications": "Tout est calme ici.",
   "allRead": "Tout lu",
   "newBrute": "Nouvelle brute",
   "gold": "Or",
@@ -577,7 +577,7 @@
   "fight.step.stun": "{{brute}} a été étourdi.",
   "fight.step.haste": "{{brute}} s'est précipité sur {{opponent}} et lui a infligé {{damage}} dégâts.",
   "fight.step.treat": "{{brute}} a donné une friandise à son familier {{target}} et l'a soigné de {{heal}}PV.",
-  "fight.step.dropShield": "{{brute}} dropped their shield.",
+  "fight.step.dropShield": "{{brute}} a lâché son bouclier.",
   "fight.wonTheFight": "{{brute}} a gagné le match",
   "fight.play": "Jouer",
   "fight.pause": "Pause",
@@ -1568,5 +1568,5 @@
   "wiki.whatPupilBenefits": "Quels sont leurs avantages ?",
   "wiki.pupilBenefits": "Aucun (pour l'instant)",
   "wiki.pupilExplanation": "Les élèves ne donnent pas d'XP comme dans les versions précédentes du jeu. Mais vous pouvez toujours obtenir des élèves en partageant le lien en haut à droite de votre cellule.",
-  "bruteSetForDeletion": "One of your brutes has been set for deletion."
+  "bruteSetForDeletion": "Une de vos brutes a été marquée pour suppression."
 }
