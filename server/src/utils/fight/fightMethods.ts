@@ -2,7 +2,6 @@
 import {
   AchievementsStore,
   ArriveStep,
-  AttemptHitStep,
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, FightStat, HitStep, LeaveStep,
   NO_WEAPON_TOSS,
@@ -63,7 +62,7 @@ const getFighterStat = (
       // BODYBUILDER
       if (fighter.bodybuilder && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
         return weaponStat
-          + (SkillModifiers[SkillName.bodybuilder][FightStat.DEXTERITY]?.percent ?? 0) / 100;
+          + (SkillModifiers[SkillName.bodybuilder][FightStat.DEXTERITY]?.percent ?? 0);
       }
 
       return weaponStat;
@@ -390,14 +389,12 @@ const increaseInitiative = (fighter: DetailedFighter) => {
   if (fighter.activeWeapon
     && fighter.bodybuilder
     && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
-    tempo *= (100 - (SkillModifiers[SkillName.bodybuilder][FightStat.HIT_SPEED]?.percent ?? 0))
-      / 100;
+    tempo *= 1 - (SkillModifiers[SkillName.bodybuilder][FightStat.HIT_SPEED]?.percent ?? 0);
   }
 
   // Increase tempo lost if fighter has `monk`
   if (fighter.monk) {
-    tempo *= (100 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0))
-      / 100;
+    tempo *= 1 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0);
   }
 
   fighter.initiative += tempo;
@@ -658,6 +655,19 @@ const registerHit = (
   updateStats(stats, fighter.id, 'hits', 1, fighter.master);
 };
 
+const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
+  // Remove brute's shield
+  fighter.shield = false;
+  fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
+  fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
+
+  // Add dropShield step
+  fightData.steps.push({
+    a: StepType.DropShield,
+    b: fighter.index,
+  });
+};
+
 const activateSuper = (
   fightData: DetailedFight,
   fighter: DetailedFighter,
@@ -839,7 +849,7 @@ const activateSuper = (
       }
 
       // Drop shield
-      if(fighter.shield){
+      if (fighter.shield) {
         dropShield(fightData, fighter);
       }
 
@@ -874,7 +884,7 @@ const activateSuper = (
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
 
       // Add dropShield step
-      if(opponent.shield){
+      if (opponent.shield) {
         dropShield(fightData, opponent);
 
         // Update disarm stat
@@ -882,7 +892,7 @@ const activateSuper = (
       }
 
       // Add disarm step
-      if(opponent.activeWeapon){
+      if (opponent.activeWeapon) {
         fightData.steps.push({
           a: StepType.Disarm,
           f: fighter.index,
@@ -994,7 +1004,7 @@ const activateSuper = (
       }
 
       // Drop shield
-      if(fighter.shield){
+      if (fighter.shield) {
         dropShield(fightData, fighter);
       }
 
@@ -1355,7 +1365,7 @@ const block = ({
 
   // increase block if blocking a throwing a weapon with `Hideaway`
   if (thrown && opponent.skills.find((sk) => sk.name === SkillName.hideaway)) {
-    opponentBlock += (SkillModifiers[SkillName.hideaway][FightStat.BLOCK]?.percent ?? 0) / 100;
+    opponentBlock += SkillModifiers[SkillName.hideaway][FightStat.BLOCK]?.percent ?? 0;
   }
 
   return Math.random() * ease
@@ -1407,19 +1417,6 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
-const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
-  // Remove brute's shield
-  fighter.shield = false;
-  fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
-  fighter.block -= (SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0) / 100;
-
-  // Add dropShield step
-  fightData.steps.push({
-    a: StepType.DropShield,
-    b: fighter.index,
-  });
-};
-
 const disarm = (
   fighter: DetailedFighter,
   opponent: DetailedFighter,
@@ -1452,8 +1449,7 @@ const reversal = (opponent: DetailedFighter, blocked: boolean) => {
 
   // Incrase reversal when blocking with counterAttack
   if (blocked && opponent.skills.find((sk) => sk.name === SkillName.counterAttack)) {
-    reversalStat += (SkillModifiers[SkillName.counterAttack][FightStat.REVERSAL]?.percent ?? 0)
-      / 100;
+    reversalStat += SkillModifiers[SkillName.counterAttack][FightStat.REVERSAL]?.percent ?? 0;
   }
 
   return random < reversalStat;
@@ -1523,8 +1519,8 @@ const attack = (
       updateStats(stats, fighter.id, 'disarms', 1);
 
       // Remove shield from opponent
-      dropShield(fightData, opponent)
-    };
+      dropShield(fightData, opponent);
+    }
 
     // Check if opponent blocked
     if (blocked) {

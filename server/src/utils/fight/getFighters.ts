@@ -46,7 +46,7 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
         }
       }
       if (modifier.percent) {
-        fighter[stat] += modifier.percent / 100;
+        fighter[stat] += modifier.percent;
       }
     }
 

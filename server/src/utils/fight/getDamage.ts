@@ -43,15 +43,15 @@ const getDamage = (
       // If weapon type is null, it means the modifier applies to empty hands (or mug)
       if (modifier.weaponType === null) {
         if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
-          skillsMultiplier += (modifier.percent ?? 0) / 100;
+          skillsMultiplier += modifier.percent ?? 0;
         }
       } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
         // If the weapon type is the same as the modifier, apply the damage
-        skillsMultiplier += (modifier.percent ?? 0) / 100;
+        skillsMultiplier += modifier.percent ?? 0;
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= (100 + (modifier.percent ?? 0)) / 100;
+      skillsMultiplier *= 1 + (modifier.percent ?? 0);
     }
   }
 
@@ -79,15 +79,15 @@ const getDamage = (
       // If weapon type is null, it means the modifier applies to empty hands (or mug)
       if (modifier.weaponType === null) {
         if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
-          skillsMultiplier += (modifier.percent ?? 0) / 100;
+          skillsMultiplier += modifier.percent ?? 0;
         }
       } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
         // If the weapon type is the same as the modifier, apply the damage
-        skillsMultiplier += (modifier.percent ?? 0) / 100;
+        skillsMultiplier += modifier.percent ?? 0;
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= (100 + (modifier.percent ?? 0)) / 100;
+      skillsMultiplier *= 1 + (modifier.percent ?? 0);
     }
   }
 

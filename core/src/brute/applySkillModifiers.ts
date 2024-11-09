@@ -24,7 +24,7 @@ const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) =
 
     // Percent modifier
     if (modifier.percent) {
-      updatedBrute[`${stat}Modifier`] *= (100 + modifier.percent) / 100;
+      updatedBrute[`${stat}Modifier`] *= 1 + modifier.percent;
     }
   });
 

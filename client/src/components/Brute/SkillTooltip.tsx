@@ -53,7 +53,7 @@ const SkillTooltip = ({
                     sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
                   >
                     {modifier.percent < 0 ? '' : '+'}
-                    {modifier.percent}
+                    {modifier.percent * 100}
                     {'% '}
                     {modifier.opponent ? t(`opponent-${stat}`) : t(stat)}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
