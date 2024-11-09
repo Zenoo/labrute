@@ -577,6 +577,7 @@
   "fight.step.stun": "{{brute}} fue aturdido.",
   "fight.step.haste": "{{brute}} arrolló a {{opponent}} causando {{damage}} puntos de daño.",
   "fight.step.treat": "{{brute}} le dio una golosina a su {{target}} mascota y le curó {{heal}} puntos de vida.",
+  "fight.step.dropShield": "{{brute}} dropped their shield.",
   "fight.wonTheFight": "{{brute}} ha ganado el combate",
   "fight.play": "Continuar",
   "fight.pause": "Pausar",
