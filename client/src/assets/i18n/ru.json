@@ -577,6 +577,7 @@
   "fight.step.stun": "{{brute}} ошеломлён.",
   "fight.step.haste": "{{brute}} пронзает {{opponent}}, нанося {{damage}} урона.",
   "fight.step.treat": "{{brute}} кормит своего питомца {{target}}, исцеляя ему {{heal}} ОЗ.",
+  "fight.step.dropShield": "{{brute}} dropped their shield.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.play": "Воспроизвести",
   "fight.pause": "Приостановить",
