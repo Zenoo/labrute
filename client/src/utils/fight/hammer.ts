@@ -8,6 +8,7 @@ import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import stagger from './stagger';
 import updateHp from './updateHp';
+import { untrap } from './untrap';
 
 const hammer = async (
   app: Application,
@@ -36,6 +37,9 @@ const hammer = async (
   void sound.play('skills/hammer', {
     speed: speed.current,
   });
+
+  // Untrap target
+  untrap(app, target);
 
   // Stagger both
   stagger(fighter, speed).catch(console.error);

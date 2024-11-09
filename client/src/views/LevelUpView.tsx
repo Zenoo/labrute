@@ -10,6 +10,7 @@ import BruteHP from '../components/Brute/BruteHP';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import CellStats from '../components/Cell/CellStats';
+import Link from '../components/Link';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -74,7 +75,7 @@ const LevelUpView = () => {
     // Update brute data
     updateBrute((data) => (data ? ({ ...data, ...newBrute }) : null));
 
-    navigate(`/${brute.name}/cell`);
+    navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
   }, [Alert, brute, choices, navigate, updateBrute, updateData]);
 
   const stats = brute && (
@@ -90,7 +91,11 @@ const LevelUpView = () => {
       <CellStats value={getFinalStat(brute, 'agility', modifiers)} stat="agility" />
       {/* SPEED */}
       <CellStats value={getFinalStat(brute, 'speed', modifiers)} stat="speed" />
+      <Link to={`/${brute.name}/cell`}>
+        <Text bold>{t('backToCell')}</Text>
+      </Link>
     </>
+
   );
 
   const weaponsAndSkills = brute && (

@@ -838,6 +838,11 @@ const activateSuper = (
         }
       }
 
+      // Drop shield
+      if(fighter.shield){
+        dropShield(fightData, fighter);
+      }
+
       // Choose opponent
       const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
 
@@ -867,6 +872,29 @@ const activateSuper = (
       });
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
+
+      // Add dropShield step
+      if(opponent.shield){
+        dropShield(fightData, opponent);
+
+        // Update disarm stat
+        updateStats(stats, fighter.id, 'disarms', 1);
+      }
+
+      // Add disarm step
+      if(opponent.activeWeapon){
+        fightData.steps.push({
+          a: StepType.Disarm,
+          f: fighter.index,
+          t: opponent.index,
+          w: WeaponByName[opponent.activeWeapon.name],
+        });
+
+        opponent.activeWeapon = null;
+
+        // Update disarm stat
+        updateStats(stats, fighter.id, 'disarms', 1);
+      }
 
       // Add move back step
       fightData.steps.push({
@@ -963,6 +991,11 @@ const activateSuper = (
 
       if (!opponent) {
         return false;
+      }
+
+      // Drop shield
+      if(fighter.shield){
+        dropShield(fightData, fighter);
       }
 
       // Shuffle weapons
@@ -1374,6 +1407,19 @@ const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
+const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
+  // Remove brute's shield
+  fighter.shield = false;
+  fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
+  fighter.block -= (SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0) / 100;
+
+  // Add dropShield step
+  fightData.steps.push({
+    a: StepType.DropShield,
+    b: fighter.index,
+  });
+};
+
 const disarm = (
   fighter: DetailedFighter,
   opponent: DetailedFighter,
@@ -1446,19 +1492,15 @@ const attack = (
   const evaded = evade(fighter, opponent);
   const brokeShield = breakShield(fighter, opponent);
 
-  // Prepare attempt step
-  const attemptStep: AttemptHitStep = {
+  // Add attempt step
+  fightData.steps.push({
     a: StepType.AttemptHit,
     f: fighter.index,
     t: opponent.index,
     w: fighter.activeWeapon ? WeaponByName[fighter.activeWeapon.name] : undefined,
-  };
-
+  });
   // Check if opponent evaded
   if (evaded) {
-    // Add attempt step as is
-    fightData.steps.push(attemptStep);
-
     damage = 0;
 
     // Add evade step
@@ -1480,18 +1522,9 @@ const attack = (
       // Update disarm stat
       updateStats(stats, fighter.id, 'disarms', 1);
 
-      // Add attempt step with shield break
-      attemptStep.b = 1;
-      fightData.steps.push(attemptStep);
-
       // Remove shield from opponent
-      opponent.shield = false;
-      opponent.skills = opponent.skills.filter((sk) => sk.name !== SkillName.shield);
-      opponent.block -= (SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0) / 100;
-    } else {
-      // Add attempt step as is
-      fightData.steps.push(attemptStep);
-    }
+      dropShield(fightData, opponent)
+    };
 
     // Check if opponent blocked
     if (blocked) {

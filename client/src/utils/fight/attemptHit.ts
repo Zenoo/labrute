@@ -50,6 +50,8 @@ const attemptHit = async (
   }).catch(console.error);
 
   // Handle shield breaking
+  // Necessary since dropShield was added later
+  // TODO: Remove on release
   if (step.b) {
     target.animation.shield = false;
 
@@ -64,9 +66,9 @@ const attemptHit = async (
     // Set position
     trashedShield.position.set(
       target.team === 'L'
-        ? target.animation.container.x + FIGHTER_WIDTH.brute / 4
-        : target.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
-      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
+        ? target.animation.container.x + FIGHTER_WIDTH.brute * 0.25
+        : target.animation.container.x + FIGHTER_WIDTH.brute * 0.25,
+      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.4,
     );
 
     // Set angle
