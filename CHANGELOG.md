@@ -2,6 +2,121 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.76.0](https://github.com/Zenoo/labrute/compare/labrute-v2.75.0...labrute-v2.76.0) (2024-11-09)
+
+
+### Features
+
+* Moderator panel. Fixes [#1014](https://github.com/Zenoo/labrute/issues/1014) ([0d1d9b4](https://github.com/Zenoo/labrute/commit/0d1d9b4557406a0ecbc9fa7c528a0ef631a7c6ae))
+
+## [2.75.0](https://github.com/Zenoo/labrute/compare/labrute-v2.74.7...labrute-v2.75.0) (2024-11-09)
+
+
+### Features
+
+* Notification system (display notif count in the topbar). Fixes [#1020](https://github.com/Zenoo/labrute/issues/1020) ([042a38d](https://github.com/Zenoo/labrute/commit/042a38dbfdbdfefd9722a8a9de0bf57ebe597036))
+
+
+### Bug Fixes
+
+* Adjust weapon dexterity for clearer impact ([cec0009](https://github.com/Zenoo/labrute/commit/cec000946f5b45b4f116b91c3cb412fad990faa3))
+* Multiple QoL fixes. See [#1017](https://github.com/Zenoo/labrute/issues/1017) desc ([5adac47](https://github.com/Zenoo/labrute/commit/5adac47338e219bfea5c91103237c781101e0e1b))
+* Notification link visibility ([8540a33](https://github.com/Zenoo/labrute/commit/8540a332336b33bf7b6b05179f283dac81f9273b))
+* Update prisma. Fixes [#1022](https://github.com/Zenoo/labrute/issues/1022) ([0c03a0f](https://github.com/Zenoo/labrute/commit/0c03a0fb71751b2d94bc13a77fa7b24da7099d5c))
+
+## [2.74.7](https://github.com/Zenoo/labrute/compare/labrute-v2.74.6...labrute-v2.74.7) (2024-11-08)
+
+
+### Bug Fixes
+
+* Wrong block calculation ([9f0ee74](https://github.com/Zenoo/labrute/commit/9f0ee74704fb217f22b9f0eb8c3d61514afa9f5a))
+
+## [2.74.6](https://github.com/Zenoo/labrute/compare/labrute-v2.74.5...labrute-v2.74.6) (2024-11-08)
+
+
+### Bug Fixes
+
+* Counter attack triggering without blocking ([b769448](https://github.com/Zenoo/labrute/commit/b769448f5f66164335c74a23d8eb703d6e0c71f6))
+
+## [2.74.5](https://github.com/Zenoo/labrute/compare/labrute-v2.74.4...labrute-v2.74.5) (2024-11-07)
+
+
+### Bug Fixes
+
+* Topbar visual bug ([baaeb59](https://github.com/Zenoo/labrute/commit/baaeb594b001daf14804c48317b767638028160b))
+
+## [2.74.4](https://github.com/Zenoo/labrute/compare/labrute-v2.74.3...labrute-v2.74.4) (2024-11-07)
+
+
+### Bug Fixes
+
+* 30 max favorited brutes. Fixes [#1009](https://github.com/Zenoo/labrute/issues/1009) ([3508f1e](https://github.com/Zenoo/labrute/commit/3508f1e06b924f5e16f16fcb9038c4a1d1813c8e))
+* Decrease sai disarm, increase sai deflect. Fixes [#1001](https://github.com/Zenoo/labrute/issues/1001) ([052a3c4](https://github.com/Zenoo/labrute/commit/052a3c4c411a01e319f9e147110ff2111d696789))
+* Display gold needed for a new Brute. Fixes [#1019](https://github.com/Zenoo/labrute/issues/1019) ([805643f](https://github.com/Zenoo/labrute/commit/805643f3a15dda640ca61ecd85e83792d7a5bad6))
+* Don't trigger reversal when at 0 HP. Fixes [#998](https://github.com/Zenoo/labrute/issues/998) ([b7afbd9](https://github.com/Zenoo/labrute/commit/b7afbd92bc54400bfbe1e8282c886828ea450b56))
+* Get skill modifiers from a single source. Fixes [#1016](https://github.com/Zenoo/labrute/issues/1016) ([e391031](https://github.com/Zenoo/labrute/commit/e391031c6e93176004973451ad5cc6cc6f244e76))
+* Redirect to event ranking from event brute cells. Fixes [#999](https://github.com/Zenoo/labrute/issues/999) ([cfe4478](https://github.com/Zenoo/labrute/commit/cfe447883f4624c2811689adf219545c11740a52))
+* Simplify accuracy use in fights ([099ff45](https://github.com/Zenoo/labrute/commit/099ff45c2a04ca54b6b91de4225e8a08e3102d93))
+* Treat cures Chef's poison. Fixes [#1002](https://github.com/Zenoo/labrute/issues/1002) ([119f8d2](https://github.com/Zenoo/labrute/commit/119f8d289ea8b64bd631bad1affbbffae118029d))
+
+## [2.74.3](https://github.com/Zenoo/labrute/compare/labrute-v2.74.2...labrute-v2.74.3) (2024-11-01)
+
+
+### Bug Fixes
+
+* Tamer trigger after 20% missing HP ([fecbdf1](https://github.com/Zenoo/labrute/commit/fecbdf121b85ed0278febf4cb0a884e86d4156ce))
+* Wrong filter out for Tamer skill ([8350805](https://github.com/Zenoo/labrute/commit/8350805023c3582ed7a2a8b8dec9845df0a5f9ef))
+
+## [2.74.2](https://github.com/Zenoo/labrute/compare/labrute-v2.74.1...labrute-v2.74.2) (2024-10-31)
+
+
+### Bug Fixes
+
+* Reduce shield reduced damage ([050ae1f](https://github.com/Zenoo/labrute/commit/050ae1ff65f6683c9e669a890e7811d812b9e3bf))
+
+## [2.74.1](https://github.com/Zenoo/labrute/compare/labrute-v2.74.0...labrute-v2.74.1) (2024-10-31)
+
+
+### Bug Fixes
+
+* Martial arts not triggering ([2c0b3b8](https://github.com/Zenoo/labrute/commit/2c0b3b84f7d6b519b030f1cf74f063d4067c0834))
+* Recude shield nerf to 25% damage ([fd0f675](https://github.com/Zenoo/labrute/commit/fd0f675b4790e4c31631c62cdb54be9b5c94dec0))
+
+## [2.74.0](https://github.com/Zenoo/labrute/compare/labrute-v2.73.2...labrute-v2.74.0) (2024-10-30)
+
+
+### Features
+
+* -45% damage while wearing a shield. Fixes [#992](https://github.com/Zenoo/labrute/issues/992) ([a9cc4e0](https://github.com/Zenoo/labrute/commit/a9cc4e0fa02cb1cd71ec690d3e1575b2906cde00))
+* +25% block against throws for `Hideaway`. Fixes [#991](https://github.com/Zenoo/labrute/issues/991) ([73bce57](https://github.com/Zenoo/labrute/commit/73bce57de18f960628301dc5712a957dc9ff1cfe))
+* New user menu. [#948](https://github.com/Zenoo/labrute/issues/948) ([fa0cbcb](https://github.com/Zenoo/labrute/commit/fa0cbcb2c9bf69dfe1da019ffb3454d0798212ee))
+* Settings in user menu + skip versus view. [#948](https://github.com/Zenoo/labrute/issues/948) ([41330a1](https://github.com/Zenoo/labrute/commit/41330a132c8b4c3a79b36e3546a5f9435f3b4da6))
+* Wiki. Fixes [#586](https://github.com/Zenoo/labrute/issues/586) ([3317e81](https://github.com/Zenoo/labrute/commit/3317e8169042828fab73f94d3fb280aa6cc6bec0))
+
+
+### Bug Fixes
+
+* Decrease chance to not draw a weapon when not holding one. Fixes [#987](https://github.com/Zenoo/labrute/issues/987) ([18277a4](https://github.com/Zenoo/labrute/commit/18277a4ea1c241055a3cdb7205ddd2517355deb3))
+* Disable achievements for event brutes. FIxes [#980](https://github.com/Zenoo/labrute/issues/980) ([b7c5bbf](https://github.com/Zenoo/labrute/commit/b7c5bbff6afed3607653c190b91f04cd80782b60))
+* Disable chef poison from backups. Fixes [#973](https://github.com/Zenoo/labrute/issues/973) ([1caf76b](https://github.com/Zenoo/labrute/commit/1caf76bcb92c811c327a10b03ce879ef07217711))
+* Hide level up after reaching event max level. Fixes [#976](https://github.com/Zenoo/labrute/issues/976) ([7896006](https://github.com/Zenoo/labrute/commit/7896006c4eab7059c536f0621daf62a06eebc58e))
+* Missing achievements. Fixes [#979](https://github.com/Zenoo/labrute/issues/979) ([67126c3](https://github.com/Zenoo/labrute/commit/67126c36b937f445ed9eced8afd44da8aa9bffba))
+* No additional fights when unlocking `Regeneration` for event brutes. Fixes [#994](https://github.com/Zenoo/labrute/issues/994) ([f355577](https://github.com/Zenoo/labrute/commit/f3555776a60d31d04816a55277e95188c22246e1))
+* Random event brute sorting + fix uneven event participants in rounds. Fixes [#956](https://github.com/Zenoo/labrute/issues/956) ([d3ad48a](https://github.com/Zenoo/labrute/commit/d3ad48a3365e0163d9f2bf510250369402fd9434))
+* Random weapon/skill seeded per brute, not per server. Fixes [#955](https://github.com/Zenoo/labrute/issues/955) ([093e01b](https://github.com/Zenoo/labrute/commit/093e01b69383cf74151bd403a4ded24c93149e2f))
+* Remove initiative cost for treat. Fixes [#990](https://github.com/Zenoo/labrute/issues/990) ([b043262](https://github.com/Zenoo/labrute/commit/b0432621b3970f3ffb5873947be380033a8044b0))
+* Store last release seen and event step watched in DB. Fixes [#970](https://github.com/Zenoo/labrute/issues/970) ([8fa8807](https://github.com/Zenoo/labrute/commit/8fa8807dc0331a2c0bd4ee0e127f021037c5a948))
+* Trapped brutes stunned on untrap. Fixes [#989](https://github.com/Zenoo/labrute/issues/989) ([ad37278](https://github.com/Zenoo/labrute/commit/ad372787c4345fae57115b5aec8816c21ee0c894))
+* Weapon hit speed influences throwing chances (more hit speed = less likely to throw). Fixes [#988](https://github.com/Zenoo/labrute/issues/988) ([e327b97](https://github.com/Zenoo/labrute/commit/e327b9794511d3e201424e1162985e8f8375e215))
+
+## [2.73.2](https://github.com/Zenoo/labrute/compare/labrute-v2.73.1...labrute-v2.73.2) (2024-10-02)
+
+
+### Bug Fixes
+
+* always clear OAuth search params ([86aae1c](https://github.com/Zenoo/labrute/commit/86aae1c2792df05bed5d6ab3bd054c6866900654))
+* Don't redirect evrything to / on Home ([9ea155f](https://github.com/Zenoo/labrute/commit/9ea155fab33e21fe8cb137ea8dc983916146188e))
+
 ## [2.73.1](https://github.com/Zenoo/labrute/compare/labrute-v2.73.0...labrute-v2.73.1) (2024-09-29)
 
 

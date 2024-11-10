@@ -113,13 +113,16 @@ const Fights = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
+      // Get current modifiers
+      const modifiers = await ServerState.getModifiers(prisma);
 
       // Check if this is an arena fight
       const arenaFight = brute1.opponents.some((opponent) => opponent.name === brute2.name);
 
+      const brute1FightsLeft = getFightsLeft(brute1, modifiers);
+
       // Cancel if brute1 has no fights left
-      if (arenaFight && getFightsLeft(brute1, randomSkill) <= 0) {
+      if (arenaFight && brute1FightsLeft <= 0) {
         throw new ExpectedError(translate('noFightsLeft', user));
       }
 
@@ -129,7 +132,7 @@ const Fights = {
           where: { id: brute1.id },
           data: {
             lastFight: new Date(),
-            fightsLeft: getFightsLeft(brute1, randomSkill) - 1,
+            fightsLeft: brute1FightsLeft - 1,
           },
           select: { id: true },
         });
@@ -139,9 +142,6 @@ const Fights = {
       let generatedFight: Prisma.FightCreateInput | null = null;
       let expectedError: ExpectedError | null = null;
       let retry = 0;
-
-      // Get current modifiers
-      const modifiers = await ServerState.getModifiers(prisma);
 
       while (!generatedFight && !expectedError && retry < 10) {
         try {
@@ -198,13 +198,14 @@ const Fights = {
             : levelDifference > 10 ? 0 : 1
         : 0;
 
-      // Update brute XP and victories if arena fight
+      // Update brute XP, victories and losses if arena fight
       if (arenaFight) {
         await prisma.brute.update({
           where: { id: brute1.id },
           data: {
             xp: { increment: xpGained },
             victories: { increment: generatedFight.winner === brute1.name ? 1 : 0 },
+            losses: { increment: generatedFight.winner === brute1.name ? 0 : 1 },
           },
           select: { id: true },
         });
@@ -258,7 +259,7 @@ const Fights = {
         });
       }
 
-      const fightsLeft = getFightsLeft(brute1, randomSkill);
+      const fightsLeft = getFightsLeft(brute1, modifiers);
 
       // Send fight id to client
       res.send({
@@ -266,6 +267,7 @@ const Fights = {
         xpWon: arenaFight ? xpGained : 0,
         fightsLeft: arenaFight ? fightsLeft - 1 : fightsLeft,
         victories: arenaFight ? generatedFight.winner === brute1.name ? 1 : 0 : 0,
+        losses: arenaFight ? generatedFight.winner !== brute1.name ? 1 : 0 : 0,
       });
     } catch (error) {
       sendError(res, error);

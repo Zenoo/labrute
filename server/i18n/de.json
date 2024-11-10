@@ -34,8 +34,18 @@
   "cannotSacrificeSameDay": "Du kannst deinen Brutalo nicht am Tag seiner Erstellung opfern",
   "cannotSacrificeClanMaster": "Der Klanführer kann nicht geopfert werden",
   "missingName": "Name fehlt",
+  "missingChoice": "Auswahl fehlt",
+  "multipleChoices": "Auswahl wurde mehrmals getroffen, während nur eine erwartet wurde",
   "bruteCannotRankUp": "Dein Brutalo kann nicht im Rang aufsteigen",
   "bruteAlreadyMaxRank": "Dein Brutalo hat bereits den höchsten Rang",
+  "bruteNotMaxRank": "Dein Brutalo muss bereits den höchsten Rang haben",
+  "bruteMissingWeapon": "Dein Brutalo besitzt diese Waffe nicht",
+  "bruteMissingSkill": "Dein Brutalo besitzt diese Fähigkeit nicht",
+  "bruteMissingPet": "Dein Brutalo besitzt diesen Tierbegleiter nicht",
+  "bruteMissingDogAscend": "Dein Brutalo muss mit einem Hund nach der Reihe aufsteigen",
+  "bruteSkillAlreadyWeapon": "Dein Brutalo ist mit dieser Waffe bereits aufgestiegen",
+  "bruteSkillAlreadyAscended": "Dein Brutalo ist mit dieser Fähigkeit bereits aufgestiegen",
+  "bruteSkillAlreadyPet": "Dein Brutalo ist mit diesem Tierbegleiter bereits aufgestiegen",
   "noFirstBonus": "Brutalo hat keinen Startbonus",
   "bruteNotFoundOrNotDeleted": "Brutalo nicht gefunden oder nicht gelöscht",
   "anotherBruteHasThisName": "Dieser Name gehört einem anderen Brutalo",
@@ -111,5 +121,6 @@
   "oneBrutePerEvent": "Man kann nur einen Brutalo pro Ereignis haben",
   "eventNotFound": "Ereignis nicht gefunden",
   "eventAlreadyStarted": "Ereignis bereits begonnen",
-  "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht"
+  "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht",
+  "reportAlreadyHandled": "Meldung bereits bearbeitet"
 }

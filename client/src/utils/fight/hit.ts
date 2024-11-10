@@ -43,6 +43,8 @@ const hit = async (
     ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
     : 'hit';
 
+  const targetWasTrapped = target.trapped;
+
   // Untrap target
   untrap(app, target);
 
@@ -133,6 +135,9 @@ const hit = async (
   if (step.s) {
     target.animation.setAnimation('death');
     void sound.play('sfx', { sprite: 'chaining' });
+  } else if (targetWasTrapped && target.type === 'brute') {
+    // Stun brutes if trapped
+    target.animation.setAnimation('death');
   } else {
     // Set animation to `idle`
     target.animation.setAnimation('idle');

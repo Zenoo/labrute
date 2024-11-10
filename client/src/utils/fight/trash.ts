@@ -42,8 +42,8 @@ const trash = async (
     // Set position
     trashedWeapon.position.set(
       brute.team === 'L'
-        ? brute.animation.container.x + FIGHTER_WIDTH.brute / 4
-        : brute.animation.container.x + FIGHTER_WIDTH.brute * 0.75,
+        ? brute.animation.container.x + FIGHTER_WIDTH.brute * 0.25
+        : brute.animation.container.x + FIGHTER_WIDTH.brute * 0.25,
       brute.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
     );
 

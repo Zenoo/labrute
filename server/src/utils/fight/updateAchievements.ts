@@ -9,12 +9,17 @@ const updateAchievements = async (
   const bruteAchievements = [];
   const bruteAchievementsTournamentRelated = [];
   for (const [bruteId, bruteStore] of Object.entries(store)) {
+    // Disable achievements for event brutes
+    if (bruteStore.eventId) {
+      continue;
+    }
+
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
       const achievementName = _name as AchievementName;
       if (isTournamentFight && TournamentAchievements.includes(achievementName)) {
         bruteAchievementsTournamentRelated.push([bruteId, achievementName, count]);
       } else {
-        bruteAchievements.push([bruteId, achievementName, count]);
+        bruteAchievements.push([bruteId, bruteStore.userId, achievementName, count]);
       }
     }
   }
@@ -34,8 +39,8 @@ const updateAchievements = async (
   try {
     if (bruteAchievements.length > 0) {
       await prisma.$executeRawUnsafe(/* sql */`
-        INSERT INTO "Achievement"("bruteId", name, count) VALUES
-        ${bruteAchievements.map(([bruteId, name, count]) => `('${bruteId}', '${name}', ${count})`).join(', ')}
+        INSERT INTO "Achievement"("bruteId", "userId", name, count) VALUES
+        ${bruteAchievements.map(([bruteId, userId, name, count]) => `('${bruteId}', '${userId}', '${name}', ${count})`).join(', ')}
         ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE
         WHEN excluded.name = '${AchievementName.maxDamage}' THEN
           GREATEST("Achievement".count, excluded.count)

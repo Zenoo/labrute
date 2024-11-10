@@ -48,6 +48,14 @@ const HomeView = () => {
   useEffect(() => {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code');
+
+    // Default URL to website root, clear all OAuth search params.
+    if (url.pathname === '/oauth/callback') {
+      url.pathname = '/';
+      url.searchParams.delete('code');
+      url.searchParams.delete('state');
+    }
+
     if (code && !authing && !user) {
       setAuthing(true);
       Fetch<UserWithBrutesBodyColor>('/api/oauth/token', { code }).then((response) => {
@@ -62,15 +70,13 @@ const HomeView = () => {
 
         // Redirect to first brute if exists
         if (response.brutes.length) {
-          window.location.href = `/${response.brutes[0]?.name}/cell`;
+          url.pathname = `/${response.brutes[0]?.name}/cell`;
+          // force refresh
+          window.location.href = url.toString();
         }
-      }).catch(catchError(Alert)).finally(() => {
-        // Remove code/state from url and set url to '/'
-        url.searchParams.delete('code');
-        url.searchParams.delete('state');
-        url.pathname = '/';
         window.history.replaceState({}, '', url.toString());
-
+      }).catch(catchError(Alert)).finally(() => {
+        window.history.replaceState({}, '', url.toString());
         setAuthing(false);
       });
     }

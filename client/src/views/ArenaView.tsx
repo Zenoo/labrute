@@ -15,6 +15,7 @@ import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { useAuth } from '../hooks/useAuth';
+import Loader from '../components/Loader';
 
 const ArenaView = () => {
   const { t } = useTranslation();
@@ -23,18 +24,19 @@ const ArenaView = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
-  const { brute } = useBrute();
-  const { randomSkill } = useAuth();
+  const { brute, updateBrute } = useBrute();
+  const { modifiers, user, updateData } = useAuth();
 
   const [opponents, setOpponents] = useState<BrutesGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);
 
   const fightsLeft = useMemo(
-    () => (brute && getFightsLeft(brute, randomSkill)) ?? 0,
-    [brute, randomSkill]
+    () => (brute && getFightsLeft(brute, modifiers)) ?? 0,
+    [brute, modifiers]
   );
 
   // Fetch random opponents
@@ -88,6 +90,46 @@ const ArenaView = () => {
     }).catch(catchError(Alert));
   }, [Alert, brute, bruteName, navigate, search, t]);
 
+  // Go to versus page
+  const goToVersus = useCallback((opponentName: string) => () => {
+    if (!user || !brute || loading) return;
+
+    // Skip versus page
+    if (!user.displayVersusPage) {
+      setLoading(true);
+
+      // Create the fight
+      Server.Fight.create(brute.name, opponentName)
+        .then((fight) => {
+          navigate(`/${brute.name}/fight/${fight.id}`);
+
+          // Update brute data
+          updateData((data) => (data ? ({
+            ...data,
+            brutes: data.brutes.map((b) => (b.name === brute.name ? {
+              ...b,
+              fightsLeft: fight.fightsLeft,
+              xp: b.xp + fight.xpWon,
+              victories: b.victories + fight.victories,
+              lastFight: new Date(),
+            } : b)),
+          }) : null));
+
+          updateBrute((data) => (data ? ({
+            ...data,
+            fightsLeft: fight.fightsLeft,
+            xp: data.xp + fight.xpWon,
+            victories: data.victories + fight.victories,
+            lastFight: new Date(),
+          }) : null));
+        })
+        .catch(catchError(Alert))
+        .finally(() => setLoading(false));
+    } else {
+      navigate(`/${bruteName || ''}/versus/${opponentName}`);
+    }
+  }, [Alert, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
+
   return brute && (
     <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
@@ -99,7 +141,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, randomSkill) }) : t('youHaveOneFightLeft')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, modifiers) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>
@@ -121,23 +163,25 @@ const ArenaView = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={5.6}>
-            <Grid container spacing={1}>
-              {opponents.map((opponent) => (
-                <Grid item key={opponent.name} xs={12} sm={6}>
-                  <BruteButton
-                    brute={opponent}
-                    link={`/${bruteName || ''}/versus/${opponent.name}`}
-                  />
-                </Grid>
-              ))}
-            </Grid>
+            {loading ? <Loader height={346} /> : (
+              <Grid container spacing={1}>
+                {opponents.map((opponent) => (
+                  <Grid item key={opponent.name} xs={12} sm={6}>
+                    <BruteButton
+                      brute={opponent}
+                      onClick={goToVersus(opponent.name)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            )}
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
               <StyledInput
                 onChange={changeSearch}
                 value={search}
                 sx={{ mr: 2 }}
               />
-              <Button onClick={searchOpponent} variant="contained">{t('arena.search')}</Button>
+              <Button onClick={searchOpponent} variant="mybrute">{t('arena.search')}</Button>
             </Box>
           </Grid>
           {!isMd && (

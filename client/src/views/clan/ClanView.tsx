@@ -1,5 +1,5 @@
 import { BruteRanking, BrutesGetClanIdAsMasterResponse, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
-import { Brute, ClanWarStatus, ClanWarType } from '@labrute/prisma';
+import { BossName, Brute, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -17,6 +17,7 @@ import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import moment from 'moment';
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
@@ -24,7 +25,7 @@ const ClanView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
   const Alert = useAlert();
-  const { user, updateData, randomSkill } = useAuth();
+  const { user, updateData, modifiers } = useAuth();
   const navigate = useNavigate();
   const Confirm = useConfirm();
   const { brute, updateBrute, owner } = useBrute();
@@ -37,6 +38,19 @@ const ClanView = () => {
   const [masterOfClan, setMasterOfClan] = useState<BrutesGetClanIdAsMasterResponse['id']>(null);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
+  const displayedBossName = useMemo(() => {
+    // Normal day display
+    if (!moment().isSame(moment('04-01', 'MM-DD'), 'day')) return clan?.boss;
+    // April Fools display
+    switch (clan?.boss) {
+      case BossName.EmberFang:
+        return 'EmberFool';
+      case BossName.GoldClaw:
+        return 'GoldClown';
+      default:
+        return clan?.boss;
+    }
+  }, [clan]);
 
   const clanWar = clan?.attacks[0] || clan?.defenses[0];
 
@@ -283,7 +297,7 @@ const ClanView = () => {
     if (!clan || !brute) return;
 
     // Check if brute still has fights left
-    if (getFightsLeft(brute, randomSkill) <= 0) {
+    if (getFightsLeft(brute, modifiers) <= 0) {
       Alert.open('error', t('noFightsLeft'));
       return;
     }
@@ -294,7 +308,7 @@ const ClanView = () => {
         ...data,
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b,
-          fightsLeft: getFightsLeft(b, randomSkill) - 1,
+          fightsLeft: getFightsLeft(b, modifiers) - 1,
           lastFight: new Date(),
         } : b)),
       }) : null));
@@ -304,7 +318,7 @@ const ClanView = () => {
 
         return {
           ...b,
-          fightsLeft: getFightsLeft(b, randomSkill) - 1,
+          fightsLeft: getFightsLeft(b, modifiers) - 1,
           lastFight: new Date(),
         };
       });
@@ -657,9 +671,9 @@ const ClanView = () => {
           <Box sx={{ textAlign: 'center' }}>
             <Box sx={{ display: 'inline-block' }}>
               <Text h4 bold color="secondary" center>{t('boss')}</Text>
-              <Text bold h5 smallCaps color="primary.text">{clan.boss}</Text>
+              <Text bold h5 smallCaps color="primary.text">{displayedBossName}</Text>
               {/* HP BAR */}
-              <Tooltip title={`${boss.hp - clan.damageOnBoss} / ${boss.hp}`}>
+              <Tooltip title={`${boss.hp * boss.count - clan.damageOnBoss} / ${boss.hp * boss.count}`}>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: 'flex-end',
@@ -672,7 +686,7 @@ const ClanView = () => {
                   <Box sx={{
                     bgcolor: 'level',
                     height: 3,
-                    width: (boss.hp - clan.damageOnBoss) / boss.hp,
+                    width: (boss.hp * boss.count - clan.damageOnBoss) / (boss.hp * boss.count),
                   }}
                   />
                 </Box>

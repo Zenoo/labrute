@@ -74,6 +74,7 @@ const VersusView = () => {
           fightsLeft: fight.fightsLeft,
           xp: b.xp + fight.xpWon,
           victories: b.victories + fight.victories,
+          losses: b.losses + fight.losses,
           lastFight: new Date(),
         } : b)),
       }) : null));
@@ -83,6 +84,7 @@ const VersusView = () => {
         fightsLeft: fight.fightsLeft,
         xp: data.xp + fight.xpWon,
         victories: data.victories + fight.victories,
+        losses: data.losses + fight.losses,
         lastFight: new Date(),
       }) : null));
     }

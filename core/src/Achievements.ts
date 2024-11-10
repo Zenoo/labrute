@@ -552,6 +552,9 @@ export const AchievementData: Record<
   rankUp0: {
     rarety: AchievementRarety.legendary,
   },
+  ascend: {
+    rarety: AchievementRarety.legendary,
+  },
   sacrifice: {
     rarety: AchievementRarety.common,
     illustration: 'sacrifice.svg',
@@ -568,6 +571,7 @@ export const AchievementData: Record<
 
 export type AchievementsStore = Record<string, {
   userId: string | null;
+  eventId: string | null;
   achievements: Partial<Record<AchievementName, number>>;
 }>;
 

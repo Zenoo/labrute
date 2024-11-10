@@ -35,6 +35,16 @@ const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
           px: 1,
           position: 'relative',
           zIndex: 2,
+          color: 'secondary.main',
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: 'none'
+          },
+          '& .MuiInputBase-input': {
+            fontWeight: 'bold',
+          },
+          '& .MuiFormLabel-root': {
+            textTransform: 'uppercase',
+          },
           ...sx
         }}
         {...rest}

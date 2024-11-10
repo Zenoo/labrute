@@ -1,4 +1,5 @@
-import { DetailedFighter, Weapon } from '@labrute/core';
+import { DetailedFighter, SkillDamageModifiers, Weapon } from '@labrute/core';
+import { SkillName, WeaponName } from '@labrute/prisma';
 
 const getDamage = (
   fighter: DetailedFighter,
@@ -11,23 +12,83 @@ const getDamage = (
   let skillsMultiplier = 1;
 
   // Using Piledriver ?
-  const piledriver = fighter.activeSkills.find((sk) => sk.name === 'hammer');
+  const piledriver = fighter.activeSkills.find((sk) => sk.name === SkillName.hammer);
 
-  // +50% damage for `weaponsMaster` on sharp weapons
-  if (fighter.activeWeapon?.types.includes('sharp') && fighter.skills.find((sk) => sk.name === 'weaponsMaster') && !thrown) {
-    skillsMultiplier += 0.5;
-  }
+  // Fighter skill damage modifiers
+  for (const modifier of SkillDamageModifiers) {
+    // Ignore if fighter doesn't have the skill
+    if (!fighter.skills.find((sk) => sk.name === modifier.skill)) {
+      continue;
+    }
 
-  if (!piledriver) {
-    // +100% damage for `martialArts` without a weapon or with a mug
-    if ((!fighter.activeWeapon || fighter.activeWeapon.name === 'mug') && fighter.skills.find((sk) => sk.name === 'martialArts') && !thrown) {
-      skillsMultiplier += 1;
+    // Ignore if the modifier is for the opponent
+    if (modifier.opponent) {
+      continue;
+    }
+
+    // Ignore weaponsMaser, martialArts if thrown
+    if (thrown) {
+      if (modifier.skill === SkillName.weaponsMaster || modifier.skill === SkillName.martialArts) {
+        continue;
+      }
+    }
+
+    // Ignore martialArts if piledriver is active
+    if (piledriver && modifier.skill === SkillName.martialArts) {
+      continue;
+    }
+
+    // Damage specific to weapon type
+    if (typeof modifier.weaponType !== 'undefined') {
+      // If weapon type is null, it means the modifier applies to empty hands (or mug)
+      if (modifier.weaponType === null) {
+        if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
+          skillsMultiplier += modifier.percent ?? 0;
+        }
+      } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
+        // If the weapon type is the same as the modifier, apply the damage
+        skillsMultiplier += modifier.percent ?? 0;
+      }
+    } else {
+      // Global damage modifier
+      skillsMultiplier *= 1 + (modifier.percent ?? 0);
     }
   }
 
-  // -30% damage if opponent has `leadSkeleton` and weapon is blunt
-  if (opponent.skills.find((sk) => sk.name === 'leadSkeleton') && fighter.activeWeapon?.types.includes('blunt') && !thrown) {
-    skillsMultiplier -= 0.3;
+  // Opponent skill damage modifiers
+  for (const modifier of SkillDamageModifiers) {
+    // Ignore if opponent doesn't have the skill
+    if (!opponent.skills.find((sk) => sk.name === modifier.skill)) {
+      continue;
+    }
+
+    // Ignore if the modifier is not for the opponent
+    if (!modifier.opponent) {
+      continue;
+    }
+
+    // Ignore leadSkeleton if thrown
+    if (thrown) {
+      if (modifier.skill === SkillName.leadSkeleton) {
+        continue;
+      }
+    }
+
+    // Damage specific to weapon type
+    if (typeof modifier.weaponType !== 'undefined') {
+      // If weapon type is null, it means the modifier applies to empty hands (or mug)
+      if (modifier.weaponType === null) {
+        if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
+          skillsMultiplier += modifier.percent ?? 0;
+        }
+      } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
+        // If the weapon type is the same as the modifier, apply the damage
+        skillsMultiplier += modifier.percent ?? 0;
+      }
+    } else {
+      // Global damage modifier
+      skillsMultiplier *= 1 + (modifier.percent ?? 0);
+    }
   }
 
   // x2 damage for if skill `fierceBrute` is active

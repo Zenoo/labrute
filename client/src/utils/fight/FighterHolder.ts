@@ -1,5 +1,6 @@
 import { Animation, Fighter, bosses, readColorString, readBodyString, SkillById } from '@labrute/core';
 import { BossName, Gender, SkillName, WeaponName } from '@labrute/prisma';
+import moment from 'moment';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol475, Symbol476, Symbol478, Symbol479, Symbol488, Symbol489, Symbol490, Symbol491, Symbol493, Symbol494, Symbol495, Symbol496, Symbol497, Symbol498, Symbol503, Symbol505, Symbol506, Symbol507, Symbol508, Symbol509, Symbol510, Symbol513, Symbol516, Symbol517, Symbol541, Symbol542, Symbol543, Symbol544, Symbol545, Symbol546, Symbol846, Symbol847, Symbol848, Symbol849, Symbol851, Symbol854, Symbol855, Symbol856, Symbol857, Symbol858, Symbol859, Symbol860, Symbol861, Symbol863, Symbol864, Symbol865, Symbol866, Symbol867, Symbol868, Symbol869, Symbol870, Symbol871, Symbol875, Symbol876, Symbol877, Symbol878, Symbol879, Symbol880, Symbol894, Symbol903, Symbol904, Symbol905, Symbol906, Symbol907, Symbol910, Symbol911, Symbol912, Symbol913, Symbol935, Symbol936, Symbol937, Symbol938, Symbol939, Symbol940, Symbol941, Symbol942, Symbol943, Symbol944 } from 'labrute-fla-parser';
 import * as PIXI from 'pixi.js';
@@ -497,8 +498,8 @@ export default class FighterHolder {
     } else if (this.type === 'pet') {
       this.#animationType = (fighter.name.startsWith('dog') || fighter.name === 'panther') ? 'dog' : 'bear';
     } else {
-      const bossType = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' || 'bear';
-      this.#animationType = bossType === 'panther' ? 'dog' : bossType;
+      const bossType = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' | 'dog1' || 'bear';
+      this.#animationType = bossType === 'dog1' || bossType === 'panther' ? 'dog' : bossType;
     }
 
     // Get all animations
@@ -566,17 +567,26 @@ export default class FighterHolder {
           throw new Error(`Boss not found: ${this.name}`);
         }
 
+        const aprilFools = moment().isSame(moment('04-01', 'MM-DD'), 'day');
         // Apply color
         if (fighter.name === BossName.GoldClaw) {
           this.container.filters = [new AdjustmentFilter({
             gamma: 1,
-            brightness: 4,
+            brightness: aprilFools ? 0.8 : 4,
+            red: aprilFools ? 4 : 1,
           })];
         } else if (fighter.name === BossName.EmberFang) {
           this.container.filters = [new AdjustmentFilter({
-            red: 2.2,
+            red: aprilFools ? 0.8 : 2.2,
             green: 0.8,
-            blue: 0.8,
+            blue: aprilFools ? 6 : 0.8,
+          })];
+        } else if (fighter.name === BossName.Cerberus) {
+          this.container.filters = [new AdjustmentFilter({
+            gamma: 1,
+            brightness: 0.37,
+            red: 1.1,
+            blue: 1.02,
           })];
         }
       }

@@ -11,21 +11,29 @@ import {
 import {
   Brute,
   DestinyChoiceType,
-  PrismaClient, TournamentType,
+  PetName,
+  PrismaClient, SkillName, TournamentType,
   User,
+  WeaponName,
 } from '@labrute/prisma';
 import moment from 'moment';
 import ServerState from '../ServerState.js';
 import translate from '../translate.js';
 import checkLevelUpAchievements from './checkLevelUpAchievements.js';
 import getOpponents from './getOpponents.js';
+import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
 
 type Props = {
   prisma: PrismaClient,
   user?: Pick<User, 'id' | 'lang'>
-  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp'>,
+  brute: Pick<Brute, 'id' | 'destinyPath' | 'ranking' | 'level' | 'eventId' | 'xp' | 'ascensions' | 'ascendedSkills' | 'ascendedWeapons' | 'ascendedPets'>,
   free: boolean,
   rankUp?: boolean,
+  ascended?: {
+    weapon?: WeaponName,
+    skill?: SkillName,
+    pet?: PetName
+  }
 };
 
 export const resetBrute = async ({
@@ -34,6 +42,7 @@ export const resetBrute = async ({
   brute,
   free,
   rankUp,
+  ascended,
 }: Props) => {
   // Get first bonus
   const firstBonus = await prisma.destinyChoice.findFirst({
@@ -90,7 +99,39 @@ export const resetBrute = async ({
         ? firstBonus.weapon
         : firstBonus.skill,
   );
-  const randomSkill = await ServerState.getRandomSkill(prisma);
+
+  // Get current modifiers
+  const modifiers = await ServerState.getModifiers(prisma);
+
+  const { weapon, skill, pet } = ascended || {};
+  const ascendedWeapons = brute.ascendedWeapons || [];
+  const ascendedSkills = brute.ascendedSkills || [];
+  const ascendedPets = brute.ascendedPets || [];
+
+  // Add new ascent to the correspond ascended list
+  let { ascensions } = brute;
+  if (ascended !== undefined) {
+    if (weapon && Object.values(WeaponName).includes(weapon as WeaponName)) {
+      ascendedWeapons.push(weapon as WeaponName);
+      ascensions++;
+    }
+    if (skill && Object.values(SkillName).includes(skill as SkillName)) {
+      ascendedSkills.push(skill as SkillName);
+      ascensions++;
+    }
+    if (pet && Object.values(PetName).includes(pet as PetName)) {
+      ascendedPets.push(pet as PetName);
+      ascensions++;
+    }
+
+    // Replace the destiny choice in destiny path with random stats
+    await removeChoiceFromDestiny(prisma, brute, ascended);
+  }
+
+  // Add ascended perks
+  stats.weapons = stats.weapons.concat(brute.ascendedWeapons);
+  stats.skills = stats.skills.concat(brute.ascendedSkills);
+  stats.pets = stats.pets.concat(brute.ascendedPets);
 
   // Update the brute
   const updatedBrute: HookBrute = await prisma.brute.update({
@@ -104,12 +145,17 @@ export const resetBrute = async ({
       // Reset fights left (not for event brutes)
       fightsLeft: brute.eventId ? undefined : getMaxFightsPerDay({
         ...stats,
+        id: brute.id,
         eventId: null,
-      }, randomSkill),
+      }, modifiers),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
-      canRankUpSince: rankUp ? null : undefined,
-      tournamentWins: rankUp ? 0 : undefined,
+      ascensions,
+      ascendedWeapons,
+      ascendedSkills,
+      ascendedPets,
+      canRankUpSince: (rankUp || ascended) ? null : undefined,
+      tournamentWins: (rankUp || ascended) ? 0 : undefined,
       // Restore XP for event brutes
       xp: brute.eventId ? getTotalXP(brute) : stats.xp,
       // Track resets

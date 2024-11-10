@@ -49,7 +49,6 @@ const moveTo = async (
     let reach = 0;
 
     // Countered, take opponent weapon reach into account
-    // TODO: Check why this isn't working
     if (step.c) {
       reach = weapons.find((w) => w.name === target.animation.weapon)?.reach || 0;
     } else {

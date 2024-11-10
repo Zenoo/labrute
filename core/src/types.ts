@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, FightModifier, Gender, Tournament, User, WeaponName } from '@labrute/prisma';
+import { Achievement, Brute, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, FightModifier, Gender, Notification, Tournament, User, WeaponName } from '@labrute/prisma';
 import { Skill, SkillId } from './brute/skills';
 import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -173,6 +173,7 @@ export enum StepType {
   Vampirism,
   Haste,
   Treat,
+  DropShield,
 }
 
 export interface SaboteurStep {
@@ -341,6 +342,8 @@ export interface AttemptHitStep {
   /** Weapon ID */
   w?: WeaponId;
   /** Broke shield? */
+  // Necessary since dropShield was added later
+  // TODO: Remove on release
   b?: 1 | 0;
 }
 
@@ -484,6 +487,15 @@ export interface TreatStep {
   t: number;
   /** HP healed */
   h: number;
+  /** Cured poison? */
+  c?: 1 | 0;
+}
+
+export interface DropShieldStep {
+  /** Action */
+  a: StepType.DropShield;
+  /** Fighter ID */
+  b: number;
 }
 
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
@@ -492,7 +504,7 @@ export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
-  | VampirismStep | HasteStep | TreatStep;
+  | VampirismStep | HasteStep | TreatStep | DropShieldStep;
 
 export interface DetailedFight {
   modifiers: FightModifier[];
@@ -526,6 +538,7 @@ export type UserWithBrutes = User & {
 };
 export type UserWithBrutesBodyColor = User & {
   brutes: Brute[];
+  notifications: Notification[];
   following: Pick<Brute, 'id'>[];
 };
 export type UserWithAchievements = User & {
@@ -553,4 +566,8 @@ export type BruteReportWithNames = BruteReport & {
     id: string;
     name: string;
   }[],
+  handler: {
+    id: string;
+    name: string;
+  } | null;
 };

@@ -41,7 +41,7 @@ export const EventView = () => {
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
-  const { brute, owner } = useBrute();
+  const { brute, owner, updateBrute } = useBrute();
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -71,7 +71,9 @@ export const EventView = () => {
 
   const watchingRound = useMemo(() => (!data ? 0 : (data.event.finishedAt || !owner)
     ? 999
-    : +(localStorage.getItem(`eventRoundWatched-${data?.event.id}`) || 1)), [data, owner]);
+    : moment.utc().isSame(brute?.eventTournamentWatchedDate, 'day')
+      ? brute?.eventTournamentRoundWatched || 1
+      : 1), [brute, data, owner]);
 
   const lastRoundsFirstStep = data?.lastRounds[0]?.tournamentStep ?? 0;
 
@@ -87,18 +89,27 @@ export const EventView = () => {
 
   // Watch fight
   const watchFight = (
-    currentBrute: string | undefined,
+    currentBrute: string,
     round: number,
     fightId: string,
     skipUpdate?: boolean
   ) => () => {
     if (!data) return;
 
+    // Update watched round
     if (owner && !skipUpdate && round >= watchingRound) {
-      localStorage.setItem(`eventRoundWatched-${data.event.id}`, (round + 1).toString());
-    }
+      Server.Brute.updateEventRoundWatched(currentBrute, fightId).then((d) => {
+        updateBrute((b) => (b ? ({
+          ...b,
+          eventTournamentRoundWatched: d.eventTournamentRoundWatched,
+          eventTournamentWatchedDate: d.eventTournamentWatchedDate,
+        }) : b));
 
-    navigate(`/${currentBrute}/fight/${fightId}`);
+        navigate(`/${currentBrute}/fight/${fightId}`);
+      }).catch(catchError(Alert));
+    } else {
+      navigate(`/${currentBrute}/fight/${fightId}`);
+    }
   };
 
   // Last fights renderer
@@ -386,7 +397,7 @@ export const EventView = () => {
                         key={fight.id}
                       >
                         <Box
-                          onClick={watchFight(bruteName, i + 1, fight.id)}
+                          onClick={watchFight(bruteName || '', i + 1, fight.id)}
                           sx={{
                             display: 'flex',
                             px: 0.5,

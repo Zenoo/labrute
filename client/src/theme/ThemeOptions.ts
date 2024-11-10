@@ -37,6 +37,30 @@ interface TypeLogs {
   error: TypeLog
 }
 
+interface TypeTopbar {
+  background: string;
+  backgroundLight: string;
+  divider: string;
+  color: string;
+  colorLight: string;
+  colorDark: string;
+  contrast: string;
+  contrastLight: string;
+  contrastShadow: string;
+}
+
+declare module '@mui/material/Paper' {
+  interface PaperPropsVariantOverrides {
+    mybrute: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    mybrute: true;
+  }
+}
+
 declare module '@mui/material/styles' {
   interface TypeBackground {
     light: string;
@@ -64,6 +88,7 @@ declare module '@mui/material/styles' {
       main: string;
       dark: string;
     },
+    topbar: TypeTopbar,
   }
   interface PaletteOptions {
     transition?: TypeTransition,
@@ -84,6 +109,7 @@ declare module '@mui/material/styles' {
       main: string;
       dark: string;
     },
+    topbar?: TypeTopbar,
   }
   interface TypeText {
     white: string;
@@ -197,42 +223,40 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
     border,
     logs: logColors,
     achievements,
+    topbar: {
+      background: '#111317',
+      backgroundLight: '#1d2028',
+      divider: '#3b4151',
+      color: '#B7B9C6',
+      colorLight: '#FFF',
+      colorDark: '#6C7188',
+      contrast: '#fe7d00',
+      contrastLight: '#feb500',
+      contrastShadow: '#bd3d00',
+    },
   },
   typography,
   components: {
     MuiPaper: {
-      styleOverrides: {
-        root: ({ theme }) => theme.unstable_sx({
-          boxShadow: `0 0 0 1px ${border.inner},
-          0 0 1px 4.5px ${border.main},
-          0 0 0 6px ${border.outer},
-          3px 3px 0 6px ${border.shadow}`,
-          bgcolor: 'background.paper',
-          borderRadius: '5px',
-          p: 2,
-          m: 2,
-        })
-      }
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: ({ theme }) => theme.unstable_sx({
-          color: 'secondary.main',
-        }),
-        notchedOutline: ({ theme }) => theme.unstable_sx({
-          border: 'none',
-        }),
-        input: ({ theme }) => theme.unstable_sx({
-          fontWeight: 'bold',
-        })
-      }
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: ({ theme }) => theme.unstable_sx({
-          textTransform: 'uppercase',
-        }),
-      }
+      defaultProps: {
+        variant: 'mybrute',
+      },
+      variants: [
+        {
+          props: { variant: 'mybrute' },
+          style: {
+            boxShadow: `0 0 0 1px ${border.inner},
+            0 0 1px 4.5px ${border.main},
+            0 0 0 6px ${border.outer},
+            3px 3px 0 6px ${border.shadow}`,
+            bgcolor: 'background.paper',
+            borderRadius: '5px',
+            padding: 16,
+            margin: 16,
+            border: 'none',
+          }
+        }
+      ]
     },
     MuiButtonBase: {
       defaultProps: {
@@ -240,31 +264,36 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
       },
     },
     MuiButton: {
-      styleOverrides: {
-        contained: ({ theme }) => theme.unstable_sx({
-          border: `2px solid ${border.outer}`,
-          bgcolor: 'background.paperLight',
-          borderRadius: '4px',
-          boxShadow: `2px 2px 1px 1px ${border.shadow}`,
-          transition: '.13s ease-in-out',
-          py: 0,
-          px: 1,
-          typography: 'handwritten',
-          '&:hover': {
-            bgcolor: 'background.paper',
+      variants: [
+        {
+          props: { variant: 'mybrute' },
+          style: {
+            border: `2px solid ${border.outer}`,
+            bgcolor: 'background.paperLight',
+            borderRadius: '4px',
             boxShadow: `2px 2px 1px 1px ${border.shadow}`,
-          },
-          '&:active': {
-            boxShadow: 'none',
-            '&>div': {
+            transition: '.13s ease-in-out',
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: 8,
+            paddingRight: 8,
+            typography: 'handwritten',
+            '&:hover': {
+              bgcolor: 'background.paper',
+              boxShadow: `2px 2px 1px 1px ${border.shadow}`,
+            },
+            '&:active': {
               boxShadow: 'none',
               '&>div': {
-                transform: 'translate3d(0px, 0px, 0px)'
+                boxShadow: 'none',
+                '&>div': {
+                  transform: 'translate3d(0px, 0px, 0px)'
+                }
               }
             }
           }
-        }),
-      },
+        }
+      ],
     },
     MuiTooltip: {
       defaultProps: {
@@ -294,6 +323,24 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
           boxShadow: 1,
         })
       }
-    }
+    },
+    MuiMenu: {
+      defaultProps: {
+        slotProps: {
+          paper: {
+            variant: 'elevation',
+          }
+        }
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme }) => theme.unstable_sx({
+          '&.Mui-selected': {
+            bgcolor: 'background.paperDark'
+          }
+        })
+      }
+    },
   },
 });

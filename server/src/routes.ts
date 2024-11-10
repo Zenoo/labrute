@@ -1,41 +1,30 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { ServerReadyResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Express, Request, Response } from 'express';
-import { ServerReadyResponse } from '@labrute/core';
+import { Config } from './config.js';
+import Achievements from './controllers/Achievements.js';
+import BruteReports from './controllers/BruteReports.js';
 import Brutes from './controllers/Brutes.js';
+import Clans from './controllers/Clans.js';
+import ClanWars from './controllers/ClanWars.js';
+import Events from './controllers/Events.js';
 import Fights from './controllers/Fights.js';
 import Logs from './controllers/Logs.js';
+import { Notifications } from './controllers/Notifications.js';
 import OAuth from './controllers/OAuth.js';
 import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
-import Achievements from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
-import BruteReports from './controllers/BruteReports.js';
-import Clans from './controllers/Clans.js';
-import { Config } from './config.js';
-import { LOGGER } from './context.js';
-import ClanWars from './controllers/ClanWars.js';
-import Events from './controllers/Events.js';
 
 export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
-  app.get('/api', (req: Request, res: Response) => res.status(200).send({
+  app.get('/api', (_req: Request, res: Response) => res.status(200).send({
     message: 'server is running!',
   }));
 
-  app.delete('/api/test-delete', (
-    req: Request,
-    res: Response,
-  ) => {
-    LOGGER.log('Test delete');
-
-    res.status(200).send({
-      success: true,
-    });
-  });
-
   // Server state
   app.get('/api/is-ready', (
-    req: Request,
+    _req: Request,
     res: Response<ServerReadyResponse>,
   ) => {
     res.status(200).send({
@@ -68,6 +57,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/user/next-modifiers', Users.getNextModifiers(prisma));
   app.post('/api/user/next-modifiers', Users.setNextModifiers(prisma));
   app.get('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));
+  app.post('/api/user/settings', Users.updateSettings(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
@@ -85,6 +75,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/ranking', Brutes.getRanking(prisma));
   app.get('/api/brute/:name/exists', Brutes.exists(prisma));
   app.get('/api/brute/:name/rank-up', Brutes.rankUp(prisma));
+  app.post('/api/brute/:name/ascend', Brutes.ascend(prisma));
   app.get('/api/brute/:name/destiny', Brutes.getDestiny(prisma));
   app.post('/api/brute/:name/admin-update', Brutes.adminUpdate(prisma));
   app.get('/api/brute/:id/restore', Brutes.restore(prisma));
@@ -95,6 +86,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
   app.put('/api/brute/item', Brutes.giveItem(prisma));
   app.get('/api/brute/:name/master-clan-id', Brutes.getClanIdAsMaster(prisma));
+  app.get('/api/brute/:name/update-event-round-watched/:fight', Brutes.updateEventRoundWatched(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
@@ -125,7 +117,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/achievements/rankings/all', Achievements.getRankings(prisma));
 
   // BruteReport
-  app.get('/api/report/list/:status', BruteReports.list(prisma));
+  app.get('/api/report/list/:status/:page', BruteReports.list(prisma));
   app.get('/api/report/send/:name/:reason', BruteReports.send(prisma));
   app.get('/api/report/:id/accept', BruteReports.accept(prisma));
   app.get('/api/report/:id/reject', BruteReports.reject(prisma));
@@ -168,4 +160,9 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   // Event
   app.get('/api/event/list', Events.list(prisma));
   app.get('/api/event/:id/brute/:bruteId', Events.get(prisma));
+
+  // Notifications
+  app.get('/api/notification/list', Notifications.list(prisma));
+  app.patch('/api/notification/all/read', Notifications.setAllRead(prisma));
+  app.patch('/api/notification/:id/read', Notifications.setRead(prisma));
 }

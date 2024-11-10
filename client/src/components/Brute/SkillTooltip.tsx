@@ -1,6 +1,6 @@
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
-import React from 'react';
-import { PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import React, { Fragment } from 'react';
+import { FightStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import Text from '../Text';
 import { useTranslation } from 'react-i18next';
 import StatColor from '../../utils/StatColor';
@@ -29,21 +29,40 @@ const SkillTooltip = ({
           <Text bold h5>{t(skill.name)}</Text>
           <Divider />
           <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
-          {SkillModifiers[skill.name].map((skillModifier) => (
-            <Text
-              key={`${skillModifier.stat}-${skillModifier.value}`}
-              bold
-              sx={{ color: StatColor[skillModifier.stat], fontSize: 12, lineHeight: 1.2 }}
-            >
-              {skillModifier.value < 0 ? '' : '+'}
-              {skillModifier.value}
-              {skillModifier.percent ? '%' : ''}
-              {' '}
-              {t(skillModifier.stat)}
-              {(skillModifier.stat && typeof skillModifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(skillModifier.weaponType || 'none')})`}
-              {skillModifier.details ? ` ${t(skillModifier.details)}` : ''}
-            </Text>
-          ))}
+          {Object.entries(SkillModifiers[skill.name]).map(([unsafeStat, modifier]) => {
+            const stat = unsafeStat as FightStat;
+
+            return (
+              <Fragment key={stat}>
+                {!!modifier.flat && (
+                  <Text
+                    bold
+                    sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
+                  >
+                    {modifier.flat < 0 ? '' : '+'}
+                    {modifier.flat}
+                    {' '}
+                    {modifier.opponent ? t(`opponent-${stat}`) : t(stat)}
+                    {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
+                    {modifier.details ? ` ${t(modifier.details)}` : ''}
+                  </Text>
+                )}
+                {!!modifier.percent && (
+                  <Text
+                    bold
+                    sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
+                  >
+                    {modifier.percent < 0 ? '' : '+'}
+                    {modifier.percent * 100}
+                    {'% '}
+                    {modifier.opponent ? t(`opponent-${stat}`) : t(stat)}
+                    {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
+                    {modifier.details ? ` ${t(modifier.details)}` : ''}
+                  </Text>
+                )}
+              </Fragment>
+            );
+          })}
           {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
             <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
           )}

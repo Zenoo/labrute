@@ -32,10 +32,10 @@ const generateBrute = (
     body: getRandomBody(gender),
     colors: getRandomColors(gender),
     victories: 0,
+    loses: 0,
     pupilsCount: 0,
     lastFight: moment.utc().toDate() as Date | null,
     fightsLeft: FIGHTS_PER_DAY,
-    eventId: null,
     ...createRandomBruteStats(),
   };
 
@@ -53,10 +53,9 @@ const generateBrute = (
     data = {
       ...data,
       ...updateBruteData(
-        data,
+        { ...data, id: '', eventId: null },
         levelUpChoice,
       ),
-      eventId: null,
     };
   }
 

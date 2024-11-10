@@ -1,52 +1,32 @@
 import { Brute, SkillName } from '@labrute/prisma';
+import { FightStat, SkillModifiers } from './skills';
 
 type BruteStats = Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier'>;
 
 const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) => {
   const updatedBrute = { ...brute };
 
-  // Vitality modifier
-  if (skill === 'vitality') {
-    updatedBrute.enduranceModifier *= 1.5;
-    updatedBrute.enduranceStat += 3;
-  }
+  Object.entries(SkillModifiers[skill]).forEach(([unsafeStat, modifier]) => {
+    const stat = unsafeStat as FightStat;
 
-  // Immortality modifier
-  if (skill === 'immortality') {
-    updatedBrute.enduranceModifier *= 3.5;
-    updatedBrute.strengthModifier *= 0.75;
-    updatedBrute.agilityModifier *= 0.75;
-    updatedBrute.speedModifier *= 0.75;
-  }
+    // Ignore every stat but endurance, strength, agility, and speed
+    if (stat !== FightStat.ENDURANCE
+      && stat !== FightStat.STRENGTH
+      && stat !== FightStat.AGILITY
+      && stat !== FightStat.SPEED) {
+      return;
+    }
 
-  // Herculean strength modifier
-  if (skill === 'herculeanStrength') {
-    updatedBrute.strengthModifier *= 1.5;
-    updatedBrute.strengthStat += 3;
-  }
+    // Flat modifier
+    if (modifier.flat) {
+      updatedBrute[`${stat}Stat`] += modifier.flat;
+    }
 
-  // Feline agility modifier
-  if (skill === 'felineAgility') {
-    updatedBrute.agilityModifier *= 1.5;
-    updatedBrute.agilityStat += 3;
-  }
-
-  // Lightning bolt modifier
-  if (skill === 'lightningBolt') {
-    updatedBrute.speedModifier *= 1.5;
-    updatedBrute.speedStat += 3;
-  }
-
-  // Reconnaissance modifier
-  if (skill === 'reconnaissance') {
-    updatedBrute.speedModifier *= 2.5;
-    updatedBrute.speedStat += 5;
-  }
-
-  // Armor modifier
-  if (skill === 'armor') {
-    updatedBrute.speedModifier *= 0.9;
-  }
+    // Percent modifier
+    if (modifier.percent) {
+      updatedBrute[`${stat}Modifier`] *= 1 + modifier.percent;
+    }
+  });
 
   return updatedBrute;
 };

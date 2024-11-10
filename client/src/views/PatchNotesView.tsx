@@ -1,26 +1,17 @@
 import { LAST_RELEASE, releases } from '@labrute/core';
+import { Circle } from '@mui/icons-material';
 import { ImageList, ImageListItem, List, ListItem, ListItemIcon, ListItemText, Paper } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
-import { useAuth } from '../hooks/useAuth';
-import FantasyButton from '../components/FantasyButton';
-import { Circle } from '@mui/icons-material';
-import moment from 'moment';
 
 const PatchNotesView = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
-
-  // Set last patch notes seen
-  useEffect(() => {
-    if (!user) return;
-
-    localStorage.setItem('patchNotes', LAST_RELEASE.version);
-  }, [user]);
 
   // Show 5 more releases
   const showMoreReleases = () => {

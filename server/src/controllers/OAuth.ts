@@ -30,7 +30,7 @@ export default class OAuth {
     this.#prisma = prisma;
   }
 
-  public redirect(req: Request, res: Response): void {
+  public redirect(_req: Request, res: Response): void {
     try {
       res.send({
         url: this.#oauthClient.getAuthorizationUri('base', ''),
@@ -103,6 +103,9 @@ export default class OAuth {
           },
           following: {
             select: { id: true },
+          },
+          notifications: {
+            where: { read: false },
           },
         },
       });

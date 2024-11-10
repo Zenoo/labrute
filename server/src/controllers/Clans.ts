@@ -3,9 +3,9 @@ import {
   ClanCreateResponse,
   ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError, bosses, getFightsLeft,
-  randomItem,
 } from '@labrute/core';
 import {
+  BossName,
   Clan, ClanWarStatus, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -165,7 +165,7 @@ const Clans = {
           name: clanName,
           master: { connect: { id: brute.id } },
           brutes: { connect: { id: brute.id } },
-          boss: randomItem(bosses).name,
+          boss: BossName.Cerberus,
         },
         select: { id: true, name: true },
       });
@@ -1300,10 +1300,11 @@ const Clans = {
         throw new ExpectedError(translate('bruteNotFound', user));
       }
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
+      // Get current modifiers
+      const modifiers = await ServerState.getModifiers(prisma);
 
       // Check if the brute has fights left
-      if (getFightsLeft(brute, randomSkill) <= 0) {
+      if (getFightsLeft(brute, modifiers) <= 0) {
         throw new ExpectedError(translate('noFightsLeft', user));
       }
 
@@ -1336,7 +1337,7 @@ const Clans = {
         where: { id: brute.id },
         data: {
           lastFight: new Date(),
-          fightsLeft: getFightsLeft(brute, randomSkill) - 1,
+          fightsLeft: getFightsLeft(brute, modifiers) - 1,
         },
         select: { id: true },
       });
@@ -1348,9 +1349,6 @@ const Clans = {
       let bossXpGains = 0;
       let bossGoldGains = 0;
 
-      // Get current modifiers
-      const modifiers = await ServerState.getModifiers(prisma);
-
       while (!generatedFight && !expectedError && retry < 10) {
         try {
           retry += 1;
@@ -1358,7 +1356,11 @@ const Clans = {
           const newGeneratedFight = await generateFight({
             prisma,
             team1: { brutes: [brute] },
-            team2: { bosses: [{ ...boss, startHP: boss.hp - clan.damageOnBoss }] },
+            team2: {
+              bosses: [
+                { ...boss, startHP: boss.hp - Math.floor(clan.damageOnBoss / boss.count) },
+              ],
+            },
             modifiers,
             backups: false,
             achievements: false,

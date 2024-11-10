@@ -46,6 +46,7 @@ const UserAdminView = () => {
         bannedAt: u.bannedAt,
         banReason: u.banReason,
         ips: u.ips,
+        displayVersusPage: u.displayVersusPage,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference

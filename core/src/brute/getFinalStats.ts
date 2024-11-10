@@ -3,16 +3,15 @@ import applySkillModifiers from './applySkillModifiers';
 import { getHP } from './getHP';
 import { getTempSkill } from './getTempSkill';
 
-type BruteStats = Pick<Brute, 'skills' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityValue' | 'agilityStat' | 'agilityModifier' | 'speedValue' | 'speedStat' | 'speedModifier' | 'level'>;
+type BruteStats = Pick<Brute, 'id' | 'skills' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityValue' | 'agilityStat' | 'agilityModifier' | 'speedValue' | 'speedStat' | 'speedModifier' | 'level'>;
 
 export const getFinalStat = (
   brute: BruteStats,
   stat: 'endurance' | 'strength' | 'agility' | 'speed',
   modifiers: FightModifier[],
-  randomSkillIndex: number | null,
 ) => {
   const multiplier = stat === 'agility' ? modifiers.includes(FightModifier.doubleAgility) ? 2 : 1 : 1;
-  const randomSkill = getTempSkill(brute, randomSkillIndex);
+  const randomSkill = getTempSkill(brute, modifiers);
 
   // No random skill, return normal stat
   if (!randomSkill) {
@@ -28,9 +27,9 @@ export const getFinalStat = (
 
 export const getFinalHP = (
   brute: BruteStats,
-  randomSkillIndex: number | null,
+  modifiers: FightModifier[],
 ) => {
-  const randomSkill = getTempSkill(brute, randomSkillIndex);
+  const randomSkill = getTempSkill(brute, modifiers);
 
   // No random skill, return normal HP
   if (!randomSkill) {

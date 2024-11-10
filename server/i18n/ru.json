@@ -34,8 +34,18 @@
   "cannotSacrificeSameDay": "Вы не можете принести в жертву Брутала в день его сотворения",
   "cannotSacrificeClanMaster": "Лидер клана не может быть принесён в жертву",
   "missingName": "Имя отсутствует",
+  "missingChoice": "Выбор не указан",
+  "multipleChoices": "Вместо одного, было сделано несколько выборов",
   "bruteCannotRankUp": "Ваш Брутал сейчас не может получить звание",
   "bruteAlreadyMaxRank": "У вашего Брутала уже высшее звание",
+  "bruteNotMaxRank": "Ваш Брутал должен иметь высшее звание",
+  "bruteMissingWeapon": "У вашего Брутала нет этого оружия",
+  "bruteMissingSkill": "У вашего Брутала нет этого умения",
+  "bruteMissingPet": "У вашего Брутала нет этого питомца",
+  "bruteMissingDogAscend": "В превосходстве каждый пёс должен иметь свой черёд",
+  "bruteSkillAlreadyWeapon": "Ваш Брутал уже брал это оружие в превосходство",
+  "bruteSkillAlreadyAscended": "Ваш Брутал уже брал это умение в превосходство",
+  "bruteSkillAlreadyPet": "Ваш Брутал уже брал этого питомца в превосходство",
   "noFirstBonus": "У Брутала отсутствует изначальный бонус",
   "bruteNotFoundOrNotDeleted": "Брутал не существует или не был стёрт",
   "anotherBruteHasThisName": "Это имя принадлежит другому Бруталу",
@@ -111,5 +121,6 @@
   "oneBrutePerEvent": "В мероприятии может участвовать лишь один из ваших Бруталов",
   "eventNotFound": "Мероприятие не найдено",
   "eventAlreadyStarted": "Мероприятие уже началось",
-  "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии"
+  "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии",
+  "reportAlreadyHandled": "Жалоба уже обработана"
 }

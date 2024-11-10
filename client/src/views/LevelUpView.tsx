@@ -10,6 +10,7 @@ import BruteHP from '../components/Brute/BruteHP';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import CellStats from '../components/Cell/CellStats';
+import Link from '../components/Link';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -23,7 +24,7 @@ import catchError from '../utils/catchError';
 const LevelUpView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { user, updateData, randomSkill, modifiers } = useAuth();
+  const { user, updateData, modifiers } = useAuth();
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
@@ -74,23 +75,27 @@ const LevelUpView = () => {
     // Update brute data
     updateBrute((data) => (data ? ({ ...data, ...newBrute }) : null));
 
-    navigate(`/${brute.name}/cell`);
+    navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
   }, [Alert, brute, choices, navigate, updateBrute, updateData]);
 
   const stats = brute && (
     <>
       {/* HP */}
       <Box>
-        <BruteHP hp={getFinalHP(brute, randomSkill)} />
+        <BruteHP hp={getFinalHP(brute, modifiers)} />
         <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
-      <CellStats value={getFinalStat(brute, 'strength', modifiers, randomSkill)} stat="strength" />
+      <CellStats value={getFinalStat(brute, 'strength', modifiers)} stat="strength" />
       {/* AGILITY */}
-      <CellStats value={getFinalStat(brute, 'agility', modifiers, randomSkill)} stat="agility" />
+      <CellStats value={getFinalStat(brute, 'agility', modifiers)} stat="agility" />
       {/* SPEED */}
-      <CellStats value={getFinalStat(brute, 'speed', modifiers, randomSkill)} stat="speed" />
+      <CellStats value={getFinalStat(brute, 'speed', modifiers)} stat="speed" />
+      <Link to={`/${brute.name}/cell`}>
+        <Text bold>{t('backToCell')}</Text>
+      </Link>
     </>
+
   );
 
   const weaponsAndSkills = brute && (

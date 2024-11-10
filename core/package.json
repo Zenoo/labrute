@@ -1,6 +1,6 @@
 {
   "name": "@labrute/core",
-  "version": "2.73.1",
+  "version": "2.76.0",
   "main": "lib/index.js",
   "scripts": {
     "compile": "tsc"
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@labrute/prisma": "workspace:*",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "rand-seed": "^2.1.7"
   }
 }

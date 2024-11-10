@@ -7,6 +7,7 @@ const {
   makeStrictEnum,
   Public,
   getRuntime,
+  skip
 } = require('./runtime/index-browser.js')
 
 
@@ -16,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.18.0
- * Query Engine version: 4c784e32044a8a016d99474bd02a3b6123742169
+ * Prisma Client JS version: 5.22.0
+ * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
  */
 Prisma.prismaVersion = {
-  client: "5.18.0",
-  engine: "4c784e32044a8a016d99474bd02a3b6123742169"
+  client: "5.22.0",
+  engine: "605197351a3c8bdd595af2d2a9bc3025bca48ea2"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -108,6 +109,8 @@ Prisma.NullTypes = {
   AnyNull: objectEnumValues.classes.AnyNull
 }
 
+
+
 /**
  * Enums
  */
@@ -133,7 +136,8 @@ exports.Prisma.UserScalarFieldEnum = {
   dinorpgDone: 'dinorpgDone',
   ips: 'ips',
   bannedAt: 'bannedAt',
-  banReason: 'banReason'
+  banReason: 'banReason',
+  displayVersusPage: 'displayVersusPage'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -173,6 +177,10 @@ exports.Prisma.BruteScalarFieldEnum = {
   weapons: 'weapons',
   skills: 'skills',
   pets: 'pets',
+  ascensions: 'ascensions',
+  ascendedWeapons: 'ascendedWeapons',
+  ascendedSkills: 'ascendedSkills',
+  ascendedPets: 'ascendedPets',
   masterId: 'masterId',
   pupilsCount: 'pupilsCount',
   clanId: 'clanId',
@@ -182,9 +190,12 @@ exports.Prisma.BruteScalarFieldEnum = {
   currentTournamentStepWatched: 'currentTournamentStepWatched',
   globalTournamentWatchedDate: 'globalTournamentWatchedDate',
   globalTournamentRoundWatched: 'globalTournamentRoundWatched',
+  eventTournamentWatchedDate: 'eventTournamentWatchedDate',
+  eventTournamentRoundWatched: 'eventTournamentRoundWatched',
   lastFight: 'lastFight',
   fightsLeft: 'fightsLeft',
   victories: 'victories',
+  losses: 'losses',
   opponentsGeneratedAt: 'opponentsGeneratedAt',
   canRankUpSince: 'canRankUpSince',
   favorite: 'favorite',
@@ -241,6 +252,9 @@ exports.Prisma.DestinyChoiceScalarFieldEnum = {
   skill: 'skill',
   weapon: 'weapon',
   pet: 'pet',
+  originalSkill: 'originalSkill',
+  originalWeapon: 'originalWeapon',
+  originalPet: 'originalPet',
   stat1: 'stat1',
   stat1Value: 'stat1Value',
   stat2: 'stat2',
@@ -297,7 +311,9 @@ exports.Prisma.BruteReportScalarFieldEnum = {
   reason: 'reason',
   count: 'count',
   date: 'date',
-  status: 'status'
+  status: 'status',
+  handlerId: 'handlerId',
+  handledAt: 'handledAt'
 };
 
 exports.Prisma.ServerStateScalarFieldEnum = {
@@ -305,8 +321,6 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   globalTournamentValid: 'globalTournamentValid',
   activeModifiers: 'activeModifiers',
   modifiersEndAt: 'modifiersEndAt',
-  randomWeapon: 'randomWeapon',
-  randomSkill: 'randomSkill',
   nextModifiers: 'nextModifiers'
 };
 
@@ -401,7 +415,18 @@ exports.Prisma.EventScalarFieldEnum = {
   maxRound: 'maxRound',
   status: 'status',
   winnerId: 'winnerId',
-  finishedAt: 'finishedAt'
+  finishedAt: 'finishedAt',
+  sortedBrutes: 'sortedBrutes'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  message: 'message',
+  severity: 'severity',
+  link: 'link',
+  read: 'read',
+  date: 'date'
 };
 
 exports.Prisma.SortOrder = {
@@ -545,6 +570,7 @@ exports.LogType = exports.$Enums.LogType = {
   childup: 'childup',
   up: 'up',
   lvl: 'lvl',
+  ascend: 'ascend',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
   bossDefeat: 'bossDefeat'
@@ -684,6 +710,7 @@ exports.AchievementName = exports.$Enums.AchievementName = {
   rankUp2: 'rankUp2',
   rankUp1: 'rankUp1',
   rankUp0: 'rankUp0',
+  ascend: 'ascend',
   sacrifice: 'sacrifice',
   beta: 'beta',
   bug: 'bug'
@@ -701,7 +728,8 @@ exports.BruteReportStatus = exports.$Enums.BruteReportStatus = {
 
 exports.BossName = exports.$Enums.BossName = {
   GoldClaw: 'GoldClaw',
-  EmberFang: 'EmberFang'
+  EmberFang: 'EmberFang',
+  Cerberus: 'Cerberus'
 };
 
 exports.ClanWarType = exports.$Enums.ClanWarType = {
@@ -733,6 +761,13 @@ exports.EventStatus = exports.$Enums.EventStatus = {
   finished: 'finished'
 };
 
+exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  error: 'error'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Brute: 'Brute',
@@ -758,7 +793,8 @@ exports.Prisma.ModelName = {
   ClanWarFighters: 'ClanWarFighters',
   InventoryItem: 'InventoryItem',
   Release: 'Release',
-  Event: 'Event'
+  Event: 'Event',
+  Notification: 'Notification'
 };
 
 /**

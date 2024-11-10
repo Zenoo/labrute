@@ -11,8 +11,6 @@ export const ARENA_OPPONENTS_MAX_GAP = 2;
 export const BRUTE_STARTING_POINTS = 11;
 export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TOTAL_ODDS;
 
-export const SHIELD_BLOCK_ODDS = 0.45;
-
 export const NO_WEAPON_TOSS = 10;
 
 export const Animations = [
@@ -62,7 +60,7 @@ export const FIGHTER_HIT_ANCHOR = {
   dog: { x: 30, y: 30 },
 } as const;
 
-export const MAX_FAVORITE_BRUTES = 3;
+export const MAX_FAVORITE_BRUTES = 30;
 
 export const BASE_FIGHTER_STATS = {
   reversal: 0,
@@ -128,3 +126,8 @@ export const ClanWarPointReward = 1000;
 export const EventPauseDuration = 3;
 export const EventFightsPerDay = 10;
 export const EventFreeResets = 3;
+
+export const DailyTournamentGoldReward = 100;
+export const DailyTournamentXpReward = 1;
+export const GlobalTournamentGoldReward = 150;
+export const GlobalTournamentXpReward = 1;

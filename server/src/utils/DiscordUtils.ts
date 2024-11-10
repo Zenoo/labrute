@@ -37,6 +37,7 @@ function formatEmbedTitle(title: string) {
 export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
   sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
+  sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number): void;
   sendModifiersNotification(modifiers: FightModifier[]): void;
   sendRelease(release: Release): Promise<void>;
   sendMessage(message: string): Promise<void>;
@@ -49,6 +50,10 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   sendRankUpNotification(brute) {
     // eslint-disable-next-line no-console
     console.log(`Rank up: ${brute.name} is now ${brute.ranking} at level ${brute.level}`);
+  },
+  sendAscendNotification(brute, ascensions) {
+    // eslint-disable-next-line no-console
+    console.log(`Rank up: ${brute.name} has now ascended ${ascensions} times`);
   },
   sendModifiersNotification(modifiers) {
     // eslint-disable-next-line no-console
@@ -208,6 +213,24 @@ ${error.stack}
         url: `${this.#server}${brute.name}/ranking`,
       })
       .setThumbnail(`${this.#server}/images/rankings/lvl_${brute.ranking}.webp`)
+      .setTimestamp();
+
+    this.#rankUpClient.send({ embeds: [embed] }).catch((err) => {
+      this.#logger.error(`Error trying to send a message: ${err}`);
+    });
+  }
+
+  public sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number) {
+    const embed = new EmbedBuilder()
+      .setColor(0xeb8770)
+      .setTitle(formatEmbedTitle(ascensions === 1 ? `${brute.name} has ascended` : `${brute.name} has now ascended ${ascensions} times`))
+      .setURL(`${this.#server}${brute.name}/cell`)
+      .setAuthor({
+        name: 'LaBrute',
+        iconURL: `${this.#server}/favicon.png`,
+        url: `${this.#server}${brute.name}/ranking`,
+      })
+      .setThumbnail(`${this.#server}/images/ear.gif`)
       .setTimestamp();
 
     this.#rankUpClient.send({ embeds: [embed] }).catch((err) => {

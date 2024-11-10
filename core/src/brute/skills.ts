@@ -179,14 +179,6 @@ export const FightStat = {
 
 export type FightStat = typeof FightStat[keyof typeof FightStat];
 
-export interface SkillModifier {
-  stat: FightStat,
-  weaponType?: WeaponType | null,
-  value: number,
-  percent?: boolean,
-  details?: string,
-}
-
 export interface Skill {
   name: SkillName;
   odds: number;
@@ -196,7 +188,7 @@ export interface Skill {
 }
 export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
 
-const skills: Skill[] = [
+export const skills: Skill[] = [
   {
     name: 'herculeanStrength',
     odds: 60,
@@ -472,116 +464,132 @@ const skills: Skill[] = [
 
 export const SKILLS_TOTAL_ODDS = skills.reduce((acc, skill) => acc + skill.odds, 0);
 
-export const SkillModifiers: Record<SkillName, SkillModifier[]> = {
-  [SkillName.herculeanStrength]: [
-    { stat: FightStat.STRENGTH, value: 3 },
-    { stat: FightStat.STRENGTH, value: 50, percent: true },
-  ],
-  [SkillName.felineAgility]: [
-    { stat: FightStat.AGILITY, value: 3 },
-    { stat: FightStat.AGILITY, value: 50, percent: true },
-  ],
-  [SkillName.lightningBolt]: [
-    { stat: FightStat.SPEED, value: 3 },
-    { stat: FightStat.SPEED, value: 50, percent: true },
-  ],
-  [SkillName.vitality]: [
-    { stat: FightStat.ENDURANCE, value: 3 },
-    { stat: FightStat.ENDURANCE, value: 50, percent: true },
-  ],
-  [SkillName.immortality]: [
-    { stat: FightStat.ENDURANCE, value: 250, percent: true },
-    { stat: FightStat.STRENGTH, value: -25, percent: true },
-    { stat: FightStat.AGILITY, value: -25, percent: true },
-    { stat: FightStat.SPEED, value: -25, percent: true },
-  ],
-  [SkillName.weaponsMaster]: [
-    { stat: FightStat.DAMAGE, weaponType: WeaponType.SHARP, value: 50, percent: true },
-  ],
-  [SkillName.martialArts]: [
-    { stat: FightStat.DAMAGE, weaponType: null, value: 100, percent: true },
-  ],
-  [SkillName.sixthSense]: [
-    { stat: FightStat.COUNTER, value: 10, percent: true },
-  ],
-  [SkillName.hostility]: [
-    { stat: FightStat.REVERSAL, value: 30, percent: true },
-  ],
-  [SkillName.fistsOfFury]: [
-    { stat: FightStat.COMBO, value: 20, percent: true },
-  ],
-  [SkillName.shield]: [
-    { stat: FightStat.BLOCK, value: 45, percent: true },
-  ],
-  [SkillName.armor]: [
-    { stat: FightStat.ARMOR, value: 25, percent: true },
-    { stat: FightStat.SPEED, value: -10, percent: true },
-  ],
-  [SkillName.toughenedSkin]: [
-    { stat: FightStat.ARMOR, value: 10, percent: true },
-  ],
-  [SkillName.untouchable]: [
-    { stat: FightStat.EVASION, value: 30, percent: true },
-  ],
-  [SkillName.sabotage]: [],
-  [SkillName.shock]: [
-    { stat: FightStat.DISARM, value: 50, percent: true },
-  ],
-  [SkillName.bodybuilder]: [
-    { stat: FightStat.HIT_SPEED, weaponType: WeaponType.HEAVY, value: 25, percent: true },
-    { stat: FightStat.DEXTERITY, weaponType: WeaponType.HEAVY, value: 10, percent: true },
-  ],
-  [SkillName.relentless]: [
-    { stat: FightStat.ACCURACY, value: 30, percent: true },
-  ],
-  [SkillName.survival]: [],
-  [SkillName.leadSkeleton]: [],
-  [SkillName.balletShoes]: [
-    { stat: FightStat.EVASION, value: 10, percent: true },
-  ],
-  [SkillName.determination]: [],
-  [SkillName.firstStrike]: [
-    { stat: FightStat.INITIATIVE, value: 200 },
-  ],
-  [SkillName.resistant]: [],
-  [SkillName.reconnaissance]: [
-    { stat: FightStat.INITIATIVE, value: -200 },
-    { stat: FightStat.SPEED, value: 5 },
-    { stat: FightStat.SPEED, value: 150, percent: true },
-  ],
-  [SkillName.counterAttack]: [
-    { stat: FightStat.BLOCK, value: 10, percent: true },
-    { stat: FightStat.REVERSAL, value: 90, percent: true, details: 'afterBlock' },
-  ],
-  [SkillName.ironHead]: [],
-  [SkillName.thief]: [],
-  [SkillName.fierceBrute]: [],
-  [SkillName.tragicPotion]: [],
-  [SkillName.net]: [],
-  [SkillName.bomb]: [],
-  [SkillName.hammer]: [],
-  [SkillName.cryOfTheDamned]: [],
-  [SkillName.hypnosis]: [],
-  [SkillName.flashFlood]: [],
-  [SkillName.tamer]: [],
-  [SkillName.regeneration]: [],
-  [SkillName.chef]: [],
-  [SkillName.spy]: [],
-  [SkillName.saboteur]: [],
-  [SkillName.backup]: [],
-  [SkillName.hideaway]: [],
-  [SkillName.monk]: [
-    { stat: FightStat.COUNTER, value: 40, percent: true },
-    { stat: FightStat.INITIATIVE, value: -200 },
-    { stat: FightStat.HIT_SPEED, value: -100, percent: true },
-  ],
-  [SkillName.vampirism]: [],
-  [SkillName.chaining]: [],
-  [SkillName.haste]: [],
-  [SkillName.treat]: [],
-  [SkillName.repulse]: [
-    { stat: FightStat.DEFLECT, value: 30, percent: true },
-  ],
+export interface SkillModifier {
+  flat?: number;
+  percent?: number;
+  weaponType?: WeaponType | null;
+  details?: string;
+  opponent?: boolean;
+}
+
+export const SkillModifiers: Record<
+  SkillName,
+  Partial<Record<FightStat, SkillModifier>>
+> = {
+  [SkillName.herculeanStrength]: {
+    [FightStat.STRENGTH]: { flat: 3, percent: 0.5 },
+  },
+  [SkillName.felineAgility]: {
+    [FightStat.AGILITY]: { flat: 3, percent: 0.5 },
+  },
+  [SkillName.lightningBolt]: {
+    [FightStat.SPEED]: { flat: 3, percent: 0.5 },
+  },
+  [SkillName.vitality]: {
+    [FightStat.ENDURANCE]: { flat: 3, percent: 0.5 },
+  },
+  [SkillName.immortality]: {
+    [FightStat.ENDURANCE]: { percent: 2.5 },
+    [FightStat.STRENGTH]: { percent: -0.25 },
+    [FightStat.AGILITY]: { percent: -0.25 },
+    [FightStat.SPEED]: { percent: -0.25 },
+  },
+  [SkillName.weaponsMaster]: {
+    [FightStat.DAMAGE]: { percent: 0.5, weaponType: WeaponType.SHARP },
+  },
+  [SkillName.martialArts]: {
+    [FightStat.DAMAGE]: { percent: 1, weaponType: null },
+  },
+  [SkillName.sixthSense]: {
+    [FightStat.COUNTER]: { percent: 0.1 },
+  },
+  [SkillName.hostility]: {
+    [FightStat.REVERSAL]: { percent: 0.3 },
+  },
+  [SkillName.fistsOfFury]: {
+    [FightStat.COMBO]: { percent: 0.2 },
+  },
+  [SkillName.shield]: {
+    [FightStat.BLOCK]: { percent: 0.45 },
+    [FightStat.DAMAGE]: { percent: -0.25 },
+  },
+  [SkillName.armor]: {
+    [FightStat.ARMOR]: { percent: 0.25 },
+    [FightStat.SPEED]: { percent: -0.1 },
+  },
+  [SkillName.toughenedSkin]: {
+    [FightStat.ARMOR]: { percent: 0.1 },
+  },
+  [SkillName.untouchable]: {
+    [FightStat.EVASION]: { percent: 0.3 },
+  },
+  [SkillName.sabotage]: {},
+  [SkillName.shock]: {
+    [FightStat.DISARM]: { percent: 0.5 },
+  },
+  [SkillName.bodybuilder]: {
+    [FightStat.HIT_SPEED]: { percent: 0.25, weaponType: WeaponType.HEAVY },
+    [FightStat.DEXTERITY]: { percent: 0.1, weaponType: WeaponType.HEAVY },
+  },
+  [SkillName.relentless]: {
+    [FightStat.ACCURACY]: { percent: 0.3 },
+  },
+  [SkillName.survival]: {},
+  [SkillName.leadSkeleton]: {
+    [FightStat.DAMAGE]: { percent: -0.3, weaponType: WeaponType.BLUNT, opponent: true },
+  },
+  [SkillName.balletShoes]: {
+    [FightStat.EVASION]: { percent: 0.1 },
+  },
+  [SkillName.determination]: {},
+  [SkillName.firstStrike]: {
+    [FightStat.INITIATIVE]: { flat: 200 },
+  },
+  [SkillName.resistant]: {},
+  [SkillName.reconnaissance]: {
+    [FightStat.INITIATIVE]: { flat: -200 },
+    [FightStat.SPEED]: { flat: 5, percent: 1.5 },
+  },
+  [SkillName.counterAttack]: {
+    [FightStat.BLOCK]: { percent: 0.1 },
+    [FightStat.REVERSAL]: { percent: 0.9, details: 'afterBlock' },
+  },
+  [SkillName.ironHead]: {},
+  [SkillName.thief]: {},
+  [SkillName.fierceBrute]: {},
+  [SkillName.tragicPotion]: {},
+  [SkillName.net]: {},
+  [SkillName.bomb]: {},
+  [SkillName.hammer]: {},
+  [SkillName.cryOfTheDamned]: {},
+  [SkillName.hypnosis]: {},
+  [SkillName.flashFlood]: {},
+  [SkillName.tamer]: {},
+  [SkillName.regeneration]: {},
+  [SkillName.chef]: {},
+  [SkillName.spy]: {},
+  [SkillName.saboteur]: {},
+  [SkillName.backup]: {},
+  [SkillName.hideaway]: {
+    [FightStat.BLOCK]: { percent: 0.25, details: 'againstThrows' },
+  },
+  [SkillName.monk]: {
+    [FightStat.COUNTER]: { percent: 0.4 },
+    [FightStat.INITIATIVE]: { flat: -200 },
+    [FightStat.HIT_SPEED]: { percent: -1 },
+  },
+  [SkillName.vampirism]: {},
+  [SkillName.chaining]: {},
+  [SkillName.haste]: {},
+  [SkillName.treat]: {},
+  [SkillName.repulse]: {
+    [FightStat.DEFLECT]: { percent: 0.3 },
+  },
 };
 
-export default skills;
+export const SkillDamageModifiers = Object.entries(SkillModifiers)
+  .filter(([_, modifiers]) => modifiers[FightStat.DAMAGE])
+  .map(([skill, modifiers]) => ({
+    skill: skill as SkillName,
+    ...modifiers[FightStat.DAMAGE],
+  }));

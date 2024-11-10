@@ -1,8 +1,10 @@
 import {
-  AchievementData, BruteDeletionReason, ExpectedError, RaretyOrder,
+  AchievementData, BruteDeletionReason, ExpectedError,
+  RaretyOrder,
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
+  UserUpdateSettingsRequest,
   UsersAdminUpdateRequest,
   UsersAuthenticateResponse,
   getFightsLeft,
@@ -112,6 +114,9 @@ const Users = {
           following: {
             select: { id: true },
           },
+          notifications: {
+            where: { read: false },
+          },
         },
       });
 
@@ -122,8 +127,6 @@ const Users = {
       res.send({
         user,
         modifiers: await ServerState.getModifiers(prisma),
-        randomSkill: await ServerState.getRandomSkill(prisma),
-        randomWeapon: await ServerState.getRandomWeapon(prisma),
         currentEvent: await ServerState.getCurrentEvent(prisma),
       });
     } catch (error) {
@@ -455,6 +458,7 @@ const Users = {
           deletedAt: null,
         },
         select: {
+          id: true,
           lastFight: true,
           fightsLeft: true,
           skills: true,
@@ -466,8 +470,8 @@ const Users = {
         throw new ExpectedError('No brutes found');
       }
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
-      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, randomSkill) === 0);
+      const modifiers = await ServerState.getModifiers(prisma);
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, modifiers) === 0);
 
       res.send(isDoneForToday);
     } catch (error) {
@@ -561,10 +565,10 @@ const Users = {
         },
       });
 
-      const randomSkill = await ServerState.getRandomSkill(prisma);
+      const modifiers = await ServerState.getModifiers(prisma);
 
       for (const brute of brutes) {
-        const fightsLeft = getFightsLeft(brute, randomSkill) + 1;
+        const fightsLeft = getFightsLeft(brute, modifiers) + 1;
 
         await prisma.brute.update({
           where: {
@@ -937,6 +941,36 @@ const Users = {
       res.send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  updateSettings: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, UserUpdateSettingsRequest>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      const { fightSpeed, backgroundMusic, displayVersusPage } = req.body;
+
+      if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean') {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          fightSpeed,
+          backgroundMusic,
+          displayVersusPage,
+        },
+        select: { id: true },
+      });
+
+      res.send({ message: 'Settings updated' });
     } catch (error) {
       sendError(res, error);
     }

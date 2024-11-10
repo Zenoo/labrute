@@ -14,7 +14,7 @@ export const getBruteGoldValueFromRanking = (
   ranking: number
 ) => (BruteRankings[0] - ranking) * NEW_BRUTE_BASE_COST;
 
-export const getBruteGoldValue = (brute: Pick<Brute, 'level' | 'ranking' |'eventId'>) => {
+export const getBruteGoldValue = (brute: Pick<Brute, 'level' | 'ranking' | 'eventId'>) => {
   if (brute.eventId) return 0;
 
   const rankPoints = getBruteGoldValueFromRanking(brute.ranking);
