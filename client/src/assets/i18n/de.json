@@ -1570,13 +1570,13 @@
   "wiki.pupilBenefits": "Keine (momentan)",
   "wiki.pupilExplanation": "Schüler geben keine EP wie in vorherigen Versionen des Spiels. Aber es ist immer noch möglich, Schüler zu rekrutieren, indem du den Link in der rechten oberen Ecke deiner Zelle teilst.",
   "bruteSetForDeletion": "Einer deiner Brutalos wurde zum Löschen vorgesehen.",
-  "reportAccepted": "Report accepted",
-  "reportRejected": "Report rejected",
+  "reportAccepted": "Meldung akzeptiert",
+  "reportRejected": "Meldung abgelehnt",
   "status": "Status",
-  "pending": "Pending",
-  "accepted": "Accepted",
-  "rejected": "Rejected",
-  "unknown": "Unknown",
-  "reportedBy": "Reported by",
-  "handledBy": "Handled by"
+  "pending": "Ausstehend",
+  "accepted": "Akzeptiert",
+  "rejected": "Abgelehnt",
+  "unknown": "Unbekannt",
+  "reportedBy": "Gemeldet von",
+  "handledBy": "Bearbeitet von"
 }
