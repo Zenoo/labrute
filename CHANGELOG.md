@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.76.1](https://github.com/Zenoo/labrute/compare/labrute-v2.76.0...labrute-v2.76.1) (2024-11-10)
+
+
+### Bug Fixes
+
+* Moderator panel display bug ([de7bc03](https://github.com/Zenoo/labrute/commit/de7bc037fd3bb14a6e37ca9690067032707ff4f2))
+* New combat sounds ([5af10fe](https://github.com/Zenoo/labrute/commit/5af10fea40683d5bbcc3217421844fb770b804b1))
+
 ## [2.76.0](https://github.com/Zenoo/labrute/compare/labrute-v2.75.0...labrute-v2.76.0) (2024-11-09)
 
 
