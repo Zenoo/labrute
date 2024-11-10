@@ -932,9 +932,6 @@ const activateSuper = (
       const opponentPets = getOpponents({ fightData, fighter, petOnly: true })
         .filter((f) => !f.trapped);
 
-      // Abort if no pet
-      if (opponentPets.length === 0) return false;
-
       // Keep track of fear steps
       const fearSteps: LeaveStep[] = [];
 
@@ -949,11 +946,18 @@ const activateSuper = (
           // Remove pet from fight
           fightData.fighters = fightData.fighters
             .filter((f) => f.index !== pet.index);
+        } else {
+          // Set remaining pets to play just after
+          pet.initiative = fighter.initiative - 0.01;
         }
       }
 
-      // Abort if no pet feared
-      if (fearSteps.length === 0) return false;
+      // Reduce opponents initiative
+      const opponents = getOpponents({ fightData, fighter, bruteOnly: true });
+      opponents.forEach((opponent) => opponent.initiative -= 0.2 );
+
+      // Add fear steps
+      fightData.steps = fightData.steps.concat(fearSteps);
 
       // Add skill activation step
       fightData.steps.push({
@@ -961,9 +965,6 @@ const activateSuper = (
         b: fighter.index,
         s: SkillByName[skill.name],
       });
-
-      // Add fear steps
-      fightData.steps = fightData.steps.concat(fearSteps);
 
       break;
     }
@@ -1882,6 +1883,29 @@ export const playFighterTurn = (
     } else {
       // Reset counter stat
       updateStats(stats, opponent.id, 'consecutiveCounters', 0);
+
+      if (opponent.stunned){
+        // Check if opponent has cryOfTheDamned avalaible
+        const opponentCry = opponent.skills.find((skill) => skill.name === SkillName.cryOfTheDamned)
+        if(opponentCry && randomBetween(0, 1) === 0){
+
+          opponent.stunned = false;
+
+          // Activate cryOfTheDamned
+          activateSuper(fightData, opponent, opponentCry, stats, achievements);
+
+          // Check if fighter didn't leave
+          if (fightData.fighters.includes(fighter)){
+ 	        // Move back
+            fightData.steps.push({
+              a: StepType.MoveBack,
+              f: fighter.index,
+            });
+          }
+          // Cancel turn
+          return
+        }
+      }
 
       // Fighter attacks opponent
       startAttack(fightData, stats, achievements, fighter, opponent);

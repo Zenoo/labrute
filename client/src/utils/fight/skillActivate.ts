@@ -35,6 +35,9 @@ const skillActivate = async (
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute, SkillId.hammer].includes(step.s)) {
     const animationEnded = brute.animation.waitForEvent('strengthen:end');
 
+    // Note if brute was stunned
+    const bruteWasStunned = brute.animation.animation === 'death';
+
     // Set animation to `strenghten`
     brute.animation.setAnimation('strengthen');
 
@@ -104,8 +107,14 @@ const skillActivate = async (
       }
     }
 
-    // Wait for animations to complete
-    await Promise.all(animations);
+    if (bruteWasStunned) {
+      // If brute was stunned, it means it is repulsing the opponent
+      // in this case the animation must be played while opponent runs away
+      void Promise.all(animations);
+    } else {
+      // Else, wait for animations to complete
+      await Promise.all(animations);
+    }
   }
 
   // Flash flood
