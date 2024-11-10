@@ -66,9 +66,10 @@ Should have a corresponding documentation.
 
 ## Generate the sound spritesheet after editing a sound using audiosprite
 
-- Run the script : `yarn sfx:generate`
+- Requirements: install ffmpeg on your Pc, node v18 minimum
 
-- audiosprite will gather every mp3 or wav sound in the sfx folder and fuse them in one sound named "sfx"
+- Run the script : `yarn sfx:generate` if you use git bash and  `yarn sfx:wsl:generate` if you use WSL
+
 
 ## File Structure
 
