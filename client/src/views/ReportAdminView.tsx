@@ -84,7 +84,7 @@ const ReportAdminView = () => {
         <Text h3 bold upperCase typo="handwritten">Reports</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        {user?.admin ? (
+        {(user?.admin || user?.moderator) ? (
           <Stack spacing={2}>
             {user.admin && (
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
