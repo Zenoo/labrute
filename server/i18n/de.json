@@ -122,5 +122,5 @@
   "eventNotFound": "Ereignis nicht gefunden",
   "eventAlreadyStarted": "Ereignis bereits begonnen",
   "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht",
-  "reportAlreadyHandled": "Report already handled"
+  "reportAlreadyHandled": "Meldung bereits bearbeitet"
 }
