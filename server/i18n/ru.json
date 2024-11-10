@@ -122,5 +122,5 @@
   "eventNotFound": "Мероприятие не найдено",
   "eventAlreadyStarted": "Мероприятие уже началось",
   "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии",
-  "reportAlreadyHandled": "Report already handled"
+  "reportAlreadyHandled": "Жалоба уже обработана"
 }
