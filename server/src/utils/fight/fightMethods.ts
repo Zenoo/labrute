@@ -302,6 +302,11 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
       && skill.name !== SkillName.hypnosis);
   }
 
+  // Filter out cryOfTheDamned if fighter has hypnosis
+  if (supers.some((s) => s.name === SkillName.hypnosis)){
+    supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned);
+  }
+
   // Filter out flashFlood if less than 3 weapons
   if (fighter.weapons.length < 3) {
     supers = supers.filter((skill) => skill.name !== SkillName.flashFlood);
@@ -601,6 +606,11 @@ const registerHit = (
         opponent.stunned = false;
       }
 
+      // Remove hypnotized
+      if (opponent.hypnotized) {
+        opponent.hypnotized = false;
+      }
+
       if (!thrown && !sourceName && !flashFloodWeapon && opponent.type === 'brute') {
         // Update consecutive hits
         opponent.hitBy[fighter.index] = (opponent.hitBy[fighter.index] || 0) + 1;
@@ -677,6 +687,9 @@ const activateSuper = (
 ): boolean => {
   // No uses left (should never happen)
   if (!skill.uses) return false;
+
+  // Can't use super while hypnotized
+  if (fighter.hypnotized) return false
 
   switch (skill.name) {
     // Steal opponent's weapon if he has one
@@ -787,8 +800,13 @@ const activateSuper = (
         fightData, fighter, petOnly: true, nonTrappedOnly: true,
       });
 
-      if (!opponent) {
-        // Choose brute opponent if no pet
+      // Does fighter has anti-pet skills
+      const fighterHasAntiPet = fighter.skills.some((s) => {
+        return s.name === SkillName.hypnosis || s.name === SkillName.cryOfTheDamned
+      });
+
+      // Chose brute opponent
+      if (!opponent || fighterHasAntiPet) {
         opponent = getRandomOpponent({
           fightData, fighter, bruteOnly: true, nonTrappedOnly: true,
         });
@@ -982,10 +1000,13 @@ const activateSuper = (
         // Change pet owner
         pet.master = fighter.id;
         pet.team = fighter.team;
+        // Lower pet initiative
+        pet.initiative -= 1
       }
 
-      // Abort if no pet hypnotised
-      if (hypnotisedPets.length === 0) return false;
+      // Hypnotize opponent's brutes
+      const opponents = getOpponents({ fightData, fighter, bruteOnly: true })
+      opponents.forEach((opponent) => opponent.hypnotized = true);
 
       // Add hypnotise step
       fightData.steps.push({
@@ -1247,6 +1268,9 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // No counter attack if opponent is stunned
   if (opponent.stunned) return false;
 
+  // No counter attack if opponent is hypnotized
+  if (opponent.hypnotized) return false;
+
   const random = Math.random();
 
   const valueToBeat = (
@@ -1382,6 +1406,9 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
 
   // No evasion if opponent is stunned
   if (opponent.stunned) return false;
+
+  // Automatically evade if fighter is hypnotized
+  if (fighter.hypnotized) return true;
 
   // Automatically evade if `balletShoes`
   if (opponent.balletShoes) {
@@ -1851,10 +1878,18 @@ export const playFighterTurn = (
     return;
   }
 
+  // Opponnent uses hypnosis if low hp
+  if (fighter.hp < fighter.maxHp * 0.15){
+    const opponentHypnosis = opponent.skills.find((skill) => skill.name === SkillName.hypnosis)
+    if (opponentHypnosis){
+      // Activate hypnosis
+      activateSuper(fightData, opponent, opponentHypnosis, stats, achievements);
+    }
+  }
+
   // Melee attack
   if (attackType === 'melee') {
-    const countered = !opponent.trapped && counterAttack(fighter, opponent);
-
+    const countered = counterAttack(fighter, opponent);
     // Add move step
     fightData.steps.push({
       a: StepType.Move,
@@ -1862,6 +1897,11 @@ export const playFighterTurn = (
       t: opponent.index,
       c: countered ? 1 : 0,
     });
+
+    // Remove hypnotized
+    if (opponent.hypnotized) {
+      opponent.hypnotized = false;
+    }
 
     // Check if opponent is not trapped and countered
     if (countered) {
@@ -1885,7 +1925,7 @@ export const playFighterTurn = (
       updateStats(stats, opponent.id, 'consecutiveCounters', 0);
 
       if (opponent.stunned){
-        // Check if opponent has cryOfTheDamned avalaible
+        // Check if opponent can use cryOfTheDamned
         const opponentCry = opponent.skills.find((skill) => skill.name === SkillName.cryOfTheDamned)
         if(opponentCry && randomBetween(0, 1) === 0){
 

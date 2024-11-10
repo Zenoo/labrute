@@ -109,6 +109,7 @@ export interface DetailedFighter {
   // Keep track of consecutive hits for stun status
   hitBy: Record<number, number>,
   stunned?: boolean,
+  hypnotized?: boolean,
   // Bare hand hit (for the fight modifier)
   bareHandHit?: boolean;
   // Damage immunity
