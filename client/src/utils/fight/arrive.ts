@@ -83,8 +83,8 @@ const arrive = async (
   // Play dust
   dustSprite.play();
 
-  // Wait for animation to end before going further
-  await animationEnded;
+  // Wait for animation to end if not a pet
+  if (fighter.type !== 'pet') await animationEnded;
 
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
