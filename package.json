@@ -28,7 +28,7 @@
     "add:client": "yarn workspace @labrute/client add",
     "add:server": "yarn workspace @labrute/server add",
     "sfx:wsl:generate": "cd ./client/public/sfx && audiosprite $(find . -type f -name '*.mp3' -o -name '*.wav') -o sfx -u . && mv ./sfx.json ./../../src/assets/",
-    "sfx:generate": "cd ./client/public/sfx && audiosprite -o sfx -u . $(ls **/*.mp3 **/*.wav | grep -v 'background.mp3' | grep -v 'unused/' ) && mv ./sfx.json ./../../src/assets/",
+    "sfx:generate": "cd ./client/public/sfx && audiosprite -o sfx -e mp3 -u . $(ls **/*.mp3 **/*.wav | grep -v 'background.mp3' | grep -v 'unused/'  | grep -v 'sfx.mp3' ) && mv ./sfx.json ./../../src/assets/",
     "remove:client": "yarn workspace @labrute/client remove",
     "remove:server": "yarn workspace @labrute/server remove",
     "run:retrieveFirstBonus": "cd server && yarn run:retrieveFirstBonus",
