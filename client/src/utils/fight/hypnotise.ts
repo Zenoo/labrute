@@ -96,11 +96,10 @@ const hypnotise = async (
     }
 
     fighter.animation.container.filters.push(new GlowFilter({
-      distance: 10, // Distance de l'effet de lueur
-      outerStrength: 1, // Intensité de la lueur
-      innerStrength: 0.5, // Intensité intérieure de la lueur
-      color: 0xAD3C8F, // Couleur (ici jaune)
-      quality: 0.2
+      distance: 10,
+      outerStrength: 1,
+      innerStrength: 0.5,
+      color: 0xAD3C8F,
     }));
   }
 
