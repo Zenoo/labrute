@@ -84,11 +84,8 @@ const trash = async (
 
   // Set animation to `trash`
   brute.animation.setAnimation('trash');
-
   // Play trash SFX
-  void sound.play('skills/net', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'net' });
 
   // Remove weapon from brute
   brute.animation.weapon = null;

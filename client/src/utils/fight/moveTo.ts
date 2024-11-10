@@ -23,13 +23,10 @@ const moveTo = async (
 
   // Set animation to `run`
   fighter.animation.setAnimation('run');
-
   // Play running SFX
   if (fighter.type === 'pet') {
     // Remove numbers from pet name
-    void sound.play(`move/${fighter.name.replace(/\d/g, '')}`, {
-      speed: speed.current,
-    });
+    void sound.play('sfx', { sprite: `${fighter.name.replace(/\d/g, '')}` });
   }
 
   const targetX = target.animation.container.x;

@@ -32,7 +32,7 @@ const hypnotise = async (
   brute.animation.setAnimation('strengthen');
 
   // Play hypnosis SFX
-  void sound.play('skills/hypnosis', { speed: speed.current * 4 });
+  void sound.play('sfx', { sprite: 'hypnosis' });
 
   const animations = [];
 

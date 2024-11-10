@@ -1,0 +1,427 @@
+{
+  "resources": [
+    "sfx.mp3"
+  ],
+  "spritemap": {
+    "arrive": {
+      "start": 0,
+      "end": 0.8640136054421769,
+      "loop": false
+    },
+    "equip": {
+      "start": 2,
+      "end": 2.8160090702947844,
+      "loop": false
+    },
+    "bear": {
+      "start": 141,
+      "end": 141.42142857142858,
+      "loop": false
+    },
+    "block1": {
+      "start": 6,
+      "end": 6.934625850340136,
+      "loop": false
+    },
+    "block2": {
+      "start": 8,
+      "end": 9.259705215419501,
+      "loop": false
+    },
+    "block3": {
+      "start": 11,
+      "end": 12.108820861678005,
+      "loop": false
+    },
+    "block4": {
+      "start": 14,
+      "end": 15.09718820861678,
+      "loop": false
+    },
+    "dog": {
+      "start": 143,
+      "end": 143.18582766439908,
+      "loop": false
+    },
+    "evade": {
+      "start": 19,
+      "end": 19.55201814058957,
+      "loop": false
+    },
+    "panther": {
+      "start": 145,
+      "end": 145.7721088435374,
+      "loop": false
+    },
+    "poison": {
+      "start": 23,
+      "end": 24.6021768707483,
+      "loop": false
+    },
+    "axe1": {
+      "start": 26,
+      "end": 26.549637188208617,
+      "loop": false
+    },
+    "axe2": {
+      "start": 28,
+      "end": 28.73249433106576,
+      "loop": false
+    },
+    "baton1": {
+      "start": 30,
+      "end": 30.38312925170068,
+      "loop": false
+    },
+    "baton2": {
+      "start": 32,
+      "end": 32.39476190476191,
+      "loop": false
+    },
+    "baton3": {
+      "start": 34,
+      "end": 34.33668934240363,
+      "loop": false
+    },
+    "blunt1": {
+      "start": 36,
+      "end": 36.51487528344671,
+      "loop": false
+    },
+    "blunt2": {
+      "start": 38,
+      "end": 38.38460317460317,
+      "loop": false
+    },
+    "blunt3": {
+      "start": 40,
+      "end": 40.18582766439909,
+      "loop": false
+    },
+    "blunt4": {
+      "start": 42,
+      "end": 42.18582766439909,
+      "loop": false
+    },
+    "blunt5": {
+      "start": 44,
+      "end": 44.18582766439909,
+      "loop": false
+    },
+    "blunt6": {
+      "start": 46,
+      "end": 46.40997732426304,
+      "loop": false
+    },
+    "blunt7": {
+      "start": 48,
+      "end": 48.37297052154195,
+      "loop": false
+    },
+    "blunt8": {
+      "start": 50,
+      "end": 50.18582766439909,
+      "loop": false
+    },
+    "broadsword1": {
+      "start": 52,
+      "end": 52.288820861678005,
+      "loop": false
+    },
+    "broadsword2": {
+      "start": 54,
+      "end": 54.213356009070296,
+      "loop": false
+    },
+    "fan1": {
+      "start": 56,
+      "end": 56.55294784580499,
+      "loop": false
+    },
+    "fan2": {
+      "start": 58,
+      "end": 58.41360544217687,
+      "loop": false
+    },
+    "fist1": {
+      "start": 60,
+      "end": 60.185804988662134,
+      "loop": false
+    },
+    "fist2": {
+      "start": 62,
+      "end": 62.185804988662134,
+      "loop": false
+    },
+    "fist3": {
+      "start": 64,
+      "end": 64.18580498866213,
+      "loop": false
+    },
+    "fryingPan1": {
+      "start": 66,
+      "end": 67.97913832199546,
+      "loop": false
+    },
+    "fryingPan2": {
+      "start": 69,
+      "end": 69.38342403628118,
+      "loop": false
+    },
+    "hatchet1": {
+      "start": 71,
+      "end": 71.41,
+      "loop": false
+    },
+    "hatchet2": {
+      "start": 73,
+      "end": 73.31,
+      "loop": false
+    },
+    "keyboard1": {
+      "start": 75,
+      "end": 75.48907029478458,
+      "loop": false
+    },
+    "keyboard2": {
+      "start": 77,
+      "end": 77.51809523809524,
+      "loop": false
+    },
+    "knife1": {
+      "start": 79,
+      "end": 79.16979591836734,
+      "loop": false
+    },
+    "knife2": {
+      "start": 81,
+      "end": 81.20462585034014,
+      "loop": false
+    },
+    "lance1": {
+      "start": 83,
+      "end": 83.55732426303855,
+      "loop": false
+    },
+    "lance2": {
+      "start": 85,
+      "end": 85.55732426303855,
+      "loop": false
+    },
+    "leek": {
+      "start": 87,
+      "end": 87.56269841269841,
+      "loop": false
+    },
+    "mammothBone": {
+      "start": 89,
+      "end": 89.6480045351474,
+      "loop": false
+    },
+    "noodleBowl1": {
+      "start": 91,
+      "end": 91.73251700680272,
+      "loop": false
+    },
+    "noodleBowl2": {
+      "start": 93,
+      "end": 93.54963718820862,
+      "loop": false
+    },
+    "piopio": {
+      "start": 95,
+      "end": 95.76383219954648,
+      "loop": false
+    },
+    "racquet": {
+      "start": 97,
+      "end": 97.67201814058957,
+      "loop": false
+    },
+    "scimitar1": {
+      "start": 99,
+      "end": 99.3004081632653,
+      "loop": false
+    },
+    "scimitar2": {
+      "start": 101,
+      "end": 101.37879818594104,
+      "loop": false
+    },
+    "sharp1": {
+      "start": 103,
+      "end": 103.1858276643991,
+      "loop": false
+    },
+    "sharp2": {
+      "start": 105,
+      "end": 105.47167800453515,
+      "loop": false
+    },
+    "sharp3": {
+      "start": 107,
+      "end": 107.92886621315193,
+      "loop": false
+    },
+    "sharp4": {
+      "start": 109,
+      "end": 109.50072562358277,
+      "loop": false
+    },
+    "sharp5": {
+      "start": 111,
+      "end": 111.6078231292517,
+      "loop": false
+    },
+    "sharp6": {
+      "start": 113,
+      "end": 113.7733560090703,
+      "loop": false
+    },
+    "sharp7": {
+      "start": 115,
+      "end": 115.55732426303855,
+      "loop": false
+    },
+    "sharp8": {
+      "start": 117,
+      "end": 117.86682539682539,
+      "loop": false
+    },
+    "shuriken": {
+      "start": 119,
+      "end": 119.20136054421769,
+      "loop": false
+    },
+    "sword": {
+      "start": 121,
+      "end": 121.4917006802721,
+      "loop": false
+    },
+    "trombone1": {
+      "start": 123,
+      "end": 123.36573696145125,
+      "loop": false
+    },
+    "trombone2": {
+      "start": 125,
+      "end": 125.35410430839002,
+      "loop": false
+    },
+    "trombone3": {
+      "start": 127,
+      "end": 127.40054421768707,
+      "loop": false
+    },
+    "trombone4": {
+      "start": 129,
+      "end": 129.4121768707483,
+      "loop": false
+    },
+    "whip": {
+      "start": 131,
+      "end": 131.44632653061225,
+      "loop": false
+    },
+    "loose": {
+      "start": 133,
+      "end": 139.45875283446713,
+      "loop": false
+    },
+    "wolf": {
+      "start": 147,
+      "end": 147.85097505668935,
+      "loop": false
+    },
+    "bomb": {
+      "start": 149,
+      "end": 150.9080045351474,
+      "loop": false
+    },
+    "chaining": {
+      "start": 152,
+      "end": 152.78097505668933,
+      "loop": false
+    },
+    "cryOfTheDamned": {
+      "start": 154,
+      "end": 155.9036961451247,
+      "loop": false
+    },
+    "fierceBrute": {
+      "start": 157,
+      "end": 158.05,
+      "loop": false
+    },
+    "flashFlood": {
+      "start": 160,
+      "end": 160.9022902494331,
+      "loop": false
+    },
+    "hammer": {
+      "start": 162,
+      "end": 163.13378684807256,
+      "loop": false
+    },
+    "haste": {
+      "start": 165,
+      "end": 166.1112925170068,
+      "loop": false
+    },
+    "hypnosis": {
+      "start": 168,
+      "end": 169.68598639455783,
+      "loop": false
+    },
+    "net": {
+      "start": 171,
+      "end": 171.81528344671202,
+      "loop": false
+    },
+    "saboteur": {
+      "start": 173,
+      "end": 174.07104308390024,
+      "loop": false
+    },
+    "spy": {
+      "start": 176,
+      "end": 178.60027210884354,
+      "loop": false
+    },
+    "tamer1": {
+      "start": 180,
+      "end": 181.75201814058957,
+      "loop": false
+    },
+    "tamer2": {
+      "start": 183,
+      "end": 183.93600907029477,
+      "loop": false
+    },
+    "thief": {
+      "start": 185,
+      "end": 186.30038548752833,
+      "loop": false
+    },
+    "tragicPotion": {
+      "start": 188,
+      "end": 190.0259410430839,
+      "loop": false
+    },
+    "vampirism": {
+      "start": 192,
+      "end": 192.1739909297052,
+      "loop": false
+    },
+    "train": {
+      "start": 194,
+      "end": 217.22,
+      "loop": false
+    },
+    "win": {
+      "start": 219,
+      "end": 224.01551020408164,
+      "loop": false
+    }
+  }
+}

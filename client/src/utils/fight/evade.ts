@@ -16,11 +16,8 @@ const evade = async (
 
   // Set animation to `evade`
   fighter.animation.setAnimation('evade');
-
   // Play evade SFX
-  void sound.play('hit/evade', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'evade' });
 
   // Add vertical tween
   await Tweener.add({

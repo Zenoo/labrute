@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { BlockStep } from '@labrute/core';
+import { BlockStep, randomBetween } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
@@ -9,7 +9,6 @@ const block = async (
   app: Application,
   fighters: AnimationFighter[],
   step: BlockStep,
-  speed: React.MutableRefObject<number>,
 ) => {
   if (!app.loader) {
     return;
@@ -25,9 +24,7 @@ const block = async (
   fighter.animation.setAnimation('block', 3);
 
   // Play block SFX
-  void sound.play('hit/block', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: `block${randomBetween(1, 4)}` });
 
   // Wait for animation to complete
   await animationEnded;

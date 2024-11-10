@@ -32,11 +32,8 @@ const hammer = async (
 
   // Set target animation to `grabbed`
   fighter.animation.setAnimation('grabbed');
-
   // Skill SFX
-  void sound.play('skills/hammer', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'hammer' });
 
   // Untrap target
   untrap(app, target);

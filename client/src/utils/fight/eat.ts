@@ -1,5 +1,5 @@
 /* eslint-disable no-void */
-import { EatStep } from '@labrute/core';
+import { EatStep, randomBetween } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 
@@ -39,11 +39,8 @@ const eat = async (
     height: 0,
     width: 0,
   }).catch(console.error);
-
   // Play eat SFX
-  void sound.play('skills/tamer', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 
   displayHeal(app, brute, step.h, speed);
 

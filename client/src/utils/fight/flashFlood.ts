@@ -89,11 +89,8 @@ const flashFlood = async (
   if (!startedWithAWeapon) {
     updateWeapons(app, fighter, step.w, 'remove');
   }
-
   // Play throw SFX
-  void sound.play('skills/flashFlood', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'flashFlood' });
 
   // Move thrown weapon
   Tweener.add({

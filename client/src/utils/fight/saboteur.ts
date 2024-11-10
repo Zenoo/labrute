@@ -41,9 +41,7 @@ const saboteur = async (
   brute.animation.setAnimation(animation);
 
   // Play saboteur SFX
-  void sound.play('skills/saboteur', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'saboteur' });
 
   // Stagger animation
   const staggerVfx = stagger(brute, speed);

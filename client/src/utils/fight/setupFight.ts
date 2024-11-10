@@ -89,9 +89,9 @@ const setupFight: (
   const fightFighters = JSON.parse(fight.fighters) as Fighter[];
 
   const brute1 = fightFighters.find((fighter) => !fighter.master
-    && fighter.id === fight.brute1Id);
+        && fighter.id === fight.brute1Id);
   const brute2 = fightFighters.find((fighter) => !fighter.master
-    && fighter.id === fight.brute2Id);
+        && fighter.id === fight.brute2Id);
   const boss = fightFighters.find((fighter) => fighter.type === 'boss');
 
   if (!brute1) {
@@ -567,7 +567,7 @@ const setupFight: (
         break;
       }
       case StepType.Block: {
-        await block(app, fighters, step, speed);
+        await block(app, fighters, step);
         break;
       }
       case StepType.SkillActivate: {
@@ -587,7 +587,7 @@ const setupFight: (
         break;
       }
       case StepType.Equip: {
-        await equip(app, fighters, step, speed);
+        await equip(app, fighters, step);
         break;
       }
       case StepType.Sabotage: {
@@ -637,7 +637,7 @@ const setupFight: (
     }
   }
 
-  void sound.play('win');
+  void sound.play('sfx', { sprite: 'win' });
 
   // Get winner fighter
   const winner = fighters.find((fighter) => !fighter.master && fighter.name === fight.winner);

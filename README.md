@@ -64,6 +64,12 @@ Every
 
 Should have a corresponding documentation.
 
+## Generate the sound spritesheet after editing a sound using audiosprite
+
+- Requirements: install ffmpeg on your Pc, node v18 minimum
+
+- Run the script : `yarn sfx:generate` if you use git bash and  `yarn sfx:wsl:generate` if you use WSL
+
 
 ## File Structure
 

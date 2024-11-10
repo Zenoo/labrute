@@ -1,7 +1,6 @@
 /* eslint-disable no-void */
-import { TreatStep } from '@labrute/core';
+import { randomBetween, TreatStep } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
-
 import { sound } from '@pixi/sound';
 import { displayHeal } from './utils/displayHeal';
 import findFighter, { AnimationFighter } from './utils/findFighter';
@@ -38,11 +37,8 @@ export const treat = async (
 
   // Set brute animation to `eat`
   brute.animation.setAnimation('eat');
-
   // Play eat SFX
-  void sound.play('skills/tamer', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 
   displayHeal(app, pet, step.h, speed);
 
