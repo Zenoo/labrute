@@ -5,6 +5,7 @@ import { AnimatedSprite, Application } from 'pixi.js';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
+import stagger from './stagger';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const skillActivate = async (
@@ -34,9 +35,6 @@ const skillActivate = async (
 
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute, SkillId.hammer].includes(step.s)) {
     const animationEnded = brute.animation.waitForEvent('strengthen:end');
-
-    // Note if brute was stunned
-    const bruteWasStunned = brute.animation.animation === 'death';
 
     // Set animation to `strenghten`
     brute.animation.setAnimation('strengthen');
@@ -107,9 +105,23 @@ const skillActivate = async (
       }
     }
 
-    if (bruteWasStunned) {
-      // If brute was stunned, it means it is repulsing the opponent
+    // Stagger remaining pets
+    // Don't do it if brute is stunned as unawaited stagger is dangerous
+    if (step.p && !brute.stunned) {
+      for (const petIndex of step.p) {
+        // Get fighter brute and bosses
+        const pet = findFighter(fighters, petIndex);
+        if (!pet) {
+          throw new Error('Hypnotized brute not found');
+        }
+        animations.push(stagger(pet, speed));
+      }
+    }
+
+    if (brute.stunned) {
+      // If brute is stunned, it means it is repulsing the opponent
       // in this case the animation must be played while opponent runs away
+      brute.stunned = false;
       void Promise.all(animations);
     } else {
       // Else, wait for animations to complete

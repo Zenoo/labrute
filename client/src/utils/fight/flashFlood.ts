@@ -121,8 +121,8 @@ const flashFlood = async (
     // Update HP bar
     updateHp(fighters, target, -step.d, speed, isClanWar);
 
-    // Stagger
-    stagger(target, speed).catch(console.error);
+    // Stagger, then set animation to normal
+    stagger(target, speed).then(() => target.animation.setAnimation(target.stunned ? 'death' : 'idle')).catch(console.error);
   }).catch(console.error);
 
   // Wait 0.15s

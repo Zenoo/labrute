@@ -57,8 +57,8 @@ const steal = async (
   // Restore scale
   brute.animation.container.scale.x *= -1;
 
-  // Set target animation to `idle`
-  target.animation.setAnimation('idle');
+  // Set target animation to normal
+  target.animation.setAnimation(target.stunned ? 'death' : 'idle');
 
   const { x, y } = getRandomPosition(fighters, brute.team);
 
@@ -72,8 +72,8 @@ const steal = async (
     y,
   });
 
-  // Set brute animation to `idle`
-  brute.animation.setAnimation('idle');
+  // Set brute animation to normal
+  brute.animation.setAnimation(target.stunned ? 'death' : 'idle');
 };
 
 export default steal;

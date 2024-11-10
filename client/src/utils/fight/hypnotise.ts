@@ -1,6 +1,8 @@
 /* eslint-disable no-void */
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HypnotiseStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
@@ -80,6 +82,27 @@ const hypnotise = async (
 
   // Destroy wave
   wave.destroy();
+
+  for (const target of step.t) {
+    // Get fighter brute and bosses
+    const fighter = findFighter(fighters, target);
+    if (!fighter) {
+      throw new Error('Hypnotized brute or boss not found');
+    }
+
+    if (!fighter.animation.container.filters) {
+    // eslint-disable-next-line no-param-reassign
+      fighter.animation.container.filters = [];
+    }
+
+    fighter.animation.container.filters.push(new GlowFilter({
+      distance: 10, // Distance de l'effet de lueur
+      outerStrength: 1, // Intensité de la lueur
+      innerStrength: 0.5, // Intensité intérieure de la lueur
+      color: 0xAD3C8F, // Couleur (ici jaune)
+      quality: 0.2
+    }));
+  }
 
   // Move each pet to other team
   const animationsDone = [];

@@ -287,6 +287,8 @@ export interface HypnotiseStep {
   a: StepType.Hypnotise;
   /** Brute ID */
   b: number;
+  /** Brutes hypnotized IDs */
+  t: number[];
   /** Pets hypnotized IDs */
   p: number[];
 }
@@ -431,6 +433,8 @@ export interface SkillActivateStep {
   b: number;
   /** Skill ID */
   s: SkillId;
+  /** Unafraid pets */
+  p?: number[];
 }
 
 export interface SkillExpireStep {

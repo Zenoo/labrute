@@ -81,8 +81,8 @@ export const haste = async (
   stagger(target, speed).catch(console.error);
 
   animationEnded.then(() => {
-    // Set target animation to `idle`
-    target.animation.setAnimation('idle');
+    // Set target animation to normal
+    target.animation.setAnimation(target.stunned ? 'death' : 'idle');
   }).catch(console.error);
 
   // Get position 200px away from target
@@ -117,6 +117,6 @@ export const haste = async (
     y,
   });
 
-  // Set brute animation to `idle`
-  brute.animation.setAnimation('idle');
+  // Set brute animation to normal
+  brute.animation.setAnimation(target.stunned ? 'death' : 'idle');
 };

@@ -168,8 +168,8 @@ const bomb = async (
     staggers.push(stagger(target, speed)
       .then(() => {
         if (target.animation.animation.startsWith('hit')) {
-          // Set animation to `idle`
-          target.animation.setAnimation('idle');
+          // Set animation to normal
+          target.animation.setAnimation(target.stunned ? 'death' : 'idle');
         }
       }));
   }

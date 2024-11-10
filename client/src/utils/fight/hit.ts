@@ -131,13 +131,16 @@ const hit = async (
     ) || [];
   }
 
-  // Set animation to `death` if target is stunned
   if (step.s) {
+    target.stunned = true;
+  } else if (target.stunned && !targetWasTrapped) {
+    target.stunned = false;
+  }
+
+  // Set animation to `death` if target is stunned
+  if (target.stunned) {
     target.animation.setAnimation('death');
     void sound.play('sfx', { sprite: 'chaining' });
-  } else if (targetWasTrapped && target.type === 'brute') {
-    // Stun brutes if trapped
-    target.animation.setAnimation('death');
   } else {
     // Set animation to `idle`
     target.animation.setAnimation('idle');

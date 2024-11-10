@@ -60,7 +60,7 @@ const stagger = async (
   staggers.push(staggerObject(fighter.animation.container, fighter.team, speed));
 
   // Stagger bust
-  if (fighter.bust) {
+  if (fighter.bust && fighter.HUDFocused) {
     staggers.push(staggerObject(fighter.bust, fighter.team, speed));
   }
 
