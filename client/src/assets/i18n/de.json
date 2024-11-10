@@ -1573,10 +1573,10 @@
   "reportAccepted": "Meldung akzeptiert",
   "reportRejected": "Meldung abgelehnt",
   "status": "Status",
-  "pending": "Pending",
-  "accepted": "Accepted",
-  "rejected": "Rejected",
-  "unknown": "Unknown",
-  "reportedBy": "Reported by",
-  "handledBy": "Handled by"
+  "pending": "Ausstehend",
+  "accepted": "Akzeptiert",
+  "rejected": "Abgelehnt",
+  "unknown": "Unbekannt",
+  "reportedBy": "Gemeldet von",
+  "handledBy": "Bearbeitet von"
 }
