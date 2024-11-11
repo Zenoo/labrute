@@ -1,7 +1,6 @@
 /* eslint-disable no-void */
 import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HypnotiseStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimatedSprite, Application } from 'pixi.js';
@@ -100,6 +99,7 @@ const hypnotise = async (
       outerStrength: 1,
       innerStrength: 0.5,
       color: 0xAD3C8F,
+      quality: 0.05,
     }));
   }
 

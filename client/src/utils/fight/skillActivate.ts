@@ -106,7 +106,7 @@ const skillActivate = async (
     }
 
     // Stagger remaining pets
-    // Don't do it if brute is stunned as unawaited stagger is dangerous
+    // Don't do it if brute is stunned as it would cancel a pet's moveBack
     if (step.p && !brute.stunned) {
       for (const petIndex of step.p) {
         // Get fighter brute and bosses

@@ -2,6 +2,7 @@
 import {
   AchievementsStore,
   ArriveStep,
+  SkillActivateStep,
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, FightStat, HitStep, LeaveStep,
   NO_WEAPON_TOSS,
@@ -174,12 +175,12 @@ const checkAchievements = (
 export const getOpponents = ({
   fightData,
   fighter,
-  bruteOnly,
+  bruteAndBossOnly,
   petOnly,
 }: {
   fightData: DetailedFight;
   fighter: DetailedFighter;
-  bruteOnly?: boolean;
+  bruteAndBossOnly?: boolean;
   petOnly?: boolean;
 }) => {
   let opponents = [];
@@ -189,8 +190,7 @@ export const getOpponents = ({
     && f.hp > 0
     && f.team !== fighter.team);
 
-  // Allow bosses too
-  if (bruteOnly) {
+  if (bruteAndBossOnly) {
     opponents = opponents.filter((f) => f.type === 'brute' || f.type === 'boss');
   }
 
@@ -204,13 +204,13 @@ export const getOpponents = ({
 const getRandomOpponent = ({
   fightData,
   fighter,
-  bruteOnly,
+  bruteAndBossOnly,
   petOnly,
   nonTrappedOnly,
 }: {
   fightData: DetailedFight;
   fighter: DetailedFighter;
-  bruteOnly?: boolean;
+  bruteAndBossOnly?: boolean;
   petOnly?: boolean;
   nonTrappedOnly?: boolean;
 }) => {
@@ -219,7 +219,7 @@ const getRandomOpponent = ({
   let opponents = getOpponents({
     fightData,
     fighter,
-    bruteOnly: bruteOnly || focusOpponent,
+    bruteAndBossOnly: bruteAndBossOnly || focusOpponent,
     petOnly,
   });
 
@@ -246,7 +246,7 @@ const getRandomOpponent = ({
 export const saboteur = (fightData: DetailedFight, achievements: AchievementsStore) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
     if (fighter.saboteur) {
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
       if (opponent && opponent.weapons.length > 0) {
         const sabotagedWeapon = randomItem(opponent.weapons);
         opponent.sabotagedWeapon = sabotagedWeapon;
@@ -285,7 +285,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out thief if opponents have no weapons in hand
-  if (getOpponents({ fightData, fighter, bruteOnly: true })
+  if (getOpponents({ fightData, fighter, bruteAndBossOnly: true })
     .filter((f) => f.activeWeapon).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.thief);
   }
@@ -320,7 +320,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   // Filter out vampirism if more than 50% hp or no brute opponent
   if (fighter.hp > fighter.maxHp / 2
-    || getOpponents({ fightData, fighter, bruteOnly: true }).length === 0) {
+    || getOpponents({ fightData, fighter, bruteAndBossOnly: true }).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
@@ -691,7 +691,7 @@ const activateSuper = (
     // Steal opponent's weapon if he has one
     case SkillName.thief: {
       // Choose brute opponent
-      const opponents = getOpponents({ fightData, fighter, bruteOnly: true })
+      const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true })
         .filter((f) => f.activeWeapon);
 
       if (!opponents.length) {
@@ -798,15 +798,17 @@ const activateSuper = (
 
       // Does fighter has anti-pet skills
       const fighterHasAntiPet = fighter.skills.some((s) => {
-        return s.name === SkillName.hypnosis || s.name === SkillName.cryOfTheDamned
+        return s.name === SkillName.hypnosis
+          || s.name === SkillName.cryOfTheDamned
+          || s.name === SkillName.bomb
       });
 
       // Chose brute opponent
       if (!opponent || fighterHasAntiPet) {
         opponent = getRandomOpponent({
-          fightData, fighter, bruteOnly: true, nonTrappedOnly: true,
+          fightData, fighter, bruteAndBossOnly: true, nonTrappedOnly: true,
         });
-
+        // Can happen in edge multiBrute and pet fights
         if (!opponent) {
           return false;
         }
@@ -868,7 +870,7 @@ const activateSuper = (
       }
 
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
       if (!opponent) {
         return false;
@@ -969,19 +971,28 @@ const activateSuper = (
       }
 
       // Increase opponents initiative
-      getOpponents({ fightData, fighter, bruteOnly: true })
-        .forEach((opponent) => opponent.initiative += 0.2 );
+      getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+        .forEach((opponent) => {
+          opponent.initiative += 0.2;
+        });
 
       // Add fear steps
       fightData.steps = fightData.steps.concat(fearSteps);
 
-      // Add skill activation step
-      fightData.steps.push({
+      // Prepare skill activation step
+      const cryStep: SkillActivateStep = {
         a: StepType.SkillActivate,
         b: fighter.index,
         s: SkillByName[skill.name],
-        p: unafraidPetIndexes,
-      });
+      }
+
+      // Add unafraid pets
+      if(unafraidPetIndexes.length) {
+        cryStep.p = unafraidPetIndexes
+      }
+
+      // Add skill activation step
+      fightData.steps.push(cryStep);
 
       break;
     }
@@ -1003,10 +1014,11 @@ const activateSuper = (
         pet.initiative -= 1;
       }
 
-      // Hypnotize opponent's brutes
-      const opponents = getOpponents({ fightData, fighter})
-        .filter((opponent) => opponent.type !== 'pet')
-      opponents.forEach((opponent) => opponent.hypnotized = true);
+      // Hypnotize opponent's brutes and bosses
+      const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true})
+      opponents.forEach((opponent) => {
+        opponent.hypnotized = true;
+      });
 
       // Add hypnotise step
       fightData.steps.push({
@@ -1020,7 +1032,7 @@ const activateSuper = (
     }
     case SkillName.flashFlood: {
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOrBossOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
       if (!opponent) {
         return false;
@@ -1146,7 +1158,7 @@ const activateSuper = (
     }
     case SkillName.vampirism: {
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
       if (!opponent) {
         return false;
@@ -1687,7 +1699,7 @@ export const checkDeaths = (
           throw new Error('Pet without master');
         }
 
-        const opponents = getOpponents({ fightData, fighter, bruteOnly: true });
+        const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true });
 
         opponents.forEach((opponent) => {
           updateStats(stats, opponent.id, 'petsKilled', 1);
@@ -2141,9 +2153,9 @@ export const playFighterTurn = (
     const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
     // Get poisoner
-    const poisoner = getOpponents({ fightData, fighter, bruteOnly: true })
+    const poisoner = getOpponents({ fightData, fighter, bruteAndBossOnly: true })
       .find((f) => f.skills.find((s) => s.name === SkillName.chef))
-      || getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      || getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
     if (poisoner) {
       // Register the hit

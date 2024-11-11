@@ -2,7 +2,6 @@ import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { OutlineFilter } from '@pixi/filter-outline';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
