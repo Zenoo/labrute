@@ -9,8 +9,8 @@ const updateAchievements = async (
   const bruteAchievements = [];
   const bruteAchievementsTournamentRelated = [];
   for (const [bruteId, bruteStore] of Object.entries(store)) {
-    // Disable achievements for event brutes
-    if (bruteStore.eventId) {
+    // Disable achievements for event or bot brutes
+    if (bruteStore.eventId || !bruteStore.userId) {
       continue;
     }
 

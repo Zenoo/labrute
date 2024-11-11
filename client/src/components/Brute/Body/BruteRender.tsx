@@ -51,14 +51,12 @@ const BruteRender = ({
 
     if (p3 === 0) {
       width += 15;
-      shift.y += 7;
 
       if (looking === 'right') {
         shift.x += -20;
       }
     } else if (p3 === 1) {
       width += -10;
-      shift.y += 10;
     } else if (p3 === 3) {
       width += 40;
 
@@ -87,12 +85,18 @@ const BruteRender = ({
       width += 10;
       shift.y += 5;
     } else if (p3 === 11) {
-      shift.y += 10;
+      width -= 5;
+    } else if (p3 === 5) {
+      width += 20;
+      shift.y -= 10;
+    } else if (p3 === 3) {
+      shift.y -= 3;
     }
 
     if (p7 === 5) {
-      if (p3 === 9 || p3 === 4 || p3 === 6) {
-        width += 10;
+      if (p3 === 9 || p3 === 4 || p3 === 6 || p3 === 3) {
+        width += 20;
+        shift.y -= 5;
 
         if (looking === 'right') {
           shift.x += -15;

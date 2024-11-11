@@ -67,6 +67,8 @@ const getOpponents = async (
         body: true,
         colors: true,
         skills: true,
+        weapons: true,
+        pets: true,
         eventId: true,
       },
     });

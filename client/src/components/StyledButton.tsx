@@ -1,5 +1,6 @@
 import { Box, BoxProps, useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router';
 
 export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   image?: string;
@@ -9,6 +10,7 @@ export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   contrast?: boolean;
   shift?: string;
   shadowColor?: string;
+  to?: string;
 }
 
 export const StyledButtonWidth = 207;
@@ -26,10 +28,12 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   contrast = true,
   shift = '4px',
   shadowColor = 'rgba(0, 0, 0, 0.2)',
+  to,
   sx,
   ...rest
 }: StyledButtonProps, ref) => {
   const { palette: { mode } } = useTheme();
+  const navigate = useNavigate();
 
   const themedImage = mode === 'dark' ? image.replace('/images/', '/images/dark/') : image;
   const themedImageHover = mode === 'dark' ? imageHover.replace('/images/', '/images/dark/') : imageHover;
@@ -43,10 +47,18 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   const handleMouseLeave = useCallback(() => {
     setHover(false);
   }, []);
+
+  const handleClick = () => {
+    if (to) {
+      navigate(to);
+    }
+  };
+
   return (
     <Box
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       ref={ref}
       sx={{
         display: 'flex',

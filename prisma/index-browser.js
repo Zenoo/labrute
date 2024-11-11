@@ -137,7 +137,8 @@ exports.Prisma.UserScalarFieldEnum = {
   ips: 'ips',
   bannedAt: 'bannedAt',
   banReason: 'banReason',
-  displayVersusPage: 'displayVersusPage'
+  displayVersusPage: 'displayVersusPage',
+  displayOpponentDetails: 'displayOpponentDetails'
 };
 
 exports.Prisma.RelationLoadStrategy = {

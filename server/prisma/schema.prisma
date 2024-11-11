@@ -23,30 +23,31 @@ enum Lang {
 }
 
 model User {
-  id                String           @id @unique @db.Uuid
-  lang              Lang             @default(en)
-  name              String           @db.VarChar(255)
-  admin             Boolean          @default(false)
-  moderator         Boolean          @default(false)
-  connexionToken    String           @db.Uuid
-  bruteLimit        Int              @default(3)
-  gold              Int              @default(0)
-  fightSpeed        Int              @default(2)
-  backgroundMusic   Boolean          @default(true)
-  dinorpgDone       DateTime?        @db.Date
-  ips               String[]         @default([])
-  bannedAt          DateTime?        @db.Date
-  banReason         String?
-  displayVersusPage Boolean          @default(true)
-  brutes            Brute[]
-  achievements      Achievement[]
-  reports           BruteReport[]
-  tournamentGolds   TournamentGold[]
-  inventory         InventoryItem[]
-  favoriteFights    Fight[]          @relation("FavoriteFights")
-  following         Brute[]          @relation("Followers")
-  notifications     Notification[]
-  reportsHandled    BruteReport[]    @relation("BruteReportHandler")
+  id                     String           @id @unique @db.Uuid
+  lang                   Lang             @default(en)
+  name                   String           @db.VarChar(255)
+  admin                  Boolean          @default(false)
+  moderator              Boolean          @default(false)
+  connexionToken         String           @db.Uuid
+  bruteLimit             Int              @default(3)
+  gold                   Int              @default(0)
+  fightSpeed             Int              @default(2)
+  backgroundMusic        Boolean          @default(true)
+  dinorpgDone            DateTime?        @db.Date
+  ips                    String[]         @default([])
+  bannedAt               DateTime?        @db.Date
+  banReason              String?
+  displayVersusPage      Boolean          @default(true)
+  displayOpponentDetails Boolean          @default(true)
+  brutes                 Brute[]
+  achievements           Achievement[]
+  reports                BruteReport[]
+  tournamentGolds        TournamentGold[]
+  inventory              InventoryItem[]
+  favoriteFights         Fight[]          @relation("FavoriteFights")
+  following              Brute[]          @relation("Followers")
+  notifications          Notification[]
+  reportsHandled         BruteReport[]    @relation("BruteReportHandler")
 }
 
 enum DestinyChoiceSide {
@@ -612,6 +613,7 @@ model BruteReport {
   handler   User?             @relation(name: "BruteReportHandler", fields: [handlerId], references: [id])
   handlerId String?           @db.Uuid
   handledAt DateTime?         @db.Timestamptz()
+
   @@index([status])
 }
 

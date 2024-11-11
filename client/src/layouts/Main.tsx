@@ -1,6 +1,6 @@
 import { getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
+import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
 import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +34,7 @@ const Main = () => {
     fightSpeed: 2,
     backgroundMusic: false,
     displayVersusPage: true,
+    displayOpponentDetails: true,
   });
 
   const favoriteCount = user?.brutes.filter((b) => b.favorite).length || 0;
@@ -46,6 +47,7 @@ const Main = () => {
       fightSpeed: user.fightSpeed,
       backgroundMusic: user.backgroundMusic,
       displayVersusPage: user.displayVersusPage,
+      displayOpponentDetails: user.displayOpponentDetails,
     });
   }, [user]);
 
@@ -100,6 +102,7 @@ const Main = () => {
       fightSpeed: settings.fightSpeed,
       backgroundMusic: settings.backgroundMusic,
       displayVersusPage: settings.displayVersusPage,
+      displayOpponentDetails: settings.displayOpponentDetails,
     };
 
     if (key === 'fightSpeed') {
@@ -116,6 +119,7 @@ const Main = () => {
         fightSpeed: newSettings.fightSpeed,
         backgroundMusic: newSettings.backgroundMusic,
         displayVersusPage: newSettings.displayVersusPage,
+        displayOpponentDetails: newSettings.displayOpponentDetails,
       } : null));
     }).catch(catchError(Alert));
   };
@@ -444,6 +448,8 @@ const Main = () => {
                     </Button>
                   )}
                   sx={{
+                    mt: 0,
+                    mb: 1,
                     '& .MuiAlert-action': {
                       alignItems: 'center',
                     }
@@ -500,6 +506,21 @@ const Main = () => {
                     checked={settings.displayVersusPage}
                     inputProps={{
                       'aria-labelledby': 'switch-displayVersusPage',
+                    }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <PersonSearch />
+                  </ListItemIcon>
+                  <ListItemText id="switch-displayOpponentDetails" primary={t('displayOpponentDetails')} />
+                  <Switch
+                    edge="end"
+                    size="small"
+                    onChange={toggle('displayOpponentDetails')}
+                    checked={settings.displayOpponentDetails}
+                    inputProps={{
+                      'aria-labelledby': 'switch-displayOpponentDetails',
                     }}
                   />
                 </ListItem>

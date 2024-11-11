@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
+import { Brute } from '@labrute/prisma';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -14,18 +15,22 @@ const textProps = {
 
 export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
   pet?: Pet;
+  brute?: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
 }
 
 const PetTooltip = ({
   pet,
+  brute: specificBrute,
   children,
   ...rest
 }: PetTooltipProps) => {
   const { t } = useTranslation();
-  const { brute } = useBrute();
+  const { brute: authedBrute } = useBrute();
   const theme = useTheme();
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
+
+  const brute = specificBrute || authedBrute;
 
   return (
     <Tooltip
