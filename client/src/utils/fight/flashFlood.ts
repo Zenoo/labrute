@@ -49,7 +49,7 @@ const flashFlood = async (
 
   // Shield throw
   if (step.s) {
-    target.animation.shield = false;
+    fighter.animation.shield = false;
     thrownItem = new Sprite(shieldSpritesheet.textures['shield.png']);
     thrownItem.filters = [new BevelFilter()];
     thrownItem.zIndex = 1;
@@ -106,9 +106,7 @@ const flashFlood = async (
   }
 
   // Play throw SFX
-  void sound.play('skills/flashFlood', {
-    speed: speed.current,
-  });
+  void sound.play('sfx', { sprite: 'flashFlood' });
 
   // Move thrown item
   Tweener.add({

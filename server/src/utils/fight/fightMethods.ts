@@ -1015,8 +1015,8 @@ const activateSuper = (
         // Change pet owner
         pet.master = fighter.id;
         pet.team = fighter.team;
-        // Lower pet initiative
-        pet.initiative -= 1;
+        // Set pet initiative to fighter initiative (to act right after)
+        pet.initiative = fighter.initiative - 0.01;
       }
 
       // Hypnotize opponent's brutes and bosses
