@@ -797,7 +797,7 @@ const activateSuper = (
           || s.name === SkillName.bomb
       });
 
-      // Chose brute opponent
+      // Choose brute opponent
       if (!opponent || fighterHasAntiPet) {
         opponent = getRandomOpponent({
           fightData, fighter, bruteAndBossOnly: true, nonTrappedOnly: true,
