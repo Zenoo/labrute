@@ -11,9 +11,6 @@ const displayDamage = (
   damage: number,
   speed: React.MutableRefObject<number>,
 ) => {
-  // Don't display damage if no damage
-  if (damage === 0) return;
-
   // Display floating and fading damage text
   const damageText = new Text(`-${damage}`, {
     fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff

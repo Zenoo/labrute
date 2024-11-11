@@ -132,12 +132,16 @@ const flashFlood = async (
     app.stage.removeChild(thrownItem);
     thrownItem.destroy();
 
-    displayDamage(app, target, step.d, speed);
+    if (step.s) {
+      // Stun target if shield
+      target.stunned = true;
+    } else {
+      // Display damage if weapon
+      if (!step.s) displayDamage(app, target, step.d, speed);
 
-    // Update HP bar
-    updateHp(fighters, target, -step.d, speed, isClanWar);
-
-    if (step.s) target.stunned = true;
+      // Update HP bar
+      updateHp(fighters, target, -step.d, speed, isClanWar);
+    }
 
     // Stagger, then set animation to death if stunned
     // Can't set to idle because this async process could cancel next animations
