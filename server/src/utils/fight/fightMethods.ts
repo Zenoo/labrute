@@ -661,17 +661,11 @@ const registerHit = (
   updateStats(stats, fighter.id, 'hits', 1, fighter.master);
 };
 
-const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
+const dropShield = (fighter: DetailedFighter) => {
   // Remove brute's shield
   fighter.shield = false;
   fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
   fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
-
-  // Add dropShield step
-  fightData.steps.push({
-    a: StepType.DropShield,
-    b: fighter.index,
-  });
 };
 
 const activateSuper = (
@@ -866,7 +860,13 @@ const activateSuper = (
 
       // Drop shield
       if (fighter.shield) {
-        dropShield(fightData, fighter);
+        dropShield(fighter);
+
+        // Add dropShield step
+        fightData.steps.push({
+          a: StepType.DropShield,
+          b: fighter.index,
+        });
       }
 
       // Choose opponent
@@ -899,9 +899,14 @@ const activateSuper = (
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
 
-      // Add dropShield step
       if (opponent.shield) {
-        dropShield(fightData, opponent);
+        dropShield(opponent);
+
+        // Add dropShield step
+        fightData.steps.push({
+          a: StepType.DropShield,
+          b: opponent.index,
+        });
 
         // Update disarm stat
         updateStats(stats, fighter.id, 'disarms', 1);
@@ -1038,9 +1043,11 @@ const activateSuper = (
         return false;
       }
 
-      // Drop shield if this is the last flashFlood cast
-      if (fighter.shield && fighter.weapons.length + (fighter.activeWeapon ? 1 : 0) < 6) {
-        dropShield(fightData, fighter);
+      let throwShield = false;
+      // Throw shield if there are not too much weapons left
+      if (fighter.shield && fighter.weapons.length < 6) {
+        throwShield = true;
+        dropShield(fighter);
       }
 
       // Shuffle weapons
@@ -1075,6 +1082,19 @@ const activateSuper = (
 
         registerHit(fightData, stats, achievements, fighter, [opponent], damage, true, 'flashFlood', w);
       });
+
+      if (throwShield) {
+        // Stun opponent
+        opponent.stunned = true;
+        // Add throw shield step
+        fightData.steps.push({
+          a: StepType.FlashFlood,
+          f: fighter.index,
+          t: opponent.index,
+          d: 0,
+          s: 1,
+        });
+      }
 
       // Add skill expire step
       fightData.steps.push({
@@ -1572,7 +1592,13 @@ const attack = (
       updateStats(stats, fighter.id, 'disarms', 1);
 
       // Remove shield from opponent
-      dropShield(fightData, opponent);
+      dropShield(opponent);
+
+      // Add dropShield step
+      fightData.steps.push({
+        a: StepType.DropShield,
+        b: opponent.index,
+      });
     }
 
     // Check if opponent blocked
