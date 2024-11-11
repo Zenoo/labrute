@@ -302,13 +302,14 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
       && skill.name !== SkillName.hypnosis);
   }
 
-  // Filter out cryOfTheDamned if fighter has hypnosis
+  // Filter out cryOfTheDamned and bomb if fighter has hypnosis
   if (supers.some((s) => s.name === SkillName.hypnosis)){
-    supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned);
+    supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned
+      && skill.name !== SkillName.bomb);
   }
 
   // Filter out flashFlood if less than 3 weapons
-  if (fighter.weapons.length < 3) {
+  if (fighter.weapons.length + (fighter.activeWeapon ? 1 : 0) < 3) {
     supers = supers.filter((skill) => skill.name !== SkillName.flashFlood);
   }
 
@@ -1019,14 +1020,14 @@ const activateSuper = (
     }
     case SkillName.flashFlood: {
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteOrBossOnly: true });
 
       if (!opponent) {
         return false;
       }
 
-      // Drop shield
-      if (fighter.shield) {
+      // Drop shield if this is the last flashFlood cast
+      if (fighter.shield && fighter.weapons.length + (fighter.activeWeapon ? 1 : 0) < 6) {
         dropShield(fightData, fighter);
       }
 
