@@ -109,7 +109,7 @@ const skillActivate = async (
     // Don't do it if brute is stunned as it would cancel a pet's moveBack
     if (step.p && !brute.stunned) {
       for (const petIndex of step.p) {
-        // Get fighter brute and bosses
+        // Get pet
         const pet = findFighter(fighters, petIndex);
         if (!pet) {
           throw new Error('Hypnotized brute not found');
