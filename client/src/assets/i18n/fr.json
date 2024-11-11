@@ -1534,6 +1534,7 @@
   "rankingPrioritizeAscensions": "Le classement priorise le nombre d'ascensions par rapport au niveau et à l'expérience !",
   "fasterFights": "Combats plus rapides",
   "displayVersusPage": "Afficher la page versus",
+  "displayOpponentDetails": "Display opponent details",
   "wiki.howToRankup": "Comment monter de rang ?",
   "wiki.winDaily": "Gagner des tournois quotidiens",
   "wiki.wins_one": "{{count}} victoire",
