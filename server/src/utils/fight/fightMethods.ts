@@ -978,7 +978,7 @@ const activateSuper = (
       // Increase opponents initiative
       getOpponents({ fightData, fighter, bruteAndBossOnly: true })
         .forEach((opponent) => {
-          opponent.initiative += 0.2;
+          opponent.initiative += 0.35;
         });
 
       // Add fear steps
