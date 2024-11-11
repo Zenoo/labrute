@@ -790,7 +790,7 @@ const activateSuper = (
         fightData, fighter, petOnly: true, nonTrappedOnly: true,
       });
 
-      // Does fighter has anti-pet skills
+      // Does fighter have anti-pet skills
       const fighterHasAntiPet = fighter.skills.some((s) => {
         return s.name === SkillName.hypnosis
           || s.name === SkillName.cryOfTheDamned
