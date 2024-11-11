@@ -1534,6 +1534,7 @@
   "rankingPrioritizeAscensions": "Рейтинг в первую очередь считает степень превосходства, а затем опыт и уровень!",
   "fasterFights": "Ускоренные битвы",
   "displayVersusPage": "Показывать страницу «против»",
+  "displayOpponentDetails": "Display opponent details",
   "wiki.howToRankup": "Как повысить звание?",
   "wiki.winDaily": "Станьте победителем Ежедневного Турнира",
   "wiki.wins_one": "{{count}} победа",
