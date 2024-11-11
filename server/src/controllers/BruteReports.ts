@@ -202,6 +202,7 @@ const BruteReports = {
               clanId: true,
               level: true,
               ranking: true,
+              userId: true,
               inventory: {
                 select: {
                   id: true,
@@ -258,9 +259,13 @@ const BruteReports = {
       });
 
       // Send notification to user
+      if (!report.brute.userId) {
+        throw new Error(translate('userNotFound', authed));
+      }
+
       await prisma.notification.create({
         data: {
-          userId: report.brute.id,
+          userId: report.brute.userId,
           message: 'bruteSetForDeletion',
           severity: NotificationSeverity.error,
           link: `/${report.brute.name}/cell`,
