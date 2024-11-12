@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.77.0](https://github.com/Zenoo/labrute/compare/labrute-v2.76.2...labrute-v2.77.0) (2024-11-12)
+
+
+### Features
+
+* New arena layout. Fixes [#996](https://github.com/Zenoo/labrute/issues/996) ([5f5a7fe](https://github.com/Zenoo/labrute/commit/5f5a7fed603ee5a373a19d82d38dab1c6090f8f1))
+
+
+### Bug Fixes
+
+* Arena opponents details clickable. [#996](https://github.com/Zenoo/labrute/issues/996) ([59e2898](https://github.com/Zenoo/labrute/commit/59e28981bc896352ab8bceab1714e21bfe949a81))
+
 ## [2.76.2](https://github.com/Zenoo/labrute/compare/labrute-v2.76.1...labrute-v2.76.2) (2024-11-11)
 
 
