@@ -1,16 +1,11 @@
-import { BrutesGetOpponentsResponse, FightStat, getFightsLeft, getFinalHP, getFinalStat, getXPNeeded, pets, skills, weapons } from '@labrute/core';
-import { Box, Button, Divider, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { BrutesGetOpponentsResponse, getFightsLeft, getXPNeeded } from '@labrute/core';
+import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import ArenaStat from '../components/Arena/ArenaStat';
-import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
-import BruteHP from '../components/Brute/BruteHP';
+import BruteButton from '../components/Brute/BruteButton';
 import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
-import PetTooltip from '../components/Brute/PetTooltip';
-import SkillTooltip from '../components/Brute/SkillTooltip';
-import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import Link from '../components/Link';
 import Loader from '../components/Loader';
 import Page from '../components/Page';
@@ -171,149 +166,16 @@ const ArenaView = () => {
             {loading ? <Loader height={346} /> : (
               <Grid container spacing={1} mb={3}>
                 {opponents.map((opponent) => (
-                  <Grid item key={opponent.name} xs={12} sm={6} mb={1.5}>
-                    <Box sx={{
-                      width: 185,
-                      height: 1,
-                      p: 1,
-                      pt: 1,
-                      pb: user?.displayOpponentDetails ? 1 : 1.8,
-                      mx: 'auto',
-                      textAlign: 'left',
-                      position: 'relative',
-                      backgroundImage: `url(/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/brute-bg${user?.displayOpponentDetails ? '-high' : ''}.webp)`,
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: '100% 100%',
-                    }}
-                    >
-                      <Box sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
+                  <Grid item key={opponent.name} xs={12} sm={6}>
+                    <BruteButton
+                      brute={opponent}
+                      onClick={goToVersus(opponent.name)}
+                      displayDetails={user?.displayOpponentDetails}
+                      sx={{
+                        width: 185,
+                        height: 1,
                       }}
-                      >
-                        <Box display="flex" alignItems="center">
-                          <Text bold color="secondary" sx={{ display: 'inline' }}>{opponent.name}</Text>
-                        </Box>
-                      </Box>
-                      <Text bold smallCaps color="text.primary">
-                        {t('level')}
-                        <Text component="span" bold color="secondary"> {opponent.level}</Text>
-                        {opponent.eventId ? (
-                          <Box
-                            component="img"
-                            src="/images/event.webp"
-                            sx={{
-                              verticalAlign: 'sub',
-                              height: 18,
-                              ml: 0.5,
-                            }}
-                          />
-                        ) : (
-                          <Box
-                            component="img"
-                            src={`/images/rankings/lvl_${opponent.ranking}.webp`}
-                            sx={{
-                              verticalAlign: 'middle',
-                              height: 16,
-                              ml: 0.5,
-                            }}
-                          />
-                        )}
-                      </Text>
-                      <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                        <BruteHP hp={getFinalHP(opponent, modifiers)} />
-                        <Box flexGrow={1} sx={{ ml: 0.5 }}>
-                          <ArenaStat
-                            stat={FightStat.STRENGTH}
-                            value={getFinalStat(opponent, 'strength', modifiers)}
-                            hideSkillText
-                          />
-                          <ArenaStat
-                            stat={FightStat.AGILITY}
-                            value={getFinalStat(opponent, 'agility', modifiers)}
-                            hideSkillText
-                          />
-                          <ArenaStat
-                            stat={FightStat.SPEED}
-                            value={getFinalStat(opponent, 'speed', modifiers)}
-                            hideSkillText
-                          />
-                        </Box>
-                      </Box>
-                      {user?.displayOpponentDetails && (
-                        <>
-                          <Divider
-                            sx={{
-                              ml: -0.75,
-                              mr: -0.4,
-                              mt: 0.5,
-                              borderColor: 'primary.main',
-                            }}
-                          />
-                          {/* Weapons */}
-                          <Box pt={1}>
-                            {opponent.weapons.map((weapon) => (
-                              <WeaponTooltip
-                                weapon={weapons.find((w) => w.name === weapon)}
-                                key={weapon}
-                              >
-                                <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
-                              </WeaponTooltip>
-                            ))}
-                          </Box>
-                          {/* Skills */}
-                          <Box>
-                            {opponent.skills.map((skill) => (
-                              <SkillTooltip
-                                skill={skills.find((s) => s.name === skill)}
-                                key={skill}
-                              >
-                                <Box
-                                  component="img"
-                                  src={`/images/skills/${skill}.svg`}
-                                  sx={{
-                                    width: 16,
-                                    mx: 0.25,
-                                    my: 0,
-                                    filter: 'drop-shadow(1px 1px 1px black)'
-                                  }}
-                                />
-                              </SkillTooltip>
-                            ))}
-                          </Box>
-                          {/* Pets */}
-                          <Box>
-                            {opponent.pets.map((pet) => (
-                              <PetTooltip pet={pets.find((p) => p.name === pet)} key={pet}>
-                                <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: 'drop-shadow(1px 1px 1px black)' }} />
-                              </PetTooltip>
-                            ))}
-                          </Box>
-                        </>
-                      )}
-                      <Box sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 115,
-                        width: 70,
-                        height: user?.displayOpponentDetails ? 94 : 98,
-                        overflow: 'hidden',
-                      }}
-                      >
-                        <BruteRender
-                          brute={opponent}
-                          looking="left"
-                          onClick={goToVersus(opponent.name)}
-                          sx={{
-                            cursor: 'pointer',
-                            '&:hover': {
-                              filter: 'drop-shadow(0px 0px 2px #ff0000)',
-                            },
-                          }}
-                        />
-                      </Box>
-                    </Box>
+                    />
                   </Grid>
                 ))}
               </Grid>

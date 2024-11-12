@@ -34,7 +34,7 @@ const Main = () => {
     fightSpeed: 2,
     backgroundMusic: false,
     displayVersusPage: true,
-    displayOpponentDetails: true,
+    displayOpponentDetails: false,
   });
 
   const favoriteCount = user?.brutes.filter((b) => b.favorite).length || 0;

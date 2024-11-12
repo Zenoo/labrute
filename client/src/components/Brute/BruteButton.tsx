@@ -1,6 +1,6 @@
-import { FightStat, getFinalHP, getFinalStat } from '@labrute/core';
+import { FightStat, getFinalHP, getFinalStat, pets, skills, weapons } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,15 +11,24 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
+import WeaponTooltip from './WeaponTooltip';
+import SkillTooltip from './SkillTooltip';
+import PetTooltip from './PetTooltip';
 
-type BruteButtonProps = Omit<BoxProps, 'ref'> & {
+type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
-};
+  displayDetails?: false;
+} | {
+  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
+  link?: string;
+  displayDetails: true;
+});
 
 const BruteButton = ({
   brute,
   link,
+  displayDetails,
   sx,
   ...rest
 }: BruteButtonProps) => {
@@ -41,8 +50,8 @@ const BruteButton = ({
   return (
     <StyledButton
       key={brute.name}
-      image="/images/arena/brute-bg.webp"
-      imageHover="/images/arena/brute-bg-hover.webp"
+      image={`/images/arena/brute-bg${displayDetails ? '-high' : ''}.webp`}
+      imageHover={`/images/arena/brute-bg${displayDetails ? '-high' : ''}-hover.webp`}
       contrast={false}
       shadow={false}
       onClick={goTo}
@@ -51,15 +60,16 @@ const BruteButton = ({
         height: 102,
         mx: 1,
         my: 0.5,
+        backgroundSize: displayDetails ? '100% 100%' : '100%',
         ...sx,
       }}
       {...rest}
     >
       <Box sx={{
         width: 185,
-        height: 89,
+        height: displayDetails ? 1 : 89,
         pl: 1,
-        pt: 0.5,
+        pt: 0,
         display: 'inline-block',
         textAlign: 'left',
         position: 'relative',
@@ -121,12 +131,64 @@ const BruteButton = ({
             />
           </Box>
         </Box>
+        {displayDetails && (
+          <>
+            <Divider
+              sx={{
+                ml: -0.75,
+                mr: 0.75,
+                mt: 0.5,
+                borderColor: 'primary.main',
+              }}
+            />
+            {/* Weapons */}
+            <Box pt={1}>
+              {brute.weapons.map((weapon) => (
+                <WeaponTooltip
+                  weapon={weapons.find((w) => w.name === weapon)}
+                  key={weapon}
+                >
+                  <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
+                </WeaponTooltip>
+              ))}
+            </Box>
+            {/* Skills */}
+            <Box>
+              {brute.skills.map((skill) => (
+                <SkillTooltip
+                  skill={skills.find((s) => s.name === skill)}
+                  key={skill}
+                >
+                  <Box
+                    component="img"
+                    src={`/images/skills/${skill}.svg`}
+                    sx={{
+                      width: 16,
+                      mx: 0.25,
+                      my: 0,
+                      filter: 'drop-shadow(1px 1px 1px black)'
+                    }}
+                  />
+                </SkillTooltip>
+              ))}
+            </Box>
+            {/* Pets */}
+            <Box>
+              {brute.pets.map((pet) => (
+                <PetTooltip pet={pets.find((p) => p.name === pet)} key={pet}>
+                  <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: 'drop-shadow(1px 1px 1px black)' }} />
+                </PetTooltip>
+              ))}
+            </Box>
+          </>
+        )}
         <Box sx={{
           position: 'absolute',
           top: 0,
           left: 115,
           width: 70,
-          height: 1,
+          height: 86,
+          overflow: 'hidden',
         }}
         >
           <BruteRender
