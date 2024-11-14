@@ -661,11 +661,26 @@ const registerHit = (
   updateStats(stats, fighter.id, 'hits', 1, fighter.master);
 };
 
-const dropShield = (fighter: DetailedFighter) => {
+const dropShield = ({
+  fightData,
+  fighter,
+  addStep = true,
+}: {
+  fightData: DetailedFight;
+  fighter: DetailedFighter;
+  addStep?: boolean;
+}) => {
   // Remove brute's shield
   fighter.shield = false;
   fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
   fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
+
+  if (addStep) {
+    fightData.steps.push({
+      a: StepType.DropShield,
+      b: fighter.index,
+    });
+  };
 };
 
 const activateSuper = (
@@ -790,14 +805,14 @@ const activateSuper = (
         fightData, fighter, petOnly: true, nonTrappedOnly: true,
       });
 
-      // Does fighter have anti-pet skills
+      // Does fighter has anti-pet skills
       const fighterHasAntiPet = fighter.skills.some((s) => {
         return s.name === SkillName.hypnosis
           || s.name === SkillName.cryOfTheDamned
           || s.name === SkillName.bomb
       });
 
-      // Choose brute opponent
+      // Chose brute opponent
       if (!opponent || fighterHasAntiPet) {
         opponent = getRandomOpponent({
           fightData, fighter, bruteAndBossOnly: true, nonTrappedOnly: true,
@@ -860,13 +875,7 @@ const activateSuper = (
 
       // Drop shield
       if (fighter.shield) {
-        dropShield(fighter);
-
-        // Add dropShield step
-        fightData.steps.push({
-          a: StepType.DropShield,
-          b: fighter.index,
-        });
+        dropShield({ fightData, fighter: fighter });
       }
 
       // Choose opponent
@@ -899,14 +908,9 @@ const activateSuper = (
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
 
+      // Disarm opponent's shield
       if (opponent.shield) {
-        dropShield(opponent);
-
-        // Add dropShield step
-        fightData.steps.push({
-          a: StepType.DropShield,
-          b: opponent.index,
-        });
+        dropShield({ fightData, fighter: opponent });
 
         // Update disarm stat
         updateStats(stats, fighter.id, 'disarms', 1);
@@ -1047,7 +1051,7 @@ const activateSuper = (
       // Throw shield if there are not too much weapons left
       if (fighter.shield && fighter.weapons.length < 6) {
         throwShield = true;
-        dropShield(fighter);
+        dropShield({ fightData, fighter, addStep: false });
       }
 
       // Shuffle weapons
@@ -1592,13 +1596,7 @@ const attack = (
       updateStats(stats, fighter.id, 'disarms', 1);
 
       // Remove shield from opponent
-      dropShield(opponent);
-
-      // Add dropShield step
-      fightData.steps.push({
-        a: StepType.DropShield,
-        b: opponent.index,
-      });
+      dropShield({ fightData, fighter: opponent });
     }
 
     // Check if opponent blocked
