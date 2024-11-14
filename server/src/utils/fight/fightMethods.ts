@@ -385,7 +385,7 @@ const healFighter = (
   updateStats(stats, fighter.id, 'hpHealed', amount);
 };
 
-const increaseInitiative = (fighter: DetailedFighter) => {
+const increaseInitiative = (fighter: DetailedFighter, ease: number = 1) => {
   const random = randomBetween(0, 10);
   let tempo = getFighterStat(fighter, 'tempo')
     * fighter.tempo
@@ -403,7 +403,7 @@ const increaseInitiative = (fighter: DetailedFighter) => {
     tempo *= 1 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0);
   }
 
-  fighter.initiative += tempo;
+  fighter.initiative += tempo * ease;
 };
 
 export const fighterArrives = (
@@ -982,7 +982,7 @@ const activateSuper = (
       // Increase opponents initiative
       getOpponents({ fightData, fighter, bruteAndBossOnly: true })
         .forEach((opponent) => {
-          opponent.initiative += 0.35;
+          opponent.initiative += 0.15;
         });
 
       // Add fear steps
@@ -1088,8 +1088,8 @@ const activateSuper = (
       });
 
       if (throwShield) {
-        // Stun opponent
-        opponent.stunned = true;
+        // Stun brute opponent
+        if (opponent.type === 'brute') opponent.stunned = true;
         // Add throw shield step
         fightData.steps.push({
           a: StepType.FlashFlood,
@@ -1689,7 +1689,7 @@ const attack = (
   }
 
   // Randomly trigger another attack if the fighter has `determination`
-  if (!isCounter && !damage && fighter.determination && Math.random() < 0.7) {
+  if (!isCounter && !damage && fighter.determination && !fighter.hypnotized && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
 
@@ -1928,7 +1928,7 @@ export const playFighterTurn = (
   }
 
   // Opponnent uses hypnosis if low hp
-  if (opponent.hp < opponent.maxHp * 0.15 && !opponent.stunned && !opponent.trapped){
+  if (opponent.hp < opponent.maxHp * 0.15 && !opponent.stunned && !opponent.trapped && !fighter.hypnotized){
     const opponentHypnosis = opponent.skills.find((skill) => skill.name === SkillName.hypnosis)
     if (opponentHypnosis){
       // Activate hypnosis
@@ -1950,7 +1950,7 @@ export const playFighterTurn = (
       c: countered ? 1 : 0,
     });
 
-    // Check if opponent is not trapped and countered
+    // Check if opponent countered
     if (countered) {
       // Update counter stat
       updateStats(stats, opponent.id, 'counters', 1);
@@ -1988,6 +1988,8 @@ export const playFighterTurn = (
                 f: fighter.index,
               });
             }
+            // Fighter only loses half a turn of initiative
+            increaseInitiative(fighter, 0.5)
             // Cancel turn
             return
           }
@@ -1998,8 +2000,8 @@ export const playFighterTurn = (
       startAttack(fightData, stats, achievements, fighter, opponent);
     }
 
-    // Check if fighter is not dead
-    if (fighter.hp > 0) {
+    // Check if fighter is not dead or stunned
+    if (fighter.hp > 0 && !fighter.stunned) {
       // Add moveBack step
       fightData.steps.push({
         a: StepType.MoveBack,

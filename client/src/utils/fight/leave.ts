@@ -16,6 +16,9 @@ const leave = async (
     throw new Error('Fighter not found');
   }
 
+  // Remove fighter from fighters
+  fighters.splice(fighters.indexOf(fighter), 1);
+
   // Set animation to `run`
   fighter.animation.setAnimation('run');
 
@@ -31,7 +34,6 @@ const leave = async (
     .then(() => {
       // Then remove fighter
       fighter.animation.destroy();
-      fighters.splice(fighters.indexOf(fighter), 1);
     });
 
   // Await if it is not a pet leaving

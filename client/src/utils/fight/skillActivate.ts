@@ -119,7 +119,7 @@ const skillActivate = async (
         // Get pet
         const pet = findFighter(fighters, petIndex);
         if (!pet) {
-          throw new Error('Hypnotized pet not found');
+          throw new Error('Pet not found');
         }
         animations.push(stagger(pet, speed));
       }

@@ -118,5 +118,5 @@ export const haste = async (
   });
 
   // Set brute animation to normal
-  brute.animation.setAnimation(target.stunned ? 'death' : 'idle');
+  brute.animation.setAnimation('idle');
 };

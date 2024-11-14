@@ -306,7 +306,7 @@ const handleDailyTournaments = async (
           throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
         }
 
-        if (brute1.name === brute2.name) {
+        if (brute1.id === brute2.id) {
           throw new Error('Attempting to fight a brute against itself');
         }
 
@@ -581,7 +581,7 @@ const handleGlobalTournament = async (
         throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
       }
 
-      if (brute1.name === brute2.name) {
+      if (brute1.id === brute2.id) {
         throw new Error('Attempting to fight a brute against itself');
       }
 

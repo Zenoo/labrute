@@ -132,7 +132,7 @@ const flashFlood = async (
     app.stage.removeChild(thrownItem);
     thrownItem.destroy();
 
-    if (step.s) {
+    if (step.s && target.type === 'brute') {
       // Stun target if shield
       target.stunned = true;
     } else {

@@ -73,7 +73,7 @@ const steal = async (
   });
 
   // Set brute animation to normal
-  brute.animation.setAnimation(target.stunned ? 'death' : 'idle');
+  brute.animation.setAnimation('idle');
 };
 
 export default steal;
