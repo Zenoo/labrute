@@ -284,9 +284,9 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
     supers = supers.filter((skill) => skill.name !== SkillName.tamer);
   }
 
-  // Filter out thief if opponents have no weapons in hand
+  // Filter out thief if non trapped opponents have no weapons in hand
   if (getOpponents({ fightData, fighter, bruteAndBossOnly: true })
-    .filter((f) => f.activeWeapon).length === 0) {
+    .filter((f) => !f.trapped && f.activeWeapon).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.thief);
   }
 
@@ -701,7 +701,7 @@ const activateSuper = (
     case SkillName.thief: {
       // Choose brute opponent
       const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true })
-        .filter((f) => f.activeWeapon);
+        .filter((f) => !f.trapped && f.activeWeapon);
 
       if (!opponents.length) {
         return false;
