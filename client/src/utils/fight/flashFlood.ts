@@ -138,7 +138,7 @@ const flashFlood = async (
 
       // Update HP bar
       updateHp(fighters, target, -step.d, speed, isClanWar);
-    } else if (target.type === 'brute'){
+    } else if (target.type === 'brute') {
       // Stun target brute if shield
       target.stunned = true;
     }
