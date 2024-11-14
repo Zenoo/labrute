@@ -7,6 +7,7 @@ import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import stagger from './stagger';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import repositionFighters from './utils/repositionFighters';
 
 const skillActivate = async (
   app: Application,
@@ -26,6 +27,12 @@ const skillActivate = async (
   const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
+  }
+
+  // Filter the only activation case outside of neutral (wake up cry)
+  if (step.s !== SkillId.cryOfTheDamned || !brute.stunned) {
+    // Reposition mispositionned fighters before skillActivate
+    await repositionFighters(app, fighters, speed);
   }
 
   // Play skill SFX

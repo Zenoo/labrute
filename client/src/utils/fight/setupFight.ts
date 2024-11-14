@@ -48,6 +48,7 @@ import { treat } from './treat';
 import updateWeapons from './updateWeapons';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
+import repositionFighters, { isNeutralStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
 import setHUDFocus from './setHUDFocus';
@@ -474,6 +475,9 @@ const setupFight: (
     if (!step) {
       throw new Error('Step not found');
     }
+
+    // Reposition mispositionned fighters during neutral
+    if (isNeutralStep(step.a)) await repositionFighters(app, fighters, speed);
 
     // Display step's brute in HUD
     if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
