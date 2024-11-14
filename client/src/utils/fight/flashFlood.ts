@@ -132,15 +132,15 @@ const flashFlood = async (
     app.stage.removeChild(thrownItem);
     thrownItem.destroy();
 
-    if (step.s && target.type === 'brute') {
-      // Stun target if shield
-      target.stunned = true;
-    } else {
+    if (!step.s) {
       // Display damage if weapon
-      if (!step.s) displayDamage(app, target, step.d, speed);
+      displayDamage(app, target, step.d, speed);
 
       // Update HP bar
       updateHp(fighters, target, -step.d, speed, isClanWar);
+    } else if (target.type === 'brute'){
+      // Stun target brute if shield
+      target.stunned = true;
     }
 
     // Stagger, then set animation to death if stunned
