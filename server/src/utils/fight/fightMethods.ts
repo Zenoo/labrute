@@ -1763,17 +1763,20 @@ const startAttack = (
   const attackResult = {
     blocked: false,
     reversed: false,
+    lostReach: 0,
   };
 
   // Trigger fighter attack
   const {
     blocked,
     reversed,
+    lostReach,
   } = attack(fightData, fighter, opponent, stats, achievements, isCounter);
 
   // Keep track of attack status
   if (blocked) attackResult.blocked = true;
   if (reversed) attackResult.reversed = true;
+  attackResult.lostReach = lostReach;
 
   // Keep track of attacks
   let attacksCount = 1;
