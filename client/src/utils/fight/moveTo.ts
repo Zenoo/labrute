@@ -22,7 +22,7 @@ const moveTo = async (
     throw new Error('Target not found');
   }
 
-  // Filter the only moveTo case outside of neutral (counter-attack)
+  // Filter the only moveTo case outside of neutral (melee repositioning)
   if (!step.r) {
     // Reposition other mispositionned fighters before moveTo
     await repositionFighters(app, fighters.filter((f) => f !== fighter), speed);

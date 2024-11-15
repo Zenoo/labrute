@@ -1545,7 +1545,7 @@ const attack = (
   isCounter = false,
 ) => {
   // Abort if fighter is dead
-  if (fighter.hp <= 0) return { blocked: false };
+  if (fighter.hp <= 0) return { blocked: false, lostReach: 0 };
 
   // Remove hypnotized from opponent
   if (opponent.hypnotized) {
@@ -1670,6 +1670,7 @@ const attack = (
     }
   }
 
+  let lostReach = 0;
   // Check if the fighter gets disarmed
   if (damage && disarmAttacker(fighter, opponent)) {
     if (fighter.activeWeapon) {
@@ -1680,6 +1681,9 @@ const attack = (
         t: fighter.index,
         w: WeaponByName[fighter.activeWeapon.name],
       });
+
+      // Store the lost reach
+      lostReach = fighter.activeWeapon.reach;
 
       // Remove weapon from fighter
       fighter.activeWeapon = null;
@@ -1699,6 +1703,7 @@ const attack = (
   return {
     blocked: !evaded && blocked,
     reversed: !evaded && reversed,
+    lostReach,
   };
 };
 
@@ -1788,6 +1793,18 @@ const startAttack = (
         break;
       }
 
+      // If fighter has less reach than when combo started, move them closer
+      // Do this only if more than 1 reach has been lost as it would elsewise look gimmical
+      if (attackResult.lostReach > 1) {
+        // Add move melee reposition step
+        fightData.steps.push({
+          a: StepType.Move,
+          f: fighter.index,
+          t: opponent.index,
+          r: 1,
+        });
+      }
+
       // Decrease combo chances
       combo *= 0.5;
 
@@ -1795,12 +1812,14 @@ const startAttack = (
       const {
         blocked: comboBlocked,
         reversed: comboReversed,
+        lostReach: comboLostReach,
       } = attack(fightData, fighter, opponent, stats, achievements);
       attacksCount++;
 
       // Keep track of attack status
       if (comboBlocked) attackResult.blocked = true;
       if (comboReversed) attackResult.reversed = true;
+      attackResult.lostReach = comboLostReach;
 
       // Opponent cannot be trapped starting from the second attack
       opponentWasTrapped = false;
@@ -1818,7 +1837,7 @@ const startAttack = (
       const opponentReach = opponent.activeWeapon?.reach ?? 0;
       const fighterReach = fighter.activeWeapon?.reach ?? 0;
       if (opponentReach < fighterReach) {
-        // Add move step
+        // Add move melee reposition step
         fightData.steps.push({
           a: StepType.Move,
           f: opponent.index,

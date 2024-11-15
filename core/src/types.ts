@@ -304,7 +304,7 @@ export interface MoveStep {
   s?: 1 | 0;
   /** Got countered? */
   c?: 1 | 0;
-  /** Small move after a reversal? */
+  /** Melee repositioning? */
   r?: 1 | 0;
 }
 
