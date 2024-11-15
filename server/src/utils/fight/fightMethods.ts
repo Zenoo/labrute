@@ -385,7 +385,7 @@ const healFighter = (
   updateStats(stats, fighter.id, 'hpHealed', amount);
 };
 
-const increaseInitiative = (fighter: DetailedFighter, ease: number = 1) => {
+const increaseInitiative = (fighter: DetailedFighter, multiplicator: number = 1) => {
   const random = randomBetween(0, 10);
   let tempo = getFighterStat(fighter, 'tempo')
     * fighter.tempo
@@ -403,7 +403,7 @@ const increaseInitiative = (fighter: DetailedFighter, ease: number = 1) => {
     tempo *= 1 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0);
   }
 
-  fighter.initiative += tempo * ease;
+  fighter.initiative += tempo * multiplicator;
 };
 
 export const fighterArrives = (
@@ -1048,8 +1048,9 @@ const activateSuper = (
       }
 
       let throwShield = false;
-      // Throw shield if there are not too much weapons left
-      if (fighter.shield && fighter.weapons.length < 6) {
+      // Check if this is the last flashFlood cast, either by lack of uses or weapons
+      if (fighter.shield && (skill.uses === 1 || fighter.weapons.length < 6)) {
+        // Then throw shield
         throwShield = true;
         dropShield({ fightData, fighter, addStep: false });
       }

@@ -24,8 +24,8 @@ const moveTo = async (
 
   // Filter the only moveTo case outside of neutral (counter-attack)
   if (!step.r) {
-    // Reposition mispositionned fighters before moveTo
-    await repositionFighters(app, fighters, speed);
+    // Reposition other mispositionned fighters before moveTo
+    await repositionFighters(app, fighters.filter((f) => f !== fighter), speed);
   }
 
   // Set animation to `run`
