@@ -446,7 +446,7 @@
   "combo": "Combo",
   "deflect": "Reflejo",
   "damage": "Daño",
-  "opponent-damage": "Opponent damage",
+  "opponent-damage": "Daño del oponente",
   "drawChance": "Probabilidad de uso",
   "reach": "Alcance",
   "account": "Cuenta",
@@ -1579,5 +1579,5 @@
   "rejected": "Rechazado",
   "unknown": "Desconocido",
   "reportedBy": "Reportado por",
-  "handledBy": "Handled by"
+  "handledBy": "Manejado por"
 }
