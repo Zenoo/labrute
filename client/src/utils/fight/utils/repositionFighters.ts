@@ -27,7 +27,7 @@ const repositionFighters = async (
 ) => {
   for (const fighter of fighters) {
     // Can't reposition if stunned or trapped
-    if (fighter.stunned || fighter.trapped) continue;
+    if (fighter.dead || fighter.stunned || fighter.trapped) continue;
 
     // Mispositionned fighter can be:
     //   - One that countered a lot without moving
