@@ -26,7 +26,7 @@ const repositionFighters = async (
   speed: React.MutableRefObject<number>,
 ) => {
   for (const fighter of fighters) {
-    // Can't reposition if stunned or trapped
+    // Can't reposition if dead or stunned or trapped
     if (fighter.dead || fighter.stunned || fighter.trapped) continue;
 
     // Mispositionned fighter can be:
