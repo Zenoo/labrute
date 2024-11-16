@@ -21,7 +21,7 @@ const VersusView = () => {
   const { opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();
-  const { user, updateData } = useAuth();
+  const { user, updateData, currentEvent } = useAuth();
   const { brute, updateBrute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { palette: { mode } } = useTheme();
@@ -47,9 +47,11 @@ const VersusView = () => {
     }
 
     if (xpNeededForNextLevel && brute.xp >= xpNeededForNextLevel) {
-      navigate(`/${brute.name}/cell`);
+      if (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) {
+        navigate(`/${brute.name}/cell`);
+      }
     }
-  }, [brute, navigate, opponent, user, xpNeededForNextLevel]);
+  }, [brute, currentEvent?.maxLevel, navigate, opponent, user, xpNeededForNextLevel]);
 
   // Start fight
   const startFight = useCallback(async () => {

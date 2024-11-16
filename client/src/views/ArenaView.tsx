@@ -1,5 +1,5 @@
 import { BrutesGetOpponentsResponse, getFightsLeft, getXPNeeded } from '@labrute/core';
-import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -25,7 +25,7 @@ const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, updateBrute } = useBrute();
-  const { modifiers, user, updateData } = useAuth();
+  const { modifiers, user, updateData, currentEvent } = useAuth();
 
   const [opponents, setOpponents] = useState<BrutesGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
@@ -47,8 +47,11 @@ const ArenaView = () => {
 
     // Redirect to cell if XP is too much
     if (xpNeededForNextLevel && brute.xp >= xpNeededForNextLevel) {
-      navigate(`/${brute.name}/cell`);
-      return cleanup;
+      // Don't redirect if event brute who reached max level
+      if (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) {
+        navigate(`/${brute.name}/cell`);
+        return cleanup;
+      }
     }
 
     // Redirect to cell if brute doesn't have enough fights left
@@ -63,7 +66,7 @@ const ArenaView = () => {
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, brute, fightsLeft, navigate, xpNeededForNextLevel]);
+  }, [Alert, brute, currentEvent?.maxLevel, fightsLeft, navigate, xpNeededForNextLevel]);
 
   const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -144,6 +147,12 @@ const ArenaView = () => {
         <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, modifiers) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+        {/* No XP won for event brutes at max level */}
+        {brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999) && (
+          <MuiAlert severity="info" sx={{ borderRadius: 0 }}>
+            {t('arena.noXP')}
+          </MuiAlert>
+        )}
         <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
             <Text h4 bold color="secondary" center>{brute.name}</Text>

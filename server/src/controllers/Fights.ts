@@ -181,6 +181,9 @@ const Fights = {
         select: { id: true },
       });
 
+      // Get current event
+      const event = await ServerState.getCurrentEvent(prisma);
+
       // Get XP gained (0 for non arena fights)
       // (+1 level for a win as an event brute)
       // (+0.5 level for a loss as an event brute)
@@ -191,10 +194,14 @@ const Fights = {
       const xpGained = arenaFight
         ? generatedFight.winner === brute1.name
           ? brute1.eventId
-            ? getXPNeeded(brute1.level + 1)
+            ? brute1.level >= (event?.maxLevel ?? 999)
+              ? 0
+              : getXPNeeded(brute1.level + 1)
             : levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
           : brute1.eventId
-            ? Math.ceil(getXPNeeded(brute1.level + 1) / 2)
+            ? brute1.level >= (event?.maxLevel ?? 999)
+              ? 0
+              : Math.ceil(getXPNeeded(brute1.level + 1) / 2)
             : levelDifference > 10 ? 0 : 1
         : 0;
 

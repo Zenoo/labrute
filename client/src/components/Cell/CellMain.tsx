@@ -163,33 +163,39 @@ const CellMain = ({
           {t('connect')}
         </FantasyButton>
       )}
-      {owner && (brute.xp < xpNeededForNextLevel ? fightsLeft > 0 ? (
-        <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-          <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-          <Link to={`/${brute.name}/arena`}>
-            <StyledButton
-              sx={{
-                height: 72,
-                width: 218,
-              }}
-              image={`/images/${language}/cell/arena.webp`}
-              imageHover={`/images/${language}/cell/arena-hover.webp`}
-              shadow={false}
-              contrast={false}
-            />
-          </Link>
-          <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
-        </Stack>
-      ) : (
-        <Box sx={{ textAlign: 'center' }}>
-          <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, modifiers) })}</Text>
-        </Box>
-      ) : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
-        <FantasyButton color="success" to={`/${brute.name}/level-up`}>
-          {t('levelUp')}
-        </FantasyButton>
-      ) : null)}
+      {owner && ((brute.xp < xpNeededForNextLevel
+        || (brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999)))
+        ? fightsLeft > 0
+          ? (
+            <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
+              <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
+              <Link to={`/${brute.name}/arena`}>
+                <StyledButton
+                  sx={{
+                    height: 72,
+                    width: 218,
+                  }}
+                  image={`/images/${language}/cell/arena.webp`}
+                  imageHover={`/images/${language}/cell/arena-hover.webp`}
+                  shadow={false}
+                  contrast={false}
+                />
+              </Link>
+              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
+            </Stack>
+          )
+          : (
+            <Box sx={{ textAlign: 'center' }}>
+              <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
+              <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, modifiers) })}</Text>
+            </Box>
+          )
+        : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
+          <FantasyButton color="success" to={`/${brute.name}/level-up`}>
+            {t('levelUp')}
+          </FantasyButton>
+        )
+          : null)}
       {/* TOURNAMENT */}
       {!smallScreen && !brute.eventId && (
         <CellTournament
