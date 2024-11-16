@@ -511,6 +511,7 @@
   "bruteRegistered": "Bruto registrado com sucesso.",
   "bruteNotRegistered": "Bruto não registrado.",
   "youCanRegisterYourBrute": "Você pode registrar seu Bruto para o próximo torneio.",
+  "arena.noXP": "Your brute reached the maximum level. You can still fight, but you won't gain any more XP.",
   "arena.search.notFound": "Nenhum Bruto encontrado com este nome.",
   "arena.search.noSelf": "Pare de se bater.",
   "arena.search.atLeastThreeCharacters": "Por favor, introduza pelo menos 3 caracteres.",
