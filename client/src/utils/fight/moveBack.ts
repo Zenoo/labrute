@@ -17,14 +17,17 @@ const moveBack = async (
     throw new Error('Fighter not found');
   }
 
+  // Get positions
+  const { x, y } = getRandomPosition(fighters, fighter.team);
+
+  // Abort if fighter is already on the right side
+  if (Math.abs(fighter.animation.container.x - x) < 150) return;
+
   // Set animation to `run`
   fighter.animation.setAnimation('run');
 
   // Invert fighter
   fighter.animation.container.scale.x *= -1;
-
-  // Get positions
-  const { x, y } = getRandomPosition(fighters, fighter.team);
 
   // Move fighter to the position
   await Tweener.add({
