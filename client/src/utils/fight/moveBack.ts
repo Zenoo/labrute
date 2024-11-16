@@ -21,7 +21,12 @@ const moveBack = async (
   const { x, y } = getRandomPosition(fighters, fighter.team);
 
   // Abort if fighter is already on the right side
-  if (Math.abs(fighter.animation.container.x - x) < 150) return;
+  if (Math.abs(fighter.animation.container.x - x) < 150) {
+    // Set animation to `idle`
+    fighter.animation.setAnimation('idle');
+
+    return;
+  }
 
   // Set animation to `run`
   fighter.animation.setAnimation('run');
