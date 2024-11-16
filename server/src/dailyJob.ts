@@ -1569,7 +1569,7 @@ const handleEventFinish = async (prisma: PrismaClient) => {
 
   // Create new event
   const maxLevel = randomBetween(20, 120);
-  await prisma.event.create({
+  const newEvent = await prisma.event.create({
     data: {
       maxLevel,
     },
@@ -1579,8 +1579,8 @@ const handleEventFinish = async (prisma: PrismaClient) => {
   // Notify users
   const notifications = await prisma.$executeRaw`
     INSERT INTO "Notification" ("userId", "message", "link")
-    (SELECT id, 'event.started', ${`{bruteName}/event/${lastEvent?.id}`}
-    FROM "User");
+    SELECT id, 'event.started', ${`{bruteName}/event/${newEvent.id}`}
+    FROM "User";
   `;
 
   LOGGER.log(`New event created with max level ${maxLevel}. ${notifications} notifications sent`);
