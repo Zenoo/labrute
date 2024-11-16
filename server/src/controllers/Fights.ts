@@ -2,6 +2,7 @@ import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
   GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
   getXPNeeded,
+  isUuid,
   randomBetween,
 } from '@labrute/core';
 import {
@@ -18,7 +19,6 @@ import { ilike } from '../utils/ilike.js';
 import sendError from '../utils/sendError.js';
 import ServerState from '../utils/ServerState.js';
 import translate from '../utils/translate.js';
-import isUuid from '../utils/uuid.js';
 
 const Fights = {
   get: (prisma: PrismaClient) => async (
@@ -194,7 +194,7 @@ const Fights = {
             ? getXPNeeded(brute1.level + 1)
             : levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
           : brute1.eventId
-            ? Math.ceil(getXPNeeded(brute1.level) / 2)
+            ? Math.ceil(getXPNeeded(brute1.level + 1) / 2)
             : levelDifference > 10 ? 0 : 1
         : 0;
 

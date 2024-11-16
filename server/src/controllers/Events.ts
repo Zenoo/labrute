@@ -1,5 +1,6 @@
 import {
   EventGetResponse, EventListResponse, ExpectedError,
+  isUuid,
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -39,6 +40,10 @@ const Events = {
   ) => {
     try {
       const { id } = req.params;
+
+      if (!isUuid(id)) {
+        throw new ExpectedError(translate('invalidParameters'));
+      }
 
       // Get brute
       const brute = await prisma.brute.findFirst({

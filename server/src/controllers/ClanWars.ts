@@ -3,13 +3,13 @@ import {
   ClanWarGetResponse, ClanWarGetUsedFightersResponse, ClanWarMaxParticipants,
   ClanWarUpdateFightersResponse, ExpectedError,
   FightGetResponse,
+  isUuid,
 } from '@labrute/core';
 import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import isUuid from '../utils/uuid.js';
 
 const ClanWars = {
   updateFighters: (prisma: PrismaClient) => async (
