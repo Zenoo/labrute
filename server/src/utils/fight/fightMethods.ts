@@ -1721,7 +1721,7 @@ export const checkDeaths = (
         f: fighter.index,
       });
 
-      // Update pet kills stat
+      // If fighter is pet, update pet kills stat
       if (fighter.type === 'pet') {
         const { master } = fighter;
 
@@ -1734,10 +1734,8 @@ export const checkDeaths = (
         opponents.forEach((opponent) => {
           updateStats(stats, opponent.id, 'petsKilled', 1);
         });
-      }
-
-      // Set loser if team has no brutes or bosses alive
-      if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
+      // Else, set loser to fighter if team has no brutes or bosses alive
+      } else if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
         && !f.master
         && f.hp > 0).length === 0) {
         fightData.loser = fighter.id;
