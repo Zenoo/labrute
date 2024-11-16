@@ -511,6 +511,7 @@
   "bruteRegistered": "Брутал записан успешно.",
   "bruteNotRegistered": "Брутал не зарегистрирован.",
   "youCanRegisterYourBrute": "Вы можете записать вашего Брутала на следующий турнир.",
+  "arena.noXP": "Your brute reached the maximum level. You can still fight, but you won't gain any more XP.",
   "arena.search.notFound": "Брутал с таким именем не найден.",
   "arena.search.noSelf": "Самобичевание не поддерживается.",
   "arena.search.atLeastThreeCharacters": "Пожалуйста, введите не менее 3 символа.",
