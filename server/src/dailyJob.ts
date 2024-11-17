@@ -1142,20 +1142,19 @@ const cleanup = async (prisma: PrismaClient) => {
     const now = moment.utc().valueOf();
 
     // Delete non tournament/war or favorited fights older than 30 days
-    const fights = await prisma.fight.deleteMany({
-      where: {
-        date: {
-          lt: moment.utc().subtract(30, 'day').toDate(),
-        },
-        tournamentId: null,
-        clanWarId: null,
-        favoritedBy: {
-          none: {},
-        },
-      },
-    });
+    const fights = await prisma.$executeRaw`
+      DELETE FROM "Fight"
+      WHERE "date" < ${moment.utc().subtract(30, 'day').toDate()}
+      AND "tournamentId" IS NULL
+      AND "clanWarId" IS NULL
+      AND NOT EXISTS (
+        SELECT 1
+        FROM "_FavoriteFights"
+        WHERE "_FavoriteFights"."A" = "Fight"."id"
+      );
+    `;
 
-    LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights.count} fights older than 30 days`);
+    LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights} fights older than 30 days`);
   }
 };
 

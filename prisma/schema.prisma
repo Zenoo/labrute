@@ -321,6 +321,7 @@ model Fight {
   @@index([tournamentId, winner, brute1Id, brute2Id])
   @@index([date, tournamentId, id])
   @@index([clanWarId])
+  @@index([clanWarId, tournamentId, date])
 }
 
 // LOGS
