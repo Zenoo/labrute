@@ -7,6 +7,7 @@ import {
   DetailedFight, DetailedFighter, ExpectedError, Fighter, SkillByName,
   StepType, WeaponByName, bossBackground, bosses,
   fightBackgrounds,
+  mapModifiers,
   randomItem,
   tournamentBackground,
   weightedRandom,
@@ -73,6 +74,8 @@ const generateFight = async ({
       ? tournamentBackground
       : weightedRandom(fightBackgrounds);
 
+  const mapModifier = weightedRandom(mapModifiers);  
+  
   // Achievements
   const achievementsStore: AchievementsStore = {};
   // Stats

@@ -314,6 +314,7 @@ model Fight {
   tournamentStep Int             @default(0)
   modifiers      FightModifier[] @default([])
   background     String          @default("1.jpg") @db.VarChar(255)
+  mapModifier    String          @default("noEffect") @db.VarChar(255)
   favoritedBy    User[]          @relation("FavoriteFights")
   clanWar        ClanWar?        @relation(fields: [clanWarId], references: [id], onDelete: Cascade)
   clanWarId      String?         @db.Uuid

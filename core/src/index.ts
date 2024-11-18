@@ -42,6 +42,7 @@ export * from './brute/skills';
 export * from './brute/weapons';
 export * from './constants';
 export * from './fight/backgrounds';
+export * from './fight/mapModifiers';
 export * from './releases';
 export * from './types';
 export * from './utils/isUuid';

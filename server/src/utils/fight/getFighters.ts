@@ -5,6 +5,7 @@ import {
   DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetStat,
   getTempSkill,
   getTempWeapon,
+  mapModifiers,
   pets, randomBetween, SkillModifiers, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
@@ -92,6 +93,58 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     }
   }
 };
+
+const handleMapModifiers = (
+  MapModifier: String, 
+  fighter: DetailedFighter
+) => { 
+  switch(MapModifier){
+    case "noEffect":
+      break;
+    case "minorBuff1":
+      fighter.agility *=1.2;
+      break;
+    case "minorBuff2":
+      fighter.hp *= 1.1;
+      break;
+    case "minorBuff3":
+      fighter.speed *= 1.3;
+      break;
+    case "majoBuff1":
+      fighter.agility *=1.35;
+      fighter.hp *= 1.5;
+      break;
+    case "majoBuff2":
+      fighter.speed *= 2;
+      break;
+    case "minorDebuff1":
+      fighter.speed *= 0.8;
+      fighter.hp *= 0.8;
+      break;
+    case "minorDebuff2":
+      fighter.agility *= 0.8;
+      break;
+    case "minorDebuff3":
+      fighter.hp *= 0.7;
+      break;
+    case "majorDebuff1":
+      fighter.hp *= 0.5;
+      fighter.speed *= 0.5;
+      fighter.agility *= 0.5
+      fighter.accuracy *= 0.5;
+      break;
+    case "majorDebuff2":
+      fighter.hp *= 0.9;
+      break;
+    case "mapEffect":
+      break;
+    default:
+      break;
+  }
+
+
+
+}
 
 const handleModifiers = (
   brute: Brute,

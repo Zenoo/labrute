@@ -9172,6 +9172,7 @@ export namespace Prisma {
     tournamentId: string | null
     tournamentStep: number | null
     background: string | null
+    mapModifier: string | null
     clanWarId: string | null
   }
 
@@ -9187,6 +9188,7 @@ export namespace Prisma {
     tournamentId: string | null
     tournamentStep: number | null
     background: string | null
+    mapModifier: string | null
     clanWarId: string | null
   }
 
@@ -9203,6 +9205,7 @@ export namespace Prisma {
     tournamentStep: number
     modifiers: number
     background: number
+    mapModifier: number
     clanWarId: number
     _all: number
   }
@@ -9228,6 +9231,7 @@ export namespace Prisma {
     tournamentId?: true
     tournamentStep?: true
     background?: true
+    mapModifier?: true
     clanWarId?: true
   }
 
@@ -9243,6 +9247,7 @@ export namespace Prisma {
     tournamentId?: true
     tournamentStep?: true
     background?: true
+    mapModifier?: true
     clanWarId?: true
   }
 
@@ -9259,6 +9264,7 @@ export namespace Prisma {
     tournamentStep?: true
     modifiers?: true
     background?: true
+    mapModifier?: true
     clanWarId?: true
     _all?: true
   }
@@ -9362,6 +9368,7 @@ export namespace Prisma {
     tournamentStep: number
     modifiers: $Enums.FightModifier[]
     background: string
+    mapModifier: string
     clanWarId: string | null
     _count: FightCountAggregateOutputType | null
     _avg: FightAvgAggregateOutputType | null
@@ -9397,6 +9404,7 @@ export namespace Prisma {
     tournamentStep?: boolean
     modifiers?: boolean
     background?: boolean
+    mapModifier?: boolean
     clanWarId?: boolean
     brute1?: boolean | BruteDefaultArgs<ExtArgs>
     brute2?: boolean | Fight$brute2Args<ExtArgs>
@@ -9420,6 +9428,7 @@ export namespace Prisma {
     tournamentStep?: boolean
     modifiers?: boolean
     background?: boolean
+    mapModifier?: boolean
     clanWarId?: boolean
     brute1?: boolean | BruteDefaultArgs<ExtArgs>
     brute2?: boolean | Fight$brute2Args<ExtArgs>
@@ -9440,10 +9449,11 @@ export namespace Prisma {
     tournamentStep?: boolean
     modifiers?: boolean
     background?: boolean
+    mapModifier?: boolean
     clanWarId?: boolean
   }
 
-  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winner" | "loser" | "steps" | "fighters" | "tournamentId" | "tournamentStep" | "modifiers" | "background" | "clanWarId", ExtArgs["result"]["fight"]>
+  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winner" | "loser" | "steps" | "fighters" | "tournamentId" | "tournamentStep" | "modifiers" | "background" | "mapModifier" | "clanWarId", ExtArgs["result"]["fight"]>
   export type FightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute1?: boolean | BruteDefaultArgs<ExtArgs>
     brute2?: boolean | Fight$brute2Args<ExtArgs>
@@ -9483,6 +9493,7 @@ export namespace Prisma {
       tournamentStep: number
       modifiers: $Enums.FightModifier[]
       background: string
+      mapModifier: string
       clanWarId: string | null
     }, ExtArgs["result"]["fight"]>
     composites: {}
@@ -9895,6 +9906,7 @@ export namespace Prisma {
     readonly tournamentStep: FieldRef<"Fight", 'Int'>
     readonly modifiers: FieldRef<"Fight", 'FightModifier[]'>
     readonly background: FieldRef<"Fight", 'String'>
+    readonly mapModifier: FieldRef<"Fight", 'String'>
     readonly clanWarId: FieldRef<"Fight", 'String'>
   }
     
@@ -33663,6 +33675,7 @@ export namespace Prisma {
     tournamentStep: 'tournamentStep',
     modifiers: 'modifiers',
     background: 'background',
+    mapModifier: 'mapModifier',
     clanWarId: 'clanWarId'
   };
 
@@ -34935,6 +34948,7 @@ export namespace Prisma {
     tournamentStep?: IntFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringFilter<"Fight"> | string
+    mapModifier?: StringFilter<"Fight"> | string
     clanWarId?: UuidNullableFilter<"Fight"> | string | null
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
@@ -34957,6 +34971,7 @@ export namespace Prisma {
     tournamentStep?: SortOrder
     modifiers?: SortOrder
     background?: SortOrder
+    mapModifier?: SortOrder
     clanWarId?: SortOrderInput | SortOrder
     brute1?: BruteOrderByWithRelationInput
     brute2?: BruteOrderByWithRelationInput
@@ -34982,6 +34997,7 @@ export namespace Prisma {
     tournamentStep?: IntFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringFilter<"Fight"> | string
+    mapModifier?: StringFilter<"Fight"> | string
     clanWarId?: UuidNullableFilter<"Fight"> | string | null
     brute1?: XOR<BruteRelationFilter, BruteWhereInput>
     brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
@@ -35004,6 +35020,7 @@ export namespace Prisma {
     tournamentStep?: SortOrder
     modifiers?: SortOrder
     background?: SortOrder
+    mapModifier?: SortOrder
     clanWarId?: SortOrderInput | SortOrder
     _count?: FightCountOrderByAggregateInput
     _avg?: FightAvgOrderByAggregateInput
@@ -35028,6 +35045,7 @@ export namespace Prisma {
     tournamentStep?: IntWithAggregatesFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringWithAggregatesFilter<"Fight"> | string
+    mapModifier?: StringWithAggregatesFilter<"Fight"> | string
     clanWarId?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
   }
 
@@ -37215,6 +37233,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -37236,6 +37255,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteFightsInput
@@ -37251,6 +37271,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -37272,6 +37293,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteFightsNestedInput
@@ -37290,6 +37312,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
   }
 
@@ -37303,6 +37326,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
   }
 
   export type FightUncheckedUpdateManyInput = {
@@ -37318,6 +37342,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -39687,6 +39712,7 @@ export namespace Prisma {
     tournamentStep?: SortOrder
     modifiers?: SortOrder
     background?: SortOrder
+    mapModifier?: SortOrder
     clanWarId?: SortOrder
   }
 
@@ -39706,6 +39732,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     tournamentStep?: SortOrder
     background?: SortOrder
+    mapModifier?: SortOrder
     clanWarId?: SortOrder
   }
 
@@ -39721,6 +39748,7 @@ export namespace Prisma {
     tournamentId?: SortOrder
     tournamentStep?: SortOrder
     background?: SortOrder
+    mapModifier?: SortOrder
     clanWarId?: SortOrder
   }
 
@@ -44636,6 +44664,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -44656,6 +44685,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
   }
@@ -45115,6 +45145,7 @@ export namespace Prisma {
     tournamentStep?: IntFilter<"Fight"> | number
     modifiers?: EnumFightModifierNullableListFilter<"Fight">
     background?: StringFilter<"Fight"> | string
+    mapModifier?: StringFilter<"Fight"> | string
     clanWarId?: UuidNullableFilter<"Fight"> | string | null
   }
 
@@ -45634,6 +45665,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
     tournament?: TournamentCreateNestedOneWithoutFightsInput
@@ -45653,6 +45685,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteFightsInput
@@ -45678,6 +45711,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     logs?: LogCreateNestedManyWithoutFightInput
     tournament?: TournamentCreateNestedOneWithoutFightsInput
@@ -45697,6 +45731,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteFightsInput
@@ -49064,6 +49099,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     tournament?: TournamentCreateNestedOneWithoutFightsInput
@@ -49084,6 +49120,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteFightsInput
   }
@@ -49328,6 +49365,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     tournament?: TournamentUpdateOneWithoutFightsNestedInput
@@ -49348,6 +49386,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteFightsNestedInput
   }
@@ -49972,6 +50011,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -49991,6 +50031,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteFightsInput
@@ -54577,6 +54618,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     brute1: BruteCreateNestedOneWithoutFightsInput
     brute2?: BruteCreateNestedOneWithoutFightsAsAdversaryInput
     logs?: LogCreateNestedManyWithoutFightInput
@@ -54597,6 +54639,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     logs?: LogUncheckedCreateNestedManyWithoutFightInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteFightsInput
   }
@@ -56866,6 +56909,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -56886,6 +56930,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
   }
@@ -56903,6 +56948,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -57260,6 +57306,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
   }
 
@@ -57275,6 +57322,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
   }
 
@@ -57612,6 +57660,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
     tournament?: TournamentUpdateOneWithoutFightsNestedInput
@@ -57631,6 +57680,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteFightsNestedInput
@@ -57648,6 +57698,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -57661,6 +57712,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
     tournament?: TournamentUpdateOneWithoutFightsNestedInput
@@ -57680,6 +57732,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteFightsNestedInput
@@ -57697,6 +57750,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -58807,6 +58861,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
     clanWarId?: string | null
   }
 
@@ -59044,6 +59099,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -59063,6 +59119,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteFightsNestedInput
@@ -59080,6 +59137,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -60235,6 +60293,7 @@ export namespace Prisma {
     tournamentStep?: number
     modifiers?: FightCreatemodifiersInput | $Enums.FightModifier[]
     background?: string
+    mapModifier?: string
   }
 
   export type ClanWarFightersCreateManyClanWarInput = {
@@ -60252,6 +60311,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     brute1?: BruteUpdateOneRequiredWithoutFightsNestedInput
     brute2?: BruteUpdateOneWithoutFightsAsAdversaryNestedInput
     logs?: LogUpdateManyWithoutFightNestedInput
@@ -60272,6 +60332,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
     logs?: LogUncheckedUpdateManyWithoutFightNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteFightsNestedInput
   }
@@ -60289,6 +60350,7 @@ export namespace Prisma {
     tournamentStep?: IntFieldUpdateOperationsInput | number
     modifiers?: FightUpdatemodifiersInput | $Enums.FightModifier[]
     background?: StringFieldUpdateOperationsInput | string
+    mapModifier?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClanWarFightersUpdateWithoutClanWarInput = {
