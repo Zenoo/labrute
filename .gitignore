@@ -40,7 +40,7 @@ build/Release
 node_modules/
 
 # Yarn without Zero-Installs
-# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .pnp.*
 .yarn/*
 !.yarn/patches
