@@ -5,6 +5,7 @@ import {
   DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetStat,
   getTempSkill,
   getTempWeapon,
+  MapModifier,
   mapModifiers,
   pets, randomBetween, SkillModifiers, skills, weapons,
 } from '@labrute/core';
@@ -95,55 +96,52 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 };
 
 const handleMapModifiers = (
-  MapModifier: String, 
-  fighter: DetailedFighter
+  brute: Brute,
+  MapModifier: MapModifier
 ) => { 
-  switch(MapModifier){
+  switch(MapModifier.name){
     case "noEffect":
       break;
     case "minorBuff1":
-      fighter.agility *=1.2;
+      brute.agilityValue *=1.2;
       break;
     case "minorBuff2":
-      fighter.hp *= 1.1;
+      brute.hp *= 1.1;
       break;
     case "minorBuff3":
-      fighter.speed *= 1.3;
+      brute.speedValue *= 1.3;
       break;
     case "majoBuff1":
-      fighter.agility *=1.35;
-      fighter.hp *= 1.5;
+      brute.agilityValue *=1.35;
+      brute.hp *= 1.5;
       break;
     case "majoBuff2":
-      fighter.speed *= 2;
+      brute.speedValue *= 2;
       break;
     case "minorDebuff1":
-      fighter.speed *= 0.8;
-      fighter.hp *= 0.8;
+      brute.speedValue *= 0.8;
+      brute.hp *= 0.8;
       break;
     case "minorDebuff2":
-      fighter.agility *= 0.8;
+      brute.agilityValue *= 0.8;
       break;
     case "minorDebuff3":
-      fighter.hp *= 0.7;
+      brute.hp *= 0.7;
       break;
     case "majorDebuff1":
-      fighter.hp *= 0.5;
-      fighter.speed *= 0.5;
-      fighter.agility *= 0.5
-      fighter.accuracy *= 0.5;
+      brute.hp *= 0.5;
+      brute.speedValue *= 0.5;
+      brute.agilityValue *= 0.5
+      brute.strengthValue *= 0.5;
       break;
     case "majorDebuff2":
-      fighter.hp *= 0.9;
+      brute.hp *= 0.2;
       break;
     case "mapEffect":
       break;
     default:
       break;
   }
-
-
-
 }
 
 const handleModifiers = (
@@ -183,6 +181,7 @@ type GetFightersParams = {
   team2: Team,
   modifiers: FightModifier[],
   clanFight?: boolean,
+  currentMapModifier : MapModifier,
 };
 
 const getFighters = ({
@@ -190,6 +189,7 @@ const getFighters = ({
   team2,
   modifiers,
   clanFight,
+  currentMapModifier,
 }: GetFightersParams): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
@@ -221,6 +221,7 @@ const getFighters = ({
       const bruteAgility = getFinalStat(brute, 'agility', modifiers);
 
       handleModifiers(brute, modifiers);
+      handleMapModifiers(brute, currentMapModifier);
 
       // Brute stats
       positiveIndex++;
