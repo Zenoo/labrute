@@ -124,6 +124,7 @@
   "ranking": "순위",
   "victories": "승리",
   "winrate": "Winrate",
+  "lastSeen": "Last seen {{date}}",
   "wins-losses": "{{wins}}W / {{losses}}L",
   "pupils": "눈동자",
   "weaponsBonuses": "Weapons and bonuses available in combat",
