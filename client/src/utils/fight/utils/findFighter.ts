@@ -12,7 +12,9 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   bustImage: HTMLImageElement | null;
   bust: PIXI.Sprite | undefined;
   text: PIXI.Text | undefined;
+  dead?: boolean;
   trapped?: boolean;
+  stunned?: boolean;
 }
 
 const findFighter = (
