@@ -124,7 +124,7 @@
   "ranking": "Classement",
   "victories": "Victoires",
   "winrate": "Victoire",
-  "lastSeen": "Last seen {{date}}",
+  "lastSeen": "Vu pour la dernière fois {{date}}",
   "wins-losses": "{{wins}}V / {{losses}}D",
   "pupils": "Élèves",
   "weaponsBonuses": "Armes et bonus disponibles en combat",
