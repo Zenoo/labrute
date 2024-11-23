@@ -317,11 +317,12 @@ model Fight {
   favoritedBy    User[]          @relation("FavoriteFights")
   clanWar        ClanWar?        @relation(fields: [clanWarId], references: [id], onDelete: Cascade)
   clanWarId      String?         @db.Uuid
+  favoriteCount  Int             @default(0)
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
   @@index([date, tournamentId, id])
   @@index([clanWarId])
-  @@index([clanWarId, tournamentId, date])
+  @@index([clanWarId, tournamentId, favoriteCount, date])
 }
 
 // LOGS
