@@ -953,9 +953,14 @@ const Users = {
     try {
       const user = await auth(prisma, req);
 
-      const { fightSpeed, backgroundMusic, displayVersusPage } = req.body;
+      const {
+        fightSpeed,
+        backgroundMusic,
+        displayVersusPage,
+        displayOpponentDetails,
+      } = req.body;
 
-      if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean') {
+      if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean' || typeof displayOpponentDetails !== 'boolean') {
         throw new ExpectedError(translate('invalidParameters', user));
       }
 
@@ -967,6 +972,7 @@ const Users = {
           fightSpeed,
           backgroundMusic,
           displayVersusPage,
+          displayOpponentDetails,
         },
         select: { id: true },
       });
