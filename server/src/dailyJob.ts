@@ -1149,7 +1149,9 @@ const cleanup = async (prisma: PrismaClient) => {
       AND "favoriteCount" = 0;
     `;
 
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights} fights older than 30 days`);
+  if (fights) {
+    LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights} fights older than 30 days`);
+  }
 };
 
 const handleClanWars = async (

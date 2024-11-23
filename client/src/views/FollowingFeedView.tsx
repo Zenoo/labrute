@@ -1,6 +1,6 @@
 import { LogGetForUserFeedResponse, skills, weapons } from '@labrute/core';
 import { LogType } from '@labrute/prisma';
-import { List, ListItem, ListItemIcon, ListItemText, Paper, Stack } from '@mui/material';
+import { Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,13 +15,15 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import Link from '../components/Link';
+import BruteRender from '../components/Brute/Body/BruteRender';
 
 export const FollowingFeedView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
   const { user } = useAuth();
 
-  const [logs, setLogs] = React.useState<LogGetForUserFeedResponse>([]);
+  const [logs, setLogs] = React.useState<LogGetForUserFeedResponse['logs']>([]);
+  const [followedBrutes, setFollowedBrutes] = React.useState<LogGetForUserFeedResponse['brutes']>([]);
   const [page, setPage] = React.useState(0);
   const [lastPage, setLastPage] = React.useState(false);
 
@@ -33,11 +35,14 @@ export const FollowingFeedView = () => {
       // Add new logs
       setLogs((prev) => prev.concat(
         // Filter out logs already in the list (solves possible desync if log created between requests)
-        data.filter((log) => !prev.find((prevLog) => prevLog.id === log.id))
+        data.logs.filter((log) => !prev.find((prevLog) => prevLog.id === log.id))
       ));
 
+      // Set followed brutes
+      setFollowedBrutes(data.brutes);
+
       // Set last page
-      setLastPage(data.length < 20);
+      setLastPage(data.logs.length < 20);
     }).catch(catchError(Alert));
   }, [user, Alert, page]);
 
@@ -49,6 +54,31 @@ export const FollowingFeedView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {user && (
           <Stack spacing={2}>
+            <Box sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 1,
+            }}
+            >
+              {followedBrutes.map((b) => (
+                <Tooltip key={b.id} title={b.name}>
+                  <Link
+                    sx={{
+                      width: 25,
+                      height: 25,
+                      cursor: 'pointer',
+                      overflow: 'hidden',
+                    }}
+                    to={`/${b.name}/cell`}
+                  >
+                    <BruteRender
+                      brute={b}
+                    />
+                  </Link>
+                </Tooltip>
+              ))}
+            </Box>
             {/* Report list */}
             <List dense>
               {logs.map((log) => (
