@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.78.0](https://github.com/Zenoo/labrute/compare/labrute-v2.77.0...labrute-v2.78.0) (2024-11-23)
+
+
+### Features
+
+* Anti pet skills revamp Proposal ([#1032](https://github.com/Zenoo/labrute/issues/1032)) ([c8cc1e3](https://github.com/Zenoo/labrute/commit/c8cc1e3e8231248c0aaa9453a9cd57a394df6528))
+* Known issues on Discord. Fixes [#1043](https://github.com/Zenoo/labrute/issues/1043) ([2a35604](https://github.com/Zenoo/labrute/commit/2a3560437a0f8d078535ab23d63da5ba425175a6))
+* User last seen date. Fixes [#1045](https://github.com/Zenoo/labrute/issues/1045) ([f716383](https://github.com/Zenoo/labrute/commit/f7163830e27d8148e19143c7bb76fab3999d93f6))
+
+
+### Bug Fixes
+
+* Additional fight positions. Fixes [#1039](https://github.com/Zenoo/labrute/issues/1039) ([88da327](https://github.com/Zenoo/labrute/commit/88da3276ddfb4463d856ecd06fceb52bc44a1902))
+* Allow event brutes at max level to still fight. Fixes [#1003](https://github.com/Zenoo/labrute/issues/1003) ([1580e64](https://github.com/Zenoo/labrute/commit/1580e640db2005c5543c454038a674d6c9778ce9))
+* Apply ascended skills and pets stat modifiers. Fixes [#1049](https://github.com/Zenoo/labrute/issues/1049) ([2f85556](https://github.com/Zenoo/labrute/commit/2f855568531c6a807e1c63ccde751ec78b1c3f9d))
+* Display followed brutes on feed view. Fixes [#1053](https://github.com/Zenoo/labrute/issues/1053) ([bd2d2f4](https://github.com/Zenoo/labrute/commit/bd2d2f4007ecf22f8a35bd7012b4e23db042a8c8))
+* Display temp skills/weapons in opponent details. Fixes [#1051](https://github.com/Zenoo/labrute/issues/1051) ([5dff8ff](https://github.com/Zenoo/labrute/commit/5dff8fff33fb22542d97c63099f16997b66f89d4))
+* Fight deletion query index ([03c3805](https://github.com/Zenoo/labrute/commit/03c380576a0bb3188720c801e2732cbef82dabf8))
+* Give more than half XP when loosing with an event brute, to account for odd XP required ([e49639b](https://github.com/Zenoo/labrute/commit/e49639b5821cef2b5099cd2569bf4ebee7bd8185))
+* Opponent details toggle not staying on. Fixes [#1052](https://github.com/Zenoo/labrute/issues/1052) ([9749cfc](https://github.com/Zenoo/labrute/commit/9749cfcc88633a04870e0ccc85a143af9f9a7674))
+* Optimize fight deletion query. FIxes [#1048](https://github.com/Zenoo/labrute/issues/1048) ([92fd1e0](https://github.com/Zenoo/labrute/commit/92fd1e04361a571f7c26d61f0be78d45da720684))
+* Order reports by handled date. Fixes [#1046](https://github.com/Zenoo/labrute/issues/1046) ([ef66b1a](https://github.com/Zenoo/labrute/commit/ef66b1acc3ab9f0326b68d2a2f4f93144e920afa))
+* Prevent visual shift when hovering opponents in the arena. Fixes [#1040](https://github.com/Zenoo/labrute/issues/1040) ([1631d6b](https://github.com/Zenoo/labrute/commit/1631d6bc270dd7f4f30a006755caa253928826c5))
+* skip logging common oauth token claim errors ([9fb8e13](https://github.com/Zenoo/labrute/commit/9fb8e13eb69b80908b01e666d174a64f1bb4d36f))
+* User last seen updated each day ([b480f96](https://github.com/Zenoo/labrute/commit/b480f96bb3c918607b24769e4e0cb8e397f09b17))
+* Wrong new event notification link ([f014e9a](https://github.com/Zenoo/labrute/commit/f014e9aefcb55a3c00a5eae95c64c9feaa058108))
+
 ## [2.77.0](https://github.com/Zenoo/labrute/compare/labrute-v2.76.2...labrute-v2.77.0) (2024-11-12)
 
 
