@@ -1146,7 +1146,7 @@ const cleanup = async (prisma: PrismaClient) => {
       WHERE "date" < ${moment.utc().subtract(30, 'day').toDate()}
       AND "tournamentId" IS NULL
       AND "clanWarId" IS NULL
-      AND "favoriteCount" = 0
+      AND "favoriteCount" = 0;
     `;
 
   LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${fights} fights older than 30 days`);

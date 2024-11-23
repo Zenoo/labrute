@@ -39,6 +39,7 @@ model User {
   banReason              String?
   displayVersusPage      Boolean          @default(true)
   displayOpponentDetails Boolean          @default(false)
+  lastSeen               DateTime         @default(now()) @db.Date
   brutes                 Brute[]
   achievements           Achievement[]
   reports                BruteReport[]

@@ -1,5 +1,5 @@
 import { FightStat, getFinalHP, getFinalStat, getTempSkill, getTempWeapon, pets, skills, weapons } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { Brute, User } from '@labrute/prisma';
 import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
 import React, { useMemo } from 'react';
@@ -14,21 +14,25 @@ import BruteHP from './BruteHP';
 import WeaponTooltip from './WeaponTooltip';
 import SkillTooltip from './SkillTooltip';
 import PetTooltip from './PetTooltip';
+import { ActivityStatus } from '../ActivityStatus';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
   displayDetails?: false;
+  owner?: Pick<User, 'lastSeen'>;
 } | {
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
+  owner?: Pick<User, 'lastSeen'>;
 });
 
 const BruteButton = ({
   brute,
   link,
   displayDetails,
+  owner,
   sx,
   ...rest
 }: BruteButtonProps) => {
@@ -117,6 +121,7 @@ const BruteButton = ({
           </Box>
         </Box>
         <Text bold smallCaps color="text.primary">
+          {owner && <ActivityStatus user={owner} />}
           {t('level')}
           <Text component="span" bold color="secondary"> {brute.level}</Text>
           {brute.eventId ? (

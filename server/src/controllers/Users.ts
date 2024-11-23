@@ -347,6 +347,7 @@ const Users = {
           name: true,
           gold: true,
           lang: true,
+          lastSeen: true,
           brutes: {
             select: {
               id: true,

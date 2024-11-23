@@ -549,7 +549,7 @@ export type UserWithAchievements = User & {
 export type HookBrute = Brute & {
   master: Pick<Brute, 'id' | 'name'> | null;
   clan: Pick<Clan, 'id' | 'name'> | null;
-  user: Pick<User, 'id' | 'name'> | null;
+  user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
   tournaments: Tournament[];
 };
 export type AdminPanelBrute = Brute & {

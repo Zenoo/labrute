@@ -209,12 +209,26 @@ const Clans = {
             },
           },
           brutes: {
+            include: {
+              user: {
+                select: {
+                  lastSeen: true,
+                },
+              },
+            },
             orderBy: [
               { ranking: 'asc' },
               { level: 'desc' },
             ],
           },
           joinRequests: {
+            include: {
+              user: {
+                select: {
+                  lastSeen: true,
+                },
+              },
+            },
             orderBy: [
               { ranking: 'asc' },
               { level: 'desc' },

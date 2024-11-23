@@ -1,22 +1,23 @@
 import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
-import { Check, QuestionMark, RssFeed } from '@mui/icons-material';
+import { Check, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import { AchievementHeader } from '../components/AchievementHeader';
+import { AchievementTooltip } from '../components/AchievementTooltip';
+import { ActivityStatus } from '../components/ActivityStatus';
 import BruteButton from '../components/Brute/BruteButton';
 import FantasyButton from '../components/FantasyButton';
+import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
+import { useConfirm } from '../hooks/useConfirm';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import { AchievementTooltip } from '../components/AchievementTooltip';
-import { useConfirm } from '../hooks/useConfirm';
-import Link from '../components/Link';
-import { AchievementHeader } from '../components/AchievementHeader';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -73,7 +74,10 @@ const UserView = () => {
       {user && (
         <>
           <Paper sx={{ mx: 4 }}>
-            <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('userProfile', { user: user.name })}</Text>
+            <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
+              <ActivityStatus user={user} sx={{ verticalAlign: 'middle', mr: 1 }} />
+              {t('userProfile', { user: user.name })}
+            </Text>
           </Paper>
           <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
             {authedUser?.admin && user.id !== authedUser.id && (
@@ -323,19 +327,6 @@ const UserView = () => {
                   </TableBody>
                 </Table>
               </>
-            )}
-            {/* FOLLOWING FEED */}
-            {user.id === authedUser?.id && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                <FantasyButton
-                  to={`/user/${user.id}/feed`}
-                  color="warning"
-                  sx={{ m: 1 }}
-                >
-                  <RssFeed sx={{ verticalAlign: 'middle', mr: 1 }} />
-                  {t('followingFeed')}
-                </FantasyButton>
-              </Box>
             )}
           </Paper>
         </>

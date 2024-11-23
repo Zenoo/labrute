@@ -182,8 +182,12 @@ export type ClanListResponse = (Clan & {
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
   master: BruteForRender | null,
-  brutes: Brute[],
-  joinRequests: Brute[],
+  brutes: (Brute & {
+    user: Pick<User, 'lastSeen'> | null,
+  })[],
+  joinRequests: (Brute & {
+    user: Pick<User, 'lastSeen'> | null,
+  })[],
   bossDamages: (Pick<BossDamage, 'damage'> & {
     brute: Pick<Brute, 'id' | 'name'>,
   })[],
@@ -217,7 +221,7 @@ export type ClanGetThreadResponse = ClanThread & {
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
-export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'> & {
+export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<
     Brute,
     'id' |

@@ -199,6 +199,7 @@ export const resetBrute = async ({
         select: {
           id: true,
           name: true,
+          lastSeen: true,
         },
       },
       tournaments: {
