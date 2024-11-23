@@ -1,8 +1,8 @@
-import { FightStat, getFinalHP, getFinalStat, pets, skills, weapons } from '@labrute/core';
+import { FightStat, getFinalHP, getFinalStat, getTempSkill, getTempWeapon, pets, skills, weapons } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
@@ -35,6 +35,36 @@ const BruteButton = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { modifiers } = useAuth();
+
+  const bruteWeapons = useMemo(
+    () => {
+      if (!displayDetails) return [];
+
+      const randomWeapon = getTempWeapon(brute, modifiers);
+
+      if (randomWeapon) {
+        return brute.weapons.concat(randomWeapon);
+      }
+
+      return brute.weapons;
+    },
+    [brute, displayDetails, modifiers]
+  );
+
+  const bruteSkills = useMemo(
+    () => {
+      if (!displayDetails) return [];
+
+      const randomSkill = getTempSkill(brute, modifiers);
+
+      if (randomSkill) {
+        return brute.skills.concat(randomSkill);
+      }
+
+      return brute.skills;
+    },
+    [brute, displayDetails, modifiers]
+  );
 
   const goTo = () => {
     if (link === null) return;
@@ -143,7 +173,7 @@ const BruteButton = ({
             />
             {/* Weapons */}
             <Box pt={1}>
-              {brute.weapons.map((weapon) => (
+              {bruteWeapons.map((weapon) => (
                 <WeaponTooltip
                   weapon={weapons.find((w) => w.name === weapon)}
                   key={weapon}
@@ -154,7 +184,7 @@ const BruteButton = ({
             </Box>
             {/* Skills */}
             <Box>
-              {brute.skills.map((skill) => (
+              {bruteSkills.map((skill) => (
                 <SkillTooltip
                   skill={skills.find((s) => s.name === skill)}
                   key={skill}
