@@ -616,7 +616,8 @@ model BruteReport {
   handlerId String?           @db.Uuid
   handledAt DateTime?         @db.Timestamptz()
 
-  @@index([status])
+  @@index([status, count])
+  @@index([status, handledAt])
 }
 
 // SERVER STATE

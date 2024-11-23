@@ -228,7 +228,8 @@ exports.Prisma.FightScalarFieldEnum = {
   tournamentStep: 'tournamentStep',
   modifiers: 'modifiers',
   background: 'background',
-  clanWarId: 'clanWarId'
+  clanWarId: 'clanWarId',
+  favoriteCount: 'favoriteCount'
 };
 
 exports.Prisma.LogScalarFieldEnum = {
