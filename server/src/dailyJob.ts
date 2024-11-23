@@ -13,6 +13,7 @@ import {
   getWinsNeededToRankUp,
   GlobalTournamentGoldReward,
   GlobalTournamentXpReward,
+  knownIssues,
   LAST_RELEASE,
   randomBetween,
   weightedRandom,
@@ -1938,6 +1939,9 @@ const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Clean up DB
     await cleanup(prisma);
+
+    // Update known issues
+    await DISCORD.updateKnownIssues(knownIssues);
 
     LOGGER.info('Daily job completed');
   } catch (error: unknown) {

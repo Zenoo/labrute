@@ -47,6 +47,7 @@ export * from './types';
 export * from './utils/isUuid';
 export * from './utils/randomItem';
 export * from './Elo';
+export * from './knownIssues';
 export {
   adjustColor, applySkillModifiers,
   availableBodyParts, Boss, bosses, canLevelUp,
