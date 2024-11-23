@@ -21,11 +21,13 @@ type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   link?: string;
   displayDetails?: false;
   owner?: Pick<User, 'lastSeen'>;
+  shiftMargin?: boolean;
 } | {
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
   owner?: Pick<User, 'lastSeen'>;
+  shiftMargin?: boolean;
 });
 
 const BruteButton = ({
@@ -33,6 +35,7 @@ const BruteButton = ({
   link,
   displayDetails,
   owner,
+  shiftMargin = false,
   sx,
   ...rest
 }: BruteButtonProps) => {
@@ -88,6 +91,7 @@ const BruteButton = ({
       imageHover={`/images/arena/brute-bg${displayDetails ? '-high' : ''}-hover.webp`}
       contrast={false}
       shadow={false}
+      shiftMargin={shiftMargin}
       onClick={goTo}
       sx={{
         width: 190,
