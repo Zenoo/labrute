@@ -2,14 +2,14 @@
 import { FIGHTER_HIT_ANCHOR, HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 
-import { AnimatedSprite, Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
+import { AnimatedSprite, Application } from 'pixi.js';
+import stagger from './stagger';
+import { untrap } from './untrap';
+import updateHp from './updateHp';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
-import stagger from './stagger';
-import updateHp from './updateHp';
-import { untrap } from './untrap';
 
 const HIT_VFX = ['blood', 'impact-1', 'impact-2'];
 

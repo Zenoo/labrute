@@ -79,7 +79,7 @@ const skillActivate = async (
 
         // Set cry position
         cry.position.set(
-          brute.animation.container.x + (i % 2) * 20,
+          brute.animation.container.x + (i % 2) * 20 - (brute.team === 'L' ? 0 : 140),
           brute.animation.container.y - FIGHTER_HEIGHT.brute / 2 + i * 20,
         );
 

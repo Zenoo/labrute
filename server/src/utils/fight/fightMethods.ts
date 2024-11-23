@@ -302,10 +302,14 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
       && skill.name !== SkillName.hypnosis);
   }
 
-  // Filter out cryOfTheDamned and bomb if fighter has hypnosis
-  if (supers.some((s) => s.name === SkillName.hypnosis)){
-    supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned
-      && skill.name !== SkillName.bomb);
+  // Filter out bomb if fighter has hypnosis
+  if (supers.some((s) => s.name === SkillName.hypnosis)) {
+    supers = supers.filter((skill) => skill.name !== SkillName.bomb);
+  }
+
+  // Filter out cryOfTheDamned if fighter has hypnosis and is not stunned
+  if (supers.some((s) => s.name === SkillName.hypnosis) && !fighter.stunned) {
+    supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned);
   }
 
   // Filter out flashFlood if less than 3 weapons
@@ -603,7 +607,9 @@ const registerHit = (
       }
 
       // Remove stun if normal hit while stunned
-      if (opponent.stunned && stepType === StepType.Hit && !previousTrappedOpponents.some((o) => o.id === opponent.id)) {
+      if (opponent.stunned
+        && stepType === StepType.Hit
+        && !previousTrappedOpponents.some((o) => o.id === opponent.id)) {
         opponent.stunned = false;
       }
 
@@ -680,7 +686,7 @@ const dropShield = ({
       a: StepType.DropShield,
       b: fighter.index,
     });
-  };
+  }
 };
 
 const activateSuper = (
@@ -694,7 +700,7 @@ const activateSuper = (
   if (!skill.uses) return false;
 
   // Can't use super while hypnotized
-  if (fighter.hypnotized) return false
+  if (fighter.hypnotized) return false;
 
   switch (skill.name) {
     // Steal opponent's weapon if he has one
@@ -806,11 +812,9 @@ const activateSuper = (
       });
 
       // Does fighter has anti-pet skills
-      const fighterHasAntiPet = fighter.skills.some((s) => {
-        return s.name === SkillName.hypnosis
+      const fighterHasAntiPet = fighter.skills.some((s) => s.name === SkillName.hypnosis
           || s.name === SkillName.cryOfTheDamned
-          || s.name === SkillName.bomb
-      });
+          || s.name === SkillName.bomb);
 
       // Chose brute opponent
       if (!opponent || fighterHasAntiPet) {
@@ -875,7 +879,7 @@ const activateSuper = (
 
       // Drop shield
       if (fighter.shield) {
-        dropShield({ fightData, fighter: fighter });
+        dropShield({ fightData, fighter });
       }
 
       // Choose opponent
@@ -993,11 +997,11 @@ const activateSuper = (
         a: StepType.SkillActivate,
         b: fighter.index,
         s: SkillByName[skill.name],
-      }
+      };
 
       // Add unafraid pets
-      if(unafraidPetIndexes.length) {
-        cryStep.p = unafraidPetIndexes
+      if (unafraidPetIndexes.length) {
+        cryStep.p = unafraidPetIndexes;
       }
 
       // Add skill activation step
@@ -1024,7 +1028,7 @@ const activateSuper = (
       }
 
       // Hypnotize opponent's brutes and bosses
-      const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true})
+      const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true });
       opponents.forEach((opponent) => {
         opponent.hypnotized = true;
       });
@@ -1694,7 +1698,11 @@ const attack = (
   }
 
   // Randomly trigger another attack if the fighter has `determination`
-  if (!isCounter && !damage && fighter.determination && !fighter.hypnotized && Math.random() < 0.7) {
+  if (!isCounter
+    && !damage
+    && fighter.determination
+    && !fighter.hypnotized
+    && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
 
@@ -1949,14 +1957,17 @@ export const playFighterTurn = (
   }
 
   // Opponnent uses hypnosis if low hp
-  if (opponent.hp < opponent.maxHp * 0.15 && !opponent.stunned && !opponent.trapped && !fighter.hypnotized){
-    const opponentHypnosis = opponent.skills.find((skill) => skill.name === SkillName.hypnosis)
-    if (opponentHypnosis){
+  if (opponent.hp < opponent.maxHp * 0.15
+    && !opponent.stunned
+    && !opponent.trapped
+    && !fighter.hypnotized) {
+    const opponentHypnosis = opponent.skills.find((skill) => skill.name === SkillName.hypnosis);
+    if (opponentHypnosis) {
       // Activate hypnosis
-      if (activateSuper(fightData, opponent, opponentHypnosis, stats, achievements)){
+      if (activateSuper(fightData, opponent, opponentHypnosis, stats, achievements)) {
         // Cancel turn if fighter is pet as it has a new master
-        if (fighter.type === 'pet') return
-      };
+        if (fighter.type === 'pet') return;
+      }
     }
   }
 
@@ -1992,17 +2003,19 @@ export const playFighterTurn = (
       // Reset counter stat
       updateStats(stats, opponent.id, 'consecutiveCounters', 0);
 
-      if (opponent.stunned && !opponent.trapped){
+      if (opponent.stunned && !opponent.trapped) {
         // Check if opponent can use cryOfTheDamned
-        const opponentCry = opponent.skills.find((skill) => skill.name === SkillName.cryOfTheDamned)
-        if(opponentCry && randomBetween(0, 1) === 0){
+        const opponentCry = opponent.skills.find(
+          (skill) => skill.name === SkillName.cryOfTheDamned,
+        );
+        if (opponentCry && randomBetween(0, 1) === 0) {
           // Activate cryOfTheDamned
-          if (activateSuper(fightData, opponent, opponentCry, stats, achievements)){
+          if (activateSuper(fightData, opponent, opponentCry, stats, achievements)) {
             // If successfull, opponent wakes up
             opponent.stunned = false;
 
             // Check if fighter didn't leave
-            if (fightData.fighters.includes(fighter)){
+            if (fightData.fighters.includes(fighter)) {
               // Fighter moves back
               fightData.steps.push({
                 a: StepType.MoveBack,
@@ -2010,9 +2023,9 @@ export const playFighterTurn = (
               });
             }
             // Fighter only loses half a turn of initiative
-            increaseInitiative(fighter, 0.5)
+            increaseInitiative(fighter, 0.5);
             // Cancel turn
-            return
+            return;
           }
         }
       }
@@ -2062,7 +2075,6 @@ export const playFighterTurn = (
       let timesDeflected = 0;
 
       while (deflected === null || deflected) {
-
         // Remove hypnotized from opponent
         if (currentOpponent.hypnotized) {
           currentOpponent.hypnotized = false;
