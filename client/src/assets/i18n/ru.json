@@ -124,6 +124,7 @@
   "ranking": "Рейтинг",
   "victories": "Победы",
   "winrate": "Доля побед",
+  "lastSeen": "Last seen {{date}}",
   "wins-losses": "{{wins}}Пб. / {{losses}} Пр.",
   "pupils": "Ученики",
   "weaponsBonuses": "Оружие и бонусы, доступные в бою",
