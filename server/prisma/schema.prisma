@@ -360,6 +360,7 @@ model Log {
 
   @@index([currentBruteId, date])
   @@index([date])
+  @@index([fightId])
 }
 
 // LEVEL UP
