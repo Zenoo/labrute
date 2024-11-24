@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.78.3](https://github.com/Zenoo/labrute/compare/labrute-v2.78.2...labrute-v2.78.3) (2024-11-24)
+
+
+### Bug Fixes
+
+* Delete old fights ([48eb5ea](https://github.com/Zenoo/labrute/commit/48eb5eaa47783535c95aac993c2907681149eed1))
+* Symbol offset error ([3fd839c](https://github.com/Zenoo/labrute/commit/3fd839c07f376a5fe8f919d91e72b52128f41be1))
+* Wrongly shifted symbols ([82113d6](https://github.com/Zenoo/labrute/commit/82113d63edf5037dc3fe419f08cdd67499592299))
+
 ## [2.78.2](https://github.com/Zenoo/labrute/compare/labrute-v2.78.1...labrute-v2.78.2) (2024-11-24)
 
 
