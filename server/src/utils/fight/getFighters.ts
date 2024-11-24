@@ -5,6 +5,7 @@ import {
   DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetStat,
   getTempSkill,
   getTempWeapon,
+  MapEffect,
   pets, randomBetween, SkillModifiers, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
@@ -96,13 +97,15 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
 const handleMapModifiers = (
   brute: Brute,
-  effect: string,
+  effect: MapEffect,
 ) => { 
   switch(effect){
-    case "none":
+    case MapEffect.None:
       break;
-    case "swamp":
+    case MapEffect.HalfSpeed:
       brute.speedValue *= 0.5;
+    case MapEffect.OneHp:
+      brute.hp *= 0.1;
     default:
       break;
   }
@@ -145,7 +148,7 @@ type GetFightersParams = {
   team2: Team,
   modifiers: FightModifier[],
   clanFight?: boolean,
-  background : string,
+  background : MapEffect,
 };
 
 const getFighters = ({
