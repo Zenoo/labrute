@@ -3412,7 +3412,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     i18next: "npm:^21.9.0"
-    labrute-fla-parser: "npm:^1.0.12"
+    labrute-fla-parser: "npm:^1.0.13"
     labrute-static-fla-parser: "npm:^1.0.6"
     moment: "npm:^2.29.4"
     pixi-tweener: "npm:^0.12.2"
@@ -12706,10 +12706,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"labrute-fla-parser@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "labrute-fla-parser@npm:1.0.12"
-  checksum: b3955bbfb37fdbfc937c3445f99955c350d02f3fa09e0bb7ac9e776bdcc0a707942252bd4af924e965a68142bc0c076ca1c72f7b4fc0dc05e5beba2ad88e4a0d
+"labrute-fla-parser@npm:^1.0.13":
+  version: 1.0.13
+  resolution: "labrute-fla-parser@npm:1.0.13"
+  checksum: 57bb23b610556022ce249515fee1ffa8c23259a2ca8b4b4a26d17020e03e09d22428fe440b5307304b9dba79cd8b353a83133fbd05544f08b885546f0aab0d11
   languageName: node
   linkType: hard
 

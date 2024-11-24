@@ -324,6 +324,12 @@ export default class BruteDisplay {
     } else {
       const usedSymbols: string[] = [];
 
+      // Check if symbol has an offset
+      if (symbol.offset) {
+        symbolContainer.x = symbol.offset.x ?? 0;
+        symbolContainer.y = symbol.offset.y ?? 0;
+      }
+
       // Get frame to load
       let frameToLoad: number;
 
