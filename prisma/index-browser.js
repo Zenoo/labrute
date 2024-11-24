@@ -138,7 +138,8 @@ exports.Prisma.UserScalarFieldEnum = {
   bannedAt: 'bannedAt',
   banReason: 'banReason',
   displayVersusPage: 'displayVersusPage',
-  displayOpponentDetails: 'displayOpponentDetails'
+  displayOpponentDetails: 'displayOpponentDetails',
+  lastSeen: 'lastSeen'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -228,7 +229,8 @@ exports.Prisma.FightScalarFieldEnum = {
   tournamentStep: 'tournamentStep',
   modifiers: 'modifiers',
   background: 'background',
-  clanWarId: 'clanWarId'
+  clanWarId: 'clanWarId',
+  favoriteCount: 'favoriteCount'
 };
 
 exports.Prisma.LogScalarFieldEnum = {

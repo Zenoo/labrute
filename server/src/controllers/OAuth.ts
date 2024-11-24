@@ -1,6 +1,7 @@
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { EternaltwinNodeClient } from '@eternaltwin/client-node';
-import { RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
+import { ErrorCode } from '@eternaltwin/client-node/error';
+import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import { InventoryItemType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { ExpectedError, UserWithBrutesBodyColor } from '@labrute/core';
@@ -116,8 +117,22 @@ export default class OAuth {
       }
 
       res.send(user);
-    } catch (error) {
-      sendError(res, error);
+    } catch (error: unknown) {
+      if (error instanceof GetAccessTokenError) {
+        switch (error?.eternaltwin?.code) {
+          case ErrorCode.OauthCodeTimeError:
+          case ErrorCode.OauthCodeFormatError:
+            // Skip logging the error when the token is expired or the format
+            // is invalid. This can happen if an old token is reused. This
+            // usually happens when the JS redirects fails and the original
+            // URL with the token remains in the browser history.
+            break;
+          default:
+            sendError(res, error);
+        }
+      } else {
+        sendError(res, error);
+      }
     }
   }
 }

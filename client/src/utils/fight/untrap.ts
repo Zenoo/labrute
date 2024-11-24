@@ -13,12 +13,19 @@ export const untrap = (
     throw new Error('Spritesheet not found');
   }
 
+  if (fighter.trapped) {
+    // eslint-disable-next-line no-param-reassign
+    fighter.trapped = false;
+    if (fighter.type === 'brute') {
+      // eslint-disable-next-line no-param-reassign
+      fighter.stunned = true;
+    }
+  }
+
   // Add broken net VFX if fighter was trapped
   if (fighter.animation.animation === 'trapped') {
     // Set animation to `idle`
     fighter.animation.setAnimation('idle');
-    // eslint-disable-next-line no-param-reassign
-    fighter.trapped = false;
 
     // Create 6 net parts
     for (let i = 0; i < 6; i += 1) {

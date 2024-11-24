@@ -48,6 +48,7 @@ export * from './types';
 export * from './utils/isUuid';
 export * from './utils/randomItem';
 export * from './Elo';
+export * from './knownIssues';
 export {
   adjustColor, applySkillModifiers,
   availableBodyParts, Boss, bosses, canLevelUp,
@@ -183,8 +184,12 @@ export type ClanListResponse = (Clan & {
 export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
 export type ClanGetResponse = Clan & {
   master: BruteForRender | null,
-  brutes: Brute[],
-  joinRequests: Brute[],
+  brutes: (Brute & {
+    user: Pick<User, 'lastSeen'> | null,
+  })[],
+  joinRequests: (Brute & {
+    user: Pick<User, 'lastSeen'> | null,
+  })[],
   bossDamages: (Pick<BossDamage, 'damage'> & {
     brute: Pick<Brute, 'id' | 'name'>,
   })[],
@@ -218,7 +223,7 @@ export type ClanGetThreadResponse = ClanThread & {
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
 };
-export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang'> & {
+export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<
     Brute,
     'id' |
@@ -286,10 +291,13 @@ export type UserGetNextModifiersResponse = FightModifier[];
 export type LogListResponse = (Log & {
   currentBrute: Pick<Brute, 'name'>,
 })[];
-export type LogGetForUserFeedResponse = (Log & {
-  currentBrute: Pick<Brute, 'name'>,
-  destinyChoice: DestinyChoice | null,
-})[];
+export type LogGetForUserFeedResponse = {
+  brutes: BruteForRender[],
+  logs: (Log & {
+    currentBrute: Pick<Brute, 'name'>,
+    destinyChoice: DestinyChoice | null,
+  })[],
+};
 
 export type ClanWarCreateResponse = Pick<ClanWar, 'id'>;
 export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];

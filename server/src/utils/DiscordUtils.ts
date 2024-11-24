@@ -41,6 +41,7 @@ export interface DiscordClient {
   sendModifiersNotification(modifiers: FightModifier[]): void;
   sendRelease(release: Release): Promise<void>;
   sendMessage(message: string): Promise<void>;
+  updateKnownIssues(issues: string[]): Promise<void>;
 }
 
 export const NOOP_DISCORD_CLIENT: DiscordClient = {
@@ -69,6 +70,9 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
     console.log(message);
     return Promise.resolve();
   },
+  updateKnownIssues() {
+    return Promise.resolve();
+  },
 };
 
 export interface NetworkDiscordClientOptions {
@@ -80,6 +84,8 @@ export interface NetworkDiscordClientOptions {
   rankUpWebhookToken: string,
   releaseWebhookId: string,
   releaseWebhookToken: string,
+  knownIssuesWebhookId: string,
+  knownIssuesWebhookToken: string,
   timeout?: number
   logger: Logger,
   server: URL,
@@ -109,6 +115,11 @@ export class NetworkDiscordClient implements DiscordClient {
    * Client used to send release notifications
    */
   readonly #releaseClient: WebhookClient;
+
+  /**
+   * Client used to manage known issues
+   */
+  readonly #knownIssuesClient: WebhookClient;
 
   /**
    * Create a new Discord client
@@ -146,6 +157,13 @@ export class NetworkDiscordClient implements DiscordClient {
       {
         id: options.releaseWebhookId,
         token: options.releaseWebhookToken,
+      },
+      clientOptions,
+    );
+    this.#knownIssuesClient = new WebhookClient(
+      {
+        id: options.knownIssuesWebhookId,
+        token: options.knownIssuesWebhookToken,
       },
       clientOptions,
     );
@@ -289,5 +307,24 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
       content = SEND_MESSAGE_PREFIX + short + SEND_MESSAGE_SUFFIX_TRUNCATED;
     }
     await this.#logClient.send({ content });
+  }
+
+  public async updateKnownIssues(issues: string[]) {
+    const embed = new EmbedBuilder()
+      .setColor(0xff0000)
+      .setTitle('Known Issues')
+      .setDescription(issues.length ? issues.map((issue) => `• ${issue}`).join('\n') : 'No known issues')
+      .setTimestamp();
+
+    // Fetch the known issues message
+    try {
+      const message = await this.#knownIssuesClient.fetchMessage('1310056621774471241');
+
+      // Update existing message
+      await this.#knownIssuesClient.editMessage(message.id, { embeds: [embed] });
+    } catch (_error) {
+      // No message exists, create new one
+      await this.#knownIssuesClient.send({ embeds: [embed] });
+    }
   }
 }

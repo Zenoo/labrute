@@ -2,6 +2,7 @@ import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { OutlineFilter } from '@pixi/filter-outline';
+import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
@@ -22,6 +23,34 @@ const skillExpire = async (
     brute.animation.container.filters = brute.animation.container.filters?.filter(
       (filter) => !(filter instanceof OutlineFilter),
     ) || [];
+  }
+
+  // Hypnosis aura fade out
+  if (step.s === SkillId.hypnosis) {
+    // Get hypnosis Glowfilter
+    const glowFilter = brute.animation.container.filters?.find(
+      (filter) => filter instanceof GlowFilter
+    ) as GlowFilter | null;
+
+    if (glowFilter) {
+      let { outerStrength, innerStrength } = glowFilter;
+
+      const fadeOut = () => {
+        outerStrength -= 0.1;
+        innerStrength -= 0.1;
+        if (outerStrength <= 0 && innerStrength <= 0) {
+          // Remove Glow filter when faded
+          brute.animation.container.filters = brute.animation.container.filters?.filter(
+            (filter) => !(filter instanceof GlowFilter)
+          ) || [];
+        } else {
+          glowFilter.outerStrength = outerStrength;
+          glowFilter.innerStrength = innerStrength;
+          requestAnimationFrame(fadeOut);
+        }
+      };
+      fadeOut();
+    }
   }
 
   // Flash flood

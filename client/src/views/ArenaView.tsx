@@ -180,6 +180,7 @@ const ArenaView = () => {
                       brute={opponent}
                       onClick={goToVersus(opponent.name)}
                       displayDetails={user?.displayOpponentDetails}
+                      shiftMargin
                       sx={{
                         width: 185,
                         height: 1,

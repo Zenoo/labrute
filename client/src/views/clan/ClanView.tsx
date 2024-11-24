@@ -18,6 +18,7 @@ import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import moment from 'moment';
+import { ActivityStatus } from '../../components/ActivityStatus';
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
@@ -167,7 +168,7 @@ const ClanView = () => {
   };
 
   // Accept join request
-  const acceptJoin = (requester: Brute) => () => {
+  const acceptJoin = (requester: ClanGetResponse['brutes'][number]) => () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
@@ -231,7 +232,7 @@ const ClanView = () => {
   };
 
   // Set as clan master
-  const setMaster = (clanBrute: Brute) => (e: React.MouseEvent) => {
+  const setMaster = (clanBrute: ClanGetResponse['brutes'][number]) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;
@@ -844,6 +845,9 @@ const ClanView = () => {
                   </Box>
                 </Box>
                 <Text bold smallCaps color="text.primary">
+                  {clanBrute.user && (
+                    <ActivityStatus user={clanBrute.user} sx={{ fontSize: 10, mr: 0.5 }} />
+                  )}
                   {t('level')}
                   <Text component="span" bold color="secondary"> {clanBrute.level}</Text>
                 </Text>

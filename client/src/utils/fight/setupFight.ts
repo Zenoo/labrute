@@ -48,6 +48,7 @@ import { treat } from './treat';
 import updateWeapons from './updateWeapons';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
+import repositionFighters, { isNeutralStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
 import setHUDFocus from './setHUDFocus';
@@ -475,6 +476,9 @@ const setupFight: (
       throw new Error('Step not found');
     }
 
+    // Reposition mispositionned fighters during neutral
+    if (isNeutralStep(step.a)) await repositionFighters(app, fighters, speed);
+
     // Display step's brute in HUD
     if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
       void setHUDFocus(app, renderer, fighters, step.b, speed, isClanWar);
@@ -484,7 +488,7 @@ const setupFight: (
       void setHUDFocus(app, renderer, fighters, step.f, speed, isClanWar);
     }
     // Display step's target in HUD
-    if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb) {
+    if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise) {
       void setHUDFocus(app, renderer, fighters, step.t, speed, isClanWar);
     }
 

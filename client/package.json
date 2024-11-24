@@ -1,6 +1,6 @@
 {
   "name": "@labrute/client",
-  "version": "2.77.0",
+  "version": "2.78.4",
   "private": true,
   "proxy": "http://localhost:9000",
   "scripts": {
@@ -33,7 +33,7 @@
     "@pixi/filter-outline": "^4.2.0",
     "@pixi/sound": "^4.4.1",
     "i18next": "^21.9.0",
-    "labrute-fla-parser": "^1.0.12",
+    "labrute-fla-parser": "^1.0.13",
     "labrute-static-fla-parser": "^1.0.6",
     "moment": "^2.29.4",
     "pixi-tweener": "^0.12.2",

@@ -2,10 +2,12 @@ import {
   ARENA_OPPONENTS_MAX_GAP,
   HookBrute,
   RESET_PRICE,
+  applySkillModifiers,
   createRandomBruteStats,
   getMaxFightsPerDay,
   getRandomStartingStats,
   getTotalXP,
+  pets,
   randomItem,
 } from '@labrute/core';
 import {
@@ -90,7 +92,7 @@ export const resetBrute = async ({
   }
 
   // Random stats
-  const stats = createRandomBruteStats(
+  let stats = createRandomBruteStats(
     baseStats,
     firstBonus.type,
     firstBonus.type === DestinyChoiceType.pet
@@ -132,6 +134,23 @@ export const resetBrute = async ({
   stats.weapons = stats.weapons.concat(brute.ascendedWeapons);
   stats.skills = stats.skills.concat(brute.ascendedSkills);
   stats.pets = stats.pets.concat(brute.ascendedPets);
+
+  // Take into account the endurance malus from ascended pets
+  for (const petName of brute.ascendedPets) {
+    const petStats = pets.find((p) => p.name === petName);
+
+    if (!petStats) {
+      throw new Error('Pet not found');
+    }
+
+    stats.enduranceStat -= petStats.enduranceMalus;
+    stats.enduranceValue = Math.floor(stats.enduranceStat * stats.enduranceModifier);
+  }
+
+  // Apply ascended skill modifiers
+  for (const skillName of brute.ascendedSkills) {
+    stats = applySkillModifiers(stats, skillName);
+  }
 
   // Update the brute
   const updatedBrute: HookBrute = await prisma.brute.update({
@@ -180,6 +199,7 @@ export const resetBrute = async ({
         select: {
           id: true,
           name: true,
+          lastSeen: true,
         },
       },
       tournaments: {

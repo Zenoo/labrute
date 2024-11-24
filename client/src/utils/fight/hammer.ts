@@ -76,8 +76,8 @@ const hammer = async (
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);
 
-  // Set target animation to `idle`
-  target.animation.setAnimation('idle');
+  // Set target animation to normal
+  target.animation.setAnimation(target.stunned ? 'death' : 'idle');
 
   // Stagger target
   stagger(target, speed).catch(console.error);

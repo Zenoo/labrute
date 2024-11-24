@@ -2,14 +2,14 @@
 import { FIGHTER_HIT_ANCHOR, HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 
-import { AnimatedSprite, Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
+import { AnimatedSprite, Application } from 'pixi.js';
+import stagger from './stagger';
+import { untrap } from './untrap';
+import updateHp from './updateHp';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import getFighterType from './utils/getFighterType';
-import stagger from './stagger';
-import updateHp from './updateHp';
-import { untrap } from './untrap';
 
 const HIT_VFX = ['blood', 'impact-1', 'impact-2'];
 
@@ -131,13 +131,16 @@ const hit = async (
     ) || [];
   }
 
-  // Set animation to `death` if target is stunned
   if (step.s) {
+    target.stunned = true;
+  } else if (target.stunned && !targetWasTrapped) {
+    target.stunned = false;
+  }
+
+  // Set animation to `death` if target is stunned
+  if (target.stunned) {
     target.animation.setAnimation('death');
     void sound.play('sfx', { sprite: 'chaining' });
-  } else if (targetWasTrapped && target.type === 'brute') {
-    // Stun brutes if trapped
-    target.animation.setAnimation('death');
   } else {
     // Set animation to `idle`
     target.animation.setAnimation('idle');

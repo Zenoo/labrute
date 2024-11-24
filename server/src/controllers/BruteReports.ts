@@ -32,6 +32,11 @@ const BruteReports = {
         throw new ExpectedError(translate('unauthorized', authed));
       }
 
+      // Order by count for pending, by handledAt for others
+      const orderBy = req.params.status === BruteReportStatus.pending
+        ? { count: 'desc' } as const
+        : { handledAt: 'desc' } as const;
+
       // Get reports
       const reports = await prisma.bruteReport.findMany({
         where: {
@@ -59,9 +64,7 @@ const BruteReports = {
             },
           },
         },
-        orderBy: {
-          count: 'desc',
-        },
+        orderBy,
       });
 
       res.status(200).send(reports);

@@ -105,6 +105,11 @@ export interface Config {
   readonly discordReleases: DiscordConfig | null;
 
   /**
+   * Configuration for the Discord client used for known issues (optional).
+   */
+  readonly discordKnownIssues: DiscordConfig | null;
+
+  /**
    * Absolute URL to the DinoRPG website.
    */
   readonly dinoRpgUrl: string;
@@ -212,6 +217,16 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
+  const rawDiscordKnownIssuesId = env.DISCORD_KNOWN_ISSUES_WEBHOOK_ID;
+  const rawDiscordKnownIssuesToken = env.DISCORD_KNOWN_ISSUES_WEBHOOK_TOKEN;
+  let discordKnownIssues: DiscordConfig | null = null;
+  if (typeof rawDiscordKnownIssuesId === 'string' && typeof rawDiscordKnownIssuesToken === 'string') {
+    discordKnownIssues = {
+      webhookId: rawDiscordKnownIssuesId,
+      webhookToken: rawDiscordKnownIssuesToken,
+    };
+  }
+
   const dinoRpgUrl = env.DINORPG_URL ?? 'https://dinorpg.eternaltwin.org';
 
   return {
@@ -223,6 +238,7 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     discordLogs,
     discordRankUps,
     discordReleases,
+    discordKnownIssues,
     dinoRpgUrl,
   };
 }

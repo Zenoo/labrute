@@ -32,7 +32,7 @@ const Main = () => {
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<UserUpdateSettingsRequest>({
     fightSpeed: 2,
-    backgroundMusic: false,
+    backgroundMusic: true,
     displayVersusPage: true,
     displayOpponentDetails: false,
   });

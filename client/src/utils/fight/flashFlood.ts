@@ -3,6 +3,7 @@ import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HitStep, WeaponById, randomBetween } fro
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
+import { BevelFilter } from '@pixi/filter-bevel';
 
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
@@ -23,9 +24,10 @@ const flashFlood = async (
   if (!app.loader) {
     return;
   }
-  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
+  const weaponSpritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
+  const shieldSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
-  if (!spritesheet) {
+  if (!weaponSpritesheet || !shieldSpritesheet) {
     throw new Error('Spritesheet not found');
   }
 
@@ -43,18 +45,26 @@ const flashFlood = async (
   // Set animation to `throw`
   fighter.animation.setAnimation('throw');
 
-  const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
+  let thrownItem: Sprite;
 
-  // Update current weapon
-  if (!startedWithAWeapon) {
-    fighter.animation.weapon = weapon;
+  // Shield throw
+  if (step.s) {
+    fighter.animation.shield = false;
+    thrownItem = new Sprite(shieldSpritesheet.textures['shield.png']);
+    thrownItem.filters = [new BevelFilter()];
+    thrownItem.zIndex = 1;
+  // Weapon throw
+  } else {
+    const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
+    // Update current weapon
+    if (!startedWithAWeapon) {
+      fighter.animation.weapon = weapon;
+    }
+    thrownItem = new Sprite(weaponSpritesheet.textures[`${weapon}.png`]);
   }
 
-  // Create thrown weapon sprite
-  const thrownWeapon = new Sprite(spritesheet.textures[`${weapon}.png`]);
-
   // Anchor to left center
-  thrownWeapon.anchor.set(0, 0.5);
+  thrownItem.anchor.set(0, 0.5);
 
   // Get starting position
   const start = {
@@ -73,28 +83,34 @@ const flashFlood = async (
   };
 
   // Set position
-  thrownWeapon.position.set(start.x, start.y);
+  thrownItem.position.set(start.x, start.y);
 
   // Set rotation (from fighter and target positions)
-  thrownWeapon.angle = (Math.atan2(
+  thrownItem.angle = (Math.atan2(
     end.y - start.y,
     end.x - start.x,
   ) * 180) / Math.PI;
 
   // Add to stage
-  app.stage.addChild(thrownWeapon);
+  app.stage.addChild(thrownItem);
 
-  // Remove weapon from arsenal
-  fighter.animation.weapon = null;
-  if (!startedWithAWeapon) {
-    updateWeapons(app, fighter, step.w, 'remove');
+  // Remove Shield
+  if (step.s) {
+    target.animation.shield = false;
+  // Remove Weapon
+  } else {
+    fighter.animation.weapon = null;
+    if (!startedWithAWeapon) {
+      updateWeapons(app, fighter, step.w, 'remove');
+    }
   }
+
   // Play throw SFX
   void sound.play('sfx', { sprite: 'flashFlood' });
 
-  // Move thrown weapon
+  // Move thrown item
   Tweener.add({
-    target: thrownWeapon,
+    target: thrownItem,
     duration: 0.25 / speed.current,
     ease: Easing.linear,
   }, {
@@ -112,17 +128,29 @@ const flashFlood = async (
     // Set animation to the correct hit animation
     target.animation.setAnimation(animation);
 
-    // Remove thrown weapon
-    app.stage.removeChild(thrownWeapon);
-    thrownWeapon.destroy();
+    // Remove thrown item
+    app.stage.removeChild(thrownItem);
+    thrownItem.destroy();
 
-    displayDamage(app, target, step.d, speed);
+    if (!step.s) {
+      // Display damage if weapon
+      displayDamage(app, target, step.d, speed);
 
-    // Update HP bar
-    updateHp(fighters, target, -step.d, speed, isClanWar);
+      // Update HP bar
+      updateHp(fighters, target, -step.d, speed, isClanWar);
+    } else if (target.type === 'brute') {
+      // Stun target brute if shield
+      target.stunned = true;
+    }
 
-    // Stagger
-    stagger(target, speed).catch(console.error);
+    // Stagger, then set animation to death if stunned
+    // Can't set to idle because this async process could cancel next animations
+    stagger(target, speed).then(() => {
+      // Check if not already death to avoid flickering
+      if (target.stunned && target.animation.animation !== 'death') {
+        target.animation.setAnimation('death');
+      }
+    }).catch(console.error);
   }).catch(console.error);
 
   // Wait 0.15s
