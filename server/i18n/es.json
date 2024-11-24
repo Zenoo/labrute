@@ -67,7 +67,7 @@
   "missingClanId": "Falta el ID del clan",
   "masterCannotLeave": "El maestro no puede dejar un clan que tiene miembros",
   "threadNotFound": "Hilo no encontrado",
-  "missingId": "Missing ID",
+  "missingId": "Falta el ID",
   "notYourClan": "Este no es tu clan",
   "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres.",
   "alreadyClaimed": "Ya has reclamado esta recompensa",
