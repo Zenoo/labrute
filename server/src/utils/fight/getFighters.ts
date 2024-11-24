@@ -12,7 +12,6 @@ import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
   Brute, FightModifier, PrismaClient, SkillName,
 } from '@labrute/prisma';
-import { Console } from 'node:console';
 
 interface Team {
   brutes: Brute[];
@@ -97,15 +96,13 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
 const handleMapModifiers = (
   brute: Brute,
-  effect: MapEffect,
+  effect?: MapEffect,
 ) => { 
   switch(effect){
-    case MapEffect.None:
-      break;
     case MapEffect.HalfSpeed:
-      brute.speedValue *= 0.5;
+      Math.round(brute.speedValue *= 0.5);
     case MapEffect.OneHp:
-      brute.hp *= 0.1;
+      brute.hp = 1;
     default:
       break;
   }
@@ -148,7 +145,7 @@ type GetFightersParams = {
   team2: Team,
   modifiers: FightModifier[],
   clanFight?: boolean,
-  background : MapEffect,
+  mapEffect?: MapEffect,
 };
 
 const getFighters = ({
@@ -156,7 +153,7 @@ const getFighters = ({
   team2,
   modifiers,
   clanFight,
-  background,
+  mapEffect,
 }: GetFightersParams): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
@@ -188,7 +185,7 @@ const getFighters = ({
       const bruteAgility = getFinalStat(brute, 'agility', modifiers);
 
       handleModifiers(brute, modifiers);
-      handleMapModifiers(brute, background);
+      handleMapModifiers(brute, mapEffect);
 
       // Brute stats
       positiveIndex++;
