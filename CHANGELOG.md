@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.78.4](https://github.com/Zenoo/labrute/compare/labrute-v2.78.3...labrute-v2.78.4) (2024-11-24)
+
+
+### Bug Fixes
+
+* Fight deletion syntax error ([99ce654](https://github.com/Zenoo/labrute/commit/99ce654b16fd0e155edf59f78772ac80f4694607))
+
 ## [2.78.3](https://github.com/Zenoo/labrute/compare/labrute-v2.78.2...labrute-v2.78.3) (2024-11-24)
 
 
