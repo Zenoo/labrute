@@ -143,7 +143,7 @@ const hit = async (
     target.animation.setAnimation('death');
     // Wait 0.35s for the animation to be visible if this is a counter attack stun
     if (fighter.team === (fighter.animation.container.x < 250 ? 'L' : 'R')) {
-      await new Promise((resolve) => { setTimeout(resolve, 350 / speed.current); });
+      await new Promise((resolve) => { setTimeout(resolve, 500 / speed.current); });
     }
   } else {
     // Set animation to `idle`
