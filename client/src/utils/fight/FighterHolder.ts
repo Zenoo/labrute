@@ -923,6 +923,14 @@ export default class FighterHolder {
     } else {
       const usedSymbols: string[] = [];
 
+      // Check if symbol has an offset
+      if (symbol.offset) {
+        // eslint-disable-next-line no-param-reassign
+        symbolContainer.x = symbol.offset.x ?? 0;
+        // eslint-disable-next-line no-param-reassign
+        symbolContainer.y = symbol.offset.y ?? 0;
+      }
+
       // Get frame to load
       let frameToLoad: number;
 

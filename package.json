@@ -1,6 +1,6 @@
 {
   "name": "labrute",
-  "version": "2.77.0",
+  "version": "2.78.4",
   "private": true,
   "engines": {
     "npm": ">=8.1.2",
@@ -35,7 +35,7 @@
     "run:fixErroredBonuses": "cd server && yarn run:fixErroredBonuses"
   },
   "devDependencies": {
-    "@eternaltwin/cli": "^0.14.3",
+    "@eternaltwin/cli": "^0.16.0",
     "@types/node": "^18.11.15",
     "audiosprite": "^0.7.2",
     "concurrently": "^7.6.0",

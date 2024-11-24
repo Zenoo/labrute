@@ -109,6 +109,7 @@ export interface DetailedFighter {
   // Keep track of consecutive hits for stun status
   hitBy: Record<number, number>,
   stunned?: boolean,
+  hypnotized?: boolean,
   // Bare hand hit (for the fight modifier)
   bareHandHit?: boolean;
   // Damage immunity
@@ -286,6 +287,8 @@ export interface HypnotiseStep {
   a: StepType.Hypnotise;
   /** Brute ID */
   b: number;
+  /** Brutes hypnotized IDs */
+  t: number[];
   /** Pets hypnotized IDs */
   p: number[];
 }
@@ -301,7 +304,7 @@ export interface MoveStep {
   s?: 1 | 0;
   /** Got countered? */
   c?: 1 | 0;
-  /** Small move after a reversal? */
+  /** Melee repositioning? */
   r?: 1 | 0;
 }
 
@@ -430,6 +433,8 @@ export interface SkillActivateStep {
   b: number;
   /** Skill ID */
   s: SkillId;
+  /** Unafraid pets */
+  p?: number[];
 }
 
 export interface SkillExpireStep {
@@ -549,7 +554,7 @@ export type UserWithAchievements = User & {
 export type HookBrute = Brute & {
   master: Pick<Brute, 'id' | 'name'> | null;
   clan: Pick<Clan, 'id' | 'name'> | null;
-  user: Pick<User, 'id' | 'name'> | null;
+  user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
   tournaments: Tournament[];
 };
 export type AdminPanelBrute = Brute & {

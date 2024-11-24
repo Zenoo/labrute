@@ -62,6 +62,24 @@ const Logs = {
         throw new ExpectedError(translate('invalidParameters', user));
       }
 
+      // Get followed brutes
+      const brutes = await prisma.brute.findMany({
+        where: {
+          followers: {
+            some: {
+              id: user.id,
+            },
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          gender: true,
+          body: true,
+          colors: true,
+        },
+      });
+
       const now = new Date();
 
       // Get logs
@@ -95,7 +113,7 @@ const Logs = {
         },
       });
 
-      res.status(200).send(logs);
+      res.status(200).send({ brutes, logs });
     } catch (error) {
       sendError(res, error);
     }

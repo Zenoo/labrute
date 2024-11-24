@@ -1,8 +1,8 @@
-import { FightStat, getFinalHP, getFinalStat, pets, skills, weapons } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { FightStat, getFinalHP, getFinalStat, getTempSkill, getTempWeapon, pets, skills, weapons } from '@labrute/core';
+import { Brute, User } from '@labrute/prisma';
 import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
@@ -14,27 +14,64 @@ import BruteHP from './BruteHP';
 import WeaponTooltip from './WeaponTooltip';
 import SkillTooltip from './SkillTooltip';
 import PetTooltip from './PetTooltip';
+import { ActivityStatus } from '../ActivityStatus';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
   displayDetails?: false;
+  owner?: Pick<User, 'lastSeen'>;
+  shiftMargin?: boolean;
 } | {
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
+  owner?: Pick<User, 'lastSeen'>;
+  shiftMargin?: boolean;
 });
 
 const BruteButton = ({
   brute,
   link,
   displayDetails,
+  owner,
+  shiftMargin = false,
   sx,
   ...rest
 }: BruteButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { modifiers } = useAuth();
+
+  const bruteWeapons = useMemo(
+    () => {
+      if (!displayDetails) return [];
+
+      const randomWeapon = getTempWeapon(brute, modifiers);
+
+      if (randomWeapon) {
+        return brute.weapons.concat(randomWeapon);
+      }
+
+      return brute.weapons;
+    },
+    [brute, displayDetails, modifiers]
+  );
+
+  const bruteSkills = useMemo(
+    () => {
+      if (!displayDetails) return [];
+
+      const randomSkill = getTempSkill(brute, modifiers);
+
+      if (randomSkill) {
+        return brute.skills.concat(randomSkill);
+      }
+
+      return brute.skills;
+    },
+    [brute, displayDetails, modifiers]
+  );
 
   const goTo = () => {
     if (link === null) return;
@@ -54,6 +91,7 @@ const BruteButton = ({
       imageHover={`/images/arena/brute-bg${displayDetails ? '-high' : ''}-hover.webp`}
       contrast={false}
       shadow={false}
+      shiftMargin={shiftMargin}
       onClick={goTo}
       sx={{
         width: 190,
@@ -87,6 +125,7 @@ const BruteButton = ({
           </Box>
         </Box>
         <Text bold smallCaps color="text.primary">
+          {owner && <ActivityStatus user={owner} />}
           {t('level')}
           <Text component="span" bold color="secondary"> {brute.level}</Text>
           {brute.eventId ? (
@@ -143,7 +182,7 @@ const BruteButton = ({
             />
             {/* Weapons */}
             <Box pt={1}>
-              {brute.weapons.map((weapon) => (
+              {bruteWeapons.map((weapon) => (
                 <WeaponTooltip
                   weapon={weapons.find((w) => w.name === weapon)}
                   key={weapon}
@@ -154,7 +193,7 @@ const BruteButton = ({
             </Box>
             {/* Skills */}
             <Box>
-              {brute.skills.map((skill) => (
+              {bruteSkills.map((skill) => (
                 <SkillTooltip
                   skill={skills.find((s) => s.name === skill)}
                   key={skill}

@@ -14,6 +14,8 @@ const death = (
     throw new Error('Fighter not found');
   }
 
+  fighter.dead = true;
+
   const animationEnded = fighter.animation.waitForEvent('death:drop');
 
   // Set animation to `death`

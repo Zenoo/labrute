@@ -5,7 +5,7 @@ const catchError = (Alert: AlertContextInterface) => (error: ErrorType | string)
   const errorMessage = typeof error === 'string'
     ? error
     : error.message
-      ? error.message.startsWith('<!DOCTYPE html>')
+      ? error.message.includes('<h1>404 Not Found</h1>')
         ? error.statusText
         : error.message
       : error.statusText;

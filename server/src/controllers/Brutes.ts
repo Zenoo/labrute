@@ -111,6 +111,7 @@ const Brutes = {
             select: {
               id: true,
               name: true,
+              lastSeen: true,
             },
           },
           tournaments: {

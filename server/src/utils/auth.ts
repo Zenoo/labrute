@@ -1,6 +1,7 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
+import moment from 'moment';
 import translate from './translate.js';
 import ServerState from './ServerState.js';
 
@@ -32,6 +33,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
       bannedAt: true,
       banReason: true,
       ips: true,
+      lastSeen: true,
     },
   });
 
@@ -62,6 +64,16 @@ const auth = async (prisma: PrismaClient, request: Request) => {
         ips: {
           push: ip,
         },
+      },
+    });
+  }
+
+  // Update last seen
+  if (!moment.utc(user.lastSeen).isSame(moment.utc(), 'day')) {
+    await prisma.user.update({
+      where: { id },
+      data: {
+        lastSeen: new Date(),
       },
     });
   }

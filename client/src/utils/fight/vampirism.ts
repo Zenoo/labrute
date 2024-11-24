@@ -71,7 +71,7 @@ export const vampirism = async (
   brute.animation.container.scale.x *= -1;
 
   // Set target animation to `idle`
-  target.animation.setAnimation('idle');
+  target.animation.setAnimation(target.stunned ? 'death' : 'idle');
 
   const { x, y } = getRandomPosition(fighters, brute.team);
 

@@ -12,6 +12,7 @@ import Text from '../Text';
 import moment from 'moment';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
+import { ActivityStatus } from '../ActivityStatus';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -93,17 +94,16 @@ const CellSocials = ({
                     </IconButton>
                   </Tooltip>
                 )}
-                <Tooltip title={t('userProfile', { user: brute.user.name })}>
-                  <Button
-                    component={RouterLink}
-                    to={`/user/${brute.user.id}`}
-                    size="small"
-                    startIcon={<Person fontSize="small" />}
-                    color="secondary"
-                  >
-                    <Text smallCaps subtitle2>{brute.user.name}</Text>
-                  </Button>
-                </Tooltip>
+                <Button
+                  component={RouterLink}
+                  to={`/user/${brute.user.id}`}
+                  size="small"
+                  startIcon={<Person fontSize="small" />}
+                  color="secondary"
+                >
+                  <Text smallCaps subtitle2>{brute.user.name}</Text>
+                  <ActivityStatus user={brute.user} sx={{ fontSize: 10, ml: 0.5 }} />
+                </Button>
               </>
             )}
           </Box>

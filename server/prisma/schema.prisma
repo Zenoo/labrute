@@ -39,6 +39,7 @@ model User {
   banReason              String?
   displayVersusPage      Boolean          @default(true)
   displayOpponentDetails Boolean          @default(false)
+  lastSeen               DateTime         @default(now()) @db.Date
   brutes                 Brute[]
   achievements           Achievement[]
   reports                BruteReport[]
@@ -317,11 +318,12 @@ model Fight {
   favoritedBy    User[]          @relation("FavoriteFights")
   clanWar        ClanWar?        @relation(fields: [clanWarId], references: [id], onDelete: Cascade)
   clanWarId      String?         @db.Uuid
+  favoriteCount  Int             @default(0)
 
   @@index([tournamentId, winner, brute1Id, brute2Id])
   @@index([date, tournamentId, id])
   @@index([clanWarId])
-  @@index([clanWarId, tournamentId, date])
+  @@index([clanWarId, tournamentId, favoriteCount, date])
 }
 
 // LOGS
@@ -358,6 +360,7 @@ model Log {
 
   @@index([currentBruteId, date])
   @@index([date])
+  @@index([fightId])
 }
 
 // LEVEL UP
@@ -615,7 +618,8 @@ model BruteReport {
   handlerId String?           @db.Uuid
   handledAt DateTime?         @db.Timestamptz()
 
-  @@index([status])
+  @@index([status, count])
+  @@index([status, handledAt])
 }
 
 // SERVER STATE

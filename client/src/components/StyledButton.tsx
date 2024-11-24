@@ -9,6 +9,7 @@ export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   shadow?: boolean;
   contrast?: boolean;
   shift?: string;
+  shiftMargin?: boolean;
   shadowColor?: string;
   to?: string;
 }
@@ -27,6 +28,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   shadow = true,
   contrast = true,
   shift = '4px',
+  shiftMargin = false,
   shadowColor = 'rgba(0, 0, 0, 0.2)',
   to,
   sx,
@@ -79,7 +81,8 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         fontVariant: 'small-caps',
         fontWeight: 'bold',
         color: 'secondary.main',
-        ...sx
+        ...sx,
+        mb: (hover && shiftMargin) ? 1 : undefined,
       }}
       {...rest}
     >

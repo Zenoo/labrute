@@ -2,6 +2,7 @@
 import {
   AchievementsStore,
   ArriveStep,
+  SkillActivateStep,
   BASE_FIGHTER_STATS,
   DetailedFight, DetailedFighter, FighterStat, FightStat, HitStep, LeaveStep,
   NO_WEAPON_TOSS,
@@ -174,12 +175,12 @@ const checkAchievements = (
 export const getOpponents = ({
   fightData,
   fighter,
-  bruteOnly,
+  bruteAndBossOnly,
   petOnly,
 }: {
   fightData: DetailedFight;
   fighter: DetailedFighter;
-  bruteOnly?: boolean;
+  bruteAndBossOnly?: boolean;
   petOnly?: boolean;
 }) => {
   let opponents = [];
@@ -189,8 +190,7 @@ export const getOpponents = ({
     && f.hp > 0
     && f.team !== fighter.team);
 
-  // Allow bosses too
-  if (bruteOnly) {
+  if (bruteAndBossOnly) {
     opponents = opponents.filter((f) => f.type === 'brute' || f.type === 'boss');
   }
 
@@ -204,13 +204,13 @@ export const getOpponents = ({
 const getRandomOpponent = ({
   fightData,
   fighter,
-  bruteOnly,
+  bruteAndBossOnly,
   petOnly,
   nonTrappedOnly,
 }: {
   fightData: DetailedFight;
   fighter: DetailedFighter;
-  bruteOnly?: boolean;
+  bruteAndBossOnly?: boolean;
   petOnly?: boolean;
   nonTrappedOnly?: boolean;
 }) => {
@@ -219,7 +219,7 @@ const getRandomOpponent = ({
   let opponents = getOpponents({
     fightData,
     fighter,
-    bruteOnly: bruteOnly || focusOpponent,
+    bruteAndBossOnly: bruteAndBossOnly || focusOpponent,
     petOnly,
   });
 
@@ -246,7 +246,7 @@ const getRandomOpponent = ({
 export const saboteur = (fightData: DetailedFight, achievements: AchievementsStore) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
     if (fighter.saboteur) {
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
       if (opponent && opponent.weapons.length > 0) {
         const sabotagedWeapon = randomItem(opponent.weapons);
         opponent.sabotagedWeapon = sabotagedWeapon;
@@ -284,9 +284,9 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
     supers = supers.filter((skill) => skill.name !== SkillName.tamer);
   }
 
-  // Filter out thief if opponents have no weapons in hand
-  if (getOpponents({ fightData, fighter, bruteOnly: true })
-    .filter((f) => f.activeWeapon).length === 0) {
+  // Filter out thief if non trapped opponents have no weapons in hand
+  if (getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+    .filter((f) => !f.trapped && f.activeWeapon).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.thief);
   }
 
@@ -302,8 +302,18 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
       && skill.name !== SkillName.hypnosis);
   }
 
+  // Filter out bomb if fighter has hypnosis
+  if (supers.some((s) => s.name === SkillName.hypnosis)) {
+    supers = supers.filter((skill) => skill.name !== SkillName.bomb);
+  }
+
+  // Filter out cryOfTheDamned if fighter has hypnosis and is not stunned
+  if (supers.some((s) => s.name === SkillName.hypnosis) && !fighter.stunned) {
+    supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned);
+  }
+
   // Filter out flashFlood if less than 3 weapons
-  if (fighter.weapons.length < 3) {
+  if (fighter.weapons.length + (fighter.activeWeapon ? 1 : 0) < 3) {
     supers = supers.filter((skill) => skill.name !== SkillName.flashFlood);
   }
 
@@ -314,7 +324,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   // Filter out vampirism if more than 50% hp or no brute opponent
   if (fighter.hp > fighter.maxHp / 2
-    || getOpponents({ fightData, fighter, bruteOnly: true }).length === 0) {
+    || getOpponents({ fightData, fighter, bruteAndBossOnly: true }).length === 0) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
@@ -379,7 +389,7 @@ const healFighter = (
   updateStats(stats, fighter.id, 'hpHealed', amount);
 };
 
-const increaseInitiative = (fighter: DetailedFighter) => {
+const increaseInitiative = (fighter: DetailedFighter, multiplicator: number = 1) => {
   const random = randomBetween(0, 10);
   let tempo = getFighterStat(fighter, 'tempo')
     * fighter.tempo
@@ -397,7 +407,7 @@ const increaseInitiative = (fighter: DetailedFighter) => {
     tempo *= 1 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0);
   }
 
-  fighter.initiative += tempo;
+  fighter.initiative += tempo * multiplicator;
 };
 
 export const fighterArrives = (
@@ -596,8 +606,10 @@ const registerHit = (
         fighter.hitBy[opponent.index] = 0;
       }
 
-      // Remove stun if hit while stunned
-      if (!previousTrappedOpponents.some((o) => o.id === opponent.id) && opponent.stunned) {
+      // Remove stun if normal hit while stunned
+      if (opponent.stunned
+        && stepType === StepType.Hit
+        && !previousTrappedOpponents.some((o) => o.id === opponent.id)) {
         opponent.stunned = false;
       }
 
@@ -655,17 +667,26 @@ const registerHit = (
   updateStats(stats, fighter.id, 'hits', 1, fighter.master);
 };
 
-const dropShield = (fightData: DetailedFight, fighter: DetailedFighter) => {
+const dropShield = ({
+  fightData,
+  fighter,
+  addStep = true,
+}: {
+  fightData: DetailedFight;
+  fighter: DetailedFighter;
+  addStep?: boolean;
+}) => {
   // Remove brute's shield
   fighter.shield = false;
   fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
   fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
 
-  // Add dropShield step
-  fightData.steps.push({
-    a: StepType.DropShield,
-    b: fighter.index,
-  });
+  if (addStep) {
+    fightData.steps.push({
+      a: StepType.DropShield,
+      b: fighter.index,
+    });
+  }
 };
 
 const activateSuper = (
@@ -678,12 +699,15 @@ const activateSuper = (
   // No uses left (should never happen)
   if (!skill.uses) return false;
 
+  // Can't use super while hypnotized
+  if (fighter.hypnotized) return false;
+
   switch (skill.name) {
     // Steal opponent's weapon if he has one
     case SkillName.thief: {
       // Choose brute opponent
-      const opponents = getOpponents({ fightData, fighter, bruteOnly: true })
-        .filter((f) => f.activeWeapon);
+      const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+        .filter((f) => !f.trapped && f.activeWeapon);
 
       if (!opponents.length) {
         return false;
@@ -787,12 +811,17 @@ const activateSuper = (
         fightData, fighter, petOnly: true, nonTrappedOnly: true,
       });
 
-      if (!opponent) {
-        // Choose brute opponent if no pet
-        opponent = getRandomOpponent({
-          fightData, fighter, bruteOnly: true, nonTrappedOnly: true,
-        });
+      // Does fighter has anti-pet skills
+      const fighterHasAntiPet = fighter.skills.some((s) => s.name === SkillName.hypnosis
+          || s.name === SkillName.cryOfTheDamned
+          || s.name === SkillName.bomb);
 
+      // Chose brute opponent
+      if (!opponent || fighterHasAntiPet) {
+        opponent = getRandomOpponent({
+          fightData, fighter, bruteAndBossOnly: true, nonTrappedOnly: true,
+        });
+        // Can happen in edge multiBrute and pet fights
         if (!opponent) {
           return false;
         }
@@ -850,11 +879,11 @@ const activateSuper = (
 
       // Drop shield
       if (fighter.shield) {
-        dropShield(fightData, fighter);
+        dropShield({ fightData, fighter });
       }
 
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
       if (!opponent) {
         return false;
@@ -883,9 +912,9 @@ const activateSuper = (
 
       registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
 
-      // Add dropShield step
+      // Disarm opponent's shield
       if (opponent.shield) {
-        dropShield(fightData, opponent);
+        dropShield({ fightData, fighter: opponent });
 
         // Update disarm stat
         updateStats(stats, fighter.id, 'disarms', 1);
@@ -932,11 +961,10 @@ const activateSuper = (
       const opponentPets = getOpponents({ fightData, fighter, petOnly: true })
         .filter((f) => !f.trapped);
 
-      // Abort if no pet
-      if (opponentPets.length === 0) return false;
-
       // Keep track of fear steps
       const fearSteps: LeaveStep[] = [];
+      // Keep track of unafraid pets indexes
+      const unafraidPetIndexes = [];
 
       for (const pet of opponentPets) {
         // 50% chance to fear the pet
@@ -945,25 +973,39 @@ const activateSuper = (
             a: StepType.Leave,
             f: pet.index,
           });
-
           // Remove pet from fight
           fightData.fighters = fightData.fighters
             .filter((f) => f.index !== pet.index);
+        } else {
+          // Set remaining pets to play just after
+          pet.initiative = fighter.initiative - 0.01;
+          unafraidPetIndexes.push(pet.index);
         }
       }
 
-      // Abort if no pet feared
-      if (fearSteps.length === 0) return false;
-
-      // Add skill activation step
-      fightData.steps.push({
-        a: StepType.SkillActivate,
-        b: fighter.index,
-        s: SkillByName[skill.name],
-      });
+      // Increase opponents initiative
+      getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+        .forEach((opponent) => {
+          opponent.initiative += 0.15;
+        });
 
       // Add fear steps
       fightData.steps = fightData.steps.concat(fearSteps);
+
+      // Prepare skill activation step
+      const cryStep: SkillActivateStep = {
+        a: StepType.SkillActivate,
+        b: fighter.index,
+        s: SkillByName[skill.name],
+      };
+
+      // Add unafraid pets
+      if (unafraidPetIndexes.length) {
+        cryStep.p = unafraidPetIndexes;
+      }
+
+      // Add skill activation step
+      fightData.steps.push(cryStep);
 
       break;
     }
@@ -981,15 +1023,21 @@ const activateSuper = (
         // Change pet owner
         pet.master = fighter.id;
         pet.team = fighter.team;
+        // Set pet initiative to fighter initiative (to act right after)
+        pet.initiative = fighter.initiative - 0.01;
       }
 
-      // Abort if no pet hypnotised
-      if (hypnotisedPets.length === 0) return false;
+      // Hypnotize opponent's brutes and bosses
+      const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true });
+      opponents.forEach((opponent) => {
+        opponent.hypnotized = true;
+      });
 
       // Add hypnotise step
       fightData.steps.push({
         a: StepType.Hypnotise,
         b: fighter.index,
+        t: opponents.map((opponent) => opponent.index),
         p: hypnotisedPets,
       });
 
@@ -997,15 +1045,18 @@ const activateSuper = (
     }
     case SkillName.flashFlood: {
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
       if (!opponent) {
         return false;
       }
 
-      // Drop shield
-      if (fighter.shield) {
-        dropShield(fightData, fighter);
+      let throwShield = false;
+      // Check if this is the last flashFlood cast, either by lack of uses or weapons
+      if (fighter.shield && (skill.uses === 1 || fighter.weapons.length < 6)) {
+        // Then throw shield
+        throwShield = true;
+        dropShield({ fightData, fighter, addStep: false });
       }
 
       // Shuffle weapons
@@ -1040,6 +1091,19 @@ const activateSuper = (
 
         registerHit(fightData, stats, achievements, fighter, [opponent], damage, true, 'flashFlood', w);
       });
+
+      if (throwShield) {
+        // Stun brute opponent
+        if (opponent.type === 'brute') opponent.stunned = true;
+        // Add throw shield step
+        fightData.steps.push({
+          a: StepType.FlashFlood,
+          f: fighter.index,
+          t: opponent.index,
+          d: 0,
+          s: 1,
+        });
+      }
 
       // Add skill expire step
       fightData.steps.push({
@@ -1123,7 +1187,7 @@ const activateSuper = (
     }
     case SkillName.vampirism: {
       // Choose opponent
-      const opponent = getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
       if (!opponent) {
         return false;
@@ -1245,6 +1309,9 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
 
   // No counter attack if opponent is stunned
   if (opponent.stunned) return false;
+
+  // No counter attack if opponent is hypnotized
+  if (opponent.hypnotized) return false;
 
   const random = Math.random();
 
@@ -1382,6 +1449,9 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
   // No evasion if opponent is stunned
   if (opponent.stunned) return false;
 
+  // Automatically evade if fighter is hypnotized
+  if (fighter.hypnotized) return true;
+
   // Automatically evade if `balletShoes`
   if (opponent.balletShoes) {
     // Disable ballet shoes
@@ -1479,7 +1549,19 @@ const attack = (
   isCounter = false,
 ) => {
   // Abort if fighter is dead
-  if (fighter.hp <= 0) return { blocked: false };
+  if (fighter.hp <= 0) return { blocked: false, lostReach: 0 };
+
+  // Remove hypnotized from opponent
+  if (opponent.hypnotized) {
+    opponent.hypnotized = false;
+
+    // Add hypnosis expire step
+    fightData.steps.push({
+      a: StepType.SkillExpire,
+      b: opponent.index,
+      s: SkillByName[SkillName.hypnosis],
+    });
+  }
 
   // Get damage
   let damage = getDamage(fighter, opponent);
@@ -1519,7 +1601,7 @@ const attack = (
       updateStats(stats, fighter.id, 'disarms', 1);
 
       // Remove shield from opponent
-      dropShield(fightData, opponent);
+      dropShield({ fightData, fighter: opponent });
     }
 
     // Check if opponent blocked
@@ -1592,6 +1674,7 @@ const attack = (
     }
   }
 
+  let lostReach = 0;
   // Check if the fighter gets disarmed
   if (damage && disarmAttacker(fighter, opponent)) {
     if (fighter.activeWeapon) {
@@ -1603,6 +1686,9 @@ const attack = (
         w: WeaponByName[fighter.activeWeapon.name],
       });
 
+      // Store the lost reach
+      lostReach = fighter.activeWeapon.reach;
+
       // Remove weapon from fighter
       fighter.activeWeapon = null;
 
@@ -1612,7 +1698,11 @@ const attack = (
   }
 
   // Randomly trigger another attack if the fighter has `determination`
-  if (!isCounter && !damage && fighter.determination && Math.random() < 0.7) {
+  if (!isCounter
+    && !damage
+    && fighter.determination
+    && !fighter.hypnotized
+    && Math.random() < 0.7) {
     fighter.retryAttack = true;
   }
 
@@ -1621,6 +1711,7 @@ const attack = (
   return {
     blocked: !evaded && blocked,
     reversed: !evaded && reversed,
+    lostReach,
   };
 };
 
@@ -1638,7 +1729,7 @@ export const checkDeaths = (
         f: fighter.index,
       });
 
-      // Update pet kills stat
+      // If fighter is pet, update pet kills stat
       if (fighter.type === 'pet') {
         const { master } = fighter;
 
@@ -1646,15 +1737,13 @@ export const checkDeaths = (
           throw new Error('Pet without master');
         }
 
-        const opponents = getOpponents({ fightData, fighter, bruteOnly: true });
+        const opponents = getOpponents({ fightData, fighter, bruteAndBossOnly: true });
 
         opponents.forEach((opponent) => {
           updateStats(stats, opponent.id, 'petsKilled', 1);
         });
-      }
-
-      // Set loser if team has no brutes or bosses alive
-      if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
+      // Else, set loser to fighter if team has no brutes or bosses alive
+      } else if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
         && !f.master
         && f.hp > 0).length === 0) {
         fightData.loser = fighter.id;
@@ -1680,17 +1769,20 @@ const startAttack = (
   const attackResult = {
     blocked: false,
     reversed: false,
+    lostReach: 0,
   };
 
   // Trigger fighter attack
   const {
     blocked,
     reversed,
+    lostReach,
   } = attack(fightData, fighter, opponent, stats, achievements, isCounter);
 
   // Keep track of attack status
   if (blocked) attackResult.blocked = true;
   if (reversed) attackResult.reversed = true;
+  attackResult.lostReach = lostReach;
 
   // Keep track of attacks
   let attacksCount = 1;
@@ -1710,6 +1802,18 @@ const startAttack = (
         break;
       }
 
+      // If fighter has less reach than when combo started, move them closer
+      // Do this only if more than 1 reach has been lost as it would elsewise look gimmical
+      if (attackResult.lostReach > 1) {
+        // Add move melee reposition step
+        fightData.steps.push({
+          a: StepType.Move,
+          f: fighter.index,
+          t: opponent.index,
+          r: 1,
+        });
+      }
+
       // Decrease combo chances
       combo *= 0.5;
 
@@ -1717,12 +1821,14 @@ const startAttack = (
       const {
         blocked: comboBlocked,
         reversed: comboReversed,
+        lostReach: comboLostReach,
       } = attack(fightData, fighter, opponent, stats, achievements);
       attacksCount++;
 
       // Keep track of attack status
       if (comboBlocked) attackResult.blocked = true;
       if (comboReversed) attackResult.reversed = true;
+      attackResult.lostReach = comboLostReach;
 
       // Opponent cannot be trapped starting from the second attack
       opponentWasTrapped = false;
@@ -1740,7 +1846,7 @@ const startAttack = (
       const opponentReach = opponent.activeWeapon?.reach ?? 0;
       const fighterReach = fighter.activeWeapon?.reach ?? 0;
       if (opponentReach < fighterReach) {
-        // Add move step
+        // Add move melee reposition step
         fightData.steps.push({
           a: StepType.Move,
           f: opponent.index,
@@ -1850,10 +1956,24 @@ export const playFighterTurn = (
     return;
   }
 
+  // Opponnent uses hypnosis if low hp
+  if (opponent.hp < opponent.maxHp * 0.15
+    && !opponent.stunned
+    && !opponent.trapped
+    && !fighter.hypnotized) {
+    const opponentHypnosis = opponent.skills.find((skill) => skill.name === SkillName.hypnosis);
+    if (opponentHypnosis) {
+      // Activate hypnosis
+      if (activateSuper(fightData, opponent, opponentHypnosis, stats, achievements)) {
+        // Cancel turn if fighter is pet as it has a new master
+        if (fighter.type === 'pet') return;
+      }
+    }
+  }
+
   // Melee attack
   if (attackType === 'melee') {
-    const countered = !opponent.trapped && counterAttack(fighter, opponent);
-
+    const countered = counterAttack(fighter, opponent);
     // Add move step
     fightData.steps.push({
       a: StepType.Move,
@@ -1862,7 +1982,7 @@ export const playFighterTurn = (
       c: countered ? 1 : 0,
     });
 
-    // Check if opponent is not trapped and countered
+    // Check if opponent countered
     if (countered) {
       // Update counter stat
       updateStats(stats, opponent.id, 'counters', 1);
@@ -1883,12 +2003,39 @@ export const playFighterTurn = (
       // Reset counter stat
       updateStats(stats, opponent.id, 'consecutiveCounters', 0);
 
+      if (opponent.stunned && !opponent.trapped) {
+        // Check if opponent can use cryOfTheDamned
+        const opponentCry = opponent.skills.find(
+          (skill) => skill.name === SkillName.cryOfTheDamned,
+        );
+        if (opponentCry && randomBetween(0, 1) === 0) {
+          // Activate cryOfTheDamned
+          if (activateSuper(fightData, opponent, opponentCry, stats, achievements)) {
+            // If successfull, opponent wakes up
+            opponent.stunned = false;
+
+            // Check if fighter didn't leave
+            if (fightData.fighters.includes(fighter)) {
+              // Fighter moves back
+              fightData.steps.push({
+                a: StepType.MoveBack,
+                f: fighter.index,
+              });
+            }
+            // Fighter only loses half a turn of initiative
+            increaseInitiative(fighter, 0.5);
+            // Cancel turn
+            return;
+          }
+        }
+      }
+
       // Fighter attacks opponent
       startAttack(fightData, stats, achievements, fighter, opponent);
     }
 
-    // Check if fighter is not dead
-    if (fighter.hp > 0) {
+    // Check if fighter is not dead or stunned
+    if (fighter.hp > 0 && !fighter.stunned) {
       // Add moveBack step
       fightData.steps.push({
         a: StepType.MoveBack,
@@ -1928,6 +2075,18 @@ export const playFighterTurn = (
       let timesDeflected = 0;
 
       while (deflected === null || deflected) {
+        // Remove hypnotized from opponent
+        if (currentOpponent.hypnotized) {
+          currentOpponent.hypnotized = false;
+
+          // Add hypnosis expire step
+          fightData.steps.push({
+            a: StepType.SkillExpire,
+            b: currentOpponent.index,
+            s: SkillByName[SkillName.hypnosis],
+          });
+        }
+
         // Add throw step
         fightData.steps.push({
           a: StepType.Throw,
@@ -2053,9 +2212,9 @@ export const playFighterTurn = (
     const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
     // Get poisoner
-    const poisoner = getOpponents({ fightData, fighter, bruteOnly: true })
+    const poisoner = getOpponents({ fightData, fighter, bruteAndBossOnly: true })
       .find((f) => f.skills.find((s) => s.name === SkillName.chef))
-      || getRandomOpponent({ fightData, fighter, bruteOnly: true });
+      || getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
 
     if (poisoner) {
       // Register the hit
