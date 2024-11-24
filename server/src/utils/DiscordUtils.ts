@@ -318,7 +318,7 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
 
     // Fetch the known issues message
     try {
-      const message = await this.#knownIssuesClient.fetchMessage('000000000');
+      const message = await this.#knownIssuesClient.fetchMessage('1310056621774471241');
 
       // Update existing message
       await this.#knownIssuesClient.editMessage(message.id, { embeds: [embed] });
