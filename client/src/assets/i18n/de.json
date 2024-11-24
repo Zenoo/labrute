@@ -315,7 +315,7 @@
   "cryOfTheDamned.effect": "Aktion (x{{uses}}): Dein Brutalo verjagt gegnerische Wildtiere oder überwindet einen Betäubungszustand (50% Chance)",
   "hypnosis": "Hypnose",
   "hypnosis.desc": "Im Zähmen von Wildtieren oder gar ihrer Meister macht dir so schnell keiner was vor. Die Banausen gehorchen dir auf's Wort.",
-  "hypnosis.effect": "Aktion (x{{uses}}): Dein Brutalo übernimmt die Kontrolle über die Wildtiere seiner Gegner oder überzeugt ihn, die eigenen zu verschonen",
+  "hypnosis.effect": "Aktion (x{{uses}}): Dein Brutalo übernimmt die Kontrolle über die Wildtiere seines Gegners oder überzeugt ihn, sich zu verschonen",
   "flashFlood": "Sintflut",
   "flashFlood.desc": "100 Kilo Waffen mit sich herumzuschleppen ist auf Dauer etwas mühsam... aber dazu hast du dir was Geniales einfallen lassen.",
   "flashFlood.effect": "Aktion (x{{uses}}): Dein Brutalo fügt seinem Gegner sofort massiven Schaden mit 3 geworfenen Waffen zu",
