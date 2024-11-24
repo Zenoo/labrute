@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.78.1](https://github.com/Zenoo/labrute/compare/labrute-v2.78.0...labrute-v2.78.1) (2024-11-24)
+
+
+### Bug Fixes
+
+* Disable fight deletion ([e1a7524](https://github.com/Zenoo/labrute/commit/e1a75240d3fc183ff630f527f901a75ccaa9c377))
+* known issues message ID ([14cc8b8](https://github.com/Zenoo/labrute/commit/14cc8b814749c8061adb5f7be2d148d6214d82eb))
+
 ## [2.78.0](https://github.com/Zenoo/labrute/compare/labrute-v2.77.0...labrute-v2.78.0) (2024-11-23)
 
 
