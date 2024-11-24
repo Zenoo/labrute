@@ -1146,11 +1146,12 @@ const cleanup = async (prisma: PrismaClient) => {
 
     deleted = await prisma.$executeRaw`
         DELETE FROM "Fight"
-        WHERE "date" < ${moment.utc().subtract(30, 'day').toDate()}
-        AND "tournamentId" IS NULL
-        AND "clanWarId" IS NULL
-        AND "favoriteCount" = 0
-        LIMIT 100000;
+        WHERE id IN (SELECT id FROM "Fight"
+          WHERE "date" < ${moment.utc().subtract(30, 'day').toDate()}
+          AND "tournamentId" IS NULL
+          AND "clanWarId" IS NULL
+          AND "favoriteCount" = 0
+          LIMIT 100000);
       `;
 
     if (deleted) {
