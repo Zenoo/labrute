@@ -1045,7 +1045,7 @@ const Brutes = {
         throw new Error('Missing name');
       }
 
-      // Get the brute ranking
+      // Get the brute
       const brute = await prisma.brute.findFirst({
         where: { name: ilike(name), deletedAt: null },
         select: {
@@ -1055,6 +1055,7 @@ const Brutes = {
           xp: true,
           userId: true,
           ascensions: true,
+          eventId: true,
         },
       });
 
@@ -1072,10 +1073,17 @@ const Brutes = {
 
       const rank = brute.ranking;
 
+      const rankOrEvent = brute.eventId
+        ? { eventId: { not: null } }
+        : rank === BruteRankings[0]
+          // Hide event brutes from the first rank
+          ? { eventId: null, ranking: rank }
+          : { ranking: rank };
+
       // Find the brute position
       const position = await prisma.brute.count({
         where: {
-          ranking: rank,
+          ...rankOrEvent,
           deletedAt: null,
           id: { not: brute.id },
           userId: { not: null },

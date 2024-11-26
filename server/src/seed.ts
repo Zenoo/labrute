@@ -27,6 +27,7 @@ const generateBrute = (
 
   // Level 1 stats
   let data = {
+    id: undefined,
     name,
     gender,
     body: getRandomBody(gender),
@@ -56,6 +57,7 @@ const generateBrute = (
         { ...data, id: '', eventId: null },
         levelUpChoice,
       ),
+      id: undefined,
     };
   }
 
