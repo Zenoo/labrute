@@ -27,12 +27,13 @@ const generateBrute = (
 
   // Level 1 stats
   let data = {
+    id: undefined,
     name,
     gender,
     body: getRandomBody(gender),
     colors: getRandomColors(gender),
     victories: 0,
-    loses: 0,
+    losses: 0,
     pupilsCount: 0,
     lastFight: moment.utc().toDate() as Date | null,
     fightsLeft: FIGHTS_PER_DAY,
@@ -56,6 +57,7 @@ const generateBrute = (
         { ...data, id: '', eventId: null },
         levelUpChoice,
       ),
+      id: undefined,
     };
   }
 
