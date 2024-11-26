@@ -148,7 +148,7 @@ const generateFight = async ({
     team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,
     clanFight: clanWar,
-    mapEffect: (background as FightBackground).effect,
+    mapEffect: background.effect,
   });
 
   const fightData: DetailedFight = {

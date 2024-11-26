@@ -100,9 +100,7 @@ const handleMapModifiers = (
 ) => { 
   switch(effect){
     case MapEffect.HalfSpeed:
-      Math.round(brute.speedValue *= 0.5);
-    case MapEffect.OneHp:
-      brute.hp = 1;
+      brute.speedValue = Math.round(brute.speedValue *= 0.5);
     default:
       break;
   }

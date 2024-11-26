@@ -1,6 +1,5 @@
 export enum MapEffect {
 	HalfSpeed,
-  OneHp,
 }
 
 export type FightBackground = {
@@ -31,6 +30,6 @@ export const fightBackgrounds: FightBackground[] = [
   { name: '9.png', odds: 2},
   { name: '10.png', odds: 1, effect: MapEffect.HalfSpeed},
   { name: '11.png', odds: 2},
-  { name: '12.png', odds: 1, effect: MapEffect.OneHp},
+  { name: '12.png', odds: 1},
   { name: '13.png', odds: 2},
 ];
