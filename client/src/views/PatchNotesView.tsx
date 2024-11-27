@@ -1,12 +1,12 @@
 import { LAST_RELEASE, releases } from '@labrute/core';
 import { Circle } from '@mui/icons-material';
 import { ImageList, ImageListItem, List, ListItem, ListItemIcon, ListItemText, Paper } from '@mui/material';
-import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
+import dayjs from '../utils/dayjs';
 
 const PatchNotesView = () => {
   const { t } = useTranslation();

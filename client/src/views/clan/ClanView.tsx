@@ -17,8 +17,8 @@ import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import dayjs from 'dayjs';
 import { ActivityStatus } from '../../components/ActivityStatus';
+import dayjs from '../../utils/dayjs';
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
