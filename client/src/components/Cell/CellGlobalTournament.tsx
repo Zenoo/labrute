@@ -1,8 +1,7 @@
 import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../../utils/dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
@@ -15,8 +14,6 @@ import { Gender } from '@labrute/prisma';
 import catchError from '../../utils/catchError';
 import { useAlert } from '../../hooks/useAlert';
 import { useNavigate } from 'react-router';
-
-dayjs.extend(utc);
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,

@@ -1,8 +1,6 @@
 import { UserBannedListResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { IconButton, List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Page from '../components/Page';
@@ -12,8 +10,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 export const BannedUsersView = () => {
   const { t } = useTranslation();

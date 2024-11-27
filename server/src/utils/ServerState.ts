@@ -1,13 +1,8 @@
 import {
   Event, EventStatus, FightModifier, PrismaClient,
 } from '@labrute/prisma';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
+import dayjs from './dayjs.js';
 import { LOGGER } from '../context.js';
-
-dayjs.extend(utc);
-dayjs.extend(isSameOrBefore);
 
 let SERVER_READY = true;
 let MODIFIERS: FightModifier[] | null = null;

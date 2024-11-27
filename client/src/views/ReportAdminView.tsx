@@ -10,12 +10,9 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import FantasyButton from '../components/FantasyButton';
 import Link from '../components/Link';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();

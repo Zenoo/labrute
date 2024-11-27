@@ -8,14 +8,12 @@ import {
   updateBruteData,
 } from '@labrute/core';
 import { Gender, Prisma } from '@labrute/prisma';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import { GLOBAL, ServerContext } from './context.js';
+import dayjs from './utils/dayjs.js';
 
-dayjs.extend(utc);
 const generateBrute = (
   level: number,
   name: string,

@@ -1,14 +1,12 @@
 import { InventoryItemType, Log, LogType } from '@labrute/prisma';
 import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../../utils/dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Link from '../Link';
 import { LogImage } from '../LogImage';
 import Text from '../Text';
 
-dayjs.extend(utc);
 export interface CellLogProps extends PaperProps {
   log: Log & {
     currentBrute: { name: string };

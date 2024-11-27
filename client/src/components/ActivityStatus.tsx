@@ -1,12 +1,9 @@
 import { User } from '@labrute/prisma';
 import { Circle } from '@mui/icons-material';
 import { SvgIconOwnProps, Tooltip } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../utils/dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-dayjs.extend(utc);
 
 type Props = SvgIconOwnProps & {
   user: Pick<User, 'lastSeen'>;

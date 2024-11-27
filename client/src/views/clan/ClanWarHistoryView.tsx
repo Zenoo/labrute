@@ -9,12 +9,10 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import Loader from '../../components/Loader';
 import { ClanWarType } from '@labrute/prisma';
+import dayjs from '../../utils/dayjs';
 
-dayjs.extend(utc);
 export const ClanWarHistoryView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();

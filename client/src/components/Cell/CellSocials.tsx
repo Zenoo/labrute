@@ -9,15 +9,10 @@ import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../../utils/dayjs';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ActivityStatus } from '../ActivityStatus';
-
-dayjs.extend(relativeTime);
-dayjs.extend(utc);
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;

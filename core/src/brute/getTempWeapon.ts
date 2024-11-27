@@ -1,11 +1,9 @@
 import { Brute, FightModifier } from '@labrute/prisma';
 import weapons from './weapons';
 import Rand from 'rand-seed';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../utils/dayjs';
 import randomBetween from '../utils/randomBetween';
 
-dayjs.extend(utc);
 export const getTempWeapon = (
   brute: Pick<Brute, 'id' | 'weapons'>,
   modifiers: FightModifier[],

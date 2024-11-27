@@ -2,8 +2,6 @@ import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuratio
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
 import { Close, History } from '@mui/icons-material';
 import { Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -19,8 +17,7 @@ import { useBrute } from '../../hooks/useBrute';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import Link from '../../components/Link';
-
-dayjs.extend(utc);
+import dayjs from '../../utils/dayjs';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,

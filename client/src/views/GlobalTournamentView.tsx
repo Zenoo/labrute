@@ -1,14 +1,11 @@
 import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import CellGlobalTournament from '../components/Cell/CellGlobalTournament';
 import Page from '../components/Page';
 import Text from '../components/Text';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 const GlobalTournamentView = () => {
   const { t } = useTranslation();

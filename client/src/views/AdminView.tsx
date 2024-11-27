@@ -2,8 +2,6 @@ import { AdminPanelBrute } from '@labrute/core';
 import { DestinyChoiceSide, FightModifier, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, Divider, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Alert as MuiAlert, Paper, Select, Stack, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteRender from '../components/Brute/Body/BruteRender';
@@ -14,8 +12,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 const AdminView = () => {
   const { t } = useTranslation();

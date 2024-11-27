@@ -1,12 +1,9 @@
 import { UserWithBrutesBodyColor } from '@labrute/core';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
 import { Event, FightModifier } from '@labrute/prisma';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,

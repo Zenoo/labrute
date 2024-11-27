@@ -1,8 +1,6 @@
 import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -17,8 +15,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
 import BruteRender from '../components/Brute/Body/BruteRender';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5

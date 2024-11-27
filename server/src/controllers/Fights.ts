@@ -10,8 +10,6 @@ import {
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import getOpponents from '../utils/brute/getOpponents.js';
@@ -20,8 +18,8 @@ import { ilike } from '../utils/ilike.js';
 import sendError from '../utils/sendError.js';
 import ServerState from '../utils/ServerState.js';
 import translate from '../utils/translate.js';
+import dayjs from '../utils/dayjs.js';
 
-dayjs.extend(utc);
 const Fights = {
   get: (prisma: PrismaClient) => async (
     req: Request,

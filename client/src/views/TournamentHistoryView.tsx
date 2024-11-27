@@ -1,7 +1,5 @@
 import { TournamentType } from '@labrute/prisma';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -11,8 +9,7 @@ import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import Loader from '../components/Loader';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 const TournamentHistoryView = () => {
   const { t } = useTranslation();

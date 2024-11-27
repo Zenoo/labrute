@@ -9,13 +9,10 @@ import Server from '../../utils/Server';
 import { ErrorType } from '../../utils/Fetch';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import Loader from '../../components/Loader';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
-
-dayjs.extend(utc);
+import dayjs from '../../utils/dayjs';
 
 export const EventHistoryView = () => {
   const { t } = useTranslation();

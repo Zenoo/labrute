@@ -1,7 +1,5 @@
 import { pad } from '@labrute/core';
 import { Box, BoxProps, Link, Paper, Tooltip, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -9,8 +7,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import Text from './Text';
 import { useAuth } from '../hooks/useAuth';
 import Marquee from 'react-fast-marquee';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 export interface HeaderProps extends BoxProps {
   url?: string;

@@ -1,7 +1,5 @@
 import { ClanGetThreadsResponse } from '@labrute/core';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -11,8 +9,8 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import dayjs from '../../utils/dayjs';
 
-dayjs.extend(utc);
 const ClanForumView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();

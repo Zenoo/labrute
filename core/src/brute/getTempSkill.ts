@@ -1,11 +1,8 @@
 import { Brute, FightModifier, SkillName } from '@labrute/prisma';
 import { skills } from './skills';
 import Rand from 'rand-seed';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../utils/dayjs';
 import randomBetween from '../utils/randomBetween';
-
-dayjs.extend(utc);
 
 const unavailableTemporarySkills: SkillName[] = [SkillName.backup];
 

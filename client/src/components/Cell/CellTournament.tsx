@@ -1,7 +1,5 @@
 import { Lang } from '@labrute/prisma';
 import { Box, Paper, PaperProps } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
@@ -12,8 +10,8 @@ import catchError from '../../utils/catchError';
 import FantasyButton from '../FantasyButton';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
+import dayjs from '../../utils/dayjs';
 
-dayjs.extend(utc);
 export interface CellTournamentProps extends PaperProps {
   language: Lang;
 }

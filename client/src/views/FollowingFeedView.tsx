@@ -1,8 +1,6 @@
 import { LogGetForUserFeedResponse, skills, weapons } from '@labrute/core';
 import { LogType } from '@labrute/prisma';
 import { Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import SkillTooltip from '../components/Brute/SkillTooltip';
@@ -17,8 +15,7 @@ import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import Link from '../components/Link';
 import BruteRender from '../components/Brute/Body/BruteRender';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs';
 
 export const FollowingFeedView = () => {
   const { t } = useTranslation();

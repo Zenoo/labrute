@@ -1,9 +1,7 @@
 import { Brute, FightModifier } from '@labrute/prisma';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import dayjs from '../utils/dayjs';
 import getMaxFightsPerDay from './getMaxFightsPerDay';
 
-dayjs.extend(utc);
 const getFightsLeft = (
   brute: Pick<Brute, 'id' | 'lastFight' | 'fightsLeft' | 'skills' | 'eventId'>,
   modifiers: FightModifier[],

@@ -9,15 +9,12 @@ import {
   TournamentType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { ilike } from '../utils/ilike.js';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs.js';
 
 const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (

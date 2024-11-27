@@ -1,12 +1,10 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import translate from './translate.js';
 import ServerState from './ServerState.js';
+import dayjs from './dayjs.js';
 
-dayjs.extend(utc);
 const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
 

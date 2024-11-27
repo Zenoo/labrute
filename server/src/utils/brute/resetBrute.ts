@@ -18,15 +18,12 @@ import {
   User,
   WeaponName,
 } from '@labrute/prisma';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import ServerState from '../ServerState.js';
 import translate from '../translate.js';
 import checkLevelUpAchievements from './checkLevelUpAchievements.js';
 import getOpponents from './getOpponents.js';
 import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
-
-dayjs.extend(utc);
+import dayjs from '../dayjs.js';
 
 type Props = {
   prisma: PrismaClient,

@@ -7,15 +7,13 @@ import {
   BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { ilike } from '../utils/ilike.js';
+import dayjs from '../utils/dayjs.js';
 
-dayjs.extend(utc);
 const BruteReports = {
   list: (prisma: PrismaClient) => async (
     req: Request<BruteReportsListRequest>,

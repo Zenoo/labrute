@@ -2,8 +2,6 @@ import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
@@ -13,8 +11,7 @@ import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../compo
 import Text from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 import BruteRender from '../../components/Brute/Body/BruteRender';
-
-dayjs.extend(utc);
+import dayjs from '../../utils/dayjs';
 
 const rounds: [number, number][] = [
   [-1, 32],

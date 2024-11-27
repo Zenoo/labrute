@@ -18,10 +18,7 @@ import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
 import FantasyButton from '../../components/FantasyButton';
 import { History } from '@mui/icons-material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
-dayjs.extend(utc);
+import dayjs from '../../utils/dayjs';
 
 export interface CellMobileViewProps {
   ad: AdResult;

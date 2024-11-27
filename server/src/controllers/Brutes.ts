@@ -35,8 +35,6 @@ import {
   WeaponName,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import checkBody from '../utils/brute/checkBody.js';
@@ -50,8 +48,7 @@ import sendError from '../utils/sendError.js';
 import ServerState from '../utils/ServerState.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
-
-dayjs.extend(utc);
+import dayjs from '../utils/dayjs.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (

@@ -1,8 +1,6 @@
 import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -23,8 +21,8 @@ import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
 import { Lock, LockOpen } from '@mui/icons-material';
+import dayjs from '../utils/dayjs';
 
-dayjs.extend(utc);
 /**
  * HomeView component
  */
