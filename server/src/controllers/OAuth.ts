@@ -2,7 +2,7 @@ import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { EternaltwinNodeClient } from '@eternaltwin/client-node';
 import { ErrorCode } from '@eternaltwin/client-node/error';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
-import { InventoryItemType, PrismaClient } from '@labrute/prisma';
+import { InventoryItemType, Prisma, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { ExpectedError, UserWithBrutesBodyColor } from '@labrute/core';
 import urlJoin from 'url-join';
@@ -75,41 +75,80 @@ export default class OAuth {
 
       // Update or store user
       const { user: etwinUser } = self;
+      let user: UserWithBrutesBodyColor | null = null;
 
-      const user = await this.#prisma.user.upsert({
-        where: { id: etwinUser.id },
-        update: {
-          connexionToken: token.accessToken,
-          name: etwinUser.displayName.current.value,
-        },
-        create: {
-          id: etwinUser.id,
-          connexionToken: token.accessToken,
-          name: etwinUser.displayName.current.value,
-          // 5 free favorite fights
-          inventory: {
-            create: {
-              type: InventoryItemType.favoriteFight,
-              count: 5,
+      try {
+        user = await this.#prisma.user.upsert({
+          where: { id: etwinUser.id },
+          update: {
+            connexionToken: token.accessToken,
+            name: etwinUser.displayName.current.value,
+          },
+          create: {
+            id: etwinUser.id,
+            connexionToken: token.accessToken,
+            name: etwinUser.displayName.current.value,
+            // 5 free favorite fights
+            inventory: {
+              create: {
+                type: InventoryItemType.favoriteFight,
+                count: 5,
+              },
             },
           },
-        },
-        include: {
-          brutes: {
-            where: { deletedAt: null },
-            orderBy: [
-              { favorite: 'desc' },
-              { createdAt: 'asc' },
-            ],
+          include: {
+            brutes: {
+              where: { deletedAt: null },
+              orderBy: [
+                { favorite: 'desc' },
+                { createdAt: 'asc' },
+              ],
+            },
+            following: {
+              select: { id: true },
+            },
+            notifications: {
+              where: { read: false },
+            },
           },
-          following: {
-            select: { id: true },
-          },
-          notifications: {
-            where: { read: false },
-          },
-        },
-      });
+        });
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          switch (error.code) {
+            case 'P2002': {
+              // Upsert race condition, update the user
+              user = await this.#prisma.user.update({
+                where: { id: etwinUser.id },
+                data: {
+                  connexionToken: token.accessToken,
+                  name: etwinUser.displayName.current.value,
+                },
+                include: {
+                  brutes: {
+                    where: { deletedAt: null },
+                    orderBy: [
+                      { favorite: 'desc' },
+                      { createdAt: 'asc' },
+                    ],
+                  },
+                  following: {
+                    select: { id: true },
+                  },
+                  notifications: {
+                    where: { read: false },
+                  },
+                },
+              });
+              break;
+            }
+            default: {
+              throw error;
+            }
+          }
+        } else {
+          throw error;
+        }
+      }
 
       // Check if user is banned
       if (user.bannedAt) {
