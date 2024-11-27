@@ -8,12 +8,14 @@ import {
   updateBruteData,
 } from '@labrute/core';
 import { Gender, Prisma } from '@labrute/prisma';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import { GLOBAL, ServerContext } from './context.js';
 
+dayjs.extend(utc);
 const generateBrute = (
   level: number,
   name: string,
@@ -35,7 +37,7 @@ const generateBrute = (
     victories: 0,
     losses: 0,
     pupilsCount: 0,
-    lastFight: moment.utc().toDate() as Date | null,
+    lastFight: dayjs.utc().toDate() as Date | null,
     fightsLeft: FIGHTS_PER_DAY,
     ...createRandomBruteStats(),
   };
@@ -77,7 +79,7 @@ async function main(cx: ServerContext) {
   // Setting old generated brutes as deleted
   await cx.prisma.brute.updateMany({
     where: { userId: null },
-    data: { deletedAt: moment.utc().toDate() },
+    data: { deletedAt: dayjs.utc().toDate() },
   });
 
   // Generate random names

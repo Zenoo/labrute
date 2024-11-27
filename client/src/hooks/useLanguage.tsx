@@ -1,8 +1,8 @@
-import moment from 'moment';
-import 'moment/locale/de';
-import 'moment/locale/es';
-import 'moment/locale/fr';
-import 'moment/locale/ru';
+import dayjs from 'dayjs';
+import 'dayjs/locale/de';
+import 'dayjs/locale/es';
+import 'dayjs/locale/fr';
+import 'dayjs/locale/ru';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from './useAlert';
@@ -44,8 +44,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     // Update document language
     document.documentElement.lang = language;
 
-    // Update moment language
-    moment.locale(language);
+    // Update dayjs language
+    dayjs.locale(language);
 
     // Update language in localStorage
     localStorage.setItem('language', language);

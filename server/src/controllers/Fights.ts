@@ -10,7 +10,8 @@ import {
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import getOpponents from '../utils/brute/getOpponents.js';
@@ -20,6 +21,7 @@ import sendError from '../utils/sendError.js';
 import ServerState from '../utils/ServerState.js';
 import translate from '../utils/translate.js';
 
+dayjs.extend(utc);
 const Fights = {
   get: (prisma: PrismaClient) => async (
     req: Request,
@@ -63,7 +65,7 @@ const Fights = {
         },
       });
 
-      const now = moment.utc();
+      const now = dayjs.utc();
       const hour = now.hour();
 
       if (tournament && fight.tournamentStep > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {

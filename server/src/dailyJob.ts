@@ -27,7 +27,8 @@ import {
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
 import { DISCORD, LOGGER } from './context.js';
 import { increaseAchievement } from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
@@ -37,6 +38,8 @@ import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
+
+dayjs.extend(utc);
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -84,8 +87,8 @@ const grantBugAchievement = async (prisma: PrismaClient) => {
 };
 
 const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
-  const today = moment.utc().startOf('day');
-  const tomorrow = moment.utc(today).add(1, 'day');
+  const today = dayjs.utc().startOf('day');
+  const tomorrow = dayjs.utc(today).add(1, 'day');
 
   // Check tournaments already created today
   const tournamentsAlreadyCreated = await prisma.tournament.findMany({
@@ -133,8 +136,8 @@ const handleDailyTournaments = async (
   // Keep track of gains (xp, gold)
   const gains: Record<string, [number, number]> = {};
 
-  const today = moment.utc().startOf('day');
-  const tomorrow = moment.utc(today).add(1, 'day');
+  const today = dayjs.utc().startOf('day');
+  const tomorrow = dayjs.utc(today).add(1, 'day');
 
   // Delete misformatted tournaments
   await deleteMisformattedTournaments(prisma);
@@ -480,7 +483,7 @@ const handleGlobalTournament = async (
   // Keep track of gains
   const gains: Record<string, [number, number]> = {};
 
-  const today = moment.utc().startOf('day');
+  const today = dayjs.utc().startOf('day');
 
   // Check if global tournament is already handled
   const globalTournament = await prisma.tournament.count({
@@ -503,7 +506,7 @@ const handleGlobalTournament = async (
       deletedAt: null,
       eventId: null,
       lastFight: {
-        gte: moment.utc().subtract(1, 'day').toDate(),
+        gte: dayjs.utc().subtract(1, 'day').toDate(),
       },
       user: {
         isNot: null,
@@ -721,7 +724,7 @@ const storeGains = async (
     return;
   }
 
-  const now = moment.utc().valueOf();
+  const now = dayjs.utc().valueOf();
 
   // Add gains together
   const gains: Record<string, [number, number]> = {};
@@ -746,8 +749,8 @@ const storeGains = async (
     }
   }
 
-  const today = moment.utc().startOf('day').toDate();
-  const tomorrow = moment.utc().add(1, 'day').startOf('day').toDate();
+  const today = dayjs.utc().startOf('day').toDate();
+  const tomorrow = dayjs.utc().add(1, 'day').startOf('day').toDate();
 
   // Store XP gains
   await prisma.tournamentXp.createMany({
@@ -769,12 +772,12 @@ const storeGains = async (
     })),
   });
 
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to store ${Object.keys(gains).length} xp gains`);
+  LOGGER.log(`${dayjs.utc().valueOf() - now}ms to store ${Object.keys(gains).length} xp gains`);
 };
 
 const handleXpGains = async (prisma: PrismaClient) => {
-  const now = moment.utc().valueOf();
-  const today = moment.utc().startOf('day');
+  const now = dayjs.utc().valueOf();
+  const today = dayjs.utc().startOf('day');
 
   const count = await prisma.tournamentXp.count({
     where: {
@@ -811,12 +814,12 @@ const handleXpGains = async (prisma: PrismaClient) => {
     }),
   ]);
 
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${count} xp gains`);
+  LOGGER.log(`${dayjs.utc().valueOf() - now}ms to handle ${count} xp gains`);
 };
 
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
-  const now = moment.utc().valueOf();
-  const today = moment.utc().startOf('day');
+  const now = dayjs.utc().valueOf();
+  const today = dayjs.utc().startOf('day');
 
   const achievementCount = await prisma.tournamentAchievement.count({
     where: {
@@ -883,7 +886,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     }),
   ]);
 
-  LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${achievementCount} achievements and ${goldCount} gold earnings`);
+  LOGGER.log(`${dayjs.utc().valueOf() - now}ms to handle ${achievementCount} achievements and ${goldCount} gold earnings`);
 };
 
 const checkNameDuplicates = async (prisma: PrismaClient) => {
@@ -917,7 +920,7 @@ const checkNameDuplicates = async (prisma: PrismaClient) => {
       },
     },
     data: {
-      willBeDeletedAt: moment.utc().add(7, 'day').toDate(),
+      willBeDeletedAt: dayjs.utc().add(7, 'day').toDate(),
       deletionReason: BruteDeletionReason.DUPLICATE_NAME,
     },
   });
@@ -1124,7 +1127,7 @@ const cleanup = async (prisma: PrismaClient) => {
   await prisma.log.deleteMany({
     where: {
       date: {
-        lt: moment.utc().subtract(30, 'day').toDate(),
+        lt: dayjs.utc().subtract(30, 'day').toDate(),
       },
     },
   });
@@ -1133,7 +1136,7 @@ const cleanup = async (prisma: PrismaClient) => {
   await prisma.notification.deleteMany({
     where: {
       date: {
-        lt: moment.utc().subtract(30, 'day').toDate(),
+        lt: dayjs.utc().subtract(30, 'day').toDate(),
       },
     },
   });
@@ -1142,12 +1145,12 @@ const cleanup = async (prisma: PrismaClient) => {
   let deleted = null;
 
   while (deleted !== 0) {
-    const now = moment.utc().valueOf();
+    const now = dayjs.utc().valueOf();
 
     deleted = await prisma.$executeRaw`
         DELETE FROM "Fight"
         WHERE id IN (SELECT id FROM "Fight"
-          WHERE "date" < ${moment.utc().subtract(30, 'day').toDate()}
+          WHERE "date" < ${dayjs.utc().subtract(30, 'day').toDate()}
           AND "tournamentId" IS NULL
           AND "clanWarId" IS NULL
           AND "favoriteCount" = 0
@@ -1155,7 +1158,7 @@ const cleanup = async (prisma: PrismaClient) => {
       `;
 
     if (deleted) {
-      LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${deleted} fights older than 30 days`);
+      LOGGER.log(`${dayjs.utc().valueOf() - now}ms to delete ${deleted} fights older than 30 days`);
     }
   }
 };
@@ -1179,7 +1182,7 @@ const handleClanWars = async (
     LOGGER.log(`${pendingClanWars.count} pending clan wars started`);
   }
 
-  const today = moment.utc().startOf('day');
+  const today = dayjs.utc().startOf('day');
 
   // Give rewards for finished clan wars
   const finishedClanWars = await prisma.clanWar.findMany({
@@ -1288,7 +1291,7 @@ const handleClanWars = async (
     const day = clanWar.fights.length + 1;
 
     // Check if a fight was already generated for the day
-    if (clanWar.fights.some((fight) => moment.utc(fight.date).isSame(today))) {
+    if (clanWar.fights.some((fight) => dayjs.utc(fight.date).isSame(today))) {
       skipped++;
       continue;
     }
@@ -1564,7 +1567,7 @@ const handleEventFinish = async (prisma: PrismaClient) => {
   }
 
   // Don't start another if the pause is not over
-  if (lastEvent && moment.utc().isBefore(moment.utc(lastEvent.finishedAt).add(EventPauseDuration, 'day'))) {
+  if (lastEvent && dayjs.utc().isBefore(dayjs.utc(lastEvent.finishedAt).add(EventPauseDuration, 'day'))) {
     return;
   }
 
@@ -1622,7 +1625,7 @@ const handleEventTournament = async (
     await prisma.event.update({
       where: { id: lastEvent.id },
       data: {
-        date: moment.utc(lastEvent.date).add(1, 'day').toDate(),
+        date: dayjs.utc(lastEvent.date).add(1, 'day').toDate(),
       },
     });
 
@@ -1630,7 +1633,7 @@ const handleEventTournament = async (
   }
 
   // Less than 2 days, skip
-  if (moment.utc().diff(moment.utc(lastEvent.date), 'days') < 2) {
+  if (dayjs.utc().diff(dayjs.utc(lastEvent.date), 'days') < 2) {
     return;
   }
 
@@ -1674,7 +1677,7 @@ const handleEventTournament = async (
   }
 
   // Check if today's round is already done
-  if (lastEvent.tournament.rounds + 1 >= moment.utc().diff(moment.utc(lastEvent.date), 'days')) {
+  if (lastEvent.tournament.rounds + 1 >= dayjs.utc().diff(dayjs.utc(lastEvent.date), 'days')) {
     return;
   }
 
@@ -1812,7 +1815,7 @@ const handleEventTournament = async (
           },
         },
         data: {
-          willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
+          willBeDeletedAt: dayjs.utc().add(3, 'day').toDate(),
           deletionReason: BruteDeletionReason.EVENT_LOSS,
         },
       });

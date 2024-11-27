@@ -3404,6 +3404,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.17"
     "@typescript-eslint/eslint-plugin": "npm:^6.13.2"
     "@typescript-eslint/parser": "npm:^6.13.2"
+    dayjs: "npm:^1.11.13"
     eslint: "npm:^8.55.0"
     eslint-config-airbnb: "npm:^19.0.4"
     eslint-import-resolver-typescript: "npm:^3.6.1"
@@ -3414,7 +3415,6 @@ __metadata:
     i18next: "npm:^21.9.0"
     labrute-fla-parser: "npm:^1.0.13"
     labrute-static-fla-parser: "npm:^1.0.6"
-    moment: "npm:^2.29.4"
     pixi-tweener: "npm:^0.12.2"
     pixi.js: "npm:^6.5.9"
     react: "npm:^18.2.0"
@@ -3437,7 +3437,7 @@ __metadata:
   resolution: "@labrute/core@workspace:core"
   dependencies:
     "@labrute/prisma": "workspace:*"
-    moment: "npm:^2.29.4"
+    dayjs: "npm:^1.11.13"
     rand-seed: "npm:^2.1.7"
     typescript: "npm:^5.3.2"
   languageName: unknown
@@ -3481,6 +3481,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^6.13.2"
     bcrypt: "npm:^5.1.0"
     body-parser: "npm:^1.20.3"
+    dayjs: "npm:^1.11.13"
     discord.js: "npm:^14.7.1"
     dotenv: "npm:^16.0.3"
     eslint: "npm:^8.55.0"
@@ -3494,7 +3495,6 @@ __metadata:
     express: "npm:^4.20.0"
     i18next: "npm:^22.4.9"
     i18next-fs-backend: "npm:^2.1.1"
-    moment: "npm:^2.29.4"
     node-fetch: "npm:^3.3.0"
     node-schedule: "npm:^2.1.1"
     nodemailer: "npm:^6.9.9"
@@ -8503,6 +8503,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.13":
+  version: 1.11.13
+  resolution: "dayjs@npm:1.11.13"
+  checksum: 7374d63ab179b8d909a95e74790def25c8986e329ae989840bacb8b1888be116d20e1c4eee75a69ea0dfbae13172efc50ef85619d304ee7ca3c01d5878b704f5
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.6.0":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -13418,13 +13425,6 @@ __metadata:
   version: 1.0.3
   resolution: "module-details-from-path@npm:1.0.3"
   checksum: f93226e9154fc8cb91f4609b639167ec7ad9155b30be4924d9717656648a3ae5f181d4e2338434d4c5afc7b5f4c10dd3b64109e5b89a4be70b20a25ba3573d54
-  languageName: node
-  linkType: hard
-
-"moment@npm:^2.29.4":
-  version: 2.30.1
-  resolution: "moment@npm:2.30.1"
-  checksum: ae42d876d4ec831ef66110bdc302c0657c664991e45cf2afffc4b0f6cd6d251dde11375c982a5c0564ccc0fa593fc564576ddceb8c8845e87c15f58aa6baca69
   languageName: node
   linkType: hard
 

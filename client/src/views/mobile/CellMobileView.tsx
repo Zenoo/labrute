@@ -18,7 +18,10 @@ import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
 import FantasyButton from '../../components/FantasyButton';
 import { History } from '@mui/icons-material';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 export interface CellMobileViewProps {
   ad: AdResult;
@@ -168,7 +171,7 @@ const CellMobileView = ({
       </Box>
       {/* BRUTE SACRIFICE */}
       {owner
-        && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
+        && dayjs.utc().isAfter(dayjs.utc(brute.createdAt), 'day')
         && (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <FantasyButton

@@ -10,9 +10,12 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import FantasyButton from '../components/FantasyButton';
 import Link from '../components/Link';
+
+dayjs.extend(utc);
 
 const ReportAdminView = () => {
   const { t } = useTranslation();
@@ -139,11 +142,11 @@ const ReportAdminView = () => {
                     secondary={(
                       <>
                         <Text body2 component="span" display="block">
-                          [{moment.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
+                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
                         </Text>
                         {status !== BruteReportStatus.pending && (
                           <Text body2 component="span" display="block">
-                            [{moment.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
+                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
                           </Text>
                         )}
                       </>

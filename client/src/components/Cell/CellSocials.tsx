@@ -9,10 +9,15 @@ import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ActivityStatus } from '../ActivityStatus';
+
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -135,10 +140,10 @@ const CellSocials = ({
               </Tooltip>
             </Grid>
             <Grid item xs={6}>
-              <Tooltip title={t('created', { date: moment.utc(brute.createdAt).format('LLL') })}>
+              <Tooltip title={t('created', { date: dayjs.utc(brute.createdAt).format('LLL') })}>
                 <Text bold component="span">
                   <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
-                  {moment.utc(brute.createdAt).fromNow()}
+                  {dayjs.utc(brute.createdAt).fromNow()}
                 </Text>
               </Tooltip>
             </Grid>

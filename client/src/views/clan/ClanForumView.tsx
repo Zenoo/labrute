@@ -1,6 +1,7 @@
 import { ClanGetThreadsResponse } from '@labrute/core';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -11,6 +12,7 @@ import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 
+dayjs.extend(utc);
 const ClanForumView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
@@ -85,10 +87,10 @@ const ClanForumView = () => {
                 {data.threads.map((thread, i) => (
                   <Fragment key={thread.id}>
                     {/* Insert data row between threads with different dates */}
-                    {(!data.threads[i - 1] || moment.utc(thread.updatedAt).format('DD/MM/YYYY') !== moment.utc(data.threads[i - 1]?.updatedAt).format('DD/MM/YYYY')) && (
+                    {(!data.threads[i - 1] || dayjs.utc(thread.updatedAt).format('DD/MM/YYYY') !== dayjs.utc(data.threads[i - 1]?.updatedAt).format('DD/MM/YYYY')) && (
                       <TableRow>
                         <TableCell component="th" colSpan={4} sx={{ textAlign: 'center' }}>
-                          <Text bold>{moment.utc(thread.updatedAt).format('D MMMM YYYY')}</Text>
+                          <Text bold>{dayjs.utc(thread.updatedAt).format('D MMMM YYYY')}</Text>
                         </TableCell>
                       </TableRow>
                     )}
@@ -122,7 +124,7 @@ const ClanForumView = () => {
                         </Box>
                       </TableCell>
                       <TableCell>{thread.postCount}</TableCell>
-                      <TableCell align="right">{thread.posts[0]?.author.name}, {moment.utc(thread.updatedAt).format('HH:mm')}</TableCell>
+                      <TableCell align="right">{thread.posts[0]?.author.name}, {dayjs.utc(thread.updatedAt).format('HH:mm')}</TableCell>
                     </TableRow>
                   </Fragment>
                 ))}

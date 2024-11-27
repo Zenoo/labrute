@@ -1,7 +1,8 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
@@ -19,6 +20,8 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
+
+dayjs.extend(utc);
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -77,8 +80,8 @@ const CellMain = ({
           severity="error"
           variant="filled"
         >
-          <AlertTitle>{t('taggedForDeletion', { days: moment.utc(brute.willBeDeletedAt).diff(moment.utc(), 'days') })}</AlertTitle>
-          {t(`deletionReason.${brute.deletionReason}`, { days: moment.utc(brute.willBeDeletedAt).diff(moment.utc(), 'days') })}
+          <AlertTitle>{t('taggedForDeletion', { days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}</AlertTitle>
+          {t(`deletionReason.${brute.deletionReason}`, { days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}
         </MuiAlert>
       )}
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
@@ -134,13 +137,13 @@ const CellMain = ({
         )}
 
       {/* Rank up */}
-      {owner && brute.canRankUpSince && brute.ranking > 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
+      {owner && brute.canRankUpSince && brute.ranking > 0 && (!dayjs.utc(brute.canRankUpSince).isSame(dayjs.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
           {t('rankUp')}
         </FantasyButton>
       )}
       {/* Ascend */}
-      {owner && brute.canRankUpSince && brute.ranking === 0 && (!moment.utc(brute.canRankUpSince).isSame(moment.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
+      {owner && brute.canRankUpSince && brute.ranking === 0 && (!dayjs.utc(brute.canRankUpSince).isSame(dayjs.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <Link
           to={`/${brute.name}/ascend`}
           sx={{
@@ -208,7 +211,7 @@ const CellMain = ({
       )}
       {/* BRUTE SACRIFICE */}
       {owner
-        && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
+        && dayjs.utc().isAfter(dayjs.utc(brute.createdAt), 'day')
         && !!confirmSacrifice
         && (
           <FantasyButton

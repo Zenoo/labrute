@@ -1,7 +1,8 @@
 import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -16,6 +17,8 @@ import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
 import BruteRender from '../components/Brute/Body/BruteRender';
+
+dayjs.extend(utc);
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5
@@ -44,7 +47,7 @@ const TournamentView = () => {
   const stepWatched = useMemo(() => {
     if (!tournament?.date) return 0;
     if (!brute?.currentTournamentDate) return 0;
-    if (!moment.utc(tournament.date).isSame(moment.utc(), 'day')) return 6;
+    if (!dayjs.utc(tournament.date).isSame(dayjs.utc(), 'day')) return 6;
 
     return brute?.currentTournamentStepWatched || 0;
   }, [brute, tournament]);
@@ -127,7 +130,7 @@ const TournamentView = () => {
 
     if (!ownsBrute) return;
     if (fight.brute1.id !== brute.id && fight.brute2?.id !== brute.id) return;
-    if (brute.currentTournamentDate && moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day')) {
+    if (brute.currentTournamentDate && dayjs.utc(brute.currentTournamentDate).isSame(dayjs.utc(), 'day')) {
       if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
     }
 
@@ -135,7 +138,7 @@ const TournamentView = () => {
     Server.Tournament.updateStepWatched(bruteName || '').then(({ step }) => {
       updateBrute((b) => (b ? {
         ...b,
-        currentTournamentDate: moment.utc().startOf('day').toDate(),
+        currentTournamentDate: dayjs.utc().startOf('day').toDate(),
         currentTournamentStepWatched: step,
       } : null));
     }).catch(console.error);
@@ -148,7 +151,7 @@ const TournamentView = () => {
 
     updateBrute((b) => (b ? {
       ...b,
-      currentTournamentDate: moment.utc().startOf('day').toDate(),
+      currentTournamentDate: dayjs.utc().startOf('day').toDate(),
       currentTournamentStepWatched: 6,
     } : null));
   }, [brute, updateBrute]);
@@ -174,7 +177,7 @@ const TournamentView = () => {
           textAlign: 'center',
         }}
         >
-          <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {moment.utc(tournament.date).format('DD MMMM YYYY')}</Text>
+          <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {dayjs.utc(tournament.date).format('DD MMMM YYYY')}</Text>
         </Paper>
         <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
           {ownsBrute && stepWatched < 6 && (

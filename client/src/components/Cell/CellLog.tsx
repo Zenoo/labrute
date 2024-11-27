@@ -1,12 +1,14 @@
 import { InventoryItemType, Log, LogType } from '@labrute/prisma';
 import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Link from '../Link';
 import { LogImage } from '../LogImage';
 import Text from '../Text';
 
+dayjs.extend(utc);
 export interface CellLogProps extends PaperProps {
   log: Log & {
     currentBrute: { name: string };
@@ -94,7 +96,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   : log.type === LogType.ascend
                     ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { brute: log.currentBrute.name, value: log.level ?? 0 })
                     : log.type === LogType.tournament
-                      ? t('log.tournament', { date: moment.utc(log.date).format('DD/MM/YY') })
+                      ? t('log.tournament', { date: dayjs.utc(log.date).format('DD/MM/YY') })
                       : t(`log.${log.type}`, { value: log.brute })}
             </Text>
           )}

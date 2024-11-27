@@ -1,9 +1,12 @@
 import { UserWithBrutesBodyColor } from '@labrute/core';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
 import { Event, FightModifier } from '@labrute/prisma';
+
+dayjs.extend(utc);
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
@@ -56,9 +59,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const userId = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    const expires = moment.utc(localStorage.getItem('expires'));
+    const expires = dayjs.utc(localStorage.getItem('expires'));
     if (userId && token) {
-      if (expires.isAfter(moment.utc())) {
+      if (expires.isAfter(dayjs.utc())) {
         Server.User.authenticate(userId, token).then((response) => {
           setUser(response.user);
           setModifiers(response.modifiers);

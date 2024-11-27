@@ -1,8 +1,13 @@
 import {
   Event, EventStatus, FightModifier, PrismaClient,
 } from '@labrute/prisma';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
 import { LOGGER } from '../context.js';
+
+dayjs.extend(utc);
+dayjs.extend(isSameOrBefore);
 
 let SERVER_READY = true;
 let MODIFIERS: FightModifier[] | null = null;
@@ -61,7 +66,7 @@ const getModifiers = async (prisma: PrismaClient) => {
 };
 
 const setModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) => {
-  const tomorrow = moment.utc().add(1, 'day').toDate();
+  const tomorrow = dayjs.utc().add(1, 'day').toDate();
   const serverState = await prisma.serverState.findFirst({
     select: { id: true },
   });
@@ -94,7 +99,7 @@ const areModifiersExpired = async (prisma: PrismaClient) => {
     },
   });
 
-  return !serverState?.modifiersEndAt || moment.utc(serverState.modifiersEndAt).isSameOrBefore(moment.utc(), 'day');
+  return !serverState?.modifiersEndAt || dayjs.utc(serverState.modifiersEndAt).isSameOrBefore(dayjs.utc(), 'day');
 };
 
 const getBannedIps = async (prisma: PrismaClient) => {

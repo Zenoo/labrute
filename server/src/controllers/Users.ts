@@ -15,7 +15,8 @@ import {
   PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
 import fetch from 'node-fetch';
 import { DISCORD, GLOBAL, LOGGER } from '../context.js';
 import dailyJob from '../dailyJob.js';
@@ -23,6 +24,8 @@ import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
+
+dayjs.extend(utc);
 
 const Users = {
   get: (prisma: PrismaClient) => async (
@@ -497,7 +500,7 @@ const Users = {
         throw new Error('User not found');
       }
 
-      if (user.dinorpgDone && moment.utc().isSame(moment.utc(user.dinorpgDone), 'day')) {
+      if (user.dinorpgDone && dayjs.utc().isSame(dayjs.utc(user.dinorpgDone), 'day')) {
         throw new ExpectedError(translate('alreadyClaimed', authed));
       }
 

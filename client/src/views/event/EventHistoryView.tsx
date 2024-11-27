@@ -9,10 +9,13 @@ import Server from '../../utils/Server';
 import { ErrorType } from '../../utils/Fetch';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Loader from '../../components/Loader';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
+
+dayjs.extend(utc);
 
 export const EventHistoryView = () => {
   const { t } = useTranslation();
@@ -84,7 +87,7 @@ export const EventHistoryView = () => {
                 {events ? (events.map((event) => (
                   <TableRow key={event.id}>
                     <TableCell component="th" scope="row">
-                      {moment.utc(event.date).format('DD/MM/YYYY')}
+                      {dayjs.utc(event.date).format('DD/MM/YYYY')}
                     </TableCell>
                     <TableCell>
                       <Link to={`/${bruteName}/event/${event.id}`}>

@@ -1,7 +1,8 @@
 import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
@@ -14,6 +15,8 @@ import { Gender } from '@labrute/prisma';
 import catchError from '../../utils/catchError';
 import { useAlert } from '../../hooks/useAlert';
 import { useNavigate } from 'react-router';
+
+dayjs.extend(utc);
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -29,7 +32,7 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 interface CellGlobalTournamentProps extends PaperProps {
-  date?: moment.Moment;
+  date?: dayjs.Dayjs;
   name?: string;
 }
 
@@ -45,14 +48,14 @@ const CellGlobalTournament = ({
   const Alert = useAlert();
   const navigate = useNavigate();
 
-  const now = useMemo(() => moment.utc(), []);
+  const now = useMemo(() => dayjs.utc(), []);
   const bruteName = useMemo(() => name || brute?.name || '', [brute, name]);
 
   const [data, setData] = useState<TournamentsGetGlobalResponse | null>(null);
 
   const watchingRound = useMemo(() => (date
     ? 999
-    : moment.utc().isSame(brute?.globalTournamentWatchedDate, 'day')
+    : dayjs.utc().isSame(brute?.globalTournamentWatchedDate, 'day')
       ? (brute?.globalTournamentRoundWatched || 0) + 1
       : data?.tournament?.fights.find((f) => f.tournamentStep === 1) ? 1 : 2), [brute, date, data]);
 

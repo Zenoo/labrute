@@ -11,7 +11,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 
 const ClanThreadView = () => {
@@ -177,7 +177,7 @@ const ClanThreadView = () => {
                       <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
                     )}
                   </Box>
-                  <Text color="primary">{moment(post.date).format('D MMM YYYY HH:mm')}</Text>
+                  <Text color="primary">{dayjs(post.date).format('D MMM YYYY HH:mm')}</Text>
                 </Box>
                 {/* CONTENT */}
                 <Box

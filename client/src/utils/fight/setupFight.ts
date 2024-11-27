@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { Fighter, FightStep, StepType } from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 import { GlowFilter } from '@pixi/filter-glow';
@@ -328,7 +328,7 @@ const setupFight: (
     // Boss name
     const displayedBossName = (
       // Normal day Display
-      !moment().isSame(moment('04-01', 'MM-DD'), 'day') ? boss.name
+      !dayjs().isSame(dayjs('04-01', 'MM-DD'), 'day') ? boss.name
         // April Fools Display
         : boss.name === BossName.EmberFang ? 'EmberFool'
           : boss.name === BossName.GoldClaw ? 'GoldClown'
