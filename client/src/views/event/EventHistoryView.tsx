@@ -12,7 +12,7 @@ import catchError from '../../utils/catchError';
 import Loader from '../../components/Loader';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 export const EventHistoryView = () => {
   const { t } = useTranslation();

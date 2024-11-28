@@ -12,7 +12,7 @@ import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import FantasyButton from '../components/FantasyButton';
 import Link from '../components/Link';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();

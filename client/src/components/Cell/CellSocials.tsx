@@ -9,7 +9,7 @@ import useStateAsync from '../../hooks/useStateAsync';
 import Server from '../../utils/Server';
 import Link from '../Link';
 import Text from '../Text';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ActivityStatus } from '../ActivityStatus';

@@ -9,7 +9,7 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 const ClanForumView = () => {
   const { t } = useTranslation();

@@ -21,7 +21,7 @@ import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
 import { Lock, LockOpen } from '@mui/icons-material';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 /**
  * HomeView component

@@ -34,6 +34,7 @@ import {
   InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
   WeaponName,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
@@ -48,7 +49,6 @@ import sendError from '../utils/sendError.js';
 import ServerState from '../utils/ServerState.js';
 import translate from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
-import dayjs from '../utils/dayjs.js';
 
 const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (

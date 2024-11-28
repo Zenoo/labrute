@@ -1,6 +1,6 @@
 import { InventoryItemType, Log, LogType } from '@labrute/prisma';
 import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Link from '../Link';

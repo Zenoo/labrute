@@ -17,7 +17,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const UserView = () => {
   const { t } = useTranslation();

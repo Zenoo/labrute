@@ -15,7 +15,7 @@ import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import Link from '../components/Link';
 import BruteRender from '../components/Brute/Body/BruteRender';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 export const FollowingFeedView = () => {
   const { t } = useTranslation();

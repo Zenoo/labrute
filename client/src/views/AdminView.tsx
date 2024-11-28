@@ -12,7 +12,7 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const AdminView = () => {
   const { t } = useTranslation();

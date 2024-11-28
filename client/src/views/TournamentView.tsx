@@ -15,7 +15,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
 import BruteRender from '../components/Brute/Body/BruteRender';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5

@@ -1,7 +1,7 @@
 import { User } from '@labrute/prisma';
 import { Circle } from '@mui/icons-material';
 import { SvgIconOwnProps, Tooltip } from '@mui/material';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

@@ -27,6 +27,7 @@ import {
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import { DISCORD, LOGGER } from './context.js';
 import { increaseAchievement } from './controllers/Achievements.js';
 import ServerState from './utils/ServerState.js';
@@ -34,7 +35,6 @@ import { resetBrute } from './utils/brute/resetBrute.js';
 import updateClanPoints from './utils/clan/updateClanPoints.js';
 import generateFight from './utils/fight/generateFight.js';
 import shuffle from './utils/shuffle.js';
-import dayjs from './utils/dayjs.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 

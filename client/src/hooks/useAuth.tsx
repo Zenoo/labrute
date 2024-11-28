@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
 import { Event, FightModifier } from '@labrute/prisma';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,

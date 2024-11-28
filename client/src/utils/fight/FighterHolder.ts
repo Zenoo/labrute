@@ -5,7 +5,7 @@ import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol475, Symbol476, Symbol47
 import * as PIXI from 'pixi.js';
 import { Filter, Matrix, Texture } from 'pixi.js';
 import { MutableRefObject } from 'react';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 const ANIMATIONS: Record<
   Gender | 'dog' | 'bear' | 'panther',

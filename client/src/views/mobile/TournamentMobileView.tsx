@@ -11,7 +11,7 @@ import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../compo
 import Text from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 import BruteRender from '../../components/Brute/Body/BruteRender';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 const rounds: [number, number][] = [
   [-1, 32],

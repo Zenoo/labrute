@@ -1,7 +1,7 @@
 import { Brute, FightModifier } from '@labrute/prisma';
 import weapons from './weapons';
 import Rand from 'rand-seed';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 import randomBetween from '../utils/randomBetween';
 
 export const getTempWeapon = (

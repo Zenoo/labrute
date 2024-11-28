@@ -6,13 +6,13 @@ import {
 import {
   BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 import { ilike } from '../utils/ilike.js';
-import dayjs from '../utils/dayjs.js';
 
 const BruteReports = {
   list: (prisma: PrismaClient) => async (

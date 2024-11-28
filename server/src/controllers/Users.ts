@@ -14,6 +14,7 @@ import {
   Achievement, FightModifier, InventoryItemType, Lang,
   PrismaClient,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import { DISCORD, GLOBAL, LOGGER } from '../context.js';
@@ -22,7 +23,6 @@ import ServerState from '../utils/ServerState.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import dayjs from '../utils/dayjs.js';
 
 const Users = {
   get: (prisma: PrismaClient) => async (

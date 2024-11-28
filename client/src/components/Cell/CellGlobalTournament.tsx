@@ -1,7 +1,7 @@
 import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, PaperProps, useTheme } from '@mui/material';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';

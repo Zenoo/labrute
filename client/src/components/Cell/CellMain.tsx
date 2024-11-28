@@ -1,7 +1,7 @@
 import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip } from '@mui/material';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';

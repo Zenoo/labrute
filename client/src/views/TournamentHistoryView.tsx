@@ -9,7 +9,7 @@ import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import Loader from '../components/Loader';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const TournamentHistoryView = () => {
   const { t } = useTranslation();

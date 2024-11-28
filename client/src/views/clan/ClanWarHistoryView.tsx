@@ -11,7 +11,7 @@ import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
 import Loader from '../../components/Loader';
 import { ClanWarType } from '@labrute/prisma';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 export const ClanWarHistoryView = () => {
   const { t } = useTranslation();

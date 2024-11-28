@@ -7,7 +7,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import Text from './Text';
 import { useAuth } from '../hooks/useAuth';
 import Marquee from 'react-fast-marquee';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 export interface HeaderProps extends BoxProps {
   url?: string;

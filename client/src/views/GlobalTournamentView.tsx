@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import CellGlobalTournament from '../components/Cell/CellGlobalTournament';
 import Page from '../components/Page';
 import Text from '../components/Text';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const GlobalTournamentView = () => {
   const { t } = useTranslation();

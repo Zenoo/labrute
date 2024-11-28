@@ -7,12 +7,12 @@ import {
   getRandomColors,
   updateBruteData,
 } from '@labrute/core';
+import dayjs from 'dayjs';
 import { Gender, Prisma } from '@labrute/prisma';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import { GLOBAL, ServerContext } from './context.js';
-import dayjs from './utils/dayjs.js';
 
 const generateBrute = (
   level: number,

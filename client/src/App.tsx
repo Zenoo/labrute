@@ -13,6 +13,7 @@ import routes from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
+import './utils/dayjs';
 
 /**
  * App entry point

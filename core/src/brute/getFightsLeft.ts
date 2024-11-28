@@ -1,5 +1,5 @@
 import { Brute, FightModifier } from '@labrute/prisma';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 import getMaxFightsPerDay from './getMaxFightsPerDay';
 
 const getFightsLeft = (

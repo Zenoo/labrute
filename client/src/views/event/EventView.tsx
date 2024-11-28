@@ -17,7 +17,7 @@ import { useBrute } from '../../hooks/useBrute';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import Link from '../../components/Link';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,

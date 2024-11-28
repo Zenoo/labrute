@@ -10,7 +10,7 @@ import catchError from '../../utils/catchError';
 import FantasyButton from '../FantasyButton';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
-import dayjs from '../../utils/dayjs';
+import dayjs from 'dayjs';
 
 export interface CellTournamentProps extends PaperProps {
   language: Lang;

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
-import dayjs from '../utils/dayjs';
+import dayjs from 'dayjs';
 
 const PatchNotesView = () => {
   const { t } = useTranslation();
