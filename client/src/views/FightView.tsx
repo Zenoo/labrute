@@ -52,7 +52,7 @@ const FightView = () => {
     return [firstAd, secondAd];
   }, [language]);
 
-  const currentMapEffect = 0 + 1;
+  const currentMapEffect = fight?.background;
 
   if (smallScreen) {
     return (
@@ -94,7 +94,7 @@ const FightView = () => {
           <Box sx={{ ml: 5, alignSelf: 'center', position: 'relative' }}>
             {/* Fight Component */}
             <FightComponent fight={fight} />
-            {currentMapEffect === 1 && (
+            {currentMapEffect === '10.png' && (
               <Tooltip title="This map reduces speed by half">
                 <Box
                   component="img"

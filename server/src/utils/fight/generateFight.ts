@@ -72,8 +72,7 @@ const generateFight = async ({
     : tournament
       ? tournamentBackground
       : weightedRandom(fightBackgrounds);
-
-
+  
   // Achievements
   const achievementsStore: AchievementsStore = {};
   // Stats
@@ -148,7 +147,7 @@ const generateFight = async ({
     team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,
     clanFight: clanWar,
-    mapEffect: background.effect,
+    mapEffect: (background as FightBackground).effect,
   });
 
   const fightData: DetailedFight = {

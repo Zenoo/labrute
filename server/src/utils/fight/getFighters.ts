@@ -175,6 +175,8 @@ const getFighters = ({
         }
       }
 
+      handleMapModifiers(brute, mapEffect);
+
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
       const bruteHP = getFinalHP(brute, modifiers);
@@ -183,7 +185,6 @@ const getFighters = ({
       const bruteAgility = getFinalStat(brute, 'agility', modifiers);
 
       handleModifiers(brute, modifiers);
-      handleMapModifiers(brute, mapEffect);
 
       // Brute stats
       positiveIndex++;
