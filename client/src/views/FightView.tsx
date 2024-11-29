@@ -101,12 +101,12 @@ const FightView = () => {
                   src="/images/mapmodifiers/halfSpeed1.webp"
                   alt="Half Speed Modifier Icon"
                   sx={{
-                    width: 50,
-                    height: 50,
+                    width: 15,
+                    height: 15,
                     position: 'absolute',
-                    bottom: '-60px',
+                    top: '0px',
                     left: '50%',
-                    transform: 'translateX(-50%)',
+                    transform: 'translateX(+75%)',
                   }}
                 />
               </Tooltip>
