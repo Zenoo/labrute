@@ -377,7 +377,7 @@ export const skills: Skill[] = [
     name: 'hypnosis',
     odds: 0.5,
     type: 'super',
-    toss: 3,
+    toss: 6,
     uses: 1,
   },
   {
