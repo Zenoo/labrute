@@ -1495,13 +1495,22 @@ const block = ({
 
   let opponentBlock = getFighterStat(opponent, 'block');
 
-  // increase block if blocking a throwing a weapon with `Hideaway`
+  // increase block if blocking a throwing weapon with `Hideaway`
+  // multiply by ease so the real block bonus mirrors the displayed bonus
   if (thrown && opponent.skills.find((sk) => sk.name === SkillName.hideaway)) {
-    opponentBlock += SkillModifiers[SkillName.hideaway][FightStat.BLOCK]?.percent ?? 0;
+    opponentBlock += ease * (SkillModifiers[SkillName.hideaway][FightStat.BLOCK]?.percent ?? 0);
+  }
+
+  // increase block if 1HP and `Survival`
+  if (opponent.hp === 1 && opponent.skills.find((sk) => sk.name === SkillName.survival)) {
+    opponentBlock += SkillModifiers[SkillName.survival][FightStat.BLOCK]?.percent ?? 0;
   }
 
   return Math.random() * ease
-    < (opponentBlock - getFighterStat(fighter, 'accuracy'));
+    < Math.min(
+      opponentBlock - getFighterStat(fighter, 'accuracy'),
+      0.9 * ease,
+    );
 };
 
 const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
@@ -1524,6 +1533,13 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
     return true;
   }
 
+  let opponentEvasion = getFighterStat(opponent, 'evasion');
+
+  // increase evasion if 1HP and `Survival`
+  if (opponent.hp === 1 && opponent.skills.find((sk) => sk.name === SkillName.survival)) {
+    opponentEvasion += SkillModifiers[SkillName.survival][FightStat.EVASION]?.percent ?? 0;
+  }
+
   // Get agility difference (-40 > diff > 40)
   const agilityDifference = Math.min(
     Math.max(
@@ -1537,11 +1553,11 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
 
   return random * difficulty
     < Math.min(
-      (getFighterStat(opponent, 'evasion')
+      (opponentEvasion
         + agilityDifference * 0.01
         - getFighterStat(fighter, 'accuracy')
         - getFighterStat(fighter, 'dexterity')),
-      0.9,
+      0.9 * difficulty,
     );
 };
 

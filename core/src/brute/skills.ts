@@ -534,7 +534,10 @@ export const SkillModifiers: Record<
   [SkillName.relentless]: {
     [FightStat.ACCURACY]: { percent: 0.3 },
   },
-  [SkillName.survival]: {},
+  [SkillName.survival]: {
+    [FightStat.BLOCK]: { percent: 0.2, details: 'atOneHp' },
+    [FightStat.EVASION]: { percent: 0.2, details: 'atOneHp' },
+  },
   [SkillName.leadSkeleton]: {
     [FightStat.ARMOR]: { percent: 0.15 },
     [FightStat.DAMAGE]: { percent: -0.15, weaponType: WeaponType.BLUNT, opponent: true },
