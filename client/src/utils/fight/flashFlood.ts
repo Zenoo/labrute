@@ -1,18 +1,17 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, HitStep, WeaponById, randomBetween } from '@labrute/core';
+import { HitStep, WeaponById, randomBetween } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application, Sprite } from 'pixi.js';
-import { BevelFilter } from '@pixi/filter-bevel';
+import { Application, Sprite, Container, Graphics, AnimatedSprite } from 'pixi.js';
 
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import getFighterType from './utils/getFighterType';
 import stagger from './stagger';
 import updateHp from './updateHp';
 import updateWeapons from './updateWeapons';
 import { WeaponName } from '@labrute/prisma';
 import { untrap } from './untrap';
+import itemDrop from './itemDrop';
 
 const flashFlood = async (
   app: Application,
@@ -25,9 +24,9 @@ const flashFlood = async (
     return;
   }
   const weaponSpritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
-  const shieldSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+  const miscSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
-  if (!weaponSpritesheet || !shieldSpritesheet) {
+  if (!weaponSpritesheet || !miscSpritesheet) {
     throw new Error('Spritesheet not found');
   }
 
@@ -42,6 +41,17 @@ const flashFlood = async (
 
   const startedWithAWeapon = fighter.animation.weapon !== null;
 
+  // Create mask weapon and vfx
+  const mask = new Graphics();
+  mask.beginFill(0x000000);
+  mask.drawRect(0, 0, app.stage.width, target.animation.container.y + 2);
+  mask.endFill();
+
+  // Create a masked container
+  const flashFloodContainer = new Container();
+  flashFloodContainer.mask = mask;
+  flashFloodContainer.zIndex = target.animation.container.y + 1;
+
   // Set animation to `throw`
   fighter.animation.setAnimation('throw');
 
@@ -50,9 +60,8 @@ const flashFlood = async (
   // Shield throw
   if (step.s) {
     fighter.animation.shield = false;
-    thrownItem = new Sprite(shieldSpritesheet.textures['shield.png']);
-    thrownItem.filters = [new BevelFilter()];
-    thrownItem.zIndex = 1;
+    thrownItem = new Sprite(miscSpritesheet.textures['shield.png']);
+
   // Weapon throw
   } else {
     const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
@@ -63,24 +72,30 @@ const flashFlood = async (
     thrownItem = new Sprite(weaponSpritesheet.textures[`${weapon}.png`]);
   }
 
-  // Anchor to left center
-  thrownItem.anchor.set(0, 0.5);
-
+  // Anchor to center
+  thrownItem.anchor.set(1, 0.5);
   // Get starting position
   const start = {
     x: fighter.team === 'L'
-      ? fighter.animation.container.x + FIGHTER_WIDTH.brute
+      ? fighter.animation.container.x + fighter.animation.baseWidth
       : fighter.animation.container.x,
-    y: fighter.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
+    y: fighter.animation.container.y - fighter.animation.baseHeight * 0.5,
   };
 
-  // Get end position
-  const end = {
-    x: target.team === 'L'
-      ? target.animation.container.x + FIGHTER_WIDTH[getFighterType(target)]
-      : target.animation.container.x,
-    y: target.animation.container.y - FIGHTER_HEIGHT[getFighterType(target)] * 0.5,
-  };
+  // Get end position (on ground if weapon, on head if shield)
+  const end = step.s
+    ? {
+      x: target.team === 'L'
+        ? target.animation.container.x - target.animation.baseWidth * 0.25
+        : target.animation.container.x + target.animation.baseWidth * 0.25,
+      y: target.animation.container.y - target.animation.baseHeight * 0.8,
+    }
+    : {
+      x: target.team === 'L'
+        ? target.animation.container.x - fighter.animation.baseWidth * 0.6
+        : target.animation.container.x + fighter.animation.baseWidth * 0.6,
+      y: target.animation.container.y + 5,
+    };
 
   // Set position
   thrownItem.position.set(start.x, start.y);
@@ -91,12 +106,14 @@ const flashFlood = async (
     end.x - start.x,
   ) * 180) / Math.PI;
 
+  // Add to container
+  flashFloodContainer.addChild(thrownItem);
   // Add to stage
-  app.stage.addChild(thrownItem);
+  app.stage.addChild(flashFloodContainer);
 
   // Remove Shield
   if (step.s) {
-    target.animation.shield = false;
+    fighter.animation.shield = false;
   // Remove Weapon
   } else {
     fighter.animation.weapon = null;
@@ -107,6 +124,29 @@ const flashFlood = async (
 
   // Play throw SFX
   void sound.play('sfx', { sprite: 'flashFlood' });
+  if (!step.s) {
+    // Create flashFlood sprite
+    const flashFloodSprite = new AnimatedSprite(miscSpritesheet.animations.flashFlood || []);
+    flashFloodSprite.animationSpeed = speed.current * 0.35;
+    flashFloodSprite.loop = false;
+    flashFloodSprite.anchor.set(1, 0.5);
+
+    flashFloodSprite.x = end.x - (start.x - end.x) * 0.1;
+    flashFloodSprite.y = end.y - (start.y - end.y) * 0.1;
+    flashFloodSprite.angle = thrownItem.angle;
+    flashFloodSprite.zIndex = 1000;
+
+    // Add flashFlood sprite to stage
+    flashFloodContainer.addChild(flashFloodSprite);
+
+    // Destroy flashFlood sprite when animation ends
+    flashFloodSprite.onComplete = () => {
+      flashFloodSprite.destroy();
+    };
+
+    // Play flashFlood
+    flashFloodSprite.play();
+  }
 
   // Move thrown item
   Tweener.add({
@@ -117,6 +157,9 @@ const flashFlood = async (
     x: end.x,
     y: end.y,
   }).then(() => {
+    // Wake up target
+    target.stunned = false;
+
     // Untrap target
     untrap(app, target);
 
@@ -128,33 +171,49 @@ const flashFlood = async (
     // Set animation to the correct hit animation
     target.animation.setAnimation(animation);
 
-    // Remove thrown item
-    app.stage.removeChild(thrownItem);
-    thrownItem.destroy();
-
     if (!step.s) {
       // Display damage if weapon
       displayDamage(app, target, step.d, speed);
 
       // Update HP bar
       updateHp(fighters, target, -step.d, speed, isClanWar);
-    } else if (target.type === 'brute') {
+    } else {
       // Stun target brute if shield
-      target.stunned = true;
-    }
+      if (target.type === 'brute') target.stunned = true;
+      thrownItem.destroy();
 
+      // Drop shield (rebounds on target head)
+      itemDrop({
+        app,
+        fighter: target,
+        speed,
+        item: 'shield',
+        initialPosition: end,
+        initialVelocity: { x: 9, y: -7 },
+      });
+    }
     // Stagger, then set animation to death if stunned
     // Can't set to idle because this async process could cancel next animations
-    stagger(target, speed).then(() => {
+    stagger(target, speed, step.s ? 0 : 18, 0.1).then(async () => {
       // Check if not already death to avoid flickering
       if (target.stunned && target.animation.animation !== 'death') {
         target.animation.setAnimation('death');
       }
+      // Wait for 1s
+      await new Promise((resolve) => { setTimeout(resolve, 1000 / speed.current); });
+      // Fade out item
+      await Tweener.add({
+        target: flashFloodContainer,
+        duration: 1.5 / speed.current,
+        ease: Easing.linear,
+      }, {
+        alpha: 0
+      }).then(() => { flashFloodContainer.destroy(); });
     }).catch(console.error);
   }).catch(console.error);
 
-  // Wait 0.15s
-  await new Promise((resolve) => { setTimeout(resolve, 150 / speed.current); });
+  // Wait 0.3s
+  await new Promise((resolve) => { setTimeout(resolve, 300 / speed.current); });
 };
 
 export default flashFlood;
