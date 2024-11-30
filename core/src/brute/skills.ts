@@ -528,7 +528,7 @@ export const SkillModifiers: Record<
     [FightStat.DISARM]: { percent: 0.5 },
   },
   [SkillName.bodybuilder]: {
-    [FightStat.HIT_SPEED]: { percent: 0.25, weaponType: WeaponType.HEAVY },
+    [FightStat.HIT_SPEED]: { percent: 0.40, weaponType: WeaponType.HEAVY },
     [FightStat.DEXTERITY]: { percent: 0.1, weaponType: WeaponType.HEAVY },
   },
   [SkillName.relentless]: {
