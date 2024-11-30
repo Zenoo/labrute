@@ -1,5 +1,5 @@
-import { Animation, Fighter, bosses, readColorString, readBodyString, SkillById } from '@labrute/core';
-import { BossName, Gender, SkillName, WeaponName } from '@labrute/prisma';
+import { Animation, Fighter, bosses, FIGHTER_WIDTH, FIGHTER_HEIGHT, readColorString, readBodyString, SkillById } from '@labrute/core';
+import { BossName, Gender, SkillName, PetName, WeaponName } from '@labrute/prisma';
 import moment from 'moment';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol475, Symbol476, Symbol478, Symbol479, Symbol488, Symbol489, Symbol490, Symbol491, Symbol493, Symbol494, Symbol495, Symbol496, Symbol497, Symbol498, Symbol503, Symbol505, Symbol506, Symbol507, Symbol508, Symbol509, Symbol510, Symbol513, Symbol516, Symbol517, Symbol541, Symbol542, Symbol543, Symbol544, Symbol545, Symbol546, Symbol846, Symbol847, Symbol848, Symbol849, Symbol851, Symbol854, Symbol855, Symbol856, Symbol857, Symbol858, Symbol859, Symbol860, Symbol861, Symbol863, Symbol864, Symbol865, Symbol866, Symbol867, Symbol868, Symbol869, Symbol870, Symbol871, Symbol875, Symbol876, Symbol877, Symbol878, Symbol879, Symbol880, Symbol894, Symbol903, Symbol904, Symbol905, Symbol906, Symbol907, Symbol910, Symbol911, Symbol912, Symbol913, Symbol935, Symbol936, Symbol937, Symbol938, Symbol939, Symbol940, Symbol941, Symbol942, Symbol943, Symbol944 } from 'labrute-fla-parser';
@@ -450,12 +450,22 @@ export default class FighterHolder {
 
   weapon: WeaponName | null = null;
 
+  readonly baseWidth: number;
+
+  readonly baseHeight: number;
+
   // PIXI
   readonly container: PIXI.Container;
 
   #animationContainer: PIXI.Container | null = null;
 
   #animationSymbol: LaBruteSymbol | null = null;
+
+  shadowSprite: PIXI.Sprite = new PIXI.Sprite();
+
+  #isAirborn = false;
+
+  #scale: number = 1;
 
   #playing = true;
 
@@ -519,6 +529,57 @@ export default class FighterHolder {
     }
 
     this.container = symbolContainer;
+
+    // Custom scale for panther
+    if (this.type === 'pet' && this.name === 'panther') {
+      this.#scale *= 1.5;
+    } else if (this.type === 'boss') {
+      // Custom scale for bosses
+      this.#scale *= (bosses.find((b) => b.name === this.name)?.scale ?? 1);
+    }
+
+    // Get fighter model type
+    let fighterModelType: 'brute' | 'dog' | 'bear' = 'brute';
+
+    if (this.type === 'pet') {
+      if (fighter.name === PetName.panther || fighter.name.startsWith('dog')) {
+        fighterModelType = 'dog';
+      } else if (fighter.name === PetName.bear) {
+        fighterModelType = 'bear';
+      }
+    } else if (this.type === 'boss') {
+      const bossType = bosses.find((b) => b.name === fighter.name)?.base as 'bear' | 'panther' | 'dog1' || 'bear';
+      if (bossType === PetName.bear) {
+        fighterModelType = 'bear';
+      } else {
+        fighterModelType = 'dog';
+      }
+    }
+
+    // Set the base width and height information
+    this.baseWidth = FIGHTER_WIDTH[fighterModelType] * SCALE * this.#scale;
+    this.baseHeight = FIGHTER_HEIGHT[fighterModelType] * SCALE * this.#scale;
+
+    // Create Shadow Graphics
+    const shadowGraphics = new PIXI.Graphics();
+    shadowGraphics.beginFill(0x000000, fighterModelType === 'brute' ? 0.2 : 0.45);
+    shadowGraphics.drawEllipse(0, 0, 30, 10);
+    shadowGraphics.endFill();
+
+    // Create Shadow Sprite
+    this.shadowSprite.texture = app.renderer.generateTexture(shadowGraphics);
+    this.shadowSprite.anchor.set(0.5, 0.5);
+    this.shadowSprite.position.set(0, 0);
+    this.shadowSprite.scale.set(1, 0.5);
+    this.shadowSprite.width = this.baseWidth;
+    this.shadowSprite.height = this.baseHeight * 0.1;
+    // Shadows are 25% smaller for animals
+    if (this.type !== 'brute') this.shadowSprite.width *= 0.75;
+    // Blur shadow depending on it's size
+    this.shadowSprite.filters = [new PIXI.filters.BlurFilter(this.baseWidth * 0.07)];
+    this.shadowSprite.alpha = 0;
+    // Add shadow Sprite to fightHolder
+    this.container.addChild(this.shadowSprite);
 
     const maxSvgs: SvgsToLoad = [];
 
@@ -602,8 +663,10 @@ export default class FighterHolder {
     app.ticker?.add(() => {
       if (this.container.destroyed) return;
 
-      // Update zIndex
-      this.container.zIndex = this.container.y;
+      // Update zIndex if not airborn
+      if (!this.#isAirborn) {
+        this.container.zIndex = this.container.y;
+      }
 
       // Do nothing if not playing
       if (!this.#playing) {
@@ -717,7 +780,7 @@ export default class FighterHolder {
 
     // Hide all animations
     for (const child of this.container.children) {
-      if (child instanceof PIXI.Container) {
+      if (child !== this.shadowSprite && child instanceof PIXI.Container) {
         child.visible = false;
       }
     }
@@ -826,15 +889,7 @@ export default class FighterHolder {
       for (let i = 0; i < svgToLoad.count; i++) {
         // Custom scale
         let customScale = svg.scale ?? 1;
-        let size = SCALE;
-
-        // Custom scale for panther
-        if (this.type === 'pet' && this.name === 'panther') {
-          size = SCALE * 1.5;
-        } else if (this.type === 'boss') {
-          // Custom scale for bosses
-          size = SCALE * (bosses.find((b) => b.name === this.name)?.scale ?? 1);
-        }
+        const size = SCALE * this.#scale;
 
         // Increase loading scale for better resolution in some cases
         if (this.type === 'boss') {
@@ -926,9 +981,9 @@ export default class FighterHolder {
       // Check if symbol has an offset
       if (symbol.offset) {
         // eslint-disable-next-line no-param-reassign
-        symbolContainer.x = symbol.offset.x ?? 0;
+        symbolContainer.x = this.#scale * SCALE * (symbol.offset.x ?? 0);
         // eslint-disable-next-line no-param-reassign
-        symbolContainer.y = symbol.offset.y ?? 0;
+        symbolContainer.y = this.#scale * SCALE * (symbol.offset.y ?? 0);
       }
 
       // Get frame to load
@@ -1005,15 +1060,7 @@ export default class FighterHolder {
 
         // Apply transform
         if (framePart.transform) {
-          let size = SCALE;
-
-          // Custom scale for panther
-          if (this.type === 'pet' && this.name === 'panther') {
-            size = SCALE * 1.5;
-          } else if (this.type === 'boss') {
-            // Custom scale for bosses
-            size = SCALE * (bosses.find((b) => b.name === this.name)?.scale ?? 1);
-          }
+          const size = SCALE * this.#scale;
           framePartContainer.transform.setFromMatrix(matrixFromObject(framePart.transform, size));
         }
 
@@ -1100,6 +1147,25 @@ export default class FighterHolder {
       resolve();
     });
   });
+
+  // Stop / restart actualizing zIndex
+  setAirborn = (airborn: boolean) => {
+    if (airborn) {
+      this.shadowSprite.alpha = 0;
+    } else {
+      this.shadowSprite.alpha = 1;
+      this.shadowSprite.y = 0;
+      this.container.zIndex = this.container.y;
+    }
+    this.#isAirborn = airborn;
+  };
+
+  // Display shadow on the right position (used while airborn)
+  updateShadow = () => {
+    const altitude = this.container.zIndex - this.container.y;
+    this.shadowSprite.y = altitude;
+    this.shadowSprite.alpha = (this.baseHeight - altitude * 0.9) / this.baseHeight;
+  };
 
   destroy = () => {
     this.pause();
