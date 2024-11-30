@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import {
-  DetailedFight, DetailedFighter, StepType, WeaponByName,
+  DetailedFight, DetailedFighter, StepType, WeaponByName, WeaponType
 } from '@labrute/core';
+import { SkillName } from '@labrute/prisma';
 import shuffle from '../shuffle.js';
 
 const applySpy = (
@@ -10,7 +11,15 @@ const applySpy = (
   opponent: DetailedFighter,
 ) => {
   if (brute.skills.find((skill) => skill.name === 'spy')) {
-    const opponentWeaponsCount = opponent.weapons.length;
+    let swappableOpponentWeapons = opponent.weapons;
+
+    if (opponent.skills.some((skill) => skill.name === SkillName.weaponsMaster)) {
+      swappableOpponentWeapons = swappableOpponentWeapons.filter(
+        (w) => !w.types.includes(WeaponType.SHARP)
+      );
+    }
+
+    const opponentWeaponsCount = swappableOpponentWeapons.length;
     const bruteWeaponsCount = brute.weapons.length;
     const weaponsToSwap = Math.min(opponentWeaponsCount, bruteWeaponsCount);
 
@@ -19,7 +28,7 @@ const applySpy = (
     }
 
     // Only swap the amount of weapons the spy has (maxed at opponent's weapons count)
-    const opponentWeaponsToSwap = shuffle(opponent.weapons)
+    const opponentWeaponsToSwap = shuffle(swappableOpponentWeapons)
       .slice(0, weaponsToSwap);
     const bruteWeaponsToSwap = shuffle(brute.weapons)
       .slice(0, weaponsToSwap);

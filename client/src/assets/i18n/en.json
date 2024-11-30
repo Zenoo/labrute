@@ -252,7 +252,7 @@
   "immortality.effect": "",
   "weaponsMaster": "Weapons Master",
   "weaponsMaster.desc": "After having mastered all edged weapons, you're a much bigger threat to your opponents.",
-  "weaponsMaster.effect": "",
+  "weaponsMaster.effect": "The Spy can't swap your sharp weapons.",
   "martialArts": "Martial Arts",
   "martialArts.desc": "The Chuck Norris course you took has really paid off! Now you can walk wherever you want... and more often than not it'll be all over your opponent's ugly face!",
   "martialArts.effect": "",
