@@ -1,7 +1,9 @@
+/* eslint-disable no-void */
 import { DeathStep } from '@labrute/core';
 
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import getFighterType from './utils/getFighterType';
 
 const death = (
   fighters: AnimationFighter[],
@@ -20,6 +22,15 @@ const death = (
 
   // Set animation to `death`
   fighter.animation.setAnimation('death');
+
+  // If bear model, fade out it's shadow
+  if (getFighterType(fighter) === 'bear') {
+    void Tweener.add({
+      target: fighter.animation.shadowSprite,
+      duration: 0.4 / speed.current,
+      ease: Easing.linear,
+    }, { alpha: 0 });
+  }
 
   // Wait for animation to end
   animationEnded.then(() => {
