@@ -320,7 +320,7 @@
   "flashFlood.desc": "Walking around carrying 100 kilos of weapons is very tiring but you have found a clever way of traveling light.",
   "flashFlood.effect": "Action (x{{uses}}) Your Brute instantly deals massive damage to their opponent with 3 weapons.",
   "leadSkeleton": "Lead Skeleton",
-  "leadSkeleton.desc": "Although it's extremely heavy, a lead skeleton is essential as it considerably reduces blunt weapon damage.",
+  "leadSkeleton.desc": "Although it's extremely heavy, a lead skeleton is essential as it considerably reduces damage, especially from blunt weapons.",
   "leadSkeleton.effect": "",
   "balletShoes": "Ballet Shoes",
   "balletShoes.desc": "You've mastered the swan dance making it impossible for your opponent to reach you, as long as they hasn't mastered it too!",

@@ -515,7 +515,7 @@ export const SkillModifiers: Record<
   },
   [SkillName.armor]: {
     [FightStat.ARMOR]: { percent: 0.25 },
-    [FightStat.SPEED]: { percent: -0.1 },
+    [FightStat.SPEED]: { percent: -0.15 },
   },
   [SkillName.toughenedSkin]: {
     [FightStat.ARMOR]: { percent: 0.1 },
@@ -536,7 +536,9 @@ export const SkillModifiers: Record<
   },
   [SkillName.survival]: {},
   [SkillName.leadSkeleton]: {
-    [FightStat.DAMAGE]: { percent: -0.3, weaponType: WeaponType.BLUNT, opponent: true },
+    [FightStat.ARMOR]: { percent: 0.15 },
+    [FightStat.DAMAGE]: { percent: -0.15, weaponType: WeaponType.BLUNT, opponent: true },
+    [FightStat.EVASION]: { percent: -0.15 },
   },
   [SkillName.balletShoes]: {
     [FightStat.EVASION]: { percent: 0.1 },
