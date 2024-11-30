@@ -441,7 +441,13 @@ export interface SkillExpireStep {
   /** Action */
   a: StepType.SkillExpire;
   /** Brute ID */
-  b: number;
+  // Necessary since f was added later
+  // TODO: Remove on release
+  b?: number;
+  /** Fighter ID */
+  // ? is necessary since f was added later
+  // TODO: Remove ? on release
+  f?: number;
   /** Skill ID */
   s: SkillId;
 }

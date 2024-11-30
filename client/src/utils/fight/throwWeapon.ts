@@ -1,10 +1,10 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, ThrowStep, WeaponById, weapons } from '@labrute/core';
+import { ThrowStep, WeaponById, weapons } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import getFighterType from './utils/getFighterType';
+import { knockBack } from './utils/knockBack';
 
 const throwWeapon = async (
   app: Application,
@@ -59,6 +59,11 @@ const throwWeapon = async (
     fighter.animation.setAnimation('throw');
   }
 
+  // Infer weapon's weight on it's damage
+  const weaponWeight = weapons.find((weapon) => weapon.name === WeaponById[step.w])?.damage ?? 0;
+  // Small self knockback
+  void knockBack(fighter, speed, weaponWeight * 0.25, 0.25);
+
   // Create thrown weapon sprite
   const thrownWeapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
 
@@ -68,17 +73,17 @@ const throwWeapon = async (
   // Get starting position
   const start = {
     x: fighter.team === 'L'
-      ? fighter.animation.container.x + FIGHTER_WIDTH.brute
+      ? fighter.animation.container.x + fighter.animation.baseWidth
       : fighter.animation.container.x,
-    y: fighter.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
+    y: fighter.animation.container.y - fighter.animation.baseHeight * 0.5,
   };
 
   // Get end position
   const end = {
     x: target.team === 'L'
-      ? target.animation.container.x + FIGHTER_WIDTH[getFighterType(target)]
+      ? target.animation.container.x + target.animation.baseWidth
       : target.animation.container.x,
-    y: target.animation.container.y - FIGHTER_HEIGHT[getFighterType(target)] * 0.5,
+    y: target.animation.container.y - target.animation.baseHeight * 0.5,
   };
 
   // Set position

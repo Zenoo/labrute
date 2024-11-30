@@ -10,7 +10,7 @@ const setHUDFocus = async (
   app: Application,
   renderer: RendererContextInterface,
   fighters: AnimationFighter[],
-  fighterIndex: number,
+  fighterIndex: number | undefined,
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
@@ -19,7 +19,8 @@ const setHUDFocus = async (
     throw new Error('Fighter not found');
   }
 
-  if (fighter.HUDFocused || fighter.master) return;
+  // Abort if not focused or not brute
+  if (fighter.HUDFocused || fighter.type !== 'brute') return;
 
   fighters.forEach((f) => {
     if (f.team === fighter.team) {
@@ -39,8 +40,8 @@ const setHUDFocus = async (
   if (fighter.bust && fighter.bustImage) {
     fighter.bust.texture = Texture.from(fighter.bustImage);
   }
-
-  if (!isClanWar) {
+  // Don't update hp bar if clanwar or backup
+  if (!isClanWar && !fighter.master) {
     updateHp(fighters, fighter, fighter.hp, speed, false, true);
   }
 

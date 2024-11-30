@@ -149,6 +149,7 @@ const translateFightStep = (
         target: getFighterName(fighters, step.t, t),
       });
 
+      // TODO: Remove on release
       if (step.b) {
         text += ' ';
         text += t('fight.step.break', {
@@ -201,7 +202,8 @@ const translateFightStep = (
       });
     case StepType.SkillExpire:
       return t('fight.step.skillExpire', {
-        brute: getFighterName(fighters, step.b, t),
+        // TODO: only step.f on release
+        brute: getFighterName(fighters, step.b || step.f || 1, t),
         skill: t(SkillById[step.s]),
       });
     case StepType.SkillActivate:

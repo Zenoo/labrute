@@ -48,7 +48,7 @@ import { treat } from './treat';
 import updateWeapons from './updateWeapons';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
-import repositionFighters, { isNeutralStep } from './utils/repositionFighters';
+import repositionFighters, { isRangedStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
 import setHUDFocus from './setHUDFocus';
@@ -477,7 +477,7 @@ const setupFight: (
     }
 
     // Reposition mispositionned fighters during neutral
-    if (isNeutralStep(step.a)) await repositionFighters(app, fighters, speed);
+    if (isRangedStep(step.a)) await repositionFighters(app, fighters, speed);
 
     // Display step's brute in HUD
     if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
@@ -571,7 +571,7 @@ const setupFight: (
         break;
       }
       case StepType.Block: {
-        await block(app, fighters, step);
+        await block(app, fighters, step, speed);
         break;
       }
       case StepType.SkillActivate: {
@@ -583,7 +583,7 @@ const setupFight: (
         break;
       }
       case StepType.End: {
-        end(fighters, step);
+        end(app, fighters, step);
         break;
       }
       case StepType.Hypnotise: {
@@ -595,16 +595,11 @@ const setupFight: (
         break;
       }
       case StepType.Sabotage: {
-        sabotage(app, fighters, step);
+        sabotage(app, fighters, step, speed);
         break;
       }
       case StepType.Resist: {
-        const nextStep = steps[i + 1];
-
-        if (!nextStep) {
-          throw new Error('Next step not found');
-        }
-        resist(app, fighters, step, nextStep, speed);
+        resist(app, fighters, step, speed);
         break;
       }
       case StepType.Bomb: {

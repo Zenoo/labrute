@@ -1,11 +1,11 @@
 /* eslint-disable no-void */
-import { FIGHTER_WIDTH, MoveStep, weapons } from '@labrute/core';
+import { MoveStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import getFighterType from './utils/getFighterType';
 import repositionFighters from './utils/repositionFighters';
+import getHitDistance from './utils/getHitDistance';
 
 const moveTo = async (
   app: Application,
@@ -24,50 +24,35 @@ const moveTo = async (
 
   // Filter the only moveTo case outside of neutral (melee repositioning)
   if (!step.r) {
-    // Reposition mispositionned fighters before moveTo
-    await repositionFighters(app, fighters, speed);
+    // Reposition mispositionned other fighters before moveTo
+    await repositionFighters(app, fighters.filter((f) => f !== fighter), speed);
   }
 
   // Set animation to `run`
   fighter.animation.setAnimation('run');
+
   // Play running SFX
   if (fighter.type === 'pet') {
     // Remove numbers from pet name
     void sound.play('sfx', { sprite: `${fighter.name.replace(/\d/g, '')}` });
   }
 
-  const targetX = target.animation.container.x;
-  let modifier = 0;
+  const distance = getHitDistance(fighter, target, !!step.c, !!step.s);
 
-  // Same space
-  if (step.s) {
-    modifier = 20;
-  }
+  // Get travel position
+  const targetX = target.team === 'R'
+    ? target.animation.container.x - distance
+    : target.animation.container.x + distance;
+  const targetY = target.animation.container.y;
 
-  // Weapon reach
-  if (!step.s) {
-    // Adjust for fighter width
-    let width = FIGHTER_WIDTH[getFighterType(fighter)];
-    if (fighter.type === 'boss') {
-      width *= 1.5;
-    }
-    modifier += width;
+  // Get travel distance
+  const travelDistance = Math.sqrt(
+    (targetX - fighter.animation.container.x) ** 2
+    + (targetY - fighter.animation.container.y) ** 2
+  );
 
-    let reach = 0;
-
-    // Countered, take opponent weapon reach into account
-    if (step.c) {
-      reach = weapons.find((w) => w.name === target.animation.weapon)?.reach || 0;
-    } else {
-      // Take fighter weapon reach into account
-      reach = weapons.find((w) => w.name === fighter.animation.weapon)?.reach || 0;
-    }
-
-    modifier += reach * 16;
-  }
-
-  // Smaller duration if target were already close
-  const duration = Math.abs(targetX - fighter.animation.container.x) < 150 ? 0.2 : 0.5;
+  // Travel duration depends on distance
+  const duration = Math.max(0.16, travelDistance / 430);
 
   // Move fighter to the position
   await Tweener.add({
@@ -75,10 +60,8 @@ const moveTo = async (
     duration: duration / speed.current,
     ease: Easing.linear
   }, {
-    x: target.team === 'R'
-      ? targetX - modifier
-      : targetX + modifier,
-    y: target.animation.container.y,
+    x: targetX,
+    y: targetY,
   });
 
   // Set animation to `idle`

@@ -22,6 +22,10 @@ const steal = async (
     throw new Error('Target not found');
   }
 
+  // Set brute animation to `evade`
+  brute.animation.setAnimation('evade');
+  // Start airborn phase
+  brute.animation.setAirborn(true);
   // Move brute to target position
   await Tweener.add({
     target: brute.animation.container,
@@ -34,7 +38,9 @@ const steal = async (
 
   // Reverse brute
   brute.animation.container.scale.x *= -1;
-
+  brute.animation.container.zIndex = target.animation.container.zIndex - 1;
+  // Update brute's shadow
+  brute.animation.updateShadow();
   // Set brute animation to `steal`
   brute.animation.setAnimation('steal');
   // Play steal SFX
@@ -54,13 +60,16 @@ const steal = async (
   // Update brute weapons
   brute.animation.weapon = WeaponById[step.w];
 
-  // Restore scale
-  brute.animation.container.scale.x *= -1;
+  // Wake up target
+  target.stunned = false;
 
-  // Set target animation to normal
-  target.animation.setAnimation(target.stunned ? 'death' : 'idle');
+  // Set target animation to idle
+  target.animation.setAnimation('idle');
 
-  const { x, y } = getRandomPosition(fighters, brute.team);
+  // Set brute animation to `evade`
+  brute.animation.setAnimation('evade');
+
+  const { x, y } = getRandomPosition(fighters, brute);
 
   // Move brute to position
   await Tweener.add({
@@ -71,6 +80,12 @@ const steal = async (
     x,
     y,
   });
+
+  // End airborn phase
+  brute.animation.setAirborn(false);
+
+  // Restore scale
+  brute.animation.container.scale.x *= -1;
 
   // Set brute animation to normal
   brute.animation.setAnimation('idle');

@@ -1,11 +1,13 @@
 import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import { OutlineFilter } from '@pixi/filter-outline';
 import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import { untrap } from './untrap';
+import { jumpBack } from './evade';
+import { playDustEffect } from './utils/playVFX';
 
 const skillExpire = async (
   app: Application,
@@ -13,22 +15,36 @@ const skillExpire = async (
   step: SkillExpireStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  const brute = findFighter(fighters, step.b);
-  if (!brute) {
-    throw new Error('Brute not found');
+  const fighter = findFighter(fighters, step.b || step.f || 0);
+  if (!fighter) {
+    throw new Error('Fighter not found');
   }
 
   if (step.s === SkillId.fierceBrute) {
-    // Remove Outline filter
-    brute.animation.container.filters = brute.animation.container.filters?.filter(
-      (filter) => !(filter instanceof OutlineFilter),
-    ) || [];
+    // End fierceBrute
+    fighter.fierceBrute = false;
+  }
+
+  // Handle self untrap / wake up
+  if (step.s === SkillId.net || step.s === SkillId.chaining) {
+    // Untrap target
+    untrap(app, fighter);
+    // Wake up
+    fighter.stunned = false;
+
+    // Play strenghten anim if brute
+    if (fighter.type === 'brute') {
+      const animationEnded = fighter.animation.waitForEvent('strengthen:end');
+      // Set animation to `strenghten`
+      fighter.animation.setAnimation('strengthen');
+      await animationEnded;
+    }
   }
 
   // Hypnosis aura fade out
   if (step.s === SkillId.hypnosis) {
     // Get hypnosis Glowfilter
-    const glowFilter = brute.animation.container.filters?.find(
+    const glowFilter = fighter.animation.container.filters?.find(
       (filter) => filter instanceof GlowFilter
     ) as GlowFilter | null;
 
@@ -40,7 +56,7 @@ const skillExpire = async (
         innerStrength -= 0.1;
         if (outerStrength <= 0 && innerStrength <= 0) {
           // Remove Glow filter when faded
-          brute.animation.container.filters = brute.animation.container.filters?.filter(
+          fighter.animation.container.filters = fighter.animation.container.filters?.filter(
             (filter) => !(filter instanceof GlowFilter)
           ) || [];
         } else {
@@ -56,34 +72,44 @@ const skillExpire = async (
   // Flash flood
   if (step.s === SkillId.flashFlood) {
     // Set brute animation to `arrive`
-    brute.animation.once('arrive:start', () => {
-      brute.animation.pause();
+    fighter.animation.once('arrive:start', () => {
+      fighter.animation.pause();
     });
-    brute.animation.setAnimation('arrive');
+    fighter.animation.setAnimation('arrive');
 
     // Get positions
-    const { x, y } = getRandomPosition(fighters, brute.team);
+    const { x, y } = getRandomPosition(fighters, fighter);
 
     // Move brute back
     await Tweener.add({
-      target: brute.animation.container,
+      target: fighter.animation.container,
       duration: 0.4 / speed.current,
       ease: Easing.easeInCubic
     }, { x, y });
 
-    const animationEnded = brute.animation.waitForEvent('arrive:end');
+    // End airborn phase
+    fighter.animation.setAirborn(false);
+
+    // Dust cloud on landing
+    playDustEffect(app, fighter, speed);
+
+    const animationEnded = fighter.animation.waitForEvent('arrive:end');
 
     // Continue brute animation
-    brute.animation.play();
+    fighter.animation.play();
 
     // Wait for animation to end before going further
     await animationEnded;
 
     // Set animation to `idle`
-    brute.animation.setAnimation('idle');
+    fighter.animation.setAnimation('idle');
   }
 
-  // TODO: different visual for every skill expiration
+  // Hammer
+  if (step.s === SkillId.hammer) {
+    // Jump back from impact
+    await jumpBack(fighter, speed, 110, 0.33);
+  }
 };
 
 export default skillExpire;
