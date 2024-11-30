@@ -1,13 +1,14 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, SkillActivateStep, SkillById, SkillId } from '@labrute/core';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { SkillActivateStep, SkillById, SkillId } from '@labrute/core';
+import { AnimatedSprite, Application, Sprite } from 'pixi.js';
+import { AdjustmentFilter } from '@pixi/filter-adjustment';
 
-import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import stagger from './stagger';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import repositionFighters from './utils/repositionFighters';
+import { playDustEffect } from './utils/playVFX';
 
 const skillActivate = async (
   app: Application,
@@ -46,13 +47,81 @@ const skillActivate = async (
     // Set animation to `strenghten`
     brute.animation.setAnimation('strengthen');
 
-    // Add filter
     if (step.s === SkillId.fierceBrute) {
-      if (!brute.animation.container.filters) {
-        brute.animation.container.filters = [];
-      }
+      brute.fierceBrute = true;
 
-      brute.animation.container.filters.push(new OutlineFilter(1, 0xff0000));
+      // Ghost creation interval
+      const ghostInterval = 2;
+      // Number of ghosts
+      const maxGhosts = 6;
+      // Ghost array
+      const ghosts: Sprite[] = [];
+      let currentIndex = maxGhosts;
+      let timeSinceLastGhost = ghostInterval;
+      // Ticker update function
+      const update = (delta: number) => {
+        timeSinceLastGhost += delta * speed.current;
+        // No ghost creation
+        if (timeSinceLastGhost < ghostInterval) return;
+        timeSinceLastGhost -= ghostInterval;
+        // FierceBrute end
+        if (!brute?.fierceBrute) {
+          // Remove ghosts from stage
+          for (const ghost of ghosts) app.stage.removeChild(ghost);
+          // Remove update from ticker
+          app.ticker.remove(update);
+          return;
+        }
+        // Update ghosts color filter
+        for (const ghost of ghosts) {
+          if (ghost) {
+            const filter = ghost.filters?.find(
+              (f) => f instanceof AdjustmentFilter
+            ) as AdjustmentFilter | null;
+            if (filter) {
+              filter.blue += 0.16;
+              filter.red -= 0.28;
+            }
+          }
+        }
+        // Add ghost
+        currentIndex = (currentIndex + 1) % maxGhosts;
+        let ghost = ghosts[currentIndex];
+        if (!ghost) {
+          ghost = new Sprite();
+          ghosts[currentIndex] = ghost;
+          app.stage.addChild(ghost);
+          ghost.filters = [new AdjustmentFilter()];
+        }
+        // Reposition last ghost
+        if (ghost) {
+          // Hide shadow before texture copy
+          brute.animation.shadowSprite.visible = false;
+          // Get brute's current texture
+          ghost.texture = app.renderer.generateTexture(brute.animation.container);
+          // Position ghost behind brute
+          const fighterBounds = brute.animation.container.getBounds();
+          ghost.position.set(fighterBounds.x, fighterBounds.y);
+          ghost.anchor.set(brute.animation.container.scale.x === 1 ? 0 : 1, 0);
+          ghost.scale = brute.animation.container.scale;
+          ghost.zIndex = brute.animation.container.zIndex - 1;
+          // Reset color filter
+          const filter = ghost.filters?.find(
+            (f) => f instanceof AdjustmentFilter
+          ) as AdjustmentFilter | null;
+          if (filter) {
+            filter.blue = 0.9;
+            filter.red = 2.4;
+            filter.saturation = 0.33;
+            filter.gamma = 0.26;
+            filter.contrast = 0.62;
+          }
+          // Show brute's shadow
+          brute.animation.shadowSprite.visible = true;
+        }
+      };
+      // Add to ticker
+      app.ticker.add(update);
     }
 
     const animations = [];
@@ -79,8 +148,8 @@ const skillActivate = async (
 
         // Set cry position
         cry.position.set(
-          brute.animation.container.x + (i % 2) * 20 - (brute.team === 'L' ? 0 : 140),
-          brute.animation.container.y - FIGHTER_HEIGHT.brute / 2 + i * 20,
+          brute.animation.container.x + (i % 2) * 20,
+          brute.animation.container.y - brute.animation.baseHeight / 2 + i * 20,
         );
 
         // Add cry to stage
@@ -140,7 +209,10 @@ const skillActivate = async (
   if (step.s === SkillId.flashFlood) {
     // Set brute animation to `evade`
     brute.animation.setAnimation('evade');
-
+    // Start airborn phase
+    brute.animation.setAirborn(true);
+    // Dust cloud on takeof
+    playDustEffect(app, brute, speed);
     // Move brute to upper middle
     await Tweener.add({
       target: brute.animation.container,
@@ -149,12 +221,10 @@ const skillActivate = async (
     }, {
       y: 100,
       x: brute.team === 'L'
-        ? app.screen.width / 2 - FIGHTER_WIDTH.brute / 2
-        : app.screen.width / 2 + FIGHTER_WIDTH.brute / 2,
+        ? app.screen.width / 2 - brute.animation.baseWidth / 2
+        : app.screen.width / 2 + brute.animation.baseWidth / 2,
     });
   }
-
-  // TODO: different visual for every skill activation
 };
 
 export default skillActivate;
