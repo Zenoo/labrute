@@ -1,6 +1,5 @@
-import { FightStep, ResistStep, StepType } from '@labrute/core';
-import { OutlineFilter } from '@pixi/filter-outline';
-import { Application } from 'pixi.js';
+import { ResistStep } from '@labrute/core';
+import { Application, AnimatedSprite } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './utils/findFighter';
 
@@ -8,7 +7,6 @@ const resist = (
   app: Application,
   fighters: AnimationFighter[],
   step: ResistStep,
-  nextStep: FightStep,
   speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
@@ -16,22 +14,35 @@ const resist = (
     throw new Error('Brute not found');
   }
 
-  // Add a yellow outline filter to the brute on the next animation
-  setTimeout(() => {
-    const outline = new OutlineFilter(1, 0xffff00);
-    brute.animation.container.filters = [
-      ...brute.animation.container.filters || [],
-      outline
-    ];
+  const waveSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
 
-    // Remove the outline filter after 0.2 second (more for hammer)
-    const duration = (nextStep.a === StepType.Hammer ? 800 : 200) / speed.current;
+  if (!waveSpritesheet) {
+    throw new Error('Spritesheet not found');
+  }
 
-    setTimeout(() => {
-      brute.animation.container.filters = brute.animation.container.filters
-        ?.filter((f) => !(f instanceof OutlineFilter)) || [];
-    }, duration);
-  }, 5);
+  // Create resist sprite
+  const resistSprite = new AnimatedSprite(waveSpritesheet.animations.resist || []);
+  resistSprite.animationSpeed = speed.current * 0.4;
+  resistSprite.loop = false;
+
+  // Center resist sprite on brute's chest
+  resistSprite.anchor.set(0.5, 0.5);
+  resistSprite.zIndex = brute.animation.container.zIndex + 1;
+  resistSprite.position.set(
+    brute.animation.container.x + (brute.team === 'L' ? -10 : 10),
+    brute.animation.container.y - brute.animation.baseHeight * 0.36
+  );
+
+  // Add resist sprite to stage
+  app.stage.addChild(resistSprite);
+
+  // Delete resist sprite when animation is complete
+  resistSprite.onComplete = () => {
+    resistSprite.destroy();
+  };
+
+  // Play resist
+  resistSprite.play();
 };
 
 export default resist;
