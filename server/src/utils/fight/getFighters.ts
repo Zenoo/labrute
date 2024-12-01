@@ -96,7 +96,7 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
       const fierceBruteSkill = fighter.skills.find((s) => s.name === skill);
       if (fierceBruteSkill && fierceBruteSkill.uses) {
         fierceBruteSkill.uses += Math.floor(fighter.strength / 30);
-      };
+      }
     }
   }
 };

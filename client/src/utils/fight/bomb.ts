@@ -1,7 +1,7 @@
 /* eslint-disable no-void */
 import { BombStep, randomBetween } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { AnimatedSprite, Application, filters } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import stagger from './stagger';
@@ -114,6 +114,9 @@ const bomb = async (
   const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion || []);
   explosionSprite.animationSpeed = speed.current;
   explosionSprite.loop = false;
+  explosionSprite.filters = [new filters.BlurFilter(3)];
+  explosionSprite.width *= 2;
+  explosionSprite.height *= 2;
 
   // Set explosion sprite position
   explosionSprite.x = targetPosition.x;
