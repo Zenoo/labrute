@@ -297,7 +297,7 @@
   "thief.effect": "Action (x{{uses}}) Your brute picks up their opponent's weapon",
   "fierceBrute": "Fierce Brute",
   "fierceBrute.desc": "Now you're a real brute. You are more powerful and violent than ever during fights.",
-  "fierceBrute.effect": "Action (x{{uses}}) Your Brute's blows will cause double damage during the next attack.",
+  "fierceBrute.effect": "Action (x{{uses}}) Your Brute's blows will cause double damage during the next attack. You gain one more use every 30 strength.",
   "tragicPotion": "Tragic Potion",
   "tragicPotion.desc": "Have a little sip of this. It Could make you a bit drunk. Hic.. hic... This peach juice restored some of the health lost during the fight.",
   "tragicPotion.effect": "Action (x{{uses}}) Your Brute regains between 25% and 50% HP. It also cures the Chef poison.",

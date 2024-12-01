@@ -280,10 +280,11 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   if (!supers.length) return null;
 
-  // Filter out defensive skills if fierceBrute is active
+  // Filter out defensive skills and fierceBrute if fierceBrute is active
   if (fighter.activeSkills.some((sk) => sk.name === SkillName.fierceBrute)) {
     supers = supers.filter((skill) => (
-      skill.name !== SkillName.tamer
+      skill.name !== SkillName.fierceBrute
+      && skill.name !== SkillName.tamer
       && skill.name !== SkillName.tragicPotion
       && skill.name !== SkillName.treat
     ));

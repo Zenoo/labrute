@@ -112,7 +112,7 @@ const skillActivate = async (
           if (filter) {
             filter.blue = 0.9;
             filter.red = 2.4;
-            filter.saturation = 0.33;
+            filter.saturation = 0.28;
             filter.gamma = 0.26;
             filter.contrast = 0.62;
           }

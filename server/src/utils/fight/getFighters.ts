@@ -90,6 +90,14 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     if (skill === SkillName.monk) {
       fighter.monk = true;
     }
+
+    // Add one fierceBrute use every 30 strength
+    if (skill === SkillName.fierceBrute) {
+      const fierceBruteSkill = fighter.skills.find((s) => s.name === skill);
+      if (fierceBruteSkill && fierceBruteSkill.uses) {
+        fierceBruteSkill.uses += Math.floor(fighter.strength / 30);
+      };
+    }
   }
 };
 
