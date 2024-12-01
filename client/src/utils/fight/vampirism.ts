@@ -11,6 +11,7 @@ import displayDamage from './utils/displayDamage';
 import updateHp from './updateHp';
 import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
+import { updateShadow } from './utils/updateShadow';
 
 export const vampirism = async (
   app: Application,
@@ -50,7 +51,7 @@ export const vampirism = async (
   brute.animation.container.scale.x *= -1;
   brute.animation.container.zIndex = target.animation.container.zIndex - 1;
   // Update brute's shadow
-  brute.animation.updateShadow();
+  updateShadow(brute);
 
   const animationEnded = brute.animation.waitForEvent('steal:end');
 

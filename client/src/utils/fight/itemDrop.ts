@@ -141,6 +141,8 @@ const itemDrop = ({
   let numBounces = 0;
   // At end phase, the item will slow down and the shadow will fade out
   let endPhase = false;
+  // Store the shadow alpha at the start of ending part
+  let endShadowAlpha = 0;
 
   // Update function
   const update = (delta: number) => {
@@ -215,8 +217,10 @@ const itemDrop = ({
       // If 4th bounce, go to end phase
       if (numBounces === 4) {
         endPhase = true;
+        // Reduce shadow alpha to avoid flickering effect
+        shadowContainer.alpha = Math.min(0.4, shadowContainer.alpha);
         // Store shadow current alpha
-        const shadowAlpha = shadowContainer.alpha;
+        endShadowAlpha = shadowContainer.alpha;
         // Set zIndex to back
         itemContainer.zIndex = 1;
         shadowContainer.zIndex = 1;
@@ -225,26 +229,6 @@ const itemDrop = ({
           target: shadowContainer,
           duration: 0.35 / speed.current,
           ease: Easing.linear,
-          onUpdate: (progress: number) => {
-            // Change the item scale to make a minimal 3d effect
-            const finalScale = Math.min(
-              0.8 + 0.2 * (Math.min(
-                Math.abs(itemSprite.angle - 90),
-                Math.abs(itemSprite.angle - 270)
-              ) / 90),
-              itemRoundness > 0.6 ? 0.85 : 1
-            );
-            itemContainer.scale.y = 1 + (finalScale - 1) * progress;
-            shadowContainer.scale.y = 1 + (finalScale - 1) * progress;
-            // Move the shadow behind the item
-            shadowContainer.y = itemContainer.y * progress + shadowContainer.y * (1 - progress);
-            shadowContainer.alpha = Math.min(shadowAlpha, (1 - progress) * 0.4);
-            // Slow down
-            itemSpeed = 1 - progress;
-            shadowSprite.angle = itemSprite.angle;
-            // Fade in the item shadow
-            shadowFilter.alpha = progress * 0.25;
-          },
         }, {
           alpha: 0,
         }).then(() => {
@@ -267,6 +251,29 @@ const itemDrop = ({
         }).catch(console.error);
       }
     }
+
+    if (endPhase) {
+      // Get the progress of the end phase
+      const progress = Math.min(1, (endShadowAlpha - shadowContainer.alpha) / endShadowAlpha);
+      // Change the item scale to make a minimal 3d effect
+      const finalScale = Math.min(
+        0.8 + 0.2 * (Math.min(
+          Math.abs(itemSprite.angle - 90),
+          Math.abs(itemSprite.angle - 270)
+        ) / 90),
+        itemRoundness > 0.6 ? 0.85 : 1
+      );
+      itemContainer.scale.y = 1 + (finalScale - 1) * progress;
+      shadowContainer.scale.y = 1 + (finalScale - 1) * progress;
+      // Move the shadow behind the item
+      shadowContainer.y = itemContainer.y * progress + shadowContainer.y * (1 - progress);
+      // Slow down
+      itemSpeed = 1 - progress;
+      shadowSprite.angle = itemSprite.angle;
+      // Fade in the item shadow
+      shadowFilter.alpha = progress * 0.25;
+    }
+
     // Add gravity at the end of the update process
     velocity.y += deltaTime * gravity;
     // If item goes off the screen

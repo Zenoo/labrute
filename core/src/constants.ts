@@ -42,7 +42,7 @@ export const NEW_BRUTE_BASE_COST = 500;
 
 export const FIGHTER_HEIGHT = {
   brute: 80,
-  [PetName.bear]: 130,
+  [PetName.bear]: 100,
   [PetName.panther]: 60,
   dog: 40,
 } as const;

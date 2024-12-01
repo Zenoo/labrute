@@ -6,6 +6,7 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import { updateShadow } from './utils/updateShadow';
 
 const steal = async (
   app: Application,
@@ -40,7 +41,7 @@ const steal = async (
   brute.animation.container.scale.x *= -1;
   brute.animation.container.zIndex = target.animation.container.zIndex - 1;
   // Update brute's shadow
-  brute.animation.updateShadow();
+  updateShadow(brute);
   // Set brute animation to `steal`
   brute.animation.setAnimation('steal');
   // Play steal SFX

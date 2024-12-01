@@ -26,7 +26,7 @@ const death = (
   // If bear model, fade out it's shadow
   if (getFighterType(fighter) === 'bear') {
     void Tweener.add({
-      target: fighter.animation.shadowSprite,
+      target: fighter.animation.shadow,
       duration: 0.4 / speed.current,
       ease: Easing.linear,
     }, { alpha: 0 });

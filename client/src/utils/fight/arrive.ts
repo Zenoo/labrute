@@ -10,6 +10,7 @@ import { sound } from '@pixi/sound';
 import { getRandomPosition } from './utils/fightPositions';
 import updateWeapons from './updateWeapons';
 import { playDustEffect } from './utils/playVFX';
+import { tweenShadow } from './utils/updateShadow';
 
 const arrive = async (
   app: Application,
@@ -57,18 +58,29 @@ const arrive = async (
   // Set airborn phase
   fighter.animation.setAirborn(true);
 
+  // Set zIndex to front
+  fighter.animation.container.zIndex = y + 50;
+
+  const moveAnimations = [];
+
   // Move fighter to the position
-  await Tweener.add({
+  moveAnimations.push(Tweener.add({
     target: fighter.animation.container,
     duration: 0.5 / speed.current,
     ease: Easing.linear,
-    onUpdate: (progress: number) => {
-      // Distance to the ground from 50 to 0
-      fighter.animation.container.zIndex = fighter.animation.container.y + 50 * (1 - progress);
-      // Display shadow at the right place
-      fighter.animation.updateShadow();
-    },
-  }, { x, y });
+  }, { x, y, zIndex: y }));
+
+  // Add a tweener for the shadow
+  moveAnimations.push(tweenShadow({
+    fighter,
+    speed,
+    duration: 0.5,
+    ease: Easing.linear,
+    endAltitude: 0,
+  }));
+
+  // Wait for animations
+  await Promise.all(moveAnimations);
 
   // Stop airborn phase
   fighter.animation.setAirborn(false);

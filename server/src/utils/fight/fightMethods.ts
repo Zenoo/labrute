@@ -1606,7 +1606,7 @@ const reversal = (opponent: DetailedFighter, blocked: boolean) => {
   return random < reversalStat;
 };
 
-const deflectProjectile = (fighter: DetailedFighter) => {
+const deflectProjectile = (fighter: DetailedFighter, timesDeflected: number) => {
   // No deflect if dead
   if (fighter.hp <= 0) return false;
 
@@ -1616,9 +1616,14 @@ const deflectProjectile = (fighter: DetailedFighter) => {
   // No deflect if stunned
   if (fighter.stunned) return false;
 
+  // Don't take into account weapon repulse for the original thrower unless they keep the weapon
+  const deflectWithWeapon = timesDeflected % 2 === 0
+    || fighter.skills.some((skill) => skill.name === SkillName.hideaway)
+    || fighter.activeWeapon?.types.includes('thrown');
+
   const random = Math.random();
 
-  return random < getFighterStat(fighter, 'deflect');
+  return random < getFighterStat(fighter, 'deflect', deflectWithWeapon ? undefined : 'fighter');
 };
 
 const attack = (
@@ -2046,10 +2051,9 @@ export const playFighterTurn = (
         ? randomBetween(0, 1) === 0
           ? 'thrown'
           : 'melee'
-        // 1/33 chance to throw a weapon otherwise if no deflect on weapon
+        // 1/33 chance to throw a weapon otherwise
         // (influenced by weapon hit speed)
-        : (fighter.activeWeapon.deflect === 0
-          && randomBetween(0, Math.round(33 - fighter.activeWeapon.tempo * 5)) === 0)
+        : randomBetween(0, Math.round(33 - fighter.activeWeapon.tempo * 5)) === 0
           ? 'thrown' : 'melee'
       : 'melee';
 
@@ -2198,7 +2202,7 @@ export const playFighterTurn = (
           r: deflected ? 1 : 0,
         });
 
-        deflected = deflectProjectile(currentOpponent);
+        deflected = deflectProjectile(currentOpponent, timesDeflected);
 
         let damage = 0;
 

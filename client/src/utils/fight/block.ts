@@ -22,13 +22,13 @@ const block = async (
     throw new Error('Fighter not found');
   }
 
-  const animationsEnded = [
-    fighter.animation.waitForEvent('block:end'),
-    // Slight knockBack
-    knockBack(fighter, speed, 9, 0.25),
-  ];
+  const animationsEnded = [fighter.animation.waitForEvent('block:end')];
+
   // Set animation to `block` (start at frame 3)
   fighter.animation.setAnimation('block', 3);
+
+  // Slight knockBack
+  animationsEnded.push(knockBack(fighter, speed, 9, 0.25));
 
   // Dust cloud from the knockBack slowdown
   playDustEffect(app, fighter, speed, 14);

@@ -96,7 +96,7 @@ const skillActivate = async (
         // Reposition last ghost
         if (ghost) {
           // Hide shadow before texture copy
-          brute.animation.shadowSprite.visible = false;
+          brute.animation.shadow.visible = false;
           // Get brute's current texture
           ghost.texture = app.renderer.generateTexture(brute.animation.container);
           // Position ghost behind brute
@@ -117,7 +117,7 @@ const skillActivate = async (
             filter.contrast = 0.62;
           }
           // Show brute's shadow
-          brute.animation.shadowSprite.visible = true;
+          brute.animation.shadow.visible = true;
         }
       };
       // Add to ticker

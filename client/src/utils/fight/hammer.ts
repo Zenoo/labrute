@@ -11,6 +11,7 @@ import updateHp from './updateHp';
 import { untrap } from './untrap';
 import { getRealKnockBack } from './utils/knockBack';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
+import { tweenShadow } from './utils/updateShadow';
 
 const hammer = async (
   app: Application,
@@ -91,59 +92,123 @@ const hammer = async (
   // Store direction
   const direction = fighter.team === 'L' ? 1 : -1;
 
-  // Animation function while spinning on X axis
-  const spinAnimation = () => {
-    // Get fighter current side relative to target
-    const side = target.animation.container.x > fighter.animation.container.x ? 1 : -1;
+  // Get fighter current side relative to target
+  let side = direction * (target.animation.container.x > fighter.animation.container.x ? -1 : 1);
 
-    // Turn fighters accordingly
+  const changeSide = () => {
+    side *= -1;
+
+    // Turn fighters
     target.animation.container.scale.x = side * targetInitialScaleX;
     fighter.animation.container.scale.x = side;
 
-    // zIndex fighters accordingly
+    // zIndex fighters
     target.animation.container.zIndex = start.y - side;
     fighter.animation.container.zIndex = start.y + side;
-
-    // Update shadows
-    target.animation.updateShadow();
-    fighter.animation.updateShadow();
   };
+
+  changeSide();
 
   jumpAnimations.push(
     // First spin
-    Tweener.add({
-      target: fighter.animation.container,
-      duration: jumpDuration / (3 * speed.current),
-      ease: Easing.linear,
-      onUpdate: spinAnimation,
-    }, {
-      x: target.animation.container.x + bruteDistance * direction,
-    }).then(() => {
-      // Set fighter animation to `grab`
-      fighter.animation.setAnimation('grab');
-
-      // Set target animation to `grabbed`
-      target.animation.setAnimation('grabbed');
-
-      // Second spin
-      return Tweener.add({
+    Tweener.add(
+      {
         target: fighter.animation.container,
-        duration: jumpDuration / (3 * speed.current),
+        duration: jumpDuration / (6 * speed.current),
         ease: Easing.linear,
-        onUpdate: spinAnimation,
-      }, {
-        x: target.animation.container.x - bruteDistance * direction,
-      });
-    // Third spin
-    }).then(() => Tweener.add({
-      target: fighter.animation.container,
-      duration: jumpDuration / (3 * speed.current),
-      ease: Easing.linear,
-      onUpdate: spinAnimation,
-    }, {
-      x: target.animation.container.x + bruteDistance * direction,
-    }))
+      },
+      {
+        x: target.animation.container.x,
+      }
+    )
+      .then(() => {
+        changeSide();
+        return Tweener.add(
+          {
+            target: fighter.animation.container,
+            duration: jumpDuration / (6 * speed.current),
+            ease: Easing.linear,
+          },
+          {
+            x: target.animation.container.x + bruteDistance * direction,
+          }
+        );
+      })
+      // Second spin
+      .then(() => {
+        // Set fighter animation to `grab`
+        fighter.animation.setAnimation('grab');
+
+        // Set target animation to `grabbed`
+        target.animation.setAnimation('grabbed');
+
+        return Tweener.add(
+          {
+            target: fighter.animation.container,
+            duration: jumpDuration / (6 * speed.current),
+            ease: Easing.linear,
+          },
+          {
+            x: target.animation.container.x,
+          }
+        );
+      })
+      .then(() => {
+        changeSide();
+        return Tweener.add(
+          {
+            target: fighter.animation.container,
+            duration: jumpDuration / (6 * speed.current),
+            ease: Easing.linear,
+          },
+          {
+            x: target.animation.container.x - bruteDistance * direction,
+          }
+        );
+      })
+      // Third spin
+      .then(() => Tweener.add(
+        {
+          target: fighter.animation.container,
+          duration: jumpDuration / (6 * speed.current),
+          ease: Easing.linear,
+        },
+        {
+          x: target.animation.container.x,
+        }
+      ))
+      .then(() => {
+        changeSide();
+        return Tweener.add(
+          {
+            target: fighter.animation.container,
+            duration: jumpDuration / (6 * speed.current),
+            ease: Easing.linear,
+          },
+          {
+            x: target.animation.container.x + bruteDistance * direction,
+          }
+        );
+      })
   );
+
+  // Add a tweener for the fighter' shadow
+  jumpAnimations.push(tweenShadow({
+    fighter,
+    speed,
+    duration: jumpDuration,
+    ease: Easing.linear,
+    endAltitude: fighter.animation.container.y - topY,
+  }));
+
+  // Add a tweener for the target's shadow
+  jumpAnimations.push(tweenShadow({
+    fighter: target,
+    speed,
+    duration: jumpDuration,
+    ease: Easing.linear,
+    endAltitude: fighter.animation.container.y - topY,
+  }));
 
   // Wait for jump animations to finish
   await Promise.all(jumpAnimations);
@@ -151,6 +216,10 @@ const hammer = async (
   // Invert on y for the drop
   fighter.animation.container.scale.y = -1;
   target.animation.container.scale.y = -1;
+
+  // Change their y as their y anchor is 0
+  fighter.animation.container.y -= fighter.animation.baseHeight;
+  target.animation.container.y -= target.animation.baseHeight;
 
   // Drop both
   const dropAnimations = [fighter, target].map((f) => Tweener.add({

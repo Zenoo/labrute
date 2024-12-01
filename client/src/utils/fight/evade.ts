@@ -4,6 +4,7 @@ import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { getRealKnockBack } from './utils/knockBack';
+import { tweenShadow } from './utils/updateShadow';
 
 export const jumpBack = async (
   fighter: AnimationFighter,
@@ -23,34 +24,61 @@ export const jumpBack = async (
 
   // Store initial X position
   const initialX = fighter.animation.container.x;
-  const jumpHeight = Math.min(100, fighter.animation.baseHeight * 0.5);
+  const jumpHeight = Math.min(80, fighter.animation.baseHeight * 0.5);
+
+  const upAnimations = [];
+
+  // Add horizontal tween
+  upAnimations.push(Tweener.add({
+    target: fighter.animation.container,
+    duration: (duration * 0.5) / speed.current,
+    ease: Easing.linear,
+  }, { x: initialX + setBack * 0.5 }));
 
   // Add vertical tween
-  await Tweener.add({
+  upAnimations.push(Tweener.add({
     target: fighter.animation.container,
     duration: (duration * 0.5) / speed.current,
     ease: Easing.easeTo,
-    onUpdate(progress: number) {
-      // Update fighter shadow
-      fighter.animation.updateShadow();
-      // Move linearly on x axis
-      // eslint-disable-next-line no-param-reassign
-      fighter.animation.container.x = initialX + setBack * 0.5 * progress;
-    },
-  }, { y: fighter.animation.container.y - jumpHeight });
+  }, { y: fighter.animation.container.y - jumpHeight }));
 
-  await Tweener.add({
+  // Add a tweener for the shadow
+  upAnimations.push(tweenShadow({
+    fighter,
+    speed,
+    duration: duration * 0.5,
+    ease: Easing.easeTo,
+    endAltitude: jumpHeight,
+  }));
+
+  await Promise.all(upAnimations);
+
+  const downAnimations = [];
+
+  // Add horizontal tween
+  downAnimations.push(Tweener.add({
+    target: fighter.animation.container,
+    duration: (duration * 0.5) / speed.current,
+    ease: Easing.linear,
+  }, { x: initialX + setBack }));
+
+  // Add vertical tween
+  downAnimations.push(Tweener.add({
     target: fighter.animation.container,
     duration: (duration * 0.5) / speed.current,
     ease: Easing.easeFrom,
-    onUpdate(progress: number) {
-      // Update fighter shadow
-      fighter.animation.updateShadow();
-      // Move linearly on x axis
-      // eslint-disable-next-line no-param-reassign
-      fighter.animation.container.x = initialX + setBack * (0.5 + 0.5 * progress);
-    },
-  }, { y: fighter.animation.container.y + jumpHeight });
+  }, { y: fighter.animation.container.y + jumpHeight }));
+
+  // Add a tweener for the shadow
+  downAnimations.push(tweenShadow({
+    fighter,
+    speed,
+    duration: duration * 0.5,
+    ease: Easing.easeFrom,
+    endAltitude: 0,
+  }));
+
+  await Promise.all(downAnimations);
 
   // End airborn phase
   fighter.animation.setAirborn(false);

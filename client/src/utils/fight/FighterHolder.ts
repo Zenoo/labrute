@@ -461,7 +461,7 @@ export default class FighterHolder {
 
   #animationSymbol: LaBruteSymbol | null = null;
 
-  shadowSprite: PIXI.Sprite = new PIXI.Sprite();
+  shadow: PIXI.Container = new PIXI.Container();
 
   #isAirborn = false;
 
@@ -567,19 +567,22 @@ export default class FighterHolder {
     shadowGraphics.endFill();
 
     // Create Shadow Sprite
-    this.shadowSprite.texture = app.renderer.generateTexture(shadowGraphics);
-    this.shadowSprite.anchor.set(0.5, 0.5);
-    this.shadowSprite.position.set(0, 0);
-    this.shadowSprite.scale.set(1, 0.5);
-    this.shadowSprite.width = this.baseWidth;
-    this.shadowSprite.height = this.baseHeight * 0.1;
+    const shadowSprite = new PIXI.Sprite();
+    shadowSprite.texture = app.renderer.generateTexture(shadowGraphics);
+    shadowSprite.anchor.set(0.5, 0.5);
+    shadowSprite.position.set(0, 0);
+    shadowSprite.scale.set(1, 0.5);
+    shadowSprite.width = this.baseWidth;
+    shadowSprite.height = this.baseHeight * 0.1;
     // Shadows are 25% smaller for animals
-    if (this.type !== 'brute') this.shadowSprite.width *= 0.75;
+    if (this.type !== 'brute') shadowSprite.width *= 0.75;
     // Blur shadow depending on it's size
-    this.shadowSprite.filters = [new PIXI.filters.BlurFilter(this.baseWidth * 0.07)];
-    this.shadowSprite.alpha = 0;
-    // Add shadow Sprite to fightHolder
-    this.container.addChild(this.shadowSprite);
+    shadowSprite.filters = [new PIXI.filters.BlurFilter(this.baseWidth * 0.07)];
+    // Add shadowSprite to shadow container
+    this.shadow.addChild(shadowSprite);
+    this.shadow.alpha = 0;
+    // Add shadow Container to fightHolder
+    this.container.addChild(this.shadow);
 
     const maxSvgs: SvgsToLoad = [];
 
@@ -780,7 +783,7 @@ export default class FighterHolder {
 
     // Hide all animations
     for (const child of this.container.children) {
-      if (child !== this.shadowSprite && child instanceof PIXI.Container) {
+      if (child !== this.shadow && child instanceof PIXI.Container) {
         child.visible = false;
       }
     }
@@ -1151,20 +1154,14 @@ export default class FighterHolder {
   // Stop / restart actualizing zIndex
   setAirborn = (airborn: boolean) => {
     if (airborn) {
-      this.shadowSprite.alpha = 0;
+      this.shadow.alpha = 0;
     } else {
-      this.shadowSprite.alpha = 1;
-      this.shadowSprite.y = 0;
+      this.shadow.alpha = 1;
+      this.shadow.y = 0;
+      this.shadow.scale.set(1, 1);
       this.container.zIndex = this.container.y;
     }
     this.#isAirborn = airborn;
-  };
-
-  // Display shadow on the right position (used while airborn)
-  updateShadow = () => {
-    const altitude = this.container.zIndex - this.container.y;
-    this.shadowSprite.y = altitude;
-    this.shadowSprite.alpha = (this.baseHeight - altitude * 0.9) / this.baseHeight;
   };
 
   destroy = () => {
