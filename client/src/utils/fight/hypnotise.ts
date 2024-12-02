@@ -27,13 +27,11 @@ const hypnotise = async (
     throw new Error('Brute not found');
   }
 
-  const animationEnded = brute.animation.waitForEvent('win:end');
-
   // Set brute animation to `win` at frame 3
   brute.animation.setAnimation('win', 3);
 
-  // Wait for win animation to complete
-  await animationEnded;
+  // Wait for the arm to be on the air (around 1s no matter the speed)
+  await new Promise((resolve) => { setTimeout(resolve, 1000); });
 
   // Play hypnosis SFX
   void sound.play('sfx', { sprite: 'hypnosis' });
@@ -71,6 +69,9 @@ const hypnotise = async (
   spiralContainer.zIndex = 1002;
   invertedContainer.zIndex = 1001;
 
+  // Set alpha to zero
+  spiralContainer.alpha = 0;
+
   // Copy the stage texture
   const stageTexture = RenderTexture.create({ width: app.screen.width, height: app.screen.height });
   app.renderer.render(app.stage, stageTexture as unknown as IRendererRenderOptions);
@@ -94,7 +95,7 @@ const hypnotise = async (
   let thicknessDelta = 0.04;
   let stopDraw = false;
   // Update spiral graphics
-  const update = () => {
+  const update = (delta: number) => {
     // Reset graphics
     spiral.clear();
 
@@ -107,7 +108,7 @@ const hypnotise = async (
     const turns = 12;
 
     // Draw the spiral
-    for (let i = 0; i < turns * Math.PI * 2; i += 0.14) {
+    for (let i = 0; i < turns * Math.PI * 2; i += 0.1) {
       thickness += thicknessDelta;
       spiral.lineStyle(thickness, 0xffffff);
       const radius = i * radiusIncrement;
@@ -124,14 +125,23 @@ const hypnotise = async (
       }
     }
     // Update params
-    angle -= 0.18 * speed.current;
-    radiusIncrement += 0.015 * speed.current;
-    thicknessDelta -= 0.00048 * speed.current;
+    angle -= 0.25 * speed.current * delta;
+    radiusIncrement += 0.015 * speed.current * delta;
+    thicknessDelta -= 0.00048 * speed.current * delta;
     // Stop
     if (stopDraw) app.ticker.remove(update);
   };
 
   app.ticker.add(update);
+
+  // Fade in spiral
+  await Tweener.add({
+    target: spiralContainer,
+    duration: 0.05 / speed.current,
+    ease: Easing.linear,
+  }, {
+    alpha: 1,
+  });
 
   // Fade out inverted container
   await Tweener.add({
@@ -148,7 +158,7 @@ const hypnotise = async (
   // Fade out spiral container to 0.3
   await Tweener.add({
     target: spiralContainer,
-    duration: 1.5 / speed.current,
+    duration: 1.2 / speed.current,
     ease: Easing.linear,
   }, {
     alpha: 0.3,
