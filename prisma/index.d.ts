@@ -160,20 +160,20 @@ export namespace $Enums {
 export type Lang = (typeof Lang)[keyof typeof Lang]
 
 
-export const Gender: {
-  male: 'male',
-  female: 'female'
-};
-
-export type Gender = (typeof Gender)[keyof typeof Gender]
-
-
 export const DestinyChoiceSide: {
   LEFT: 'LEFT',
   RIGHT: 'RIGHT'
 };
 
 export type DestinyChoiceSide = (typeof DestinyChoiceSide)[keyof typeof DestinyChoiceSide]
+
+
+export const Gender: {
+  male: 'male',
+  female: 'female'
+};
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
 export const WeaponName: {
@@ -272,6 +272,14 @@ export const PetName: {
 };
 
 export type PetName = (typeof PetName)[keyof typeof PetName]
+
+
+export const FighterType: {
+  brute: 'brute',
+  pet: 'pet'
+};
+
+export type FighterType = (typeof FighterType)[keyof typeof FighterType]
 
 
 export const FightModifier: {
@@ -457,13 +465,6 @@ export const AchievementName: {
 export type AchievementName = (typeof AchievementName)[keyof typeof AchievementName]
 
 
-export const BruteReportReason: {
-  name: 'name'
-};
-
-export type BruteReportReason = (typeof BruteReportReason)[keyof typeof BruteReportReason]
-
-
 export const BruteReportStatus: {
   pending: 'pending',
   accepted: 'accepted',
@@ -471,6 +472,13 @@ export const BruteReportStatus: {
 };
 
 export type BruteReportStatus = (typeof BruteReportStatus)[keyof typeof BruteReportStatus]
+
+
+export const BruteReportReason: {
+  name: 'name'
+};
+
+export type BruteReportReason = (typeof BruteReportReason)[keyof typeof BruteReportReason]
 
 
 export const BossName: {
@@ -482,14 +490,6 @@ export const BossName: {
 export type BossName = (typeof BossName)[keyof typeof BossName]
 
 
-export const ClanWarType: {
-  friendly: 'friendly',
-  official: 'official'
-};
-
-export type ClanWarType = (typeof ClanWarType)[keyof typeof ClanWarType]
-
-
 export const ClanWarStatus: {
   pending: 'pending',
   ongoing: 'ongoing',
@@ -498,6 +498,14 @@ export const ClanWarStatus: {
 };
 
 export type ClanWarStatus = (typeof ClanWarStatus)[keyof typeof ClanWarStatus]
+
+
+export const ClanWarType: {
+  friendly: 'friendly',
+  official: 'official'
+};
+
+export type ClanWarType = (typeof ClanWarType)[keyof typeof ClanWarType]
 
 
 export const InventoryItemType: {
@@ -541,13 +549,13 @@ export type Lang = $Enums.Lang
 
 export const Lang: typeof $Enums.Lang
 
-export type Gender = $Enums.Gender
-
-export const Gender: typeof $Enums.Gender
-
 export type DestinyChoiceSide = $Enums.DestinyChoiceSide
 
 export const DestinyChoiceSide: typeof $Enums.DestinyChoiceSide
+
+export type Gender = $Enums.Gender
+
+export const Gender: typeof $Enums.Gender
 
 export type WeaponName = $Enums.WeaponName
 
@@ -560,6 +568,10 @@ export const SkillName: typeof $Enums.SkillName
 export type PetName = $Enums.PetName
 
 export const PetName: typeof $Enums.PetName
+
+export type FighterType = $Enums.FighterType
+
+export const FighterType: typeof $Enums.FighterType
 
 export type FightModifier = $Enums.FightModifier
 
@@ -585,25 +597,25 @@ export type AchievementName = $Enums.AchievementName
 
 export const AchievementName: typeof $Enums.AchievementName
 
-export type BruteReportReason = $Enums.BruteReportReason
-
-export const BruteReportReason: typeof $Enums.BruteReportReason
-
 export type BruteReportStatus = $Enums.BruteReportStatus
 
 export const BruteReportStatus: typeof $Enums.BruteReportStatus
+
+export type BruteReportReason = $Enums.BruteReportReason
+
+export const BruteReportReason: typeof $Enums.BruteReportReason
 
 export type BossName = $Enums.BossName
 
 export const BossName: typeof $Enums.BossName
 
-export type ClanWarType = $Enums.ClanWarType
-
-export const ClanWarType: typeof $Enums.ClanWarType
-
 export type ClanWarStatus = $Enums.ClanWarStatus
 
 export const ClanWarStatus: typeof $Enums.ClanWarStatus
+
+export type ClanWarType = $Enums.ClanWarType
+
+export const ClanWarType: typeof $Enums.ClanWarType
 
 export type InventoryItemType = $Enums.InventoryItemType
 
@@ -1025,7 +1037,6 @@ export namespace Prisma {
   export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
   export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
   export import PrismaClientValidationError = runtime.PrismaClientValidationError
-  export import NotFoundError = runtime.NotFoundError
 
   /**
    * Re-export of sql-template-tag
@@ -1064,8 +1075,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.22.0
-   * Query Engine version: 605197351a3c8bdd595af2d2a9bc3025bca48ea2
+   * Prisma Client JS version: 6.0.1
+   * Query Engine version: 5dbef10bdbfb579e07d35cc85fb1518d357cb99e
    */
   export type PrismaVersion = {
     client: string
@@ -34555,10 +34566,10 @@ export namespace Prisma {
     tournamentWins?: IntFilter<"Brute"> | number
     eventId?: UuidNullableFilter<"Brute"> | string | null
     resets?: IntFilter<"Brute"> | number
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    master?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
-    clan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    clan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     fights?: FightListRelationFilter
     fightsAsAdversary?: FightListRelationFilter
     logs?: LogListRelationFilter
@@ -34569,19 +34580,19 @@ export namespace Prisma {
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
     titles?: TitleListRelationFilter
-    masterOfClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    masterOfClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     clanPosts?: ClanPostListRelationFilter
-    wantToJoinClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    wantToJoinClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     threads?: ClanThreadListRelationFilter
     inventory?: InventoryItemListRelationFilter
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
-    startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
+    startingStats?: XOR<BruteStartingStatsNullableScalarRelationFilter, BruteStartingStatsWhereInput> | null
     damageOnBosses?: BossDamageListRelationFilter
     followers?: UserListRelationFilter
     inClanWarAttackerFighters?: ClanWarFightersListRelationFilter
     inClanWarDefenderFighters?: ClanWarFightersListRelationFilter
-    event?: XOR<EventNullableRelationFilter, EventWhereInput> | null
+    event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
     wonEvents?: EventListRelationFilter
   }
 
@@ -34734,10 +34745,10 @@ export namespace Prisma {
     tournamentWins?: IntFilter<"Brute"> | number
     eventId?: UuidNullableFilter<"Brute"> | string | null
     resets?: IntFilter<"Brute"> | number
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
-    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    master?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
-    clan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    clan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     fights?: FightListRelationFilter
     fightsAsAdversary?: FightListRelationFilter
     logs?: LogListRelationFilter
@@ -34748,19 +34759,19 @@ export namespace Prisma {
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
     titles?: TitleListRelationFilter
-    masterOfClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    masterOfClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     clanPosts?: ClanPostListRelationFilter
-    wantToJoinClan?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    wantToJoinClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     threads?: ClanThreadListRelationFilter
     inventory?: InventoryItemListRelationFilter
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
-    startingStats?: XOR<BruteStartingStatsNullableRelationFilter, BruteStartingStatsWhereInput> | null
+    startingStats?: XOR<BruteStartingStatsNullableScalarRelationFilter, BruteStartingStatsWhereInput> | null
     damageOnBosses?: BossDamageListRelationFilter
     followers?: UserListRelationFilter
     inClanWarAttackerFighters?: ClanWarFightersListRelationFilter
     inClanWarDefenderFighters?: ClanWarFightersListRelationFilter
-    event?: XOR<EventNullableRelationFilter, EventWhereInput> | null
+    event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
     wonEvents?: EventListRelationFilter
   }, "id" | "id">
 
@@ -34902,7 +34913,7 @@ export namespace Prisma {
     agility?: IntFilter<"BruteStartingStats"> | number
     speed?: IntFilter<"BruteStartingStats"> | number
     bruteId?: UuidFilter<"BruteStartingStats"> | string
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }
 
   export type BruteStartingStatsOrderByWithRelationInput = {
@@ -34925,7 +34936,7 @@ export namespace Prisma {
     strength?: IntFilter<"BruteStartingStats"> | number
     agility?: IntFilter<"BruteStartingStats"> | number
     speed?: IntFilter<"BruteStartingStats"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }, "id" | "id" | "bruteId">
 
   export type BruteStartingStatsOrderByWithAggregationInput = {
@@ -34972,12 +34983,12 @@ export namespace Prisma {
     background?: StringFilter<"Fight"> | string
     clanWarId?: UuidNullableFilter<"Fight"> | string | null
     favoriteCount?: IntFilter<"Fight"> | number
-    brute1?: XOR<BruteRelationFilter, BruteWhereInput>
-    brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    brute1?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    brute2?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
-    tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
+    tournament?: XOR<TournamentNullableScalarRelationFilter, TournamentWhereInput> | null
     favoritedBy?: UserListRelationFilter
-    clanWar?: XOR<ClanWarNullableRelationFilter, ClanWarWhereInput> | null
+    clanWar?: XOR<ClanWarNullableScalarRelationFilter, ClanWarWhereInput> | null
   }
 
   export type FightOrderByWithRelationInput = {
@@ -35021,12 +35032,12 @@ export namespace Prisma {
     background?: StringFilter<"Fight"> | string
     clanWarId?: UuidNullableFilter<"Fight"> | string | null
     favoriteCount?: IntFilter<"Fight"> | number
-    brute1?: XOR<BruteRelationFilter, BruteWhereInput>
-    brute2?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    brute1?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    brute2?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     logs?: LogListRelationFilter
-    tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
+    tournament?: XOR<TournamentNullableScalarRelationFilter, TournamentWhereInput> | null
     favoritedBy?: UserListRelationFilter
-    clanWar?: XOR<ClanWarNullableRelationFilter, ClanWarWhereInput> | null
+    clanWar?: XOR<ClanWarNullableScalarRelationFilter, ClanWarWhereInput> | null
   }, "id" | "id">
 
   export type FightOrderByWithAggregationInput = {
@@ -35086,9 +35097,9 @@ export namespace Prisma {
     gold?: IntNullableFilter<"Log"> | number | null
     template?: StringNullableFilter<"Log"> | string | null
     destinyChoiceId?: UuidNullableFilter<"Log"> | string | null
-    currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
-    fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
-    destinyChoice?: XOR<DestinyChoiceNullableRelationFilter, DestinyChoiceWhereInput> | null
+    currentBrute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    fight?: XOR<FightNullableScalarRelationFilter, FightWhereInput> | null
+    destinyChoice?: XOR<DestinyChoiceNullableScalarRelationFilter, DestinyChoiceWhereInput> | null
   }
 
   export type LogOrderByWithRelationInput = {
@@ -35123,9 +35134,9 @@ export namespace Prisma {
     gold?: IntNullableFilter<"Log"> | number | null
     template?: StringNullableFilter<"Log"> | string | null
     destinyChoiceId?: UuidNullableFilter<"Log"> | string | null
-    currentBrute?: XOR<BruteRelationFilter, BruteWhereInput>
-    fight?: XOR<FightNullableRelationFilter, FightWhereInput> | null
-    destinyChoice?: XOR<DestinyChoiceNullableRelationFilter, DestinyChoiceWhereInput> | null
+    currentBrute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    fight?: XOR<FightNullableScalarRelationFilter, FightWhereInput> | null
+    destinyChoice?: XOR<DestinyChoiceNullableScalarRelationFilter, DestinyChoiceWhereInput> | null
   }, "id" | "id">
 
   export type LogOrderByWithAggregationInput = {
@@ -35182,7 +35193,7 @@ export namespace Prisma {
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
     logs?: LogListRelationFilter
   }
 
@@ -35223,7 +35234,7 @@ export namespace Prisma {
     stat1Value?: IntNullableFilter<"DestinyChoice"> | number | null
     stat2?: EnumBruteStatNullableFilter<"DestinyChoice"> | $Enums.BruteStat | null
     stat2Value?: IntNullableFilter<"DestinyChoice"> | number | null
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
     logs?: LogListRelationFilter
   }, "id" | "id">
 
@@ -35280,7 +35291,7 @@ export namespace Prisma {
     eventId?: UuidNullableFilter<"Tournament"> | string | null
     participants?: BruteListRelationFilter
     fights?: FightListRelationFilter
-    event?: XOR<EventNullableRelationFilter, EventWhereInput> | null
+    event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
   }
 
   export type TournamentOrderByWithRelationInput = {
@@ -35305,7 +35316,7 @@ export namespace Prisma {
     rounds?: IntFilter<"Tournament"> | number
     participants?: BruteListRelationFilter
     fights?: FightListRelationFilter
-    event?: XOR<EventNullableRelationFilter, EventWhereInput> | null
+    event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
   }, "id" | "id" | "eventId">
 
   export type TournamentOrderByWithAggregationInput = {
@@ -35341,7 +35352,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"TournamentAchievement"> | Date | string
     achievement?: EnumAchievementNameFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntFilter<"TournamentAchievement"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }
 
   export type TournamentAchievementOrderByWithRelationInput = {
@@ -35363,7 +35374,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"TournamentAchievement"> | Date | string
     achievement?: EnumAchievementNameFilter<"TournamentAchievement"> | $Enums.AchievementName
     achievementCount?: IntFilter<"TournamentAchievement"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }, "id" | "id" | "achievement_bruteId">
 
   export type TournamentAchievementOrderByWithAggregationInput = {
@@ -35398,7 +35409,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"TournamentGold"> | Date | string
     userId?: UuidFilter<"TournamentGold"> | string
     gold?: IntFilter<"TournamentGold"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type TournamentGoldOrderByWithRelationInput = {
@@ -35417,7 +35428,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"TournamentGold"> | Date | string
     userId?: UuidFilter<"TournamentGold"> | string
     gold?: IntFilter<"TournamentGold"> | number
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
 
   export type TournamentGoldOrderByWithAggregationInput = {
@@ -35450,7 +35461,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"TournamentXp"> | Date | string
     bruteId?: UuidFilter<"TournamentXp"> | string
     xp?: IntFilter<"TournamentXp"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }
 
   export type TournamentXpOrderByWithRelationInput = {
@@ -35469,7 +35480,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"TournamentXp"> | Date | string
     bruteId?: UuidFilter<"TournamentXp"> | string
     xp?: IntFilter<"TournamentXp"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }, "id" | "id">
 
   export type TournamentXpOrderByWithAggregationInput = {
@@ -35503,8 +35514,8 @@ export namespace Prisma {
     count?: IntFilter<"Achievement"> | number
     bruteId?: UuidNullableFilter<"Achievement"> | string | null
     userId?: UuidNullableFilter<"Achievement"> | string | null
-    brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type AchievementOrderByWithRelationInput = {
@@ -35527,8 +35538,8 @@ export namespace Prisma {
     count?: IntFilter<"Achievement"> | number
     bruteId?: UuidNullableFilter<"Achievement"> | string | null
     userId?: UuidNullableFilter<"Achievement"> | string | null
-    brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "id" | "name_bruteId">
 
   export type AchievementOrderByWithAggregationInput = {
@@ -35614,9 +35625,9 @@ export namespace Prisma {
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     handlerId?: UuidNullableFilter<"BruteReport"> | string | null
     handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
     users?: UserListRelationFilter
-    handler?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type BruteReportOrderByWithRelationInput = {
@@ -35645,9 +35656,9 @@ export namespace Prisma {
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     handlerId?: UuidNullableFilter<"BruteReport"> | string | null
     handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
     users?: UserListRelationFilter
-    handler?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "id">
 
   export type BruteReportOrderByWithAggregationInput = {
@@ -35815,7 +35826,7 @@ export namespace Prisma {
     damageOnBoss?: IntFilter<"Clan"> | number
     masterId?: UuidNullableFilter<"Clan"> | string | null
     participateInClanWar?: BoolFilter<"Clan"> | boolean
-    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    master?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
@@ -35861,7 +35872,7 @@ export namespace Prisma {
     boss?: EnumBossNameFilter<"Clan"> | $Enums.BossName
     damageOnBoss?: IntFilter<"Clan"> | number
     participateInClanWar?: BoolFilter<"Clan"> | boolean
-    master?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    master?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     brutes?: BruteListRelationFilter
     joinRequests?: BruteListRelationFilter
     threads?: ClanThreadListRelationFilter
@@ -35918,8 +35929,8 @@ export namespace Prisma {
     postCount?: IntFilter<"ClanThread"> | number
     createdAt?: DateTimeFilter<"ClanThread"> | Date | string
     updatedAt?: DateTimeFilter<"ClanThread"> | Date | string
-    clan?: XOR<ClanRelationFilter, ClanWhereInput>
-    creator?: XOR<BruteRelationFilter, BruteWhereInput>
+    clan?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+    creator?: XOR<BruteScalarRelationFilter, BruteWhereInput>
     posts?: ClanPostListRelationFilter
   }
 
@@ -35951,8 +35962,8 @@ export namespace Prisma {
     postCount?: IntFilter<"ClanThread"> | number
     createdAt?: DateTimeFilter<"ClanThread"> | Date | string
     updatedAt?: DateTimeFilter<"ClanThread"> | Date | string
-    clan?: XOR<ClanRelationFilter, ClanWhereInput>
-    creator?: XOR<BruteRelationFilter, BruteWhereInput>
+    clan?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+    creator?: XOR<BruteScalarRelationFilter, BruteWhereInput>
     posts?: ClanPostListRelationFilter
   }, "id" | "id">
 
@@ -35997,8 +36008,8 @@ export namespace Prisma {
     authorId?: UuidFilter<"ClanPost"> | string
     date?: DateTimeFilter<"ClanPost"> | Date | string
     message?: StringFilter<"ClanPost"> | string
-    thread?: XOR<ClanThreadRelationFilter, ClanThreadWhereInput>
-    author?: XOR<BruteRelationFilter, BruteWhereInput>
+    thread?: XOR<ClanThreadScalarRelationFilter, ClanThreadWhereInput>
+    author?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }
 
   export type ClanPostOrderByWithRelationInput = {
@@ -36020,8 +36031,8 @@ export namespace Prisma {
     authorId?: UuidFilter<"ClanPost"> | string
     date?: DateTimeFilter<"ClanPost"> | Date | string
     message?: StringFilter<"ClanPost"> | string
-    thread?: XOR<ClanThreadRelationFilter, ClanThreadWhereInput>
-    author?: XOR<BruteRelationFilter, BruteWhereInput>
+    thread?: XOR<ClanThreadScalarRelationFilter, ClanThreadWhereInput>
+    author?: XOR<BruteScalarRelationFilter, BruteWhereInput>
   }, "id" | "id">
 
   export type ClanPostOrderByWithAggregationInput = {
@@ -36054,8 +36065,8 @@ export namespace Prisma {
     bruteId?: UuidFilter<"BossDamage"> | string
     clanId?: UuidFilter<"BossDamage"> | string
     damage?: IntFilter<"BossDamage"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-    clan?: XOR<ClanRelationFilter, ClanWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    clan?: XOR<ClanScalarRelationFilter, ClanWhereInput>
   }
 
   export type BossDamageOrderByWithRelationInput = {
@@ -36076,8 +36087,8 @@ export namespace Prisma {
     bruteId?: UuidFilter<"BossDamage"> | string
     clanId?: UuidFilter<"BossDamage"> | string
     damage?: IntFilter<"BossDamage"> | number
-    brute?: XOR<BruteRelationFilter, BruteWhereInput>
-    clan?: XOR<ClanRelationFilter, ClanWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    clan?: XOR<ClanScalarRelationFilter, ClanWhereInput>
   }, "id" | "id" | "bruteId_clanId">
 
   export type BossDamageOrderByWithAggregationInput = {
@@ -36118,9 +36129,9 @@ export namespace Prisma {
     defenderEloChange?: IntFilter<"ClanWar"> | number
     defenderWins?: IntFilter<"ClanWar"> | number
     winnerId?: UuidNullableFilter<"ClanWar"> | string | null
-    attacker?: XOR<ClanRelationFilter, ClanWhereInput>
-    defender?: XOR<ClanRelationFilter, ClanWhereInput>
-    winner?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    attacker?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+    defender?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+    winner?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     fights?: FightListRelationFilter
     fighters?: ClanWarFightersListRelationFilter
   }
@@ -36161,9 +36172,9 @@ export namespace Prisma {
     defenderEloChange?: IntFilter<"ClanWar"> | number
     defenderWins?: IntFilter<"ClanWar"> | number
     winnerId?: UuidNullableFilter<"ClanWar"> | string | null
-    attacker?: XOR<ClanRelationFilter, ClanWhereInput>
-    defender?: XOR<ClanRelationFilter, ClanWhereInput>
-    winner?: XOR<ClanNullableRelationFilter, ClanWhereInput> | null
+    attacker?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+    defender?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+    winner?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     fights?: FightListRelationFilter
     fighters?: ClanWarFightersListRelationFilter
   }, "id" | "id">
@@ -36213,7 +36224,7 @@ export namespace Prisma {
     id?: UuidFilter<"ClanWarFighters"> | string
     clanWarId?: UuidFilter<"ClanWarFighters"> | string
     day?: IntFilter<"ClanWarFighters"> | number
-    clanWar?: XOR<ClanWarRelationFilter, ClanWarWhereInput>
+    clanWar?: XOR<ClanWarScalarRelationFilter, ClanWarWhereInput>
     attackers?: BruteListRelationFilter
     defenders?: BruteListRelationFilter
   }
@@ -36235,7 +36246,7 @@ export namespace Prisma {
     NOT?: ClanWarFightersWhereInput | ClanWarFightersWhereInput[]
     clanWarId?: UuidFilter<"ClanWarFighters"> | string
     day?: IntFilter<"ClanWarFighters"> | number
-    clanWar?: XOR<ClanWarRelationFilter, ClanWarWhereInput>
+    clanWar?: XOR<ClanWarScalarRelationFilter, ClanWarWhereInput>
     attackers?: BruteListRelationFilter
     defenders?: BruteListRelationFilter
   }, "id" | "id" | "clanWarId_day">
@@ -36269,8 +36280,8 @@ export namespace Prisma {
     count?: IntFilter<"InventoryItem"> | number
     bruteId?: UuidNullableFilter<"InventoryItem"> | string | null
     userId?: UuidNullableFilter<"InventoryItem"> | string | null
-    brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type InventoryItemOrderByWithRelationInput = {
@@ -36294,8 +36305,8 @@ export namespace Prisma {
     count?: IntFilter<"InventoryItem"> | number
     bruteId?: UuidNullableFilter<"InventoryItem"> | string | null
     userId?: UuidNullableFilter<"InventoryItem"> | string | null
-    brute?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
-    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "id" | "type_bruteId" | "type_userId">
 
   export type InventoryItemOrderByWithAggregationInput = {
@@ -36373,8 +36384,8 @@ export namespace Prisma {
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     sortedBrutes?: StringNullableListFilter<"Event">
     brutes?: BruteListRelationFilter
-    tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
-    winner?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    tournament?: XOR<TournamentNullableScalarRelationFilter, TournamentWhereInput> | null
+    winner?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
   }
 
   export type EventOrderByWithRelationInput = {
@@ -36406,8 +36417,8 @@ export namespace Prisma {
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     sortedBrutes?: StringNullableListFilter<"Event">
     brutes?: BruteListRelationFilter
-    tournament?: XOR<TournamentNullableRelationFilter, TournamentWhereInput> | null
-    winner?: XOR<BruteNullableRelationFilter, BruteWhereInput> | null
+    tournament?: XOR<TournamentNullableScalarRelationFilter, TournamentWhereInput> | null
+    winner?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
   }, "id" | "id">
 
   export type EventOrderByWithAggregationInput = {
@@ -36453,7 +36464,7 @@ export namespace Prisma {
     link?: StringNullableFilter<"Notification"> | string | null
     read?: BoolFilter<"Notification"> | boolean
     date?: DateTimeFilter<"Notification"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type NotificationOrderByWithRelationInput = {
@@ -36478,7 +36489,7 @@ export namespace Prisma {
     link?: StringNullableFilter<"Notification"> | string | null
     read?: BoolFilter<"Notification"> | boolean
     date?: DateTimeFilter<"Notification"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id">
 
   export type NotificationOrderByWithAggregationInput = {
@@ -39243,17 +39254,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type UserNullableRelationFilter = {
+  export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
   }
 
-  export type BruteNullableRelationFilter = {
+  export type BruteNullableScalarRelationFilter = {
     is?: BruteWhereInput | null
     isNot?: BruteWhereInput | null
   }
 
-  export type ClanNullableRelationFilter = {
+  export type ClanNullableScalarRelationFilter = {
     is?: ClanWhereInput | null
     isNot?: ClanWhereInput | null
   }
@@ -39306,7 +39317,7 @@ export namespace Prisma {
     none?: TournamentXpWhereInput
   }
 
-  export type BruteStartingStatsNullableRelationFilter = {
+  export type BruteStartingStatsNullableScalarRelationFilter = {
     is?: BruteStartingStatsWhereInput | null
     isNot?: BruteStartingStatsWhereInput | null
   }
@@ -39329,7 +39340,7 @@ export namespace Prisma {
     none?: ClanWarFightersWhereInput
   }
 
-  export type EventNullableRelationFilter = {
+  export type EventNullableScalarRelationFilter = {
     is?: EventWhereInput | null
     isNot?: EventWhereInput | null
   }
@@ -39667,7 +39678,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BruteRelationFilter = {
+  export type BruteScalarRelationFilter = {
     is?: BruteWhereInput
     isNot?: BruteWhereInput
   }
@@ -39721,12 +39732,12 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type TournamentNullableRelationFilter = {
+  export type TournamentNullableScalarRelationFilter = {
     is?: TournamentWhereInput | null
     isNot?: TournamentWhereInput | null
   }
 
-  export type ClanWarNullableRelationFilter = {
+  export type ClanWarNullableScalarRelationFilter = {
     is?: ClanWarWhereInput | null
     isNot?: ClanWarWhereInput | null
   }
@@ -39797,12 +39808,12 @@ export namespace Prisma {
     not?: NestedEnumLogTypeFilter<$PrismaModel> | $Enums.LogType
   }
 
-  export type FightNullableRelationFilter = {
+  export type FightNullableScalarRelationFilter = {
     is?: FightWhereInput | null
     isNot?: FightWhereInput | null
   }
 
-  export type DestinyChoiceNullableRelationFilter = {
+  export type DestinyChoiceNullableScalarRelationFilter = {
     is?: DestinyChoiceWhereInput | null
     isNot?: DestinyChoiceWhereInput | null
   }
@@ -40118,7 +40129,7 @@ export namespace Prisma {
     _max?: NestedEnumAchievementNameFilter<$PrismaModel>
   }
 
-  export type UserRelationFilter = {
+  export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
@@ -40451,7 +40462,7 @@ export namespace Prisma {
     _max?: NestedEnumBossNameFilter<$PrismaModel>
   }
 
-  export type ClanRelationFilter = {
+  export type ClanScalarRelationFilter = {
     is?: ClanWhereInput
     isNot?: ClanWhereInput
   }
@@ -40500,7 +40511,7 @@ export namespace Prisma {
     postCount?: SortOrder
   }
 
-  export type ClanThreadRelationFilter = {
+  export type ClanThreadScalarRelationFilter = {
     is?: ClanThreadWhereInput
     isNot?: ClanThreadWhereInput
   }
@@ -40658,7 +40669,7 @@ export namespace Prisma {
     _max?: NestedEnumClanWarStatusFilter<$PrismaModel>
   }
 
-  export type ClanWarRelationFilter = {
+  export type ClanWarScalarRelationFilter = {
     is?: ClanWarWhereInput
     isNot?: ClanWarWhereInput
   }
@@ -61177,162 +61188,6 @@ export namespace Prisma {
   }
 
 
-
-  /**
-   * Aliases for legacy arg types
-   */
-    /**
-     * @deprecated Use UserCountOutputTypeDefaultArgs instead
-     */
-    export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteCountOutputTypeDefaultArgs instead
-     */
-    export type BruteCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use FightCountOutputTypeDefaultArgs instead
-     */
-    export type FightCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FightCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use DestinyChoiceCountOutputTypeDefaultArgs instead
-     */
-    export type DestinyChoiceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DestinyChoiceCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TournamentCountOutputTypeDefaultArgs instead
-     */
-    export type TournamentCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TitleCountOutputTypeDefaultArgs instead
-     */
-    export type TitleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TitleCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteReportCountOutputTypeDefaultArgs instead
-     */
-    export type BruteReportCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteReportCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanCountOutputTypeDefaultArgs instead
-     */
-    export type ClanCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanThreadCountOutputTypeDefaultArgs instead
-     */
-    export type ClanThreadCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanThreadCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanWarCountOutputTypeDefaultArgs instead
-     */
-    export type ClanWarCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanWarCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanWarFightersCountOutputTypeDefaultArgs instead
-     */
-    export type ClanWarFightersCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanWarFightersCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use EventCountOutputTypeDefaultArgs instead
-     */
-    export type EventCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EventCountOutputTypeDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use UserDefaultArgs instead
-     */
-    export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteDefaultArgs instead
-     */
-    export type BruteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteStartingStatsDefaultArgs instead
-     */
-    export type BruteStartingStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteStartingStatsDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use FightDefaultArgs instead
-     */
-    export type FightArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FightDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use LogDefaultArgs instead
-     */
-    export type LogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LogDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use DestinyChoiceDefaultArgs instead
-     */
-    export type DestinyChoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DestinyChoiceDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TournamentDefaultArgs instead
-     */
-    export type TournamentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TournamentAchievementDefaultArgs instead
-     */
-    export type TournamentAchievementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentAchievementDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TournamentGoldDefaultArgs instead
-     */
-    export type TournamentGoldArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentGoldDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TournamentXpDefaultArgs instead
-     */
-    export type TournamentXpArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TournamentXpDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use AchievementDefaultArgs instead
-     */
-    export type AchievementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AchievementDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TitleDefaultArgs instead
-     */
-    export type TitleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TitleDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BruteReportDefaultArgs instead
-     */
-    export type BruteReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BruteReportDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ServerStateDefaultArgs instead
-     */
-    export type ServerStateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ServerStateDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BannedWordDefaultArgs instead
-     */
-    export type BannedWordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BannedWordDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BannedIpDefaultArgs instead
-     */
-    export type BannedIpArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BannedIpDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanDefaultArgs instead
-     */
-    export type ClanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanThreadDefaultArgs instead
-     */
-    export type ClanThreadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanThreadDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanPostDefaultArgs instead
-     */
-    export type ClanPostArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanPostDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use BossDamageDefaultArgs instead
-     */
-    export type BossDamageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BossDamageDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanWarDefaultArgs instead
-     */
-    export type ClanWarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanWarDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ClanWarFightersDefaultArgs instead
-     */
-    export type ClanWarFightersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ClanWarFightersDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use InventoryItemDefaultArgs instead
-     */
-    export type InventoryItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = InventoryItemDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use ReleaseDefaultArgs instead
-     */
-    export type ReleaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReleaseDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use EventDefaultArgs instead
-     */
-    export type EventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = EventDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use NotificationDefaultArgs instead
-     */
-    export type NotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NotificationDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
