@@ -41,7 +41,7 @@ const itemDrop = ({
   // Shield / weapon / broken-weapon / saboteur-weapon texture
   const itemTexture = itemSpriteSheet.textures[
     item === 'shield'
-      ? 'shield'
+      ? 'shield.png'
       : broken
         ? `broken-weapons/${WeaponById[item]}.png`
         : saboteur
