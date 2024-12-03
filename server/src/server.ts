@@ -9,6 +9,7 @@ import './i18n.js';
 import initRoutes from './routes.js';
 import lockMiddleware from './utils/middlewares/locks.js';
 import { readyCheck } from './utils/middlewares/readyCheck.js';
+import './utils/dayjs.js';
 
 export function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);

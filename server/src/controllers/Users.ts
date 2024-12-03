@@ -14,8 +14,8 @@ import {
   Achievement, FightModifier, InventoryItemType, Lang,
   PrismaClient,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
-import moment from 'moment';
 import fetch from 'node-fetch';
 import { DISCORD, GLOBAL, LOGGER } from '../context.js';
 import dailyJob from '../dailyJob.js';
@@ -497,7 +497,7 @@ const Users = {
         throw new Error('User not found');
       }
 
-      if (user.dinorpgDone && moment.utc().isSame(moment.utc(user.dinorpgDone), 'day')) {
+      if (user.dinorpgDone && dayjs.utc().isSame(dayjs.utc(user.dinorpgDone), 'day')) {
         throw new ExpectedError(translate('alreadyClaimed', authed));
       }
 

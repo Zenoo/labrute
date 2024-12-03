@@ -1,9 +1,9 @@
 import { ExpectedError } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
-import moment from 'moment';
 import translate from './translate.js';
 import ServerState from './ServerState.js';
+import dayjs from './dayjs.js';
 
 const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
@@ -69,7 +69,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
   }
 
   // Update last seen
-  if (!moment.utc(user.lastSeen).isSame(moment.utc(), 'day')) {
+  if (!dayjs.utc(user.lastSeen).isSame(dayjs.utc(), 'day')) {
     await prisma.user.update({
       where: { id },
       data: {

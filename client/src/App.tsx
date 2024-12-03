@@ -1,6 +1,6 @@
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { Suspense, useMemo, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { useRoutes } from 'react-router-dom';
@@ -13,6 +13,7 @@ import routes from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
+import './utils/dayjs';
 
 /**
  * App entry point
@@ -44,7 +45,7 @@ const App = () => {
   );
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <HelmetProvider>
         <CssBaseline />
         <AlertProvider>

@@ -1,7 +1,6 @@
 import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -22,6 +21,7 @@ import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
 import { Lock, LockOpen } from '@mui/icons-material';
+import dayjs from 'dayjs';
 
 /**
  * HomeView component
@@ -65,7 +65,7 @@ const HomeView = () => {
         updateData(response);
         localStorage.setItem('user', response.id);
         localStorage.setItem('token', response.connexionToken);
-        localStorage.setItem('expires', moment.utc().add(7, 'days').toISOString());
+        localStorage.setItem('expires', dayjs.utc().add(7, 'days').toISOString());
         Alert.open('success', t('loginSuccess'));
 
         // Redirect to first brute if exists

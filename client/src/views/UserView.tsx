@@ -1,7 +1,6 @@
 import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
 import { Check, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
-import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -18,6 +17,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import dayjs from 'dayjs';
 
 const UserView = () => {
   const { t } = useTranslation();
@@ -259,7 +259,7 @@ const UserView = () => {
                   <FantasyButton
                     onClick={getDinoRpgReward}
                     color="success"
-                    disabled={moment.utc(authedUser.dinorpgDone).isSame(moment.utc(), 'day')}
+                    disabled={dayjs.utc(authedUser.dinorpgDone).isSame(dayjs.utc(), 'day')}
                     sx={{ m: 1 }}
                   >
                     <Check sx={{ verticalAlign: 'middle', mr: 1 }} />
@@ -321,7 +321,7 @@ const UserView = () => {
                             {fight.brute1.name} {t('vs')} {fight.brute2?.name}
                           </Link>
                         </TableCell>
-                        <TableCell align="right">{moment.utc(fight.date).format('DD/MM/YYYY')}</TableCell>
+                        <TableCell align="right">{dayjs.utc(fight.date).format('DD/MM/YYYY')}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

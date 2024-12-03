@@ -1,7 +1,7 @@
 import { User } from '@labrute/prisma';
 import { Circle } from '@mui/icons-material';
 import { SvgIconOwnProps, Tooltip } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,8 +14,8 @@ export const ActivityStatus = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  const lastSeen = moment.utc(user.lastSeen);
-  const now = moment.utc();
+  const lastSeen = dayjs.utc(user.lastSeen);
+  const now = dayjs.utc();
 
   return (
     <Tooltip title={t('lastSeen', { date: lastSeen.fromNow() })}>

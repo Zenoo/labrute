@@ -2,7 +2,6 @@ import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuratio
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
 import { Close, History } from '@mui/icons-material';
 import { Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
-import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -18,6 +17,7 @@ import { useBrute } from '../../hooks/useBrute';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import Link from '../../components/Link';
+import dayjs from 'dayjs';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -71,7 +71,7 @@ export const EventView = () => {
 
   const watchingRound = useMemo(() => (!data ? 0 : (data.event.finishedAt || !owner)
     ? 999
-    : moment.utc().isSame(brute?.eventTournamentWatchedDate, 'day')
+    : dayjs.utc().isSame(brute?.eventTournamentWatchedDate, 'day')
       ? brute?.eventTournamentRoundWatched || 1
       : 1), [brute, data, owner]);
 
@@ -261,7 +261,7 @@ export const EventView = () => {
     <Page title={`${t('event')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-          {data && `${moment.utc(data.event.date).format('DD/MM/YYYY')} - `}
+          {data && `${dayjs.utc(data.event.date).format('DD/MM/YYYY')} - `}
           {t('event')}
         </Text>
       </Paper>

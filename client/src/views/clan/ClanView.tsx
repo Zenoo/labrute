@@ -17,8 +17,8 @@ import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import moment from 'moment';
 import { ActivityStatus } from '../../components/ActivityStatus';
+import dayjs from 'dayjs';
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
@@ -41,7 +41,7 @@ const ClanView = () => {
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
   const displayedBossName = useMemo(() => {
     // Normal day display
-    if (!moment().isSame(moment('04-01', 'MM-DD'), 'day')) return clan?.boss;
+    if (!dayjs().isSame(dayjs('04-01', 'MM-DD'), 'day')) return clan?.boss;
     // April Fools display
     switch (clan?.boss) {
       case BossName.EmberFang:

@@ -18,12 +18,12 @@ import {
   User,
   WeaponName,
 } from '@labrute/prisma';
-import moment from 'moment';
 import ServerState from '../ServerState.js';
 import translate from '../translate.js';
 import checkLevelUpAchievements from './checkLevelUpAchievements.js';
 import getOpponents from './getOpponents.js';
 import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
+import dayjs from '../dayjs.js';
 
 type Props = {
   prisma: PrismaClient,
@@ -205,7 +205,7 @@ export const resetBrute = async ({
       tournaments: {
         where: {
           type: TournamentType.DAILY,
-          date: moment.utc().startOf('day').toDate(),
+          date: dayjs.utc().startOf('day').toDate(),
         },
       },
       inventory: true,

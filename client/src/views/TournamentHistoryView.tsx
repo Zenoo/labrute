@@ -1,6 +1,5 @@
 import { TournamentType } from '@labrute/prisma';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
-import moment from 'moment';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -10,6 +9,7 @@ import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import Loader from '../components/Loader';
+import dayjs from 'dayjs';
 
 const TournamentHistoryView = () => {
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ const TournamentHistoryView = () => {
               </TableHead>
               <TableBody>
                 {tournaments ? tournaments.map((tournament) => {
-                  const tournamentDate = moment.utc(tournament.date);
+                  const tournamentDate = dayjs.utc(tournament.date);
                   const lastDigit = tournament.place % 10;
 
                   return (
@@ -72,7 +72,7 @@ const TournamentHistoryView = () => {
                         {tournamentDate.format('DD/MM/YYYY')}
                       </TableCell>
                       <TableCell align="right">
-                        <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${moment.utc(tournament.date).format('YYYY-MM-DD')}`}>
+                        <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${dayjs.utc(tournament.date).format('YYYY-MM-DD')}`}>
                           <Text bold>
                             {tournament.type === TournamentType.DAILY
                               ? t('dailyTournament')

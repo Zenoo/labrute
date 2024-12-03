@@ -6,8 +6,8 @@ import {
 import {
   BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
-import moment from 'moment';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
@@ -255,7 +255,7 @@ const BruteReports = {
           id: report.bruteId,
         },
         data: {
-          willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
+          willBeDeletedAt: dayjs.utc().add(3, 'day').toDate(),
           deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
         },
         select: { id: true },

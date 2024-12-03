@@ -9,9 +9,9 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
-import moment from 'moment';
 import Loader from '../../components/Loader';
 import { ClanWarType } from '@labrute/prisma';
+import dayjs from 'dayjs';
 
 export const ClanWarHistoryView = () => {
   const { t } = useTranslation();
@@ -81,7 +81,7 @@ export const ClanWarHistoryView = () => {
                   key={war.id}
                 >
                   <TableCell component="th" scope="row">
-                    {moment.utc(war.date).format('DD/MM/YYYY')}
+                    {dayjs.utc(war.date).format('DD/MM/YYYY')}
                     {war.type === ClanWarType.friendly && (
                       <Tooltip title={t('clanWar.friendly')}>
                         <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
