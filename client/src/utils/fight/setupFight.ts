@@ -99,8 +99,11 @@ const setupFight: (
     throw new Error('Brute not found');
   }
 
+  // TODO: Remove this on release, as background extensions were changed
+  const fightBackground = `${fight.background.split('.')[0]}.jpg`;
+
   // Add background
-  const background = new PIXI.Sprite(miscSheet.textures[`background/${fight.background}`]);
+  const background = new PIXI.Sprite(miscSheet.textures[`background/${fightBackground}`]);
   background.zIndex = -1;
 
   // Fill screen
