@@ -86,6 +86,7 @@ export interface NetworkDiscordClientOptions {
   releaseWebhookToken: string,
   knownIssuesWebhookId: string,
   knownIssuesWebhookToken: string,
+  knownIssuesMessageId: string,
   timeout?: number
   logger: Logger,
   server: URL,
@@ -120,6 +121,12 @@ export class NetworkDiscordClient implements DiscordClient {
    * Client used to manage known issues
    */
   readonly #knownIssuesClient: WebhookClient;
+
+  /**
+   * Known issues message ID
+   *
+   */
+  readonly #knownIssuesMessageId: string;
 
   /**
    * Create a new Discord client
@@ -167,6 +174,7 @@ export class NetworkDiscordClient implements DiscordClient {
       },
       clientOptions,
     );
+    this.#knownIssuesMessageId = options.knownIssuesMessageId;
     this.#logger = options.logger;
     this.#server = options.server;
   }
@@ -318,7 +326,7 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
 
     // Fetch the known issues message
     try {
-      const message = await this.#knownIssuesClient.fetchMessage('1310056621774471241');
+      const message = await this.#knownIssuesClient.fetchMessage(this.#knownIssuesMessageId);
 
       // Update existing message
       await this.#knownIssuesClient.editMessage(message.id, { embeds: [embed] });

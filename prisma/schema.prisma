@@ -834,3 +834,10 @@ model Notification {
   @@index([userId, read])
   @@index([date])
 }
+
+// Config
+model Config {
+  key       String   @id @unique @db.VarChar(255)
+  value     String   @db.Text
+  updatedAt DateTime @default(now()) @db.Timestamp()
+}

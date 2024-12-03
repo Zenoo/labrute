@@ -427,6 +427,12 @@ exports.Prisma.NotificationScalarFieldEnum = {
   date: 'date'
 };
 
+exports.Prisma.ConfigScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -792,7 +798,8 @@ exports.Prisma.ModelName = {
   InventoryItem: 'InventoryItem',
   Release: 'Release',
   Event: 'Event',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  Config: 'Config'
 };
 
 /**
