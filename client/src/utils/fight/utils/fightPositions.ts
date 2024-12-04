@@ -15,7 +15,8 @@ const maxRightXPosition = 500 - maxLeftXPosition;
 
 const getRandomPosition = (
   fighters: AnimationFighter[],
-  fighter: AnimationFighter
+  fighter: AnimationFighter,
+  takenPositions?: { y: number }[],
 ): {x: number, y: number} => {
   // Get fighter min and max x position
   const minXPosition = fighter.team === 'L' ? minLeftXPosition : minRightXPosition;
@@ -29,20 +30,23 @@ const getRandomPosition = (
 
   // Y positioning
   // Sort position of fighters in the target side of the map
-  const sortedPositions = fighters
-    .filter((animationFighter) => {
-      // Remove animationFighter not positioned yet
-      if (animationFighter.animation.container.y < minYPosition
-        || animationFighter.animation.container.y > maxYPosition) return false;
-      // Add self, for more natural movements
-      if (animationFighter === fighter) return true;
-      // Get fighters in the target side of the map
-      return (fighter.team === 'L')
-        ? animationFighter.animation.container.x < 250
-        : animationFighter.animation.container.x > 250;
-    })
-    // Get y positions
-    .map((animationFighter) => animationFighter.animation.container.y)
+  const sortedPositions = [
+    ...fighters
+      .filter((animationFighter) => {
+        // Remove animationFighter not positioned yet
+        if (animationFighter.animation.container.y < minYPosition
+          || animationFighter.animation.container.y > maxYPosition) return false;
+        // Add self, for more natural movements
+        if (animationFighter === fighter) return true;
+        // Get fighters in the target side of the map
+        return (fighter.team === 'L')
+          ? animationFighter.animation.container.x < 250
+          : animationFighter.animation.container.x > 250;
+      })
+      // Get y positions
+      .map((animationFighter) => animationFighter.animation.container.y),
+    ...(takenPositions?.map((position) => position.y) || []),
+  ]
     // Sort ascending
     .sort((a, b) => a - b);
 
@@ -166,6 +170,19 @@ const getRandomPosition = (
   return resultPosition;
 };
 
+const getMultipleRandomPosition = (
+  fighters: AnimationFighter[],
+  multipleFighters: AnimationFighter[],
+): { x: number; y: number }[] => {
+  const positions: { x: number; y: number }[] = [];
+
+  for (const fighter of multipleFighters) {
+    positions.push(getRandomPosition(fighters, fighter, positions));
+  }
+  return positions;
+};
+
 export {
-  getRandomPosition
+  getRandomPosition,
+  getMultipleRandomPosition,
 };
