@@ -4,24 +4,32 @@ import { Application, AnimatedSprite } from 'pixi.js';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 
 const resist = (
-  app: Application,
   fighters: AnimationFighter[],
   step: ResistStep,
-  speed: React.MutableRefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
   }
+  brute.resist = true;
+};
 
-  const waveSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+export const playResistAnimation = (
+  app: Application,
+  brute: AnimationFighter,
+  speed: React.MutableRefObject<number>,
+) => {
+  // Abort if brute doesn't resist
+  if (!brute.resist) return;
 
-  if (!waveSpritesheet) {
+  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+
+  if (!spritesheet) {
     throw new Error('Spritesheet not found');
   }
 
   // Create resist sprite
-  const resistSprite = new AnimatedSprite(waveSpritesheet.animations.resist || []);
+  const resistSprite = new AnimatedSprite(spritesheet.animations.resist || []);
   resistSprite.animationSpeed = speed.current * 0.4;
   resistSprite.loop = false;
 
@@ -43,6 +51,9 @@ const resist = (
 
   // Play resist
   resistSprite.play();
+
+  // eslint-disable-next-line no-param-reassign
+  brute.resist = false;
 };
 
 export default resist;

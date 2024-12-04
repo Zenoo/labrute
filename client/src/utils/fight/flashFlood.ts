@@ -12,6 +12,7 @@ import updateWeapons from './updateWeapons';
 import { WeaponName } from '@labrute/prisma';
 import { untrap } from './untrap';
 import itemDrop from './itemDrop';
+import { playResistAnimation } from './resist';
 
 const flashFlood = async (
   app: Application,
@@ -174,6 +175,9 @@ const flashFlood = async (
     if (!step.s) {
       // Display damage if weapon
       displayDamage(app, target, step.d, speed);
+
+      // Play the resist animation now
+      playResistAnimation(app, target, speed);
 
       // Update HP bar
       updateHp(fighters, target, -step.d, speed, isClanWar);

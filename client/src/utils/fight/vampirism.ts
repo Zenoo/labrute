@@ -79,6 +79,9 @@ export const vampirism = async (
   displayHeal(app, brute, step.h, speed);
   displayDamage(app, target, step.d, speed);
 
+  // Play the resist animation now
+  playResistAnimation(app, target, speed);
+
   // Update HP bar
   updateHp(fighters, brute, step.h, speed, isClanWar);
   updateHp(fighters, target, -step.d, speed, isClanWar);

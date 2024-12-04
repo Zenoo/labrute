@@ -15,7 +15,8 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   dead?: boolean;
   trapped?: boolean;
   stunned?: boolean;
-  fierceBrute?: boolean
+  fierceBrute?: boolean;
+  resist?: boolean;
 }
 
 const findFighter = (

@@ -14,6 +14,7 @@ import stagger from './stagger';
 import updateHp from './updateHp';
 import { untrap } from './untrap';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
+import { playResistAnimation } from './resist';
 
 export const haste = async (
   app: Application,
@@ -205,6 +206,9 @@ export const haste = async (
   target.animation.setAnimation(animation);
 
   displayDamage(app, target, step.d, speed);
+
+  // Play the resist animation now
+  playResistAnimation(app, target, speed);
 
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);

@@ -10,6 +10,7 @@ import stagger from './stagger';
 import updateHp from './updateHp';
 import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
+import { playResistAnimation } from './resist';
 
 const hit = async (
   app: Application,
@@ -83,6 +84,9 @@ const hit = async (
   }
 
   displayDamage(app, target, step.d, speed);
+
+  // Play the resist animation now
+  playResistAnimation(app, target, speed);
 
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);

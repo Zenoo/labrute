@@ -602,7 +602,7 @@ const setupFight: (
         break;
       }
       case StepType.Resist: {
-        resist(app, fighters, step, speed);
+        resist(fighters, step);
         break;
       }
       case StepType.Bomb: {

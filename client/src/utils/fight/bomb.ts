@@ -10,6 +10,7 @@ import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { shakeStage } from './utils/stageAnimations';
 import { untrap } from './untrap';
+import { playResistAnimation } from './resist';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -173,6 +174,9 @@ const bomb = async (
     target.animation.setAnimation(animation);
 
     displayDamage(app, target, damage, speed);
+
+    // Play the resist animation now
+    playResistAnimation(app, target, speed);
 
     // Update HP bar
     updateHp(fighters, target, -damage, speed, isClanWar);

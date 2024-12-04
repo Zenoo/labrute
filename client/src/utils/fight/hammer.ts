@@ -259,6 +259,9 @@ const hammer = async (
   // Display damage
   displayDamage(app, target, step.d, speed);
 
+  // Play the resist animation now
+  playResistAnimation(app, target, speed);
+
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);
 
