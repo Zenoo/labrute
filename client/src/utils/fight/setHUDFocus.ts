@@ -40,8 +40,8 @@ const setHUDFocus = async (
   if (fighter.bust && fighter.bustImage) {
     fighter.bust.texture = Texture.from(fighter.bustImage);
   }
-  // Don't update hp bar if clanwar or backup
-  if (!isClanWar && !fighter.master) {
+  // Don't update hp bar if clanwar
+  if (!isClanWar) {
     updateHp(fighters, fighter, fighter.hp, speed, false, true);
   }
 

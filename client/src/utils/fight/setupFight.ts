@@ -413,21 +413,21 @@ const setupFight: (
             : fighter.id === boss?.id
               ? bossPhantomHpBar
               : undefined) ?? undefined,
-      bustImage: (fighter.master
+      bustImage: (fighter.type === 'pet'
         ? null
         : fighter.id === brute1.id
           ? brute1BustImg
           : fighter.id === brute2?.id
             ? brute2BustImg
             : null) ?? null,
-      bust: (fighter.master
+      bust: (fighter.type === 'pet'
         ? undefined
         : fighter.team === brute1.team
           ? team1Bust
           : fighter.team === brute2?.team
             ? team2Bust
             : undefined) ?? undefined,
-      text: (fighter.master
+      text: (fighter.type === 'pet'
         ? undefined
         : fighter.team === brute1.team
           ? team1Text
