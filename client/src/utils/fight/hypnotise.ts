@@ -26,12 +26,16 @@ const hypnotise = async (
   if (!brute) {
     throw new Error('Brute not found');
   }
+  const handRaised = brute.animation.waitForEvent('win:hand-raised');
 
   // Set brute animation to `win` at frame 3
   brute.animation.setAnimation('win', 3);
 
-  // Wait for the arm to be on the air (around 1s no matter the speed)
-  await new Promise((resolve) => { setTimeout(resolve, 1000); });
+  // Wait for the hand to be raised
+  await handRaised;
+
+  // Keep hand raised
+  brute.animation.animationSpeed = 0;
 
   // Play hypnosis SFX
   void sound.play('sfx', { sprite: 'hypnosis' });
@@ -74,7 +78,7 @@ const hypnotise = async (
 
   // Copy the stage texture
   const stageTexture = RenderTexture.create({ width: app.screen.width, height: app.screen.height });
-  app.renderer.render(app.stage, stageTexture as unknown as IRendererRenderOptions);
+  app.renderer.render(app.stage, { renderTexture: stageTexture });
   // Create a sprite from it
   const stageSprite = new Sprite(stageTexture);
   const spiralStageSprite = new Sprite(stageTexture);
@@ -201,9 +205,6 @@ const hypnotise = async (
     app.stage.removeChild(spiralContainer);
   });
 
-  // Set animation to idle
-  brute.animation.setAnimation('idle');
-
   for (const target of step.t) {
     // Get fighter brute and bosses
     const fighter = findFighter(fighters, target);
@@ -225,16 +226,25 @@ const hypnotise = async (
     }));
   }
 
-  // Move each pet to other team
-  const animationsDone = [];
-  for (const stepPet of step.p) {
-    // Get random position
-    const { x, y } = getRandomPosition(fighters, brute);
-
-    const pet = findFighter(fighters, stepPet);
+  const pets = step.p.map((petIndex) => {
+    const pet = findFighter(fighters, petIndex);
     if (!pet) {
       throw new Error('Pet not found');
     }
+    // Change pet team
+    pet.team = brute.team;
+    pet.master = brute.id;
+    return pet;
+  });
+
+  // Get new random positions
+  const newPositions = getMultipleRandomPosition(fighters, pets);
+
+  // Move each pet to other team
+  const animationsDone = [];
+  for (const pet of pets) {
+    // Get random position
+    const { x, y } = newPositions.shift()!;
 
     // Set pet animation to `run`
     pet.animation.setAnimation('run');
@@ -246,9 +256,6 @@ const hypnotise = async (
         duration: 0.5 / speed.current,
         ease: Easing.linear,
       }, { x, y }).then(() => {
-        // Change pet team
-        pet.team = brute.team;
-        pet.master = brute.id;
         pet.animation.container.scale.x *= -1;
 
         // Set pet animation to `idle`
@@ -257,8 +264,20 @@ const hypnotise = async (
     );
   }
 
+  // Set animation speed to reverse
+  brute.animation.animationSpeed = -1;
+
+  // Add hand down to waited animations
+  animationsDone.push(brute.animation.waitForEvent('win:start'));
+
   // Wait for all animations to complete
   await Promise.all(animationsDone);
+
+  // Set animation speed to normal
+  brute.animation.animationSpeed = 1;
+
+  // Set animation to idle
+  brute.animation.setAnimation('idle');
 };
 
 export default hypnotise;

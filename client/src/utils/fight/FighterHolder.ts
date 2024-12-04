@@ -465,13 +465,15 @@ export default class FighterHolder {
 
   #isAirborn = false;
 
-  #scale: number = 1;
+  #scale = 1;
 
   #playing = true;
 
   #frame = 0;
 
   #timer = 0;
+
+  animationSpeed = 1;
 
   svgs: PIXI.Sprite[] = [];
 
@@ -706,6 +708,11 @@ export default class FighterHolder {
           this.#triggerEvents(`${this.animation}:trashed`);
         }
 
+        // :hand-raised event
+        if (this.animation === 'win' && this.#frame === 27) {
+          this.#triggerEvents(`${this.animation}:hand-raised`);
+        }
+
         // :hit event
         if (this.animation === 'fist' && this.#frame === 2) {
           this.#triggerEvents(`${this.animation}:hit`);
@@ -726,13 +733,13 @@ export default class FighterHolder {
           this.#triggerEvents(`${this.animation}:drop`);
         }
 
-        this.#frame++;
+        this.#frame += this.animationSpeed;
 
         // :end event
-        if (this.#frame >= this.#frameCount
+        if ((this.#frame >= this.#frameCount || this.#frame < 0)
           && LOOP_START[this.#animationType]?.[this.animation] === null) {
           this.#playing = false;
-          this.#triggerEvents(`${this.animation}:end`);
+          this.#triggerEvents(`${this.animation}:${this.#frame < 0 ? 'start' : 'end'}`);
         }
       }
     });
