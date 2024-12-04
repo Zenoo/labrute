@@ -33,7 +33,7 @@ const sendError = (res: Response, error: unknown) => {
 
   if (!(error instanceof ExpectedError)) {
     try {
-      DISCORD.sendError(error, res);
+      DISCORD().sendError(error, res);
     } catch (discordError) {
       console.error(discordError);
     }
@@ -45,7 +45,7 @@ export default sendError;
 export const sendWorkerError = (error: Error) => {
   if (!(error instanceof ExpectedError)) {
     try {
-      DISCORD.sendError(error);
+      DISCORD().sendError(error);
     } catch (discordError) {
       console.error(discordError);
     }

@@ -226,7 +226,7 @@ export async function readConfig(
   let dinoRpgUrl = env.DINORPG_URL ?? emptyConfig.dinoRpgUrl;
 
   for (const { key, value } of configVars) {
-    const decryptedValue = cryptr.decrypt(value);
+    const decryptedValue = key === 'CRYPTR_SECRET' ? value : cryptr.decrypt(value);
     switch (key) {
       case 'DISCORD_WEBHOOK_ID':
         rawDiscordNotifId = decryptedValue;

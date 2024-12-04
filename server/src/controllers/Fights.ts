@@ -166,7 +166,7 @@ const Fights = {
             expectedError = error;
           } else {
             LOGGER.log(`Error while generating fight between ${brute1.name} and ${brute2.name}, retrying...`);
-            DISCORD.sendError(error);
+            DISCORD().sendError(error);
           }
         }
       }

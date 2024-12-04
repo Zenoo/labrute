@@ -147,7 +147,7 @@ const Users = {
       }
 
       await dailyJob(prisma)().catch((error: Error) => {
-        DISCORD.sendError(error);
+        DISCORD().sendError(error);
       });
 
       res.send({ message: 'Job run' });

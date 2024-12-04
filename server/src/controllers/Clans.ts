@@ -1393,7 +1393,7 @@ const Clans = {
             expectedError = error;
           } else {
             LOGGER.log(`Error while generating fight between ${brute.name} and ${clan.boss}, retrying...`);
-            DISCORD.sendError(error);
+            DISCORD().sendError(error);
           }
         }
       }

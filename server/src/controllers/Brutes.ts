@@ -1220,7 +1220,7 @@ const Brutes = {
       }
 
       // Send notification
-      DISCORD.sendRankUpNotification({
+      DISCORD().sendRankUpNotification({
         name: brute.name,
         ranking: brute.ranking,
         level: userBrute.level,
@@ -1366,7 +1366,7 @@ const Brutes = {
       }
 
       // Send notification
-      DISCORD.sendAscendNotification({
+      DISCORD().sendAscendNotification({
         name: brute.name,
       }, brute.ascensions);
 

@@ -16,6 +16,7 @@ import OAuth from './controllers/OAuth.js';
 import Tournaments from './controllers/Tournaments.js';
 import Users from './controllers/Users.js';
 import ServerState from './utils/ServerState.js';
+import { Configs } from './controllers/Configs.js';
 
 export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
   app.get('/api', (_req: Request, res: Response) => res.status(200).send({
@@ -165,4 +166,10 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/notification/list', Notifications.list(prisma));
   app.patch('/api/notification/all/read', Notifications.setAllRead(prisma));
   app.patch('/api/notification/:id/read', Notifications.setRead(prisma));
+
+  // Config
+  app.get('/api/config/list', Configs.list(prisma));
+  app.post('/api/config/set', Configs.set(prisma));
+  app.post('/api/config/decrypt', Configs.decrypt(prisma));
+  app.delete('/api/config', Configs.delete(prisma));
 }

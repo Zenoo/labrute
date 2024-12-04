@@ -43,6 +43,7 @@ import UserAdminView from './views/UserAdminView';
 import UserView from './views/UserView';
 import VersusView from './views/VersusView';
 import { WikiView } from './views/WikiView';
+import { ConfigAdminView } from './views/ConfigAdminView';
 
 const routes: RouteObject[] = [
   {
@@ -54,6 +55,7 @@ const routes: RouteObject[] = [
       { path: 'admin-panel', element: <AdminView /> },
       { path: 'admin-panel/user', element: <UserAdminView /> },
       { path: 'admin-panel/report', element: <ReportAdminView /> },
+      { path: 'admin-panel/config', element: <ConfigAdminView /> },
       { path: 'admin-panel/banned-users', element: <BannedUsersView /> },
       { path: 'admin-panel/multiple-accounts', element: <MultipleAccountsView /> },
       { path: 'achievements/rankings', element: <AchievementRankingView /> },

@@ -157,6 +157,7 @@ const AdminView = () => {
               <FantasyButton color="primary" to="/admin-panel/report">REPORTS</FantasyButton>
               <FantasyButton color="error" to="/admin-panel/banned-users">BANLIST</FantasyButton>
               <FantasyButton color="warning" to="/admin-panel/multiple-accounts">MULTIS</FantasyButton>
+              <FantasyButton color="error" to="/admin-panel/config">CONFIG</FantasyButton>
             </Stack>
             <Divider />
             <Text bold h3 smallCaps color="secondary">Next modifiers</Text>

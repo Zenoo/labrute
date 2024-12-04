@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Notification, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Notification, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -335,3 +335,16 @@ export type EventGetResponse = {
 };
 
 export type NotificationListResponse = Notification[];
+
+export type ConfigsListResponse = Config[];
+export type ConfigsSetRequest = {
+  key: string,
+  value: string,
+};
+export type ConfigsSetResponse = Config;
+export type ConfigsDecryptRequest = {
+  value: string,
+};
+export type ConfigsDecryptResponse = {
+  decrypted: string,
+};
