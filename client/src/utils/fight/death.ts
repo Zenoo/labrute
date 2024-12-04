@@ -23,13 +23,22 @@ const death = (
   // Set animation to `death`
   fighter.animation.setAnimation('death');
 
-  // If bear model, fade out it's shadow
-  if (getFighterType(fighter) === 'bear') {
+  // Fade out shadow
+  const deathShadowAlpha = getFighterType(fighter) === 'brute' ? 0.8 : 0;
+  const fadeOutDuration = getFighterType(fighter) === 'brute' ? 1 : 0.4;
+  void Tweener.add({
+    target: fighter.animation.shadow,
+    duration: fadeOutDuration / speed.current,
+    ease: Easing.linear,
+  }, { alpha: deathShadowAlpha });
+
+  // If brute, also decrease shadow size
+  if (getFighterType(fighter) === 'brute') {
     void Tweener.add({
-      target: fighter.animation.shadow,
-      duration: 0.4 / speed.current,
+      target: fighter.animation.shadow.scale,
+      duration: fadeOutDuration / speed.current,
       ease: Easing.linear,
-    }, { alpha: 0 });
+    }, { x: 0.65, y: 0.7 });
   }
 
   // Wait for animation to end

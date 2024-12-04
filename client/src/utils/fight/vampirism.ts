@@ -2,7 +2,7 @@
 import { VampirismStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
+import { Easing } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
@@ -11,7 +11,8 @@ import displayDamage from './utils/displayDamage';
 import updateHp from './updateHp';
 import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
-import { updateShadow } from './utils/updateShadow';
+import { playResistAnimation } from './resist';
+import { airbornMove } from './utils/updateShadow';
 
 export const vampirism = async (
   app: Application,
@@ -36,22 +37,22 @@ export const vampirism = async (
   brute.animation.setAirborn(true);
 
   // Move brute to target position
-  await Tweener.add({
-    target: brute.animation.container,
-    duration: 0.25 / speed.current,
+  await airbornMove({
+    fighter: brute,
+    speed,
+    duration: 0.25,
     ease: Easing.linear,
-  }, {
-    x: target.team === 'R'
-      ? target.animation.container.x + target.animation.baseWidth / 2
-      : target.animation.container.x - target.animation.baseWidth / 2,
-    y: target.animation.container.y - 1,
+    endPosition: {
+      x: target.team === 'R'
+        ? target.animation.container.x + target.animation.baseWidth / 2
+        : target.animation.container.x - target.animation.baseWidth / 2,
+      y: target.animation.container.y - 1,
+      zIndex: target.animation.container.zIndex - 1,
+    },
   });
 
   // Reverse brute
   brute.animation.container.scale.x *= -1;
-  brute.animation.container.zIndex = target.animation.container.zIndex - 1;
-  // Update brute's shadow
-  updateShadow(brute);
 
   const animationEnded = brute.animation.waitForEvent('steal:end');
 
@@ -94,13 +95,16 @@ export const vampirism = async (
   const { x, y } = getRandomPosition(fighters, brute);
 
   // Move brute to position
-  await Tweener.add({
-    target: brute.animation.container,
-    duration: 0.25 / speed.current,
+  await airbornMove({
+    fighter: brute,
+    speed,
+    duration: 0.25,
     ease: Easing.linear,
-  }, {
-    x,
-    y,
+    endPosition: {
+      x,
+      y,
+      zIndex: y,
+    },
   });
 
   // End airborn phase

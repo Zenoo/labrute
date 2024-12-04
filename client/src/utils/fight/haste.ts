@@ -85,6 +85,9 @@ export const haste = async (
   // Set run animation on the prettiest frame
   brute.animation.setAnimation('run', 2);
 
+  // Hide brute's shadow
+  brute.animation.shadow.visible = false;
+
   // Get brute texture
   const originalTexture = app.renderer.generateTexture(brute.animation.container);
   // Create sprite from it
@@ -163,6 +166,9 @@ export const haste = async (
 
   // Add ghost to stage
   app.stage.addChild(ghost);
+
+  // Show brute's shadow
+  brute.animation.shadow.visible = true;
 
   // Ghost fade out
   void Tweener.add({

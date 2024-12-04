@@ -2,12 +2,13 @@ import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { GlowFilter } from '@pixi/filter-glow';
-import { Easing, Tweener } from 'pixi-tweener';
+import { Easing } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { untrap } from './untrap';
 import { jumpBack } from './evade';
 import { playDustEffect } from './utils/playVFX';
+import { airbornMove } from './utils/updateShadow';
 
 const skillExpire = async (
   app: Application,
@@ -79,13 +80,17 @@ const skillExpire = async (
 
     // Get positions
     const { x, y } = getRandomPosition(fighters, fighter);
+    // Set zIndex
+    fighter.animation.container.zIndex = y;
 
     // Move brute back
-    await Tweener.add({
-      target: fighter.animation.container,
-      duration: 0.4 / speed.current,
-      ease: Easing.easeInCubic
-    }, { x, y });
+    await airbornMove({
+      fighter,
+      speed,
+      duration: 0.4,
+      ease: Easing.easeInCubic,
+      endPosition: { x, y, zIndex: y },
+    });
 
     // End airborn phase
     fighter.animation.setAirborn(false);

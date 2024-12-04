@@ -9,6 +9,7 @@ import stagger from './stagger';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import repositionFighters from './utils/repositionFighters';
 import { playDustEffect } from './utils/playVFX';
+import { airbornMove } from './utils/updateShadow';
 
 const skillActivate = async (
   app: Application,
@@ -214,16 +215,20 @@ const skillActivate = async (
     // Dust cloud on takeof
     playDustEffect(app, brute, speed);
     // Move brute to upper middle
-    await Tweener.add({
-      target: brute.animation.container,
-      duration: 0.4 / speed.current,
-      ease: Easing.easeOutCubic
-    }, {
-      y: 100,
-      x: brute.team === 'L'
-        ? app.screen.width / 2 - brute.animation.baseWidth / 2
-        : app.screen.width / 2 + brute.animation.baseWidth / 2,
+    await airbornMove({
+      fighter: brute,
+      speed,
+      duration: 0.4,
+      ease: Easing.easeOutCubic,
+      endPosition: {
+        y: 100,
+        x: brute.team === 'L'
+          ? app.screen.width / 2 - brute.animation.baseWidth / 2
+          : app.screen.width / 2 + brute.animation.baseWidth / 2,
+      },
     });
+    // Make sure brute is on front
+    brute.animation.container.zIndex = 1000;
   }
 };
 

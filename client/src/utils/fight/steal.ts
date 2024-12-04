@@ -2,11 +2,11 @@
 import { FIGHTER_HEIGHT, StealStep, WeaponById } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
+import { Easing } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import { updateShadow } from './utils/updateShadow';
+import { airbornMove } from './utils/updateShadow';
 
 const steal = async (
   app: Application,
@@ -28,20 +28,21 @@ const steal = async (
   // Start airborn phase
   brute.animation.setAirborn(true);
   // Move brute to target position
-  await Tweener.add({
-    target: brute.animation.container,
-    duration: 0.25 / speed.current,
+  await airbornMove({
+    fighter: brute,
+    speed,
+    duration: 0.25,
     ease: Easing.linear,
-  }, {
-    x: target.animation.container.x,
-    y: target.animation.container.y - FIGHTER_HEIGHT.brute / 2,
+    endPosition: {
+      x: target.animation.container.x,
+      y: target.animation.container.y - FIGHTER_HEIGHT.brute / 2,
+      zIndex: target.animation.container.zIndex - 1,
+    },
   });
 
   // Reverse brute
   brute.animation.container.scale.x *= -1;
-  brute.animation.container.zIndex = target.animation.container.zIndex - 1;
-  // Update brute's shadow
-  updateShadow(brute);
+
   // Set brute animation to `steal`
   brute.animation.setAnimation('steal');
   // Play steal SFX
@@ -73,13 +74,16 @@ const steal = async (
   const { x, y } = getRandomPosition(fighters, brute);
 
   // Move brute to position
-  await Tweener.add({
-    target: brute.animation.container,
-    duration: 0.25 / speed.current,
+  await airbornMove({
+    fighter: brute,
+    speed,
+    duration: 0.25,
     ease: Easing.linear,
-  }, {
-    x,
-    y,
+    endPosition: {
+      x,
+      y,
+      zIndex: y,
+    },
   });
 
   // End airborn phase

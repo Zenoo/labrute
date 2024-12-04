@@ -5,15 +5,22 @@ import { AnimationFighter } from './findFighter';
 const getFadeFactor = (
   fighter: AnimationFighter,
   altitude: number,
-) => (fighter.animation.baseHeight - altitude * 0.75) / fighter.animation.baseHeight;
+) => Math.max(0.2, Math.min(
+  1,
+  (100 * (fighter.animation.baseWidth / 50) - altitude)
+       / (100 * (fighter.animation.baseWidth / 50))
+));
 
 const updateShadow = (
   fighter: AnimationFighter,
+  forceAltitude?: number,
+  forceFadeFactor?: number,
 ) => {
-  const altitude = fighter.animation.container.zIndex - fighter.animation.container.y;
+  const altitude = forceAltitude
+    ?? fighter.animation.container.zIndex - fighter.animation.container.y;
   fighter.animation.shadow.y = altitude;
 
-  const fadeFactor = getFadeFactor(fighter, altitude);
+  const fadeFactor = forceFadeFactor ?? getFadeFactor(fighter, altitude);
   fighter.animation.shadow.alpha = fadeFactor;
   fighter.animation.shadow.scale.set(0.5 + fadeFactor * 0.5, 0.5 + fadeFactor * 0.5);
 };
@@ -32,8 +39,6 @@ const tweenShadow = async ({
   endAltitude: number,
 }) => {
   const targetFadeFactor = getFadeFactor(fighter, endAltitude);
-
-  updateShadow(fighter);
 
   const shadowAnimations = [];
 
@@ -61,4 +66,39 @@ const tweenShadow = async ({
   await Promise.all(shadowAnimations);
 };
 
-export { updateShadow, tweenShadow };
+const airbornMove = async ({
+  fighter,
+  speed,
+  duration,
+  ease,
+  endPosition,
+}: {
+  fighter: AnimationFighter;
+  speed: React.MutableRefObject<number>,
+  duration: number,
+  ease: (t: number) => number,
+  endPosition: { y: number, x?: number, zIndex?: number },
+}) => {
+  const animations = [];
+
+  // Add movement tweener
+  animations.push(Tweener.add({
+    target: fighter.animation.container,
+    duration: duration / speed.current,
+    ease,
+  }, endPosition));
+
+  // Add a tweener for the shadow
+  animations.push(tweenShadow({
+    fighter,
+    speed,
+    duration,
+    ease,
+    endAltitude: (endPosition.zIndex ?? fighter.animation.container.zIndex) - endPosition.y,
+  }));
+
+  // Wait for the animations
+  await Promise.all(animations);
+};
+
+export { updateShadow, tweenShadow, airbornMove };

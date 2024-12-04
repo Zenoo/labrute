@@ -4,7 +4,7 @@ import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import { getRealKnockBack } from './utils/knockBack';
-import { tweenShadow } from './utils/updateShadow';
+import { airbornMove } from './utils/updateShadow';
 
 export const jumpBack = async (
   fighter: AnimationFighter,
@@ -28,27 +28,20 @@ export const jumpBack = async (
 
   const upAnimations = [];
 
-  // Add horizontal tween
+  // Add horizontal tweener
   upAnimations.push(Tweener.add({
     target: fighter.animation.container,
     duration: (duration * 0.5) / speed.current,
     ease: Easing.linear,
   }, { x: initialX + setBack * 0.5 }));
 
-  // Add vertical tween
-  upAnimations.push(Tweener.add({
-    target: fighter.animation.container,
-    duration: (duration * 0.5) / speed.current,
-    ease: Easing.easeTo,
-  }, { y: fighter.animation.container.y - jumpHeight }));
-
-  // Add a tweener for the shadow
-  upAnimations.push(tweenShadow({
+  // Add a vertical tweener handling shadow
+  upAnimations.push(airbornMove({
     fighter,
     speed,
     duration: duration * 0.5,
     ease: Easing.easeTo,
-    endAltitude: jumpHeight,
+    endPosition: { y: fighter.animation.container.y - jumpHeight },
   }));
 
   await Promise.all(upAnimations);
@@ -62,20 +55,13 @@ export const jumpBack = async (
     ease: Easing.linear,
   }, { x: initialX + setBack }));
 
-  // Add vertical tween
-  downAnimations.push(Tweener.add({
-    target: fighter.animation.container,
-    duration: (duration * 0.5) / speed.current,
-    ease: Easing.easeFrom,
-  }, { y: fighter.animation.container.y + jumpHeight }));
-
-  // Add a tweener for the shadow
-  downAnimations.push(tweenShadow({
+  // Add a vertical tweener handling shadow
+  downAnimations.push(airbornMove({
     fighter,
     speed,
     duration: duration * 0.5,
     ease: Easing.easeFrom,
-    endAltitude: 0,
+    endPosition: { y: fighter.animation.container.y + jumpHeight },
   }));
 
   await Promise.all(downAnimations);

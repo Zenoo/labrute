@@ -564,7 +564,7 @@ export default class FighterHolder {
 
     // Create Shadow Graphics
     const shadowGraphics = new PIXI.Graphics();
-    shadowGraphics.beginFill(0x000000, fighterModelType === 'brute' ? 0.2 : 0.45);
+    shadowGraphics.beginFill(0x000000, 0.4);
     shadowGraphics.drawEllipse(0, 0, 30, 10);
     shadowGraphics.endFill();
 
@@ -572,14 +572,24 @@ export default class FighterHolder {
     const shadowSprite = new PIXI.Sprite();
     shadowSprite.texture = app.renderer.generateTexture(shadowGraphics);
     shadowSprite.anchor.set(0.5, 0.5);
-    shadowSprite.position.set(0, 0);
-    shadowSprite.scale.set(1, 0.5);
     shadowSprite.width = this.baseWidth;
-    shadowSprite.height = this.baseHeight * 0.1;
-    // Shadows are 25% smaller for animals
-    if (this.type !== 'brute') shadowSprite.width *= 0.75;
+    shadowSprite.height = (this.baseHeight * 30) / this.baseWidth;
+
+    // Brute shadow
+    if (fighterModelType === 'brute') {
+      shadowSprite.position.set(0, -0.02 * this.baseHeight);
+      shadowSprite.scale.set(0.72, 0.7);
+    // Bear shadow
+    } else if (fighterModelType === 'bear') {
+      shadowSprite.scale.set(1.3, 1.1);
+    // Dog shadow
+    } else {
+      shadowSprite.position.set(-0.2 * this.baseHeight, 0);
+      shadowSprite.scale.set(0.7, 0.5);
+    }
+
     // Blur shadow depending on it's size
-    shadowSprite.filters = [new PIXI.filters.BlurFilter(this.baseWidth * 0.07)];
+    shadowSprite.filters = [new PIXI.filters.BlurFilter(this.baseWidth * 0.065)];
     // Add shadowSprite to shadow container
     this.shadow.addChild(shadowSprite);
     this.shadow.alpha = 0;
@@ -1160,9 +1170,7 @@ export default class FighterHolder {
 
   // Stop / restart actualizing zIndex
   setAirborn = (airborn: boolean) => {
-    if (airborn) {
-      this.shadow.alpha = 0;
-    } else {
+    if (!airborn) {
       this.shadow.alpha = 1;
       this.shadow.y = 0;
       this.shadow.scale.set(1, 1);

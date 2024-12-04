@@ -1,6 +1,6 @@
 /* eslint-disable no-void */
 import { ArriveStep, WeaponById } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
+import { Easing } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { BossName } from '@labrute/prisma';
 
@@ -10,7 +10,7 @@ import { sound } from '@pixi/sound';
 import { getRandomPosition } from './utils/fightPositions';
 import updateWeapons from './updateWeapons';
 import { playDustEffect } from './utils/playVFX';
-import { tweenShadow } from './utils/updateShadow';
+import { updateShadow, airbornMove } from './utils/updateShadow';
 
 const arrive = async (
   app: Application,
@@ -58,29 +58,22 @@ const arrive = async (
   // Set airborn phase
   fighter.animation.setAirborn(true);
 
+  // Hide shadow
+  fighter.animation.shadow.alpha = 0;
+
   // Set zIndex to front
-  fighter.animation.container.zIndex = y + 50;
+  fighter.animation.container.zIndex = y + 30;
 
-  const moveAnimations = [];
+  // Update shadow to the state from which it will be tweened
+  updateShadow(fighter);
 
-  // Move fighter to the position
-  moveAnimations.push(Tweener.add({
-    target: fighter.animation.container,
-    duration: 0.5 / speed.current,
-    ease: Easing.linear,
-  }, { x, y, zIndex: y }));
-
-  // Add a tweener for the shadow
-  moveAnimations.push(tweenShadow({
+  await airbornMove({
     fighter,
     speed,
     duration: 0.5,
     ease: Easing.linear,
-    endAltitude: 0,
-  }));
-
-  // Wait for animations
-  await Promise.all(moveAnimations);
+    endPosition: { x, y, zIndex: y },
+  });
 
   // Stop airborn phase
   fighter.animation.setAirborn(false);

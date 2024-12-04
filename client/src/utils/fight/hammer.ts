@@ -11,7 +11,8 @@ import updateHp from './updateHp';
 import { untrap } from './untrap';
 import { getRealKnockBack } from './utils/knockBack';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
-import { tweenShadow } from './utils/updateShadow';
+import { playResistAnimation } from './resist';
+import { updateShadow, airbornMove, tweenShadow } from './utils/updateShadow';
 
 const hammer = async (
   app: Application,
@@ -79,12 +80,12 @@ const hammer = async (
   const jumpDuration = 0.0032 * (fighter.animation.container.y - topY);
 
   // Jump both
-  const jumpAnimations = [fighter, target].map((f) => Tweener.add({
-    target: f.animation.container,
-    duration: jumpDuration / speed.current,
-    ease: Easing.linear
-  }, {
-    y: topY,
+  const jumpAnimations = [fighter, target].map((f) => airbornMove({
+    fighter: f,
+    duration: jumpDuration,
+    speed,
+    ease: Easing.linear,
+    endPosition: { y: topY },
   }));
 
   // Max brute distance
@@ -192,24 +193,6 @@ const hammer = async (
       })
   );
 
-  // Add a tweener for the fighter' shadow
-  jumpAnimations.push(tweenShadow({
-    fighter,
-    speed,
-    duration: jumpDuration,
-    ease: Easing.linear,
-    endAltitude: fighter.animation.container.y - topY,
-  }));
-
-  // Add a tweener for the target's shadow
-  jumpAnimations.push(tweenShadow({
-    fighter: target,
-    speed,
-    duration: jumpDuration,
-    ease: Easing.linear,
-    endAltitude: fighter.animation.container.y - topY,
-  }));
-
   // Wait for jump animations to finish
   await Promise.all(jumpAnimations);
 
@@ -230,7 +213,29 @@ const hammer = async (
     y: start.y - f.animation.baseHeight,
   }));
 
-  // Wait for both animations to finish
+  // Special shadow handling as fighters are y inverted
+  updateShadow(fighter, fighter.animation.container.y - start.y, 0.2);
+  updateShadow(target, target.animation.container.y - start.y, 0.2);
+
+  // Add a tweener for the fighter's shadow
+  dropAnimations.push(tweenShadow({
+    fighter,
+    speed,
+    duration: jumpDuration * 0.38,
+    ease: Easing.linear,
+    endAltitude: -fighter.animation.baseHeight,
+  }));
+
+  // Add a tweener for the target's shadow
+  dropAnimations.push(tweenShadow({
+    fighter: target,
+    speed,
+    duration: jumpDuration * 0.38,
+    ease: Easing.linear,
+    endAltitude: -target.animation.baseHeight,
+  }));
+
+  // Wait for animations to finish
   await Promise.all(dropAnimations);
 
   // Reset fighters scale
