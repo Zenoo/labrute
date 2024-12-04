@@ -51,7 +51,8 @@ const flashFlood = async (
   // Create a masked container
   const flashFloodContainer = new Container();
   flashFloodContainer.mask = mask;
-  flashFloodContainer.zIndex = target.animation.container.y + 1;
+  flashFloodContainer.zIndex = target.animation.container.y - 1;
+  flashFloodContainer.sortableChildren = true;
 
   // Set animation to `throw`
   fighter.animation.setAnimation('throw');
@@ -100,6 +101,7 @@ const flashFlood = async (
 
   // Set position
   thrownItem.position.set(start.x, start.y);
+  thrownItem.zIndex = 2;
 
   // Set rotation (from fighter and target positions)
   thrownItem.angle = (Math.atan2(
@@ -135,7 +137,7 @@ const flashFlood = async (
     flashFloodSprite.x = end.x - (start.x - end.x) * 0.1;
     flashFloodSprite.y = end.y - (start.y - end.y) * 0.1;
     flashFloodSprite.angle = thrownItem.angle;
-    flashFloodSprite.zIndex = 1000;
+    flashFloodSprite.zIndex = 1;
 
     // Add flashFlood sprite to stage
     flashFloodContainer.addChild(flashFloodSprite);
@@ -152,7 +154,7 @@ const flashFlood = async (
   // Move thrown item
   Tweener.add({
     target: thrownItem,
-    duration: 0.25 / speed.current,
+    duration: 0.1 / speed.current,
     ease: Easing.linear,
   }, {
     x: end.x,
