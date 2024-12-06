@@ -165,15 +165,15 @@ const ClanThreadView = () => {
                 }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    {post.author.eventId ? (
+                    {post.author?.eventId ? (
                       <Box component="img" src="/images/event.webp" sx={{ height: 18, mr: 1 }} />
                     ) : (
-                      <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
+                      <Box component="img" src={`/images/rankings/lvl_${post.author?.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
                     )}
-                    <Link to={`/${post.author.name}/cell`}>
-                      <Text bold color="primary">{post.author.name}</Text>
+                    <Link to={`/${post.author?.name}/cell`}>
+                      <Text bold color="primary">{post.author?.name}</Text>
                     </Link>
-                    {post.author.id === thread.clan.masterId && (
+                    {post.author?.id === thread.clan.masterId && (
                       <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
                     )}
                   </Box>
@@ -201,9 +201,11 @@ const ClanThreadView = () => {
                   width: 58,
                 }}
                 >
+                  {post?.author && (
                   <BruteRender
                     brute={post.author}
                   />
+                  )}
                 </Box>
               </Box>
             ))}

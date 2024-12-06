@@ -106,7 +106,7 @@ export type BrutesGetClanIdAsMasterResponse = {
 
 export type TournamentsGetDailyResponse = Tournament & {
   fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'tournamentStep' | 'fighters'> & {
-    brute1: Brute,
+    brute1: Brute | null,
     brute2: Brute | null,
   })[]
 };
@@ -120,7 +120,7 @@ export type TournamentsGetGlobalResponse = {
   }) | null,
   lastRounds: TournamentsGetGlobalFight[],
   done: boolean,
-  nextOpponent: string | null,
+  nextOpponent: string | null | undefined,
   nextRound?: number,
 };
 export type TournementsUpdateGlobalRoundWatchedResponse = Pick<Brute, 'globalTournamentRoundWatched' | 'globalTournamentWatchedDate'>;
@@ -190,7 +190,7 @@ export type ClanGetResponse = Clan & {
     user: Pick<User, 'lastSeen'> | null,
   })[],
   bossDamages: (Pick<BossDamage, 'damage'> & {
-    brute: Pick<Brute, 'id' | 'name'>,
+    brute: Pick<Brute, 'id' | 'name'> | null,
   })[],
   attacks: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
     defender: Pick<Clan, 'id' | 'name'> & {
@@ -206,15 +206,15 @@ export type ClanGetResponse = Clan & {
 export type ClanGetThreadsResponse = {
   masterId: string | null,
   threads: (ClanThread & {
-    creator: Pick<Brute, 'id' | 'name'>,
+    creator: Pick<Brute, 'id' | 'name'> | null,
     posts: (Pick<ClanPost, 'date'> & {
-      author: Pick<Brute, 'id' | 'name'>,
+      author: Pick<Brute, 'id' | 'name'> | null,
     })[];
   })[],
 };
 export type ClanGetThreadResponse = ClanThread & {
   posts: (ClanPost & {
-    author: Brute,
+    author: Brute | null,
   })[],
   clan: Pick<Clan, 'masterId' | 'name'>,
 };
@@ -250,7 +250,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
   favoriteFights: (Pick<Fight, 'id' | 'date'> & {
-    brute1: Pick<Brute, 'id' | 'name'>,
+    brute1: Pick<Brute, 'id' | 'name'>| null,
     brute2: Pick<Brute, 'id' | 'name'> | null,
   })[],
 };
@@ -303,12 +303,12 @@ export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];
 export type ClanWarGetResponse = ClanWar & {
   attacker: Pick<Clan, 'id' | 'name'>,
   defender: Pick<Clan, 'id' | 'name'>,
-  fights: (Pick<Fight, 'id' | 'date' | 'winner'> & {
-    brute1: Pick<Brute, 'id' | 'name'>,
+  fights?: (Pick<Fight, 'id' | 'date' | 'winner'> & {
+    brute1?: Pick<Brute, 'id' | 'name'> | null,
   })[],
-  fighters: (ClanWarFighters & {
-    attackers: Pick<Brute, 'id' | 'name'>[],
-    defenders: Pick<Brute, 'id' | 'name'>[],
+  fighters?: (ClanWarFighters & {
+    attackers?: Pick<Brute, 'id' | 'name'>[],
+    defenders?: Pick<Brute, 'id' | 'name'>[],
   })[],
 };
 export type ClanWarGetHistoryResponse = (ClanWar & {

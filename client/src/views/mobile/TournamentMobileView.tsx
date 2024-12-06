@@ -102,7 +102,7 @@ const TournamentMobileView = ({
                     <StyledButton
                       key={fight.id}
                       onClick={goToFight(fight, index + 1)}
-                      shadowColor={(bruteName === fight.brute1.name
+                      shadowColor={(bruteName === fight.brute1?.name
                         || bruteName === fight.brute2?.name)
                         ? '#006CD1'
                         : undefined}
@@ -117,8 +117,9 @@ const TournamentMobileView = ({
                       }}
                     >
                       {/* Left fighter */}
+                      {fight.brute1 && (
                       <BruteTooltip
-                        fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.brute1.name)}
+                        fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.brute1?.name)}
                         brute={fight.brute1}
                       >
                         <Box sx={{
@@ -128,7 +129,7 @@ const TournamentMobileView = ({
                           mr: 1,
                         }}
                         >
-                          <BruteRender brute={fight.brute1} />
+                          {fight.brute1 && <BruteRender brute={fight.brute1} />}
                           {/* Lost indicator */}
                           {shouldResultDisplay
                             && fight.winner === fight.brute2?.name
@@ -148,7 +149,7 @@ const TournamentMobileView = ({
                           {/* Rank */}
                           <Box
                             component="img"
-                            src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1.id)?.rank || fight.brute1.ranking}.webp`}
+                            src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1?.id)?.rank || fight.brute1?.ranking}.webp`}
                             sx={{
                               position: 'absolute',
                               bottom: -6,
@@ -159,6 +160,7 @@ const TournamentMobileView = ({
                           />
                         </Box>
                       </BruteTooltip>
+                      )}
                       {/* VS */}
                       <Box
                         component="img"
@@ -186,7 +188,7 @@ const TournamentMobileView = ({
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && fight.winner === fight.brute1.name
+                              && fight.winner === fight.brute1?.name
                               && (
                                 <Close
                                   color="error"
@@ -230,18 +232,18 @@ const TournamentMobileView = ({
           && (!ownsBrute || (ownsBrute && stepWatched > 5))
           && (
             <BruteTooltip
-              fighter={winnerFight.winner === winnerFight.brute1.name
+              fighter={winnerFight.winner === winnerFight.brute1?.name
                 ? winnerFightFighters
-                  .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1.name)
+                  .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
                 : winnerFightFighters
                   .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
-              brute={winnerFight.winner === winnerFight.brute1.name
+              brute={winnerFight.winner === winnerFight.brute1?.name
                 ? winnerFight.brute1
                 : winnerFight.brute2}
             >
               <Box width={100} mx="auto">
                 <BruteRender
-                  brute={winnerFight.winner === winnerFight.brute1.name
+                  brute={winnerFight.winner === winnerFight.brute1?.name
                     ? winnerFight.brute1
                     : winnerFight?.brute2}
                   width={100}
