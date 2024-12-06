@@ -1,5 +1,6 @@
 /* eslint-disable no-void */
 import { HypnotiseStep } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import { sound } from '@pixi/sound';
 import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
@@ -28,8 +29,12 @@ const hypnotise = async (
   }
   const handRaised = brute.animation.waitForEvent('win:hand-raised');
 
-  // Set brute animation to `win` at frame 3
-  brute.animation.setAnimation('win', 3);
+  // Faster win animation speed for male brutes
+  const animationSpeed = brute.gender === Gender.male ? 2 : 1;
+  brute.animation.animationSpeed = animationSpeed;
+
+  // Set brute animation to `win` at frame 5
+  brute.animation.setAnimation('win', 6 * animationSpeed);
 
   // Wait for the hand to be raised
   await handRaised;
@@ -264,8 +269,8 @@ const hypnotise = async (
     );
   }
 
-  // Set animation speed to reverse
-  brute.animation.animationSpeed = -1;
+  // Set animation speed to fast reverse
+  brute.animation.animationSpeed = -animationSpeed * 2;
 
   // Add hand down to waited animations
   animationsDone.push(brute.animation.waitForEvent('win:start'));

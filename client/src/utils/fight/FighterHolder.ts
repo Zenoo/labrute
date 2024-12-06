@@ -718,8 +718,9 @@ export default class FighterHolder {
           this.#triggerEvents(`${this.animation}:trashed`);
         }
 
-        // :hand-raised event
-        if (this.animation === 'win' && this.#frame === 27) {
+        // :hand-raised event (win animation is faster for female)
+        if (this.animation === 'win'
+          && this.#frame === (this.#animationType === Gender.male ? 52 : 27)) {
           this.#triggerEvents(`${this.animation}:hand-raised`);
         }
 
