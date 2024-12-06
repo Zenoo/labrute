@@ -121,12 +121,10 @@ const TournamentView = () => {
   }, [tournament]);
 
   const goToFight = useCallback((fight: TournamentsGetDailyResponse['fights'][number], newStep: number) => () => {
-    if (!brute) return;
-
+    if (!brute || !fight.brute1) return;
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
-
     if (!ownsBrute) return;
-    if (fight.brute1.id !== brute.id && fight.brute2?.id !== brute.id) return;
+    if (fight.brute1 && fight.brute1.id !== brute.id && fight.brute2?.id !== brute.id) return;
     if (brute.currentTournamentDate && moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day')) {
       if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
     }
@@ -259,7 +257,7 @@ const TournamentView = () => {
                       <StyledButton
                         key={fight.id}
                         onClick={goToFight(fight, index < 6 ? index + 1 : 10 - index + 1)}
-                        shadowColor={(bruteName === fight.brute1.name
+                        shadowColor={(bruteName === fight.brute1?.name
                           || bruteName === fight.brute2?.name)
                           ? '#006CD1'
                           : undefined}
@@ -275,7 +273,7 @@ const TournamentView = () => {
                       >
                         {/* Left fighter */}
                         <BruteTooltip
-                          fighter={fighters.find((fighter) => fighter.id === fight.brute1.id)}
+                          fighter={fighters.find((fighter) => fighter.id === fight.brute1?.id)}
                         >
                           <Box sx={{
                             position: 'relative',
@@ -284,7 +282,7 @@ const TournamentView = () => {
                             mr: 1,
                           }}
                           >
-                            <BruteRender brute={fight.brute1} />
+                            {fight.brute1 && <BruteRender brute={fight?.brute1} />}
                             {/* Lost indicator */}
                             {shouldResultDisplay
                               && fight.winner === fight.brute2?.name
@@ -304,7 +302,7 @@ const TournamentView = () => {
                             {/* Rank */}
                             <Box
                               component="img"
-                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1.id)?.rank || fight.brute1.ranking}.webp`}
+                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1?.id)?.rank || fight.brute1?.ranking}.webp`}
                               sx={{
                                 position: 'absolute',
                                 bottom: scale(-6, index),
@@ -341,7 +339,7 @@ const TournamentView = () => {
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
-                                && fight.winner === fight.brute1.name
+                                && fight.winner === fight.brute1?.name
                                 && (
                                   <Close
                                     color="error"
@@ -385,17 +383,17 @@ const TournamentView = () => {
             && (!ownsBrute || (ownsBrute && stepWatched > 5))
             && (
               <BruteTooltip
-                fighter={winnerFight.winner === winnerFight.brute1.name
+                fighter={winnerFight.winner === winnerFight.brute1?.name
                   ? winnerStepFighters
-                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1.name)
+                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
                   : winnerStepFighters
                     .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
-                brute={winnerFight.winner === winnerFight.brute1.name
+                brute={winnerFight.winner === winnerFight.brute1?.name
                   ? winnerFight.brute1
                   : winnerFight.brute2}
               >
                 <BruteRender
-                  brute={winnerFight.winner === winnerFight.brute1.name
+                  brute={winnerFight.winner === winnerFight.brute1?.name
                     ? winnerFight.brute1
                     : winnerFight?.brute2}
                   sx={{
