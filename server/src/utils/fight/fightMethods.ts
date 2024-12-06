@@ -749,21 +749,37 @@ const drawWeapon = (
     return false;
   }
 
-  const drawEveryWeapon = fightData.modifiers.includes(FightModifier.drawEveryWeapon);
+  // Force draw if drawEveryWeapon modifier
+  forceDraw = forceDraw || fightData.modifiers.includes(FightModifier.drawEveryWeapon);
 
   // Don't always draw a weapon if the fighter is already holding a weapon
   if (fighter.activeWeapon
-    && !drawEveryWeapon
+    && !forceDraw
     && randomBetween(0, fighter.weapons.length * 2) === 0) return false;
 
   // Draw a weapon
   const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons, forceDraw);
 
+  // Infer it's usefulness from it's odds
+  const usefulDraw = !fighter.activeWeapon
+    ? true
+    : !possibleWeapon
+      ? false
+      : fighter.activeWeapon.odds > possibleWeapon.odds;
+
+  // If draw is useful and weapon can be drawn, 50% chance to force draw
+  if (usefulDraw && fighter.keepWeaponChance < 1 && Math.random() < 0.5) forceDraw = true;
+
   // Decrease `keepWeaponChance` each turn and abort until true
-  if (fighter.activeWeapon && !drawEveryWeapon && Math.random() < fighter.keepWeaponChance) {
-    fighter.keepWeaponChance *= 0.5;
+  if (fighter.activeWeapon && !forceDraw && Math.random() < fighter.keepWeaponChance) {
+    // Decrease `keepWeaponChance` by 25% for fast weapons, 50% for other
+    const fastWeapon = fighter.activeWeapon?.types.includes(WeaponType.FAST);
+    fighter.keepWeaponChance *= fastWeapon ? 0.75 : 0.5;
     return false;
   }
+
+  // If draw is not useful, 50% chance to abort
+  if (!usefulDraw && Math.random() < 0.5) return false;
 
   // Abort if no weapon drawn
   if (!possibleWeapon) return false;
