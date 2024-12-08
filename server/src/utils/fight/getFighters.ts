@@ -5,6 +5,7 @@ import {
   DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetStat,
   getTempSkill,
   getTempWeapon,
+  MapEffect,
   pets, randomBetween, SkillModifiers, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
@@ -93,6 +94,18 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
   }
 };
 
+const handleMapModifiers = (
+  brute: Brute,
+  effect?: MapEffect,
+) => { 
+  switch(effect){
+    case MapEffect.HalfSpeed:
+      brute.speedValue = Math.round(brute.speedValue *= 0.5);
+    default:
+      break;
+  }
+}
+
 const handleModifiers = (
   brute: Brute,
   modifiers: FightModifier[],
@@ -130,6 +143,7 @@ type GetFightersParams = {
   team2: Team,
   modifiers: FightModifier[],
   clanFight?: boolean,
+  mapEffect?: MapEffect,
 };
 
 const getFighters = ({
@@ -137,6 +151,7 @@ const getFighters = ({
   team2,
   modifiers,
   clanFight,
+  mapEffect,
 }: GetFightersParams): DetailedFighter[] => {
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
@@ -159,6 +174,8 @@ const getFighters = ({
           brute.enduranceValue = Math.floor(brute.enduranceStat * brute.enduranceModifier);
         }
       }
+
+      handleMapModifiers(brute, mapEffect);
 
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified

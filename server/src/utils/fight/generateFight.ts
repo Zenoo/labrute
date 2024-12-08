@@ -4,7 +4,7 @@ import {
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
-  DetailedFight, DetailedFighter, ExpectedError, Fighter, SkillByName,
+  DetailedFight, DetailedFighter, ExpectedError, FightBackground, Fighter, SkillByName,
   StepType, WeaponByName, bossBackground, bosses,
   fightBackgrounds,
   randomItem,
@@ -72,7 +72,7 @@ const generateFight = async ({
     : tournament
       ? tournamentBackground
       : weightedRandom(fightBackgrounds);
-
+  
   // Achievements
   const achievementsStore: AchievementsStore = {};
   // Stats
@@ -147,6 +147,7 @@ const generateFight = async ({
     team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,
     clanFight: clanWar,
+    mapEffect: (background as FightBackground).effect,
   });
 
   const fightData: DetailedFight = {
