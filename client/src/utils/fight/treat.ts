@@ -70,4 +70,7 @@ export const treat = async (
 
   // Untrap pet
   untrap(app, pet);
+
+  // Set animation to `idle`
+  brute.animation.setAnimation('idle');
 };

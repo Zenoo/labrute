@@ -4,12 +4,12 @@ export type FightBackground = {
 };
 
 export const tournamentBackground = {
-  name: '3.png',
+  name: '3.jpg',
   odds: 0,
 };
 
 export const bossBackground = {
-  name: '4.png',
+  name: '4.jpg',
   odds: 0,
 };
 
@@ -18,13 +18,13 @@ export const fightBackgrounds: FightBackground[] = [
   { name: '2.jpg', odds: 2 },
   tournamentBackground,
   bossBackground,
-  { name: '5.png', odds: 2 },
-  { name: '6.png', odds: 2 },
-  { name: '7.png', odds: 2 },
-  { name: '8.png', odds: 2 },
-  { name: '9.png', odds: 2 },
-  { name: '10.png', odds: 2 },
-  { name: '11.png', odds: 2 },
-  { name: '12.png', odds: 2 },
-  { name: '13.png', odds: 2 },
+  { name: '5.jpg', odds: 2 },
+  { name: '6.jpg', odds: 2 },
+  { name: '7.jpg', odds: 2 },
+  { name: '8.jpg', odds: 2 },
+  { name: '9.jpg', odds: 2 },
+  { name: '10.jpg', odds: 2 },
+  { name: '11.jpg', odds: 2 },
+  { name: '12.jpg', odds: 2 },
+  { name: '13.jpg', odds: 2 },
 ];

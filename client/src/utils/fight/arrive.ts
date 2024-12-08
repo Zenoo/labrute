@@ -1,12 +1,16 @@
 /* eslint-disable no-void */
 import { ArriveStep, WeaponById } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { Easing } from 'pixi-tweener';
+import { Application } from 'pixi.js';
+import { BossName } from '@labrute/prisma';
 
+import findFighter, { AnimationFighter } from './utils/findFighter';
+import { shakeStage } from './utils/stageAnimations';
 import { sound } from '@pixi/sound';
 import { getRandomPosition } from './utils/fightPositions';
-import findFighter, { AnimationFighter } from './utils/findFighter';
 import updateWeapons from './updateWeapons';
+import { playDustEffect } from './utils/playVFX';
+import { updateShadow, airbornMove } from './utils/updateShadow';
 
 const arrive = async (
   app: Application,
@@ -39,7 +43,7 @@ const arrive = async (
   }
 
   // Get random position
-  const { x, y } = getRandomPosition(fighters, fighter.team);
+  const { x, y } = getRandomPosition(fighters, fighter);
 
   fighter.animation.once('arrive:start', () => {
     fighter.animation.pause();
@@ -51,40 +55,46 @@ const arrive = async (
     void sound.play('sfx', { sprite: 'arrive' });
   }, 250 / speed.current);
 
-  // Move fighter to the position
-  await Tweener.add({
-    target: fighter.animation.container,
-    duration: 0.5 / speed.current,
-    ease: Easing.linear
-  }, { x, y });
+  // Set airborn phase
+  fighter.animation.setAirborn(true);
 
-  const animationEnded = fighter.animation.waitForEvent('arrive:end');
+  // Hide shadow
+  fighter.animation.shadow.alpha = 0;
+
+  // Set zIndex to front
+  fighter.animation.container.zIndex = y + 30;
+
+  // Update shadow to the state from which it will be tweened
+  updateShadow(fighter);
+
+  await airbornMove({
+    fighter,
+    speed,
+    duration: 0.5,
+    ease: Easing.linear,
+    endPosition: { x, y, zIndex: y },
+  });
+
+  // Stop airborn phase
+  fighter.animation.setAirborn(false);
+
+  const animations = [fighter.animation.waitForEvent('arrive:end')];
+
+  // GroundShake for big bosses
+  if (fighter.type === 'boss'
+    && (fighter.name === BossName.EmberFang || fighter.name === BossName.GoldClaw)) {
+    // Shake 8px for 350 ms
+    animations.push(shakeStage(app, speed, 8, 350));
+  }
 
   // Finish the arrive animation
   fighter.animation.play();
 
-  // Create dust sprite
-  const dustSprite = new AnimatedSprite(spritesheet.animations.dust || []);
-  dustSprite.animationSpeed = speed.current / 2;
-  dustSprite.loop = false;
-
-  // Set dust sprite position
-  dustSprite.x = fighter.animation.container.x;
-  dustSprite.y = fighter.animation.container.y + 20;
-
-  // Add dust sprite to stage
-  app.stage.addChild(dustSprite);
-
-  // Destroy dust sprite when animation ends
-  dustSprite.onComplete = () => {
-    dustSprite.destroy();
-  };
-
-  // Play dust
-  dustSprite.play();
+  // Dust cloud at arrival
+  playDustEffect(app, fighter, speed);
 
   // Wait for animation to end
-  await animationEnded;
+  await Promise.all(animations);
 
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
