@@ -69,6 +69,7 @@ enum WeaponName {
   mug
   sai
   racquet
+  // TODO: Rename to hammer on release
   axe
   bumps
   flail
@@ -123,6 +124,7 @@ enum SkillName {
   tragicPotion
   net
   bomb
+  // TODO: Rename to pileDriver on release
   hammer
   cryOfTheDamned
   hypnosis
@@ -486,6 +488,7 @@ enum AchievementName {
   felAg_fistsOfF
   felAg_fistsOfF_untouch_relentless
   vita_armor_toughened
+  // TODO: Rename to herculStr_piledriver_fierceBrute on release
   herculStr_hammer_fierceBrute
   shock
   balletShoes_survival
