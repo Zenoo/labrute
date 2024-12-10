@@ -52,6 +52,8 @@ const FightView = () => {
     return [firstAd, secondAd];
   }, [language]);
 
+  const currentMapEffect = fight?.background;
+
   if (smallScreen) {
     return (
       <FightMobileView
@@ -89,8 +91,26 @@ const FightView = () => {
             ))}
           </Box>
           {/* FIGHT */}
-          <Box sx={{ ml: 5, alignSelf: 'center' }}>
+          <Box sx={{ ml: 5, alignSelf: 'center', position: 'relative' }}>
+            {/* Fight Component */}
             <FightComponent fight={fight} />
+            {currentMapEffect === '10.png' && (
+              <Tooltip title="This map reduces speed by half">
+                <Box
+                  component="img"
+                  src="/images/mapmodifiers/halfSpeed1.webp"
+                  alt="Half Speed Modifier Icon"
+                  sx={{
+                    width: 15,
+                    height: 15,
+                    position: 'absolute',
+                    top: '0px',
+                    left: '50%',
+                    transform: 'translateX(+75%)',
+                  }}
+                />
+              </Tooltip>
+            )}
           </Box>
         </Box>
       </BoxBg>
