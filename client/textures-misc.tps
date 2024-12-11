@@ -175,7 +175,7 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">public/images/game/resources/misc/background/1.jpg</key>
             <key type="filename">public/images/game/resources/misc/background/2.jpg</key>
-            <key type="filename">public/images/game/resources/misc/background/3.png</key>
+            <key type="filename">public/images/game/resources/misc/background/3.jpg</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0,0</point_f>
@@ -190,16 +190,16 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/misc/background/10.png</key>
-            <key type="filename">public/images/game/resources/misc/background/11.png</key>
-            <key type="filename">public/images/game/resources/misc/background/12.png</key>
-            <key type="filename">public/images/game/resources/misc/background/13.png</key>
-            <key type="filename">public/images/game/resources/misc/background/4.png</key>
-            <key type="filename">public/images/game/resources/misc/background/5.png</key>
-            <key type="filename">public/images/game/resources/misc/background/6.png</key>
-            <key type="filename">public/images/game/resources/misc/background/7.png</key>
-            <key type="filename">public/images/game/resources/misc/background/8.png</key>
-            <key type="filename">public/images/game/resources/misc/background/9.png</key>
+            <key type="filename">public/images/game/resources/misc/background/10.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/11.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/12.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/13.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/4.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/5.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/6.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/7.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/8.jpg</key>
+            <key type="filename">public/images/game/resources/misc/background/9.jpg</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0,0</point_f>
@@ -257,6 +257,373 @@
                 <rect>4,6,8,13</rect>
                 <key>scale9Paddings</key>
                 <rect>4,6,8,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/axe.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,5,11,10</rect>
+                <key>scale9Paddings</key>
+                <rect>6,5,11,10</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/baton.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,1,19,1</rect>
+                <key>scale9Paddings</key>
+                <rect>10,1,19,1</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/broadsword.png</key>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/keyboard.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,4,13,7</rect>
+                <key>scale9Paddings</key>
+                <rect>7,4,13,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/bumps.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,5,21,9</rect>
+                <key>scale9Paddings</key>
+                <rect>10,5,21,9</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/fan.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>3,7,7,15</rect>
+                <key>scale9Paddings</key>
+                <rect>3,7,7,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/flail.png</key>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/trombone.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,7,14,14</rect>
+                <key>scale9Paddings</key>
+                <rect>7,7,14,14</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/fryingPan.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,6,13,11</rect>
+                <key>scale9Paddings</key>
+                <rect>7,6,13,11</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/halbard.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,4,23,7</rect>
+                <key>scale9Paddings</key>
+                <rect>12,4,23,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/hatchet.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/flail.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,4,9,8</rect>
+                <key>scale9Paddings</key>
+                <rect>5,4,9,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/knife.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,1,11,3</rect>
+                <key>scale9Paddings</key>
+                <rect>6,1,11,3</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/lance.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>11,2,21,3</rect>
+                <key>scale9Paddings</key>
+                <rect>11,2,21,3</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/leek.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,4,11,7</rect>
+                <key>scale9Paddings</key>
+                <rect>6,4,11,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/mammothBone.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,4,14,8</rect>
+                <key>scale9Paddings</key>
+                <rect>7,4,14,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/morningStar.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,7,17,13</rect>
+                <key>scale9Paddings</key>
+                <rect>9,7,17,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/mug.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/noodleBowl.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,3,7,5</rect>
+                <key>scale9Paddings</key>
+                <rect>4,3,7,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/noodleBowl.png</key>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/noodleBowl.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,4,9,7</rect>
+                <key>scale9Paddings</key>
+                <rect>5,4,9,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/piopio.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,3,8,5</rect>
+                <key>scale9Paddings</key>
+                <rect>4,3,8,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/racquet.png</key>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/racquet.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,5,19,10</rect>
+                <key>scale9Paddings</key>
+                <rect>9,5,19,10</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/sai.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,3,9,5</rect>
+                <key>scale9Paddings</key>
+                <rect>5,3,9,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/scimitar.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,2,18,4</rect>
+                <key>scale9Paddings</key>
+                <rect>9,2,18,4</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/shuriken.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>2,2,4,3</rect>
+                <key>scale9Paddings</key>
+                <rect>2,2,4,3</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/sword.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,3,15,5</rect>
+                <key>scale9Paddings</key>
+                <rect>8,3,15,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/trident.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>11,4,21,7</rect>
+                <key>scale9Paddings</key>
+                <rect>11,4,21,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/broken-weapons/whip.png</key>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/keyboard.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,4,17,7</rect>
+                <key>scale9Paddings</key>
+                <rect>9,4,17,7</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -425,6 +792,27 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/misc/flashFlood/1.png</key>
+            <key type="filename">public/images/game/resources/misc/flashFlood/2.png</key>
+            <key type="filename">public/images/game/resources/misc/flashFlood/3.png</key>
+            <key type="filename">public/images/game/resources/misc/flashFlood/4.png</key>
+            <key type="filename">public/images/game/resources/misc/flashFlood/5.png</key>
+            <key type="filename">public/images/game/resources/misc/flashFlood/6.png</key>
+            <key type="filename">public/images/game/resources/misc/flashFlood/7.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>125,10,250,19</rect>
+                <key>scale9Paddings</key>
+                <rect>125,10,250,19</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">public/images/game/resources/misc/header.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -536,6 +924,364 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/images/game/resources/misc/resist/1.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/2.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/3.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/4.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/5.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/6.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/7.png</key>
+            <key type="filename">public/images/game/resources/misc/resist/8.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,10,20,20</rect>
+                <key>scale9Paddings</key>
+                <rect>10,10,20,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/axe.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,5,17,10</rect>
+                <key>scale9Paddings</key>
+                <rect>9,5,17,10</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/baton.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,3,25,6</rect>
+                <key>scale9Paddings</key>
+                <rect>13,3,25,6</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/broadsword.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,4,19,7</rect>
+                <key>scale9Paddings</key>
+                <rect>9,4,19,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/bumps.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,5,20,9</rect>
+                <key>scale9Paddings</key>
+                <rect>10,5,20,9</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/fan.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,7,11,15</rect>
+                <key>scale9Paddings</key>
+                <rect>6,7,11,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/flail.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,7,25,14</rect>
+                <key>scale9Paddings</key>
+                <rect>12,7,25,14</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/fryingPan.png</key>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/whip.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,6,18,11</rect>
+                <key>scale9Paddings</key>
+                <rect>9,6,18,11</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/halbard.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>22,6,45,13</rect>
+                <key>scale9Paddings</key>
+                <rect>22,6,45,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/hatchet.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,5,15,10</rect>
+                <key>scale9Paddings</key>
+                <rect>7,5,15,10</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/knife.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,1,15,3</rect>
+                <key>scale9Paddings</key>
+                <rect>8,1,15,3</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/lance.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,4,33,8</rect>
+                <key>scale9Paddings</key>
+                <rect>16,4,33,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/leek.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>9,3,18,5</rect>
+                <key>scale9Paddings</key>
+                <rect>9,3,18,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/mammothBone.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>11,4,21,8</rect>
+                <key>scale9Paddings</key>
+                <rect>11,4,21,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/morningStar.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>12,6,24,12</rect>
+                <key>scale9Paddings</key>
+                <rect>12,6,24,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/mug.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/knife.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/piopio.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,3,7,7</rect>
+                <key>scale9Paddings</key>
+                <rect>4,3,7,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/piopio.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/broadsword.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/morningStar.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9Paddings</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/sai.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,2,16,5</rect>
+                <key>scale9Paddings</key>
+                <rect>8,2,16,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/scimitar.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>11,2,21,4</rect>
+                <key>scale9Paddings</key>
+                <rect>11,2,21,4</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/shuriken.png</key>
+            <key type="filename">public/images/game/resources/misc/weapons/sai.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>3,3,7,7</rect>
+                <key>scale9Paddings</key>
+                <rect>3,3,7,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/sword.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,3,25,5</rect>
+                <key>scale9Paddings</key>
+                <rect>13,3,25,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/trident.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,3,31,7</rect>
+                <key>scale9Paddings</key>
+                <rect>16,3,31,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">public/images/game/resources/misc/saboteur-weapons/trombone.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0,0</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,7,31,13</rect>
+                <key>scale9Paddings</key>
+                <rect>15,7,31,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">public/images/game/resources/misc/thrown-net.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -553,7 +1299,6 @@
             </struct>
             <key type="filename">public/images/game/resources/misc/wave/1.png</key>
             <key type="filename">public/images/game/resources/misc/wave/10.png</key>
-            <key type="filename">public/images/game/resources/misc/wave/11.png</key>
             <key type="filename">public/images/game/resources/misc/wave/2.png</key>
             <key type="filename">public/images/game/resources/misc/wave/3.png</key>
             <key type="filename">public/images/game/resources/misc/wave/4.png</key>
@@ -594,22 +1339,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/misc/weapons/broadsword.png</key>
-            <key type="filename">public/images/game/resources/misc/weapons/morningStar.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9Paddings</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">public/images/game/resources/misc/weapons/bumps.png</key>
             <key type="filename">public/images/game/resources/misc/weapons/fryingPan.png</key>
             <key type="filename">public/images/game/resources/misc/weapons/racquet.png</key>
@@ -643,21 +1372,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/images/game/resources/misc/weapons/flail.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>5,4,9,8</rect>
-                <key>scale9Paddings</key>
-                <rect>5,4,9,8</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">public/images/game/resources/misc/weapons/halbard.png</key>
             <key type="filename">public/images/game/resources/misc/weapons/trident.png</key>
             <key type="filename">public/images/game/resources/misc/weapons/whip.png</key>
@@ -672,22 +1386,6 @@
                 <rect>5,5,9,9</rect>
                 <key>scale9Paddings</key>
                 <rect>5,5,9,9</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">public/images/game/resources/misc/weapons/knife.png</key>
-            <key type="filename">public/images/game/resources/misc/weapons/piopio.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,3,7,7</rect>
-                <key>scale9Paddings</key>
-                <rect>4,3,7,7</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -749,36 +1447,6 @@
                 <rect>2,3,5,5</rect>
                 <key>scale9Paddings</key>
                 <rect>2,3,5,5</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">public/images/game/resources/misc/weapons/noodleBowl.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,3,7,5</rect>
-                <key>scale9Paddings</key>
-                <rect>4,3,7,5</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">public/images/game/resources/misc/weapons/sai.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>3,3,7,7</rect>
-                <key>scale9Paddings</key>
-                <rect>3,3,7,7</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -899,7 +1567,9 @@
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array/>
+        <array>
+            <string>pixijs-multipack-2023-05-25</string>
+        </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>
