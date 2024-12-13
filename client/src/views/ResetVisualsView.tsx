@@ -25,6 +25,7 @@ const ResetVisualsView = () => {
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [body, setBody] = useState<string | null>(
     null
   );
@@ -61,6 +62,7 @@ const ResetVisualsView = () => {
 
     Confirm.open(t('resetVisuals'), t('resetVisualsConfirm'), () => {
       // Update brute visuals
+      setIsLoading(true);
       Server.Brute.resetVisuals(brute.name, body, colors).then(() => {
         Alert.open('success', t('resetVisualsSuccess'));
 
@@ -87,7 +89,8 @@ const ResetVisualsView = () => {
         // Go to cell
         navigate(`/${brute.name}/cell`);
       })
-        .catch(catchError(Alert));
+        .catch(catchError(Alert))
+        .finally(() => setIsLoading(false));
     });
   };
 
@@ -156,7 +159,12 @@ const ResetVisualsView = () => {
             </Box>
             {/* VALIDATION */}
             <Box sx={{ textAlign: 'center' }}>
-              <FantasyButton color="success" onClick={resetVisuals}>{t('validate')}</FantasyButton>
+              <FantasyButton
+                loading={isLoading}
+                color="success"
+                onClick={resetVisuals}
+              >{t('validate')}
+              </FantasyButton>
             </Box>
           </>
         )}

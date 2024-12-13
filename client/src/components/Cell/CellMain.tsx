@@ -2,7 +2,7 @@ import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp,
 import { Lang } from '@labrute/prisma';
 import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
@@ -39,6 +39,7 @@ const CellMain = ({
   const Alert = useAlert();
   const { brute, owner } = useBrute();
   const { user, authing, currentEvent, modifiers } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -64,9 +65,11 @@ const CellMain = ({
 
   // Login
   const login = useCallback(() => {
+    setIsLoading(true);
     Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
       window.location.href = url;
-    }).catch(catchError(Alert));
+    }).catch(catchError(Alert))
+      .finally(() => setIsLoading(false));
   }, [Alert]);
 
   return brute && (
@@ -158,6 +161,7 @@ const CellMain = ({
         <FantasyButton
           color="success"
           onClick={login}
+          loading={isLoading}
           sx={{ mt: 2 }}
         >
           {t('connect')}

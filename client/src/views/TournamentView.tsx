@@ -2,7 +2,7 @@ import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BruteTooltip from '../components/Brute/BruteTooltip';
@@ -37,6 +37,7 @@ const TournamentView = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { brute, updateBrute } = useBrute();
   const { palette: { mode } } = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
 
   const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
@@ -144,7 +145,9 @@ const TournamentView = () => {
   const setWatched = useCallback(async () => {
     if (!brute) return;
 
-    await Server.Tournament.setDailyWatched(brute.name);
+    setIsLoading(true);
+    await Server.Tournament.setDailyWatched(brute.name)
+      .finally(() => setIsLoading(false));
 
     updateBrute((b) => (b ? {
       ...b,
@@ -166,6 +169,7 @@ const TournamentView = () => {
         display={display}
         goToFight={goToFight}
         setWatched={setWatched}
+        isLoading={isLoading}
       />
     ) : (
       <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
@@ -178,7 +182,7 @@ const TournamentView = () => {
         </Paper>
         <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
           {ownsBrute && stepWatched < 6 && (
-            <FantasyButton onClick={setWatched} color="success">
+            <FantasyButton onClick={setWatched} color="success" loading={isLoading}>
               {t('setAsWatched')}
             </FantasyButton>
           )}

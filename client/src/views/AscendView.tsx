@@ -30,26 +30,19 @@ const AscendView = () => {
   const Alert = useAlert();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedPerk, setSelectedPerk] = useState<WeaponName | SkillName | PetName | null>(null);
 
   const [selectedPerkType, setSelectedPerkType] = useState<'weapon' | 'skill'| 'pet' | null>(null);
 
   // Check if redirect
   useEffect(() => {
-    let redirect = false;
-
     if (!brute) {
       navigate('/');
       return;
     }
 
-    if (!brute.canRankUpSince) {
-      redirect = true;
-    } else if (brute.ranking !== 0) {
-      redirect = true;
-    }
-
-    if (redirect) {
+    if (!brute.canRankUpSince || brute.ranking !== 0) {
       navigate(`/${brute.name}/cell`);
     }
   }, [brute, navigate]);
@@ -167,12 +160,14 @@ const AscendView = () => {
     }
 
     Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, () => {
+      setIsLoading(true);
       Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk })
         .then(() => {
           goToCell(brute.name)();
           window.location.reload();
         })
-        .catch(catchError(Alert));
+        .catch(catchError(Alert))
+        .finally(() => setIsLoading(false));
     });
   }, [Alert, Confirm, brute, getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
 
@@ -238,7 +233,13 @@ const AscendView = () => {
               )}
             </Box>
             <Box sx={{ width: 315, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
-              <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }} disabled={!selectedPerk || !selectedPerkType}>
+              <FantasyButton
+                loading={isLoading}
+                color="warning"
+                onClick={ascend}
+                sx={{ mb: 1 }}
+                disabled={!selectedPerk || !selectedPerkType}
+              >
                 {t('ascend')}
               </FantasyButton>
             </Box>

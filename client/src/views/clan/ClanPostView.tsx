@@ -25,6 +25,7 @@ const ClanPostView = () => {
   const [title, setTitle] = useState('');
   const [post, setPost] = useState<ClanGetThreadResponse['posts'][number]>();
   const [content, setContent] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const editing = useMemo(() => location.pathname.endsWith('/edit'), [location.pathname]);
 
   const changeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,21 +51,22 @@ const ClanPostView = () => {
       return;
     }
 
+    setIsLoading(true);
     if (tid === '0') {
       Server.Clan.createThread(bruteName || '', id, title, content).then(() => {
         Alert.open('success', t('threadCreated'));
         navigate(`/${bruteName}/clan/${id}/forum`);
-      }).catch(catchError(Alert));
+      }).catch(catchError(Alert)).finally(() => setIsLoading(false));
     } else if (!editing) {
       Server.Clan.createPost(bruteName || '', tid, content).then(() => {
         Alert.open('success', t('replyPosted'));
         navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
-      }).catch(catchError(Alert));
+      }).catch(catchError(Alert)).finally(() => setIsLoading(false));
     } else if (post && editing) {
       Server.Clan.updateThread(bruteName || '', id, title, content, tid, post.id).then(() => {
         Alert.open('success', t('threadEdited'));
         navigate(`/${bruteName}/clan/${id}/thread/${tid}`);
-      }).catch(catchError(Alert));
+      }).catch(catchError(Alert)).finally(() => setIsLoading(false));
     }
   };
 
@@ -173,7 +175,13 @@ const ClanPostView = () => {
             ],
           }}
         />
-        <FantasyButton color="success" onClick={save} sx={{ mt: 1 }}>{t('send')}</FantasyButton>
+        <FantasyButton
+          loading={isLoading}
+          color="success"
+          onClick={save}
+          sx={{ mt: 1 }}
+        >{t('send')}
+        </FantasyButton>
       </Paper>
     </Page>
   );
