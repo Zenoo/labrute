@@ -17,6 +17,7 @@ const NameChangeView = () => {
   const { brute, owner } = useBrute();
   const Confirm = useConfirm();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState('');
 
   // Change name
@@ -24,10 +25,12 @@ const NameChangeView = () => {
     if (!brute) return;
 
     Confirm.open(t('inventory.item.nameChange'), t('nameChangeConfirm', { name }), () => {
+      setIsLoading(true);
       Server.Brute.changeName(brute.name, name).then(() => {
         // Go to new cell
         window.location.href = `/${name}/cell`;
-      }).catch(catchError(Alert));
+      }).catch(catchError(Alert))
+        .finally(() => setIsLoading(false));
     });
   };
 
@@ -60,7 +63,12 @@ const NameChangeView = () => {
             />
             {/* VALIDATION */}
             <Box sx={{ textAlign: 'center' }}>
-              <FantasyButton color="success" onClick={changeName}>{t('validate')}</FantasyButton>
+              <FantasyButton
+                color="success"
+                loading={isLoading}
+                onClick={changeName}
+              >{t('validate')}
+              </FantasyButton>
             </Box>
           </Box>
         )}

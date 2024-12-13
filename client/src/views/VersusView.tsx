@@ -134,7 +134,7 @@ const VersusView = () => {
             <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>
           </Grid>
         </Grid>
-        <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>
+        <StyledButton onClick={startFight} sx={{ ml: '39.8%' }} loading={fighting}>
           <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
         </StyledButton>
       </BoxBg>
