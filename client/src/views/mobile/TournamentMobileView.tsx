@@ -1,4 +1,4 @@
-import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
+import { BruteForRender, Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
@@ -96,14 +96,14 @@ const TournamentMobileView = ({
                   (fight) => fight.tournamentStep > start && fight.tournamentStep <= end
                 ).map((fight) => {
                   const fighters = JSON.parse(fight.fighters) as Fighter[];
-
+                  const brute1 : Fighter | undefined = fighters[0];
+                  const brute2 : Fighter | undefined = fighters[1];
                   return (
                     // Fight button
                     <StyledButton
                       key={fight.id}
                       onClick={goToFight(fight, index + 1)}
-                      shadowColor={(bruteName === fight.brute1?.name
-                        || bruteName === fight.brute2?.name)
+                      shadowColor={fighters.some((fighter) => fighter.name === bruteName)
                         ? '#006CD1'
                         : undefined}
                       sx={{
@@ -119,7 +119,7 @@ const TournamentMobileView = ({
                       {/* Left fighter */}
                       {fight.brute1 && (
                       <BruteTooltip
-                        fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.brute1?.name)}
+                        fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === brute1?.name)}
                         brute={fight.brute1}
                       >
                         <Box sx={{
@@ -129,10 +129,10 @@ const TournamentMobileView = ({
                           mr: 1,
                         }}
                         >
-                          {fight.brute1 && <BruteRender brute={fight.brute1} />}
+                          {brute1 && <BruteRender brute={brute1 as BruteForRender} />}
                           {/* Lost indicator */}
                           {shouldResultDisplay
-                            && fight.winner === fight.brute2?.name
+                            && fight.winner === brute2?.name
                             && (
                               <Close
                                 color="error"
@@ -149,7 +149,7 @@ const TournamentMobileView = ({
                           {/* Rank */}
                           <Box
                             component="img"
-                            src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1?.id)?.rank || fight.brute1?.ranking}.webp`}
+                            src={`/images/rankings/lvl_${fighters.find((f) => f.id === brute1?.id)?.rank}.webp`}
                             sx={{
                               position: 'absolute',
                               bottom: -6,
@@ -172,7 +172,7 @@ const TournamentMobileView = ({
                       {/* Right fighter */}
                       {fight.brute2 && (
                         <BruteTooltip
-                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === fight.brute2?.name)}
+                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === brute2?.name)}
                           brute={fight.brute2}
                         >
                           <Box sx={{
@@ -183,12 +183,12 @@ const TournamentMobileView = ({
                           }}
                           >
                             <BruteRender
-                              brute={fight.brute2}
+                              brute={brute2 as BruteForRender}
                               looking="left"
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && fight.winner === fight.brute1?.name
+                              && fight.winner === brute1?.name
                               && (
                                 <Close
                                   color="error"
@@ -205,7 +205,7 @@ const TournamentMobileView = ({
                             {/* Rank */}
                             <Box
                               component="img"
-                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute2?.id)?.rank || fight.brute2.ranking}.webp`}
+                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === brute2?.id)?.rank}.webp`}
                               sx={{
                                 position: 'absolute',
                                 bottom: -6,
