@@ -251,9 +251,18 @@ const TournamentView = () => {
                 >
                   {round.map((fight) => {
                     const fighters = JSON.parse(fight.fighters) as Fighter[];
-                    const brute1 : Fighter | undefined = fighters[0];
-                    const brute2 : Fighter | undefined = fighters[1];
-
+                    const brute1 : Fighter | undefined = fight && fighters
+                    && fighters.find((fighter) => !fighter.master
+                    && fighter.id === fight.brute1?.id);
+                    const brute2 : Fighter | undefined = fight && fighters
+                    && fighters.find((fighter) => !fighter.master
+                    && fighter.id === fight.brute2?.id);
+                    // const brute1 = useMemo(() => fight && fighters && fighters
+                    //   .find((fighter) => !fighter.master
+                    //     && fighter.id === fight.brute1?.id), [fight, fighters]);
+                    // const brute2 = useMemo(() => fight && fighters && fighters
+                    //   .find((fighter) => !fighter.master
+                    //     && fighter.id === fight.brute2?.id), [fight, fighters]);
                     return (
                       // Fight button
                       <StyledButton

@@ -96,8 +96,12 @@ const TournamentMobileView = ({
                   (fight) => fight.tournamentStep > start && fight.tournamentStep <= end
                 ).map((fight) => {
                   const fighters = JSON.parse(fight.fighters) as Fighter[];
-                  const brute1 : Fighter | undefined = fighters[0];
-                  const brute2 : Fighter | undefined = fighters[1];
+                  const brute1 : Fighter | undefined = fight && fighters
+                  && fighters.find((fighter) => !fighter.master
+                  && fighter.id === fight.brute1?.id);
+                  const brute2 : Fighter | undefined = fight && fighters
+                  && fighters.find((fighter) => !fighter.master
+                  && fighter.id === fight.brute2?.id);
                   return (
                     // Fight button
                     <StyledButton
@@ -170,10 +174,10 @@ const TournamentMobileView = ({
                         }}
                       />
                       {/* Right fighter */}
-                      {fight.brute2 && (
+                      {brute2 && (
                         <BruteTooltip
                           fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === brute2?.name)}
-                          brute={fight.brute2}
+                          brute={brute2 as never as Brute}
                         >
                           <Box sx={{
                             position: 'relative',
