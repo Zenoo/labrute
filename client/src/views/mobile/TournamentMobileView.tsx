@@ -1,5 +1,5 @@
 import { BruteForRender, Fighter, TournamentsGetDailyResponse } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { Brute, Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
 import moment from 'moment';
@@ -21,6 +21,19 @@ const rounds: [number, number][] = [
   [60, 62],
   [62, 63],
 ];
+
+const fighterToBrute = (fighter: Fighter) => ({
+  id: fighter.id,
+  gender: fighter.gender || Gender.male,
+  name: fighter.name,
+  hp: fighter.maxHp,
+  level: fighter.level,
+  strengthValue: fighter.strength,
+  agilityValue: fighter.agility,
+  speedValue: fighter.speed,
+  body: fighter.body || '0'.repeat(11),
+  colors: fighter.colors || '0'.repeat(32),
+});
 
 interface Props {
   bruteName?: string,
@@ -96,12 +109,8 @@ const TournamentMobileView = ({
                   (fight) => fight.tournamentStep > start && fight.tournamentStep <= end
                 ).map((fight) => {
                   const fighters = JSON.parse(fight.fighters) as Fighter[];
-                  const brute1 : Fighter | undefined = fight && fighters
-                  && fighters.find((fighter) => !fighter.master
-                  && fighter.id === fight.brute1?.id);
-                  const brute2 : Fighter | undefined = fight && fighters
-                  && fighters.find((fighter) => !fighter.master
-                  && fighter.id === fight.brute2?.id);
+                  const brute1 : Fighter | undefined = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
+                  const brute2 : Fighter | undefined = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
                   return (
                     // Fight button
                     <StyledButton
@@ -121,10 +130,9 @@ const TournamentMobileView = ({
                       }}
                     >
                       {/* Left fighter */}
-                      {fight.brute1 && (
+                      {brute1 && (
                       <BruteTooltip
-                        fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === brute1?.name)}
-                        brute={fight.brute1}
+                        fighter={brute1}
                       >
                         <Box sx={{
                           position: 'relative',
@@ -153,7 +161,7 @@ const TournamentMobileView = ({
                           {/* Rank */}
                           <Box
                             component="img"
-                            src={`/images/rankings/lvl_${fighters.find((f) => f.id === brute1?.id)?.rank}.webp`}
+                            src={`/images/rankings/lvl_${brute1?.rank}.webp`}
                             sx={{
                               position: 'absolute',
                               bottom: -6,
@@ -176,8 +184,7 @@ const TournamentMobileView = ({
                       {/* Right fighter */}
                       {brute2 && (
                         <BruteTooltip
-                          fighter={fighters.find((fighter) => fighter.type === 'brute' && fighter.name === brute2?.name)}
-                          brute={brute2 as never as Brute}
+                          fighter={brute2}
                         >
                           <Box sx={{
                             position: 'relative',
@@ -187,7 +194,7 @@ const TournamentMobileView = ({
                           }}
                           >
                             <BruteRender
-                              brute={brute2 as BruteForRender}
+                              brute={fighterToBrute(brute2)}
                               looking="left"
                             />
                             {/* Lost indicator */}
