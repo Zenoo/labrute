@@ -1,4 +1,4 @@
-import { ExpectedError } from '@labrute/core';
+import { ExpectedError, isUuid } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
 import moment from 'moment';
@@ -20,6 +20,10 @@ const auth = async (prisma: PrismaClient, request: Request) => {
 
   if (!id || !token || id === 'null' || token === 'null') {
     throw new ExpectedError('Invalid authorization header content');
+  }
+
+  if (!isUuid(id)) {
+    throw new ExpectedError('Invalid user ID');
   }
 
   const user = await prisma.user.findFirst({
