@@ -1524,6 +1524,8 @@
   "perkType.weapon": "Weapon",
   "perkType.skill": "Skill",
   "perkType.pet": "Pet",
+  "ascend": "Ascend",
+  "ascension": "Ascension",
   "ascensions": "Ascensions",
   "ascendWith.firstDog": "one pet Dog",
   "ascendWith.secondDog": "a second pet dog",
