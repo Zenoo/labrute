@@ -1,5 +1,7 @@
 [![Crowdin](https://badges.crowdin.net/labrute/localized.svg)](https://crowdin.com/project/labrute)
 
+<img src="https://github.com/user-attachments/assets/57440ad3-2328-42ea-a840-c24edcdee36f" width="500" />
+
 ## Backend
 
 > Made with [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), [Prisma](https://www.prisma.io/), written in [Typescript](https://www.typescriptlang.org/).
