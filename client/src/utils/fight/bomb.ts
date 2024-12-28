@@ -1,14 +1,16 @@
 /* eslint-disable no-void */
-import { BombStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, randomBetween } from '@labrute/core';
+import { BombStep, randomBetween } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application } from 'pixi.js';
+import { AnimatedSprite, Application, filters } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import stagger from './stagger';
 import updateHp from './updateHp';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import { shakeStage } from './utils/stageAnimations';
 import { untrap } from './untrap';
+import { playResistAnimation } from './resist';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -52,8 +54,12 @@ const bomb = async (
   bombSprite.loop = true;
 
   // Set bomb sprite position
-  bombSprite.x = fighter.animation.container.x + FIGHTER_WIDTH.brute / 2;
-  bombSprite.y = fighter.animation.container.y - FIGHTER_HEIGHT.brute / 2;
+  bombSprite.position.set(
+    fighter.team === 'L'
+      ? fighter.animation.container.x + fighter.animation.baseWidth / 2
+      : fighter.animation.container.x - fighter.animation.baseWidth / 2,
+    fighter.animation.container.y - fighter.animation.baseHeight / 2,
+  );
 
   // Get target position
   const targetPosition = {
@@ -109,10 +115,14 @@ const bomb = async (
   const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion || []);
   explosionSprite.animationSpeed = speed.current;
   explosionSprite.loop = false;
+  explosionSprite.filters = [new filters.BlurFilter(3)];
+  explosionSprite.width *= 2;
+  explosionSprite.height *= 2;
 
   // Set explosion sprite position
   explosionSprite.x = targetPosition.x;
   explosionSprite.y = targetPosition.y;
+  explosionSprite.zIndex = targetPosition.y;
 
   // Add explosion sprite to stage
   app.stage.addChild(explosionSprite);
@@ -142,9 +152,13 @@ const bomb = async (
     return target;
   });
 
-  const staggers = [];
+  // Shake stage 8px 350ms
+  const staggers = [shakeStage(app, speed, 8, 350)];
 
   for (const target of targets) {
+    // Wake up target
+    target.stunned = false;
+
     // Untrap target
     untrap(app, target);
 
@@ -160,6 +174,9 @@ const bomb = async (
     target.animation.setAnimation(animation);
 
     displayDamage(app, target, damage, speed);
+
+    // Play the resist animation now
+    playResistAnimation(app, target, speed);
 
     // Update HP bar
     updateHp(fighters, target, -damage, speed, isClanWar);

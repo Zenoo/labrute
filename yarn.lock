@@ -3396,7 +3396,9 @@ __metadata:
     "@pixi/filter-adjustment": "npm:^5.1.1"
     "@pixi/filter-bevel": "npm:^4.2.0"
     "@pixi/filter-color-overlay": "npm:^4.2.0"
+    "@pixi/filter-drop-shadow": "npm:^4.2.0"
     "@pixi/filter-glow": "npm:^4.2.0"
+    "@pixi/filter-motion-blur": "npm:^4.2.0"
     "@pixi/filter-outline": "npm:^4.2.0"
     "@pixi/sound": "npm:^4.4.1"
     "@types/node": "npm:^18.6.3"
@@ -4428,6 +4430,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/filter-drop-shadow@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-drop-shadow@npm:4.2.0"
+  dependencies:
+    "@pixi/filter-kawase-blur": "npm:4.2.0"
+  peerDependencies:
+    "@pixi/constants": ^6.0.0
+    "@pixi/core": ^6.0.0
+    "@pixi/math": ^6.0.0
+    "@pixi/settings": ^6.0.0
+    "@pixi/utils": ^6.0.0
+  checksum: 8b8806363b73e0b60c4a51377810034c630653c02f708b64a4335ed4479106121ff740b4d5c94424965fd348754bef4d7d7c16f0ba709eff8d48d06430854013
+  languageName: node
+  linkType: hard
+
 "@pixi/filter-fxaa@npm:6.5.10":
   version: 6.5.10
   resolution: "@pixi/filter-fxaa@npm:6.5.10"
@@ -4444,6 +4461,28 @@ __metadata:
     "@pixi/core": ^6.0.0
     "@pixi/utils": ^6.0.0
   checksum: 94a16a6565d6b825beb988dfb212a5b224152e04cc9a9e339ae6e584e6488a263ba006fff3c65ec64ea557e898640f6d12e9d69c25358de3ca2fe4affae97980
+  languageName: node
+  linkType: hard
+
+"@pixi/filter-kawase-blur@npm:4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-kawase-blur@npm:4.2.0"
+  peerDependencies:
+    "@pixi/constants": ^6.0.0
+    "@pixi/core": ^6.0.0
+    "@pixi/math": ^6.0.0
+  checksum: a2c4d345e300b1a069b40899a533fe0bbdb404702da6cd570c7e0612917ac5163faf85a198c372eef641c8e7003912e2bbb65047a3782b0937e584d9f5055e16
+  languageName: node
+  linkType: hard
+
+"@pixi/filter-motion-blur@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "@pixi/filter-motion-blur@npm:4.2.0"
+  peerDependencies:
+    "@pixi/constants": ^6.0.0
+    "@pixi/core": ^6.0.0
+    "@pixi/math": ^6.0.0
+  checksum: 25c3478164c2a408602ddbb03dd5b178829a796cb6b3c9ae86113877340ce3a44039b162f95bb2b088424c009d75c8f52e553ccb70d28d486a7f6ccd473f986b
   languageName: node
   linkType: hard
 

@@ -1,12 +1,11 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, randomBetween, SaboteurStep, WeaponById } from '@labrute/core';
-import { Application, Sprite } from 'pixi.js';
+import { randomBetween, SaboteurStep } from '@labrute/core';
+import { Application } from 'pixi.js';
 
-import { BevelFilter } from '@pixi/filter-bevel';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 import stagger from './stagger';
+import itemDrop from './itemDrop';
 
 const saboteur = async (
   app: Application,
@@ -49,53 +48,28 @@ const saboteur = async (
   // Update active weapon
   brute.animation.weapon = null;
 
-  // Create weapon sprite
-  const weapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
-  weapon.filters = [new BevelFilter()];
-  weapon.zIndex = 1;
+  // Weapon position
+  const initialPosition = {
+    x: brute.animation.container.x,
+    y: brute.animation.container.y - brute.animation.baseHeight * 0.6,
+  };
 
-  // Anchor to left center
-  weapon.anchor.set(0, 0.5);
+  // Weapon velocity
+  const initialVelocity = {
+    x: 2,
+    y: -3,
+  };
 
-  // Set position
-  weapon.position.set(
-    brute.animation.container.x,
-    brute.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
-  );
-
-  // Set angle
-  weapon.angle = brute.team === 'L' ? -110 : 70;
-
-  // Add to stage
-  app.stage.addChild(weapon);
-
-  // Animate the fall
-  Tweener.add({
-    target: weapon,
-    duration: 0.3 / speed.current,
-    ease: Easing.linear,
-  }, {
-    x: brute.team === 'L'
-      ? weapon.x - 20
-      : weapon.x + 20,
-    y: weapon.y + 50,
-    angle: brute.team === 'L' ? -180 : 0,
-  }).then(() => {
-    // Wait a bit
-    setTimeout(() => {
-      // Decrease opacity
-      Tweener.add({
-        target: weapon,
-        duration: 0.5 / speed.current,
-        ease: Easing.linear,
-      }, {
-        alpha: 0,
-      }).then(() => {
-        // Remove from stage
-        app.stage.removeChild(weapon);
-      }).catch(console.error);
-    }, 500 / speed.current);
-  }).catch(console.error);
+  // Drop saboteur weapon
+  itemDrop({
+    app,
+    fighter: brute,
+    speed,
+    item: step.w,
+    initialPosition,
+    initialVelocity,
+    saboteur: true
+  });
 
   // Wait for stagger
   await staggerVfx;

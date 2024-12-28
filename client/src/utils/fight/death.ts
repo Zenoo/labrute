@@ -1,7 +1,9 @@
+/* eslint-disable no-void */
 import { DeathStep } from '@labrute/core';
 
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import getFighterType from './utils/getFighterType';
 
 const death = (
   fighters: AnimationFighter[],
@@ -20,6 +22,24 @@ const death = (
 
   // Set animation to `death`
   fighter.animation.setAnimation('death');
+
+  // Fade out shadow
+  const deathShadowAlpha = getFighterType(fighter) === 'brute' ? 0.8 : 0;
+  const fadeOutDuration = getFighterType(fighter) === 'brute' ? 1 : 0.4;
+  void Tweener.add({
+    target: fighter.animation.shadow,
+    duration: fadeOutDuration / speed.current,
+    ease: Easing.linear,
+  }, { alpha: deathShadowAlpha });
+
+  // If brute, also decrease shadow size
+  if (getFighterType(fighter) === 'brute') {
+    void Tweener.add({
+      target: fighter.animation.shadow.scale,
+      duration: fadeOutDuration / speed.current,
+      ease: Easing.linear,
+    }, { x: 0.65, y: 0.7 });
+  }
 
   // Wait for animation to end
   animationEnded.then(() => {
