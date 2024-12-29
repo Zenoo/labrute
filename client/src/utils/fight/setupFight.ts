@@ -152,8 +152,9 @@ const setupFight: (
     fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
   });
   team1Text.filters = [new OutlineFilter()];
+  team1Text.anchor.set(0, 1);
   team1Text.x = 4;
-  team1Text.y = 0;
+  team1Text.y = 23;
   team1Text.zIndex = 102;
   app.stage?.addChild(team1Text);
 
@@ -256,10 +257,10 @@ const setupFight: (
     team2Text = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
     });
-    team2Text.anchor.x = 1;
     team2Text.filters = [new OutlineFilter()];
+    team2Text.anchor.set(1, 1);
     team2Text.x = app.screen.width - 4;
-    team2Text.y = 0;
+    team2Text.y = 23;
     team2Text.zIndex = 102;
     app.stage?.addChild(team2Text);
 
@@ -338,10 +339,10 @@ const setupFight: (
     const bossName = new PIXI.Text(displayedBossName.toLocaleUpperCase(), {
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
     });
-    bossName.anchor.x = 1;
     bossName.filters = [new OutlineFilter()];
+    bossName.anchor.set(1, 1);
     bossName.x = app.screen.width - 4;
-    bossName.y = 0;
+    bossName.y = 23;
     bossName.zIndex = 102;
     app.stage?.addChild(bossName);
 
