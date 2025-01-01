@@ -32,7 +32,7 @@ const LevelUpView = () => {
   const theme = useTheme();
 
   const [choices, setChoices] = useState<BrutesGetLevelUpChoicesResponse['choices'] | null>(null);
-
+  const [isLevellingUp, setIsLevellingUp] = useState(false);
   const samePath = brute?.previousDestinyPath.toString().startsWith(brute?.destinyPath.toString());
 
   // Fetch brute
@@ -59,10 +59,11 @@ const LevelUpView = () => {
   const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
     if (!brute || !choices) return;
 
+    setIsLevellingUp(true);
     const newBrute = await Server.Brute.levelUp(
       brute.name,
       choice,
-    ).catch(catchError(Alert));
+    ).catch(catchError(Alert)).finally(() => setIsLevellingUp(false));
 
     if (!newBrute) return;
 
@@ -272,6 +273,7 @@ const LevelUpView = () => {
                   shadow={false}
                   contrast={false}
                   onClick={levelUp(i === 0 ? DestinyChoiceSide.LEFT : DestinyChoiceSide.RIGHT)}
+                  loading={isLevellingUp}
                 >
                   <Text bold smallCaps color="success">{t('validate')}</Text>
                 </StyledButton>

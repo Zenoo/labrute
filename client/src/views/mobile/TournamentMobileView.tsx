@@ -33,6 +33,7 @@ interface Props {
   display: boolean,
   goToFight: (fight: TournamentsGetDailyResponse['fights'][number], newStep: number) => () => void,
   setWatched: () => void,
+  isLoading?: boolean;
 }
 
 const TournamentMobileView = ({
@@ -46,6 +47,7 @@ const TournamentMobileView = ({
   display,
   goToFight,
   setWatched,
+  isLoading,
 }: Props) => {
   const { t } = useTranslation();
   const { authing } = useAuth();
@@ -62,7 +64,7 @@ const TournamentMobileView = ({
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2, }}>
         {ownsBrute && stepWatched < 6 && (
-          <FantasyButton onClick={setWatched} color="success">
+          <FantasyButton onClick={setWatched} color="success" loading={isLoading}>
             {t('setAsWatched')}
           </FantasyButton>
         )}
