@@ -126,7 +126,11 @@ const sendError = (res: Response, error: unknown) => {
       || !(error instanceof MissingElementError)
       || !(error instanceof LimitError)
       || !(error instanceof NotFoundError)) {
-    DISCORD().sendError(error, res);
+    try {
+      DISCORD().sendError(error, res);
+    } catch (discordError) {
+      console.error(discordError);
+    }
   }
 };
 
