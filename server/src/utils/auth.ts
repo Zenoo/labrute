@@ -1,15 +1,17 @@
-import { ExpectedError, isUuid } from '@labrute/core';
+import {
+  ExpectedError, ForbiddenError, isUuid, NotFoundError,
+} from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
 import moment from 'moment';
-import translate from './translate.js';
 import ServerState from './ServerState.js';
+import translate from './translate.js';
 
 const auth = async (prisma: PrismaClient, request: Request) => {
   const { headers: { authorization } } = request;
 
   if (!authorization) {
-    throw new ExpectedError('You are not logged in');
+    throw new ForbiddenError('You are not logged in');
   }
   if (typeof authorization !== 'string') {
     throw new ExpectedError('Invalid authorization header');
@@ -42,11 +44,11 @@ const auth = async (prisma: PrismaClient, request: Request) => {
   });
 
   if (!user) {
-    throw new ExpectedError('User not found');
+    throw new NotFoundError('User not found');
   }
 
   if (user.bannedAt) {
-    throw new ExpectedError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
+    throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
   }
 
   // Update user's IP
@@ -57,7 +59,7 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     const bannedIp = await ServerState.isIpBanned(prisma, ip);
 
     if (bannedIp) {
-      throw new ExpectedError(translate('ipBanned', null));
+      throw new ForbiddenError(translate('ipBanned', null));
     }
   }
 

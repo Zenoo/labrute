@@ -2,6 +2,10 @@ import {
   BruteDeletionReason,
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
   ExpectedError,
+  ForbiddenError,
+  LimitError,
+  MissingElementError,
+  NotFoundError,
 } from '@labrute/core';
 import {
   BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
@@ -29,7 +33,7 @@ const BruteReports = {
 
       // Admin or moderator only
       if (!user?.admin && !user?.moderator) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       // Order by count for pending, by handledAt for others
@@ -82,7 +86,7 @@ const BruteReports = {
       const { name, reason } = req.params;
 
       if (!name || !reason) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       if (!BruteReportReason[reason]) {
@@ -99,7 +103,7 @@ const BruteReports = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       if (brute.deletionReason) {
@@ -127,7 +131,7 @@ const BruteReports = {
 
       // Check if user already reported this brute
       if (existingReport && existingReport.users.some((u) => u.id === user.id)) {
-        throw new ExpectedError(translate('bruteAlreadyReported', user));
+        throw new LimitError(translate('bruteAlreadyReported', user));
       }
 
       if (existingReport) {
@@ -190,7 +194,7 @@ const BruteReports = {
 
       // Admin or moderator only
       if (!user?.admin && !user?.moderator) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const report = await prisma.bruteReport.findFirst({
@@ -222,11 +226,11 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new ExpectedError(translate('reportNotFound', authed));
+        throw new NotFoundError(translate('reportNotFound', authed));
       }
 
       if (report.handledAt) {
-        throw new ExpectedError(translate('reportAlreadyHandled', authed));
+        throw new LimitError(translate('reportAlreadyHandled', authed));
       }
 
       await prisma.bruteReport.update({
@@ -322,7 +326,7 @@ const BruteReports = {
 
       // Admin or moderator only
       if (!user?.admin && !user?.moderator) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const report = await prisma.bruteReport.findFirst({
@@ -332,11 +336,11 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new ExpectedError(translate('reportNotFound', authed));
+        throw new NotFoundError(translate('reportNotFound', authed));
       }
 
       if (report.handledAt) {
-        throw new ExpectedError(translate('reportAlreadyHandled', authed));
+        throw new LimitError(translate('reportAlreadyHandled', authed));
       }
 
       await prisma.bruteReport.update({
@@ -372,13 +376,13 @@ const BruteReports = {
 
       // Admin only
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const { word } = req.params;
 
       if (!word) {
-        throw new ExpectedError(translate('missingParameters', authed));
+        throw new MissingElementError(translate('missingParameters', authed));
       }
 
       // Delete banned words containing this word

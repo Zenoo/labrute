@@ -4,7 +4,8 @@ import {
   ConfigsListResponse,
   ConfigsSetRequest,
   ConfigsSetResponse,
-  ExpectedError,
+  ForbiddenError,
+  MissingElementError,
 } from '@labrute/core';
 import {
   PrismaClient,
@@ -31,7 +32,7 @@ export const Configs = {
 
       // Admin only
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       // Get configs
@@ -62,13 +63,13 @@ export const Configs = {
 
       // Admin only
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const { key, value } = req.body;
 
       if (!key || !value) {
-        throw new ExpectedError('Missing key or value');
+        throw new MissingElementError('Missing key or value');
       }
 
       // Get CRYPTR_SECRET
@@ -77,11 +78,11 @@ export const Configs = {
       });
 
       if (key === 'CRYPTR_SECRET' && cryptrSecret) {
-        throw new ExpectedError('CRYPTR_SECRET already exists');
+        throw new ForbiddenError('CRYPTR_SECRET already exists');
       }
 
       if (key !== 'CRYPTR_SECRET' && !cryptrSecret) {
-        throw new ExpectedError('CRYPTR_SECRET is missing');
+        throw new MissingElementError('CRYPTR_SECRET is missing');
       }
 
       const cryptr = new Cryptr(cryptrSecret?.value ?? 'dev');
@@ -119,13 +120,13 @@ export const Configs = {
 
       // Admin only
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const { value } = req.body;
 
       if (!value) {
-        throw new ExpectedError('Missing value');
+        throw new MissingElementError('Missing value');
       }
 
       // Get CRYPTR_SECRET
@@ -134,7 +135,7 @@ export const Configs = {
       });
 
       if (!cryptrSecret) {
-        throw new ExpectedError('CRYPTR_SECRET is missing');
+        throw new MissingElementError('CRYPTR_SECRET is missing');
       }
 
       const cryptr = new Cryptr(cryptrSecret.value);
@@ -159,17 +160,17 @@ export const Configs = {
 
       // Admin only
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const { key } = req.body;
 
       if (!key) {
-        throw new ExpectedError('Missing key');
+        throw new MissingElementError('Missing key');
       }
 
       if (key === 'CRYPTR_SECRET') {
-        throw new ExpectedError('CRYPTR_SECRET cannot be deleted');
+        throw new ForbiddenError('CRYPTR_SECRET cannot be deleted');
       }
 
       // Delete config
