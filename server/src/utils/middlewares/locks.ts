@@ -1,5 +1,5 @@
-import { ExpectedError } from '@labrute/core';
-import type { Request, Response, NextFunction } from 'express';
+import { ForbiddenError, LimitError } from '@labrute/core';
+import type { NextFunction, Request, Response } from 'express';
 import sendError from '../sendError.js';
 
 const allowedRoutes = [
@@ -24,7 +24,7 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
     const [id] = Buffer.from(authorization.split(' ')[1] || '', 'base64').toString().split(':');
 
     if (!id || id === 'null') {
-      return sendError(res, new ExpectedError('Invalid authorization header content'));
+      return sendError(res, new ForbiddenError('Invalid authorization header content'));
     }
 
     if (allowedRoutes.includes(path)) {
@@ -34,7 +34,7 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
     const key = `${method}:${path.toLowerCase().replace(/\//g, '')}:${id}`;
 
     if (locks.has(key)) {
-      return sendError(res, new ExpectedError('Too many requests'));
+      return sendError(res, new LimitError('Too many requests'));
     }
 
     locks.set(key, setTimeout(() => {

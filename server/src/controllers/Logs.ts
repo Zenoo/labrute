@@ -1,9 +1,11 @@
-import { ExpectedError, LogGetForUserFeedResponse, LogListResponse } from '@labrute/core';
+import {
+  ExpectedError, LogGetForUserFeedResponse, LogListResponse, NotFoundError,
+} from '@labrute/core';
 import { LogType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import sendError from '../utils/sendError.js';
-import { ilike } from '../utils/ilike.js';
 import auth from '../utils/auth.js';
+import { ilike } from '../utils/ilike.js';
+import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
 
 const Logs = {
@@ -24,7 +26,7 @@ const Logs = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       const now = new Date();

@@ -1,6 +1,7 @@
 import {
   EventGetResponse, EventListResponse, ExpectedError,
   isUuid,
+  NotFoundError,
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -52,7 +53,7 @@ const Events = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound'));
+        throw new NotFoundError(translate('bruteNotFound'));
       }
 
       // Get event
@@ -71,7 +72,7 @@ const Events = {
       });
 
       if (!event) {
-        throw new ExpectedError(translate('eventNotFound'));
+        throw new NotFoundError(translate('eventNotFound'));
       }
 
       // Get brute fights

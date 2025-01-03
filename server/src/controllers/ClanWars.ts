@@ -3,7 +3,11 @@ import {
   ClanWarGetResponse, ClanWarGetUsedFightersResponse, ClanWarMaxParticipants,
   ClanWarUpdateFightersResponse, ExpectedError,
   FightGetResponse,
+  ForbiddenError,
   isUuid,
+  LimitError,
+  MissingElementError,
+  NotFoundError,
 } from '@labrute/core';
 import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -24,7 +28,7 @@ const ClanWars = {
         || !Array.isArray(req.body.fighters)
         || req.body.fighters.some((fighter) => !isUuid(fighter))
         || !req.body.day) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Check if one of the user's brutes is the clan master
@@ -34,7 +38,7 @@ const ClanWars = {
       });
 
       if (!userBrutes.some((brute) => brute.masterOfClan?.id === req.params.clan)) {
-        throw new ExpectedError(translate('unauthorized', user));
+        throw new ForbiddenError(translate('unauthorized', user));
       }
 
       const war = await prisma.clanWar.findFirst({
@@ -55,7 +59,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
+        throw new NotFoundError(translate('warNotFound', user));
       }
 
       // Check if the day is valid
@@ -154,7 +158,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound'));
+        throw new NotFoundError(translate('warNotFound'));
       }
 
       res.status(200).send(war);
@@ -168,7 +172,7 @@ const ClanWars = {
   ) => {
     try {
       if (!req.params.clan) {
-        throw new ExpectedError(translate('missingParameters'));
+        throw new MissingElementError(translate('missingParameters'));
       }
 
       const wars = await prisma.clanWar.findMany({
@@ -202,7 +206,7 @@ const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.clan || !req.body.war) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Check if one of the user's brutes is the clan master
@@ -212,7 +216,7 @@ const ClanWars = {
       });
 
       if (!userBrutes.some((brute) => brute.masterOfClan?.id === req.body.clan)) {
-        throw new ExpectedError(translate('unauthorized', user));
+        throw new ForbiddenError(translate('unauthorized', user));
       }
 
       const war = await prisma.clanWar.findFirst({
@@ -230,7 +234,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
+        throw new NotFoundError(translate('warNotFound', user));
       }
 
       const brutes = await prisma.brute.findMany({
@@ -294,7 +298,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound'));
+        throw new NotFoundError(translate('warNotFound'));
       }
 
       const brutes = await prisma.brute.findMany({
@@ -352,7 +356,7 @@ const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.clan || !req.body.war || !req.body.fighter || !req.body.add) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Check if one of the user's brutes is the clan master
@@ -362,7 +366,7 @@ const ClanWars = {
       });
 
       if (!userBrutes.some((brute) => brute.masterOfClan?.id === req.body.clan)) {
-        throw new ExpectedError(translate('unauthorized', user));
+        throw new ForbiddenError(translate('unauthorized', user));
       }
 
       const war = await prisma.clanWar.findFirst({
@@ -382,7 +386,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
+        throw new NotFoundError(translate('warNotFound', user));
       }
 
       // Check if there are already max fighters
@@ -401,12 +405,12 @@ const ClanWars = {
         if (fighters) {
           if (war.attackerId === req.body.clan
             && fighters.attackers.length >= ClanWarMaxParticipants) {
-            throw new ExpectedError(translate('maxFightersReached', user));
+            throw new LimitError(translate('maxFightersReached', user));
           }
 
           if (war.defenderId === req.body.clan
             && fighters.defenders.length >= ClanWarMaxParticipants) {
-            throw new ExpectedError(translate('maxFightersReached', user));
+            throw new LimitError(translate('maxFightersReached', user));
           }
         }
       }
@@ -437,7 +441,7 @@ const ClanWars = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       await prisma.clanWarFighters.upsert({
@@ -483,12 +487,12 @@ const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute || !req.body.clan || !req.body.opponent) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Check clan and opponent equality
       if (req.body.clan === req.body.opponent) {
-        throw new ExpectedError(translate('cantFightOwnClan', user));
+        throw new ForbiddenError(translate('cantFightOwnClan', user));
       }
 
       // Check if user owns the brute
@@ -498,7 +502,7 @@ const ClanWars = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Check if brute is the clan master
@@ -508,7 +512,7 @@ const ClanWars = {
       });
 
       if (!clan) {
-        throw new ExpectedError(translate('unauthorized', user));
+        throw new ForbiddenError(translate('unauthorized', user));
       }
 
       // Check if the clan is already in a war
@@ -533,7 +537,7 @@ const ClanWars = {
       });
 
       if (!opponent) {
-        throw new ExpectedError(translate('clanNotFound', user));
+        throw new NotFoundError(translate('clanNotFound', user));
       }
 
       // Check if the opponent clan is already in a war
@@ -548,7 +552,7 @@ const ClanWars = {
       });
 
       if (opponentWar) {
-        throw new ExpectedError(translate('opponentWarOngoing', user));
+        throw new ForbiddenError(translate('opponentWarOngoing', user));
       }
 
       // Create the war
@@ -575,7 +579,7 @@ const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute || !req.body.clan || !req.body.war) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Check if the user owns the brute
@@ -585,7 +589,7 @@ const ClanWars = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Check if brute is the clan master
@@ -595,7 +599,7 @@ const ClanWars = {
       });
 
       if (!clan) {
-        throw new ExpectedError(translate('unauthorized', user));
+        throw new ForbiddenError(translate('unauthorized', user));
       }
 
       const war = await prisma.clanWar.findFirst({
@@ -611,7 +615,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
+        throw new NotFoundError(translate('warNotFound', user));
       }
 
       await prisma.clanWar.delete({
@@ -633,7 +637,7 @@ const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute || !req.body.clan || !req.body.war) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Check if the user owns the brute
@@ -643,7 +647,7 @@ const ClanWars = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       const war = await prisma.clanWar.findFirst({
@@ -657,7 +661,7 @@ const ClanWars = {
       });
 
       if (!war) {
-        throw new ExpectedError(translate('warNotFound', user));
+        throw new NotFoundError(translate('warNotFound', user));
       }
 
       await prisma.clanWar.update({
@@ -683,7 +687,7 @@ const ClanWars = {
   ) => {
     try {
       if (!req.params.warId || !req.params.fightId) {
-        throw new ExpectedError(translate('missingParameters'));
+        throw new MissingElementError(translate('missingParameters'));
       }
 
       if (!isUuid(req.params.warId) || !isUuid(req.params.fightId)) {
@@ -704,7 +708,7 @@ const ClanWars = {
       });
 
       if (!fight) {
-        throw new ExpectedError(translate('fightNotFound'));
+        throw new NotFoundError(translate('fightNotFound'));
       }
 
       res.send(fight);
