@@ -1247,9 +1247,14 @@ const Brutes = {
   ) => {
     try {
       const { name } = req.params;
-      const { data: { weapon, skill, pet } } = req.body;
 
       const authed = await auth(prisma, req);
+
+      if (!req.body?.data) {
+        throw new ExpectedError(translate('missingParameters', authed));
+      }
+
+      const { data: { weapon, skill, pet } } = req.body;
 
       if (!name) {
         throw new Error(translate('missingName', authed));
