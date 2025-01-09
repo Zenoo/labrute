@@ -372,7 +372,7 @@ const Clans = {
       const request = clan.joinRequests.find((r) => r.id === brute.id);
 
       if (request) {
-        throw new ForbiddenError(translate('alreadyRequested', user));
+        throw new LimitError(translate('alreadyRequested', user));
       }
 
       // Create request

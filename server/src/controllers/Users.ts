@@ -632,7 +632,7 @@ const Users = {
       }
 
       if (user.bannedAt) {
-        throw new ForbiddenError(translate('userAlreadyBanned', authed));
+        throw new LimitError(translate('userAlreadyBanned', authed));
       }
 
       // Delete all brutes

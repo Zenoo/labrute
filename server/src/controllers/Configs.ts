@@ -5,6 +5,7 @@ import {
   ConfigsSetRequest,
   ConfigsSetResponse,
   ForbiddenError,
+  LimitError,
   MissingElementError,
 } from '@labrute/core';
 import {
@@ -78,7 +79,7 @@ export const Configs = {
       });
 
       if (key === 'CRYPTR_SECRET' && cryptrSecret) {
-        throw new ForbiddenError('CRYPTR_SECRET already exists');
+        throw new LimitError('CRYPTR_SECRET already exists');
       }
 
       if (key !== 'CRYPTR_SECRET' && !cryptrSecret) {

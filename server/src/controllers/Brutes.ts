@@ -1658,7 +1658,7 @@ const Brutes = {
       // Abort if limit reached
       const favoritesCount = user.brutes.filter((b) => b.favorite).length;
       if (!brute.favorite && favoritesCount >= MAX_FAVORITE_BRUTES) {
-        throw new ForbiddenError(translate('favoriteLimitReached', authed));
+        throw new LimitError(translate('favoriteLimitReached', authed));
       }
 
       // Toggle favorite

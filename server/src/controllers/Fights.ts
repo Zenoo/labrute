@@ -1,6 +1,5 @@
 import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
-  ForbiddenError,
   GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError, getFightsLeft,
   getXPNeeded,
   isUuid,
@@ -68,7 +67,7 @@ const Fights = {
       const hour = now.hour();
 
       if (tournament && fight.tournamentStep > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
-        throw new ForbiddenError('Fight unavailable for now');
+        throw new LimitError('Fight unavailable for now');
       } else {
         res.send(fight);
       }
