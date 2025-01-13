@@ -1,5 +1,6 @@
 import {
-  ExpectedError, GLOBAL_TOURNAMENT_START_HOUR,
+  ExpectedError, ForbiddenError, GLOBAL_TOURNAMENT_START_HOUR,
+  NotFoundError,
   TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse,
   TournamentsUpdateStepWatchedResponse,
   TournementsUpdateGlobalRoundWatchedResponse,
@@ -53,7 +54,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new ExpectedError('Tournament not found');
+        throw new NotFoundError('Tournament not found');
       }
 
       res.send(tournament);
@@ -84,12 +85,12 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Prevent if brute can rank up
       if (brute.canRankUpSince) {
-        throw new ExpectedError(translate('rankUpBeforeTournament', user));
+        throw new ForbiddenError(translate('rankUpBeforeTournament', user));
       }
 
       // Update brute tournament date
@@ -135,7 +136,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       const tournament = await prisma.tournament.findFirst({
@@ -160,7 +161,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new ExpectedError(translate('tournamentNotFound', user));
+        throw new NotFoundError(translate('tournamentNotFound', user));
       }
 
       const steps = [0, 32, 48, 56, 60, 63];
@@ -244,7 +245,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Update brute tournament date
@@ -288,7 +289,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       // Get tournament
@@ -427,7 +428,7 @@ const Tournaments = {
       });
 
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       // Get tournament IDs
@@ -473,7 +474,7 @@ const Tournaments = {
       });
 
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       // Get tournament ID
@@ -489,7 +490,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new ExpectedError(translate('tournamentNotFound', authed));
+        throw new NotFoundError(translate('tournamentNotFound', authed));
       }
 
       // Delete all fights from global tournament
@@ -529,7 +530,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       // Get the last 100 tournaments for this brute
@@ -619,7 +620,7 @@ const Tournaments = {
       });
 
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const isValid = await ServerState.isGlobalTournamentValid(prisma);
@@ -656,7 +657,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get fight
@@ -671,7 +672,7 @@ const Tournaments = {
       });
 
       if (!fight) {
-        throw new ExpectedError(translate('fightNotFound', user));
+        throw new NotFoundError(translate('fightNotFound', user));
       }
 
       const now = moment.utc();
@@ -726,7 +727,7 @@ const Tournaments = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Update brute watched tournament step

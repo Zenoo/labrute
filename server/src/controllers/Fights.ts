@@ -1,6 +1,6 @@
 import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
-  GLOBAL_TOURNAMENT_START_HOUR, getFightsLeft,
+  GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError, getFightsLeft,
   getXPNeeded,
   isUuid,
   randomBetween,
@@ -27,7 +27,7 @@ const Fights = {
   ) => {
     try {
       if (!req.params.name || !req.params.id) {
-        throw new ExpectedError(translate('missingParameters'));
+        throw new MissingElementError(translate('missingParameters'));
       }
 
       if (!isUuid(req.params.id)) {
@@ -51,7 +51,7 @@ const Fights = {
       });
 
       if (!fight) {
-        throw new ExpectedError(translate('fightNotFound'));
+        throw new NotFoundError(translate('fightNotFound'));
       }
 
       // Limit viewing if the fight is from a global tournament round not yet reached
@@ -67,7 +67,7 @@ const Fights = {
       const hour = now.hour();
 
       if (tournament && fight.tournamentStep > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {
-        throw new ExpectedError('Fight unavailable for now');
+        throw new LimitError('Fight unavailable for now');
       } else {
         res.send(fight);
       }
@@ -83,7 +83,7 @@ const Fights = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Get brutes
@@ -100,7 +100,7 @@ const Fights = {
         },
       });
       if (!brute1) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       const brute2 = await prisma.brute.findFirst({
@@ -110,7 +110,7 @@ const Fights = {
         },
       });
       if (!brute2) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get current modifiers
@@ -123,7 +123,7 @@ const Fights = {
 
       // Cancel if brute1 has no fights left
       if (arenaFight && brute1FightsLeft <= 0) {
-        throw new ExpectedError(translate('noFightsLeft', user));
+        throw new LimitError(translate('noFightsLeft', user));
       }
 
       // Update brute last fight and fights left if arena fight
@@ -288,7 +288,7 @@ const Fights = {
       const user = await auth(prisma, req);
 
       if (!req.params.id) {
-        throw new ExpectedError(translate('missingParameters', user));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Get fight
@@ -305,7 +305,7 @@ const Fights = {
       });
 
       if (!fight) {
-        throw new ExpectedError(translate('fightNotFound', user));
+        throw new NotFoundError(translate('fightNotFound', user));
       }
 
       // Toggle favorite
@@ -353,7 +353,7 @@ const Fights = {
         });
 
         if (!favoriteFightItem || favoriteFightItem.count <= 0) {
-          throw new ExpectedError(translate('favoriteLimit', user));
+          throw new LimitError(translate('favoriteLimit', user));
         }
 
         // Favorite

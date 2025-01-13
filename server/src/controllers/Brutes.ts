@@ -14,8 +14,12 @@ import {
   BrutesGetOpponentsResponse,
   BrutesGetRankingResponse,
   DestinyBranch, EventFreeResets, ExpectedError,
+  ForbiddenError,
   HookBrute,
+  LimitError,
   MAX_FAVORITE_BRUTES,
+  MissingElementError,
+  NotFoundError,
   RESET_PRICE,
   canLevelUp,
   createRandomBruteStats,
@@ -74,7 +78,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       res.send(brute);
@@ -130,7 +134,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       res.send(brute);
@@ -153,7 +157,7 @@ const Brutes = {
       });
 
       if (!user?.admin) {
-        throw new ExpectedError(translate('unauthorized', { ...user, lang }));
+        throw new ForbiddenError(translate('unauthorized', { ...user, lang }));
       }
 
       const brute = await prisma.brute.findFirst({
@@ -167,7 +171,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       res.send(brute);
@@ -208,11 +212,11 @@ const Brutes = {
 
       // Check name length
       if (!isNameValid(req.body.name)) {
-        throw new ExpectedError(translate('invalidName', authed));
+        throw new MissingElementError(translate('invalidName', authed));
       }
 
       if (typeof req.body.colors !== 'string' || typeof req.body.body !== 'string') {
-        throw new ExpectedError('Invalid body or colors');
+        throw new MissingElementError('Invalid body or colors');
       }
 
       if (req.body.gender !== Gender.male && req.body.gender !== Gender.female) {
@@ -232,7 +236,7 @@ const Brutes = {
         throw new Error('Error while checking banned words');
       }
       if (banned[0].count > 0) {
-        throw new ExpectedError(translate('nameContainsBannedWord', authed));
+        throw new LimitError(translate('nameContainsBannedWord', authed));
       }
 
       // Check if name is available
@@ -244,7 +248,7 @@ const Brutes = {
       });
 
       if (count > 0) {
-        throw new ExpectedError(translate('nameAlreadyTaken', authed));
+        throw new LimitError(translate('nameAlreadyTaken', authed));
       }
 
       // Get user
@@ -267,7 +271,7 @@ const Brutes = {
 
       // Only one brute per event
       if (req.body.eventId && user.brutes.some((b) => b.eventId === req.body.eventId)) {
-        throw new ExpectedError(translate('oneBrutePerEvent', authed));
+        throw new LimitError(translate('oneBrutePerEvent', authed));
       }
 
       // No creation for started events
@@ -278,11 +282,11 @@ const Brutes = {
         });
 
         if (!event) {
-          throw new ExpectedError(translate('eventNotFound', authed));
+          throw new NotFoundError(translate('eventNotFound', authed));
         }
 
         if (event.status !== EventStatus.starting) {
-          throw new ExpectedError(translate('eventAlreadyStarted', authed));
+          throw new LimitError(translate('eventAlreadyStarted', authed));
         }
       }
 
@@ -293,7 +297,7 @@ const Brutes = {
       if (user.brutes.length >= user.bruteLimit) {
         const gold = getGoldNeededForNewBrute(user);
         if (user.gold < gold) {
-          throw new ExpectedError(translate('bruteLimitReached', authed, { gold }));
+          throw new LimitError(translate('bruteLimitReached', authed, { gold }));
         } else {
           // Remove XXX Gold and update brute limit
           await prisma.user.update({
@@ -423,11 +427,11 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       if (!canLevelUp(brute)) {
-        throw new ExpectedError(translate('bruteCannotLevelUp', authed));
+        throw new LimitError(translate('bruteCannotLevelUp', authed));
       }
 
       const firstChoicePath = [...brute.destinyPath, DestinyChoiceSide.LEFT];
@@ -532,11 +536,11 @@ const Brutes = {
         });
 
         if (!event) {
-          throw new ExpectedError(translate('eventNotFound', authed));
+          throw new NotFoundError(translate('eventNotFound', authed));
         }
 
         if (brute.level >= event.maxLevel) {
-          throw new ExpectedError(translate('eventMaxLevelReached', authed));
+          throw new LimitError(translate('eventMaxLevelReached', authed));
         }
       }
 
@@ -544,7 +548,7 @@ const Brutes = {
 
       // Check if brute has enough XP
       if (brute.xp < xpNeeded) {
-        throw new ExpectedError(translate('notEnoughXP', authed));
+        throw new LimitError(translate('notEnoughXP', authed));
       }
 
       // Get destiny choice
@@ -556,7 +560,7 @@ const Brutes = {
       });
 
       if (!destinyChoice) {
-        throw new ExpectedError(translate('destinyChoiceNotFound', authed));
+        throw new NotFoundError(translate('destinyChoiceNotFound', authed));
       }
 
       // Update brute data
@@ -583,7 +587,7 @@ const Brutes = {
       }
 
       if (freshBrute.xp !== brute.xp) {
-        throw new ExpectedError(translate('slowDown', authed));
+        throw new LimitError(translate('slowDown', authed));
       }
 
       // Update brute
@@ -708,7 +712,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Handle deleted opponents
@@ -765,12 +769,12 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       // Prevent sacrificing the day of creation
       if (moment.utc().isSame(moment.utc(brute.createdAt), 'day')) {
-        throw new ExpectedError(translate('cannotSacrificeSameDay', authed));
+        throw new ForbiddenError(translate('cannotSacrificeSameDay', authed));
       }
 
       // Check if brute is master of a clan
@@ -781,7 +785,7 @@ const Brutes = {
       });
 
       if (isClanMaster) {
-        throw new ExpectedError(translate('cannotSacrificeClanMaster', authed));
+        throw new ForbiddenError(translate('cannotSacrificeClanMaster', authed));
       }
 
       // Add Gold to user
@@ -860,7 +864,7 @@ const Brutes = {
         });
 
         if (!brute) {
-          throw new ExpectedError('Brute not found');
+          throw new NotFoundError('Brute not found');
         }
         rank = brute.ranking;
       } else {
@@ -1060,7 +1064,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       // Don't rank bot brutes
@@ -1183,15 +1187,15 @@ const Brutes = {
       });
 
       if (!userBrute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       if (!userBrute.canRankUpSince) {
-        throw new ExpectedError(translate('bruteCannotRankUp', authed));
+        throw new LimitError(translate('bruteCannotRankUp', authed));
       }
 
       if (userBrute.ranking === 0) {
-        throw new ExpectedError(translate('bruteAlreadyMaxRank', authed));
+        throw new LimitError(translate('bruteAlreadyMaxRank', authed));
       }
 
       const brute = await resetBrute({
@@ -1302,46 +1306,46 @@ const Brutes = {
       });
 
       if (!userBrute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       if (!userBrute.canRankUpSince) {
-        throw new ExpectedError(translate('bruteCannotRankUp', authed));
+        throw new LimitError(translate('bruteCannotRankUp', authed));
       }
 
       if (userBrute.ranking !== 0) {
-        throw new ExpectedError(translate('bruteNotMaxRank', authed));
+        throw new LimitError(translate('bruteNotMaxRank', authed));
       }
 
       if (isWeapon) {
         if (!userBrute.weapons.includes(weapon as WeaponName)) {
-          throw new ExpectedError(translate('bruteMissingWeapon', authed));
+          throw new MissingElementError(translate('bruteMissingWeapon', authed));
         }
         if (userBrute.ascendedWeapons.includes(weapon as WeaponName)) {
-          throw new ExpectedError(translate('bruteWeaponAlreadyAscended', authed));
+          throw new LimitError(translate('bruteWeaponAlreadyAscended', authed));
         }
       }
       if (isSkill) {
         if (!userBrute.skills.includes(skill as SkillName)) {
-          throw new ExpectedError(translate('bruteMissingSkill', authed));
+          throw new MissingElementError(translate('bruteMissingSkill', authed));
         }
         if (userBrute.ascendedSkills.includes(skill as SkillName)) {
-          throw new ExpectedError(translate('bruteSkillAlreadyAscended', authed));
+          throw new LimitError(translate('bruteSkillAlreadyAscended', authed));
         }
       }
       if (isPet) {
         if (!userBrute.pets.includes(pet as PetName)) {
-          throw new ExpectedError(translate('bruteMissingPet', authed));
+          throw new MissingElementError(translate('bruteMissingPet', authed));
         }
         if (userBrute.ascendedPets.includes(pet as PetName)) {
-          throw new ExpectedError(translate('brutePetAlreadyAscended', authed));
+          throw new LimitError(translate('brutePetAlreadyAscended', authed));
         }
 
         if (pet === PetName.dog2 && !userBrute.ascendedPets.includes(PetName.dog1)) {
-          throw new ExpectedError(translate('bruteMissingPet', authed));
+          throw new MissingElementError(translate('bruteMissingPet', authed));
         }
         if (pet === PetName.dog3 && !userBrute.ascendedPets.includes(PetName.dog2)) {
-          throw new ExpectedError(translate('bruteMissingPet', authed));
+          throw new MissingElementError(translate('bruteMissingPet', authed));
         }
       }
 
@@ -1390,7 +1394,7 @@ const Brutes = {
       const { params: { name } } = req;
 
       if (!name) {
-        throw new ExpectedError('Missing name');
+        throw new MissingElementError('Missing name');
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1398,7 +1402,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       const destinyChoices = await prisma.destinyChoice.findMany({
@@ -1467,7 +1471,7 @@ const Brutes = {
       const { params: { name } } = req;
 
       if (!name) {
-        throw new ExpectedError('Missing name');
+        throw new MissingElementError('Missing name');
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1482,7 +1486,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError('Brute not found');
+        throw new NotFoundError('Brute not found');
       }
 
       // Get current modifiers
@@ -1565,15 +1569,15 @@ const Brutes = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       if (!user.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       if (!id) {
-        throw new ExpectedError(translate('noIDProvided', authed));
+        throw new MissingElementError(translate('noIDProvided', authed));
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1587,7 +1591,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFoundOrNotDeleted', authed));
+        throw new NotFoundError(translate('bruteNotFoundOrNotDeleted', authed));
       }
 
       // Check if another brute has the same name
@@ -1599,7 +1603,7 @@ const Brutes = {
       });
 
       if (brutesWithSameName > 0) {
-        throw new ExpectedError(translate('anotherBruteHasThisName', authed));
+        throw new LimitError(translate('anotherBruteHasThisName', authed));
       }
 
       // Restore the brute
@@ -1659,7 +1663,7 @@ const Brutes = {
       // Abort if limit reached
       const favoritesCount = user.brutes.filter((b) => b.favorite).length;
       if (!brute.favorite && favoritesCount >= MAX_FAVORITE_BRUTES) {
-        throw new ExpectedError(translate('favoriteLimitReached', authed));
+        throw new LimitError(translate('favoriteLimitReached', authed));
       }
 
       // Toggle favorite
@@ -1702,7 +1706,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       // Check if user has enough gold
@@ -1710,7 +1714,7 @@ const Brutes = {
         (!brute.eventId || brute.resets >= EventFreeResets)
         && brute.user.gold < RESET_PRICE
       )) {
-        throw new ExpectedError(translate('notEnoughGold', authed));
+        throw new LimitError(translate('notEnoughGold', authed));
       }
 
       const updatedBrute = await resetBrute({
@@ -1767,7 +1771,7 @@ const Brutes = {
       });
 
       if (!inventory) {
-        throw new ExpectedError(translate('unauthorized', user));
+        throw new ForbiddenError(translate('unauthorized', user));
       }
 
       // Check colors validity
@@ -1838,7 +1842,7 @@ const Brutes = {
         throw new Error('Error while checking banned words');
       }
       if (banned[0].count > 0) {
-        throw new ExpectedError(translate('nameContainsBannedWord', authed));
+        throw new ForbiddenError(translate('nameContainsBannedWord', authed));
       }
 
       // Check if name is available
@@ -1850,7 +1854,7 @@ const Brutes = {
       });
 
       if (count > 0) {
-        throw new ExpectedError(translate('nameAlreadyTaken', authed));
+        throw new ForbiddenError(translate('nameAlreadyTaken', authed));
       }
 
       // Get brute
@@ -1877,7 +1881,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       const nameChangeItem = brute.inventory[0];
@@ -1946,7 +1950,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       const inventory = await prisma.inventoryItem.findMany({
@@ -2079,7 +2083,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new ExpectedError(translate('bruteNotFound', user));
+        throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get fight
@@ -2094,7 +2098,7 @@ const Brutes = {
       });
 
       if (!fight) {
-        throw new ExpectedError(translate('fightNotFound', user));
+        throw new NotFoundError(translate('fightNotFound', user));
       }
 
       const now = moment.utc();

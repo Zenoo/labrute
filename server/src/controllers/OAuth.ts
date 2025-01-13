@@ -4,7 +4,7 @@ import { ErrorCode } from '@eternaltwin/client-node/error';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import { InventoryItemType, Prisma, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import { ExpectedError, UserWithBrutesBodyColor } from '@labrute/core';
+import { ExpectedError, ForbiddenError, UserWithBrutesBodyColor } from '@labrute/core';
 import urlJoin from 'url-join';
 import { trace } from '@opentelemetry/api';
 import sendError from '../utils/sendError.js';
@@ -69,7 +69,7 @@ export default class OAuth {
         const bannedIp = await ServerState.isIpBanned(this.#prisma, ip);
 
         if (bannedIp) {
-          throw new ExpectedError(translate('ipBanned', null));
+          throw new ForbiddenError(translate('ipBanned', null));
         }
       }
 
@@ -152,7 +152,7 @@ export default class OAuth {
 
       // Check if user is banned
       if (user.bannedAt) {
-        throw new ExpectedError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
+        throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
       }
 
       res.send(user);

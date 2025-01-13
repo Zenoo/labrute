@@ -16,7 +16,11 @@ import { isNameValid } from './brute/isNameValid';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
 import { BruteReportWithNames, DestinyBranch, UserWithBrutesBodyColor } from './types';
-import ExpectedError from './utils/ExpectedError';
+import ExpectedError from './errors/ExpectedError';
+import ForbiddenError from './errors/ForbiddenError';
+import LimitError from './errors/LimitError';
+import MissingElementError from './errors/MissingElementError';
+import NotFoundError from './errors/NotFoundError';
 import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
 import hexToRgba from './utils/hexToRgba';
@@ -52,6 +56,7 @@ export {
   adjustColor, applySkillModifiers,
   availableBodyParts, Boss, bosses, canLevelUp,
   createRandomBruteStats, ExpectedError, formatLargeNumber,
+  ForbiddenError, LimitError, MissingElementError, NotFoundError,
   getFightsLeft, getGoldNeededForNewBrute,
   getLevelUpChoices,
   getMaxFightsPerDay,

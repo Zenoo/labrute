@@ -1,5 +1,9 @@
 import {
   AchievementData, BruteDeletionReason, ExpectedError,
+  ForbiddenError,
+  LimitError,
+  MissingElementError,
+  NotFoundError,
   RaretyOrder,
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
@@ -40,11 +44,11 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new Error(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       if (!isUuid(req.params.id)) {
-        throw new Error(translate('invalidParameters', authed));
+        throw new ExpectedError(translate('invalidParameters', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -62,7 +66,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       // Merge achievements with same name
@@ -248,11 +252,11 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       if (!id) {
-        throw new ExpectedError(translate('noIDProvided', authed));
+        throw new MissingElementError(translate('noIDProvided', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -262,7 +266,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new Error(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       // Update the user
@@ -330,7 +334,7 @@ const Users = {
   ) => {
     try {
       if (!req.params.userId) {
-        throw new ExpectedError('No user ID provided');
+        throw new MissingElementError('No user ID provided');
       }
 
       if (!isUuid(req.params.userId)) {
@@ -403,7 +407,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound'));
+        throw new NotFoundError(translate('userNotFound'));
       }
 
       // Merge achievements with same name
@@ -450,7 +454,7 @@ const Users = {
   ) => {
     try {
       if (!req.params.userId) {
-        throw new ExpectedError('No user ID provided');
+        throw new MissingElementError('No user ID provided');
       }
 
       const brutes = await prisma.brute.findMany({
@@ -468,7 +472,7 @@ const Users = {
       });
 
       if (!brutes.length) {
-        throw new ExpectedError('No brutes found');
+        throw new NotFoundError('No brutes found');
       }
 
       const modifiers = await ServerState.getModifiers(prisma);
@@ -498,7 +502,7 @@ const Users = {
       }
 
       if (user.dinorpgDone && moment.utc().isSame(moment.utc(user.dinorpgDone), 'day')) {
-        throw new ExpectedError(translate('alreadyClaimed', authed));
+        throw new LimitError(translate('alreadyClaimed', authed));
       }
 
       let dinoRpgDone = false;
@@ -510,14 +514,14 @@ const Users = {
 
       if (data !== 'true' && data !== 'false') {
         if (data.includes('doesn\'t exist.')) {
-          throw new ExpectedError(translate('noDinoRpgAccount', authed));
+          throw new NotFoundError(translate('noDinoRpgAccount', authed));
         }
 
         if (data.includes('404 Not Found')) {
-          throw new ExpectedError(translate('dinoRpgServerDown', authed));
+          throw new NotFoundError(translate('dinoRpgServerDown', authed));
         }
 
-        throw new Error(data);
+        throw new ExpectedError(data);
       }
 
       if (!dinoRpgDone) {
@@ -602,7 +606,7 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       if (!isUuid(req.params.userId) || !req.body.reason) {
@@ -624,11 +628,11 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       if (user.bannedAt) {
-        throw new ExpectedError(translate('userAlreadyBanned', authed));
+        throw new LimitError(translate('userAlreadyBanned', authed));
       }
 
       // Delete all brutes
@@ -677,7 +681,7 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       if (!isUuid(req.params.userId)) {
@@ -700,11 +704,11 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       if (!user.bannedAt) {
-        throw new ExpectedError(translate('userNotBanned', authed));
+        throw new ForbiddenError(translate('userNotBanned', authed));
       }
 
       // Unban user
@@ -789,7 +793,7 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const users = await prisma.user.findMany({
@@ -822,7 +826,7 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const ips = await prisma.$queryRaw<UserMultipleAccountsListResponse>`
@@ -854,7 +858,7 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       res.send(await ServerState.getNextModifiers(prisma));
@@ -875,7 +879,7 @@ const Users = {
       });
 
       if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
+        throw new ForbiddenError(translate('unauthorized', authed));
       }
 
       const { modifiers } = req.body;
