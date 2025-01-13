@@ -18,31 +18,36 @@ const moveBack = async (
   }
 
   // Get positions
-  const { x, y } = getRandomPosition(fighters, fighter.team);
-
-  // Abort if fighter is already on the right side
-  if (Math.abs(fighter.animation.container.x - x) < 150) {
-    // Set animation to `idle`
-    fighter.animation.setAnimation('idle');
-
-    return;
-  }
+  const { x, y } = getRandomPosition(fighters, fighter);
 
   // Set animation to `run`
   fighter.animation.setAnimation('run');
 
-  // Invert fighter
-  fighter.animation.container.scale.x *= -1;
+  // Is fighter inversion needed ?
+  const invertFighter = fighter.team === 'L'
+    ? fighter.animation.container.x > x
+    : fighter.animation.container.x < x;
+
+  // Invert fighter if needed
+  if (invertFighter) fighter.animation.container.scale.x *= -1;
+
+  const travelDistance = Math.sqrt(
+    (x - fighter.animation.container.x) ** 2
+    + (y - fighter.animation.container.y) ** 2
+  );
+
+  // Travel duration depends on distance
+  const duration = Math.max(0.15, travelDistance / 480);
 
   // Move fighter to the position
   await Tweener.add({
     target: fighter.animation.container,
-    duration: 0.5 / speed.current,
+    duration: duration / speed.current,
     ease: Easing.linear
   }, { x, y });
 
-  // Invert fighter
-  fighter.animation.container.scale.x *= -1;
+  // Invert fighter if needed
+  if (invertFighter) fighter.animation.container.scale.x *= -1;
 
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');

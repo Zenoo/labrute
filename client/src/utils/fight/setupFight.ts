@@ -48,7 +48,7 @@ import { treat } from './treat';
 import updateWeapons from './updateWeapons';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
-import repositionFighters, { isNeutralStep } from './utils/repositionFighters';
+import repositionFighters, { isRangedStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
 import setHUDFocus from './setHUDFocus';
@@ -99,8 +99,11 @@ const setupFight: (
     throw new Error('Brute not found');
   }
 
+  // TODO: Remove this on release, as background extensions were changed
+  const fightBackground = `${fight.background.split('.')[0]}.jpg`;
+
   // Add background
-  const background = new PIXI.Sprite(miscSheet.textures[`background/${fight.background}`]);
+  const background = new PIXI.Sprite(miscSheet.textures[`background/${fightBackground}`]);
   background.zIndex = -1;
 
   // Fill screen
@@ -410,21 +413,21 @@ const setupFight: (
             : fighter.id === boss?.id
               ? bossPhantomHpBar
               : undefined) ?? undefined,
-      bustImage: (fighter.master
+      bustImage: (fighter.type === 'pet'
         ? null
         : fighter.id === brute1.id
           ? brute1BustImg
           : fighter.id === brute2?.id
             ? brute2BustImg
             : null) ?? null,
-      bust: (fighter.master
+      bust: (fighter.type === 'pet'
         ? undefined
         : fighter.team === brute1.team
           ? team1Bust
           : fighter.team === brute2?.team
             ? team2Bust
             : undefined) ?? undefined,
-      text: (fighter.master
+      text: (fighter.type === 'pet'
         ? undefined
         : fighter.team === brute1.team
           ? team1Text
@@ -477,7 +480,7 @@ const setupFight: (
     }
 
     // Reposition mispositionned fighters during neutral
-    if (isNeutralStep(step.a)) await repositionFighters(app, fighters, speed);
+    if (isRangedStep(step.a)) await repositionFighters(app, fighters, speed);
 
     // Display step's brute in HUD
     if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
@@ -571,7 +574,7 @@ const setupFight: (
         break;
       }
       case StepType.Block: {
-        await block(app, fighters, step);
+        await block(app, fighters, step, speed);
         break;
       }
       case StepType.SkillActivate: {
@@ -583,7 +586,7 @@ const setupFight: (
         break;
       }
       case StepType.End: {
-        end(fighters, step);
+        end(app, fighters, step);
         break;
       }
       case StepType.Hypnotise: {
@@ -595,16 +598,11 @@ const setupFight: (
         break;
       }
       case StepType.Sabotage: {
-        sabotage(app, fighters, step);
+        sabotage(app, fighters, step, speed);
         break;
       }
       case StepType.Resist: {
-        const nextStep = steps[i + 1];
-
-        if (!nextStep) {
-          throw new Error('Next step not found');
-        }
-        resist(app, fighters, step, nextStep, speed);
+        resist(fighters, step);
         break;
       }
       case StepType.Bomb: {

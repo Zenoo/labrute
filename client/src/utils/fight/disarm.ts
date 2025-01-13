@@ -1,9 +1,8 @@
-import { DisarmStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, WeaponById } from '@labrute/core';
-import { Application, Sprite } from 'pixi.js';
+import { DisarmStep } from '@labrute/core';
+import { Application, AnimatedSprite } from 'pixi.js';
 
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import { BevelFilter } from '@pixi/filter-bevel';
-import { Easing, Tweener } from 'pixi-tweener';
+import itemDrop from './itemDrop';
 
 const disarm = (
   app: Application,
@@ -14,9 +13,10 @@ const disarm = (
   if (!app.loader) {
     return;
   }
-  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
 
-  if (!spritesheet) {
+  const waveSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+
+  if (!waveSpritesheet) {
     throw new Error('Spritesheet not found');
   }
 
@@ -25,58 +25,42 @@ const disarm = (
     throw new Error('Target not found');
   }
 
+  // Create wave sprite
+  const waveSprite = new AnimatedSprite(waveSpritesheet.animations.wave || []);
+  waveSprite.animationSpeed = speed.current;
+  waveSprite.loop = false;
+
+  // Center sprite on the hand of target
+  waveSprite.anchor.set(0.5, 0.5);
+  waveSprite.zIndex = target.animation.container.zIndex + 1;
+  waveSprite.position.set(
+    target.team === 'L'
+      ? target.animation.container.x + target.animation.baseWidth * 0.25
+      : target.animation.container.x - target.animation.baseWidth * 0.25,
+    target.animation.container.y - target.animation.baseHeight * 0.5,
+  );
+
+  // Add wave sprite to stage
+  app.stage.addChild(waveSprite);
+
+  // Delete sprite when animation is complete
+  waveSprite.onComplete = () => {
+    waveSprite.destroy();
+  };
+
+  // Play wave
+  waveSprite.play();
+
   // Remove weapon from opponent
   target.animation.weapon = null;
 
-  // Create weapon sprite
-  const weapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
-  weapon.filters = [new BevelFilter()];
-  weapon.zIndex = 1;
-
-  // Anchor to left center
-  weapon.anchor.set(0, 0.5);
-
-  // Set position
-  weapon.position.set(
-    target.team === 'L'
-      ? target.animation.container.x + FIGHTER_WIDTH.brute * 0.25
-      : target.animation.container.x + FIGHTER_WIDTH.brute * 0.25,
-    target.animation.container.y - FIGHTER_HEIGHT.brute * 0.5,
-  );
-
-  // Set angle
-  weapon.angle = target.team === 'L' ? -110 : 70;
-
-  // Add to stage
-  app.stage.addChild(weapon);
-
-  // Animate the fall
-  Tweener.add({
-    target: weapon,
-    duration: 0.3 / speed.current,
-    ease: Easing.linear,
-  }, {
-    x: target.team === 'L'
-      ? weapon.x - 20
-      : weapon.x + 20,
-    y: weapon.y + 50,
-    angle: target.team === 'L' ? -180 : 0,
-  }).then(() => {
-    // Wait a bit
-    setTimeout(() => {
-      // Decrease opacity
-      Tweener.add({
-        target: weapon,
-        duration: 0.5 / speed.current,
-        ease: Easing.linear,
-      }, {
-        alpha: 0,
-      }).then(() => {
-        // Remove from stage
-        app.stage.removeChild(weapon);
-      }).catch(console.error);
-    }, 500 / speed.current);
-  }).catch(console.error);
+  // Drop item
+  itemDrop({
+    app,
+    fighter: target,
+    speed,
+    item: step.w,
+  });
 };
 
 export default disarm;

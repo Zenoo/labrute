@@ -1,9 +1,10 @@
-import { AttemptHitStep, FIGHTER_HEIGHT, FIGHTER_WIDTH, WeaponById, weapons } from '@labrute/core';
+import { AttemptHitStep, WeaponById, weapons } from '@labrute/core';
 
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 import findFighter, { AnimationFighter } from './utils/findFighter';
+import getHitDistance from './utils/getHitDistance';
 
 const attemptHit = async (
   app: Application,
@@ -44,6 +45,25 @@ const attemptHit = async (
   // Wait for animation to hit
   await hitTriggered;
 
+  // Get the correct x position in order to hit
+  const hitRangeXPosition = fighter.team === 'L'
+    ? target.animation.container.x - getHitDistance(fighter, target)
+    : target.animation.container.x + getHitDistance(fighter, target);
+
+  // If this position is ahead, leap to it
+  if (fighter.team === 'L'
+    ? hitRangeXPosition > fighter.animation.container.x
+    : hitRangeXPosition < fighter.animation.container.x
+  ) {
+    await Tweener.add({
+      target: fighter.animation.container,
+      duration: 0.1 / speed.current,
+      ease: Easing.linear
+    }, {
+      x: hitRangeXPosition,
+    });
+  }
+
   animationEnded.then(() => {
     // Set animation to `idle`
     fighter.animation.setAnimation('idle');
@@ -66,9 +86,9 @@ const attemptHit = async (
     // Set position
     trashedShield.position.set(
       target.team === 'L'
-        ? target.animation.container.x + FIGHTER_WIDTH.brute * 0.25
-        : target.animation.container.x + FIGHTER_WIDTH.brute * 0.25,
-      target.animation.container.y - FIGHTER_HEIGHT.brute * 0.4,
+        ? target.animation.container.x + target.animation.baseWidth * 0.25
+        : target.animation.container.x + target.animation.baseWidth * 0.25,
+      target.animation.container.y - target.animation.baseHeight * 0.4,
     );
 
     // Set angle

@@ -268,7 +268,7 @@ const weapons: Weapon[] = [
   {
     name: 'halbard',
     odds: 2,
-    types: ['long', 'sharp'],
+    types: ['long', 'heavy', 'sharp'],
     tempo: 1.8,
     reversal: 0,
     evasion: 0,
