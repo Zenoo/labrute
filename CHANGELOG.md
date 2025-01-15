@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.78.5](https://github.com/Zenoo/labrute/compare/labrute-v2.78.4...labrute-v2.78.5) (2025-01-15)
+
+
+### Bug Fixes
+
+* add podium beneath tournament winner ([#1074](https://github.com/Zenoo/labrute/issues/1074)) ([8b16ef4](https://github.com/Zenoo/labrute/commit/8b16ef47ddc89441032eb8f024148b6d9f552602))
+* Admin config panel. Fixes [#1072](https://github.com/Zenoo/labrute/issues/1072) ([0a66d24](https://github.com/Zenoo/labrute/commit/0a66d24534f55d11980c2e9f2088685b0b83e0c7))
+* Animations ([#1068](https://github.com/Zenoo/labrute/issues/1068)) ([0c5109a](https://github.com/Zenoo/labrute/commit/0c5109aa31199199444216e7ef188711baeca529))
+* Check user uuid on auth ([4fd8fb1](https://github.com/Zenoo/labrute/commit/4fd8fb16a97228b78272ff4a1614302b8b023b4d))
+* Missing translations ([12018c8](https://github.com/Zenoo/labrute/commit/12018c8e66ab3e7bf62c226dc2c85f0d4f3cf1ef))
+* missplaced fight text using Brave ([#1075](https://github.com/Zenoo/labrute/issues/1075)) ([6cda7c5](https://github.com/Zenoo/labrute/commit/6cda7c545df185eb7b01698a0502c2451caf1093))
+* Safeguard ascend route ([c172327](https://github.com/Zenoo/labrute/commit/c172327dc01dea58309a4c8dd8d91ed430229f5d))
+* Seed command ([202b6d8](https://github.com/Zenoo/labrute/commit/202b6d88f916cd471cc4c22b3f4d8f772c44bc12))
+* Separate event brutes in cell ranking display ([e7f56d4](https://github.com/Zenoo/labrute/commit/e7f56d4f4c9d5558ded3a88abe784a676e635af9))
+* Serve differrent default languages per host ([26e9094](https://github.com/Zenoo/labrute/commit/26e9094697fac897eb3db2bc60dac2569e0c318c))
+* Store env variables in DB. Fixes [#1071](https://github.com/Zenoo/labrute/issues/1071) ([704d582](https://github.com/Zenoo/labrute/commit/704d58236b167e3a798727c8e7acbeb5e047b2bc))
+* Throw accurate errors from the backend ([#1083](https://github.com/Zenoo/labrute/issues/1083)) ([fd03d33](https://github.com/Zenoo/labrute/commit/fd03d3311159a75abd84168fe7a5bdac3634e182))
+* Update Prisma to V6 ([af6b341](https://github.com/Zenoo/labrute/commit/af6b3414d748979e4c45f3ebb59de85bd215ae88))
+* User upsert race condition ([7aa8465](https://github.com/Zenoo/labrute/commit/7aa8465a7404e44e679d34659a0879de616ffd08))
+
 ## [2.78.4](https://github.com/Zenoo/labrute/compare/labrute-v2.78.3...labrute-v2.78.4) (2024-11-24)
 
 
