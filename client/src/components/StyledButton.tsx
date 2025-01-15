@@ -1,6 +1,7 @@
 import { Box, BoxProps, useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router';
+import Loader from './Loader';
 
 export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   image?: string;
@@ -12,6 +13,8 @@ export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   shiftMargin?: boolean;
   shadowColor?: string;
   to?: string;
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 export const StyledButtonWidth = 207;
@@ -32,6 +35,8 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   shadowColor = 'rgba(0, 0, 0, 0.2)',
   to,
   sx,
+  disabled = false,
+  loading = false,
   ...rest
 }: StyledButtonProps, ref) => {
   const { palette: { mode } } = useTheme();
@@ -39,6 +44,8 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
 
   const themedImage = mode === 'dark' ? image.replace('/images/', '/images/dark/') : image;
   const themedImageHover = mode === 'dark' ? imageHover.replace('/images/', '/images/dark/') : imageHover;
+
+  const isButtonDisabled = disabled || loading;
 
   // Controlled hover state
   const [hover, setHover] = React.useState(false);
@@ -51,7 +58,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   }, []);
 
   const handleClick = () => {
-    if (to) {
+    if (to && !isButtonDisabled) {
       navigate(to);
     }
   };
@@ -73,7 +80,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         height: StyledButtonHeight,
         pt: hover ? 0 : shift,
         pb: shift,
-        cursor: 'pointer',
+        cursor: isButtonDisabled ? 'not-allowed' : 'pointer',
         backgroundImage: `url('${swapImage ? hover ? themedImageHover : themedImage : themedImage}')`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100%',
@@ -81,12 +88,20 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         fontVariant: 'small-caps',
         fontWeight: 'bold',
         color: 'secondary.main',
+        position: 'relative',
         ...sx,
         mb: (hover && shiftMargin) ? 1 : undefined,
       }}
       {...rest}
     >
-      {children}
+      {loading && (
+        <Box sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+          <Loader size={16} color="inherit" />
+        </Box>
+      )}
+      <Box sx={{ visibility: loading ? 'hidden' : 'initial', }}>
+        {children}
+      </Box>
     </Box>
   );
 });
