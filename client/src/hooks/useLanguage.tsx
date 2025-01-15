@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useAlert } from './useAlert';
 import { Lang } from '@labrute/prisma';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
+import { defaultLangByHost } from '../i18n';
 
 interface LanguageContextInterface {
   language: Lang;
@@ -31,7 +32,7 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [language, setLanguage] = useState<Lang>(localStorage.getItem('language') as Lang || DEFAULT_LANGUAGE);
+  const [language, setLanguage] = useState<Lang>(localStorage.getItem('language') as Lang || (defaultLangByHost[window.location.hostname.split('.')[0] ?? ''] ?? DEFAULT_LANGUAGE));
   const { i18n } = useTranslation();
   const Alert = useAlert();
 
