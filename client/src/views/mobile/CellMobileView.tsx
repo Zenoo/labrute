@@ -1,7 +1,8 @@
 import { Lang, Log } from '@labrute/prisma';
-import { Box, Grid, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, IconButton, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router-dom';
 import CellClan from '../../components/Cell/CellClan';
 import CellGlobalTournament from '../../components/Cell/CellGlobalTournament';
 import CellLog from '../../components/Cell/CellLog';
@@ -17,8 +18,9 @@ import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
 import FantasyButton from '../../components/FantasyButton';
-import { History } from '@mui/icons-material';
+import { History, Policy } from '@mui/icons-material';
 import moment from 'moment';
+import { useAuth } from '../../hooks/useAuth';
 
 export interface CellMobileViewProps {
   ad: AdResult;
@@ -39,6 +41,7 @@ const CellMobileView = ({
 }: CellMobileViewProps) => {
   const { t } = useTranslation();
   const { brute, owner } = useBrute();
+  const { user } = useAuth();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
@@ -113,6 +116,19 @@ const CellMobileView = ({
           >
             {t('report')}
           </Text>
+          {user?.admin && (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Tooltip title={t('adminPanel')}>
+                <IconButton
+                  component={RouterLink}
+                  to={`/admin-panel/brute/${brute.name}`}
+                  color="error"
+                >
+                  <Policy />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
         </Grid>
         <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 4 : 0}>
           {/* PETS OR ADVERT */}

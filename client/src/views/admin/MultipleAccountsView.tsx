@@ -2,13 +2,13 @@ import { UserMultipleAccountsListResponse } from '@labrute/core';
 import { List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
-import Server from '../utils/Server';
-import catchError from '../utils/catchError';
-import Link from '../components/Link';
+import Page from '../../components/Page';
+import Text from '../../components/Text';
+import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
+import Server from '../../utils/Server';
+import catchError from '../../utils/catchError';
+import Link from '../../components/Link';
 
 export const MultipleAccountsView = () => {
   const { t } = useTranslation();
@@ -32,27 +32,23 @@ export const MultipleAccountsView = () => {
         <Text h3 bold upperCase typo="handwritten">Multiple accounts</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        {admin?.admin ? (
-          <Stack spacing={2}>
-            {/* Report list */}
-            <List dense>
-              {instances.map((instance) => (
-                <ListItem
-                  key={instance.ip}
-                >
-                  <ListItemText
-                    primary={instance.ip}
-                    secondary={instance.users.map((u) => (
-                      <Link key={u} to={`/user/${u}`} target="_blank" sx={{ mr: 1 }}>{u}</Link>
-                    ))}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Stack>
-        ) : (
-          <Text>Nice try buddy.</Text>
-        )}
+        <Stack spacing={2}>
+          {/* Report list */}
+          <List dense>
+            {instances.map((instance) => (
+              <ListItem
+                key={instance.ip}
+              >
+                <ListItemText
+                  primary={instance.ip}
+                  secondary={instance.users.map((u) => (
+                    <Link key={u} to={`/user/${u}`} target="_blank" sx={{ mr: 1 }}>{u}</Link>
+                  ))}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Stack>
       </Paper>
     </Page>
   );

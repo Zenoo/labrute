@@ -4,15 +4,15 @@ import { Check, Close } from '@mui/icons-material';
 import { Box, FormControl, FormControlLabel, FormLabel, IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
-import Server from '../utils/Server';
-import catchError from '../utils/catchError';
+import Page from '../../components/Page';
+import Text from '../../components/Text';
+import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
+import Server from '../../utils/Server';
+import catchError from '../../utils/catchError';
 import moment from 'moment';
-import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
+import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();

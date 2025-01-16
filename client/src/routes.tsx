@@ -4,7 +4,7 @@ import ProvideBrute from './components/Brute/ProvideBrute';
 import Main from './layouts/Main';
 import AchievementRankingView from './views/AchievementRankingView';
 import AchievementsView from './views/AchievementsView';
-import AdminView from './views/AdminView';
+import AdminView from './views/admin/AdminView';
 import ArenaView from './views/ArenaView';
 import AscendView from './views/AscendView';
 import { BannedUsersView } from './views/BannedUsersView';
@@ -30,20 +30,23 @@ import HallView from './views/HallView';
 import HomeView from './views/HomeView';
 import { InventoryView } from './views/InventoryView';
 import LevelUpView from './views/LevelUpView';
-import { MultipleAccountsView } from './views/MultipleAccountsView';
+import { MultipleAccountsView } from './views/admin/MultipleAccountsView';
 import NameChangeView from './views/NameChangeView';
 import NotFoundView from './views/NotFoundView';
 import PatchNotesView from './views/PatchNotesView';
 import RankingView from './views/RankingView';
-import ReportAdminView from './views/ReportAdminView';
+import ReportAdminView from './views/admin/ReportAdminView';
 import ResetVisualsView from './views/ResetVisualsView';
 import TournamentHistoryView from './views/TournamentHistoryView';
 import TournamentView from './views/TournamentView';
-import UserAdminView from './views/UserAdminView';
+import UserAdminView from './views/admin/UserAdminView';
 import UserView from './views/UserView';
 import VersusView from './views/VersusView';
 import { WikiView } from './views/WikiView';
-import { ConfigAdminView } from './views/ConfigAdminView';
+import { ConfigAdminView } from './views/admin/ConfigAdminView';
+import { AdminLayout } from './layouts/AdminLayout';
+import { BruteAdminView } from './views/admin/BruteAdminView';
+import { ModeratorLayout } from './layouts/ModeratorLayout';
 
 const routes: RouteObject[] = [
   {
@@ -52,12 +55,6 @@ const routes: RouteObject[] = [
     children: [
       { path: '', element: <HomeView /> },
       { path: 'oauth/callback', element: <HomeView /> },
-      { path: 'admin-panel', element: <AdminView /> },
-      { path: 'admin-panel/user', element: <UserAdminView /> },
-      { path: 'admin-panel/report', element: <ReportAdminView /> },
-      { path: 'admin-panel/config', element: <ConfigAdminView /> },
-      { path: 'admin-panel/banned-users', element: <BannedUsersView /> },
-      { path: 'admin-panel/multiple-accounts', element: <MultipleAccountsView /> },
       { path: 'achievements/rankings', element: <AchievementRankingView /> },
       { path: 'unknown-brute', element: <BruteNotFoundView /> },
       { path: 'generating-tournaments', element: <GeneratingView /> },
@@ -130,6 +127,26 @@ const routes: RouteObject[] = [
           },
           // Redirect :name to :name/cell
           { path: '', element: <Navigate to="cell" /> },
+        ],
+      },
+      {
+        path: 'admin-panel',
+        element: <AdminLayout />,
+        children: [
+          { path: '', element: <AdminView /> },
+          { path: 'user', element: <UserAdminView /> },
+          { path: 'report', element: <ReportAdminView /> },
+          { path: 'config', element: <ConfigAdminView /> },
+          { path: 'banned-users', element: <BannedUsersView /> },
+          { path: 'multiple-accounts', element: <MultipleAccountsView /> },
+          { path: 'brute/:bruteName', element: <BruteAdminView /> },
+        ],
+      },
+      {
+        path: 'moderator-panel',
+        element: <ModeratorLayout />,
+        children: [
+          { path: 'report', element: <ReportAdminView /> },
         ],
       },
       // 404

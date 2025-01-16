@@ -4,14 +4,14 @@ import { Block } from '@mui/icons-material';
 import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import StyledInput from '../components/StyledInput';
-import Text from '../components/Text';
-import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
-import Server from '../utils/Server';
-import catchError from '../utils/catchError';
+import FantasyButton from '../../components/FantasyButton';
+import Page from '../../components/Page';
+import StyledInput from '../../components/StyledInput';
+import Text from '../../components/Text';
+import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
+import Server from '../../utils/Server';
+import catchError from '../../utils/catchError';
 
 const UserAdminView = () => {
   const { t } = useTranslation();

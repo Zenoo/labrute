@@ -378,7 +378,7 @@ const Main = () => {
                 />
                 {user.moderator && (
                   <ActionButton
-                    to="/admin-panel/report"
+                    to="/moderator-panel/report"
                     Icon={Policy}
                     iconColor={theme.palette.info.main}
                     title={t('moderation')}
