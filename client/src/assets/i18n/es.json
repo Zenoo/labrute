@@ -38,6 +38,7 @@
   "lightMode": "Modo claro",
   "darkMode": "Modo oscuro",
   "betaTitle": "Versión beta",
+  "searchBrute": "Search a Brute",
   "betaDescription": "Este juego está todavía en beta. Hay cambios a menudo y puede que haya errores. Si encuentras alguno, por favor repórtalo en nuestro",
   "discord": "Discord",
   "betaReset": "Ten en cuenta que absolutamente todo será reseteado cuando finalice la fase de beta.",
@@ -122,6 +123,7 @@
   "seeFight": "Haz click aquí para ver el combate",
   "master": "Maestro",
   "ranking": "Clasificación",
+  "rankings": "{{value}} rankings",
   "victories": "Victorias",
   "winrate": "Ratio de victoria",
   "lastSeen": "Última conexión {{date}}",
@@ -534,7 +536,6 @@
   "bruteIsResting": "{{brute}} está descansando.",
   "newFightsTomorrow": "¡{{amount}} nuevos combates estarán disponibles mañana!",
   "bruteIsPreparing": "{{brute}} se está preparando.",
-  "comeBackInAFew": "Vuelve en unos minutos.",
   "youHaveXFightsLeft": "¡Te quedan {{value}} combates para el día de hoy!",
   "youHaveOneFightLeft": "¡Te queda 1 combate para el día de hoy!",
   "selectedOpponents": "¡Bienvenido a la Arena! Aquí tienes una selección de adversarios de tu nivel. Elige uno y, ¡que empiece el combate!",
@@ -1584,5 +1585,7 @@
   "rejected": "Rechazado",
   "unknown": "Desconocido",
   "reportedBy": "Reportado por",
-  "handledBy": "Manejado por"
+  "handledBy": "Manejado por",
+  "unauthorized": "Unauthorized",
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
 }
