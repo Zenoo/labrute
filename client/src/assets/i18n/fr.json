@@ -38,6 +38,7 @@
   "lightMode": "Mode clair",
   "darkMode": "Mode sombre",
   "betaTitle": "Version Bêta",
+  "searchBrute": "Search a Brute",
   "betaDescription": "Ce jeu est toujours en version bêta. Les choses sont susceptibles de changer et des bugs peuvent se produire. Veuillez signaler tout bug que vous trouvez sur notre",
   "discord": "Discord",
   "betaReset": "N'oubliez pas que tout sera réinitialisé à la fin de la bêta.",
@@ -122,6 +123,7 @@
   "seeFight": "Cliquez ici pour revoir le combat",
   "master": "Maitre",
   "ranking": "Classement",
+  "rankings": "{{value}} rankings",
   "victories": "Victoires",
   "winrate": "Victoire",
   "lastSeen": "Vu pour la dernière fois {{date}}",
@@ -534,7 +536,6 @@
   "bruteIsResting": "{{brute}} se repose.",
   "newFightsTomorrow": "{{amount}} nouveaux combats dès demain !",
   "bruteIsPreparing": "{{brute}} se prépare.",
-  "comeBackInAFew": "Revenez dans quelques minutes !",
   "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
   "youHaveOneFightLeft": "Il te reste un combat aujourd'hui !",
   "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaires à ta taille. Choisis-en un, et on commence le combat !",
@@ -1584,5 +1585,7 @@
   "rejected": "Refusé",
   "unknown": "Inconnu",
   "reportedBy": "Signalé par",
-  "handledBy": "Traité par"
+  "handledBy": "Traité par",
+  "unauthorized": "Unauthorized",
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
 }
