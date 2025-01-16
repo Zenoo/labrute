@@ -1,0 +1,12 @@
+[backend]
+store = "Postgres"
+
+[postgres]
+# Database name
+name = "etwin.dev"
+user = "postgres"
+password = "postgres"
+port = 5433
+
+[opentelemetry]
+enabled = false

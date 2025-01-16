@@ -825,6 +825,10 @@ const Brutes = {
           clanId: null,
           // Delete join request
           wantToJoinClanId: null,
+          // Remove from followed brutes
+          followers: {
+            set: [],
+          },
         },
         select: { id: true },
       });

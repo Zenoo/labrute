@@ -122,6 +122,7 @@
   "seeFight": "Click here to see the fight",
   "master": "Master",
   "ranking": "Ranking",
+  "rankings": "{{value}} rankings",
   "victories": "Victories",
   "winrate": "Winrate",
   "lastSeen": "Last seen {{date}}",

@@ -22,7 +22,7 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage.
+- Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage. (An example is provided in the [eternaltwin.local.toml.sample](eternaltwin.local.toml.sample) file)
 
 - Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
 

@@ -197,6 +197,7 @@ export class NetworkDiscordClient implements DiscordClient {
 
   public sendError(error: Error, res?: Response) {
     if (!this.#logClient) {
+      console.error(error);
       return;
     }
 

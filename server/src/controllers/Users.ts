@@ -647,6 +647,18 @@ const Users = {
         },
       });
 
+      // Remove brutes from followed
+      for (const brute of user.brutes) {
+        await prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            followers: {
+              set: [],
+            },
+          },
+        });
+      }
+
       // Ban user
       await prisma.user.update({
         where: { id: req.params.userId },

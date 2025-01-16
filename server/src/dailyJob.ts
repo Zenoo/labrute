@@ -1005,6 +1005,9 @@ const deleteBrutes = async (prisma: PrismaClient) => {
         wantToJoinClanId: null,
       },
     });
+
+    // Remove followers
+    await prisma.$executeRaw`DELETE FROM "_Followers" WHERE "A" IN (${Prisma.join(chunk, undefined, undefined, '::uuid')});`;
   }
 
   for (const brute of brutes) {
