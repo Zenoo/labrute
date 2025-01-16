@@ -1006,8 +1006,14 @@ const deleteBrutes = async (prisma: PrismaClient) => {
       },
     });
 
+    const joinedBruteIds = Prisma.join(chunk, undefined, undefined, '::uuid');
+
     // Remove followers
-    await prisma.$executeRaw`DELETE FROM "_Followers" WHERE "A" IN (${Prisma.join(chunk, undefined, undefined, '::uuid')});`;
+    await prisma.$executeRaw`DELETE FROM "_Followers" WHERE "A" IN (${joinedBruteIds});`;
+
+    // Remove from clan fighters
+    await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
+    await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
   }
 
   for (const brute of brutes) {

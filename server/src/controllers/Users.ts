@@ -16,6 +16,7 @@ import {
 } from '@labrute/core';
 import {
   Achievement, FightModifier, InventoryItemType, Lang,
+  Prisma,
   PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -647,8 +648,13 @@ const Users = {
         },
       });
 
-      // Remove brutes from followed
+      // Remove brutes from clan fighters
+      const joinedBruteIds = Prisma.join(user.brutes.map((b) => b.id), undefined, undefined, '::uuid');
+      await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
+      await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
+
       for (const brute of user.brutes) {
+        // Remove brutes from followed
         await prisma.brute.update({
           where: { id: brute.id },
           data: {

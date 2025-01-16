@@ -183,7 +183,7 @@ const Achievements = {
       sendError(res, error);
     }
   },
-  generateTitlesCSV: (req: Request, res: Response) => {
+  generateTitlesCSV: (_req: Request, res: Response) => {
     try {
       const csvLines = [
         'name,count,title',

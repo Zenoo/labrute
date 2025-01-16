@@ -829,6 +829,13 @@ const Brutes = {
           followers: {
             set: [],
           },
+          // Remove from clan war fighters
+          inClanWarDefenderFighters: {
+            set: [],
+          },
+          inClanWarAttackerFighters: {
+            set: [],
+          },
         },
         select: { id: true },
       });
