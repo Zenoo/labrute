@@ -38,6 +38,7 @@
   "lightMode": "Светлый режим",
   "darkMode": "Тёмный режим",
   "betaTitle": "Бета-версия",
+  "searchBrute": "Search a Brute",
   "betaDescription": "Эта игра находится в бета-версии. Неполадки и будущие изменения не исключены. Сообщайте о багах в нашем",
   "discord": "Дискорде",
   "betaReset": "Учтите, что к окончанию беты всё будет сброшено.",
@@ -122,6 +123,7 @@
   "seeFight": "Жмите сюда, чтобы посмотреть битву",
   "master": "Лидер",
   "ranking": "Рейтинг",
+  "rankings": "{{value}} rankings",
   "victories": "Победы",
   "winrate": "Доля побед",
   "lastSeen": "Последняя активность {{date}}",
@@ -534,7 +536,6 @@
   "bruteIsResting": "{{brute}} отдыхает.",
   "newFightsTomorrow": "Завтра вас будут ожидать {{amount}} новых битв!",
   "bruteIsPreparing": "{{brute}} подготавливается.",
-  "comeBackInAFew": "Возвращайтесь через несколько минут!",
   "youHaveXFightsLeft": "У вас на сегодня осталось {{value}} битв!",
   "youHaveOneFightLeft": "У вас на сегодня осталась одна битва!",
   "selectedOpponents": "Добро пожаловать в арену! Вот выбор противников вашего уровня. Выбирайте, и начнем бой!",
@@ -1584,5 +1585,7 @@
   "rejected": "Отклонено",
   "unknown": "Неизвестно",
   "reportedBy": "Автор жалобы:",
-  "handledBy": "Обработчик:"
+  "handledBy": "Обработчик:",
+  "unauthorized": "Unauthorized",
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
 }
