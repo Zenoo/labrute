@@ -38,6 +38,7 @@
   "lightMode": "Light mode",
   "darkMode": "Dark mode",
   "betaTitle": "Versão beta",
+  "searchBrute": "Search a Brute",
   "betaDescription": "Este jogo ainda está em beta. As coisas estão sujeitas a mudanças e erros podem ocorrer. Por favor, reporte qualquer bug que você encontrar em nosso",
   "discord": "Discord",
   "betaReset": "Lembre-se de que tudo será redefinido no final do beta.",
@@ -122,6 +123,7 @@
   "seeFight": "Clique aqui para ver a luta",
   "master": "Mestre",
   "ranking": "Classificação",
+  "rankings": "{{value}} rankings",
   "victories": "Vitórias",
   "winrate": "Winrate",
   "lastSeen": "Last seen {{date}}",
@@ -534,7 +536,6 @@
   "bruteIsResting": "{{brute}} está descansando.",
   "newFightsTomorrow": "{{amount}} novas lutas estarão disponíveis amanhã!",
   "bruteIsPreparing": "{{brute}} está se preparando.",
-  "comeBackInAFew": "Volte em alguns minutos!",
   "youHaveXFightsLeft": "Você ainda tem {{value}} lutas hoje!",
   "youHaveOneFightLeft": "Você tem mais uma luta hoje!",
   "selectedOpponents": "Bem-vindo à Arena! Aqui está uma seleção de oponentes do seu nível. Escolha um e vamos começar a luta!",
@@ -1584,5 +1585,7 @@
   "rejected": "Rejected",
   "unknown": "Unknown",
   "reportedBy": "Reported by",
-  "handledBy": "Handled by"
+  "handledBy": "Handled by",
+  "unauthorized": "Unauthorized",
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
 }
