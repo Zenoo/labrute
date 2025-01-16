@@ -38,6 +38,7 @@
   "lightMode": "Light mode",
   "darkMode": "Dark mode",
   "betaTitle": "Beta version",
+  "searchBrute": "Search a Brute",
   "betaDescription": "This game is still in beta. Things are prone to change and bugs may occur. Please report any bug you find on our",
   "discord": "Discord",
   "betaReset": "Keep in mind everything will be reset at the end of the beta.",
@@ -122,6 +123,7 @@
   "seeFight": "Click here to see the fight",
   "master": "Master",
   "ranking": "순위",
+  "rankings": "{{value}} rankings",
   "victories": "승리",
   "winrate": "Winrate",
   "lastSeen": "Last seen {{date}}",
@@ -534,7 +536,6 @@
   "bruteIsResting": "{{brute}} is resting.",
   "newFightsTomorrow": "{{amount}} new fights will be available tomorrow!",
   "bruteIsPreparing": "{{brute}} is preparing.",
-  "comeBackInAFew": "Come back in a few minutes!",
   "youHaveXFightsLeft": "You have {{value}} fights left today !",
   "youHaveOneFightLeft": "You have one fight left today !",
   "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!",
@@ -1584,5 +1585,7 @@
   "rejected": "Rejected",
   "unknown": "Unknown",
   "reportedBy": "Reported by",
-  "handledBy": "Handled by"
+  "handledBy": "Handled by",
+  "unauthorized": "Unauthorized",
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
 }
