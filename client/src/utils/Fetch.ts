@@ -1,3 +1,5 @@
+import { getCookie } from './cookies';
+
 type HeadersType = {
   Accept: string;
   'x-csrf-token': string;
@@ -40,12 +42,12 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
   }
 
   return new Promise((resolve, reject) => {
-    const user = localStorage.getItem('user') || '';
-    const token = localStorage.getItem('token') || '';
+    const user = getCookie('user') || '';
+    const token = getCookie('token') || '';
     const headers: HeadersType = {
       Accept: 'application/json',
       'x-csrf-token': localStorage.getItem('csrfToken') || '',
-      Authorization: localStorage.getItem('user') ? `Basic ${btoa(`${user}:${token}`)}` : ''
+      Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : ''
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
