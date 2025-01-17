@@ -436,7 +436,7 @@
   "thrown": "distancia",
   "blunt": "contundente",
   "odds": "Probabilidades",
-  "enduranceMalus": "Penalización de resistencia",
+  "hpMalus": "HP malus",
   "hitSpeed": "Velocidad de golpe",
   "initiative": "Iniciativa",
   "counter": "Contra",
