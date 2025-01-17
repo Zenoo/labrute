@@ -1,7 +1,7 @@
 import { Lang } from '@labrute/prisma';
 import { Box, Paper, PaperProps } from '@mui/material';
 import moment from 'moment';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
@@ -25,12 +25,14 @@ const CellTournament = ({
   const Alert = useAlert();
   const { brute, owner, updateBrute } = useBrute();
   const { updateData } = useAuth();
+  const [isRegisteringBrute, setIsRegisteringBrute] = useState(false);
 
   const now = useMemo(() => moment.utc(), []);
   const tomorrow = useMemo(() => moment.utc().add(1, 'day'), []);
 
   const registerBrute = useCallback(() => {
     if (!brute) return;
+    setIsRegisteringBrute(true);
     Server.Tournament.registerDaily(brute?.name || '').then(() => {
       Alert.open('success', t('bruteRegistered'));
 
@@ -50,7 +52,8 @@ const CellTournament = ({
           return b;
         }),
       }) : data));
-    }).catch(catchError(Alert));
+    }).catch(catchError(Alert))
+      .finally(() => setIsRegisteringBrute(false));
   }, [Alert, brute, t, updateBrute, updateData]);
 
   return brute && (
@@ -99,6 +102,7 @@ const CellTournament = ({
                 shadow={false}
                 contrast={false}
                 onClick={registerBrute}
+                disabled={isRegisteringBrute}
               />
             )}
           </Paper>

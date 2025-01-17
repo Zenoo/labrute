@@ -2,7 +2,7 @@ import { BruteRanking, BrutesGetClanIdAsMasterResponse, ClanGetResponse, bosses,
 import { BossName, Brute, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BruteRender from '../../components/Brute/Body/BruteRender';
@@ -22,6 +22,8 @@ import { ActivityStatus } from '../../components/ActivityStatus';
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
+type Actions = 'cancel-clan-war' | 'accept-clan-war' | 'challenge-boss';
+
 const ClanView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
@@ -37,6 +39,12 @@ const ClanView = () => {
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
   const [warEnabled, setWarEnabled] = useState(false);
   const [masterOfClan, setMasterOfClan] = useState<BrutesGetClanIdAsMasterResponse['id']>(null);
+  const [memberRequestsLoader, setMemberRequestsLoader] = useState<Record<string, 'accept' | 'reject'>>({});
+  const [loaders, setLoaders] = useState<Partial<Record<Actions, boolean>>>({});
+
+  const toggleLoaderState = useCallback((a: Actions) => {
+    setLoaders((cur) => ({ ...cur, [a]: !cur[a] }));
+  }, []);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
   const displayedBossName = useMemo(() => {
@@ -172,6 +180,7 @@ const ClanView = () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
+      setMemberRequestsLoader((cur) => ({ ...cur, [requester.id]: 'accept' }));
       Server.Clan.accept(requester.name, clan.id).then(() => {
         Alert.open('success', t('requestAccepted'));
 
@@ -191,7 +200,12 @@ const ClanView = () => {
             } : b)),
           }) : null));
         }
-      }).catch(catchError(Alert));
+      }).catch(catchError(Alert))
+        .finally(() => setMemberRequestsLoader((cur) => {
+          const dup = { ...cur };
+          delete dup[requester.id];
+          return dup;
+        }));
     });
   };
 
@@ -200,6 +214,7 @@ const ClanView = () => {
     if (!clan) return;
 
     Confirm.open(t('rejectJoinRequest'), t('confirmRejectRequest'), () => {
+      setMemberRequestsLoader((cur) => ({ ...cur, [requester.id]: 'reject' }));
       Server.Clan.reject(requester.name, clan.id).then(() => {
         Alert.open('success', t('requestRejected'));
 
@@ -208,7 +223,12 @@ const ClanView = () => {
           ...prevClan,
           joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
         }) : null));
-      }).catch(catchError(Alert));
+      }).catch(catchError(Alert))
+        .finally(() => setMemberRequestsLoader((cur) => {
+          const dup = { ...cur };
+          delete dup[requester.id];
+          return dup;
+        }));
     });
   };
 
@@ -303,6 +323,7 @@ const ClanView = () => {
       return;
     }
 
+    toggleLoaderState('challenge-boss');
     Server.Clan.challengeBoss(brute.name, clan.id).then((fight) => {
       // Update fights left
       updateData((data) => (data ? ({
@@ -342,7 +363,8 @@ const ClanView = () => {
       }
 
       navigate(`/${brute.name}/fight/${fight.id}`);
-    }).catch(catchError(Alert));
+    }).catch(catchError(Alert))
+      .finally(() => toggleLoaderState('challenge-boss'));
   };
 
   // Clan wars
@@ -377,6 +399,7 @@ const ClanView = () => {
   const cancelClanWar = () => {
     if (!brute || !clan || !clanWar) return;
 
+    toggleLoaderState('cancel-clan-war');
     Server.ClanWar.cancel(brute.id, clan.id, clanWar.id).then(() => {
       Alert.open('success', t('warCanceled'));
 
@@ -390,13 +413,15 @@ const ClanView = () => {
           defenses: [],
         };
       });
-    }).catch(catchError(Alert));
+    }).catch(catchError(Alert))
+      .finally(() => toggleLoaderState('cancel-clan-war'));
   };
 
   // Accept clan war
   const acceptClanWar = () => {
     if (!brute || !clan || !clanWar) return;
 
+    toggleLoaderState('accept-clan-war');
     Server.ClanWar.accept(brute.id, clan.id, clanWar.id).then(() => {
       Alert.open('success', t('warAccepted'));
 
@@ -416,7 +441,8 @@ const ClanView = () => {
 
         return newClan;
       });
-    }).catch(catchError(Alert));
+    }).catch(catchError(Alert))
+      .finally(() => toggleLoaderState('accept-clan-war'));
   };
 
   return clan && (
@@ -629,6 +655,7 @@ const ClanView = () => {
                   <FantasyButton
                     color="error"
                     onClick={cancelClanWar}
+                    loading={!!loaders['cancel-clan-war']}
                     sx={{ m: 1 }}
                   >
                     {t('cancel')}
@@ -651,6 +678,7 @@ const ClanView = () => {
                   <FantasyButton
                     color="success"
                     onClick={acceptClanWar}
+                    loading={!!loaders['accept-clan-war']}
                     sx={{ m: 1 }}
                   >
                     {t('accept')}
@@ -659,6 +687,7 @@ const ClanView = () => {
                   <FantasyButton
                     color="error"
                     onClick={cancelClanWar}
+                    loading={!!loaders['cancel-clan-war']}
                     sx={{ m: 1 }}
                   >
                     {t('reject')}
@@ -753,7 +782,12 @@ const ClanView = () => {
         )}
         {user && owner && brute?.clanId === clan.id && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-            <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
+            <FantasyButton
+              color="warning"
+              onClick={challengeBoss}
+              loading={!!loaders['challenge-boss']}
+            >{t('challengeBoss')}
+            </FantasyButton>
           </Box>
         )}
         {/* MEMBERS */}
@@ -933,8 +967,20 @@ const ClanView = () => {
                         gap: 1,
                       }}
                       >
-                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept')}</FantasyButton>
-                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject')}</FantasyButton>
+                        <FantasyButton
+                          color="success"
+                          onClick={acceptJoin(requester)}
+                          loading={memberRequestsLoader[requester.id] === 'accept'}
+                          disabled={!!memberRequestsLoader[requester.id]}
+                        >{t('accept')}
+                        </FantasyButton>
+                        <FantasyButton
+                          color="error"
+                          onClick={rejectJoin(requester)}
+                          loading={memberRequestsLoader[requester.id] === 'reject'}
+                          disabled={!!memberRequestsLoader[requester.id]}
+                        >{t('reject')}
+                        </FantasyButton>
                       </Box>
                     </TableCell>
                   </TableRow>
