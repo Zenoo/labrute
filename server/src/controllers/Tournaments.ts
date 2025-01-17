@@ -420,16 +420,7 @@ const Tournaments = {
   },
   deleteDaily: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       // Get tournament IDs
       const tournaments = await prisma.tournament.findMany({
@@ -466,16 +457,7 @@ const Tournaments = {
   },
   deleteGlobal: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const user = await auth(prisma, req, { admin: true });
 
       // Get tournament ID
       const tournament = await prisma.tournament.findFirst({
@@ -490,7 +472,7 @@ const Tournaments = {
       });
 
       if (!tournament) {
-        throw new NotFoundError(translate('tournamentNotFound', authed));
+        throw new NotFoundError(translate('tournamentNotFound', user));
       }
 
       // Delete all fights from global tournament
@@ -612,16 +594,7 @@ const Tournaments = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const isValid = await ServerState.isGlobalTournamentValid(prisma);
 

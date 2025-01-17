@@ -2,7 +2,6 @@ import {
   BruteDeletionReason,
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
   ExpectedError,
-  ForbiddenError,
   LimitError,
   MissingElementError,
   NotFoundError,
@@ -14,9 +13,9 @@ import type { Request, Response } from 'express';
 import moment from 'moment';
 import { LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
+import { ilike } from '../utils/ilike.js';
 import sendError from '../utils/sendError.js';
 import translate from '../utils/translate.js';
-import { ilike } from '../utils/ilike.js';
 
 const BruteReports = {
   list: (prisma: PrismaClient) => async (
@@ -24,17 +23,7 @@ const BruteReports = {
     res: Response<BruteReportsListResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin or moderator only
-      if (!user?.admin && !user?.moderator) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { moderator: true });
 
       // Order by count for pending, by handledAt for others
       const orderBy = req.params.status === BruteReportStatus.pending
@@ -185,17 +174,7 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin or moderator only
-      if (!user?.admin && !user?.moderator) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const user = await auth(prisma, req, { moderator: true });
 
       const report = await prisma.bruteReport.findFirst({
         where: {
@@ -226,11 +205,11 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new NotFoundError(translate('reportNotFound', authed));
+        throw new NotFoundError(translate('reportNotFound', user));
       }
 
       if (report.handledAt) {
-        throw new LimitError(translate('reportAlreadyHandled', authed));
+        throw new LimitError(translate('reportAlreadyHandled', user));
       }
 
       await prisma.bruteReport.update({
@@ -239,7 +218,7 @@ const BruteReports = {
         },
         data: {
           status: BruteReportStatus.accepted,
-          handlerId: authed.id,
+          handlerId: user.id,
           handledAt: new Date(),
         },
         select: { id: true },
@@ -267,7 +246,7 @@ const BruteReports = {
 
       // Send notification to user
       if (!report.brute.userId) {
-        throw new Error(translate('userNotFound', authed));
+        throw new Error(translate('userNotFound', user));
       }
 
       await prisma.notification.create({
@@ -317,17 +296,7 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin or moderator only
-      if (!user?.admin && !user?.moderator) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const user = await auth(prisma, req, { moderator: true });
 
       const report = await prisma.bruteReport.findFirst({
         where: {
@@ -336,11 +305,11 @@ const BruteReports = {
       });
 
       if (!report) {
-        throw new NotFoundError(translate('reportNotFound', authed));
+        throw new NotFoundError(translate('reportNotFound', user));
       }
 
       if (report.handledAt) {
-        throw new LimitError(translate('reportAlreadyHandled', authed));
+        throw new LimitError(translate('reportAlreadyHandled', user));
       }
 
       await prisma.bruteReport.update({
@@ -349,7 +318,7 @@ const BruteReports = {
         },
         data: {
           status: BruteReportStatus.rejected,
-          handlerId: authed.id,
+          handlerId: user.id,
           handledAt: new Date(),
         },
         select: { id: true },
@@ -367,22 +336,12 @@ const BruteReports = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      // Admin only
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const user = await auth(prisma, req, { admin: true });
 
       const { word } = req.params;
 
       if (!word) {
-        throw new MissingElementError(translate('missingParameters', authed));
+        throw new MissingElementError(translate('missingParameters', user));
       }
 
       // Delete banned words containing this word

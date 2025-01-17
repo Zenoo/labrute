@@ -47,6 +47,7 @@ import { ConfigAdminView } from './views/admin/ConfigAdminView';
 import { AdminLayout } from './layouts/AdminLayout';
 import { BruteAdminView } from './views/admin/BruteAdminView';
 import { ModeratorLayout } from './layouts/ModeratorLayout';
+import { ClanAdminView } from './views/admin/ClanAdminView';
 
 const routes: RouteObject[] = [
   {
@@ -140,6 +141,7 @@ const routes: RouteObject[] = [
           { path: 'banned-users', element: <BannedUsersView /> },
           { path: 'multiple-accounts', element: <MultipleAccountsView /> },
           { path: 'brute/:bruteName', element: <BruteAdminView /> },
+          { path: 'clan/:clanId', element: <ClanAdminView /> },
         ],
       },
       {

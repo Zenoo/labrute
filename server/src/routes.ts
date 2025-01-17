@@ -146,6 +146,8 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:brute/clan/:id/thread/:threadId', Clans.getThread(prisma));
   app.get('/api/brute/:brute/clan/:id/challenge-boss', Clans.challengeBoss(prisma));
   app.put('/api/clan/:id/toggle-war', Clans.toggleClanWarParticipation(prisma));
+  app.get('/api/clan/:id/admin', Clans.getForAdmin(prisma));
+  app.patch('/api/clan/:id/update', Clans.adminUpdate(prisma));
 
   // Clan war
   app.post('/api/clan/war/friendly', ClanWars.declareFriendlyWar(prisma));

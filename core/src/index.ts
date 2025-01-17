@@ -223,6 +223,9 @@ export type ClanGetThreadResponse = ClanThread & {
   })[],
   clan: Pick<Clan, 'masterId' | 'name'>,
 };
+export type ClanGetForAdminResponse = Clan & {
+  brutes: Pick<Brute, 'id' | 'name'>[],
+};
 
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],

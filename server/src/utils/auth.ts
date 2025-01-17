@@ -7,7 +7,10 @@ import moment from 'moment';
 import ServerState from './ServerState.js';
 import translate from './translate.js';
 
-const auth = async (prisma: PrismaClient, request: Request) => {
+const auth = async (prisma: PrismaClient, request: Request, options?: {
+  admin?: boolean;
+  moderator?: boolean;
+}) => {
   const { headers: { authorization } } = request;
 
   if (!authorization) {
@@ -28,19 +31,31 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     throw new ExpectedError('Invalid user ID');
   }
 
+  const toSelect = {
+    id: true,
+    lang: true,
+    admin: true,
+    moderator: true,
+    bannedAt: true,
+    banReason: true,
+    ips: true,
+    lastSeen: true,
+  };
+
+  if (options?.admin) {
+    toSelect.admin = true;
+  }
+
+  if (options?.moderator) {
+    toSelect.moderator = true;
+  }
+
   const user = await prisma.user.findFirst({
     where: {
       id,
       connexionToken: token,
     },
-    select: {
-      id: true,
-      lang: true,
-      bannedAt: true,
-      banReason: true,
-      ips: true,
-      lastSeen: true,
-    },
+    select: toSelect,
   });
 
   if (!user) {
@@ -61,6 +76,16 @@ const auth = async (prisma: PrismaClient, request: Request) => {
     if (bannedIp) {
       throw new ForbiddenError(translate('ipBanned', null));
     }
+  }
+
+  // Check if the user is an admin
+  if (options?.admin && !user.admin) {
+    throw new ForbiddenError(translate('unauthorized', user));
+  }
+
+  // Check if the user is a moderator
+  if (options?.moderator && (!user.moderator && !user.admin)) {
+    throw new ForbiddenError(translate('unauthorized', user));
   }
 
   if (ip && !user.ips.includes(ip)) {

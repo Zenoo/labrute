@@ -16,7 +16,6 @@ import type { Request, Response } from 'express';
 import { GLOBAL } from '../context.js';
 import auth from '../utils/auth.js';
 import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
 
 export const Configs = {
   list: (prisma: PrismaClient) => async (
@@ -24,17 +23,7 @@ export const Configs = {
     res: Response<ConfigsListResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin only
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       // Get configs
       const configs = await prisma.config.findMany({
@@ -55,17 +44,7 @@ export const Configs = {
     res: Response<ConfigsSetResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin only
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const { key, value } = req.body;
 
@@ -112,17 +91,7 @@ export const Configs = {
     res: Response<ConfigsDecryptResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin only
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const { value } = req.body;
 
@@ -152,17 +121,7 @@ export const Configs = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true, moderator: true },
-      });
-
-      // Admin only
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const { key } = req.body;
 

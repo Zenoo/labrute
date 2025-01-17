@@ -37,16 +37,7 @@ const Users = {
     res: Response<UserGetAdminResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.id)) {
         throw new ExpectedError(translate('invalidParameters', authed));
@@ -140,16 +131,7 @@ const Users = {
   },
   runDailyJob: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new Error(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       await dailyJob(prisma)().catch((error: Error) => {
         DISCORD().sendError(error);
@@ -245,16 +227,7 @@ const Users = {
     try {
       const { params: { id } } = req;
 
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!id) {
         throw new MissingElementError(translate('noIDProvided', authed));
@@ -599,16 +572,7 @@ const Users = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.userId) || !req.body.reason) {
         throw new ExpectedError(translate('invalidParameters', authed));
@@ -691,16 +655,7 @@ const Users = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.userId)) {
         throw new ExpectedError(translate('invalidParameters', authed));
@@ -803,16 +758,7 @@ const Users = {
     res: Response<UserBannedListResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const users = await prisma.user.findMany({
         where: {
@@ -836,16 +782,7 @@ const Users = {
     res: Response<UserMultipleAccountsListResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const ips = await prisma.$queryRaw<UserMultipleAccountsListResponse>`
         SELECT ip, array_agg(id) AS users
@@ -868,16 +805,7 @@ const Users = {
     res: Response<UserGetNextModifiersResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       res.send(await ServerState.getNextModifiers(prisma));
     } catch (error) {
@@ -889,16 +817,7 @@ const Users = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       const { modifiers } = req.body;
 

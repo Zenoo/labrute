@@ -1,6 +1,7 @@
 import {
   ClanChallengeBossResponse,
   ClanCreateResponse,
+  ClanGetForAdminResponse,
   ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError,
   ForbiddenError, LimitError, MissingElementError, NotFoundError, bosses, getFightsLeft,
@@ -1736,6 +1737,57 @@ const Clans = {
         where: { id },
         data: { participateInClanWar: !clan.participateInClanWar },
         select: { id: true },
+      });
+
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getForAdmin: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response<ClanGetForAdminResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      const clan = await prisma.clan.findUnique({
+        where: { id: req.params.id },
+        include: {
+          brutes: {
+            select: { id: true, name: true },
+          },
+        },
+      });
+
+      if (!clan) {
+        throw new NotFoundError(translate('clanNotFound', user));
+      }
+
+      res.status(200).send(clan);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  adminUpdate: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }, unknown, Clan>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      const clan = await prisma.clan.findUnique({
+        where: { id: req.params.id },
+        select: { id: true },
+      });
+
+      if (!clan) {
+        throw new NotFoundError(translate('clanNotFound', user));
+      }
+
+      await prisma.clan.update({
+        where: { id: req.params.id },
+        data: req.body,
       });
 
       res.status(200).send({ message: 'ok' });

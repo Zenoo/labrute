@@ -149,16 +149,7 @@ const Brutes = {
     res: Response<AdminPanelBrute>,
   ) => {
     try {
-      const { id, lang } = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new ForbiddenError(translate('unauthorized', { ...user, lang }));
-      }
+      await auth(prisma, req, { admin: true });
 
       const brute = await prisma.brute.findFirst({
         where: {
@@ -1517,25 +1508,12 @@ const Brutes = {
     res: Response,
   ) => {
     try {
+      const user = await auth(prisma, req, { admin: true });
+
       const { params: { name } } = req;
 
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user) {
-        throw new Error(translate('userNotFound', authed));
-      }
-
-      if (!user.admin) {
-        throw new Error(translate('unauthorized', authed));
-      }
-
       if (!name) {
-        throw new Error(translate('missingName', authed));
+        throw new Error(translate('missingName', user));
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1546,7 +1524,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error(translate('bruteNotFound', authed));
+        throw new Error(translate('bruteNotFound', user));
       }
 
       // Update the brute
@@ -1572,23 +1550,10 @@ const Brutes = {
     try {
       const { params: { id } } = req;
 
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user) {
-        throw new NotFoundError(translate('userNotFound', authed));
-      }
-
-      if (!user.admin) {
-        throw new ForbiddenError(translate('unauthorized', authed));
-      }
+      const user = await auth(prisma, req, { admin: true });
 
       if (!id) {
-        throw new MissingElementError(translate('noIDProvided', authed));
+        throw new MissingElementError(translate('noIDProvided', user));
       }
 
       const brute = await prisma.brute.findFirst({
@@ -1602,7 +1567,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new NotFoundError(translate('bruteNotFoundOrNotDeleted', authed));
+        throw new NotFoundError(translate('bruteNotFoundOrNotDeleted', user));
       }
 
       // Check if another brute has the same name
@@ -1614,7 +1579,7 @@ const Brutes = {
       });
 
       if (brutesWithSameName > 0) {
-        throw new LimitError(translate('anotherBruteHasThisName', authed));
+        throw new LimitError(translate('anotherBruteHasThisName', user));
       }
 
       // Restore the brute
@@ -1983,16 +1948,7 @@ const Brutes = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new Error(translate('unauthorized', authed));
-      }
+      const user = await auth(prisma, req, { admin: true });
 
       const brute = await prisma.brute.findFirst({
         where: {
@@ -2003,7 +1959,7 @@ const Brutes = {
       });
 
       if (!brute) {
-        throw new Error(translate('bruteNotFound', authed));
+        throw new Error(translate('bruteNotFound', user));
       }
 
       await prisma.inventoryItem.upsert({
