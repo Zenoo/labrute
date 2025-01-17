@@ -436,7 +436,7 @@
   "thrown": "distance",
   "blunt": "contondant",
   "odds": "Obtention",
-  "enduranceMalus": "Malus d'endurance",
+  "hpMalus": "HP malus",
   "hitSpeed": "Vitesse de frappe",
   "initiative": "Initiative",
   "counter": "Contre",
