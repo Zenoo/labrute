@@ -117,6 +117,26 @@ const WeaponTooltip = ({
               </Text>
             </Text>
           )}
+          {/* CRITICAL CHANCE */}
+          {(!!weapon?.criticalChance) && (
+            <Text bold sx={{ color: StatColor.criticalChance, textShadow }} {...textProps}>
+              {(weapon ? weapon.criticalChance : BASE_FIGHTER_STATS.criticalChance) > 0 && '+'}
+              {Math.round(
+                (weapon ? weapon.criticalChance : BASE_FIGHTER_STATS.criticalChance) * 100,
+              )}
+              % {t('criticalChance')}
+            </Text>
+          )}
+          {/* CRITICAL DAMAGE */}
+          {(!!weapon?.criticalDamage) && (
+            <Text bold sx={{ color: StatColor.criticalDamage, textShadow }} {...textProps}>
+              {(weapon ? weapon.criticalDamage : BASE_FIGHTER_STATS.criticalDamage) > 0 && '+'}
+              {Math.round(
+                (weapon ? weapon.criticalDamage : BASE_FIGHTER_STATS.criticalDamage) * 100,
+              )}
+              % {t('criticalDamage')}
+            </Text>
+          )}
           {/* REVERSAL */}
           {(!!weapon?.reversal || (bareHands && !!BASE_FIGHTER_STATS.reversal)) && (
             <Text bold sx={{ color: StatColor.reversal, textShadow }} {...textProps}>

@@ -176,7 +176,7 @@ const flashFlood = async (
 
     if (!step.s) {
       // Display damage if weapon
-      displayDamage(app, target, step.d, speed);
+      displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
       // Play the resist animation now
       playResistAnimation(app, target, speed);
@@ -198,9 +198,17 @@ const flashFlood = async (
         initialVelocity: { x: 9, y: -7 },
       });
     }
+
     // Stagger, then set animation to death if stunned
     // Can't set to idle because this async process could cancel next animations
-    stagger(target, speed, step.s ? 0 : 18, 0.1).then(async () => {
+
+    let knockback = step.s ? 0 : 18;
+
+    if (step.c) {
+      knockback += 12;
+    }
+
+    stagger(target, speed, knockback, 0.1).then(async () => {
       // Check if not already death to avoid flickering
       if (target.stunned && target.animation.animation !== 'death') {
         target.animation.setAnimation('death');

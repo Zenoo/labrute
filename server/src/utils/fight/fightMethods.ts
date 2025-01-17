@@ -2,18 +2,19 @@
 import {
   AchievementsStore,
   ArriveStep,
-  SkillActivateStep,
-  BASE_FIGHTER_STATS,
-  DetailedFight, DetailedFighter, FighterStat, FightStat, HitStep, LeaveStep,
+  DetailedFight, DetailedFighter,
+  FightStat, HasteStep, HitStep, LeaveStep,
   NO_WEAPON_TOSS,
   randomBetween, randomItem,
   Skill,
+  SkillActivateStep,
   SkillByName, SkillModifiers, StepType, TreatStep, updateAchievement, Weapon,
   WeaponByName,
   WeaponType,
 } from '@labrute/core';
 import { FightModifier, PetName, SkillName } from '@labrute/prisma';
 import getDamage from './getDamage.js';
+import { getFighterStat } from './getFighterStat.js';
 
 export type Stats = Record<string, {
   userId: string | null;
@@ -46,56 +47,6 @@ const skillTargetsFilter = (skill: SkillName) => {
       return () => true;
     }
   }
-};
-
-const getFighterStat = (
-  fighter: DetailedFighter,
-  stat: FighterStat,
-  onlyStat?: 'fighter' | 'weapon',
-) => {
-  // Special case for dexterity as it only exists on weapons
-  if (stat === 'dexterity') {
-    if (onlyStat === 'fighter') return 0;
-
-    if (fighter.activeWeapon) {
-      const weaponStat = fighter.activeWeapon[stat];
-
-      // BODYBUILDER
-      if (fighter.bodybuilder && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
-        return weaponStat
-          + (SkillModifiers[SkillName.bodybuilder][FightStat.DEXTERITY]?.percent ?? 0);
-      }
-
-      return weaponStat;
-    }
-
-    return fighter.type === 'brute' ? BASE_FIGHTER_STATS[stat] : 0;
-  }
-
-  // Special case for tempo as it's either weapon or base
-  if (stat === 'tempo') {
-    if (fighter.activeWeapon) {
-      return fighter.activeWeapon[stat];
-    }
-
-    return BASE_FIGHTER_STATS[stat];
-  }
-
-  let total = onlyStat === 'weapon' ? 0 : fighter[stat];
-
-  if (onlyStat !== 'fighter') {
-    if (fighter.activeWeapon) {
-      total += fighter.activeWeapon[stat];
-    } else {
-      total += fighter.type === 'brute'
-        ? BASE_FIGHTER_STATS[stat]
-        : fighter.type === 'boss'
-          ? fighter[stat]
-          : 0;
-    }
-  }
-
-  return total;
 };
 
 const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omit<Stats[string], 'userId'>) => {
@@ -502,17 +453,29 @@ const consumeActiveSkill = (
   fighter.activeSkills = fighter.activeSkills.filter((sk) => sk.name !== skillName);
 };
 
-const registerHit = (
-  fightData: DetailedFight,
-  stats: Stats,
-  achievements: AchievementsStore,
-  fighter: DetailedFighter,
-  opponents: DetailedFighter[],
-  damage: number,
-  thrown?: boolean,
-  sourceName?: 'hammer' | 'flashFlood' | 'poison' | 'bomb' | 'vampirism' | 'haste',
-  flashFloodWeapon?: Weapon,
-) => {
+const registerHit = ({
+  fightData,
+  stats,
+  achievements,
+  fighter,
+  opponents,
+  damage,
+  criticalHit,
+  thrown,
+  source,
+  flashFloodWeapon,
+}: {
+  fightData: DetailedFight;
+  stats: Stats;
+  achievements: AchievementsStore;
+  fighter: DetailedFighter;
+  opponents: DetailedFighter[];
+  damage: number;
+  criticalHit?: boolean;
+  thrown?: boolean;
+  source?: 'hammer' | 'flashFlood' | 'poison' | 'bomb' | 'vampirism' | 'haste';
+  flashFloodWeapon?: Weapon;
+}) => {
   const bombDamageRangeOnPets: Record<PetName, [number, number]> = {
     [PetName.dog1]: [90, 150],
     [PetName.dog2]: [90, 150],
@@ -523,7 +486,7 @@ const registerHit = (
 
   const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
     ...acc,
-    [opponent.index]: (sourceName === 'bomb' && opponent.type === 'pet')
+    [opponent.index]: (source === 'bomb' && opponent.type === 'pet')
       ? Math.round(
         ((randomBetween(
           ...bombDamageRangeOnPets[opponent.name as PetName],
@@ -534,14 +497,14 @@ const registerHit = (
 
   opponents.forEach((opponent) => {
     // Reset consecutive hits for any damage source other than poison
-    if (sourceName !== 'poison') {
+    if (source !== 'poison') {
       fighter.hitBy[opponent.index] = 0;
     }
 
     // Wake up if stunned
     if (opponent.stunned) {
       // Wake up with initiative malus if skill hit
-      wakeUp(fightData, opponent, !!sourceName);
+      wakeUp(fightData, opponent, !!source);
     }
 
     // Remove the net and reset initiative
@@ -592,7 +555,7 @@ const registerHit = (
     }
   });
 
-  if (sourceName === 'bomb') {
+  if (source === 'bomb') {
     // Add bomb step
     fightData.steps.push({
       a: StepType.Bomb,
@@ -603,7 +566,7 @@ const registerHit = (
         return acc;
       }, {} as Record<number, number>),
     });
-  } else if (sourceName === 'vampirism') {
+  } else if (source === 'vampirism') {
     const opponent = opponents[0];
 
     if (!opponent) {
@@ -625,26 +588,33 @@ const registerHit = (
       d: actualDamage[opponent.index] ?? damage,
       h: heal,
     });
-  } else if (sourceName === 'haste') {
+  } else if (source === 'haste') {
     const opponent = opponents[0];
 
     if (!opponent) {
       throw new Error('No opponent found');
     }
+
     // Add haste step
-    fightData.steps.push({
+    const step: HasteStep = {
       a: StepType.Haste,
       b: fighter.index,
       t: opponent.index,
       d: actualDamage[opponent.index] ?? damage,
-    });
+    };
+
+    if (criticalHit) {
+      step.c = 1;
+    }
+
+    fightData.steps.push(step);
   } else {
     opponents.forEach((opponent) => {
-      const stepType = sourceName === 'hammer'
+      const stepType = source === 'hammer'
         ? StepType.Hammer
-        : sourceName === 'flashFlood'
+        : source === 'flashFlood'
           ? StepType.FlashFlood
-          : sourceName === 'poison'
+          : source === 'poison'
             ? StepType.Poison
             : StepType.Hit;
 
@@ -652,7 +622,7 @@ const registerHit = (
         a: stepType,
         f: fighter.index,
         t: opponent.index,
-        w: sourceName
+        w: source
           ? (flashFloodWeapon
             ? WeaponByName[flashFloodWeapon.name]
             : undefined)
@@ -660,7 +630,11 @@ const registerHit = (
         d: actualDamage[opponent.index] ?? damage,
       };
 
-      if (!thrown && !sourceName && !flashFloodWeapon && opponent.type === 'brute') {
+      if (criticalHit) {
+        step.c = 1;
+      }
+
+      if (!thrown && !source && !flashFloodWeapon && opponent.type === 'brute') {
         // Update consecutive hits
         opponent.hitBy[fighter.index] = (opponent.hitBy[fighter.index] || 0) + 1;
 
@@ -983,7 +957,16 @@ const activateSuper = (
       const damage = 15 + randomBetween(0, 10);
 
       // Hit every opponent
-      registerHit(fightData, stats, achievements, fighter, opponents, damage, true, 'bomb');
+      registerHit({
+        fightData,
+        stats,
+        achievements,
+        fighter,
+        opponents,
+        damage,
+        thrown: true,
+        source: 'bomb',
+      });
 
       // Increase own initiative
       fighter.initiative += 0.5 * fighter.tempo;
@@ -1023,7 +1006,7 @@ const activateSuper = (
       fighter.activeSkills.push(skill);
 
       // Get damage
-      const damage = getDamage(fighter, opponent);
+      const { damage, criticalHit } = getDamage(fighter, opponent);
 
       // Add skill activation step
       fightData.steps.push({
@@ -1040,7 +1023,16 @@ const activateSuper = (
         s: 1,
       });
 
-      registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'hammer');
+      registerHit({
+        fightData,
+        stats,
+        achievements,
+        fighter,
+        opponents: [opponent],
+        damage,
+        source: 'hammer',
+        criticalHit,
+      });
 
       // Consume fierceBrute
       consumeActiveSkill(fightData, fighter, SkillName.fierceBrute);
@@ -1221,10 +1213,20 @@ const activateSuper = (
       // Get damages for each weapon
       const damages = [];
       weaponsToThrow.forEach((w) => {
-        const damage = Math.floor(getDamage(fighter, opponent, w) * 1.5);
+        const damage = Math.floor(getDamage(fighter, opponent, w).damage * 1.5);
         damages.push(damage);
 
-        registerHit(fightData, stats, achievements, fighter, [opponent], damage, true, 'flashFlood', w);
+        registerHit({
+          fightData,
+          stats,
+          achievements,
+          fighter,
+          opponents: [opponent],
+          damage,
+          thrown: true,
+          source: 'flashFlood',
+          flashFloodWeapon: w,
+        });
       });
 
       if (throwShield) {
@@ -1337,7 +1339,15 @@ const activateSuper = (
       // Double damage if fierceBrute
       if (fighter.activeSkills.some((sk) => sk.name === SkillName.fierceBrute)) damage *= 2;
 
-      registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'vampirism');
+      registerHit({
+        fightData,
+        stats,
+        achievements,
+        fighter,
+        opponents: [opponent],
+        damage,
+        source: 'vampirism',
+      });
 
       // Consume fierceBrute
       consumeActiveSkill(fightData, fighter, SkillName.fierceBrute);
@@ -1358,9 +1368,19 @@ const activateSuper = (
       if (!fighter.activeWeapon) drawWeapon(fightData, fighter, true);
 
       // Damage done (usual + speed)
-      const damage = getDamage(fighter, opponent) + fighter.speed;
+      const { damage: initialDamage, criticalHit } = getDamage(fighter, opponent);
+      const damage = initialDamage + fighter.speed;
 
-      registerHit(fightData, stats, achievements, fighter, [opponent], damage, false, 'haste');
+      registerHit({
+        fightData,
+        stats,
+        achievements,
+        fighter,
+        opponents: [opponent],
+        damage,
+        source: 'haste',
+        criticalHit,
+      });
 
       // Consume fierceBrute
       consumeActiveSkill(fightData, fighter, SkillName.fierceBrute);
@@ -1651,7 +1671,9 @@ const attack = (
   }
 
   // Get damage
-  let damage = getDamage(fighter, opponent);
+  const damageResult = getDamage(fighter, opponent);
+  let { damage } = damageResult;
+  const { criticalHit } = damageResult;
 
   const blocked = block({ fighter, opponent });
   const evaded = evade(fighter, opponent);
@@ -1778,7 +1800,15 @@ const attack = (
       updateStats(stats, opponent.id, 'disarms', 1);
     }
 
-    registerHit(fightData, stats, achievements, fighter, [opponent], damage);
+    registerHit({
+      fightData,
+      stats,
+      achievements,
+      fighter,
+      opponents: [opponent],
+      damage,
+      criticalHit,
+    });
   }
 
   // Randomly trigger another attack if the fighter has `determination`
@@ -1826,7 +1856,7 @@ export const checkDeaths = (
         opponents.forEach((opponent) => {
           updateStats(stats, opponent.id, 'petsKilled', 1);
         });
-      // Else, set loser to fighter if team has no brutes or bosses alive
+        // Else, set loser to fighter if team has no brutes or bosses alive
       } else if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
         && !f.master
         && f.hp > 0).length === 0) {
@@ -2206,10 +2236,17 @@ export const playFighterTurn = (
         deflected = deflectProjectile(currentOpponent, timesDeflected);
 
         let damage = 0;
+        let criticalHit = false;
 
         // Get damage
         if (!deflected) {
-          damage = getDamage(currentFighter, currentOpponent, thrownWeapon);
+          const damageResult = getDamage(
+            currentFighter,
+            currentOpponent,
+            thrownWeapon,
+          );
+          damage = damageResult.damage;
+          criticalHit = damageResult.criticalHit;
 
           // Increase damage by 50% for each deflection
           damage = Math.floor(damage * (1.5 ** timesDeflected));
@@ -2280,15 +2317,16 @@ export const playFighterTurn = (
             }
           }
           // Register hit
-          registerHit(
+          registerHit({
             fightData,
             stats,
             achievements,
-            currentFighter,
-            [currentOpponent],
+            fighter: currentFighter,
+            opponents: [currentOpponent],
             damage,
-            true,
-          );
+            thrown: true,
+            criticalHit,
+          });
         }
 
         // Swap fighters if the weapon was returned
@@ -2344,7 +2382,15 @@ export const playFighterTurn = (
 
     if (poisoner) {
       // Register the hit
-      registerHit(fightData, stats, achievements, poisoner, [fighter], poisonDamage, false, 'poison');
+      registerHit({
+        fightData,
+        stats,
+        achievements,
+        fighter: poisoner,
+        opponents: [fighter],
+        damage: poisonDamage,
+        source: 'poison',
+      });
     }
   }
 

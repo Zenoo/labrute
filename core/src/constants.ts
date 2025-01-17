@@ -72,6 +72,8 @@ export const BASE_FIGHTER_STATS = {
   combo: 0,
   deflect: 0,
   tempo: 1.2,
+  criticalChance: 0.05,
+  criticalDamage: 1.5,
 } as const;
 
 export type FighterStat = keyof typeof BASE_FIGHTER_STATS;

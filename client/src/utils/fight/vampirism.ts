@@ -77,7 +77,7 @@ export const vampirism = async (
   playHitEffect(app, brute, target, speed, 'blood');
 
   displayHeal(app, brute, step.h, speed);
-  displayDamage(app, target, step.d, speed);
+  displayDamage({ app, target, damage: step.d, speed });
 
   // Play the resist animation now
   playResistAnimation(app, target, speed);

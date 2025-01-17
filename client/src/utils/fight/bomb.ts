@@ -173,7 +173,7 @@ const bomb = async (
     // Set animation to the correct hit animation
     target.animation.setAnimation(animation);
 
-    displayDamage(app, target, damage, speed);
+    displayDamage({ app, target, damage, speed });
 
     // Play the resist animation now
     playResistAnimation(app, target, speed);

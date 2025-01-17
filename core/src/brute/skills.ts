@@ -169,6 +169,8 @@ export const FightStat = {
   DEFLECT: 'deflect',
   ARMOR: 'armor',
   DAMAGE: 'damage',
+  CRITICAL_CHANCE: 'criticalChance',
+  CRITICAL_DAMAGE: 'criticalDamage',
   HIT_SPEED: 'hitSpeed',
   INITIATIVE: 'initiative',
   STRENGTH: 'strength',
@@ -554,6 +556,7 @@ export const SkillModifiers: Record<
   [SkillName.reconnaissance]: {
     [FightStat.INITIATIVE]: { flat: -200 },
     [FightStat.SPEED]: { flat: 5, percent: 1.5 },
+    [FightStat.CRITICAL_DAMAGE]: { percent: 0.5 },
   },
   [SkillName.counterAttack]: {
     [FightStat.BLOCK]: { percent: 0.1 },
@@ -561,7 +564,9 @@ export const SkillModifiers: Record<
   },
   [SkillName.ironHead]: {},
   [SkillName.thief]: {},
-  [SkillName.fierceBrute]: {},
+  [SkillName.fierceBrute]: {
+    [FightStat.CRITICAL_CHANCE]: { percent: 0.1 },
+  },
   [SkillName.tragicPotion]: {},
   [SkillName.net]: {},
   [SkillName.bomb]: {},
@@ -585,10 +590,13 @@ export const SkillModifiers: Record<
   },
   [SkillName.vampirism]: {},
   [SkillName.chaining]: {},
-  [SkillName.haste]: {},
+  [SkillName.haste]: {
+    [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
+  },
   [SkillName.treat]: {},
   [SkillName.repulse]: {
     [FightStat.DEFLECT]: { percent: 0.3 },
+    [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
   },
 };
 

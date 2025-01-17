@@ -205,7 +205,7 @@ export const haste = async (
   // Set target animation to the correct hit animation
   target.animation.setAnimation(animation);
 
-  displayDamage(app, target, step.d, speed);
+  displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
   // Play the resist animation now
   playResistAnimation(app, target, speed);
@@ -214,7 +214,7 @@ export const haste = async (
   updateHp(fighters, target, -step.d, speed, isClanWar);
 
   // Stagger
-  stagger(target, speed).catch(console.error);
+  stagger(target, speed, step.c ? 12 : 0).catch(console.error);
 
   animationEnded.then(() => {
     // Set target animation to normal

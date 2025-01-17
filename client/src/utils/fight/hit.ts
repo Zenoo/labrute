@@ -83,7 +83,7 @@ const hit = async (
     ];
   }
 
-  displayDamage(app, target, step.d, speed);
+  displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
   // Play the resist animation now
   playResistAnimation(app, target, speed);
@@ -111,6 +111,10 @@ const hit = async (
   } else if (step.s) {
     // Counter stun knockback
     knockBack = 65;
+  }
+
+  if (step.c) {
+    knockBack += 12;
   }
 
   // Stagger with knockBack

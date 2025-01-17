@@ -257,7 +257,7 @@ const hammer = async (
   playDustEffect(app, target, speed);
 
   // Display damage
-  displayDamage(app, target, step.d, speed);
+  displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
   // Play the resist animation now
   playResistAnimation(app, target, speed);
@@ -277,7 +277,7 @@ const hammer = async (
   playHitEffect(app, fighter, target, speed);
 
   // Stagger target
-  stagger(target, speed).then(() => {
+  stagger(target, speed, step.c ? 12 : 0).then(() => {
     target.animation.setAnimation(target.stunned ? 'death' : 'idle');
   }).catch(console.error);
 };

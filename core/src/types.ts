@@ -54,6 +54,8 @@ export interface DetailedFighter {
   strength: number;
   agility: number;
   speed: number;
+  criticalChance: number;
+  criticalDamage: number;
   // Initiative
   initiative: number; // Lower attacks next
   tempo: number; // Lower is better
@@ -269,6 +271,8 @@ export interface HitStep {
   d: number;
   /** Stunned? */
   s?: 1 | 0;
+  /** Critical hit? */
+  c?: 1 | 0;
 }
 
 export interface BombStep {
@@ -487,6 +491,8 @@ export interface HasteStep {
   t: number;
   /** Damage done */
   d: number;
+  /** Critical hit? */
+  c?: 1 | 0;
 }
 
 export interface TreatStep {
