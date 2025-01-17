@@ -449,6 +449,8 @@
   "combo": "Комбо",
   "deflect": "Отражение",
   "damage": "Урон",
+  "criticalChance": "Critical chance",
+  "criticalDamage": "Critical damage",
   "opponent-damage": "Урон противника",
   "drawChance": "Шанс использования",
   "reach": "Охват",
