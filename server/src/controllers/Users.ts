@@ -426,6 +426,9 @@ const Users = {
     req: Request<{ userId: string }>,
     res: Response<boolean>,
   ) => {
+    // Disable CORS
+    res.header('Access-Control-Allow-Origin', '*');
+
     try {
       if (!req.params.userId) {
         throw new MissingElementError('No user ID provided');

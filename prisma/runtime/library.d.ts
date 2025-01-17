@@ -648,7 +648,11 @@ declare function defineExtension(ext: ExtensionArgs | ((client: Client) => Clien
 
 declare const denylist: readonly ["$connect", "$disconnect", "$on", "$transaction", "$use", "$extends"];
 
+declare type DeserializedResponse = Array<Record<string, unknown>>;
+
 export declare function deserializeJsonResponse(result: unknown): unknown;
+
+export declare function deserializeRawResult(response: RawResponse): DeserializedResponse;
 
 export declare type DevTypeMapDef = {
     meta: {
@@ -875,6 +879,7 @@ export declare namespace DMMF {
         createManyAndReturn?: string | null;
         update?: string | null;
         updateMany?: string | null;
+        updateManyAndReturn?: string | null;
         upsert?: string | null;
         delete?: string | null;
         deleteMany?: string | null;
@@ -895,6 +900,7 @@ export declare namespace DMMF {
         createManyAndReturn = "createManyAndReturn",
         update = "update",
         updateMany = "updateMany",
+        updateManyAndReturn = "updateManyAndReturn",
         upsert = "upsert",
         delete = "delete",
         deleteMany = "deleteMany",
@@ -1165,25 +1171,17 @@ declare type EngineEventType = QueryEventType | LogEventType;
 declare type EngineProtocol = 'graphql' | 'json';
 
 declare type EngineSpan = {
-    span: boolean;
+    id: EngineSpanId;
+    parentId: string | null;
     name: string;
-    trace_id: string;
-    span_id: string;
-    parent_span_id: string;
-    start_time: [number, number];
-    end_time: [number, number];
-    attributes?: Record<string, string>;
-    links?: {
-        trace_id: string;
-        span_id: string;
-    }[];
+    startTime: HrTime;
+    endTime: HrTime;
     kind: EngineSpanKind;
+    attributes?: Record<string, unknown>;
+    links?: EngineSpanId[];
 };
 
-declare type EngineSpanEvent = {
-    span: boolean;
-    spans: EngineSpan[];
-};
+declare type EngineSpanId = string;
 
 declare type EngineSpanKind = 'client' | 'internal';
 
@@ -1454,7 +1452,9 @@ export declare type GetFindResult<P extends OperationPayload, A, ClientOptions> 
     } ? O : K extends '_count' ? Count<P['objects']> : never;
 } & (A extends {
     include: any;
-} & Record<string, unknown> ? DefaultSelection<P, A, ClientOptions> : unknown) : DefaultSelection<P, A, ClientOptions>;
+} & Record<string, unknown> ? DefaultSelection<P, A & {
+    omit: A['omit'];
+}, ClientOptions> : unknown) : DefaultSelection<P, A, ClientOptions>;
 
 export declare type GetGroupByResult<P extends OperationPayload, A> = A extends {
     by: string[];
@@ -1708,6 +1708,7 @@ export declare type GetResult<Payload extends OperationPayload, Args, OperationN
     createManyAndReturn: GetFindResult<Payload, Args, ClientOptions>[];
     update: GetFindResult<Payload, Args, ClientOptions>;
     updateMany: GetBatchResult;
+    updateManyAndReturn: GetFindResult<Payload, Args, ClientOptions>[];
     upsert: GetFindResult<Payload, Args, ClientOptions>;
     delete: GetFindResult<Payload, Args, ClientOptions>;
     deleteMany: GetBatchResult;
@@ -1752,6 +1753,8 @@ declare type HandleErrorParams = {
     globalOmit?: GlobalOmitOptions;
 };
 
+declare type HrTime = [number, number];
+
 /**
  * Defines High-Resolution Time.
  *
@@ -1764,7 +1767,7 @@ declare type HandleErrorParams = {
  * HrTime[1] = Number((1609504210.150 - HrTime[0]).toFixed(9)) * 1e9 = 150000000.
  * This is represented in HrTime format as [1609504210, 150000000].
  */
-declare type HrTime = [number, number];
+declare type HrTime_2 = [number, number];
 
 /**
  * Matches a JSON array.
@@ -1956,7 +1959,7 @@ export declare type JsonQuery = {
     query: JsonFieldSelection;
 };
 
-declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
+declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'updateManyAndReturn' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
 
 declare type JsonSelectionSet = {
     $scalars?: boolean;
@@ -2243,7 +2246,7 @@ export { Omit_2 as Omit }
 
 export declare type OmitValue<Omit, Key> = Key extends keyof Omit ? Omit[Key] : false;
 
-export declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
+export declare type Operation = 'findFirst' | 'findFirstOrThrow' | 'findUnique' | 'findUniqueOrThrow' | 'findMany' | 'create' | 'createMany' | 'createManyAndReturn' | 'update' | 'updateMany' | 'updateManyAndReturn' | 'upsert' | 'delete' | 'deleteMany' | 'aggregate' | 'count' | 'groupBy' | '$queryRaw' | '$executeRaw' | '$queryRawUnsafe' | '$executeRawUnsafe' | 'findRaw' | 'aggregateRaw' | '$runCommandRaw';
 
 export declare type OperationPayload = {
     name: string;
@@ -2537,8 +2540,8 @@ declare type QueryEngineConfig = {
     datasourceOverrides: Record<string, string>;
     env: Record<string, string | undefined>;
     logLevel: QueryEngineLogLevel;
-    telemetry?: QueryEngineTelemetry;
     engineProtocol: EngineProtocol;
+    enableTracing: boolean;
 };
 
 declare interface QueryEngineConstructor {
@@ -2546,20 +2549,20 @@ declare interface QueryEngineConstructor {
 }
 
 declare type QueryEngineInstance = {
-    connect(headers: string): Promise<void>;
-    disconnect(headers: string): Promise<void>;
+    connect(headers: string, requestId: string): Promise<void>;
+    disconnect(headers: string, requestId: string): Promise<void>;
     /**
      * @param requestStr JSON.stringified `QueryEngineRequest | QueryEngineBatchRequest`
      * @param headersStr JSON.stringified `QueryEngineRequestHeaders`
      */
-    query(requestStr: string, headersStr: string, transactionId?: string): Promise<string>;
-    sdlSchema(): Promise<string>;
-    dmmf(traceparent: string): Promise<string>;
-    startTransaction(options: string, traceHeaders: string): Promise<string>;
-    commitTransaction(id: string, traceHeaders: string): Promise<string>;
-    rollbackTransaction(id: string, traceHeaders: string): Promise<string>;
-    metrics(options: string): Promise<string>;
-    applyPendingMigrations(): Promise<void>;
+    query(requestStr: string, headersStr: string, transactionId: string | undefined, requestId: string): Promise<string>;
+    sdlSchema?(): Promise<string>;
+    startTransaction(options: string, traceHeaders: string, requestId: string): Promise<string>;
+    commitTransaction(id: string, traceHeaders: string, requestId: string): Promise<string>;
+    rollbackTransaction(id: string, traceHeaders: string, requestId: string): Promise<string>;
+    metrics?(options: string): Promise<string>;
+    applyPendingMigrations?(): Promise<void>;
+    trace(requestId: string): Promise<string | null>;
 };
 
 declare type QueryEngineLogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'off';
@@ -2573,11 +2576,6 @@ declare type QueryEngineResultData<T> = {
     data: T;
 };
 
-declare type QueryEngineTelemetry = {
-    enabled: Boolean;
-    endpoint: string;
-};
-
 declare type QueryEvent = {
     timestamp: Date;
     query: string;
@@ -2587,6 +2585,8 @@ declare type QueryEvent = {
 };
 
 declare type QueryEventType = 'query';
+
+declare type QueryIntrospectionBuiltinType = 'int' | 'bigint' | 'float' | 'double' | 'string' | 'enum' | 'bytes' | 'bool' | 'char' | 'decimal' | 'json' | 'xml' | 'uuid' | 'datetime' | 'date' | 'time' | 'int-array' | 'bigint-array' | 'float-array' | 'double-array' | 'string-array' | 'char-array' | 'bytes-array' | 'bool-array' | 'decimal-array' | 'json-array' | 'xml-array' | 'uuid-array' | 'datetime-array' | 'date-array' | 'time-array' | 'null' | 'unknown';
 
 declare type QueryMiddleware = (params: QueryMiddlewareParams, next: (params: QueryMiddlewareParams) => Promise<unknown>) => Promise<unknown>;
 
@@ -2630,6 +2630,12 @@ export declare type RawParameters = {
 };
 
 export declare type RawQueryArgs = Sql | UnknownTypedSql | [query: string, ...values: RawValue[]];
+
+declare type RawResponse = {
+    columns: string[];
+    types: QueryIntrospectionBuiltinType[];
+    rows: unknown[][];
+};
 
 declare type RawTaggedValue = {
     $type: 'Raw';
@@ -3161,7 +3167,7 @@ export declare function sqltag(strings: readonly string[], ...values: readonly R
  *
  * hrtime, epoch milliseconds, performance.now() or Date
  */
-declare type TimeInput = HrTime | number | Date;
+declare type TimeInput = HrTime_2 | number | Date;
 
 export declare type ToTuple<T> = T extends any[] ? T : [T];
 
@@ -3206,7 +3212,7 @@ declare interface TraceState {
 declare interface TracingHelper {
     isEnabled(): boolean;
     getTraceParent(context?: Context): string;
-    createEngineSpan(engineSpanEvent: EngineSpanEvent): void;
+    dispatchEngineSpans(spans: EngineSpan[]): void;
     getActiveContext(): Context | undefined;
     runInChildSpan<R>(nameOrOptions: string | ExtendedSpanOptions, callback: SpanCallback<R>): R;
 }

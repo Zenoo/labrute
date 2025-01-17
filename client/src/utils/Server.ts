@@ -4,6 +4,7 @@ import Fetch from './Fetch';
 
 const Server = {
   isReady: () => Fetch<ServerReadyResponse>('/api/is-ready'),
+  csrf: () => Fetch<{ csrfToken: string }>('/api/csrf'),
   User: {
     authenticate: (login: string, token: string) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', {
       login,

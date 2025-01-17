@@ -82,6 +82,21 @@ export interface Config {
   readonly selfUrl: URL;
 
   /**
+   * Regular expression used to match CORS origins.
+   */
+  readonly corsRegex: RegExp;
+
+  /**
+   * Secret used to sign cookies.
+   */
+  readonly cookieSecret: string;
+
+  /**
+   * Secret used to sign CSRF tokens.
+   */
+  readonly csrfSecret: string;
+
+  /**
    * Configuration for the Eternaltwin client.
    */
   readonly eternaltwin: EternaltwinConfig;
@@ -126,6 +141,9 @@ export const emptyConfig: Config = {
   isProduction: false,
   port: 50380,
   selfUrl: new URL('http://localhost:3000/'),
+  corsRegex: /.*/,
+  cookieSecret: 'dev',
+  csrfSecret: 'dev2',
   eternaltwin: {
     url: 'http://localhost:50320/',
     clientRef: 'brute_dev@clients',
@@ -149,7 +167,7 @@ export const emptyConfig: Config = {
  *
  * @param envPort Value of the `PORT` environment variable.
  */
-export function readPort(envPort: string | undefined): number {
+export function readPort(envPort: string | undefined) {
   if (typeof envPort === 'string') {
     const numPort = parseInt(envPort, 10);
     if (!Number.isNaN(numPort)) {
@@ -181,6 +199,40 @@ export function readSelfUrl(envSelfUrl: string | undefined): URL {
 }
 
 /**
+ * Regular expression used to match CORS origins.
+ */
+export function readCorsRegex(envCorsRegex: string | undefined) {
+  if (typeof envCorsRegex === 'string') {
+    try {
+      return new RegExp(envCorsRegex);
+    } catch {
+      // fall through and return default
+    }
+  }
+  return /.*/;
+}
+
+/**
+ * Read the cookie secret value based on the provided env value.
+ */
+export function readCookieSecret(envCookieSecret: string | undefined) {
+  if (typeof envCookieSecret === 'string') {
+    return envCookieSecret;
+  }
+  return emptyConfig.cookieSecret;
+}
+
+/**
+ * Read the CSRF secret value based on the provided env value.
+ */
+export function readCsrfSecret(envCsrfSecret: string | undefined) {
+  if (typeof envCsrfSecret === 'string') {
+    return envCsrfSecret;
+  }
+  return emptyConfig.csrfSecret;
+}
+
+/**
  * Read the provided environment recorded and build a config object.
  */
 export async function readConfig(
@@ -190,6 +242,9 @@ export async function readConfig(
   const isProduction = env.NODE_ENV === 'production';
   const port = readPort(env.PORT);
   const selfUrl = readSelfUrl(env.SELF_URL);
+  const corsRegex = readCorsRegex(env.CORS_REGEX);
+  const cookieSecret = readCookieSecret(env.COOKIE_SECRET);
+  const csrfSecret = readCsrfSecret(env.CSRF_SECRET);
 
   const configVars = await prisma?.config.findMany({
     select: {
@@ -321,6 +376,9 @@ export async function readConfig(
     isProduction,
     port,
     selfUrl,
+    corsRegex,
+    cookieSecret,
+    csrfSecret,
     eternaltwin,
     discordNotifications,
     discordLogs,

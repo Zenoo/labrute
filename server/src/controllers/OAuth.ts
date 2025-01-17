@@ -31,7 +31,10 @@ export default class OAuth {
     this.#prisma = prisma;
   }
 
-  public redirect(_req: Request, res: Response): void {
+  public redirect(_req: Request, res: Response) {
+    // Disable CORS
+    res.header('Access-Control-Allow-Origin', '*');
+
     try {
       res.send({
         url: this.#oauthClient.getAuthorizationUri('base', ''),
@@ -44,7 +47,10 @@ export default class OAuth {
   public async token(
     req: Request,
     res: Response<UserWithBrutesBodyColor>,
-  ): Promise<void> {
+  ) {
+    // Disable CORS
+    res.header('Access-Control-Allow-Origin', '*');
+
     try {
       if (!req.query.code || typeof req.query.code !== 'string') {
         throw new ExpectedError('Invalid code');
