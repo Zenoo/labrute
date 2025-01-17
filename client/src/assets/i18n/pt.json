@@ -449,6 +449,8 @@
   "combo": "Combo",
   "deflect": "Deflect",
   "damage": "Dano",
+  "criticalChance": "Critical chance",
+  "criticalDamage": "Critical damage",
   "opponent-damage": "Opponent damage",
   "drawChance": "Probabilidade de uso",
   "reach": "Alcance",
