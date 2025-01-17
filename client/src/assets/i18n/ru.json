@@ -436,7 +436,7 @@
   "thrown": "метательное",
   "blunt": "ударное",
   "odds": "Вероятность",
-  "enduranceMalus": "Малус на выносливость",
+  "hpMalus": "HP malus",
   "hitSpeed": "Скорость удара",
   "initiative": "Инициатива",
   "counter": "Встречный удар",
