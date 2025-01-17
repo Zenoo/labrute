@@ -449,6 +449,8 @@
   "combo": "Combo",
   "deflect": "Renvoi",
   "damage": "Dégâts",
+  "criticalChance": "Critical chance",
+  "criticalDamage": "Critical damage",
   "opponent-damage": "Dégâts de l'adversaire",
   "drawChance": "Chance d'utilisation",
   "reach": "Portée",
