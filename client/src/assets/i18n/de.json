@@ -449,6 +449,8 @@
   "combo": "Kombo",
   "deflect": "Rückschlag",
   "damage": "Schaden",
+  "criticalChance": "Critical chance",
+  "criticalDamage": "Critical damage",
   "opponent-damage": "Gegnerischer Schaden",
   "drawChance": "Nutzchance",
   "reach": "Reichweite",
