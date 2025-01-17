@@ -436,7 +436,7 @@
   "thrown": "thrown",
   "blunt": "blunt",
   "odds": "Odds",
-  "enduranceMalus": "Endurance malus",
+  "hpMalus": "HP malus",
   "hitSpeed": "Hit speed",
   "initiative": "Initiative",
   "counter": "Counter",
