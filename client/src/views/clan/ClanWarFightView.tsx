@@ -1,5 +1,5 @@
 import { Fighter, FightGetResponse } from '@labrute/core';
-import { Box, Link, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -14,6 +14,7 @@ import Text from '../../components/Text';
 import FightComponent from '../../components/Arena/FightComponent';
 import catchError from '../../utils/catchError';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
+import Link from '../../components/Link';
 
 const ClanWarFightView = () => {
   const { t } = useTranslation();
@@ -94,14 +95,14 @@ const ClanWarFightView = () => {
               </Tooltip>
             ))}
           </Box>
-          <Box sx={{ ml: 5, alignSelf: 'center' }}>
+          <Box sx={{ mt: 2, ml: 5, alignSelf: 'center' }}>
             {/* FIGHT */}
             <FightComponent fight={fight} />
             {/* FIGHTERS */}
             <Box sx={{
               ml: smallScreen ? 0 : 5,
               maxWidth: 500,
-              maxHeight: 95,
+              maxHeight: 75,
               overflowY: 'auto',
             }}
             >
@@ -138,14 +139,18 @@ const ClanWarFightView = () => {
                       <TableCell>
                         {attackers[i] && (
                           <BruteTooltip fighter={attackers[i]}>
-                            <Text bold color="secondary">{attackers[i]?.name}</Text>
+                            <Text bold color="secondary">
+                              <Link to={`/${attackers[i].name}/cell`}>{attackers[i].name}</Link>
+                            </Text>
                           </BruteTooltip>
                         )}
                       </TableCell>
                       <TableCell align="right">
                         {defenders[i] && (
                           <BruteTooltip fighter={defenders[i]}>
-                            <Text bold color="secondary">{defenders[i]?.name}</Text>
+                            <Text bold color="secondary">
+                              <Link to={`/${defenders[i].name}/cell`}>{defenders[i].name}</Link>
+                            </Text>
                           </BruteTooltip>
                         )}
                       </TableCell>
