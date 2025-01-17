@@ -95,13 +95,13 @@ const Clans = {
     }
   },
   create: (prisma: PrismaClient) => async (
-    req: Request<{ brute: string }>,
+    req: Request<{ brute: string }, unknown, { name: string }>,
     res: Response<ClanCreateResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.brute || !req.query.name) {
+      if (!req.params.brute || !req.body.name) {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
