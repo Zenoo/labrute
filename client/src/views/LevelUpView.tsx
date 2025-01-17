@@ -1,5 +1,5 @@
-import { BrutesGetLevelUpChoicesResponse, getFinalHP, getFinalStat, getXPNeeded, skills, weapons } from '@labrute/core';
-import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { BrutesGetLevelUpChoicesResponse, convertEnduranceToHP, getFinalHP, getFinalStat, getXPNeeded, skills, weapons } from '@labrute/core';
+import { Brute, BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,20 @@ import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
 import StatColor from '../utils/StatColor';
 import catchError from '../utils/catchError';
+
+// Rename endurance to HP
+const statName = (stat: BruteStat) => {
+  if (stat === 'endurance') return 'hp';
+
+  return stat;
+};
+
+// Convert endurance to HP
+const statValue = (brute: Pick<Brute, 'enduranceModifier'>, stat: BruteStat | null, value: number) => {
+  if (stat === 'endurance') return convertEnduranceToHP(brute, value);
+
+  return value;
+};
 
 const LevelUpView = () => {
   const { t } = useTranslation();
@@ -223,9 +237,9 @@ const LevelUpView = () => {
                   {/* CHOICE HEADER */}
                   <Text caption>
                     {/* +3 Skill */}
-                    {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value || ''} ${t('in')}`}
+                    {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
                     {/* +2/+1 Skill */}
-                    {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value || ''}/+${destinyChoice.stat2Value || ''} ${t('in')}`}
+                    {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
                     {/* New weapon */}
                     {destinyChoice.type === 'weapon' && `${t('newWeapon')} :`}
                     {/* New skill */}
@@ -251,10 +265,12 @@ const LevelUpView = () => {
                   ) : destinyChoice.type === 'pet' ? (
                     <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
                   ) : !destinyChoice.stat2 ? (
-                    <Text h6 bold smallCaps>{t(destinyChoice.stat1 as BruteStat)}</Text>
+                    <Text h6 bold smallCaps>{t(statName(destinyChoice.stat1 as BruteStat))}</Text>
                   ) : (
                     <Text h6 bold smallCaps>
-                      {t(destinyChoice.stat1 as BruteStat)} / {t(destinyChoice.stat2)}
+                      {t(statName(destinyChoice.stat1 as BruteStat))}
+                      {' / '}
+                      {t(statName(destinyChoice.stat2))}
                     </Text>
                   ))}
                 </BoxBg>

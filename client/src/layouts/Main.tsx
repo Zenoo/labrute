@@ -229,21 +229,23 @@ const Main = () => {
             </>
           )}
           {user && (
-            <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
-              <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
-                {user.gold}
-                <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
-              </Text>
-            </Tooltip>
+            <>
+              <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
+                <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
+                  {user.gold}
+                  <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
+                </Text>
+              </Tooltip>
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{
+                  my: 0.5,
+                  borderColor: theme.palette.topbar.divider
+                }}
+              />
+            </>
           )}
-          <Divider
-            orientation="vertical"
-            flexItem
-            sx={{
-              my: 0.5,
-              borderColor: theme.palette.topbar.divider
-            }}
-          />
           {user ? (
             <Badge
               badgeContent={user.notifications.length}

@@ -14,6 +14,7 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import Link from '../../components/Link';
 
 export const BruteAdminView = () => {
   const { t } = useTranslation();
@@ -72,7 +73,11 @@ export const BruteAdminView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {brute ? (
           <>
-            <Text h2 smallCaps>{brute.name} ({brute.user?.name} {brute.user?.id})</Text>
+            <Text h2 smallCaps>
+              <Link to={`/${brute.name}/cell`}>{brute.name}</Link>
+              {' '}
+              ({brute.user?.name} {brute.user?.id})
+            </Text>
             <Box width={100}>
               <BruteRender brute={brute} />
             </Box>

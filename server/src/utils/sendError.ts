@@ -122,10 +122,10 @@ const sendError = (res: Response, error: unknown) => {
   }
 
   if (!(error instanceof ExpectedError)
-      || !(error instanceof ForbiddenError)
-      || !(error instanceof MissingElementError)
-      || !(error instanceof LimitError)
-      || !(error instanceof NotFoundError)) {
+      && !(error instanceof ForbiddenError)
+      && !(error instanceof MissingElementError)
+      && !(error instanceof LimitError)
+      && !(error instanceof NotFoundError)) {
     try {
       DISCORD().sendError(error, res);
     } catch (discordError) {
