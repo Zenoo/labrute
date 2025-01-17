@@ -436,7 +436,7 @@
   "thrown": "geworfen",
   "blunt": "stumpf",
   "odds": "Wahrscheinlichkeit",
-  "enduranceMalus": "Malus auf Ausdauer",
+  "hpMalus": "HP malus",
   "hitSpeed": "Schlagschnelligkeit",
   "initiative": "Initiative",
   "counter": "Konter",
