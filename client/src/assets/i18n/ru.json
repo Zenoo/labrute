@@ -38,7 +38,7 @@
   "lightMode": "Светлый режим",
   "darkMode": "Тёмный режим",
   "betaTitle": "Бета-версия",
-  "searchBrute": "Search a Brute",
+  "searchBrute": "Поиск Брутала",
   "betaDescription": "Эта игра находится в бета-версии. Неполадки и будущие изменения не исключены. Сообщайте о багах в нашем",
   "discord": "Дискорде",
   "betaReset": "Учтите, что к окончанию беты всё будет сброшено.",
@@ -123,7 +123,7 @@
   "seeFight": "Жмите сюда, чтобы посмотреть битву",
   "master": "Лидер",
   "ranking": "Рейтинг",
-  "rankings": "{{value}} rankings",
+  "rankings": "{{value}} рейтингов",
   "victories": "Победы",
   "winrate": "Доля побед",
   "lastSeen": "Последняя активность {{date}}",
@@ -1586,6 +1586,6 @@
   "unknown": "Неизвестно",
   "reportedBy": "Автор жалобы:",
   "handledBy": "Обработчик:",
-  "unauthorized": "Unauthorized",
-  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
+  "unauthorized": "Нет авторизации",
+  "unauthorized.desc": "Кажется, вы потерялись, вы любопытная штучка. Вам здесь не место."
 }
