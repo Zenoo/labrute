@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { pad, Release } from '@labrute/core';
 import { Brute, FightModifier } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import type { Response } from 'express';
-import { pad, Release } from '@labrute/core';
 import { Logger } from '../logger/index.js';
 import translate from './translate.js';
 
@@ -76,16 +76,17 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
 };
 
 export interface NetworkDiscordClientOptions {
-  notificationWebhookId: string,
-  notificationWebhookToken: string,
-  logWebhookId: string,
-  logWebhookToken: string,
-  rankUpWebhookId: string,
-  rankUpWebhookToken: string,
-  releaseWebhookId: string,
-  releaseWebhookToken: string,
-  knownIssuesWebhookId: string,
-  knownIssuesWebhookToken: string,
+  notificationWebhookId?: string,
+  notificationWebhookToken?: string,
+  logWebhookId?: string,
+  logWebhookToken?: string,
+  rankUpWebhookId?: string,
+  rankUpWebhookToken?: string,
+  releaseWebhookId?: string,
+  releaseWebhookToken?: string,
+  knownIssuesWebhookId?: string,
+  knownIssuesWebhookToken?: string,
+  knownIssuesMessageId: string,
   timeout?: number
   logger: Logger,
   server: URL,
@@ -99,27 +100,33 @@ export class NetworkDiscordClient implements DiscordClient {
   /**
    * Client used to send tournament notifications
    */
-  readonly #notificationClient: WebhookClient;
+  readonly #notificationClient?: WebhookClient;
 
   /**
    * Client used to send logs
    */
-  readonly #logClient: WebhookClient;
+  readonly #logClient?: WebhookClient;
 
   /**
    * Client used to send rank up notifications
    */
-  readonly #rankUpClient: WebhookClient;
+  readonly #rankUpClient?: WebhookClient;
 
   /**
    * Client used to send release notifications
    */
-  readonly #releaseClient: WebhookClient;
+  readonly #releaseClient?: WebhookClient;
 
   /**
    * Client used to manage known issues
    */
-  readonly #knownIssuesClient: WebhookClient;
+  readonly #knownIssuesClient?: WebhookClient;
+
+  /**
+   * Known issues message ID
+   *
+   */
+  readonly #knownIssuesMessageId: string;
 
   /**
    * Create a new Discord client
@@ -132,46 +139,68 @@ export class NetworkDiscordClient implements DiscordClient {
         timeout: options.timeout ?? DEFAULT_TIMEOUT,
       },
     };
-    this.#notificationClient = new WebhookClient(
-      {
-        id: options.notificationWebhookId,
-        token: options.notificationWebhookToken,
-      },
-      clientOptions,
-    );
-    this.#logClient = new WebhookClient(
-      {
-        id: options.logWebhookId,
-        token: options.logWebhookToken,
-      },
-      clientOptions,
-    );
-    this.#rankUpClient = new WebhookClient(
-      {
-        id: options.rankUpWebhookId,
-        token: options.rankUpWebhookToken,
-      },
-      clientOptions,
-    );
-    this.#releaseClient = new WebhookClient(
-      {
-        id: options.releaseWebhookId,
-        token: options.releaseWebhookToken,
-      },
-      clientOptions,
-    );
-    this.#knownIssuesClient = new WebhookClient(
-      {
-        id: options.knownIssuesWebhookId,
-        token: options.knownIssuesWebhookToken,
-      },
-      clientOptions,
-    );
+
+    if (options.notificationWebhookId && options.notificationWebhookToken) {
+      this.#notificationClient = new WebhookClient(
+        {
+          id: options.notificationWebhookId,
+          token: options.notificationWebhookToken,
+        },
+        clientOptions,
+      );
+    }
+
+    if (options.logWebhookId && options.logWebhookToken) {
+      this.#logClient = new WebhookClient(
+        {
+          id: options.logWebhookId,
+          token: options.logWebhookToken,
+        },
+        clientOptions,
+      );
+    }
+
+    if (options.rankUpWebhookId && options.rankUpWebhookToken) {
+      this.#rankUpClient = new WebhookClient(
+        {
+          id: options.rankUpWebhookId,
+          token: options.rankUpWebhookToken,
+        },
+        clientOptions,
+      );
+    }
+
+    if (options.releaseWebhookId && options.releaseWebhookToken) {
+      this.#releaseClient = new WebhookClient(
+        {
+          id: options.releaseWebhookId,
+          token: options.releaseWebhookToken,
+        },
+        clientOptions,
+      );
+    }
+
+    if (options.knownIssuesWebhookId && options.knownIssuesWebhookToken) {
+      this.#knownIssuesClient = new WebhookClient(
+        {
+          id: options.knownIssuesWebhookId,
+          token: options.knownIssuesWebhookToken,
+        },
+        clientOptions,
+      );
+    }
+
+    this.#knownIssuesMessageId = options.knownIssuesMessageId;
     this.#logger = options.logger;
     this.#server = options.server;
   }
 
   public sendError(error: Error, res?: Response) {
+    if (!this.#logClient) {
+      console.error(error);
+      return;
+    }
+
     const embed = new EmbedBuilder()
       .setColor(0xff0000)
       .setTitle(formatEmbedTitle(res ? res.req.url : error.message))
@@ -221,6 +250,10 @@ ${error.stack}
   }
 
   public sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>) {
+    if (!this.#rankUpClient) {
+      return;
+    }
+
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
       .setTitle(formatEmbedTitle(`${brute.name} ranked up to ${translate(`rank.${brute.ranking}`)} at level ${brute.level}`))
@@ -239,6 +272,10 @@ ${error.stack}
   }
 
   public sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number) {
+    if (!this.#rankUpClient) {
+      return;
+    }
+
     const embed = new EmbedBuilder()
       .setColor(0xeb8770)
       .setTitle(formatEmbedTitle(ascensions === 1 ? `${brute.name} has ascended` : `${brute.name} has now ascended ${ascensions} times`))
@@ -257,6 +294,10 @@ ${error.stack}
   }
 
   public sendModifiersNotification(modifiers: FightModifier[]) {
+    if (!this.#notificationClient) {
+      return;
+    }
+
     const embed = new EmbedBuilder()
       .setColor(0xebad70)
       .setTitle(formatEmbedTitle('Today is special !'))
@@ -282,6 +323,10 @@ ${error.stack}
   }
 
   public async sendRelease(release: Release) {
+    if (!this.#releaseClient) {
+      return;
+    }
+
     await this.#releaseClient.send({
       content: `<@&1086045548177530920>
 :flag_gb: **MyBrute v${release.version}**
@@ -298,6 +343,10 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
   }
 
   public async sendMessage(message: string) {
+    if (!this.#logClient) {
+      return;
+    }
+
     let content = SEND_MESSAGE_PREFIX + message + SEND_MESSAGE_SUFFIX;
     if (content.length > MAX_CONTENT_LENGTH) {
       const shortLen = MAX_CONTENT_LENGTH
@@ -310,6 +359,10 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
   }
 
   public async updateKnownIssues(issues: string[]) {
+    if (!this.#knownIssuesClient) {
+      return;
+    }
+
     const embed = new EmbedBuilder()
       .setColor(0xff0000)
       .setTitle('Known Issues')
@@ -318,7 +371,7 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
 
     // Fetch the known issues message
     try {
-      const message = await this.#knownIssuesClient.fetchMessage('1310056621774471241');
+      const message = await this.#knownIssuesClient.fetchMessage(this.#knownIssuesMessageId);
 
       // Update existing message
       await this.#knownIssuesClient.editMessage(message.id, { embeds: [embed] });

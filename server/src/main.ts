@@ -54,7 +54,7 @@ function initOpentelemetry(config: Config): NodeSDK {
 }
 
 async function main() {
-  const config = loadConfig();
+  const config = await loadConfig();
   const otelSdk = initOpentelemetry(config);
   otelSdk.start();
   // eslint-disable-next-line node/no-unsupported-features/es-syntax

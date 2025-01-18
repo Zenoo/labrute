@@ -250,25 +250,45 @@ const TournamentMobileView = ({
           && (!authing && brute)
           && (!ownsBrute || (ownsBrute && stepWatched > 5))
           && (
-            <BruteTooltip
-              fighter={winnerFight.winner === winnerFight.brute1?.name
-                ? winnerFightFighters
-                  .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
-                : winnerFightFighters
-                  .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
-              brute={winnerFight.winner === winnerFight.brute1?.name
-                ? winnerFight.brute1
-                : winnerFight.brute2}
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
             >
-              <Box width={100} mx="auto">
-                <BruteRender
-                  brute={winnerFight.winner === winnerFight.brute1?.name
-                    ? winnerFight.brute1
-                    : winnerFight?.brute2}
-                  width={100}
-                />
-              </Box>
-            </BruteTooltip>
+              <BruteTooltip
+                fighter={winnerFight.winner === winnerFight.brute1?.name
+                  ? winnerFightFighters
+                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
+                  : winnerFightFighters
+                    .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
+                brute={winnerFight.winner === winnerFight.brute1?.name
+                  ? winnerFight.brute1
+                  : winnerFight.brute2}
+              >
+                <Box width={100} mx="auto">
+                  <BruteRender
+                    brute={winnerFight.winner === winnerFight.brute1?.name
+                      ? winnerFight.brute1
+                      : winnerFight?.brute2}
+                    width={100}
+                    sx={{
+                      width: '100%',
+                      left: 0,
+                    }}
+                  />
+                </Box>
+              </BruteTooltip>
+              <Box
+                component="img"
+                src="/images/tournament/podium.svg"
+                sx={{
+                  width: 155,
+                  marginTop: '-55px',
+                  marginLeft: '20px',
+                }}
+              />
+            </Box>
           )}
 
       </Paper>

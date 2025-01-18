@@ -1,5 +1,9 @@
 import {
   AchievementData, BruteDeletionReason, ExpectedError,
+  ForbiddenError,
+  LimitError,
+  MissingElementError,
+  NotFoundError,
   RaretyOrder,
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
@@ -12,6 +16,7 @@ import {
 } from '@labrute/core';
 import {
   Achievement, FightModifier, InventoryItemType, Lang,
+  Prisma,
   PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -32,19 +37,10 @@ const Users = {
     res: Response<UserGetAdminResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new Error(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.id)) {
-        throw new Error(translate('invalidParameters', authed));
+        throw new ExpectedError(translate('invalidParameters', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -62,7 +58,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       // Merge achievements with same name
@@ -135,19 +131,10 @@ const Users = {
   },
   runDailyJob: (prisma: PrismaClient) => async (req: Request, res: Response) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const user = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!user?.admin) {
-        throw new Error(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       await dailyJob(prisma)().catch((error: Error) => {
-        DISCORD.sendError(error);
+        DISCORD().sendError(error);
       });
 
       res.send({ message: 'Job run' });
@@ -240,19 +227,10 @@ const Users = {
     try {
       const { params: { id } } = req;
 
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!id) {
-        throw new ExpectedError(translate('noIDProvided', authed));
+        throw new MissingElementError(translate('noIDProvided', authed));
       }
 
       const user = await prisma.user.findFirst({
@@ -262,7 +240,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new Error(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       // Update the user
@@ -330,7 +308,7 @@ const Users = {
   ) => {
     try {
       if (!req.params.userId) {
-        throw new ExpectedError('No user ID provided');
+        throw new MissingElementError('No user ID provided');
       }
 
       if (!isUuid(req.params.userId)) {
@@ -403,7 +381,7 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound'));
+        throw new NotFoundError(translate('userNotFound'));
       }
 
       // Merge achievements with same name
@@ -448,9 +426,12 @@ const Users = {
     req: Request<{ userId: string }>,
     res: Response<boolean>,
   ) => {
+    // Disable CORS
+    res.header('Access-Control-Allow-Origin', '*');
+
     try {
       if (!req.params.userId) {
-        throw new ExpectedError('No user ID provided');
+        throw new MissingElementError('No user ID provided');
       }
 
       const brutes = await prisma.brute.findMany({
@@ -468,7 +449,7 @@ const Users = {
       });
 
       if (!brutes.length) {
-        throw new ExpectedError('No brutes found');
+        throw new NotFoundError('No brutes found');
       }
 
       const modifiers = await ServerState.getModifiers(prisma);
@@ -498,7 +479,7 @@ const Users = {
       }
 
       if (user.dinorpgDone && moment.utc().isSame(moment.utc(user.dinorpgDone), 'day')) {
-        throw new ExpectedError(translate('alreadyClaimed', authed));
+        throw new LimitError(translate('alreadyClaimed', authed));
       }
 
       let dinoRpgDone = false;
@@ -510,14 +491,14 @@ const Users = {
 
       if (data !== 'true' && data !== 'false') {
         if (data.includes('doesn\'t exist.')) {
-          throw new ExpectedError(translate('noDinoRpgAccount', authed));
+          throw new NotFoundError(translate('noDinoRpgAccount', authed));
         }
 
         if (data.includes('404 Not Found')) {
-          throw new ExpectedError(translate('dinoRpgServerDown', authed));
+          throw new NotFoundError(translate('dinoRpgServerDown', authed));
         }
 
-        throw new Error(data);
+        throw new ExpectedError(data);
       }
 
       if (!dinoRpgDone) {
@@ -594,16 +575,7 @@ const Users = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.userId) || !req.body.reason) {
         throw new ExpectedError(translate('invalidParameters', authed));
@@ -624,11 +596,11 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       if (user.bannedAt) {
-        throw new ExpectedError(translate('userAlreadyBanned', authed));
+        throw new LimitError(translate('userAlreadyBanned', authed));
       }
 
       // Delete all brutes
@@ -642,6 +614,23 @@ const Users = {
           deletionReason: BruteDeletionReason.BANNED_USER,
         },
       });
+
+      // Remove brutes from clan fighters
+      const joinedBruteIds = Prisma.join(user.brutes.map((b) => b.id), undefined, undefined, '::uuid');
+      await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
+      await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
+
+      for (const brute of user.brutes) {
+        // Remove brutes from followed
+        await prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            followers: {
+              set: [],
+            },
+          },
+        });
+      }
 
       // Ban user
       await prisma.user.update({
@@ -669,16 +658,7 @@ const Users = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.userId)) {
         throw new ExpectedError(translate('invalidParameters', authed));
@@ -700,11 +680,11 @@ const Users = {
       });
 
       if (!user) {
-        throw new ExpectedError(translate('userNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       if (!user.bannedAt) {
-        throw new ExpectedError(translate('userNotBanned', authed));
+        throw new ForbiddenError(translate('userNotBanned', authed));
       }
 
       // Unban user
@@ -781,16 +761,7 @@ const Users = {
     res: Response<UserBannedListResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const users = await prisma.user.findMany({
         where: {
@@ -814,16 +785,7 @@ const Users = {
     res: Response<UserMultipleAccountsListResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       const ips = await prisma.$queryRaw<UserMultipleAccountsListResponse>`
         SELECT ip, array_agg(id) AS users
@@ -846,16 +808,7 @@ const Users = {
     res: Response<UserGetNextModifiersResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      await auth(prisma, req, { admin: true });
 
       res.send(await ServerState.getNextModifiers(prisma));
     } catch (error) {
@@ -867,16 +820,7 @@ const Users = {
     res: Response,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
-      const admin = await prisma.user.findFirst({
-        where: { id: authed.id },
-        select: { admin: true },
-      });
-
-      if (!admin?.admin) {
-        throw new ExpectedError(translate('unauthorized', authed));
-      }
+      const authed = await auth(prisma, req, { admin: true });
 
       const { modifiers } = req.body;
 

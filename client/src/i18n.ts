@@ -9,7 +9,7 @@ import pt from './assets/i18n/pt.json';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 
-const defaultByHost: Record<string, Lang> = {
+export const defaultLangByHost: Record<string, Lang> = {
   labrute: Lang.fr,
   mybrute: Lang.en,
   elbruto: Lang.es,
@@ -39,7 +39,7 @@ export const resources = {
 } as const;
 
 const host = window.location.hostname.split('.')[0] ?? '';
-const lang = defaultByHost[host] ?? DEFAULT_LANGUAGE;
+const lang = defaultLangByHost[host] ?? DEFAULT_LANGUAGE;
 
 i18n.use(initReactI18next).init({
   lng: lang,

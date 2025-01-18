@@ -13,6 +13,7 @@ import routes from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
+import { CsrfProvider } from './hooks/useCsrf';
 
 /**
  * App entry point
@@ -47,23 +48,25 @@ const App = () => {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <HelmetProvider>
         <CssBaseline />
-        <AlertProvider>
-          <AuthProvider>
-            <RendererProvider>
-              <StyledEngineProvider injectFirst>
-                <ColorModeContext.Provider value={colorMode}>
-                  <ThemeProvider theme={theme}>
-                    <ConfirmProvider>
-                      <Suspense fallback={<Loader />}>
-                        {routing}
-                      </Suspense>
-                    </ConfirmProvider>
-                  </ThemeProvider>
-                </ColorModeContext.Provider>
-              </StyledEngineProvider>
-            </RendererProvider>
-          </AuthProvider>
-        </AlertProvider>
+        <CsrfProvider>
+          <AlertProvider>
+            <AuthProvider>
+              <RendererProvider>
+                <StyledEngineProvider injectFirst>
+                  <ColorModeContext.Provider value={colorMode}>
+                    <ThemeProvider theme={theme}>
+                      <ConfirmProvider>
+                        <Suspense fallback={<Loader />}>
+                          {routing}
+                        </Suspense>
+                      </ConfirmProvider>
+                    </ThemeProvider>
+                  </ColorModeContext.Provider>
+                </StyledEngineProvider>
+              </RendererProvider>
+            </AuthProvider>
+          </AlertProvider>
+        </CsrfProvider>
       </HelmetProvider>
     </LocalizationProvider>
   );

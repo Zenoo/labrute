@@ -48,7 +48,7 @@ import { treat } from './treat';
 import updateWeapons from './updateWeapons';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
-import repositionFighters, { isNeutralStep } from './utils/repositionFighters';
+import repositionFighters, { isRangedStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
 import setHUDFocus from './setHUDFocus';
@@ -99,8 +99,11 @@ const setupFight: (
     throw new Error('Brute not found');
   }
 
+  // TODO: Remove this on release, as background extensions were changed
+  const fightBackground = `${fight.background.split('.')[0]}.jpg`;
+
   // Add background
-  const background = new PIXI.Sprite(miscSheet.textures[`background/${fight.background}`]);
+  const background = new PIXI.Sprite(miscSheet.textures[`background/${fightBackground}`]);
   background.zIndex = -1;
 
   // Fill screen
@@ -152,8 +155,9 @@ const setupFight: (
     fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
   });
   team1Text.filters = [new OutlineFilter()];
+  team1Text.anchor.set(0, 1);
   team1Text.x = 4;
-  team1Text.y = 0;
+  team1Text.y = 23;
   team1Text.zIndex = 102;
   app.stage?.addChild(team1Text);
 
@@ -256,10 +260,10 @@ const setupFight: (
     team2Text = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
     });
-    team2Text.anchor.x = 1;
     team2Text.filters = [new OutlineFilter()];
+    team2Text.anchor.set(1, 1);
     team2Text.x = app.screen.width - 4;
-    team2Text.y = 0;
+    team2Text.y = 23;
     team2Text.zIndex = 102;
     app.stage?.addChild(team2Text);
 
@@ -338,10 +342,10 @@ const setupFight: (
     const bossName = new PIXI.Text(displayedBossName.toLocaleUpperCase(), {
       fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
     });
-    bossName.anchor.x = 1;
     bossName.filters = [new OutlineFilter()];
+    bossName.anchor.set(1, 1);
     bossName.x = app.screen.width - 4;
-    bossName.y = 0;
+    bossName.y = 23;
     bossName.zIndex = 102;
     app.stage?.addChild(bossName);
 
@@ -410,21 +414,21 @@ const setupFight: (
             : fighter.id === boss?.id
               ? bossPhantomHpBar
               : undefined) ?? undefined,
-      bustImage: (fighter.master
+      bustImage: (fighter.type === 'pet'
         ? null
         : fighter.id === brute1.id
           ? brute1BustImg
           : fighter.id === brute2?.id
             ? brute2BustImg
             : null) ?? null,
-      bust: (fighter.master
+      bust: (fighter.type === 'pet'
         ? undefined
         : fighter.team === brute1.team
           ? team1Bust
           : fighter.team === brute2?.team
             ? team2Bust
             : undefined) ?? undefined,
-      text: (fighter.master
+      text: (fighter.type === 'pet'
         ? undefined
         : fighter.team === brute1.team
           ? team1Text
@@ -477,7 +481,7 @@ const setupFight: (
     }
 
     // Reposition mispositionned fighters during neutral
-    if (isNeutralStep(step.a)) await repositionFighters(app, fighters, speed);
+    if (isRangedStep(step.a)) await repositionFighters(app, fighters, speed);
 
     // Display step's brute in HUD
     if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
@@ -571,7 +575,7 @@ const setupFight: (
         break;
       }
       case StepType.Block: {
-        await block(app, fighters, step);
+        await block(app, fighters, step, speed);
         break;
       }
       case StepType.SkillActivate: {
@@ -583,7 +587,7 @@ const setupFight: (
         break;
       }
       case StepType.End: {
-        end(fighters, step);
+        end(app, fighters, step);
         break;
       }
       case StepType.Hypnotise: {
@@ -595,16 +599,11 @@ const setupFight: (
         break;
       }
       case StepType.Sabotage: {
-        sabotage(app, fighters, step);
+        sabotage(app, fighters, step, speed);
         break;
       }
       case StepType.Resist: {
-        const nextStep = steps[i + 1];
-
-        if (!nextStep) {
-          throw new Error('Next step not found');
-        }
-        resist(app, fighters, step, nextStep, speed);
+        resist(fighters, step);
         break;
       }
       case StepType.Bomb: {

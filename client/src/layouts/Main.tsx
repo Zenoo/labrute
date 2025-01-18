@@ -1,23 +1,24 @@
 import { getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
-import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useTheme } from '@mui/material';
+import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
 import ActionButton from '../components/ActionButton';
 import BruteRender from '../components/Brute/Body/BruteRender';
+import { BruteSearch } from '../components/BruteSearch';
 import Link from '../components/Link';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
+import { useBrute } from '../hooks/useBrute';
 import { useLanguage } from '../hooks/useLanguage';
 import { ColorModeContext } from '../theme/ColorModeContext';
 import dark from '../theme/dark';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
-import { useBrute } from '../hooks/useBrute';
 
 const Main = () => {
   const theme = useTheme();
@@ -28,6 +29,7 @@ const Main = () => {
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
   const { brute } = useBrute();
+  const smallScreen = useMediaQuery('(max-width: 935px)');
 
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<UserUpdateSettingsRequest>({
@@ -213,22 +215,37 @@ const Main = () => {
           </IconButton>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          {user && (
-            <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
-              <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
-                {user.gold}
-                <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
-              </Text>
-            </Tooltip>
+          {!smallScreen && (
+            <>
+              <BruteSearch />
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{
+                  my: 0.5,
+                  borderColor: theme.palette.topbar.divider
+                }}
+              />
+            </>
           )}
-          <Divider
-            orientation="vertical"
-            flexItem
-            sx={{
-              my: 0.5,
-              borderColor: theme.palette.topbar.divider
-            }}
-          />
+          {user && (
+            <>
+              <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
+                <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
+                  {user.gold}
+                  <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
+                </Text>
+              </Tooltip>
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{
+                  my: 0.5,
+                  borderColor: theme.palette.topbar.divider
+                }}
+              />
+            </>
+          )}
           {user ? (
             <Badge
               badgeContent={user.notifications.length}
@@ -363,7 +380,7 @@ const Main = () => {
                 />
                 {user.moderator && (
                   <ActionButton
-                    to="/admin-panel/report"
+                    to="/moderator-panel/report"
                     Icon={Policy}
                     iconColor={theme.palette.info.main}
                     title={t('moderation')}
@@ -414,6 +431,16 @@ const Main = () => {
                 ))}
               </Box>
             </Box>
+            {/* Mobile search */}
+            {smallScreen && (
+              <Box sx={{
+                textAlign: 'center',
+                mt: 1,
+              }}
+              >
+                <BruteSearch />
+              </Box>
+            )}
             {/* Notifs */}
             <Box sx={{
               display: 'flex',

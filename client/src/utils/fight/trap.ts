@@ -1,11 +1,10 @@
 /* eslint-disable no-void */
-import { FIGHTER_HEIGHT, FIGHTER_WIDTH, TrapStep } from '@labrute/core';
+import { TrapStep } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import getFighterType from './utils/getFighterType';
 
 const trap = async (
   app: Application,
@@ -38,27 +37,21 @@ const trap = async (
 
   // Create net sprite
   const net = new Sprite(spritesheet.textures['thrown-net.png']);
+  net.anchor.set(0.5, 0.5);
 
   // Set net position
   net.position.set(
-    brute.animation.container.x + FIGHTER_WIDTH.brute / 2,
-    brute.animation.container.y - FIGHTER_HEIGHT.brute / 2,
+    brute.team === 'L'
+      ? brute.animation.container.x + brute.animation.baseWidth / 2
+      : brute.animation.container.x - brute.animation.baseWidth / 2,
+    brute.animation.container.y - brute.animation.baseHeight / 2,
   );
 
   // Get target position
-  const targetType = getFighterType(target);
-  let targetPosition = {
-    x: target.animation.container.x + FIGHTER_WIDTH[targetType] / 2,
-    y: target.animation.container.y - FIGHTER_HEIGHT[targetType] / 2,
+  const targetPosition = {
+    x: target.animation.container.x,
+    y: target.animation.container.y - target.animation.baseHeight,
   };
-
-  // Adjust for bosses
-  if (target.type === 'boss') {
-    targetPosition = {
-      x: target.animation.container.x + FIGHTER_WIDTH[targetType],
-      y: target.animation.container.y - FIGHTER_HEIGHT[targetType],
-    };
-  }
 
   // Set rotation (from brute and target positions)
   net.angle = (Math.atan2(

@@ -2,12 +2,13 @@ import {
   AchievementData,
   AchievementGetRankingsResponse,
   AchievementsGetResponse,
-  BaseTitleRequirements, ExpectedError, RaretyOrder,
+  BaseTitleRequirements,
+  MissingElementError, RaretyOrder,
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import sendError from '../utils/sendError.js';
 import { ilike } from '../utils/ilike.js';
+import sendError from '../utils/sendError.js';
 
 export const increaseAchievement = async (
   prisma: PrismaClient,
@@ -97,7 +98,7 @@ const Achievements = {
     res: Response<AchievementsGetResponse>,
   ) => {
     try {
-      if (!req.body.userId) throw new ExpectedError('Missing user id');
+      if (!req.body.userId) throw new MissingElementError('Missing user id');
 
       // Get achievements
       const achievements = await prisma.achievement.findMany({
@@ -150,7 +151,7 @@ const Achievements = {
     res: Response<AchievementsGetResponse>,
   ) => {
     try {
-      if (!req.params.name) throw new ExpectedError('Missing brute name');
+      if (!req.params.name) throw new MissingElementError('Missing brute name');
 
       // Get achievements
       const achievements = await prisma.achievement.findMany({
@@ -182,7 +183,7 @@ const Achievements = {
       sendError(res, error);
     }
   },
-  generateTitlesCSV: (req: Request, res: Response) => {
+  generateTitlesCSV: (_req: Request, res: Response) => {
     try {
       const csvLines = [
         'name,count,title',

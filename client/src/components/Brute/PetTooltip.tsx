@@ -1,11 +1,11 @@
-import { PERKS_TOTAL_ODDS, Pet, getPetStat } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Pet, convertEnduranceToHP, getPetStat } from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
-import { Brute } from '@labrute/prisma';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -15,7 +15,7 @@ const textProps = {
 
 export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
   pet?: Pet;
-  brute?: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
+  brute?: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'enduranceModifier'>;
 }
 
 const PetTooltip = ({
@@ -49,12 +49,12 @@ const PetTooltip = ({
               {((pet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
             </Text>
           </Text>
-          {/* ENDURANCE MALUS */}
+          {/* HP MALUS */}
           <Text {...textProps}>
-            {t('enduranceMalus')}:
+            {t('hpMalus')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
-              {pet.enduranceMalus}
+              {convertEnduranceToHP(brute, pet.enduranceMalus)}
             </Text>
           </Text>
           {/* INITIATIVE */}

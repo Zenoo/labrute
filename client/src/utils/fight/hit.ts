@@ -1,17 +1,16 @@
 /* eslint-disable no-void */
-import { FIGHTER_HIT_ANCHOR, HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
+import { HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 
+import { Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
-import { AnimatedSprite, Application } from 'pixi.js';
-import stagger from './stagger';
-import { untrap } from './untrap';
-import updateHp from './updateHp';
 import displayDamage from './utils/displayDamage';
 import findFighter, { AnimationFighter } from './utils/findFighter';
-import getFighterType from './utils/getFighterType';
-
-const HIT_VFX = ['blood', 'impact-1', 'impact-2'];
+import stagger from './stagger';
+import updateHp from './updateHp';
+import { untrap } from './untrap';
+import { playHitEffect } from './utils/playVFX';
+import { playResistAnimation } from './resist';
 
 const hit = async (
   app: Application,
@@ -20,15 +19,6 @@ const hit = async (
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
-
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
@@ -43,7 +33,15 @@ const hit = async (
     ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
     : 'hit';
 
-  const targetWasTrapped = target.trapped;
+  // Fighter's side of the map
+  const fighterSide = fighter.animation.container.x > 250 ? 'R' : 'L';
+  // Target's side of the map
+  const targetSide = target.animation.container.x > 250 ? 'R' : 'L';
+  // Store if the hit was dealt in it's own side of the map
+  const ownSideHit = fighter.team === fighterSide && targetSide === fighterSide;
+
+  // Wake up target
+  target.stunned = false;
 
   // Untrap target
   untrap(app, target);
@@ -71,39 +69,8 @@ const hit = async (
     void sound.play('sfx', { sprite: `${target.name.replace(/\d/g, '')}` });
   }
 
-  let vfx = null;
-
   if (step.a !== StepType.Poison) {
-    if (fighter.type === 'pet') {
-      vfx = 'blood';
-    } else {
-      vfx = HIT_VFX[randomBetween(0, HIT_VFX.length - 1)];
-    }
-  }
-
-  // Create hit VFX
-  if (vfx) {
-    const hitVfx = new AnimatedSprite(spritesheet.animations[vfx] || []);
-    hitVfx.zIndex = 1000;
-    hitVfx.animationSpeed = speed.current / 4;
-    hitVfx.loop = false;
-    hitVfx.scale.x = target.team === 'L' ? -1 : 1;
-
-    // Set hit VFX position
-    const fighterType = getFighterType(fighter);
-    hitVfx.x = target.animation.container.x + FIGHTER_HIT_ANCHOR[fighterType].x * (target.team === 'L' ? 1 : -1);
-    hitVfx.y = target.animation.container.y - FIGHTER_HIT_ANCHOR[fighterType].y;
-
-    // Add hit VFX to stage
-    app.stage.addChild(hitVfx);
-
-    // Destroy hit VFX when animation is finished
-    hitVfx.onComplete = () => {
-      hitVfx.destroy();
-    };
-
-    // Play hit VFX
-    hitVfx.play();
+    playHitEffect(app, fighter, target, speed);
   }
 
   // Add poison filter if damage is poison
@@ -116,13 +83,42 @@ const hit = async (
     ];
   }
 
-  displayDamage(app, target, step.d, speed);
+  displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
+
+  // Play the resist animation now
+  playResistAnimation(app, target, speed);
 
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);
 
-  // Stagger
-  await stagger(target, speed);
+  // Max possible hit knockback
+  const maxKnockBack = 32;
+  let knockBack = 0;
+
+  // If regular hit
+  if (!ownSideHit) {
+    // 0 - 50 % knockBack from 0 - 20% lost hp
+    if (step.d > target.maxHp * 0.2) {
+      knockBack = maxKnockBack * 0.5 * (1 + (step.d - target.maxHp * 0.2) / (target.maxHp * 0.8));
+    // 50 - 100 % knockBack from 20 - 100% lost hp
+    } else {
+      knockBack = maxKnockBack * 0.5 * (step.d / (target.maxHp * 0.2));
+    }
+    // 2 minimum knockBack
+    if (knockBack < 1) knockBack = 2;
+    if (knockBack > maxKnockBack) knockBack = maxKnockBack;
+  // Else if stun and own side hit
+  } else if (step.s) {
+    // Counter stun knockback
+    knockBack = 65;
+  }
+
+  if (step.c) {
+    knockBack += 12;
+  }
+
+  // Stagger with knockBack
+  await stagger(target, speed, knockBack);
 
   // Remove poison filter
   if (step.a === StepType.Poison) {
@@ -131,16 +127,19 @@ const hit = async (
     ) || [];
   }
 
+  // Chaining
   if (step.s) {
+    void sound.play('sfx', { sprite: 'chaining' });
     target.stunned = true;
-  } else if (target.stunned && !targetWasTrapped) {
-    target.stunned = false;
   }
 
   // Set animation to `death` if target is stunned
   if (target.stunned) {
     target.animation.setAnimation('death');
-    void sound.play('sfx', { sprite: 'chaining' });
+    // Wait for 0.45s if this is a counter attack stun so it gets readable for the player
+    if (ownSideHit) {
+      await new Promise((resolve) => { setTimeout(resolve, 450 / speed.current); });
+    }
   } else {
     // Set animation to `idle`
     target.animation.setAnimation('idle');

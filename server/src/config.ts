@@ -1,4 +1,6 @@
+import { PrismaClient } from '@labrute/prisma';
 import * as dotenv from 'dotenv';
+import Cryptr from 'cryptr';
 
 /**
  * Configuration for the Eternaltwin client.
@@ -80,6 +82,21 @@ export interface Config {
   readonly selfUrl: URL;
 
   /**
+   * Regular expression used to match CORS origins.
+   */
+  readonly corsRegex: RegExp;
+
+  /**
+   * Secret used to sign cookies.
+   */
+  readonly cookieSecret: string;
+
+  /**
+   * Secret used to sign CSRF tokens.
+   */
+  readonly csrfSecret: string;
+
+  /**
    * Configuration for the Eternaltwin client.
    */
   readonly eternaltwin: EternaltwinConfig;
@@ -110,10 +127,38 @@ export interface Config {
   readonly discordKnownIssues: DiscordConfig | null;
 
   /**
+   * Discord known issues message ID
+   */
+  readonly discordKnownIssuesMessageId: string;
+
+  /**
    * Absolute URL to the DinoRPG website.
    */
   readonly dinoRpgUrl: string;
 }
+
+export const emptyConfig: Config = {
+  isProduction: false,
+  port: 50380,
+  selfUrl: new URL('http://localhost:3000/'),
+  corsRegex: /.*/,
+  cookieSecret: 'dev',
+  csrfSecret: 'dev2',
+  eternaltwin: {
+    url: 'http://localhost:50320/',
+    clientRef: 'brute_dev@clients',
+    secret: 'dev',
+    app: 'brute',
+    channel: 'dev',
+  },
+  discordNotifications: null,
+  discordLogs: null,
+  discordRankUps: null,
+  discordReleases: null,
+  discordKnownIssues: null,
+  discordKnownIssuesMessageId: '1310056621774471241',
+  dinoRpgUrl: 'https://dinorpg.eternaltwin.org',
+};
 
 /**
  * Read the port value based on the provided env value.
@@ -122,14 +167,14 @@ export interface Config {
  *
  * @param envPort Value of the `PORT` environment variable.
  */
-export function readPort(envPort: string | undefined): number {
+export function readPort(envPort: string | undefined) {
   if (typeof envPort === 'string') {
     const numPort = parseInt(envPort, 10);
     if (!Number.isNaN(numPort)) {
       return numPort;
     }
   }
-  return 50380;
+  return emptyConfig.port;
 }
 
 /**
@@ -150,24 +195,134 @@ export function readSelfUrl(envSelfUrl: string | undefined): URL {
       // fall through and return default
     }
   }
-  return new URL('http://localhost:3000/');
+  return emptyConfig.selfUrl;
+}
+
+/**
+ * Regular expression used to match CORS origins.
+ */
+export function readCorsRegex(envCorsRegex: string | undefined) {
+  if (typeof envCorsRegex === 'string') {
+    try {
+      return new RegExp(envCorsRegex);
+    } catch {
+      // fall through and return default
+    }
+  }
+  return /.*/;
+}
+
+/**
+ * Read the cookie secret value based on the provided env value.
+ */
+export function readCookieSecret(envCookieSecret: string | undefined) {
+  if (typeof envCookieSecret === 'string') {
+    return envCookieSecret;
+  }
+  return emptyConfig.cookieSecret;
+}
+
+/**
+ * Read the CSRF secret value based on the provided env value.
+ */
+export function readCsrfSecret(envCsrfSecret: string | undefined) {
+  if (typeof envCsrfSecret === 'string') {
+    return envCsrfSecret;
+  }
+  return emptyConfig.csrfSecret;
 }
 
 /**
  * Read the provided environment recorded and build a config object.
  */
-export function readConfig(env: Record<string, string | undefined>): Config {
-  dotenv.config();
-
+export async function readConfig(
+  env: Record<string, string | undefined>,
+  prisma?: PrismaClient,
+): Promise<Config> {
   const isProduction = env.NODE_ENV === 'production';
   const port = readPort(env.PORT);
   const selfUrl = readSelfUrl(env.SELF_URL);
+  const corsRegex = readCorsRegex(env.CORS_REGEX);
+  const cookieSecret = readCookieSecret(env.COOKIE_SECRET);
+  const csrfSecret = readCsrfSecret(env.CSRF_SECRET);
 
-  const eternaltwinUrl = env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? 'http://localhost:50320/';
-  const eternaltwinClientRef = env.ETERNALTWIN_CLIENT_REF ?? env.ETWIN_CLIENT_ID ?? 'brute_dev@clients';
-  const eternaltwinSecret = env.ETERNALTWIN_SECRET ?? env.ETWIN_CLIENT_SECRET ?? 'dev';
-  const eternaltwinApp = env.ETERNALTWIN_APP ?? 'brute';
-  const eternaltwinChannel = env.ETERNALTWIN_CHANNEL ?? 'dev';
+  const configVars = await prisma?.config.findMany({
+    select: {
+      key: true,
+      value: true,
+    },
+  }) ?? [];
+
+  const cryptrSecret = configVars.find((v) => v.key === 'CRYPTR_SECRET')?.value ?? 'dev';
+  const cryptr = new Cryptr(cryptrSecret);
+
+  const eternaltwinUrl = env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? emptyConfig.eternaltwin.url;
+  const eternaltwinClientRef = env.ETERNALTWIN_CLIENT_REF
+    ?? env.ETWIN_CLIENT_ID
+    ?? emptyConfig.eternaltwin.clientRef;
+  const eternaltwinSecret = env.ETERNALTWIN_SECRET
+    ?? env.ETWIN_CLIENT_SECRET
+    ?? emptyConfig.eternaltwin.secret;
+  const eternaltwinApp = env.ETERNALTWIN_APP ?? emptyConfig.eternaltwin.app;
+  const eternaltwinChannel = env.ETERNALTWIN_CHANNEL ?? emptyConfig.eternaltwin.channel;
+
+  let rawDiscordNotifId = env.DISCORD_WEBHOOK_ID;
+  let rawDiscordNotifToken = env.DISCORD_WEBHOOK_TOKEN;
+  let rawDiscordLogId = env.DISCORD_LOGS_WEBHOOK_ID;
+  let rawDiscordLogToken = env.DISCORD_LOGS_WEBHOOK_TOKEN;
+  let rawDiscordRankUpId = env.DISCORD_RANKUP_WEBHOOK_ID;
+  let rawDiscordRankUpToken = env.DISCORD_RANKUP_WEBHOOK_TOKEN;
+  let rawDiscordReleasesId = env.DISCORD_RELEASES_WEBHOOK_ID;
+  let rawDiscordReleasesToken = env.DISCORD_RELEASES_WEBHOOK_TOKEN;
+  let rawDiscordKnownIssuesId = env.DISCORD_KNOWN_ISSUES_WEBHOOK_ID;
+  let rawDiscordKnownIssuesToken = env.DISCORD_KNOWN_ISSUES_WEBHOOK_TOKEN;
+  let { discordKnownIssuesMessageId } = emptyConfig;
+
+  let dinoRpgUrl = env.DINORPG_URL ?? emptyConfig.dinoRpgUrl;
+
+  for (const { key, value } of configVars) {
+    const decryptedValue = key === 'CRYPTR_SECRET' ? value : cryptr.decrypt(value);
+    switch (key) {
+      case 'DISCORD_WEBHOOK_ID':
+        rawDiscordNotifId = decryptedValue;
+        break;
+      case 'DISCORD_WEBHOOK_TOKEN':
+        rawDiscordNotifToken = decryptedValue;
+        break;
+      case 'DISCORD_LOGS_WEBHOOK_ID':
+        rawDiscordLogId = decryptedValue;
+        break;
+      case 'DISCORD_LOGS_WEBHOOK_TOKEN':
+        rawDiscordLogToken = decryptedValue;
+        break;
+      case 'DISCORD_RANKUP_WEBHOOK_ID':
+        rawDiscordRankUpId = decryptedValue;
+        break;
+      case 'DISCORD_RANKUP_WEBHOOK_TOKEN':
+        rawDiscordRankUpToken = decryptedValue;
+        break;
+      case 'DISCORD_RELEASES_WEBHOOK_ID':
+        rawDiscordReleasesId = decryptedValue;
+        break;
+      case 'DISCORD_RELEASES_WEBHOOK_TOKEN':
+        rawDiscordReleasesToken = decryptedValue;
+        break;
+      case 'DISCORD_KNOWN_ISSUES_WEBHOOK_ID':
+        rawDiscordKnownIssuesId = decryptedValue;
+        break;
+      case 'DISCORD_KNOWN_ISSUES_WEBHOOK_TOKEN':
+        rawDiscordKnownIssuesToken = decryptedValue;
+        break;
+      case 'DISCORD_KNOWN_ISSUES_MESSAGE_ID':
+        discordKnownIssuesMessageId = decryptedValue;
+        break;
+      case 'DINORPG_URL':
+        dinoRpgUrl = decryptedValue;
+        break;
+      default:
+        break;
+    }
+  }
 
   const eternaltwin: EternaltwinConfig = {
     url: eternaltwinUrl,
@@ -177,8 +332,6 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     channel: eternaltwinChannel,
   };
 
-  const rawDiscordNotifId = env.DISCORD_WEBHOOK_ID;
-  const rawDiscordNotifToken = env.DISCORD_WEBHOOK_TOKEN;
   let discordNotifications: DiscordConfig | null = null;
   if (typeof rawDiscordNotifId === 'string' && typeof rawDiscordNotifToken === 'string') {
     discordNotifications = {
@@ -187,8 +340,6 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
-  const rawDiscordLogId = env.DISCORD_LOGS_WEBHOOK_ID;
-  const rawDiscordLogToken = env.DISCORD_LOGS_WEBHOOK_TOKEN;
   let discordLogs: DiscordConfig | null = null;
   if (typeof rawDiscordLogId === 'string' && typeof rawDiscordLogToken === 'string') {
     discordLogs = {
@@ -197,8 +348,6 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
-  const rawDiscordRankUpId = env.DISCORD_RANKUP_WEBHOOK_ID;
-  const rawDiscordRankUpToken = env.DISCORD_RANKUP_WEBHOOK_TOKEN;
   let discordRankUps: DiscordConfig | null = null;
   if (typeof rawDiscordRankUpId === 'string' && typeof rawDiscordRankUpToken === 'string') {
     discordRankUps = {
@@ -207,8 +356,6 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
-  const rawDiscordReleasesId = env.DISCORD_RELEASES_WEBHOOK_ID;
-  const rawDiscordReleasesToken = env.DISCORD_RELEASES_WEBHOOK_TOKEN;
   let discordReleases: DiscordConfig | null = null;
   if (typeof rawDiscordReleasesId === 'string' && typeof rawDiscordReleasesToken === 'string') {
     discordReleases = {
@@ -217,8 +364,6 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
-  const rawDiscordKnownIssuesId = env.DISCORD_KNOWN_ISSUES_WEBHOOK_ID;
-  const rawDiscordKnownIssuesToken = env.DISCORD_KNOWN_ISSUES_WEBHOOK_TOKEN;
   let discordKnownIssues: DiscordConfig | null = null;
   if (typeof rawDiscordKnownIssuesId === 'string' && typeof rawDiscordKnownIssuesToken === 'string') {
     discordKnownIssues = {
@@ -227,18 +372,20 @@ export function readConfig(env: Record<string, string | undefined>): Config {
     };
   }
 
-  const dinoRpgUrl = env.DINORPG_URL ?? 'https://dinorpg.eternaltwin.org';
-
   return {
     isProduction,
     port,
     selfUrl,
+    corsRegex,
+    cookieSecret,
+    csrfSecret,
     eternaltwin,
     discordNotifications,
     discordLogs,
     discordRankUps,
     discordReleases,
     discordKnownIssues,
+    discordKnownIssuesMessageId,
     dinoRpgUrl,
   };
 }
@@ -249,7 +396,8 @@ export function readConfig(env: Record<string, string | undefined>): Config {
  * As part of this resolution, if a `.env` file is present in the current
  * working directory, it is loaded and applied to the process environment.
  */
-export function loadConfig(): Config {
+export async function loadConfig(prisma?: PrismaClient): Promise<Config> {
   dotenv.config();
-  return readConfig(process.env);
+
+  return readConfig(process.env, prisma);
 }

@@ -1,5 +1,8 @@
-import { DetailedFighter, SkillDamageModifiers, Weapon } from '@labrute/core';
+import {
+  DetailedFighter, FightStat, SkillDamageModifiers, Weapon,
+} from '@labrute/core';
 import { SkillName, WeaponName } from '@labrute/prisma';
+import { getFighterStat } from './getFighterStat.js';
 
 const getDamage = (
   fighter: DetailedFighter,
@@ -125,6 +128,12 @@ const getDamage = (
     damage = Math.floor(damage * 0.75);
   }
 
+  // Critical hit
+  const criticalHit = Math.random() < getFighterStat(fighter, FightStat.CRITICAL_CHANCE);
+  if (criticalHit) {
+    damage = Math.floor(damage * getFighterStat(fighter, FightStat.CRITICAL_DAMAGE));
+  }
+
   // Reduce damage with opponent's armor if not thrown
   if (!thrown) {
     damage = Math.ceil(damage * (1 - opponent.armor));
@@ -135,7 +144,10 @@ const getDamage = (
     damage = 1;
   }
 
-  return damage;
+  return {
+    damage,
+    criticalHit,
+  };
 };
 
 export default getDamage;

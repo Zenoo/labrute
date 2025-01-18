@@ -4,7 +4,8 @@ import {
   BOSS_GOLD_REWARD,
   Boss,
   CLAN_SIZE_LIMIT,
-  DetailedFight, DetailedFighter, ExpectedError, Fighter, SkillByName,
+  DetailedFight, DetailedFighter,
+  Fighter, ForbiddenError, SkillByName,
   StepType, WeaponByName, bossBackground, bosses,
   fightBackgrounds,
   randomItem,
@@ -64,7 +65,7 @@ const generateFight = async ({
   clanWar,
 }: GenerateFightParams): Promise<GenerateFightResult> => {
   if (team1.brutes?.some((brute) => team2.brutes?.some((b) => b.id === brute.id))) {
-    throw new ExpectedError('Attempted to created a fight between the same brutes');
+    throw new ForbiddenError('Attempted to created a fight between the same brutes');
   }
 
   const background = (team1.bosses?.length || team2.bosses?.length)

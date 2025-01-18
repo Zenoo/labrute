@@ -1,12 +1,13 @@
 import { getBruteGoldValue, getResetCost } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
-import { History } from '@mui/icons-material';
+import { History, Policy } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Box, Fab, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Fab, IconButton, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import BoxBg from '../components/BoxBg';
 import CellClan from '../components/Cell/CellClan';
 import CellLog from '../components/Cell/CellLog';
@@ -136,7 +137,7 @@ const CellView = () => {
 
   // Handle swipe
   useEffect(() => {
-    if (!owner) return () => {};
+    if (!owner) return () => { };
     let touchstartX = 0;
     let touchstartY = 0;
     let touchendX = 0;
@@ -380,6 +381,19 @@ const CellView = () => {
               >
                 {t('report')}
               </Text>
+              {user?.admin && (
+                <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                  <Tooltip title={t('adminPanel')}>
+                    <IconButton
+                      component={RouterLink}
+                      to={`/admin-panel/brute/${brute.name}`}
+                      color="error"
+                    >
+                      <Policy />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              )}
             </Box>
           </Box>
         </Paper>

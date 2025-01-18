@@ -1,9 +1,9 @@
 import { UserWithBrutesBodyColor } from '@labrute/core';
-import moment from 'moment';
+import { Event, FightModifier } from '@labrute/prisma';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { deleteCookie, getCookie } from '../utils/cookies';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
-import { Event, FightModifier } from '@labrute/prisma';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
@@ -54,39 +54,31 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (authing) return;
     setAuthing(true);
 
-    const userId = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    const expires = moment.utc(localStorage.getItem('expires'));
-    if (userId && token) {
-      if (expires.isAfter(moment.utc())) {
-        Server.User.authenticate(userId, token).then((response) => {
-          setUser(response.user);
-          setModifiers(response.modifiers);
-          setCurrentEvent(response.currentEvent);
-          setAuthing(false);
+    const userId = getCookie('user');
+    const token = getCookie('token');
 
-          // Update language
-          setLanguage(response.user.lang);
-        }).catch(() => {
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
-          localStorage.removeItem('expires');
-          setAuthing(false);
-        });
-      } else {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        localStorage.removeItem('expires');
+    if (userId && token) {
+      Server.User.authenticate(userId, token).then((response) => {
+        setUser(response.user);
+        setModifiers(response.modifiers);
+        setCurrentEvent(response.currentEvent);
         setAuthing(false);
-      }
+
+        // Update language
+        setLanguage(response.user.lang);
+      }).catch(() => {
+        deleteCookie('user');
+        deleteCookie('token');
+        setAuthing(false);
+      });
     } else {
       setAuthing(false);
     }
   }, [authing, setLanguage]);
 
   const signout = useCallback(() => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    deleteCookie('user');
+    deleteCookie('token');
     setUser(null);
   }, []);
 

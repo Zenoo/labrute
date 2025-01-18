@@ -4,7 +4,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../../prisma"
-  previewFeatures = ["nativeDistinct", "relationJoins", "tracing", "omitApi"]
+  previewFeatures = ["nativeDistinct", "relationJoins"]
   binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
@@ -69,6 +69,7 @@ enum WeaponName {
   mug
   sai
   racquet
+  // TODO: Rename to hammer on release
   axe
   bumps
   flail
@@ -123,6 +124,7 @@ enum SkillName {
   tragicPotion
   net
   bomb
+  // TODO: Rename to pileDriver on release
   hammer
   cryOfTheDamned
   hypnosis
@@ -486,6 +488,7 @@ enum AchievementName {
   felAg_fistsOfF
   felAg_fistsOfF_untouch_relentless
   vita_armor_toughened
+  // TODO: Rename to herculStr_piledriver_fierceBrute on release
   herculStr_hammer_fierceBrute
   shock
   balletShoes_survival
@@ -833,4 +836,11 @@ model Notification {
 
   @@index([userId, read])
   @@index([date])
+}
+
+// Config
+model Config {
+  key       String   @id @unique @db.VarChar(255)
+  value     String   @db.Text
+  updatedAt DateTime @default(now()) @db.Timestamp()
 }

@@ -1,5 +1,7 @@
 [![Crowdin](https://badges.crowdin.net/labrute/localized.svg)](https://crowdin.com/project/labrute)
 
+<img src="https://github.com/user-attachments/assets/57440ad3-2328-42ea-a840-c24edcdee36f" width="500" />
+
 ## Backend
 
 > Made with [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), [Prisma](https://www.prisma.io/), written in [Typescript](https://www.typescriptlang.org/).
@@ -20,7 +22,7 @@
 
 - Copy `.env.sample` to `.env` and adapt the variables
 
-- Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage.
+- Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage. (An example is provided in the [eternaltwin.local.toml.sample](eternaltwin.local.toml.sample) file)
 
 - Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
 
@@ -44,8 +46,6 @@
 
 ## Deployment
 
-*This project should deploy successfully as-is on Heroku*
-
 - Set the environment variables
 
 - Install dependencies: `npm ci` (This should also compile and built everything needed)
@@ -53,6 +53,10 @@
 - Sync your database with `yarn db:sync:prod`
 
 - Start the server with `yarn start`
+
+- Deploy the frontend using a static server of your choice like [Nginx](https://www.nginx.com/)
+
+- Environment variables can be overriden without restarting the server by setting them in the database `Config` table
 
 ## Documentation
 

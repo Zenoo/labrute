@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Notification, Prisma, Tournament, User } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, Event, Fight, FightModifier, InventoryItem, Lang, Log, Notification, Prisma, Tournament, User } from '@labrute/prisma';
 import Version from './Version';
 import applySkillModifiers from './brute/applySkillModifiers';
 import availableBodyParts from './brute/availableBodyParts';
@@ -16,7 +16,11 @@ import { isNameValid } from './brute/isNameValid';
 import updateBruteData from './brute/updateBruteData';
 import weapons from './brute/weapons';
 import { BruteReportWithNames, DestinyBranch, UserWithBrutesBodyColor } from './types';
-import ExpectedError from './utils/ExpectedError';
+import ExpectedError from './errors/ExpectedError';
+import ForbiddenError from './errors/ForbiddenError';
+import LimitError from './errors/LimitError';
+import MissingElementError from './errors/MissingElementError';
+import NotFoundError from './errors/NotFoundError';
 import adjustColor from './utils/adjustColor';
 import formatLargeNumber from './utils/formatLargeNumber';
 import hexToRgba from './utils/hexToRgba';
@@ -52,6 +56,7 @@ export {
   adjustColor, applySkillModifiers,
   availableBodyParts, Boss, bosses, canLevelUp,
   createRandomBruteStats, ExpectedError, formatLargeNumber,
+  ForbiddenError, LimitError, MissingElementError, NotFoundError,
   getFightsLeft, getGoldNeededForNewBrute,
   getLevelUpChoices,
   getMaxFightsPerDay,
@@ -218,6 +223,9 @@ export type ClanGetThreadResponse = ClanThread & {
   })[],
   clan: Pick<Clan, 'masterId' | 'name'>,
 };
+export type ClanGetForAdminResponse = Clan & {
+  brutes: Pick<Brute, 'id' | 'name'>[],
+};
 
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
@@ -335,3 +343,16 @@ export type EventGetResponse = {
 };
 
 export type NotificationListResponse = Notification[];
+
+export type ConfigsListResponse = Config[];
+export type ConfigsSetRequest = {
+  key: string,
+  value: string,
+};
+export type ConfigsSetResponse = Config;
+export type ConfigsDecryptRequest = {
+  value: string,
+};
+export type ConfigsDecryptResponse = {
+  decrypted: string,
+};

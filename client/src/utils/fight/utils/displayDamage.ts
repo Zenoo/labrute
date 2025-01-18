@@ -5,15 +5,24 @@ import { Application, Text } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import insideXBounds from './insideXBounds';
 
-const displayDamage = (
-  app: Application,
-  target: AnimationFighter,
-  damage: number,
-  speed: React.MutableRefObject<number>,
-) => {
+const displayDamage = ({
+  app,
+  target,
+  damage,
+  criticalHit,
+  speed,
+}: {
+  app: Application;
+  target: AnimationFighter;
+  damage: number;
+  criticalHit?: 1 | 0;
+  speed: React.MutableRefObject<number>;
+}) => {
   // Display floating and fading damage text
   const damageText = new Text(`-${damage}`, {
-    fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
+    fontFamily: 'GameFont',
+    fontSize: criticalHit ? 30 : 20,
+    fill: criticalHit ? 0xff0000 : 0xffffff,
   });
   damageText.anchor.set(0.5);
   damageText.zIndex = 1000;

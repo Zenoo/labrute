@@ -169,6 +169,8 @@ export const FightStat = {
   DEFLECT: 'deflect',
   ARMOR: 'armor',
   DAMAGE: 'damage',
+  CRITICAL_CHANCE: 'criticalChance',
+  CRITICAL_DAMAGE: 'criticalDamage',
   HIT_SPEED: 'hitSpeed',
   INITIATIVE: 'initiative',
   STRENGTH: 'strength',
@@ -377,7 +379,7 @@ export const skills: Skill[] = [
     name: 'hypnosis',
     odds: 0.5,
     type: 'super',
-    toss: 3,
+    toss: 6,
     uses: 1,
   },
   {
@@ -515,7 +517,7 @@ export const SkillModifiers: Record<
   },
   [SkillName.armor]: {
     [FightStat.ARMOR]: { percent: 0.25 },
-    [FightStat.SPEED]: { percent: -0.1 },
+    [FightStat.SPEED]: { percent: -0.15 },
   },
   [SkillName.toughenedSkin]: {
     [FightStat.ARMOR]: { percent: 0.1 },
@@ -528,15 +530,20 @@ export const SkillModifiers: Record<
     [FightStat.DISARM]: { percent: 0.5 },
   },
   [SkillName.bodybuilder]: {
-    [FightStat.HIT_SPEED]: { percent: 0.25, weaponType: WeaponType.HEAVY },
+    [FightStat.HIT_SPEED]: { percent: 0.40, weaponType: WeaponType.HEAVY },
     [FightStat.DEXTERITY]: { percent: 0.1, weaponType: WeaponType.HEAVY },
   },
   [SkillName.relentless]: {
     [FightStat.ACCURACY]: { percent: 0.3 },
   },
-  [SkillName.survival]: {},
+  [SkillName.survival]: {
+    [FightStat.BLOCK]: { percent: 0.2, details: 'atOneHp' },
+    [FightStat.EVASION]: { percent: 0.2, details: 'atOneHp' },
+  },
   [SkillName.leadSkeleton]: {
-    [FightStat.DAMAGE]: { percent: -0.3, weaponType: WeaponType.BLUNT, opponent: true },
+    [FightStat.ARMOR]: { percent: 0.15 },
+    [FightStat.DAMAGE]: { percent: -0.15, weaponType: WeaponType.BLUNT, opponent: true },
+    [FightStat.EVASION]: { percent: -0.15 },
   },
   [SkillName.balletShoes]: {
     [FightStat.EVASION]: { percent: 0.1 },
@@ -549,6 +556,7 @@ export const SkillModifiers: Record<
   [SkillName.reconnaissance]: {
     [FightStat.INITIATIVE]: { flat: -200 },
     [FightStat.SPEED]: { flat: 5, percent: 1.5 },
+    [FightStat.CRITICAL_DAMAGE]: { percent: 0.5 },
   },
   [SkillName.counterAttack]: {
     [FightStat.BLOCK]: { percent: 0.1 },
@@ -556,7 +564,9 @@ export const SkillModifiers: Record<
   },
   [SkillName.ironHead]: {},
   [SkillName.thief]: {},
-  [SkillName.fierceBrute]: {},
+  [SkillName.fierceBrute]: {
+    [FightStat.CRITICAL_CHANCE]: { percent: 0.1 },
+  },
   [SkillName.tragicPotion]: {},
   [SkillName.net]: {},
   [SkillName.bomb]: {},
@@ -580,10 +590,13 @@ export const SkillModifiers: Record<
   },
   [SkillName.vampirism]: {},
   [SkillName.chaining]: {},
-  [SkillName.haste]: {},
+  [SkillName.haste]: {
+    [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
+  },
   [SkillName.treat]: {},
   [SkillName.repulse]: {
     [FightStat.DEFLECT]: { percent: 0.3 },
+    [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
   },
 };
 

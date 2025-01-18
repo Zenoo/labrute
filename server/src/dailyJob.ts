@@ -337,7 +337,7 @@ const handleDailyTournaments = async (
               throw error;
             }
             LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
-            DISCORD.sendError(error);
+            DISCORD().sendError(error);
           }
 
           retries++;
@@ -618,7 +618,7 @@ const handleGlobalTournament = async (
             throw error;
           }
           LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
-          DISCORD.sendError(error);
+          DISCORD().sendError(error);
         }
 
         retries++;
@@ -1005,6 +1005,15 @@ const deleteBrutes = async (prisma: PrismaClient) => {
         wantToJoinClanId: null,
       },
     });
+
+    const joinedBruteIds = Prisma.join(chunk, undefined, undefined, '::uuid');
+
+    // Remove followers
+    await prisma.$executeRaw`DELETE FROM "_Followers" WHERE "A" IN (${joinedBruteIds});`;
+
+    // Remove from clan fighters
+    await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
+    await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
   }
 
   for (const brute of brutes) {
@@ -1070,7 +1079,7 @@ const handleModifiers = async (prisma: PrismaClient) => {
   await ServerState.setModifiers(prisma, rolledModifiers);
 
   if (rolledModifiers.length) {
-    DISCORD.sendModifiersNotification(rolledModifiers);
+    DISCORD().sendModifiersNotification(rolledModifiers);
   }
 
   return rolledModifiers;
@@ -1093,7 +1102,7 @@ const handleReleases = async (prisma: PrismaClient) => {
   // Send release notifications
   try {
     // Discord notification
-    await DISCORD.sendRelease(LAST_RELEASE);
+    await DISCORD().sendRelease(LAST_RELEASE);
 
     // User notifications
     const notifCount = await prisma.$executeRaw`
@@ -1112,7 +1121,7 @@ const handleReleases = async (prisma: PrismaClient) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      DISCORD.sendError(error);
+      DISCORD().sendError(error);
     } else {
       console.error(error);
     }
@@ -1447,7 +1456,7 @@ const handleClanWars = async (
           throw error;
         }
         LOGGER.log(`Error while generating a clan war fight between ${clanWar.attackerId} and ${clanWar.defenderId}, retrying...`);
-        DISCORD.sendError(error);
+        DISCORD().sendError(error);
       }
 
       retries++;
@@ -1758,7 +1767,7 @@ const handleEventTournament = async (
           throw error;
         }
         LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
-        DISCORD.sendError(error);
+        DISCORD().sendError(error);
       }
 
       retries++;
@@ -1946,14 +1955,14 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     await cleanup(prisma);
 
     // Update known issues
-    await DISCORD.updateKnownIssues(knownIssues);
+    await DISCORD().updateKnownIssues(knownIssues);
 
     LOGGER.info('Daily job completed');
   } catch (error: unknown) {
     if (!(error instanceof Error)) {
       throw error;
     }
-    DISCORD.sendError(error);
+    DISCORD().sendError(error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);
 

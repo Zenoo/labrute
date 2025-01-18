@@ -1,10 +1,11 @@
 import { BruteRanking, BrutesGetClanIdAsMasterResponse, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
 import { BossName, Brute, ClanWarStatus, ClanWarType } from '@labrute/prisma';
-import { HighlightOff, History, PlayCircleOutline } from '@mui/icons-material';
-import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
+import { HighlightOff, History, PlayCircleOutline, Policy } from '@mui/icons-material';
+import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
@@ -429,6 +430,18 @@ const ClanView = () => {
             </Tooltip>
           )}
           {t('clan')} {clan.name}
+          {user?.admin && (
+            <Tooltip title={t('adminPanel')}>
+              <IconButton
+                component={RouterLink}
+                to={`/admin-panel/clan/${clan.id}`}
+                color="error"
+                sx={{ ml: 1 }}
+              >
+                <Policy />
+              </IconButton>
+            </Tooltip>
+          )}
         </Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>

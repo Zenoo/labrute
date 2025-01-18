@@ -1,6 +1,8 @@
+import { getCookie } from './cookies';
+
 type HeadersType = {
   Accept: string;
-  'Csrf-Token': string;
+  'x-csrf-token': string;
   Authorization: string;
   'Content-Type'?: string;
 };
@@ -12,6 +14,23 @@ export type ErrorType = string | {
 };
 
 const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
+  // Check if the CSRF token is present in the localStorage
+  // If not, retry the request every 100ms until it is present
+  if (!localStorage.getItem('csrfToken')) {
+    return new Promise((resolve, reject) => {
+      const interval = setInterval(() => {
+        if (localStorage.getItem('csrfToken')) {
+          clearInterval(interval);
+          Fetch<ReturnType>(url, data, method, additionalURLParams).then((response) => {
+            resolve(response);
+          }).catch((err) => {
+            reject(err);
+          });
+        }
+      }, 100);
+    });
+  }
+
   let body: Blob | FormData | string | null = null;
   let finalUrl = url;
 
@@ -23,12 +42,12 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
   }
 
   return new Promise((resolve, reject) => {
-    const user = localStorage.getItem('user') || '';
-    const token = localStorage.getItem('token') || '';
+    const user = getCookie('user') || '';
+    const token = getCookie('token') || '';
     const headers: HeadersType = {
       Accept: 'application/json',
-      'Csrf-Token': 'nocheck',
-      Authorization: localStorage.getItem('user') ? `Basic ${btoa(`${user}:${token}`)}` : ''
+      'x-csrf-token': localStorage.getItem('csrfToken') || '',
+      Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : ''
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
