@@ -732,7 +732,9 @@ const ClanView = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {clan.bossDamages.map((damages, index) => (
+                        {clan.bossDamages.filter(
+                          (damage) => damage.brute?.id !== undefined
+                        ).map((damages, index) => (
                           <TableRow key={damages.brute?.id}>
                             <TableCell component="th" scope="row">
                               {index + 1}

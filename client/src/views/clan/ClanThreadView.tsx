@@ -170,9 +170,11 @@ const ClanThreadView = () => {
                     ) : (
                       <Box component="img" src={`/images/rankings/lvl_${post.author?.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
                     )}
-                    <Link to={`/${post.author?.name}/cell`}>
-                      <Text bold color="primary">{post.author?.name}</Text>
-                    </Link>
+                    {post.author?.name ? (
+                      <Link to={`/${post.author?.name}/cell`}>
+                        <Text bold color="primary">{post.author?.name}</Text>
+                      </Link>
+                    ) : <Text bold color="primary">{t('deleted')}</Text>}
                     {post.author?.id === thread.clan.masterId && (
                       <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
                     )}

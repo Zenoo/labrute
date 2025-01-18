@@ -302,7 +302,7 @@ model Fight {
   id             String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date           DateTime        @default(now()) @db.Date
   brute1         Brute?          @relation(fields: [brute1Id], references: [id])
-  brute1Id       String          @db.Uuid
+  brute1Id       String?          @db.Uuid
   brute2         Brute?          @relation("Adversary", fields: [brute2Id], references: [id])
   brute2Id       String?         @db.Uuid
   winner         String          @db.VarChar(255)
@@ -677,8 +677,8 @@ model ClanThread {
   id        String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   clan      Clan       @relation(fields: [clanId], references: [id])
   clanId    String     @db.Uuid
-  creator   Brute?      @relation(fields: [creatorId], references: [id])
-  creatorId String     @db.Uuid
+  creator   Brute?     @relation(fields: [creatorId], references: [id])
+  creatorId String?    @db.Uuid
   title     String     @db.VarChar(255)
   locked    Boolean    @default(false)
   pinned    Boolean    @default(false)
@@ -692,8 +692,8 @@ model ClanPost {
   id       String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   thread   ClanThread @relation(fields: [threadId], references: [id])
   threadId String     @db.Uuid
-  author   Brute?      @relation(fields: [authorId], references: [id])
-  authorId String     @db.Uuid
+  author   Brute?     @relation(fields: [authorId], references: [id])
+  authorId String?     @db.Uuid
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
 }
@@ -701,7 +701,7 @@ model ClanPost {
 model BossDamage {
   id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute   Brute?  @relation(fields: [bruteId], references: [id])
-  bruteId String @db.Uuid
+  bruteId String? @db.Uuid
   clan    Clan   @relation(fields: [clanId], references: [id])
   clanId  String @db.Uuid
   damage  Int

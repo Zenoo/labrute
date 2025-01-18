@@ -1,17 +1,17 @@
-import { BruteForRender, Fighter, TournamentsGetDailyResponse } from '@labrute/core';
+import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Brute, Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import FantasyButton from '../../components/FantasyButton';
 import Page from '../../components/Page';
 import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
-import BruteRender from '../../components/Brute/Body/BruteRender';
 
 const rounds: [number, number][] = [
   [-1, 32],
@@ -109,8 +109,8 @@ const TournamentMobileView = ({
                   (fight) => fight.tournamentStep > start && fight.tournamentStep <= end
                 ).map((fight) => {
                   const fighters = JSON.parse(fight.fighters) as Fighter[];
-                  const brute1 : Fighter | undefined = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
-                  const brute2 : Fighter | undefined = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
+                  const brute1 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
+                  const brute2 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
                   return (
                     // Fight button
                     <StyledButton
@@ -141,7 +141,15 @@ const TournamentMobileView = ({
                           mr: 1,
                         }}
                         >
-                          {brute1 && <BruteRender brute={brute1 as BruteForRender} />}
+                          {brute1 && (
+                          <BruteRender brute={
+                            { ...brute1,
+                              gender: brute1.gender ?? Gender.male,
+                              body: brute1.body ?? '',
+                              colors: brute1.colors ?? '' }
+}
+                          />
+                          )}
                           {/* Lost indicator */}
                           {shouldResultDisplay
                             && fight.winner === brute2?.name

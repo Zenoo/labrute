@@ -138,7 +138,7 @@ const TournamentView = () => {
     if (!brute || !fight.brute1) return;
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
     if (!ownsBrute) return;
-    if (fight.brute1 && fight.brute1.id !== brute.id && fight.brute2?.id !== brute.id) return;
+    if (fight.brute1?.id !== brute.id && fight.brute2?.id !== brute.id) return;
     if (brute.currentTournamentDate && moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day')) {
       if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
     }
@@ -265,8 +265,8 @@ const TournamentView = () => {
                 >
                   {round.map((fight) => {
                     const fighters = JSON.parse(fight.fighters) as Fighter[];
-                    const brute1 : Fighter | undefined = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
-                    const brute2 : Fighter | undefined = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
+                    const brute1 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
+                    const brute2 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
                     return (
                       // Fight button
                       <StyledButton

@@ -312,7 +312,14 @@ const Clans = {
         }
       }
 
-      res.status(200).send(clan);
+      res.status(200).send(
+        {
+          ...clan,
+          bossDamages: clan.bossDamages.filter(
+            (damage) => damage.brute?.id !== undefined,
+          ),
+        },
+      );
     } catch (error) {
       sendError(res, error);
     }
