@@ -313,6 +313,7 @@ export const LogType: {
   ascend: 'ascend',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
+  bossFight: 'bossFight',
   bossDefeat: 'bossDefeat'
 };
 

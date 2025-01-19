@@ -13,8 +13,8 @@ export interface CellLogProps extends PaperProps {
   }
 }
 
-const negativeLogs: LogType[] = [LogType.lose, LogType.tournament];
-const combatLogs: LogType[] = [LogType.lose, LogType.win];
+const negativeLogs: LogType[] = [LogType.lose, LogType.tournament, LogType.bossFight];
+const combatLogs: LogType[] = [LogType.lose, LogType.win, LogType.bossFight];
 const childLogs: LogType[] = [LogType.child, LogType.childup];
 
 const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
@@ -75,11 +75,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                   },
                 }}
               >
-                <Text bold color={log.type === LogType.lose ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
+                <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
                   {combatLogs.includes(log.type)
                     ? t(`log.fight.${log.template ?? '0'}`, {
-                      winner: log.type === LogType.lose ? log.brute : log.currentBrute.name,
-                      loser: log.type === LogType.lose ? log.currentBrute.name : log.brute,
+                      winner: log.type === LogType.win ? log.currentBrute.name : log.brute,
+                      loser: log.type === LogType.win ? log.brute : log.currentBrute.name,
                     })
                     : t(`log.${log.type}`, { value: log.brute })}
                 </Text>

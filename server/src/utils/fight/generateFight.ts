@@ -26,9 +26,10 @@ import getFighters from './getFighters.js';
 import handleStats from './handleStats.js';
 import updateAchievements from './updateAchievements.js';
 
-type GenerateFightResult = {
+export type GenerateFightResult = {
   data: Prisma.FightCreateInput;
   boss?: {
+    defeated: boolean;
     xp: number;
     gold: number;
   }
@@ -423,10 +424,17 @@ const generateFight = async ({
       });
 
       result.boss = {
+        defeated: true,
         xp: 0,
         gold: goldGains,
       };
     } else {
+      result.boss = {
+        defeated: false,
+        xp: 0,
+        gold: 0,
+      };
+
       // Update damage on boss + store it
       const initialBossesHp = fightData.initialFighters
         .filter((fighter) => fighter.type === 'boss')

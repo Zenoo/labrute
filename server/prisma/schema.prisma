@@ -340,6 +340,7 @@ enum LogType {
   ascend
   tournament
   tournamentXp
+  bossFight
   bossDefeat
 }
 

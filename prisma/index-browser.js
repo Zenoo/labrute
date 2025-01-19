@@ -578,6 +578,7 @@ exports.LogType = exports.$Enums.LogType = {
   ascend: 'ascend',
   tournament: 'tournament',
   tournamentXp: 'tournamentXp',
+  bossFight: 'bossFight',
   bossDefeat: 'bossDefeat'
 };
 

@@ -4,18 +4,20 @@ import {
   ClanGetForAdminResponse,
   ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError,
+  FightLogTemplateCount,
   ForbiddenError, LimitError, MissingElementError, NotFoundError, bosses, getFightsLeft,
   isUuid,
+  randomBetween,
 } from '@labrute/core';
 import {
   BossName,
-  Clan, ClanWarStatus, Prisma, PrismaClient,
+  Clan, ClanWarStatus, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import auth from '../utils/auth.js';
 import updateClanPoints from '../utils/clan/updateClanPoints.js';
-import generateFight from '../utils/fight/generateFight.js';
+import generateFight, { GenerateFightResult } from '../utils/fight/generateFight.js';
 import { ilike } from '../utils/ilike.js';
 import sendError from '../utils/sendError.js';
 import ServerState from '../utils/ServerState.js';
@@ -129,11 +131,11 @@ const Clans = {
         throw new ForbiddenError(translate('alreadyInClan', user));
       }
 
-      if (typeof req.query.name !== 'string') {
+      if (typeof req.body.name !== 'string') {
         throw new ExpectedError(translate('invalidClanName', user));
       }
 
-      const clanName = req.query.name.trim();
+      const clanName = req.body.name.trim();
 
       // Check for clan name length
       if (clanName.length < 3 || clanName.length > 50) {
@@ -1366,7 +1368,7 @@ const Clans = {
       });
 
       // Generate fight (retry if failed)
-      let generatedFight: Prisma.FightCreateInput | null = null;
+      let generatedFight: GenerateFightResult | null = null;
       let expectedError: ExpectedError | null = null;
       let retry = 0;
       let bossXpGains = 0;
@@ -1389,8 +1391,8 @@ const Clans = {
             achievements: false,
             clanId: clan.id,
           });
-          generatedFight = newGeneratedFight.data;
-          if (newGeneratedFight.boss) {
+          generatedFight = newGeneratedFight;
+          if (newGeneratedFight.boss?.defeated) {
             bossXpGains = newGeneratedFight.boss.xp;
             bossGoldGains = newGeneratedFight.boss.gold;
           }
@@ -1413,9 +1415,22 @@ const Clans = {
 
       // Save important fight data
       const { id: fightId } = await prisma.fight.create({
-        data: generatedFight,
+        data: generatedFight.data,
         select: { id: true },
       });
+
+      if (generatedFight.boss && !generatedFight.boss.defeated) {
+        // Add boss fight log
+        await prisma.log.create({
+          data: {
+            type: LogType.bossFight,
+            currentBruteId: brute.id,
+            brute: generatedFight.data.winner,
+            template: randomBetween(0, FightLogTemplateCount - 1).toString(),
+            fightId,
+          },
+        });
+      }
 
       // Send fight id to client
       res.status(200).send({

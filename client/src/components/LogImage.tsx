@@ -8,7 +8,7 @@ type LogImageProps = BoxProps & {
   log: Log;
 };
 
-const negativeLogs: LogType[] = [LogType.lose, LogType.tournament];
+const negativeLogs: LogType[] = [LogType.lose, LogType.tournament, LogType.bossFight];
 
 export const LogImage = ({
   log,
@@ -20,8 +20,8 @@ export const LogImage = ({
   return (
     <Box
       component="img"
-      src={`/images/${log.type === LogType.bossDefeat
-        ? 'rankings/lvl_0'
+      src={`/images/${(log.type === LogType.bossDefeat || log.type === LogType.bossFight)
+        ? 'inventory/bossTicket'
         : log.type === LogType.lvl
           ? `rankings/lvl_${log.level ?? BruteRankings[0]}`
           : log.type === LogType.tournament
