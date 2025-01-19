@@ -384,8 +384,8 @@
   "repulse": "Отпор",
   "repulse.desc": "Ниндзи кидаются в вас звёздами? Без проблем! Становитесь воплощением героев из любимых боевиков и отмахивайтесь от метательного оружия словно от назойливых мух.",
   "repulse.effect": "",
-  "fastMetabolism": "Fast Metabolism",
-  "fastMetabolism.desc": "Your cells work at the speed of light. You can regenerate faster than your opponent can damage you... Maybe.",
+  "fastMetabolism": "Ускоренный метаболизм",
+  "fastMetabolism.desc": "Ваши клетки работают со скоростью света. Вы восстанавливаетесь быстрее, чем противник может вас повредить... возможно.",
   "fastMetabolism.effect": "",
   "fan": "Веер",
   "keyboard": "Клавиатура",
@@ -586,7 +586,7 @@
   "fight.step.haste": "{{brute}} пронзает {{opponent}}, нанося {{damage}} урона.",
   "fight.step.treat": "{{brute}} кормит своего питомца {{target}}, исцеляя ему {{heal}} ОЗ.",
   "fight.step.dropShield": "{{brute}} роняет свой щит.",
-  "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
+  "fight.step.regeneration": "{{fighter}} восстанавливает {{heal}} ОЗ.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.play": "Воспроизвести",
   "fight.pause": "Приостановить",
@@ -1594,5 +1594,5 @@
   "handledBy": "Обработчик:",
   "unauthorized": "Нет авторизации",
   "unauthorized.desc": "Кажется, вы потерялись, вы любопытная штучка. Вам здесь не место.",
-  "deleted": "Deleted"
+  "deleted": "Удалено"
 }
