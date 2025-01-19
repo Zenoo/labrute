@@ -384,6 +384,9 @@
   "repulse": "Repulse",
   "repulse.desc": "Got ninja stars headed your way? No problem! Channel your inner martial arts movie hero and swat away thrown weapons like they're pesky flies.",
   "repulse.effect": "",
+  "fastMetabolism": "Fast Metabolism",
+  "fastMetabolism.desc": "Your cells work at the speed of light. You can regenerate faster than your opponent can damage you... Maybe.",
+  "fastMetabolism.effect": "",
   "fan": "Fan",
   "keyboard": "Keyboard",
   "knife": "Knife",
@@ -583,6 +586,7 @@
   "fight.step.haste": "{{brute}} rushed past {{opponent}} and dealt {{damage}} damage.",
   "fight.step.treat": "{{brute}} gave their pet {{target}} a treat and healed them for {{heal}}HP.",
   "fight.step.dropShield": "{{brute}} dropped their shield.",
+  "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
   "fight.wonTheFight": "{{brute}} won the fight",
   "fight.play": "Play",
   "fight.pause": "Pause",
@@ -1589,5 +1593,6 @@
   "reportedBy": "Reported by",
   "handledBy": "Handled by",
   "unauthorized": "Unauthorized",
-  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here.",
+  "deleted": "Deleted"
 }
