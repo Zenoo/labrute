@@ -384,6 +384,9 @@
   "repulse": "Rücksendung",
   "repulse.desc": "Genervt von Ninja-Sternen? Kein Problem! Lass den Helden aus Kampfkunstfilmen in dir erwachen und wehre Wurfwaffen ab, als wären es lästige Fliegen.",
   "repulse.effect": "",
+  "fastMetabolism": "Fast Metabolism",
+  "fastMetabolism.desc": "Your cells work at the speed of light. You can regenerate faster than your opponent can damage you... Maybe.",
+  "fastMetabolism.effect": "",
   "fan": "Fächer",
   "keyboard": "Tastatur",
   "knife": "Messer",
@@ -583,6 +586,7 @@
   "fight.step.haste": "{{brute}} ist an {{opponent}} vorbeigestürmt und hat dabei {{damage}} Schaden zugefügt.",
   "fight.step.treat": "{{brute}} hat dem Tierbegleiter {{target}} ein Leckerli gegeben und ihn um {{heal}} LP geheilt.",
   "fight.step.dropShield": "{{brute}} hat sein Schild fallen lassen.",
+  "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.play": "Abspielen",
   "fight.pause": "Pausieren",
@@ -1589,5 +1593,6 @@
   "reportedBy": "Gemeldet von",
   "handledBy": "Bearbeitet von",
   "unauthorized": "Nicht autorisiert",
-  "unauthorized.desc": "Du hast dich wohl verlaufen, du neugieriges Ding. Du solltest nicht hier sein."
+  "unauthorized.desc": "Du hast dich wohl verlaufen, du neugieriges Ding. Du solltest nicht hier sein.",
+  "deleted": "Deleted"
 }
