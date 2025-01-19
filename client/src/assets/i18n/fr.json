@@ -384,6 +384,9 @@
   "repulse": "Repoussoir",
   "repulse.desc": "Des étoiles ninja se dirigent vers vous ? Aucun problème ! Canalisez le héros de film d'arts martiaux qui sommeille en vous et renvoyez les armes lancées comme des mouches.",
   "repulse.effect": "",
+  "fastMetabolism": "Fast Metabolism",
+  "fastMetabolism.desc": "Your cells work at the speed of light. You can regenerate faster than your opponent can damage you... Maybe.",
+  "fastMetabolism.effect": "",
   "fan": "Éventail",
   "keyboard": "Clavier",
   "knife": "Couteau",
@@ -583,6 +586,7 @@
   "fight.step.haste": "{{brute}} s'est précipité sur {{opponent}} et lui a infligé {{damage}} dégâts.",
   "fight.step.treat": "{{brute}} a donné une friandise à son familier {{target}} et l'a soigné de {{heal}}PV.",
   "fight.step.dropShield": "{{brute}} a lâché son bouclier.",
+  "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
   "fight.wonTheFight": "{{brute}} a gagné le match",
   "fight.play": "Jouer",
   "fight.pause": "Pause",
@@ -1589,5 +1593,6 @@
   "reportedBy": "Signalé par",
   "handledBy": "Traité par",
   "unauthorized": "Unauthorized",
-  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here."
+  "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here.",
+  "deleted": "Deleted"
 }
