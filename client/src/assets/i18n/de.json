@@ -384,8 +384,8 @@
   "repulse": "Rücksendung",
   "repulse.desc": "Genervt von Ninja-Sternen? Kein Problem! Lass den Helden aus Kampfkunstfilmen in dir erwachen und wehre Wurfwaffen ab, als wären es lästige Fliegen.",
   "repulse.effect": "",
-  "fastMetabolism": "Fast Metabolism",
-  "fastMetabolism.desc": "Your cells work at the speed of light. You can regenerate faster than your opponent can damage you... Maybe.",
+  "fastMetabolism": "Schneller Stoffwechsel",
+  "fastMetabolism.desc": "Deine Zellen arbeiten mit Lichtgeschwindigkeit. Du regenerierst schneller, als dein Gegner dich beschädigen kann... vielleicht.",
   "fastMetabolism.effect": "",
   "fan": "Fächer",
   "keyboard": "Tastatur",
@@ -581,12 +581,12 @@
   "fight.step.skillExpire": "{{skill}} von {{brute}} ist abgelaufen.",
   "fight.step.skillActivate": "{{brute}} hat {{skill}} benutzt.",
   "fight.step.spy": "{{brute}} hat seine Waffen mit {{opponent}} getauscht.",
-  "fight.step.vampirism": "{{brute}} hat Blut von {{opponent}} abgesaugt, dabei {{damage}} Schaden zugefügt und {{heal}} LP wiederhergestellt.",
+  "fight.step.vampirism": "{{brute}} hat Blut von {{opponent}} abgesaugt, dabei {{damage}} Schaden zugefügt und {{heal}}LP wiederhergestellt.",
   "fight.step.stun": "{{brute}} wurde betäubt.",
   "fight.step.haste": "{{brute}} ist an {{opponent}} vorbeigestürmt und hat dabei {{damage}} Schaden zugefügt.",
-  "fight.step.treat": "{{brute}} hat dem Tierbegleiter {{target}} ein Leckerli gegeben und ihn um {{heal}} LP geheilt.",
+  "fight.step.treat": "{{brute}} hat dem Tierbegleiter {{target}} ein Leckerli gegeben und ihn um {{heal}}LP geheilt.",
   "fight.step.dropShield": "{{brute}} hat sein Schild fallen lassen.",
-  "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
+  "fight.step.regeneration": "{{fighter}} hat sich um {{heal}}HP regeneriert.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.play": "Abspielen",
   "fight.pause": "Pausieren",
@@ -1594,5 +1594,5 @@
   "handledBy": "Bearbeitet von",
   "unauthorized": "Nicht autorisiert",
   "unauthorized.desc": "Du hast dich wohl verlaufen, du neugieriges Ding. Du solltest nicht hier sein.",
-  "deleted": "Deleted"
+  "deleted": "Gelöscht"
 }
