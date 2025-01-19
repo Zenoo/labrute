@@ -239,6 +239,11 @@ const translateFightStep = (
       return t('fight.step.dropShield', {
         brute: getFighterName(fighters, step.b, t),
       });
+    case StepType.Regeneration:
+      return t('fight.step.regeneration', {
+        fighter: getFighterName(fighters, step.f, t),
+        heal: step.h,
+      });
     default:
       return '';
   }

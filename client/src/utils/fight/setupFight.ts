@@ -52,6 +52,7 @@ import repositionFighters, { isRangedStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import dropShield from './dropShield';
 import setHUDFocus from './setHUDFocus';
+import { regenerate } from './regenerate';
 
 const setupFight: (
   theme: Theme,
@@ -628,6 +629,10 @@ const setupFight: (
       }
       case StepType.DropShield: {
         dropShield(app, fighters, step, speed);
+        break;
+      }
+      case StepType.Regeneration: {
+        regenerate(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Counter: {

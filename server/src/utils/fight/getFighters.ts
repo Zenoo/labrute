@@ -33,7 +33,6 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
       // Ignore some stats handled elsewhere
       if (stat === FightStat.DEXTERITY
         || stat === FightStat.DAMAGE
-        || stat === FightStat.HIT_SPEED
         || stat === FightStat.ENDURANCE
         || stat === FightStat.STRENGTH
         || stat === FightStat.AGILITY
@@ -86,10 +85,6 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
 
     if (skill === SkillName.resistant) {
       fighter.resistant = true;
-    }
-
-    if (skill === SkillName.monk) {
-      fighter.monk = true;
     }
 
     // Add one fierceBrute use every 30 strength
@@ -200,7 +195,9 @@ const getFighters = ({
         speed: bruteSpeed,
         criticalChance: BASE_FIGHTER_STATS.criticalChance,
         criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
+        regeneration: 0,
         initiative: (randomBetween(0, 10) - bruteSpeed) / 100,
+        hitSpeed: 0,
         tempo: getTempo(bruteSpeed),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
@@ -221,7 +218,6 @@ const getFighters = ({
         retryAttack: false,
         ironHead: false,
         resistant: false,
-        monk: false,
         skills: skills
           .filter((skill) => brute.skills.includes(skill.name))
           .map((skill) => ({ ...skill })),
@@ -273,7 +269,9 @@ const getFighters = ({
           speed: getPetStat(brute, pet, 'speed'),
           criticalChance: BASE_FIGHTER_STATS.criticalChance,
           criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
+          regeneration: 0,
           initiative: pet.initiative + randomBetween(0, 10) / 100,
+          hitSpeed: 0,
           tempo: getTempo(getPetStat(brute, pet, 'speed')),
           baseDamage: pet.damage,
           counter: pet.counter,
@@ -294,7 +292,6 @@ const getFighters = ({
           retryAttack: false,
           ironHead: false,
           resistant: false,
-          monk: false,
           skills: [],
           weapons: [],
           shield: false,
@@ -354,7 +351,9 @@ const getFighters = ({
         speed: backupSpeed,
         criticalChance: BASE_FIGHTER_STATS.criticalChance,
         criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
+        regeneration: 0,
         initiative: arrivesAt,
+        hitSpeed: 0,
         tempo: getTempo(backupSpeed),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
@@ -375,7 +374,6 @@ const getFighters = ({
         retryAttack: false,
         ironHead: false,
         resistant: false,
-        monk: false,
         skills: skills
           .filter((skill) => backup.skills.includes(skill.name))
           .map((skill) => ({ ...skill })),
@@ -420,7 +418,9 @@ const getFighters = ({
         speed: boss.speed,
         criticalChance: BASE_FIGHTER_STATS.criticalChance,
         criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
+        regeneration: 0,
         initiative: boss.initiative + randomBetween(0, 10) / 100,
+        hitSpeed: 0,
         tempo: getTempo(boss.speed),
         baseDamage: boss.damage,
         counter: boss.counter,
@@ -441,7 +441,6 @@ const getFighters = ({
         retryAttack: false,
         ironHead: false,
         resistant: false,
-        monk: false,
         skills: [],
         weapons: [],
         shield: false,
@@ -457,6 +456,7 @@ const getFighters = ({
       });
     }
   });
+
   return fighters;
 };
 

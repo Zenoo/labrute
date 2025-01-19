@@ -23,6 +23,7 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.DAMAGE]: 'red',
   [FightStat.CRITICAL_CHANCE]: 'red',
   [FightStat.CRITICAL_DAMAGE]: 'red',
+  [FightStat.REGENERATION]: '#17a717',
 };
 
 export const PerkColor = {

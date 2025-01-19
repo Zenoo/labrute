@@ -142,6 +142,7 @@ enum SkillName {
   haste
   treat
   repulse
+  fastMetabolism
 }
 
 enum PetName {

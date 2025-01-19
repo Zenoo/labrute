@@ -372,10 +372,8 @@ const increaseInitiative = (fighter: DetailedFighter, multiplicator: number = 1)
     tempo *= 1 - (SkillModifiers[SkillName.bodybuilder][FightStat.HIT_SPEED]?.percent ?? 0);
   }
 
-  // Increase tempo lost if fighter has `monk`
-  if (fighter.monk) {
-    tempo *= 1 - (SkillModifiers[SkillName.monk][FightStat.HIT_SPEED]?.percent ?? 0);
-  }
+  // Apply hit speed modifier
+  tempo *= 1 - fighter.hitSpeed;
 
   fighter.initiative += tempo * multiplicator;
 };
@@ -2048,6 +2046,23 @@ export const playFighterTurn = (
 
     // Add backup arrive step
     fighterArrives(fightData, fighter);
+  }
+
+  // Regeneration
+  if (fighter.hp < fighter.maxHp) {
+    if (fighter.regeneration > 0) {
+      const heal = Math.floor(fighter.maxHp * fighter.regeneration);
+
+      // Heal fighter
+      healFighter(stats, fighter, heal);
+
+      // Add regeneration step
+      fightData.steps.push({
+        a: StepType.Regeneration,
+        f: fighter.index,
+        h: heal,
+      });
+    }
   }
 
   // Super activation

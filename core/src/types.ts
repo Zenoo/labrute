@@ -56,8 +56,10 @@ export interface DetailedFighter {
   speed: number;
   criticalChance: number;
   criticalDamage: number;
+  regeneration: number;
   // Initiative
   initiative: number; // Lower attacks next
+  hitSpeed: number;
   tempo: number; // Lower is better
   // hit stats
   baseDamage: number,
@@ -87,8 +89,6 @@ export interface DetailedFighter {
   ironHead: boolean;
   // Max 20% max HP per hit
   resistant: boolean;
-  // tempo +100%
-  monk: boolean;
   // Available skills
   skills: Skill[];
   // Available weapons
@@ -177,6 +177,7 @@ export enum StepType {
   Haste,
   Treat,
   DropShield,
+  Regeneration,
 }
 
 export interface SaboteurStep {
@@ -515,13 +516,22 @@ export interface DropShieldStep {
   b: number;
 }
 
+export interface RegenerationStep {
+  /** Action */
+  a: StepType.Regeneration;
+  /** Fighter ID */
+  f: number;
+  /** HP healed */
+  h: number;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
-  | VampirismStep | HasteStep | TreatStep | DropShieldStep;
+  | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep;
 
 export interface DetailedFight {
   modifiers: FightModifier[];

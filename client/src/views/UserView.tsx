@@ -317,8 +317,8 @@ const UserView = () => {
                         key={fight.id}
                       >
                         <TableCell>
-                          <Link to={`/${fight.brute1.name}/fight/${fight.id}`}>
-                            {fight.brute1.name} {t('vs')} {fight.brute2?.name}
+                          <Link to={`/${fight.brute1?.name}/fight/${fight.id}`}>
+                            {fight.brute1?.name} {t('vs')} {fight.brute2?.name}
                           </Link>
                         </TableCell>
                         <TableCell align="right">{moment.utc(fight.date).format('DD/MM/YYYY')}</TableCell>

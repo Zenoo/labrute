@@ -51,6 +51,7 @@ export enum SkillId {
   haste,
   treat,
   repulse,
+  fastMetabolism,
 }
 
 export const SkillByName: Record<SkillName, SkillId> = {
@@ -103,6 +104,7 @@ export const SkillByName: Record<SkillName, SkillId> = {
   [SkillName.haste]: SkillId.haste,
   [SkillName.treat]: SkillId.treat,
   [SkillName.repulse]: SkillId.repulse,
+  [SkillName.fastMetabolism]: SkillId.fastMetabolism,
 };
 
 export const SkillById: Record<SkillId, SkillName> = {
@@ -155,6 +157,7 @@ export const SkillById: Record<SkillId, SkillName> = {
   [SkillId.haste]: SkillName.haste,
   [SkillId.treat]: SkillName.treat,
   [SkillId.repulse]: SkillName.repulse,
+  [SkillId.fastMetabolism]: SkillName.fastMetabolism,
 };
 
 export const FightStat = {
@@ -177,6 +180,7 @@ export const FightStat = {
   AGILITY: 'agility',
   SPEED: 'speed',
   ENDURANCE: 'endurance',
+  REGENERATION: 'regeneration',
 } as const;
 
 export type FightStat = typeof FightStat[keyof typeof FightStat];
@@ -462,6 +466,11 @@ export const skills: Skill[] = [
     odds: 10,
     type: 'passive',
   },
+  {
+    name: 'fastMetabolism',
+    odds: 5,
+    type: 'passive',
+  },
 ];
 
 export const SKILLS_TOTAL_ODDS = skills.reduce((acc, skill) => acc + skill.odds, 0);
@@ -597,6 +606,11 @@ export const SkillModifiers: Record<
   [SkillName.repulse]: {
     [FightStat.DEFLECT]: { percent: 0.3 },
     [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
+  },
+  [SkillName.fastMetabolism]: {
+    [FightStat.REGENERATION]: { percent: 0.05 },
+    [FightStat.HIT_SPEED]: { percent: -0.5 },
+    [FightStat.CRITICAL_CHANCE]: { percent: -0.05 },
   },
 };
 
