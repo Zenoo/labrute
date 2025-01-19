@@ -318,7 +318,7 @@ const Clans = {
         {
           ...clan,
           bossDamages: clan.bossDamages.filter(
-            (damage) => damage.brute?.id !== undefined,
+            (damage) => damage.brute !== undefined,
           ),
         },
       );
