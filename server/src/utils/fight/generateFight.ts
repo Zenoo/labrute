@@ -340,7 +340,9 @@ const generateFight = async ({
       // Combine all bruteIds
       const bruteIds = new Set(clan.brutes.map((brute) => brute.id));
       clan.bossDamages.forEach((damage) => {
-        bruteIds.add(damage.brute.id);
+        if (damage.brute) {
+          bruteIds.add(damage.brute.id);
+        }
       });
 
       // Get brutes that already have a BossTicket
@@ -399,7 +401,7 @@ const generateFight = async ({
       // Give gold to users
       const userIds = new Set(clan.brutes.map((brute) => brute.userId || ''));
       clan.bossDamages.forEach((damage) => {
-        userIds.add(damage.brute.userId || '');
+        userIds.add(damage.brute?.userId || '');
       });
 
       const goldGains = Math.floor((boss.reward * BOSS_GOLD_REWARD) / userIds.size);

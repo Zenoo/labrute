@@ -112,10 +112,10 @@ const ClanView = () => {
             return b.level - a.level;
           case SortOption.Damage: {
             const damageA = prevClan.bossDamages.find(
-              (damageBrute) => damageBrute.brute.id === a.id
+              (damageBrute) => damageBrute.brute?.id === a.id
             )?.damage ?? 0;
             const damageB = prevClan.bossDamages.find(
-              (damageBrute) => damageBrute.brute.id === b.id
+              (damageBrute) => damageBrute.brute?.id === b.id
             )?.damage ?? 0;
             return damageB - damageA;
           }
@@ -745,13 +745,15 @@ const ClanView = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {clan.bossDamages.map((damages, index) => (
-                          <TableRow key={damages.brute.id}>
+                        {clan.bossDamages.filter(
+                          (damage) => damage.brute !== undefined
+                        ).map((damages, index) => (
+                          <TableRow key={damages.brute?.id}>
                             <TableCell component="th" scope="row">
                               {index + 1}
                             </TableCell>
                             <TableCell>
-                              {damages.brute.name}
+                              {damages.brute?.name}
                             </TableCell>
                             <TableCell align="right">{damages.damage}</TableCell>
                           </TableRow>

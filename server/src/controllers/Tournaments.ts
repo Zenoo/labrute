@@ -174,7 +174,7 @@ const Tournaments = {
       // If brute was eliminated, set tournament as fully watched
       if (!tournament.fights
         .find((fight) => fight.tournamentStep >= (steps[stepWatched + 1] || 63)
-          && (fight.brute1Id === brute.id || fight.brute2Id === brute.id))) {
+          && (fight?.brute1Id === brute.id || fight.brute2Id === brute.id))) {
         await prisma.brute.update({
           where: {
             id: brute.id,
@@ -408,9 +408,9 @@ const Tournaments = {
         lastRounds,
         done: tournamentEnded,
         nextOpponent: nextFight
-          ? nextFight.brute1.name === brute.name
+          ? nextFight.brute1?.name === brute.name
             ? nextFight.brute2?.name || ''
-            : nextFight.brute1.name
+            : nextFight.brute1?.name
           : null,
         nextRound: nextFight?.tournamentStep,
       });

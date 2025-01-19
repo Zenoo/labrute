@@ -113,16 +113,16 @@ const ClanForumView = () => {
                       </TableCell>
                       <TableCell>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          {thread.creator.id === data.masterId && (
+                          {thread.creator?.id === data.masterId && (
                             <Tooltip title={t('clanMaster')}>
                               <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
                             </Tooltip>
                           )}
-                          <Text bold>{thread.creator.name}</Text>
+                          <Text bold>{thread.creator?.name ?? t('deleted')}</Text>
                         </Box>
                       </TableCell>
                       <TableCell>{thread.postCount}</TableCell>
-                      <TableCell align="right">{thread.posts[0]?.author.name}, {moment.utc(thread.updatedAt).format('HH:mm')}</TableCell>
+                      <TableCell align="right">{thread.posts[0]?.author?.name ?? t('deleted')}, {moment.utc(thread.updatedAt).format('HH:mm')}</TableCell>
                     </TableRow>
                   </Fragment>
                 ))}

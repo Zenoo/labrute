@@ -35,8 +35,8 @@ export const ClanWarView = () => {
         setWar(data);
 
         const fighters = data.attackerId === id
-          ? data.fighters[0]?.attackers ?? []
-          : data.fighters[0]?.defenders ?? [];
+          ? data.fighters?.[0]?.attackers ?? []
+          : data.fighters?.[0]?.defenders ?? [];
 
         setSelectedFighters(fighters.map((fighter) => fighter.id));
       })
@@ -101,7 +101,7 @@ export const ClanWarView = () => {
           <>
             <Text h3 center bold upperCase sx={{ my: 1 }}>{t(`clanWar.${war.status}`)}</Text>
             {/* FIGHTS */}
-            {!!war.fights.length && (
+            {!!war.fights?.length && (
               <Table sx={{
                 maxWidth: 1,
                 '& th': {
@@ -149,7 +149,7 @@ export const ClanWarView = () => {
                           sx={{
                             fontWeight: 'bold',
                             color: dayWatched >= index + 1
-                              ? fight.winner === fight.brute1.name ? 'success.main' : 'error.main'
+                              ? fight.winner === fight.brute1?.name ? 'success.main' : 'error.main'
                               : undefined,
                           }}
                         >
@@ -163,7 +163,7 @@ export const ClanWarView = () => {
                           sx={{
                             fontWeight: 'bold',
                             color: dayWatched >= index + 1
-                              ? fight.winner !== fight.brute1.name ? 'success.main' : 'error.main'
+                              ? fight.winner !== fight.brute1?.name ? 'success.main' : 'error.main'
                               : undefined,
                           }}
                         >

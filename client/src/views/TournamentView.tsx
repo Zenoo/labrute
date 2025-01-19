@@ -1,10 +1,12 @@
 import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteTooltip from '../components/Brute/BruteTooltip';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
@@ -15,7 +17,6 @@ import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
-import BruteRender from '../components/Brute/Body/BruteRender';
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5
@@ -28,6 +29,19 @@ const scale = (base: number, round: number) => ((round === 0 || round === 10)
         : (round === 4 || round === 6)
           ? base * 0.8
           : base);
+
+const fighterToBrute = (fighter: Fighter) => ({
+  id: fighter.id,
+  gender: fighter.gender || Gender.male,
+  name: fighter.name,
+  hp: fighter.maxHp,
+  level: fighter.level,
+  strengthValue: fighter.strength,
+  agilityValue: fighter.agility,
+  speedValue: fighter.speed,
+  body: fighter.body || '0'.repeat(11),
+  colors: fighter.colors || '0'.repeat(32),
+});
 
 const TournamentView = () => {
   const { t } = useTranslation();
@@ -121,12 +135,10 @@ const TournamentView = () => {
   }, [tournament]);
 
   const goToFight = useCallback((fight: TournamentsGetDailyResponse['fights'][number], newStep: number) => () => {
-    if (!brute) return;
-
+    if (!brute || !fight.brute1) return;
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
-
     if (!ownsBrute) return;
-    if (fight.brute1.id !== brute.id && fight.brute2?.id !== brute.id) return;
+    if (fight.brute1?.id !== brute.id && fight.brute2?.id !== brute.id) return;
     if (brute.currentTournamentDate && moment.utc(brute.currentTournamentDate).isSame(moment.utc(), 'day')) {
       if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
     }
@@ -253,14 +265,14 @@ const TournamentView = () => {
                 >
                   {round.map((fight) => {
                     const fighters = JSON.parse(fight.fighters) as Fighter[];
-
+                    const brute1 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
+                    const brute2 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
                     return (
                       // Fight button
                       <StyledButton
                         key={fight.id}
                         onClick={goToFight(fight, index < 6 ? index + 1 : 10 - index + 1)}
-                        shadowColor={(bruteName === fight.brute1.name
-                          || bruteName === fight.brute2?.name)
+                        shadowColor={fighters.some((fighter) => fighter.name === bruteName)
                           ? '#006CD1'
                           : undefined}
                         sx={{
@@ -275,7 +287,7 @@ const TournamentView = () => {
                       >
                         {/* Left fighter */}
                         <BruteTooltip
-                          fighter={fighters.find((fighter) => fighter.id === fight.brute1.id)}
+                          fighter={brute1}
                         >
                           <Box sx={{
                             position: 'relative',
@@ -284,10 +296,10 @@ const TournamentView = () => {
                             mr: 1,
                           }}
                           >
-                            <BruteRender brute={fight.brute1} />
+                            {brute1 && <BruteRender brute={fighterToBrute(brute1)} />}
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && fight.winner === fight.brute2?.name
+                              && fight.winner === brute2?.name
                               && (
                                 <Close
                                   color="error"
@@ -304,7 +316,7 @@ const TournamentView = () => {
                             {/* Rank */}
                             <Box
                               component="img"
-                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute1.id)?.rank || fight.brute1.ranking}.webp`}
+                              src={`/images/rankings/lvl_${fighters.find((f) => f.id === brute1?.id)?.rank}.webp`}
                               sx={{
                                 position: 'absolute',
                                 bottom: scale(-6, index),
@@ -324,9 +336,9 @@ const TournamentView = () => {
                           }}
                         />
                         {/* RIGHT FIGHTER */}
-                        {fight.brute2 && (
+                        {brute2 && (
                           <BruteTooltip
-                            fighter={fighters.find((fighter) => fighter.id === fight?.brute2?.id)}
+                            fighter={brute2}
                           >
                             <Box sx={{
                               position: 'relative',
@@ -336,12 +348,12 @@ const TournamentView = () => {
                             }}
                             >
                               <BruteRender
-                                brute={fight.brute2}
+                                brute={fighterToBrute(brute2)}
                                 looking="left"
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
-                                && fight.winner === fight.brute1.name
+                                && fight.winner === brute1?.name
                                 && (
                                   <Close
                                     color="error"
@@ -357,7 +369,7 @@ const TournamentView = () => {
                               {/* Rank */}
                               <Box
                                 component="img"
-                                src={`/images/rankings/lvl_${fighters.find((f) => f.id === fight.brute2?.id)?.rank || fight.brute2.ranking}.webp`}
+                                src={`/images/rankings/lvl_${brute2?.rank}.webp`}
                                 sx={{
                                   position: 'absolute',
                                   bottom: scale(-6, index),
@@ -395,17 +407,17 @@ const TournamentView = () => {
               }}
               >
                 <BruteTooltip
-                  fighter={winnerFight.winner === winnerFight.brute1.name
+                  fighter={winnerFight.winner === winnerFight.brute1?.name
                     ? winnerStepFighters
-                      .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1.name)
+                      .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
                     : winnerStepFighters
                       .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
-                  brute={winnerFight.winner === winnerFight.brute1.name
+                  brute={winnerFight.winner === winnerFight.brute1?.name
                     ? winnerFight.brute1
                     : winnerFight.brute2}
                 >
                   <BruteRender
-                    brute={winnerFight.winner === winnerFight.brute1.name
+                    brute={winnerFight.winner === winnerFight.brute1?.name
                       ? winnerFight.brute1
                       : winnerFight?.brute2}
                     sx={{
