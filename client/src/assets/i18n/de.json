@@ -1529,6 +1529,9 @@
   "event.battleRoyale.rule.9": "Für jedes Ereignis ist eine zufällige maximale Stufe vorgesehen. Das aktuelle Maximum ist {{count}}",
   "event.ongoing": "Das Ereignis ist bereits im Gange. Du kannst mit einem Brutalo nicht mehr teilnehmen.",
   "event.started": "Es hat soeben ein neues Ereignis begonnen. Komm und nimm teil, bevor es zu spät ist!",
+  "event.status.starting": "Starting",
+  "event.status.ongoing": "Ongoing",
+  "event.status.finished": "Finished",
   "perkType.weapon": "Waffe",
   "perkType.skill": "Fähigkeit",
   "perkType.pet": "Tierbegleiter",
@@ -1594,5 +1597,12 @@
   "handledBy": "Bearbeitet von",
   "unauthorized": "Nicht autorisiert",
   "unauthorized.desc": "Du hast dich wohl verlaufen, du neugieriges Ding. Du solltest nicht hier sein.",
-  "deleted": "Gelöscht"
+  "deleted": "Gelöscht",
+  "currentEvents": "Current events",
+  "events": "Events",
+  "participants": "{{value}} participants",
+  "maxLevel": "Max level",
+  "dayOver": "Day {{day}} is over",
+  "seeParticipants": "See participants",
+  "searchForParticipant": "Search for a participant"
 }
