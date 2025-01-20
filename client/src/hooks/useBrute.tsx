@@ -1,7 +1,5 @@
 import { HookBrute } from '@labrute/core';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router';
-import Server from '../utils/Server';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useAuth } from './useAuth';
 
 interface BruteContextInterface {
@@ -28,7 +26,6 @@ interface BruteProviderProps {
 
 export const BruteProvider = ({ children }: BruteProviderProps) => {
   const { user } = useAuth();
-  const { bruteName } = useParams();
   const [brute, setBrute] = useState<HookBrute | null>(null);
 
   // Owner?
@@ -40,17 +37,6 @@ export const BruteProvider = ({ children }: BruteProviderProps) => {
   >) => {
     setBrute(data);
   }, []);
-
-  // Fetch brute
-  useEffect(() => {
-    if (!bruteName) return;
-
-    Server.Brute.getForHook(bruteName).then((data) => {
-      setBrute(data);
-    }).catch(() => {
-      window.location.href = '/unknown-brute';
-    });
-  }, [bruteName]);
 
   const methods = useMemo(() => ({
     brute,

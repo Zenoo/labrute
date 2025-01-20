@@ -163,6 +163,8 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   // Event
   app.get('/api/event/list', Events.list(prisma));
   app.get('/api/event/:id/brute/:bruteId', Events.get(prisma));
+  app.get('/api/event/:id/round/:round', Events.getRound(prisma));
+  app.get('/api/event/currents', Events.listCurrent(prisma));
 
   // Notifications
   app.get('/api/notification/list', Notifications.list(prisma));

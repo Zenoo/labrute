@@ -1,5 +1,6 @@
 import {
-  EventGetResponse, EventListResponse, ExpectedError,
+  EventGetResponse, EventGetRoundResponse, EventListCurrentResponse,
+  EventListResponse, ExpectedError,
   isUuid,
   NotFoundError,
 } from '@labrute/core';
@@ -66,6 +67,7 @@ const Events = {
           tournament: {
             select: {
               id: true,
+              rounds: true,
             },
           },
         },
@@ -74,6 +76,11 @@ const Events = {
       if (!event) {
         throw new NotFoundError(translate('eventNotFound'));
       }
+
+      // Get brute count
+      const bruteCount = await prisma.brute.count({
+        where: { eventId: event.id },
+      });
 
       // Get brute fights
       const fights = (brute.eventId === event.id && event.tournament)
@@ -127,7 +134,81 @@ const Events = {
         event,
         fights,
         lastRounds,
+        participants: bruteCount,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  listCurrent: (prisma: PrismaClient) => async (
+    _req: Request,
+    res: Response<EventListCurrentResponse>,
+  ) => {
+    try {
+      // Get events
+      const events = await prisma.event.findMany({
+        where: { finishedAt: null },
+        orderBy: { date: 'asc' },
+        include: {
+          tournament: {
+            select: { rounds: true },
+          },
+        },
+      });
+
+      // Get brute count for each event
+      const bruteCount = await prisma.brute.groupBy({
+        by: ['eventId'],
+        where: { eventId: { in: events.map((event) => event.id) } },
+        _count: { id: true },
+      });
+
+      res.status(200).send(events.map((event) => ({
+        ...event,
+        bruteCount: bruteCount.find((count) => count.eventId === event.id)?._count.id || 0,
+      })));
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getRound: (prisma: PrismaClient) => async (
+    req: Request<{ id: string, round: string }>,
+    res: Response<EventGetRoundResponse>,
+  ) => {
+    try {
+      const { id } = req.params;
+
+      if (!isUuid(id) || Number.isNaN(+req.params.round)) {
+        throw new ExpectedError(translate('invalidParameters'));
+      }
+
+      // Get event
+      const event = await prisma.event.findFirst({
+        where: { id },
+        include: {
+          tournament: {
+            select: {
+              fights: {
+                where: {
+                  tournamentStep: +req.params.round,
+                },
+                select: {
+                  id: true,
+                  fighters: true,
+                  brute1: { select: { id: true, name: true } },
+                  brute2: { select: { id: true, name: true } },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!event) {
+        throw new NotFoundError(translate('eventNotFound'));
+      }
+
+      res.status(200).send(event);
     } catch (error) {
       sendError(res, error);
     }

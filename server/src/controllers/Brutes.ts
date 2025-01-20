@@ -30,6 +30,7 @@ import {
   getRandomStartingStats,
   getXPNeeded,
   isNameValid,
+  isUuid,
   updateBruteData,
 } from '@labrute/core';
 import {
@@ -267,6 +268,10 @@ const Brutes = {
 
       // No creation for started events
       if (req.body.eventId) {
+        if (!isUuid(req.body.eventId)) {
+          throw new ExpectedError(translate('invalidParameters', authed));
+        }
+
         const event = await prisma.event.findFirst({
           where: { id: req.body.eventId },
           select: { status: true },
@@ -2069,7 +2074,7 @@ const Brutes = {
       }
 
       const now = moment.utc();
-      let roundWatched = fight.tournamentStep;
+      let roundWatched = fight.tournamentStep + 1;
 
       // Skip to last round if brute lost
       if (fight.loser === brute.name) {

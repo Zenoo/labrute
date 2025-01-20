@@ -336,10 +336,24 @@ export type EventListResponse = (Event & {
 })[];
 export type EventGetResponse = {
   event: Event & {
-    tournament: Pick<Tournament, 'id'> | null,
+    tournament: Pick<Tournament, 'id' | 'rounds'> | null,
   },
   fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
   lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+  participants: number,
+};
+export type EventListCurrentResponse = (Event & {
+  tournament: Pick<Tournament, 'rounds'> | null,
+} & {
+  bruteCount: number,
+})[];
+export type EventGetRoundResponse = Event & {
+  tournament: {
+    fights: (Pick<Fight, 'id' | 'fighters'> & {
+      brute1: Pick<Brute, 'id' | 'name'> | null,
+      brute2: Pick<Brute, 'id' | 'name'> | null,
+    })[],
+  } | null,
 };
 
 export type NotificationListResponse = Notification[];

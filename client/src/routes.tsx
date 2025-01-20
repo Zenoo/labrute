@@ -48,6 +48,8 @@ import { AdminLayout } from './layouts/AdminLayout';
 import { BruteAdminView } from './views/admin/BruteAdminView';
 import { ModeratorLayout } from './layouts/ModeratorLayout';
 import { ClanAdminView } from './views/admin/ClanAdminView';
+import { CurrentEventsView } from './views/event/CurrentEventsView';
+import { EventRoundView } from './views/event/EventRoundView';
 
 const routes: RouteObject[] = [
   {
@@ -122,8 +124,15 @@ const routes: RouteObject[] = [
           {
             path: 'event',
             children: [
-              { path: ':id', element: <EventView /> },
+              { path: 'current', element: <CurrentEventsView /> },
               { path: 'history', element: <EventHistoryView /> },
+              {
+                path: ':id',
+                children: [
+                  { path: '', element: <EventView /> },
+                  { path: 'round/:round', element: <EventRoundView /> },
+                ]
+              },
             ],
           },
           // Redirect :name to :name/cell

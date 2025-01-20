@@ -1,4 +1,4 @@
-import { Box, BoxProps, SvgIconTypeMap, useTheme } from '@mui/material';
+import { Badge, Box, BoxProps, SvgIconTypeMap, useTheme } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Text from './Text';
@@ -11,6 +11,7 @@ interface ActionButtonProps extends BoxProps {
   };
   iconColor?: string;
   title: string;
+  badge?: string | number;
 }
 
 /**
@@ -21,6 +22,7 @@ const ActionButton = React.forwardRef<HTMLDivElement, ActionButtonProps>(({
   Icon,
   title,
   iconColor,
+  badge,
   sx,
   ...rest
 }, ref) => {
@@ -55,7 +57,13 @@ const ActionButton = React.forwardRef<HTMLDivElement, ActionButtonProps>(({
       }}
       {...rest}
     >
-      <Icon fontSize="large" sx={{ color: iconColor ?? theme.palette.topbar.contrast }} />
+
+      <Badge
+        badgeContent={badge}
+        color="info"
+      >
+        <Icon fontSize="large" sx={{ color: iconColor ?? theme.palette.topbar.contrast }} />
+      </Badge>
       <Text caption center>
         {title}
       </Text>

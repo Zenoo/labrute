@@ -1,23 +1,23 @@
-import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter } from '@labrute/core';
+import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter, formatLargeNumber } from '@labrute/core';
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
-import { Close, History } from '@mui/icons-material';
-import { Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
+import { Close, Groups } from '@mui/icons-material';
+import { Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import BruteRender from '../../components/Brute/Body/BruteRender';
+import BruteTooltip from '../../components/Brute/BruteTooltip';
 import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
 import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
-import { useBrute } from '../../hooks/useBrute';
-import BruteTooltip from '../../components/Brute/BruteTooltip';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import Link from '../../components/Link';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -52,6 +52,7 @@ export const EventView = () => {
   useEffect(() => {
     if (!brute || !id) return;
 
+    setLoading(true);
     Server.Event.get(brute.id, id)
       .then((d) => {
         setData(d);
@@ -69,11 +70,24 @@ export const EventView = () => {
       .finally(() => setLoading(false));
   }, [Alert, brute, id]);
 
-  const watchingRound = useMemo(() => (!data ? 0 : (data.event.finishedAt || !owner)
-    ? 999
-    : moment.utc().isSame(brute?.eventTournamentWatchedDate, 'day')
-      ? brute?.eventTournamentRoundWatched || 1
-      : 1), [brute, data, owner]);
+  const watchingRound = useMemo(() => {
+    if (!data) return 0;
+    if (data.event.finishedAt || !owner) return 999;
+
+    const firstFoughtRound = ([...data.fights].sort(
+      (a, b) => a.tournamentStep - b.tournamentStep,
+    ).pop()?.tournamentStep ?? 1);
+
+    if (moment.utc().isSame(brute?.eventTournamentWatchedDate, 'day')) {
+      if ((brute?.eventTournamentRoundWatched || 1) <= firstFoughtRound) {
+        return firstFoughtRound;
+      }
+
+      return brute?.eventTournamentRoundWatched || 1;
+    }
+
+    return Math.max(firstFoughtRound, 1);
+  }, [brute, data, owner]);
 
   const lastRoundsFirstStep = data?.lastRounds[0]?.tournamentStep ?? 0;
 
@@ -261,7 +275,6 @@ export const EventView = () => {
     <Page title={`${t('event')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-          {data && `${moment.utc(data.event.date).format('DD/MM/YYYY')} - `}
           {t('event')}
         </Text>
       </Paper>
@@ -277,39 +290,67 @@ export const EventView = () => {
           </Box>
         ) : data ? (
           <>
-            <Text h4 bold upperCase sx={{ mx: 1, my: 1 }}>{t(`event.${data.event.type}`)}</Text>
-            <Text my={1}>{t(`event.${data.event.type}.desc`)}</Text>
-            {/* RULES */}
-            <List
-              dense
-              subheader={(
-                <ListSubheader component="div">
-                  <Text bold py={1}>{t('event.rules')}</Text>
-                </ListSubheader>
-              )}
+            <Paper
               sx={{
-                border: '1px solid',
-                borderColor: theme.palette.border.shadow,
-                pb: 0,
+                bgcolor: 'background.paperDark',
+                textAlign: 'center',
+                p: 1,
+                borderRadius: 0,
+                mb: 3,
               }}
             >
-              {Array.from({ length: eventRules[data.event.type] }).map((_, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <ListItem disablePadding key={i}>
-                  <ListItemButton>
-                    <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {
-                      count: data.event.type === EventType.battleRoyale
-                        ? i === 3 ? EventFightsPerDay
-                          : i === 4 ? EventFreeResets
-                            : i === 8 ? EventPauseDuration
-                              : i === 9 ? data.event.maxLevel
-                                : undefined : undefined,
-                    })}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
+              <Badge
+                color="success"
+                badgeContent={`${t('maxLevel')}: ${data.event.maxLevel}`}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                sx={{ width: 1 }}
+                componentsProps={{
+                  badge: { style: { marginTop: -16, marginLeft: 8 } },
+                }}
+              >
+                <Badge
+                  color="warning"
+                  badgeContent={t(`event.status.${data.event.status}`)}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  sx={{ width: 1 }}
+                  componentsProps={{
+                    badge: { style: { marginBottom: -12, marginLeft: -4 } },
+                  }}
+                >
+                  <Badge
+                    color="error"
+                    badgeContent={t('participants', { value: formatLargeNumber(data.participants) })}
+                    sx={{ width: 1 }}
+                    componentsProps={{
+                      badge: { style: { marginTop: -16, marginRight: 8 } },
+                    }}
+                  >
+                    <Badge
+                      color="info"
+                      badgeContent={data.event.tournament ? t('day', { day: data.event.tournament?.rounds }) : 0}
+                      sx={{ width: 1 }}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                      }}
+                      componentsProps={{
+                        badge: { style: { marginBottom: -12 } },
+                      }}
+                    >
+                      <Box sx={{ width: 1 }}>
+                        <Text h4 bold upperCase typo="handwritten">{t(`event.${data.event.type}`)}</Text>
+                      </Box>
+                    </Badge>
+                  </Badge>
+                </Badge>
+              </Badge>
+            </Paper>
             {/* CREATE BRUTE */}
             {user
               && !user.brutes.some((b) => b.eventId === data.event.id)
@@ -319,15 +360,8 @@ export const EventView = () => {
                   {t('createABrute')}
                 </FantasyButton>
               )}
-            {/* STARTED MESSAGE */}
-            {user
-              && !user.brutes.some((b) => b.eventId === data.event.id)
-              && data.event.status === EventStatus.ongoing
-              && (
-                <Text bold>{t('event.ongoing')}</Text>
-              )}
             {/* FIGHTS */}
-            {!!data.fights.length && (
+            {!!data.event.tournament?.rounds && (
               <Box sx={{
                 mt: 1,
                 bgcolor: 'background.paper',
@@ -340,9 +374,42 @@ export const EventView = () => {
               >
                 {/* Rounds */}
                 {Array.from({
-                  length: data.fights.length
+                  length: Math.min(data.event.tournament?.rounds || 0, data.event.maxRound - 3),
                 }).map((_, i) => {
                   const fight = data.fights.find((f) => f.tournamentStep === i + 1);
+
+                  // Not participated
+                  if (brute?.eventId !== data.event.id) {
+                    return (
+                      <Box
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={i}
+                        sx={{
+                          display: 'flex',
+                          px: 0.5,
+                          py: 0.25,
+                          borderBottom: '1px solid',
+                          borderBottomColor: theme.palette.border.shadow,
+                          '&:last-child': {
+                            borderBottom: 'none',
+                          }
+                        }}
+                      >
+                        <Tooltip title={t('seeParticipants')}>
+                          <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                            <Groups
+                              sx={{
+                                cursor: 'pointer',
+                                color: 'text.disabled',
+                                mr: 1,
+                              }}
+                            />
+                          </Link>
+                        </Tooltip>
+                        <Text bold color="text.disabled">{t('dayOver', { day: i + 1 })}</Text>
+                      </Box>
+                    );
+                  }
 
                   // Free bye
                   if (!fight) {
@@ -351,7 +418,35 @@ export const EventView = () => {
                       .some((f) => f.tournamentStep < i + 1 && f.winner !== bruteName);
 
                     if (lost) {
-                      return null;
+                      return (
+                        <Box
+                          // eslint-disable-next-line react/no-array-index-key
+                          key={i}
+                          sx={{
+                            display: 'flex',
+                            px: 0.5,
+                            py: 0.25,
+                            borderBottom: '1px solid',
+                            borderBottomColor: theme.palette.border.shadow,
+                            '&:last-child': {
+                              borderBottom: 'none',
+                            }
+                          }}
+                        >
+                          <Tooltip title={t('seeParticipants')}>
+                            <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                              <Groups
+                                sx={{
+                                  cursor: 'pointer',
+                                  color: 'text.disabled',
+                                  mr: 1,
+                                }}
+                              />
+                            </Link>
+                          </Tooltip>
+                          <Text bold color="text.disabled">{t('dayOver', { day: i + 1 })}</Text>
+                        </Box>
+                      );
                     }
 
                     return (
@@ -369,7 +464,18 @@ export const EventView = () => {
                           }
                         }}
                       >
-                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: 1 })}</Text>
+                        <Tooltip title={t('seeParticipants')}>
+                          <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                            <Groups
+                              sx={{
+                                cursor: 'pointer',
+                                color: 'text.disabled',
+                                mr: 1,
+                              }}
+                            />
+                          </Link>
+                        </Tooltip>
+                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: i + 1 })}</Text>
                         <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
                       </Box>
                     );
@@ -392,41 +498,51 @@ export const EventView = () => {
                   // Hide unwatched fights
                   if (owner && (watchingRound === i + 1)) {
                     return (
-                      <BruteTooltip
-                        fighter={bruteName === fighter2.name ? fighter1 : fighter2}
+                      <Box
                         key={fight.id}
+                        sx={{
+                          display: 'flex',
+                          px: 0.5,
+                          py: 0.25,
+                          cursor: 'pointer',
+                          bgcolor: 'logs.warning.light',
+                          borderBottom: '1px solid',
+                          borderBottomColor: theme.palette.border.shadow,
+                          '&:last-child': {
+                            borderBottom: 'none',
+                          }
+                        }}
                       >
-                        <Box
-                          onClick={watchFight(bruteName || '', i + 1, fight.id)}
-                          sx={{
-                            display: 'flex',
-                            px: 0.5,
-                            py: 0.25,
-                            cursor: 'pointer',
-                            bgcolor: 'logs.warning.light',
-                            borderBottom: '1px solid',
-                            borderBottomColor: theme.palette.border.shadow,
-                            '&:last-child': {
-                              borderBottom: 'none',
-                            }
-                          }}
+                        <Tooltip title={t('seeParticipants')}>
+                          <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                            <Groups
+                              sx={{
+                                cursor: 'pointer',
+                                mr: 1,
+                              }}
+                            />
+                          </Link>
+                        </Tooltip>
+                        <BruteTooltip
+                          fighter={bruteName === fighter2.name ? fighter1 : fighter2}
                         >
-                          <Text
-                            bold
-                            color="warning.main"
-                            sx={{ width: 50 }}
-                          >
-                            {t('day', { day: fight.tournamentStep })}
-                          </Text>
-                          <Text
-                            bold
-                            color="warning.main"
-                            sx={{ ml: 2.5 }}
-                          >
-                            {t('log.fight', { value: opponent })}
-                          </Text>
-                        </Box>
-                      </BruteTooltip>
+                          <Box onClick={watchFight(bruteName || '', i + 1, fight.id)} sx={{ display: 'flex' }}>
+                            <Text
+                              bold
+                              color="warning.main"
+                              sx={{ width: 50 }}
+                            >
+                              {t('day', { day: fight.tournamentStep })}
+                            </Text>
+                            <Text
+                              bold
+                              color="warning.main"
+                            >
+                              {t('log.fight', { value: opponent })}
+                            </Text>
+                          </Box>
+                        </BruteTooltip>
+                      </Box>
                     );
                   }
 
@@ -437,48 +553,59 @@ export const EventView = () => {
 
                   // Normal fight
                   return (
-                    <BruteTooltip
-                      fighter={bruteName === fighter2.name ? fighter1 : fighter2}
+                    <Box
                       key={fight.id}
+                      sx={{
+                        display: 'flex',
+                        px: 0.5,
+                        py: 0.25,
+                        bgcolor: won
+                          ? 'logs.success.light'
+                          : 'logs.error.light',
+                        borderBottom: '1px solid',
+                        borderBottomColor: theme.palette.border.shadow,
+                        '&:last-child': {
+                          borderBottom: 'none',
+                        }
+                      }}
                     >
-                      <Link
-                        to={`/${bruteName}/fight/${fight.id}`}
-                        sx={{
-                          display: 'flex',
-                          px: 0.5,
-                          py: 0.25,
-                          bgcolor: won
-                            ? 'logs.success.light'
-                            : 'logs.error.light',
-                          borderBottom: '1px solid',
-                          borderBottomColor: theme.palette.border.shadow,
-                          '&:last-child': {
-                            borderBottom: 'none',
-                          }
-                        }}
+                      <Tooltip title={t('seeParticipants')}>
+                        <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                          <Groups
+                            sx={{
+                              cursor: 'pointer',
+                              mr: 1,
+                            }}
+                          />
+                        </Link>
+                      </Tooltip>
+                      <BruteTooltip
+                        fighter={bruteName === fighter2.name ? fighter1 : fighter2}
                       >
-                        <Text
-                          bold
-                          color={won ? 'success.main' : 'error'}
-                          sx={{ width: 50 }}
-                        >
-                          {t('day', { day: fight.tournamentStep })}
-                        </Text>
-                        <Box
-                          component="img"
-                          src={`/images/log/${won ? 'win' : 'lose'}.webp`}
-                          sx={{ width: 20, height: 20, mr: 0.5 }}
-                        />
-                        <Text
-                          bold
-                          color={won ? 'success.main' : 'error'}
-                        >
-                          {won
-                            ? t('log.win', { value: opponent })
-                            : t('log.lose', { value: opponent })}
-                        </Text>
-                      </Link>
-                    </BruteTooltip>
+                        <Link to={`/${bruteName}/fight/${fight.id}`} sx={{ display: 'flex' }}>
+                          <Text
+                            bold
+                            color={won ? 'success.main' : 'error'}
+                            sx={{ width: 50 }}
+                          >
+                            {t('day', { day: fight.tournamentStep })}
+                          </Text>
+                          <Box
+                            component="img"
+                            src={`/images/log/${won ? 'win' : 'lose'}.webp`}
+                            sx={{ width: 20, height: 20, mr: 0.5 }}
+                          />
+                          <Text
+                            bold
+                            color={won ? 'success.main' : 'error'}
+                          >
+                            {won
+                              ? t('log.win', { value: opponent })
+                              : t('log.lose', { value: opponent })}
+                          </Text>
+                        </Link>
+                      </BruteTooltip>
+                    </Box>
                   );
                 })}
                 {/* Lost marker */}
@@ -591,16 +718,42 @@ export const EventView = () => {
                   )}
               </Box>
             )}
+            {/* RULES */}
+            <List
+              dense
+              subheader={(
+                <ListSubheader component="div">
+                  <Text bold py={1}>{t('event.rules')}</Text>
+                </ListSubheader>
+              )}
+              sx={{
+                border: '1px solid',
+                borderColor: theme.palette.border.shadow,
+                pb: 0,
+                mt: 1.5,
+              }}
+            >
+              {Array.from({ length: eventRules[data.event.type] }).map((_, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <ListItem disablePadding key={i}>
+                  <ListItemButton>
+                    <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {
+                      count: data.event.type === EventType.battleRoyale
+                        ? i === 3 ? EventFightsPerDay
+                          : i === 4 ? EventFreeResets
+                            : i === 8 ? EventPauseDuration
+                              : i === 9 ? data.event.maxLevel
+                                : undefined : undefined,
+                    })}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
           </>
         ) : (
           <Text center>{t('noEvent')}</Text>
         )}
-        <Box sx={{ display: 'flex', mt: 2, justifyContent: 'center' }}>
-          <FantasyButton color="secondary" to="../history" sx={{ m: 1 }}>
-            <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('eventHistory')}
-          </FantasyButton>
-        </Box>
       </Paper>
     </Page>
   );

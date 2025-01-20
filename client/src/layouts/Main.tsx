@@ -1,6 +1,6 @@
 import { getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { Add, AdminPanelSettings, DarkMode, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
+import { Add, AdminPanelSettings, DarkMode, Event, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
 import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,7 @@ import Server from '../utils/Server';
 
 const Main = () => {
   const theme = useTheme();
-  const { authing, user, signout, modifiers, updateData } = useAuth();
+  const { authing, user, signout, modifiers, updateData, currentEvent } = useAuth();
   const Alert = useAlert();
   const { t } = useTranslation();
   const colorMode = useContext(ColorModeContext);
@@ -352,6 +352,14 @@ const Main = () => {
                   Icon={Person}
                   title={t('profile')}
                 />
+                {(brute || user?.brutes[0]) && (
+                  <ActionButton
+                    to={`/${(brute || user?.brutes[0])?.name}/event/current`}
+                    Icon={Event}
+                    title={t('events')}
+                    badge={currentEvent ? 1 : 0}
+                  />
+                )}
                 <ActionButton
                   to="/wiki"
                   Icon={Info}
