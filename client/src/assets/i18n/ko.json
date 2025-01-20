@@ -1529,6 +1529,9 @@
   "event.battleRoyale.rule.9": "Every event has a random maximum level, the current event maximum level is {{count}}",
   "event.ongoing": "This event is already ongoing, you can't participate with a brute anymore.",
   "event.started": "A new event just started, come participate before it's too late!",
+  "event.status.starting": "Starting",
+  "event.status.ongoing": "Ongoing",
+  "event.status.finished": "Finished",
   "perkType.weapon": "Weapon",
   "perkType.skill": "Skill",
   "perkType.pet": "Pet",
@@ -1594,5 +1597,12 @@
   "handledBy": "Handled by",
   "unauthorized": "Unauthorized",
   "unauthorized.desc": "It seems like you got lost, you curious little thing. You shouldn't be here.",
-  "deleted": "Deleted"
+  "deleted": "Deleted",
+  "currentEvents": "Current events",
+  "events": "Events",
+  "participants": "{{value}} participants",
+  "maxLevel": "Max level",
+  "dayOver": "Day {{day}} is over",
+  "seeParticipants": "See participants",
+  "searchForParticipant": "Search for a participant"
 }
