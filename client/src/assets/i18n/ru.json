@@ -1529,6 +1529,9 @@
   "event.battleRoyale.rule.9": "Каждое событие имеет случайный максимальный уровень. Максимальный уровень текущего: {{count}}",
   "event.ongoing": "Мероприятие уже в процессе, и участие Брутала невозможно.",
   "event.started": "Только что началось новое мероприятие. Не опоздайте принять участие!",
+  "event.status.starting": "Starting",
+  "event.status.ongoing": "Ongoing",
+  "event.status.finished": "Finished",
   "perkType.weapon": "Оружие",
   "perkType.skill": "Умение",
   "perkType.pet": "Питомца",
@@ -1594,5 +1597,12 @@
   "handledBy": "Обработчик:",
   "unauthorized": "Нет авторизации",
   "unauthorized.desc": "Кажется, вы потерялись, вы любопытная штучка. Вам здесь не место.",
-  "deleted": "Удалено"
+  "deleted": "Удалено",
+  "currentEvents": "Current events",
+  "events": "Events",
+  "participants": "{{value}} participants",
+  "maxLevel": "Max level",
+  "dayOver": "Day {{day}} is over",
+  "seeParticipants": "See participants",
+  "searchForParticipant": "Search for a participant"
 }
