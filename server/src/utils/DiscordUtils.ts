@@ -327,19 +327,44 @@ ${error.stack}
       return;
     }
 
-    await this.#releaseClient.send({
-      content: `<@&1086045548177530920>
+    const content = `<@&1086045548177530920>
 :flag_gb: **MyBrute v${release.version}**
 ${release.features.length ? `**Features:**
 ${release.features.map((feature) => `- ${feature}`).join('\n')}
 ` : ''}
 ${release.fixes.length ? `**Fixes:**
 ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
-` : ''}`,
-      files: release.attachments?.map((attachment) => ({
-        attachment: `${this.#server}/images/releases/${attachment}`,
-      })),
-    });
+` : ''}`;
+
+    // Split the content into multiple messages if it exceeds the maximum length
+    // Only split on newlines
+    const parts = content.split('\n');
+    const messages = [];
+
+    let currentMessage = '';
+    for (const part of parts) {
+      if (currentMessage.length + part.length > MAX_CONTENT_LENGTH) {
+        messages.push(currentMessage);
+        currentMessage = '';
+      }
+
+      currentMessage += `${part}\n`;
+    }
+
+    if (currentMessage) {
+      messages.push(currentMessage);
+    }
+
+    for (let i = 0; i < messages.length; i++) {
+      // Attachments are only sent with the last message
+      const files = i === messages.length - 1
+        ? release.attachments?.map((attachment) => ({
+          attachment: `${this.#server}/images/releases/${attachment}`,
+        }))
+        : undefined;
+
+      await this.#releaseClient.send({ content: messages[i], files });
+    }
   }
 
   public async sendMessage(message: string) {
