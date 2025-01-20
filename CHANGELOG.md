@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.0](https://github.com/Zenoo/labrute/compare/labrute-v2.78.4...labrute-v2.79.0) (2025-01-20)
+
+
+### Features
+
+* Brute search. Fixes [#1090](https://github.com/Zenoo/labrute/issues/1090) ([8426492](https://github.com/Zenoo/labrute/commit/8426492a777a67d169c651fb65592b6544accc5f))
+* Clan admin panel. Fixes [#1087](https://github.com/Zenoo/labrute/issues/1087) ([d62e53b](https://github.com/Zenoo/labrute/commit/d62e53bb392635e9ef2a07b30335f37d9abe0a1f))
+* Critical hits. Fixes [#1084](https://github.com/Zenoo/labrute/issues/1084) ([e5aeeea](https://github.com/Zenoo/labrute/commit/e5aeeea5b2152e6d8a11d76cf87c315fd7acf076))
+* CSRF protection. Fixes [#1089](https://github.com/Zenoo/labrute/issues/1089) ([5e201a2](https://github.com/Zenoo/labrute/commit/5e201a2d9493ac6019bd1b7832c3a1183b345eb9))
+* Event page rework. Fixes [#997](https://github.com/Zenoo/labrute/issues/997) ([bc18d84](https://github.com/Zenoo/labrute/commit/bc18d844fc70d305a4edc5bf3af5ee53dba5b57d))
+* New Fast Metabolism skill. Fixes [#1076](https://github.com/Zenoo/labrute/issues/1076) ([ff07bff](https://github.com/Zenoo/labrute/commit/ff07bffeb8db2b62dea45d9aa1aebc876c0459cc))
+* Replace endurance by HP values. Fixes [#1085](https://github.com/Zenoo/labrute/issues/1085) ([8dd8de7](https://github.com/Zenoo/labrute/commit/8dd8de7ab36c1fa96793149c8863f413f7d579c2))
+
+
+### Bug Fixes
+
+* add podium beneath tournament winner ([#1074](https://github.com/Zenoo/labrute/issues/1074)) ([8b16ef4](https://github.com/Zenoo/labrute/commit/8b16ef47ddc89441032eb8f024148b6d9f552602))
+* Admin config panel. Fixes [#1072](https://github.com/Zenoo/labrute/issues/1072) ([0a66d24](https://github.com/Zenoo/labrute/commit/0a66d24534f55d11980c2e9f2088685b0b83e0c7))
+* Admin routing refactoring ([3531ea9](https://github.com/Zenoo/labrute/commit/3531ea9c6b875f55f6b12c0b700a206497ae6317))
+* Animations ([#1068](https://github.com/Zenoo/labrute/issues/1068)) ([0c5109a](https://github.com/Zenoo/labrute/commit/0c5109aa31199199444216e7ef188711baeca529))
+* Boss fight logs. Fixes [#1042](https://github.com/Zenoo/labrute/issues/1042) ([d007904](https://github.com/Zenoo/labrute/commit/d007904d0baae31c20efcb2fe5d051c0886690bf))
+* Check user uuid on auth ([4fd8fb1](https://github.com/Zenoo/labrute/commit/4fd8fb16a97228b78272ff4a1614302b8b023b4d))
+* Clickable names under clan fights. Fixes [#1086](https://github.com/Zenoo/labrute/issues/1086) ([599cba1](https://github.com/Zenoo/labrute/commit/599cba1a468a42b10812ae5201027c2bf8cc34c0))
+* Make brutes optional ([#1073](https://github.com/Zenoo/labrute/issues/1073)) ([ffe4281](https://github.com/Zenoo/labrute/commit/ffe428169ac938116bba0d62788a0f0467a52bc4))
+* Missing translations ([12018c8](https://github.com/Zenoo/labrute/commit/12018c8e66ab3e7bf62c226dc2c85f0d4f3cf1ef))
+* missplaced fight text using Brave ([#1075](https://github.com/Zenoo/labrute/issues/1075)) ([6cda7c5](https://github.com/Zenoo/labrute/commit/6cda7c545df185eb7b01698a0502c2451caf1093))
+* Remove brute from following feed on deletion. Fixes [#1080](https://github.com/Zenoo/labrute/issues/1080) ([c1a42d8](https://github.com/Zenoo/labrute/commit/c1a42d83c28f901d0fc53b429d00a961cd5ca8be))
+* Remove deleted brutes from clan war fighters. Fixes [#1057](https://github.com/Zenoo/labrute/issues/1057) ([eb0cb27](https://github.com/Zenoo/labrute/commit/eb0cb273618dabc19b1d45f673bf523e5ad6957c))
+* Safeguard ascend route ([c172327](https://github.com/Zenoo/labrute/commit/c172327dc01dea58309a4c8dd8d91ed430229f5d))
+* Seed command ([202b6d8](https://github.com/Zenoo/labrute/commit/202b6d88f916cd471cc4c22b3f4d8f772c44bc12))
+* Separate event brutes in cell ranking display ([e7f56d4](https://github.com/Zenoo/labrute/commit/e7f56d4f4c9d5558ded3a88abe784a676e635af9))
+* Serve differrent default languages per host ([26e9094](https://github.com/Zenoo/labrute/commit/26e9094697fac897eb3db2bc60dac2569e0c318c))
+* Store env variables in DB. Fixes [#1071](https://github.com/Zenoo/labrute/issues/1071) ([704d582](https://github.com/Zenoo/labrute/commit/704d58236b167e3a798727c8e7acbeb5e047b2bc))
+* Throw accurate errors from the backend ([#1083](https://github.com/Zenoo/labrute/issues/1083)) ([fd03d33](https://github.com/Zenoo/labrute/commit/fd03d3311159a75abd84168fe7a5bdac3634e182))
+* Update Prisma to V6 ([af6b341](https://github.com/Zenoo/labrute/commit/af6b3414d748979e4c45f3ebb59de85bd215ae88))
+* Use better HTTP methods for API calls. [#1089](https://github.com/Zenoo/labrute/issues/1089) ([cca5a78](https://github.com/Zenoo/labrute/commit/cca5a78120bc4f74aaa8e14131bd6af41b9ea65e))
+* Use cookies for auth. (allows multiple subdomains). Fixes [#1082](https://github.com/Zenoo/labrute/issues/1082) ([5848005](https://github.com/Zenoo/labrute/commit/5848005f77adcf5e7b678db7993aa6e997e631e6))
+* User upsert race condition ([7aa8465](https://github.com/Zenoo/labrute/commit/7aa8465a7404e44e679d34659a0879de616ffd08))
+
 ## [2.78.4](https://github.com/Zenoo/labrute/compare/labrute-v2.78.3...labrute-v2.78.4) (2024-11-24)
 
 
