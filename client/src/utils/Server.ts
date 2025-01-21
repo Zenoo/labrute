@@ -40,7 +40,7 @@ const Server = {
       colors: string,
       master: string | null,
       eventId: string | null,
-    ) => Fetch<BrutesCreateResponse>('/api/brute/create', {
+    ) => Fetch<BrutesCreateResponse>('/api/brute', {
       name,
       user,
       gender,

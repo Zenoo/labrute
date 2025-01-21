@@ -66,7 +66,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.get('/api/brute/:name/for-admin', Brutes.getForAdmin(prisma));
   app.get('/api/brute/:name/fights-left', Brutes.getFightsLeft(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
-  app.put('/api/brute/create', Brutes.create(prisma));
+  app.put('/api/brute', Brutes.create(prisma));
   app.get('/api/brute/:name/level-up-choices', Brutes.getLevelUpChoices(prisma));
   app.patch('/api/brute/:name/level-up', Brutes.levelUp(prisma));
   app.get('/api/brute/:name/get-opponents/:level', Brutes.getOpponents(prisma));
