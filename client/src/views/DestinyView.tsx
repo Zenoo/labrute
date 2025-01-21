@@ -1,5 +1,5 @@
-import { DestinyBranch, skills, weapons } from '@labrute/core';
-import { BruteStat, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { convertEnduranceToHP, DestinyBranch, skills, weapons } from '@labrute/core';
+import { Brute, BruteStat, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
 import { Box, Paper, SxProps, useTheme } from '@mui/material';
 import React from 'react';
@@ -14,6 +14,20 @@ import Text from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+
+// Rename endurance to HP
+const statName = (stat: BruteStat) => {
+  if (stat === 'endurance') return 'hp';
+
+  return stat;
+};
+
+// Convert endurance to HP
+const statValue = (brute: Pick<Brute, 'enduranceModifier'>, stat: BruteStat | null, value: number) => {
+  if (stat === 'endurance') return convertEnduranceToHP(brute, value);
+
+  return value;
+};
 
 const styles: Record<string, SxProps> = {
   ul: {
@@ -92,7 +106,7 @@ const DestinyView = () => {
   // Destiny choices
   const { data: tree } = useStateAsync(null, Server.Brute.getDestiny, bruteName || '');
 
-  const renderBranch = (branch: DestinyBranch | null) => (
+  const renderBranch = (branch: DestinyBranch | null) => (brute ? (
     <Box
       key={branch?.path.join(',')}
       component="li"
@@ -114,9 +128,9 @@ const DestinyView = () => {
               {/* CHOICE HEADER */}
               <Text caption>
                 {/* +3 Skill */}
-                {branch.type === 'stats' && !branch.stat2 && `+${branch.stat1Value || ''} ${t('in')}`}
+                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in')}`}
                 {/* +2/+1 Skill */}
-                {branch.type === 'stats' && branch.stat2 && `+${branch.stat1Value || ''}/+${branch.stat2Value || ''} ${t('in')}`}
+                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in')}`}
                 {/* New weapon */}
                 {branch.type === 'weapon' && `${t('newWeapon')} :`}
                 {/* New skill */}
@@ -142,10 +156,12 @@ const DestinyView = () => {
               ) : branch.type === 'pet' ? (
                 <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
               ) : !branch.stat2 ? (
-                <Text h6 bold smallCaps>{t(branch.stat1 as BruteStat)}</Text>
+                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat))}</Text>
               ) : (
                 <Text h6 bold smallCaps>
-                  {t(branch.stat1 as BruteStat)} / {t(branch.stat2)}
+                  {t(statName(branch.stat1 as BruteStat))}
+                  {' / '}
+                  {t(statName(branch.stat2))}
                 </Text>
               ))}
             </>
@@ -161,7 +177,7 @@ const DestinyView = () => {
         </Box>
       )}
     </Box>
-  );
+  ) : null);
 
   return brute && (
     <Page title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
