@@ -7,7 +7,7 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.79.0',
+  version: '2.79.1',
   date: '2025-01-21',
   features: [
     'The game is now available on multiple domains, one for each main language: labrute.eternaltwin.org, mybrute.eternaltwin.org, elbruto.eternaltwin.org, meinbrutalo.eternaltwin.org. Loading the game on one of these domains will by default set the language to the corresponding one. Logging in on one domain will log you in on all domains.',
