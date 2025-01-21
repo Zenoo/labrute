@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.3](https://github.com/Zenoo/labrute/compare/labrute-v2.79.2...labrute-v2.79.3) (2025-01-21)
+
+
+### Bug Fixes
+
+* Sanitize daily request ([a326f8d](https://github.com/Zenoo/labrute/commit/a326f8d710d283f4b42422d540bcabe9f26c5051))
+
 ## [2.79.2](https://github.com/Zenoo/labrute/compare/labrute-v2.79.1...labrute-v2.79.2) (2025-01-21)
 
 
