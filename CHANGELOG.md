@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.1](https://github.com/Zenoo/labrute/compare/labrute-v2.79.0...labrute-v2.79.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* Fetch the csrf token if not available. ([5a825c9](https://github.com/Zenoo/labrute/commit/5a825c9196161621b313b6edda6d1ff572458748))
+* Hide + button in topbar when not connected. ([5b53778](https://github.com/Zenoo/labrute/commit/5b5377805824914adf456009b1bd3eb3607bfc7c))
+
 ## [2.79.0](https://github.com/Zenoo/labrute/compare/labrute-v2.78.4...labrute-v2.79.0) (2025-01-20)
 
 
