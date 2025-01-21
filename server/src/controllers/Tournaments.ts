@@ -23,8 +23,8 @@ const Tournaments = {
     res: Response<TournamentsGetDailyResponse>,
   ) => {
     try {
-      if (!req.params.name || !req.params.date) {
-        throw new Error('Invalid parameters');
+      if (!req.params.name || !req.params.date || !moment.utc(req.params.date, 'YYYY-MM-DD').isValid()) {
+        throw new ExpectedError(translate('invalidParameters'));
       }
 
       // Get tournament
