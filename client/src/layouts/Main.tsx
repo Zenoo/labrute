@@ -210,9 +210,11 @@ const Main = () => {
               <MoreHoriz />
             </IconButton>
           )}
-          <IconButton component={RouterLink} to="/" sx={{ color: theme.palette.topbar.contrast }}>
-            <Add />
-          </IconButton>
+          {user && (
+            <IconButton component={RouterLink} to="/" sx={{ color: theme.palette.topbar.contrast }}>
+              <Add />
+            </IconButton>
+          )}
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {!smallScreen && (
