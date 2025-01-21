@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.2](https://github.com/Zenoo/labrute/compare/labrute-v2.79.1...labrute-v2.79.2) (2025-01-21)
+
+
+### Bug Fixes
+
+* Wrong redirect after event brute fight ([22bcc99](https://github.com/Zenoo/labrute/commit/22bcc992e283131552714ca67461fe9ede0a9996))
+
 ## [2.79.1](https://github.com/Zenoo/labrute/compare/labrute-v2.79.0...labrute-v2.79.1) (2025-01-21)
 
 
