@@ -17,7 +17,7 @@ import Server from '../utils/Server';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
-  if (stat === 'endurance') return 'hp';
+  if (stat === 'endurance') return 'HP';
 
   return stat;
 };

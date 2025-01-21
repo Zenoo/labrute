@@ -23,7 +23,7 @@ import catchError from '../utils/catchError';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
-  if (stat === 'endurance') return 'hp';
+  if (stat === 'endurance') return 'HP';
 
   return stat;
 };
