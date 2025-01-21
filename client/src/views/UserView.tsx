@@ -278,7 +278,7 @@ const UserView = () => {
             }}
             >
               {user && user.brutes.map((brute) => (
-                <BruteButton key={brute.id} brute={brute} />
+                <BruteButton key={brute.id} brute={brute} link={`/${brute.name}/cell`} />
               ))}
             </Box>
             {/* FAVORITE FIGHTS */}

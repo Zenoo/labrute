@@ -74,12 +74,7 @@ const BruteButton = ({
   );
 
   const goTo = () => {
-    if (link === null) return;
-
-    if (typeof link === 'undefined') {
-      navigate(`/${brute.name}/cell`);
-      return;
-    }
+    if (!link) return;
 
     navigate(link);
   };
