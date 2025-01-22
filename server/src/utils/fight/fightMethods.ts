@@ -2051,7 +2051,12 @@ export const playFighterTurn = (
   // Regeneration
   if (fighter.hp < fighter.maxHp) {
     if (fighter.regeneration > 0) {
-      const heal = Math.floor(fighter.maxHp * fighter.regeneration);
+      let heal = Math.floor(fighter.maxHp * fighter.regeneration);
+
+      // Prevent overheal
+      if (fighter.hp + heal > fighter.maxHp) {
+        heal = fighter.maxHp - fighter.hp;
+      }
 
       // Heal fighter
       healFighter(stats, fighter, heal);
