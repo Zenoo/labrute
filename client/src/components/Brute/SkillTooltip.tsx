@@ -1,9 +1,23 @@
+import { convertEnduranceToHP, FightStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment } from 'react';
-import { FightStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
-import Text from '../Text';
 import { useTranslation } from 'react-i18next';
 import StatColor from '../../utils/StatColor';
+import Text from '../Text';
+
+// Rename endurance to HP
+const statName = (stat: FightStat) => {
+  if (stat === 'endurance') return 'HP';
+
+  return stat;
+};
+
+// Convert endurance to HP
+const statValue = (stat: FightStat | null, value: number) => {
+  if (stat === 'endurance') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
+
+  return value;
+};
 
 export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
   skill?: Skill;
@@ -40,9 +54,9 @@ const SkillTooltip = ({
                     sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
                   >
                     {modifier.flat < 0 ? '' : '+'}
-                    {modifier.flat}
+                    {statValue(stat, modifier.flat)}
                     {' '}
-                    {modifier.opponent ? t(`opponent-${stat}`) : t(stat)}
+                    {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
                     {modifier.details ? ` ${t(modifier.details)}` : ''}
                   </Text>
@@ -55,7 +69,7 @@ const SkillTooltip = ({
                     {modifier.percent < 0 ? '' : '+'}
                     {modifier.percent * 100}
                     {'% '}
-                    {modifier.opponent ? t(`opponent-${stat}`) : t(stat)}
+                    {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
                     {modifier.details ? ` ${t(modifier.details)}` : ''}
                   </Text>
