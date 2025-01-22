@@ -46,17 +46,27 @@ const ArenaView = () => {
     if (!brute) return cleanup;
 
     // Redirect to cell if XP is too much
+    // TODO: I think this part triggers when clicking on an opponent to fight it, redirecting to the cell page
     if (xpNeededForNextLevel && brute.xp >= xpNeededForNextLevel) {
       // Don't redirect if event brute who reached max level
       if (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) {
-        navigate(`/${brute.name}/cell`);
-        return cleanup;
+        // Wait 500ms before redirecting to cell page
+        setTimeout(() => {
+          if (isSubscribed) {
+            navigate(`/${brute.name}/cell`);
+          }
+        }, 500);
       }
     }
 
     // Redirect to cell if brute doesn't have enough fights left
     if (fightsLeft <= 0) {
-      navigate(`/${brute.name}/cell`);
+      // Wait 500ms before redirecting to cell page
+      setTimeout(() => {
+        if (isSubscribed) {
+          navigate(`/${brute.name}/cell`);
+        }
+      }, 500);
     }
 
     Server.Brute.getOpponents(brute.name, brute.level).then((data) => {

@@ -36,8 +36,10 @@ const VersusView = () => {
 
   // Redirect if invalid params
   useEffect(() => {
+    let isSubscribed = true;
+    const cleanup = () => { isSubscribed = false; };
     if (!brute || !opponent || !user) {
-      return;
+      return cleanup;
     }
     if (brute.userId !== user.id) {
       navigate(`/${brute.name}/cell`);
@@ -48,9 +50,16 @@ const VersusView = () => {
 
     if (xpNeededForNextLevel && brute.xp >= xpNeededForNextLevel) {
       if (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) {
-        navigate(`/${brute.name}/cell`);
+        // Wait 500ms before redirecting to cell page
+        setTimeout(() => {
+          if (isSubscribed) {
+            navigate(`/${brute.name}/cell`);
+          }
+        }, 500);
       }
     }
+
+    return cleanup;
   }, [brute, currentEvent?.maxLevel, navigate, opponent, user, xpNeededForNextLevel]);
 
   // Start fight
