@@ -129,7 +129,8 @@ const getDamage = (
   }
 
   // Critical hit
-  const criticalHit = Math.random() < getFighterStat(fighter, FightStat.CRITICAL_CHANCE);
+  const criticalChance = getFighterStat(fighter, FightStat.CRITICAL_CHANCE);
+  const criticalHit = !!criticalChance && Math.random() < criticalChance;
   if (criticalHit) {
     damage = Math.floor(damage * getFighterStat(fighter, FightStat.CRITICAL_DAMAGE));
   }

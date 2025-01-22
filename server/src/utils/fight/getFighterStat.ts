@@ -41,7 +41,8 @@ export const getFighterStat = (
   if (onlyStat !== 'fighter') {
     if (fighter.activeWeapon) {
       total += fighter.activeWeapon[stat];
-    } else {
+    } else if (stat !== FightStat.CRITICAL_DAMAGE && stat !== FightStat.CRITICAL_CHANCE) {
+      // Ignore crit stats are they are already handled in getFighters
       total += fighter.type === 'brute'
         ? BASE_FIGHTER_STATS[stat]
         : fighter.type === 'boss'
