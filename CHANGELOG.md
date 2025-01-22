@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.4](https://github.com/Zenoo/labrute/compare/labrute-v2.79.3...labrute-v2.79.4) (2025-01-22)
+
+
+### Bug Fixes
+
+* Better HTTP methods ([a3eb730](https://github.com/Zenoo/labrute/commit/a3eb7303900223557e1e32cbffa36c943ad866d8))
+* HP not translated ([041054f](https://github.com/Zenoo/labrute/commit/041054f136e5e5fd143a540b6e6fb792f284c47d))
+* Prevent overheal from Fast Metabolism. Fixes [#1099](https://github.com/Zenoo/labrute/issues/1099) ([579d854](https://github.com/Zenoo/labrute/commit/579d854d74f4121db07084fa081607bcc093ad8d))
+* Rename endurance to HP in destiny view ([17dbc4d](https://github.com/Zenoo/labrute/commit/17dbc4d6155a89b89ac59c54c971a7e4c237c0f9))
+* Replace endurance with HP in skill tooltips. Fixes [#1098](https://github.com/Zenoo/labrute/issues/1098) ([d0e9841](https://github.com/Zenoo/labrute/commit/d0e984166efc1a6666bf9705564d5bd03ccc457b))
+* Stop redirecting to cell after winning too much XP after a fight ([b28f727](https://github.com/Zenoo/labrute/commit/b28f727d54b9b99d79eaa4a90d83432ae85d68fe))
+* Wrong crit chance and damage %. Fixes [#1100](https://github.com/Zenoo/labrute/issues/1100) ([1c925cf](https://github.com/Zenoo/labrute/commit/1c925cf938bd6a7bec95b1ad06adaf6c4d7e4bc0))
+
 ## [2.79.3](https://github.com/Zenoo/labrute/compare/labrute-v2.79.2...labrute-v2.79.3) (2025-01-21)
 
 
