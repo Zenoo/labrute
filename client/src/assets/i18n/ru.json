@@ -1605,5 +1605,5 @@
   "dayOver": "День {{day}} закончился",
   "seeParticipants": "Показать участников",
   "searchForParticipant": "Поиск участника",
-  "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page."
+  "outdatedVersion": "Вы используете устаревшую версию игры. Пожалуйста, обновите страницу, чтобы выйти на текущую версию. Если это сообщение вновь будет появляться, очистите кэш браузера и обновите страницу."
 }
