@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.6](https://github.com/Zenoo/labrute/compare/labrute-v2.79.5...labrute-v2.79.6) (2025-01-23)
+
+
+### Bug Fixes
+
+* Outdated version notification ([274deae](https://github.com/Zenoo/labrute/commit/274deae3ee52f2d5c7b9d1127381c51671e18b56))
+* Wrong brute portrait on backups. Fixes [#1104](https://github.com/Zenoo/labrute/issues/1104) ([ea975b6](https://github.com/Zenoo/labrute/commit/ea975b6cdbd075922dfcb34a8dea07706632d21e))
+
 ## [2.79.5](https://github.com/Zenoo/labrute/compare/labrute-v2.79.4...labrute-v2.79.5) (2025-01-23)
 
 
