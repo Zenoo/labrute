@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.5](https://github.com/Zenoo/labrute/compare/labrute-v2.79.4...labrute-v2.79.5) (2025-01-23)
+
+
+### Bug Fixes
+
+* Bodybuilder applied even without conditions being met ([6bd2a7e](https://github.com/Zenoo/labrute/commit/6bd2a7ec939c362134bea27200f4e0113286ce4f))
+
 ## [2.79.4](https://github.com/Zenoo/labrute/compare/labrute-v2.79.3...labrute-v2.79.4) (2025-01-22)
 
 
