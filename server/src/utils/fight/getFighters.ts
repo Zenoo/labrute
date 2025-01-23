@@ -28,7 +28,7 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
       const stat = unsafeStat as FightStat;
 
       // Ignore conditional modifiers
-      if (modifier.details) continue;
+      if (modifier.details || (typeof modifier.weaponType !== 'undefined')) continue;
 
       // Ignore some stats handled elsewhere
       if (stat === FightStat.DEXTERITY
