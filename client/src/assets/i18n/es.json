@@ -1604,5 +1604,6 @@
   "maxLevel": "Nivel máximo",
   "dayOver": "El día {{day}} ha terminado",
   "seeParticipants": "Ver participantes",
-  "searchForParticipant": "Buscar un participante"
+  "searchForParticipant": "Buscar un participante",
+  "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page."
 }
