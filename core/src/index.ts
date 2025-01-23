@@ -156,6 +156,7 @@ export type UsersAuthenticateResponse = {
   user: UserWithBrutesBodyColor,
   modifiers: FightModifier[],
   currentEvent: Event | null,
+  version: string,
 };
 
 export type BruteReportsListRequest = {

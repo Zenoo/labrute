@@ -11,6 +11,7 @@ import {
   UserUpdateSettingsRequest,
   UsersAdminUpdateRequest,
   UsersAuthenticateResponse,
+  Version,
   getFightsLeft,
   isUuid,
 } from '@labrute/core';
@@ -124,6 +125,7 @@ const Users = {
         user,
         modifiers: await ServerState.getModifiers(prisma),
         currentEvent: await ServerState.getCurrentEvent(prisma),
+        version: Version,
       });
     } catch (error) {
       sendError(res, error);

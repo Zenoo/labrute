@@ -1,9 +1,11 @@
-import { UserWithBrutesBodyColor } from '@labrute/core';
+import { UserWithBrutesBodyColor, Version } from '@labrute/core';
 import { Event, FightModifier } from '@labrute/prisma';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { deleteCookie, getCookie } from '../utils/cookies';
 import Server from '../utils/Server';
 import { useLanguage } from './useLanguage';
+import { useAlert } from './useAlert';
+import { useTranslation } from 'react-i18next';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
@@ -49,6 +51,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
+  const Alert = useAlert();
+  const { t } = useTranslation();
 
   const signin = useCallback(() => {
     if (authing) return;
@@ -66,6 +70,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         // Update language
         setLanguage(response.user.lang);
+
+        // Compare version
+        if (response.version !== Version) {
+          Alert.open('warning', t('outdatedVersion'));
+        }
       }).catch(() => {
         deleteCookie('user');
         deleteCookie('token');
@@ -74,7 +83,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } else {
       setAuthing(false);
     }
-  }, [authing, setLanguage]);
+  }, [Alert, authing, setLanguage, t]);
 
   const signout = useCallback(() => {
     deleteCookie('user');
