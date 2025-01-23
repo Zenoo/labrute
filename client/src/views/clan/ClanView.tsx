@@ -42,7 +42,7 @@ const ClanView = () => {
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
   const displayedBossName = useMemo(() => {
     // Normal day display
-    if (!moment().isSame(moment('04-01', 'MM-DD'), 'day')) return clan?.boss;
+    if (!moment.utc().isSame(moment.utc('04-01', 'MM-DD'), 'day')) return clan?.boss;
     // April Fools display
     switch (clan?.boss) {
       case BossName.EmberFang:

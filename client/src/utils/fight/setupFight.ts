@@ -333,7 +333,7 @@ const setupFight: (
     // Boss name
     const displayedBossName = (
       // Normal day Display
-      !moment().isSame(moment('04-01', 'MM-DD'), 'day') ? boss.name
+      !moment.utc().isSame(moment.utc('04-01', 'MM-DD'), 'day') ? boss.name
         // April Fools Display
         : boss.name === BossName.EmberFang ? 'EmberFool'
           : boss.name === BossName.GoldClaw ? 'GoldClown'

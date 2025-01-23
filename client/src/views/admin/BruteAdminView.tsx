@@ -603,6 +603,19 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  label="Event ID"
+                  value={brute.eventId || ''}
+                  onChange={(event) => {
+                    setBrute((b) => (b ? ({
+                      ...b,
+                      eventId: event.target.value || null,
+                    }) : null));
+                  }}
+                  fullWidth
+                />
+              </Grid>
             </Grid>
             <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
             <Select

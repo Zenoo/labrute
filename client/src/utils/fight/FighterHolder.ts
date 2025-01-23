@@ -643,7 +643,7 @@ export default class FighterHolder {
           throw new Error(`Boss not found: ${this.name}`);
         }
 
-        const aprilFools = moment().isSame(moment('04-01', 'MM-DD'), 'day');
+        const aprilFools = moment.utc().isSame(moment.utc('04-01', 'MM-DD'), 'day');
         // Apply color
         if (fighter.name === BossName.GoldClaw) {
           this.container.filters = [new AdjustmentFilter({
