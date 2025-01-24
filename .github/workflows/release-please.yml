@@ -25,7 +25,7 @@ jobs:
       - name: Run generateSitemap script
         if: success()
         run: |
-          npx ts-node /scripts/generateSitemap.ts
+          npx ts-node ./scripts/generateSitemap.ts
 
       - name: Commit and push sitemap changes
         if: success()
