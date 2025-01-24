@@ -68,7 +68,7 @@ const TournamentHistoryView = () => {
                       key={tournament.id}
                       sx={{
                         '& td': {
-                          bgcolor: tournament.type === TournamentType.GLOBAL ? 'background.paperDark' : 'background.paper',
+                          bgcolor: tournament.type === TournamentType.DAILY ? 'background.paper' : 'background.paperDark',
                         }
                       }}
                     >
@@ -80,7 +80,8 @@ const TournamentHistoryView = () => {
                           <Text bold>
                             {tournament.type === TournamentType.DAILY
                               ? t('dailyTournament')
-                              : tournament.type === TournamentType.GLOBAL
+                              : (tournament.type === TournamentType.GLOBAL
+                                || tournament.type === TournamentType.UNLIMITED_GLOBAL)
                                 ? t('globalTournament')
                                 : tournament.type}
                           </Text>

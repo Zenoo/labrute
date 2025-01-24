@@ -646,7 +646,7 @@ export type TournamentsUpdateStepWatchedResponse = {
 };
 export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
 export type TournamentsGetGlobalResponse = {
-  tournament: (Pick<Tournament, 'id' | 'rounds'> & {
+  tournament: (Pick<Tournament, 'id' | 'rounds' | 'type'> & {
     fights: TournamentsGetGlobalFight[];
   }) | null,
   lastRounds: TournamentsGetGlobalFight[],

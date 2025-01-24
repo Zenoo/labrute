@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "TournamentType" ADD VALUE 'UNLIMITED_GLOBAL';

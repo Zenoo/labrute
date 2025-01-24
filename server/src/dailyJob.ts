@@ -497,11 +497,12 @@ const handleGlobalTournament = async (
   // Set tournament as invalid until it's finished
   await ServerState.setGlobalTournamentValid(prisma, false);
 
-  // Get all real brutes that played previous day
+  // Get all real brutes who can't rank up that played previous day
   const brutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
       eventId: null,
+      canRankUpSince: null,
       lastFight: {
         gte: moment.utc().subtract(1, 'day').toDate(),
       },
@@ -512,7 +513,7 @@ const handleGlobalTournament = async (
     select: { id: true },
   });
 
-  LOGGER.log(`Total brutes: ${brutes.length}`);
+  LOGGER.log(`${brutes.length} brutes for global tournament`);
 
   // Shuffle brutes
   const shuffledBrutes = shuffle(brutes);
@@ -561,7 +562,6 @@ const handleGlobalTournament = async (
 
   // Create tournament steps
   while (roundBrutes.length > 1) {
-    LOGGER.log(`Round ${round}`);
     let nextBrutes: typeof brutes = [];
 
     for (let i = 0; i < roundBrutes.length - 1; i += 2) {
@@ -710,6 +710,220 @@ const handleGlobalTournament = async (
   LOGGER.log('Global tournament created');
 
   return gains;
+};
+
+const handleUnlimitedGlobalTournament = async (
+  prisma: PrismaClient,
+  modifiers: FightModifier[],
+) => {
+  const today = moment.utc().startOf('day');
+
+  // Disable today's tournament to prevent duplicates
+  // TODO: Remove this once the update went through
+  if (moment.utc().isSame(moment.utc('01-24', 'MM-DD'), 'day')) {
+    return;
+  }
+
+  // Check if unlimited global tournament is already handled
+  const globalTournament = await prisma.tournament.count({
+    where: {
+      date: today.toDate(),
+      type: TournamentType.UNLIMITED_GLOBAL,
+    },
+  });
+
+  if (globalTournament) {
+    return;
+  }
+
+  // Set tournament as invalid until it's finished
+  await ServerState.setGlobalTournamentValid(prisma, false);
+
+  // Get all real brutes who can rank up that played previous day
+  const brutes = await prisma.brute.findMany({
+    where: {
+      deletedAt: null,
+      eventId: null,
+      canRankUpSince: {
+        not: null,
+      },
+      lastFight: {
+        gte: moment.utc().subtract(1, 'day').toDate(),
+      },
+      user: {
+        isNot: null,
+      },
+    },
+    select: { id: true },
+  });
+
+  LOGGER.log(`${brutes.length} brutes for the unlimited global tournament`);
+
+  // Shuffle brutes
+  const shuffledBrutes = shuffle(brutes);
+
+  // Create global tournament
+  const tournament = await prisma.tournament.create({
+    data: {
+      date: today.toDate(),
+      type: TournamentType.UNLIMITED_GLOBAL,
+      rounds: 0,
+    },
+    select: { id: true },
+  });
+
+  // Separate brutes 1000 by 1000
+  const brutesChunks = Array(Math.ceil(shuffledBrutes.length / 1000))
+    .fill([])
+    .map((_, index) => shuffledBrutes.slice(index * 1000, index * 1000 + 1000));
+
+  // Set tourmanent participants separately, 1000 by 1000 to avoid insert error
+  for (const brutesChunk of brutesChunks) {
+    await prisma.tournament.update({
+      where: { id: tournament.id },
+      data: {
+        participants: {
+          connect: brutesChunk.map((brute) => ({ id: brute.id })),
+        },
+      },
+      select: { id: true },
+    });
+  }
+
+  // For the global tournament, fight.tournamentStep represents the round number
+  let round = 1;
+  let roundBrutes = [...shuffledBrutes];
+  let byes: typeof brutes = [];
+
+  // Handle byes for first round (power of 2)
+  if (roundBrutes.length !== 2 ** Math.floor(Math.log2(roundBrutes.length))) {
+    // Get number of byes
+    const byesCount = 2 ** (Math.floor(Math.log2(roundBrutes.length)) + 1) - roundBrutes.length;
+
+    // Add byes
+    byes = [...roundBrutes.splice(roundBrutes.length - byesCount, byesCount)];
+  }
+
+  // Create tournament steps
+  while (roundBrutes.length > 1) {
+    let nextBrutes: typeof brutes = [];
+
+    for (let i = 0; i < roundBrutes.length - 1; i += 2) {
+      const roundBrute1 = roundBrutes[i];
+      const roundBrute2 = roundBrutes[i + 1];
+
+      if (!roundBrute1 || !roundBrute2) {
+        throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
+      }
+      const brute1 = await prisma.brute.findUnique({
+        where: { id: roundBrute1.id },
+      });
+      const brute2 = await prisma.brute.findUnique({
+        where: { id: roundBrute2.id },
+      });
+
+      if (!brute1 || !brute2) {
+        throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
+      }
+
+      if (brute1.id === brute2.id) {
+        throw new Error('Attempting to fight a brute against itself');
+      }
+
+      // Skip if no adversary
+      if (!brute2) {
+        nextBrutes.push(brute1);
+        continue;
+      }
+
+      // Generate fight (retry if failed)
+      let generatedFight: Prisma.FightCreateInput | null = null;
+      let retries = 0;
+
+      while (!generatedFight) {
+        // Stop at 10 retries
+        if (retries > 10) {
+          throw new Error('Too many retries');
+        }
+
+        try {
+          const newGeneratedFight = await generateFight({
+            prisma,
+            team1: { brutes: [brute1] },
+            team2: { brutes: [brute2] },
+            modifiers,
+            backups: false,
+            achievements: true,
+            tournament: roundBrutes.length === 2 ? 'finals' : 'fight',
+          });
+          generatedFight = newGeneratedFight.data;
+        } catch (error: unknown) {
+          if (!(error instanceof Error)) {
+            throw error;
+          }
+          LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
+          DISCORD().sendError(error);
+        }
+
+        retries++;
+      }
+
+      // Create fight
+      await prisma.fight.create({
+        data: {
+          ...generatedFight,
+          tournamentStep: round,
+          tournament: { connect: { id: tournament.id } },
+        },
+        select: { id: true },
+      });
+
+      // Add winner to next round
+      nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
+    }
+
+    // Add byes to next round
+    if (byes.length) {
+      nextBrutes = [...nextBrutes, ...byes];
+      byes.length = 0;
+    }
+
+    // Continue with next round
+    roundBrutes = [...nextBrutes];
+    round++;
+  }
+
+  if (roundBrutes.length !== 1) {
+    throw new Error('Invalid tournament');
+  }
+
+  // Get winner user
+  const winnerBrute = roundBrutes[0];
+
+  if (!winnerBrute) {
+    throw new Error('Winner brute not found');
+  }
+
+  const winnerUser = await prisma.user.findFirst({
+    where: { brutes: { some: { id: winnerBrute.id } } },
+    select: { id: true },
+  });
+
+  if (!winnerUser) {
+    throw new Error('Winner user not found');
+  }
+
+  // Update tournament with rounds
+  await prisma.tournament.update({
+    where: { id: tournament.id },
+    data: { rounds: round - 1 },
+    select: { id: true },
+  });
+
+  // Set tournament as valid
+  await ServerState.setGlobalTournamentValid(prisma, true);
+
+  LOGGER.log('Unlimited global tournament created');
 };
 
 const storeGains = async (
@@ -1926,6 +2140,8 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
       // Handle global tournament
       const globalGains = await handleGlobalTournament(prisma, modifiers);
 
+      // Handle unlimited global tournament
+      await handleUnlimitedGlobalTournament(prisma, modifiers);
       // Store gains
       await storeGains(prisma, dailyGains, globalGains);
     }

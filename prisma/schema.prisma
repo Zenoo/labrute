@@ -433,6 +433,7 @@ model DestinyChoice {
 enum TournamentType {
   DAILY
   GLOBAL
+  UNLIMITED_GLOBAL
   CUSTOM
   BATTLE_ROYALE
 }

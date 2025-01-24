@@ -619,6 +619,7 @@ exports.BruteStat = exports.$Enums.BruteStat = {
 exports.TournamentType = exports.$Enums.TournamentType = {
   DAILY: 'DAILY',
   GLOBAL: 'GLOBAL',
+  UNLIMITED_GLOBAL: 'UNLIMITED_GLOBAL',
   CUSTOM: 'CUSTOM',
   BATTLE_ROYALE: 'BATTLE_ROYALE'
 };

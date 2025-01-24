@@ -361,6 +361,7 @@ export type BruteStat = (typeof BruteStat)[keyof typeof BruteStat]
 export const TournamentType: {
   DAILY: 'DAILY',
   GLOBAL: 'GLOBAL',
+  UNLIMITED_GLOBAL: 'UNLIMITED_GLOBAL',
   CUSTOM: 'CUSTOM',
   BATTLE_ROYALE: 'BATTLE_ROYALE'
 };

@@ -296,7 +296,9 @@ export const Tournaments = {
       const tournament = await prisma.tournament.findFirst({
         where: {
           date: { equals: date.toDate() },
-          type: TournamentType.GLOBAL,
+          type: {
+            in: [TournamentType.GLOBAL, TournamentType.UNLIMITED_GLOBAL],
+          },
           participants: {
             some: {
               name: ilike(req.params.name),
@@ -307,6 +309,7 @@ export const Tournaments = {
         select: {
           id: true,
           rounds: true,
+          type: true,
         },
       });
 
