@@ -99,7 +99,7 @@ const ClanThreadView = () => {
   };
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('forum')} ${thread?.clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
       {bruteName && id && tid && brute && thread && (
         <>
           <Paper sx={{ mx: 4 }}>

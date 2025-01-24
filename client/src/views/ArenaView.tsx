@@ -144,7 +144,7 @@ const ArenaView = () => {
   }, [Alert, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
 
   return brute && (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('arena')} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

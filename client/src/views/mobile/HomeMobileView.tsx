@@ -62,7 +62,7 @@ const HomeMobileView = ({
   );
 
   return (
-    <Page title={t('MyBrute')}>
+    <Page title={t('MyBrute')} description={t('home.desc')}>
       <Grid container spacing={1}>
         {/* FIRST TEXT */}
         <Grid item xs={12} sm={6}>

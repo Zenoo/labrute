@@ -53,7 +53,7 @@ const ClanCreateView = () => {
   };
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={t('createAClan')} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('createAClan')}</Text>
       </Paper>

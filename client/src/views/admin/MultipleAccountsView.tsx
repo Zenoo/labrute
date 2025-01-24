@@ -1,17 +1,15 @@
 import { UserMultipleAccountsListResponse } from '@labrute/core';
 import { List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import Link from '../../components/Link';
 
 export const MultipleAccountsView = () => {
-  const { t } = useTranslation();
   const Alert = useAlert();
   const { user: admin } = useAuth();
 
@@ -27,7 +25,7 @@ export const MultipleAccountsView = () => {
   }, [admin, Alert]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page title="Multiple accounts" headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Multiple accounts</Text>
       </Paper>

@@ -180,7 +180,14 @@ const TournamentView = () => {
         setWatched={setWatched}
       />
     ) : (
-      <Page title={`${t('tournament')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+      <Page
+        title={`${t('tournamentOf')} ${moment.utc(tournament.date).format('DD MMMM YYYY')}`}
+        description={t('tournamentOf.desc', {
+          brute: bruteName,
+          date: moment.utc(tournament.date).format('DD MMMM YYYY'),
+        })}
+        headerUrl={`/${bruteName || ''}/cell`}
+      >
         <Paper sx={{
           mx: 4,
           textAlign: 'center',

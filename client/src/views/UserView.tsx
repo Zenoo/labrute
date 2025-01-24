@@ -70,7 +70,11 @@ const UserView = () => {
   }, [Alert, Confirm, banReason, t, user]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page
+      title={t('userProfile', { user: user?.name })}
+      description={t('userProfile.desc', { user: user?.name })}
+      headerUrl="/"
+    >
       {user && (
         <>
           <Paper sx={{ mx: 4 }}>

@@ -31,7 +31,11 @@ const GeneratingView = () => {
   }, [serverState]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page
+      title={t('pleaseWait')}
+      description={t('generatingTournaments')}
+      headerUrl="/"
+    >
       <Paper sx={{
         mx: 4,
         display: 'flex',

@@ -93,7 +93,7 @@ const UserAdminView = () => {
   }, [Alert, achievements, initialAchievements, user]);
 
   return (
-    <Page title={`${userId || ''} ${t('MyBrute')}`} headerUrl="/">
+    <Page title={t('adminPanel')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>

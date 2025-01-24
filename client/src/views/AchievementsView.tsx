@@ -37,7 +37,11 @@ const AchievementsView = () => {
   }, [Alert, bruteName, user]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
+    <Page
+      title={t('achievements')}
+      description={t('achievements.desc')}
+      headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
+    >
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements')}</Text>
       </Paper>

@@ -1,16 +1,17 @@
 import { Version } from '@labrute/core';
 import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Tooltip } from '@mui/material';
 import React, { Fragment, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import ads, { AdName } from '../utils/ads';
 import Header from './Header';
 import Link from './Link';
+import { SEO } from './SEO';
 import Text from './Text';
 
 interface Props extends BoxProps {
   title: string,
+  description?: string,
   headerUrl?: string,
   children: React.ReactNode;
   sx?: BoxProps['sx'];
@@ -18,6 +19,7 @@ interface Props extends BoxProps {
 
 const Page = ({
   title,
+  description,
   headerUrl,
   children,
   sx,
@@ -41,9 +43,10 @@ const Page = ({
       }}
       {...rest}
     >
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      <SEO
+        title={title}
+        description={description}
+      />
       {/* HEADER */}
       <Header url={headerUrl} />
       {children}

@@ -10,7 +10,7 @@ const NotFoundView = () => {
   const { t } = useTranslation();
 
   return (
-    <Page title={t('notFound.title')} headerUrl="/">
+    <Page title={t('notFound.title')} description={t('notFound.subtitle')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('notFound.title')}</Text>
       </Paper>

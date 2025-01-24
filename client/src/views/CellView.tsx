@@ -30,6 +30,7 @@ import Server from '../utils/Server';
 import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
 import CellMobileView from './mobile/CellMobileView';
+import { getBruteWinrate } from '../utils/getBruteWinrate';
 
 /**
  * CellView component
@@ -228,7 +229,16 @@ const CellView = () => {
       </>
     )
     : (
-      <Page title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+      <Page
+        title={`${brute.name} ${t('MyBrute')}`}
+        description={t('cell.desc', {
+          name: brute.name,
+          level: brute.level,
+          rank: t(`lvl_${brute.ranking}`),
+          winrate: getBruteWinrate(brute),
+        })}
+        headerUrl={`/${brute.name}/cell`}
+      >
         {previousBruteArrow}
         <Box display="flex" zIndex={1}>
           {/* BRUTE NAME + SOCIALS */}

@@ -48,7 +48,11 @@ const AchievementRankingView = () => {
   }, [Alert, byUser]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page
+      title={t('achievementRankings')}
+      description={t('achievementRankings.desc')}
+      headerUrl="/"
+    >
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievementRankings')}</Text>
       </Paper>

@@ -14,7 +14,14 @@ const GlobalTournamentView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page
+      title={`${t('globalTournamentOf')} ${moment.utc(date).format('DD/MM/YYYY')}`}
+      description={t('globalTournament.desc', {
+        brute: bruteName,
+        date: moment.utc(date).format('DD/MM/YYYY'),
+      })}
+      headerUrl={`/${bruteName || ''}/cell`}
+    >
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('globalTournamentOf')} {moment.utc(date).format('DD/MM/YYYY')}</Text>
       </Paper>

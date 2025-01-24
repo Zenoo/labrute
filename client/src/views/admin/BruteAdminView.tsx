@@ -66,7 +66,7 @@ export const BruteAdminView = () => {
   }, [Alert, brute, item]);
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl="/">
+    <Page title={t('adminPanel')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>

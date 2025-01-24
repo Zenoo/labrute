@@ -64,7 +64,7 @@ const FightView = () => {
   }
 
   return (bruteName && fightId) ? (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName}/cell`}>
+    <Page title={`${bruteName || ''} ${t('fight')}`} headerUrl={`/${bruteName}/cell`}>
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{

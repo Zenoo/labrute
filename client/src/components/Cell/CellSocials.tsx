@@ -13,6 +13,7 @@ import moment from 'moment';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ActivityStatus } from '../ActivityStatus';
+import { getBruteWinrate } from '../../utils/getBruteWinrate';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -128,9 +129,7 @@ const CellSocials = ({
               <Text bold color="secondary" component="span">{t('winrate')}: </Text>
               <Tooltip title={t('wins-losses', { wins: brute.victories, losses: brute.losses })}>
                 <Text bold component="span">
-                  {(brute.victories + brute.losses) === 0
-                    ? '0%'
-                    : `${((brute.victories / (brute.victories + brute.losses)) * 100).toLocaleString(undefined, { maximumFractionDigits: 2 })}%`}
+                  {getBruteWinrate(brute)}
                 </Text>
               </Tooltip>
             </Grid>

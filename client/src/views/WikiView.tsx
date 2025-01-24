@@ -25,7 +25,11 @@ export const WikiView = () => {
   const { t } = useTranslation();
 
   return (
-    <Page title={`${t('wiki')} ${t('MyBrute')}`} headerUrl="">
+    <Page
+      title={`${t('wiki')} ${t('MyBrute')}`}
+      description={t('wiki.desc')}
+      headerUrl=""
+    >
       <Paper sx={{
         mx: 4,
         display: 'flex',

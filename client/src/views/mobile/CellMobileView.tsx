@@ -21,6 +21,7 @@ import FantasyButton from '../../components/FantasyButton';
 import { History, Policy } from '@mui/icons-material';
 import moment from 'moment';
 import { useAuth } from '../../hooks/useAuth';
+import { getBruteWinrate } from '../../utils/getBruteWinrate';
 
 export interface CellMobileViewProps {
   ad: AdResult;
@@ -46,7 +47,16 @@ const CellMobileView = ({
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
   return brute && (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+    <Page
+      title={`${brute.name || ''} ${t('MyBrute')}`}
+      description={t('cell.desc', {
+        name: brute.name,
+        level: brute.level,
+        rank: t(`lvl_${brute.ranking}`),
+        winrate: getBruteWinrate(brute),
+      })}
+      headerUrl={`/${brute.name}/cell`}
+    >
       <Grid container spacing={1} alignItems="center">
         {/* BRUTE NAME + SOCIALS */}
         <Grid item xs={12} sm={6} order={isXs ? 1 : 0}>

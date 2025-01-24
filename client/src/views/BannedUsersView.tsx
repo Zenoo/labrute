@@ -39,7 +39,7 @@ export const BannedUsersView = () => {
   }, [Alert, Confirm, t]);
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page title="Banned users" headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Banned users</Text>
       </Paper>

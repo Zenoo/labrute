@@ -15,12 +15,10 @@ import routes from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
+import { useAnalytics } from './hooks/useAnalytics';
 
-/**
- * App entry point
- * @returns {React.ReactElement}
- */
 const App = () => {
+  useAnalytics();
   const routing = useRoutes(routes);
   const [mode, setMode] = useState<'light' | 'dark'>(
     (localStorage.getItem('mode') === 'dark') ? 'dark' : 'light'

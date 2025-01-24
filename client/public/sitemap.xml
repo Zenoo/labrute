@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://mybrute.eternaltwin.org/</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-23T14:31:18.157Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mybrute.eternaltwin.org/patch-notes</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-23T14:31:18.157Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mybrute.eternaltwin.org/wiki</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-23T14:31:18.157Z</lastmod>
+  </url>
+</urlset>

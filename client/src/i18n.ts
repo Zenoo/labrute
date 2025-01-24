@@ -8,12 +8,13 @@ import ru from './assets/i18n/ru.json';
 import pt from './assets/i18n/pt.json';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
+import { HOST, Host } from './utils/host';
 
 export const defaultLangByHost: Record<string, Lang> = {
-  labrute: Lang.fr,
-  mybrute: Lang.en,
-  elbruto: Lang.es,
-  meinbrutalo: Lang.de,
+  [Host.LaBrute]: Lang.fr,
+  [Host.MyBrute]: Lang.en,
+  [Host.ElBruto]: Lang.es,
+  [Host.MeinBrutalo]: Lang.de,
 };
 
 export const defaultNS = 'common';
@@ -38,8 +39,7 @@ export const resources = {
   },
 } as const;
 
-const host = window.location.hostname.split('.')[0] ?? '';
-const lang = defaultLangByHost[host] ?? DEFAULT_LANGUAGE;
+const lang = defaultLangByHost[HOST] ?? DEFAULT_LANGUAGE;
 
 i18n.use(initReactI18next).init({
   lng: lang,

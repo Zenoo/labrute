@@ -68,7 +68,7 @@ export const InventoryView = () => {
   }, [brute, navigate, Alert, t]);
 
   return brute && (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('inventory')} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

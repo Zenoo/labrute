@@ -20,7 +20,11 @@ const TournamentHistoryView = () => {
   const { data: tournaments } = useStateAsync(null, Server.Tournament.getHistory, bruteName || '');
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page
+      title={t('tournamentHistory')}
+      description={t('tournamentHistory.desc')}
+      headerUrl={`/${bruteName || ''}/cell`}
+    >
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentHistory')}</Text>
       </Paper>

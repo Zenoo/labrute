@@ -108,7 +108,7 @@ const VersusView = () => {
   }
 
   return brute && opponent && (
-    <Page title={`${brute.name || ''} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={`${brute.name} ${t('vs')} ${opponent.name}`} headerUrl={`/${brute.name}/cell`}>
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/versus/background.webp`}
         sx={{

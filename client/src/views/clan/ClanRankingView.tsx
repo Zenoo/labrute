@@ -72,7 +72,11 @@ const ClanRankingView = () => {
   };
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page
+      title={t('clansRanking')}
+      description={t('clansRanking.desc')}
+      headerUrl={`/${bruteName || ''}/cell`}
+    >
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('clansRanking')}</Text>
       </Paper>

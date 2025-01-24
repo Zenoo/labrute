@@ -13,6 +13,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
+import { getBruteWinrate } from '../utils/getBruteWinrate';
 
 const RankingView = () => {
   const { t } = useTranslation();
@@ -65,8 +66,17 @@ const RankingView = () => {
     </TableRow>
   );
 
-  return rankings && (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+  return rankings && brute && (
+    <Page
+      title={t('ranking')}
+      description={t('ranking.desc', {
+        name: brute.name,
+        level: brute.level,
+        rank: t(`lvl_${brute.ranking}`),
+        winrate: getBruteWinrate(brute),
+      })}
+      headerUrl={`/${bruteName || ''}/cell`}
+    >
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {

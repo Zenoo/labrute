@@ -177,7 +177,7 @@ const AscendView = () => {
   }, [Alert, Confirm, brute, getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
 
   return brute && (
-    <Page title={`${brute.name} ${t('MyBrute')}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('ascension')} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

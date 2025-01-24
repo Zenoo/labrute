@@ -421,7 +421,7 @@ const ClanView = () => {
   };
 
   return clan && (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('clan')} ${clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {warEnabled && (

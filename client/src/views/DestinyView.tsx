@@ -14,6 +14,7 @@ import Text from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
 import Server from '../utils/Server';
+import { getBruteWinrate } from '../utils/getBruteWinrate';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
@@ -180,7 +181,16 @@ const DestinyView = () => {
   ) : null);
 
   return brute && (
-    <Page title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
+    <Page
+      title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`}
+      description={t('destiny', {
+        name: brute.name,
+        level: brute.level,
+        rank: t(`lvl_${brute.ranking}`),
+        winrate: getBruteWinrate(brute),
+      })}
+      headerUrl={`/${brute.name}/cell`}
+    >
       <Paper sx={{
         mt: 3,
         p: 0,

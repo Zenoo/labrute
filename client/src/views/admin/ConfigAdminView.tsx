@@ -2,7 +2,6 @@ import { ConfigsListResponse } from '@labrute/core';
 import { Close, Edit, Visibility } from '@mui/icons-material';
 import { Grid, IconButton, List, ListItem, ListItemText, Paper, TextField, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import FantasyButton from '../../components/FantasyButton';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
@@ -12,7 +11,6 @@ import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 
 export const ConfigAdminView = () => {
-  const { t } = useTranslation();
   const Alert = useAlert();
 
   const [configs, setConfigs] = useState<ConfigsListResponse>([]);
@@ -79,7 +77,7 @@ export const ConfigAdminView = () => {
   };
 
   return (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page title="Config admin panel" headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Config</Text>
       </Paper>

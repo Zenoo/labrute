@@ -135,7 +135,7 @@ const AdminView = () => {
   }, [Alert, brute, item]);
 
   return (
-    <Page title={`${bruteName || ''} ${t('MyBrute')}`} headerUrl="/">
+    <Page title={t('adminPanel')} headerUrl="/">
       {!globalTournamentValid && (
         <MuiAlert severity="warning" variant="filled">
           <Text h5>Global tournament malformed</Text>

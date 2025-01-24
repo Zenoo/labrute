@@ -22,7 +22,7 @@
     "db:sync:prod": "cd ./server && yarn db:sync:prod",
     "db:seed": "cd ./server && yarn db:seed",
     "db:reset": "cd ./server && yarn db:reset",
-    "postinstall": "bash ./postInstall.sh",
+    "postinstall": "bash ./scripts/postInstall.sh",
     "studio": "cd ./server && yarn studio",
     "audit": "yarn npm audit --recursive --all --environment production",
     "add:client": "yarn workspace @labrute/client add",
