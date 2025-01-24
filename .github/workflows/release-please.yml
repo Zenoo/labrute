@@ -6,7 +6,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 name: release-please
 jobs:
@@ -15,9 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: googleapis/release-please-action@v4
+      - uses: google-github-actions/release-please-action@v3
         with:
-          token: ${{ secrets.PROJECT_PAT }}
+          release-type: node
+          package-name: labrute
+          bump-minor-pre-major: true
+          default-branch: main
+          command: manifest
 
       - name: Run generate-sitemap script
         if: success()
