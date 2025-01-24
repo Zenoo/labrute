@@ -508,7 +508,7 @@
   "tournamentOf": "Tournoi du",
   "tournamentOf.desc": "Voir la participation de {{brute}} au tournoi du {{date}}.",
   "globalTournament": "Tournoi global",
-  "unlimited": "Unlimited",
+  "unlimited": "Illimité",
   "globalTournament.desc": "Voir la participation de {{brute}} au tournoi global du {{date}}.",
   "globalTournamentOf": "Tournoi global du",
   "automaticallyQualified": "Qualifié d'office",
