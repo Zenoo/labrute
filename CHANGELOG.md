@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.80.0](https://github.com/Zenoo/labrute/compare/labrute-v2.79.7...labrute-v2.80.0) (2025-01-24)
+
+
+### Features
+
+* User logs. Fixes [#1110](https://github.com/Zenoo/labrute/issues/1110) ([f47cff2](https://github.com/Zenoo/labrute/commit/f47cff21c27db212ca231727deb477a053b34d38))
+
+
+### Bug Fixes
+
+* Serve higher res logo to OG and Twitter ([29858de](https://github.com/Zenoo/labrute/commit/29858de64cf77c1b9963b706eb575656ea635499))
+
 ## [2.79.7](https://github.com/Zenoo/labrute/compare/labrute-v2.79.6...labrute-v2.79.7) (2025-01-24)
 
 
