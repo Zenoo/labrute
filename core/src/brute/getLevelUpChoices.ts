@@ -1,10 +1,10 @@
 import { Brute, BruteStat, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
-import randomBetween from '../utils/randomBetween';
-import getRandomBonus from './getRandomBonus';
+import { randomBetween } from '../utils/randomBetween';
+import { getRandomBonus } from './getRandomBonus';
 
 export type LevelUpChoice = Omit<Prisma.DestinyChoiceCreateInput, 'brute'>;
 
-const getLevelUpChoices = (
+export const getLevelUpChoices = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>
 ): [LevelUpChoice, LevelUpChoice] => {
   let preventPerk = false;
@@ -73,5 +73,3 @@ const getLevelUpChoices = (
 
   return [firstChoice, secondChoice];
 };
-
-export default getLevelUpChoices;

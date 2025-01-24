@@ -50,6 +50,7 @@ import { ModeratorLayout } from './layouts/ModeratorLayout';
 import { ClanAdminView } from './views/admin/ClanAdminView';
 import { CurrentEventsView } from './views/event/CurrentEventsView';
 import { EventRoundView } from './views/event/EventRoundView';
+import { UserLogView } from './views/admin/UserLogView';
 
 const routes: RouteObject[] = [
   {
@@ -151,6 +152,7 @@ const routes: RouteObject[] = [
           { path: 'multiple-accounts', element: <MultipleAccountsView /> },
           { path: 'brute/:bruteName', element: <BruteAdminView /> },
           { path: 'clan/:clanId', element: <ClanAdminView /> },
+          { path: 'user/logs/:userId?', element: <UserLogView /> },
         ],
       },
       {

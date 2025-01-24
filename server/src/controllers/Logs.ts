@@ -3,12 +3,12 @@ import {
 } from '@labrute/core';
 import { LogType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import auth from '../utils/auth.js';
+import { auth } from '../utils/auth.js';
 import { ilike } from '../utils/ilike.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import { sendError } from '../utils/sendError.js';
+import { translate } from '../utils/translate.js';
 
-const Logs = {
+export const Logs = {
   list: (prisma: PrismaClient) => async (
     req: Request,
     res: Response<LogListResponse>,
@@ -121,5 +121,3 @@ const Logs = {
     }
   },
 };
-
-export default Logs;

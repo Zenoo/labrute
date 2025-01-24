@@ -2,7 +2,7 @@ import { Brute, FightModifier, SkillName } from '@labrute/prisma';
 import { EventFightsPerDay, FIGHTS_PER_DAY } from '../constants';
 import { getTempSkill } from './getTempSkill';
 
-const getMaxFightsPerDay = (
+export const getMaxFightsPerDay = (
   brute: Pick<Brute, 'id' | 'skills' | 'eventId'>,
   modifiers: FightModifier[],
 ) => {
@@ -12,5 +12,3 @@ const getMaxFightsPerDay = (
     ? base + 2
     : base);
 };
-
-export default getMaxFightsPerDay;

@@ -8,7 +8,7 @@ import {
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { ilike } from '../utils/ilike.js';
-import sendError from '../utils/sendError.js';
+import { sendError } from '../utils/sendError.js';
 
 export const increaseAchievement = async (
   prisma: PrismaClient,
@@ -92,7 +92,7 @@ export const increaseAchievement = async (
   }
 };
 
-const Achievements = {
+export const Achievements = {
   getForUser: (prisma: PrismaClient) => async (
     req: Request<never, unknown, { userId: string }>,
     res: Response<AchievementsGetResponse>,
@@ -285,5 +285,3 @@ const Achievements = {
     }
   },
 };
-
-export default Achievements;

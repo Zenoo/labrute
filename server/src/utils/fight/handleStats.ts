@@ -2,7 +2,7 @@ import { AchievementsStore, DetailedFight } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import { Stats } from './fightMethods.js';
 
-const handleStats = (
+export const handleStats = (
   fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
@@ -153,5 +153,3 @@ const handleStats = (
     }
   }
 };
-
-export default handleStats;

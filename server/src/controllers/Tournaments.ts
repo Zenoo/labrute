@@ -11,13 +11,13 @@ import {
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
-import ServerState from '../utils/ServerState.js';
-import auth from '../utils/auth.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import { ServerState } from '../utils/ServerState.js';
+import { auth } from '../utils/auth.js';
+import { sendError } from '../utils/sendError.js';
+import { translate } from '../utils/translate.js';
 import { ilike } from '../utils/ilike.js';
 
-const Tournaments = {
+export const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (
     req: Request,
     res: Response<TournamentsGetDailyResponse>,
@@ -723,5 +723,3 @@ const Tournaments = {
     }
   },
 };
-
-export default Tournaments;

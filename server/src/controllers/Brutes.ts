@@ -37,25 +37,27 @@ import {
   Brute,
   DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
   InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
+  UserLogType,
   WeaponName,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
-import auth from '../utils/auth.js';
-import checkBody from '../utils/brute/checkBody.js';
-import checkColors from '../utils/brute/checkColors.js';
-import checkLevelUpAchievements from '../utils/brute/checkLevelUpAchievements.js';
-import getOpponents from '../utils/brute/getOpponents.js';
+import { auth } from '../utils/auth.js';
+import { checkBody } from '../utils/brute/checkBody.js';
+import { checkColors } from '../utils/brute/checkColors.js';
+import { checkLevelUpAchievements } from '../utils/brute/checkLevelUpAchievements.js';
+import { getOpponents } from '../utils/brute/getOpponents.js';
 import { resetBrute } from '../utils/brute/resetBrute.js';
-import updateClanPoints from '../utils/clan/updateClanPoints.js';
+import { updateClanPoints } from '../utils/clan/updateClanPoints.js';
 import { ilike } from '../utils/ilike.js';
-import sendError from '../utils/sendError.js';
-import ServerState from '../utils/ServerState.js';
-import translate from '../utils/translate.js';
+import { sendError } from '../utils/sendError.js';
+import { ServerState } from '../utils/ServerState.js';
+import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
+import { createUserLog } from '../utils/createUserLog.js';
 
-const Brutes = {
+export const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
     req: Request<{
       name: string
@@ -334,6 +336,13 @@ const Brutes = {
           master: master ? { connect: { id: master.id } } : undefined,
           event: req.body.eventId ? { connect: { id: req.body.eventId } } : undefined,
         },
+      });
+
+      // User log
+      createUserLog(prisma, {
+        type: UserLogType.CREATE_BRUTE,
+        userId: user.id,
+        bruteId: brute.id,
       });
 
       // Store starting stats
@@ -755,6 +764,7 @@ const Brutes = {
         },
         select: {
           id: true,
+          name: true,
           createdAt: true,
           masterId: true,
           clanId: true,
@@ -834,6 +844,14 @@ const Brutes = {
           },
         },
         select: { id: true },
+      });
+
+      // User log
+      createUserLog(prisma, {
+        type: UserLogType.SACRIFICE_BRUTE,
+        userId: authed.id,
+        bruteId: brute.id,
+        oldName: brute.name,
       });
 
       // Update clan points
@@ -1890,6 +1908,14 @@ const Brutes = {
         data,
       });
 
+      // User log
+      createUserLog(prisma, {
+        type: UserLogType.RENAME_BRUTE,
+        userId: authed.id,
+        bruteId: brute.id,
+        oldName: brute.name,
+      });
+
       // Remove name change item
       if (nameChangeItem.count === 1) {
         await prisma.inventoryItem.delete({
@@ -2102,5 +2128,3 @@ const Brutes = {
     }
   },
 };
-
-export default Brutes;

@@ -1,9 +1,9 @@
 import { Gender } from '@labrute/prisma';
-import randomBetween from '../utils/randomBetween';
+import { randomBetween } from '../utils/randomBetween';
 import { colors } from './colors';
 import { generateColorString } from './parsers';
 
-const getRandomColors = (gender: Gender) => {
+export const getRandomColors = (gender: Gender) => {
   const col0 = randomBetween(0, colors[gender].skin.length - 1);
   const col0a = col0;
   const col0c = col0;
@@ -40,5 +40,3 @@ const getRandomColors = (gender: Gender) => {
     col4b,
   });
 };
-
-export default getRandomColors;

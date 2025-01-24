@@ -1,6 +1,6 @@
 import { ExpectedError, colors } from '@labrute/core';
 import { Gender, User } from '@labrute/prisma';
-import translate from '../translate.js';
+import { translate } from '../translate.js';
 import { LOGGER } from '../../context.js';
 
 const isValid = (value: number, array: string[]) => value >= 0 && value < array.length;
@@ -10,7 +10,7 @@ const isValidWithSpecials = (
   array: string[],
 ) => value >= 0 && (value < array.length || (value < 100 && value > (99 - colors.special.length)));
 
-const checkColors = (
+export const checkColors = (
   user: Pick<User, 'id' | 'lang'>,
   gender: Gender,
   colorString: string,
@@ -74,5 +74,3 @@ const checkColors = (
     throw new ExpectedError(translate('invalidCreation', user));
   }
 };
-
-export default checkColors;

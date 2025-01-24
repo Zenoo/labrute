@@ -1,4 +1,4 @@
-import { FightModifier, PetName } from '@labrute/prisma';
+import { FightModifier, Lang, PetName } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets';
 import { SKILLS_TOTAL_ODDS } from './brute/skills';
 import { WEAPONS_TOTAL_ODDS, WeaponAnimations } from './brute/weapons';
@@ -133,3 +133,5 @@ export const DailyTournamentGoldReward = 100;
 export const DailyTournamentXpReward = 1;
 export const GlobalTournamentGoldReward = 150;
 export const GlobalTournamentXpReward = 1;
+
+export const DEFAULT_LANGUAGE = Lang.en;

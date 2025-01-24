@@ -1,4 +1,4 @@
-import { Achievement, Brute, BruteReport, Clan, DestinyChoice, DestinyChoiceSide, FightModifier, Gender, Notification, Tournament, User, WeaponName } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, Prisma, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
 import { Skill, SkillId } from './brute/skills';
 import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -598,3 +598,311 @@ export type BruteReportWithNames = BruteReport & {
     name: string;
   } | null;
 };
+
+// Server return types
+export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
+export type BrutesGetForRankResponse = {
+  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  position: number,
+  total: number,
+};
+export type BrutesGetRankingResponse = {
+  ranking: number,
+};
+export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
+export type BrutesGetOpponentsResponse = Pick<Brute,
+  'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' |
+  'enduranceStat' |
+  'enduranceModifier' |
+  'enduranceValue' |
+  'strengthStat' |
+  'strengthModifier' |
+  'strengthValue' |
+  'agilityStat' |
+  'agilityModifier' |
+  'agilityValue' |
+  'speedStat' |
+  'speedModifier' |
+  'speedValue' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>[];
+export type BrutesExistsResponse = {
+  exists: false
+} | {
+  exists: true,
+  name: string,
+};
+export type BrutesGetClanIdAsMasterResponse = {
+  id: string | null,
+};
+
+export type TournamentsGetDailyResponse = Tournament & {
+  fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'tournamentStep' | 'fighters'> & {
+    brute1: Brute | null,
+    brute2: Brute | null,
+  })[]
+};
+export type TournamentsUpdateStepWatchedResponse = {
+  step: number,
+};
+export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
+export type TournamentsGetGlobalResponse = {
+  tournament: (Pick<Tournament, 'id' | 'rounds'> & {
+    fights: TournamentsGetGlobalFight[];
+  }) | null,
+  lastRounds: TournamentsGetGlobalFight[],
+  done: boolean,
+  nextOpponent: string | null | undefined,
+  nextRound?: number,
+};
+export type TournementsUpdateGlobalRoundWatchedResponse = Pick<Brute, 'globalTournamentRoundWatched' | 'globalTournamentWatchedDate'>;
+export type BrutesGetDestinyResponse = DestinyBranch;
+export type BrutesGetFightsLeftResponse = {
+  fightsLeft: number,
+};
+export type BrutesCreateResponse = {
+  brute: Brute,
+  goldLost: number,
+  newLimit: number,
+};
+export type BrutesGetLevelUpChoicesResponse = {
+  choices: [DestinyChoice, DestinyChoice],
+};
+
+export type ServerReadyResponse = {
+  ready: boolean,
+};
+export type BruteRestoreResponse = {
+  success: boolean,
+};
+export type UsersAdminUpdateRequest = {
+  user: Prisma.UserUncheckedUpdateInput,
+  achievements: Pick<Achievement, 'count' | 'name'>[],
+};
+export type UsersAuthenticateResponse = {
+  user: UserWithBrutesBodyColor,
+  modifiers: FightModifier[],
+  currentEvent: Event | null,
+  version: string,
+};
+
+export type BruteReportsListRequest = {
+  status: BruteReportStatus,
+  page: string,
+};
+export type BruteReportsListResponse = BruteReportWithNames[];
+
+export type BruteReportsSendRequest = {
+  name: string,
+  reason: BruteReportReason,
+};
+export type BruteGetInventoryResponse = InventoryItem[];
+export type BruteUpdateEventRoundWatchedResponse = Pick<Brute, 'eventTournamentRoundWatched' | 'eventTournamentWatchedDate'>;
+
+export type TournamentHistoryResponse = (Pick<
+  Tournament,
+  'id' |
+  'date' |
+  'type' |
+  'rounds'
+> & {
+  place: number,
+})[];
+
+export type ClanListResponse = (Clan & {
+  brutes: Pick<Brute, 'id'>[],
+  master: Pick<Brute, 'name'>,
+})[];
+export type ClanCreateResponse = Pick<Clan, 'id' | 'name'>;
+export type ClanGetResponse = Clan & {
+  master: BruteForRender | null,
+  brutes: (Brute & {
+    user: Pick<User, 'lastSeen'> | null,
+  })[],
+  joinRequests: (Brute & {
+    user: Pick<User, 'lastSeen'> | null,
+  })[],
+  bossDamages: (Pick<BossDamage, 'damage'> & {
+    brute: Pick<Brute, 'id' | 'name'> | null,
+  })[],
+  attacks: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
+    defender: Pick<Clan, 'id' | 'name'> & {
+      master: BruteForRender | null;
+    },
+  })[],
+  defenses: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
+    attacker: Pick<Clan, 'id' | 'name'> & {
+      master: BruteForRender | null;
+    },
+  })[],
+};
+export type ClanGetThreadsResponse = {
+  masterId: string | null,
+  threads: (ClanThread & {
+    creator: Pick<Brute, 'id' | 'name'> | null,
+    posts: (Pick<ClanPost, 'date'> & {
+      author: Pick<Brute, 'id' | 'name'> | null,
+    })[];
+  })[],
+};
+export type ClanGetThreadResponse = ClanThread & {
+  posts: (ClanPost & {
+    author: Brute | null,
+  })[],
+  clan: Pick<Clan, 'masterId' | 'name'>,
+};
+export type ClanGetForAdminResponse = Clan & {
+  brutes: Pick<Brute, 'id' | 'name'>[],
+};
+
+export type UserGetAdminResponse = User & {
+  achievements: Pick<Achievement, 'name' | 'count'>[],
+};
+export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
+  brutes: Pick<
+    Brute,
+    'id' |
+    'name' |
+    'gender' |
+    'level' |
+    'enduranceStat' |
+    'enduranceModifier' |
+    'enduranceValue' |
+    'strengthStat' |
+    'strengthModifier' |
+    'strengthValue' |
+    'agilityStat' |
+    'agilityModifier' |
+    'agilityValue' |
+    'speedStat' |
+    'speedModifier' |
+    'speedValue' |
+    'hp' |
+    'ranking' |
+    'body' |
+    'colors' |
+    'skills' |
+    'eventId'
+  >[],
+  achievements: Pick<Achievement, 'name' | 'count'>[],
+  favoriteFights: (Pick<Fight, 'id' | 'date'> & {
+    brute1: Pick<Brute, 'id' | 'name'>| null,
+    brute2: Pick<Brute, 'id' | 'name'> | null,
+  })[],
+};
+export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
+export type UserMultipleAccountsListResponse = { ip: string, users: string[] }[];
+export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMusic' | 'displayVersusPage' | 'displayOpponentDetails'>;
+
+export type AchievementGetRankingsResponse = {
+  name: AchievementName,
+  user: Pick<User, 'name' | 'id'> | null,
+  brute: Pick<Brute, 'name' | 'id'> | null,
+  count: number,
+}[];
+
+export type AchievementsGetResponse = {
+  name: AchievementName,
+  count: number,
+}[];
+
+export type FightCreateResponse = {
+  id: string,
+  fightsLeft: number,
+  xpWon: number,
+  victories: number,
+  losses: number,
+};
+export type FightGetResponse = Fight & {
+  favoritedBy: Pick<Brute, 'id'>[],
+};
+export type ClanChallengeBossResponse = {
+  id: string,
+  xp?: number,
+  gold?: number,
+};
+export type UserGetNextModifiersResponse = FightModifier[];
+
+export type LogListResponse = (Log & {
+  currentBrute: Pick<Brute, 'name'>,
+})[];
+export type LogGetForUserFeedResponse = {
+  brutes: BruteForRender[],
+  logs: (Log & {
+    currentBrute: Pick<Brute, 'name'>,
+    destinyChoice: DestinyChoice | null,
+  })[],
+};
+
+export type ClanWarCreateResponse = Pick<ClanWar, 'id'>;
+export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];
+export type ClanWarGetResponse = ClanWar & {
+  attacker: Pick<Clan, 'id' | 'name'>,
+  defender: Pick<Clan, 'id' | 'name'>,
+  fights?: (Pick<Fight, 'id' | 'date' | 'winner'> & {
+    brute1?: Pick<Brute, 'id' | 'name'> | null,
+  })[],
+  fighters?: (ClanWarFighters & {
+    attackers?: Pick<Brute, 'id' | 'name'>[],
+    defenders?: Pick<Brute, 'id' | 'name'>[],
+  })[],
+};
+export type ClanWarGetHistoryResponse = (ClanWar & {
+  attacker: Pick<Clan, 'id' | 'name'>,
+  defender: Pick<Clan, 'id' | 'name'>,
+})[];
+export type ClanWarGetAvailableFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
+export type ClanWarGetUsedFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
+
+export enum ClanSort {
+  points,
+  elo,
+}
+
+export type EventListResponse = (Event & {
+  winner: Pick<Brute, 'name'> | null,
+})[];
+export type EventGetResponse = {
+  event: Event & {
+    tournament: Pick<Tournament, 'id' | 'rounds'> | null,
+  },
+  fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+  lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+  participants: number,
+};
+export type EventListCurrentResponse = (Event & {
+  tournament: Pick<Tournament, 'rounds'> | null,
+} & {
+  bruteCount: number,
+})[];
+export type EventGetRoundResponse = Event & {
+  tournament: {
+    fights: (Pick<Fight, 'id' | 'fighters'> & {
+      brute1: Pick<Brute, 'id' | 'name'> | null,
+      brute2: Pick<Brute, 'id' | 'name'> | null,
+    })[],
+  } | null,
+};
+
+export type NotificationListResponse = Notification[];
+
+export type ConfigsListResponse = Config[];
+export type ConfigsSetRequest = {
+  key: string,
+  value: string,
+};
+export type ConfigsSetResponse = Config;
+export type ConfigsDecryptRequest = {
+  value: string,
+};
+export type ConfigsDecryptResponse = {
+  decrypted: string,
+};
+
+export type UserLogsListRequest = {
+  userIds: string[],
+  page: number,
+};
+export type UserLogsListResponse = (UserLog & {
+  user: Pick<User, 'name'>,
+  brute: Pick<Brute, 'name'> | null,
+})[];

@@ -3,7 +3,7 @@ import { FightStat, SkillModifiers } from './skills';
 
 type BruteStats = Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier'>;
 
-const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) => {
+export const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) => {
   const updatedBrute = { ...brute };
 
   Object.entries(SkillModifiers[skill]).forEach(([unsafeStat, modifier]) => {
@@ -30,5 +30,3 @@ const applySkillModifiers = <T extends BruteStats>(brute: T, skill: SkillName) =
 
   return updatedBrute;
 };
-
-export default applySkillModifiers;

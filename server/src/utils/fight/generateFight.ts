@@ -15,16 +15,16 @@ import {
 import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
-import applySpy from './applySpy.js';
+import { applySpy } from './applySpy.js';
 import {
   Stats,
   checkDeaths, fighterArrives,
   orderFighters, playFighterTurn,
   saboteur,
 } from './fightMethods.js';
-import getFighters from './getFighters.js';
-import handleStats from './handleStats.js';
-import updateAchievements from './updateAchievements.js';
+import { getFighters } from './getFighters.js';
+import { handleStats } from './handleStats.js';
+import { updateAchievements } from './updateAchievements.js';
 
 export type GenerateFightResult = {
   data: Prisma.FightCreateInput;
@@ -54,7 +54,7 @@ type GenerateFightParams = {
   clanWar?: boolean;
 };
 
-const generateFight = async ({
+export const generateFight = async ({
   prisma,
   team1,
   team2,
@@ -482,5 +482,3 @@ const generateFight = async ({
   }
   return result;
 };
-
-export default generateFight;

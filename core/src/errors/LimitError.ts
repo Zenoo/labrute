@@ -1,7 +1,5 @@
-class LimitError extends Error {
+export class LimitError extends Error {
   constructor(message = '') {
     super(message);
   }
 }
-
-export default LimitError;

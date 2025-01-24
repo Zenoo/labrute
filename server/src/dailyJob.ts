@@ -30,11 +30,11 @@ import {
 import moment from 'moment';
 import { DISCORD, LOGGER } from './context.js';
 import { increaseAchievement } from './controllers/Achievements.js';
-import ServerState from './utils/ServerState.js';
+import { ServerState } from './utils/ServerState.js';
 import { resetBrute } from './utils/brute/resetBrute.js';
-import updateClanPoints from './utils/clan/updateClanPoints.js';
-import generateFight from './utils/fight/generateFight.js';
-import shuffle from './utils/shuffle.js';
+import { updateClanPoints } from './utils/clan/updateClanPoints.js';
+import { generateFight } from './utils/fight/generateFight.js';
+import { shuffle } from './utils/shuffle.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
@@ -851,7 +851,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       LEFT JOIN "Brute" b
       ON ta."bruteId" = b.id)
       ON CONFLICT ("name", "bruteId") DO UPDATE
-      SET "count" = "Achievement"."count" + EXCLUDED."count"
+      SET "count" = "Achievement"."count" + EXCLUDED."count";
     `,
     // Delete tournament achievements
     prisma.tournamentAchievement.deleteMany({
@@ -871,7 +871,15 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
           WHERE date < ${today.toDate()}
           GROUP BY "userId"
       ) tg
-      WHERE u.id = tg."userId"
+      WHERE u.id = tg."userId";
+    `,
+    // User log
+    prisma.$executeRaw`
+      INSERT INTO "UserLog" ("type", "userId", "gold")
+      (SELECT 'GOLD_WIN', "userId", SUM(gold)
+      FROM "TournamentGold"
+      WHERE date < ${today.toDate()}
+      GROUP BY "userId");
     `,
     // Delete tournament gold
     prisma.tournamentGold.deleteMany({
@@ -1900,7 +1908,7 @@ const handleEventTournament = async (
   LOGGER.log(`Round ${round} of event ${lastEvent.id} completed`);
 };
 
-const dailyJob = (prisma: PrismaClient) => async () => {
+export const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     // Releases
     await handleReleases(prisma);
@@ -1970,5 +1978,3 @@ const dailyJob = (prisma: PrismaClient) => async () => {
     ServerState.setReady(true);
   }
 };
-
-export default dailyJob;

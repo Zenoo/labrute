@@ -58,21 +58,19 @@
 
 - Environment variables can be overriden without restarting the server by setting them in the database `Config` table
 
-## Documentation
+## Editing `core`
 
-Every
-
-- Component
-- Method
-- Callback
-
-Should have a corresponding documentation.
+- Make sure to run `yarn core:export` after creating/deleting files in the `core` package, as it will update the indexes accordingly
 
 ## Generate the sound spritesheet after editing a sound using audiosprite
 
 - Requirements: install ffmpeg on your Pc, node v18 minimum
 
 - Run the script : `yarn sfx:generate` if you use git bash and  `yarn sfx:wsl:generate` if you use WSL
+
+## Sitemap
+
+- After editing any of the main Google accessible pages, run `yarn sitemap:generate` to update the sitemap
 
 
 ## File Structure

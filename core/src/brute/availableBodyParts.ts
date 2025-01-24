@@ -1,4 +1,4 @@
-const availableBodyParts: {
+export const availableBodyParts: {
   male: {
     p2: number;
     p3: number;
@@ -53,5 +53,3 @@ const availableBodyParts: {
     p5: 1,
   },
 };
-
-export default availableBodyParts;

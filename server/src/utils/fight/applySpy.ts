@@ -3,9 +3,9 @@ import {
   DetailedFight, DetailedFighter, StepType, WeaponByName, WeaponType,
 } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
-import shuffle from '../shuffle.js';
+import { shuffle } from '../shuffle.js';
 
-const applySpy = (
+export const applySpy = (
   fightData: DetailedFight,
   brute: DetailedFighter,
   opponent: DetailedFighter,
@@ -67,5 +67,3 @@ const applySpy = (
     opponent.damagedWeapons.push(...bruteWeaponsToSwap.map((weapon) => weapon.name));
   }
 };
-
-export default applySpy;

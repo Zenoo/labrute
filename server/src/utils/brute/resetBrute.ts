@@ -19,10 +19,10 @@ import {
   WeaponName,
 } from '@labrute/prisma';
 import moment from 'moment';
-import ServerState from '../ServerState.js';
-import translate from '../translate.js';
-import checkLevelUpAchievements from './checkLevelUpAchievements.js';
-import getOpponents from './getOpponents.js';
+import { ServerState } from '../ServerState.js';
+import { translate } from '../translate.js';
+import { checkLevelUpAchievements } from './checkLevelUpAchievements.js';
+import { getOpponents } from './getOpponents.js';
 import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
 
 type Props = {

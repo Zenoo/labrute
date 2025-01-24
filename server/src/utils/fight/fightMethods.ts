@@ -13,7 +13,7 @@ import {
   WeaponType,
 } from '@labrute/core';
 import { FightModifier, PetName, SkillName } from '@labrute/prisma';
-import getDamage from './getDamage.js';
+import { getDamage } from './getDamage.js';
 import { getFighterStat } from './getFighterStat.js';
 
 export type Stats = Record<string, {
@@ -123,7 +123,7 @@ const checkAchievements = (
   }
 };
 
-export const getOpponents = ({
+const getOpponents = ({
   fightData,
   fighter,
   bruteAndBossOnly,

@@ -14,8 +14,8 @@ import {
 import Cryptr from 'cryptr';
 import type { Request, Response } from 'express';
 import { GLOBAL } from '../context.js';
-import auth from '../utils/auth.js';
-import sendError from '../utils/sendError.js';
+import { auth } from '../utils/auth.js';
+import { sendError } from '../utils/sendError.js';
 
 export const Configs = {
   list: (prisma: PrismaClient) => async (

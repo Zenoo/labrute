@@ -7,10 +7,10 @@ import schedule from 'node-schedule';
 import cookieParser from 'cookie-parser';
 import { doubleCsrf } from 'csrf-csrf';
 import { GLOBAL, ServerContext } from './context.js';
-import dailyJob from './dailyJob.js';
+import { dailyJob } from './dailyJob.js';
 import './i18n.js';
-import initRoutes from './routes.js';
-import lockMiddleware from './utils/middlewares/locks.js';
+import { initRoutes } from './routes.js';
+import { lockMiddleware } from './utils/middlewares/locks.js';
 import { readyCheck } from './utils/middlewares/readyCheck.js';
 
 export function main(cx: ServerContext) {

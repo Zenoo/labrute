@@ -49,6 +49,31 @@ model User {
   following              Brute[]          @relation("Followers")
   notifications          Notification[]
   reportsHandled         BruteReport[]    @relation("BruteReportHandler")
+  logs                   UserLog[]
+}
+
+enum UserLogType {
+  CONNECT
+  DISCONNECT
+  GOLD_WIN
+  CREATE_BRUTE
+  RENAME_BRUTE
+  SACRIFICE_BRUTE
+  BANNED
+}
+
+model UserLog {
+  id      String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date    DateTime    @default(now()) @db.Timestamp()
+  user    User        @relation(fields: [userId], references: [id])
+  userId  String      @db.Uuid
+  type    UserLogType
+  brute   Brute?      @relation(fields: [bruteId], references: [id])
+  bruteId String?     @db.Uuid
+  gold    Int?
+  oldName String?
+
+  @@index([userId, date])
 }
 
 enum DestinyChoiceSide {
@@ -268,6 +293,7 @@ model Brute {
   eventId                      String?                 @db.Uuid
   wonEvents                    Event[]                 @relation("EventBruteWinner")
   resets                       Int                     @default(0)
+  userlogs                     UserLog[]
 
   @@index([deletedAt, eventId, ranking])
   @@index([ascensions, level, xp])

@@ -4,7 +4,7 @@ import { Brute, FightModifier } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import type { Response } from 'express';
 import { Logger } from '../logger/index.js';
-import translate from './translate.js';
+import { translate } from './translate.js';
 
 const DEFAULT_TIMEOUT = 5000;
 // Maximum accepted length for the embed title

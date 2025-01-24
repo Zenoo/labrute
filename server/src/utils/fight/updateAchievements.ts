@@ -1,7 +1,7 @@
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 
-const updateAchievements = async (
+export const updateAchievements = async (
   prisma: PrismaClient,
   store: AchievementsStore,
   isTournamentFight: boolean,
@@ -53,5 +53,3 @@ const updateAchievements = async (
     console.error(error);
   }
 };
-
-export default updateAchievements;

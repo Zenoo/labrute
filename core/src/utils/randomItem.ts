@@ -1,4 +1,4 @@
-import randomBetween from './randomBetween';
+import { randomBetween } from './randomBetween';
 
 export const randomItem = <T>(items: T[]): T => {
   if (!items.length) {

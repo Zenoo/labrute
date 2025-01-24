@@ -1,4 +1,4 @@
-const weightedRandom = <T extends { odds: number }, >(
+export const weightedRandom = <T extends { odds: number }, >(
   items: T[]
 ) => {
   const firstItem = items[0];
@@ -25,5 +25,3 @@ const weightedRandom = <T extends { odds: number }, >(
 
   return items[i] || firstItem;
 };
-
-export default weightedRandom;

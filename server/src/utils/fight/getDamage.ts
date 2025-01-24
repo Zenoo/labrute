@@ -4,7 +4,7 @@ import {
 import { SkillName, WeaponName } from '@labrute/prisma';
 import { getFighterStat } from './getFighterStat.js';
 
-const getDamage = (
+export const getDamage = (
   fighter: DetailedFighter,
   opponent: DetailedFighter,
   thrown?: Weapon,
@@ -150,5 +150,3 @@ const getDamage = (
     criticalHit,
   };
 };
-
-export default getDamage;

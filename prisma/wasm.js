@@ -142,6 +142,16 @@ exports.Prisma.RelationLoadStrategy = {
   join: 'join'
 };
 
+exports.Prisma.UserLogScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  userId: 'userId',
+  type: 'type',
+  bruteId: 'bruteId',
+  gold: 'gold',
+  oldName: 'oldName'
+};
+
 exports.Prisma.BruteScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -454,6 +464,16 @@ exports.Lang = exports.$Enums.Lang = {
   es: 'es',
   ru: 'ru',
   pt: 'pt'
+};
+
+exports.UserLogType = exports.$Enums.UserLogType = {
+  CONNECT: 'CONNECT',
+  DISCONNECT: 'DISCONNECT',
+  GOLD_WIN: 'GOLD_WIN',
+  CREATE_BRUTE: 'CREATE_BRUTE',
+  RENAME_BRUTE: 'RENAME_BRUTE',
+  SACRIFICE_BRUTE: 'SACRIFICE_BRUTE',
+  BANNED: 'BANNED'
 };
 
 exports.Gender = exports.$Enums.Gender = {
@@ -776,6 +796,7 @@ exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  UserLog: 'UserLog',
   Brute: 'Brute',
   BruteStartingStats: 'BruteStartingStats',
   Fight: 'Fight',

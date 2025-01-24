@@ -140,7 +140,7 @@ export const limitedWeapons: WeaponName[] = [
 
 export const MAX_LIMITED_WEAPONS = limitedWeapons.length - 3;
 
-const weapons: Weapon[] = [
+export const weapons: Weapon[] = [
   {
     name: 'axe',
     odds: 3,
@@ -756,5 +756,3 @@ export const WEAPONS_SFX: Record<WeaponName, string[]> = {
     return acc;
   }, {} as Record<WeaponName, string[]>),
 };
-
-export default weapons;

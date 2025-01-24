@@ -49,6 +49,30 @@ model User {
   following              Brute[]          @relation("Followers")
   notifications          Notification[]
   reportsHandled         BruteReport[]    @relation("BruteReportHandler")
+  logs                   UserLog[]
+}
+
+enum UserLogType {
+  CONNECT
+  DISCONNECT
+  GOLD_WIN
+  CREATE_BRUTE
+  RENAME_BRUTE
+  SACRIFICE_BRUTE
+  BANNED
+}
+
+model UserLog {
+  id      String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date    DateTime    @default(now()) @db.Timestamp()
+  user    User        @relation(fields: [userId], references: [id])
+  userId  String      @db.Uuid
+  type    UserLogType
+  brute   Brute?      @relation(fields: [bruteId], references: [id])
+  bruteId String?     @db.Uuid
+  gold    Int?
+  oldName String?
+  @@index([userId, date])
 }
 
 enum DestinyChoiceSide {
@@ -268,6 +292,7 @@ model Brute {
   eventId                      String?                 @db.Uuid
   wonEvents                    Event[]                 @relation("EventBruteWinner")
   resets                       Int                     @default(0)
+  userlogs                     UserLog[]
 
   @@index([deletedAt, eventId, ranking])
   @@index([ascensions, level, xp])
@@ -305,7 +330,7 @@ model Fight {
   id             String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date           DateTime        @default(now()) @db.Date
   brute1         Brute?          @relation(fields: [brute1Id], references: [id])
-  brute1Id       String?          @db.Uuid
+  brute1Id       String?         @db.Uuid
   brute2         Brute?          @relation("Adversary", fields: [brute2Id], references: [id])
   brute2Id       String?         @db.Uuid
   winner         String          @db.VarChar(255)
@@ -698,17 +723,17 @@ model ClanPost {
   thread   ClanThread @relation(fields: [threadId], references: [id])
   threadId String     @db.Uuid
   author   Brute?     @relation(fields: [authorId], references: [id])
-  authorId String?     @db.Uuid
+  authorId String?    @db.Uuid
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
 }
 
 model BossDamage {
-  id      String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  id      String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute   Brute?  @relation(fields: [bruteId], references: [id])
   bruteId String? @db.Uuid
-  clan    Clan   @relation(fields: [clanId], references: [id])
-  clanId  String @db.Uuid
+  clan    Clan    @relation(fields: [clanId], references: [id])
+  clanId  String  @db.Uuid
   damage  Int
 
   @@unique([bruteId, clanId])

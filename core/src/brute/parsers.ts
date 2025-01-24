@@ -1,7 +1,7 @@
 import { Gender } from '@labrute/prisma';
 import { BruteBodyPart, BruteColor } from '../types';
 import { colors } from './colors';
-import pad from '../utils/pad';
+import { pad } from '../utils/pad';
 
 export const readBodyString = (bodyString: string): Record<BruteBodyPart, number> => ({
   p1: parseInt(bodyString[0] || '0', 16),

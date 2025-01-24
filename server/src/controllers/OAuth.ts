@@ -1,18 +1,21 @@
-import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { EternaltwinNodeClient } from '@eternaltwin/client-node';
 import { ErrorCode } from '@eternaltwin/client-node/error';
+import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
-import { InventoryItemType, Prisma, PrismaClient } from '@labrute/prisma';
-import type { Request, Response } from 'express';
 import { ExpectedError, ForbiddenError, UserWithBrutesBodyColor } from '@labrute/core';
-import urlJoin from 'url-join';
+import {
+  InventoryItemType, Prisma, PrismaClient, UserLogType,
+} from '@labrute/prisma';
 import { trace } from '@opentelemetry/api';
-import sendError from '../utils/sendError.js';
+import type { Request, Response } from 'express';
+import urlJoin from 'url-join';
 import { Config } from '../config.js';
-import translate from '../utils/translate.js';
-import ServerState from '../utils/ServerState.js';
+import { createUserLog } from '../utils/createUserLog.js';
+import { sendError } from '../utils/sendError.js';
+import { ServerState } from '../utils/ServerState.js';
+import { translate } from '../utils/translate.js';
 
-export default class OAuth {
+export class OAuth {
   #oauthClient: RfcOauthClient;
 
   #eternaltwinClient: EternaltwinNodeClient;
@@ -160,6 +163,12 @@ export default class OAuth {
       if (user.bannedAt) {
         throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
       }
+
+      // Connect log
+      createUserLog(this.#prisma, {
+        type: UserLogType.CONNECT,
+        userId: user.id,
+      });
 
       res.send(user);
     } catch (error: unknown) {

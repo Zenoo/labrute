@@ -11,11 +11,11 @@ import {
 } from '@labrute/core';
 import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import auth from '../utils/auth.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import { auth } from '../utils/auth.js';
+import { sendError } from '../utils/sendError.js';
+import { translate } from '../utils/translate.js';
 
-const ClanWars = {
+export const ClanWars = {
   updateFighters: (prisma: PrismaClient) => async (
     req: Request<{ clan: string; war: string; }, unknown, { day: number; fighters: string[] }>,
     res: Response<ClanWarUpdateFightersResponse>,
@@ -717,5 +717,3 @@ const ClanWars = {
     }
   },
 };
-
-export default ClanWars;

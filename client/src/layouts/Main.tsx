@@ -66,8 +66,15 @@ const Main = () => {
 
   // Logout
   const logout = useCallback(() => {
-    signout();
-    Alert.open('success', t('logoutSuccess'));
+    Server.User.disconnect()
+      .then(() => {
+        Alert.open('success', t('logoutSuccess'));
+      })
+      .catch(catchError(Alert))
+      .finally(() => {
+        signout();
+        toggleDrawer(false)();
+      });
   }, [Alert, signout, t]);
 
   // Change language

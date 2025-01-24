@@ -1,5 +1,5 @@
 import { Brute, FightModifier } from '@labrute/prisma';
-import applySkillModifiers from './applySkillModifiers';
+import { applySkillModifiers } from './applySkillModifiers';
 import { getHP } from './getHP';
 import { getTempSkill } from './getTempSkill';
 

@@ -1,7 +1,7 @@
 /**
  * Format a large number to a string with a suffix
  */
-const formatLargeNumber = (number: number) => {
+export const formatLargeNumber = (number: number) => {
   if (number < 10000) {
     return number.toString();
   }
@@ -21,5 +21,3 @@ const formatLargeNumber = (number: number) => {
 
   return numberString;
 };
-
-export default formatLargeNumber;

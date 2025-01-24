@@ -191,7 +191,7 @@ const setCurrentEvent = (event: Event | null | undefined) => {
   CURRENT_EVENT = event;
 };
 
-export default {
+export const ServerState = {
   setReady,
   isReady,
   setGlobalTournamentValid,

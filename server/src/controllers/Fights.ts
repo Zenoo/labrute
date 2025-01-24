@@ -12,15 +12,15 @@ import {
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
-import auth from '../utils/auth.js';
-import getOpponents from '../utils/brute/getOpponents.js';
-import generateFight from '../utils/fight/generateFight.js';
+import { auth } from '../utils/auth.js';
+import { getOpponents } from '../utils/brute/getOpponents.js';
+import { generateFight } from '../utils/fight/generateFight.js';
 import { ilike } from '../utils/ilike.js';
-import sendError from '../utils/sendError.js';
-import ServerState from '../utils/ServerState.js';
-import translate from '../utils/translate.js';
+import { sendError } from '../utils/sendError.js';
+import { ServerState } from '../utils/ServerState.js';
+import { translate } from '../utils/translate.js';
 
-const Fights = {
+export const Fights = {
   get: (prisma: PrismaClient) => async (
     req: Request,
     res: Response<FightGetResponse>,
@@ -390,5 +390,3 @@ const Fights = {
     }
   },
 };
-
-export default Fights;

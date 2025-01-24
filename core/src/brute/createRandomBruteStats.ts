@@ -1,12 +1,12 @@
 import { DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { BruteRankings } from '../constants';
-import applySkillModifiers from './applySkillModifiers';
 import { getHP } from './getHP';
-import getRandomBonus from './getRandomBonus';
+import { getRandomBonus } from './getRandomBonus';
 import { getRandomStartingStats } from './getRandomStartingStats';
 import { pets } from './pets';
+import { applySkillModifiers } from './applySkillModifiers';
 
-const createRandomBruteStats = (
+export const createRandomBruteStats = (
   baseStats?: { endurance: number, strength: number, agility: number, speed: number } | null,
   perkType?: DestinyChoiceType,
   perkName?: string | null,
@@ -112,5 +112,3 @@ const createRandomBruteStats = (
 
   return brute;
 };
-
-export default createRandomBruteStats;

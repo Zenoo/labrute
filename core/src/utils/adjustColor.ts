@@ -1,4 +1,4 @@
-const adjustColor = (
+export const adjustColor = (
   color: string,
   amount: number,
 ) => `#${color
@@ -11,7 +11,5 @@ const adjustColor = (
         0,
         parseInt(currentColor, 16) + amount,
       ),
-    ).toString(16)}`).substr(-2),
+    ).toString(16)}`).slice(-2),
   )}`;
-
-export default adjustColor;

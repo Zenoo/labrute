@@ -1,6 +1,6 @@
 import { ForbiddenError, LimitError } from '@labrute/core';
 import type { NextFunction, Request, Response } from 'express';
-import sendError from '../sendError.js';
+import { sendError } from '../sendError.js';
 
 const allowedRoutes = [
   '/api/user/authenticate',
@@ -8,14 +8,14 @@ const allowedRoutes = [
 
 const locks = new Map<string, NodeJS.Timeout>();
 
-function deleteLock(key: string) {
+const deleteLock = (key: string) => {
   if (locks.has(key)) {
     clearTimeout(locks.get(key));
     locks.delete(key);
   }
-}
+};
 
-export default function lockMiddleware(req: Request, res: Response, next: NextFunction) {
+export const lockMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const { method, path } = req;
 
   const { headers: { authorization } } = req;
@@ -55,4 +55,4 @@ export default function lockMiddleware(req: Request, res: Response, next: NextFu
   }
 
   return next();
-}
+};

@@ -1,6 +1,6 @@
 import { ExpectedError, availableBodyParts } from '@labrute/core';
 import { Gender, User } from '@labrute/prisma';
-import translate from '../translate.js';
+import { translate } from '../translate.js';
 import { LOGGER } from '../../context.js';
 
 const checkBodyPart = (
@@ -8,7 +8,7 @@ const checkBodyPart = (
   expected: number,
 ) => value >= 0 && value <= expected;
 
-const checkBody = (
+export const checkBody = (
   user: Pick<User, 'id' | 'lang'>,
   gender: Gender,
   bodyString: string,
@@ -44,5 +44,3 @@ const checkBody = (
     throw new ExpectedError(translate('invalidCreation', user));
   }
 };
-
-export default checkBody;

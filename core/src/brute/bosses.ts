@@ -27,7 +27,7 @@ const bear = pets.find((p) => p.name === PetName.bear) as Pet;
 const panther = pets.find((p) => p.name === PetName.panther) as Pet;
 const dog1 = pets.find((p) => p.name === PetName.dog1) as Pet;
 
-const bosses: Boss[] = [
+export const bosses: Boss[] = [
   {
     name: BossName.GoldClaw,
     base: PetName.bear,
@@ -92,5 +92,3 @@ const bosses: Boss[] = [
     odds: 1,
   },
 ];
-
-export default bosses;

@@ -19,18 +19,20 @@ import {
   Achievement, FightModifier, InventoryItemType, Lang,
   Prisma,
   PrismaClient,
+  UserLogType,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import fetch from 'node-fetch';
 import { DISCORD, GLOBAL, LOGGER } from '../context.js';
-import dailyJob from '../dailyJob.js';
-import ServerState from '../utils/ServerState.js';
-import auth from '../utils/auth.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import { dailyJob } from '../dailyJob.js';
+import { ServerState } from '../utils/ServerState.js';
+import { auth } from '../utils/auth.js';
+import { sendError } from '../utils/sendError.js';
+import { translate } from '../utils/translate.js';
+import { createUserLog } from '../utils/createUserLog.js';
 
-const Users = {
+export const Users = {
   get: (prisma: PrismaClient) => async (
     req: Request<{
       id: string
@@ -643,6 +645,12 @@ const Users = {
         },
       });
 
+      // User log
+      createUserLog(prisma, {
+        type: UserLogType.BANNED,
+        userId: req.params.userId,
+      });
+
       // IP ban
       await ServerState.addBannedIps(prisma, user.ips);
 
@@ -928,6 +936,22 @@ const Users = {
       sendError(res, error);
     }
   },
-};
+  disconnect: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
 
-export default Users;
+      // Disconnect log
+      createUserLog(prisma, {
+        type: UserLogType.DISCONNECT,
+        userId: user.id,
+      });
+
+      res.send({ message: 'Disconnected' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+};

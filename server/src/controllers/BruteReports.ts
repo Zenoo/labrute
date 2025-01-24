@@ -12,12 +12,12 @@ import {
 import type { Request, Response } from 'express';
 import moment from 'moment';
 import { LOGGER } from '../context.js';
-import auth from '../utils/auth.js';
+import { auth } from '../utils/auth.js';
 import { ilike } from '../utils/ilike.js';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import { sendError } from '../utils/sendError.js';
+import { translate } from '../utils/translate.js';
 
-const BruteReports = {
+export const BruteReports = {
   list: (prisma: PrismaClient) => async (
     req: Request<BruteReportsListRequest>,
     res: Response<BruteReportsListResponse>,
@@ -370,5 +370,3 @@ const BruteReports = {
     }
   },
 };
-
-export default BruteReports;

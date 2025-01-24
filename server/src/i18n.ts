@@ -17,5 +17,3 @@ i18next.use(Backend).init<FsBackendOptions>({
 }).catch((err) => {
   LOGGER.error(`Error loading language ${err}`);
 });
-
-export default i18next;

@@ -17,7 +17,7 @@ export enum ErrorCodeStatus {
   AccessDenied = 401,
 }
 
-const sendError = (res: Response, error: unknown) => {
+export const sendError = (res: Response, error: unknown) => {
   if (!(error instanceof Error)) {
     throw error;
   }
@@ -133,8 +133,6 @@ const sendError = (res: Response, error: unknown) => {
     }
   }
 };
-
-export default sendError;
 
 export const sendWorkerError = (error: Error) => {
   if (!(error instanceof ExpectedError)) {

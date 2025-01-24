@@ -1,5 +1,5 @@
 import { BRUTE_STARTING_POINTS } from '../constants';
-import randomBetween from '../utils/randomBetween';
+import { randomBetween } from '../utils/randomBetween';
 
 export const getRandomStartingStats = () => {
   // Starting budget

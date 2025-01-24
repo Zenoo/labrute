@@ -136,7 +136,7 @@ type GetFightersParams = {
   clanFight?: boolean,
 };
 
-const getFighters = ({
+export const getFighters = ({
   team1,
   team2,
   modifiers,
@@ -459,5 +459,3 @@ const getFighters = ({
 
   return fighters;
 };
-
-export default getFighters;

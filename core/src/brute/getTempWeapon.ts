@@ -1,8 +1,8 @@
 import { Brute, FightModifier } from '@labrute/prisma';
-import weapons from './weapons';
+import { weapons } from './weapons';
 import Rand from 'rand-seed';
 import moment from 'moment';
-import randomBetween from '../utils/randomBetween';
+import { randomBetween } from '../utils/randomBetween';
 
 export const getTempWeapon = (
   brute: Pick<Brute, 'id' | 'weapons'>,

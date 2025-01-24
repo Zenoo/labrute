@@ -5,7 +5,7 @@ import {
 } from '@labrute/prisma';
 import { increaseAchievement } from '../../controllers/Achievements.js';
 
-const checkLevelUpAchievements = async (
+export const checkLevelUpAchievements = async (
   prisma: PrismaClient,
   _brute: Pick<Brute, 'id' | 'level' | 'userId' | 'pets' | 'skills' | 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hp'>,
   destinyChoice: Pick<DestinyChoice, 'pet' | 'skill' | 'weapon'>,
@@ -594,5 +594,3 @@ const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.hp300);
   }
 };
-
-export default checkLevelUpAchievements;

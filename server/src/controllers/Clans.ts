@@ -15,15 +15,15 @@ import {
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
-import auth from '../utils/auth.js';
-import updateClanPoints from '../utils/clan/updateClanPoints.js';
-import generateFight, { GenerateFightResult } from '../utils/fight/generateFight.js';
+import { auth } from '../utils/auth.js';
+import { updateClanPoints } from '../utils/clan/updateClanPoints.js';
+import { generateFight, GenerateFightResult } from '../utils/fight/generateFight.js';
 import { ilike } from '../utils/ilike.js';
-import sendError from '../utils/sendError.js';
-import ServerState from '../utils/ServerState.js';
-import translate from '../utils/translate.js';
+import { sendError } from '../utils/sendError.js';
+import { ServerState } from '../utils/ServerState.js';
+import { translate } from '../utils/translate.js';
 
-const Clans = {
+export const Clans = {
   list: (prisma: PrismaClient) => async (
     req: Request,
     res: Response<ClanListResponse>,
@@ -1818,5 +1818,3 @@ const Clans = {
     }
   },
 };
-
-export default Clans;

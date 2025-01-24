@@ -44,13 +44,13 @@
     ],
     "linebreak-style": "off",
     "eol-last": "off",
-    "import/no-named-default": "off",
     "no-nested-ternary": "off",
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "import/prefer-default-export": "off",
     "camelcase": "off",
     "no-plusplus": "off",
-    "no-continue": "off"
+    "no-continue": "off",
+    "import/no-default-export": "error"
   },
   "settings": {
     "node": {

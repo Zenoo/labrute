@@ -1,7 +1,7 @@
 import { getBruteGoldValueFromLevel, getBruteGoldValueFromRanking } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
 
-const updateClanPoints = async (
+export const updateClanPoints = async (
   prisma: PrismaClient,
   clanId: string,
   operation: 'add' | 'remove',
@@ -44,5 +44,3 @@ const updateClanPoints = async (
     });
   }
 };
-
-export default updateClanPoints;

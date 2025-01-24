@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import ServerState from '../ServerState.js';
+import { ServerState } from '../ServerState.js';
 
 export const readyCheck = (req: Request, res: Response, next: NextFunction) => {
   const isReady = ServerState.isReady();

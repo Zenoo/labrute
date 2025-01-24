@@ -1,8 +1,8 @@
 import { NotificationListResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import auth from '../utils/auth.js';
-import sendError from '../utils/sendError.js';
+import { auth } from '../utils/auth.js';
+import { sendError } from '../utils/sendError.js';
 
 export const Notifications = {
   list: (prisma: PrismaClient) => async (

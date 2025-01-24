@@ -3,22 +3,23 @@ import { ServerReadyResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Express, Request, Response } from 'express';
 import { Config } from './config.js';
-import Achievements from './controllers/Achievements.js';
-import BruteReports from './controllers/BruteReports.js';
-import Brutes from './controllers/Brutes.js';
-import Clans from './controllers/Clans.js';
-import ClanWars from './controllers/ClanWars.js';
-import Events from './controllers/Events.js';
-import Fights from './controllers/Fights.js';
-import Logs from './controllers/Logs.js';
+import { Achievements } from './controllers/Achievements.js';
+import { BruteReports } from './controllers/BruteReports.js';
+import { Brutes } from './controllers/Brutes.js';
+import { Clans } from './controllers/Clans.js';
+import { ClanWars } from './controllers/ClanWars.js';
+import { Events } from './controllers/Events.js';
+import { Fights } from './controllers/Fights.js';
+import { Logs } from './controllers/Logs.js';
 import { Notifications } from './controllers/Notifications.js';
-import OAuth from './controllers/OAuth.js';
-import Tournaments from './controllers/Tournaments.js';
-import Users from './controllers/Users.js';
-import ServerState from './utils/ServerState.js';
+import { OAuth } from './controllers/OAuth.js';
+import { Tournaments } from './controllers/Tournaments.js';
+import { Users } from './controllers/Users.js';
+import { ServerState } from './utils/ServerState.js';
 import { Configs } from './controllers/Configs.js';
+import { UserLogs } from './controllers/UserLogs.js';
 
-export default function initRoutes(app: Express, config: Config, prisma: PrismaClient) {
+export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) => {
   app.get('/api', (_req: Request, res: Response) => res.status(200).send({
     message: 'server is running!',
   }));
@@ -59,6 +60,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.put('/api/user/next-modifiers', Users.setNextModifiers(prisma));
   app.patch('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));
   app.put('/api/user/settings', Users.updateSettings(prisma));
+  app.patch('/api/user/disconnect', Users.disconnect(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
@@ -176,4 +178,7 @@ export default function initRoutes(app: Express, config: Config, prisma: PrismaC
   app.put('/api/config/set', Configs.set(prisma));
   app.post('/api/config/decrypt', Configs.decrypt(prisma));
   app.delete('/api/config', Configs.delete(prisma));
-}
+
+  // User logs
+  app.post('/api/user-log/list', UserLogs.list(prisma));
+};

@@ -1,9 +1,9 @@
 import { Brute, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import randomBetween from '../utils/randomBetween';
-import weightedRandom from '../utils/weightedRandom';
+import { randomBetween } from '../utils/randomBetween';
+import { weightedRandom } from '../utils/weightedRandom';
 import { pets } from './pets';
 import { skills } from './skills';
-import weapons, { MAX_LIMITED_WEAPONS, limitedWeapons } from './weapons';
+import { weapons, MAX_LIMITED_WEAPONS, limitedWeapons } from './weapons';
 
 const preventSomeBonuses = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
@@ -98,7 +98,7 @@ const preventSomeBonuses = (
   return preventPerk;
 };
 
-const getRandomBonus = (
+export const getRandomBonus = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
   rerollUntilFound = false,
   disabledSkills: SkillName[] = [],
@@ -151,5 +151,3 @@ const getRandomBonus = (
     name: perkName,
   } : null;
 };
-
-export default getRandomBonus;

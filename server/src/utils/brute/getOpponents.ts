@@ -1,7 +1,7 @@
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
 
-const getOpponents = async (
+export const getOpponents = async (
   prisma: PrismaClient,
   brute: Pick<Brute, 'name' | 'level'>,
 ) => {
@@ -132,5 +132,3 @@ const getOpponents = async (
 
   return opponents;
 };
-
-export default getOpponents;

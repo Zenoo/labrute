@@ -69,7 +69,7 @@ module.exports = {
     }],
     'import/order': 'off',
     "import/no-unresolved": "error",
-    "import/no-named-default": "off",
+    "import/no-default-export": "error",
     "no-console": ["warn", { allow: ["warn", "error"] }],
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-misused-promises": [

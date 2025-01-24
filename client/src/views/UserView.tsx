@@ -1,10 +1,11 @@
 import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
-import { Check, QuestionMark } from '@mui/icons-material';
-import { Box, Grid, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
+import { Check, ManageSearch, QuestionMark } from '@mui/icons-material';
+import { Box, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import { AchievementHeader } from '../components/AchievementHeader';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { ActivityStatus } from '../components/ActivityStatus';
@@ -81,6 +82,18 @@ const UserView = () => {
             <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
               <ActivityStatus user={user} sx={{ verticalAlign: 'middle', mr: 1 }} />
               {t('userProfile', { user: user.name })}
+              {authedUser?.admin && (
+                <Tooltip title="User logs">
+                  <IconButton
+                    color="warning"
+                    component={RouterLink}
+                    to={`/admin-panel/user/logs/${user.id}`}
+                    sx={{ ml: 1 }}
+                  >
+                    <ManageSearch />
+                  </IconButton>
+                </Tooltip>
+              )}
             </Text>
           </Paper>
           <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>

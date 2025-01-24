@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteUpdateEventRoundWatchedResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetForAdminResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest, ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse, EventListResponse, FightCreateResponse, FightGetResponse, HookBrute, LogGetForUserFeedResponse, LogListResponse, NotificationListResponse, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse, UserUpdateSettingsRequest } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteUpdateEventRoundWatchedResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetForAdminResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest, ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse, EventListResponse, FightCreateResponse, FightGetResponse, HookBrute, LogGetForUserFeedResponse, LogListResponse, NotificationListResponse, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateResponse, UserUpdateSettingsRequest } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, Clan, DestinyChoiceSide, FightModifier, Gender, InventoryItemType, Lang, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
 import Fetch from './Fetch';
 
@@ -26,6 +26,7 @@ const Server = {
     setNextModifiers: (modifiers: FightModifier[]) => Fetch<never>('/api/user/next-modifiers', { modifiers }, 'PUT'),
     toggleFollow: (bruteId: string) => Fetch<never>(`/api/user/toggle-follow/${bruteId}`, {}, 'PATCH'),
     updateSettings: (settings: UserUpdateSettingsRequest) => Fetch<never>('/api/user/settings', settings, 'PUT'),
+    disconnect: () => Fetch<never>('/api/user/disconnect', {}, 'PATCH'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<HookBrute>(`/api/brute/${name}/for-hook`),
@@ -196,6 +197,9 @@ const Server = {
     set: (key: string, value: string) => Fetch<ConfigsSetResponse>('/api/config/set', { key, value } as ConfigsSetRequest, 'PUT'),
     decrypt: (value: string) => Fetch<ConfigsDecryptResponse>('/api/config/decrypt', { value } as ConfigsDecryptRequest, 'POST'),
     delete: (key: string) => Fetch<never>('/api/config', { key }, 'DELETE'),
+  },
+  UserLog: {
+    list: (params: UserLogsListRequest) => Fetch<UserLogsListResponse>('/api/user-log/list', params, 'POST'),
   },
 };
 

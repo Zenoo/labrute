@@ -6,10 +6,10 @@ import {
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
-import sendError from '../utils/sendError.js';
-import translate from '../utils/translate.js';
+import { sendError } from '../utils/sendError.js';
+import { translate } from '../utils/translate.js';
 
-const Events = {
+export const Events = {
   list: (prisma: PrismaClient) => async (
     req: Request,
     res: Response<EventListResponse>,
@@ -214,5 +214,3 @@ const Events = {
     }
   },
 };
-
-export default Events;

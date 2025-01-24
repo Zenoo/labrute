@@ -4,10 +4,10 @@ import {
 import { PrismaClient } from '@labrute/prisma';
 import type { Request } from 'express';
 import moment from 'moment';
-import ServerState from './ServerState.js';
-import translate from './translate.js';
+import { ServerState } from './ServerState.js';
+import { translate } from './translate.js';
 
-const auth = async (prisma: PrismaClient, request: Request, options?: {
+export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
   moderator?: boolean;
 }) => {
@@ -114,5 +114,3 @@ const auth = async (prisma: PrismaClient, request: Request, options?: {
     lang: user.lang,
   };
 };
-
-export default auth;
