@@ -32,7 +32,8 @@
     "remove:client": "yarn workspace @labrute/client remove",
     "remove:server": "yarn workspace @labrute/server remove",
     "run:retrieveFirstBonus": "cd server && yarn run:retrieveFirstBonus",
-    "run:fixErroredBonuses": "cd server && yarn run:fixErroredBonuses"
+    "run:fixErroredBonuses": "cd server && yarn run:fixErroredBonuses",
+    "sitemap:generate": "npx ts-node ./scripts/genereateSitemap.ts"
   },
   "devDependencies": {
     "@eternaltwin/cli": "^0.16.0",

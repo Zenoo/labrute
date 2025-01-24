@@ -12,8 +12,6 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
       - uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
@@ -21,19 +19,3 @@ jobs:
           bump-minor-pre-major: true
           default-branch: main
           command: manifest
-
-      - name: Run generateSitemap script
-        if: success()
-        run: |
-          npx ts-node ./scripts/generateSitemap.ts
-
-      - name: Commit and push sitemap changes
-        if: success()
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add client/public
-          git commit -m "chore: update sitemap"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.PROJECT_PAT }}
