@@ -37,13 +37,13 @@ export const SEO = ({
       <meta property="og:title" content={title} />
       {description && <meta property="og:description" content={description} />}
       <meta property="og:locale" content={document.documentElement.lang} />
-      <meta property="og:image" content="/logo192.png" />
+      <meta property="og:image" content="/logo512.png" />
       <meta property="og:image:alt" content="MyBrute" />
       {/* TWITTER */}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={title} />
       {description && <meta name="twitter:description" content={description} />}
-      <meta name="twitter:image" content="/logo192.png" />
+      <meta name="twitter:image" content="/logo512.png" />
       <meta name="twitter:image:alt" content="MyBrute" />
       {description && <meta name="description" content={description} />}
       {/* ALTERNATIVES */}
