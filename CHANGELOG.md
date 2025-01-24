@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.79.7](https://github.com/Zenoo/labrute/compare/labrute-v2.79.6...labrute-v2.79.7) (2025-01-24)
+
+
+### Bug Fixes
+
+* Brute deletion queries ([2f6b089](https://github.com/Zenoo/labrute/commit/2f6b089b288582391a261e97ede9a7fd5c8ff268))
+* Revert to old release-please action ([37f9362](https://github.com/Zenoo/labrute/commit/37f9362d24b3799588a78f16270c0cc738be9fee))
+* SEO optimizations. Fixes [#1102](https://github.com/Zenoo/labrute/issues/1102) ([1530a96](https://github.com/Zenoo/labrute/commit/1530a96bfdee650b86252e8fe8e77ea96ece5ec8))
+
 ## [2.79.6](https://github.com/Zenoo/labrute/compare/labrute-v2.79.5...labrute-v2.79.6) (2025-01-23)
 
 
