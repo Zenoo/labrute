@@ -508,6 +508,7 @@
   "tournamentOf": "Torneo de",
   "tournamentOf.desc": "View {{brute}}'s participation in the tournament of {{date}}.",
   "globalTournament": "Torneo global",
+  "unlimited": "Unlimited",
   "globalTournament.desc": "View {{brute}}'s participation in the global tournament of {{date}}.",
   "globalTournamentOf": "Torneo global de",
   "automaticallyQualified": "Clasificado automáticamente",
