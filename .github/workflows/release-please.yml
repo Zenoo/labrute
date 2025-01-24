@@ -22,10 +22,10 @@ jobs:
           default-branch: main
           command: manifest
 
-      - name: Run generate-sitemap script
+      - name: Run generateSitemap script
         if: success()
         run: |
-          npx ts-node /scripts/generatSitemap.ts
+          npx ts-node /scripts/generateSitemap.ts
 
       - name: Commit and push sitemap changes
         if: success()
