@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.81.0](https://github.com/Zenoo/labrute/compare/labrute-v2.80.0...labrute-v2.81.0) (2025-01-24)
+
+
+### Features
+
+* Separate global tournament for brutes who can rank up. Fixes [#867](https://github.com/Zenoo/labrute/issues/867) ([4c8e26b](https://github.com/Zenoo/labrute/commit/4c8e26b57ea29567e49cd0d8ee1046175c68ceeb))
+
 ## [2.80.0](https://github.com/Zenoo/labrute/compare/labrute-v2.79.7...labrute-v2.80.0) (2025-01-24)
 
 
