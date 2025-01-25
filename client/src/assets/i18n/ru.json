@@ -508,7 +508,7 @@
   "tournamentOf": "Турнир",
   "tournamentOf.desc": "Просмотрите участие {{brute}} в турнире {{date}}.",
   "globalTournament": "Всеобщий турнир",
-  "unlimited": "Неограниченно",
+  "unlimited": "Без ограничений",
   "globalTournament.desc": "Просмотрите участие {{brute}} во всеобщем турнире {{date}}.",
   "globalTournamentOf": "Всеобщий турнир",
   "automaticallyQualified": "Должная квалификация",
