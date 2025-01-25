@@ -508,7 +508,7 @@
   "tournamentOf": "Wettkampf von",
   "tournamentOf.desc": "Teilnahme von {{brute}} am Täglichen Turnier vom {{date}} ansehen.",
   "globalTournament": "Globaler Wettkampf",
-  "unlimited": "Unbegrenzt",
+  "unlimited": "Uneingeschränkt",
   "globalTournament.desc": "Teilnahme von {{brute}} am Globalen Wettkampf vom {{date}} ansehen.",
   "globalTournamentOf": "Globaler Wettkampf von",
   "automaticallyQualified": "Automatisch qualifiziert",
