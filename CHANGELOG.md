@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.81.1](https://github.com/Zenoo/labrute/compare/labrute-v2.81.0...labrute-v2.81.1) (2025-01-25)
+
+
+### Bug Fixes
+
+* Add tournament info to wiki. Fixes [#1116](https://github.com/Zenoo/labrute/issues/1116) ([ce60088](https://github.com/Zenoo/labrute/commit/ce6008855f1454f85a20e7578c3aa9ad1d34b856))
+* Unlimited global tournament for unregistered brutes only. Fixes [#1115](https://github.com/Zenoo/labrute/issues/1115) ([5665d38](https://github.com/Zenoo/labrute/commit/5665d383a767ea3f537a224fc7d8785e8dfea0f4))
+
 ## [2.81.0](https://github.com/Zenoo/labrute/compare/labrute-v2.80.0...labrute-v2.81.0) (2025-01-24)
 
 
