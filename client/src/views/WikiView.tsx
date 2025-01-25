@@ -96,6 +96,9 @@ export const WikiView = () => {
                 total: 3 * DailyTournamentXpReward + 4 * GlobalTournamentXpReward,
               })}
             </Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.unlimitedGlobalTourney')}</Text>
+            <Text body2>- {t('wiki.unregisteredOnly')}</Text>
+            <Text body2>- {t('wiki.noRewards')}</Text>
             {/* CLANS */}
             <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
               <Groups sx={{ verticalAlign: 'middle', mr: 1 }} />
