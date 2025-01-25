@@ -497,12 +497,12 @@ const handleGlobalTournament = async (
   // Set tournament as invalid until it's finished
   await ServerState.setGlobalTournamentValid(prisma, false);
 
-  // Get all real brutes who can't rank up that played previous day
+  // Get all real brutes that registered for the daily tournament
   const brutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
       eventId: null,
-      canRankUpSince: null,
+      registeredForTournament: true,
       lastFight: {
         gte: moment.utc().subtract(1, 'day').toDate(),
       },
@@ -718,12 +718,6 @@ const handleUnlimitedGlobalTournament = async (
 ) => {
   const today = moment.utc().startOf('day');
 
-  // Disable today's tournament to prevent duplicates
-  // TODO: Remove this once the update went through
-  if (moment.utc().isSame(moment.utc('01-24', 'MM-DD'), 'day')) {
-    return;
-  }
-
   // Check if unlimited global tournament is already handled
   const globalTournament = await prisma.tournament.count({
     where: {
@@ -739,14 +733,12 @@ const handleUnlimitedGlobalTournament = async (
   // Set tournament as invalid until it's finished
   await ServerState.setGlobalTournamentValid(prisma, false);
 
-  // Get all real brutes who can rank up that played previous day
+  // Get all real brutes that didn't register for the daily tournament
   const brutes = await prisma.brute.findMany({
     where: {
       deletedAt: null,
       eventId: null,
-      canRankUpSince: {
-        not: null,
-      },
+      registeredForTournament: false,
       lastFight: {
         gte: moment.utc().subtract(1, 'day').toDate(),
       },
