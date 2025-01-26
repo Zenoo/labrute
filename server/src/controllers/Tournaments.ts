@@ -462,10 +462,12 @@ export const Tournaments = {
     try {
       const user = await auth(prisma, req, { admin: true });
 
-      // Get tournament ID
-      const tournament = await prisma.tournament.findFirst({
+      // Get tournament IDs
+      const tournament = await prisma.tournament.findMany({
         where: {
-          type: TournamentType.GLOBAL,
+          type: {
+            in: [TournamentType.GLOBAL, TournamentType.UNLIMITED_GLOBAL],
+          },
           date: {
             gte: moment.utc().startOf('day').toDate(),
             lte: moment.utc().endOf('day').toDate(),
@@ -474,21 +476,21 @@ export const Tournaments = {
         select: { id: true },
       });
 
-      if (!tournament) {
+      if (!tournament.length) {
         throw new NotFoundError(translate('tournamentNotFound', user));
       }
 
       // Delete all fights from global tournament
       await prisma.fight.deleteMany({
         where: {
-          tournamentId: tournament.id,
+          tournamentId: { in: tournament.map((t) => t.id) },
         },
       });
 
       // Delete global tournament
       await prisma.tournament.deleteMany({
         where: {
-          id: tournament.id,
+          id: { in: tournament.map((t) => t.id) },
         },
       });
 
