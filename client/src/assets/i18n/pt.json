@@ -1587,7 +1587,7 @@
   "wiki.activePreviousDay": "Must have fought the previous day",
   "wiki.addedDelayedXP": "If you won {{daily}} fights in the daily tournament and {{global}} fights in the global tournament, you'll get {{total}} XP the following day.",
   "wiki.unlimitedGlobalTourney": "Unlimited global tournament",
-  "wiki.unregisteredOnly:": "Restricted to brutes that didn't register for the daily tournament",
+  "wiki.unregisteredOnly": "Restricted to brutes that didn't register for the daily tournament",
   "wiki.noRewards": "No rewards (XP or Gold)",
   "wiki.howToUseGold": "How to use your gold?",
   "wiki.createNewBrutes": "Create new brutes",

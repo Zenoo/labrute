@@ -1587,7 +1587,7 @@
   "wiki.activePreviousDay": "Наличие сражений за предыдущий день",
   "wiki.addedDelayedXP": "Если ваш Брутал выиграл {{daily}} битвы Ежедневного Турнира и {{global}} битвы Всеобщего Турнира, он на следующий день получит {{total}} опыта.",
   "wiki.unlimitedGlobalTourney": "Всеобщий турнир без ограничений",
-  "wiki.unregisteredOnly:": "Ограничен на Бруталов, не участвовавших в ежедневном турнире",
+  "wiki.unregisteredOnly": "Restricted to brutes that didn't register for the daily tournament",
   "wiki.noRewards": "Без наград (Опыт и Золото)",
   "wiki.howToUseGold": "На что тратить золото?",
   "wiki.createNewBrutes": "Создание новых Бруталов",
