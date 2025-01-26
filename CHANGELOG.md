@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.81.2](https://github.com/Zenoo/labrute/compare/labrute-v2.81.1...labrute-v2.81.2) (2025-01-26)
+
+
+### Bug Fixes
+
+* Error generating global tournament ([f97a6e5](https://github.com/Zenoo/labrute/commit/f97a6e5ee50c32107e1ede68d6a1aed9e8df41d5))
+
 ## [2.81.1](https://github.com/Zenoo/labrute/compare/labrute-v2.81.0...labrute-v2.81.1) (2025-01-25)
 
 
