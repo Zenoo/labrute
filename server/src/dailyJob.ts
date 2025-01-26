@@ -20,6 +20,7 @@ import {
 } from '@labrute/core';
 import {
   AchievementName,
+  Brute,
   ClanWarStatus,
   ClanWarType,
   EventStatus,
@@ -168,7 +169,7 @@ const handleDailyTournaments = async (
 
   // All brutes are assigned, do nothing
   if (registeredBrutes.length === 0) {
-    return gains;
+    return { registeredBrutes, gains };
   }
 
   // Shuffle brutes
@@ -470,12 +471,16 @@ const handleDailyTournaments = async (
 
   LOGGER.log(`${tournamentsToCreate} daily tournaments created`);
 
-  return gains;
+  return {
+    registeredBrutes,
+    gains,
+  };
 };
 
 const handleGlobalTournament = async (
   prisma: PrismaClient,
   modifiers: FightModifier[],
+  brutes: Pick<Brute, 'id'>[],
 ) => {
   // Keep track of gains
   const gains: Record<string, [number, number]> = {};
@@ -497,21 +502,9 @@ const handleGlobalTournament = async (
   // Set tournament as invalid until it's finished
   await ServerState.setGlobalTournamentValid(prisma, false);
 
-  // Get all real brutes that registered for the daily tournament
-  const brutes = await prisma.brute.findMany({
-    where: {
-      deletedAt: null,
-      eventId: null,
-      registeredForTournament: true,
-      lastFight: {
-        gte: moment.utc().subtract(1, 'day').toDate(),
-      },
-      user: {
-        isNot: null,
-      },
-    },
-    select: { id: true },
-  });
+  if (brutes.length < 2) {
+    return gains;
+  }
 
   LOGGER.log(`${brutes.length} brutes for global tournament`);
 
@@ -715,6 +708,7 @@ const handleGlobalTournament = async (
 const handleUnlimitedGlobalTournament = async (
   prisma: PrismaClient,
   modifiers: FightModifier[],
+  brutes: Pick<Brute, 'id'>[],
 ) => {
   const today = moment.utc().startOf('day');
 
@@ -733,21 +727,9 @@ const handleUnlimitedGlobalTournament = async (
   // Set tournament as invalid until it's finished
   await ServerState.setGlobalTournamentValid(prisma, false);
 
-  // Get all real brutes that didn't register for the daily tournament
-  const brutes = await prisma.brute.findMany({
-    where: {
-      deletedAt: null,
-      eventId: null,
-      registeredForTournament: false,
-      lastFight: {
-        gte: moment.utc().subtract(1, 'day').toDate(),
-      },
-      user: {
-        isNot: null,
-      },
-    },
-    select: { id: true },
-  });
+  if (brutes.length < 2) {
+    return;
+  }
 
   LOGGER.log(`${brutes.length} brutes for the unlimited global tournament`);
 
@@ -2126,14 +2108,32 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
       // Update server state to hold traffic
       ServerState.setReady(false);
 
+      // Get unregistered brutes that fought in the last 24 hours
+      const unregisteredBrutes = await prisma.brute.findMany({
+        where: {
+          deletedAt: null,
+          eventId: null,
+          registeredForTournament: false,
+          lastFight: {
+            gte: moment.utc().subtract(1, 'day').toDate(),
+          },
+          user: {
+            isNot: null,
+          },
+        },
+      });
+
       // Handle daily tournaments
-      const dailyGains = await handleDailyTournaments(prisma, modifiers);
+      const {
+        registeredBrutes,
+        gains: dailyGains,
+      } = await handleDailyTournaments(prisma, modifiers);
 
       // Handle global tournament
-      const globalGains = await handleGlobalTournament(prisma, modifiers);
+      const globalGains = await handleGlobalTournament(prisma, modifiers, registeredBrutes);
 
       // Handle unlimited global tournament
-      await handleUnlimitedGlobalTournament(prisma, modifiers);
+      await handleUnlimitedGlobalTournament(prisma, modifiers, unregisteredBrutes);
       // Store gains
       await storeGains(prisma, dailyGains, globalGains);
     }
