@@ -1587,7 +1587,7 @@
   "wiki.activePreviousDay": "Du musst am Vortag gekämpft haben",
   "wiki.addedDelayedXP": "Beispiel: Wenn du {{daily}} Kämpfe im Täglichen Turnier und {{global}} Kämpfe im Globalen Wettkampf gewonnen hast, erhältst du am nächsten Tag insgesamt {{total}} EP.",
   "wiki.unlimitedGlobalTourney": "Globaler Wettkampf ohne Einschränkungen",
-  "wiki.unregisteredOnly:": "Eingeschränkt auf Brutalos, die sich nicht für das Tägliche Turnier angemeldet haben",
+  "wiki.unregisteredOnly": "Restricted to brutes that didn't register for the daily tournament",
   "wiki.noRewards": "Keine Belohnungen (EP oder Gold)",
   "wiki.howToUseGold": "Wofür verwende ich mein Gold?",
   "wiki.createNewBrutes": "Neue Brutalos erstellen",
