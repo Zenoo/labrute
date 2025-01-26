@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.81.3](https://github.com/Zenoo/labrute/compare/labrute-v2.81.2...labrute-v2.81.3) (2025-01-26)
+
+
+### Bug Fixes
+
+* Only select brute IDs in daily job ([b8bcbb5](https://github.com/Zenoo/labrute/commit/b8bcbb569a82b9ba9fbdff560d53e39c2b7c1996))
+
 ## [2.81.2](https://github.com/Zenoo/labrute/compare/labrute-v2.81.1...labrute-v2.81.2) (2025-01-26)
 
 
