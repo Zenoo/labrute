@@ -2121,6 +2121,7 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
             isNot: null,
           },
         },
+        select: { id: true },
       });
 
       // Handle daily tournaments
