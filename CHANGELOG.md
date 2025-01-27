@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.81.5](https://github.com/Zenoo/labrute/compare/labrute-v2.81.4...labrute-v2.81.5) (2025-01-27)
+
+
+### Bug Fixes
+
+* /ranking-data/ safeguard ([c0c29c7](https://github.com/Zenoo/labrute/commit/c0c29c71ad068d11648936d5d7b5ceebde855bbd))
+
 ## [2.81.4](https://github.com/Zenoo/labrute/compare/labrute-v2.81.3...labrute-v2.81.4) (2025-01-26)
 
 
