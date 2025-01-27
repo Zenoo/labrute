@@ -893,6 +893,9 @@ export const Brutes = {
         }
         rank = brute.ranking;
       } else {
+        if (Number.isNaN(+req.params.rank)) {
+          throw new Error(translate('invalidParameters'));
+        }
         rank = +req.params.rank;
       }
 
