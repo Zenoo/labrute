@@ -621,7 +621,7 @@
   "date": "Fecha",
   "dailyTournament": "Torneo diario",
   "achievements": "Logros",
-  "achievements.desc": "Curious about {{value}}'s achievements? Come and take a look!",
+  "achievements.desc": "¿Te intrigan los logros de {{value}}? ¡Échales un vistazo!",
   "achievements.wins": "Combates ganados",
   "achievements.wins.description": "Combates ganados.",
   "achievements.defeats": "Combates perdidos",
