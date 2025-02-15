@@ -308,8 +308,10 @@ const CellGlobalTournament = ({
       componentsProps={{
         badge: {
           style: {
-            transform: 'rotate(45deg)',
-            marginTop: 48,
+            transform: 'scale(1) translate(50%, -50%) rotate(45deg)',
+            transformOrigin: 'center',
+            marginTop: 32,
+            marginRight: 24,
             display: data.tournament.type === TournamentType.UNLIMITED_GLOBAL ? 'flex' : 'none',
           }
         },
