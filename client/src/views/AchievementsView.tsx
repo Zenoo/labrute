@@ -160,28 +160,36 @@ const AchievementsView = () => {
                         </AchievementTooltip>
                       )}
                     >
-                      {availableTitles.map((titleCount, i) => (
-                        <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
-                          <ListItem sx={{
-                            py: 0,
-                            '&:not(:last-child)': {
-                              borderBottom: '1px dashed',
-                              borderBottomColor: theme.palette.border.shadow,
-                            },
-                          }}
-                          >
-                            <ListItemText
-                              sx={{ my: 0 }}
-                              primary={(
-                                <>
-                                  <span>{t(`${achievement.name}.title.${(i + 1) as 1 | 2 | 3 | 4 | 5}`) || 'TODO'}</span>
-                                  <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{titleCount})</Box>
-                                </>
-                              )}
-                            />
-                          </ListItem>
-                        </Tooltip>
-                      ))}
+                      {availableTitles.map((titleCount, i) => {
+                        let translation = t(`${achievement.name}.title.${i + 1}`);
+
+                        if (!translation || translation === `${achievement.name}.title.${i + 1}`) {
+                          translation = 'TODO';
+                        }
+
+                        return (
+                          <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
+                            <ListItem sx={{
+                              py: 0,
+                              '&:not(:last-child)': {
+                                borderBottom: '1px dashed',
+                                borderBottomColor: theme.palette.border.shadow,
+                              },
+                            }}
+                            >
+                              <ListItemText
+                                sx={{ my: 0 }}
+                                primary={(
+                                  <>
+                                    <span>{translation}</span>
+                                    <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{titleCount})</Box>
+                                  </>
+                                )}
+                              />
+                            </ListItem>
+                          </Tooltip>
+                        );
+                      })}
                     </List>
                   );
                 })}
