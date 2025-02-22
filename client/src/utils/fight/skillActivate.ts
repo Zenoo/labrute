@@ -61,6 +61,8 @@ const skillActivate = async (
       let timeSinceLastGhost = ghostInterval;
       // Ticker update function
       const update = (delta: number) => {
+        if (brute.animation.container.destroyed) return;
+
         timeSinceLastGhost += delta * speed.current;
         // No ghost creation
         if (timeSinceLastGhost < ghostInterval) return;
