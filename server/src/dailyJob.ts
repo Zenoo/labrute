@@ -1325,34 +1325,46 @@ const handleReleases = async (prisma: PrismaClient) => {
 };
 
 const cleanup = async (prisma: PrismaClient) => {
+  const thirtyDaysAgo = moment.utc().subtract(30, 'day').toDate();
+
+  let now = moment.utc().valueOf();
+
   // Delete logs older than 30 days
-  await prisma.log.deleteMany({
+  const deletedLogs = await prisma.log.deleteMany({
     where: {
       date: {
-        lt: moment.utc().subtract(30, 'day').toDate(),
+        lt: thirtyDaysAgo,
       },
     },
   });
 
+  if (deletedLogs.count) {
+    LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${deletedLogs.count} logs older than 30 days`);
+  }
+  now = moment.utc().valueOf();
+
   // Delete notifications older than 30 days
-  await prisma.notification.deleteMany({
+  const deletedNotifications = await prisma.notification.deleteMany({
     where: {
       date: {
-        lt: moment.utc().subtract(30, 'day').toDate(),
+        lt: thirtyDaysAgo,
       },
     },
   });
+
+  if (deletedNotifications.count) {
+    LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${deletedNotifications.count} notifications older than 30 days`);
+  }
 
   // Delete non tournament/war or favorited fights older than 30 days
   let deleted = null;
-
   while (deleted !== 0) {
-    const now = moment.utc().valueOf();
+    now = moment.utc().valueOf();
 
     deleted = await prisma.$executeRaw`
         DELETE FROM "Fight"
         WHERE id IN (SELECT id FROM "Fight"
-          WHERE "date" < ${moment.utc().subtract(30, 'day').toDate()}
+          WHERE "date" < ${thirtyDaysAgo}
           AND "tournamentId" IS NULL
           AND "clanWarId" IS NULL
           AND "favoriteCount" = 0
@@ -1361,6 +1373,23 @@ const cleanup = async (prisma: PrismaClient) => {
 
     if (deleted) {
       LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${deleted} fights older than 30 days`);
+    }
+  }
+
+  // Delete deletedAt brutes older than 30 days
+  deleted = null;
+  while (deleted !== 0) {
+    now = moment.utc().valueOf();
+
+    deleted = await prisma.$executeRaw`
+        DELETE FROM "Brute"
+        WHERE id IN (SELECT id FROM "Brute"
+          WHERE "deletedAt" < ${thirtyDaysAgo}
+          LIMIT 1000);
+      `;
+
+    if (deleted) {
+      LOGGER.log(`${moment.utc().valueOf() - now}ms to delete ${deleted} brutes older than 30 days`);
     }
   }
 };

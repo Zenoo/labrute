@@ -74,11 +74,6 @@ export type TournamentXp = $Result.DefaultSelection<Prisma.$TournamentXpPayload>
  */
 export type Achievement = $Result.DefaultSelection<Prisma.$AchievementPayload>
 /**
- * Model Title
- * 
- */
-export type Title = $Result.DefaultSelection<Prisma.$TitlePayload>
-/**
  * Model BruteReport
  * 
  */
@@ -909,16 +904,6 @@ export class PrismaClient<
   get achievement(): Prisma.AchievementDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.title`: Exposes CRUD operations for the **Title** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Titles
-    * const titles = await prisma.title.findMany()
-    * ```
-    */
-  get title(): Prisma.TitleDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.bruteReport`: Exposes CRUD operations for the **BruteReport** model.
     * Example usage:
     * ```ts
@@ -1107,7 +1092,7 @@ export namespace Prisma {
   export type DecimalJsLike = runtime.DecimalJsLike
 
   /**
-   * Metrics 
+   * Metrics
    */
   export type Metrics = runtime.Metrics
   export type Metric<T> = runtime.Metric<T>
@@ -1125,14 +1110,14 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.2.1
-   * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
+   * Prisma Client JS version: 6.3.1
+   * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
    */
   export type PrismaVersion = {
     client: string
   }
 
-  export const prismaVersion: PrismaVersion 
+  export const prismaVersion: PrismaVersion
 
   /**
    * Utility Types
@@ -1148,15 +1133,15 @@ export namespace Prisma {
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   namespace NullTypes {
     /**
     * Type of `Prisma.DbNull`.
-    * 
+    *
     * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
-    * 
+    *
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class DbNull {
@@ -1166,9 +1151,9 @@ export namespace Prisma {
 
     /**
     * Type of `Prisma.JsonNull`.
-    * 
+    *
     * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
-    * 
+    *
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class JsonNull {
@@ -1178,9 +1163,9 @@ export namespace Prisma {
 
     /**
     * Type of `Prisma.AnyNull`.
-    * 
+    *
     * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
-    * 
+    *
     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
     */
     class AnyNull {
@@ -1191,21 +1176,21 @@ export namespace Prisma {
 
   /**
    * Helper for filtering JSON entries that have `null` on the database (empty on the db)
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const DbNull: NullTypes.DbNull
 
   /**
    * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const JsonNull: NullTypes.JsonNull
 
   /**
    * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
   export const AnyNull: NullTypes.AnyNull
@@ -1519,7 +1504,6 @@ export namespace Prisma {
     TournamentGold: 'TournamentGold',
     TournamentXp: 'TournamentXp',
     Achievement: 'Achievement',
-    Title: 'Title',
     BruteReport: 'BruteReport',
     ServerState: 'ServerState',
     BannedWord: 'BannedWord',
@@ -1550,7 +1534,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "title" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2439,80 +2423,6 @@ export namespace Prisma {
           count: {
             args: Prisma.AchievementCountArgs<ExtArgs>
             result: $Utils.Optional<AchievementCountAggregateOutputType> | number
-          }
-        }
-      }
-      Title: {
-        payload: Prisma.$TitlePayload<ExtArgs>
-        fields: Prisma.TitleFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.TitleFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.TitleFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
-          }
-          findFirst: {
-            args: Prisma.TitleFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.TitleFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
-          }
-          findMany: {
-            args: Prisma.TitleFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>[]
-          }
-          create: {
-            args: Prisma.TitleCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
-          }
-          createMany: {
-            args: Prisma.TitleCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.TitleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>[]
-          }
-          delete: {
-            args: Prisma.TitleDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
-          }
-          update: {
-            args: Prisma.TitleUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
-          }
-          deleteMany: {
-            args: Prisma.TitleDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.TitleUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.TitleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>[]
-          }
-          upsert: {
-            args: Prisma.TitleUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TitlePayload>
-          }
-          aggregate: {
-            args: Prisma.TitleAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTitle>
-          }
-          groupBy: {
-            args: Prisma.TitleGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TitleGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.TitleCountArgs<ExtArgs>
-            result: $Utils.Optional<TitleCountAggregateOutputType> | number
           }
         }
       }
@@ -3722,7 +3632,6 @@ export namespace Prisma {
     tournamentGold?: TournamentGoldOmit
     tournamentXp?: TournamentXpOmit
     achievement?: AchievementOmit
-    title?: TitleOmit
     bruteReport?: BruteReportOmit
     serverState?: ServerStateOmit
     bannedWord?: BannedWordOmit
@@ -3954,7 +3863,6 @@ export namespace Prisma {
     opponentOf: number
     achievements: number
     reports: number
-    titles: number
     clanPosts: number
     threads: number
     inventory: number
@@ -3979,7 +3887,6 @@ export namespace Prisma {
     opponentOf?: boolean | BruteCountOutputTypeCountOpponentOfArgs
     achievements?: boolean | BruteCountOutputTypeCountAchievementsArgs
     reports?: boolean | BruteCountOutputTypeCountReportsArgs
-    titles?: boolean | BruteCountOutputTypeCountTitlesArgs
     clanPosts?: boolean | BruteCountOutputTypeCountClanPostsArgs
     threads?: boolean | BruteCountOutputTypeCountThreadsArgs
     inventory?: boolean | BruteCountOutputTypeCountInventoryArgs
@@ -4072,13 +3979,6 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteReportWhereInput
-  }
-
-  /**
-   * BruteCountOutputType without action
-   */
-  export type BruteCountOutputTypeCountTitlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TitleWhereInput
   }
 
   /**
@@ -4267,37 +4167,6 @@ export namespace Prisma {
    */
   export type TournamentCountOutputTypeCountFightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FightWhereInput
-  }
-
-
-  /**
-   * Count Type TitleCountOutputType
-   */
-
-  export type TitleCountOutputType = {
-    brutes: number
-  }
-
-  export type TitleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brutes?: boolean | TitleCountOutputTypeCountBrutesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * TitleCountOutputType without action
-   */
-  export type TitleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TitleCountOutputType
-     */
-    select?: TitleCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * TitleCountOutputType without action
-   */
-  export type TitleCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BruteWhereInput
   }
 
 
@@ -5729,6 +5598,10 @@ export namespace Prisma {
      * Filter which Users to update
      */
     where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
   }
 
   /**
@@ -5751,6 +5624,10 @@ export namespace Prisma {
      * Filter which Users to update
      */
     where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
   }
 
   /**
@@ -5815,6 +5692,10 @@ export namespace Prisma {
      * Filter which Users to delete
      */
     where?: UserWhereInput
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -7088,6 +6969,10 @@ export namespace Prisma {
      * Filter which UserLogs to update
      */
     where?: UserLogWhereInput
+    /**
+     * Limit how many UserLogs to update.
+     */
+    limit?: number
   }
 
   /**
@@ -7110,6 +6995,10 @@ export namespace Prisma {
      * Filter which UserLogs to update
      */
     where?: UserLogWhereInput
+    /**
+     * Limit how many UserLogs to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -7178,6 +7067,10 @@ export namespace Prisma {
      * Filter which UserLogs to delete
      */
     where?: UserLogWhereInput
+    /**
+     * Limit how many UserLogs to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -7913,7 +7806,6 @@ export namespace Prisma {
     opponentOf?: boolean | Brute$opponentOfArgs<ExtArgs>
     achievements?: boolean | Brute$achievementsArgs<ExtArgs>
     reports?: boolean | Brute$reportsArgs<ExtArgs>
-    titles?: boolean | Brute$titlesArgs<ExtArgs>
     masterOfClan?: boolean | Brute$masterOfClanArgs<ExtArgs>
     clanPosts?: boolean | Brute$clanPostsArgs<ExtArgs>
     wantToJoinClan?: boolean | Brute$wantToJoinClanArgs<ExtArgs>
@@ -8137,7 +8029,6 @@ export namespace Prisma {
     opponentOf?: boolean | Brute$opponentOfArgs<ExtArgs>
     achievements?: boolean | Brute$achievementsArgs<ExtArgs>
     reports?: boolean | Brute$reportsArgs<ExtArgs>
-    titles?: boolean | Brute$titlesArgs<ExtArgs>
     masterOfClan?: boolean | Brute$masterOfClanArgs<ExtArgs>
     clanPosts?: boolean | Brute$clanPostsArgs<ExtArgs>
     wantToJoinClan?: boolean | Brute$wantToJoinClanArgs<ExtArgs>
@@ -8186,7 +8077,6 @@ export namespace Prisma {
       opponentOf: Prisma.$BrutePayload<ExtArgs>[]
       achievements: Prisma.$AchievementPayload<ExtArgs>[]
       reports: Prisma.$BruteReportPayload<ExtArgs>[]
-      titles: Prisma.$TitlePayload<ExtArgs>[]
       masterOfClan: Prisma.$ClanPayload<ExtArgs> | null
       clanPosts: Prisma.$ClanPostPayload<ExtArgs>[]
       wantToJoinClan: Prisma.$ClanPayload<ExtArgs> | null
@@ -8668,7 +8558,6 @@ export namespace Prisma {
     opponentOf<T extends Brute$opponentOfArgs<ExtArgs> = {}>(args?: Subset<T, Brute$opponentOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     achievements<T extends Brute$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     reports<T extends Brute$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    titles<T extends Brute$titlesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$titlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     masterOfClan<T extends Brute$masterOfClanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$masterOfClanArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     clanPosts<T extends Brute$clanPostsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$clanPostsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPostPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     wantToJoinClan<T extends Brute$wantToJoinClanArgs<ExtArgs> = {}>(args?: Subset<T, Brute$wantToJoinClanArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
@@ -9070,6 +8959,10 @@ export namespace Prisma {
      * Filter which Brutes to update
      */
     where?: BruteWhereInput
+    /**
+     * Limit how many Brutes to update.
+     */
+    limit?: number
   }
 
   /**
@@ -9092,6 +8985,10 @@ export namespace Prisma {
      * Filter which Brutes to update
      */
     where?: BruteWhereInput
+    /**
+     * Limit how many Brutes to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -9160,6 +9057,10 @@ export namespace Prisma {
      * Filter which Brutes to delete
      */
     where?: BruteWhereInput
+    /**
+     * Limit how many Brutes to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -9457,30 +9358,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BruteReportScalarFieldEnum | BruteReportScalarFieldEnum[]
-  }
-
-  /**
-   * Brute.titles
-   */
-  export type Brute$titlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    where?: TitleWhereInput
-    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
-    cursor?: TitleWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
   }
 
   /**
@@ -10845,6 +10722,10 @@ export namespace Prisma {
      * Filter which BruteStartingStats to update
      */
     where?: BruteStartingStatsWhereInput
+    /**
+     * Limit how many BruteStartingStats to update.
+     */
+    limit?: number
   }
 
   /**
@@ -10867,6 +10748,10 @@ export namespace Prisma {
      * Filter which BruteStartingStats to update
      */
     where?: BruteStartingStatsWhereInput
+    /**
+     * Limit how many BruteStartingStats to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -10935,6 +10820,10 @@ export namespace Prisma {
      * Filter which BruteStartingStats to delete
      */
     where?: BruteStartingStatsWhereInput
+    /**
+     * Limit how many BruteStartingStats to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -12085,6 +11974,10 @@ export namespace Prisma {
      * Filter which Fights to update
      */
     where?: FightWhereInput
+    /**
+     * Limit how many Fights to update.
+     */
+    limit?: number
   }
 
   /**
@@ -12107,6 +12000,10 @@ export namespace Prisma {
      * Filter which Fights to update
      */
     where?: FightWhereInput
+    /**
+     * Limit how many Fights to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -12175,6 +12072,10 @@ export namespace Prisma {
      * Filter which Fights to delete
      */
     where?: FightWhereInput
+    /**
+     * Limit how many Fights to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -13400,6 +13301,10 @@ export namespace Prisma {
      * Filter which Logs to update
      */
     where?: LogWhereInput
+    /**
+     * Limit how many Logs to update.
+     */
+    limit?: number
   }
 
   /**
@@ -13422,6 +13327,10 @@ export namespace Prisma {
      * Filter which Logs to update
      */
     where?: LogWhereInput
+    /**
+     * Limit how many Logs to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -13490,6 +13399,10 @@ export namespace Prisma {
      * Filter which Logs to delete
      */
     where?: LogWhereInput
+    /**
+     * Limit how many Logs to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -14650,6 +14563,10 @@ export namespace Prisma {
      * Filter which DestinyChoices to update
      */
     where?: DestinyChoiceWhereInput
+    /**
+     * Limit how many DestinyChoices to update.
+     */
+    limit?: number
   }
 
   /**
@@ -14672,6 +14589,10 @@ export namespace Prisma {
      * Filter which DestinyChoices to update
      */
     where?: DestinyChoiceWhereInput
+    /**
+     * Limit how many DestinyChoices to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -14740,6 +14661,10 @@ export namespace Prisma {
      * Filter which DestinyChoices to delete
      */
     where?: DestinyChoiceWhereInput
+    /**
+     * Limit how many DestinyChoices to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -15773,6 +15698,10 @@ export namespace Prisma {
      * Filter which Tournaments to update
      */
     where?: TournamentWhereInput
+    /**
+     * Limit how many Tournaments to update.
+     */
+    limit?: number
   }
 
   /**
@@ -15795,6 +15724,10 @@ export namespace Prisma {
      * Filter which Tournaments to update
      */
     where?: TournamentWhereInput
+    /**
+     * Limit how many Tournaments to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -15863,6 +15796,10 @@ export namespace Prisma {
      * Filter which Tournaments to delete
      */
     where?: TournamentWhereInput
+    /**
+     * Limit how many Tournaments to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -16929,6 +16866,10 @@ export namespace Prisma {
      * Filter which TournamentAchievements to update
      */
     where?: TournamentAchievementWhereInput
+    /**
+     * Limit how many TournamentAchievements to update.
+     */
+    limit?: number
   }
 
   /**
@@ -16951,6 +16892,10 @@ export namespace Prisma {
      * Filter which TournamentAchievements to update
      */
     where?: TournamentAchievementWhereInput
+    /**
+     * Limit how many TournamentAchievements to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -17019,6 +16964,10 @@ export namespace Prisma {
      * Filter which TournamentAchievements to delete
      */
     where?: TournamentAchievementWhereInput
+    /**
+     * Limit how many TournamentAchievements to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -18005,6 +17954,10 @@ export namespace Prisma {
      * Filter which TournamentGolds to update
      */
     where?: TournamentGoldWhereInput
+    /**
+     * Limit how many TournamentGolds to update.
+     */
+    limit?: number
   }
 
   /**
@@ -18027,6 +17980,10 @@ export namespace Prisma {
      * Filter which TournamentGolds to update
      */
     where?: TournamentGoldWhereInput
+    /**
+     * Limit how many TournamentGolds to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -18095,6 +18052,10 @@ export namespace Prisma {
      * Filter which TournamentGolds to delete
      */
     where?: TournamentGoldWhereInput
+    /**
+     * Limit how many TournamentGolds to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -19081,6 +19042,10 @@ export namespace Prisma {
      * Filter which TournamentXps to update
      */
     where?: TournamentXpWhereInput
+    /**
+     * Limit how many TournamentXps to update.
+     */
+    limit?: number
   }
 
   /**
@@ -19103,6 +19068,10 @@ export namespace Prisma {
      * Filter which TournamentXps to update
      */
     where?: TournamentXpWhereInput
+    /**
+     * Limit how many TournamentXps to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -19171,6 +19140,10 @@ export namespace Prisma {
      * Filter which TournamentXps to delete
      */
     where?: TournamentXpWhereInput
+    /**
+     * Limit how many TournamentXps to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -20178,6 +20151,10 @@ export namespace Prisma {
      * Filter which Achievements to update
      */
     where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to update.
+     */
+    limit?: number
   }
 
   /**
@@ -20200,6 +20177,10 @@ export namespace Prisma {
      * Filter which Achievements to update
      */
     where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -20268,6 +20249,10 @@ export namespace Prisma {
      * Filter which Achievements to delete
      */
     where?: AchievementWhereInput
+    /**
+     * Limit how many Achievements to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -20328,1081 +20313,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Title
-   */
-
-  export type AggregateTitle = {
-    _count: TitleCountAggregateOutputType | null
-    _avg: TitleAvgAggregateOutputType | null
-    _sum: TitleSumAggregateOutputType | null
-    _min: TitleMinAggregateOutputType | null
-    _max: TitleMaxAggregateOutputType | null
-  }
-
-  export type TitleAvgAggregateOutputType = {
-    count: number | null
-  }
-
-  export type TitleSumAggregateOutputType = {
-    count: number | null
-  }
-
-  export type TitleMinAggregateOutputType = {
-    id: string | null
-    name: $Enums.AchievementName | null
-    count: number | null
-  }
-
-  export type TitleMaxAggregateOutputType = {
-    id: string | null
-    name: $Enums.AchievementName | null
-    count: number | null
-  }
-
-  export type TitleCountAggregateOutputType = {
-    id: number
-    name: number
-    count: number
-    _all: number
-  }
-
-
-  export type TitleAvgAggregateInputType = {
-    count?: true
-  }
-
-  export type TitleSumAggregateInputType = {
-    count?: true
-  }
-
-  export type TitleMinAggregateInputType = {
-    id?: true
-    name?: true
-    count?: true
-  }
-
-  export type TitleMaxAggregateInputType = {
-    id?: true
-    name?: true
-    count?: true
-  }
-
-  export type TitleCountAggregateInputType = {
-    id?: true
-    name?: true
-    count?: true
-    _all?: true
-  }
-
-  export type TitleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Title to aggregate.
-     */
-    where?: TitleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Titles to fetch.
-     */
-    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: TitleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Titles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Titles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Titles
-    **/
-    _count?: true | TitleCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: TitleAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TitleSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: TitleMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: TitleMaxAggregateInputType
-  }
-
-  export type GetTitleAggregateType<T extends TitleAggregateArgs> = {
-        [P in keyof T & keyof AggregateTitle]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTitle[P]>
-      : GetScalarType<T[P], AggregateTitle[P]>
-  }
-
-
-
-
-  export type TitleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TitleWhereInput
-    orderBy?: TitleOrderByWithAggregationInput | TitleOrderByWithAggregationInput[]
-    by: TitleScalarFieldEnum[] | TitleScalarFieldEnum
-    having?: TitleScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: TitleCountAggregateInputType | true
-    _avg?: TitleAvgAggregateInputType
-    _sum?: TitleSumAggregateInputType
-    _min?: TitleMinAggregateInputType
-    _max?: TitleMaxAggregateInputType
-  }
-
-  export type TitleGroupByOutputType = {
-    id: string
-    name: $Enums.AchievementName
-    count: number
-    _count: TitleCountAggregateOutputType | null
-    _avg: TitleAvgAggregateOutputType | null
-    _sum: TitleSumAggregateOutputType | null
-    _min: TitleMinAggregateOutputType | null
-    _max: TitleMaxAggregateOutputType | null
-  }
-
-  type GetTitleGroupByPayload<T extends TitleGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<TitleGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof TitleGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], TitleGroupByOutputType[P]>
-            : GetScalarType<T[P], TitleGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type TitleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    count?: boolean
-    brutes?: boolean | Title$brutesArgs<ExtArgs>
-    _count?: boolean | TitleCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["title"]>
-
-  export type TitleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    count?: boolean
-  }, ExtArgs["result"]["title"]>
-
-  export type TitleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    count?: boolean
-  }, ExtArgs["result"]["title"]>
-
-  export type TitleSelectScalar = {
-    id?: boolean
-    name?: boolean
-    count?: boolean
-  }
-
-  export type TitleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "count", ExtArgs["result"]["title"]>
-  export type TitleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brutes?: boolean | Title$brutesArgs<ExtArgs>
-    _count?: boolean | TitleCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type TitleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type TitleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $TitlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Title"
-    objects: {
-      brutes: Prisma.$BrutePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: $Enums.AchievementName
-      count: number
-    }, ExtArgs["result"]["title"]>
-    composites: {}
-  }
-
-  type TitleGetPayload<S extends boolean | null | undefined | TitleDefaultArgs> = $Result.GetResult<Prisma.$TitlePayload, S>
-
-  type TitleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TitleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
-      select?: TitleCountAggregateInputType | true
-    }
-
-  export interface TitleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Title'], meta: { name: 'Title' } }
-    /**
-     * Find zero or one Title that matches the filter.
-     * @param {TitleFindUniqueArgs} args - Arguments to find a Title
-     * @example
-     * // Get one Title
-     * const title = await prisma.title.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends TitleFindUniqueArgs>(args: SelectSubset<T, TitleFindUniqueArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find one Title that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {TitleFindUniqueOrThrowArgs} args - Arguments to find a Title
-     * @example
-     * // Get one Title
-     * const title = await prisma.title.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends TitleFindUniqueOrThrowArgs>(args: SelectSubset<T, TitleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first Title that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleFindFirstArgs} args - Arguments to find a Title
-     * @example
-     * // Get one Title
-     * const title = await prisma.title.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends TitleFindFirstArgs>(args?: SelectSubset<T, TitleFindFirstArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
-
-    /**
-     * Find the first Title that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleFindFirstOrThrowArgs} args - Arguments to find a Title
-     * @example
-     * // Get one Title
-     * const title = await prisma.title.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends TitleFindFirstOrThrowArgs>(args?: SelectSubset<T, TitleFindFirstOrThrowArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Find zero or more Titles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Titles
-     * const titles = await prisma.title.findMany()
-     * 
-     * // Get first 10 Titles
-     * const titles = await prisma.title.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const titleWithIdOnly = await prisma.title.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends TitleFindManyArgs>(args?: SelectSubset<T, TitleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "findMany", ClientOptions>>
-
-    /**
-     * Create a Title.
-     * @param {TitleCreateArgs} args - Arguments to create a Title.
-     * @example
-     * // Create one Title
-     * const Title = await prisma.title.create({
-     *   data: {
-     *     // ... data to create a Title
-     *   }
-     * })
-     * 
-     */
-    create<T extends TitleCreateArgs>(args: SelectSubset<T, TitleCreateArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Create many Titles.
-     * @param {TitleCreateManyArgs} args - Arguments to create many Titles.
-     * @example
-     * // Create many Titles
-     * const title = await prisma.title.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends TitleCreateManyArgs>(args?: SelectSubset<T, TitleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Titles and returns the data saved in the database.
-     * @param {TitleCreateManyAndReturnArgs} args - Arguments to create many Titles.
-     * @example
-     * // Create many Titles
-     * const title = await prisma.title.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Titles and only return the `id`
-     * const titleWithIdOnly = await prisma.title.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends TitleCreateManyAndReturnArgs>(args?: SelectSubset<T, TitleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
-
-    /**
-     * Delete a Title.
-     * @param {TitleDeleteArgs} args - Arguments to delete one Title.
-     * @example
-     * // Delete one Title
-     * const Title = await prisma.title.delete({
-     *   where: {
-     *     // ... filter to delete one Title
-     *   }
-     * })
-     * 
-     */
-    delete<T extends TitleDeleteArgs>(args: SelectSubset<T, TitleDeleteArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Update one Title.
-     * @param {TitleUpdateArgs} args - Arguments to update one Title.
-     * @example
-     * // Update one Title
-     * const title = await prisma.title.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends TitleUpdateArgs>(args: SelectSubset<T, TitleUpdateArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
-
-    /**
-     * Delete zero or more Titles.
-     * @param {TitleDeleteManyArgs} args - Arguments to filter Titles to delete.
-     * @example
-     * // Delete a few Titles
-     * const { count } = await prisma.title.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends TitleDeleteManyArgs>(args?: SelectSubset<T, TitleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Titles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Titles
-     * const title = await prisma.title.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends TitleUpdateManyArgs>(args: SelectSubset<T, TitleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Titles and returns the data updated in the database.
-     * @param {TitleUpdateManyAndReturnArgs} args - Arguments to update many Titles.
-     * @example
-     * // Update many Titles
-     * const title = await prisma.title.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Titles and only return the `id`
-     * const titleWithIdOnly = await prisma.title.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends TitleUpdateManyAndReturnArgs>(args: SelectSubset<T, TitleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
-
-    /**
-     * Create or update one Title.
-     * @param {TitleUpsertArgs} args - Arguments to update or create a Title.
-     * @example
-     * // Update or create a Title
-     * const title = await prisma.title.upsert({
-     *   create: {
-     *     // ... data to create a Title
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Title we want to update
-     *   }
-     * })
-     */
-    upsert<T extends TitleUpsertArgs>(args: SelectSubset<T, TitleUpsertArgs<ExtArgs>>): Prisma__TitleClient<$Result.GetResult<Prisma.$TitlePayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
-
-
-    /**
-     * Count the number of Titles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleCountArgs} args - Arguments to filter Titles to count.
-     * @example
-     * // Count the number of Titles
-     * const count = await prisma.title.count({
-     *   where: {
-     *     // ... the filter for the Titles we want to count
-     *   }
-     * })
-    **/
-    count<T extends TitleCountArgs>(
-      args?: Subset<T, TitleCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], TitleCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Title.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends TitleAggregateArgs>(args: Subset<T, TitleAggregateArgs>): Prisma.PrismaPromise<GetTitleAggregateType<T>>
-
-    /**
-     * Group by Title.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TitleGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends TitleGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TitleGroupByArgs['orderBy'] }
-        : { orderBy?: TitleGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, TitleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTitleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Title model
-   */
-  readonly fields: TitleFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Title.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__TitleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    brutes<T extends Title$brutesArgs<ExtArgs> = {}>(args?: Subset<T, Title$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Title model
-   */ 
-  interface TitleFieldRefs {
-    readonly id: FieldRef<"Title", 'String'>
-    readonly name: FieldRef<"Title", 'AchievementName'>
-    readonly count: FieldRef<"Title", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Title findUnique
-   */
-  export type TitleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * Filter, which Title to fetch.
-     */
-    where: TitleWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title findUniqueOrThrow
-   */
-  export type TitleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * Filter, which Title to fetch.
-     */
-    where: TitleWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title findFirst
-   */
-  export type TitleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * Filter, which Title to fetch.
-     */
-    where?: TitleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Titles to fetch.
-     */
-    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Titles.
-     */
-    cursor?: TitleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Titles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Titles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Titles.
-     */
-    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title findFirstOrThrow
-   */
-  export type TitleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * Filter, which Title to fetch.
-     */
-    where?: TitleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Titles to fetch.
-     */
-    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Titles.
-     */
-    cursor?: TitleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Titles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Titles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Titles.
-     */
-    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title findMany
-   */
-  export type TitleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * Filter, which Titles to fetch.
-     */
-    where?: TitleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Titles to fetch.
-     */
-    orderBy?: TitleOrderByWithRelationInput | TitleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Titles.
-     */
-    cursor?: TitleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Titles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Titles.
-     */
-    skip?: number
-    distinct?: TitleScalarFieldEnum | TitleScalarFieldEnum[]
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title create
-   */
-  export type TitleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Title.
-     */
-    data: XOR<TitleCreateInput, TitleUncheckedCreateInput>
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title createMany
-   */
-  export type TitleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Titles.
-     */
-    data: TitleCreateManyInput | TitleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Title createManyAndReturn
-   */
-  export type TitleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * The data used to create many Titles.
-     */
-    data: TitleCreateManyInput | TitleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Title update
-   */
-  export type TitleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Title.
-     */
-    data: XOR<TitleUpdateInput, TitleUncheckedUpdateInput>
-    /**
-     * Choose, which Title to update.
-     */
-    where: TitleWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title updateMany
-   */
-  export type TitleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Titles.
-     */
-    data: XOR<TitleUpdateManyMutationInput, TitleUncheckedUpdateManyInput>
-    /**
-     * Filter which Titles to update
-     */
-    where?: TitleWhereInput
-  }
-
-  /**
-   * Title updateManyAndReturn
-   */
-  export type TitleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * The data used to update Titles.
-     */
-    data: XOR<TitleUpdateManyMutationInput, TitleUncheckedUpdateManyInput>
-    /**
-     * Filter which Titles to update
-     */
-    where?: TitleWhereInput
-  }
-
-  /**
-   * Title upsert
-   */
-  export type TitleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Title to update in case it exists.
-     */
-    where: TitleWhereUniqueInput
-    /**
-     * In case the Title found by the `where` argument doesn't exist, create a new Title with this data.
-     */
-    create: XOR<TitleCreateInput, TitleUncheckedCreateInput>
-    /**
-     * In case the Title was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<TitleUpdateInput, TitleUncheckedUpdateInput>
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title delete
-   */
-  export type TitleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-    /**
-     * Filter which Title to delete.
-     */
-    where: TitleWhereUniqueInput
-    relationLoadStrategy?: RelationLoadStrategy
-  }
-
-  /**
-   * Title deleteMany
-   */
-  export type TitleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Titles to delete
-     */
-    where?: TitleWhereInput
-  }
-
-  /**
-   * Title.brutes
-   */
-  export type Title$brutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Brute
-     */
-    select?: BruteSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Brute
-     */
-    omit?: BruteOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BruteInclude<ExtArgs> | null
-    where?: BruteWhereInput
-    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
-    cursor?: BruteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
-  }
-
-  /**
-   * Title without action
-   */
-  export type TitleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Title
-     */
-    select?: TitleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Title
-     */
-    omit?: TitleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TitleInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model BruteReport
    */
 
@@ -21425,6 +20335,7 @@ export namespace Prisma {
   export type BruteReportMinAggregateOutputType = {
     id: string | null
     bruteId: string | null
+    bruteName: string | null
     reason: $Enums.BruteReportReason | null
     count: number | null
     date: Date | null
@@ -21436,6 +20347,7 @@ export namespace Prisma {
   export type BruteReportMaxAggregateOutputType = {
     id: string | null
     bruteId: string | null
+    bruteName: string | null
     reason: $Enums.BruteReportReason | null
     count: number | null
     date: Date | null
@@ -21447,6 +20359,7 @@ export namespace Prisma {
   export type BruteReportCountAggregateOutputType = {
     id: number
     bruteId: number
+    bruteName: number
     reason: number
     count: number
     date: number
@@ -21468,6 +20381,7 @@ export namespace Prisma {
   export type BruteReportMinAggregateInputType = {
     id?: true
     bruteId?: true
+    bruteName?: true
     reason?: true
     count?: true
     date?: true
@@ -21479,6 +20393,7 @@ export namespace Prisma {
   export type BruteReportMaxAggregateInputType = {
     id?: true
     bruteId?: true
+    bruteName?: true
     reason?: true
     count?: true
     date?: true
@@ -21490,6 +20405,7 @@ export namespace Prisma {
   export type BruteReportCountAggregateInputType = {
     id?: true
     bruteId?: true
+    bruteName?: true
     reason?: true
     count?: true
     date?: true
@@ -21587,7 +20503,8 @@ export namespace Prisma {
 
   export type BruteReportGroupByOutputType = {
     id: string
-    bruteId: string
+    bruteId: string | null
+    bruteName: string
     reason: $Enums.BruteReportReason
     count: number
     date: Date
@@ -21618,13 +20535,14 @@ export namespace Prisma {
   export type BruteReportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
+    bruteName?: boolean
     reason?: boolean
     count?: boolean
     date?: boolean
     status?: boolean
     handlerId?: boolean
     handledAt?: boolean
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    brute?: boolean | BruteReport$bruteArgs<ExtArgs>
     users?: boolean | BruteReport$usersArgs<ExtArgs>
     handler?: boolean | BruteReport$handlerArgs<ExtArgs>
     _count?: boolean | BruteReportCountOutputTypeDefaultArgs<ExtArgs>
@@ -21633,32 +20551,35 @@ export namespace Prisma {
   export type BruteReportSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
+    bruteName?: boolean
     reason?: boolean
     count?: boolean
     date?: boolean
     status?: boolean
     handlerId?: boolean
     handledAt?: boolean
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    brute?: boolean | BruteReport$bruteArgs<ExtArgs>
     handler?: boolean | BruteReport$handlerArgs<ExtArgs>
   }, ExtArgs["result"]["bruteReport"]>
 
   export type BruteReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     bruteId?: boolean
+    bruteName?: boolean
     reason?: boolean
     count?: boolean
     date?: boolean
     status?: boolean
     handlerId?: boolean
     handledAt?: boolean
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    brute?: boolean | BruteReport$bruteArgs<ExtArgs>
     handler?: boolean | BruteReport$handlerArgs<ExtArgs>
   }, ExtArgs["result"]["bruteReport"]>
 
   export type BruteReportSelectScalar = {
     id?: boolean
     bruteId?: boolean
+    bruteName?: boolean
     reason?: boolean
     count?: boolean
     date?: boolean
@@ -21667,32 +20588,33 @@ export namespace Prisma {
     handledAt?: boolean
   }
 
-  export type BruteReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "reason" | "count" | "date" | "status" | "handlerId" | "handledAt", ExtArgs["result"]["bruteReport"]>
+  export type BruteReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bruteId" | "bruteName" | "reason" | "count" | "date" | "status" | "handlerId" | "handledAt", ExtArgs["result"]["bruteReport"]>
   export type BruteReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    brute?: boolean | BruteReport$bruteArgs<ExtArgs>
     users?: boolean | BruteReport$usersArgs<ExtArgs>
     handler?: boolean | BruteReport$handlerArgs<ExtArgs>
     _count?: boolean | BruteReportCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BruteReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    brute?: boolean | BruteReport$bruteArgs<ExtArgs>
     handler?: boolean | BruteReport$handlerArgs<ExtArgs>
   }
   export type BruteReportIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    brute?: boolean | BruteDefaultArgs<ExtArgs>
+    brute?: boolean | BruteReport$bruteArgs<ExtArgs>
     handler?: boolean | BruteReport$handlerArgs<ExtArgs>
   }
 
   export type $BruteReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BruteReport"
     objects: {
-      brute: Prisma.$BrutePayload<ExtArgs>
+      brute: Prisma.$BrutePayload<ExtArgs> | null
       users: Prisma.$UserPayload<ExtArgs>[]
       handler: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      bruteId: string
+      bruteId: string | null
+      bruteName: string
       reason: $Enums.BruteReportReason
       count: number
       date: Date
@@ -22093,7 +21015,7 @@ export namespace Prisma {
    */
   export interface Prisma__BruteReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    brute<T extends BruteReport$bruteArgs<ExtArgs> = {}>(args?: Subset<T, BruteReport$bruteArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     users<T extends BruteReport$usersArgs<ExtArgs> = {}>(args?: Subset<T, BruteReport$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     handler<T extends BruteReport$handlerArgs<ExtArgs> = {}>(args?: Subset<T, BruteReport$handlerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | null, null, ExtArgs, ClientOptions>
     /**
@@ -22127,6 +21049,7 @@ export namespace Prisma {
   interface BruteReportFieldRefs {
     readonly id: FieldRef<"BruteReport", 'String'>
     readonly bruteId: FieldRef<"BruteReport", 'String'>
+    readonly bruteName: FieldRef<"BruteReport", 'String'>
     readonly reason: FieldRef<"BruteReport", 'BruteReportReason'>
     readonly count: FieldRef<"BruteReport", 'Int'>
     readonly date: FieldRef<"BruteReport", 'DateTime'>
@@ -22356,7 +21279,7 @@ export namespace Prisma {
     /**
      * The data needed to create a BruteReport.
      */
-    data: XOR<BruteReportCreateInput, BruteReportUncheckedCreateInput>
+    data?: XOR<BruteReportCreateInput, BruteReportUncheckedCreateInput>
     relationLoadStrategy?: RelationLoadStrategy
   }
 
@@ -22433,6 +21356,10 @@ export namespace Prisma {
      * Filter which BruteReports to update
      */
     where?: BruteReportWhereInput
+    /**
+     * Limit how many BruteReports to update.
+     */
+    limit?: number
   }
 
   /**
@@ -22455,6 +21382,10 @@ export namespace Prisma {
      * Filter which BruteReports to update
      */
     where?: BruteReportWhereInput
+    /**
+     * Limit how many BruteReports to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -22523,6 +21454,29 @@ export namespace Prisma {
      * Filter which BruteReports to delete
      */
     where?: BruteReportWhereInput
+    /**
+     * Limit how many BruteReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BruteReport.brute
+   */
+  export type BruteReport$bruteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
   }
 
   /**
@@ -23476,6 +22430,10 @@ export namespace Prisma {
      * Filter which ServerStates to update
      */
     where?: ServerStateWhereInput
+    /**
+     * Limit how many ServerStates to update.
+     */
+    limit?: number
   }
 
   /**
@@ -23498,6 +22456,10 @@ export namespace Prisma {
      * Filter which ServerStates to update
      */
     where?: ServerStateWhereInput
+    /**
+     * Limit how many ServerStates to update.
+     */
+    limit?: number
   }
 
   /**
@@ -23554,6 +22516,10 @@ export namespace Prisma {
      * Filter which ServerStates to delete
      */
     where?: ServerStateWhereInput
+    /**
+     * Limit how many ServerStates to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -24429,6 +23395,10 @@ export namespace Prisma {
      * Filter which BannedWords to update
      */
     where?: BannedWordWhereInput
+    /**
+     * Limit how many BannedWords to update.
+     */
+    limit?: number
   }
 
   /**
@@ -24451,6 +23421,10 @@ export namespace Prisma {
      * Filter which BannedWords to update
      */
     where?: BannedWordWhereInput
+    /**
+     * Limit how many BannedWords to update.
+     */
+    limit?: number
   }
 
   /**
@@ -24507,6 +23481,10 @@ export namespace Prisma {
      * Filter which BannedWords to delete
      */
     where?: BannedWordWhereInput
+    /**
+     * Limit how many BannedWords to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -25369,6 +24347,10 @@ export namespace Prisma {
      * Filter which BannedIps to update
      */
     where?: BannedIpWhereInput
+    /**
+     * Limit how many BannedIps to update.
+     */
+    limit?: number
   }
 
   /**
@@ -25391,6 +24373,10 @@ export namespace Prisma {
      * Filter which BannedIps to update
      */
     where?: BannedIpWhereInput
+    /**
+     * Limit how many BannedIps to update.
+     */
+    limit?: number
   }
 
   /**
@@ -25447,6 +24433,10 @@ export namespace Prisma {
      * Filter which BannedIps to delete
      */
     where?: BannedIpWhereInput
+    /**
+     * Limit how many BannedIps to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -26549,6 +25539,10 @@ export namespace Prisma {
      * Filter which Clans to update
      */
     where?: ClanWhereInput
+    /**
+     * Limit how many Clans to update.
+     */
+    limit?: number
   }
 
   /**
@@ -26571,6 +25565,10 @@ export namespace Prisma {
      * Filter which Clans to update
      */
     where?: ClanWhereInput
+    /**
+     * Limit how many Clans to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -26639,6 +25637,10 @@ export namespace Prisma {
      * Filter which Clans to delete
      */
     where?: ClanWhereInput
+    /**
+     * Limit how many Clans to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -27891,6 +26893,10 @@ export namespace Prisma {
      * Filter which ClanThreads to update
      */
     where?: ClanThreadWhereInput
+    /**
+     * Limit how many ClanThreads to update.
+     */
+    limit?: number
   }
 
   /**
@@ -27913,6 +26919,10 @@ export namespace Prisma {
      * Filter which ClanThreads to update
      */
     where?: ClanThreadWhereInput
+    /**
+     * Limit how many ClanThreads to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -27981,6 +26991,10 @@ export namespace Prisma {
      * Filter which ClanThreads to delete
      */
     where?: ClanThreadWhereInput
+    /**
+     * Limit how many ClanThreads to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -28997,6 +28011,10 @@ export namespace Prisma {
      * Filter which ClanPosts to update
      */
     where?: ClanPostWhereInput
+    /**
+     * Limit how many ClanPosts to update.
+     */
+    limit?: number
   }
 
   /**
@@ -29019,6 +28037,10 @@ export namespace Prisma {
      * Filter which ClanPosts to update
      */
     where?: ClanPostWhereInput
+    /**
+     * Limit how many ClanPosts to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -29087,6 +28109,10 @@ export namespace Prisma {
      * Filter which ClanPosts to delete
      */
     where?: ClanPostWhereInput
+    /**
+     * Limit how many ClanPosts to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -30100,6 +29126,10 @@ export namespace Prisma {
      * Filter which BossDamages to update
      */
     where?: BossDamageWhereInput
+    /**
+     * Limit how many BossDamages to update.
+     */
+    limit?: number
   }
 
   /**
@@ -30122,6 +29152,10 @@ export namespace Prisma {
      * Filter which BossDamages to update
      */
     where?: BossDamageWhereInput
+    /**
+     * Limit how many BossDamages to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -30190,6 +29224,10 @@ export namespace Prisma {
      * Filter which BossDamages to delete
      */
     where?: BossDamageWhereInput
+    /**
+     * Limit how many BossDamages to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -31341,6 +30379,10 @@ export namespace Prisma {
      * Filter which ClanWars to update
      */
     where?: ClanWarWhereInput
+    /**
+     * Limit how many ClanWars to update.
+     */
+    limit?: number
   }
 
   /**
@@ -31363,6 +30405,10 @@ export namespace Prisma {
      * Filter which ClanWars to update
      */
     where?: ClanWarWhereInput
+    /**
+     * Limit how many ClanWars to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -31431,6 +30477,10 @@ export namespace Prisma {
      * Filter which ClanWars to delete
      */
     where?: ClanWarWhereInput
+    /**
+     * Limit how many ClanWars to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -32481,6 +31531,10 @@ export namespace Prisma {
      * Filter which ClanWarFighters to update
      */
     where?: ClanWarFightersWhereInput
+    /**
+     * Limit how many ClanWarFighters to update.
+     */
+    limit?: number
   }
 
   /**
@@ -32503,6 +31557,10 @@ export namespace Prisma {
      * Filter which ClanWarFighters to update
      */
     where?: ClanWarFightersWhereInput
+    /**
+     * Limit how many ClanWarFighters to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -32571,6 +31629,10 @@ export namespace Prisma {
      * Filter which ClanWarFighters to delete
      */
     where?: ClanWarFightersWhereInput
+    /**
+     * Limit how many ClanWarFighters to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -33626,6 +32688,10 @@ export namespace Prisma {
      * Filter which InventoryItems to update
      */
     where?: InventoryItemWhereInput
+    /**
+     * Limit how many InventoryItems to update.
+     */
+    limit?: number
   }
 
   /**
@@ -33648,6 +32714,10 @@ export namespace Prisma {
      * Filter which InventoryItems to update
      */
     where?: InventoryItemWhereInput
+    /**
+     * Limit how many InventoryItems to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -33716,6 +32786,10 @@ export namespace Prisma {
      * Filter which InventoryItems to delete
      */
     where?: InventoryItemWhereInput
+    /**
+     * Limit how many InventoryItems to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -34633,6 +33707,10 @@ export namespace Prisma {
      * Filter which Releases to update
      */
     where?: ReleaseWhereInput
+    /**
+     * Limit how many Releases to update.
+     */
+    limit?: number
   }
 
   /**
@@ -34655,6 +33733,10 @@ export namespace Prisma {
      * Filter which Releases to update
      */
     where?: ReleaseWhereInput
+    /**
+     * Limit how many Releases to update.
+     */
+    limit?: number
   }
 
   /**
@@ -34711,6 +33793,10 @@ export namespace Prisma {
      * Filter which Releases to delete
      */
     where?: ReleaseWhereInput
+    /**
+     * Limit how many Releases to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -35768,6 +34854,10 @@ export namespace Prisma {
      * Filter which Events to update
      */
     where?: EventWhereInput
+    /**
+     * Limit how many Events to update.
+     */
+    limit?: number
   }
 
   /**
@@ -35790,6 +34880,10 @@ export namespace Prisma {
      * Filter which Events to update
      */
     where?: EventWhereInput
+    /**
+     * Limit how many Events to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -35858,6 +34952,10 @@ export namespace Prisma {
      * Filter which Events to delete
      */
     where?: EventWhereInput
+    /**
+     * Limit how many Events to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -36911,6 +36009,10 @@ export namespace Prisma {
      * Filter which Notifications to update
      */
     where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
   }
 
   /**
@@ -36933,6 +36035,10 @@ export namespace Prisma {
      * Filter which Notifications to update
      */
     where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -37001,6 +36107,10 @@ export namespace Prisma {
      * Filter which Notifications to delete
      */
     where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -37893,6 +37003,10 @@ export namespace Prisma {
      * Filter which Configs to update
      */
     where?: ConfigWhereInput
+    /**
+     * Limit how many Configs to update.
+     */
+    limit?: number
   }
 
   /**
@@ -37915,6 +37029,10 @@ export namespace Prisma {
      * Filter which Configs to update
      */
     where?: ConfigWhereInput
+    /**
+     * Limit how many Configs to update.
+     */
+    limit?: number
   }
 
   /**
@@ -37971,6 +37089,10 @@ export namespace Prisma {
      * Filter which Configs to delete
      */
     where?: ConfigWhereInput
+    /**
+     * Limit how many Configs to delete.
+     */
+    limit?: number
   }
 
   /**
@@ -38231,18 +37353,10 @@ export namespace Prisma {
   export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
 
 
-  export const TitleScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    count: 'count'
-  };
-
-  export type TitleScalarFieldEnum = (typeof TitleScalarFieldEnum)[keyof typeof TitleScalarFieldEnum]
-
-
   export const BruteReportScalarFieldEnum: {
     id: 'id',
     bruteId: 'bruteId',
+    bruteName: 'bruteName',
     reason: 'reason',
     count: 'count',
     date: 'date',
@@ -39106,7 +38220,6 @@ export namespace Prisma {
     opponentOf?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
-    titles?: TitleListRelationFilter
     masterOfClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     clanPosts?: ClanPostListRelationFilter
     wantToJoinClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
@@ -39195,7 +38308,6 @@ export namespace Prisma {
     opponentOf?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
-    titles?: TitleOrderByRelationAggregateInput
     masterOfClan?: ClanOrderByWithRelationInput
     clanPosts?: ClanPostOrderByRelationAggregateInput
     wantToJoinClan?: ClanOrderByWithRelationInput
@@ -39287,7 +38399,6 @@ export namespace Prisma {
     opponentOf?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
-    titles?: TitleListRelationFilter
     masterOfClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
     clanPosts?: ClanPostListRelationFilter
     wantToJoinClan?: XOR<ClanNullableScalarRelationFilter, ClanWhereInput> | null
@@ -40096,73 +39207,28 @@ export namespace Prisma {
     userId?: UuidNullableWithAggregatesFilter<"Achievement"> | string | null
   }
 
-  export type TitleWhereInput = {
-    AND?: TitleWhereInput | TitleWhereInput[]
-    OR?: TitleWhereInput[]
-    NOT?: TitleWhereInput | TitleWhereInput[]
-    id?: UuidFilter<"Title"> | string
-    name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
-    count?: IntFilter<"Title"> | number
-    brutes?: BruteListRelationFilter
-  }
-
-  export type TitleOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    count?: SortOrder
-    brutes?: BruteOrderByRelationAggregateInput
-  }
-
-  export type TitleWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: TitleWhereInput | TitleWhereInput[]
-    OR?: TitleWhereInput[]
-    NOT?: TitleWhereInput | TitleWhereInput[]
-    name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
-    count?: IntFilter<"Title"> | number
-    brutes?: BruteListRelationFilter
-  }, "id" | "id">
-
-  export type TitleOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    count?: SortOrder
-    _count?: TitleCountOrderByAggregateInput
-    _avg?: TitleAvgOrderByAggregateInput
-    _max?: TitleMaxOrderByAggregateInput
-    _min?: TitleMinOrderByAggregateInput
-    _sum?: TitleSumOrderByAggregateInput
-  }
-
-  export type TitleScalarWhereWithAggregatesInput = {
-    AND?: TitleScalarWhereWithAggregatesInput | TitleScalarWhereWithAggregatesInput[]
-    OR?: TitleScalarWhereWithAggregatesInput[]
-    NOT?: TitleScalarWhereWithAggregatesInput | TitleScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Title"> | string
-    name?: EnumAchievementNameWithAggregatesFilter<"Title"> | $Enums.AchievementName
-    count?: IntWithAggregatesFilter<"Title"> | number
-  }
-
   export type BruteReportWhereInput = {
     AND?: BruteReportWhereInput | BruteReportWhereInput[]
     OR?: BruteReportWhereInput[]
     NOT?: BruteReportWhereInput | BruteReportWhereInput[]
     id?: UuidFilter<"BruteReport"> | string
-    bruteId?: UuidFilter<"BruteReport"> | string
+    bruteId?: UuidNullableFilter<"BruteReport"> | string | null
+    bruteName?: StringFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     handlerId?: UuidNullableFilter<"BruteReport"> | string | null
     handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
-    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     users?: UserListRelationFilter
     handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type BruteReportOrderByWithRelationInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    bruteId?: SortOrderInput | SortOrder
+    bruteName?: SortOrder
     reason?: SortOrder
     count?: SortOrder
     date?: SortOrder
@@ -40179,21 +39245,23 @@ export namespace Prisma {
     AND?: BruteReportWhereInput | BruteReportWhereInput[]
     OR?: BruteReportWhereInput[]
     NOT?: BruteReportWhereInput | BruteReportWhereInput[]
-    bruteId?: UuidFilter<"BruteReport"> | string
+    bruteId?: UuidNullableFilter<"BruteReport"> | string | null
+    bruteName?: StringFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
     status?: EnumBruteReportStatusFilter<"BruteReport"> | $Enums.BruteReportStatus
     handlerId?: UuidNullableFilter<"BruteReport"> | string | null
     handledAt?: DateTimeNullableFilter<"BruteReport"> | Date | string | null
-    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+    brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     users?: UserListRelationFilter
     handler?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id" | "id">
 
   export type BruteReportOrderByWithAggregationInput = {
     id?: SortOrder
-    bruteId?: SortOrder
+    bruteId?: SortOrderInput | SortOrder
+    bruteName?: SortOrder
     reason?: SortOrder
     count?: SortOrder
     date?: SortOrder
@@ -40212,7 +39280,8 @@ export namespace Prisma {
     OR?: BruteReportScalarWhereWithAggregatesInput[]
     NOT?: BruteReportScalarWhereWithAggregatesInput | BruteReportScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"BruteReport"> | string
-    bruteId?: UuidWithAggregatesFilter<"BruteReport"> | string
+    bruteId?: UuidNullableWithAggregatesFilter<"BruteReport"> | string | null
+    bruteName?: StringWithAggregatesFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonWithAggregatesFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntWithAggregatesFilter<"BruteReport"> | number
     date?: DateTimeWithAggregatesFilter<"BruteReport"> | Date | string
@@ -41404,7 +40473,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -41490,7 +40558,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -41572,7 +40639,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -41658,7 +40724,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -42519,67 +41584,23 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TitleCreateInput = {
-    id?: string
-    name: $Enums.AchievementName
-    count?: number
-    brutes?: BruteCreateNestedManyWithoutTitlesInput
-  }
-
-  export type TitleUncheckedCreateInput = {
-    id?: string
-    name: $Enums.AchievementName
-    count?: number
-    brutes?: BruteUncheckedCreateNestedManyWithoutTitlesInput
-  }
-
-  export type TitleUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
-    brutes?: BruteUpdateManyWithoutTitlesNestedInput
-  }
-
-  export type TitleUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
-    brutes?: BruteUncheckedUpdateManyWithoutTitlesNestedInput
-  }
-
-  export type TitleCreateManyInput = {
-    id?: string
-    name: $Enums.AchievementName
-    count?: number
-  }
-
-  export type TitleUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type TitleUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
-  }
-
   export type BruteReportCreateInput = {
     id?: string
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
     handledAt?: Date | string | null
-    brute: BruteCreateNestedOneWithoutReportsInput
+    brute?: BruteCreateNestedOneWithoutReportsInput
     users?: UserCreateNestedManyWithoutReportsInput
     handler?: UserCreateNestedOneWithoutReportsHandledInput
   }
 
   export type BruteReportUncheckedCreateInput = {
     id?: string
-    bruteId: string
+    bruteId?: string | null
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -42591,19 +41612,21 @@ export namespace Prisma {
 
   export type BruteReportUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
     handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
+    brute?: BruteUpdateOneWithoutReportsNestedInput
     users?: UserUpdateManyWithoutReportsNestedInput
     handler?: UserUpdateOneWithoutReportsHandledNestedInput
   }
 
   export type BruteReportUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bruteId?: StringFieldUpdateOperationsInput | string
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42615,7 +41638,8 @@ export namespace Prisma {
 
   export type BruteReportCreateManyInput = {
     id?: string
-    bruteId: string
+    bruteId?: string | null
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -42626,6 +41650,7 @@ export namespace Prisma {
 
   export type BruteReportUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42635,7 +41660,8 @@ export namespace Prisma {
 
   export type BruteReportUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bruteId?: StringFieldUpdateOperationsInput | string
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44078,12 +43104,6 @@ export namespace Prisma {
     none?: TournamentWhereInput
   }
 
-  export type TitleListRelationFilter = {
-    every?: TitleWhereInput
-    some?: TitleWhereInput
-    none?: TitleWhereInput
-  }
-
   export type ClanPostListRelationFilter = {
     every?: ClanPostWhereInput
     some?: ClanPostWhereInput
@@ -44151,10 +43171,6 @@ export namespace Prisma {
   }
 
   export type TournamentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type TitleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -44984,32 +44000,6 @@ export namespace Prisma {
     count?: SortOrder
   }
 
-  export type TitleCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    count?: SortOrder
-  }
-
-  export type TitleAvgOrderByAggregateInput = {
-    count?: SortOrder
-  }
-
-  export type TitleMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    count?: SortOrder
-  }
-
-  export type TitleMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    count?: SortOrder
-  }
-
-  export type TitleSumOrderByAggregateInput = {
-    count?: SortOrder
-  }
-
   export type EnumBruteReportReasonFilter<$PrismaModel = never> = {
     equals?: $Enums.BruteReportReason | EnumBruteReportReasonFieldRefInput<$PrismaModel>
     in?: $Enums.BruteReportReason[] | ListEnumBruteReportReasonFieldRefInput<$PrismaModel>
@@ -45027,6 +44017,7 @@ export namespace Prisma {
   export type BruteReportCountOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
+    bruteName?: SortOrder
     reason?: SortOrder
     count?: SortOrder
     date?: SortOrder
@@ -45042,6 +44033,7 @@ export namespace Prisma {
   export type BruteReportMaxOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
+    bruteName?: SortOrder
     reason?: SortOrder
     count?: SortOrder
     date?: SortOrder
@@ -45053,6 +44045,7 @@ export namespace Prisma {
   export type BruteReportMinOrderByAggregateInput = {
     id?: SortOrder
     bruteId?: SortOrder
+    bruteName?: SortOrder
     reason?: SortOrder
     count?: SortOrder
     date?: SortOrder
@@ -46285,12 +45278,6 @@ export namespace Prisma {
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
   }
 
-  export type TitleCreateNestedManyWithoutBrutesInput = {
-    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
-    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
-    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-  }
-
   export type ClanCreateNestedOneWithoutMasterInput = {
     create?: XOR<ClanCreateWithoutMasterInput, ClanUncheckedCreateWithoutMasterInput>
     connectOrCreate?: ClanCreateOrConnectWithoutMasterInput
@@ -46454,12 +45441,6 @@ export namespace Prisma {
     connectOrCreate?: BruteReportCreateOrConnectWithoutBruteInput | BruteReportCreateOrConnectWithoutBruteInput[]
     createMany?: BruteReportCreateManyBruteInputEnvelope
     connect?: BruteReportWhereUniqueInput | BruteReportWhereUniqueInput[]
-  }
-
-  export type TitleUncheckedCreateNestedManyWithoutBrutesInput = {
-    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
-    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
-    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
   }
 
   export type ClanUncheckedCreateNestedOneWithoutMasterInput = {
@@ -46765,19 +45746,6 @@ export namespace Prisma {
     update?: BruteReportUpdateWithWhereUniqueWithoutBruteInput | BruteReportUpdateWithWhereUniqueWithoutBruteInput[]
     updateMany?: BruteReportUpdateManyWithWhereWithoutBruteInput | BruteReportUpdateManyWithWhereWithoutBruteInput[]
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
-  }
-
-  export type TitleUpdateManyWithoutBrutesNestedInput = {
-    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
-    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
-    upsert?: TitleUpsertWithWhereUniqueWithoutBrutesInput | TitleUpsertWithWhereUniqueWithoutBrutesInput[]
-    set?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    disconnect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    delete?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    update?: TitleUpdateWithWhereUniqueWithoutBrutesInput | TitleUpdateWithWhereUniqueWithoutBrutesInput[]
-    updateMany?: TitleUpdateManyWithWhereWithoutBrutesInput | TitleUpdateManyWithWhereWithoutBrutesInput[]
-    deleteMany?: TitleScalarWhereInput | TitleScalarWhereInput[]
   }
 
   export type ClanUpdateOneWithoutMasterNestedInput = {
@@ -47106,19 +46074,6 @@ export namespace Prisma {
     update?: BruteReportUpdateWithWhereUniqueWithoutBruteInput | BruteReportUpdateWithWhereUniqueWithoutBruteInput[]
     updateMany?: BruteReportUpdateManyWithWhereWithoutBruteInput | BruteReportUpdateManyWithWhereWithoutBruteInput[]
     deleteMany?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
-  }
-
-  export type TitleUncheckedUpdateManyWithoutBrutesNestedInput = {
-    create?: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput> | TitleCreateWithoutBrutesInput[] | TitleUncheckedCreateWithoutBrutesInput[]
-    connectOrCreate?: TitleCreateOrConnectWithoutBrutesInput | TitleCreateOrConnectWithoutBrutesInput[]
-    upsert?: TitleUpsertWithWhereUniqueWithoutBrutesInput | TitleUpsertWithWhereUniqueWithoutBrutesInput[]
-    set?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    disconnect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    delete?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    connect?: TitleWhereUniqueInput | TitleWhereUniqueInput[]
-    update?: TitleUpdateWithWhereUniqueWithoutBrutesInput | TitleUpdateWithWhereUniqueWithoutBrutesInput[]
-    updateMany?: TitleUpdateManyWithWhereWithoutBrutesInput | TitleUpdateManyWithWhereWithoutBrutesInput[]
-    deleteMany?: TitleScalarWhereInput | TitleScalarWhereInput[]
   }
 
   export type ClanUncheckedUpdateOneWithoutMasterNestedInput = {
@@ -47772,44 +46727,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAchievementsInput, UserUpdateWithoutAchievementsInput>, UserUncheckedUpdateWithoutAchievementsInput>
   }
 
-  export type BruteCreateNestedManyWithoutTitlesInput = {
-    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
-    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-  }
-
-  export type BruteUncheckedCreateNestedManyWithoutTitlesInput = {
-    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
-    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-  }
-
-  export type BruteUpdateManyWithoutTitlesNestedInput = {
-    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
-    upsert?: BruteUpsertWithWhereUniqueWithoutTitlesInput | BruteUpsertWithWhereUniqueWithoutTitlesInput[]
-    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    update?: BruteUpdateWithWhereUniqueWithoutTitlesInput | BruteUpdateWithWhereUniqueWithoutTitlesInput[]
-    updateMany?: BruteUpdateManyWithWhereWithoutTitlesInput | BruteUpdateManyWithWhereWithoutTitlesInput[]
-    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
-  }
-
-  export type BruteUncheckedUpdateManyWithoutTitlesNestedInput = {
-    create?: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput> | BruteCreateWithoutTitlesInput[] | BruteUncheckedCreateWithoutTitlesInput[]
-    connectOrCreate?: BruteCreateOrConnectWithoutTitlesInput | BruteCreateOrConnectWithoutTitlesInput[]
-    upsert?: BruteUpsertWithWhereUniqueWithoutTitlesInput | BruteUpsertWithWhereUniqueWithoutTitlesInput[]
-    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
-    update?: BruteUpdateWithWhereUniqueWithoutTitlesInput | BruteUpdateWithWhereUniqueWithoutTitlesInput[]
-    updateMany?: BruteUpdateManyWithWhereWithoutTitlesInput | BruteUpdateManyWithWhereWithoutTitlesInput[]
-    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
-  }
-
   export type BruteCreateNestedOneWithoutReportsInput = {
     create?: XOR<BruteCreateWithoutReportsInput, BruteUncheckedCreateWithoutReportsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutReportsInput
@@ -47842,10 +46759,12 @@ export namespace Prisma {
     set?: $Enums.BruteReportStatus
   }
 
-  export type BruteUpdateOneRequiredWithoutReportsNestedInput = {
+  export type BruteUpdateOneWithoutReportsNestedInput = {
     create?: XOR<BruteCreateWithoutReportsInput, BruteUncheckedCreateWithoutReportsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutReportsInput
     upsert?: BruteUpsertWithoutReportsInput
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
     connect?: BruteWhereUniqueInput
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutReportsInput, BruteUpdateWithoutReportsInput>, BruteUncheckedUpdateWithoutReportsInput>
   }
@@ -49409,7 +48328,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -49494,7 +48412,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -49546,18 +48463,20 @@ export namespace Prisma {
 
   export type BruteReportCreateWithoutUsersInput = {
     id?: string
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
     handledAt?: Date | string | null
-    brute: BruteCreateNestedOneWithoutReportsInput
+    brute?: BruteCreateNestedOneWithoutReportsInput
     handler?: UserCreateNestedOneWithoutReportsHandledInput
   }
 
   export type BruteReportUncheckedCreateWithoutUsersInput = {
     id?: string
-    bruteId: string
+    bruteId?: string | null
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -49724,7 +48643,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -49809,7 +48727,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -49859,18 +48776,20 @@ export namespace Prisma {
 
   export type BruteReportCreateWithoutHandlerInput = {
     id?: string
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
     status?: $Enums.BruteReportStatus
     handledAt?: Date | string | null
-    brute: BruteCreateNestedOneWithoutReportsInput
+    brute?: BruteCreateNestedOneWithoutReportsInput
     users?: UserCreateNestedManyWithoutReportsInput
   }
 
   export type BruteReportUncheckedCreateWithoutHandlerInput = {
     id?: string
-    bruteId: string
+    bruteId?: string | null
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -50044,7 +48963,8 @@ export namespace Prisma {
     OR?: BruteReportScalarWhereInput[]
     NOT?: BruteReportScalarWhereInput | BruteReportScalarWhereInput[]
     id?: UuidFilter<"BruteReport"> | string
-    bruteId?: UuidFilter<"BruteReport"> | string
+    bruteId?: UuidNullableFilter<"BruteReport"> | string | null
+    bruteName?: StringFilter<"BruteReport"> | string
     reason?: EnumBruteReportReasonFilter<"BruteReport"> | $Enums.BruteReportReason
     count?: IntFilter<"BruteReport"> | number
     date?: DateTimeFilter<"BruteReport"> | Date | string
@@ -50361,7 +49281,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -50446,7 +49365,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -50612,7 +49530,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -50697,7 +49614,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -50840,7 +49756,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -50925,7 +49840,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -51011,7 +49925,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -51096,7 +50009,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -51425,7 +50337,6 @@ export namespace Prisma {
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -51510,7 +50421,6 @@ export namespace Prisma {
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -51596,7 +50506,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -51681,7 +50590,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -51728,6 +50636,7 @@ export namespace Prisma {
 
   export type BruteReportCreateWithoutBruteInput = {
     id?: string
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -51739,6 +50648,7 @@ export namespace Prisma {
 
   export type BruteReportUncheckedCreateWithoutBruteInput = {
     id?: string
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -51756,23 +50666,6 @@ export namespace Prisma {
   export type BruteReportCreateManyBruteInputEnvelope = {
     data: BruteReportCreateManyBruteInput | BruteReportCreateManyBruteInput[]
     skipDuplicates?: boolean
-  }
-
-  export type TitleCreateWithoutBrutesInput = {
-    id?: string
-    name: $Enums.AchievementName
-    count?: number
-  }
-
-  export type TitleUncheckedCreateWithoutBrutesInput = {
-    id?: string
-    name: $Enums.AchievementName
-    count?: number
-  }
-
-  export type TitleCreateOrConnectWithoutBrutesInput = {
-    where: TitleWhereUniqueInput
-    create: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput>
   }
 
   export type ClanCreateWithoutMasterInput = {
@@ -52373,7 +51266,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -52458,7 +51350,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -52729,31 +51620,6 @@ export namespace Prisma {
   export type BruteReportUpdateManyWithWhereWithoutBruteInput = {
     where: BruteReportScalarWhereInput
     data: XOR<BruteReportUpdateManyMutationInput, BruteReportUncheckedUpdateManyWithoutBruteInput>
-  }
-
-  export type TitleUpsertWithWhereUniqueWithoutBrutesInput = {
-    where: TitleWhereUniqueInput
-    update: XOR<TitleUpdateWithoutBrutesInput, TitleUncheckedUpdateWithoutBrutesInput>
-    create: XOR<TitleCreateWithoutBrutesInput, TitleUncheckedCreateWithoutBrutesInput>
-  }
-
-  export type TitleUpdateWithWhereUniqueWithoutBrutesInput = {
-    where: TitleWhereUniqueInput
-    data: XOR<TitleUpdateWithoutBrutesInput, TitleUncheckedUpdateWithoutBrutesInput>
-  }
-
-  export type TitleUpdateManyWithWhereWithoutBrutesInput = {
-    where: TitleScalarWhereInput
-    data: XOR<TitleUpdateManyMutationInput, TitleUncheckedUpdateManyWithoutBrutesInput>
-  }
-
-  export type TitleScalarWhereInput = {
-    AND?: TitleScalarWhereInput | TitleScalarWhereInput[]
-    OR?: TitleScalarWhereInput[]
-    NOT?: TitleScalarWhereInput | TitleScalarWhereInput[]
-    id?: UuidFilter<"Title"> | string
-    name?: EnumAchievementNameFilter<"Title"> | $Enums.AchievementName
-    count?: IntFilter<"Title"> | number
   }
 
   export type ClanUpsertWithoutMasterInput = {
@@ -53264,7 +52130,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -53349,7 +52214,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -53446,7 +52310,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -53531,7 +52394,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -53611,7 +52473,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -53696,7 +52557,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -53782,7 +52642,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -53867,7 +52726,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -54123,7 +52981,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -54208,7 +53065,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -54300,7 +53156,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -54385,7 +53240,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -54570,7 +53424,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -54655,7 +53508,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -54832,7 +53684,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -54917,7 +53768,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -55090,7 +53940,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -55175,7 +54024,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -55308,7 +54156,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -55393,7 +54240,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -55490,7 +54336,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -55575,7 +54420,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -55808,7 +54652,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -55893,7 +54736,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -55990,7 +54832,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -56075,7 +54916,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -56288,7 +55128,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -56373,7 +55212,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -56470,7 +55308,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -56555,7 +55392,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -56635,7 +55471,6 @@ export namespace Prisma {
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -56720,7 +55555,6 @@ export namespace Prisma {
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -56880,7 +55714,6 @@ export namespace Prisma {
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -56965,7 +55798,6 @@ export namespace Prisma {
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -57050,193 +55882,6 @@ export namespace Prisma {
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type BruteCreateWithoutTitlesInput = {
-    id?: string
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    willBeDeletedAt?: Date | string | null
-    deletionReason?: string | null
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    body?: string
-    colors?: string
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    ascensions?: number
-    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
-    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
-    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
-    pupilsCount?: number
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    globalTournamentWatchedDate?: Date | string | null
-    globalTournamentRoundWatched?: number | null
-    eventTournamentWatchedDate?: Date | string | null
-    eventTournamentRoundWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    losses?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    tournamentWins?: number
-    resets?: number
-    user?: UserCreateNestedOneWithoutBrutesInput
-    master?: BruteCreateNestedOneWithoutPupilsInput
-    pupils?: BruteCreateNestedManyWithoutMasterInput
-    clan?: ClanCreateNestedOneWithoutBrutesInput
-    fights?: FightCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
-    logs?: LogCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementCreateNestedManyWithoutBruteInput
-    reports?: BruteReportCreateNestedManyWithoutBruteInput
-    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
-    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
-    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
-    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
-    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
-    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
-    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
-    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
-    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
-    followers?: UserCreateNestedManyWithoutFollowingInput
-    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
-    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
-    event?: EventCreateNestedOneWithoutBrutesInput
-    wonEvents?: EventCreateNestedManyWithoutWinnerInput
-    userlogs?: UserLogCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteUncheckedCreateWithoutTitlesInput = {
-    id?: string
-    name: string
-    deletedAt?: Date | string | null
-    createdAt?: Date | string
-    willBeDeletedAt?: Date | string | null
-    deletionReason?: string | null
-    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: number
-    xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
-    strengthStat?: number
-    strengthModifier?: number
-    strengthValue?: number
-    agilityStat?: number
-    agilityModifier?: number
-    agilityValue?: number
-    speedStat?: number
-    speedModifier?: number
-    speedValue?: number
-    ranking?: number
-    gender: $Enums.Gender
-    userId?: string | null
-    body?: string
-    colors?: string
-    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteCreateskillsInput | $Enums.SkillName[]
-    pets?: BruteCreatepetsInput | $Enums.PetName[]
-    ascensions?: number
-    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
-    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
-    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
-    masterId?: string | null
-    pupilsCount?: number
-    clanId?: string | null
-    registeredForTournament?: boolean
-    nextTournamentDate?: Date | string | null
-    currentTournamentDate?: Date | string | null
-    currentTournamentStepWatched?: number | null
-    globalTournamentWatchedDate?: Date | string | null
-    globalTournamentRoundWatched?: number | null
-    eventTournamentWatchedDate?: Date | string | null
-    eventTournamentRoundWatched?: number | null
-    lastFight?: Date | string | null
-    fightsLeft?: number
-    victories?: number
-    losses?: number
-    opponentsGeneratedAt?: Date | string | null
-    canRankUpSince?: Date | string | null
-    favorite?: boolean
-    wantToJoinClanId?: string | null
-    tournamentWins?: number
-    eventId?: string | null
-    resets?: number
-    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
-    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
-    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
-    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
-    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
-    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
-    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
-    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
-    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
-    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
-    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
-    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
-    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
-    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
-    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
-    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
-    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
-    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
-    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
-    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
-    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
-    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
-  }
-
-  export type BruteCreateOrConnectWithoutTitlesInput = {
-    where: BruteWhereUniqueInput
-    create: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput>
-  }
-
-  export type BruteUpsertWithWhereUniqueWithoutTitlesInput = {
-    where: BruteWhereUniqueInput
-    update: XOR<BruteUpdateWithoutTitlesInput, BruteUncheckedUpdateWithoutTitlesInput>
-    create: XOR<BruteCreateWithoutTitlesInput, BruteUncheckedCreateWithoutTitlesInput>
-  }
-
-  export type BruteUpdateWithWhereUniqueWithoutTitlesInput = {
-    where: BruteWhereUniqueInput
-    data: XOR<BruteUpdateWithoutTitlesInput, BruteUncheckedUpdateWithoutTitlesInput>
-  }
-
-  export type BruteUpdateManyWithWhereWithoutTitlesInput = {
-    where: BruteScalarWhereInput
-    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutTitlesInput>
-  }
-
   export type BruteCreateWithoutReportsInput = {
     id?: string
     name: string
@@ -57302,7 +55947,6 @@ export namespace Prisma {
     opponents?: BruteCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -57387,7 +56031,6 @@ export namespace Prisma {
     opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -57610,7 +56253,6 @@ export namespace Prisma {
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -57695,7 +56337,6 @@ export namespace Prisma {
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -57862,7 +56503,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
@@ -57947,7 +56587,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
@@ -58032,7 +56671,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -58117,7 +56755,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -58209,7 +56846,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
@@ -58293,7 +56929,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -58578,7 +57213,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
@@ -58663,7 +57297,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
@@ -58917,7 +57550,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -59002,7 +57634,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
@@ -59172,7 +57803,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -59257,7 +57887,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
@@ -59383,7 +58012,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
@@ -59468,7 +58096,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
@@ -59600,7 +58227,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
@@ -59685,7 +58311,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
@@ -59766,7 +58391,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -59851,7 +58475,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -59991,7 +58614,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -60076,7 +58698,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -60621,7 +59242,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -60706,7 +59326,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -60792,7 +59411,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -60877,7 +59495,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -61038,7 +59655,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -61123,7 +59739,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -61283,7 +59898,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -61368,7 +59982,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -61518,7 +60131,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -61602,7 +60214,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -61717,7 +60328,6 @@ export namespace Prisma {
     opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementCreateNestedManyWithoutBruteInput
     reports?: BruteReportCreateNestedManyWithoutBruteInput
-    titles?: TitleCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
     wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
@@ -61802,7 +60412,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
-    titles?: TitleUncheckedCreateNestedManyWithoutBrutesInput
     masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
     clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
@@ -61944,7 +60553,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -62029,7 +60637,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -62266,7 +60873,8 @@ export namespace Prisma {
 
   export type BruteReportCreateManyHandlerInput = {
     id?: string
-    bruteId: string
+    bruteId?: string | null
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -62348,7 +60956,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -62433,7 +61040,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -62531,18 +61137,20 @@ export namespace Prisma {
 
   export type BruteReportUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
     handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
+    brute?: BruteUpdateOneWithoutReportsNestedInput
     handler?: UserUpdateOneWithoutReportsHandledNestedInput
   }
 
   export type BruteReportUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bruteId?: StringFieldUpdateOperationsInput | string
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -62553,7 +61161,8 @@ export namespace Prisma {
 
   export type BruteReportUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bruteId?: StringFieldUpdateOperationsInput | string
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -62720,7 +61329,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -62805,7 +61413,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -62909,18 +61516,20 @@ export namespace Prisma {
 
   export type BruteReportUpdateWithoutHandlerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
     handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    brute?: BruteUpdateOneRequiredWithoutReportsNestedInput
+    brute?: BruteUpdateOneWithoutReportsNestedInput
     users?: UserUpdateManyWithoutReportsNestedInput
   }
 
   export type BruteReportUncheckedUpdateWithoutHandlerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bruteId?: StringFieldUpdateOperationsInput | string
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -62931,7 +61540,8 @@ export namespace Prisma {
 
   export type BruteReportUncheckedUpdateManyWithoutHandlerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bruteId?: StringFieldUpdateOperationsInput | string
+    bruteId?: NullableStringFieldUpdateOperationsInput | string | null
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63095,6 +61705,7 @@ export namespace Prisma {
 
   export type BruteReportCreateManyBruteInput = {
     id?: string
+    bruteName?: string
     reason?: $Enums.BruteReportReason
     count?: number
     date?: Date | string
@@ -63232,7 +61843,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -63317,7 +61927,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -63676,7 +62285,6 @@ export namespace Prisma {
     opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -63761,7 +62369,6 @@ export namespace Prisma {
     opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -63902,7 +62509,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -63987,7 +62593,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -64086,6 +62691,7 @@ export namespace Prisma {
 
   export type BruteReportUpdateWithoutBruteInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64097,6 +62703,7 @@ export namespace Prisma {
 
   export type BruteReportUncheckedUpdateWithoutBruteInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64108,30 +62715,13 @@ export namespace Prisma {
 
   export type BruteReportUncheckedUpdateManyWithoutBruteInput = {
     id?: StringFieldUpdateOperationsInput | string
+    bruteName?: StringFieldUpdateOperationsInput | string
     reason?: EnumBruteReportReasonFieldUpdateOperationsInput | $Enums.BruteReportReason
     count?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBruteReportStatusFieldUpdateOperationsInput | $Enums.BruteReportStatus
     handlerId?: NullableStringFieldUpdateOperationsInput | string | null
     handledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type TitleUpdateWithoutBrutesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type TitleUncheckedUpdateWithoutBrutesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type TitleUncheckedUpdateManyWithoutBrutesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: EnumAchievementNameFieldUpdateOperationsInput | $Enums.AchievementName
-    count?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostUpdateWithoutAuthorInput = {
@@ -64713,7 +63303,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -64798,7 +63387,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -64924,232 +63512,6 @@ export namespace Prisma {
     background?: StringFieldUpdateOperationsInput | string
     clanWarId?: NullableStringFieldUpdateOperationsInput | string | null
     favoriteCount?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BruteUpdateWithoutTitlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    body?: StringFieldUpdateOperationsInput | string
-    colors?: StringFieldUpdateOperationsInput | string
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    ascensions?: IntFieldUpdateOperationsInput | number
-    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
-    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
-    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    losses?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    tournamentWins?: IntFieldUpdateOperationsInput | number
-    resets?: IntFieldUpdateOperationsInput | number
-    user?: UserUpdateOneWithoutBrutesNestedInput
-    master?: BruteUpdateOneWithoutPupilsNestedInput
-    pupils?: BruteUpdateManyWithoutMasterNestedInput
-    clan?: ClanUpdateOneWithoutBrutesNestedInput
-    fights?: FightUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
-    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
-    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
-    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
-    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
-    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
-    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
-    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
-    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
-    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
-    followers?: UserUpdateManyWithoutFollowingNestedInput
-    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
-    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
-    event?: EventUpdateOneWithoutBrutesNestedInput
-    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
-    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
-  }
-
-  export type BruteUncheckedUpdateWithoutTitlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    body?: StringFieldUpdateOperationsInput | string
-    colors?: StringFieldUpdateOperationsInput | string
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    ascensions?: IntFieldUpdateOperationsInput | number
-    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
-    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
-    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
-    masterId?: NullableStringFieldUpdateOperationsInput | string | null
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableStringFieldUpdateOperationsInput | string | null
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    losses?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
-    tournamentWins?: IntFieldUpdateOperationsInput | number
-    eventId?: NullableStringFieldUpdateOperationsInput | string | null
-    resets?: IntFieldUpdateOperationsInput | number
-    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
-    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
-    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
-    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
-    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
-    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
-    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
-    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
-    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
-    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
-    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
-    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
-    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
-    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
-    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
-    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
-    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
-    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
-    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
-    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
-    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
-  }
-
-  export type BruteUncheckedUpdateManyWithoutTitlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
-    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
-    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
-    level?: IntFieldUpdateOperationsInput | number
-    xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
-    strengthStat?: IntFieldUpdateOperationsInput | number
-    strengthModifier?: FloatFieldUpdateOperationsInput | number
-    strengthValue?: IntFieldUpdateOperationsInput | number
-    agilityStat?: IntFieldUpdateOperationsInput | number
-    agilityModifier?: FloatFieldUpdateOperationsInput | number
-    agilityValue?: IntFieldUpdateOperationsInput | number
-    speedStat?: IntFieldUpdateOperationsInput | number
-    speedModifier?: FloatFieldUpdateOperationsInput | number
-    speedValue?: IntFieldUpdateOperationsInput | number
-    ranking?: IntFieldUpdateOperationsInput | number
-    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    body?: StringFieldUpdateOperationsInput | string
-    colors?: StringFieldUpdateOperationsInput | string
-    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
-    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
-    pets?: BruteUpdatepetsInput | $Enums.PetName[]
-    ascensions?: IntFieldUpdateOperationsInput | number
-    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
-    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
-    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
-    masterId?: NullableStringFieldUpdateOperationsInput | string | null
-    pupilsCount?: IntFieldUpdateOperationsInput | number
-    clanId?: NullableStringFieldUpdateOperationsInput | string | null
-    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
-    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
-    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fightsLeft?: IntFieldUpdateOperationsInput | number
-    victories?: IntFieldUpdateOperationsInput | number
-    losses?: IntFieldUpdateOperationsInput | number
-    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    favorite?: BoolFieldUpdateOperationsInput | boolean
-    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
-    tournamentWins?: IntFieldUpdateOperationsInput | number
-    eventId?: NullableStringFieldUpdateOperationsInput | string | null
-    resets?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUpdateWithoutReportsInput = {
@@ -65472,7 +63834,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -65557,7 +63918,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -65698,7 +64058,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
@@ -65782,7 +64141,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -66234,7 +64592,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -66319,7 +64676,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -66460,7 +64816,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -66545,7 +64900,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
@@ -66745,7 +65099,6 @@ export namespace Prisma {
     opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUpdateManyWithoutBruteNestedInput
-    titles?: TitleUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
     wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
@@ -66829,7 +65182,6 @@ export namespace Prisma {
     opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
-    titles?: TitleUncheckedUpdateManyWithoutBrutesNestedInput
     masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
     clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput

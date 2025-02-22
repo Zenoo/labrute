@@ -150,6 +150,7 @@ export const BruteReports = {
                 id: brute.id,
               },
             },
+            bruteName: brute.name,
             users: {
               connect: {
                 id: user.id,
@@ -227,28 +228,33 @@ export const BruteReports = {
       // Add name to banned words
       await prisma.bannedWord.create({
         data: {
-          word: report.brute.name.toLowerCase(),
+          word: report.brute?.name.toLowerCase() || report.bruteName.toLowerCase(),
         },
         select: { id: true },
       });
 
-      // Tag brute for deletion
-      await prisma.brute.update({
-        where: {
-          id: report.bruteId,
-        },
-        data: {
-          willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
-          deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
-        },
-        select: { id: true },
-      });
-
-      // Send notification to user
-      if (!report.brute.userId) {
-        throw new Error(translate('userNotFound', user));
+      if (report.bruteId) {
+        // Tag brute for deletion
+        await prisma.brute.update({
+          where: {
+            id: report.bruteId,
+          },
+          data: {
+            willBeDeletedAt: moment.utc().add(3, 'day').toDate(),
+            deletionReason: BruteDeletionReason.INNAPROPRIATE_NAME,
+          },
+          select: { id: true },
+        });
       }
 
+      if (!report.brute?.userId) {
+        res.status(200).send({
+          success: true,
+        });
+        return;
+      }
+
+      // Send notification to user
       await prisma.notification.create({
         data: {
           userId: report.brute.userId,

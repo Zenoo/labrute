@@ -134,7 +134,7 @@ const ReportAdminView = () => {
                 >
                   <ListItemText
                     primary={(
-                      <Text body2>({report.count}) <Link to={`/${report.brute.name}`} target="_blank">{report.brute.name}</Link></Text>
+                      <Text body2>({report.count}) <Link to={`/${report.brute?.name ?? report.bruteName}`} target="_blank">{report.brute?.name ?? report.bruteName}</Link></Text>
                     )}
                     secondary={(
                       <>

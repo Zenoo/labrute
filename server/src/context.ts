@@ -8,6 +8,8 @@ import { PARENT_PORT } from './logger/parent-port.js';
 import { NetworkDiscordClient, NOOP_DISCORD_CLIENT } from './utils/DiscordUtils.js';
 import { ASYNC_DISPOSE } from './utils/dispose.js';
 
+const DEBUG_QUERIES = false;
+
 export class ServerContext {
   public discord = NOOP_DISCORD_CLIENT;
 
@@ -18,7 +20,41 @@ export class ServerContext {
   public config: Config = emptyConfig;
 
   public constructor() {
-    this.prisma = new PrismaClient();
+    if (DEBUG_QUERIES) {
+      const client = new PrismaClient({
+        log: [
+          {
+            emit: 'event',
+            level: 'query',
+          },
+          {
+            emit: 'stdout',
+            level: 'error',
+          },
+          {
+            emit: 'stdout',
+            level: 'info',
+          },
+          {
+            emit: 'stdout',
+            level: 'warn',
+          },
+        ],
+      });
+
+      client.$on('query', (e) => {
+        // eslint-disable-next-line no-console
+        console.log(`Query: ${e.query}`);
+        // eslint-disable-next-line no-console
+        console.log(`Params: ${e.params}`);
+        // eslint-disable-next-line no-console
+        console.log(`Duration: ${e.duration}ms`);
+      });
+
+      this.prisma = client;
+    } else {
+      this.prisma = new PrismaClient();
+    }
   }
 
   public async init() {

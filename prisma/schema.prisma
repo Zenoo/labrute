@@ -244,7 +244,7 @@ model Brute {
   ascendedWeapons              WeaponName[]            @default([])
   ascendedSkills               SkillName[]             @default([])
   ascendedPets                 PetName[]               @default([])
-  master                       Brute?                  @relation("Master", fields: [masterId], references: [id])
+  master                       Brute?                  @relation("Master", fields: [masterId], references: [id], onDelete: SetNull)
   masterId                     String?                 @db.Uuid
   pupils                       Brute[]                 @relation("Master")
   pupilsCount                  Int                     @default(0)
@@ -274,7 +274,6 @@ model Brute {
   achievements                 Achievement[]
   reports                      BruteReport[]
   favorite                     Boolean                 @default(false)
-  titles                       Title[]
   masterOfClan                 Clan?                   @relation("MasterOfClan")
   clanPosts                    ClanPost[]
   wantToJoinClan               Clan?                   @relation("JoinRequests", fields: [wantToJoinClanId], references: [id])
@@ -297,6 +296,8 @@ model Brute {
 
   @@index([deletedAt, eventId, ranking])
   @@index([ascensions, level, xp])
+  @@index([deletedAt])
+  @@index([masterId])
 }
 
 model BruteStartingStats {
@@ -305,7 +306,7 @@ model BruteStartingStats {
   strength  Int    @default(3)
   agility   Int    @default(3)
   speed     Int    @default(3)
-  brute     Brute  @relation(fields: [bruteId], references: [id])
+  brute     Brute  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId   String @unique @db.Uuid
 }
 
@@ -353,6 +354,8 @@ model Fight {
   @@index([date, tournamentId, id])
   @@index([clanWarId])
   @@index([clanWarId, tournamentId, favoriteCount, date])
+  @@index([brute1Id])
+  @@index([brute2Id])
 }
 
 // LOGS
@@ -373,7 +376,7 @@ enum LogType {
 model Log {
   id              String         @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date            DateTime       @default(now()) @db.Timestamp()
-  currentBrute    Brute          @relation(fields: [currentBruteId], references: [id])
+  currentBrute    Brute          @relation(fields: [currentBruteId], references: [id], onDelete: Cascade)
   currentBruteId  String         @db.Uuid
   type            LogType
   level           Int?
@@ -391,6 +394,7 @@ model Log {
   @@index([currentBruteId, date])
   @@index([date])
   @@index([fightId])
+  @@index([destinyChoiceId])
 }
 
 // LEVEL UP
@@ -410,7 +414,7 @@ enum BruteStat {
 
 model DestinyChoice {
   id             String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute          Brute               @relation(fields: [bruteId], references: [id])
+  brute          Brute               @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId        String              @db.Uuid
   path           DestinyChoiceSide[]
   type           DestinyChoiceType
@@ -453,7 +457,7 @@ model Tournament {
 
 model TournamentAchievement {
   id               String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute            Brute           @relation(fields: [bruteId], references: [id])
+  brute            Brute           @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId          String          @db.Uuid
   date             DateTime        @db.Date
   achievement      AchievementName
@@ -473,9 +477,11 @@ model TournamentGold {
 model TournamentXp {
   id      String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date    DateTime @db.Date
-  brute   Brute    @relation(fields: [bruteId], references: [id])
+  brute   Brute    @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId String   @db.Uuid
   xp      Int
+
+  @@index([bruteId])
 }
 
 // ACHIEVEMENTS
@@ -617,13 +623,7 @@ model Achievement {
   userId  String?         @db.Uuid
 
   @@unique([name, bruteId])
-}
-
-model Title {
-  id     String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name   AchievementName
-  count  Int             @default(1)
-  brutes Brute[]
+  @@index([bruteId])
 }
 
 // REPORTS
@@ -639,8 +639,9 @@ enum BruteReportReason {
 
 model BruteReport {
   id        String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute     Brute             @relation(fields: [bruteId], references: [id])
-  bruteId   String            @db.Uuid
+  brute     Brute?            @relation(fields: [bruteId], references: [id], onDelete: SetNull)
+  bruteId   String?           @db.Uuid
+  bruteName String            @default("") @db.VarChar(255)
   users     User[]
   reason    BruteReportReason @default(name)
   count     Int               @default(1)
@@ -652,6 +653,7 @@ model BruteReport {
 
   @@index([status, count])
   @@index([status, handledAt])
+  @@index([bruteId])
 }
 
 // SERVER STATE
@@ -718,6 +720,8 @@ model ClanThread {
   posts     ClanPost[]
   createdAt DateTime   @default(now()) @db.Timestamp()
   updatedAt DateTime   @default(now()) @db.Timestamp()
+
+  @@index([creatorId])
 }
 
 model ClanPost {
@@ -728,6 +732,8 @@ model ClanPost {
   authorId String?    @db.Uuid
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
+
+  @@index([authorId])
 }
 
 model BossDamage {
@@ -843,6 +849,7 @@ model Event {
   sortedBrutes String[]    @default([])
 
   @@index([date, type, status])
+  @@index([winnerId])
 }
 
 // Notifications

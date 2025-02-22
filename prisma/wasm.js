@@ -17,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.2.1
- * Query Engine version: 4123509d24aa4dede1e864b46351bf2790323b69
+ * Prisma Client JS version: 6.3.1
+ * Query Engine version: acc0b9dd43eb689cbd20c9470515d719db10d0b0
  */
 Prisma.prismaVersion = {
-  client: "6.2.1",
-  engine: "4123509d24aa4dede1e864b46351bf2790323b69"
+  client: "6.3.1",
+  engine: "acc0b9dd43eb689cbd20c9470515d719db10d0b0"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -307,15 +307,10 @@ exports.Prisma.AchievementScalarFieldEnum = {
   userId: 'userId'
 };
 
-exports.Prisma.TitleScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  count: 'count'
-};
-
 exports.Prisma.BruteReportScalarFieldEnum = {
   id: 'id',
   bruteId: 'bruteId',
+  bruteName: 'bruteName',
   reason: 'reason',
   count: 'count',
   date: 'date',
@@ -808,7 +803,6 @@ exports.Prisma.ModelName = {
   TournamentGold: 'TournamentGold',
   TournamentXp: 'TournamentXp',
   Achievement: 'Achievement',
-  Title: 'Title',
   BruteReport: 'BruteReport',
   ServerState: 'ServerState',
   BannedWord: 'BannedWord',

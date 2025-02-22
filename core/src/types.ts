@@ -588,7 +588,7 @@ export type BruteReportWithNames = BruteReport & {
   brute: {
     id: string;
     name: string;
-  };
+  } | null;
   users: {
     id: string;
     name: string;
