@@ -35,7 +35,7 @@ const PatchNotesView = () => {
       </Paper>
       {displayedReleases.map((release) => (
         <Paper key={release.version} sx={{ bgcolor: 'background.paperLight', my: 3 }}>
-          <Text h4 bold upperCase>v{release.version} <Text component="span" italic upperCase>{moment(release.date).format('DD MMMM YYYY')}</Text></Text>
+          <Text h4 bold upperCase>v{release.version} <Text component="span" italic upperCase>{moment.utc(release.date).format('DD MMMM YYYY')}</Text></Text>
           {!!release.features.length && (
             <>
               <Text h5 bold upperCase sx={{ mt: 1 }}>{t('features')}</Text>

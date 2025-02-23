@@ -1004,19 +1004,19 @@ const handleXpGains = async (prisma: PrismaClient) => {
 
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
   const now = moment.utc().valueOf();
-  const today = moment.utc().startOf('day');
+  const today = moment.utc().startOf('day').toDate();
 
   const achievementCount = await prisma.tournamentAchievement.count({
     where: {
       date: {
-        lt: today.toDate(),
+        lt: today,
       },
     },
   });
   const goldCount = await prisma.tournamentGold.count({
     where: {
       date: {
-        lt: today.toDate(),
+        lt: today,
       },
     },
   });
@@ -1033,7 +1033,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       FROM (
           SELECT SUM("achievementCount") "achievementCount", "achievement", "bruteId"
           FROM "TournamentAchievement"
-          WHERE date < ${today.toDate()}
+          WHERE date < ${today}
           GROUP BY "bruteId", "achievement"
       ) ta
       LEFT JOIN "Brute" b
@@ -1045,7 +1045,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     prisma.tournamentAchievement.deleteMany({
       where: {
         date: {
-          lt: today.toDate(),
+          lt: today,
         },
       },
     }),
@@ -1056,7 +1056,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       FROM (
           SELECT SUM(gold) gold, "userId"
           FROM "TournamentGold"
-          WHERE date < ${today.toDate()}
+          WHERE date < ${today}
           GROUP BY "userId"
       ) tg
       WHERE u.id = tg."userId";
@@ -1066,17 +1066,14 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       INSERT INTO "UserLog" ("type", "userId", "gold")
       (SELECT 'GOLD_WIN', "userId", SUM(gold)
       FROM "TournamentGold"
-      WHERE date < ${today.toDate()}
+      WHERE date < ${today}
       GROUP BY "userId");
     `,
     // Delete tournament gold
-    prisma.tournamentGold.deleteMany({
-      where: {
-        date: {
-          lt: today.toDate(),
-        },
-      },
-    }),
+    prisma.$executeRaw`
+      DELETE FROM "TournamentGold"
+      WHERE date < ${today};
+    `,
   ]);
 
   LOGGER.log(`${moment.utc().valueOf() - now}ms to handle ${achievementCount} achievements and ${goldCount} gold earnings`);
