@@ -123,5 +123,5 @@
   "eventAlreadyStarted": "Ereignis bereits begonnen",
   "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht",
   "reportAlreadyHandled": "Meldung bereits bearbeitet",
-  "cantFightBeforeLevelingUp": "You cannot fight before leveling up"
+  "cantFightBeforeLevelingUp": "Du kannst nicht kämpfen, ehe du eine Stufe aufsteigst"
 }
