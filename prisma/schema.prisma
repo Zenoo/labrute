@@ -74,6 +74,7 @@ model UserLog {
   oldName String?
 
   @@index([userId, date])
+  @@index([bruteId])
 }
 
 enum DestinyChoiceSide {
@@ -298,6 +299,10 @@ model Brute {
   @@index([ascensions, level, xp])
   @@index([deletedAt])
   @@index([masterId])
+  @@index([userId])
+  @@index([clanId])
+  @@index([wantToJoinClanId])
+  @@index([eventId])
 }
 
 model BruteStartingStats {
@@ -308,6 +313,8 @@ model BruteStartingStats {
   speed     Int    @default(3)
   brute     Brute  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId   String @unique @db.Uuid
+
+  @@index([bruteId])
 }
 
 // FIGHTS
@@ -453,6 +460,7 @@ model Tournament {
   eventId      String?        @unique @db.Uuid
 
   @@index([type, date])
+  @@index([eventId])
 }
 
 model TournamentAchievement {
@@ -464,6 +472,7 @@ model TournamentAchievement {
   achievementCount Int
 
   @@unique([achievement, bruteId])
+  @@index([bruteId])
 }
 
 model TournamentGold {
@@ -472,6 +481,8 @@ model TournamentGold {
   user   User     @relation(fields: [userId], references: [id])
   userId String   @db.Uuid
   gold   Int
+
+  @@index([userId])
 }
 
 model TournamentXp {
@@ -624,6 +635,7 @@ model Achievement {
 
   @@unique([name, bruteId])
   @@index([bruteId])
+  @@index([userId])
 }
 
 // REPORTS
@@ -654,6 +666,7 @@ model BruteReport {
   @@index([status, count])
   @@index([status, handledAt])
   @@index([bruteId])
+  @@index([handlerId])
 }
 
 // SERVER STATE
@@ -705,6 +718,7 @@ model Clan {
   @@unique([name, deletedAt])
   @@index([deletedAt, name, points])
   @@index([deletedAt, name, elo])
+  @@index([masterId])
 }
 
 model ClanThread {
@@ -721,6 +735,7 @@ model ClanThread {
   createdAt DateTime   @default(now()) @db.Timestamp()
   updatedAt DateTime   @default(now()) @db.Timestamp()
 
+  @@index([clanId])
   @@index([creatorId])
 }
 
@@ -733,6 +748,7 @@ model ClanPost {
   date     DateTime   @default(now()) @db.Timestamp()
   message  String     @db.Text
 
+  @@index([threadId])
   @@index([authorId])
 }
 
@@ -745,6 +761,7 @@ model BossDamage {
   damage  Int
 
   @@unique([bruteId, clanId])
+  @@index([bruteId])
   @@index([clanId])
 }
 
@@ -780,6 +797,9 @@ model ClanWar {
   fighters          ClanWarFighters[]
 
   @@index([status])
+  @@index([attackerId])
+  @@index([defenderId])
+  @@index([winnerId])
 }
 
 model ClanWarFighters {
@@ -791,6 +811,7 @@ model ClanWarFighters {
   defenders Brute[] @relation("ClanWarDefenderFighters")
 
   @@unique([clanWarId, day])
+  @@index([clanWarId])
 }
 
 // Inventory
@@ -813,6 +834,7 @@ model InventoryItem {
   @@unique([type, bruteId])
   @@unique([type, userId])
   @@index([bruteId])
+  @@index([userId])
 }
 
 // Releases
