@@ -123,5 +123,5 @@
   "eventAlreadyStarted": "Мероприятие уже началось",
   "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии",
   "reportAlreadyHandled": "Жалоба уже обработана",
-  "cantFightBeforeLevelingUp": "You cannot fight before leveling up"
+  "cantFightBeforeLevelingUp": "Вы не можете сражаться до повышения уровня"
 }
