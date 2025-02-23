@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.0](https://github.com/Zenoo/labrute/compare/labrute-v2.81.4...labrute-v2.82.0) (2025-02-23)
+
+
+### Features
+
+* Delete deleted brutes older than 30 days. Fixes [#978](https://github.com/Zenoo/labrute/issues/978) ([19ff642](https://github.com/Zenoo/labrute/commit/19ff64236d7b4608c73783c896fd05d939e9691e))
+
+
+### Bug Fixes
+
+* /ranking-data/ safeguard ([c0c29c7](https://github.com/Zenoo/labrute/commit/c0c29c71ad068d11648936d5d7b5ceebde855bbd))
+* Add indexes on foreign keys + update Prisma ([7748737](https://github.com/Zenoo/labrute/commit/77487372ea38be7cefa6abf5e717461d50ff7b68))
+* Fight display issue on leaving backup brute with fierceBrute activated ([ad50b0a](https://github.com/Zenoo/labrute/commit/ad50b0a44c1e58825a0f3c3c07381cf4d7d4530b))
+* Ignore dev deps on Dependabot ([1fc2321](https://github.com/Zenoo/labrute/commit/1fc23214d512b2e1c49dd7fca8202595f2502d69))
+* Missing achievement titles ([6f6af2f](https://github.com/Zenoo/labrute/commit/6f6af2f889da3e6087e671c931458b1fc2ea8b86))
+* New achievement titles. [#196](https://github.com/Zenoo/labrute/issues/196) ([c347b7d](https://github.com/Zenoo/labrute/commit/c347b7de216d3ff9798a8894cf537126406bab31))
+* Prevent fights if a brute can level up ([da31c5a](https://github.com/Zenoo/labrute/commit/da31c5ab1c89d5dd5213187fefdcfcf7b6622774))
+* Unlimited tag position. FIxes [#1123](https://github.com/Zenoo/labrute/issues/1123) ([2990f5e](https://github.com/Zenoo/labrute/commit/2990f5ee9bbd18ea6baf178bd460068d2b4315d1))
+* User logs being replaced ([0585eb4](https://github.com/Zenoo/labrute/commit/0585eb4a182eb7cafe24db57684eb44f3b3a0a9c))
+* Weird double gold won issue ([825839a](https://github.com/Zenoo/labrute/commit/825839a26117e91871ac0e24981b7c1f497c86f9))
+
 ## [2.81.4](https://github.com/Zenoo/labrute/compare/labrute-v2.81.3...labrute-v2.81.4) (2025-01-26)
 
 
