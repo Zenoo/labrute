@@ -1,6 +1,7 @@
 import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
-  GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError, getFightsLeft,
+  GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError,
+  canLevelUp, getFightsLeft,
   getXPNeeded,
   isUuid,
   randomBetween,
@@ -124,6 +125,11 @@ export const Fights = {
       // Cancel if brute1 has no fights left
       if (arenaFight && brute1FightsLeft <= 0) {
         throw new LimitError(translate('noFightsLeft', user));
+      }
+
+      // Cancel if brute1 can level up
+      if (canLevelUp(brute1)) {
+        throw new LimitError(translate('cantFightBeforeLevelingUp', user));
       }
 
       // Update brute last fight and fights left if arena fight
