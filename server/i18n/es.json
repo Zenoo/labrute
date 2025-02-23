@@ -122,5 +122,6 @@
   "eventNotFound": "No se ha encontrado el evento",
   "eventAlreadyStarted": "El evento ya está en curso",
   "eventMaxLevelReached": "Has alcanzado el nivel máximo para este evento",
-  "reportAlreadyHandled": "Reporte ya manejado"
+  "reportAlreadyHandled": "Reporte ya manejado",
+  "cantFightBeforeLevelingUp": "You cannot fight before leveling up"
 }
