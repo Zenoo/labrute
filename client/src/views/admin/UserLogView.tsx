@@ -103,7 +103,7 @@ export const UserLogView = () => {
     const timeout = setTimeout(() => {
       setLoading(true);
       Server.UserLog.list({ userIds, page }).then((l) => {
-        setLogs(l);
+        setLogs((prev) => [...prev, ...l]);
       }).catch(catchError(Alert)).finally(() => {
         setLoading(false);
       });
