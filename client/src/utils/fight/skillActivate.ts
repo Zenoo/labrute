@@ -61,8 +61,6 @@ const skillActivate = async (
       let timeSinceLastGhost = ghostInterval;
       // Ticker update function
       const update = (delta: number) => {
-        if (brute.animation.container.destroyed) return;
-
         timeSinceLastGhost += delta * speed.current;
         // No ghost creation
         if (timeSinceLastGhost < ghostInterval) return;
@@ -97,7 +95,7 @@ const skillActivate = async (
           ghost.filters = [new AdjustmentFilter()];
         }
         // Reposition last ghost
-        if (ghost) {
+        if (ghost && !brute.animation.container.destroyed) {
           // Hide shadow before texture copy
           brute.animation.shadow.visible = false;
           // Get brute's current texture
