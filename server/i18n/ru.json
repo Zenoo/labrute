@@ -122,5 +122,6 @@
   "eventNotFound": "Мероприятие не найдено",
   "eventAlreadyStarted": "Мероприятие уже началось",
   "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии",
-  "reportAlreadyHandled": "Жалоба уже обработана"
+  "reportAlreadyHandled": "Жалоба уже обработана",
+  "cantFightBeforeLevelingUp": "You cannot fight before leveling up"
 }
