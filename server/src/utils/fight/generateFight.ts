@@ -405,6 +405,9 @@ export const generateFight = async ({
         userIds.add(damage.brute?.userId || '');
       });
 
+      // Filter out empty userIds
+      userIds.delete('');
+
       const goldGains = Math.floor((boss.reward * BOSS_GOLD_REWARD) / userIds.size);
 
       await prisma.user.updateMany({

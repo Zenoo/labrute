@@ -1309,6 +1309,10 @@ export const Clans = {
     try {
       const user = await auth(prisma, req);
 
+      if (typeof req.params.brute !== 'string') {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
       if (!req.params.id || !isUuid(req.params.id)) {
         throw new MissingElementError(translate('missingId', user));
       }

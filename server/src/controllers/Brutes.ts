@@ -1433,6 +1433,10 @@ export const Brutes = {
         throw new NotFoundError('Brute not found');
       }
 
+      if (!brute.userId) {
+        throw new LimitError('Bot brutes have no destiny');
+      }
+
       const destinyChoices = await prisma.destinyChoice.findMany({
         where: { bruteId: brute.id },
       });
