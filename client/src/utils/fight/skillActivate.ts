@@ -95,30 +95,35 @@ const skillActivate = async (
           ghost.filters = [new AdjustmentFilter()];
         }
         // Reposition last ghost
-        if (ghost && !brute.animation.container.destroyed) {
-          // Hide shadow before texture copy
-          brute.animation.shadow.visible = false;
-          // Get brute's current texture
-          ghost.texture = app.renderer.generateTexture(brute.animation.container);
-          // Position ghost behind brute
-          const fighterBounds = brute.animation.container.getBounds();
-          ghost.position.set(fighterBounds.x, fighterBounds.y);
-          ghost.anchor.set(brute.animation.container.scale.x === 1 ? 0 : 1, 0);
-          ghost.scale = brute.animation.container.scale;
-          ghost.zIndex = brute.animation.container.zIndex - 1;
-          // Reset color filter
-          const filter = ghost.filters?.find(
-            (f) => f instanceof AdjustmentFilter
-          ) as AdjustmentFilter | null;
-          if (filter) {
-            filter.blue = 0.9;
-            filter.red = 2.4;
-            filter.saturation = 0.28;
-            filter.gamma = 0.26;
-            filter.contrast = 0.62;
+        if (ghost) {
+          if (!brute.animation.container.destroyed) {
+            // Hide shadow before texture copy
+            brute.animation.shadow.visible = false;
+            // Get brute's current texture
+            ghost.texture = app.renderer.generateTexture(brute.animation.container);
+            // Position ghost behind brute
+            const fighterBounds = brute.animation.container.getBounds();
+            ghost.position.set(fighterBounds.x, fighterBounds.y);
+            ghost.anchor.set(brute.animation.container.scale.x === 1 ? 0 : 1, 0);
+            ghost.scale = brute.animation.container.scale;
+            ghost.zIndex = brute.animation.container.zIndex - 1;
+            // Reset color filter
+            const filter = ghost.filters?.find(
+              (f) => f instanceof AdjustmentFilter
+            ) as AdjustmentFilter | null;
+            if (filter) {
+              filter.blue = 0.9;
+              filter.red = 2.4;
+              filter.saturation = 0.28;
+              filter.gamma = 0.26;
+              filter.contrast = 0.62;
+            }
+            // Show brute's shadow
+            brute.animation.shadow.visible = true;
+          } else {
+            // Remove ghost from stage
+            app.stage.removeChild(ghost);
           }
-          // Show brute's shadow
-          brute.animation.shadow.visible = true;
         }
       };
       // Add to ticker
