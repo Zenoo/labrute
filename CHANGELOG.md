@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.2](https://github.com/Zenoo/labrute/compare/labrute-v2.82.1...labrute-v2.82.2) (2025-02-26)
+
+
+### Bug Fixes
+
+* Fierce brute remnant again ([8f8fa66](https://github.com/Zenoo/labrute/commit/8f8fa666e241f9e7efb9789bfea455f05141d8a3))
+
 ## [2.82.1](https://github.com/Zenoo/labrute/compare/labrute-v2.82.0...labrute-v2.82.1) (2025-02-26)
 
 
