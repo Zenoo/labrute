@@ -530,7 +530,7 @@ export const Brutes = {
       });
 
       if (!brute) {
-        throw new Error(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       // Check event max level
