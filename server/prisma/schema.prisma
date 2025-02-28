@@ -245,7 +245,7 @@ model Brute {
   ascendedWeapons              WeaponName[]            @default([])
   ascendedSkills               SkillName[]             @default([])
   ascendedPets                 PetName[]               @default([])
-  master                       Brute?                  @relation("Master", fields: [masterId], references: [id], onDelete: SetNull)
+  master                       Brute?                  @relation("Master", fields: [masterId], references: [id])
   masterId                     String?                 @db.Uuid
   pupils                       Brute[]                 @relation("Master")
   pupilsCount                  Int                     @default(0)
@@ -651,7 +651,7 @@ enum BruteReportReason {
 
 model BruteReport {
   id        String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute     Brute?            @relation(fields: [bruteId], references: [id], onDelete: SetNull)
+  brute     Brute?            @relation(fields: [bruteId], references: [id])
   bruteId   String?           @db.Uuid
   bruteName String            @default("") @db.VarChar(255)
   users     User[]
@@ -754,7 +754,7 @@ model ClanPost {
 
 model BossDamage {
   id      String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute   Brute?  @relation(fields: [bruteId], references: [id])
+  brute   Brute?  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId String? @db.Uuid
   clan    Clan    @relation(fields: [clanId], references: [id])
   clanId  String  @db.Uuid
@@ -827,7 +827,7 @@ model InventoryItem {
   type    InventoryItemType
   count   Int               @default(1)
   bruteId String?           @db.Uuid
-  brute   Brute?            @relation(fields: [bruteId], references: [id])
+  brute   Brute?            @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   userId  String?           @db.Uuid
   user    User?             @relation(fields: [userId], references: [id])
 
