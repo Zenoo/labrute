@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.3](https://github.com/Zenoo/labrute/compare/labrute-v2.82.2...labrute-v2.82.3) (2025-03-07)
+
+
+### Bug Fixes
+
+* Brutal legend rank display in threads ([d08e7bd](https://github.com/Zenoo/labrute/commit/d08e7bd0783093bc608a9bdab5109910b797e48d))
+* Brute cascades ([19a61f7](https://github.com/Zenoo/labrute/commit/19a61f79b1b2957886b0e4028e2cb10f2d4f40e9))
+* Silence error ([22de10f](https://github.com/Zenoo/labrute/commit/22de10fdf1c5e6a8adaa248f36464bfdba47dcf2))
+
 ## [2.82.2](https://github.com/Zenoo/labrute/compare/labrute-v2.82.1...labrute-v2.82.2) (2025-02-26)
 
 
