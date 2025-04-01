@@ -1,0 +1,1 @@
+export const filterUnique = (array: unknown[]): unknown[] => Array.from(new Set(array));

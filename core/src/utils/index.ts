@@ -6,3 +6,4 @@ export * from './pad';
 export * from './randomBetween';
 export * from './randomItem';
 export * from './weightedRandom';
+export * from './filterUnique';

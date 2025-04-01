@@ -9,6 +9,7 @@ import {
   getTotalXP,
   pets,
   randomItem,
+  filterUnique,
 } from '@labrute/core';
 import {
   Brute,
@@ -134,6 +135,11 @@ export const resetBrute = async ({
   stats.weapons = stats.weapons.concat(brute.ascendedWeapons);
   stats.skills = stats.skills.concat(brute.ascendedSkills);
   stats.pets = stats.pets.concat(brute.ascendedPets);
+
+  // remap the perks to avoid duplicates
+  stats.weapons = filterUnique(stats.weapons) as WeaponName[];
+  stats.skills = filterUnique(stats.skills) as SkillName[];
+  stats.pets = filterUnique(stats.pets) as PetName[];
 
   // Take into account the endurance malus from ascended pets
   for (const petName of brute.ascendedPets) {
