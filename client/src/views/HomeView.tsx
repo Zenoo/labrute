@@ -1,4 +1,4 @@
-import { getRandomBody, getRandomColors, isNameValid, UserWithBrutesBodyColor } from '@labrute/core';
+import { getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Lock, LockOpen } from '@mui/icons-material';
 import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -65,8 +65,8 @@ const HomeView = () => {
         updateData(response);
 
         // Save user data in cookies
-        setCookie('user', response.id, 7);
-        setCookie('token', response.connexionToken, 7);
+        setCookie(USER_COOKIE, response.id, 7);
+        setCookie(TOKEN_COOKIE, response.connexionToken, 7);
         Alert.open('success', t('loginSuccess'));
 
         // Redirect to first brute if exists

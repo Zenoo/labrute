@@ -135,3 +135,6 @@ export const GlobalTournamentGoldReward = 150;
 export const GlobalTournamentXpReward = 1;
 
 export const DEFAULT_LANGUAGE = Lang.en;
+
+export const USER_COOKIE = 'x-brute-user';
+export const TOKEN_COOKIE = 'x-brute-token';

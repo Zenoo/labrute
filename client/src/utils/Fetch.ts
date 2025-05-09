@@ -1,3 +1,4 @@
+import { TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
 import { getCookie } from './cookies';
 
 type HeadersType = {
@@ -46,8 +47,8 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
   }
 
   return new Promise((resolve, reject) => {
-    const user = getCookie('user') || '';
-    const token = getCookie('token') || '';
+    const user = getCookie(USER_COOKIE) || '';
+    const token = getCookie(TOKEN_COOKIE) || '';
     const headers: HeadersType = {
       Accept: 'application/json',
       'x-csrf-token': localStorage.getItem('csrfToken') || '',

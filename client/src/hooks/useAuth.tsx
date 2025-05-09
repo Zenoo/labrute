@@ -1,4 +1,4 @@
-import { UserWithBrutesBodyColor, Version } from '@labrute/core';
+import { TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
 import { Event, FightModifier } from '@labrute/prisma';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { deleteCookie, getCookie } from '../utils/cookies';
@@ -58,8 +58,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (authing) return;
     setAuthing(true);
 
-    const userId = getCookie('user');
-    const token = getCookie('token');
+    const userId = getCookie(USER_COOKIE);
+    const token = getCookie(TOKEN_COOKIE);
 
     if (userId && token) {
       Server.User.authenticate(userId, token).then((response) => {
@@ -76,8 +76,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           Alert.open('warning', t('outdatedVersion'));
         }
       }).catch(() => {
-        deleteCookie('user');
-        deleteCookie('token');
+        deleteCookie(USER_COOKIE);
+        deleteCookie(TOKEN_COOKIE);
         setAuthing(false);
       });
     } else {
@@ -86,8 +86,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, [Alert, authing, setLanguage, t]);
 
   const signout = useCallback(() => {
-    deleteCookie('user');
-    deleteCookie('token');
+    deleteCookie(USER_COOKIE);
+    deleteCookie(TOKEN_COOKIE);
     setUser(null);
   }, []);
 
