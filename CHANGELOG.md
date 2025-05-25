@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.4](https://github.com/Zenoo/labrute/compare/labrute-v2.82.3...labrute-v2.82.4) (2025-05-25)
+
+
+### Bug Fixes
+
+* More damage for end of fight poisons ([a981c55](https://github.com/Zenoo/labrute/commit/a981c55a968bd1b8dcb23f44408181b04a6094c1))
+
 ## [2.82.3](https://github.com/Zenoo/labrute/compare/labrute-v2.82.2...labrute-v2.82.3) (2025-05-09)
 
 
