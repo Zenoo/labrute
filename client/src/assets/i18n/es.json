@@ -341,7 +341,7 @@
   "resistant": "Resistente",
   "resistant.desc": "Tus oponentes necesitan una infinidad de golpes para noquearte. Se necesitan al menos 5 golpes antes de sentir algo.",
   "resistant.effect": "Cada golpe de tus oponentes reduce tu vida como máximo un 20%",
-  "counterAttack": "Contraataque",
+  "counterAttack": "Contra-ataque",
   "counterAttack.desc": "¿Intentaron golpearte? ¡Eso no se puede quedar así! Por cada golpe evitado, respondes al instante.",
   "counterAttack.effect": "",
   "ironHead": "Cabeza de acero",
