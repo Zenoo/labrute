@@ -107,7 +107,7 @@ export const EventRoundView = () => {
                     textAlign: 'center',
                   }}
                   >
-                    <Link to={`/${brute1}/fight/${fight.id}`} target="_blank">
+                    <Link to={`/fight/${fight.id}`} target="_blank">
                       {brute1} vs {brute2}
                     </Link>
                   </Box>

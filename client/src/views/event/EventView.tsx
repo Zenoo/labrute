@@ -119,10 +119,10 @@ export const EventView = () => {
           eventTournamentWatchedDate: d.eventTournamentWatchedDate,
         }) : b));
 
-        navigate(`/${currentBrute}/fight/${fightId}`);
+        navigate(`/fight/${fightId}`);
       }).catch(catchError(Alert));
     } else {
-      navigate(`/${currentBrute}/fight/${fightId}`);
+      navigate(`/fight/${fightId}`);
     }
   };
 
@@ -140,9 +140,9 @@ export const EventView = () => {
     const fighters = JSON.parse(fight.fighters) as Fighter[];
 
     const fighter1 = fighters
-      .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
+      .find((fighter) => fighter.type === 'brute' && fighter.team === 'L');
     const fighter2 = fighters
-      .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
+      .find((fighter) => fighter.type === 'brute' && fighter.team === 'R');
 
     if (!fighter1) return null;
     if (!fighter2) return null;

@@ -91,9 +91,9 @@ const setupFight: (
   const fightFighters = JSON.parse(fight.fighters) as Fighter[];
 
   const brute1 = fightFighters.find((fighter) => !fighter.master
-        && fighter.id === fight.brute1Id);
+        && fighter.team === 'L');
   const brute2 = fightFighters.find((fighter) => !fighter.master
-        && fighter.id === fight.brute2Id);
+        && fighter.team === 'R');
   const boss = fightFighters.find((fighter) => fighter.type === 'boss');
 
   if (!brute1) {
