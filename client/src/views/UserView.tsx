@@ -1,4 +1,4 @@
-import { AchievementData, BanReason, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
+import { AchievementData, BanReason, Fighter, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
 import { Check, ManageSearch, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import dayjs from 'dayjs';
@@ -337,18 +337,24 @@ const UserView = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {user.favoriteFights.map((fight) => (
-                      <TableRow
-                        key={fight.id}
-                      >
-                        <TableCell>
-                          <Link to={`/fight/${fight.id}`}>
-                            {fight.brute1?.name} {t('vs')} {fight.brute2?.name}
-                          </Link>
-                        </TableCell>
-                        <TableCell align="right">{dayjs.utc(fight.date).format('DD/MM/YYYY')}</TableCell>
-                      </TableRow>
-                    ))}
+                    {user.favoriteFights.map((fight) => {
+                      const fighters = JSON.parse(fight.fighters) as Fighter[];
+                      const brute1 = fight.brute1?.name ?? fighters.find((fighter) => fighter.team === 'L' && !fighter.master)?.name ?? '';
+                      const brute2 = fight.brute2?.name ?? fighters.find((fighter) => fighter.team === 'R' && !fighter.master)?.name ?? '';
+
+                      return (
+                        <TableRow
+                          key={fight.id}
+                        >
+                          <TableCell>
+                            <Link to={`/fight/${fight.id}`}>
+                              {brute1} {t('vs')} {brute2}
+                            </Link>
+                          </TableCell>
+                          <TableCell align="right">{dayjs.utc(fight.date).format('DD/MM/YYYY')}</TableCell>
+                        </TableRow>
+                      );
+                    })}
                   </TableBody>
                 </Table>
               </>

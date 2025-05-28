@@ -373,6 +373,7 @@ export const Users = {
             select: {
               id: true,
               date: true,
+              fighters: true,
               brute1: {
                 select: { id: true, name: true },
               },

@@ -785,7 +785,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
     'eventId'
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
-  favoriteFights: (Pick<Fight, 'id' | 'date'> & {
+  favoriteFights: (Pick<Fight, 'id' | 'date' | 'fighters'> & {
     brute1: Pick<Brute, 'id' | 'name'>| null,
     brute2: Pick<Brute, 'id' | 'name'> | null,
   })[],
