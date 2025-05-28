@@ -2,12 +2,12 @@
 /* eslint-disable no-param-reassign */
 import { Fighter, FightStep, StepType } from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
-import moment from 'moment';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
+import dayjs from 'dayjs';
 import { TFunction } from 'i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
@@ -19,6 +19,7 @@ import block from './block';
 import bomb from './bomb';
 import death from './death';
 import disarm from './disarm';
+import dropShield from './dropShield';
 import eat from './eat';
 import end from './end';
 import equip from './equip';
@@ -33,9 +34,11 @@ import hypnotise from './hypnotise';
 import leave from './leave';
 import moveBack from './moveBack';
 import moveTo from './moveTo';
+import { regenerate } from './regenerate';
 import resist from './resist';
 import sabotage from './sabotage';
 import saboteur from './saboteur';
+import setHUDFocus from './setHUDFocus';
 import skillActivate from './skillActivate';
 import skillExpire from './skillExpire';
 import spy from './spy';
@@ -46,13 +49,10 @@ import trap from './trap';
 import trash from './trash';
 import { treat } from './treat';
 import updateWeapons from './updateWeapons';
-import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import createBustImage from './utils/createBustImage';
+import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import repositionFighters, { isRangedStep } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
-import dropShield from './dropShield';
-import setHUDFocus from './setHUDFocus';
-import { regenerate } from './regenerate';
 
 const setupFight: (
   theme: Theme,
@@ -333,7 +333,7 @@ const setupFight: (
     // Boss name
     const displayedBossName = (
       // Normal day Display
-      !moment.utc().isSame(moment.utc('04-01', 'MM-DD'), 'day') ? boss.name
+      !dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day') ? boss.name
         // April Fools Display
         : boss.name === BossName.EmberFang ? 'EmberFool'
           : boss.name === BossName.GoldClaw ? 'GoldClown'

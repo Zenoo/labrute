@@ -1,13 +1,13 @@
 import { pad } from '@labrute/core';
 import { Box, BoxProps, Link, Paper, Tooltip, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
+import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import Text from './Text';
-import { useAuth } from '../hooks/useAuth';
-import Marquee from 'react-fast-marquee';
 
 export interface HeaderProps extends BoxProps {
   url?: string;
@@ -22,8 +22,8 @@ const Header = ({
   const theme = useTheme();
   const { modifiers } = useAuth();
 
-  const [time, setTime] = useState(moment.utc());
-  const [marqueePaused, setMarqueePaused] = useState(localStorage.getItem('marqueePaused') === moment.utc().format('YYYY-MM-DD'));
+  const [time, setTime] = useState(dayjs.utc());
+  const [marqueePaused, setMarqueePaused] = useState(localStorage.getItem('marqueePaused') === dayjs.utc().format('YYYY-MM-DD'));
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
@@ -39,7 +39,7 @@ const Header = ({
   // Update time every minute
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(moment.utc());
+      setTime(dayjs.utc());
     }, 60000);
     return () => clearInterval(interval);
   }, []);

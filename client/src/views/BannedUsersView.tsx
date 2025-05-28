@@ -1,7 +1,7 @@
 import { UserBannedListResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import { IconButton, List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Page from '../components/Page';
@@ -59,7 +59,7 @@ export const BannedUsersView = () => {
                 >
                   <ListItemText
                     primary={`${bannedUser.name} (${bannedUser.id})`}
-                    secondary={`${moment.utc(bannedUser.bannedAt).format('DD/MM/YYYY')}, reason: ${bannedUser.banReason}`}
+                    secondary={`${dayjs.utc(bannedUser.bannedAt).format('DD/MM/YYYY')}, reason: ${bannedUser.banReason}`}
                   />
                 </ListItem>
               ))}

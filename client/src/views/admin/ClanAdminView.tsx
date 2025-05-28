@@ -2,19 +2,19 @@ import { ClanGetForAdminResponse } from '@labrute/core';
 import { BossName, Clan } from '@labrute/prisma';
 import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
 import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../hooks/useAuth';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import Link from '../../components/Link';
-import { useAuth } from '../../hooks/useAuth';
 
 export const ClanAdminView = () => {
   const { t } = useTranslation();
@@ -78,12 +78,12 @@ export const ClanAdminView = () => {
                 <DatePicker
                   label="Deleted at"
                   value={clan.deletedAt
-                    ? moment.utc(clan.deletedAt)
+                    ? dayjs.utc(clan.deletedAt)
                     : null}
                   onChange={(newValue) => {
                     setClan((b) => (b ? ({
                       ...b,
-                      deletedAt: moment.utc(newValue).toDate(),
+                      deletedAt: dayjs.utc(newValue).toDate(),
                     }) : null));
                   }}
                 />

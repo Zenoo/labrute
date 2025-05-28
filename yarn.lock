@@ -3613,6 +3613,7 @@ __metadata:
     "@types/react-dom": "npm:^18.2.17"
     "@typescript-eslint/eslint-plugin": "npm:^6.13.2"
     "@typescript-eslint/parser": "npm:^6.13.2"
+    dayjs: "npm:^1.11.13"
     eslint: "npm:^8.55.0"
     eslint-config-airbnb: "npm:^19.0.4"
     eslint-import-resolver-typescript: "npm:^3.6.1"
@@ -3623,7 +3624,6 @@ __metadata:
     i18next: "npm:^21.9.0"
     labrute-fla-parser: "npm:^1.0.13"
     labrute-static-fla-parser: "npm:^1.0.6"
-    moment: "npm:^2.29.4"
     pixi-tweener: "npm:^0.12.2"
     pixi.js: "npm:^6.5.9"
     react: "npm:^18.2.0"
@@ -3647,7 +3647,7 @@ __metadata:
   resolution: "@labrute/core@workspace:core"
   dependencies:
     "@labrute/prisma": "workspace:*"
-    moment: "npm:^2.29.4"
+    dayjs: "npm:^1.11.13"
     rand-seed: "npm:^2.1.7"
     typescript: "npm:^5.3.2"
   languageName: unknown
@@ -3691,6 +3691,7 @@ __metadata:
     cors: "npm:^2.8.5"
     cryptr: "npm:^6.3.0"
     csrf-csrf: "npm:^3.1.0"
+    dayjs: "npm:^1.11.13"
     discord.js: "npm:^14.17.3"
     dotenv: "npm:^16.4.7"
     eslint: "npm:^8.55.0"
@@ -3704,7 +3705,6 @@ __metadata:
     express: "npm:^4.21.2"
     i18next: "npm:^24.2.1"
     i18next-fs-backend: "npm:^2.6.0"
-    moment: "npm:^2.30.1"
     node-fetch: "npm:^3.3.2"
     node-schedule: "npm:^2.1.1"
     prisma: "npm:^6.4.1"
@@ -7565,9 +7565,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001646, caniuse-lite@npm:^1.0.30001669":
-  version: 1.0.30001679
-  resolution: "caniuse-lite@npm:1.0.30001679"
-  checksum: 4de6424465e904a9bb2913ab75916a3d24f47babd9419e49742fb786c2bf5c84124a78e8bd4ba5ebde899b3d2dbce12229ca543938f8acc4823f7c4aec71d93a
+  version: 1.0.30001718
+  resolution: "caniuse-lite@npm:1.0.30001718"
+  checksum: e172a4c156f743cc947e659f353ad9edb045725cc109a02cc792dcbf98569356ebfa4bb4356e3febf87427aab0951c34c1ee5630629334f25ae6f76de7d86fd0
   languageName: node
   linkType: hard
 
@@ -8519,6 +8519,13 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.21.0"
   checksum: 70b3e8ea7aaaaeaa2cd80bd889622a4bcb5d8028b4de9162cbcda359db06e16ff6e9309e54eead5341e71031818497f19aaf9839c87d1aba1e27bb4796e758a9
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.13":
+  version: 1.11.13
+  resolution: "dayjs@npm:1.11.13"
+  checksum: 7374d63ab179b8d909a95e74790def25c8986e329ae989840bacb8b1888be116d20e1c4eee75a69ea0dfbae13172efc50ef85619d304ee7ca3c01d5878b704f5
   languageName: node
   linkType: hard
 
@@ -13328,13 +13335,6 @@ __metadata:
   version: 1.0.3
   resolution: "module-details-from-path@npm:1.0.3"
   checksum: f93226e9154fc8cb91f4609b639167ec7ad9155b30be4924d9717656648a3ae5f181d4e2338434d4c5afc7b5f4c10dd3b64109e5b89a4be70b20a25ba3573d54
-  languageName: node
-  linkType: hard
-
-"moment@npm:^2.29.4, moment@npm:^2.30.1":
-  version: 2.30.1
-  resolution: "moment@npm:2.30.1"
-  checksum: ae42d876d4ec831ef66110bdc302c0657c664991e45cf2afffc4b0f6cd6d251dde11375c982a5c0564ccc0fa593fc564576ddceb8c8845e87c15f58aa6baca69
   languageName: node
   linkType: hard
 

@@ -1,19 +1,19 @@
 import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Gender, TournamentType } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Badge, Box, Paper, PaperProps, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
+import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
 import BruteRender from '../Brute/Body/BruteRender';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
-import { Gender, TournamentType } from '@labrute/prisma';
-import catchError from '../../utils/catchError';
-import { useAlert } from '../../hooks/useAlert';
-import { useNavigate } from 'react-router';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -29,7 +29,7 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 interface CellGlobalTournamentProps extends PaperProps {
-  date?: moment.Moment;
+  date?: Dayjs;
   name?: string;
 }
 
@@ -45,14 +45,14 @@ const CellGlobalTournament = ({
   const Alert = useAlert();
   const navigate = useNavigate();
 
-  const now = useMemo(() => moment.utc(), []);
+  const now = useMemo(() => dayjs.utc(), []);
   const bruteName = useMemo(() => name || brute?.name || '', [brute, name]);
 
   const [data, setData] = useState<TournamentsGetGlobalResponse | null>(null);
 
   const watchingRound = useMemo(() => (date
     ? 999
-    : moment.utc().isSame(brute?.globalTournamentWatchedDate, 'day')
+    : dayjs.utc().isSame(brute?.globalTournamentWatchedDate, 'day')
       ? (brute?.globalTournamentRoundWatched || 0) + 1
       : data?.tournament?.fights.find((f) => f.tournamentStep === 1) ? 1 : 2), [brute, date, data]);
 

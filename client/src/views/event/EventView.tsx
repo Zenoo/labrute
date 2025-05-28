@@ -2,7 +2,7 @@ import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuratio
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
 import { Close, Groups } from '@mui/icons-material';
 import { Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -78,7 +78,7 @@ export const EventView = () => {
       (a, b) => a.tournamentStep - b.tournamentStep,
     ).pop()?.tournamentStep ?? 1);
 
-    if (moment.utc().isSame(brute?.eventTournamentWatchedDate, 'day')) {
+    if (dayjs.utc().isSame(brute?.eventTournamentWatchedDate, 'day')) {
       if ((brute?.eventTournamentRoundWatched || 1) <= firstFoughtRound) {
         return firstFoughtRound;
       }

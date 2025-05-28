@@ -1,20 +1,20 @@
 import { UserLogsListResponse } from '@labrute/core';
+import { UserLogType } from '@labrute/prisma';
 import { Autocomplete, Chip, Paper, Stack, TextField } from '@mui/material';
+import { Box } from '@mui/system';
+import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
+import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
+import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import Loader from '../../components/Loader';
-import moment from 'moment';
-import { UserLogType } from '@labrute/prisma';
-import Link from '../../components/Link';
-import FantasyButton from '../../components/FantasyButton';
-import { useParams } from 'react-router';
-import { Box } from '@mui/system';
 
 const renderLog = (log: UserLogsListResponse[number]) => {
   switch (log.type) {
@@ -150,7 +150,7 @@ export const UserLogView = () => {
               <Stack>
                 {logs.map((log) => (
                   <Text key={log.id} body2>
-                    <Text component="span" bold body2 key={log.id}>[{moment.utc(log.date).format('YYYY-MM-DD HH:mm:ss')}]</Text>
+                    <Text component="span" bold body2 key={log.id}>[{dayjs.utc(log.date).format('YYYY-MM-DD HH:mm:ss')}]</Text>
                     {' '}
                     {renderLog(log)}
                   </Text>

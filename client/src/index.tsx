@@ -1,4 +1,9 @@
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+import ReactGA from 'react-ga4';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import Loader from './components/Loader';
@@ -6,8 +11,6 @@ import { LanguageProvider } from './hooks/useLanguage';
 import './i18n';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { createRoot } from 'react-dom/client';
-import ReactGA from 'react-ga4';
 import { HOST } from './utils/host';
 
 const container = document.getElementById('root');
@@ -15,6 +18,10 @@ const container = document.getElementById('root');
 if (!container) {
   throw new Error('No root element found');
 }
+
+// Enable plugins for dayjs
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
 
 export const analyticsMeasurementIds: Partial<Record<string, string>> = {
   brute: 'G-QKXVBHQVPD',

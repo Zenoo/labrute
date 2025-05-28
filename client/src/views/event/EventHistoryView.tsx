@@ -1,18 +1,18 @@
+import { EventListResponse } from '@labrute/core';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
-import { EventListResponse } from '@labrute/core';
-import Server from '../../utils/Server';
-import { ErrorType } from '../../utils/Fetch';
-import { useAlert } from '../../hooks/useAlert';
-import catchError from '../../utils/catchError';
-import moment from 'moment';
-import Loader from '../../components/Loader';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
+import Loader from '../../components/Loader';
+import Page from '../../components/Page';
+import Text from '../../components/Text';
+import { useAlert } from '../../hooks/useAlert';
+import catchError from '../../utils/catchError';
+import { ErrorType } from '../../utils/Fetch';
+import Server from '../../utils/Server';
 
 export const EventHistoryView = () => {
   const { t } = useTranslation();
@@ -84,7 +84,7 @@ export const EventHistoryView = () => {
                 {events ? (events.map((event) => (
                   <TableRow key={event.id}>
                     <TableCell component="th" scope="row">
-                      {moment.utc(event.date).format('DD/MM/YYYY')}
+                      {dayjs.utc(event.date).format('DD/MM/YYYY')}
                     </TableCell>
                     <TableCell>
                       <Link to={`/${bruteName}/event/${event.id}`}>

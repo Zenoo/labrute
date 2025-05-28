@@ -1,8 +1,8 @@
 import { Brute, FightModifier, SkillName } from '@labrute/prisma';
 import { skills } from './skills';
 import Rand from 'rand-seed';
-import moment from 'moment';
 import { randomBetween } from '../utils/randomBetween';
+import dayjs from 'dayjs';
 
 const unavailableTemporarySkills: SkillName[] = [SkillName.backup];
 
@@ -15,7 +15,7 @@ export const getTempSkill = (
   }
 
   // Seeded random number
-  const random = new Rand(`${brute.id}-randomSkill-${moment.utc().format('YYYY-MM-DD')}`);
+  const random = new Rand(`${brute.id}-randomSkill-${dayjs.utc().format('YYYY-MM-DD')}`);
   const skillIndex = randomBetween(0, 200, random);
 
   const unownedSkills = skills.filter((skill) => !brute.skills.includes(skill.name)

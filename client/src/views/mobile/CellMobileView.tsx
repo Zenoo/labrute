@@ -1,5 +1,7 @@
 import { Lang, Log } from '@labrute/prisma';
+import { History, Policy } from '@mui/icons-material';
 import { Box, Grid, IconButton, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
@@ -12,15 +14,13 @@ import CellSkills from '../../components/Cell/CellSkills';
 import CellSocials from '../../components/Cell/CellSocials';
 import CellTournament from '../../components/Cell/CellTournament';
 import CellWeapons from '../../components/Cell/CellWeapons';
+import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
-import FantasyButton from '../../components/FantasyButton';
-import { History, Policy } from '@mui/icons-material';
-import moment from 'moment';
-import { useAuth } from '../../hooks/useAuth';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
 
 export interface CellMobileViewProps {
@@ -194,7 +194,7 @@ const CellMobileView = ({
       </Box>
       {/* BRUTE SACRIFICE */}
       {owner
-        && moment.utc().isAfter(moment.utc(brute.createdAt), 'day')
+        && dayjs.utc().isAfter(dayjs.utc(brute.createdAt), 'day')
         && (
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <FantasyButton

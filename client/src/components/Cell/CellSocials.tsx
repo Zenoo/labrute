@@ -1,19 +1,19 @@
 import { AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, Today } from '@mui/icons-material';
 import { Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip } from '@mui/material';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
+import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
+import catchError from '../../utils/catchError';
+import { getBruteWinrate } from '../../utils/getBruteWinrate';
 import Server from '../../utils/Server';
+import { ActivityStatus } from '../ActivityStatus';
 import Link from '../Link';
 import Text from '../Text';
-import moment from 'moment';
-import { useAlert } from '../../hooks/useAlert';
-import catchError from '../../utils/catchError';
-import { ActivityStatus } from '../ActivityStatus';
-import { getBruteWinrate } from '../../utils/getBruteWinrate';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -134,10 +134,10 @@ const CellSocials = ({
               </Tooltip>
             </Grid>
             <Grid item xs={6}>
-              <Tooltip title={t('created', { date: moment.utc(brute.createdAt).format('LLL') })}>
+              <Tooltip title={t('created', { date: dayjs.utc(brute.createdAt).format('LLL') })}>
                 <Text bold component="span">
                   <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
-                  {moment.utc(brute.createdAt).fromNow()}
+                  {dayjs.utc(brute.createdAt).fromNow()}
                 </Text>
               </Tooltip>
             </Grid>

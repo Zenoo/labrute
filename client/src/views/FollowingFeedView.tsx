@@ -1,12 +1,14 @@
 import { LogGetForUserFeedResponse, skills, weapons } from '@labrute/core';
 import { LogType } from '@labrute/prisma';
 import { Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import BruteRender from '../components/Brute/Body/BruteRender';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import FantasyButton from '../components/FantasyButton';
+import Link from '../components/Link';
 import { LogImage } from '../components/LogImage';
 import Page from '../components/Page';
 import Text from '../components/Text';
@@ -14,8 +16,6 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
-import Link from '../components/Link';
-import BruteRender from '../components/Brute/Body/BruteRender';
 
 export const FollowingFeedView = () => {
   const { t } = useTranslation();
@@ -140,7 +140,7 @@ export const FollowingFeedView = () => {
                         )}
                       </Link>
                     )}
-                    secondary={moment.utc(log.date).fromNow()}
+                    secondary={dayjs.utc(log.date).fromNow()}
                   />
                 </ListItem>
               ))}

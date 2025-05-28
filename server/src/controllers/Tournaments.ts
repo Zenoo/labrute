@@ -9,13 +9,13 @@ import {
   PrismaClient,
   TournamentType,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
-import moment from 'moment';
 import { ServerState } from '../utils/ServerState.js';
 import { auth } from '../utils/auth.js';
+import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
-import { ilike } from '../utils/ilike.js';
 
 export const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (
@@ -23,14 +23,14 @@ export const Tournaments = {
     res: Response<TournamentsGetDailyResponse>,
   ) => {
     try {
-      if (!req.params.name || !req.params.date || !moment.utc(req.params.date, 'YYYY-MM-DD').isValid()) {
+      if (!req.params.name || !req.params.date || !dayjs.utc(req.params.date, 'YYYY-MM-DD').isValid()) {
         throw new ExpectedError(translate('invalidParameters'));
       }
 
       // Get tournament
       const tournament = await prisma.tournament.findFirst({
         where: {
-          date: { equals: moment.utc(req.params.date, 'YYYY-MM-DD').toDate() },
+          date: { equals: dayjs.utc(req.params.date, 'YYYY-MM-DD').toDate() },
           type: TournamentType.DAILY,
           participants: {
             some: {
@@ -100,7 +100,7 @@ export const Tournaments = {
         },
         data: {
           registeredForTournament: true,
-          nextTournamentDate: moment.utc().startOf('day').add(1, 'day').toDate(),
+          nextTournamentDate: dayjs.utc().startOf('day').add(1, 'day').toDate(),
         },
         select: { id: true },
       });
@@ -142,7 +142,7 @@ export const Tournaments = {
       const tournament = await prisma.tournament.findFirst({
         where: {
           type: TournamentType.DAILY,
-          date: moment.utc().startOf('day').toDate(),
+          date: dayjs.utc().startOf('day').toDate(),
           participants: {
             some: {
               name: ilike(req.params.name),
@@ -166,7 +166,7 @@ export const Tournaments = {
 
       const steps = [0, 32, 48, 56, 60, 63];
 
-      const stepWatched = !brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))
+      const stepWatched = !brute.currentTournamentDate || dayjs.utc(brute.currentTournamentDate).isBefore(dayjs.utc().startOf('day'))
         ? 0
         : brute.currentTournamentStepWatched || 0;
       let newStepWatched = stepWatched;
@@ -180,21 +180,21 @@ export const Tournaments = {
             id: brute.id,
           },
           data: {
-            currentTournamentDate: moment.utc().toDate(),
+            currentTournamentDate: dayjs.utc().toDate(),
             currentTournamentStepWatched: 6,
           },
           select: { id: true },
         });
 
         newStepWatched = 6;
-      } else if (!brute.currentTournamentDate || moment.utc(brute.currentTournamentDate).isBefore(moment.utc().startOf('day'))) {
+      } else if (!brute.currentTournamentDate || dayjs.utc(brute.currentTournamentDate).isBefore(dayjs.utc().startOf('day'))) {
         // First watch of the day
         await prisma.brute.update({
           where: {
             id: brute.id,
           },
           data: {
-            currentTournamentDate: moment.utc().toDate(),
+            currentTournamentDate: dayjs.utc().toDate(),
             currentTournamentStepWatched: 1,
           },
           select: { id: true },
@@ -254,7 +254,7 @@ export const Tournaments = {
           id: brute.id,
         },
         data: {
-          currentTournamentDate: moment.utc().toDate(),
+          currentTournamentDate: dayjs.utc().toDate(),
           currentTournamentStepWatched: 6,
         },
         select: { id: true },
@@ -274,7 +274,7 @@ export const Tournaments = {
         throw new Error('Invalid parameters');
       }
 
-      const date = moment.utc(req.params.date, 'YYYY-MM-DD');
+      const date = dayjs.utc(req.params.date, 'YYYY-MM-DD');
 
       // Get brute
       const brute = await prisma.brute.findFirst({
@@ -323,7 +323,7 @@ export const Tournaments = {
         return;
       }
 
-      const now = moment.utc();
+      const now = dayjs.utc();
       const hour = now.hour();
 
       // Get brute fights (round 1 at 11h, round 2 at 12h, etc...)
@@ -430,8 +430,8 @@ export const Tournaments = {
         where: {
           type: TournamentType.DAILY,
           date: {
-            gte: moment.utc().startOf('day').toDate(),
-            lte: moment.utc().endOf('day').toDate(),
+            gte: dayjs.utc().startOf('day').toDate(),
+            lte: dayjs.utc().endOf('day').toDate(),
           },
         },
         select: { id: true },
@@ -469,8 +469,8 @@ export const Tournaments = {
             in: [TournamentType.GLOBAL, TournamentType.UNLIMITED_GLOBAL],
           },
           date: {
-            gte: moment.utc().startOf('day').toDate(),
-            lte: moment.utc().endOf('day').toDate(),
+            gte: dayjs.utc().startOf('day').toDate(),
+            lte: dayjs.utc().endOf('day').toDate(),
           },
         },
         select: { id: true },
@@ -653,7 +653,7 @@ export const Tournaments = {
         throw new NotFoundError(translate('fightNotFound', user));
       }
 
-      const now = moment.utc();
+      const now = dayjs.utc();
       let roundWatched = fight.tournamentStep;
 
       // Skip to last round if brute lost

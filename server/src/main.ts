@@ -1,14 +1,21 @@
-import { NodeSDK } from '@opentelemetry/sdk-node';
-import { Resource } from '@opentelemetry/resources';
-import { SEMRESATTRS_DEPLOYMENT_ENVIRONMENT, SEMRESATTRS_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
-import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
-import { ExpressInstrumentation, ExpressLayerType } from '@opentelemetry/instrumentation-express';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
-import prismaInstrumentation from '@prisma/instrumentation';
-import urlJoin from 'url-join';
-import { Buffer } from 'buffer';
+import { ExpressInstrumentation, ExpressLayerType } from '@opentelemetry/instrumentation-express';
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
+import { Resource } from '@opentelemetry/resources';
+import { NodeSDK } from '@opentelemetry/sdk-node';
 import { AlwaysOnSampler, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
+import { SEMRESATTRS_DEPLOYMENT_ENVIRONMENT, SEMRESATTRS_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import prismaInstrumentation from '@prisma/instrumentation';
+import { Buffer } from 'buffer';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
+import urlJoin from 'url-join';
 import { Config, loadConfig } from './config.js';
+
+// Load dayjs plugins
+dayjs.extend(utc);
+dayjs.extend(isSameOrBefore);
 
 function getAuthorizationHeader(clientId: string, clientSecret: string): string {
   const credentials: string = `${clientId}:${clientSecret}`;

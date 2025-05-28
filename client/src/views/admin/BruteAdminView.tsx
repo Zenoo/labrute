@@ -2,19 +2,19 @@ import { AdminPanelBrute } from '@labrute/core';
 import { DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
 import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import Link from '../../components/Link';
 
 export const BruteAdminView = () => {
   const { t } = useTranslation();
@@ -459,12 +459,12 @@ export const BruteAdminView = () => {
                 <DatePicker
                   label="Next tournament date"
                   value={brute.nextTournamentDate
-                    ? moment.utc(brute.nextTournamentDate)
+                    ? dayjs.utc(brute.nextTournamentDate)
                     : null}
                   onChange={(newValue) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      nextTournamentDate: moment.utc(newValue).toDate(),
+                      nextTournamentDate: dayjs.utc(newValue).toDate(),
                     }) : null));
                   }}
                 />
@@ -473,12 +473,12 @@ export const BruteAdminView = () => {
                 <DatePicker
                   label="Current tournament date"
                   value={brute.currentTournamentDate
-                    ? moment.utc(brute.currentTournamentDate)
+                    ? dayjs.utc(brute.currentTournamentDate)
                     : null}
                   onChange={(newValue) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      currentTournamentDate: moment.utc(newValue).toDate(),
+                      currentTournamentDate: dayjs.utc(newValue).toDate(),
                     }) : null));
                   }}
                 />
@@ -500,12 +500,12 @@ export const BruteAdminView = () => {
                 <DatePicker
                   label="Last fight"
                   value={brute.lastFight
-                    ? moment.utc(brute.lastFight)
+                    ? dayjs.utc(brute.lastFight)
                     : null}
                   onChange={(newValue) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      lastFight: moment.utc(newValue).toDate(),
+                      lastFight: dayjs.utc(newValue).toDate(),
                     }) : null));
                   }}
                 />
@@ -540,12 +540,12 @@ export const BruteAdminView = () => {
                 <DatePicker
                   label="Opponents generated at"
                   value={brute.opponentsGeneratedAt
-                    ? moment.utc(brute.opponentsGeneratedAt)
+                    ? dayjs.utc(brute.opponentsGeneratedAt)
                     : null}
                   onChange={(newValue) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      opponentsGeneratedAt: moment.utc(newValue).toDate(),
+                      opponentsGeneratedAt: dayjs.utc(newValue).toDate(),
                     }) : null));
                   }}
                 />
@@ -554,12 +554,12 @@ export const BruteAdminView = () => {
                 <DatePicker
                   label="Can rank up since"
                   value={brute.canRankUpSince
-                    ? moment.utc(brute.canRankUpSince)
+                    ? dayjs.utc(brute.canRankUpSince)
                     : null}
                   onChange={(newValue) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      canRankUpSince: moment.utc(newValue).toDate(),
+                      canRankUpSince: dayjs.utc(newValue).toDate(),
                     }) : null));
                   }}
                 />

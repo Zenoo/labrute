@@ -2,7 +2,7 @@ import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
 import { Brute, Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import BruteRender from '../../components/Brute/Body/BruteRender';
@@ -71,7 +71,7 @@ const TournamentMobileView = ({
         textAlign: 'center',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {moment.utc(tournament.date).format('DD MMMM YYYY')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {dayjs.utc(tournament.date).format('DD MMMM YYYY')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2, }}>
         {ownsBrute && stepWatched < 6 && (

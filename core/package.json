@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@labrute/prisma": "workspace:*",
-    "moment": "^2.29.4",
+    "dayjs": "^1.11.13",
     "rand-seed": "^2.1.7"
   }
 }

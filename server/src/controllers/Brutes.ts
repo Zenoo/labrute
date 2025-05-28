@@ -40,8 +40,8 @@ import {
   UserLogType,
   WeaponName,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
-import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
 import { auth } from '../utils/auth.js';
 import { checkBody } from '../utils/brute/checkBody.js';
@@ -50,12 +50,12 @@ import { checkLevelUpAchievements } from '../utils/brute/checkLevelUpAchievement
 import { getOpponents } from '../utils/brute/getOpponents.js';
 import { resetBrute } from '../utils/brute/resetBrute.js';
 import { updateClanPoints } from '../utils/clan/updateClanPoints.js';
+import { createUserLog } from '../utils/createUserLog.js';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
-import { createUserLog } from '../utils/createUserLog.js';
 
 export const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -124,7 +124,7 @@ export const Brutes = {
           tournaments: {
             where: {
               type: TournamentType.DAILY,
-              date: moment.utc().startOf('day').toDate(),
+              date: dayjs.utc().startOf('day').toDate(),
             },
           },
           inventory: {
@@ -724,7 +724,7 @@ export const Brutes = {
       let opponents = brute.opponents.filter((o) => o.deletedAt === null);
 
       // If never generated today or not enough opponents, reset opponents
-      if (!brute.opponentsGeneratedAt || moment.utc(brute.opponentsGeneratedAt).isBefore(moment.utc().startOf('day')) || opponents.length < ARENA_OPPONENTS_COUNT) {
+      if (!brute.opponentsGeneratedAt || dayjs.utc(brute.opponentsGeneratedAt).isBefore(dayjs.utc().startOf('day')) || opponents.length < ARENA_OPPONENTS_COUNT) {
         // Get opponents
         opponents = await getOpponents(prisma, brute);
 
@@ -779,7 +779,7 @@ export const Brutes = {
       }
 
       // Prevent sacrificing the day of creation
-      if (moment.utc().isSame(moment.utc(brute.createdAt), 'day')) {
+      if (dayjs.utc().isSame(dayjs.utc(brute.createdAt), 'day')) {
         throw new ForbiddenError(translate('cannotSacrificeSameDay', authed));
       }
 
@@ -2106,7 +2106,7 @@ export const Brutes = {
         throw new NotFoundError(translate('fightNotFound', user));
       }
 
-      const now = moment.utc();
+      const now = dayjs.utc();
       let roundWatched = fight.tournamentStep + 1;
 
       // Skip to last round if brute lost

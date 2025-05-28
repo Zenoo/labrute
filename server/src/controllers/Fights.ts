@@ -10,8 +10,8 @@ import {
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
+import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
-import moment from 'moment';
 import { DISCORD, LOGGER } from '../context.js';
 import { auth } from '../utils/auth.js';
 import { getOpponents } from '../utils/brute/getOpponents.js';
@@ -60,7 +60,7 @@ export const Fights = {
         },
       });
 
-      const now = moment.utc();
+      const now = dayjs.utc();
       const hour = now.hour();
 
       if (tournament && fight.tournamentStep > hour - GLOBAL_TOURNAMENT_START_HOUR + 1) {

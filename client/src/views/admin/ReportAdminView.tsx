@@ -2,17 +2,17 @@ import { BruteReportWithNames } from '@labrute/core';
 import { BruteReportStatus } from '@labrute/prisma';
 import { Check, Close } from '@mui/icons-material';
 import { Box, FormControl, FormControlLabel, FormLabel, IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip } from '@mui/material';
+import dayjs from 'dayjs';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import FantasyButton from '../../components/FantasyButton';
+import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import moment from 'moment';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();
@@ -139,11 +139,11 @@ const ReportAdminView = () => {
                     secondary={(
                       <>
                         <Text body2 component="span" display="block">
-                          [{moment.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
+                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
                         </Text>
                         {status !== BruteReportStatus.pending && (
                           <Text body2 component="span" display="block">
-                            [{moment.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
+                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
                           </Text>
                         )}
                       </>

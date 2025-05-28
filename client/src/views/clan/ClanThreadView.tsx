@@ -1,8 +1,10 @@
 import { ClanGetThreadResponse } from '@labrute/core';
 import { Box, Paper } from '@mui/material';
+import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
+import BruteRender from '../../components/Brute/Body/BruteRender';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
@@ -11,8 +13,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
-import moment from 'moment';
-import BruteRender from '../../components/Brute/Body/BruteRender';
 
 const ClanThreadView = () => {
   const { t } = useTranslation();
@@ -179,7 +179,7 @@ const ClanThreadView = () => {
                       <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
                     )}
                   </Box>
-                  <Text color="primary">{moment.utc(post.date).format('D MMM YYYY HH:mm')}</Text>
+                  <Text color="primary">{dayjs.utc(post.date).format('D MMM YYYY HH:mm')}</Text>
                 </Box>
                 {/* CONTENT */}
                 <Box

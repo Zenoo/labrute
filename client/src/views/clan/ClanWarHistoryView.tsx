@@ -1,17 +1,17 @@
 import { ClanWarGetHistoryResponse } from '@labrute/core';
+import { ClanWarType } from '@labrute/prisma';
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import Link from '../../components/Link';
+import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
-import moment from 'moment';
-import Loader from '../../components/Loader';
-import { ClanWarType } from '@labrute/prisma';
 
 export const ClanWarHistoryView = () => {
   const { t } = useTranslation();
@@ -81,7 +81,7 @@ export const ClanWarHistoryView = () => {
                   key={war.id}
                 >
                   <TableCell component="th" scope="row">
-                    {moment.utc(war.date).format('DD/MM/YYYY')}
+                    {dayjs.utc(war.date).format('DD/MM/YYYY')}
                     {war.type === ClanWarType.friendly && (
                       <Tooltip title={t('clanWar.friendly')}>
                         <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
