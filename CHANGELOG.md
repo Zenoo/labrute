@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.5](https://github.com/Zenoo/labrute/compare/labrute-v2.82.4...labrute-v2.82.5) (2025-05-28)
+
+
+### Bug Fixes
+
+* Favorited fights deleted brute names ([66bfe6c](https://github.com/Zenoo/labrute/commit/66bfe6cfc66cee02242bdd44dede37355ecf9941))
+* Fight links without brute names for favorited fights ([0d373d1](https://github.com/Zenoo/labrute/commit/0d373d17734909fbc465fdaa7182279c96616183))
+* Missing fights from deleted brutes on event pages. Fixes [#1132](https://github.com/Zenoo/labrute/issues/1132) ([4c9694d](https://github.com/Zenoo/labrute/commit/4c9694d08a5b3f24e0aaaf5e05ce9a28cebbf1c3))
+* Overtime damage ([59cb5ab](https://github.com/Zenoo/labrute/commit/59cb5abcbd7e7dcf75cfeefe8647f6b94bfd5115))
+* Replace moment by dayjs. Fixes [#1054](https://github.com/Zenoo/labrute/issues/1054) ([1ce9b33](https://github.com/Zenoo/labrute/commit/1ce9b335b59aa553c5c0f5600dac08171472d0ca))
+
 ## [2.82.4](https://github.com/Zenoo/labrute/compare/labrute-v2.82.3...labrute-v2.82.4) (2025-05-25)
 
 
