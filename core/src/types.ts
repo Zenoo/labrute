@@ -541,6 +541,7 @@ export interface DetailedFight {
   initiative: number;
   winner: string | null;
   loser: string | null;
+  overtime: boolean;
 }
 
 export type AnimationModel =

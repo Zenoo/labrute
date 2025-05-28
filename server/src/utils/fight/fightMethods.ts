@@ -2393,22 +2393,42 @@ export const playFighterTurn = (
   // Check if fighter is poisoned
   if (!fightData.loser && fighter.hp > 0 && fighter.poisoned) {
     // Get poisoner
-    const poisoner = getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+    const poisoner = fightData.fighters
+      .filter((f) => !f.arrivesAtInitiative && f.team !== fighter.team)
       .find((f) => f.skills.find((s) => s.name === SkillName.chef));
 
-    // Get poison damage (2% of max HP usually, 25% for end of fight poison)
-    const poisonDamage = poisoner ? Math.ceil(fighter.maxHp / 50) : Math.ceil(fighter.maxHp / 4);
+    if (!poisoner) {
+      throw new Error('No poisoner found');
+    }
 
-    const finalPoisoner = poisoner
-      || getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
+    // Get poison damage (2% of max HP)
+    const poisonDamage = Math.ceil(fighter.maxHp / 50);
 
-    if (finalPoisoner) {
+    // Register the hit
+    registerHit({
+      fightData,
+      stats,
+      achievements,
+      fighter: poisoner,
+      opponents: [fighter],
+      damage: poisonDamage,
+      source: 'poison',
+    });
+  }
+
+  // Overtime poison
+  if (!fightData.loser && fighter.hp > 0 && fightData.overtime) {
+    // Get poison damage (25%)
+    const poisonDamage = Math.ceil(fighter.maxHp / 4);
+    const poisoner = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
+
+    if (poisoner) {
       // Register the hit
       registerHit({
         fightData,
         stats,
         achievements,
-        fighter: finalPoisoner,
+        fighter: poisoner,
         opponents: [fighter],
         damage: poisonDamage,
         source: 'poison',

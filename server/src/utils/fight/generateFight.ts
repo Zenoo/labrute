@@ -159,6 +159,7 @@ export const generateFight = async ({
     initiative: 0,
     winner: null,
     loser: null,
+    overtime: false,
   };
 
   // Add arrive step for all fighters
@@ -202,11 +203,9 @@ export const generateFight = async ({
     // Set current initiative to first fighter
     fightData.initiative = firstFighter.initiative;
 
-    // Poison fighters if turn > 1000
+    // Set overtime
     if (turn > 1000) {
-      fightData.fighters.forEach((fighter) => {
-        fighter.poisoned = true;
-      });
+      fightData.overtime = true;
     }
 
     // Play fighter turn
