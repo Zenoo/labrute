@@ -65,6 +65,7 @@ const routes: RouteObject[] = [
       { path: 'hall', element: <HallView /> },
       { path: 'patch-notes', element: <PatchNotesView /> },
       { path: 'wiki', element: <WikiView /> },
+      { path: 'fight/:fightId', element: <FightView /> },
       {
         path: 'user/:userId',
         children: [

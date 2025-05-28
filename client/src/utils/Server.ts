@@ -80,7 +80,7 @@ const Server = {
     getForUserFeed: (page: number) => Fetch<LogGetForUserFeedResponse>(`/api/log/user-feed/${page}`),
   },
   Fight: {
-    get: (name: string, id: string) => Fetch<FightGetResponse>(`/api/fight/${name}/${id}`),
+    get: (id: string) => Fetch<FightGetResponse>(`/api/fight/${id}`),
     create: (brute1: string, brute2: string) => Fetch<FightCreateResponse>('/api/fight', { brute1, brute2 }, 'PATCH'),
     toggleFavorite: (id: string) => Fetch<never>(`/api/fight/${id}/toggle-favorite`, {}, 'PATCH'),
   },

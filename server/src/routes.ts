@@ -97,7 +97,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
 
   // Fight
   app.patch('/api/fight/:id/toggle-favorite', Fights.toggleFavorite(prisma));
-  app.get('/api/fight/:name/:id', Fights.get(prisma));
+  app.get('/api/fight/:id', Fights.get(prisma));
   app.patch('/api/fight', Fights.create(prisma));
 
   // Tournament

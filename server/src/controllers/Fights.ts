@@ -27,7 +27,7 @@ export const Fights = {
     res: Response<FightGetResponse>,
   ) => {
     try {
-      if (!req.params.name || !req.params.id) {
+      if (!req.params.id) {
         throw new MissingElementError(translate('missingParameters'));
       }
 
@@ -39,10 +39,6 @@ export const Fights = {
       const fight = await prisma.fight.findFirst({
         where: {
           id: req.params.id,
-          OR: [
-            { brute1: { name: ilike(req.params.name) } },
-            { brute2: { name: ilike(req.params.name) } },
-          ],
         },
         include: {
           favoritedBy: {

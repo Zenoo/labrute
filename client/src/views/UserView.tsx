@@ -342,7 +342,7 @@ const UserView = () => {
                         key={fight.id}
                       >
                         <TableCell>
-                          <Link to={`/${fight.brute1?.name}/fight/${fight.id}`}>
+                          <Link to={`/fight/${fight.id}`}>
                             {fight.brute1?.name} {t('vs')} {fight.brute2?.name}
                           </Link>
                         </TableCell>

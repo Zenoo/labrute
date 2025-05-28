@@ -31,19 +31,19 @@ const FightView = () => {
     let isSubscribed = true;
     const cleanup = () => { isSubscribed = false; };
 
-    if (!bruteName || !fightId) {
+    if (!fightId) {
       navigate('/');
       return cleanup;
     }
 
-    Server.Fight.get(bruteName, fightId).then((result) => {
+    Server.Fight.get(fightId).then((result) => {
       if (isSubscribed) {
         setFight(result);
       }
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, bruteName, fightId, navigate]);
+  }, [Alert, fightId, navigate]);
 
   // Randomized adverts (must be different)
   const ads = useMemo(() => {
@@ -55,16 +55,16 @@ const FightView = () => {
   if (smallScreen) {
     return (
       <FightMobileView
-        pageTitle={bruteName}
-        headerUrl={`/${bruteName}/cell`}
+        pageTitle={bruteName ? `${bruteName} ${t('fight')}` : t('fight')}
+        headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
         ads={ads}
         fight={fight}
       />
     );
   }
 
-  return (bruteName && fightId) ? (
-    <Page title={`${bruteName || ''} ${t('fight')}`} headerUrl={`/${bruteName}/cell`}>
+  return fightId ? (
+    <Page title={bruteName ? `${bruteName} ${t('fight')}` : t('fight')} headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{
