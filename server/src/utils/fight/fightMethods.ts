@@ -254,7 +254,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out tragicPotion if lost less than 50% HP or 30% if poisonned
-  if (fighter.hp > fighter.maxHp * (fighter.poisoned ? 0.3 : 0.5)) {
+  if (fighter.hp > fighter.maxHp * (fighter.poisonedBy ? 0.3 : 0.5)) {
     supers = supers.filter((skill) => skill.name !== SkillName.tragicPotion);
   }
 
@@ -411,7 +411,7 @@ export const fighterArrives = (
   if (!fighter.master && fighter.skills.find((skill) => skill.name === SkillName.chef)) {
     getOpponents({ fightData, fighter }).forEach((opponent) => {
       if (opponent.type !== 'boss') {
-        opponent.poisoned = true;
+        opponent.poisonedBy = fighter.index;
       }
     });
   }
@@ -895,8 +895,8 @@ const activateSuper = (
       hpHealed = Math.min(hpHealed, fighter.maxHp - fighter.hp);
       healFighter(stats, fighter, hpHealed);
 
-      if (fighter.poisoned) {
-        fighter.poisoned = false;
+      if (fighter.poisonedBy) {
+        fighter.poisonedBy = null;
         poisonHeal = true;
       }
 
@@ -1405,8 +1405,8 @@ const activateSuper = (
 
       let poisonHeal = false;
 
-      if (pet.poisoned) {
-        pet.poisoned = false;
+      if (pet.poisonedBy) {
+        pet.poisonedBy = null;
         poisonHeal = true;
       }
 
@@ -2391,11 +2391,10 @@ export const playFighterTurn = (
   }
 
   // Check if fighter is poisoned
-  if (!fightData.loser && fighter.hp > 0 && fighter.poisoned) {
+  if (!fightData.loser && fighter.hp > 0 && fighter.poisonedBy) {
     // Get poisoner
     const poisoner = fightData.fighters
-      .filter((f) => !f.arrivesAtInitiative && f.team !== fighter.team)
-      .find((f) => f.skills.find((s) => s.name === SkillName.chef));
+      .find((f) => f.index === fighter.poisonedBy);
 
     if (!poisoner) {
       throw new Error('No poisoner found');

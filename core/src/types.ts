@@ -104,7 +104,7 @@ export interface DetailedFighter {
   saboteur: boolean;
   sabotagedWeapon: Weapon | null;
   // Status effects
-  poisoned: boolean;
+  poisonedBy: number | null; // Fighter index
   trapped: boolean;
   // Reduce some weapons damage by 25%
   damagedWeapons: WeaponName[],
