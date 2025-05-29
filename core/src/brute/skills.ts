@@ -608,7 +608,7 @@ export const SkillModifiers: Record<
     [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
   },
   [SkillName.fastMetabolism]: {
-    [FightStat.REGENERATION]: { percent: 0.05 },
+    [FightStat.REGENERATION]: { percent: 0.01 },
     [FightStat.HIT_SPEED]: { percent: -0.5 },
     [FightStat.CRITICAL_CHANCE]: { percent: -0.05 },
   },

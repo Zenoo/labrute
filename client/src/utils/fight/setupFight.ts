@@ -632,7 +632,7 @@ const setupFight: (
         break;
       }
       case StepType.Regeneration: {
-        regenerate(app, fighters, step, speed, isClanWar);
+        await regenerate(app, fighters, step, speed, isClanWar);
         break;
       }
       case StepType.Counter: {

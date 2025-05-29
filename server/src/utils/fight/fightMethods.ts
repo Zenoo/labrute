@@ -680,6 +680,20 @@ const registerHit = ({
         b: opponent.index,
       });
     }
+
+    // Break Fast Metabolism if opponent has it
+    if (opponent.fastMetabolism !== null && opponent.fastMetabolism > 0) {
+      opponent.fastMetabolism = null;
+    }
+
+    // Trigger Fast Metabolism if < 50% HP
+    if (opponent.fastMetabolism === 0 && opponent.hp < opponent.maxHp * 0.5) {
+      // 10 stacks
+      opponent.fastMetabolism = 10;
+
+      // Force opponent to play right away
+      opponent.initiative = fighter.initiative;
+    }
   });
 
   // Update stats
@@ -2048,10 +2062,52 @@ export const playFighterTurn = (
     fighterArrives(fightData, fighter);
   }
 
+  // Fast metabolism
+  if (fighter.fastMetabolism !== null && fighter.fastMetabolism > 0) {
+    // End fast metabolism if full HP
+    if (fighter.hp >= fighter.maxHp) {
+      fighter.fastMetabolism = null;
+      return;
+    }
+
+    // Decrease fast metabolism
+    fighter.fastMetabolism -= 1;
+
+    // Heal 5% of max HP
+    let heal = Math.ceil(fighter.maxHp * 0.05);
+
+    // Prevent overheal
+    if (fighter.hp + heal > fighter.maxHp) {
+      heal = fighter.maxHp - fighter.hp;
+    }
+
+    // Heal fighter
+    healFighter(stats, fighter, heal);
+
+    // Add regeneration step
+    fightData.steps.push({
+      a: StepType.Regeneration,
+      f: fighter.index,
+      h: heal,
+      d: true,
+    });
+
+    // If fast metabolism is over, remove it
+    if (fighter.fastMetabolism <= 0) {
+      fighter.fastMetabolism = null;
+    }
+
+    // Increase initiative
+    fighter.initiative += 0.15;
+
+    // Stop turn if fast metabolism was used
+    return;
+  }
+
   // Regeneration
   if (fighter.hp < fighter.maxHp) {
     if (fighter.regeneration > 0) {
-      let heal = Math.floor(fighter.maxHp * fighter.regeneration);
+      let heal = Math.ceil(fighter.maxHp * fighter.regeneration);
 
       // Prevent overheal
       if (fighter.hp + heal > fighter.maxHp) {

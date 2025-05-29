@@ -6,7 +6,7 @@ import updateHp from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import findFighter, { AnimationFighter } from './utils/findFighter';
 
-export const regenerate = (
+export const regenerate = async (
   app: Application,
   fighters: AnimationFighter[],
   step: RegenerationStep,
@@ -31,4 +31,13 @@ export const regenerate = (
 
   // Heal brute
   updateHp(fighters, fighter, step.h, speed, isClanWar);
+
+  // Delay
+  if (step.d) {
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(null);
+      }, 500 / speed.current);
+    });
+  }
 };

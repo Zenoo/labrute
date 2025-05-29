@@ -51,48 +51,46 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
     }
 
     // Passives
-    if (skill === SkillName.shield) {
-      fighter.shield = true;
-    }
-
-    if (skill === SkillName.saboteur) {
-      fighter.saboteur = true;
-    }
-
-    if (skill === SkillName.sabotage) {
-      fighter.sabotage = true;
-    }
-
-    if (skill === SkillName.bodybuilder) {
-      fighter.bodybuilder = true;
-    }
-
-    if (skill === SkillName.survival) {
-      fighter.survival = true;
-    }
-
-    if (skill === SkillName.balletShoes) {
-      fighter.balletShoes = true;
-    }
-
-    if (skill === SkillName.determination) {
-      fighter.determination = true;
-    }
-
-    if (skill === SkillName.ironHead) {
-      fighter.ironHead = true;
-    }
-
-    if (skill === SkillName.resistant) {
-      fighter.resistant = true;
-    }
-
-    // Add one fierceBrute use every 30 strength
-    if (skill === SkillName.fierceBrute) {
-      const fierceBruteSkill = fighter.skills.find((s) => s.name === skill);
-      if (fierceBruteSkill && fierceBruteSkill.uses) {
-        fierceBruteSkill.uses += Math.floor(fighter.strength / 30);
+    switch (skill) {
+      case SkillName.shield:
+        fighter.shield = true;
+        break;
+      case SkillName.saboteur:
+        fighter.saboteur = true;
+        break;
+      case SkillName.sabotage:
+        fighter.sabotage = true;
+        break;
+      case SkillName.bodybuilder:
+        fighter.bodybuilder = true;
+        break;
+      case SkillName.survival:
+        fighter.survival = true;
+        break;
+      case SkillName.balletShoes:
+        fighter.balletShoes = true;
+        break;
+      case SkillName.determination:
+        fighter.determination = true;
+        break;
+      case SkillName.ironHead:
+        fighter.ironHead = true;
+        break;
+      case SkillName.resistant:
+        fighter.resistant = true;
+        break;
+      case SkillName.fastMetabolism:
+        fighter.fastMetabolism = 0;
+        break;
+      case SkillName.fierceBrute: {
+        // Add one fierceBrute use every 30 strength
+        const fierceBruteSkill = fighter.skills.find((s) => s.name === skill);
+        if (fierceBruteSkill && fierceBruteSkill.uses) {
+          fierceBruteSkill.uses += Math.floor(fighter.strength / 30);
+        }
+        break;
       }
+      default:
     }
   }
 };
@@ -218,6 +216,7 @@ export const getFighters = ({
         retryAttack: false,
         ironHead: false,
         resistant: false,
+        fastMetabolism: null,
         skills: skills
           .filter((skill) => brute.skills.includes(skill.name))
           .map((skill) => ({ ...skill })),
@@ -292,6 +291,7 @@ export const getFighters = ({
           retryAttack: false,
           ironHead: false,
           resistant: false,
+          fastMetabolism: null,
           skills: [],
           weapons: [],
           shield: false,
@@ -374,6 +374,7 @@ export const getFighters = ({
         retryAttack: false,
         ironHead: false,
         resistant: false,
+        fastMetabolism: null,
         skills: skills
           .filter((skill) => backup.skills.includes(skill.name))
           .map((skill) => ({ ...skill })),
@@ -441,6 +442,7 @@ export const getFighters = ({
         retryAttack: false,
         ironHead: false,
         resistant: false,
+        fastMetabolism: null,
         skills: [],
         weapons: [],
         shield: false,

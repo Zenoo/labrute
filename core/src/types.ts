@@ -89,6 +89,8 @@ export interface DetailedFighter {
   ironHead: boolean;
   // Max 20% max HP per hit
   resistant: boolean;
+  // Regen boost at 50% HP
+  fastMetabolism: number | null;
   // Available skills
   skills: Skill[];
   // Available weapons
@@ -523,6 +525,8 @@ export interface RegenerationStep {
   f: number;
   /** HP healed */
   h: number;
+  /** Delay */
+  d?: boolean;
 }
 
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
