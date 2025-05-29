@@ -391,7 +391,7 @@
   "repulse.effect": "",
   "fastMetabolism": "Métabolisme Rapide",
   "fastMetabolism.desc": "Vos cellules fonctionnent à la vitesse de la lumière. Vous pouvez vous régénérer plus vite que votre adversaire ne peut vous infliger des dégâts... Enfin peut-être.",
-  "fastMetabolism.effect": "",
+  "fastMetabolism.effect": "Your brute regenerates 1% of their health at the end of each turn. At 50% HP, they can regenerate up to 10 times 5% HP if they don't take damage.",
   "fan": "Éventail",
   "keyboard": "Clavier",
   "knife": "Couteau",
