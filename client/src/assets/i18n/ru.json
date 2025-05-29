@@ -391,7 +391,7 @@
   "repulse.effect": "",
   "fastMetabolism": "Ускоренный метаболизм",
   "fastMetabolism.desc": "Ваши клетки работают со скоростью света. Вы восстанавливаетесь быстрее, чем противник может вас повредить... возможно.",
-  "fastMetabolism.effect": "Ваш Брутал восстанавливает 1% ОЗ в конце каждого хода. При 50% ОЗ, он сможет восстановить 5% ОЗ до 10 раз, если не получит урона",
+  "fastMetabolism.effect": "At 50% HP, your brute can regenerate up to 10 times 5% HP if they don't take damage.",
   "fan": "Веер",
   "keyboard": "Клавиатура",
   "knife": "Нож",
