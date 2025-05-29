@@ -391,7 +391,7 @@
   "repulse.effect": "",
   "fastMetabolism": "Schneller Stoffwechsel",
   "fastMetabolism.desc": "Deine Zellen arbeiten mit Lichtgeschwindigkeit. Du regenerierst schneller, als dein Gegner dich beschädigen kann... vielleicht.",
-  "fastMetabolism.effect": "Dein Brutalo regeneriert 1% seiner LP am Ende seine Runde. Bei 50% LP kann er bis zu 10 Mal 5% LP wiederherstellen, falls er keinen Schaden nimmt",
+  "fastMetabolism.effect": "At 50% HP, your brute can regenerate up to 10 times 5% HP if they don't take damage.",
   "fan": "Fächer",
   "keyboard": "Tastatur",
   "knife": "Messer",
