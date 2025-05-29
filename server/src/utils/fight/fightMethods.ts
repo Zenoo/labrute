@@ -2089,7 +2089,7 @@ export const playFighterTurn = (
       a: StepType.Regeneration,
       f: fighter.index,
       h: heal,
-      d: true,
+      d: 1,
     });
 
     // If fast metabolism is over, remove it

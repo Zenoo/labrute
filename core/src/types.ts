@@ -526,7 +526,7 @@ export interface RegenerationStep {
   /** HP healed */
   h: number;
   /** Delay */
-  d?: boolean;
+  d?: 1 | 0;
 }
 
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
