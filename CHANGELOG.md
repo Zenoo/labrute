@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.7](https://github.com/Zenoo/labrute/compare/labrute-v2.82.6...labrute-v2.82.7) (2025-05-29)
+
+
+### Bug Fixes
+
+* Fast Metabolism rework. Fixes [#1142](https://github.com/Zenoo/labrute/issues/1142) ([aea020f](https://github.com/Zenoo/labrute/commit/aea020fb136f37793d9173a206fc5429c3de807f))
+
 ## [2.82.6](https://github.com/Zenoo/labrute/compare/labrute-v2.82.5...labrute-v2.82.6) (2025-05-29)
 
 
