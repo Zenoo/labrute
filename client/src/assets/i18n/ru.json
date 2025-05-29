@@ -391,7 +391,7 @@
   "repulse.effect": "",
   "fastMetabolism": "Ускоренный метаболизм",
   "fastMetabolism.desc": "Ваши клетки работают со скоростью света. Вы восстанавливаетесь быстрее, чем противник может вас повредить... возможно.",
-  "fastMetabolism.effect": "",
+  "fastMetabolism.effect": "Your brute regenerates 1% of their health at the end of each turn. At 50% HP, they can regenerate up to 10 times 5% HP if they don't take damage.",
   "fan": "Веер",
   "keyboard": "Клавиатура",
   "knife": "Нож",

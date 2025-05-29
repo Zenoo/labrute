@@ -391,7 +391,7 @@
   "repulse.effect": "",
   "fastMetabolism": "Fast Metabolism",
   "fastMetabolism.desc": "Your cells work at the speed of light. You can regenerate faster than your opponent can damage you... Maybe.",
-  "fastMetabolism.effect": "",
+  "fastMetabolism.effect": "Your brute regenerates 1% of their health at the end of each turn. At 50% HP, they can regenerate up to 10 times 5% HP if they don't take damage.",
   "fan": "Fan",
   "keyboard": "Keyboard",
   "knife": "Knife",
