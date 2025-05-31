@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.8](https://github.com/Zenoo/labrute/compare/labrute-v2.82.7...labrute-v2.82.8) (2025-05-31)
+
+
+### Bug Fixes
+
+* Boosters not applied on ascension. Fixes [#1148](https://github.com/Zenoo/labrute/issues/1148) ([37bc556](https://github.com/Zenoo/labrute/commit/37bc5563209a22ce3843d6dccbd89051ec374da8))
+* Optimize boolean storage ([7745bb9](https://github.com/Zenoo/labrute/commit/7745bb98e190f53b8c6e65c1171ea5c0d8b28330))
+
 ## [2.82.7](https://github.com/Zenoo/labrute/compare/labrute-v2.82.6...labrute-v2.82.7) (2025-05-29)
 
 
