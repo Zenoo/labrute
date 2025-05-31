@@ -616,6 +616,72 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
+              <Grid item xs={6} sm={3}>
+                <FormControl fullWidth>
+                  <InputLabel>Ascended Weapons</InputLabel>
+                  <Select
+                    value={brute.ascendedWeapons}
+                    label="Ascended Weapons"
+                    multiple
+                    onChange={(event) => {
+                      setBrute((b) => (b ? ({
+                        ...b,
+                        ascendedWeapons: event.target.value as WeaponName[],
+                      }) : null));
+                    }}
+                  >
+                    {Object.values(WeaponName).map((weapon) => (
+                      <MenuItem key={weapon} value={weapon}>
+                        {weapon}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <FormControl fullWidth>
+                  <InputLabel>Ascended Skills</InputLabel>
+                  <Select
+                    value={brute.ascendedSkills}
+                    label="Ascended Skills"
+                    multiple
+                    onChange={(event) => {
+                      setBrute((b) => (b ? ({
+                        ...b,
+                        ascendedSkills: event.target.value as SkillName[],
+                      }) : null));
+                    }}
+                  >
+                    {Object.values(SkillName).map((skill) => (
+                      <MenuItem key={skill} value={skill}>
+                        {skill}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <FormControl fullWidth>
+                  <InputLabel>Ascended Pets</InputLabel>
+                  <Select
+                    value={brute.ascendedPets}
+                    label="Ascended Pets"
+                    multiple
+                    onChange={(event) => {
+                      setBrute((b) => (b ? ({
+                        ...b,
+                        ascendedPets: event.target.value as PetName[],
+                      }) : null));
+                    }}
+                  >
+                    {Object.values(PetName).map((pet) => (
+                      <MenuItem key={pet} value={pet}>
+                        {pet}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
             <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
             <Select

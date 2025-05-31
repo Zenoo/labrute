@@ -54,16 +54,16 @@ export const resetBrute = async ({
   // Add new ascent to the corresponding ascended list
   let { ascensions } = brute;
   if (ascended !== undefined) {
-    if (weapon && Object.values(WeaponName).includes(weapon as WeaponName)) {
-      ascendedWeapons.push(weapon as WeaponName);
+    if (weapon && Object.values(WeaponName).includes(weapon)) {
+      ascendedWeapons.push(weapon);
       ascensions++;
     }
-    if (skill && Object.values(SkillName).includes(skill as SkillName)) {
-      ascendedSkills.push(skill as SkillName);
+    if (skill && Object.values(SkillName).includes(skill)) {
+      ascendedSkills.push(skill);
       ascensions++;
     }
-    if (pet && Object.values(PetName).includes(pet as PetName)) {
-      ascendedPets.push(pet as PetName);
+    if (pet && Object.values(PetName).includes(pet)) {
+      ascendedPets.push(pet);
       ascensions++;
     }
 
