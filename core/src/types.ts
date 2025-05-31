@@ -555,12 +555,13 @@ export type AnimationModel =
   | 'male-brute'
   | 'female-brute';
 
-export interface DestinyBranch extends DestinyChoice {
+export type DestinyBranch = Omit<DestinyChoice, 'path'> & {
   level: number;
   current: boolean;
+  path: string;
   [DestinyChoiceSide.LEFT]: DestinyBranch | null;
   [DestinyChoiceSide.RIGHT]: DestinyBranch | null;
-}
+};
 
 // MODEL EXPANSIONS
 

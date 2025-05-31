@@ -1441,12 +1441,19 @@ export const Brutes = {
         where: { bruteId: brute.id },
       });
 
+      const destinyChoicesWithStringPath = destinyChoices.map((choice) => ({
+        ...choice,
+        path: choice.path.map((side) => (side === DestinyChoiceSide.LEFT ? 'L' : 'R')).join(''),
+      }));
+
+      const bruteDestinyPath = brute.destinyPath.map((side) => (side === DestinyChoiceSide.LEFT ? 'L' : 'R')).join('');
+
       // Get Destiny tree
       const getBranchRecursive = (
-        path: DestinyChoiceSide[],
+        path: string,
         level: number,
-      ) => {
-        const destinyChoice = destinyChoices.find((c) => c.path.join(',') === path.join(','));
+      ): DestinyBranch | null => {
+        const destinyChoice = destinyChoicesWithStringPath.find((c) => c.path === path);
 
         if (!destinyChoice) {
           return null;
@@ -1455,13 +1462,13 @@ export const Brutes = {
         const branch: DestinyBranch = {
           ...destinyChoice,
           level,
-          current: brute.destinyPath.join(',').startsWith(path.join(',')),
+          current: bruteDestinyPath.startsWith(path),
           [DestinyChoiceSide.LEFT]: getBranchRecursive(
-            [...path, DestinyChoiceSide.LEFT],
+            `${path}L`,
             level + 1,
           ),
           [DestinyChoiceSide.RIGHT]: getBranchRecursive(
-            [...path, DestinyChoiceSide.RIGHT],
+            `${path}R`,
             level + 1,
           ),
         };
@@ -1478,16 +1485,17 @@ export const Brutes = {
 
       const destinyTree: DestinyBranch = {
         ...firstBonus,
+        path: firstBonus.path.join(''),
         level: 1,
         current: true,
         [DestinyChoiceSide.LEFT]: getBranchRecursive(
-          [DestinyChoiceSide.LEFT],
+          'L',
           2,
-        ) as DestinyBranch,
+        ),
         [DestinyChoiceSide.RIGHT]: getBranchRecursive(
-          [DestinyChoiceSide.RIGHT],
+          'R',
           2,
-        ) as DestinyBranch,
+        ),
       };
 
       res.send(destinyTree);

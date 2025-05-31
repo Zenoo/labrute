@@ -109,7 +109,7 @@ const DestinyView = () => {
 
   const renderBranch = (branch: DestinyBranch | null) => (brute ? (
     <Box
-      key={branch?.path.join(',')}
+      key={branch?.path}
       component="li"
       sx={styles.li}
     >
