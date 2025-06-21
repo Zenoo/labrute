@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.9](https://github.com/Zenoo/labrute/compare/labrute-v2.82.8...labrute-v2.82.9) (2025-06-21)
+
+
+### Bug Fixes
+
+* Optimize destiny tree build ([890c2bb](https://github.com/Zenoo/labrute/commit/890c2bbfa4b13beffbf6178aa0cf261c03df5b32))
+
 ## [2.82.8](https://github.com/Zenoo/labrute/compare/labrute-v2.82.7...labrute-v2.82.8) (2025-05-31)
 
 
