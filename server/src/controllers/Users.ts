@@ -621,9 +621,11 @@ export const Users = {
       });
 
       // Remove brutes from clan fighters
-      const joinedBruteIds = Prisma.join(user.brutes.map((b) => b.id), undefined, undefined, '::uuid');
-      await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
-      await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
+      if (user.brutes.length > 0) {
+        const joinedBruteIds = Prisma.join(user.brutes.map((b) => Prisma.sql`${b.id}::uuid`));
+        await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
+        await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
+      }
 
       for (const brute of user.brutes) {
         // Remove brutes from followed
