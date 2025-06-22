@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.10](https://github.com/Zenoo/labrute/compare/labrute-v2.82.9...labrute-v2.82.10) (2025-06-22)
+
+
+### Bug Fixes
+
+* Account for initiative in spy application ([2cc51fd](https://github.com/Zenoo/labrute/commit/2cc51fd18188414a866a5a13952d4487d7fdbf25))
+* Bug when banning a user ([2e4760f](https://github.com/Zenoo/labrute/commit/2e4760fbc661145f38968615b363e67c777f83c4))
+
 ## [2.82.9](https://github.com/Zenoo/labrute/compare/labrute-v2.82.8...labrute-v2.82.9) (2025-06-21)
 
 
