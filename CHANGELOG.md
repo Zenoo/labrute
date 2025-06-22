@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.11](https://github.com/Zenoo/labrute/compare/labrute-v2.82.10...labrute-v2.82.11) (2025-06-22)
+
+
+### Bug Fixes
+
+* Typo ([7c3b3a6](https://github.com/Zenoo/labrute/commit/7c3b3a695dc55e9d65d07c7d32b9b49591d2e594))
+
 ## [2.82.10](https://github.com/Zenoo/labrute/compare/labrute-v2.82.9...labrute-v2.82.10) (2025-06-22)
 
 
