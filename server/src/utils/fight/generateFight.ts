@@ -176,13 +176,13 @@ export const generateFight = async ({
   if (team1.brutes?.length === 1 && team2.brutes?.length === 1) {
     orderFighters(fightData);
 
-    const mainFighters = fightData.fighters.filter((f) => f.type === 'brute' && f.master);
+    const mainFighters = fightData.fighters.filter((f) => f.type === 'brute' && !f.master);
 
     mainFighters.forEach((brute) => {
       const opponent = mainFighters.find((f) => f.id !== brute.id);
 
       if (!opponent) {
-        throw new Error('Brute or opponent not found');
+        throw new Error('Opponent not found');
       }
       applySpy(fightData, brute, opponent);
     });
