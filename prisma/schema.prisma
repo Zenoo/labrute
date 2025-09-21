@@ -714,6 +714,7 @@ model Clan {
   attacks              ClanWar[]    @relation("ClanWarAttacker")
   defenses             ClanWar[]    @relation("ClanWarDefender")
   wins                 ClanWar[]    @relation("ClanWarWinner")
+  bossFights           BossFight[]
 
   @@unique([name, deletedAt])
   @@index([deletedAt, name, points])
@@ -812,6 +813,25 @@ model ClanWarFighters {
 
   @@unique([clanWarId, day])
   @@index([clanWarId])
+}
+
+enum BossFightStatus {
+  ONGOING
+  WON
+  LOST
+}
+
+model BossFight {
+  id       String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date     DateTime        @default(now()) @db.Date
+  status   BossFightStatus @default(ONGOING)
+  clan     Clan            @relation(fields: [clanId], references: [id])
+  clanId   String          @db.Uuid
+  steps    String          @db.Text
+  fighters String          @db.Text
+  reward   Int
+
+  @@index([clanId, date])
 }
 
 // Inventory

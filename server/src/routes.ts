@@ -1,28 +1,31 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { ServerReadyResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
-import type { Express, Request, Response } from 'express';
+import type { Request, Response } from 'express';
+import { Application } from 'express-ws';
 import { Config } from './config.js';
 import { Achievements } from './controllers/Achievements.js';
 import { BruteReports } from './controllers/BruteReports.js';
 import { Brutes } from './controllers/Brutes.js';
 import { Clans } from './controllers/Clans.js';
 import { ClanWars } from './controllers/ClanWars.js';
+import { Configs } from './controllers/Configs.js';
 import { Events } from './controllers/Events.js';
 import { Fights } from './controllers/Fights.js';
 import { Logs } from './controllers/Logs.js';
 import { Notifications } from './controllers/Notifications.js';
 import { OAuth } from './controllers/OAuth.js';
 import { Tournaments } from './controllers/Tournaments.js';
+import { UserLogs } from './controllers/UserLogs.js';
 import { Users } from './controllers/Users.js';
 import { ServerState } from './utils/ServerState.js';
-import { Configs } from './controllers/Configs.js';
-import { UserLogs } from './controllers/UserLogs.js';
 
-export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) => {
-  app.get('/api', (_req: Request, res: Response) => res.status(200).send({
-    message: 'server is running!',
-  }));
+export const initRoutes = (app: Application, config: Config, prisma: PrismaClient) => {
+  app.get('/api', (_req: Request, res: Response) => {
+    res.status(200).send({
+      message: 'server is running!',
+    });
+  });
 
   // Server state
   app.get('/api/is-ready', (
@@ -150,6 +153,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.put('/api/clan/:id/toggle-war', Clans.toggleClanWarParticipation(prisma));
   app.get('/api/clan/:id/admin', Clans.getForAdmin(prisma));
   app.patch('/api/clan/:id/update', Clans.adminUpdate(prisma));
+  app.ws('/api/clan/:id/boss-fight/:fightId/:bruteId', Clans.bossFightWs(prisma));
 
   // Clan war
   app.put('/api/clan/war/friendly', ClanWars.declareFriendlyWar(prisma));

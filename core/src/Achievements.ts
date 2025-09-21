@@ -576,12 +576,13 @@ export type AchievementsStore = Record<string, {
 }>;
 
 export const updateAchievement = (
-  store: AchievementsStore,
+  store: AchievementsStore | undefined,
   name: AchievementName,
   count: number,
   bruteId: string,
 ) => {
   if (bruteId === '') return;
+  if (!store) return;
 
   const current = store[bruteId];
 

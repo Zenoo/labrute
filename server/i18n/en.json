@@ -123,5 +123,7 @@
   "eventAlreadyStarted": "Event already started",
   "eventMaxLevelReached": "You reached the maximum level for this event",
   "reportAlreadyHandled": "Report already handled",
-  "cantFightBeforeLevelingUp": "You cannot fight before leveling up"
+  "cantFightBeforeLevelingUp": "You cannot fight before leveling up",
+  "bossFightInProgress": "A boss fight is already in progress, you cannot start a new one",
+  "bossFightCooldown": "You need to wait {{time}} before starting a new boss fight"
 }

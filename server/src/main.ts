@@ -10,12 +10,14 @@ import { Buffer } from 'buffer';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
 import urlJoin from 'url-join';
 import { Config, loadConfig } from './config.js';
 
 // Load dayjs plugins
 dayjs.extend(utc);
 dayjs.extend(isSameOrBefore);
+dayjs.extend(relativeTime);
 
 function getAuthorizationHeader(clientId: string, clientSecret: string): string {
   const credentials: string = `${clientId}:${clientSecret}`;

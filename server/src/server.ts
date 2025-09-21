@@ -6,6 +6,7 @@ import cors from 'cors';
 import schedule from 'node-schedule';
 import cookieParser from 'cookie-parser';
 import { doubleCsrf } from 'csrf-csrf';
+import expressWs from 'express-ws';
 import { GLOBAL, ServerContext } from './context.js';
 import { dailyJob } from './dailyJob.js';
 import './i18n.js';
@@ -16,7 +17,7 @@ import { readyCheck } from './utils/middlewares/readyCheck.js';
 export function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);
 
-  const app = express();
+  const { app } = expressWs(express());
   const { port } = cx.config;
 
   // Cookie parser

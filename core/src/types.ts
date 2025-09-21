@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, Prisma, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, BossFight, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, Prisma, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
 import { Skill, SkillId } from './brute/skills';
 import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -41,7 +41,7 @@ export interface DetailedFighter {
   colors?: string;
   rank: BruteRanking;
   level: number;
-  type: 'brute' | 'pet' | 'boss';
+  type: 'brute' | 'pet' | 'boss' | 'object';
   // Follower/Backup variables
   master?: string;
   arrivesAtInitiative?: number;
@@ -133,7 +133,7 @@ export interface Fighter {
   strength: number,
   agility: number,
   speed: number,
-  type: 'brute' | 'pet' | 'boss';
+  type: 'brute' | 'pet' | 'boss' | 'object';
   master?: string;
   maxHp: number;
   hp: number,
@@ -791,7 +791,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
   favoriteFights: (Pick<Fight, 'id' | 'date' | 'fighters'> & {
-    brute1: Pick<Brute, 'id' | 'name'>| null,
+    brute1: Pick<Brute, 'id' | 'name'> | null,
     brute2: Pick<Brute, 'id' | 'name'> | null,
   })[],
 };
@@ -858,6 +858,21 @@ export type ClanWarGetHistoryResponse = (ClanWar & {
 })[];
 export type ClanWarGetAvailableFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
 export type ClanWarGetUsedFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
+export type ClanStartBossFightResponse = Pick<BossFight, 'id'>;
+
+export type BossFightMessage = {
+  newBrute?: DetailedFighter;
+  end?: {
+    won: boolean;
+    reward: number;
+  };
+  state?: Omit<DetailedFight, 'initialFighters'>;
+  newSteps?: FightStep[];
+};
+export type BossFightPlayerAction = {
+  id: string;
+  type: 'attack' | 'defend';
+};
 
 export enum ClanSort {
   points,

@@ -16,6 +16,8 @@ import { FightModifier, PetName, SkillName } from '@labrute/prisma';
 import { getDamage } from './getDamage.js';
 import { getFighterStat } from './getFighterStat.js';
 
+type FightData = Omit<DetailedFight, 'initialFighters'>;
+
 export type Stats = Record<string, {
   userId: string | null;
   skillsUsed?: number;
@@ -49,7 +51,8 @@ const skillTargetsFilter = (skill: SkillName) => {
   }
 };
 
-const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omit<Stats[string], 'userId'>) => {
+const resetOthersStats = (stats: Stats | undefined, excludedFighter: string, stat: keyof Omit<Stats[string], 'userId'>) => {
+  if (!stats) return;
   for (const [bruteId, bruteStats] of Object.entries(stats)) {
     if (bruteId !== excludedFighter) {
       bruteStats[stat] = 0;
@@ -57,7 +60,8 @@ const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omi
   }
 };
 
-const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string) => {
+const updateStats = (stats: Stats | undefined, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string) => {
+  if (!stats) return;
   // Special case for hits, add to otherTeamMembersHits if not master
   if (stat === 'hits' && masterId) {
     const master = stats[masterId];
@@ -81,9 +85,10 @@ const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[numbe
 };
 
 const checkAchievements = (
-  stats: Stats,
-  achievements: AchievementsStore,
+  stats: Stats | undefined,
+  achievements: AchievementsStore | undefined,
 ) => {
+  if (!stats || !achievements) return;
   for (const [bruteId, stat] of Object.entries(stats)) {
     const achievement = achievements[bruteId];
 
@@ -129,7 +134,7 @@ const getOpponents = ({
   bruteAndBossOnly,
   petOnly,
 }: {
-  fightData: DetailedFight;
+  fightData: FightData;
   fighter: DetailedFighter;
   bruteAndBossOnly?: boolean;
   petOnly?: boolean;
@@ -159,7 +164,7 @@ const getRandomOpponent = ({
   petOnly,
   nonTrappedOrStunnedOnly,
 }: {
-  fightData: DetailedFight;
+  fightData: FightData;
   fighter: DetailedFighter;
   bruteAndBossOnly?: boolean;
   petOnly?: boolean;
@@ -196,7 +201,7 @@ const getRandomOpponent = ({
   return randomItem(opponents);
 };
 
-export const saboteur = (fightData: DetailedFight, achievements: AchievementsStore) => {
+export const saboteur = (fightData: FightData, achievements: AchievementsStore) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
     if (fighter.saboteur) {
       const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
@@ -209,7 +214,7 @@ export const saboteur = (fightData: DetailedFight, achievements: AchievementsSto
   });
 };
 
-export const orderFighters = (fightData: DetailedFight) => {
+export const orderFighters = (fightData: FightData) => {
   fightData.fighters = fightData.fighters.sort((a, b) => {
     // Last if hp <= 0
     if (a.hp <= 0) return 1;
@@ -226,7 +231,7 @@ export const orderFighters = (fightData: DetailedFight) => {
   });
 };
 
-const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) => {
+const randomlyGetSuper = (fightData: FightData, fighter: DetailedFighter) => {
   let supers = fighter.skills.filter((skill) => skill.uses);
 
   if (!supers.length) return null;
@@ -323,7 +328,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 };
 
 export const randomlyDrawWeapon = (
-  fightData: DetailedFight,
+  fightData: FightData,
   weapons: Weapon[],
   forceDraw?: boolean,
 ) => {
@@ -349,7 +354,7 @@ export const randomlyDrawWeapon = (
 };
 
 const healFighter = (
-  stats: Stats,
+  stats: Stats | undefined,
   fighter: DetailedFighter,
   amount: number,
 ) => {
@@ -379,7 +384,7 @@ const increaseInitiative = (fighter: DetailedFighter, multiplicator: number = 1)
 };
 
 export const fighterArrives = (
-  fightData: DetailedFight,
+  fightData: FightData,
   fighter: DetailedFighter,
 ) => {
   const arriveWithWeapon = fightData.modifiers.includes(FightModifier.startWithWeapon);
@@ -420,7 +425,7 @@ export const fighterArrives = (
 };
 
 const wakeUp = (
-  fightData: DetailedFight,
+  fightData: FightData,
   fighter: DetailedFighter,
   initiativeMalus: boolean = false,
 ) => {
@@ -435,7 +440,7 @@ const wakeUp = (
 };
 
 const consumeActiveSkill = (
-  fightData: DetailedFight,
+  fightData: FightData,
   fighter: DetailedFighter,
   skillName: SkillName,
 ) => {
@@ -463,9 +468,9 @@ const registerHit = ({
   source,
   flashFloodWeapon,
 }: {
-  fightData: DetailedFight;
-  stats: Stats;
-  achievements: AchievementsStore;
+  fightData: FightData;
+  stats: Stats | undefined;
+  achievements: AchievementsStore | undefined;
   fighter: DetailedFighter;
   opponents: DetailedFighter[];
   damage: number;
@@ -664,8 +669,8 @@ const registerHit = ({
 
   // Max damage achievement
   const maxDamage = Math.max(...Object.values(actualDamage));
-  if ((stats[fighter.id]?.maxDamage || 0) < maxDamage) {
-    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats[fighter.id]?.maxDamage || 0));
+  if ((stats?.[fighter.id]?.maxDamage || 0) < maxDamage) {
+    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats?.[fighter.id]?.maxDamage || 0));
   }
 
   opponents.forEach((opponent) => {
@@ -705,7 +710,7 @@ const dropShield = ({
   fighter,
   addStep = true,
 }: {
-  fightData: DetailedFight;
+  fightData: FightData;
   fighter: DetailedFighter;
   addStep?: boolean;
 }) => {
@@ -724,7 +729,7 @@ const dropShield = ({
 
 // Returns true if weapon was sabotaged
 const drawWeapon = (
-  fightData: DetailedFight,
+  fightData: FightData,
   fighter: DetailedFighter,
   forceDraw: boolean = false,
 ): boolean => {
@@ -806,11 +811,11 @@ const drawWeapon = (
 };
 
 const activateSuper = (
-  fightData: DetailedFight,
+  fightData: FightData,
   fighter: DetailedFighter,
   skill: Skill,
-  stats: Stats,
-  achievements: AchievementsStore,
+  stats: Stats | undefined,
+  achievements: AchievementsStore | undefined,
 ): boolean => {
   // No uses left (should never happen)
   if (!skill.uses) return false;
@@ -1660,11 +1665,11 @@ const deflectProjectile = (fighter: DetailedFighter, timesDeflected: number) => 
 };
 
 const attack = (
-  fightData: DetailedFight,
+  fightData: FightData,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
-  stats: Stats,
-  achievements: AchievementsStore,
+  stats: Stats | undefined,
+  achievements: AchievementsStore | undefined,
   isCounter = false,
 ) => {
   // Abort if fighter is dead
@@ -1842,8 +1847,8 @@ const attack = (
 };
 
 export const checkDeaths = (
-  fightData: DetailedFight,
-  stats: Stats,
+  fightData: FightData,
+  stats: Stats | undefined,
 ) => {
   for (const fighter of fightData.fighters) {
     // Only add death step if fighter is dead and hasn't died yet
@@ -1879,9 +1884,9 @@ export const checkDeaths = (
 };
 
 const startAttack = (
-  fightData: DetailedFight,
-  stats: Stats,
-  achievements: AchievementsStore,
+  fightData: FightData,
+  stats: Stats | undefined,
+  achievements: AchievementsStore | undefined,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
   isCounter?: boolean,
@@ -2007,9 +2012,9 @@ const startAttack = (
 };
 
 export const playFighterTurn = (
-  fightData: DetailedFight,
-  stats: Stats,
-  achievements: AchievementsStore,
+  fightData: FightData,
+  stats?: Stats,
+  achievements?: AchievementsStore,
 ) => {
   const fighter = fightData.fighters[0];
 
@@ -2055,7 +2060,7 @@ export const playFighterTurn = (
   }
 
   // Check if backup should arrive
-  if (fighter.arrivesAtInitiative) {
+  if (fighter.arrivesAtInitiative && fighter.arrivesAtInitiative > 0) {
     fighter.arrivesAtInitiative = undefined;
 
     // Add backup arrive step

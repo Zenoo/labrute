@@ -397,6 +397,16 @@ exports.Prisma.ClanWarFightersScalarFieldEnum = {
   day: 'day'
 };
 
+exports.Prisma.BossFightScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  status: 'status',
+  clanId: 'clanId',
+  steps: 'steps',
+  fighters: 'fighters',
+  reward: 'reward'
+};
+
 exports.Prisma.InventoryItemScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -766,6 +776,12 @@ exports.ClanWarStatus = exports.$Enums.ClanWarStatus = {
   finished: 'finished'
 };
 
+exports.BossFightStatus = exports.$Enums.BossFightStatus = {
+  ONGOING: 'ONGOING',
+  WON: 'WON',
+  LOST: 'LOST'
+};
+
 exports.InventoryItemType = exports.$Enums.InventoryItemType = {
   visualReset: 'visualReset',
   bossTicket: 'bossTicket',
@@ -813,6 +829,7 @@ exports.Prisma.ModelName = {
   BossDamage: 'BossDamage',
   ClanWar: 'ClanWar',
   ClanWarFighters: 'ClanWarFighters',
+  BossFight: 'BossFight',
   InventoryItem: 'InventoryItem',
   Release: 'Release',
   Event: 'Event',

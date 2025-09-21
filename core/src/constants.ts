@@ -124,6 +124,7 @@ export const FightLogTemplateCount = 48;
 
 export const ClanWarMaxParticipants = 7;
 export const ClanWarPointReward = 1000;
+export const BossFightCooldown = 7;
 
 export const EventPauseDuration = 3;
 export const EventFightsPerDay = 10;

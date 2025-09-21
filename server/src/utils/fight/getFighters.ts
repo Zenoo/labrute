@@ -10,7 +10,8 @@ import {
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
-  Brute, FightModifier, PrismaClient, SkillName,
+  Brute, FightModifier,
+  SkillName,
 } from '@labrute/prisma';
 
 interface Team {
@@ -19,6 +20,11 @@ interface Team {
   bosses: (Boss & {
     startHP: number;
   })[]
+  objects?: {
+    type: string;
+    hp: number;
+    maxHp: number;
+  }[]
 }
 
 const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
@@ -127,7 +133,6 @@ const handleModifiers = (
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
 type GetFightersParams = {
-  prisma: PrismaClient,
   team1: Team,
   team2: Team,
   modifiers: FightModifier[],
@@ -456,6 +461,67 @@ export const getFighters = ({
         damagedWeapons: [],
         hitBy: {},
       });
+    }
+
+    // Objects
+    if (team.objects) {
+      for (const object of team.objects) {
+        positiveIndex++;
+        spawnedPets++;
+
+        fighters.push({
+          id: `${-spawnedPets}`,
+          index: positiveIndex,
+          team: teamIndex === 0 ? 'L' : 'R',
+          name: object.type,
+          rank: 0,
+          level: 0,
+          type: 'object' as const,
+          maxHp: object.maxHp,
+          hp: object.hp,
+          strength: 0,
+          agility: 0,
+          speed: 0,
+          criticalChance: BASE_FIGHTER_STATS.criticalChance,
+          criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
+          regeneration: 0,
+          initiative: 0,
+          hitSpeed: 0,
+          tempo: 1, // Objects have no tempo
+          baseDamage: BARE_HANDS_DAMAGE,
+          counter: 0,
+          combo: 0,
+          deflect: 0,
+          reversal: 0,
+          block: 0,
+          accuracy: 0,
+          reach: 0,
+          armor: 0,
+          disarm: 0,
+          evasion: 0,
+          sabotage: false,
+          bodybuilder: false,
+          survival: false,
+          balletShoes: false,
+          determination: false,
+          retryAttack: false,
+          ironHead: false,
+          resistant: false,
+          fastMetabolism: null,
+          skills: [],
+          weapons: [],
+          shield: false,
+          activeSkills: [],
+          activeWeapon: null,
+          keepWeaponChance: 0,
+          saboteur: false,
+          sabotagedWeapon: null,
+          poisonedBy: null,
+          trapped: false,
+          damagedWeapons: [],
+          hitBy: {},
+        });
+      }
     }
   });
 

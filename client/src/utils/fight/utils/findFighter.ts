@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 import FighterHolder from '../FighterHolder';
 
 export interface AnimationFighter extends Omit<Fighter, 'shield'> {
-  type: 'brute' | 'pet' | 'boss';
+  type: 'brute' | 'pet' | 'boss' | 'object';
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
   teamWeaponsIllustrations: PIXI.Sprite[];

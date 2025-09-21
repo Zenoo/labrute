@@ -1,19 +1,25 @@
 import {
+  bosses,
+  BossFightCooldown,
   ClanChallengeBossResponse,
   ClanCreateResponse,
   ClanGetForAdminResponse,
   ClanGetResponse, ClanGetThreadResponse,
-  ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError,
+  ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanStartBossFightResponse, ExpectedError,
   FightLogTemplateCount,
-  ForbiddenError, LimitError, MissingElementError, NotFoundError, bosses, getFightsLeft,
+  ForbiddenError,
+  getFightsLeft,
   isUuid,
+  LimitError, MissingElementError, NotFoundError,
   randomBetween,
 } from '@labrute/core';
 import {
+  BossFightStatus,
   BossName,
   Clan, ClanWarStatus, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
+import dayjs from 'dayjs';
 import { DISCORD, LOGGER } from '../context.js';
 import { auth } from '../utils/auth.js';
 import { updateClanPoints } from '../utils/clan/updateClanPoints.js';
@@ -22,6 +28,7 @@ import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
+import { bossFightWs, startBossFight } from './BossFight.js';
 
 export const Clans = {
   list: (prisma: PrismaClient) => async (
@@ -1821,4 +1828,84 @@ export const Clans = {
       sendError(res, error);
     }
   },
+  startBossFight: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response<ClanStartBossFightResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!req.params.id || !isUuid(req.params.id)) {
+        throw new MissingElementError(translate('missingClanId', user));
+      }
+
+      const { id } = req.params;
+
+      const clan = await prisma.clan.findFirst({
+        where: { id, deletedAt: null },
+        select: {
+          id: true,
+          masterId: true,
+        },
+      });
+
+      if (!clan) {
+        throw new NotFoundError(translate('clanNotFound', user));
+      }
+
+      if (clan.masterId !== user.id) {
+        throw new ForbiddenError(translate('unauthorized', user));
+      }
+
+      // Check if boss fight is in progress
+      const ongoingFights = await prisma.bossFight.count({
+        where: { clanId: id, status: BossFightStatus.ONGOING },
+      });
+
+      if (ongoingFights > 0) {
+        throw new LimitError(translate('bossFightInProgress', user));
+      }
+
+      // Get last boss fight
+      const lastFight = await prisma.bossFight.findFirst({
+        where: { clanId: id },
+        orderBy: { date: 'desc' },
+        select: { date: true },
+      });
+
+      // Check if cooldown is over
+      if (dayjs.utc().isBefore(
+        dayjs.utc(lastFight?.date).add(BossFightCooldown, 'day'),
+      )) {
+        throw new LimitError(translate('bossFightCooldown', user, {
+          time: dayjs.utc(lastFight?.date).add(BossFightCooldown, 'day').fromNow(),
+        }));
+      }
+
+      // Create new boss fight
+      const newFight = await prisma.bossFight.create({
+        data: {
+          clanId: id,
+          steps: '',
+          fighters: '',
+          reward: 0,
+        },
+        select: { id: true },
+      });
+
+      res.status(200).send(newFight);
+
+      setImmediate(() => {
+        (async () => {
+          // Start the boss fight logic
+          await startBossFight(prisma, newFight.id);
+        })().catch((error) => {
+          LOGGER.error(`Error starting boss fight WebSocket for clan ${id}: ${error instanceof Error ? error.message : error}`);
+        });
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  bossFightWs,
 };

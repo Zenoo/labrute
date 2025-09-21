@@ -144,7 +144,6 @@ export const generateFight = async ({
 
   // Global fight data
   const fightDataFighters = getFighters({
-    prisma,
     team1: { brutes: team1.brutes ?? [], backups: team1Backups, bosses: team1.bosses ?? [] },
     team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,

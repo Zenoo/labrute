@@ -124,6 +124,11 @@ export type ClanWar = $Result.DefaultSelection<Prisma.$ClanWarPayload>
  */
 export type ClanWarFighters = $Result.DefaultSelection<Prisma.$ClanWarFightersPayload>
 /**
+ * Model BossFight
+ * 
+ */
+export type BossFight = $Result.DefaultSelection<Prisma.$BossFightPayload>
+/**
  * Model InventoryItem
  * 
  */
@@ -529,6 +534,15 @@ export const ClanWarType: {
 export type ClanWarType = (typeof ClanWarType)[keyof typeof ClanWarType]
 
 
+export const BossFightStatus: {
+  ONGOING: 'ONGOING',
+  WON: 'WON',
+  LOST: 'LOST'
+};
+
+export type BossFightStatus = (typeof BossFightStatus)[keyof typeof BossFightStatus]
+
+
 export const InventoryItemType: {
   visualReset: 'visualReset',
   bossTicket: 'bossTicket',
@@ -641,6 +655,10 @@ export const ClanWarStatus: typeof $Enums.ClanWarStatus
 export type ClanWarType = $Enums.ClanWarType
 
 export const ClanWarType: typeof $Enums.ClanWarType
+
+export type BossFightStatus = $Enums.BossFightStatus
+
+export const BossFightStatus: typeof $Enums.BossFightStatus
 
 export type InventoryItemType = $Enums.InventoryItemType
 
@@ -1002,6 +1020,16 @@ export class PrismaClient<
     * ```
     */
   get clanWarFighters(): Prisma.ClanWarFightersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bossFight`: Exposes CRUD operations for the **BossFight** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BossFights
+    * const bossFights = await prisma.bossFight.findMany()
+    * ```
+    */
+  get bossFight(): Prisma.BossFightDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.inventoryItem`: Exposes CRUD operations for the **InventoryItem** model.
@@ -1514,6 +1542,7 @@ export namespace Prisma {
     BossDamage: 'BossDamage',
     ClanWar: 'ClanWar',
     ClanWarFighters: 'ClanWarFighters',
+    BossFight: 'BossFight',
     InventoryItem: 'InventoryItem',
     Release: 'Release',
     Event: 'Event',
@@ -1534,7 +1563,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "bossFight" | "inventoryItem" | "release" | "event" | "notification" | "config"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3166,6 +3195,80 @@ export namespace Prisma {
           }
         }
       }
+      BossFight: {
+        payload: Prisma.$BossFightPayload<ExtArgs>
+        fields: Prisma.BossFightFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BossFightFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BossFightFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>
+          }
+          findFirst: {
+            args: Prisma.BossFightFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BossFightFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>
+          }
+          findMany: {
+            args: Prisma.BossFightFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>[]
+          }
+          create: {
+            args: Prisma.BossFightCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>
+          }
+          createMany: {
+            args: Prisma.BossFightCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BossFightCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>[]
+          }
+          delete: {
+            args: Prisma.BossFightDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>
+          }
+          update: {
+            args: Prisma.BossFightUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>
+          }
+          deleteMany: {
+            args: Prisma.BossFightDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BossFightUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BossFightUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>[]
+          }
+          upsert: {
+            args: Prisma.BossFightUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BossFightPayload>
+          }
+          aggregate: {
+            args: Prisma.BossFightAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBossFight>
+          }
+          groupBy: {
+            args: Prisma.BossFightGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BossFightGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BossFightCountArgs<ExtArgs>
+            result: $Utils.Optional<BossFightCountAggregateOutputType> | number
+          }
+        }
+      }
       InventoryItem: {
         payload: Prisma.$InventoryItemPayload<ExtArgs>
         fields: Prisma.InventoryItemFieldRefs
@@ -3642,6 +3745,7 @@ export namespace Prisma {
     bossDamage?: BossDamageOmit
     clanWar?: ClanWarOmit
     clanWarFighters?: ClanWarFightersOmit
+    bossFight?: BossFightOmit
     inventoryItem?: InventoryItemOmit
     release?: ReleaseOmit
     event?: EventOmit
@@ -4213,6 +4317,7 @@ export namespace Prisma {
     attacks: number
     defenses: number
     wins: number
+    bossFights: number
   }
 
   export type ClanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4223,6 +4328,7 @@ export namespace Prisma {
     attacks?: boolean | ClanCountOutputTypeCountAttacksArgs
     defenses?: boolean | ClanCountOutputTypeCountDefensesArgs
     wins?: boolean | ClanCountOutputTypeCountWinsArgs
+    bossFights?: boolean | ClanCountOutputTypeCountBossFightsArgs
   }
 
   // Custom InputTypes
@@ -4283,6 +4389,13 @@ export namespace Prisma {
    */
   export type ClanCountOutputTypeCountWinsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanWarWhereInput
+  }
+
+  /**
+   * ClanCountOutputType without action
+   */
+  export type ClanCountOutputTypeCountBossFightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BossFightWhereInput
   }
 
 
@@ -24712,6 +24825,7 @@ export namespace Prisma {
     attacks?: boolean | Clan$attacksArgs<ExtArgs>
     defenses?: boolean | Clan$defensesArgs<ExtArgs>
     wins?: boolean | Clan$winsArgs<ExtArgs>
+    bossFights?: boolean | Clan$bossFightsArgs<ExtArgs>
     _count?: boolean | ClanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clan"]>
 
@@ -24766,6 +24880,7 @@ export namespace Prisma {
     attacks?: boolean | Clan$attacksArgs<ExtArgs>
     defenses?: boolean | Clan$defensesArgs<ExtArgs>
     wins?: boolean | Clan$winsArgs<ExtArgs>
+    bossFights?: boolean | Clan$bossFightsArgs<ExtArgs>
     _count?: boolean | ClanCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24786,6 +24901,7 @@ export namespace Prisma {
       attacks: Prisma.$ClanWarPayload<ExtArgs>[]
       defenses: Prisma.$ClanWarPayload<ExtArgs>[]
       wins: Prisma.$ClanWarPayload<ExtArgs>[]
+      bossFights: Prisma.$BossFightPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25200,6 +25316,7 @@ export namespace Prisma {
     attacks<T extends Clan$attacksArgs<ExtArgs> = {}>(args?: Subset<T, Clan$attacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     defenses<T extends Clan$defensesArgs<ExtArgs> = {}>(args?: Subset<T, Clan$defensesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     wins<T extends Clan$winsArgs<ExtArgs> = {}>(args?: Subset<T, Clan$winsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    bossFights<T extends Clan$bossFightsArgs<ExtArgs> = {}>(args?: Subset<T, Clan$bossFightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25828,6 +25945,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ClanWarScalarFieldEnum | ClanWarScalarFieldEnum[]
+  }
+
+  /**
+   * Clan.bossFights
+   */
+  export type Clan$bossFightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    where?: BossFightWhereInput
+    orderBy?: BossFightOrderByWithRelationInput | BossFightOrderByWithRelationInput[]
+    cursor?: BossFightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BossFightScalarFieldEnum | BossFightScalarFieldEnum[]
   }
 
   /**
@@ -31703,6 +31844,1133 @@ export namespace Prisma {
 
 
   /**
+   * Model BossFight
+   */
+
+  export type AggregateBossFight = {
+    _count: BossFightCountAggregateOutputType | null
+    _avg: BossFightAvgAggregateOutputType | null
+    _sum: BossFightSumAggregateOutputType | null
+    _min: BossFightMinAggregateOutputType | null
+    _max: BossFightMaxAggregateOutputType | null
+  }
+
+  export type BossFightAvgAggregateOutputType = {
+    reward: number | null
+  }
+
+  export type BossFightSumAggregateOutputType = {
+    reward: number | null
+  }
+
+  export type BossFightMinAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    status: $Enums.BossFightStatus | null
+    clanId: string | null
+    steps: string | null
+    fighters: string | null
+    reward: number | null
+  }
+
+  export type BossFightMaxAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    status: $Enums.BossFightStatus | null
+    clanId: string | null
+    steps: string | null
+    fighters: string | null
+    reward: number | null
+  }
+
+  export type BossFightCountAggregateOutputType = {
+    id: number
+    date: number
+    status: number
+    clanId: number
+    steps: number
+    fighters: number
+    reward: number
+    _all: number
+  }
+
+
+  export type BossFightAvgAggregateInputType = {
+    reward?: true
+  }
+
+  export type BossFightSumAggregateInputType = {
+    reward?: true
+  }
+
+  export type BossFightMinAggregateInputType = {
+    id?: true
+    date?: true
+    status?: true
+    clanId?: true
+    steps?: true
+    fighters?: true
+    reward?: true
+  }
+
+  export type BossFightMaxAggregateInputType = {
+    id?: true
+    date?: true
+    status?: true
+    clanId?: true
+    steps?: true
+    fighters?: true
+    reward?: true
+  }
+
+  export type BossFightCountAggregateInputType = {
+    id?: true
+    date?: true
+    status?: true
+    clanId?: true
+    steps?: true
+    fighters?: true
+    reward?: true
+    _all?: true
+  }
+
+  export type BossFightAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BossFight to aggregate.
+     */
+    where?: BossFightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossFights to fetch.
+     */
+    orderBy?: BossFightOrderByWithRelationInput | BossFightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BossFightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossFights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossFights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BossFights
+    **/
+    _count?: true | BossFightCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BossFightAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BossFightSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BossFightMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BossFightMaxAggregateInputType
+  }
+
+  export type GetBossFightAggregateType<T extends BossFightAggregateArgs> = {
+        [P in keyof T & keyof AggregateBossFight]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBossFight[P]>
+      : GetScalarType<T[P], AggregateBossFight[P]>
+  }
+
+
+
+
+  export type BossFightGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BossFightWhereInput
+    orderBy?: BossFightOrderByWithAggregationInput | BossFightOrderByWithAggregationInput[]
+    by: BossFightScalarFieldEnum[] | BossFightScalarFieldEnum
+    having?: BossFightScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BossFightCountAggregateInputType | true
+    _avg?: BossFightAvgAggregateInputType
+    _sum?: BossFightSumAggregateInputType
+    _min?: BossFightMinAggregateInputType
+    _max?: BossFightMaxAggregateInputType
+  }
+
+  export type BossFightGroupByOutputType = {
+    id: string
+    date: Date
+    status: $Enums.BossFightStatus
+    clanId: string
+    steps: string
+    fighters: string
+    reward: number
+    _count: BossFightCountAggregateOutputType | null
+    _avg: BossFightAvgAggregateOutputType | null
+    _sum: BossFightSumAggregateOutputType | null
+    _min: BossFightMinAggregateOutputType | null
+    _max: BossFightMaxAggregateOutputType | null
+  }
+
+  type GetBossFightGroupByPayload<T extends BossFightGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BossFightGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BossFightGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BossFightGroupByOutputType[P]>
+            : GetScalarType<T[P], BossFightGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BossFightSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    clanId?: boolean
+    steps?: boolean
+    fighters?: boolean
+    reward?: boolean
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bossFight"]>
+
+  export type BossFightSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    clanId?: boolean
+    steps?: boolean
+    fighters?: boolean
+    reward?: boolean
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bossFight"]>
+
+  export type BossFightSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    clanId?: boolean
+    steps?: boolean
+    fighters?: boolean
+    reward?: boolean
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bossFight"]>
+
+  export type BossFightSelectScalar = {
+    id?: boolean
+    date?: boolean
+    status?: boolean
+    clanId?: boolean
+    steps?: boolean
+    fighters?: boolean
+    reward?: boolean
+  }
+
+  export type BossFightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "status" | "clanId" | "steps" | "fighters" | "reward", ExtArgs["result"]["bossFight"]>
+  export type BossFightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }
+  export type BossFightIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }
+  export type BossFightIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clan?: boolean | ClanDefaultArgs<ExtArgs>
+  }
+
+  export type $BossFightPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BossFight"
+    objects: {
+      clan: Prisma.$ClanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: Date
+      status: $Enums.BossFightStatus
+      clanId: string
+      steps: string
+      fighters: string
+      reward: number
+    }, ExtArgs["result"]["bossFight"]>
+    composites: {}
+  }
+
+  type BossFightGetPayload<S extends boolean | null | undefined | BossFightDefaultArgs> = $Result.GetResult<Prisma.$BossFightPayload, S>
+
+  type BossFightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BossFightFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BossFightCountAggregateInputType | true
+    }
+
+  export interface BossFightDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BossFight'], meta: { name: 'BossFight' } }
+    /**
+     * Find zero or one BossFight that matches the filter.
+     * @param {BossFightFindUniqueArgs} args - Arguments to find a BossFight
+     * @example
+     * // Get one BossFight
+     * const bossFight = await prisma.bossFight.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BossFightFindUniqueArgs>(args: SelectSubset<T, BossFightFindUniqueArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one BossFight that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BossFightFindUniqueOrThrowArgs} args - Arguments to find a BossFight
+     * @example
+     * // Get one BossFight
+     * const bossFight = await prisma.bossFight.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BossFightFindUniqueOrThrowArgs>(args: SelectSubset<T, BossFightFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first BossFight that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightFindFirstArgs} args - Arguments to find a BossFight
+     * @example
+     * // Get one BossFight
+     * const bossFight = await prisma.bossFight.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BossFightFindFirstArgs>(args?: SelectSubset<T, BossFightFindFirstArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first BossFight that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightFindFirstOrThrowArgs} args - Arguments to find a BossFight
+     * @example
+     * // Get one BossFight
+     * const bossFight = await prisma.bossFight.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BossFightFindFirstOrThrowArgs>(args?: SelectSubset<T, BossFightFindFirstOrThrowArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more BossFights that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BossFights
+     * const bossFights = await prisma.bossFight.findMany()
+     * 
+     * // Get first 10 BossFights
+     * const bossFights = await prisma.bossFight.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bossFightWithIdOnly = await prisma.bossFight.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BossFightFindManyArgs>(args?: SelectSubset<T, BossFightFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a BossFight.
+     * @param {BossFightCreateArgs} args - Arguments to create a BossFight.
+     * @example
+     * // Create one BossFight
+     * const BossFight = await prisma.bossFight.create({
+     *   data: {
+     *     // ... data to create a BossFight
+     *   }
+     * })
+     * 
+     */
+    create<T extends BossFightCreateArgs>(args: SelectSubset<T, BossFightCreateArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many BossFights.
+     * @param {BossFightCreateManyArgs} args - Arguments to create many BossFights.
+     * @example
+     * // Create many BossFights
+     * const bossFight = await prisma.bossFight.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BossFightCreateManyArgs>(args?: SelectSubset<T, BossFightCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BossFights and returns the data saved in the database.
+     * @param {BossFightCreateManyAndReturnArgs} args - Arguments to create many BossFights.
+     * @example
+     * // Create many BossFights
+     * const bossFight = await prisma.bossFight.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BossFights and only return the `id`
+     * const bossFightWithIdOnly = await prisma.bossFight.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BossFightCreateManyAndReturnArgs>(args?: SelectSubset<T, BossFightCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a BossFight.
+     * @param {BossFightDeleteArgs} args - Arguments to delete one BossFight.
+     * @example
+     * // Delete one BossFight
+     * const BossFight = await prisma.bossFight.delete({
+     *   where: {
+     *     // ... filter to delete one BossFight
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BossFightDeleteArgs>(args: SelectSubset<T, BossFightDeleteArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one BossFight.
+     * @param {BossFightUpdateArgs} args - Arguments to update one BossFight.
+     * @example
+     * // Update one BossFight
+     * const bossFight = await prisma.bossFight.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BossFightUpdateArgs>(args: SelectSubset<T, BossFightUpdateArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more BossFights.
+     * @param {BossFightDeleteManyArgs} args - Arguments to filter BossFights to delete.
+     * @example
+     * // Delete a few BossFights
+     * const { count } = await prisma.bossFight.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BossFightDeleteManyArgs>(args?: SelectSubset<T, BossFightDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BossFights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BossFights
+     * const bossFight = await prisma.bossFight.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BossFightUpdateManyArgs>(args: SelectSubset<T, BossFightUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BossFights and returns the data updated in the database.
+     * @param {BossFightUpdateManyAndReturnArgs} args - Arguments to update many BossFights.
+     * @example
+     * // Update many BossFights
+     * const bossFight = await prisma.bossFight.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BossFights and only return the `id`
+     * const bossFightWithIdOnly = await prisma.bossFight.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BossFightUpdateManyAndReturnArgs>(args: SelectSubset<T, BossFightUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one BossFight.
+     * @param {BossFightUpsertArgs} args - Arguments to update or create a BossFight.
+     * @example
+     * // Update or create a BossFight
+     * const bossFight = await prisma.bossFight.upsert({
+     *   create: {
+     *     // ... data to create a BossFight
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BossFight we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BossFightUpsertArgs>(args: SelectSubset<T, BossFightUpsertArgs<ExtArgs>>): Prisma__BossFightClient<$Result.GetResult<Prisma.$BossFightPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of BossFights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightCountArgs} args - Arguments to filter BossFights to count.
+     * @example
+     * // Count the number of BossFights
+     * const count = await prisma.bossFight.count({
+     *   where: {
+     *     // ... the filter for the BossFights we want to count
+     *   }
+     * })
+    **/
+    count<T extends BossFightCountArgs>(
+      args?: Subset<T, BossFightCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BossFightCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BossFight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BossFightAggregateArgs>(args: Subset<T, BossFightAggregateArgs>): Prisma.PrismaPromise<GetBossFightAggregateType<T>>
+
+    /**
+     * Group by BossFight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BossFightGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BossFightGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BossFightGroupByArgs['orderBy'] }
+        : { orderBy?: BossFightGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BossFightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBossFightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BossFight model
+   */
+  readonly fields: BossFightFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BossFight.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BossFightClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    clan<T extends ClanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClanDefaultArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BossFight model
+   */ 
+  interface BossFightFieldRefs {
+    readonly id: FieldRef<"BossFight", 'String'>
+    readonly date: FieldRef<"BossFight", 'DateTime'>
+    readonly status: FieldRef<"BossFight", 'BossFightStatus'>
+    readonly clanId: FieldRef<"BossFight", 'String'>
+    readonly steps: FieldRef<"BossFight", 'String'>
+    readonly fighters: FieldRef<"BossFight", 'String'>
+    readonly reward: FieldRef<"BossFight", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BossFight findUnique
+   */
+  export type BossFightFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * Filter, which BossFight to fetch.
+     */
+    where: BossFightWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight findUniqueOrThrow
+   */
+  export type BossFightFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * Filter, which BossFight to fetch.
+     */
+    where: BossFightWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight findFirst
+   */
+  export type BossFightFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * Filter, which BossFight to fetch.
+     */
+    where?: BossFightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossFights to fetch.
+     */
+    orderBy?: BossFightOrderByWithRelationInput | BossFightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BossFights.
+     */
+    cursor?: BossFightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossFights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossFights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BossFights.
+     */
+    distinct?: BossFightScalarFieldEnum | BossFightScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight findFirstOrThrow
+   */
+  export type BossFightFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * Filter, which BossFight to fetch.
+     */
+    where?: BossFightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossFights to fetch.
+     */
+    orderBy?: BossFightOrderByWithRelationInput | BossFightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BossFights.
+     */
+    cursor?: BossFightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossFights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossFights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BossFights.
+     */
+    distinct?: BossFightScalarFieldEnum | BossFightScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight findMany
+   */
+  export type BossFightFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * Filter, which BossFights to fetch.
+     */
+    where?: BossFightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BossFights to fetch.
+     */
+    orderBy?: BossFightOrderByWithRelationInput | BossFightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BossFights.
+     */
+    cursor?: BossFightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BossFights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BossFights.
+     */
+    skip?: number
+    distinct?: BossFightScalarFieldEnum | BossFightScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight create
+   */
+  export type BossFightCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BossFight.
+     */
+    data: XOR<BossFightCreateInput, BossFightUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight createMany
+   */
+  export type BossFightCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BossFights.
+     */
+    data: BossFightCreateManyInput | BossFightCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BossFight createManyAndReturn
+   */
+  export type BossFightCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * The data used to create many BossFights.
+     */
+    data: BossFightCreateManyInput | BossFightCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BossFight update
+   */
+  export type BossFightUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BossFight.
+     */
+    data: XOR<BossFightUpdateInput, BossFightUncheckedUpdateInput>
+    /**
+     * Choose, which BossFight to update.
+     */
+    where: BossFightWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight updateMany
+   */
+  export type BossFightUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BossFights.
+     */
+    data: XOR<BossFightUpdateManyMutationInput, BossFightUncheckedUpdateManyInput>
+    /**
+     * Filter which BossFights to update
+     */
+    where?: BossFightWhereInput
+    /**
+     * Limit how many BossFights to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BossFight updateManyAndReturn
+   */
+  export type BossFightUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * The data used to update BossFights.
+     */
+    data: XOR<BossFightUpdateManyMutationInput, BossFightUncheckedUpdateManyInput>
+    /**
+     * Filter which BossFights to update
+     */
+    where?: BossFightWhereInput
+    /**
+     * Limit how many BossFights to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BossFight upsert
+   */
+  export type BossFightUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BossFight to update in case it exists.
+     */
+    where: BossFightWhereUniqueInput
+    /**
+     * In case the BossFight found by the `where` argument doesn't exist, create a new BossFight with this data.
+     */
+    create: XOR<BossFightCreateInput, BossFightUncheckedCreateInput>
+    /**
+     * In case the BossFight was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BossFightUpdateInput, BossFightUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight delete
+   */
+  export type BossFightDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+    /**
+     * Filter which BossFight to delete.
+     */
+    where: BossFightWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BossFight deleteMany
+   */
+  export type BossFightDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BossFights to delete
+     */
+    where?: BossFightWhereInput
+    /**
+     * Limit how many BossFights to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BossFight without action
+   */
+  export type BossFightDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BossFight
+     */
+    select?: BossFightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BossFight
+     */
+    omit?: BossFightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BossFightInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model InventoryItem
    */
 
@@ -37473,6 +38741,19 @@ export namespace Prisma {
   export type ClanWarFightersScalarFieldEnum = (typeof ClanWarFightersScalarFieldEnum)[keyof typeof ClanWarFightersScalarFieldEnum]
 
 
+  export const BossFightScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    status: 'status',
+    clanId: 'clanId',
+    steps: 'steps',
+    fighters: 'fighters',
+    reward: 'reward'
+  };
+
+  export type BossFightScalarFieldEnum = (typeof BossFightScalarFieldEnum)[keyof typeof BossFightScalarFieldEnum]
+
+
   export const InventoryItemScalarFieldEnum: {
     id: 'id',
     type: 'type',
@@ -37870,6 +39151,20 @@ export namespace Prisma {
    * Reference to a field of type 'ClanWarStatus[]'
    */
   export type ListEnumClanWarStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanWarStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BossFightStatus'
+   */
+  export type EnumBossFightStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BossFightStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'BossFightStatus[]'
+   */
+  export type ListEnumBossFightStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BossFightStatus[]'>
     
 
 
@@ -39433,6 +40728,7 @@ export namespace Prisma {
     attacks?: ClanWarListRelationFilter
     defenses?: ClanWarListRelationFilter
     wins?: ClanWarListRelationFilter
+    bossFights?: BossFightListRelationFilter
   }
 
   export type ClanOrderByWithRelationInput = {
@@ -39454,6 +40750,7 @@ export namespace Prisma {
     attacks?: ClanWarOrderByRelationAggregateInput
     defenses?: ClanWarOrderByRelationAggregateInput
     wins?: ClanWarOrderByRelationAggregateInput
+    bossFights?: BossFightOrderByRelationAggregateInput
   }
 
   export type ClanWhereUniqueInput = Prisma.AtLeast<{
@@ -39479,6 +40776,7 @@ export namespace Prisma {
     attacks?: ClanWarListRelationFilter
     defenses?: ClanWarListRelationFilter
     wins?: ClanWarListRelationFilter
+    bossFights?: BossFightListRelationFilter
   }, "id" | "id" | "masterId" | "name_deletedAt">
 
   export type ClanOrderByWithAggregationInput = {
@@ -39868,6 +41166,73 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"ClanWarFighters"> | string
     clanWarId?: UuidWithAggregatesFilter<"ClanWarFighters"> | string
     day?: IntWithAggregatesFilter<"ClanWarFighters"> | number
+  }
+
+  export type BossFightWhereInput = {
+    AND?: BossFightWhereInput | BossFightWhereInput[]
+    OR?: BossFightWhereInput[]
+    NOT?: BossFightWhereInput | BossFightWhereInput[]
+    id?: UuidFilter<"BossFight"> | string
+    date?: DateTimeFilter<"BossFight"> | Date | string
+    status?: EnumBossFightStatusFilter<"BossFight"> | $Enums.BossFightStatus
+    clanId?: UuidFilter<"BossFight"> | string
+    steps?: StringFilter<"BossFight"> | string
+    fighters?: StringFilter<"BossFight"> | string
+    reward?: IntFilter<"BossFight"> | number
+    clan?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+  }
+
+  export type BossFightOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    clanId?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
+    reward?: SortOrder
+    clan?: ClanOrderByWithRelationInput
+  }
+
+  export type BossFightWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BossFightWhereInput | BossFightWhereInput[]
+    OR?: BossFightWhereInput[]
+    NOT?: BossFightWhereInput | BossFightWhereInput[]
+    date?: DateTimeFilter<"BossFight"> | Date | string
+    status?: EnumBossFightStatusFilter<"BossFight"> | $Enums.BossFightStatus
+    clanId?: UuidFilter<"BossFight"> | string
+    steps?: StringFilter<"BossFight"> | string
+    fighters?: StringFilter<"BossFight"> | string
+    reward?: IntFilter<"BossFight"> | number
+    clan?: XOR<ClanScalarRelationFilter, ClanWhereInput>
+  }, "id" | "id">
+
+  export type BossFightOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    clanId?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
+    reward?: SortOrder
+    _count?: BossFightCountOrderByAggregateInput
+    _avg?: BossFightAvgOrderByAggregateInput
+    _max?: BossFightMaxOrderByAggregateInput
+    _min?: BossFightMinOrderByAggregateInput
+    _sum?: BossFightSumOrderByAggregateInput
+  }
+
+  export type BossFightScalarWhereWithAggregatesInput = {
+    AND?: BossFightScalarWhereWithAggregatesInput | BossFightScalarWhereWithAggregatesInput[]
+    OR?: BossFightScalarWhereWithAggregatesInput[]
+    NOT?: BossFightScalarWhereWithAggregatesInput | BossFightScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"BossFight"> | string
+    date?: DateTimeWithAggregatesFilter<"BossFight"> | Date | string
+    status?: EnumBossFightStatusWithAggregatesFilter<"BossFight"> | $Enums.BossFightStatus
+    clanId?: UuidWithAggregatesFilter<"BossFight"> | string
+    steps?: StringWithAggregatesFilter<"BossFight"> | string
+    fighters?: StringWithAggregatesFilter<"BossFight"> | string
+    reward?: IntWithAggregatesFilter<"BossFight"> | number
   }
 
   export type InventoryItemWhereInput = {
@@ -41807,6 +43172,7 @@ export namespace Prisma {
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateInput = {
@@ -41827,6 +43193,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanUpdateInput = {
@@ -41847,6 +43214,7 @@ export namespace Prisma {
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateInput = {
@@ -41867,6 +43235,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanCreateManyInput = {
@@ -42251,6 +43620,75 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     clanWarId?: StringFieldUpdateOperationsInput | string
     day?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossFightCreateInput = {
+    id?: string
+    date?: Date | string
+    status?: $Enums.BossFightStatus
+    steps: string
+    fighters: string
+    reward: number
+    clan: ClanCreateNestedOneWithoutBossFightsInput
+  }
+
+  export type BossFightUncheckedCreateInput = {
+    id?: string
+    date?: Date | string
+    status?: $Enums.BossFightStatus
+    clanId: string
+    steps: string
+    fighters: string
+    reward: number
+  }
+
+  export type BossFightUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
+    clan?: ClanUpdateOneRequiredWithoutBossFightsNestedInput
+  }
+
+  export type BossFightUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    clanId?: StringFieldUpdateOperationsInput | string
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossFightCreateManyInput = {
+    id?: string
+    date?: Date | string
+    status?: $Enums.BossFightStatus
+    clanId: string
+    steps: string
+    fighters: string
+    reward: number
+  }
+
+  export type BossFightUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossFightUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    clanId?: StringFieldUpdateOperationsInput | string
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
   }
 
   export type InventoryItemCreateInput = {
@@ -44138,7 +45576,17 @@ export namespace Prisma {
     none?: ClanWarWhereInput
   }
 
+  export type BossFightListRelationFilter = {
+    every?: BossFightWhereInput
+    some?: BossFightWhereInput
+    none?: BossFightWhereInput
+  }
+
   export type ClanWarOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BossFightOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -44451,6 +45899,61 @@ export namespace Prisma {
 
   export type ClanWarFightersSumOrderByAggregateInput = {
     day?: SortOrder
+  }
+
+  export type EnumBossFightStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BossFightStatus | EnumBossFightStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBossFightStatusFilter<$PrismaModel> | $Enums.BossFightStatus
+  }
+
+  export type BossFightCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    clanId?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
+    reward?: SortOrder
+  }
+
+  export type BossFightAvgOrderByAggregateInput = {
+    reward?: SortOrder
+  }
+
+  export type BossFightMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    clanId?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
+    reward?: SortOrder
+  }
+
+  export type BossFightMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    clanId?: SortOrder
+    steps?: SortOrder
+    fighters?: SortOrder
+    reward?: SortOrder
+  }
+
+  export type BossFightSumOrderByAggregateInput = {
+    reward?: SortOrder
+  }
+
+  export type EnumBossFightStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BossFightStatus | EnumBossFightStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBossFightStatusWithAggregatesFilter<$PrismaModel> | $Enums.BossFightStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBossFightStatusFilter<$PrismaModel>
+    _max?: NestedEnumBossFightStatusFilter<$PrismaModel>
   }
 
   export type EnumInventoryItemTypeFilter<$PrismaModel = never> = {
@@ -46878,6 +48381,13 @@ export namespace Prisma {
     connect?: ClanWarWhereUniqueInput | ClanWarWhereUniqueInput[]
   }
 
+  export type BossFightCreateNestedManyWithoutClanInput = {
+    create?: XOR<BossFightCreateWithoutClanInput, BossFightUncheckedCreateWithoutClanInput> | BossFightCreateWithoutClanInput[] | BossFightUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossFightCreateOrConnectWithoutClanInput | BossFightCreateOrConnectWithoutClanInput[]
+    createMany?: BossFightCreateManyClanInputEnvelope
+    connect?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutClanInput = {
     create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
@@ -46925,6 +48435,13 @@ export namespace Prisma {
     connectOrCreate?: ClanWarCreateOrConnectWithoutWinnerInput | ClanWarCreateOrConnectWithoutWinnerInput[]
     createMany?: ClanWarCreateManyWinnerInputEnvelope
     connect?: ClanWarWhereUniqueInput | ClanWarWhereUniqueInput[]
+  }
+
+  export type BossFightUncheckedCreateNestedManyWithoutClanInput = {
+    create?: XOR<BossFightCreateWithoutClanInput, BossFightUncheckedCreateWithoutClanInput> | BossFightCreateWithoutClanInput[] | BossFightUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossFightCreateOrConnectWithoutClanInput | BossFightCreateOrConnectWithoutClanInput[]
+    createMany?: BossFightCreateManyClanInputEnvelope
+    connect?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
   }
 
   export type EnumBossNameFieldUpdateOperationsInput = {
@@ -47039,6 +48556,20 @@ export namespace Prisma {
     deleteMany?: ClanWarScalarWhereInput | ClanWarScalarWhereInput[]
   }
 
+  export type BossFightUpdateManyWithoutClanNestedInput = {
+    create?: XOR<BossFightCreateWithoutClanInput, BossFightUncheckedCreateWithoutClanInput> | BossFightCreateWithoutClanInput[] | BossFightUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossFightCreateOrConnectWithoutClanInput | BossFightCreateOrConnectWithoutClanInput[]
+    upsert?: BossFightUpsertWithWhereUniqueWithoutClanInput | BossFightUpsertWithWhereUniqueWithoutClanInput[]
+    createMany?: BossFightCreateManyClanInputEnvelope
+    set?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    disconnect?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    delete?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    connect?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    update?: BossFightUpdateWithWhereUniqueWithoutClanInput | BossFightUpdateWithWhereUniqueWithoutClanInput[]
+    updateMany?: BossFightUpdateManyWithWhereWithoutClanInput | BossFightUpdateManyWithWhereWithoutClanInput[]
+    deleteMany?: BossFightScalarWhereInput | BossFightScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutClanNestedInput = {
     create?: XOR<BruteCreateWithoutClanInput, BruteUncheckedCreateWithoutClanInput> | BruteCreateWithoutClanInput[] | BruteUncheckedCreateWithoutClanInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutClanInput | BruteCreateOrConnectWithoutClanInput[]
@@ -47135,6 +48666,20 @@ export namespace Prisma {
     update?: ClanWarUpdateWithWhereUniqueWithoutWinnerInput | ClanWarUpdateWithWhereUniqueWithoutWinnerInput[]
     updateMany?: ClanWarUpdateManyWithWhereWithoutWinnerInput | ClanWarUpdateManyWithWhereWithoutWinnerInput[]
     deleteMany?: ClanWarScalarWhereInput | ClanWarScalarWhereInput[]
+  }
+
+  export type BossFightUncheckedUpdateManyWithoutClanNestedInput = {
+    create?: XOR<BossFightCreateWithoutClanInput, BossFightUncheckedCreateWithoutClanInput> | BossFightCreateWithoutClanInput[] | BossFightUncheckedCreateWithoutClanInput[]
+    connectOrCreate?: BossFightCreateOrConnectWithoutClanInput | BossFightCreateOrConnectWithoutClanInput[]
+    upsert?: BossFightUpsertWithWhereUniqueWithoutClanInput | BossFightUpsertWithWhereUniqueWithoutClanInput[]
+    createMany?: BossFightCreateManyClanInputEnvelope
+    set?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    disconnect?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    delete?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    connect?: BossFightWhereUniqueInput | BossFightWhereUniqueInput[]
+    update?: BossFightUpdateWithWhereUniqueWithoutClanInput | BossFightUpdateWithWhereUniqueWithoutClanInput[]
+    updateMany?: BossFightUpdateManyWithWhereWithoutClanInput | BossFightUpdateManyWithWhereWithoutClanInput[]
+    deleteMany?: BossFightScalarWhereInput | BossFightScalarWhereInput[]
   }
 
   export type ClanCreateNestedOneWithoutThreadsInput = {
@@ -47493,6 +49038,24 @@ export namespace Prisma {
     update?: BruteUpdateWithWhereUniqueWithoutInClanWarDefenderFightersInput | BruteUpdateWithWhereUniqueWithoutInClanWarDefenderFightersInput[]
     updateMany?: BruteUpdateManyWithWhereWithoutInClanWarDefenderFightersInput | BruteUpdateManyWithWhereWithoutInClanWarDefenderFightersInput[]
     deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type ClanCreateNestedOneWithoutBossFightsInput = {
+    create?: XOR<ClanCreateWithoutBossFightsInput, ClanUncheckedCreateWithoutBossFightsInput>
+    connectOrCreate?: ClanCreateOrConnectWithoutBossFightsInput
+    connect?: ClanWhereUniqueInput
+  }
+
+  export type EnumBossFightStatusFieldUpdateOperationsInput = {
+    set?: $Enums.BossFightStatus
+  }
+
+  export type ClanUpdateOneRequiredWithoutBossFightsNestedInput = {
+    create?: XOR<ClanCreateWithoutBossFightsInput, ClanUncheckedCreateWithoutBossFightsInput>
+    connectOrCreate?: ClanCreateOrConnectWithoutBossFightsInput
+    upsert?: ClanUpsertWithoutBossFightsInput
+    connect?: ClanWhereUniqueInput
+    update?: XOR<XOR<ClanUpdateToOneWithWhereWithoutBossFightsInput, ClanUpdateWithoutBossFightsInput>, ClanUncheckedUpdateWithoutBossFightsInput>
   }
 
   export type BruteCreateNestedOneWithoutInventoryInput = {
@@ -48193,6 +49756,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumClanWarStatusFilter<$PrismaModel>
     _max?: NestedEnumClanWarStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBossFightStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BossFightStatus | EnumBossFightStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBossFightStatusFilter<$PrismaModel> | $Enums.BossFightStatus
+  }
+
+  export type NestedEnumBossFightStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BossFightStatus | EnumBossFightStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BossFightStatus[] | ListEnumBossFightStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBossFightStatusWithAggregatesFilter<$PrismaModel> | $Enums.BossFightStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBossFightStatusFilter<$PrismaModel>
+    _max?: NestedEnumBossFightStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumInventoryItemTypeFilter<$PrismaModel = never> = {
@@ -50051,6 +51631,7 @@ export namespace Prisma {
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutBrutesInput = {
@@ -50070,6 +51651,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutBrutesInput = {
@@ -50685,6 +52267,7 @@ export namespace Prisma {
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutMasterInput = {
@@ -50704,6 +52287,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutMasterInput = {
@@ -50752,6 +52336,7 @@ export namespace Prisma {
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutJoinRequestsInput = {
@@ -50771,6 +52356,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutJoinRequestsInput = {
@@ -51409,6 +52995,7 @@ export namespace Prisma {
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutBrutesInput = {
@@ -51428,6 +53015,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type FightUpsertWithWhereUniqueWithoutBrute1Input = {
@@ -51650,6 +53238,7 @@ export namespace Prisma {
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutMasterInput = {
@@ -51669,6 +53258,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -51726,6 +53316,7 @@ export namespace Prisma {
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutJoinRequestsInput = {
@@ -51745,6 +53336,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanThreadUpsertWithWhereUniqueWithoutCreatorInput = {
@@ -57136,6 +58728,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BossFightCreateWithoutClanInput = {
+    id?: string
+    date?: Date | string
+    status?: $Enums.BossFightStatus
+    steps: string
+    fighters: string
+    reward: number
+  }
+
+  export type BossFightUncheckedCreateWithoutClanInput = {
+    id?: string
+    date?: Date | string
+    status?: $Enums.BossFightStatus
+    steps: string
+    fighters: string
+    reward: number
+  }
+
+  export type BossFightCreateOrConnectWithoutClanInput = {
+    where: BossFightWhereUniqueInput
+    create: XOR<BossFightCreateWithoutClanInput, BossFightUncheckedCreateWithoutClanInput>
+  }
+
+  export type BossFightCreateManyClanInputEnvelope = {
+    data: BossFightCreateManyClanInput | BossFightCreateManyClanInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BruteUpsertWithoutMasterOfClanInput = {
     update: XOR<BruteUpdateWithoutMasterOfClanInput, BruteUncheckedUpdateWithoutMasterOfClanInput>
     create: XOR<BruteCreateWithoutMasterOfClanInput, BruteUncheckedCreateWithoutMasterOfClanInput>
@@ -57441,6 +59061,35 @@ export namespace Prisma {
     data: XOR<ClanWarUpdateManyMutationInput, ClanWarUncheckedUpdateManyWithoutWinnerInput>
   }
 
+  export type BossFightUpsertWithWhereUniqueWithoutClanInput = {
+    where: BossFightWhereUniqueInput
+    update: XOR<BossFightUpdateWithoutClanInput, BossFightUncheckedUpdateWithoutClanInput>
+    create: XOR<BossFightCreateWithoutClanInput, BossFightUncheckedCreateWithoutClanInput>
+  }
+
+  export type BossFightUpdateWithWhereUniqueWithoutClanInput = {
+    where: BossFightWhereUniqueInput
+    data: XOR<BossFightUpdateWithoutClanInput, BossFightUncheckedUpdateWithoutClanInput>
+  }
+
+  export type BossFightUpdateManyWithWhereWithoutClanInput = {
+    where: BossFightScalarWhereInput
+    data: XOR<BossFightUpdateManyMutationInput, BossFightUncheckedUpdateManyWithoutClanInput>
+  }
+
+  export type BossFightScalarWhereInput = {
+    AND?: BossFightScalarWhereInput | BossFightScalarWhereInput[]
+    OR?: BossFightScalarWhereInput[]
+    NOT?: BossFightScalarWhereInput | BossFightScalarWhereInput[]
+    id?: UuidFilter<"BossFight"> | string
+    date?: DateTimeFilter<"BossFight"> | Date | string
+    status?: EnumBossFightStatusFilter<"BossFight"> | $Enums.BossFightStatus
+    clanId?: UuidFilter<"BossFight"> | string
+    steps?: StringFilter<"BossFight"> | string
+    fighters?: StringFilter<"BossFight"> | string
+    reward?: IntFilter<"BossFight"> | number
+  }
+
   export type ClanCreateWithoutThreadsInput = {
     id?: string
     name: string
@@ -57458,6 +59107,7 @@ export namespace Prisma {
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutThreadsInput = {
@@ -57477,6 +59127,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutThreadsInput = {
@@ -57705,6 +59356,7 @@ export namespace Prisma {
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutThreadsInput = {
@@ -57724,6 +59376,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type BruteUpsertWithoutThreadsInput = {
@@ -58511,6 +60164,7 @@ export namespace Prisma {
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutBossDamagesInput = {
@@ -58530,6 +60184,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutBossDamagesInput = {
@@ -58740,6 +60395,7 @@ export namespace Prisma {
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutBossDamagesInput = {
@@ -58759,6 +60415,7 @@ export namespace Prisma {
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanCreateWithoutAttacksInput = {
@@ -58778,6 +60435,7 @@ export namespace Prisma {
     bossDamages?: BossDamageCreateNestedManyWithoutClanInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutAttacksInput = {
@@ -58797,6 +60455,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutAttacksInput = {
@@ -58821,6 +60480,7 @@ export namespace Prisma {
     bossDamages?: BossDamageCreateNestedManyWithoutClanInput
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     wins?: ClanWarCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutDefensesInput = {
@@ -58840,6 +60500,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutDefensesInput = {
@@ -58864,6 +60525,7 @@ export namespace Prisma {
     bossDamages?: BossDamageCreateNestedManyWithoutClanInput
     attacks?: ClanWarCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarCreateNestedManyWithoutDefenderInput
+    bossFights?: BossFightCreateNestedManyWithoutClanInput
   }
 
   export type ClanUncheckedCreateWithoutWinsInput = {
@@ -58883,6 +60545,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
     attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
     defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
+    bossFights?: BossFightUncheckedCreateNestedManyWithoutClanInput
   }
 
   export type ClanCreateOrConnectWithoutWinsInput = {
@@ -58988,6 +60651,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutAttacksInput = {
@@ -59007,6 +60671,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUpsertWithoutDefensesInput = {
@@ -59037,6 +60702,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutDefensesInput = {
@@ -59056,6 +60722,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUpsertWithoutWinsInput = {
@@ -59086,6 +60753,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
     attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
+    bossFights?: BossFightUpdateManyWithoutClanNestedInput
   }
 
   export type ClanUncheckedUpdateWithoutWinsInput = {
@@ -59105,6 +60773,7 @@ export namespace Prisma {
     bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
     attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
     defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
+    bossFights?: BossFightUncheckedUpdateManyWithoutClanNestedInput
   }
 
   export type FightUpsertWithWhereUniqueWithoutClanWarInput = {
@@ -59587,6 +61256,102 @@ export namespace Prisma {
   export type BruteUpdateManyWithWhereWithoutInClanWarDefenderFightersInput = {
     where: BruteScalarWhereInput
     data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutInClanWarDefenderFightersInput>
+  }
+
+  export type ClanCreateWithoutBossFightsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    limit?: number
+    points?: number
+    elo?: number
+    boss?: $Enums.BossName
+    damageOnBoss?: number
+    participateInClanWar?: boolean
+    master?: BruteCreateNestedOneWithoutMasterOfClanInput
+    brutes?: BruteCreateNestedManyWithoutClanInput
+    joinRequests?: BruteCreateNestedManyWithoutWantToJoinClanInput
+    threads?: ClanThreadCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageCreateNestedManyWithoutClanInput
+    attacks?: ClanWarCreateNestedManyWithoutAttackerInput
+    defenses?: ClanWarCreateNestedManyWithoutDefenderInput
+    wins?: ClanWarCreateNestedManyWithoutWinnerInput
+  }
+
+  export type ClanUncheckedCreateWithoutBossFightsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    limit?: number
+    points?: number
+    elo?: number
+    boss?: $Enums.BossName
+    damageOnBoss?: number
+    masterId?: string | null
+    participateInClanWar?: boolean
+    brutes?: BruteUncheckedCreateNestedManyWithoutClanInput
+    joinRequests?: BruteUncheckedCreateNestedManyWithoutWantToJoinClanInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutClanInput
+    bossDamages?: BossDamageUncheckedCreateNestedManyWithoutClanInput
+    attacks?: ClanWarUncheckedCreateNestedManyWithoutAttackerInput
+    defenses?: ClanWarUncheckedCreateNestedManyWithoutDefenderInput
+    wins?: ClanWarUncheckedCreateNestedManyWithoutWinnerInput
+  }
+
+  export type ClanCreateOrConnectWithoutBossFightsInput = {
+    where: ClanWhereUniqueInput
+    create: XOR<ClanCreateWithoutBossFightsInput, ClanUncheckedCreateWithoutBossFightsInput>
+  }
+
+  export type ClanUpsertWithoutBossFightsInput = {
+    update: XOR<ClanUpdateWithoutBossFightsInput, ClanUncheckedUpdateWithoutBossFightsInput>
+    create: XOR<ClanCreateWithoutBossFightsInput, ClanUncheckedCreateWithoutBossFightsInput>
+    where?: ClanWhereInput
+  }
+
+  export type ClanUpdateToOneWithWhereWithoutBossFightsInput = {
+    where?: ClanWhereInput
+    data: XOR<ClanUpdateWithoutBossFightsInput, ClanUncheckedUpdateWithoutBossFightsInput>
+  }
+
+  export type ClanUpdateWithoutBossFightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    limit?: IntFieldUpdateOperationsInput | number
+    points?: IntFieldUpdateOperationsInput | number
+    elo?: IntFieldUpdateOperationsInput | number
+    boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
+    damageOnBoss?: IntFieldUpdateOperationsInput | number
+    participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
+    master?: BruteUpdateOneWithoutMasterOfClanNestedInput
+    brutes?: BruteUpdateManyWithoutClanNestedInput
+    joinRequests?: BruteUpdateManyWithoutWantToJoinClanNestedInput
+    threads?: ClanThreadUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUpdateManyWithoutClanNestedInput
+    attacks?: ClanWarUpdateManyWithoutAttackerNestedInput
+    defenses?: ClanWarUpdateManyWithoutDefenderNestedInput
+    wins?: ClanWarUpdateManyWithoutWinnerNestedInput
+  }
+
+  export type ClanUncheckedUpdateWithoutBossFightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    limit?: IntFieldUpdateOperationsInput | number
+    points?: IntFieldUpdateOperationsInput | number
+    elo?: IntFieldUpdateOperationsInput | number
+    boss?: EnumBossNameFieldUpdateOperationsInput | $Enums.BossName
+    damageOnBoss?: IntFieldUpdateOperationsInput | number
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    participateInClanWar?: BoolFieldUpdateOperationsInput | boolean
+    brutes?: BruteUncheckedUpdateManyWithoutClanNestedInput
+    joinRequests?: BruteUncheckedUpdateManyWithoutWantToJoinClanNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutClanNestedInput
+    bossDamages?: BossDamageUncheckedUpdateManyWithoutClanNestedInput
+    attacks?: ClanWarUncheckedUpdateManyWithoutAttackerNestedInput
+    defenses?: ClanWarUncheckedUpdateManyWithoutDefenderNestedInput
+    wins?: ClanWarUncheckedUpdateManyWithoutWinnerNestedInput
   }
 
   export type BruteCreateWithoutInventoryInput = {
@@ -63769,6 +65534,15 @@ export namespace Prisma {
     defenderWins?: number
   }
 
+  export type BossFightCreateManyClanInput = {
+    id?: string
+    date?: Date | string
+    status?: $Enums.BossFightStatus
+    steps: string
+    fighters: string
+    reward: number
+  }
+
   export type BruteUpdateWithoutClanInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -64404,6 +66178,33 @@ export namespace Prisma {
     defenderId?: StringFieldUpdateOperationsInput | string
     defenderEloChange?: IntFieldUpdateOperationsInput | number
     defenderWins?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossFightUpdateWithoutClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossFightUncheckedUpdateWithoutClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BossFightUncheckedUpdateManyWithoutClanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBossFightStatusFieldUpdateOperationsInput | $Enums.BossFightStatus
+    steps?: StringFieldUpdateOperationsInput | string
+    fighters?: StringFieldUpdateOperationsInput | string
+    reward?: IntFieldUpdateOperationsInput | number
   }
 
   export type ClanPostCreateManyThreadInput = {
