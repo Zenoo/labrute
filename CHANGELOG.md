@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.12](https://github.com/Zenoo/labrute/compare/labrute-v2.82.11...labrute-v2.82.12) (2025-09-21)
+
+
+### Bug Fixes
+
+* Update prisma + telemetry + Add gold win/loss logs to user logs ([8486793](https://github.com/Zenoo/labrute/commit/8486793787223586e9ee4618474888aec0e81e3f))
+
 ## [2.82.11](https://github.com/Zenoo/labrute/compare/labrute-v2.82.10...labrute-v2.82.11) (2025-06-22)
 
 
