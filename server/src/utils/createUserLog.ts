@@ -10,3 +10,16 @@ export const createUserLog = (prisma: PrismaClient, data: Prisma.UserLogUnchecke
     }
   });
 };
+
+export const createManyUserLogs = (
+  prisma: PrismaClient,
+  data: Prisma.UserLogUncheckedCreateInput[],
+) => {
+  prisma.userLog.createMany({
+    data,
+  }).catch((error) => {
+    if (error instanceof Error) {
+      DISCORD().sendError(error);
+    }
+  });
+};

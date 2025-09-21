@@ -14,6 +14,7 @@ import {
 } from '@labrute/core';
 import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
+  UserLogType,
 } from '@labrute/prisma';
 import { applySpy } from './applySpy.js';
 import {
@@ -25,6 +26,7 @@ import {
 import { getFighters } from './getFighters.js';
 import { handleStats } from './handleStats.js';
 import { updateAchievements } from './updateAchievements.js';
+import { createManyUserLogs } from '../createUserLog.js';
 
 export type GenerateFightResult = {
   data: Prisma.FightCreateInput;
@@ -428,6 +430,12 @@ export const generateFight = async ({
           currentBruteId: bruteId,
         })),
       });
+
+      createManyUserLogs(prisma, Array.from(userIds).map((userId) => ({
+        type: UserLogType.GOLD_WIN,
+        userId,
+        gold: goldGains,
+      })));
 
       result.boss = {
         defeated: true,

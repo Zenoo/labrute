@@ -308,6 +308,12 @@ export const Brutes = {
           });
           goldLost = gold;
           newLimit += 1;
+
+          createUserLog(prisma, {
+            type: UserLogType.GOLD_LOSS,
+            userId: authed.id,
+            gold: goldLost,
+          });
         }
       }
 
@@ -802,6 +808,12 @@ export const Brutes = {
           gold: { increment: gold },
         },
         select: { id: true },
+      });
+
+      createUserLog(prisma, {
+        type: UserLogType.GOLD_WIN,
+        userId: authed.id,
+        gold,
       });
 
       // Decrease master's pupils count

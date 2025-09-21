@@ -16,6 +16,7 @@ import {
   PetName,
   PrismaClient, SkillName, TournamentType,
   User,
+  UserLogType,
   WeaponName,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
@@ -24,6 +25,7 @@ import { translate } from '../translate.js';
 import { checkLevelUpAchievements } from './checkLevelUpAchievements.js';
 import { getOpponents } from './getOpponents.js';
 import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
+import { createUserLog } from '../createUserLog.js';
 
 type Props = {
   prisma: PrismaClient,
@@ -91,6 +93,12 @@ export const resetBrute = async ({
         gold: { decrement: RESET_PRICE },
       },
       select: { id: true },
+    });
+
+    createUserLog(prisma, {
+      type: UserLogType.GOLD_LOSS,
+      userId: user.id,
+      gold: RESET_PRICE,
     });
   }
 

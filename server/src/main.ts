@@ -1,15 +1,15 @@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { ExpressInstrumentation, ExpressLayerType } from '@opentelemetry/instrumentation-express';
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { AlwaysOnSampler, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
-import { SEMRESATTRS_DEPLOYMENT_ENVIRONMENT, SEMRESATTRS_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
-import prismaInstrumentation from '@prisma/instrumentation';
+import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import { PrismaInstrumentation } from '@prisma/instrumentation';
 import { Buffer } from 'buffer';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
+import utc from 'dayjs/plugin/utc.js';
 import urlJoin from 'url-join';
 import { Config, loadConfig } from './config.js';
 
@@ -35,9 +35,9 @@ function initOpentelemetry(config: Config): NodeSDK {
   });
 
   const otelSdk = new NodeSDK({
-    resource: new Resource({
-      [SEMRESATTRS_SERVICE_NAME]: config.eternaltwin.app,
-      [SEMRESATTRS_DEPLOYMENT_ENVIRONMENT]: config.eternaltwin.channel,
+    resource: resourceFromAttributes({
+      [ATTR_SERVICE_NAME]: config.eternaltwin.app,
+      'deployment.environment.name': config.eternaltwin.channel,
     }),
     spanProcessors: [
       config.isProduction ? new BatchSpanProcessor(exporter) : new SimpleSpanProcessor(exporter),
@@ -53,7 +53,7 @@ function initOpentelemetry(config: Config): NodeSDK {
           ExpressLayerType.ROUTER,
         ],
       }),
-      new prismaInstrumentation.PrismaInstrumentation(),
+      new PrismaInstrumentation(),
     ],
   });
 

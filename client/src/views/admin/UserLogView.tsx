@@ -39,6 +39,13 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+    case UserLogType.GOLD_LOSS: {
+      return (
+        <>
+          <Link to={`/user/${log.userId}`} target="_blank">{log.user.name}</Link> lost {log.gold} gold.
+        </>
+      );
+    }
     case UserLogType.CREATE_BRUTE: {
       return (
         <>

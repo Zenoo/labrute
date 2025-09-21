@@ -1,4 +1,5 @@
 declare class AnyNull extends NullTypesEnumValue {
+    #private;
 }
 
 declare type Args<T, F extends Operation> = T extends {
@@ -14,6 +15,7 @@ declare type Args<T, F extends Operation> = T extends {
 } ? T[symbol]['types']['operations'][F]['args'] : any;
 
 declare class DbNull extends NullTypesEnumValue {
+    #private;
 }
 
 export declare function Decimal(n: Decimal.Value): Decimal;
@@ -292,12 +294,13 @@ declare type Exact<A, W> = (A extends unknown ? (W extends A ? {
 export declare function getRuntime(): GetRuntimeOutput;
 
 declare type GetRuntimeOutput = {
-    id: Runtime;
+    id: RuntimeName;
     prettyName: string;
     isEdge: boolean;
 };
 
 declare class JsonNull extends NullTypesEnumValue {
+    #private;
 }
 
 /**
@@ -356,7 +359,7 @@ declare namespace Public {
 }
 export { Public }
 
-declare type Runtime = "edge-routine" | "workerd" | "deno" | "lagon" | "react-native" | "netlify" | "electron" | "node" | "bun" | "edge-light" | "fastly" | "unknown";
+declare type RuntimeName = 'workerd' | 'deno' | 'netlify' | 'node' | 'bun' | 'edge-light' | '';
 
 declare function validator<V>(): <S>(select: Exact<S, V>) => S;
 
