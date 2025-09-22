@@ -7,9 +7,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },
-  "exclude": [
-    "lib/**/*"
-  ],
+  "exclude": ["lib/**/*", "prisma.config.ts"],
   "references": [
     {
       "path": "../core"

@@ -9,5 +9,6 @@
     "@typescript-eslint/no-shadow": "error",
     "no-await-in-loop": "off",
     "no-underscore-dangle": ["error", { "allow": ["_count"] }]
-  }
+  },
+  "ignorePatterns": ["prisma.config.ts"]
 }

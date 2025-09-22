@@ -20,9 +20,6 @@
     "run:retrieveFirstBonus": "yarn run compile && node ./lib/scripts/retrieveFirstBonus.js",
     "run:fixErroredBonuses": "yarn run compile && node ./lib/scripts/fixErroredBonuses.js"
   },
-  "prisma": {
-    "seed": "node --loader ts-node/esm src/seed.ts"
-  },
   "dependencies": {
     "@eternaltwin/client-node": "^0.16.4",
     "@eternaltwin/core": "^0.16.0",
