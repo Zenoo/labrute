@@ -6,7 +6,7 @@ import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
 
-export default function UnknownBrute() {
+const UnknownBrute = () => {
   const { t } = useTranslation();
 
   return (
@@ -36,4 +36,6 @@ export default function UnknownBrute() {
       </Paper>
     </Page>
   );
-}
+};
+
+export default UnknownBrute;

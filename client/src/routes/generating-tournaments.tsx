@@ -6,7 +6,7 @@ import Text from '../components/Text';
 import Server from '../utils/Server';
 import useStateAsync from '../hooks/useStateAsync';
 
-export default function GeneratingTournaments() {
+const GeneratingTournaments = () => {
   const { t } = useTranslation();
   const { palette: { mode } } = useTheme();
 
@@ -61,4 +61,6 @@ export default function GeneratingTournaments() {
       </Paper>
     </Page>
   );
-}
+};
+
+export default GeneratingTournaments;

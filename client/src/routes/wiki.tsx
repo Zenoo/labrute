@@ -21,7 +21,7 @@ const sacrificeExamples = [
   { rank: 6, level: 50 },
 ];
 
-export default function Wiki() {
+const Wiki = () => {
   const { t } = useTranslation();
 
   return (
@@ -187,4 +187,6 @@ export default function Wiki() {
       </Paper>
     </Page>
   );
-}
+};
+
+export default Wiki;

@@ -16,7 +16,7 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 
-export default function Hall() {
+const Hall = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user, updateData, modifiers } = useAuth();
@@ -241,4 +241,6 @@ export default function Hall() {
       </Paper>
     </Page>
   );
-}
+};
+
+export default Hall;
