@@ -9,10 +9,14 @@ export default {
   publicPath: "/",
   // Server build target
   serverBuildFile: "server.js",
-  // Completely disable SSR for now to avoid browser dependency issues
+  // Disable SSR since it won't be used
   ssr: false,
   // Base URL
   basename: "/",
   // Build as SPA
   prerender: false,
+  // Enable lazy route discovery for better performance
+  future: {
+    unstable_lazyRouteDiscovery: true,
+  },
 } satisfies Config;
