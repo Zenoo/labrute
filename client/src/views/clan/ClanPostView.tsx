@@ -1,8 +1,6 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClanGetThreadResponse } from '@labrute/core';
 import { Box, Paper, useTheme } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import FantasyButton from '../../components/FantasyButton';
@@ -13,6 +11,9 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+
+// Dynamically import CKEditor components
+const CKEditorWrapper = lazy(() => import('../../components/CKEditorWrapper'));
 
 const ClanPostView = () => {
   const { t } = useTranslation();
@@ -139,40 +140,41 @@ const ClanPostView = () => {
             />
           </Box>
         )}
-        <CKEditor
-          editor={ClassicEditor}
-          data={content}
-          onChange={changeContent}
-          config={{
-            // Doesn't work since there is a commonJS issue
-            // plugins: [Image],
-            // image: {
-            //   insert: {
-            //     integrations: ['url']
-            //   }
-            // },
-            toolbar: [
-              'undo',
-              'redo',
-              '|',
-              'heading',
-              '|',
-              'bold',
-              'italic',
-              '|',
-              'link',
-              // 'insertImage',
-              'insertTable',
-              'blockQuote',
-              'mediaEmbed',
-              '|',
-              'bulletedList',
-              'numberedList',
-              'outdent',
-              'indent',
-            ],
-          }}
-        />
+        <Suspense fallback={<div>Loading editor...</div>}>
+          <CKEditorWrapper
+            data={content}
+            onChange={changeContent}
+            config={{
+              // Doesn't work since there is a commonJS issue
+              // plugins: [Image],
+              // image: {
+              //   insert: {
+              //     integrations: ['url']
+              //   }
+              // },
+              toolbar: [
+                'undo',
+                'redo',
+                '|',
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                '|',
+                'link',
+                // 'insertImage',
+                'insertTable',
+                'blockQuote',
+                'mediaEmbed',
+                '|',
+                'bulletedList',
+                'numberedList',
+                'outdent',
+                'indent',
+              ],
+            }}
+          />
+        </Suspense>
         <FantasyButton color="success" onClick={save} sx={{ mt: 1 }}>{t('send')}</FantasyButton>
       </Paper>
     </Page>

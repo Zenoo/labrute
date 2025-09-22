@@ -9,8 +9,10 @@ export default {
   publicPath: "/",
   // Server build target
   serverBuildFile: "server.js",
-  // Enable SPA mode if you don't need SSR
+  // Completely disable SSR for now to avoid browser dependency issues
   ssr: false,
   // Base URL
   basename: "/",
+  // Build as SPA
+  prerender: false,
 } satisfies Config;
