@@ -7,8 +7,7 @@ export default {
   buildDirectory: "build",
   // Public directory for static assets  
   publicPath: "/",
-  // Server build target
-  serverBuildFile: "server.js",
+  // No server build needed - client-side only
   // Disable SSR since it won't be used
   ssr: false,
   // Base URL
