@@ -1,10 +1,8 @@
-import { Outlet } from 'react-router';
-import ProvideBrute from '../../../components/Brute/ProvideBrute';
+import React from 'react';
+import ProvideBrute from '../../components/Brute/ProvideBrute';
 
-export default function BruteLayout() {
-  return (
-    <ProvideBrute>
-      <Outlet />
-    </ProvideBrute>
-  );
-}
+const BruteLayout = () => (
+  <ProvideBrute />
+);
+
+export default BruteLayout;

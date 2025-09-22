@@ -40,12 +40,7 @@ const root = createRoot(container);
 root.render(
   <Suspense fallback={<Loader />}>
     <LanguageProvider>
-      <BrowserRouter
-        future={{
-          v7_relativeSplatPath: true,
-          v7_startTransition: true,
-        }}
-      >
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </LanguageProvider>

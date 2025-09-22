@@ -19,13 +19,13 @@ import { useAnalytics } from './hooks/useAnalytics';
 import './index.css';
 import './i18n';
 
-export default function Root() {
+const Root = () => {
   useAnalytics();
-  
+
   const [mode, setMode] = useState<'light' | 'dark'>(
     (localStorage.getItem('mode') === 'dark') ? 'dark' : 'light'
   );
-  
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -45,7 +45,7 @@ export default function Root() {
   );
 
   return (
-    <html>
+    <html lang="en">
       <head>
         <Meta />
         <Links />
@@ -84,4 +84,6 @@ export default function Root() {
       </body>
     </html>
   );
-}
+};
+
+export default Root;

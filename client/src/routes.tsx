@@ -3,7 +3,6 @@ import { Navigate, RouteObject } from 'react-router';
 import ProvideBrute from './components/Brute/ProvideBrute';
 import Main from './layouts/Main';
 import AchievementRankingView from './views/AchievementRankingView';
-import AchievementsView from './views/AchievementsView';
 import AdminView from './views/admin/AdminView';
 import ArenaView from './views/ArenaView';
 import AscendView from './views/AscendView';
@@ -51,6 +50,7 @@ import { ClanAdminView } from './views/admin/ClanAdminView';
 import { CurrentEventsView } from './views/event/CurrentEventsView';
 import { EventRoundView } from './views/event/EventRoundView';
 import { UserLogView } from './views/admin/UserLogView';
+import Achievements from './routes/$bruteName/achievements';
 
 const routes: RouteObject[] = [
   {
@@ -90,7 +90,7 @@ const routes: RouteObject[] = [
           { path: 'destiny', element: <DestinyView /> },
           { path: 'ascend', element: <AscendView /> },
           { path: 'tournaments', element: <TournamentHistoryView /> },
-          { path: 'achievements', element: <AchievementsView /> },
+          { path: 'achievements', element: <Achievements /> },
           { path: 'reset-visuals', element: <ResetVisualsView /> },
           { path: 'change-name', element: <NameChangeView /> },
           {

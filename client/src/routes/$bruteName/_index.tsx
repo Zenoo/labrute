@@ -1,5 +1,6 @@
+import React from 'react';
 import { Navigate } from 'react-router';
 
-export default function BruteIndex() {
-  return <Navigate to="cell" replace />;
-}
+const BruteIndex = () => <Navigate to="cell" replace />;
+
+export default BruteIndex;
