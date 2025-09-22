@@ -3,7 +3,7 @@ import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Too
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import Link from '../components/Link';
 import Page from '../components/Page';

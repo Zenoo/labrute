@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import Text from './Text';

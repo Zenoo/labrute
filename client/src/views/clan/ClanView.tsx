@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router';
 import { ActivityStatus } from '../../components/ActivityStatus';
 import BruteRender from '../../components/Brute/Body/BruteRender';
 import FantasyButton from '../../components/FantasyButton';

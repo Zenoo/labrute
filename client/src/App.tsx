@@ -3,7 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { Suspense, useMemo, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 import Loader from './components/Loader';
 import { AlertProvider } from './hooks/useAlert';
 import { AuthProvider } from './hooks/useAuth';

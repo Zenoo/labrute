@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { Suspense } from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import ReactGA from 'react-ga4';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import App from './App';
-import Loader from './components/Loader';
 import { LanguageProvider } from './hooks/useLanguage';
 import './i18n';
 import './index.css';
@@ -38,18 +37,13 @@ if (analyticsMeasurementId) {
 
 const root = createRoot(container);
 root.render(
-  <Suspense fallback={<Loader />}>
+  <StrictMode>
     <LanguageProvider>
-      <BrowserRouter
-        future={{
-          v7_relativeSplatPath: true,
-          v7_startTransition: true,
-        }}
-      >
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </LanguageProvider>
-  </Suspense>
+  </StrictMode>
 );
 
 serviceWorker.unregister();
