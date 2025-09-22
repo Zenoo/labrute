@@ -3,13 +3,12 @@ import { useTheme } from '@mui/material';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-interface CKEditorWrapperProps {
-  data: string;
-  onChange: (event: unknown, editor: { getData(): string }) => void;
-  config: Record<string, unknown>;
-}
-
-const CKEditorWrapper: React.FC<CKEditorWrapperProps> = ({ data, onChange, config }) => {
+const CKEditorWrapper: React.FC<
+  Pick<
+    React.ComponentProps<typeof CKEditor<ClassicEditor>>,
+    'data' | 'onChange' | 'config'
+  >
+> = ({ data, onChange, config }) => {
   const { palette: { mode } } = useTheme();
 
   useEffect(() => {
