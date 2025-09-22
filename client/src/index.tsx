@@ -1,11 +1,10 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import React, { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { StrictMode, startTransition } from 'react';
+import { hydrateRoot } from 'react-dom/client';
 import ReactGA from 'react-ga4';
-import { BrowserRouter } from 'react-router';
-import App from './App';
+import { HydratedRouter } from 'react-router/dom';
 import { LanguageProvider } from './hooks/useLanguage';
 import './i18n';
 import './index.css';
@@ -35,15 +34,15 @@ if (analyticsMeasurementId) {
   ReactGA.initialize(analyticsMeasurementId);
 }
 
-const root = createRoot(container);
-root.render(
-  <StrictMode>
-    <LanguageProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </LanguageProvider>
-  </StrictMode>
-);
+startTransition(() => {
+  hydrateRoot(
+    container,
+    <StrictMode>
+      <LanguageProvider>
+        <HydratedRouter />
+      </LanguageProvider>
+    </StrictMode>
+  );
+});
 
 serviceWorker.unregister();

@@ -4,8 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import ReactGA from 'react-ga4';
-import { BrowserRouter } from 'react-router';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 import Loader from './components/Loader';
 import { LanguageProvider } from './hooks/useLanguage';
 import './i18n';
@@ -41,7 +40,8 @@ root.render(
   <Suspense fallback={<Loader />}>
     <LanguageProvider>
       <BrowserRouter>
-        <App />
+        {/* Legacy fallback - would need to implement old routing if needed */}
+        <div>Legacy mode not implemented for React Router v7</div>
       </BrowserRouter>
     </LanguageProvider>
   </Suspense>
