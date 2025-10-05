@@ -13,7 +13,7 @@ import catchError from '../utils/catchError';
 import Loader from '../components/Loader';
 import { ErrorType } from '../utils/Fetch';
 
-const AchievementsRankings = () => {
+const AchievementRankingView = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const Alert = useAlert();
@@ -139,4 +139,4 @@ const AchievementsRankings = () => {
   );
 };
 
-export default AchievementsRankings;
+export default AchievementRankingView;

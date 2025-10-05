@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { StrictMode, startTransition } from 'react';
+import React, { StrictMode, startTransition } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import ReactGA from 'react-ga4';
 import { HydratedRouter } from 'react-router/dom';

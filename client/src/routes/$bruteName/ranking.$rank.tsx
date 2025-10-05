@@ -1,3 +1,3 @@
-import RankingView from '../../../views/RankingView';
+import RankingView from './ranking._index';
 
 export default RankingView;

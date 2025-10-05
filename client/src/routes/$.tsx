@@ -6,7 +6,7 @@ import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
 
-const NotFound = () => {
+const NotFoundView = () => {
   const { t } = useTranslation();
 
   return (
@@ -34,4 +34,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default NotFoundView;

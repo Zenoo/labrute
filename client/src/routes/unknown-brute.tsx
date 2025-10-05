@@ -6,7 +6,7 @@ import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
 
-const UnknownBrute = () => {
+const BruteNotFoundView = () => {
   const { t } = useTranslation();
 
   return (
@@ -38,4 +38,4 @@ const UnknownBrute = () => {
   );
 };
 
-export default UnknownBrute;
+export default BruteNotFoundView;

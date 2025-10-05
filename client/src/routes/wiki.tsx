@@ -21,7 +21,7 @@ const sacrificeExamples = [
   { rank: 6, level: 50 },
 ];
 
-const Wiki = () => {
+const WikiView = () => {
   const { t } = useTranslation();
 
   return (
@@ -48,145 +48,151 @@ const Wiki = () => {
         mt: -2,
       }}
       >
-        <Grid container spacing={1} sx={{ textAlign: 'center' }}>
-          <Grid item xs={12} md={6}>
-            <FantasyButton
-              to="https://eternaltwin.net/forum/labrute"
-              target="_blank"
-              sx={{ width: 250, mx: 'auto' }}
-            >
-              <Text bold smallCaps>{t('forum')}</Text>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            {/* RANK UP */}
+            <FantasyButton color="success" sx={{ ml: 0 }}>
+              <KeyboardDoubleArrowUp sx={{ verticalAlign: 'middle', mr: 1 }} />
+              {t('rankUp')}
             </FantasyButton>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <FantasyButton
-              to="https://discord.gg/4VHyaYVGAA"
-              target="_blank"
-              sx={{ width: 250, mx: 'auto' }}
-            >
-              <Text bold smallCaps>Discord</Text>
-            </FantasyButton>
-          </Grid>
-        </Grid>
-      </Paper>
-      <Paper sx={{ bgcolor: 'background.paperDark', mt: -2 }}>
-        <Text h4 bold color="secondary" center sx={{ mb: 1 }}>{t('wiki.rankings')}</Text>
-        <Grid container spacing={1}>
-          {BruteRankings.map((ranking, index) => (
-            <Grid item xs={6} sm={4} md={3} lg={2} xl={1} key={ranking.name}>
-              <Box sx={{ textAlign: 'center' }}>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howToRankup')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.winDaily')}</Text>
+            {BruteRankings.slice(0, 3).map((rank) => (
+              <Text body2 key={rank}>
                 <Box
                   component="img"
-                  src={`/images/rankings/${ranking.name}.webp`}
-                  sx={{ width: 50, height: 50 }}
+                  src={`/images/rankings/lvl_${rank}.webp`}
+                  sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
                 />
-                <Text bold color="secondary" fontSize={10} center>
-                  {index + 1}. {t(`ranks.${ranking.name}`)}
-                </Text>
-                <Text fontSize={9} center>
-                  {t('wiki.winsNeeded', { wins: getWinsNeededToRankUp(index) })}
-                </Text>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        <Text h4 bold color="secondary" center sx={{ mb: 1 }}>
-          <EmojiEvents sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('wiki.tournaments')}
-        </Text>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Text h5 bold color="text.primary" center sx={{ mb: 1 }}>{t('wiki.daily')}</Text>
-            <Text center sx={{ mb: 1 }}>{t('wiki.dailyDesc')}</Text>
-            <Text center sx={{ mb: 1 }}>
-              <Text component="span" bold color="warning.main">
-                {t('gold')}: {DailyTournamentGoldReward}
+                →
+                <Box
+                  component="img"
+                  src={`/images/rankings/lvl_${rank - 1}.webp`}
+                  sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
+                />
+                {t('wiki.wins', { count: getWinsNeededToRankUp({ ranking: rank, ascensions: 0 }) })}
               </Text>
-              {' + '}
-              <Text component="span" bold color="info.main">
-                XP: {DailyTournamentXpReward}
-              </Text>
+            ))}
+            <Text body2>{t('wiki.restartAfterRankup')}</Text>
+            <Text body2>{t('wiki.previousDestiny')}</Text>
+            {/* TOURNAMENTS */}
+            <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
+              <EmojiEvents sx={{ verticalAlign: 'middle', mr: 1 }} />
+              {t('tournaments')}
+            </FantasyButton>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howWork')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament')}</Text>
+            <Text body2>- {t('wiki.manualRegister')}</Text>
+            <Text body2>- {t('wiki.allowRankUp')}</Text>
+            <Text body2>- {t('wiki.xpPerWin', { count: DailyTournamentXpReward })}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('globalTournament')}</Text>
+            <Text body2>- {t('wiki.autoRegister')}</Text>
+            <Text body2>- {t('wiki.activePreviousDay')}</Text>
+            <Text body2>- {t('wiki.xpPerWin', { count: GlobalTournamentXpReward })}</Text>
+            <Text body2 mt={1}>
+              {t('wiki.addedDelayedXP', {
+                daily: 3,
+                global: 4,
+                total: 3 * DailyTournamentXpReward + 4 * GlobalTournamentXpReward,
+              })}
             </Text>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Text h5 bold color="text.primary" center sx={{ mb: 1 }}>{t('wiki.global')}</Text>
-            <Text center sx={{ mb: 1 }}>{t('wiki.globalDesc')}</Text>
-            <Text center sx={{ mb: 1 }}>
-              <Text component="span" bold color="warning.main">
-                {t('gold')}: {GlobalTournamentGoldReward}
-              </Text>
-              {' + '}
-              <Text component="span" bold color="info.main">
-                XP: {GlobalTournamentXpReward}
-              </Text>
-            </Text>
-          </Grid>
-        </Grid>
-      </Paper>
-      <Paper sx={{ bgcolor: 'background.paperDark', mt: -2 }}>
-        <Text h4 bold color="secondary" center sx={{ mb: 1 }}>
-          <ChildCare sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('wiki.pupils')}
-        </Text>
-        <Text center sx={{ mb: 1 }}>{t('wiki.pupilsDesc')}</Text>
-        <Text center>
-          <Text component="span" bold color="warning.main">
-            {t('gold')}: {getGoldNeededForNewBrute({ gold: 0 } as any)}
-          </Text>
-        </Text>
-      </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        <Text h4 bold color="secondary" center sx={{ mb: 1 }}>
-          <KeyboardDoubleArrowUp sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('wiki.reset')}
-        </Text>
-        <Text center sx={{ mb: 1 }}>{t('wiki.resetDesc')}</Text>
-        <Text center sx={{ mb: 1 }}>
-          <Text component="span" bold color="warning.main">
-            {t('cost')}: {RESET_PRICE} {t('gold')}
-          </Text>
-        </Text>
-        <Text center sx={{ mb: 1 }}>{t('wiki.sacrifice')}</Text>
-        <Box sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: 1,
-        }}
-        >
-          {sacrificeExamples.map((example, index) => (
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.unlimitedGlobalTourney')}</Text>
+            <Text body2>- {t('wiki.unregisteredOnly')}</Text>
+            <Text body2>- {t('wiki.noRewards')}</Text>
+            {/* CLANS */}
+            <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
+              <Groups sx={{ verticalAlign: 'middle', mr: 1 }} />
+              {t('wiki.clans')}
+            </FantasyButton>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.increaseClanCapacity')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.defeatBoss')}</Text>
+            <Text body2>{t('wiki.bossExplanation')}</Text>
             <Box
-              key={index}
-              sx={{
-                border: 1,
-                borderColor: 'divider',
-                borderRadius: 1,
-                p: 1,
-                minWidth: 80,
-                textAlign: 'center',
-              }}
-            >
-              <Text fontSize={10} bold>
-                R{example.rank} L{example.level}
-              </Text>
-              <Text fontSize={9} color="warning.main">
-                {getBruteGoldValue({ ranking: example.rank, level: example.level } as Brute)} {t('gold')}
-              </Text>
+              component="img"
+              display="block"
+              src="/images/wiki/defeat-boss.png"
+              sx={{ mt: 1, maxWidth: 200 }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {/* GOLD */}
+            <FantasyButton color="warning" sx={{ ml: 0 }}>
+              <Box component="img" src="/images/gold.png" sx={{ verticalAlign: 'middle', mr: 1 }} />
+              {t('gold')}
+            </FantasyButton>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howToGetGold')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.sacrifice')}</Text>
+            <Box sx={{ columns: 2 }}>
+              {sacrificeExamples.map(({ level, rank }) => (
+                <Text body2 key={`${level}-${rank}`}>
+                  <Box
+                    component="img"
+                    src={`/images/rankings/lvl_${rank}.webp`}
+                    sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
+                  />
+                  {t('wiki.level', { count: level })} = {getBruteGoldValue({ level, ranking: rank, eventId: null })}
+                  <Box
+                    component="img"
+                    src="/images/gold.png"
+                    sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                  />
+                </Text>
+              ))}
             </Box>
-          ))}
-        </Box>
-      </Paper>
-      <Paper sx={{ bgcolor: 'background.paperDark', mt: -2 }}>
-        <Text h4 bold color="secondary" center sx={{ mb: 1 }}>
-          <Groups sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('wiki.clans')}
-        </Text>
-        <Text center>{t('wiki.clansDesc')}</Text>
+            <Text body2>{t('wiki.noSacrificeSameDay')}</Text>
+            <Text body2>{t('wiki.sameNameAfterSacrifice')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">
+              • {t('wiki.winDailyTourney')} = {DailyTournamentGoldReward}
+              <Box
+                component="img"
+                src="/images/gold.png"
+                sx={{ ml: 0.5, verticalAlign: 'middle' }}
+              />
+            </Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">
+              • {t('wiki.winGlobalTourney')} = {GlobalTournamentGoldReward}
+              <Box
+                component="img"
+                src="/images/gold.png"
+                sx={{ ml: 0.5, verticalAlign: 'middle' }}
+              />
+            </Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.beatClanBoss')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howToUseGold')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.createNewBrutes')}</Text>
+            {[4, 5, 6].map((brutes) => (
+              <Text body2 key={brutes}>
+                {t('wiki.count', { count: brutes })} = {getGoldNeededForNewBrute({ bruteLimit: brutes - 1, brutes: new Array(brutes - 1).fill({ id: '' }) as Pick<Brute, 'id'>[] })}
+                <Box
+                  component="img"
+                  src="/images/gold.png"
+                  sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                />
+              </Text>
+            ))}
+            <Text h6 upperCase typo="LaBrute" color="secondary">
+              • {t('wiki.resetBrute')} = {RESET_PRICE}
+              <Box
+                component="img"
+                src="/images/gold.png"
+                sx={{ ml: 0.5, verticalAlign: 'middle' }}
+              />
+            </Text>
+            <Text body2>{t('wiki.resetExample')}</Text>
+            <Text body2>{t('wiki.resetExample2')}</Text>
+            {/* PUPILS */}
+            <FantasyButton color="success" sx={{ ml: 0, mt: 3 }}>
+              <ChildCare sx={{ verticalAlign: 'middle', mr: 1 }} />
+              {t('wiki.pupils')}
+            </FantasyButton>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.whatPupilBenefits')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.pupilBenefits')}</Text>
+            <Text body2>{t('wiki.pupilExplanation')}</Text>
+          </Grid>
+        </Grid>
       </Paper>
     </Page>
   );
 };
 
-export default Wiki;
+export default WikiView;

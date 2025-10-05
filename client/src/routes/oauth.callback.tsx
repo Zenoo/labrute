@@ -21,7 +21,7 @@ import catchError from '../utils/catchError';
 import { setCookie } from '../utils/cookies';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
-import HomeMobileView from './mobile/HomeMobileView';
+import HomeMobileView from '../mobile/HomeMobileView';
 
 /**
  * HomeView component

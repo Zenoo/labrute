@@ -16,7 +16,7 @@ import { useAuth } from '../hooks/useAuth';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 
-const Hall = () => {
+const HallView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user, updateData, modifiers } = useAuth();
@@ -38,209 +38,211 @@ const Hall = () => {
     if (!user) return;
 
     const wasFavorite = brute.favorite;
-    const favoriteCount = user.brutes.filter((b) => b.favorite).length;
 
-    if (!wasFavorite && favoriteCount >= MAX_FAVORITE_BRUTES) {
-      Alert.open('error', t('maxFavoriteBrutes', { max: MAX_FAVORITE_BRUTES }));
-      return;
+    if (!wasFavorite) {
+      // Abort if limit reached
+      const favoriteBrutes = user.brutes.filter((b) => b.favorite);
+      if (favoriteBrutes.length >= MAX_FAVORITE_BRUTES) return;
     }
 
-    Server.Brute.toggleFavorite(brute.name).then(() => {
-      // Update brute in user data
-      updateData({
-        brutes: user.brutes.map((b) => (b.id === brute.id
-          ? { ...b, favorite: !wasFavorite }
-          : b)),
-      });
+    Server.Brute.favorite(brute.name).then(() => {
+      // Update brute favorite status
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((b) => (b.name === brute.name ? {
+          ...b, favorite: !wasFavorite,
+        } : b)).sort((a, b) => (a.favorite === b.favorite
+          ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          : a.favorite ? -1 : 1)),
+      }) : null));
     }).catch(catchError(Alert));
-  }, [Alert, t, updateData, user]);
-
-  if (!user) {
-    return null;
-  }
+  }, [Alert, updateData, user]);
 
   return (
-    <Page title={`${t('myBrutes')} ${t('MyBrute')}`} headerUrl="/">
-      <Paper sx={{ bgcolor: 'background.paperLight', textAlign: 'center' }}>
-        <Text h3 bold upperCase color="secondary">{t('myBrutes')}</Text>
-        <Text bold small color="text.primary" sx={{ display: 'block' }}>
-          {t('fightsLeft')}: {fightsLeft || 0}
-        </Text>
+    <Page title={`${t('hall')} ${t('MyBrute')}`} headerUrl="">
+      <Paper sx={{
+        mx: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+      }}
+      >
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall')}</Text>
+        {!!fightsLeft && (
+          <Text bold color="secondary">
+            {fightsLeft > 1
+              ? t('youHaveXFightsLeft', { value: fightsLeft })
+              : t('youHaveOneFightLeft')}
+          </Text>
+        )}
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperDark', textAlign: 'center', mt: -2 }}>
-        <Box sx={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
-          gap: 1,
-          alignItems: 'start',
-          p: 1,
-        }}
-        >
-          {user.brutes.map((brute) => {
-            const currentHP = getFinalHP(brute, brute.level, modifiers);
-            const currentEndurance = getFinalStat(brute, 'endurance', brute.level, modifiers);
-            const currentStrength = getFinalStat(brute, 'strength', brute.level, modifiers);
-            const currentAgility = getFinalStat(brute, 'agility', brute.level, modifiers);
-            const currentSpeed = getFinalStat(brute, 'speed', brute.level, modifiers);
+      <Paper sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}
+      >
+        {user && user.brutes.map((brute) => {
+          const bruteFightsLeft = getFightsLeft(brute, modifiers);
 
-            return (
-              <Box
-                key={brute.id}
-                onClick={goToCell(brute.name)}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'border.shadow',
-                  borderRadius: 1,
-                  bgcolor: 'background.paperLight',
-                  p: 1,
-                  cursor: 'pointer',
-                  position: 'relative',
-                  '&:hover': {
-                    bgcolor: 'background.paperAccent',
-                  }
-                }}
+          return (
+            <StyledButton
+              key={brute.name}
+              image="/images/arena/brute-bg.webp"
+              imageHover="/images/arena/brute-bg-hover.webp"
+              contrast={false}
+              shadow={false}
+              onClick={goToCell(brute.name)}
+              sx={{
+                width: 190,
+                height: 114,
+                mx: 1,
+                my: 0.5,
+              }}
+            >
+              <Box sx={{
+                width: 185,
+                height: 93,
+                pl: 1,
+                pt: 0.5,
+                display: 'inline-block',
+                textAlign: 'left',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
               >
-                {/* Favorite button */}
-                <Tooltip title={brute.favorite ? t('removeFromFavorites') : t('addToFavorites')}>
-                  <Box
-                    component="span"
-                    onClick={toggleFavorite(brute)}
-                    sx={{
-                      position: 'absolute',
-                      top: 4,
-                      right: 4,
-                      zIndex: 1,
-                      cursor: 'pointer',
-                      color: brute.favorite ? 'secondary.main' : 'text.secondary',
-                      '&:hover': {
-                        color: 'secondary.main',
-                      }
-                    }}
-                  >
-                    <Stars />
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+                >
+                  <Box display="flex" alignItems="center">
+                    {/* Registration status */}
+                    {brute.registeredForTournament && (
+                      <Tooltip title={t('bruteRegistered')}>
+                        <Check
+                          fontSize="small"
+                          sx={{
+                            m: 0.25,
+                            p: '2px',
+                            bgcolor: 'warning.main',
+                            borderRadius: '50%',
+                          }}
+                        />
+                      </Tooltip>
+                    )}
+                    <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
                   </Box>
-                </Tooltip>
-                {/* Name */}
-                <Text bold color="secondary" center>
-                  {brute.name}
+                  <Tooltip title={brute.favorite ? t('removeFromFavorites') : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES })}>
+                    <Stars
+                      onClick={toggleFavorite(brute)}
+                      fontSize="small"
+                      color={brute.favorite ? 'secondary' : 'disabled'}
+                      sx={{
+                        mr: 1,
+                        zIndex: 1,
+                        bgcolor: 'background.paperLight',
+                        borderRadius: '50%',
+                      }}
+                    />
+                  </Tooltip>
+                </Box>
+                <Text bold smallCaps color="text.primary">
+                  {t('level')}
+                  <Text component="span" bold color="secondary"> {brute.level}</Text>
+                  {brute.eventId ? (
+                    <Box
+                      component="img"
+                      src="/images/event.webp"
+                      sx={{
+                        verticalAlign: 'sub',
+                        height: 18,
+                        ml: 0.5,
+                      }}
+                    />
+                  ) : (
+                    <Box
+                      component="img"
+                      src={`/images/rankings/lvl_${brute.ranking}.webp`}
+                      sx={{
+                        verticalAlign: 'middle',
+                        height: 16,
+                        ml: 0.5,
+                      }}
+                    />
+                  )}
                 </Text>
-                {/* Level */}
-                <Text small color="text.primary" center sx={{ display: 'block' }}>
-                  {t('level')} {brute.level}
-                </Text>
-                {/* Render */}
-                <Box sx={{ textAlign: 'center', mt: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                  <BruteHP hp={getFinalHP(brute, modifiers)} />
+                  <Box flexGrow={1} sx={{ ml: 0.5 }}>
+                    <ArenaStat
+                      stat={FightStat.STRENGTH}
+                      value={getFinalStat(brute, 'strength', modifiers)}
+                      hideSkillText
+                    />
+                    <ArenaStat
+                      stat={FightStat.AGILITY}
+                      value={getFinalStat(brute, 'agility', modifiers)}
+                      hideSkillText
+                    />
+                    <ArenaStat
+                      stat={FightStat.SPEED}
+                      value={getFinalStat(brute, 'speed', modifiers)}
+                      hideSkillText
+                    />
+                  </Box>
+                </Box>
+                <Box sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 115,
+                  width: 70,
+                  height: 1,
+                }}
+                >
                   <BruteRender
                     brute={brute}
                     looking="left"
                   />
                 </Box>
-                {/* HP */}
-                <BruteHP hp={brute.hp} maxHp={currentHP} />
-                {/* XP */}
-                <Box sx={{
-                  width: '100%',
-                  bgcolor: 'background.default',
-                  border: 1,
-                  borderColor: 'border.shadow',
-                  height: 6,
-                  borderRadius: 1,
-                  overflow: 'hidden',
-                  mt: 0.5,
-                }}
-                >
-                  <Box sx={{
-                    width: `${Math.floor((brute.xp / (brute.level * 100)) * 100)}%`,
-                    bgcolor: 'info.main',
-                    height: '100%',
-                  }}
-                  />
-                </Box>
-                <Text small color="text.primary" center>
-                  XP: {brute.xp} / {brute.level * 100}
-                </Text>
-                {/* Stats */}
-                <Box sx={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: 0.5,
-                  mt: 1,
-                }}
-                >
-                  <ArenaStat
-                    stat={FightStat.ENDURANCE}
-                    value={currentEndurance}
-                    hideSkillTooltip
-                  />
-                  <ArenaStat
-                    stat={FightStat.STRENGTH}
-                    value={currentStrength}
-                    hideSkillTooltip
-                  />
-                  <ArenaStat
-                    stat={FightStat.AGILITY}
-                    value={currentAgility}
-                    hideSkillTooltip
-                  />
-                  <ArenaStat
-                    stat={FightStat.SPEED}
-                    value={currentSpeed}
-                    hideSkillTooltip
-                  />
-                </Box>
-                {/* Fights left */}
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 1 }}>
-                  <Box
-                    component="img"
-                    src={`/images${mode === 'dark' ? '/dark' : ''}/arena/swords.webp`}
-                    sx={{ width: 16, height: 16, mr: 0.5 }}
-                  />
-                  <Text small color="text.primary">
-                    {getFightsLeft(brute, modifiers)}
-                  </Text>
-                </Box>
-                {/* Tournament indicator */}
-                {brute.registeredForTournament && (
-                  <Box sx={{ textAlign: 'center', mt: 0.5 }}>
-                    <Tooltip title={t('registeredForTournament')}>
-                      <Check color="success" fontSize="small" />
-                    </Tooltip>
-                  </Box>
-                )}
-                {/* Can rank up indicator */}
-                {brute.canRankUpSince && (
-                  <Box sx={{ textAlign: 'center', mt: 0.5 }}>
-                    <Tooltip title={t('canRankUp')}>
-                      <CrisisAlert color="warning" fontSize="small" />
-                    </Tooltip>
-                  </Box>
-                )}
               </Box>
-            );
-          })}
-        </Box>
-        {/* Add brute button */}
-        <StyledButton
-          image="/images/arena/brute-bg.webp"
-          swapImage="/images/arena/brute-bg-small.webp"
-          shadow={false}
-          contrast={false}
-          sx={{
-            fontFamily: 'GameFont',
-            fontSize: 12,
-            color: 'secondary.main',
-            textTransform: 'uppercase',
-            mx: 'auto',
-            my: 1,
-          }}
-          onClick={() => navigate('/')}
-        >
-          <Box component="img" src="/images/create/plus.webp" sx={{ mr: 1, verticalAlign: 'middle' }} />
-          {t('addBrute')}
-        </StyledButton>
+              {/* Fights left */}
+              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft })}>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 21,
+                  mt: -1,
+                  zIndex: 1,
+                }}
+                >
+                  {new Array(bruteFightsLeft).fill(0).map((_, i) => (
+                    <CrisisAlert
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={i}
+                      fontSize="small"
+                      sx={{
+                        m: 0.25,
+                        p: '2px',
+                        bgcolor: mode === 'dark' ? 'success.dark' : 'success.main',
+                        borderRadius: '50%',
+                        color: 'success.light',
+                      }}
+                    />
+                  ))}
+                </Box>
+              </Tooltip>
+            </StyledButton>
+          );
+        })}
       </Paper>
     </Page>
   );
 };
 
-export default Hall;
+export default HallView;

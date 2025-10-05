@@ -12,7 +12,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
 import Server from '../utils/Server';
-import FightMobileView from '../views/mobile/FightMobileView';
+import FightMobileView from '../mobile/FightMobileView';
 
 const Fight = () => {
   const { t } = useTranslation();

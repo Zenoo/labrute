@@ -5,13 +5,13 @@ import { Box, Paper, useTheme } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import BruteTooltip from '../../components/Brute/BruteTooltip';
-import FantasyButton from '../../components/FantasyButton';
-import Page from '../../components/Page';
-import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../components/StyledButton';
-import Text from '../../components/Text';
-import { useAuth } from '../../hooks/useAuth';
+import BruteRender from '../components/Brute/Body/BruteRender';
+import BruteTooltip from '../components/Brute/BruteTooltip';
+import FantasyButton from '../components/FantasyButton';
+import Page from '../components/Page';
+import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../components/StyledButton';
+import Text from '../components/Text';
+import { useAuth } from '../hooks/useAuth';
 
 const rounds: [number, number][] = [
   [-1, 32],
@@ -131,55 +131,57 @@ const TournamentMobileView = ({
                     >
                       {/* Left fighter */}
                       {brute1 && (
-                      <BruteTooltip
-                        fighter={brute1}
-                      >
-                        <Box sx={{
-                          position: 'relative',
-                          height: 1,
-                          width: 35,
-                          mr: 1,
-                        }}
+                        <BruteTooltip
+                          fighter={brute1}
                         >
-                          {brute1 && (
-                          <BruteRender brute={
-                            { ...brute1,
-                              gender: brute1.gender ?? Gender.male,
-                              body: brute1.body ?? '',
-                              colors: brute1.colors ?? '' }
-}
-                          />
-                          )}
-                          {/* Lost indicator */}
-                          {shouldResultDisplay
-                            && fight.winner === brute2?.name
-                            && (
-                              <Close
-                                color="error"
-                                sx={{
-                                  position: 'absolute',
-                                  top: 5,
-                                  left: 0,
-                                  width: 1,
-                                  height: 1,
-                                  zIndex: 3,
-                                }}
+                          <Box sx={{
+                            position: 'relative',
+                            height: 1,
+                            width: 35,
+                            mr: 1,
+                          }}
+                          >
+                            {brute1 && (
+                              <BruteRender brute={
+                                {
+                                  ...brute1,
+                                  gender: brute1.gender ?? Gender.male,
+                                  body: brute1.body ?? '',
+                                  colors: brute1.colors ?? ''
+                                }
+                              }
                               />
                             )}
-                          {/* Rank */}
-                          <Box
-                            component="img"
-                            src={`/images/rankings/lvl_${brute1?.rank}.webp`}
-                            sx={{
-                              position: 'absolute',
-                              bottom: -6,
-                              right: -18,
-                              width: 20,
-                              zIndex: 2,
-                            }}
-                          />
-                        </Box>
-                      </BruteTooltip>
+                            {/* Lost indicator */}
+                            {shouldResultDisplay
+                              && fight.winner === brute2?.name
+                              && (
+                                <Close
+                                  color="error"
+                                  sx={{
+                                    position: 'absolute',
+                                    top: 5,
+                                    left: 0,
+                                    width: 1,
+                                    height: 1,
+                                    zIndex: 3,
+                                  }}
+                                />
+                              )}
+                            {/* Rank */}
+                            <Box
+                              component="img"
+                              src={`/images/rankings/lvl_${brute1?.rank}.webp`}
+                              sx={{
+                                position: 'absolute',
+                                bottom: -6,
+                                right: -18,
+                                width: 20,
+                                zIndex: 2,
+                              }}
+                            />
+                          </Box>
+                        </BruteTooltip>
                       )}
                       {/* VS */}
                       <Box

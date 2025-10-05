@@ -8,7 +8,7 @@ import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';
 import Text from '../components/Text';
 
-const PatchNotes = () => {
+const PatchNotesView = () => {
   const { t } = useTranslation();
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
@@ -107,4 +107,4 @@ const PatchNotes = () => {
   );
 };
 
-export default PatchNotes;
+export default PatchNotesView;
