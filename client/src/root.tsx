@@ -1,77 +1,41 @@
-import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React, { Suspense, useMemo, useState } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
-import { useRoutes } from 'react-router';
-import Loader from './components/Loader';
-import { AlertProvider } from './hooks/useAlert';
-import { AuthProvider } from './hooks/useAuth';
-import { BruteProvider } from './hooks/useBrute';
-import { ConfirmProvider } from './hooks/useConfirm';
-import { CsrfProvider } from './hooks/useCsrf';
-import { RendererProvider } from './hooks/useRenderer';
-import { ColorModeContext } from './theme/ColorModeContext';
-import dark from './theme/dark';
-import light from './theme/light';
-import { useAnalytics } from './hooks/useAnalytics';
-import { routes } from './routes.config';
-import './index.css';
-import './i18n';
+import React from 'react';
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from 'react-router';
 
 const Root = () => {
-  useAnalytics();
-  const routing = useRoutes(routes);
-
-  const [mode, setMode] = useState<'light' | 'dark'>(
-    (localStorage.getItem('mode') === 'dark') ? 'dark' : 'light'
-  );
-
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => {
-          const newMode = prevMode === 'light' ? 'dark' : 'light';
-          localStorage.setItem('mode', newMode);
-          return newMode;
-        });
-      },
-    }),
-    [],
-  );
-
-  const theme = useMemo(
-    () => (mode === 'light' ? light : dark),
-    [mode],
-  );
-
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <HelmetProvider>
-        <CssBaseline />
-        <CsrfProvider>
-          <AlertProvider>
-            <AuthProvider>
-              <BruteProvider>
-                <RendererProvider>
-                  <StyledEngineProvider injectFirst>
-                    <ColorModeContext.Provider value={colorMode}>
-                      <ThemeProvider theme={theme}>
-                        <ConfirmProvider>
-                          <Suspense fallback={<Loader />}>
-                            {routing}
-                          </Suspense>
-                        </ConfirmProvider>
-                      </ThemeProvider>
-                    </ColorModeContext.Provider>
-                  </StyledEngineProvider>
-                </RendererProvider>
-              </BruteProvider>
-            </AuthProvider>
-          </AlertProvider>
-        </CsrfProvider>
-      </HelmetProvider>
-    </LocalizationProvider>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+        <title>React Router v7 POC</title>
+      </head>
+      <body>
+        <div style={{
+          backgroundColor: '#282c34',
+          padding: '20px',
+          color: 'white',
+          textAlign: 'center'
+        }}>
+          <h2>React Router v7 - File-Based Routing POC</h2>
+          <p style={{ fontSize: '14px', margin: '5px 0 0 0' }}>
+            Lazy route discovery enabled ✓
+          </p>
+        </div>
+        <main>
+          <Outlet />
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 };
 

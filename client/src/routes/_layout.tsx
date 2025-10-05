@@ -1,8 +1,8 @@
 import React from 'react';
-import Main from '../layouts/Main';
+import { Outlet } from 'react-router';
 
-const Layout = () => (
-  <Main />
-);
+const LayoutPOC = () => {
+  return <Outlet />;
+};
 
-export default Layout;
+export default LayoutPOC;
