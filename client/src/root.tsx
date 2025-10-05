@@ -3,7 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { Suspense, useMemo, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { Outlet } from 'react-router';
+import { useRoutes } from 'react-router';
 import Loader from './components/Loader';
 import { AlertProvider } from './hooks/useAlert';
 import { AuthProvider } from './hooks/useAuth';
@@ -15,11 +15,13 @@ import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
 import { useAnalytics } from './hooks/useAnalytics';
+import { routes } from './routes.config';
 import './index.css';
 import './i18n';
 
 const Root = () => {
   useAnalytics();
+  const routing = useRoutes(routes);
 
   const [mode, setMode] = useState<'light' | 'dark'>(
     (localStorage.getItem('mode') === 'dark') ? 'dark' : 'light'
@@ -57,7 +59,7 @@ const Root = () => {
                       <ThemeProvider theme={theme}>
                         <ConfirmProvider>
                           <Suspense fallback={<Loader />}>
-                            <Outlet />
+                            {routing}
                           </Suspense>
                         </ConfirmProvider>
                       </ThemeProvider>
