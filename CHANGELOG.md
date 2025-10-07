@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.13](https://github.com/Zenoo/labrute/compare/labrute-v2.82.12...labrute-v2.82.13) (2025-10-07)
+
+
+### Bug Fixes
+
+* Auto deploy on tag publication ([36157c9](https://github.com/Zenoo/labrute/commit/36157c9c95134764bc263b249d59209f818c55ae))
+* Gitlab CI stage trigger ([7871c5e](https://github.com/Zenoo/labrute/commit/7871c5e48886904289f754bd489c79745ef64d68))
+* Rename Gitlab CI tag ([60132ff](https://github.com/Zenoo/labrute/commit/60132ff9cbacea615a9cb738df1814883d9c88d6))
+* Use Prisma config file ([f772d40](https://github.com/Zenoo/labrute/commit/f772d40a4d4ccf6ca97c42888c8904c6e1c29796))
+
 ## [2.82.12](https://github.com/Zenoo/labrute/compare/labrute-v2.82.11...labrute-v2.82.12) (2025-09-21)
 
 
