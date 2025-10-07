@@ -5,48 +5,102 @@ update_deployments:
     - apk add --no-cache curl jq
   script:
     - |
-      # Update staging.json
-      CURRENT_CONTENT=$(curl --silent --header "PRIVATE-TOKEN: ${CONFIG_REPO_TOKEN}" \
-        "https://gitlab.com/api/v4/projects/eternaltwin%2Fconfig/repository/files/pousty%2Fapps%2Fbrute%2Fchannels%2Fstaging.json?ref=main" \
-        | jq -r '.content' | base64 -d)
-    - |
-      NEW_CONTENT=$(echo "$CURRENT_CONTENT" | jq --arg hash "$CI_COMMIT_SHA" \
-        '.release = $hash')
-    - echo "Updating staging.json with commit $CI_COMMIT_SHA"
-    - echo "$NEW_CONTENT" | jq '.'
-    - |
-      # Update production.json
-      CURRENT_CONTENT_PROD=$(curl --silent --header "PRIVATE-TOKEN: ${CONFIG_REPO_TOKEN}" \
-        "https://gitlab.com/api/v4/projects/eternaltwin%2Fconfig/repository/files/pousty%2Fapps%2Fbrute%2Fchannels%2Fproduction.json?ref=main" \
-        | jq -r '.content' | base64 -d)
-    - |
-      NEW_CONTENT_PROD=$(echo "$CURRENT_CONTENT_PROD" | jq --arg hash "$CI_COMMIT_SHA" \
-        '.release = $hash')
-    - echo "Updating production.json with commit $CI_COMMIT_SHA"
-    - echo "$NEW_CONTENT_PROD" | jq '.'
-    - |
-      # Make a single commit with both file changes
-      curl --request POST \
-        --header "PRIVATE-TOKEN: ${CONFIG_REPO_TOKEN}" \
-        --header "Content-Type: application/json" \
-        --data "{
-          \"branch\": \"main\",
-          \"commit_message\": \"chore: LB Update staging and production to $CI_COMMIT_SHA\",
-          \"actions\": [
-            {
-              \"action\": \"update\",
-              \"file_path\": \"pousty/apps/brute/channels/staging.json\",
-              \"content\": $(echo "$NEW_CONTENT" | jq -Rs .)
-            },
-            {
-              \"action\": \"update\",
-              \"file_path\": \"pousty/apps/brute/channels/production.json\",
-              \"content\": $(echo "$NEW_CONTENT_PROD" | jq -Rs .)
-            }
-          ]
-        }" \
-        "https://gitlab.com/api/v4/projects/eternaltwin%2Fconfig/repository/commits"
+      set -eu
 
+      if [ -z "${CONFIG_REPO_TOKEN:-}" ]; then
+        echo "ERROR: CONFIG_REPO_TOKEN is not set"
+        exit 1
+      fi
+
+      # Helper to curl and capture HTTP status + body to a file
+      curl_with_status() {
+        # $1: method, $2: url, $3: data file (optional), $4: output file
+        method="$1"; url="$2"; dataFile="${3:-}"; outFile="$4"
+
+        if [ -n "$dataFile" ]; then
+          status=$(curl -sS -w "%{http_code}" -o "$outFile" \
+            --request "$method" \
+            --header "PRIVATE-TOKEN: ${CONFIG_REPO_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data-binary @"$dataFile" \
+            "$url")
+        else
+          status=$(curl -sS -w "%{http_code}" -o "$outFile" \
+            --request "$method" \
+            --header "PRIVATE-TOKEN: ${CONFIG_REPO_TOKEN}" \
+            "$url")
+        fi
+
+        echo "$status"
+      }
+
+      # Fetch current staging.json
+      echo "Fetching staging.json..."
+      STAGING_GET_URL="https://gitlab.com/api/v4/projects/eternaltwin%2Fconfig/repository/files/pousty%2Fapps%2Fbrute%2Fchannels%2Fstaging.json?ref=main"
+      STAGING_GET_STATUS=$(curl_with_status "GET" "$STAGING_GET_URL" "" "staging_get.json")
+      if [ "$STAGING_GET_STATUS" -lt 200 ] || [ "$STAGING_GET_STATUS" -ge 300 ]; then
+        echo "ERROR: Failed to GET staging.json (HTTP $STAGING_GET_STATUS)"
+        cat staging_get.json || true
+        exit 1
+      fi
+      STAGING_RAW=$(jq -r '.content' staging_get.json | base64 -d)
+
+      # Compute new staging content
+      NEW_STAGING=$(printf '%s' "$STAGING_RAW" | jq --arg hash "$CI_COMMIT_SHA" '.release = $hash')
+      STAGING_CONTENT_ESCAPED=$(printf '%s' "$NEW_STAGING" | jq -Rs .)
+
+      echo "staging.json will be updated to release=$CI_COMMIT_SHA"
+
+      # Fetch current production.json
+      echo "Fetching production.json..."
+      PROD_GET_URL="https://gitlab.com/api/v4/projects/eternaltwin%2Fconfig/repository/files/pousty%2Fapps%2Fbrute%2Fchannels%2Fproduction.json?ref=main"
+      PROD_GET_STATUS=$(curl_with_status "GET" "$PROD_GET_URL" "" "prod_get.json")
+      if [ "$PROD_GET_STATUS" -lt 200 ] || [ "$PROD_GET_STATUS" -ge 300 ]; then
+        echo "ERROR: Failed to GET production.json (HTTP $PROD_GET_STATUS)"
+        cat prod_get.json || true
+        exit 1
+      fi
+      PROD_RAW=$(jq -r '.content' prod_get.json | base64 -d)
+
+      # Compute new production content
+      NEW_PROD=$(printf '%s' "$PROD_RAW" | jq --arg hash "$CI_COMMIT_SHA" '.release = $hash')
+      PROD_CONTENT_ESCAPED=$(printf '%s' "$NEW_PROD" | jq -Rs .)
+
+      echo "production.json will be updated to release=$CI_COMMIT_SHA"
+
+      # Build a single commit with both updates
+      COMMIT_MESSAGE="chore: LB Update staging and production to ${CI_COMMIT_SHA}"
+
+      cat > payload.json <<JSON
+      {
+        "branch": "main",
+        "commit_message": "${COMMIT_MESSAGE}",
+        "actions": [
+          {
+            "action": "update",
+            "file_path": "pousty/apps/brute/channels/staging.json",
+            "content": ${STAGING_CONTENT_ESCAPED}
+          },
+          {
+            "action": "update",
+            "file_path": "pousty/apps/brute/channels/production.json",
+            "content": ${PROD_CONTENT_ESCAPED}
+          }
+        ]
+      }
+      JSON
+
+      echo "Creating commit with both changes..."
+      COMMITS_URL="https://gitlab.com/api/v4/projects/eternaltwin%2Fconfig/repository/commits"
+      COMMIT_STATUS=$(curl_with_status "POST" "$COMMITS_URL" "payload.json" "commit_resp.json")
+      if [ "$COMMIT_STATUS" -lt 200 ] || [ "$COMMIT_STATUS" -ge 300 ]; then
+        echo "ERROR: Failed to create commit (HTTP $COMMIT_STATUS)"
+        cat commit_resp.json || true
+        exit 1
+      fi
+
+      echo "Success. Commit created:"
+      jq '.' commit_resp.json || cat commit_resp.json
   variables:
     GIT_STRATEGY: none
   rules:
