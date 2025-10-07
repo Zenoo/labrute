@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.82.14](https://github.com/Zenoo/labrute/compare/labrute-v2.82.13...labrute-v2.82.14) (2025-10-07)
+
+
+### Bug Fixes
+
+* Listen to curl response code to fail Gitlab CI ([3e7c605](https://github.com/Zenoo/labrute/commit/3e7c6054e71a68e2a2ba14f44b3a883e16154a7b))
+
 ## [2.82.13](https://github.com/Zenoo/labrute/compare/labrute-v2.82.12...labrute-v2.82.13) (2025-10-07)
 
 
