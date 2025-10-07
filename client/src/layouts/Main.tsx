@@ -4,7 +4,7 @@ import { Add, AdminPanelSettings, DarkMode, Event, Info, LightMode, Logout, Menu
 import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Outlet, Link as RouterLink, useNavigate } from 'react-router';
 import ActionButton from '../components/ActionButton';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import { BruteSearch } from '../components/BruteSearch';

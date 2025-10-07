@@ -1,6 +1,6 @@
 import { Badge, Box, BoxProps, SvgIconTypeMap, useTheme } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import Text from './Text';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 

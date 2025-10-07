@@ -5,4 +5,4 @@ export enum Host {
   MeinBrutalo = 'meinbrutalo',
 }
 
-export const HOST = window.location.hostname.split('.')[0] ?? '';
+export const HOST = typeof window !== 'undefined' ? window.location.hostname.split('.')[0] ?? '' : '';
