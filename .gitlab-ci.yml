@@ -1,4 +1,4 @@
-update_staging_via_api:
+update_deployments:
   stage: deploy
   image: alpine:latest
   before_script:
