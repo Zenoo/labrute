@@ -1,5 +1,5 @@
 update_staging_via_api:
-  stage: update_release
+  stage: deploy
   image: alpine:latest
   before_script:
     - apk add --no-cache curl jq
