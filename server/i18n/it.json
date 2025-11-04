@@ -104,6 +104,8 @@
   "modifier.bareHandsFirstHit.desc": "Un vero gentiluomo saluta il suo nemico con i pugni. Non estrarrai un'arma finché non avrai colpito il tuo avversario a mani nude.",
   "modifier.startWithWeapon": "Pronto al combattimento",
   "modifier.startWithWeapon.desc": "Basta con le smancerie, è ora di combattere! Inizierai il combattimento con un arma già estratta.",
+  "modifier.chaos": "Controlled Chaos",
+  "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
   "bannedAccount": "Il tuo account è stato bannato per il seguente motivo: {{reason}}",
   "userNotBanned": "Utente non bannato",
   "userAlreadyBanned": "Utente già bannato",
