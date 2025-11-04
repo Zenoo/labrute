@@ -104,6 +104,8 @@
   "modifier.bareHandsFirstHit.desc": "Un verdadero caballero saluda a su enemigo con sus puños. No sacarás ningún arma hasta que golpees a tu oponente con tus manos.",
   "modifier.startWithWeapon": "Armado y Preparado",
   "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás la pelea con un arma en las manos.",
+  "modifier.chaos": "Controlled Chaos",
+  "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
   "bannedAccount": "Tu cuenta ha sido baneada por el siguiente motivo: {{reason}}",
   "userNotBanned": "Usuario no baneado",
   "userAlreadyBanned": "El usuario ya está baneado",
