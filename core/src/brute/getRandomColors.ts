@@ -1,5 +1,5 @@
 import { Gender } from '@labrute/prisma';
-import { randomBetween } from '../utils/randomBetween';
+import { randomBetween } from '../utils';
 import { colors } from './colors';
 import { generateColorString } from './parsers';
 

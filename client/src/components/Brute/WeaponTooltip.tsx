@@ -1,9 +1,10 @@
-import { BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, Weapon, WeaponTypeColor } from '@labrute/core';
+import { BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, getWeaponScaledStat, NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, Weapon, WeaponTypeColor } from '@labrute/core';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Text from '../Text';
 import StatColor from '../../utils/StatColor';
+import { useAuth } from '../../hooks/useAuth';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -24,6 +25,7 @@ const WeaponTooltip = ({
 }: WeaponTooltipProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const { chaos } = useAuth();
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
 
@@ -85,7 +87,7 @@ const WeaponTooltip = ({
             <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
               {Math.round(
                 (BASE_FIGHTER_STATS.tempo
-                / (weapon ? weapon.tempo : BASE_FIGHTER_STATS.tempo)) * 100
+                  / (weapon ? getWeaponScaledStat(chaos, weapon, 'tempo', 2) : BASE_FIGHTER_STATS.tempo)) * 100
               )}%
             </Text>
           </Text>
@@ -94,7 +96,7 @@ const WeaponTooltip = ({
             {t('damage')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.damage, textShadow }} {...textProps}>
-              {weapon ? weapon.damage : BARE_HANDS_DAMAGE}
+              {weapon ? getWeaponScaledStat(chaos, weapon, 'damage') : BARE_HANDS_DAMAGE}
             </Text>
           </Text>
           {/* DRAW CHANCE */}
@@ -103,7 +105,7 @@ const WeaponTooltip = ({
               {t('drawChance')}:
               {' '}
               <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
-                {Math.round((weapon.toss / (NO_WEAPON_TOSS + weapon.toss)) * 100)}%
+                {Math.round((getWeaponScaledStat(chaos, weapon, 'toss') / (NO_WEAPON_TOSS + getWeaponScaledStat(chaos, weapon, 'toss'))) * 100)}%
               </Text>
             </Text>
           )}
@@ -122,7 +124,7 @@ const WeaponTooltip = ({
             <Text bold sx={{ color: StatColor.criticalChance, textShadow }} {...textProps}>
               {(weapon ? weapon.criticalChance : BASE_FIGHTER_STATS.criticalChance) > 0 && '+'}
               {Math.round(
-                (weapon ? weapon.criticalChance : BASE_FIGHTER_STATS.criticalChance) * 100,
+                (weapon ? getWeaponScaledStat(chaos, weapon, 'criticalChance', 2) : BASE_FIGHTER_STATS.criticalChance) * 100,
               )}
               % {t('criticalChance')}
             </Text>
@@ -132,7 +134,7 @@ const WeaponTooltip = ({
             <Text bold sx={{ color: StatColor.criticalDamage, textShadow }} {...textProps}>
               {(weapon ? weapon.criticalDamage : BASE_FIGHTER_STATS.criticalDamage) > 0 && '+'}
               {Math.round(
-                (weapon ? weapon.criticalDamage : BASE_FIGHTER_STATS.criticalDamage) * 100,
+                (weapon ? getWeaponScaledStat(chaos, weapon, 'criticalDamage', 2) : BASE_FIGHTER_STATS.criticalDamage) * 100,
               )}
               % {t('criticalDamage')}
             </Text>
@@ -141,7 +143,7 @@ const WeaponTooltip = ({
           {(!!weapon?.reversal || (bareHands && !!BASE_FIGHTER_STATS.reversal)) && (
             <Text bold sx={{ color: StatColor.reversal, textShadow }} {...textProps}>
               {(weapon ? weapon.reversal : BASE_FIGHTER_STATS.reversal) > 0 && '+'}
-              {Math.round((weapon ? weapon.reversal : BASE_FIGHTER_STATS.reversal) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'reversal', 2) : BASE_FIGHTER_STATS.reversal) * 100)}
               % {t('reversal')}
             </Text>
           )}
@@ -149,7 +151,7 @@ const WeaponTooltip = ({
           {(!!weapon?.evasion || (bareHands && !!BASE_FIGHTER_STATS.evasion)) && (
             <Text bold sx={{ color: StatColor.evasion, textShadow }} {...textProps}>
               {(weapon ? weapon.evasion : BASE_FIGHTER_STATS.evasion) > 0 && '+'}
-              {Math.round((weapon ? weapon.evasion : BASE_FIGHTER_STATS.evasion) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'evasion', 2) : BASE_FIGHTER_STATS.evasion) * 100)}
               % {t('evasion')}
             </Text>
           )}
@@ -157,7 +159,7 @@ const WeaponTooltip = ({
           {(!!weapon?.dexterity || (bareHands && !!BASE_FIGHTER_STATS.dexterity)) && (
             <Text bold sx={{ color: StatColor.dexterity, textShadow }} {...textProps}>
               {(weapon ? weapon.dexterity : BASE_FIGHTER_STATS.dexterity) > 0 && '+'}
-              {Math.round((weapon ? weapon.dexterity : BASE_FIGHTER_STATS.dexterity) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'dexterity', 2) : BASE_FIGHTER_STATS.dexterity) * 100)}
               % {t('dexterity')}
             </Text>
           )}
@@ -165,7 +167,7 @@ const WeaponTooltip = ({
           {(!!weapon?.block || (bareHands && !!BASE_FIGHTER_STATS.block)) && (
             <Text bold sx={{ color: StatColor.block, textShadow }} {...textProps}>
               {(weapon ? weapon.block : BASE_FIGHTER_STATS.block) > 0 && '+'}
-              {Math.round((weapon ? weapon.block : BASE_FIGHTER_STATS.block) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'block', 2) : BASE_FIGHTER_STATS.block) * 100)}
               % {t('block')}
             </Text>
           )}
@@ -173,7 +175,7 @@ const WeaponTooltip = ({
           {(!!weapon?.accuracy || (bareHands && !!BASE_FIGHTER_STATS.accuracy)) && (
             <Text bold sx={{ color: StatColor.accuracy, textShadow }} {...textProps}>
               {(weapon ? weapon.accuracy : BASE_FIGHTER_STATS.accuracy) > 0 && '+'}
-              {Math.round((weapon ? weapon.accuracy : BASE_FIGHTER_STATS.accuracy) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'accuracy', 2) : BASE_FIGHTER_STATS.accuracy) * 100)}
               % {t('accuracy')}
             </Text>
           )}
@@ -181,7 +183,7 @@ const WeaponTooltip = ({
           {(!!weapon?.disarm || (bareHands && !!BASE_FIGHTER_STATS.disarm)) && (
             <Text bold sx={{ color: StatColor.disarm, textShadow }} {...textProps}>
               {(weapon ? weapon.disarm : BASE_FIGHTER_STATS.disarm) > 0 && '+'}
-              {Math.round((weapon ? weapon.disarm : BASE_FIGHTER_STATS.disarm) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'disarm', 2) : BASE_FIGHTER_STATS.disarm) * 100)}
               % {t('disarm')}
             </Text>
           )}
@@ -189,7 +191,7 @@ const WeaponTooltip = ({
           {(!!weapon?.combo || (bareHands && !!BASE_FIGHTER_STATS.combo)) && (
             <Text bold sx={{ color: StatColor.combo, textShadow }} {...textProps}>
               {(weapon ? weapon.combo : BASE_FIGHTER_STATS.combo) > 0 && '+'}
-              {Math.round((weapon ? weapon.combo : BASE_FIGHTER_STATS.combo) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'combo', 2) : BASE_FIGHTER_STATS.combo) * 100)}
               % {t('combo')}
             </Text>
           )}
@@ -197,7 +199,7 @@ const WeaponTooltip = ({
           {(!!weapon?.deflect || (bareHands && !!BASE_FIGHTER_STATS.deflect)) && (
             <Text bold sx={{ color: StatColor.deflect, textShadow }} {...textProps}>
               {(weapon ? weapon.deflect : BASE_FIGHTER_STATS.deflect) > 0 && '+'}
-              {Math.round((weapon ? weapon.deflect : BASE_FIGHTER_STATS.deflect) * 100)}
+              {Math.round((weapon ? getWeaponScaledStat(chaos, weapon, 'deflect', 2) : BASE_FIGHTER_STATS.deflect) * 100)}
               % {t('deflect')}
             </Text>
           )}

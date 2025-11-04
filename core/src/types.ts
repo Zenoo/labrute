@@ -685,7 +685,7 @@ export type UsersAdminUpdateRequest = {
   achievements: Pick<Achievement, 'count' | 'name'>[],
 };
 export type UsersAuthenticateResponse = {
-  user: UserWithBrutesBodyColor,
+  user?: UserWithBrutesBodyColor,
   modifiers: FightModifier[],
   currentEvent: Event | null,
   version: string,

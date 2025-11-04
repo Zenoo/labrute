@@ -3,14 +3,18 @@ import {
   BARE_HANDS_DAMAGE,
   BASE_FIGHTER_STATS,
   BruteRanking,
-  DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetStat,
+  DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetScaledStat,
+  getPetStatSeed,
+  getScaledStat,
+  getSkillStatSeed,
   getTempSkill,
   getTempWeapon,
-  pets, randomBetween, SkillModifiers, skills, weapons,
+  pets,
+  randomBetween, SkillModifiers, skills, weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
-  Brute, FightModifier, PrismaClient, SkillName,
+  Brute, FightModifier, SkillName,
 } from '@labrute/prisma';
 
 interface Team {
@@ -21,7 +25,7 @@ interface Team {
   })[]
 }
 
-const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
+const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) => {
   for (const skill of brute.skills) {
     // Stat changes
     for (const [unsafeStat, modifier] of Object.entries(SkillModifiers[skill])) {
@@ -39,14 +43,15 @@ const handleSkills = (brute: Brute, fighter: DetailedFighter) => {
         || stat === FightStat.SPEED) continue;
 
       if (modifier.flat) {
+        const flat = getScaledStat(chaos, getSkillStatSeed(skill, stat, 'flat'), modifier.flat, 2);
         if (stat === FightStat.INITIATIVE) {
-          fighter.initiative -= modifier.flat / 100;
+          fighter.initiative -= flat / 100;
         } else {
-          fighter[stat] += modifier.flat;
+          fighter[stat] += flat;
         }
       }
       if (modifier.percent) {
-        fighter[stat] += modifier.percent;
+        fighter[stat] += getScaledStat(chaos, getSkillStatSeed(skill, stat, 'percent'), modifier.percent, 2);
       }
     }
 
@@ -127,7 +132,6 @@ const handleModifiers = (
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 
 type GetFightersParams = {
-  prisma: PrismaClient,
   team1: Team,
   team2: Team,
   modifiers: FightModifier[],
@@ -140,6 +144,7 @@ export const getFighters = ({
   modifiers,
   clanFight,
 }: GetFightersParams): DetailedFighter[] => {
+  const chaos = modifiers.includes(FightModifier.chaos);
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
@@ -157,7 +162,11 @@ export const getFighters = ({
             throw new Error(`Pet ${petName} not found`);
           }
 
-          brute.enduranceStat += pet.enduranceMalus;
+          brute.enduranceStat += getScaledStat(
+            chaos,
+            getPetStatSeed(pet, FightStat.ENDURANCE),
+            pet.enduranceMalus,
+          );
           brute.enduranceValue = Math.floor(brute.enduranceStat * brute.enduranceModifier);
         }
       }
@@ -234,7 +243,7 @@ export const getFighters = ({
         hitBy: {},
       };
 
-      handleSkills(brute, fighter);
+      handleSkills(chaos, brute, fighter);
 
       fighters.push(fighter);
 
@@ -261,28 +270,28 @@ export const getFighters = ({
           level: 0,
           type: 'pet' as const,
           master: brute.id,
-          maxHp: getPetStat(brute, pet, 'hp'),
-          hp: getPetStat(brute, pet, 'hp'),
-          strength: getPetStat(brute, pet, 'strength'),
-          agility: getPetStat(brute, pet, 'agility'),
-          speed: getPetStat(brute, pet, 'speed'),
+          maxHp: getPetScaledStat(chaos, brute, pet, 'hp'),
+          hp: getPetScaledStat(chaos, brute, pet, 'hp'),
+          strength: getPetScaledStat(chaos, brute, pet, 'strength'),
+          agility: getPetScaledStat(chaos, brute, pet, 'agility'),
+          speed: getPetScaledStat(chaos, brute, pet, 'speed'),
           criticalChance: BASE_FIGHTER_STATS.criticalChance,
           criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
           regeneration: 0,
-          initiative: pet.initiative + randomBetween(0, 10) / 100,
+          initiative: getPetScaledStat(chaos, brute, pet, 'initiative', 2) + randomBetween(0, 10) / 100,
           hitSpeed: 0,
-          tempo: getTempo(getPetStat(brute, pet, 'speed')),
-          baseDamage: pet.damage,
-          counter: pet.counter,
-          combo: pet.combo,
+          tempo: getTempo(getPetScaledStat(chaos, brute, pet, 'speed')),
+          baseDamage: getPetScaledStat(chaos, brute, pet, 'damage'),
+          counter: getPetScaledStat(chaos, brute, pet, 'counter', 2),
+          combo: getPetScaledStat(chaos, brute, pet, 'combo', 2),
           deflect: 0,
-          reversal: pet.counter,
-          block: pet.block,
-          accuracy: pet.accuracy,
+          reversal: getPetScaledStat(chaos, brute, pet, 'counter', 2),
+          block: getPetScaledStat(chaos, brute, pet, 'block', 2),
+          accuracy: getPetScaledStat(chaos, brute, pet, 'accuracy', 2),
           reach: 0,
           armor: 0,
-          disarm: pet.disarm,
-          evasion: pet.evasion,
+          disarm: getPetScaledStat(chaos, brute, pet, 'disarm', 2),
+          evasion: getPetScaledStat(chaos, brute, pet, 'evasion', 2),
           sabotage: false,
           bodybuilder: false,
           survival: false,
@@ -391,7 +400,7 @@ export const getFighters = ({
         hitBy: {},
       };
 
-      handleSkills(backup, backupFighter);
+      handleSkills(chaos, backup, backupFighter);
 
       // Reset initiative to arrive at the desired time
       backupFighter.initiative = arrivesAt;

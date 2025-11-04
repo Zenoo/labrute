@@ -586,7 +586,8 @@ exports.FightModifier = exports.$Enums.FightModifier = {
   randomSkill: 'randomSkill',
   randomWeapon: 'randomWeapon',
   bareHandsFirstHit: 'bareHandsFirstHit',
-  startWithWeapon: 'startWithWeapon'
+  startWithWeapon: 'startWithWeapon',
+  chaos: 'chaos'
 };
 
 exports.LogType = exports.$Enums.LogType = {

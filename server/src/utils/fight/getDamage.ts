@@ -1,17 +1,19 @@
 import {
-  DetailedFighter, FightStat, SkillDamageModifiers, Weapon,
+  DetailedFighter, FightStat, getScaledStat,
+  getSkillStatSeed, getWeaponScaledStat, SkillDamageModifiers, Weapon,
 } from '@labrute/core';
 import { SkillName, WeaponName } from '@labrute/prisma';
 import { getFighterStat } from './getFighterStat.js';
 
 export const getDamage = (
+  chaos: boolean,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
   thrown?: Weapon,
 ) => {
   const base = thrown
     ? thrown.damage
-    : (fighter.activeWeapon?.damage || fighter.baseDamage);
+    : (fighter.activeWeapon ? getWeaponScaledStat(chaos, fighter.activeWeapon, 'damage') : fighter.baseDamage);
   let skillsMultiplier = 1;
 
   // Using Piledriver ?
@@ -46,15 +48,15 @@ export const getDamage = (
       // If weapon type is null, it means the modifier applies to empty hands (or mug)
       if (modifier.weaponType === null) {
         if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
-          skillsMultiplier += modifier.percent ?? 0;
+          skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
         }
       } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
         // If the weapon type is the same as the modifier, apply the damage
-        skillsMultiplier += modifier.percent ?? 0;
+        skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= 1 + (modifier.percent ?? 0);
+      skillsMultiplier *= 1 + getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
     }
   }
 
@@ -82,15 +84,15 @@ export const getDamage = (
       // If weapon type is null, it means the modifier applies to empty hands (or mug)
       if (modifier.weaponType === null) {
         if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
-          skillsMultiplier += modifier.percent ?? 0;
+          skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
         }
       } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
         // If the weapon type is the same as the modifier, apply the damage
-        skillsMultiplier += modifier.percent ?? 0;
+        skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= 1 + (modifier.percent ?? 0);
+      skillsMultiplier *= 1 + getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
     }
   }
 
@@ -129,10 +131,10 @@ export const getDamage = (
   }
 
   // Critical hit
-  const criticalChance = getFighterStat(fighter, FightStat.CRITICAL_CHANCE);
+  const criticalChance = getFighterStat(chaos, fighter, FightStat.CRITICAL_CHANCE);
   const criticalHit = !!criticalChance && Math.random() < criticalChance;
   if (criticalHit) {
-    damage = Math.floor(damage * getFighterStat(fighter, FightStat.CRITICAL_DAMAGE));
+    damage = Math.floor(damage * getFighterStat(chaos, fighter, FightStat.CRITICAL_DAMAGE));
   }
 
   // Reduce damage with opponent's armor if not thrown

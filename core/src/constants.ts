@@ -103,6 +103,7 @@ export const DailyModifierOdds = [
   { modifier: FightModifier.randomWeapon, odds: 1 },
   { modifier: FightModifier.bareHandsFirstHit, odds: 1 },
   { modifier: FightModifier.startWithWeapon, odds: 1 },
+  { modifier: FightModifier.chaos, odds: 0 },
 ];
 
 export const DailyModifierCountOdds = [

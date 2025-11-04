@@ -16,6 +16,7 @@ import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
   UserLogType,
 } from '@labrute/prisma';
+import { createManyUserLogs } from '../createUserLog.js';
 import { applySpy } from './applySpy.js';
 import {
   Stats,
@@ -26,7 +27,6 @@ import {
 import { getFighters } from './getFighters.js';
 import { handleStats } from './handleStats.js';
 import { updateAchievements } from './updateAchievements.js';
-import { createManyUserLogs } from '../createUserLog.js';
 
 export type GenerateFightResult = {
   data: Prisma.FightCreateInput;
@@ -70,6 +70,8 @@ export const generateFight = async ({
   if (team1.brutes?.some((brute) => team2.brutes?.some((b) => b.id === brute.id))) {
     throw new ForbiddenError('Attempted to created a fight between the same brutes');
   }
+
+  const chaos = modifiers.includes(FightModifier.chaos);
 
   const background = (team1.bosses?.length || team2.bosses?.length)
     ? bossBackground
@@ -146,7 +148,6 @@ export const generateFight = async ({
 
   // Global fight data
   const fightDataFighters = getFighters({
-    prisma,
     team1: { brutes: team1.brutes ?? [], backups: team1Backups, bosses: team1.bosses ?? [] },
     team2: { brutes: team2.brutes ?? [], backups: team2Backups, bosses: team2.bosses ?? [] },
     modifiers,
@@ -215,7 +216,7 @@ export const generateFight = async ({
     }
 
     // Play fighter turn
-    playFighterTurn(fightData, stats, achievementsStore);
+    playFighterTurn(chaos, fightData, stats, achievementsStore);
 
     // Check deaths
     checkDeaths(fightData, stats);

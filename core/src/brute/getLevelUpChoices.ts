@@ -1,5 +1,5 @@
 import { Brute, BruteStat, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
-import { randomBetween } from '../utils/randomBetween';
+import { randomBetween } from '../utils';
 import { getRandomBonus } from './getRandomBonus';
 
 export type LevelUpChoice = Omit<Prisma.DestinyChoiceCreateInput, 'brute'>;

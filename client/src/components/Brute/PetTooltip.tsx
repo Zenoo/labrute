@@ -1,8 +1,9 @@
-import { PERKS_TOTAL_ODDS, Pet, convertEnduranceToHP, getPetStat } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Pet, convertEnduranceToHP, getPetScaledStat } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
@@ -27,6 +28,7 @@ const PetTooltip = ({
   const { t } = useTranslation();
   const { brute: authedBrute } = useBrute();
   const theme = useTheme();
+  const { chaos } = useAuth();
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
 
@@ -54,7 +56,7 @@ const PetTooltip = ({
             {t('hpMalus')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
-              {convertEnduranceToHP(brute, pet.enduranceMalus)}
+              {convertEnduranceToHP(brute, getPetScaledStat(chaos, brute, pet, 'enduranceMalus'))}
             </Text>
           </Text>
           {/* INITIATIVE */}
@@ -62,7 +64,7 @@ const PetTooltip = ({
             {t('initiative')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.initiative, textShadow }} {...textProps}>
-              {pet.initiative}
+              {getPetScaledStat(chaos, brute, pet, 'initiative', 2)}
             </Text>
           </Text>
           {/* STRENGTH */}
@@ -70,7 +72,7 @@ const PetTooltip = ({
             {t('strength')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.strength, textShadow }} {...textProps}>
-              {getPetStat(brute, pet, 'strength')}
+              {getPetScaledStat(chaos, brute, pet, 'strength')}
             </Text>
           </Text>
           {/* AGILITY */}
@@ -78,7 +80,7 @@ const PetTooltip = ({
             {t('agility')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.agility, textShadow }} {...textProps}>
-              {getPetStat(brute, pet, 'agility')}
+              {getPetScaledStat(chaos, brute, pet, 'agility')}
             </Text>
           </Text>
           {/* SPEED */}
@@ -86,7 +88,7 @@ const PetTooltip = ({
             {t('speed')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.speed, textShadow }} {...textProps}>
-              {getPetStat(brute, pet, 'speed')}
+              {getPetScaledStat(chaos, brute, pet, 'speed')}
             </Text>
           </Text>
           {/* HP */}
@@ -94,7 +96,7 @@ const PetTooltip = ({
             {t('HP')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
-              {getPetStat(brute, pet, 'hp')}
+              {getPetScaledStat(chaos, brute, pet, 'hp')}
             </Text>
           </Text>
           {/* DAMAGE */}
@@ -102,14 +104,14 @@ const PetTooltip = ({
             {t('damage')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.damage, textShadow }} {...textProps}>
-              {pet.damage}
+              {getPetScaledStat(chaos, brute, pet, 'damage')}
             </Text>
           </Text>
           {/* EVASION */}
           {!!pet.evasion && (
             <Text bold sx={{ color: StatColor.evasion, textShadow }} {...textProps}>
               {pet.evasion > 0 && '+'}
-              {Math.round(pet.evasion * 100)}
+              {Math.round(getPetScaledStat(chaos, brute, pet, 'evasion', 2) * 100)}
               % {t('evasion')}
             </Text>
           )}
@@ -117,7 +119,7 @@ const PetTooltip = ({
           {!!pet.accuracy && (
             <Text bold sx={{ color: StatColor.accuracy, textShadow }} {...textProps}>
               {pet.accuracy > 0 && '+'}
-              {Math.round(pet.accuracy * 100)}
+              {Math.round(getPetScaledStat(chaos, brute, pet, 'accuracy', 2) * 100)}
               % {t('accuracy')}
             </Text>
           )}
@@ -125,15 +127,23 @@ const PetTooltip = ({
           {!!pet.disarm && (
             <Text bold sx={{ color: StatColor.disarm, textShadow }} {...textProps}>
               {pet.disarm > 0 && '+'}
-              {Math.round(pet.disarm * 100)}
+              {Math.round(getPetScaledStat(chaos, brute, pet, 'disarm', 2) * 100)}
               % {t('disarm')}
+            </Text>
+          )}
+          {/* BLOCK */}
+          {!!pet.block && (
+            <Text bold sx={{ color: StatColor.block, textShadow }} {...textProps}>
+              {pet.block > 0 && '+'}
+              {Math.round(getPetScaledStat(chaos, brute, pet, 'block', 2) * 100)}
+              % {t('block')}
             </Text>
           )}
           {/* COMBO */}
           {!!pet.combo && (
             <Text bold sx={{ color: StatColor.combo, textShadow }} {...textProps}>
               {pet.combo > 0 && '+'}
-              {Math.round(pet.combo * 100)}
+              {Math.round(getPetScaledStat(chaos, brute, pet, 'combo', 2) * 100)}
               % {t('combo')}
             </Text>
           )}

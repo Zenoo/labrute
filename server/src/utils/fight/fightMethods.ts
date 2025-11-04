@@ -359,9 +359,9 @@ const healFighter = (
   updateStats(stats, fighter.id, 'hpHealed', amount);
 };
 
-const increaseInitiative = (fighter: DetailedFighter, multiplicator: number = 1) => {
+const increaseInitiative = (chaos: boolean, fighter: DetailedFighter, multiplicator = 1) => {
   const random = randomBetween(0, 10);
-  let tempo = getFighterStat(fighter, 'tempo')
+  let tempo = getFighterStat(chaos, fighter, 'tempo')
     * fighter.tempo
     + (random / 100);
 
@@ -806,6 +806,7 @@ const drawWeapon = (
 };
 
 const activateSuper = (
+  chaos: boolean,
   fightData: DetailedFight,
   fighter: DetailedFighter,
   skill: Skill,
@@ -1018,7 +1019,7 @@ const activateSuper = (
       fighter.activeSkills.push(skill);
 
       // Get damage
-      const { damage, criticalHit } = getDamage(fighter, opponent);
+      const { damage, criticalHit } = getDamage(chaos, fighter, opponent);
 
       // Add skill activation step
       fightData.steps.push({
@@ -1225,7 +1226,7 @@ const activateSuper = (
       // Get damages for each weapon
       const damages = [];
       weaponsToThrow.forEach((w) => {
-        const damage = Math.floor(getDamage(fighter, opponent, w).damage * 1.5);
+        const damage = Math.floor(getDamage(chaos, fighter, opponent, w).damage * 1.5);
         damages.push(damage);
 
         registerHit({
@@ -1380,7 +1381,7 @@ const activateSuper = (
       if (!fighter.activeWeapon) drawWeapon(fightData, fighter, true);
 
       // Damage done (usual + speed)
-      const { damage: initialDamage, criticalHit } = getDamage(fighter, opponent);
+      const { damage: initialDamage, criticalHit } = getDamage(chaos, fighter, opponent);
       const damage = initialDamage + fighter.speed;
 
       registerHit({
@@ -1504,11 +1505,13 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
 };
 
 const block = ({
+  chaos,
   fighter,
   opponent,
   thrown = false,
   ease = 1,
 }: {
+  chaos: boolean,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
   thrown?: boolean,
@@ -1526,7 +1529,7 @@ const block = ({
   // No block for pets and bosses
   if (opponent.type === 'pet' || opponent.type === 'boss') return false;
 
-  let opponentBlock = getFighterStat(opponent, 'block');
+  let opponentBlock = getFighterStat(chaos, opponent, 'block');
 
   // increase block if blocking a throwing weapon with `Hideaway`
   // multiply by ease so the real block bonus mirrors the displayed bonus
@@ -1541,12 +1544,17 @@ const block = ({
 
   return Math.random() * ease
     < Math.min(
-      opponentBlock - getFighterStat(fighter, 'accuracy'),
+      opponentBlock - getFighterStat(chaos, fighter, 'accuracy'),
       0.9 * ease,
     );
 };
 
-const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty = 1) => {
+const evade = (
+  chaos: boolean,
+  fighter: DetailedFighter,
+  opponent: DetailedFighter,
+  difficulty = 1,
+) => {
   // No evasion if opponent is dead
   if (opponent.hp <= 0) return false;
 
@@ -1566,7 +1574,7 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
     return true;
   }
 
-  let opponentEvasion = getFighterStat(opponent, 'evasion');
+  let opponentEvasion = getFighterStat(chaos, opponent, 'evasion');
 
   // increase evasion if 1HP and `Survival`
   if (opponent.hp === 1 && opponent.skills.find((sk) => sk.name === SkillName.survival)) {
@@ -1588,20 +1596,21 @@ const evade = (fighter: DetailedFighter, opponent: DetailedFighter, difficulty =
     < Math.min(
       (opponentEvasion
         + agilityDifference * 0.01
-        - getFighterStat(fighter, 'accuracy')
-        - getFighterStat(fighter, 'dexterity')),
+        - getFighterStat(chaos, fighter, 'accuracy')
+        - getFighterStat(chaos, fighter, 'dexterity')),
       0.9 * difficulty,
     );
 };
 
-const breakShield = (fighter: DetailedFighter, opponent: DetailedFighter) => {
+const breakShield = (chaos: boolean, fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't break someone's shield if they are not holding a shield >.>
   if (!opponent.shield) return false;
 
-  return getFighterStat(fighter, 'disarm') * 100 >= randomBetween(1, 300);
+  return getFighterStat(chaos, fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
 const disarm = (
+  chaos: boolean,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
   thrown?: boolean,
@@ -1609,7 +1618,7 @@ const disarm = (
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  return getFighterStat(fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
+  return getFighterStat(chaos, fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
 };
 
 const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
@@ -1623,13 +1632,13 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   return Math.random() < 0.5;
 };
 
-const reversal = (opponent: DetailedFighter, blocked: boolean) => {
+const reversal = (chaos: boolean, opponent: DetailedFighter, blocked: boolean) => {
   // No reversal if stunned
   if (opponent.stunned) return false;
 
   const random = Math.random();
 
-  let reversalStat = getFighterStat(opponent, 'reversal');
+  let reversalStat = getFighterStat(chaos, opponent, 'reversal');
 
   // Incrase reversal when blocking with counterAttack
   if (blocked && opponent.skills.find((sk) => sk.name === SkillName.counterAttack)) {
@@ -1639,7 +1648,7 @@ const reversal = (opponent: DetailedFighter, blocked: boolean) => {
   return random < reversalStat;
 };
 
-const deflectProjectile = (fighter: DetailedFighter, timesDeflected: number) => {
+const deflectProjectile = (chaos: boolean, fighter: DetailedFighter, timesDeflected: number) => {
   // No deflect if dead
   if (fighter.hp <= 0) return false;
 
@@ -1656,10 +1665,11 @@ const deflectProjectile = (fighter: DetailedFighter, timesDeflected: number) => 
 
   const random = Math.random();
 
-  return random < getFighterStat(fighter, 'deflect', deflectWithWeapon ? undefined : 'fighter');
+  return random < getFighterStat(chaos, fighter, 'deflect', deflectWithWeapon ? undefined : 'fighter');
 };
 
 const attack = (
+  chaos: boolean,
   fightData: DetailedFight,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
@@ -1683,13 +1693,13 @@ const attack = (
   }
 
   // Get damage
-  const damageResult = getDamage(fighter, opponent);
+  const damageResult = getDamage(chaos, fighter, opponent);
   let { damage } = damageResult;
   const { criticalHit } = damageResult;
 
-  const blocked = block({ fighter, opponent });
-  const evaded = evade(fighter, opponent);
-  const brokeShield = breakShield(fighter, opponent);
+  const blocked = block({ chaos, fighter, opponent });
+  const evaded = evade(chaos, fighter, opponent);
+  const brokeShield = breakShield(chaos, fighter, opponent);
 
   // Add attempt step
   fightData.steps.push({
@@ -1767,7 +1777,7 @@ const attack = (
   }
 
   // Check if the fighter disarms the opponent
-  if (damage && disarm(fighter, opponent)) {
+  if (damage && disarm(chaos, fighter, opponent)) {
     if (opponent.activeWeapon) {
       // Add disarm step
       fightData.steps.push({
@@ -1832,7 +1842,7 @@ const attack = (
     fighter.retryAttack = true;
   }
 
-  const reversed = reversal(opponent, blocked);
+  const reversed = reversal(chaos, opponent, blocked);
 
   return {
     blocked: !evaded && blocked,
@@ -1879,6 +1889,7 @@ export const checkDeaths = (
 };
 
 const startAttack = (
+  chaos: boolean,
   fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
@@ -1903,7 +1914,7 @@ const startAttack = (
     blocked,
     reversed,
     lostReach,
-  } = attack(fightData, fighter, opponent, stats, achievements, isCounter);
+  } = attack(chaos, fightData, fighter, opponent, stats, achievements, isCounter);
 
   // Keep track of attack status
   if (blocked) attackResult.blocked = true;
@@ -1914,7 +1925,7 @@ const startAttack = (
   let attacksCount = 1;
 
   // Get combo chances
-  let combo = getFighterStat(fighter, 'combo') + (fighter.agility * 0.01);
+  let combo = getFighterStat(chaos, fighter, 'combo') + (fighter.agility * 0.01);
 
   // Repeat attack only if not countering
   if (!isCounter) {
@@ -1949,7 +1960,7 @@ const startAttack = (
         blocked: comboBlocked,
         reversed: comboReversed,
         lostReach: comboLostReach,
-      } = attack(fightData, fighter, opponent, stats, achievements);
+      } = attack(chaos, fightData, fighter, opponent, stats, achievements);
       attacksCount++;
 
       // Keep track of attack status
@@ -1983,7 +1994,7 @@ const startAttack = (
       }
 
       // Trigger fighter attack
-      attack(fightData, opponent, fighter, stats, achievements);
+      attack(chaos, fightData, opponent, fighter, stats, achievements);
     } else {
       // Reset reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 0);
@@ -2007,6 +2018,7 @@ const startAttack = (
 };
 
 export const playFighterTurn = (
+  chaos: boolean,
   fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
@@ -2130,7 +2142,7 @@ export const playFighterTurn = (
   const possibleSuper = randomlyGetSuper(fightData, fighter);
   if (possibleSuper) {
     // End turn if super activated
-    if (activateSuper(fightData, fighter, possibleSuper, stats, achievements)) {
+    if (activateSuper(chaos, fightData, fighter, possibleSuper, stats, achievements)) {
       return;
     }
   }
@@ -2184,7 +2196,7 @@ export const playFighterTurn = (
     // 90% success chance
     if (opponentHypnosis && Math.random() < 0.90) {
       // Activate hypnosis
-      if (activateSuper(fightData, opponent, opponentHypnosis, stats, achievements)) {
+      if (activateSuper(chaos, fightData, opponent, opponentHypnosis, stats, achievements)) {
         // Cancel turn if fighter is pet as it may have a new master
         if (fighter.type === 'pet') return;
       }
@@ -2218,7 +2230,7 @@ export const playFighterTurn = (
       });
 
       // Opponent attacks fighter
-      startAttack(fightData, stats, achievements, opponent, fighter, true);
+      startAttack(chaos, fightData, stats, achievements, opponent, fighter, true);
     } else {
       // Reset counter stat
       updateStats(stats, opponent.id, 'consecutiveCounters', 0);
@@ -2230,7 +2242,7 @@ export const playFighterTurn = (
         );
         if (opponentCry && randomBetween(0, 1) === 0) {
           // Activate cryOfTheDamned
-          if (activateSuper(fightData, opponent, opponentCry, stats, achievements)) {
+          if (activateSuper(chaos, fightData, opponent, opponentCry, stats, achievements)) {
             // If successfull, opponent wakes up
             wakeUp(fightData, opponent);
 
@@ -2243,7 +2255,7 @@ export const playFighterTurn = (
               });
             }
             // Fighter only loses half a turn of initiative
-            increaseInitiative(fighter, 0.5);
+            increaseInitiative(chaos, fighter, 0.5);
             // Cancel turn
             return;
           }
@@ -2251,7 +2263,7 @@ export const playFighterTurn = (
       }
 
       // Fighter attacks opponent
-      startAttack(fightData, stats, achievements, fighter, opponent);
+      startAttack(chaos, fightData, stats, achievements, fighter, opponent);
     }
   } else {
     // Throw attack
@@ -2265,7 +2277,7 @@ export const playFighterTurn = (
     let firstThrow = true;
 
     // Get combo chances
-    let combo = getFighterStat(fighter, 'combo') + (fighter.agility * 0.01);
+    let combo = getFighterStat(chaos, fighter, 'combo') + (fighter.agility * 0.01);
     let random = Math.random();
 
     while (firstThrow || (keepWeapon && random < combo)) {
@@ -2309,7 +2321,7 @@ export const playFighterTurn = (
           r: deflected ? 1 : 0,
         });
 
-        deflected = deflectProjectile(currentOpponent, timesDeflected);
+        deflected = deflectProjectile(chaos, currentOpponent, timesDeflected);
 
         let damage = 0;
         let criticalHit = false;
@@ -2317,6 +2329,7 @@ export const playFighterTurn = (
         // Get damage
         if (!deflected) {
           const damageResult = getDamage(
+            chaos,
             currentFighter,
             currentOpponent,
             thrownWeapon,
@@ -2334,6 +2347,7 @@ export const playFighterTurn = (
 
         // Check if opponent blocked (harder than melee)
         if (!deflected && block({
+          chaos,
           fighter: currentFighter,
           opponent: currentOpponent,
           thrown: true,
@@ -2355,7 +2369,7 @@ export const playFighterTurn = (
           updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 0);
         }
         // Check if opponent evaded (harder than melee)
-        if (damage && evade(currentFighter, currentOpponent, 2)) {
+        if (damage && evade(chaos, currentFighter, currentOpponent, 2)) {
           damage = 0;
 
           // Add evade step
@@ -2375,7 +2389,7 @@ export const playFighterTurn = (
         // If damage was done
         if (damage) {
           // Disarm
-          if (disarm(currentFighter, currentOpponent, true)) {
+          if (disarm(chaos, currentFighter, currentOpponent, true)) {
             if (currentOpponent.activeWeapon) {
               // Add disarm step
               fightData.steps.push({
@@ -2491,5 +2505,5 @@ export const playFighterTurn = (
     }
   }
 
-  increaseInitiative(fighter);
+  increaseInitiative(chaos, fighter);
 };

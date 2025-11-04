@@ -1243,6 +1243,11 @@ const handleModifiers = async (prisma: PrismaClient) => {
 
   const rolledModifiers: FightModifier[] = [];
 
+  // Chaos every sunday
+  if (dayjs().utc().day() === 0) {
+    rolledModifiers.push(FightModifier.chaos);
+  }
+
   // Check if next modifiers are preselected
   const nextModifiers = await ServerState.getNextModifiers(prisma);
 

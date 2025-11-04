@@ -311,7 +311,8 @@ export const FightModifier: {
   randomSkill: 'randomSkill',
   randomWeapon: 'randomWeapon',
   bareHandsFirstHit: 'bareHandsFirstHit',
-  startWithWeapon: 'startWithWeapon'
+  startWithWeapon: 'startWithWeapon',
+  chaos: 'chaos'
 };
 
 export type FightModifier = (typeof FightModifier)[keyof typeof FightModifier]

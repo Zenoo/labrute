@@ -96,10 +96,20 @@ export const Users = {
     res: Response<UsersAuthenticateResponse>,
   ) => {
     try {
-      const { id } = await auth(prisma, req);
+      let authResult: Awaited<ReturnType<typeof auth>>;
+      try {
+        authResult = await auth(prisma, req);
+      } catch (_error) {
+        res.send({
+          modifiers: await ServerState.getModifiers(prisma),
+          currentEvent: await ServerState.getCurrentEvent(prisma),
+          version: Version,
+        });
+        return;
+      }
 
       const user = await prisma.user.findFirst({
-        where: { id },
+        where: { id: authResult.id },
         include: {
           brutes: {
             where: {

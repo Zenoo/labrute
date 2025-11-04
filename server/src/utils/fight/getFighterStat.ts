@@ -1,9 +1,11 @@
 import {
-  BASE_FIGHTER_STATS, DetailedFighter, FighterStat, FightStat, SkillModifiers, WeaponType,
+  BASE_FIGHTER_STATS, DetailedFighter, FighterStat,
+  FightStat, getWeaponScaledStat, SkillModifiers, WeaponType,
 } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 
 export const getFighterStat = (
+  chaos: boolean,
   fighter: DetailedFighter,
   stat: FighterStat,
   onlyStat?: 'fighter' | 'weapon',
@@ -13,7 +15,7 @@ export const getFighterStat = (
     if (onlyStat === 'fighter') return 0;
 
     if (fighter.activeWeapon) {
-      const weaponStat = fighter.activeWeapon[stat];
+      const weaponStat = getWeaponScaledStat(chaos, fighter.activeWeapon, stat);
 
       // BODYBUILDER
       if (fighter.bodybuilder && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
@@ -30,7 +32,7 @@ export const getFighterStat = (
   // Special case for tempo as it's either weapon or base
   if (stat === 'tempo') {
     if (fighter.activeWeapon) {
-      return fighter.activeWeapon[stat];
+      return getWeaponScaledStat(chaos, fighter.activeWeapon, stat);
     }
 
     return BASE_FIGHTER_STATS[stat];
@@ -40,7 +42,7 @@ export const getFighterStat = (
 
   if (onlyStat !== 'fighter') {
     if (fighter.activeWeapon) {
-      total += fighter.activeWeapon[stat];
+      total += getWeaponScaledStat(chaos, fighter.activeWeapon, stat);
     } else if (stat !== FightStat.CRITICAL_DAMAGE && stat !== FightStat.CRITICAL_CHANCE) {
       // Ignore crit stats are they are already handled in getFighters
       total += fighter.type === 'brute'

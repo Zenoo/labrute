@@ -1,9 +1,10 @@
-import { convertEnduranceToHP, FightStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import { convertEnduranceToHP, FightStat, getScaledStat, getSkillStatSeed, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
+import { useAuth } from '../../hooks/useAuth';
 
 // Rename endurance to HP
 const statName = (stat: FightStat) => {
@@ -29,6 +30,7 @@ const SkillTooltip = ({
   ...rest
 }: SkillTooltipProps) => {
   const { t } = useTranslation();
+  const { chaos } = useAuth();
 
   return (
     <Tooltip
@@ -54,7 +56,7 @@ const SkillTooltip = ({
                     sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
                   >
                     {modifier.flat < 0 ? '' : '+'}
-                    {statValue(stat, modifier.flat)}
+                    {getScaledStat(chaos, getSkillStatSeed(skill.name, stat, 'flat'), statValue(stat, modifier.flat))}
                     {' '}
                     {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
@@ -67,7 +69,7 @@ const SkillTooltip = ({
                     sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
                   >
                     {modifier.percent < 0 ? '' : '+'}
-                    {modifier.percent * 100}
+                    {(getScaledStat(chaos, getSkillStatSeed(skill.name, stat, 'percent'), modifier.percent, 2) * 100).toFixed(0)}
                     {'% '}
                     {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}

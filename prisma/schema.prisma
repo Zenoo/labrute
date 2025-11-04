@@ -334,6 +334,7 @@ enum FightModifier {
   randomWeapon
   bareHandsFirstHit
   startWithWeapon
+  chaos
 }
 
 model Fight {
