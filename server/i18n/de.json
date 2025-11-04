@@ -104,6 +104,8 @@
   "modifier.bareHandsFirstHit.desc": "Ein wahrer Gentleman begrüßt seine Gegner mit Fäusten. Du wirst keine Waffe ziehen, ehe du deinen Gegner mit bloßen Händen getroffen hast.",
   "modifier.startWithWeapon": "Bewaffnet und Bereit",
   "modifier.startWithWeapon.desc": "Keine Zeit für Höflichkeiten, es ist Zeit zu kämpfen! Du startest den Kampf mit einer bereits gezogenen Waffe.",
+  "modifier.chaos": "Controlled Chaos",
+  "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
   "bannedAccount": "Dein Account wurde aus folgendem Grund gebannt: {{reason}}",
   "userNotBanned": "Nutzer nicht gebannt",
   "userAlreadyBanned": "Nutzer bereits gebannt",
