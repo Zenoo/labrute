@@ -1491,6 +1491,8 @@
   "modifier.bareHandsFirstHit.desc": "Un verdadero caballero saluda a su enemigo con sus puños. No sacarás ningún arma hasta que golpees a tu oponente con tus manos.",
   "modifier.startWithWeapon": "Armado y Preparado",
   "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás el combate con un arma en las manos.",
+  "modifier.chaos": "Controlled Chaos",
+  "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
   "patchNotes": "Notas de versión",
   "patchNotes.desc": "Mantente al día y comprueba qué hay de nuevo en la versión {{version}} de ElBruto.",
   "newPatchNotesAvailable": "Una nueva versión ha sido publicada.",
