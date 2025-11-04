@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.0](https://github.com/Zenoo/labrute/compare/labrute-v2.82.14...labrute-v2.83.0) (2025-11-04)
+
+
+### Features
+
+* Chaos mode every sunday ([cadd4ea](https://github.com/Zenoo/labrute/commit/cadd4ea2a10e959f5c207868a4313edfd96335d0))
+
+
+### Bug Fixes
+
+* Store fight winner/loser ID. Fixes [#1129](https://github.com/Zenoo/labrute/issues/1129) ([f659229](https://github.com/Zenoo/labrute/commit/f6592298c8270139854970d739e5343ca6c524f9))
+
 ## [2.82.14](https://github.com/Zenoo/labrute/compare/labrute-v2.82.13...labrute-v2.82.14) (2025-10-07)
 
 
