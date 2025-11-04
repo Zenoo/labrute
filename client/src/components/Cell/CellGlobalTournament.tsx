@@ -1,4 +1,4 @@
-import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Fighter, getWinnerId, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Gender, TournamentType } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Badge, Box, Paper, PaperProps, useTheme } from '@mui/material';
@@ -138,11 +138,12 @@ const CellGlobalTournament = ({
     fight: TournamentsGetGlobalFight | undefined,
     finals = false,
   ) => {
-    if (!bruteName || !fight) return null;
+    if (!brute || !bruteName || !fight) return null;
 
-    const bruteInFight = fight.brute1Id === brute?.id
-      || fight.brute2Id === brute?.id;
-    const won = bruteInFight && fight.winner === bruteName;
+    const bruteInFight = fight.brute1Id === brute.id
+      || fight.brute2Id === brute.id;
+    const winnerId = getWinnerId(fight);
+    const won = bruteInFight && winnerId === brute.id;
 
     const fighters = JSON.parse(fight.fighters) as Fighter[];
 
@@ -201,7 +202,7 @@ const CellGlobalTournament = ({
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && fight.winner === fighter2.name
+              && winnerId === fighter2.id
               && (
                 <Close
                   color="error"
@@ -238,7 +239,7 @@ const CellGlobalTournament = ({
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && fight.winner === fighter1.name
+              && winnerId === fighter1.id
               && (
                 <Close
                   color="error"
@@ -339,6 +340,8 @@ const CellGlobalTournament = ({
         >
           {/* Rounds */}
           {Array.from({ length: data.tournament.rounds - 3 }).map((_, i) => {
+            if (!brute) return null;
+
             const fight = data.tournament?.fights.find((f) => f.tournamentStep === i + 1);
 
             // Free bye
@@ -388,8 +391,9 @@ const CellGlobalTournament = ({
             if (!fighter1) return null;
             if (!fighter2) return null;
 
-            const won = fight.winner === bruteName;
-            const opponent = brute?.id === fight.brute1Id
+            const winnerId = getWinnerId(fight);
+            const won = winnerId === brute.id;
+            const opponent = brute.id === fight.brute1Id
               ? fighter2.name
               : fighter1.name;
 

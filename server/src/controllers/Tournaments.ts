@@ -45,7 +45,9 @@ export const Tournaments = {
               brute1: true,
               brute2: true,
               winner: true,
+              winnerId: true,
               loser: true,
+              loserId: true,
               tournamentStep: true,
               fighters: true,
             },
@@ -346,6 +348,7 @@ export const Tournaments = {
           id: true,
           tournamentStep: true,
           winner: true,
+          winnerId: true,
           fighters: true,
           brute1Id: true,
           brute2Id: true,
@@ -369,6 +372,7 @@ export const Tournaments = {
           id: true,
           tournamentStep: true,
           winner: true,
+          winnerId: true,
           fighters: true,
           brute1Id: true,
           brute2Id: true,
@@ -561,6 +565,7 @@ export const Tournaments = {
             { brute1Id: brute.id },
             { brute2Id: brute.id },
           ],
+          // TODO: Replace by winnerId on release
           winner: brute.name,
         },
         select: {

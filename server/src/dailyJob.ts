@@ -10,6 +10,7 @@ import {
   EventPauseDuration,
   Fighter,
   getNewElo,
+  getWinnerId,
   getWinsNeededToRankUp,
   GlobalTournamentGoldReward,
   GlobalTournamentXpReward,
@@ -357,7 +358,7 @@ const handleDailyTournaments = async (
         });
 
         // Get fight winner
-        const winnerId = lastFight.winner === brute1.name ? brute1.id : brute2.id;
+        const winnerId = getWinnerId(lastFight);
 
         // Add winner to next round
         winners.push(winnerId === roundBrute1.id ? roundBrute1 : roundBrute2);
@@ -1678,8 +1679,8 @@ const handleClanWars = async (
       select: { id: true },
     });
 
-    const winnerName = generatedFight.winner;
-    const winner = attackers.some((brute) => brute.name === winnerName)
+    const winnerId = getWinnerId(generatedFight);
+    const winner = attackers.some((brute) => brute.id === winnerId)
       ? 'attacker'
       : 'defender';
 

@@ -642,7 +642,7 @@ export type BrutesGetClanIdAsMasterResponse = {
 };
 
 export type TournamentsGetDailyResponse = Tournament & {
-  fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'tournamentStep' | 'fighters'> & {
+  fights: (Pick<Fight, 'id' | 'winner' | 'loser' | 'winnerId' | 'loserId' | 'tournamentStep' | 'fighters'> & {
     brute1: Brute | null,
     brute2: Brute | null,
   })[]
@@ -650,7 +650,7 @@ export type TournamentsGetDailyResponse = Tournament & {
 export type TournamentsUpdateStepWatchedResponse = {
   step: number,
 };
-export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
+export type TournamentsGetGlobalFight = Pick<Fight, 'id' | 'winner' | 'winnerId' | 'fighters' | 'brute1Id' | 'brute2Id' | 'tournamentStep'>;
 export type TournamentsGetGlobalResponse = {
   tournament: (Pick<Tournament, 'id' | 'rounds' | 'type'> & {
     fights: TournamentsGetGlobalFight[];
@@ -791,7 +791,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
   favoriteFights: (Pick<Fight, 'id' | 'date' | 'fighters'> & {
-    brute1: Pick<Brute, 'id' | 'name'>| null,
+    brute1: Pick<Brute, 'id' | 'name'> | null,
     brute2: Pick<Brute, 'id' | 'name'> | null,
   })[],
 };
@@ -844,7 +844,7 @@ export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];
 export type ClanWarGetResponse = ClanWar & {
   attacker: Pick<Clan, 'id' | 'name'>,
   defender: Pick<Clan, 'id' | 'name'>,
-  fights?: (Pick<Fight, 'id' | 'date' | 'winner'> & {
+  fights?: (Pick<Fight, 'id' | 'date' | 'winner' | 'winnerId'> & {
     brute1?: Pick<Brute, 'id' | 'name'> | null,
   })[],
   fighters?: (ClanWarFighters & {
@@ -871,8 +871,8 @@ export type EventGetResponse = {
   event: Event & {
     tournament: Pick<Tournament, 'id' | 'rounds'> | null,
   },
-  fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
-  lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+  fights: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'winnerId' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
+  lastRounds: Pick<Fight, 'id' | 'tournamentStep' | 'winner' | 'winnerId' | 'fighters' | 'brute1Id' | 'brute2Id'>[],
   participants: number,
 };
 export type EventListCurrentResponse = (Event & {

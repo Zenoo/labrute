@@ -1,4 +1,4 @@
-import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter, formatLargeNumber } from '@labrute/core';
+import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter, formatLargeNumber, getWinnerId } from '@labrute/core';
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
 import { Close, Groups } from '@mui/icons-material';
 import { Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
@@ -131,11 +131,12 @@ export const EventView = () => {
     fight: EventGetResponse['fights'][0] | undefined,
     finals = false,
   ) => {
-    if (!bruteName || !fight) return null;
+    if (!brute || !bruteName || !fight) return null;
 
-    const bruteInFight = fight.brute1Id === brute?.id
-      || fight.brute2Id === brute?.id;
-    const won = bruteInFight && fight.winner === bruteName;
+    const bruteInFight = fight.brute1Id === brute.id
+      || fight.brute2Id === brute.id;
+    const winnerId = getWinnerId(fight);
+    const won = bruteInFight && winnerId === brute.id;
 
     const fighters = JSON.parse(fight.fighters) as Fighter[];
 
@@ -147,7 +148,7 @@ export const EventView = () => {
     if (!fighter1) return null;
     if (!fighter2) return null;
 
-    const ownFight = bruteName === fighter1.name || bruteName === fighter2.name;
+    const ownFight = brute.id === fighter1.id || brute.id === fighter2.id;
 
     return (
       <Box
@@ -194,7 +195,7 @@ export const EventView = () => {
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && fight.winner === fighter2.name
+              && winnerId === fighter2.id
               && (
                 <Close
                   color="error"
@@ -231,7 +232,7 @@ export const EventView = () => {
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && fight.winner === fighter1.name
+              && winnerId === fighter1.id
               && (
                 <Close
                   color="error"
@@ -490,7 +491,7 @@ export const EventView = () => {
                   if (!fighter1) return null;
                   if (!fighter2) return null;
 
-                  const won = fight.winner === bruteName;
+                  const won = getWinnerId(fight) === brute.id;
                   const opponent = brute?.id === fight.brute1Id
                     ? fighter2.name
                     : fighter1.name;

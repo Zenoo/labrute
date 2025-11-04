@@ -1,8 +1,3 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
-dayjs.extend(utc);
-
 export * from './Achievements';
 export * from './constants';
 export * from './Elo';

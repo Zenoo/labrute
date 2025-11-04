@@ -133,6 +133,7 @@ export const ClanWars = {
               id: true,
               date: true,
               winner: true,
+              winnerId: true,
               brute1: {
                 select: {
                   id: true,

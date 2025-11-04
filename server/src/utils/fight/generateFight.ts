@@ -294,6 +294,8 @@ export const generateFight = async ({
   const result: GenerateFightResult = {
     data: {
       brute1: { connect: { id: brute1.id } },
+      winnerId: winner.id,
+      loserId: loser.id,
       winner: winner.name,
       loser: loser.name,
       steps: JSON.stringify(fightData.steps),

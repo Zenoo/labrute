@@ -10867,6 +10867,8 @@ export namespace Prisma {
     date: Date | null
     brute1Id: string | null
     brute2Id: string | null
+    winnerId: string | null
+    loserId: string | null
     winner: string | null
     loser: string | null
     steps: string | null
@@ -10883,6 +10885,8 @@ export namespace Prisma {
     date: Date | null
     brute1Id: string | null
     brute2Id: string | null
+    winnerId: string | null
+    loserId: string | null
     winner: string | null
     loser: string | null
     steps: string | null
@@ -10899,6 +10903,8 @@ export namespace Prisma {
     date: number
     brute1Id: number
     brute2Id: number
+    winnerId: number
+    loserId: number
     winner: number
     loser: number
     steps: number
@@ -10928,6 +10934,8 @@ export namespace Prisma {
     date?: true
     brute1Id?: true
     brute2Id?: true
+    winnerId?: true
+    loserId?: true
     winner?: true
     loser?: true
     steps?: true
@@ -10944,6 +10952,8 @@ export namespace Prisma {
     date?: true
     brute1Id?: true
     brute2Id?: true
+    winnerId?: true
+    loserId?: true
     winner?: true
     loser?: true
     steps?: true
@@ -10960,6 +10970,8 @@ export namespace Prisma {
     date?: true
     brute1Id?: true
     brute2Id?: true
+    winnerId?: true
+    loserId?: true
     winner?: true
     loser?: true
     steps?: true
@@ -11064,6 +11076,8 @@ export namespace Prisma {
     date: Date
     brute1Id: string | null
     brute2Id: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -11100,6 +11114,8 @@ export namespace Prisma {
     date?: boolean
     brute1Id?: boolean
     brute2Id?: boolean
+    winnerId?: boolean
+    loserId?: boolean
     winner?: boolean
     loser?: boolean
     steps?: boolean
@@ -11124,6 +11140,8 @@ export namespace Prisma {
     date?: boolean
     brute1Id?: boolean
     brute2Id?: boolean
+    winnerId?: boolean
+    loserId?: boolean
     winner?: boolean
     loser?: boolean
     steps?: boolean
@@ -11145,6 +11163,8 @@ export namespace Prisma {
     date?: boolean
     brute1Id?: boolean
     brute2Id?: boolean
+    winnerId?: boolean
+    loserId?: boolean
     winner?: boolean
     loser?: boolean
     steps?: boolean
@@ -11166,6 +11186,8 @@ export namespace Prisma {
     date?: boolean
     brute1Id?: boolean
     brute2Id?: boolean
+    winnerId?: boolean
+    loserId?: boolean
     winner?: boolean
     loser?: boolean
     steps?: boolean
@@ -11178,7 +11200,7 @@ export namespace Prisma {
     favoriteCount?: boolean
   }
 
-  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winner" | "loser" | "steps" | "fighters" | "tournamentId" | "tournamentStep" | "modifiers" | "background" | "clanWarId" | "favoriteCount", ExtArgs["result"]["fight"]>
+  export type FightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "brute1Id" | "brute2Id" | "winnerId" | "loserId" | "winner" | "loser" | "steps" | "fighters" | "tournamentId" | "tournamentStep" | "modifiers" | "background" | "clanWarId" | "favoriteCount", ExtArgs["result"]["fight"]>
   export type FightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute1?: boolean | Fight$brute1Args<ExtArgs>
     brute2?: boolean | Fight$brute2Args<ExtArgs>
@@ -11216,6 +11238,8 @@ export namespace Prisma {
       date: Date
       brute1Id: string | null
       brute2Id: string | null
+      winnerId: string
+      loserId: string
       winner: string
       loser: string
       steps: string
@@ -11659,6 +11683,8 @@ export namespace Prisma {
     readonly date: FieldRef<"Fight", 'DateTime'>
     readonly brute1Id: FieldRef<"Fight", 'String'>
     readonly brute2Id: FieldRef<"Fight", 'String'>
+    readonly winnerId: FieldRef<"Fight", 'String'>
+    readonly loserId: FieldRef<"Fight", 'String'>
     readonly winner: FieldRef<"Fight", 'String'>
     readonly loser: FieldRef<"Fight", 'String'>
     readonly steps: FieldRef<"Fight", 'String'>
@@ -37243,6 +37269,8 @@ export namespace Prisma {
     date: 'date',
     brute1Id: 'brute1Id',
     brute2Id: 'brute2Id',
+    winnerId: 'winnerId',
+    loserId: 'loserId',
     winner: 'winner',
     loser: 'loser',
     steps: 'steps',
@@ -38609,6 +38637,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableFilter<"Fight"> | string | null
     brute2Id?: UuidNullableFilter<"Fight"> | string | null
+    winnerId?: UuidFilter<"Fight"> | string
+    loserId?: UuidFilter<"Fight"> | string
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
@@ -38632,6 +38662,8 @@ export namespace Prisma {
     date?: SortOrder
     brute1Id?: SortOrderInput | SortOrder
     brute2Id?: SortOrderInput | SortOrder
+    winnerId?: SortOrder
+    loserId?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
     steps?: SortOrder
@@ -38658,6 +38690,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableFilter<"Fight"> | string | null
     brute2Id?: UuidNullableFilter<"Fight"> | string | null
+    winnerId?: UuidFilter<"Fight"> | string
+    loserId?: UuidFilter<"Fight"> | string
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
@@ -38681,6 +38715,8 @@ export namespace Prisma {
     date?: SortOrder
     brute1Id?: SortOrderInput | SortOrder
     brute2Id?: SortOrderInput | SortOrder
+    winnerId?: SortOrder
+    loserId?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
     steps?: SortOrder
@@ -38706,6 +38742,8 @@ export namespace Prisma {
     date?: DateTimeWithAggregatesFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
     brute2Id?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
+    winnerId?: UuidWithAggregatesFilter<"Fight"> | string
+    loserId?: UuidWithAggregatesFilter<"Fight"> | string
     winner?: StringWithAggregatesFilter<"Fight"> | string
     loser?: StringWithAggregatesFilter<"Fight"> | string
     steps?: StringWithAggregatesFilter<"Fight"> | string
@@ -40974,6 +41012,8 @@ export namespace Prisma {
   export type FightCreateInput = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -40995,6 +41035,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -41012,6 +41054,8 @@ export namespace Prisma {
   export type FightUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -41033,6 +41077,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -41052,6 +41098,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -41067,6 +41115,8 @@ export namespace Prisma {
   export type FightUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -41082,6 +41132,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -43518,6 +43570,8 @@ export namespace Prisma {
     date?: SortOrder
     brute1Id?: SortOrder
     brute2Id?: SortOrder
+    winnerId?: SortOrder
+    loserId?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
     steps?: SortOrder
@@ -43540,6 +43594,8 @@ export namespace Prisma {
     date?: SortOrder
     brute1Id?: SortOrder
     brute2Id?: SortOrder
+    winnerId?: SortOrder
+    loserId?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
     steps?: SortOrder
@@ -43556,6 +43612,8 @@ export namespace Prisma {
     date?: SortOrder
     brute1Id?: SortOrder
     brute2Id?: SortOrder
+    winnerId?: SortOrder
+    loserId?: SortOrder
     winner?: SortOrder
     loser?: SortOrder
     steps?: SortOrder
@@ -48534,6 +48592,8 @@ export namespace Prisma {
   export type FightCreateWithoutFavoritedByInput = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -48554,6 +48614,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -49045,6 +49107,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableFilter<"Fight"> | string | null
     brute2Id?: UuidNullableFilter<"Fight"> | string | null
+    winnerId?: UuidFilter<"Fight"> | string
+    loserId?: UuidFilter<"Fight"> | string
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
@@ -50075,6 +50139,8 @@ export namespace Prisma {
   export type FightCreateWithoutBrute1Input = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -50094,6 +50160,8 @@ export namespace Prisma {
     id?: string
     date?: Date | string
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -50121,6 +50189,8 @@ export namespace Prisma {
   export type FightCreateWithoutBrute2Input = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -50140,6 +50210,8 @@ export namespace Prisma {
     id?: string
     date?: Date | string
     brute1Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -53526,6 +53598,8 @@ export namespace Prisma {
   export type FightCreateWithoutLogsInput = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -53546,6 +53620,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -53792,6 +53868,8 @@ export namespace Prisma {
   export type FightUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -53812,6 +53890,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -54438,6 +54518,8 @@ export namespace Prisma {
   export type FightCreateWithoutTournamentInput = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -54458,6 +54540,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -58888,6 +58972,8 @@ export namespace Prisma {
   export type FightCreateWithoutClanWarInput = {
     id?: string
     date?: Date | string
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -58908,6 +58994,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -61208,6 +61296,8 @@ export namespace Prisma {
   export type FightUpdateWithoutFavoritedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -61228,6 +61318,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -61246,6 +61338,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -61634,6 +61728,8 @@ export namespace Prisma {
     id?: string
     date?: Date | string
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -61650,6 +61746,8 @@ export namespace Prisma {
     id?: string
     date?: Date | string
     brute1Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -61999,6 +62097,8 @@ export namespace Prisma {
   export type FightUpdateWithoutBrute1Input = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -62018,6 +62118,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -62036,6 +62138,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -62051,6 +62155,8 @@ export namespace Prisma {
   export type FightUpdateWithoutBrute2Input = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -62070,6 +62176,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -62088,6 +62196,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -63222,6 +63332,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -63460,6 +63572,8 @@ export namespace Prisma {
   export type FightUpdateWithoutTournamentInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -63480,6 +63594,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -63498,6 +63614,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -64434,6 +64552,8 @@ export namespace Prisma {
     date?: Date | string
     brute1Id?: string | null
     brute2Id?: string | null
+    winnerId: string
+    loserId: string
     winner: string
     loser: string
     steps: string
@@ -64453,6 +64573,8 @@ export namespace Prisma {
   export type FightUpdateWithoutClanWarInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -64473,6 +64595,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string
@@ -64491,6 +64615,8 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     brute1Id?: NullableStringFieldUpdateOperationsInput | string | null
     brute2Id?: NullableStringFieldUpdateOperationsInput | string | null
+    winnerId?: StringFieldUpdateOperationsInput | string
+    loserId?: StringFieldUpdateOperationsInput | string
     winner?: StringFieldUpdateOperationsInput | string
     loser?: StringFieldUpdateOperationsInput | string
     steps?: StringFieldUpdateOperationsInput | string

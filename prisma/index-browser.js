@@ -229,6 +229,8 @@ exports.Prisma.FightScalarFieldEnum = {
   date: 'date',
   brute1Id: 'brute1Id',
   brute2Id: 'brute2Id',
+  winnerId: 'winnerId',
+  loserId: 'loserId',
   winner: 'winner',
   loser: 'loser',
   steps: 'steps',

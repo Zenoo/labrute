@@ -1,4 +1,4 @@
-import { ClanWarGetAvailableFightersResponse, ClanWarGetResponse } from '@labrute/core';
+import { ClanWarGetAvailableFightersResponse, ClanWarGetResponse, getWinnerId } from '@labrute/core';
 import { ClanWarStatus } from '@labrute/prisma';
 import { Alert as MuiAlert, Box, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -149,7 +149,7 @@ export const ClanWarView = () => {
                           sx={{
                             fontWeight: 'bold',
                             color: dayWatched >= index + 1
-                              ? fight.winner === fight.brute1?.name ? 'success.main' : 'error.main'
+                              ? getWinnerId(fight) === fight.brute1?.id ? 'success.main' : 'error.main'
                               : undefined,
                           }}
                         >

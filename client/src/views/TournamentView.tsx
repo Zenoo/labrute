@@ -1,4 +1,4 @@
-import { Fighter, TournamentsGetDailyResponse } from '@labrute/core';
+import { Fighter, getWinnerId, TournamentsGetDailyResponse } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
@@ -306,7 +306,7 @@ const TournamentView = () => {
                             {brute1 && <BruteRender brute={fighterToBrute(brute1)} />}
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && fight.winner === brute2?.name
+                              && getWinnerId(fight) === brute2?.id
                               && (
                                 <Close
                                   color="error"
@@ -360,7 +360,7 @@ const TournamentView = () => {
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay
-                                && fight.winner === brute1?.name
+                                && getWinnerId(fight) === brute1?.id
                                 && (
                                   <Close
                                     color="error"
@@ -414,17 +414,17 @@ const TournamentView = () => {
               }}
               >
                 <BruteTooltip
-                  fighter={winnerFight.winner === winnerFight.brute1?.name
+                  fighter={getWinnerId(winnerFight) === winnerFight.brute1?.id
                     ? winnerStepFighters
                       .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
                     : winnerStepFighters
                       .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
-                  brute={winnerFight.winner === winnerFight.brute1?.name
+                  brute={getWinnerId(winnerFight) === winnerFight.brute1?.id
                     ? winnerFight.brute1
                     : winnerFight.brute2}
                 >
                   <BruteRender
-                    brute={winnerFight.winner === winnerFight.brute1?.name
+                    brute={getWinnerId(winnerFight) === winnerFight.brute1?.id
                       ? winnerFight.brute1
                       : winnerFight?.brute2}
                     sx={{
