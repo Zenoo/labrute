@@ -60,6 +60,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signin = useCallback(() => {
     if (authing || user) return;
+
+    // Prevent OAuth loop
+    const url = new URL(window.location.href);
+    if (url.pathname === '/oauth/callback') {
+      return;
+    }
+
     setAuthing(true);
 
     const userId = getCookie(USER_COOKIE) ?? '';
