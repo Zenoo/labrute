@@ -344,8 +344,8 @@ model Fight {
   brute1Id       String?         @db.Uuid
   brute2         Brute?          @relation("Adversary", fields: [brute2Id], references: [id])
   brute2Id       String?         @db.Uuid
-  winnerId       String          @db.Uuid
-  loserId        String          @db.Uuid
+  winnerId       String?         @db.Uuid
+  loserId        String?         @db.Uuid
   // TODO: Remove winner/loser fields on release
   winner         String          @db.VarChar(255)
   loser          String          @db.VarChar(255)
