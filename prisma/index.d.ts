@@ -38638,8 +38638,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableFilter<"Fight"> | string | null
     brute2Id?: UuidNullableFilter<"Fight"> | string | null
-    winnerId?: UuidNullableFilter<"Fight"> | string | null
-    loserId?: UuidNullableFilter<"Fight"> | string | null
+    winnerId?: StringNullableFilter<"Fight"> | string | null
+    loserId?: StringNullableFilter<"Fight"> | string | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
@@ -38691,8 +38691,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableFilter<"Fight"> | string | null
     brute2Id?: UuidNullableFilter<"Fight"> | string | null
-    winnerId?: UuidNullableFilter<"Fight"> | string | null
-    loserId?: UuidNullableFilter<"Fight"> | string | null
+    winnerId?: StringNullableFilter<"Fight"> | string | null
+    loserId?: StringNullableFilter<"Fight"> | string | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string
@@ -38743,8 +38743,8 @@ export namespace Prisma {
     date?: DateTimeWithAggregatesFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
     brute2Id?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
-    winnerId?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
-    loserId?: UuidNullableWithAggregatesFilter<"Fight"> | string | null
+    winnerId?: StringNullableWithAggregatesFilter<"Fight"> | string | null
+    loserId?: StringNullableWithAggregatesFilter<"Fight"> | string | null
     winner?: StringWithAggregatesFilter<"Fight"> | string
     loser?: StringWithAggregatesFilter<"Fight"> | string
     steps?: StringWithAggregatesFilter<"Fight"> | string
@@ -49108,8 +49108,8 @@ export namespace Prisma {
     date?: DateTimeFilter<"Fight"> | Date | string
     brute1Id?: UuidNullableFilter<"Fight"> | string | null
     brute2Id?: UuidNullableFilter<"Fight"> | string | null
-    winnerId?: UuidNullableFilter<"Fight"> | string | null
-    loserId?: UuidNullableFilter<"Fight"> | string | null
+    winnerId?: StringNullableFilter<"Fight"> | string | null
+    loserId?: StringNullableFilter<"Fight"> | string | null
     winner?: StringFilter<"Fight"> | string
     loser?: StringFilter<"Fight"> | string
     steps?: StringFilter<"Fight"> | string

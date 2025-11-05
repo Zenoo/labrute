@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "public"."Fight" ALTER COLUMN "loserId" SET DATA TYPE TEXT,
+ALTER COLUMN "winnerId" SET DATA TYPE TEXT;
