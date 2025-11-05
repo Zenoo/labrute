@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const chaos = useMemo(() => modifiers.includes(FightModifier.chaos), [modifiers]);
 
   const signin = useCallback(() => {
-    if (authing) return;
+    if (authing || user) return;
     setAuthing(true);
 
     const userId = getCookie(USER_COOKIE) ?? '';
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       deleteCookie(TOKEN_COOKIE);
       setAuthing(false);
     });
-  }, [Alert, authing, setLanguage, t]);
+  }, [Alert, authing, setLanguage, t, user]);
 
   const signout = useCallback(() => {
     deleteCookie(USER_COOKIE);

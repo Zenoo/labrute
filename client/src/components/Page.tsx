@@ -1,6 +1,6 @@
 import { Version } from '@labrute/core';
 import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Tooltip } from '@mui/material';
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import ads, { AdName } from '../utils/ads';
@@ -26,11 +26,13 @@ const Page = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  const { authing, user, signin } = useAuth();
+  const { authing, signin, user } = useAuth();
+  const signinInitiated = useRef(false);
 
   // Auth on page load
   useEffect(() => {
-    if (!user && !authing) {
+    if (!user && !authing && !signinInitiated.current) {
+      signinInitiated.current = true;
       signin();
     }
   }, [authing, signin, user]);
