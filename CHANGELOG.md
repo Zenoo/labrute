@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.5](https://github.com/Zenoo/labrute/compare/labrute-v2.83.4...labrute-v2.83.5) (2025-11-05)
+
+
+### Bug Fixes
+
+* Prevent OAuth loop on login ([a0bf420](https://github.com/Zenoo/labrute/commit/a0bf420e49c9237c0a90c6b9117201debd3b4340))
+
 ## [2.83.4](https://github.com/Zenoo/labrute/compare/labrute-v2.83.3...labrute-v2.83.4) (2025-11-05)
 
 
