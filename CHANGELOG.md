@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.6](https://github.com/Zenoo/labrute/compare/labrute-v2.83.5...labrute-v2.83.6) (2025-11-05)
+
+
+### Bug Fixes
+
+* Tournament UI crash looking for winner ID ([a448f2c](https://github.com/Zenoo/labrute/commit/a448f2ca5e0e392f12367233782210207703885b))
+
 ## [2.83.5](https://github.com/Zenoo/labrute/compare/labrute-v2.83.4...labrute-v2.83.5) (2025-11-05)
 
 
