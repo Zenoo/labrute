@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.3](https://github.com/Zenoo/labrute/compare/labrute-v2.83.2...labrute-v2.83.3) (2025-11-05)
+
+
+### Bug Fixes
+
+* Login loop ([b821631](https://github.com/Zenoo/labrute/commit/b8216314c002274e4965d9604f41c01ef5431839))
+
 ## [2.83.2](https://github.com/Zenoo/labrute/compare/labrute-v2.83.1...labrute-v2.83.2) (2025-11-05)
 
 
