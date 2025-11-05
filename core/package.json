@@ -1,6 +1,6 @@
 {
   "name": "@labrute/core",
-  "version": "2.83.5",
+  "version": "2.83.6",
   "main": "lib/index.js",
   "scripts": {
     "compile": "tsc"
