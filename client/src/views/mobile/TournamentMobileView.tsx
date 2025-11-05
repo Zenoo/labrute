@@ -1,4 +1,4 @@
-import { Fighter, getWinnerId, TournamentsGetDailyResponse } from '@labrute/core';
+import { Fighter, isWinner, TournamentsGetDailyResponse } from '@labrute/core';
 import { Brute, Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
@@ -111,7 +111,6 @@ const TournamentMobileView = ({
                   const fighters = JSON.parse(fight.fighters) as Fighter[];
                   const brute1 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
                   const brute2 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
-                  const winnerId = getWinnerId(fight);
 
                   return (
                     // Fight button
@@ -156,7 +155,7 @@ const TournamentMobileView = ({
                             )}
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && winnerId === brute2?.id
+                              && isWinner(brute2, fight)
                               && (
                                 <Close
                                   color="error"
@@ -211,7 +210,7 @@ const TournamentMobileView = ({
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay
-                              && winnerId === brute1?.id
+                              && isWinner(brute1, fight)
                               && (
                                 <Close
                                   color="error"
@@ -261,18 +260,18 @@ const TournamentMobileView = ({
             }}
             >
               <BruteTooltip
-                fighter={getWinnerId(winnerFight) === winnerFight.brute1?.id
+                fighter={isWinner(winnerFight.brute1, winnerFight)
                   ? winnerFightFighters
                     .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute1?.name)
                   : winnerFightFighters
                     .find((fighter) => fighter.type === 'brute' && fighter.name === winnerFight.brute2?.name)}
-                brute={getWinnerId(winnerFight) === winnerFight.brute1?.id
+                brute={winnerFight.brute1 && isWinner(winnerFight.brute1, winnerFight)
                   ? winnerFight.brute1
                   : winnerFight.brute2}
               >
                 <Box width={100} mx="auto">
                   <BruteRender
-                    brute={getWinnerId(winnerFight) === winnerFight.brute1?.id
+                    brute={winnerFight.brute1 && isWinner(winnerFight.brute1, winnerFight)
                       ? winnerFight.brute1
                       : winnerFight?.brute2}
                     width={100}

@@ -1,6 +1,6 @@
-import { ClanWarGetAvailableFightersResponse, ClanWarGetResponse, getWinnerId } from '@labrute/core';
+import { ClanWarGetAvailableFightersResponse, ClanWarGetResponse, isWinner } from '@labrute/core';
 import { ClanWarStatus } from '@labrute/prisma';
-import { Alert as MuiAlert, Box, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Box, Alert as MuiAlert, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -10,9 +10,9 @@ import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
+import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
 import Server from '../../utils/Server';
-import { useBrute } from '../../hooks/useBrute';
 
 export const ClanWarView = () => {
   const { t } = useTranslation();
@@ -149,7 +149,7 @@ export const ClanWarView = () => {
                           sx={{
                             fontWeight: 'bold',
                             color: dayWatched >= index + 1
-                              ? getWinnerId(fight) === fight.brute1?.id ? 'success.main' : 'error.main'
+                              ? isWinner(fight.brute1, fight) ? 'success.main' : 'error.main'
                               : undefined,
                           }}
                         >

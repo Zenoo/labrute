@@ -1,6 +1,6 @@
 /* eslint-disable no-void */
 /* eslint-disable no-param-reassign */
-import { Fighter, FightStep, getLoserId, getWinnerId, StepType } from '@labrute/core';
+import { Fighter, FightStep, isLoser, isWinner, StepType } from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -648,10 +648,10 @@ const setupFight: (
   void sound.play('sfx', { sprite: 'win' });
 
   // Get winner fighter
-  const winner = fighters.find((fighter) => !fighter.master && fighter.id === getWinnerId(fight));
+  const winner = fighters.find((fighter) => !fighter.master && isWinner(fighter, fight));
 
   // Get loser fighter
-  const loser = fighters.find((fighter) => !fighter.master && fighter.id === getLoserId(fight));
+  const loser = fighters.find((fighter) => !fighter.master && isLoser(fighter, fight));
 
   // Display dead icon animation on the UI
   const deadIcon = new AnimatedSprite(miscSheet.animations.dead || []);

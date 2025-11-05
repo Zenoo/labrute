@@ -10,10 +10,10 @@ import {
   EventPauseDuration,
   Fighter,
   getNewElo,
-  getWinnerId,
   getWinsNeededToRankUp,
   GlobalTournamentGoldReward,
   GlobalTournamentXpReward,
+  isWinner,
   knownIssues,
   LAST_RELEASE,
   randomBetween,
@@ -38,7 +38,7 @@ import { updateClanPoints } from './utils/clan/updateClanPoints.js';
 import { generateFight } from './utils/fight/generateFight.js';
 import { shuffle } from './utils/shuffle.js';
 
-const GENERATE_TOURNAMENTS_IN_DEV = false;
+const GENERATE_TOURNAMENTS_IN_DEV = true;
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -358,10 +358,11 @@ const handleDailyTournaments = async (
         });
 
         // Get fight winner
-        const winnerId = getWinnerId(lastFight);
+        const winner = isWinner(roundBrute1, lastFight) ? roundBrute1 : roundBrute2;
+        const winnerId = winner.id;
 
         // Add winner to next round
-        winners.push(winnerId === roundBrute1.id ? roundBrute1 : roundBrute2);
+        winners.push(winner);
 
         // Store XP for winner
         const winnerGains = gains[winnerId];
@@ -1684,8 +1685,7 @@ const handleClanWars = async (
       select: { id: true },
     });
 
-    const winnerId = getWinnerId(generatedFight);
-    const winner = attackers.some((brute) => brute.id === winnerId)
+    const winner = attackers.some((brute) => isWinner(brute, generatedFight))
       ? 'attacker'
       : 'defender';
 

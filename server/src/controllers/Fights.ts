@@ -2,9 +2,9 @@ import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
   GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError,
   canLevelUp, getFightsLeft,
-  getWinnerId,
   getXPNeeded,
   isUuid,
+  isWinner,
   randomBetween,
 } from '@labrute/core';
 import {
@@ -194,9 +194,9 @@ export const Fights = {
       // (+1 for a win against a brute at least 10 level below you)
       // (+0 otherwise)
       const levelDifference = brute1.level - brute2.level;
-      const winnerId = getWinnerId(generatedFight);
+      const brute1Won = isWinner(brute1, generatedFight);
       const xpGained = arenaFight
-        ? winnerId === brute1.id
+        ? brute1Won
           ? brute1.eventId
             ? brute1.level >= (event?.maxLevel ?? 999)
               ? 0
@@ -215,8 +215,8 @@ export const Fights = {
           where: { id: brute1.id },
           data: {
             xp: { increment: xpGained },
-            victories: { increment: winnerId === brute1.id ? 1 : 0 },
-            losses: { increment: winnerId === brute1.id ? 0 : 1 },
+            victories: { increment: brute1Won ? 1 : 0 },
+            losses: { increment: brute1Won ? 0 : 1 },
           },
           select: { id: true },
         });
@@ -226,7 +226,7 @@ export const Fights = {
       await prisma.log.create({
         data: {
           currentBrute: { connect: { id: brute1.id } },
-          type: winnerId === brute1.id ? LogType.win : LogType.lose,
+          type: brute1Won ? LogType.win : LogType.lose,
           brute: brute2.name,
           fight: { connect: { id: fightId } },
           xp: xpGained,
@@ -239,7 +239,7 @@ export const Fights = {
       await prisma.log.create({
         data: {
           currentBrute: { connect: { id: brute2.id } },
-          type: winnerId === brute2.id ? LogType.win : LogType.lose,
+          type: isWinner(brute2, generatedFight) ? LogType.win : LogType.lose,
           brute: brute1.name,
           fight: { connect: { id: fightId } },
           template: randomBetween(0, FightLogTemplateCount - 1).toString(),
@@ -277,8 +277,8 @@ export const Fights = {
         id: fightId,
         xpWon: arenaFight ? xpGained : 0,
         fightsLeft: arenaFight ? fightsLeft - 1 : fightsLeft,
-        victories: arenaFight ? winnerId === brute1.id ? 1 : 0 : 0,
-        losses: arenaFight ? winnerId !== brute1.id ? 1 : 0 : 0,
+        victories: arenaFight ? brute1Won ? 1 : 0 : 0,
+        losses: arenaFight ? !brute1Won ? 1 : 0 : 0,
       });
     } catch (error) {
       sendError(res, error);

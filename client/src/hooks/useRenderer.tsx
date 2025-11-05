@@ -1,6 +1,6 @@
 import { Brute } from '@labrute/prisma';
 import { Extract, Renderer } from 'pixi.js';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import BruteDisplay from '../utils/BruteDisplay';
 
 const MAX_RENDERERS = 3;
@@ -16,7 +16,7 @@ type OnRenderMethod = (id: string, callback: RenderCallback) => void;
 export interface RendererContextInterface {
   render: RenderMethod;
   onRender: OnRenderMethod;
-  resetCache: (id:string) => void;
+  resetCache: (id: string) => void;
 }
 
 const RendererContext = React.createContext<RendererContextInterface>({
@@ -56,20 +56,27 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
   const [callbacks, setCallbacks] = useState<
     Record<string, RenderCallback[]>
   >({});
+  const isProcessingRef = useRef(false);
 
-  const render: RenderMethod = (brute) => {
+  const render: RenderMethod = useCallback((brute) => {
     setQueue((prev) => [...prev, brute]);
-  };
+  }, []);
 
-  const onRender: OnRenderMethod = (id, callback) => {
+  const onRender: OnRenderMethod = useCallback((id, callback) => {
     setCallbacks((prev) => ({
       ...prev,
       [id]: [...(prev[id] || []), callback],
     }));
-  };
+  }, []);
+
+  const resetCache = useCallback((id: string) => {
+    setCache((prev) => prev.filter((c) => c.id !== id));
+  }, []);
 
   // Process queue
   useEffect(() => {
+    if (isProcessingRef.current) return;
+
     const request = queue[0];
     if (!request) return;
 
@@ -119,6 +126,9 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
       }
     }
 
+    // Mark as processing
+    isProcessingRef.current = true;
+
     // Remove from queue
     setQueue((prev) => prev.slice(1));
 
@@ -129,7 +139,10 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     const display = new BruteDisplay(request.gender, colors, body, 'left', 1);
 
     display.onLoad(() => {
-      if (!freeRenderer) return;
+      if (!freeRenderer) {
+        isProcessingRef.current = false;
+        return;
+      }
 
       // Set size
       display.container.width = Math.abs(display.container.width);
@@ -160,12 +173,12 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
       // Mark renderer as free
       freeRenderer.busy = false;
+      isProcessingRef.current = false;
+
+      // Trigger next processing cycle
+      setQueue((prev) => [...prev]);
     });
   }, [queue, renderers, cache, callbacks]);
-
-  const resetCache = (id: string) => {
-    setCache((prev) => prev.filter((c) => c.id !== id));
-  };
 
   const methods = useMemo(
     () => ({
@@ -173,7 +186,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
       onRender,
       resetCache,
     }),
-    []
+    [render, onRender, resetCache]
   );
 
   return (

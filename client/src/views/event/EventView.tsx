@@ -1,4 +1,4 @@
-import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter, formatLargeNumber, getWinnerId } from '@labrute/core';
+import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter, formatLargeNumber, isWinner } from '@labrute/core';
 import { EventStatus, EventType, Gender } from '@labrute/prisma';
 import { Close, Groups } from '@mui/icons-material';
 import { Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
@@ -135,8 +135,7 @@ export const EventView = () => {
 
     const bruteInFight = fight.brute1Id === brute.id
       || fight.brute2Id === brute.id;
-    const winnerId = getWinnerId(fight);
-    const won = bruteInFight && winnerId === brute.id;
+    const won = bruteInFight && isWinner(brute, fight);
 
     const fighters = JSON.parse(fight.fighters) as Fighter[];
 
@@ -195,7 +194,7 @@ export const EventView = () => {
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && winnerId === fighter2.id
+              && isWinner(fighter2, fight)
               && (
                 <Close
                   color="error"
@@ -232,7 +231,7 @@ export const EventView = () => {
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && winnerId === fighter1.id
+              && isWinner(fighter1, fight)
               && (
                 <Close
                   color="error"
@@ -491,7 +490,7 @@ export const EventView = () => {
                   if (!fighter1) return null;
                   if (!fighter2) return null;
 
-                  const won = getWinnerId(fight) === brute.id;
+                  const won = isWinner(brute, fight);
                   const opponent = brute?.id === fight.brute1Id
                     ? fighter2.name
                     : fighter1.name;

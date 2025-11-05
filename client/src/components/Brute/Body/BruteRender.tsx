@@ -1,7 +1,7 @@
 import { BruteForRender } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { useRenderer } from '../../../hooks/useRenderer';
 
 interface BruteRenderProps extends BoxProps {
@@ -11,14 +11,14 @@ interface BruteRenderProps extends BoxProps {
   y?: number;
 }
 
-const BruteRender = ({
+const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
   brute,
   looking = 'right',
   x = 0,
   y = 0,
   sx,
   ...rest
-}: BruteRenderProps) => {
+}, ref) => {
   const renderer = useRenderer();
 
   const [src, setSrc] = React.useState<string | undefined>(undefined);
@@ -117,6 +117,7 @@ const BruteRender = ({
 
   return src && (
     <Box
+      ref={ref}
       component="img"
       src={src}
       sx={{
@@ -133,6 +134,6 @@ const BruteRender = ({
       {...rest}
     />
   );
-};
+});
 
 export default BruteRender;

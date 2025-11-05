@@ -1,4 +1,4 @@
-import { Fighter, getWinnerId, GLOBAL_TOURNAMENT_START_HOUR, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
+import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, isWinner, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
 import { Gender, TournamentType } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Badge, Box, Paper, PaperProps, useTheme } from '@mui/material';
@@ -142,8 +142,6 @@ const CellGlobalTournament = ({
 
     const bruteInFight = fight.brute1Id === brute.id
       || fight.brute2Id === brute.id;
-    const winnerId = getWinnerId(fight);
-    const won = bruteInFight && winnerId === brute.id;
 
     const fighters = JSON.parse(fight.fighters) as Fighter[];
 
@@ -155,6 +153,7 @@ const CellGlobalTournament = ({
     if (!fighter1) return null;
     if (!fighter2) return null;
 
+    const won = bruteInFight && isWinner(brute, fight);
     const ownFight = bruteName === fighter1.name || bruteName === fighter2.name;
 
     return (
@@ -202,7 +201,7 @@ const CellGlobalTournament = ({
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && winnerId === fighter2.id
+              && isWinner(fighter2, fight)
               && (
                 <Close
                   color="error"
@@ -239,7 +238,7 @@ const CellGlobalTournament = ({
               y={-3}
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
-              && winnerId === fighter1.id
+              && isWinner(fighter1, fight)
               && (
                 <Close
                   color="error"
@@ -391,8 +390,7 @@ const CellGlobalTournament = ({
             if (!fighter1) return null;
             if (!fighter2) return null;
 
-            const winnerId = getWinnerId(fight);
-            const won = winnerId === brute.id;
+            const won = isWinner(brute, fight);
             const opponent = brute.id === fight.brute1Id
               ? fighter2.name
               : fighter1.name;
