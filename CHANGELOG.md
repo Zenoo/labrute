@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.2](https://github.com/Zenoo/labrute/compare/labrute-v2.83.1...labrute-v2.83.2) (2025-11-05)
+
+
+### Bug Fixes
+
+* Unify last migrations ([7939465](https://github.com/Zenoo/labrute/commit/7939465a8a4e76bc60c0dc6f3d05a58453740025))
+
 ## [2.83.1](https://github.com/Zenoo/labrute/compare/labrute-v2.83.0...labrute-v2.83.1) (2025-11-05)
 
 
