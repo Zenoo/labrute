@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.4](https://github.com/Zenoo/labrute/compare/labrute-v2.83.3...labrute-v2.83.4) (2025-11-05)
+
+
+### Bug Fixes
+
+* Remove UUID typing from winnerId/loserID to account for bosses ([f025c0f](https://github.com/Zenoo/labrute/commit/f025c0f4be0f5633a9de0dfbb9320bedc9c14edb))
+
 ## [2.83.3](https://github.com/Zenoo/labrute/compare/labrute-v2.83.2...labrute-v2.83.3) (2025-11-05)
 
 
