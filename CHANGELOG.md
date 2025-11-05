@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.1](https://github.com/Zenoo/labrute/compare/labrute-v2.83.0...labrute-v2.83.1) (2025-11-05)
+
+
+### Bug Fixes
+
+* Optional winnerId/loserId ([163fe2c](https://github.com/Zenoo/labrute/commit/163fe2cad2f48301b40cc87be18974784277c59a))
+
 ## [2.83.0](https://github.com/Zenoo/labrute/compare/labrute-v2.82.14...labrute-v2.83.0) (2025-11-04)
 
 
