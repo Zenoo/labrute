@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.7](https://github.com/Zenoo/labrute/compare/labrute-v2.83.6...labrute-v2.83.7) (2025-11-09)
+
+
+### Bug Fixes
+
+* Optimize memory usage + seeded random generation ([fc209db](https://github.com/Zenoo/labrute/commit/fc209db62d6c335eb875dbb2f0a86fcbdef63f06))
+
 ## [2.83.6](https://github.com/Zenoo/labrute/compare/labrute-v2.83.5...labrute-v2.83.6) (2025-11-05)
 
 
