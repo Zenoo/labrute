@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "compile": "tsc --build ./tsconfig.json",
-    "start": "node --expose-gc ./lib/main.js",
+    "start": "node --expose-gc --max-old-space-size=16384 ./lib/main.js",
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node --expose-gc ./lib/main.js\"",
     "db:migrate:manual": "prisma migrate dev --create-only",
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
