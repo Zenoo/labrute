@@ -620,3 +620,18 @@ export const SkillDamageModifiers = Object.entries(SkillModifiers)
     skill: skill as SkillName,
     ...modifiers[FightStat.DAMAGE],
   }));
+
+/**
+ * Get a map of skills with their tier
+ */
+export const skillMap = (skillArray: (Skill | SkillName | SkillId)[]) => {
+  const map = new Map<SkillName, number>();
+
+  for (const skill of skillArray) {
+    const skillName = typeof skill === 'string' ? skill : typeof skill === 'number' ? SkillById[skill] : skill.name;
+
+    map.set(skillName, (map.get(skillName) ?? 0) + 1);
+  }
+
+  return map;
+};

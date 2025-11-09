@@ -1,7 +1,7 @@
 import { Brute, PetName, SkillName } from '@labrute/prisma';
-import { randomGenerator } from '../utils';
-import { FightStat } from './skills';
+import { seedToRandom } from '../utils';
 import { Pet } from './pets';
+import { FightStat } from './skills';
 import { Weapon } from './weapons';
 
 const scalingByPet = {
@@ -57,13 +57,15 @@ export const getScaledStat = (
     return stat;
   }
 
+  if (stat === 0) {
+    return 0;
+  }
+
   const min = stat / CHAOS_SCALE;
   const max = stat * CHAOS_SCALE;
 
-  const random = randomGenerator(seed);
-
   // Generate a random number between min and max
-  const randomNumber = min + (random.next() * (max - min));
+  const randomNumber = min + (seedToRandom(seed) * (max - min));
 
   if (precision === 0) {
     return Math.ceil(randomNumber);

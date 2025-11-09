@@ -9,8 +9,8 @@
   "type": "module",
   "scripts": {
     "compile": "tsc --build ./tsconfig.json",
-    "start": "node ./lib/main.js",
-    "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node ./lib/main.js\"",
+    "start": "node --expose-gc ./lib/main.js",
+    "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node --expose-gc ./lib/main.js\"",
     "db:migrate:manual": "prisma migrate dev --create-only",
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
     "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus",

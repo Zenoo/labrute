@@ -1,4 +1,4 @@
-import { FightStat, Fighter, SkillById, getFinalHP, getFinalStat, skills } from '@labrute/core';
+import { FightStat, Fighter, SkillById, getFinalHP, getFinalStat, skillMap, skills } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
@@ -128,11 +128,11 @@ const BruteTooltip = ({
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type === 'super').map((s) => t(SkillById[s])).join(', ')}
+                {[...skillMap(fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type === 'super'))].map(([s, count]) => (count > 1 ? `${t(s)} (${count})` : t(s))).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type !== 'super').map((s) => t(SkillById[s])).join(', ')}
+                {[...skillMap(fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type !== 'super'))].map(([s, count]) => (count > 1 ? `${t(s)} (${count})` : t(s))).join(', ')}
               </Text>
             </>
           )}

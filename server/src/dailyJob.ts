@@ -37,8 +37,15 @@ import { resetBrute } from './utils/brute/resetBrute.js';
 import { updateClanPoints } from './utils/clan/updateClanPoints.js';
 import { generateFight } from './utils/fight/generateFight.js';
 import { shuffle } from './utils/shuffle.js';
+import { logMemory } from './utils/memory.js';
 
-const GENERATE_TOURNAMENTS_IN_DEV = true;
+const GENERATE_TOURNAMENTS_IN_DEV = false;
+
+const triggerGC = () => {
+  if (global.gc) {
+    global.gc();
+  }
+};
 
 const grantBetaAchievement = async (prisma: PrismaClient) => {
   // Grant beta achievement to all brutes who don't have it yet
@@ -453,6 +460,12 @@ const handleDailyTournaments = async (
         });
       }
     }
+
+    // After tournament completes, clear references and trigger GC
+    lastFight = null;
+    winners = [];
+    roundBrutes = [];
+    triggerGC();
   }
 
   // Remove tournament registration for all processed brutes
@@ -641,6 +654,14 @@ const handleGlobalTournament = async (
       } else {
         winnerGains[0] += GlobalTournamentXpReward;
       }
+
+      // Clear fight reference after saving
+      generatedFight = null;
+
+      // Trigger GC every few fights to prevent buildup
+      if (i % 100 === 0) {
+        triggerGC();
+      }
     }
 
     // Add byes to next round
@@ -650,7 +671,9 @@ const handleGlobalTournament = async (
     }
 
     // Continue with next round
+    roundBrutes = [];
     roundBrutes = [...nextBrutes];
+    triggerGC(); // GC after each round
     round++;
   }
 
@@ -856,6 +879,12 @@ const handleUnlimitedGlobalTournament = async (
 
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
+
+      generatedFight = null;
+
+      if (i % 100 === 0) {
+        triggerGC();
+      }
     }
 
     // Add byes to next round
@@ -865,7 +894,9 @@ const handleUnlimitedGlobalTournament = async (
     }
 
     // Continue with next round
+    roundBrutes = [];
     roundBrutes = [...nextBrutes];
+    triggerGC();
     round++;
   }
 
@@ -1487,6 +1518,7 @@ const handleClanWars = async (
 
   if (finishedClanWars.length) {
     LOGGER.log(`${finishedClanWars.length} clan war rewards given`);
+    triggerGC();
   }
 
   // Get ongoing clan wars
@@ -1504,7 +1536,10 @@ const handleClanWars = async (
     },
   });
 
+  triggerGC();
+
   let skipped = 0;
+  let processed = 0;
 
   for (const clanWar of clanWars) {
     // TODO: get day from wins, not fights
@@ -1685,7 +1720,7 @@ const handleClanWars = async (
       select: { id: true },
     });
 
-    const winner = attackers.some((brute) => isWinner(brute, generatedFight))
+    const winner = attackers.some((brute) => generatedFight && isWinner(brute, generatedFight))
       ? 'attacker'
       : 'defender';
 
@@ -1715,6 +1750,21 @@ const handleClanWars = async (
           : null,
       },
     });
+
+    // Clear fight reference
+    generatedFight = null;
+
+    processed++;
+
+    // Trigger GC every 10 clan war fights
+    if (processed % 10 === 0) {
+      triggerGC();
+    }
+  }
+
+  // Final GC after all clan wars processed
+  if (processed > 0) {
+    triggerGC();
   }
 
   if (clanWars.length - skipped) {
@@ -1998,6 +2048,13 @@ const handleEventTournament = async (
 
     // Add winner to next round
     nextBrutes.push(brute1.name === generatedFight.winner ? brute1.id : brute2.id);
+
+    // Clear fight reference and trigger GC periodically
+    generatedFight = null;
+
+    if (i % 50 === 0) {
+      triggerGC();
+    }
   }
 
   // Tournament ends if only one brute left
@@ -2115,11 +2172,15 @@ const handleEventTournament = async (
 
 export const dailyJob = (prisma: PrismaClient) => async () => {
   try {
+    logMemory('START');
+
     // Releases
     await handleReleases(prisma);
+    logMemory('After releases');
 
     // Roll daily modifiers
     const modifiers = await handleModifiers(prisma);
+    logMemory('After modifiers');
 
     if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
       // Update server state to hold traffic
@@ -2140,53 +2201,72 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
         },
         select: { id: true },
       });
+      logMemory('After fetching unregistered brutes');
 
       // Handle daily tournaments
       const {
         registeredBrutes,
         gains: dailyGains,
       } = await handleDailyTournaments(prisma, modifiers);
+      logMemory('After daily tournaments');
+      triggerGC();
 
       // Handle global tournament
       const globalGains = await handleGlobalTournament(prisma, modifiers, registeredBrutes);
+      logMemory('After global tournament');
+      triggerGC();
 
       // Handle unlimited global tournament
       await handleUnlimitedGlobalTournament(prisma, modifiers, unregisteredBrutes);
+      logMemory('After unlimited global tournament');
+      triggerGC();
+
       // Store gains
       await storeGains(prisma, dailyGains, globalGains);
+      logMemory('After storing gains');
     }
 
     // Handle clan wars
     await handleClanWars(prisma, modifiers);
+    logMemory('After clan wars');
 
     // Handle events
     await handleEventFinish(prisma);
+    logMemory('After event finish');
     await handleEventTournament(prisma, modifiers);
+    logMemory('After event tournament');
     ServerState.setCurrentEvent(undefined);
 
     // Delete brutes tagged for deletion
     await deleteBrutes(prisma);
+    logMemory('After deleting brutes');
 
     // Update server state to release traffic
     ServerState.setReady(true);
 
     // Grant beta achievement to all brutes who don't have it yet
     await grantBetaAchievement(prisma);
+    logMemory('After granting beta achievement');
 
     // Grant bug achievements to all admins who don't have it yet
     await grantBugAchievement(prisma);
+    logMemory('After granting bug achievement');
 
     // Handle XP won the previous day
     await handleXpGains(prisma);
+    logMemory('After handling XP gains');
 
     // Handle tournament earnings from the previous day
     await handleTournamentEarnings(prisma);
+    logMemory('After handling tournament earnings');
 
     // Check name duplicates
     await checkNameDuplicates(prisma);
+    logMemory('After checking name duplicates');
 
     // Clean up DB
     await cleanup(prisma);
+    logMemory('After cleanup');
 
     // Update known issues
     await DISCORD().updateKnownIssues(knownIssues);
