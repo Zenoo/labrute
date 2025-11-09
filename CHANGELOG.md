@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.8](https://github.com/Zenoo/labrute/compare/labrute-v2.83.7...labrute-v2.83.8) (2025-11-09)
+
+
+### Bug Fixes
+
+* Set deployment memory size ([d877e7f](https://github.com/Zenoo/labrute/commit/d877e7fe38257b32b48c0ee4373a4d3379a25c03))
+* Use chaos when calculating brute stats ([b9a46b6](https://github.com/Zenoo/labrute/commit/b9a46b69633f9bc18335ea6eb314dc7f528fd73f))
+
 ## [2.83.7](https://github.com/Zenoo/labrute/compare/labrute-v2.83.6...labrute-v2.83.7) (2025-11-09)
 
 
