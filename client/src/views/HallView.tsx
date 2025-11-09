@@ -19,7 +19,7 @@ import catchError from '../utils/catchError';
 const HallView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user, updateData, modifiers } = useAuth();
+  const { chaos, user, updateData, modifiers } = useAuth();
   const Alert = useAlert();
   const { palette: { mode } } = useTheme();
 
@@ -177,21 +177,21 @@ const HallView = () => {
                   )}
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                  <BruteHP hp={getFinalHP(brute, modifiers)} />
+                  <BruteHP hp={getFinalHP(chaos, brute, modifiers)} />
                   <Box flexGrow={1} sx={{ ml: 0.5 }}>
                     <ArenaStat
                       stat={FightStat.STRENGTH}
-                      value={getFinalStat(brute, 'strength', modifiers)}
+                      value={getFinalStat(chaos, brute, 'strength', modifiers)}
                       hideSkillText
                     />
                     <ArenaStat
                       stat={FightStat.AGILITY}
-                      value={getFinalStat(brute, 'agility', modifiers)}
+                      value={getFinalStat(chaos, brute, 'agility', modifiers)}
                       hideSkillText
                     />
                     <ArenaStat
                       stat={FightStat.SPEED}
-                      value={getFinalStat(brute, 'speed', modifiers)}
+                      value={getFinalStat(chaos, brute, 'speed', modifiers)}
                       hideSkillText
                     />
                   </Box>

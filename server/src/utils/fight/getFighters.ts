@@ -173,10 +173,10 @@ export const getFighters = ({
 
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const bruteHP = getFinalHP(brute, modifiers);
-      const bruteSpeed = getFinalStat(brute, 'speed', modifiers);
-      const bruteStrength = getFinalStat(brute, 'strength', modifiers);
-      const bruteAgility = getFinalStat(brute, 'agility', modifiers);
+      const bruteHP = getFinalHP(chaos, brute, modifiers);
+      const bruteSpeed = getFinalStat(chaos, brute, 'speed', modifiers);
+      const bruteStrength = getFinalStat(chaos, brute, 'strength', modifiers);
+      const bruteAgility = getFinalStat(chaos, brute, 'agility', modifiers);
 
       handleModifiers(brute, modifiers);
 
@@ -330,10 +330,10 @@ export const getFighters = ({
 
       // Fetch backup stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const backupHP = getFinalHP(backup, modifiers);
-      const backupSpeed = getFinalStat(backup, 'speed', modifiers);
-      const backupStrength = getFinalStat(backup, 'strength', modifiers);
-      const backupAgility = getFinalStat(backup, 'agility', modifiers);
+      const backupHP = getFinalHP(chaos, backup, modifiers);
+      const backupSpeed = getFinalStat(chaos, backup, 'speed', modifiers);
+      const backupStrength = getFinalStat(chaos, backup, 'strength', modifiers);
+      const backupAgility = getFinalStat(chaos, backup, 'agility', modifiers);
 
       handleModifiers(backup, modifiers);
 
