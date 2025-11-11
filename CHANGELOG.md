@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.9](https://github.com/Zenoo/labrute/compare/labrute-v2.83.8...labrute-v2.83.9) (2025-11-11)
+
+
+### Bug Fixes
+
+* Backup skill now applies to the current brute ([019894c](https://github.com/Zenoo/labrute/commit/019894cd6f3a0405b3f95c2c866214bd32690f98))
+* Change chaos stat distribution to be x3. Prevent damage drops ([275a472](https://github.com/Zenoo/labrute/commit/275a4720ef75d96ccd5b711f441e4f789a1d12d9))
+* Don't use seeded cache for server side temp skill/weapon ([bdc237a](https://github.com/Zenoo/labrute/commit/bdc237a4139b7921ba824a613e80bd1edce8743e))
+* Use correct stat perk instead of a random one when ascending with your first perk. ([bdefa23](https://github.com/Zenoo/labrute/commit/bdefa2398e30e30dfe709151d76289d6d74b9cd8))
+
 ## [2.83.8](https://github.com/Zenoo/labrute/compare/labrute-v2.83.7...labrute-v2.83.8) (2025-11-09)
 
 
