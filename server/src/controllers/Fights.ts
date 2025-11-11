@@ -117,7 +117,7 @@ export const Fights = {
       // Check if this is an arena fight
       const arenaFight = brute1.opponents.some((opponent) => opponent.name === brute2.name);
 
-      const brute1FightsLeft = getFightsLeft(brute1, modifiers);
+      const brute1FightsLeft = getFightsLeft(brute1, modifiers, false);
 
       // Cancel if brute1 has no fights left
       if (arenaFight && brute1FightsLeft <= 0) {
@@ -270,7 +270,7 @@ export const Fights = {
         });
       }
 
-      const fightsLeft = getFightsLeft(brute1, modifiers);
+      const fightsLeft = getFightsLeft(brute1, modifiers, false);
 
       // Send fight id to client
       res.send({

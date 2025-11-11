@@ -12,6 +12,7 @@ export const getFinalStat = (
   brute: BruteStats,
   stat: 'endurance' | 'strength' | 'agility' | 'speed',
   modifiers: FightModifier[],
+  useCache = true,
 ) => {
   let newBrute: BruteStats = {
     ...brute,
@@ -49,7 +50,7 @@ export const getFinalStat = (
   }
 
   const multiplier = stat === 'agility' ? modifiers.includes(FightModifier.doubleAgility) ? 2 : 1 : 1;
-  const randomSkill = getTempSkill(newBrute, modifiers);
+  const randomSkill = getTempSkill(newBrute, modifiers, useCache);
 
   // No random skill, return normal stat
   if (!randomSkill) {
@@ -67,6 +68,7 @@ export const getFinalHP = (
   chaos: boolean,
   brute: BruteStats,
   modifiers: FightModifier[],
+  useCache = true,
 ) => {
   let newBrute: BruteStats = {
     ...brute,
@@ -103,7 +105,7 @@ export const getFinalHP = (
     newBrute.enduranceValue = Math.floor(newBrute.enduranceStat * newBrute.enduranceModifier);
   }
 
-  const randomSkill = getTempSkill(newBrute, modifiers);
+  const randomSkill = getTempSkill(newBrute, modifiers, useCache);
 
   // No random skill, return normal HP
   if (!randomSkill) {

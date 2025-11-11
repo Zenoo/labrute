@@ -104,7 +104,7 @@ const handleModifiers = (
   brute: Brute,
   modifiers: FightModifier[],
 ) => {
-  const randomWeaponName = getTempWeapon(brute, modifiers);
+  const randomWeaponName = getTempWeapon(brute, modifiers, false);
 
   if (randomWeaponName) {
     const randomWeapon = weapons.find((weapon) => weapon.name === randomWeaponName);
@@ -116,7 +116,7 @@ const handleModifiers = (
     brute.weapons.push(randomWeaponName);
   }
 
-  const randomSkillName = getTempSkill(brute, modifiers);
+  const randomSkillName = getTempSkill(brute, modifiers, false);
 
   if (randomSkillName) {
     const randomSkill = skills.find((skill) => skill.name === randomSkillName);
@@ -173,10 +173,10 @@ export const getFighters = ({
 
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const bruteHP = getFinalHP(chaos, brute, modifiers);
-      const bruteSpeed = getFinalStat(chaos, brute, 'speed', modifiers);
-      const bruteStrength = getFinalStat(chaos, brute, 'strength', modifiers);
-      const bruteAgility = getFinalStat(chaos, brute, 'agility', modifiers);
+      const bruteHP = getFinalHP(chaos, brute, modifiers, false);
+      const bruteSpeed = getFinalStat(chaos, brute, 'speed', modifiers, false);
+      const bruteStrength = getFinalStat(chaos, brute, 'strength', modifiers, false);
+      const bruteAgility = getFinalStat(chaos, brute, 'agility', modifiers, false);
 
       handleModifiers(brute, modifiers);
 
@@ -330,10 +330,10 @@ export const getFighters = ({
 
       // Fetch backup stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const backupHP = getFinalHP(chaos, backup, modifiers);
-      const backupSpeed = getFinalStat(chaos, backup, 'speed', modifiers);
-      const backupStrength = getFinalStat(chaos, backup, 'strength', modifiers);
-      const backupAgility = getFinalStat(chaos, backup, 'agility', modifiers);
+      const backupHP = getFinalHP(chaos, backup, modifiers, false);
+      const backupSpeed = getFinalStat(chaos, backup, 'speed', modifiers, false);
+      const backupStrength = getFinalStat(chaos, backup, 'strength', modifiers, false);
+      const backupAgility = getFinalStat(chaos, backup, 'agility', modifiers, false);
 
       handleModifiers(backup, modifiers);
 

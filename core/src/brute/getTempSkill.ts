@@ -8,13 +8,14 @@ const unavailableTemporarySkills: SkillName[] = [SkillName.backup];
 export const getTempSkill = (
   brute: Pick<Brute, 'id' | 'skills'>,
   modifiers: FightModifier[],
+  useCache = true,
 ) => {
   if (!modifiers.includes(FightModifier.randomSkill)) {
     return null;
   }
 
   // Seeded random number
-  const skillIndex = randomBetween(0, 200, `${brute.id}-randomSkill-${dayjs.utc().format('YYYY-MM-DD')}`);
+  const skillIndex = randomBetween(0, 200, `${brute.id}-randomSkill-${dayjs.utc().format('YYYY-MM-DD')}`, useCache);
 
   const unownedSkills = skills.filter((skill) => !brute.skills.includes(skill.name)
     && !unavailableTemporarySkills.includes(skill.name));

@@ -174,7 +174,7 @@ export const resetBrute = async ({
         ...stats,
         id: brute.id,
         eventId: null,
-      }, modifiers),
+      }, modifiers, false),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
       ascensions,

@@ -31,7 +31,6 @@ import {
   getXPNeeded,
   isNameValid,
   isUuid,
-  updateBruteData,
 } from '@labrute/core';
 import {
   Brute,
@@ -56,6 +55,7 @@ import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
+import { updateBruteData } from '../utils/brute/updateBruteData.js';
 
 export const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -1544,7 +1544,7 @@ export const Brutes = {
       // Get current modifiers
       const modifiers = await ServerState.getModifiers(prisma);
 
-      const fightsLeft = getFightsLeft(brute, modifiers);
+      const fightsLeft = getFightsLeft(brute, modifiers, false);
 
       res.send({
         fightsLeft,

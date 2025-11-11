@@ -468,7 +468,7 @@ export const Users = {
       }
 
       const modifiers = await ServerState.getModifiers(prisma);
-      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, modifiers) === 0);
+      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, modifiers, false) === 0);
 
       res.send(isDoneForToday);
     } catch (error) {
@@ -565,7 +565,7 @@ export const Users = {
       const modifiers = await ServerState.getModifiers(prisma);
 
       for (const brute of brutes) {
-        const fightsLeft = getFightsLeft(brute, modifiers) + 1;
+        const fightsLeft = getFightsLeft(brute, modifiers, false) + 1;
 
         await prisma.brute.update({
           where: {

@@ -1333,7 +1333,7 @@ export const Clans = {
       const modifiers = await ServerState.getModifiers(prisma);
 
       // Check if the brute has fights left
-      if (getFightsLeft(brute, modifiers) <= 0) {
+      if (getFightsLeft(brute, modifiers, false) <= 0) {
         throw new LimitError(translate('noFightsLeft', user));
       }
 
@@ -1366,7 +1366,7 @@ export const Clans = {
         where: { id: brute.id },
         data: {
           lastFight: new Date(),
-          fightsLeft: getFightsLeft(brute, modifiers) - 1,
+          fightsLeft: getFightsLeft(brute, modifiers, false) - 1,
         },
         select: { id: true },
       });

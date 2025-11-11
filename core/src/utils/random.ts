@@ -2,11 +2,13 @@
 const seedCache = new Map<string, number>();
 const MAX_CACHE_SIZE = 1000;
 
-export const seedToRandom = (seed: string): number => {
-  // Check cache first
-  const cached = seedCache.get(seed);
-  if (cached !== undefined) {
-    return cached;
+export const seedToRandom = (seed: string, cache = true): number => {
+  if (cache) {
+    // Check cache first
+    const cached = seedCache.get(seed);
+    if (cached !== undefined) {
+      return cached;
+    }
   }
 
   // Generate new random value
@@ -32,14 +34,16 @@ export const seedToRandom = (seed: string): number => {
   //               └────┬────┘   └────┬─────┘
   //              Make positive   Max 32-bit signed int (2,147,483,647)
 
-  // Store in cache
-  seedCache.set(seed, random);
+  if (cache) {
+    // Store in cache
+    seedCache.set(seed, random);
 
-  // Simple LRU: remove oldest entry if cache is full
-  if (seedCache.size > MAX_CACHE_SIZE) {
-    const firstKey = seedCache.keys().next().value;
-    if (firstKey) {
-      seedCache.delete(firstKey);
+    // Simple LRU: remove oldest entry if cache is full
+    if (seedCache.size > MAX_CACHE_SIZE) {
+      const firstKey = seedCache.keys().next().value;
+      if (firstKey) {
+        seedCache.delete(firstKey);
+      }
     }
   }
 
@@ -49,11 +53,11 @@ export const seedToRandom = (seed: string): number => {
 /**
  * INTEGERS ONLY
  */
-export const randomBetween = (min: number, max: number, seed?: string) => {
+export const randomBetween = (min: number, max: number, seed?: string, cache = true) => {
   if (min > max) return 0;
   if (min === max) return min;
 
-  const random = seed ? seedToRandom(seed) : Math.random();
+  const random = seed ? seedToRandom(seed, cache) : Math.random();
 
   return Math.floor(random * (max - min + 1) + min);
 };

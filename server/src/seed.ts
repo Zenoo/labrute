@@ -5,7 +5,6 @@ import {
   createRandomBruteStats,
   getLevelUpChoices, getRandomBody,
   getRandomColors,
-  updateBruteData,
 } from '@labrute/core';
 import { Gender, Prisma } from '@labrute/prisma';
 import dayjs from 'dayjs';
@@ -14,6 +13,7 @@ import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import { GLOBAL, ServerContext } from './context.js';
+import { updateBruteData } from './utils/brute/updateBruteData.js';
 
 dayjs.extend(utc);
 
