@@ -2,8 +2,8 @@ import { Brute, FightModifier } from '@labrute/prisma';
 import { applySkillModifiers } from './applySkillModifiers';
 import { getHP } from './getHP';
 import { getTempSkill } from './getTempSkill';
+import { getScaledStat } from './scaledStat';
 import { SkillModifiers } from './skills';
-import { getScaledStat, getSkillStatSeed } from './scaledStat';
 
 type BruteStats = Pick<Brute, 'id' | 'skills' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityValue' | 'agilityStat' | 'agilityModifier' | 'speedValue' | 'speedStat' | 'speedModifier' | 'level'>;
 
@@ -27,22 +27,26 @@ export const getFinalStat = (
         // Flat modifier
         if (modifier?.flat) {
           newBrute[`${stat}Stat`] -= modifier.flat;
-          newBrute[`${stat}Stat`] += getScaledStat(
+          newBrute[`${stat}Stat`] += getScaledStat({
             chaos,
-            getSkillStatSeed(skillName, stat, 'flat'),
-            modifier.flat,
-          );
+            skill: skillName,
+            type: 'flat',
+            stat,
+            value: modifier.flat,
+          });
         }
 
         // Percent modifier
         if (modifier?.percent) {
           newBrute[`${stat}Modifier`] /= 1 + modifier.percent;
-          newBrute[`${stat}Modifier`] *= 1 + getScaledStat(
+          newBrute[`${stat}Modifier`] *= 1 + getScaledStat({
             chaos,
-            getSkillStatSeed(skillName, stat, 'percent'),
-            modifier.percent,
-            2,
-          );
+            skill: skillName,
+            type: 'percent',
+            stat,
+            value: modifier.percent,
+            precision: 2,
+          });
         }
       });
 
@@ -83,22 +87,26 @@ export const getFinalHP = (
         // Flat modifier
         if (modifier?.flat) {
           newBrute.enduranceStat -= modifier.flat;
-          newBrute.enduranceStat += getScaledStat(
+          newBrute.enduranceStat += getScaledStat({
             chaos,
-            getSkillStatSeed(skillName, 'endurance', 'flat'),
-            modifier.flat,
-          );
+            skill: skillName,
+            type: 'flat',
+            stat: 'endurance',
+            value: modifier.flat,
+          });
         }
 
         // Percent modifier
         if (modifier?.percent) {
           newBrute.enduranceModifier /= 1 + modifier.percent;
-          newBrute.enduranceModifier *= 1 + getScaledStat(
+          newBrute.enduranceModifier *= 1 + getScaledStat({
             chaos,
-            getSkillStatSeed(skillName, 'endurance', 'percent'),
-            modifier.percent,
-            2,
-          );
+            skill: skillName,
+            type: 'percent',
+            stat: 'endurance',
+            value: modifier.percent,
+            precision: 2,
+          });
         }
       });
 

@@ -50,7 +50,7 @@
     "react-perfect-scrollbar": "^1.5.8",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "react-zoom-pan-pinch": "^3.0.6"
+    "react-zoom-pan-pinch": "3.6.1"
   },
   "browserslist": {
     "production": [

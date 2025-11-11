@@ -1,6 +1,6 @@
 import {
   DetailedFighter, FightStat, getScaledStat,
-  getSkillStatSeed, getWeaponScaledStat, SkillDamageModifiers, Weapon,
+  getWeaponScaledStat, SkillDamageModifiers, Weapon,
 } from '@labrute/core';
 import { SkillName, WeaponName } from '@labrute/prisma';
 import { getFighterStat } from './getFighterStat.js';
@@ -48,15 +48,36 @@ export const getDamage = (
       // If weapon type is null, it means the modifier applies to empty hands (or mug)
       if (modifier.weaponType === null) {
         if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
-          skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
+          skillsMultiplier += getScaledStat({
+            chaos,
+            skill: modifier.skill,
+            type: 'percent',
+            stat: FightStat.DAMAGE,
+            value: modifier.percent ?? 0,
+            precision: 2,
+          });
         }
       } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
         // If the weapon type is the same as the modifier, apply the damage
-        skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
+        skillsMultiplier += getScaledStat({
+          chaos,
+          skill: modifier.skill,
+          type: 'percent',
+          stat: FightStat.DAMAGE,
+          value: modifier.percent ?? 0,
+          precision: 2,
+        });
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= 1 + getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
+      skillsMultiplier *= 1 + getScaledStat({
+        chaos,
+        skill: modifier.skill,
+        type: 'percent',
+        stat: FightStat.DAMAGE,
+        value: modifier.percent ?? 0,
+        precision: 2,
+      });
     }
   }
 
@@ -84,15 +105,36 @@ export const getDamage = (
       // If weapon type is null, it means the modifier applies to empty hands (or mug)
       if (modifier.weaponType === null) {
         if (!fighter.activeWeapon || fighter.activeWeapon.name === WeaponName.mug) {
-          skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
+          skillsMultiplier += getScaledStat({
+            chaos,
+            skill: modifier.skill,
+            type: 'percent',
+            stat: FightStat.DAMAGE,
+            value: modifier.percent ?? 0,
+            precision: 2,
+          });
         }
       } else if (fighter.activeWeapon?.types.includes(modifier.weaponType)) {
         // If the weapon type is the same as the modifier, apply the damage
-        skillsMultiplier += getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
+        skillsMultiplier += getScaledStat({
+          chaos,
+          skill: modifier.skill,
+          type: 'percent',
+          stat: FightStat.DAMAGE,
+          value: modifier.percent ?? 0,
+          precision: 2,
+        });
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= 1 + getScaledStat(chaos, getSkillStatSeed(modifier.skill, FightStat.DAMAGE, 'percent'), modifier.percent ?? 0, 2);
+      skillsMultiplier *= 1 + getScaledStat({
+        chaos,
+        skill: modifier.skill,
+        type: 'percent',
+        stat: FightStat.DAMAGE,
+        value: modifier.percent ?? 0,
+        precision: 2,
+      });
     }
   }
 

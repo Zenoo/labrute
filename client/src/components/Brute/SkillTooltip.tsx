@@ -1,10 +1,10 @@
-import { convertEnduranceToHP, FightStat, getScaledStat, getSkillStatSeed, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import { convertEnduranceToHP, FightStat, getScaledStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
-import { useAuth } from '../../hooks/useAuth';
 
 // Rename endurance to HP
 const statName = (stat: FightStat) => {
@@ -56,7 +56,13 @@ const SkillTooltip = ({
                     sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
                   >
                     {modifier.flat < 0 ? '' : '+'}
-                    {getScaledStat(chaos, getSkillStatSeed(skill.name, stat, 'flat'), statValue(stat, modifier.flat))}
+                    {getScaledStat({
+                      chaos,
+                      skill: skill.name,
+                      type: 'flat',
+                      stat,
+                      value: statValue(stat, modifier.flat)
+                    })}
                     {' '}
                     {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
@@ -69,7 +75,14 @@ const SkillTooltip = ({
                     sx={{ color: StatColor[stat], fontSize: 12, lineHeight: 1.2 }}
                   >
                     {modifier.percent < 0 ? '' : '+'}
-                    {(getScaledStat(chaos, getSkillStatSeed(skill.name, stat, 'percent'), modifier.percent, 2) * 100).toFixed(0)}
+                    {(getScaledStat({
+                      chaos,
+                      skill: skill.name,
+                      type: 'percent',
+                      stat,
+                      value: modifier.percent,
+                      precision: 2
+                    }) * 100).toFixed(0)}
                     {'% '}
                     {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                     {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}

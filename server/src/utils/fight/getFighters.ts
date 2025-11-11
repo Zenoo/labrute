@@ -4,9 +4,7 @@ import {
   BASE_FIGHTER_STATS,
   BruteRanking,
   DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetScaledStat,
-  getPetStatSeed,
   getScaledStat,
-  getSkillStatSeed,
   getTempSkill,
   getTempWeapon,
   pets,
@@ -43,7 +41,14 @@ const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) =>
         || stat === FightStat.SPEED) continue;
 
       if (modifier.flat) {
-        const flat = getScaledStat(chaos, getSkillStatSeed(skill, stat, 'flat'), modifier.flat, 2);
+        const flat = getScaledStat({
+          chaos,
+          skill,
+          type: 'flat',
+          stat,
+          value: modifier.flat,
+          precision: 2,
+        });
         if (stat === FightStat.INITIATIVE) {
           fighter.initiative -= flat / 100;
         } else {
@@ -51,7 +56,14 @@ const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) =>
         }
       }
       if (modifier.percent) {
-        fighter[stat] += getScaledStat(chaos, getSkillStatSeed(skill, stat, 'percent'), modifier.percent, 2);
+        fighter[stat] += getScaledStat({
+          chaos,
+          skill,
+          type: 'percent',
+          stat,
+          value: modifier.percent,
+          precision: 2,
+        });
       }
     }
 
@@ -162,11 +174,12 @@ export const getFighters = ({
             throw new Error(`Pet ${petName} not found`);
           }
 
-          brute.enduranceStat += getScaledStat(
+          brute.enduranceStat += getScaledStat({
             chaos,
-            getPetStatSeed(pet, FightStat.ENDURANCE),
-            pet.enduranceMalus,
-          );
+            pet,
+            stat: FightStat.ENDURANCE,
+            value: pet.enduranceMalus,
+          });
           brute.enduranceValue = Math.floor(brute.enduranceStat * brute.enduranceModifier);
         }
       }

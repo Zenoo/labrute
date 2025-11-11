@@ -1,8 +1,8 @@
 import { Brute, PetName, SkillName } from '@labrute/prisma';
 import { seedToRandom } from '../utils';
 import { Pet } from './pets';
-import { FightStat } from './skills';
 import { Weapon } from './weapons';
+import { FightStat } from './skills';
 
 const scalingByPet = {
   [PetName.bear]: {
@@ -41,28 +41,60 @@ type NumberKeysOf<T> = {
   [K in keyof T]: T[K] extends number ? K : never;
 }[keyof T];
 
-export const CHAOS_SCALE = 5;
+const CHAOS_SCALE = 3;
 
-export const getSkillStatSeed = (skill: SkillName, stat: FightStat, type: 'flat' | 'percent' = 'flat') => `skill:${skill}:${stat}:${type}`;
-export const getPetStatSeed = (pet: Pet, stat: string) => `pet:${pet.name}:${stat}`;
-export const getWeaponStatSeed = (weapon: Weapon, stat: string) => `weapon:${weapon.name}:${stat}`;
+const getSkillStatSeed = (skill: SkillName, stat: string, type: 'flat' | 'percent' = 'flat') => `skill:${skill}:${stat}:${type}`;
+const getPetStatSeed = (pet: Pet, stat: string) => `pet:${pet.name}:${stat}`;
+const getWeaponStatSeed = (weapon: Weapon, stat: string) => `weapon:${weapon.name}:${stat}`;
 
-export const getScaledStat = (
-  chaos: boolean,
-  seed: string,
-  stat: number,
+export const getScaledStat = ({
+  chaos,
+  skill,
+  type = 'flat',
+  pet,
+  weapon,
+  stat,
+  value,
   precision = 0
-) => {
+}: {
+  chaos: boolean,
+  skill?: SkillName,
+  type?: 'flat' | 'percent',
+  pet?: Pet,
+  weapon?: Weapon,
+  stat: string,
+  value: number,
+  precision?: number,
+}) => {
   if (!chaos) {
-    return stat;
+    return value;
   }
 
-  if (stat === 0) {
+  if (value === 0) {
     return 0;
   }
 
-  const min = stat / CHAOS_SCALE;
-  const max = stat * CHAOS_SCALE;
+  // Get min and max values
+  let min = value < 0 ? value * CHAOS_SCALE : value / CHAOS_SCALE;
+  const max = value < 0 ? value / CHAOS_SCALE : value * CHAOS_SCALE;
+
+  // Prevent damage drop
+  if (stat === FightStat.DAMAGE) {
+    min = value;
+  }
+
+  // Get unique seed
+  let seed = '';
+
+  if (skill) {
+    seed = getSkillStatSeed(skill, stat, type);
+  } else if (pet) {
+    seed = getPetStatSeed(pet, stat);
+  } else if (weapon) {
+    seed = getWeaponStatSeed(weapon, stat);
+  } else {
+    throw new Error('Either skill, pet or weapon must be provided for scaled stat');
+  }
 
   // Generate a random number between min and max
   const randomNumber = min + (seedToRandom(seed) * (max - min));
@@ -99,11 +131,13 @@ export const getPetScaledStat = (
       return result;
     }
 
-    return getScaledStat(
+    return getScaledStat({
       chaos,
-      getPetStatSeed(pet, stat),
-      result,
-    );
+      pet,
+      stat,
+      value: result,
+      precision,
+    });
   }
 
   // Other stats don't scale with brute stats
@@ -111,12 +145,13 @@ export const getPetScaledStat = (
     return pet[stat];
   }
 
-  return getScaledStat(
+  return getScaledStat({
     chaos,
-    getPetStatSeed(pet, stat),
-    pet[stat],
-    precision
-  );
+    pet,
+    stat,
+    value: pet[stat],
+    precision,
+  });
 };
 
 export const getWeaponScaledStat = (
@@ -129,10 +164,11 @@ export const getWeaponScaledStat = (
     return weapon[stat];
   }
 
-  return getScaledStat(
+  return getScaledStat({
     chaos,
-    getWeaponStatSeed(weapon, stat),
-    weapon[stat],
-    precision
-  );
+    weapon,
+    stat,
+    value: weapon[stat],
+    precision,
+  });
 };

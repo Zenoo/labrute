@@ -13,4 +13,3 @@ decimal.js/decimal.mjs:
    *  MIT Licence
    *)
 */
-//# sourceMappingURL=index-browser.js.map
