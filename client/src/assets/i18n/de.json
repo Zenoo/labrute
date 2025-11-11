@@ -367,7 +367,7 @@
   "saboteur.effect": "Zerstört vor dem Kampf eine der gegnerischen Waffen (-100 Initiative des Gegners, falls diese gezogen wird)",
   "backup": "Verstärkung",
   "backup.desc": "Im Freundeskreis wird stets alles geteilt. Gut dass du gelernt hast, Schläge auszuteilen, damit die Gegner deiner Kollegen auch was davon haben.",
-  "backup.effect": "Your brute calls on a weaker ally to assist them in combat.",
+  "backup.effect": "Dein Brutalo ruft einen schwächeren Verbündeten herbei, um im Kampf zu helfen.",
   "hideaway": "Versteck",
   "hideaway.desc": "Du bist schüchtern und möchtest dich deinem Gegner überhaupt nicht nähern. Wozu auch? Man kann ihm auch aus der Ferne die Visage polieren!",
   "hideaway.effect": "+50% Chance auf Waffenwurf. Waffen verschwinden nicht nach einem Wurf.",
