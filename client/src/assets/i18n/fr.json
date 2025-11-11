@@ -367,7 +367,7 @@
   "saboteur.effect": "Sabote une arme de ton adversaire (initiative adverse -100 lorsqu'elle est utilisée)",
   "backup": "Renforts",
   "backup.desc": "Parce que l'amitié, c'est le partage, tu as appris à partager tes baffes pour que les adversaires de tes collègues profitent aussi un peu !",
-  "backup.effect": "Ta brute peut intervenir dans les combats de ses collègues de niveau supérieur.",
+  "backup.effect": "Your brute calls on a weaker ally to assist them in combat.",
   "hideaway": "Planqué",
   "hideaway.desc": "Tu n'as vraiment pas envie de t'approcher de ton adversaire, tu préfères rester à distance et leur envoyer tout ton arsenal à la figure.",
   "hideaway.effect": "Chances d'envoyer son arme : 50%. Les armes ne disparaissent pas après un lancer",
