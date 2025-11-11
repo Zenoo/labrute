@@ -367,7 +367,7 @@
   "saboteur.effect": "Destrua uma das armas do seu oponente (iniciativa do oponente -100 quando usada)",
   "backup": "Backup",
   "backup.desc": "Amizade tem tudo a ver com compartilhamento. Felizmente para você, você aprendeu a compartilhar seus golpes com seus oponentes para que eles também possam acertá-los!",
-  "backup.effect": "Seu bruto pode ajudar membros superiores da equipe durante as lutas.",
+  "backup.effect": "Your brute calls on a weaker ally to assist them in combat.",
   "hideaway": "Esconder-se",
   "hideaway.desc": "You really don't want to approach your opponent, you prefer to stay away and throw your whole arsenal in their face.",
   "hideaway.effect": "Chance de lançar arma: 50%. As armas não desaparecem após serem lançadas",
