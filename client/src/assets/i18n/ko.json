@@ -367,7 +367,7 @@
   "saboteur.effect": "Destroy one of your opponent's weapon (opponent initiative -100 when used)",
   "backup": "Backup",
   "backup.desc": "Friendship is all about sharing. Luckily for you, you've learnt to share your blows with your opponents so that they can have some too!",
-  "backup.effect": "Your brute can help superior team-members during fights.",
+  "backup.effect": "Your brute calls on a weaker ally to assist them in combat.",
   "hideaway": "Hideaway",
   "hideaway.desc": "You really don't want to approach your opponent, you prefer to stay away and throw your whole arsenal in their face.",
   "hideaway.effect": "Chance to throw weapon: 50%. Weapons do not disappear after throwing",
