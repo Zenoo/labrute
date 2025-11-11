@@ -14,6 +14,7 @@ import {
 } from '@labrute/core';
 import {
   Brute, FightModifier, InventoryItemType, LogType, Prisma, PrismaClient,
+  SkillName,
   UserLogType,
 } from '@labrute/prisma';
 import { createManyUserLogs } from '../createUserLog.js';
@@ -107,26 +108,28 @@ export const generateFight = async ({
       throw new Error('No brute 1');
     }
 
-    const brute1Backups = await prisma.brute.findMany({
-      where: {
-        skills: { has: 'backup' },
-        level: { lt: brute1.level },
-        userId: brute1.userId,
-        deletedAt: null,
-      },
-    });
+    if (brute1.skills.includes(SkillName.backup)) {
+      const brute1Backups = await prisma.brute.findMany({
+        where: {
+          deletedAt: null,
+          userId: brute1.userId,
+          id: { not: brute1.id },
+          level: { lt: brute1.level },
+        },
+      });
 
-    if (brute1Backups.length) {
-      team1Backups.push(randomItem(brute1Backups));
+      if (brute1Backups.length) {
+        team1Backups.push(randomItem(brute1Backups));
+      }
     }
 
-    if (brute2) {
+    if (brute2 && brute2.skills.includes(SkillName.backup)) {
       const brute2Backups = await prisma.brute.findMany({
         where: {
-          skills: { has: 'backup' },
-          level: { lt: brute2.level },
-          userId: brute2.userId,
           deletedAt: null,
+          userId: brute2.userId,
+          id: { not: brute2.id },
+          level: { lt: brute2.level },
         },
       });
 
