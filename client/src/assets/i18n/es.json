@@ -367,7 +367,7 @@
   "saboteur.effect": "Destruye un arma de tu oponente (también sufre iniciativa -100)",
   "backup": "Apoyo táctico",
   "backup.desc": "Compartir es vivir. ¡Afortunadamente para ti, has aprendido a compartir tus golpes con tus oponentes para que ellos también puedan recibir algunos!",
-  "backup.effect": "Tu Bruto puede ayudar a tus otros Brutos de más nivel durante los combates.",
+  "backup.effect": "Your brute calls on a weaker ally to assist them in combat.",
   "hideaway": "Escondite",
   "hideaway.desc": "Hoy no quieres salir de casa. Es mejor quedarse lejos y lanzarle todo tu arsenal a tu oponente a la cara.",
   "hideaway.effect": "Probabilidad de lanzar armas: 50%. Las armas no desaparecen después de un lanzamiento.",
