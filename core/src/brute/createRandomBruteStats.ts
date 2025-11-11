@@ -1,4 +1,4 @@
-import { DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { BruteRankings } from '../constants';
 import { getHP } from './getHP';
 import { getRandomBonus } from './getRandomBonus';
@@ -10,6 +10,7 @@ export const createRandomBruteStats = (
   baseStats?: { endurance: number, strength: number, agility: number, speed: number } | null,
   perkType?: DestinyChoiceType,
   perkName?: string | null,
+  stats?: Pick<DestinyChoice, 'stat1' | 'stat1Value' | 'stat2' | 'stat2Value'>,
 ) => {
   let brute = {
     level: 1,
@@ -36,15 +37,24 @@ export const createRandomBruteStats = (
   let perk: { type: DestinyChoiceType, name: PetName | SkillName | WeaponName } | null = null;
 
   // Predefined perk
-  if (perkType && perkName) {
-    perk = { type: perkType, name: perkName as PetName | SkillName | WeaponName };
+  if (perkType) {
+    if (perkName) {
+      perk = { type: perkType, name: perkName as PetName | SkillName | WeaponName };
 
-    if (perkType === DestinyChoiceType.pet) {
-      brute.pets = [perkName as PetName];
-    } else if (perkType === DestinyChoiceType.skill) {
-      brute.skills = [perkName as SkillName];
-    } else {
-      brute.weapons = [perkName as WeaponName];
+      if (perkType === DestinyChoiceType.pet) {
+        brute.pets = [perkName as PetName];
+      } else if (perkType === DestinyChoiceType.skill) {
+        brute.skills = [perkName as SkillName];
+      } else {
+        brute.weapons = [perkName as WeaponName];
+      }
+    } else if (stats) {
+      if (stats.stat1 && stats.stat1Value) {
+        brute[`${stats.stat1}Stat`] += stats.stat1Value;
+      }
+      if (stats.stat2 && stats.stat2Value) {
+        brute[`${stats.stat2}Stat`] += stats.stat2Value;
+      }
     }
   } else {
     // Random perk
@@ -63,7 +73,7 @@ export const createRandomBruteStats = (
   }
 
   // Stats boosters
-  if (perk.type === 'skill') {
+  if (perk?.type === 'skill') {
     const skill = brute.skills[0];
 
     if (!skill) {
@@ -82,7 +92,7 @@ export const createRandomBruteStats = (
   brute.speedStat += startingStats.speed;
 
   // Take into account the endurance malus from the pet
-  if (perk.type === DestinyChoiceType.pet) {
+  if (perk?.type === DestinyChoiceType.pet) {
     const pet = pets.find((p) => p.name === perk?.name);
 
     if (!pet) {

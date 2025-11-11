@@ -133,6 +133,8 @@ export const resetBrute = async ({
       : firstBonus.type === DestinyChoiceType.weapon
         ? firstBonus.weapon
         : firstBonus.skill,
+    firstBonus.type === DestinyChoiceType.stats
+      ? firstBonus : undefined,
   );
 
   // Get current modifiers
