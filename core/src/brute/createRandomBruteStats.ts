@@ -1,10 +1,10 @@
 import { DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { BruteRankings } from '../constants';
+import { applySkillModifiers } from './applySkillModifiers';
 import { getHP } from './getHP';
 import { getRandomBonus } from './getRandomBonus';
 import { getRandomStartingStats } from './getRandomStartingStats';
 import { pets } from './pets';
-import { applySkillModifiers } from './applySkillModifiers';
 
 export const createRandomBruteStats = (
   baseStats?: { endurance: number, strength: number, agility: number, speed: number } | null,
@@ -92,8 +92,8 @@ export const createRandomBruteStats = (
   brute.speedStat += startingStats.speed;
 
   // Take into account the endurance malus from the pet
-  if (perk?.type === DestinyChoiceType.pet) {
-    const pet = pets.find((p) => p.name === perk?.name);
+  if (perk && perk.type === DestinyChoiceType.pet) {
+    const pet = pets[perk.name as PetName];
 
     if (!pet) {
       throw new Error('Pet not found');

@@ -1,5 +1,6 @@
 import {
-  applySkillModifiers, getFightsLeft, getHP, LevelUpChoice, Pet, pets,
+  applySkillModifiers, getFightsLeft, getHP, LevelUpChoice,
+  pets
 } from '@labrute/core';
 import {
   Brute, BruteStat, DestinyChoice, PetName, SkillName, WeaponName,
@@ -72,7 +73,7 @@ export const updateBruteData = (
     updatedBrute.weapons.push(destinyChoice.weapon as WeaponName);
   } else if (destinyChoice.type === 'pet') {
     // New pet
-    const pet = pets.find((p: Pet) => p.name === destinyChoice.pet);
+    const pet = destinyChoice.pet && pets[destinyChoice.pet];
     if (!pet) {
       throw new Error('Pet not found');
     }

@@ -23,10 +23,10 @@ const getHitDistance = (
     let reach = 0;
     // Countered, take opponent weapon reach into account
     if (isCountered) {
-      reach = weapons.find((w) => w.name === target.animation.weapon)?.reach || 0;
+      reach = target.animation.weapon ? weapons[target.animation.weapon].reach : 0;
     } else {
       // Take fighter weapon reach into account
-      reach = weapons.find((w) => w.name === fighter.animation.weapon)?.reach || 0;
+      reach = fighter.animation.weapon ? weapons[fighter.animation.weapon].reach : 0;
     }
 
     distance += reach * 16;

@@ -1,18 +1,19 @@
 import {
-  DetailedFighter, FightStat, getScaledStat,
-  getWeaponScaledStat, SkillDamageModifiers, Weapon,
+  FightStat, getScaledStat,
+  getWeaponScaledStat, SkillDamageModifiers, Tiered, Weapon,
 } from '@labrute/core';
 import { SkillName, WeaponName } from '@labrute/prisma';
 import { getFighterStat } from './getFighterStat.js';
+import { DetailedFighter } from './generateFight.js';
 
 export const getDamage = (
   chaos: boolean,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
-  thrown?: Weapon,
+  thrown?: Tiered<Weapon>,
 ) => {
   const base = thrown
-    ? thrown.damage
+    ? (thrown.damage[thrown.tier - 1] ?? 0)
     : (fighter.activeWeapon ? getWeaponScaledStat(chaos, fighter.activeWeapon, 'damage') : fighter.baseDamage);
   let skillsMultiplier = 1;
 
@@ -22,7 +23,7 @@ export const getDamage = (
   // Fighter skill damage modifiers
   for (const modifier of SkillDamageModifiers) {
     // Ignore if fighter doesn't have the skill
-    if (!fighter.skills.find((sk) => sk.name === modifier.skill)) {
+    if (!fighter.skills[modifier.skill]) {
       continue;
     }
 
@@ -53,7 +54,7 @@ export const getDamage = (
             skill: modifier.skill,
             type: 'percent',
             stat: FightStat.DAMAGE,
-            value: modifier.percent ?? 0,
+            value: modifier.percent?.[(fighter.skills[modifier.skill]?.tier ?? 1) - 1] ?? 0,
             precision: 2,
           });
         }
@@ -64,7 +65,7 @@ export const getDamage = (
           skill: modifier.skill,
           type: 'percent',
           stat: FightStat.DAMAGE,
-          value: modifier.percent ?? 0,
+          value: modifier.percent?.[(fighter.skills[modifier.skill]?.tier ?? 1) - 1] ?? 0,
           precision: 2,
         });
       }
@@ -75,7 +76,7 @@ export const getDamage = (
         skill: modifier.skill,
         type: 'percent',
         stat: FightStat.DAMAGE,
-        value: modifier.percent ?? 0,
+        value: modifier.percent?.[(fighter.skills[modifier.skill]?.tier ?? 1) - 1] ?? 0,
         precision: 2,
       });
     }
@@ -84,7 +85,7 @@ export const getDamage = (
   // Opponent skill damage modifiers
   for (const modifier of SkillDamageModifiers) {
     // Ignore if opponent doesn't have the skill
-    if (!opponent.skills.find((sk) => sk.name === modifier.skill)) {
+    if (!opponent.skills[modifier.skill]) {
       continue;
     }
 
@@ -110,7 +111,7 @@ export const getDamage = (
             skill: modifier.skill,
             type: 'percent',
             stat: FightStat.DAMAGE,
-            value: modifier.percent ?? 0,
+            value: modifier.percent?.[(opponent.skills[modifier.skill]?.tier ?? 1) - 1] ?? 0,
             precision: 2,
           });
         }
@@ -121,7 +122,7 @@ export const getDamage = (
           skill: modifier.skill,
           type: 'percent',
           stat: FightStat.DAMAGE,
-          value: modifier.percent ?? 0,
+          value: modifier.percent?.[(opponent.skills[modifier.skill]?.tier ?? 1) - 1] ?? 0,
           precision: 2,
         });
       }
@@ -132,7 +133,7 @@ export const getDamage = (
         skill: modifier.skill,
         type: 'percent',
         stat: FightStat.DAMAGE,
-        value: modifier.percent ?? 0,
+        value: modifier.percent?.[(opponent.skills[modifier.skill]?.tier ?? 1) - 1] ?? 0,
         precision: 2,
       });
     }

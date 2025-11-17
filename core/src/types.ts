@@ -1,6 +1,6 @@
 import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, Prisma, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
-import { Skill, SkillId } from './brute/skills';
-import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
+import { SkillId } from './brute/skills';
+import { WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
 
 export interface AnimatedWeapon {
@@ -28,97 +28,6 @@ export interface Stat {
 
 export type BruteBodyPart = 'p1' | 'p1a' | 'p1b' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p7b' | 'p8';
 export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b' | 'col1c' | 'col1d' | 'col2' | 'col2a' | 'col2b' | 'col3' | 'col3b' | 'col4' | 'col4a' | 'col4b';
-
-export interface DetailedFighter {
-  // Metadata
-  id: string;
-  eventId?: string;
-  index: number;
-  team: 'L' | 'R';
-  name: string;
-  gender?: Gender;
-  body?: string;
-  colors?: string;
-  rank: BruteRanking;
-  level: number;
-  type: 'brute' | 'pet' | 'boss';
-  // Follower/Backup variables
-  master?: string;
-  arrivesAtInitiative?: number;
-  leavesAtInitiative?: number;
-  // Pet variables
-  eaten?: boolean;
-  // Raw stats
-  maxHp: number;
-  hp: number;
-  strength: number;
-  agility: number;
-  speed: number;
-  criticalChance: number;
-  criticalDamage: number;
-  regeneration: number;
-  // Initiative
-  initiative: number; // Lower attacks next
-  hitSpeed: number;
-  tempo: number; // Lower is better
-  // hit stats
-  baseDamage: number,
-  counter: number,
-  reversal: number,
-  combo: number,
-  deflect: number,
-  block: number,
-  accuracy: number,
-  armor: number,
-  disarm: number,
-  evasion: number,
-  reach: number,
-  // Passives
-  // Destroys one enemy's weapon per hit
-  sabotage: boolean;
-  // tempo -25% for heavy weapons
-  bodybuilder: boolean;
-  // Survive with 1 HP on first death
-  survival: boolean;
-  // First hit of the fight is evaded
-  balletShoes: boolean;
-  // 70% chance of re-attacking on misses (evasion or block)
-  determination: boolean;
-  retryAttack: boolean;
-  // 30% chance of disarming when being hit
-  ironHead: boolean;
-  // Max 20% max HP per hit
-  resistant: boolean;
-  // Regen boost at 50% HP
-  fastMetabolism: number | null;
-  // Available skills
-  skills: Skill[];
-  // Available weapons
-  weapons: Weapon[];
-  // Shield state
-  shield: boolean;
-  // Active skills
-  activeSkills: Skill[];
-  // Active weapon
-  activeWeapon: Weapon | null;
-  keepWeaponChance: number;
-  // Pre fight sabotage
-  saboteur: boolean;
-  sabotagedWeapon: Weapon | null;
-  // Status effects
-  poisonedBy: number | null; // Fighter index
-  trapped: boolean;
-  // Reduce some weapons damage by 25%
-  damagedWeapons: WeaponName[],
-  // Keep track of consecutive hits for stun status
-  hitBy: Record<number, number>,
-  stunned?: boolean,
-  hypnotized?: boolean,
-  // Bare hand hit (for the fight modifier)
-  bareHandHit?: boolean;
-  // Damage immunity
-  immune?: boolean;
-}
 
 export interface Fighter {
   id: string;
@@ -536,17 +445,6 @@ export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
   | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep;
-
-export interface DetailedFight {
-  modifiers: FightModifier[];
-  fighters: DetailedFighter[];
-  initialFighters: DetailedFighter[];
-  steps: FightStep[];
-  initiative: number;
-  winner: string | null;
-  loser: string | null;
-  overtime: boolean;
-}
 
 export type AnimationModel =
   | 'bear'

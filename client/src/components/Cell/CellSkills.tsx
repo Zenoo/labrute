@@ -1,4 +1,4 @@
-import { getTempSkill, skills } from '@labrute/core';
+import { getTempSkill, getTieredSkills, skillList } from '@labrute/core';
 import { Box, Grid, PaperProps } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
@@ -28,6 +28,15 @@ const CellSkills = ({
     [brute, hoverSelectAscend, modifiers]
   );
 
+  const tieredSkills = useMemo(
+    () => {
+      if (!brute) return null;
+
+      return getTieredSkills(brute, modifiers);
+    },
+    [brute, modifiers]
+  );
+
   const getFilter = (skill: SkillName) => {
     if (randomSkill === skill) return `drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
     if (brute?.ascendedSkills.includes(skill)
@@ -48,8 +57,8 @@ const CellSkills = ({
 
   return brute && (
     <Grid container spacing={1} sx={{ pt: 1, ...sx }} {...props}>
-      {skills.map((skill) => {
-        const hasSkill = brute.skills.includes(skill.name);
+      {skillList.map((skill) => {
+        const hasSkill = tieredSkills?.[skill.name] !== undefined;
 
         return (
           <Grid
@@ -57,7 +66,7 @@ const CellSkills = ({
             xs={12 / 7}
             key={skill.name}
             sx={{
-              opacity: (hasSkill || randomSkill === skill.name)
+              opacity: (hasSkill)
                 ? 1
                 : 0.4
             }}
@@ -65,7 +74,7 @@ const CellSkills = ({
             onMouseEnter={() => setHoveredSkill(skill.name)}
             onMouseLeave={() => setHoveredSkill(null)}
           >
-            <SkillTooltip skill={skill}>
+            <SkillTooltip skill={skill} tier={tieredSkills?.[skill.name]}>
               <Box
                 component="img"
                 src={`/images/skills/${skill.name}.svg`}

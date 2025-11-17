@@ -1,12 +1,13 @@
-import { PERKS_TOTAL_ODDS, Pet, convertEnduranceToHP, getPetScaledStat } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, convertEnduranceToHP, getPetScaledStat } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
+import { TierStar } from './TierStar';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -15,13 +16,15 @@ const textProps = {
 } as const;
 
 export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
-  pet?: Pet;
+  pet?: Pet | null;
+  tier?: number;
   brute?: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'enduranceModifier'>;
 }
 
 const PetTooltip = ({
   pet,
   brute: specificBrute,
+  tier = 1,
   children,
   ...rest
 }: PetTooltipProps) => {
@@ -31,24 +34,112 @@ const PetTooltip = ({
   const { chaos } = useAuth();
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
+  const tieredPet = useMemo(() => {
+    if (!pet) return null;
+
+    return {
+      ...pet,
+      tier,
+    };
+  }, [pet, tier]);
 
   const brute = specificBrute || authedBrute;
+
+  const statLine = (
+    stat: TieredNumberKeysOf<Pet>,
+    percent: boolean,
+    precision?: number
+  ) => {
+    if (!brute || !tieredPet?.[stat][0]) return null;
+
+    const label = stat === 'hp' ? 'HP' : stat;
+    const color = stat === 'hp' ? StatColor.endurance : StatColor[stat];
+    const uniqueValue = tieredPet[stat].every((v) => v === tieredPet[stat]?.[0]);
+
+    if (percent) {
+      return (
+        <Text bold sx={{ color }} {...textProps}>
+          {(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}
+          {uniqueValue ? Math.round(
+            getPetScaledStat(chaos, brute, tieredPet, stat, precision) * 100,
+          ) : (
+            <>
+              [
+              {tieredPet[stat].map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  {index > 0 && '/'}
+                  <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
+                    {Math.round(
+                      getPetScaledStat(chaos, brute, {
+                        ...tieredPet,
+                        tier: index + 1,
+                      }, stat, precision) * 100,
+                    )}
+                  </Box>
+                </Fragment>
+              ))}
+              ]
+            </>
+          )}
+          % {t(label)}
+        </Text>
+      );
+    }
+
+    return (
+      <Text {...textProps}>
+        {t(label)}:
+        {' '}
+        <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
+          {uniqueValue ? (
+            getPetScaledStat(chaos, brute, tieredPet, stat, precision)
+          ) : (
+            <>
+              [
+              {tieredPet[stat].map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Fragment key={index}>
+                  <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
+                    {getPetScaledStat(chaos, brute, {
+                      ...tieredPet,
+                      tier: index + 1,
+                    }, stat, precision)}
+                  </Box>
+                  {index < (tieredPet[stat]?.length ?? 0) - 1 ? '/' : ''}
+                </Fragment>
+              ))}
+              ]
+            </>
+          )}
+        </Text>
+      </Text>
+    );
+  };
 
   return (
     <Tooltip
       {...rest}
-      title={(pet && brute) ? (
+      title={(tieredPet && brute) ? (
         <>
+          {tier > 1 && (
+            <Box>
+              {Array.from({ length: tier - 1 }).map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <TierStar key={index} />
+              ))}
+            </Box>
+          )}
           <Box sx={{ textAlign: 'center', my: 0.5 }}>
             {/* NAME */}
-            <Text bold h5>{t(pet.name)}</Text>
+            <Text bold h5>{t(tieredPet.name)}</Text>
           </Box>
           {/* ODDS */}
           <Text {...textProps}>
             {t('odds')}:
             {' '}
             <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
-              {((pet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
+              {((tieredPet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
             </Text>
           </Text>
           {/* HP MALUS */}
@@ -56,97 +147,20 @@ const PetTooltip = ({
             {t('hpMalus')}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
-              {convertEnduranceToHP(brute, getPetScaledStat(chaos, brute, pet, 'enduranceMalus'))}
+              {convertEnduranceToHP(brute, tieredPet.enduranceMalus)}
             </Text>
           </Text>
-          {/* INITIATIVE */}
-          <Text {...textProps}>
-            {t('initiative')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.initiative, textShadow }} {...textProps}>
-              {getPetScaledStat(chaos, brute, pet, 'initiative', 2)}
-            </Text>
-          </Text>
-          {/* STRENGTH */}
-          <Text {...textProps}>
-            {t('strength')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.strength, textShadow }} {...textProps}>
-              {getPetScaledStat(chaos, brute, pet, 'strength')}
-            </Text>
-          </Text>
-          {/* AGILITY */}
-          <Text {...textProps}>
-            {t('agility')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.agility, textShadow }} {...textProps}>
-              {getPetScaledStat(chaos, brute, pet, 'agility')}
-            </Text>
-          </Text>
-          {/* SPEED */}
-          <Text {...textProps}>
-            {t('speed')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.speed, textShadow }} {...textProps}>
-              {getPetScaledStat(chaos, brute, pet, 'speed')}
-            </Text>
-          </Text>
-          {/* HP */}
-          <Text {...textProps}>
-            {t('HP')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
-              {getPetScaledStat(chaos, brute, pet, 'hp')}
-            </Text>
-          </Text>
-          {/* DAMAGE */}
-          <Text {...textProps}>
-            {t('damage')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.damage, textShadow }} {...textProps}>
-              {getPetScaledStat(chaos, brute, pet, 'damage')}
-            </Text>
-          </Text>
-          {/* EVASION */}
-          {!!pet.evasion && (
-            <Text bold sx={{ color: StatColor.evasion, textShadow }} {...textProps}>
-              {pet.evasion > 0 && '+'}
-              {Math.round(getPetScaledStat(chaos, brute, pet, 'evasion', 2) * 100)}
-              % {t('evasion')}
-            </Text>
-          )}
-          {/* ACCURACY */}
-          {!!pet.accuracy && (
-            <Text bold sx={{ color: StatColor.accuracy, textShadow }} {...textProps}>
-              {pet.accuracy > 0 && '+'}
-              {Math.round(getPetScaledStat(chaos, brute, pet, 'accuracy', 2) * 100)}
-              % {t('accuracy')}
-            </Text>
-          )}
-          {/* DISARM */}
-          {!!pet.disarm && (
-            <Text bold sx={{ color: StatColor.disarm, textShadow }} {...textProps}>
-              {pet.disarm > 0 && '+'}
-              {Math.round(getPetScaledStat(chaos, brute, pet, 'disarm', 2) * 100)}
-              % {t('disarm')}
-            </Text>
-          )}
-          {/* BLOCK */}
-          {!!pet.block && (
-            <Text bold sx={{ color: StatColor.block, textShadow }} {...textProps}>
-              {pet.block > 0 && '+'}
-              {Math.round(getPetScaledStat(chaos, brute, pet, 'block', 2) * 100)}
-              % {t('block')}
-            </Text>
-          )}
-          {/* COMBO */}
-          {!!pet.combo && (
-            <Text bold sx={{ color: StatColor.combo, textShadow }} {...textProps}>
-              {pet.combo > 0 && '+'}
-              {Math.round(getPetScaledStat(chaos, brute, pet, 'combo', 2) * 100)}
-              % {t('combo')}
-            </Text>
-          )}
+          {statLine('initiative', false, 2)}
+          {statLine('strength', false)}
+          {statLine('agility', false)}
+          {statLine('speed', false)}
+          {statLine('hp', false)}
+          {statLine('damage', false)}
+          {statLine('evasion', true, 2)}
+          {statLine('accuracy', true, 2)}
+          {statLine('disarm', true, 2)}
+          {statLine('block', true, 2)}
+          {statLine('combo', true, 2)}
         </>
       ) : ''}
       componentsProps={{

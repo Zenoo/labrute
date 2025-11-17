@@ -108,7 +108,7 @@ const itemDrop = ({
   // Infer item weight from it's damage
   let itemWeight = item === 'shield'
     ? 0.3
-    : Math.max(0.1, (weapons.find((weapon) => weapon.name === WeaponById[item])?.damage ?? 0) / 70);
+    : Math.max(0.1, weapons[WeaponById[item]].damage[0] / 70);
 
   // Lower weight if broken or saboteur (plastic)
   if (broken) itemWeight *= 0.5;

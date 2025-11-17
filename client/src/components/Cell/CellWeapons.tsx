@@ -1,11 +1,11 @@
-import { weapons as detailedWeapons, getTempWeapon } from '@labrute/core';
+import { getTempWeapon, weaponList, weapons } from '@labrute/core';
 import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import WeaponTooltip from '../Brute/WeaponTooltip';
 import { PerkColor } from '../../utils/StatColor';
+import WeaponTooltip from '../Brute/WeaponTooltip';
 
 const weaponSvgProps: Record<WeaponName, {
   id: string;
@@ -68,7 +68,7 @@ const CellWeapons = (
 
   const unownedWeapons = useMemo(() => {
     const bruteWeapons = brute?.weapons || [];
-    return detailedWeapons.filter((w) => !bruteWeapons.includes(w.name)).map((w) => w.name);
+    return weaponList.filter((w) => !bruteWeapons.includes(w.name)).map((w) => w.name);
   }, [brute]);
 
   const randomWeapon = useMemo(
@@ -102,7 +102,7 @@ const CellWeapons = (
 
   return brute && (
     <WeaponTooltip
-      weapon={detailedWeapons.find((w) => w.name === hoveredWeapon)}
+      weapon={(hoveredWeapon !== 'bare-hands' && hoveredWeapon) ? weapons[hoveredWeapon] : undefined}
       open={hoveredWeapon !== null}
       bareHands={hoveredWeapon === 'bare-hands'}
       placement="bottom"

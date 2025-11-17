@@ -189,295 +189,297 @@ export interface Skill {
   name: SkillName;
   odds: number;
   type: SkillType;
-  toss?: number;
-  uses?: number;
+  toss?: [number, number, number];
+  uses?: [number, number, number];
 }
 export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
 
-export const skills: Skill[] = [
-  {
+export const skills: Record<SkillName, Skill> = {
+  [SkillName.herculeanStrength]: {
     name: 'herculeanStrength',
     odds: 60,
     type: 'booster',
   },
-  {
+  [SkillName.felineAgility]: {
     name: 'felineAgility',
     odds: 60,
     type: 'booster',
   },
-  {
+  [SkillName.lightningBolt]: {
     name: 'lightningBolt',
     odds: 60,
     type: 'booster',
   },
-  {
+  [SkillName.vitality]: {
     name: 'vitality',
     odds: 60,
     type: 'booster',
   },
-  {
+  [SkillName.immortality]: {
     name: 'immortality',
     odds: 0.14,
     type: 'booster',
   },
-  {
+  [SkillName.weaponsMaster]: {
     name: 'weaponsMaster',
     odds: 10,
     type: 'passive',
   },
-  {
+  [SkillName.martialArts]: {
     name: 'martialArts',
     odds: 10,
     type: 'passive',
   },
-  {
+  [SkillName.sixthSense]: {
     name: 'sixthSense',
     odds: 20,
     type: 'passive',
   },
-  {
+  [SkillName.hostility]: {
     name: 'hostility',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.fistsOfFury]: {
     name: 'fistsOfFury',
     odds: 10,
     type: 'passive',
   },
-  {
+  [SkillName.shield]: {
     name: 'shield',
     odds: 10,
     type: 'passive',
   },
-  {
+  [SkillName.armor]: {
     name: 'armor',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.toughenedSkin]: {
     name: 'toughenedSkin',
     odds: 30,
     type: 'passive',
   },
-  {
+  [SkillName.untouchable]: {
     name: 'untouchable',
     odds: 1,
     type: 'passive',
   },
-  {
+  [SkillName.sabotage]: {
     name: 'sabotage',
     odds: 3,
     type: 'passive',
   },
-  {
+  [SkillName.shock]: {
     name: 'shock',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.bodybuilder]: {
     name: 'bodybuilder',
     odds: 5,
     type: 'passive',
   },
-  {
+  [SkillName.relentless]: {
     name: 'relentless',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.survival]: {
     name: 'survival',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.leadSkeleton]: {
     name: 'leadSkeleton',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.balletShoes]: {
     name: 'balletShoes',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.determination]: {
     name: 'determination',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.firstStrike]: {
     name: 'firstStrike',
     odds: 8,
     type: 'passive',
   },
-  {
+  [SkillName.resistant]: {
     name: 'resistant',
     odds: 3,
     type: 'passive',
   },
-  {
+  [SkillName.reconnaissance]: {
     name: 'reconnaissance',
     odds: 1,
     type: 'booster',
   },
-  {
+  [SkillName.counterAttack]: {
     name: 'counterAttack',
     odds: 10,
     type: 'passive',
   },
-  {
+  [SkillName.ironHead]: {
     name: 'ironHead',
     odds: 4,
     type: 'passive',
   },
-  {
+  [SkillName.thief]: {
     name: 'thief',
     odds: 2.5,
     type: 'super',
-    toss: 8,
-    uses: 2,
+    toss: [8, 10, 12],
+    uses: [2, 3, 4],
   },
-  {
+  [SkillName.fierceBrute]: {
     name: 'fierceBrute',
     odds: 20,
     type: 'super',
-    toss: 5,
-    uses: 1,
+    toss: [5, 8, 11],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.tragicPotion]: {
     name: 'tragicPotion',
     odds: 8,
     type: 'super',
-    toss: 10,
-    uses: 1,
+    toss: [10, 12, 14],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.net]: {
     name: 'net',
     odds: 16,
     type: 'super',
-    toss: 10,
-    uses: 1,
+    toss: [10, 12, 14],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.bomb]: {
     name: 'bomb',
     odds: 6,
     type: 'super',
-    toss: 2,
-    uses: 2,
+    toss: [2, 4, 6],
+    uses: [2, 3, 4],
   },
-  {
+  [SkillName.hammer]: {
     name: 'hammer',
     odds: 1,
     type: 'super',
-    toss: 2,
-    uses: 1,
+    toss: [2, 4, 6],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.cryOfTheDamned]: {
     name: 'cryOfTheDamned',
     odds: 4,
     type: 'super',
-    toss: 8,
-    uses: 2,
+    toss: [8, 10, 12],
+    uses: [2, 3, 4],
   },
-  {
+  [SkillName.hypnosis]: {
     name: 'hypnosis',
     odds: 0.5,
     type: 'super',
-    toss: 6,
-    uses: 1,
+    toss: [6, 8, 10],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.flashFlood]: {
     name: 'flashFlood',
     odds: 0.5,
     type: 'super',
-    toss: 2,
-    uses: 3,
+    toss: [2, 4, 6],
+    uses: [3, 4, 5],
   },
-  {
+  [SkillName.tamer]: {
     name: 'tamer',
     odds: 4,
     type: 'super',
-    toss: 20,
-    uses: 4,
+    toss: [20, 22, 24],
+    uses: [4, 5, 6],
   },
-  {
+  [SkillName.regeneration]: {
     name: 'regeneration',
     odds: 3,
     type: 'talent',
   },
-  {
+  [SkillName.chef]: {
     name: 'chef',
     odds: 1,
     type: 'talent',
   },
-  {
+  [SkillName.spy]: {
     name: 'spy',
     odds: 3,
     type: 'talent',
   },
-  {
+  [SkillName.saboteur]: {
     name: 'saboteur',
     odds: 3,
     type: 'talent',
   },
-  {
+  [SkillName.backup]: {
     name: 'backup',
     odds: 5,
     type: 'talent',
   },
-  {
+  [SkillName.hideaway]: {
     name: 'hideaway',
     odds: 5,
     type: 'talent',
   },
-  {
+  [SkillName.monk]: {
     name: 'monk',
     odds: 5,
     type: 'talent',
   },
-  {
+  [SkillName.vampirism]: {
     name: 'vampirism',
     odds: 10,
     type: 'super',
-    uses: 1,
-    toss: 5,
+    toss: [5, 8, 11],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.chaining]: {
     name: 'chaining',
     odds: 5,
     type: 'passive',
   },
-  {
+  [SkillName.haste]: {
     name: 'haste',
     odds: 5,
     type: 'super',
-    uses: 1,
-    toss: 3,
+    toss: [3, 5, 7],
+    uses: [1, 2, 3],
   },
-  {
+  [SkillName.treat]: {
     name: 'treat',
     odds: 20,
     type: 'super',
-    uses: 4,
-    toss: 5,
+    toss: [5, 8, 11],
+    uses: [4, 5, 6],
   },
-  {
+  [SkillName.repulse]: {
     name: 'repulse',
     odds: 10,
     type: 'passive',
   },
-  {
+  [SkillName.fastMetabolism]: {
     name: 'fastMetabolism',
     odds: 5,
     type: 'passive',
   },
-];
+};
 
-export const SKILLS_TOTAL_ODDS = skills.reduce((acc, skill) => acc + skill.odds, 0);
+export const skillList = Object.values(skills);
+
+export const SKILLS_TOTAL_ODDS = skillList.reduce((acc, skill) => acc + skill.odds, 0);
 
 export interface SkillModifier {
-  flat?: number;
-  percent?: number;
+  flat?: [number, number, number];
+  percent?: [number, number, number];
   weaponType?: WeaponType | null;
   details?: string;
   opponent?: boolean;
@@ -488,93 +490,97 @@ export const SkillModifiers: Record<
   Partial<Record<FightStat, SkillModifier>>
 > = {
   [SkillName.herculeanStrength]: {
-    [FightStat.STRENGTH]: { flat: 3, percent: 0.5 },
+    [FightStat.STRENGTH]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.felineAgility]: {
-    [FightStat.AGILITY]: { flat: 3, percent: 0.5 },
+    [FightStat.AGILITY]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.lightningBolt]: {
-    [FightStat.SPEED]: { flat: 3, percent: 0.5 },
+    [FightStat.SPEED]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.vitality]: {
-    [FightStat.ENDURANCE]: { flat: 3, percent: 0.5 },
+    [FightStat.ENDURANCE]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.immortality]: {
-    [FightStat.ENDURANCE]: { percent: 2.5 },
-    [FightStat.STRENGTH]: { percent: -0.25 },
-    [FightStat.AGILITY]: { percent: -0.25 },
-    [FightStat.SPEED]: { percent: -0.25 },
+    [FightStat.ENDURANCE]: { percent: [2.5, 3, 3.5] },
+    [FightStat.STRENGTH]: { percent: [-0.25, -0.25, -0.25] },
+    [FightStat.AGILITY]: { percent: [-0.25, -0.25, -0.25] },
+    [FightStat.SPEED]: { percent: [-0.25, -0.25, -0.25] },
   },
   [SkillName.weaponsMaster]: {
-    [FightStat.DAMAGE]: { percent: 0.5, weaponType: WeaponType.SHARP },
+    [FightStat.DAMAGE]: { percent: [0.5, 0.75, 1], weaponType: WeaponType.SHARP },
   },
   [SkillName.martialArts]: {
-    [FightStat.DAMAGE]: { percent: 1, weaponType: null },
+    [FightStat.DAMAGE]: { percent: [1, 1.5, 2], weaponType: null },
   },
   [SkillName.sixthSense]: {
-    [FightStat.COUNTER]: { percent: 0.1 },
+    [FightStat.COUNTER]: { percent: [0.1, 0.15, 0.2] },
   },
   [SkillName.hostility]: {
-    [FightStat.REVERSAL]: { percent: 0.3 },
+    [FightStat.REVERSAL]: { percent: [0.3, 0.35, 0.4] },
   },
   [SkillName.fistsOfFury]: {
-    [FightStat.COMBO]: { percent: 0.2 },
+    [FightStat.COMBO]: { percent: [0.2, 0.3, 0.4] },
   },
   [SkillName.shield]: {
-    [FightStat.BLOCK]: { percent: 0.45 },
-    [FightStat.DAMAGE]: { percent: -0.25 },
+    [FightStat.BLOCK]: { percent: [0.45, 0.55, 0.65] },
+    [FightStat.DAMAGE]: { percent: [-0.25, -0.30, -0.35] },
   },
   [SkillName.armor]: {
-    [FightStat.ARMOR]: { percent: 0.25 },
-    [FightStat.SPEED]: { percent: -0.15 },
+    [FightStat.ARMOR]: { percent: [0.25, 0.35, 0.45] },
+    [FightStat.SPEED]: { percent: [-0.15, -0.20, -0.25] },
   },
   [SkillName.toughenedSkin]: {
-    [FightStat.ARMOR]: { percent: 0.1 },
+    [FightStat.ARMOR]: { percent: [0.1, 0.15, 0.2] },
   },
   [SkillName.untouchable]: {
-    [FightStat.EVASION]: { percent: 0.3 },
+    [FightStat.EVASION]: { percent: [0.3, 0.4, 0.5] },
   },
   [SkillName.sabotage]: {},
   [SkillName.shock]: {
-    [FightStat.DISARM]: { percent: 0.5 },
+    [FightStat.DISARM]: { percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.bodybuilder]: {
-    [FightStat.HIT_SPEED]: { percent: 0.40, weaponType: WeaponType.HEAVY },
-    [FightStat.DEXTERITY]: { percent: 0.1, weaponType: WeaponType.HEAVY },
+    [FightStat.HIT_SPEED]: { percent: [0.4, 0.5, 0.6], weaponType: WeaponType.HEAVY },
+    [FightStat.DEXTERITY]: { percent: [0.1, 0.15, 0.2], weaponType: WeaponType.HEAVY },
   },
   [SkillName.relentless]: {
-    [FightStat.ACCURACY]: { percent: 0.3 },
+    [FightStat.ACCURACY]: { percent: [0.3, 0.4, 0.5] },
   },
   [SkillName.survival]: {
-    [FightStat.BLOCK]: { percent: 0.2, details: 'atOneHp' },
-    [FightStat.EVASION]: { percent: 0.2, details: 'atOneHp' },
+    [FightStat.BLOCK]: { percent: [0.2, 0.3, 0.4], details: 'atOneHp' },
+    [FightStat.EVASION]: { percent: [0.2, 0.3, 0.4], details: 'atOneHp' },
   },
   [SkillName.leadSkeleton]: {
-    [FightStat.ARMOR]: { percent: 0.15 },
-    [FightStat.DAMAGE]: { percent: -0.15, weaponType: WeaponType.BLUNT, opponent: true },
-    [FightStat.EVASION]: { percent: -0.15 },
+    [FightStat.ARMOR]: { percent: [0.15, 0.25, 0.35] },
+    [FightStat.DAMAGE]: {
+      percent: [-0.15, -0.2, -0.25],
+      weaponType: WeaponType.BLUNT,
+      opponent: true,
+    },
+    [FightStat.EVASION]: { percent: [-0.15, -0.2, -0.25] },
   },
   [SkillName.balletShoes]: {
-    [FightStat.EVASION]: { percent: 0.1 },
+    [FightStat.EVASION]: { percent: [0.1, 0.15, 0.2] },
   },
   [SkillName.determination]: {},
   [SkillName.firstStrike]: {
-    [FightStat.INITIATIVE]: { flat: 200 },
+    [FightStat.INITIATIVE]: { flat: [200, 300, 400] },
   },
   [SkillName.resistant]: {},
   [SkillName.reconnaissance]: {
-    [FightStat.INITIATIVE]: { flat: -200 },
-    [FightStat.SPEED]: { flat: 5, percent: 1.5 },
-    [FightStat.CRITICAL_DAMAGE]: { percent: 0.5 },
+    [FightStat.INITIATIVE]: { flat: [-200, -250, -300] },
+    [FightStat.SPEED]: { flat: [5, 10, 15], percent: [1.5, 2, 2.5] },
+    [FightStat.CRITICAL_DAMAGE]: { percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.counterAttack]: {
-    [FightStat.BLOCK]: { percent: 0.1 },
-    [FightStat.REVERSAL]: { percent: 0.9, details: 'afterBlock' },
+    [FightStat.BLOCK]: { percent: [0.1, 0.15, 0.2] },
+    [FightStat.REVERSAL]: { percent: [0.9, 0.95, 0.99], details: 'afterBlock' },
   },
   [SkillName.ironHead]: {},
   [SkillName.thief]: {},
   [SkillName.fierceBrute]: {
-    [FightStat.CRITICAL_CHANCE]: { percent: 0.1 },
+    [FightStat.CRITICAL_CHANCE]: { percent: [0.1, 0.2, 0.3] },
   },
   [SkillName.tragicPotion]: {},
   [SkillName.net]: {},
@@ -590,27 +596,27 @@ export const SkillModifiers: Record<
   [SkillName.saboteur]: {},
   [SkillName.backup]: {},
   [SkillName.hideaway]: {
-    [FightStat.BLOCK]: { percent: 0.25, details: 'againstThrows' },
+    [FightStat.BLOCK]: { percent: [0.25, 0.3, 0.35], details: 'againstThrows' },
   },
   [SkillName.monk]: {
-    [FightStat.COUNTER]: { percent: 0.4 },
-    [FightStat.INITIATIVE]: { flat: -200 },
-    [FightStat.HIT_SPEED]: { percent: -1 },
+    [FightStat.COUNTER]: { percent: [0.4, 0.45, 0.5] },
+    [FightStat.INITIATIVE]: { flat: [-200, -250, -300] },
+    [FightStat.HIT_SPEED]: { percent: [-1, -1.1, -1.2] },
   },
   [SkillName.vampirism]: {},
   [SkillName.chaining]: {},
   [SkillName.haste]: {
-    [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
+    [FightStat.CRITICAL_CHANCE]: { percent: [0.05, 0.1, 0.15] },
   },
   [SkillName.treat]: {},
   [SkillName.repulse]: {
-    [FightStat.DEFLECT]: { percent: 0.3 },
-    [FightStat.CRITICAL_CHANCE]: { percent: 0.05 },
+    [FightStat.DEFLECT]: { percent: [0.3, 0.35, 0.4] },
+    [FightStat.CRITICAL_CHANCE]: { percent: [0.05, 0.1, 0.15] },
   },
   [SkillName.fastMetabolism]: {
-    [FightStat.REGENERATION]: { percent: 0.01 },
-    [FightStat.HIT_SPEED]: { percent: -0.5 },
-    [FightStat.CRITICAL_CHANCE]: { percent: -0.05 },
+    [FightStat.REGENERATION]: { percent: [0.01, 0.02, 0.03] },
+    [FightStat.HIT_SPEED]: { percent: [-0.5, -0.65, -0.8] },
+    [FightStat.CRITICAL_CHANCE]: { percent: [-0.05, -0.1, -0.15] },
   },
 };
 

@@ -144,14 +144,12 @@ const DestinyView = () => {
               {/* Single value */}
               {(branch.type === 'skill' ? (
                 <SkillTooltip
-                  skill={skills.find((s) => s.name === branch.skill)}
+                  skill={branch.skill && skills[branch.skill]}
                 >
                   <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
                 </SkillTooltip>
               ) : branch.type === 'weapon' ? (
-                <WeaponTooltip weapon={weapons
-                  .find((w) => w.name === branch.weapon)}
-                >
+                <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]}>
                   <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
                 </WeaponTooltip>
               ) : branch.type === 'pet' ? (

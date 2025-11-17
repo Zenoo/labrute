@@ -4,6 +4,8 @@ import { getHP } from './getHP';
 import { getTempSkill } from './getTempSkill';
 import { getScaledStat } from './scaledStat';
 import { SkillModifiers } from './skills';
+import { getTieredSkills } from './tieredPerks';
+import { entries } from '../utils';
 
 type BruteStats = Pick<Brute, 'id' | 'skills' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityValue' | 'agilityStat' | 'agilityModifier' | 'speedValue' | 'speedStat' | 'speedModifier' | 'level'>;
 
@@ -19,32 +21,31 @@ export const getFinalStat = (
   };
 
   if (chaos) {
-    brute.skills
-      .filter((skill) => SkillModifiers[skill][stat])
-      .forEach((skillName) => {
+    entries(getTieredSkills(brute, undefined, (skill) => !!SkillModifiers[skill][stat]))
+      .forEach(([skillName, tier]) => {
         const modifier = SkillModifiers[skillName][stat];
 
         // Flat modifier
         if (modifier?.flat) {
-          newBrute[`${stat}Stat`] -= modifier.flat;
+          newBrute[`${stat}Stat`] -= modifier.flat[tier - 1] ?? 0;
           newBrute[`${stat}Stat`] += getScaledStat({
             chaos,
             skill: skillName,
             type: 'flat',
             stat,
-            value: modifier.flat,
+            value: modifier.flat[tier - 1] ?? 0,
           });
         }
 
         // Percent modifier
         if (modifier?.percent) {
-          newBrute[`${stat}Modifier`] /= 1 + modifier.percent;
+          newBrute[`${stat}Modifier`] /= 1 + (modifier.percent[tier - 1] ?? 0);
           newBrute[`${stat}Modifier`] *= 1 + getScaledStat({
             chaos,
             skill: skillName,
             type: 'percent',
             stat,
-            value: modifier.percent,
+            value: modifier.percent[tier - 1] ?? 0,
             precision: 2,
           });
         }
@@ -79,32 +80,31 @@ export const getFinalHP = (
   };
 
   if (chaos) {
-    brute.skills
-      .filter((skill) => SkillModifiers[skill].endurance)
-      .forEach((skillName) => {
+    entries(getTieredSkills(brute, undefined, (skill) => !!SkillModifiers[skill].endurance))
+      .forEach(([skillName, tier]) => {
         const modifier = SkillModifiers[skillName].endurance;
 
         // Flat modifier
         if (modifier?.flat) {
-          newBrute.enduranceStat -= modifier.flat;
+          newBrute.enduranceStat -= modifier.flat[tier - 1] ?? 0;
           newBrute.enduranceStat += getScaledStat({
             chaos,
             skill: skillName,
             type: 'flat',
             stat: 'endurance',
-            value: modifier.flat,
+            value: modifier.flat[tier - 1] ?? 0,
           });
         }
 
         // Percent modifier
         if (modifier?.percent) {
-          newBrute.enduranceModifier /= 1 + modifier.percent;
+          newBrute.enduranceModifier /= 1 + (modifier.percent[tier - 1] ?? 0);
           newBrute.enduranceModifier *= 1 + getScaledStat({
             chaos,
             skill: skillName,
             type: 'percent',
             stat: 'endurance',
-            value: modifier.percent,
+            value: modifier.percent[tier - 1] ?? 0,
             precision: 2,
           });
         }

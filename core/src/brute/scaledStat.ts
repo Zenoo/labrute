@@ -3,6 +3,7 @@ import { seedToRandom } from '../utils';
 import { Pet } from './pets';
 import { Weapon } from './weapons';
 import { FightStat } from './skills';
+import { Tiered } from './tieredPerks';
 
 const scalingByPet = {
   [PetName.bear]: {
@@ -37,8 +38,8 @@ const scalingByPet = {
   },
 } as const;
 
-type NumberKeysOf<T> = {
-  [K in keyof T]: T[K] extends number ? K : never;
+export type TieredNumberKeysOf<T> = {
+  [K in keyof T]: T[K] extends number[] ? K : never;
 }[keyof T];
 
 const CHAOS_SCALE = 3;
@@ -116,13 +117,13 @@ const petStatToBruteStat = {
 export const getPetScaledStat = (
   chaos: boolean,
   brute: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'>,
-  pet: Pet,
-  stat: NumberKeysOf<Pet>,
+  pet: Tiered<Pet>,
+  stat: TieredNumberKeysOf<Pet>,
   precision = 0
 ) => {
   // Some stats scale with brute stats
   if (stat === 'strength' || stat === 'agility' || stat === 'speed' || stat === 'hp') {
-    const base = pet[stat];
+    const base = pet[stat][pet.tier - 1] ?? 0;
     const scaling = scalingByPet[pet.name][stat];
     const bruteStat = brute[petStatToBruteStat[stat]];
     const result = base + Math.ceil(scaling * bruteStat);
@@ -142,33 +143,33 @@ export const getPetScaledStat = (
 
   // Other stats don't scale with brute stats
   if (!chaos) {
-    return pet[stat];
+    return pet[stat][pet.tier - 1] ?? 0;
   }
 
   return getScaledStat({
     chaos,
     pet,
     stat,
-    value: pet[stat],
+    value: pet[stat][pet.tier - 1] ?? 0,
     precision,
   });
 };
 
 export const getWeaponScaledStat = (
   chaos: boolean,
-  weapon: Weapon,
-  stat: NumberKeysOf<Weapon>,
+  weapon: Tiered<Weapon>,
+  stat: TieredNumberKeysOf<Weapon>,
   precision = 0
 ) => {
   if (!chaos) {
-    return weapon[stat];
+    return weapon[stat][weapon.tier - 1] ?? 0;
   }
 
   return getScaledStat({
     chaos,
     weapon,
     stat,
-    value: weapon[stat],
+    value: weapon[stat][weapon.tier - 1] ?? 0,
     precision,
   });
 };

@@ -17,7 +17,7 @@ const getRandomPosition = (
   fighters: AnimationFighter[],
   fighter: AnimationFighter,
   takenPositions?: { y: number }[],
-): {x: number, y: number} => {
+): { x: number, y: number } => {
   // Get fighter min and max x position
   const minXPosition = fighter.team === 'L' ? minLeftXPosition : minRightXPosition;
   const maxXPosition = fighter.team === 'L' ? maxLeftXPosition : maxRightXPosition;
@@ -56,10 +56,10 @@ const getRandomPosition = (
 
   // Find the largest gap
   let largestGap = 0;
-  let largestGapPositions: {start: number, end: number} | null = null;
+  let largestGapPositions: { start: number, end: number } | null = null;
   // List every large enough gap
   const comfortYMargin = 15;
-  const comfortableGapPositions: {start: number, end: number}[] = [];
+  const comfortableGapPositions: { start: number, end: number }[] = [];
 
   // Loop throught fighters Y
   for (let i = 1; i < sortedPositions.length; i++) {
@@ -80,7 +80,7 @@ const getRandomPosition = (
   }
 
   // Chose a random large enough gap position
-  let chosenGapPositions: {start: number, end: number} = comfortableGapPositions.length
+  let chosenGapPositions: { start: number, end: number } = comfortableGapPositions.length
     ? randomItem(comfortableGapPositions)
     : largestGapPositions;
 
@@ -95,7 +95,7 @@ const getRandomPosition = (
   // If not enough space, just go in the middle of the gap
   if (comfortSpace <= 0) {
     resultPosition.y = (chosenGapPositions.start + chosenGapPositions.end) / 2;
-  // Else, chose a random y in the candidate interval
+    // Else, chose a random y in the candidate interval
   } else {
     resultPosition.y = chosenGapPositions.start
       + comfortYMargin
@@ -120,7 +120,7 @@ const getRandomPosition = (
   let randomXPositionFactor = 0.4 + Math.random() * 0.6;
 
   // Adjust x position to get more natural looking movements
-  const possibleWeapon = weapons.find((weapon) => weapon.name === fighter.animation.weapon);
+  const possibleWeapon = fighter.animation.weapon ? weapons[fighter.animation.weapon] : undefined;
   // If fighter has a weapon
   if (possibleWeapon) {
     // A bit further if long range
@@ -137,7 +137,7 @@ const getRandomPosition = (
       && fighter.skills.some((skillId) => skillId === SkillId.weaponsMaster)) {
       randomXPositionFactor += 0.15;
     }
-  // Confidence boost if unarmed and martialArts
+    // Confidence boost if unarmed and martialArts
   } else if (fighter.skills.some((skillId) => skillId === SkillId.martialArts)) {
     randomXPositionFactor += 0.25;
   }

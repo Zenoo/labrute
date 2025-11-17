@@ -1,7 +1,7 @@
 import { Brute, FightModifier } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { randomBetween } from '../utils';
-import { weapons } from './weapons';
+import { weaponList } from './weapons';
 
 export const getTempWeapon = (
   brute: Pick<Brute, 'id' | 'weapons'>,
@@ -15,7 +15,7 @@ export const getTempWeapon = (
   // Seeded random number
   const weaponIndex = randomBetween(0, 200, `${brute.id}-randomWeapon-${dayjs.utc().format('YYYY-MM-DD')}`, useCache);
 
-  const unownedWeapons = weapons.filter((weapon) => !brute.weapons.includes(weapon.name));
+  const unownedWeapons = weaponList.filter((weapon) => !brute.weapons.includes(weapon.name));
 
   if (unownedWeapons.length === 0) {
     return null;

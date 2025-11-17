@@ -1,10 +1,10 @@
+import { pets } from '@labrute/core';
 import { PetName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
-import PetTooltip from '../Brute/PetTooltip';
-import { pets } from '@labrute/core';
 import { PerkColor } from '../../utils/StatColor';
+import PetTooltip from '../Brute/PetTooltip';
 
 const CellPets = ({
   sx,
@@ -47,7 +47,7 @@ const CellPets = ({
 
   return brute && (brute.pets.length ? (
     <PetTooltip
-      pet={pets.find((p) => p.name === hoveredPet)}
+      pet={hoveredPet && pets[hoveredPet]}
       open={hoveredPet !== null}
     >
       <Box sx={{ textAlign: 'center', ...sx }} {...rest}>

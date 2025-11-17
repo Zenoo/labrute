@@ -1,6 +1,7 @@
-import { AchievementsStore, DetailedFight } from '@labrute/core';
+import { AchievementsStore } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import { Stats } from './fightMethods.js';
+import { DetailedFight } from './generateFight.js';
 
 export const handleStats = (
   fightData: DetailedFight,
@@ -45,7 +46,7 @@ export const handleStats = (
     // Win with 1hp
     if (bruteId === winner.id
       && winner.hp === 1
-      && !winner.skills.find((s) => s.name === SkillName.survival)) {
+      && !winner.skills[SkillName.survival]) {
       achievement.achievements.winWith1HP = 1;
     }
 

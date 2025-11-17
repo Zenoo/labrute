@@ -111,15 +111,16 @@ export const FollowingFeedView = () => {
                             {log.destinyChoice?.type === 'pet' && `${t('newPet')} : `}
                             {(log.destinyChoice?.type === 'skill' ? (
                               <SkillTooltip
-                                skill={skills.find((s) => s.name === log.destinyChoice?.skill)}
+                                skill={log.destinyChoice?.skill && skills[log.destinyChoice?.skill]}
                               >
                                 <Text component="span" body2>
                                   {t(log.destinyChoice?.skill ?? '')}
                                 </Text>
                               </SkillTooltip>
                             ) : log.destinyChoice?.type === 'weapon' ? (
-                              <WeaponTooltip weapon={weapons
-                                .find((w) => w.name === log.destinyChoice?.weapon)}
+                              <WeaponTooltip
+                                weapon={log.destinyChoice?.weapon
+                                  && weapons[log.destinyChoice?.weapon]}
                               >
                                 <Text component="span" body2>
                                   {t(log.destinyChoice?.weapon ?? '')}

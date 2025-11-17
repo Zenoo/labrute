@@ -3,17 +3,27 @@ import {
   BARE_HANDS_DAMAGE,
   BASE_FIGHTER_STATS,
   BruteRanking,
-  DetailedFighter, FightStat, getFinalHP, getFinalStat, getPetScaledStat,
+  entries,
+  FightStat, getFinalHP, getFinalStat, getPetScaledStat,
   getScaledStat,
-  getTempSkill,
-  getTempWeapon,
+  getTieredPets,
+  getTieredSkills,
+  getTieredWeapons,
   pets,
-  randomBetween, SkillModifiers, skills, weapons,
+  randomBetween,
+  Skill,
+  SkillModifiers,
+  skills,
+  Tiered,
+  Weapon,
+  weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
   Brute, FightModifier, SkillName,
+  WeaponName,
 } from '@labrute/prisma';
+import { DetailedFighter } from './generateFight.js';
 
 interface Team {
   brutes: Brute[];
@@ -23,10 +33,13 @@ interface Team {
   })[]
 }
 
-const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) => {
-  for (const skill of brute.skills) {
+const handleSkills = (
+  chaos: boolean,
+  fighter: DetailedFighter,
+) => {
+  Object.values(fighter.skills).forEach((skill) => {
     // Stat changes
-    for (const [unsafeStat, modifier] of Object.entries(SkillModifiers[skill])) {
+    for (const [unsafeStat, modifier] of Object.entries(SkillModifiers[skill.name])) {
       const stat = unsafeStat as FightStat;
 
       // Ignore conditional modifiers
@@ -43,10 +56,10 @@ const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) =>
       if (modifier.flat) {
         const flat = getScaledStat({
           chaos,
-          skill,
+          skill: skill.name,
           type: 'flat',
           stat,
-          value: modifier.flat,
+          value: modifier.flat[skill.tier - 1] ?? 0,
           precision: 2,
         });
         if (stat === FightStat.INITIATIVE) {
@@ -58,17 +71,17 @@ const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) =>
       if (modifier.percent) {
         fighter[stat] += getScaledStat({
           chaos,
-          skill,
+          skill: skill.name,
           type: 'percent',
           stat,
-          value: modifier.percent,
+          value: modifier.percent[skill.tier - 1] ?? 0,
           precision: 2,
         });
       }
     }
 
     // Passives
-    switch (skill) {
+    switch (skill.name) {
       case SkillName.shield:
         fighter.shield = true;
         break;
@@ -101,44 +114,14 @@ const handleSkills = (chaos: boolean, brute: Brute, fighter: DetailedFighter) =>
         break;
       case SkillName.fierceBrute: {
         // Add one fierceBrute use every 30 strength
-        const fierceBruteSkill = fighter.skills.find((s) => s.name === skill);
-        if (fierceBruteSkill && fierceBruteSkill.uses) {
-          fierceBruteSkill.uses += Math.floor(fighter.strength / 30);
-        }
+        skill.uses = skill.uses?.map(
+          (use) => use + Math.floor(fighter.strength / 30),
+        ) as [number, number, number];
         break;
       }
       default:
     }
-  }
-};
-
-const handleModifiers = (
-  brute: Brute,
-  modifiers: FightModifier[],
-) => {
-  const randomWeaponName = getTempWeapon(brute, modifiers, false);
-
-  if (randomWeaponName) {
-    const randomWeapon = weapons.find((weapon) => weapon.name === randomWeaponName);
-
-    if (!randomWeapon) {
-      throw new Error('Random weapon not found');
-    }
-
-    brute.weapons.push(randomWeaponName);
-  }
-
-  const randomSkillName = getTempSkill(brute, modifiers, false);
-
-  if (randomSkillName) {
-    const randomSkill = skills.find((skill) => skill.name === randomSkillName);
-
-    if (!randomSkill) {
-      throw new Error('Random skill not found');
-    }
-
-    brute.skills.push(randomSkillName);
-  }
+  });
 };
 
 const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
@@ -169,10 +152,7 @@ export const getFighters = ({
       // Restore endurance lost by pets for clan fights, which do not have pets
       if (clanFight) {
         for (const petName of brute.pets) {
-          const pet = pets.find((p) => p.name === petName);
-          if (!pet) {
-            throw new Error(`Pet ${petName} not found`);
-          }
+          const pet = pets[petName];
 
           brute.enduranceStat += getScaledStat({
             chaos,
@@ -191,7 +171,25 @@ export const getFighters = ({
       const bruteStrength = getFinalStat(chaos, brute, 'strength', modifiers, false);
       const bruteAgility = getFinalStat(chaos, brute, 'agility', modifiers, false);
 
-      handleModifiers(brute, modifiers);
+      // Skills
+      const tieredSkillNames = getTieredSkills(brute, modifiers);
+      const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
+      for (const [skillName, tier] of entries(tieredSkillNames)) {
+        tieredSkills[skillName] = {
+          ...skills[skillName],
+          tier,
+        };
+      }
+
+      // Weapons
+      const tieredWeaponNames = getTieredWeapons(brute, modifiers);
+      const tieredWeapons = new Map<WeaponName, Tiered<Weapon>>();
+      for (const [weaponName, tier] of entries(tieredWeaponNames)) {
+        tieredWeapons.set(weaponName, {
+          ...weapons[weaponName],
+          tier,
+        });
+      }
 
       // Brute stats
       positiveIndex++;
@@ -239,11 +237,8 @@ export const getFighters = ({
         ironHead: false,
         resistant: false,
         fastMetabolism: null,
-        skills: skills
-          .filter((skill) => brute.skills.includes(skill.name))
-          .map((skill) => ({ ...skill })),
-        weapons: weapons
-          .filter((weapon) => brute.weapons.includes(weapon.name)),
+        skills: tieredSkills,
+        weapons: tieredWeapons,
         shield: false,
         activeSkills: [],
         activeWeapon: null,
@@ -256,7 +251,7 @@ export const getFighters = ({
         hitBy: {},
       };
 
-      handleSkills(chaos, brute, fighter);
+      handleSkills(chaos, fighter);
 
       fighters.push(fighter);
 
@@ -266,11 +261,11 @@ export const getFighters = ({
       }
 
       // Pets stats
-      for (const petName of brute.pets) {
-        const pet = pets.find((p) => p.name === petName);
-        if (!pet) {
-          throw new Error(`Pet ${petName} not found`);
-        }
+      for (const [petName, tier] of entries(getTieredPets(brute))) {
+        const pet = {
+          ...pets[petName],
+          tier,
+        };
 
         spawnedPets++;
 
@@ -314,8 +309,8 @@ export const getFighters = ({
           ironHead: false,
           resistant: false,
           fastMetabolism: null,
-          skills: [],
-          weapons: [],
+          skills: {},
+          weapons: new Map(),
           shield: false,
           activeSkills: [],
           activeWeapon: null,
@@ -348,7 +343,25 @@ export const getFighters = ({
       const backupStrength = getFinalStat(chaos, backup, 'strength', modifiers, false);
       const backupAgility = getFinalStat(chaos, backup, 'agility', modifiers, false);
 
-      handleModifiers(backup, modifiers);
+      // Skills
+      const tieredSkillNames = getTieredSkills(backup, modifiers);
+      const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
+      for (const [skillName, tier] of entries(tieredSkillNames)) {
+        tieredSkills[skillName] = {
+          ...skills[skillName],
+          tier,
+        };
+      }
+
+      // Weapons
+      const tieredWeaponNames = getTieredWeapons(backup, modifiers);
+      const tieredWeapons = new Map<WeaponName, Tiered<Weapon>>();
+      for (const [weaponName, tier] of entries(tieredWeaponNames)) {
+        tieredWeapons.set(weaponName, {
+          ...weapons[weaponName],
+          tier,
+        });
+      }
 
       spawnedPets++;
       const backupFighter: DetailedFighter = {
@@ -397,10 +410,8 @@ export const getFighters = ({
         ironHead: false,
         resistant: false,
         fastMetabolism: null,
-        skills: skills
-          .filter((skill) => backup.skills.includes(skill.name))
-          .map((skill) => ({ ...skill })),
-        weapons: weapons.filter((weapon) => backup.weapons.includes(weapon.name)),
+        skills: tieredSkills,
+        weapons: tieredWeapons,
         shield: false,
         activeSkills: [],
         activeWeapon: null,
@@ -413,7 +424,7 @@ export const getFighters = ({
         hitBy: {},
       };
 
-      handleSkills(chaos, backup, backupFighter);
+      handleSkills(chaos, backupFighter);
 
       // Reset initiative to arrive at the desired time
       backupFighter.initiative = arrivesAt;
@@ -465,8 +476,8 @@ export const getFighters = ({
         ironHead: false,
         resistant: false,
         fastMetabolism: null,
-        skills: [],
-        weapons: [],
+        skills: {},
+        weapons: new Map(),
         shield: false,
         activeSkills: [],
         activeWeapon: null,

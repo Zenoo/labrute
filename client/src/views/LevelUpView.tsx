@@ -117,7 +117,7 @@ const LevelUpView = () => {
       {/* Weapons */}
       <Box>
         {brute.weapons.map((weapon) => (
-          <WeaponTooltip weapon={weapons.find((w) => w.name === weapon)} key={weapon}>
+          <WeaponTooltip weapon={weapons[weapon]} key={weapon}>
             <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
           </WeaponTooltip>
         ))}
@@ -125,7 +125,7 @@ const LevelUpView = () => {
       {/* Skills */}
       <Box>
         {brute.skills.map((skill) => (
-          <SkillTooltip skill={skills.find((s) => s.name === skill)} key={skill}>
+          <SkillTooltip skill={skills[skill]} key={skill}>
             <Box
               component="img"
               src={`/images/skills/${skill}.svg`}
@@ -252,14 +252,12 @@ const LevelUpView = () => {
                   {/* Single value */}
                   {(destinyChoice.type === 'skill' ? (
                     <SkillTooltip
-                      skill={skills.find((s) => s.name === destinyChoice.skill)}
+                      skill={destinyChoice.skill && skills[destinyChoice.skill]}
                     >
                       <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
                     </SkillTooltip>
                   ) : destinyChoice.type === 'weapon' ? (
-                    <WeaponTooltip weapon={weapons
-                      .find((w) => w.name === destinyChoice.weapon)}
-                    >
+                    <WeaponTooltip weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}>
                       <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
                     </WeaponTooltip>
                   ) : destinyChoice.type === 'pet' ? (

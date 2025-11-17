@@ -25,4 +25,5 @@ export * from './parsers';
 export * from './pets';
 export * from './scaledStat';
 export * from './skills';
+export * from './tieredPerks';
 export * from './weapons';

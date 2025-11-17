@@ -1,4 +1,4 @@
-import { skills, weapons, WeaponType } from '@labrute/core';
+import { skillList, weaponList, WeaponType } from '@labrute/core';
 import {
   AchievementName,
   Brute, DestinyChoice, PetName, PrismaClient, SkillName, WeaponName,
@@ -22,26 +22,26 @@ export const checkLevelUpAchievements = async (
     userId,
   };
 
-  const fastWeapons = weapons
+  const fastWeapons = weaponList
     .filter((weapon) => weapon.types.includes(WeaponType.FAST))
     .map((weapon) => weapon.name);
-  const sharpWeapons = weapons
+  const sharpWeapons = weaponList
     .filter((weapon) => weapon.types.includes(WeaponType.SHARP))
     .map((weapon) => weapon.name);
-  const heavyWeapons = weapons
+  const heavyWeapons = weaponList
     .filter((weapon) => weapon.types.includes(WeaponType.HEAVY))
     .map((weapon) => weapon.name);
-  const longWeapons = weapons
+  const longWeapons = weaponList
     .filter((weapon) => weapon.types.includes(WeaponType.LONG))
     .map((weapon) => weapon.name);
-  const thrownWeapons = weapons
+  const thrownWeapons = weaponList
     .filter((weapon) => weapon.types.includes(WeaponType.THROWN))
     .map((weapon) => weapon.name);
-  const bluntWeapons = weapons
+  const bluntWeapons = weaponList
     .filter((weapon) => weapon.types.includes(WeaponType.BLUNT))
     .map((weapon) => weapon.name);
-  const deflectingWeapons = weapons
-    .filter((weapon) => weapon.deflect > 0)
+  const deflectingWeapons = weaponList
+    .filter((weapon) => weapon.deflect[0] > 0)
     .map((weapon) => weapon.name);
 
   // Max level
@@ -237,7 +237,7 @@ export const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.immortality);
   }
 
-  const boosts = skills.filter((skill) => skill.type === 'booster').map((skill) => skill.name);
+  const boosts = skillList.filter((skill) => skill.type === 'booster').map((skill) => skill.name);
 
   // Double boost
   if (destinyChoice.skill
@@ -337,8 +337,8 @@ export const checkLevelUpAchievements = async (
   }
 
   // Hostility + a weapon with reversal
-  const counterWeapons = weapons
-    .filter((weapon) => weapon.reversal > 0)
+  const counterWeapons = weaponList
+    .filter((weapon) => weapon.reversal[0] > 0)
     .map((weapon) => weapon.name);
 
   if ((destinyChoice.skill === SkillName.hostility

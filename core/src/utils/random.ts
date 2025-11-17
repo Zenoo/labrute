@@ -62,13 +62,14 @@ export const randomBetween = (min: number, max: number, seed?: string, cache = t
   return Math.floor(random * (max - min + 1) + min);
 };
 
-export const randomItem = <T>(items: T[]): T => {
-  if (!items.length) {
+export const randomItem = <T>(items: T[] | Map<unknown, T>): T => {
+  const size = items instanceof Map ? items.size : items.length;
+  if (size === 0) {
     throw new Error('No items');
   }
 
-  if (items.length === 1) {
-    const item = items[0];
+  if (size === 1) {
+    const item = items instanceof Map ? items.values().next().value : items[0];
 
     if (!item) {
       throw new Error('No item');
@@ -76,9 +77,20 @@ export const randomItem = <T>(items: T[]): T => {
     return item;
   }
 
-  const index = randomBetween(0, items.length - 1);
-  const item = items[index];
+  const index = randomBetween(0, size - 1);
 
+  if (items instanceof Map) {
+    let i = 0;
+    for (const value of items.values()) {
+      if (i === index) {
+        return value;
+      }
+      i++;
+    }
+    throw new Error('No item'); // Should never reach here
+  }
+
+  const item = items[index];
   if (!item) {
     throw new Error('No item');
   }

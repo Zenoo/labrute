@@ -3,6 +3,7 @@ export * from './date';
 export * from './formatLargeNumber';
 export * from './hexToRgba';
 export * from './isUuid';
+export * from './object';
 export * from './pad';
 export * from './random';
 export * from './weightedRandom';

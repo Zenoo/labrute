@@ -1,4 +1,4 @@
-import { FightStat, getFinalHP, getFinalStat, getTempSkill, getTempWeapon, pets, skills, weapons } from '@labrute/core';
+import { entries, FightStat, getFinalHP, getFinalStat, getTieredPets, getTieredSkills, getTieredWeapons, pets, skills, weapons } from '@labrute/core';
 import { Brute, User } from '@labrute/prisma';
 import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
@@ -6,15 +6,15 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
+import { ActivityStatus } from '../ActivityStatus';
 import ArenaStat from '../Arena/ArenaStat';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
-import WeaponTooltip from './WeaponTooltip';
-import SkillTooltip from './SkillTooltip';
 import PetTooltip from './PetTooltip';
-import { ActivityStatus } from '../ActivityStatus';
+import SkillTooltip from './SkillTooltip';
+import WeaponTooltip from './WeaponTooltip';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
@@ -45,32 +45,29 @@ const BruteButton = ({
 
   const bruteWeapons = useMemo(
     () => {
-      if (!displayDetails) return [];
+      if (!displayDetails) return null;
 
-      const randomWeapon = getTempWeapon(brute, modifiers);
-
-      if (randomWeapon) {
-        return brute.weapons.concat(randomWeapon);
-      }
-
-      return brute.weapons;
+      return getTieredWeapons(brute, modifiers);
     },
     [brute, displayDetails, modifiers]
   );
 
   const bruteSkills = useMemo(
     () => {
-      if (!displayDetails) return [];
+      if (!displayDetails) return null;
 
-      const randomSkill = getTempSkill(brute, modifiers);
-
-      if (randomSkill) {
-        return brute.skills.concat(randomSkill);
-      }
-
-      return brute.skills;
+      return getTieredSkills(brute, modifiers);
     },
     [brute, displayDetails, modifiers]
+  );
+
+  const brutePets = useMemo(
+    () => {
+      if (!displayDetails) return null;
+
+      return getTieredPets(brute);
+    },
+    [brute, displayDetails]
   );
 
   const goTo = () => {
@@ -177,9 +174,10 @@ const BruteButton = ({
             />
             {/* Weapons */}
             <Box pt={1}>
-              {bruteWeapons.map((weapon) => (
+              {bruteWeapons && entries(bruteWeapons).map(([weapon, tier]) => (
                 <WeaponTooltip
-                  weapon={weapons.find((w) => w.name === weapon)}
+                  weapon={weapons[weapon]}
+                  tier={tier}
                   key={weapon}
                 >
                   <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
@@ -188,9 +186,10 @@ const BruteButton = ({
             </Box>
             {/* Skills */}
             <Box>
-              {bruteSkills.map((skill) => (
+              {bruteSkills && entries(bruteSkills).map(([skill, tier]) => (
                 <SkillTooltip
-                  skill={skills.find((s) => s.name === skill)}
+                  skill={skills[skill]}
+                  tier={tier}
                   key={skill}
                 >
                   <Box
@@ -208,8 +207,8 @@ const BruteButton = ({
             </Box>
             {/* Pets */}
             <Box>
-              {brute.pets.map((pet) => (
-                <PetTooltip pet={pets.find((p) => p.name === pet)} key={pet}>
+              {brutePets && entries(brutePets).map(([pet, tier]) => (
+                <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
                   <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: 'drop-shadow(1px 1px 1px black)' }} />
                 </PetTooltip>
               ))}

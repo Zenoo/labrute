@@ -35,7 +35,7 @@ const throwWeapon = async (
   if (step.r) {
     // Get correct animation
     const animation = fighter.type === 'brute'
-      ? weapons.find((w) => w.name === fighter.animation.weapon)?.animation || 'fist'
+      ? fighter.animation.weapon ? weapons[fighter.animation.weapon].animation : 'fist'
       : 'attack';
 
     // Set animation to the correct animation
@@ -60,7 +60,7 @@ const throwWeapon = async (
   }
 
   // Infer weapon's weight on it's damage
-  const weaponWeight = weapons.find((weapon) => weapon.name === WeaponById[step.w])?.damage ?? 0;
+  const weaponWeight = weapons[WeaponById[step.w]].damage[0];
   // Small self knockback
   void knockBack(fighter, speed, weaponWeight * 0.25, 0.25);
 

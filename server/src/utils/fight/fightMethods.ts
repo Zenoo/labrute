@@ -2,17 +2,19 @@
 import {
   AchievementsStore,
   ArriveStep,
-  DetailedFight, DetailedFighter,
   FightStat, HasteStep, HitStep, LeaveStep,
   NO_WEAPON_TOSS,
   randomBetween, randomItem,
   Skill,
   SkillActivateStep,
-  SkillByName, SkillModifiers, StepType, TreatStep, updateAchievement, Weapon,
+  SkillByName, SkillModifiers, StepType, Tiered, TreatStep, updateAchievement, Weapon,
   WeaponByName,
   WeaponType,
 } from '@labrute/core';
-import { FightModifier, PetName, SkillName } from '@labrute/prisma';
+import {
+  FightModifier, PetName, SkillName, WeaponName,
+} from '@labrute/prisma';
+import { DetailedFight, DetailedFighter } from './generateFight.js';
 import { getDamage } from './getDamage.js';
 import { getFighterStat } from './getFighterStat.js';
 
@@ -167,7 +169,7 @@ const getRandomOpponent = ({
 }) => {
   // Focus opponent if modifier or if hypnosis
   const focusOpponent = fightData.modifiers.includes(FightModifier.focusOpponent)
-    || fighter.skills.some((skill) => skill.name === SkillName.hypnosis);
+    || !!fighter.skills[SkillName.hypnosis];
 
   let opponents = getOpponents({
     fightData,
@@ -200,7 +202,7 @@ export const saboteur = (fightData: DetailedFight, achievements: AchievementsSto
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
     if (fighter.saboteur) {
       const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
-      if (opponent && opponent.weapons.length > 0) {
+      if (opponent && opponent.weapons.size > 0) {
         const sabotagedWeapon = randomItem(opponent.weapons);
         opponent.sabotagedWeapon = sabotagedWeapon;
         updateAchievement(achievements, 'saboteur', 1, fighter.id);
@@ -227,7 +229,9 @@ export const orderFighters = (fightData: DetailedFight) => {
 };
 
 const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) => {
-  let supers = fighter.skills.filter((skill) => skill.uses);
+  let supers = Object.values(fighter.skills).filter(
+    (skill) => skill.uses?.[skill.tier - 1],
+  );
 
   if (!supers.length) return null;
 
@@ -276,7 +280,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out flashFlood if less than 3 weapons
-  if (fighter.weapons.length + (fighter.activeWeapon ? 1 : 0) < 3) {
+  if (fighter.weapons.size + (fighter.activeWeapon ? 1 : 0) < 3) {
     supers = supers.filter((skill) => skill.name !== SkillName.flashFlood);
   }
 
@@ -308,12 +312,12 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   const NO_SUPER_TOSS = fightData.modifiers.includes(FightModifier.alwaysUseSupers) ? 0 : 10;
   const randomSuper = randomBetween(
     0,
-    supers.reduce((acc, skill) => acc + (skill.toss || 0), -1) + NO_SUPER_TOSS,
+    supers.reduce((acc, skill) => acc + (skill.toss?.[skill.tier - 1] || 0), -1) + NO_SUPER_TOSS,
   );
 
   let toss = 0;
   for (let i = 0; i < supers.length; i += 1) {
-    toss += supers[i]?.toss || 0;
+    toss += supers[i]?.toss?.[(supers[i]?.tier ?? 1) - 1] || 0;
     if (randomSuper < toss) {
       return supers[i];
     }
@@ -324,12 +328,15 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
 export const randomlyDrawWeapon = (
   fightData: DetailedFight,
-  weapons: Weapon[],
+  fighterWeapons: Map<WeaponName, Tiered<Weapon>>,
   forceDraw?: boolean,
 ) => {
-  if (!weapons.length) return null;
+  if (!fighterWeapons.size) return null;
 
-  let totalToss = weapons.reduce((acc, weapon) => acc + (weapon.toss || 0), -1);
+  let totalToss = -1;
+  for (const weapon of fighterWeapons.values()) {
+    totalToss += weapon.toss[weapon.tier - 1] ?? 0;
+  }
 
   if (!forceDraw && !fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
     totalToss += NO_WEAPON_TOSS;
@@ -337,11 +344,12 @@ export const randomlyDrawWeapon = (
 
   const randomWeapon = randomBetween(0, totalToss);
 
+  // Find weapon by accumulated toss
   let toss = 0;
-  for (let i = 0; i < weapons.length; i += 1) {
-    toss += weapons[i]?.toss || 0;
+  for (const weapon of fighterWeapons.values()) {
+    toss += weapon.toss[weapon.tier - 1] ?? 0;
     if (randomWeapon < toss) {
-      return weapons[i];
+      return weapon;
     }
   }
 
@@ -369,7 +377,8 @@ const increaseInitiative = (chaos: boolean, fighter: DetailedFighter, multiplica
   if (fighter.activeWeapon
     && fighter.bodybuilder
     && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
-    tempo *= 1 - (SkillModifiers[SkillName.bodybuilder][FightStat.HIT_SPEED]?.percent ?? 0);
+    tempo *= 1 - (SkillModifiers[SkillName.bodybuilder][FightStat.HIT_SPEED]
+      ?.percent?.[(fighter.skills[SkillName.bodybuilder]?.tier ?? 1) - 1] ?? 0);
   }
 
   // Apply hit speed modifier
@@ -399,8 +408,7 @@ export const fighterArrives = (
       fighter.keepWeaponChance = 0.5;
 
       // Remove weapon from possible weapons
-      const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
-      fighter.weapons.splice(weaponIndex, 1);
+      fighter.weapons.delete(possibleWeapon.name);
 
       // Add weapon to step
       step.w = WeaponByName[possibleWeapon.name];
@@ -408,7 +416,7 @@ export const fighterArrives = (
   }
 
   // Poison fighters (not on bosses) (doesn't trigger for backups)
-  if (!fighter.master && fighter.skills.find((skill) => skill.name === SkillName.chef)) {
+  if (!fighter.master && fighter.skills[SkillName.chef]) {
     getOpponents({ fightData, fighter }).forEach((opponent) => {
       if (opponent.type !== 'boss') {
         opponent.poisonedBy = fighter.index;
@@ -517,7 +525,7 @@ const registerHit = ({
     }
 
     // Max damage to 20% of opponent's health if `resistant`
-    if (opponent.skills.find((sk) => sk.name === 'resistant')) {
+    if (opponent.skills[SkillName.resistant]) {
       actualDamage[opponent.index] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
 
       if ((actualDamage[opponent.index] ?? damage) < damage) {
@@ -637,7 +645,7 @@ const registerHit = ({
         opponent.hitBy[fighter.index] = (opponent.hitBy[fighter.index] || 0) + 1;
 
         // Stun opponent if 3 hits in a row
-        if (fighter.skills.find((s) => s.name === SkillName.chaining)
+        if (fighter.skills[SkillName.chaining]
           && (opponent.hitBy[fighter.index] || 0) === 3) {
           step.s = 1;
           opponent.stunned = true;
@@ -711,8 +719,9 @@ const dropShield = ({
 }) => {
   // Remove brute's shield
   fighter.shield = false;
-  fighter.skills = fighter.skills.filter((sk) => sk.name !== SkillName.shield);
-  fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]?.percent ?? 0;
+  delete fighter.skills[SkillName.shield];
+  fighter.block -= SkillModifiers[SkillName.shield][FightStat.BLOCK]
+    ?.percent?.[(fighter.skills[SkillName.shield]?.tier ?? 1) - 1] ?? 0;
 
   if (addStep) {
     fightData.steps.push({
@@ -740,7 +749,7 @@ const drawWeapon = (
   // Don't always draw a weapon if the fighter is already holding a weapon
   if (fighter.activeWeapon
     && !drawEveryWeapon
-    && randomBetween(0, fighter.weapons.length * 2) === 0) return false;
+    && randomBetween(0, fighter.weapons.size * 2) === 0) return false;
 
   // Draw a weapon
   const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons, forceDraw);
@@ -773,8 +782,7 @@ const drawWeapon = (
   fighter.keepWeaponChance = 0.5;
 
   // Remove weapon from possible weapons
-  const weaponIndex = fighter.weapons.findIndex((w) => w.name === possibleWeapon.name);
-  fighter.weapons.splice(weaponIndex, 1);
+  fighter.weapons.delete(possibleWeapon.name);
 
   // Add equip step
   fightData.steps.push({
@@ -809,12 +817,12 @@ const activateSuper = (
   chaos: boolean,
   fightData: DetailedFight,
   fighter: DetailedFighter,
-  skill: Skill,
+  skill: Tiered<Skill>,
   stats: Stats,
   achievements: AchievementsStore,
 ): boolean => {
   // No uses left (should never happen)
-  if (!skill.uses) return false;
+  if (!skill.uses?.[skill.tier - 1]) return false;
 
   // Can't use super while hypnotized
   if (fighter.hypnotized) return false;
@@ -1193,22 +1201,21 @@ const activateSuper = (
 
       let throwShield = false;
       // Check if this is the last flashFlood cast, either by lack of uses or weapons
-      if (fighter.shield && (skill.uses === 1 || fighter.weapons.length < 6)) {
+      if (fighter.shield && (skill.uses[skill.tier - 1] === 1 || fighter.weapons.size < 6)) {
         // Then throw shield
         throwShield = true;
         dropShield({ fightData, fighter, addStep: false });
       }
 
       // Shuffle weapons
-      const shuffledWeapons = [...fighter.weapons].sort(() => Math.random() - 0.5);
+      const shuffledWeapons = [...fighter.weapons.values()].sort(() => Math.random() - 0.5);
       // Get 3 weapons
       const weaponsToThrow = shuffledWeapons.slice(0, fighter.activeWeapon ? 2 : 3);
 
       // Remove those weapons from the fighter
-      weaponsToThrow.forEach((w) => {
-        const weaponIndex = fighter.weapons.findIndex((weapon) => weapon.name === w.name);
-        fighter.weapons.splice(weaponIndex, 1);
-      });
+      for (const w of weaponsToThrow) {
+        fighter.weapons.delete(w.name);
+      }
 
       // Add active weapon as first weapon if any
       if (fighter.activeWeapon) {
@@ -1225,8 +1232,8 @@ const activateSuper = (
 
       // Get damages for each weapon
       const damages = [];
-      weaponsToThrow.forEach((w) => {
-        const damage = Math.floor(getDamage(chaos, fighter, opponent, w).damage * 1.5);
+      for (const weapon of weaponsToThrow) {
+        const damage = Math.floor(getDamage(chaos, fighter, opponent, weapon).damage * 1.5);
         damages.push(damage);
 
         registerHit({
@@ -1238,9 +1245,9 @@ const activateSuper = (
           damage,
           thrown: true,
           source: 'flashFlood',
-          flashFloodWeapon: w,
+          flashFloodWeapon: weapon,
         });
-      });
+      }
 
       if (throwShield) {
         // Stun brute opponent
@@ -1465,14 +1472,14 @@ const activateSuper = (
   }
 
   // Spend one use
-  skill.uses -= 1;
+  skill.uses[skill.tier - 1] = (skill.uses[skill.tier - 1] ?? 0) - 1;
 
   // Update stats
   updateStats(stats, fighter.id, 'skillsUsed', 1);
 
   // Remove skill if no uses left
-  if (!skill.uses) {
-    fighter.skills.splice(fighter.skills.findIndex((s) => s.name === skill.name), 1);
+  if (!skill.uses?.[skill.tier - 1]) {
+    delete fighter.skills[skill.name];
   }
 
   return true;
@@ -1533,13 +1540,15 @@ const block = ({
 
   // increase block if blocking a throwing weapon with `Hideaway`
   // multiply by ease so the real block bonus mirrors the displayed bonus
-  if (thrown && opponent.skills.find((sk) => sk.name === SkillName.hideaway)) {
-    opponentBlock += ease * (SkillModifiers[SkillName.hideaway][FightStat.BLOCK]?.percent ?? 0);
+  if (thrown && opponent.skills[SkillName.hideaway]) {
+    opponentBlock += ease * (SkillModifiers[SkillName.hideaway][FightStat.BLOCK]
+      ?.percent?.[(opponent.skills[SkillName.hideaway]?.tier ?? 1) - 1] ?? 0);
   }
 
   // increase block if 1HP and `Survival`
-  if (opponent.hp === 1 && opponent.skills.find((sk) => sk.name === SkillName.survival)) {
-    opponentBlock += SkillModifiers[SkillName.survival][FightStat.BLOCK]?.percent ?? 0;
+  if (opponent.hp === 1 && opponent.skills[SkillName.survival]) {
+    opponentBlock += SkillModifiers[SkillName.survival][FightStat.BLOCK]
+      ?.percent?.[(opponent.skills[SkillName.survival]?.tier ?? 1) - 1] ?? 0;
   }
 
   return Math.random() * ease
@@ -1577,8 +1586,9 @@ const evade = (
   let opponentEvasion = getFighterStat(chaos, opponent, 'evasion');
 
   // increase evasion if 1HP and `Survival`
-  if (opponent.hp === 1 && opponent.skills.find((sk) => sk.name === SkillName.survival)) {
-    opponentEvasion += SkillModifiers[SkillName.survival][FightStat.EVASION]?.percent ?? 0;
+  if (opponent.hp === 1 && opponent.skills[SkillName.survival]) {
+    opponentEvasion += SkillModifiers[SkillName.survival][FightStat.EVASION]
+      ?.percent?.[(opponent.skills[SkillName.survival]?.tier ?? 1) - 1] ?? 0;
   }
 
   // Get agility difference (-40 > diff > 40)
@@ -1641,8 +1651,9 @@ const reversal = (chaos: boolean, opponent: DetailedFighter, blocked: boolean) =
   let reversalStat = getFighterStat(chaos, opponent, 'reversal');
 
   // Incrase reversal when blocking with counterAttack
-  if (blocked && opponent.skills.find((sk) => sk.name === SkillName.counterAttack)) {
-    reversalStat += SkillModifiers[SkillName.counterAttack][FightStat.REVERSAL]?.percent ?? 0;
+  if (blocked && opponent.skills[SkillName.counterAttack]) {
+    reversalStat += SkillModifiers[SkillName.counterAttack][FightStat.REVERSAL]
+      ?.percent?.[(opponent.skills[SkillName.counterAttack]?.tier ?? 1) - 1] ?? 0;
   }
 
   return random < reversalStat;
@@ -1660,7 +1671,7 @@ const deflectProjectile = (chaos: boolean, fighter: DetailedFighter, timesDeflec
 
   // Don't take into account weapon repulse for the original thrower unless they keep the weapon
   const deflectWithWeapon = timesDeflected % 2 === 0
-    || fighter.skills.some((skill) => skill.name === SkillName.hideaway)
+    || !!fighter.skills[SkillName.hideaway]
     || fighter.activeWeapon?.types.includes('thrown');
 
   const random = Math.random();
@@ -1758,13 +1769,10 @@ const attack = (
   // Check if the fighter sabotages an opponent's weapon
   if (damage && fighter.sabotage) {
     // 90% chance to sabotage
-    if (opponent.weapons.length && Math.random() < 0.9) {
+    if (opponent.weapons.size && Math.random() < 0.9) {
       // Remove a random weapon
-      const weapon = opponent.weapons.splice(randomBetween(0, opponent.weapons.length - 1), 1)[0];
-
-      if (!weapon) {
-        throw new Error('No weapon found');
-      }
+      const weapon = randomItem([...opponent.weapons.values()]);
+      opponent.weapons.delete(weapon.name);
 
       // Add sabotage step
       fightData.steps.push({
@@ -2165,14 +2173,17 @@ export const playFighterTurn = (
   let attackType = fighter.activeWeapon?.types.includes('thrown')
     ? 'thrown'
     : fighter.activeWeapon
-      ? fighter.skills.find((s) => s.name === 'hideaway')
+      ? fighter.skills[SkillName.hideaway]
         // 50% chance to throw a weapon if the fighter has `hideaway`
         ? randomBetween(0, 1) === 0
           ? 'thrown'
           : 'melee'
         // 1/33 chance to throw a weapon otherwise
         // (influenced by weapon hit speed)
-        : randomBetween(0, Math.round(33 - fighter.activeWeapon.tempo * 5)) === 0
+        : randomBetween(
+          0,
+          Math.round(33 - (fighter.activeWeapon.tempo[fighter.activeWeapon.tier - 1] ?? 0) * 5),
+        ) === 0
           ? 'thrown' : 'melee'
       : 'melee';
 
@@ -2192,7 +2203,7 @@ export const playFighterTurn = (
     && !opponent.stunned
     && !opponent.trapped
     && !fighter.hypnotized) {
-    const opponentHypnosis = opponent.skills.find((skill) => skill.name === SkillName.hypnosis);
+    const opponentHypnosis = opponent.skills[SkillName.hypnosis];
     // 90% success chance
     if (opponentHypnosis && Math.random() < 0.90) {
       // Activate hypnosis
@@ -2237,9 +2248,7 @@ export const playFighterTurn = (
 
       if (opponent.stunned && !opponent.trapped) {
         // Check if opponent can use cryOfTheDamned
-        const opponentCry = opponent.skills.find(
-          (skill) => skill.name === SkillName.cryOfTheDamned,
-        );
+        const opponentCry = opponent.skills[SkillName.cryOfTheDamned];
         if (opponentCry && randomBetween(0, 1) === 0) {
           // Activate cryOfTheDamned
           if (activateSuper(chaos, fightData, opponent, opponentCry, stats, achievements)) {
@@ -2272,7 +2281,7 @@ export const playFighterTurn = (
     }
 
     // Keep weapon if it's a thrown weapon or the fighter has `hideaway`
-    const keepWeapon = fighter.activeWeapon.types.includes('thrown') || !!fighter.skills.find((s) => s.name === 'hideaway');
+    const keepWeapon = fighter.activeWeapon.types.includes('thrown') || !!fighter.skills[SkillName.hideaway];
 
     let firstThrow = true;
 

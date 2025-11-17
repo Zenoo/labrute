@@ -335,6 +335,7 @@ export const Brutes = {
         data: {
           name: req.body.name,
           ...createRandomBruteStats(startingStats),
+          id: undefined,
           gender: req.body.gender,
           user: { connect: { id: user.id } },
           body: req.body.body,

@@ -33,7 +33,7 @@ const trash = async (
   // Listen for `trash:trashed` event
   brute.animation.once('trash:trashed', () => {
     // Infer weapon weight from it's damage
-    const weaponWeight = weapons.find((weapon) => weapon.name === WeaponById[step.w])?.damage ?? 0;
+    const weaponWeight = weapons[WeaponById[step.w]].damage[0];
 
     // Lighter weapons are more likely to be trashed over head
     const throwBackward = Math.random() > Math.max(0.1, Math.min(0.9, weaponWeight / 40));
@@ -47,7 +47,7 @@ const trash = async (
         item: step.w,
         initialVelocity: { r: 17 + Math.random() * 8 },
       });
-    // Ground trash
+      // Ground trash
     } else {
       // Create trashed weapon sprite
       const trashedWeapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);

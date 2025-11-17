@@ -8,7 +8,7 @@ import {
   getRandomStartingStats,
   getTotalXP,
   pets,
-  randomItem,
+  randomItem
 } from '@labrute/core';
 import {
   Brute,
@@ -20,12 +20,12 @@ import {
   WeaponName,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
+import { createUserLog } from '../createUserLog.js';
 import { ServerState } from '../ServerState.js';
 import { translate } from '../translate.js';
 import { checkLevelUpAchievements } from './checkLevelUpAchievements.js';
 import { getOpponents } from './getOpponents.js';
 import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
-import { createUserLog } from '../createUserLog.js';
 
 type Props = {
   prisma: PrismaClient,
@@ -147,11 +147,7 @@ export const resetBrute = async ({
 
   // Take into account the endurance malus from ascended pets
   for (const petName of brute.ascendedPets) {
-    const petStats = pets.find((p) => p.name === petName);
-
-    if (!petStats) {
-      throw new Error('Pet not found');
-    }
+    const petStats = pets[petName];
 
     stats.enduranceStat -= petStats.enduranceMalus;
     stats.enduranceValue = Math.floor(stats.enduranceStat * stats.enduranceModifier);

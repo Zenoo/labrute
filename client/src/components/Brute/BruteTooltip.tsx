@@ -3,10 +3,10 @@ import { Brute } from '@labrute/prisma';
 import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
 import ArenaStat from '../Arena/ArenaStat';
 import Text from '../Text';
 import BruteHP from './BruteHP';
-import { useAuth } from '../../hooks/useAuth';
 
 interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
   brute?: Pick<
@@ -128,11 +128,11 @@ const BruteTooltip = ({
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {[...skillMap(fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type === 'super'))].map(([s, count]) => (count > 1 ? `${t(s)} (${count})` : t(s))).join(', ')}
+                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type === 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {[...skillMap(fighter.skills.filter((s) => skills.find((_s) => _s.name === SkillById[s])?.type !== 'super'))].map(([s, count]) => (count > 1 ? `${t(s)} (${count})` : t(s))).join(', ')}
+                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type !== 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
               </Text>
             </>
           )}

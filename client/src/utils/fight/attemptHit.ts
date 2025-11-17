@@ -33,7 +33,7 @@ const attemptHit = async (
 
   // Custom animation for brutes
   const animation = fighter.type === 'brute'
-    ? typeof step.w !== 'undefined' ? weapons.find((w) => (typeof step.w !== 'undefined' ? w.name === WeaponById[step.w] : false))?.animation || 'fist' : 'fist'
+    ? typeof step.w !== 'undefined' ? weapons[WeaponById[step.w]].animation || 'fist' : 'fist'
     : 'attack';
 
   const hitTriggered = fighter.animation.waitForEvent(`${animation}:hit`);
