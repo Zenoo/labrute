@@ -3,6 +3,7 @@ import {
   ARENA_OPPONENTS_COUNT,
   FIGHTS_PER_DAY,
   createRandomBruteStats,
+  getBruteToSave,
   getLevelUpChoices, getRandomBody,
   getRandomColors,
 } from '@labrute/core';
@@ -43,28 +44,30 @@ const generateBrute = (
     ...createRandomBruteStats(),
   };
 
+  let bruteData = getBruteToSave(data);
+
   // Level the brute to desired level
   for (let j = 1; j < level; j++) {
     // NOTE: Destiny is ignored for now
 
     // Get level up choices
-    const levelUpChoices = getLevelUpChoices(data);
+    const levelUpChoices = getLevelUpChoices(bruteData);
 
     // Randomly choose one of the choices
     const levelUpChoice = Math.random() > 0.5 ? levelUpChoices[0] : levelUpChoices[1];
 
     // Update the brute data
-    data = {
-      ...data,
+    bruteData = {
+      ...bruteData,
       ...updateBruteData(
-        { ...data, id: '', eventId: null },
+        { ...bruteData, id: '', eventId: null },
         levelUpChoice,
       ),
       id: undefined,
     };
   }
 
-  return data;
+  return bruteData;
 };
 
 async function main(cx: ServerContext) {

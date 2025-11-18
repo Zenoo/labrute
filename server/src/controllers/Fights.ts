@@ -1,7 +1,7 @@
 import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
   GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError,
-  canLevelUp, getFightsLeft,
+  canLevelUp, getCalculatedBrute, getFightsLeft,
   getXPNeeded,
   isUuid,
   isWinner,
@@ -85,7 +85,7 @@ export const Fights = {
       }
 
       // Get brutes
-      const brute1 = await prisma.brute.findFirst({
+      const baseBrute1 = await prisma.brute.findFirst({
         where: {
           name: ilike(req.body.brute1),
           deletedAt: null,
@@ -97,27 +97,30 @@ export const Fights = {
           },
         },
       });
-      if (!brute1) {
+      if (!baseBrute1) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
-      const brute2 = await prisma.brute.findFirst({
+      const baseBrute2 = await prisma.brute.findFirst({
         where: {
           name: ilike(req.body.brute2),
           deletedAt: null,
         },
       });
-      if (!brute2) {
+      if (!baseBrute2) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get current modifiers
       const modifiers = await ServerState.getModifiers(prisma);
 
+      const brute1 = getCalculatedBrute(baseBrute1, modifiers);
+      const brute2 = getCalculatedBrute(baseBrute2, modifiers);
+
       // Check if this is an arena fight
       const arenaFight = brute1.opponents.some((opponent) => opponent.name === brute2.name);
 
-      const brute1FightsLeft = getFightsLeft(brute1, modifiers, false);
+      const brute1FightsLeft = getFightsLeft(brute1);
 
       // Cancel if brute1 has no fights left
       if (arenaFight && brute1FightsLeft <= 0) {
@@ -270,7 +273,7 @@ export const Fights = {
         });
       }
 
-      const fightsLeft = getFightsLeft(brute1, modifiers, false);
+      const fightsLeft = getFightsLeft(brute1);
 
       // Send fight id to client
       res.send({

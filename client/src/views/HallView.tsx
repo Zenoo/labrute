@@ -1,5 +1,4 @@
-import { FightStat, MAX_FAVORITE_BRUTES, getFightsLeft, getFinalHP, getFinalStat } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { CalculatedBrute, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
 import { Check, CrisisAlert, Stars } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
@@ -19,12 +18,12 @@ import catchError from '../utils/catchError';
 const HallView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user, updateData, modifiers } = useAuth();
+  const { user, updateData } = useAuth();
   const Alert = useAlert();
   const { palette: { mode } } = useTheme();
 
   const fightsLeft = useMemo(() => user && user.brutes
-    .reduce((acc, brute) => acc + getFightsLeft(brute, modifiers), 0), [user, modifiers]);
+    .reduce((acc, brute) => acc + getFightsLeft(brute), 0), [user]);
 
   // Go to cell page
   const goToCell = useCallback((bruteName: string) => () => {
@@ -32,7 +31,7 @@ const HallView = () => {
   }, [navigate]);
 
   // Toggle favorite
-  const toggleFavorite = useCallback((brute: Brute) => (e: React.MouseEvent) => {
+  const toggleFavorite = useCallback((brute: CalculatedBrute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!user) return;
@@ -86,7 +85,7 @@ const HallView = () => {
       }}
       >
         {user && user.brutes.map((brute) => {
-          const bruteFightsLeft = getFightsLeft(brute, modifiers);
+          const bruteFightsLeft = getFightsLeft(brute);
 
           return (
             <StyledButton
@@ -177,21 +176,21 @@ const HallView = () => {
                   )}
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                  <BruteHP hp={getFinalHP(brute, modifiers)} />
+                  <BruteHP hp={brute.hp} />
                   <Box flexGrow={1} sx={{ ml: 0.5 }}>
                     <ArenaStat
                       stat={FightStat.STRENGTH}
-                      value={getFinalStat(brute, 'strength', modifiers)}
+                      value={brute.strengthValue}
                       hideSkillText
                     />
                     <ArenaStat
                       stat={FightStat.AGILITY}
-                      value={getFinalStat(brute, 'agility', modifiers)}
+                      value={brute.agilityValue}
                       hideSkillText
                     />
                     <ArenaStat
                       stat={FightStat.SPEED}
-                      value={getFinalStat(brute, 'speed', modifiers)}
+                      value={brute.speedValue}
                       hideSkillText
                     />
                   </Box>

@@ -3,12 +3,11 @@ import {
   BARE_HANDS_DAMAGE,
   BASE_FIGHTER_STATS,
   BruteRanking,
+  CalculatedBrute,
   entries,
-  FightStat, getFinalHP, getFinalStat, getPetScaledStat,
+  FightStat, getPetScaledStat,
   getScaledStat,
-  getTieredPets,
-  getTieredSkills,
-  getTieredWeapons,
+  keys,
   Modifiers,
   pets,
   randomBetween,
@@ -21,14 +20,14 @@ import {
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
-  Brute, FightModifier, SkillName,
+  FightModifier, SkillName,
   WeaponName,
 } from '@labrute/prisma';
 import { DetailedFighter } from './generateFight.js';
 
 interface Team {
-  brutes: Brute[];
-  backups: Brute[];
+  brutes: CalculatedBrute[];
+  backups: CalculatedBrute[];
   bosses: (Boss & {
     startHP: number;
   })[]
@@ -141,6 +140,7 @@ export const getFighters = ({
   clanFight,
 }: GetFightersParams): DetailedFighter[] => {
   const chaos = modifiers[FightModifier.chaos] === true;
+
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
@@ -152,7 +152,7 @@ export const getFighters = ({
 
       // Restore endurance lost by pets for clan fights, which do not have pets
       if (clanFight) {
-        for (const petName of brute.pets) {
+        for (const petName of keys(brute.pets)) {
           const pet = pets[petName];
 
           brute.enduranceStat += getScaledStat({
@@ -164,18 +164,9 @@ export const getFighters = ({
           brute.enduranceValue = Math.floor(brute.enduranceStat * brute.enduranceModifier);
         }
       }
-
-      // Fetch brute stats before handling modifiers,
-      // as both depend on the skills, which get modified
-      const bruteHP = getFinalHP(brute, modifiers, false);
-      const bruteSpeed = getFinalStat(brute, 'speed', modifiers, false);
-      const bruteStrength = getFinalStat(brute, 'strength', modifiers, false);
-      const bruteAgility = getFinalStat(brute, 'agility', modifiers, false);
-
       // Skills
-      const tieredSkillNames = getTieredSkills(brute, modifiers);
       const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
-      for (const [skillName, tier] of entries(tieredSkillNames)) {
+      for (const [skillName, tier] of entries(brute.skills)) {
         tieredSkills[skillName] = {
           ...skills[skillName],
           tier,
@@ -183,9 +174,8 @@ export const getFighters = ({
       }
 
       // Weapons
-      const tieredWeaponNames = getTieredWeapons(brute, modifiers);
       const tieredWeapons = new Map<WeaponName, Tiered<Weapon>>();
-      for (const [weaponName, tier] of entries(tieredWeaponNames)) {
+      for (const [weaponName, tier] of entries(brute.weapons)) {
         tieredWeapons.set(weaponName, {
           ...weapons[weaponName],
           tier,
@@ -207,17 +197,17 @@ export const getFighters = ({
         rank: brute.ranking as BruteRanking,
         level: brute.level,
         type: 'brute',
-        maxHp: bruteHP,
-        hp: bruteHP,
-        strength: bruteStrength,
-        agility: bruteAgility,
-        speed: bruteSpeed,
+        maxHp: brute.hp,
+        hp: brute.hp,
+        strength: brute.strengthValue,
+        agility: brute.agilityValue,
+        speed: brute.speedValue,
         criticalChance: BASE_FIGHTER_STATS.criticalChance,
         criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
         regeneration: 0,
-        initiative: (randomBetween(0, 10) - bruteSpeed) / 100,
+        initiative: (randomBetween(0, 10) - brute.speedValue) / 100,
         hitSpeed: 0,
-        tempo: getTempo(bruteSpeed),
+        tempo: getTempo(brute.speedValue),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
         combo: 0,
@@ -262,7 +252,7 @@ export const getFighters = ({
       }
 
       // Pets stats
-      for (const [petName, tier] of entries(getTieredPets(brute))) {
+      for (const [petName, tier] of entries(brute.pets)) {
         const pet = {
           ...pets[petName],
           tier,
@@ -336,18 +326,9 @@ export const getFighters = ({
 
       // Arrives at a random time
       const arrivesAt = randomBetween(1, 500) / 100;
-
-      // Fetch backup stats before handling modifiers,
-      // as both depend on the skills, which get modified
-      const backupHP = getFinalHP(backup, modifiers, false);
-      const backupSpeed = getFinalStat(backup, 'speed', modifiers, false);
-      const backupStrength = getFinalStat(backup, 'strength', modifiers, false);
-      const backupAgility = getFinalStat(backup, 'agility', modifiers, false);
-
       // Skills
-      const tieredSkillNames = getTieredSkills(backup, modifiers);
       const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
-      for (const [skillName, tier] of entries(tieredSkillNames)) {
+      for (const [skillName, tier] of entries(backup.skills)) {
         tieredSkills[skillName] = {
           ...skills[skillName],
           tier,
@@ -355,9 +336,8 @@ export const getFighters = ({
       }
 
       // Weapons
-      const tieredWeaponNames = getTieredWeapons(backup, modifiers);
       const tieredWeapons = new Map<WeaponName, Tiered<Weapon>>();
-      for (const [weaponName, tier] of entries(tieredWeaponNames)) {
+      for (const [weaponName, tier] of entries(backup.weapons)) {
         tieredWeapons.set(weaponName, {
           ...weapons[weaponName],
           tier,
@@ -380,17 +360,17 @@ export const getFighters = ({
         master: backupMaster.id,
         arrivesAtInitiative: arrivesAt,
         leavesAtInitiative: arrivesAt + 2.8,
-        maxHp: backupHP,
-        hp: backupHP,
-        strength: backupStrength,
-        agility: backupAgility,
-        speed: backupSpeed,
+        maxHp: backup.hp,
+        hp: backup.hp,
+        strength: backup.strengthValue,
+        agility: backup.agilityValue,
+        speed: backup.speedValue,
         criticalChance: BASE_FIGHTER_STATS.criticalChance,
         criticalDamage: BASE_FIGHTER_STATS.criticalDamage,
         regeneration: 0,
         initiative: arrivesAt,
         hitSpeed: 0,
-        tempo: getTempo(backupSpeed),
+        tempo: getTempo(backup.speedValue),
         baseDamage: BARE_HANDS_DAMAGE,
         counter: 0,
         combo: 0,

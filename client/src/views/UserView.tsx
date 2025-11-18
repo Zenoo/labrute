@@ -1,4 +1,4 @@
-import { AchievementData, BanReason, Fighter, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getFightsLeft } from '@labrute/core';
+import { AchievementData, BanReason, Fighter, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft } from '@labrute/core';
 import { Check, ManageSearch, QuestionMark } from '@mui/icons-material';
 import { Box, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import dayjs from 'dayjs';
@@ -20,15 +20,19 @@ import { useConfirm } from '../hooks/useConfirm';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 
+type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> & {
+  brutes: ReturnType<typeof getCalculatedBrute<UserGetProfileResponse['brutes'][0]>>[];
+};
+
 const UserView = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
-  const { user: authedUser, updateData, modifiers } = useAuth();
+  const { modifiers, user: authedUser, updateData } = useAuth();
   const Confirm = useConfirm();
 
-  const [user, setUser] = useState<UserGetProfileResponse | null>(null);
+  const [user, setUser] = useState<CalculatedUserGetProfileResponse | null>(null);
   const [banReason, setBanReason] = useState('');
 
   // Fetch user profile
@@ -38,9 +42,10 @@ const UserView = () => {
     }
 
     Server.User.getProfile(userId).then((profile) => {
-      setUser(profile);
+      const brutes = profile.brutes.map((brute) => getCalculatedBrute(brute, modifiers));
+      setUser({ ...profile, brutes });
     }).catch(catchError(Alert));
-  }, [Alert, userId]);
+  }, [Alert, modifiers, userId]);
 
   const getDinoRpgReward = useCallback(() => {
     if (!authedUser) return;
@@ -52,12 +57,12 @@ const UserView = () => {
         dinorpgDone: new Date(),
         brutes: data.brutes.map((brute) => ({
           ...brute,
-          fightsLeft: getFightsLeft(brute, modifiers) + 1,
+          fightsLeft: getFightsLeft(brute) + 1,
           lastFight: new Date(),
         })),
       }) : null));
     }).catch(catchError(Alert));
-  }, [Alert, authedUser, modifiers, t, updateData]);
+  }, [Alert, authedUser, t, updateData]);
 
   // Ban user
   const banUser = useCallback(() => {
@@ -303,7 +308,7 @@ const UserView = () => {
             }}
             >
               {user && user.brutes.map((brute) => (
-                <BruteButton key={brute.id} brute={brute} link={`/${brute.name}/cell`} />
+                <BruteButton key={brute.id} brute={brute} link={`/${brute.name}/cell`} displayDetails={false} />
               ))}
             </Box>
             {/* FAVORITE FIGHTS */}

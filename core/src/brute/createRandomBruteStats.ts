@@ -5,6 +5,9 @@ import { getHP } from './getHP';
 import { getRandomBonus } from './getRandomBonus';
 import { getRandomStartingStats } from './getRandomStartingStats';
 import { pets } from './pets';
+import { getBruteToSave } from './calculatedBrute';
+import { keys } from '../utils';
+import { TieredPerks } from '../types';
 
 export const createRandomBruteStats = (
   baseStats?: { endurance: number, strength: number, agility: number, speed: number } | null,
@@ -12,7 +15,7 @@ export const createRandomBruteStats = (
   perkName?: string | null,
   stats?: Pick<DestinyChoice, 'stat1' | 'stat1Value' | 'stat2' | 'stat2Value'>,
 ) => {
-  let brute = {
+  const brute = {
     level: 1,
     xp: 0,
     hp: 0,
@@ -28,10 +31,10 @@ export const createRandomBruteStats = (
     speedStat: 0,
     speedModifier: 1,
     speedValue: 0,
-    skills: [] as SkillName[],
-    pets: [] as PetName[],
+    skills: {} as TieredPerks['skills'],
+    pets: {} as TieredPerks['pets'],
     ranking: BruteRankings[0],
-    weapons: [] as WeaponName[],
+    weapons: {} as TieredPerks['weapons'],
   };
 
   let perk: { type: DestinyChoiceType, name: PetName | SkillName | WeaponName } | null = null;
@@ -42,11 +45,11 @@ export const createRandomBruteStats = (
       perk = { type: perkType, name: perkName as PetName | SkillName | WeaponName };
 
       if (perkType === DestinyChoiceType.pet) {
-        brute.pets = [perkName as PetName];
+        brute.pets[perkName as PetName] = 1;
       } else if (perkType === DestinyChoiceType.skill) {
-        brute.skills = [perkName as SkillName];
+        brute.skills[perkName as SkillName] = 1;
       } else {
-        brute.weapons = [perkName as WeaponName];
+        brute.weapons[perkName as WeaponName] = 1;
       }
     } else if (stats) {
       if (stats.stat1 && stats.stat1Value) {
@@ -58,29 +61,35 @@ export const createRandomBruteStats = (
     }
   } else {
     // Random perk
-    perk = getRandomBonus(brute, true);
+    perk = getRandomBonus(getBruteToSave(brute), true);
 
     if (!perk) {
       throw new Error('No bonus found');
     }
 
     // Pet
-    brute.pets = perk.type === DestinyChoiceType.pet ? [perk.name as PetName] : [];
+    if (perk.type === DestinyChoiceType.pet) {
+      brute.pets[perk.name as PetName] = 1;
+    }
     // Skill
-    brute.skills = perk.type === DestinyChoiceType.skill ? [perk.name as SkillName] : [];
+    if (perk.type === DestinyChoiceType.skill) {
+      brute.skills[perk.name as SkillName] = 1;
+    }
     // Weapon
-    brute.weapons = perk.type === DestinyChoiceType.weapon ? [perk.name as WeaponName] : [];
+    if (perk.type === DestinyChoiceType.weapon) {
+      brute.weapons[perk.name as WeaponName] = 1;
+    }
   }
 
   // Stats boosters
   if (perk?.type === 'skill') {
-    const skill = brute.skills[0];
+    const skill = keys(brute.skills)[0];
 
     if (!skill) {
       throw new Error('Skill not found');
     }
 
-    brute = applySkillModifiers(brute, skill);
+    applySkillModifiers(brute, skill);
   }
 
   // Starting stats

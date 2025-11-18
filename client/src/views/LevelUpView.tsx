@@ -1,4 +1,4 @@
-import { BrutesGetLevelUpChoicesResponse, convertEnduranceToHP, getFinalHP, getFinalStat, getXPNeeded, skills, weapons } from '@labrute/core';
+import { BrutesGetLevelUpChoicesResponse, convertEnduranceToHP, entries, getCalculatedBrute, getXPNeeded, skills, weapons } from '@labrute/core';
 import { Brute, BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -83,28 +83,32 @@ const LevelUpView = () => {
     // Update user data
     updateData((data) => (data ? ({
       ...data,
-      brutes: data.brutes.map((b) => (b.name === brute.name ? ({ ...b, ...newBrute }) : b)),
+      brutes: data.brutes.map((b) => (b.name === brute.name
+        ? ({ ...b, ...getCalculatedBrute(newBrute, modifiers) })
+        : b)),
     }) : null));
 
     // Update brute data
-    updateBrute((data) => (data ? ({ ...data, ...newBrute }) : null));
+    updateBrute((data) => (data
+      ? ({ ...data, ...getCalculatedBrute(newBrute, modifiers) })
+      : null));
 
     navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
-  }, [Alert, brute, choices, navigate, updateBrute, updateData]);
+  }, [Alert, brute, choices, modifiers, navigate, updateBrute, updateData]);
 
   const stats = brute && (
     <>
       {/* HP */}
       <Box>
-        <BruteHP hp={getFinalHP(brute, modifiers)} />
+        <BruteHP hp={brute.hp} />
         <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
-      <CellStats value={getFinalStat(brute, 'strength', modifiers)} stat="strength" />
+      <CellStats value={brute.strengthValue} stat="strength" />
       {/* AGILITY */}
-      <CellStats value={getFinalStat(brute, 'agility', modifiers)} stat="agility" />
+      <CellStats value={brute.agilityValue} stat="agility" />
       {/* SPEED */}
-      <CellStats value={getFinalStat(brute, 'speed', modifiers)} stat="speed" />
+      <CellStats value={brute.speedValue} stat="speed" />
       <Link to={`/${brute.name}/cell`}>
         <Text bold>{t('backToCell')}</Text>
       </Link>
@@ -116,16 +120,16 @@ const LevelUpView = () => {
     <>
       {/* Weapons */}
       <Box>
-        {brute.weapons.map((weapon) => (
-          <WeaponTooltip weapon={weapons[weapon]} key={weapon}>
+        {entries(brute.weapons).map(([weapon, tier]) => (
+          <WeaponTooltip weapon={weapons[weapon]} tier={tier} key={weapon}>
             <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
           </WeaponTooltip>
         ))}
       </Box>
       {/* Skills */}
       <Box>
-        {brute.skills.map((skill) => (
-          <SkillTooltip skill={skills[skill]} key={skill}>
+        {entries(brute.skills).map(([skill, tier]) => (
+          <SkillTooltip skill={skills[skill]} tier={tier} key={skill}>
             <Box
               component="img"
               src={`/images/skills/${skill}.svg`}

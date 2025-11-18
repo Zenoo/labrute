@@ -8,10 +8,7 @@
   "parserOptions": {
     "project": ["./tsconfig.json"]
   },
-  "plugins": [
-    "@typescript-eslint",
-    "eslint-plugin-tsdoc"
-  ],
+  "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -38,10 +35,7 @@
     "semi": "off",
     "@typescript-eslint/semi": ["error"],
     "node/no-unpublished-import": "off",
-    "node/no-unsupported-features/es-syntax": [
-      "error",
-      { "ignores": ["modules"] }
-    ],
+    "node/no-unsupported-features/es-syntax": ["error", { "ignores": ["modules"] }],
     "linebreak-style": "off",
     "eol-last": "off",
     "no-nested-ternary": "off",

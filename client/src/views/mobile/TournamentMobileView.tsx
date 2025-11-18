@@ -1,5 +1,5 @@
-import { Fighter, isWinner, TournamentsGetDailyResponse } from '@labrute/core';
-import { Brute, Gender } from '@labrute/prisma';
+import { CalculatedBrute, Fighter, isWinner, TournamentsGetDailyResponse } from '@labrute/core';
+import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import { Box, Paper, useTheme } from '@mui/material';
 import dayjs from 'dayjs';
@@ -42,7 +42,7 @@ interface Props {
   winnerFightFighters?: Fighter[],
   ownsBrute: boolean,
   stepWatched: number,
-  brute: Brute | null,
+  brute: CalculatedBrute | null,
   display: boolean,
   goToFight: (fight: TournamentsGetDailyResponse['fights'][number], newStep: number) => () => void,
   setWatched: () => void,

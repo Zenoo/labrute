@@ -32,7 +32,7 @@ const AscendView = () => {
 
   const [selectedPerk, setSelectedPerk] = useState<WeaponName | SkillName | PetName | null>(null);
 
-  const [selectedPerkType, setSelectedPerkType] = useState<'weapon' | 'skill'| 'pet' | null>(null);
+  const [selectedPerkType, setSelectedPerkType] = useState<'weapon' | 'skill' | 'pet' | null>(null);
 
   // Check if redirect
   useEffect(() => {
@@ -84,11 +84,11 @@ const AscendView = () => {
       maxAscendedDogLevel = 1;
     }
     let maxOwnedDogLevel = 0;
-    if (brute.pets.includes('dog3')) {
+    if (brute.pets[PetName.dog3]) {
       maxOwnedDogLevel = 3;
-    } else if (brute.pets.includes('dog2')) {
+    } else if (brute.pets[PetName.dog2]) {
       maxOwnedDogLevel = 2;
-    } else if (brute.pets.includes('dog1')) {
+    } else if (brute.pets[PetName.dog1]) {
       maxOwnedDogLevel = 1;
     }
 

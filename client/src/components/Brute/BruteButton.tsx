@@ -1,11 +1,10 @@
-import { entries, FightStat, getFinalHP, getFinalStat, getTieredPets, getTieredSkills, getTieredWeapons, pets, skills, weapons } from '@labrute/core';
-import { Brute, User } from '@labrute/prisma';
+import { CalculatedBrute, entries, FightStat, pets, skills, weapons } from '@labrute/core';
+import { User } from '@labrute/prisma';
 import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../../hooks/useAuth';
 import { ActivityStatus } from '../ActivityStatus';
 import ArenaStat from '../Arena/ArenaStat';
 import StyledButton from '../StyledButton';
@@ -17,13 +16,13 @@ import SkillTooltip from './SkillTooltip';
 import WeaponTooltip from './WeaponTooltip';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
-  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
+  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
   displayDetails?: false;
   owner?: Pick<User, 'lastSeen'>;
   shiftMargin?: boolean;
 } | {
-  brute: Pick<Brute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
+  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
   owner?: Pick<User, 'lastSeen'>;
@@ -41,34 +40,6 @@ const BruteButton = ({
 }: BruteButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { modifiers } = useAuth();
-
-  const bruteWeapons = useMemo(
-    () => {
-      if (!displayDetails) return null;
-
-      return getTieredWeapons(brute, modifiers);
-    },
-    [brute, displayDetails, modifiers]
-  );
-
-  const bruteSkills = useMemo(
-    () => {
-      if (!displayDetails) return null;
-
-      return getTieredSkills(brute, modifiers);
-    },
-    [brute, displayDetails, modifiers]
-  );
-
-  const brutePets = useMemo(
-    () => {
-      if (!displayDetails) return null;
-
-      return getTieredPets(brute);
-    },
-    [brute, displayDetails]
-  );
 
   const goTo = () => {
     if (!link) return;
@@ -143,21 +114,21 @@ const BruteButton = ({
           )}
         </Text>
         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-          <BruteHP hp={getFinalHP(brute, modifiers)} />
+          <BruteHP hp={brute.hp} />
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}
-              value={getFinalStat(brute, 'strength', modifiers)}
+              value={brute.strengthValue}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.AGILITY}
-              value={getFinalStat(brute, 'agility', modifiers)}
+              value={brute.agilityValue}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.SPEED}
-              value={getFinalStat(brute, 'speed', modifiers)}
+              value={brute.speedValue}
               hideSkillText
             />
           </Box>
@@ -174,7 +145,7 @@ const BruteButton = ({
             />
             {/* Weapons */}
             <Box pt={1}>
-              {bruteWeapons && entries(bruteWeapons).map(([weapon, tier]) => (
+              {entries(brute.weapons).map(([weapon, tier]) => (
                 <WeaponTooltip
                   weapon={weapons[weapon]}
                   tier={tier}
@@ -186,7 +157,7 @@ const BruteButton = ({
             </Box>
             {/* Skills */}
             <Box>
-              {bruteSkills && entries(bruteSkills).map(([skill, tier]) => (
+              {entries(brute.skills).map(([skill, tier]) => (
                 <SkillTooltip
                   skill={skills[skill]}
                   tier={tier}
@@ -207,7 +178,7 @@ const BruteButton = ({
             </Box>
             {/* Pets */}
             <Box>
-              {brutePets && entries(brutePets).map(([pet, tier]) => (
+              {entries(brute.pets).map(([pet, tier]) => (
                 <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
                   <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: 'drop-shadow(1px 1px 1px black)' }} />
                 </PetTooltip>

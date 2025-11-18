@@ -2,13 +2,17 @@ import {
   ARENA_OPPONENTS_MAX_GAP,
   HookBrute,
   RESET_PRICE,
+  ServerHookBrute,
   applySkillModifiers,
   createRandomBruteStats,
   getMaxFightsPerDay,
+  getPetsList,
   getRandomStartingStats,
+  getSkillsList,
   getTotalXP,
+  getWeaponsList,
   pets,
-  randomItem
+  randomItem,
 } from '@labrute/core';
 import {
   Brute,
@@ -21,7 +25,6 @@ import {
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { createUserLog } from '../createUserLog.js';
-import { ServerState } from '../ServerState.js';
 import { translate } from '../translate.js';
 import { checkLevelUpAchievements } from './checkLevelUpAchievements.js';
 import { getOpponents } from './getOpponents.js';
@@ -125,7 +128,7 @@ export const resetBrute = async ({
   }
 
   // Random stats
-  let stats = createRandomBruteStats(
+  const stats = createRandomBruteStats(
     baseStats,
     firstBonus.type,
     firstBonus.type === DestinyChoiceType.pet
@@ -137,13 +140,22 @@ export const resetBrute = async ({
       ? firstBonus : undefined,
   );
 
-  // Get current modifiers
-  const modifiers = await ServerState.getModifiers(prisma);
-
   // Add ascended perks
-  stats.weapons = stats.weapons.concat(brute.ascendedWeapons);
-  stats.skills = stats.skills.concat(brute.ascendedSkills);
-  stats.pets = stats.pets.concat(brute.ascendedPets);
+  for (const weaponName of ascendedWeapons) {
+    stats.weapons[weaponName] = stats.weapons[weaponName]
+      ? stats.weapons[weaponName] + 1
+      : 1;
+  }
+  for (const skillName of ascendedSkills) {
+    stats.skills[skillName] = stats.skills[skillName]
+      ? stats.skills[skillName] + 1
+      : 1;
+  }
+  for (const petName of ascendedPets) {
+    stats.pets[petName] = stats.pets[petName]
+      ? stats.pets[petName] + 1
+      : 1;
+  }
 
   // Take into account the endurance malus from ascended pets
   for (const petName of brute.ascendedPets) {
@@ -155,14 +167,17 @@ export const resetBrute = async ({
 
   // Apply ascended skill modifiers
   for (const skillName of brute.ascendedSkills) {
-    stats = applySkillModifiers(stats, skillName);
+    applySkillModifiers(stats, skillName);
   }
 
   // Update the brute
-  const updatedBrute: HookBrute = await prisma.brute.update({
+  const updatedBrute: ServerHookBrute = await prisma.brute.update({
     where: { id: brute.id },
     data: {
       ...stats,
+      weapons: getWeaponsList(stats),
+      skills: getSkillsList(stats),
+      pets: getPetsList(stats),
       // Store previous destiny
       previousDestinyPath: brute.destinyPath,
       // Reset destiny
@@ -172,7 +187,7 @@ export const resetBrute = async ({
         ...stats,
         id: brute.id,
         eventId: null,
-      }, modifiers, false),
+      }),
       // Ranking
       ranking: rankUp ? brute.ranking - 1 : brute.ranking,
       ascensions,

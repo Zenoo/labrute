@@ -14,6 +14,7 @@ import {
   UsersAuthenticateResponse,
   Version,
   getFightsLeft,
+  getTieredSkills,
   isUuid,
 } from '@labrute/core';
 import {
@@ -365,6 +366,8 @@ export const Users = {
               colors: true,
               ranking: true,
               skills: true,
+              weapons: true,
+              pets: true,
               eventId: true,
             },
             where: {
@@ -470,7 +473,9 @@ export const Users = {
       }
 
       const modifiers = await ServerState.getModifiers(prisma);
-      const isDoneForToday = brutes.every((brute) => getFightsLeft(brute, modifiers, false) === 0);
+      const isDoneForToday = brutes.every(
+        (brute) => getFightsLeft({ ...brute, skills: getTieredSkills(brute, modifiers) }) === 0,
+      );
 
       res.send(isDoneForToday);
     } catch (error) {
@@ -567,7 +572,9 @@ export const Users = {
       const modifiers = await ServerState.getModifiers(prisma);
 
       for (const brute of brutes) {
-        const fightsLeft = getFightsLeft(brute, modifiers, false) + 1;
+        const fightsLeft = getFightsLeft(
+          { ...brute, skills: getTieredSkills(brute, modifiers) },
+        ) + 1;
 
         await prisma.brute.update({
           where: {

@@ -1,4 +1,4 @@
-import { getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor } from '@labrute/core';
+import { getCalculatedBrute, getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE, UsersAuthenticateResponse } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Lock, LockOpen } from '@mui/icons-material';
 import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -14,7 +14,7 @@ import StyledButton from '../components/StyledButton';
 import StyledInput from '../components/StyledInput';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
-import { useAuth } from '../hooks/useAuth';
+import { LoggedInUser, useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
@@ -30,7 +30,7 @@ const HomeView = () => {
   const { t } = useTranslation();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
-  const { authing, setAuthing, updateData, user } = useAuth();
+  const { authing, modifiers, setAuthing, updateData, user } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const { palette: { mode } } = useTheme();
@@ -58,22 +58,34 @@ const HomeView = () => {
 
     if (code && !authing && !user) {
       setAuthing(true);
-      Fetch<UserWithBrutesBodyColor>('/api/oauth/token', { code }).then((response) => {
-        // Update language
-        setLanguage(response.lang);
+      Fetch<UsersAuthenticateResponse>('/api/oauth/token', { code }).then((response) => {
+        if (!response.user) {
+          throw new Error('No user returned from OAuth token endpoint');
+        }
 
-        updateData(response);
+        // Update language
+        setLanguage(response.user.lang);
+
+        const loggedInUser: LoggedInUser = {
+          ...response.user,
+          brutes: response.user.brutes
+            .map((brute) => getCalculatedBrute(brute, response.modifiers)),
+        };
+
+        updateData(loggedInUser);
 
         // Save user data in cookies
-        setCookie(USER_COOKIE, response.id, 7);
-        setCookie(TOKEN_COOKIE, response.connexionToken, 7);
+        setCookie(USER_COOKIE, response.user.id, 7);
+        setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
         Alert.open('success', t('loginSuccess'));
 
         // Redirect to first brute if exists
-        if (response.brutes.length) {
-          url.pathname = `/${response.brutes[0]?.name}/cell`;
+        if (loggedInUser.brutes.length) {
+          url.pathname = `/${loggedInUser.brutes[0]?.name}/cell`;
           // force refresh
           window.location.href = url.toString();
+        } else {
+          window.location.href = '/';
         }
         window.history.replaceState({}, '', url.toString());
       }).catch(catchError(Alert)).finally(() => {
@@ -185,7 +197,9 @@ const HomeView = () => {
       updateData({
         ...user,
         // Add brute to user brutes
-        brutes: user.brutes ? [...user.brutes, response.brute] : [response.brute],
+        brutes: user.brutes
+          ? [...user.brutes, getCalculatedBrute(response.brute, modifiers)]
+          : [getCalculatedBrute(response.brute, modifiers)],
         // Update gold
         gold: user.gold - response.goldLost,
         // Update brute limit
@@ -194,7 +208,7 @@ const HomeView = () => {
       // Redirect to brute page
       navigate(`/${name}/cell`);
     }
-  }, [Alert, colors, body, gender, name, navigate, t, updateData, user]);
+  }, [user, name, Alert, gender, body, colors, t, updateData, modifiers, navigate]);
 
   // Login
   const login = useCallback(() => {

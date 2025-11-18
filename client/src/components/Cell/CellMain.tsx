@@ -38,7 +38,7 @@ const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { user, authing, currentEvent, modifiers } = useAuth();
+  const { user, authing, currentEvent } = useAuth();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -46,8 +46,8 @@ const CellMain = ({
   );
 
   const fightsLeft = useMemo(
-    () => (brute ? getFightsLeft(brute, modifiers) : 0),
-    [brute, modifiers],
+    () => (brute ? getFightsLeft(brute) : 0),
+    [brute],
   );
 
   // Rank up
@@ -187,7 +187,7 @@ const CellMain = ({
           : (
             <Box sx={{ textAlign: 'center' }}>
               <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-              <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute, modifiers) })}</Text>
+              <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
             </Box>
           )
         : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (

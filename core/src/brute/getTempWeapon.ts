@@ -7,14 +7,13 @@ import { Modifiers } from '../types';
 export const getTempWeapon = (
   brute: Pick<Brute, 'id' | 'weapons'>,
   modifiers: Modifiers,
-  useCache = true,
 ) => {
   if (!modifiers[FightModifier.randomWeapon]) {
     return null;
   }
 
   // Seeded random number
-  const weaponIndex = randomBetween(0, 200, `${brute.id}-randomWeapon-${dayjs.utc().format('YYYY-MM-DD')}`, useCache);
+  const weaponIndex = randomBetween(0, 200, `${brute.id}-randomWeapon-${dayjs.utc().format('YYYY-MM-DD')}`);
 
   const unownedWeapons = weaponList.filter((weapon) => !brute.weapons.includes(weapon.name));
 

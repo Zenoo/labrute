@@ -1,8 +1,7 @@
-import { getTempWeapon, weaponList, weapons } from '@labrute/core';
+import { entries, weaponList, weapons } from '@labrute/core';
 import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor } from '../../utils/StatColor';
 import WeaponTooltip from '../Brute/WeaponTooltip';
@@ -56,7 +55,6 @@ const CellWeapons = (
 ) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
-  const { modifiers } = useAuth();
 
   const hoverWeapon = useCallback((weapon: WeaponName | 'bare-hands') => () => {
     setHoveredWeapon(weapon);
@@ -66,21 +64,20 @@ const CellWeapons = (
     setHoveredWeapon(null);
   }, []);
 
-  const unownedWeapons = useMemo(() => {
-    const bruteWeapons = brute?.weapons || [];
-    return weaponList.filter((w) => !bruteWeapons.includes(w.name)).map((w) => w.name);
-  }, [brute]);
+  const unownedWeapons = useMemo(() => weaponList
+    .filter((w) => !brute?.weapons[w.name])
+    .map((w) => w.name), [brute]);
 
   const randomWeapon = useMemo(
-    () => (brute && !hoverSelectAscend ? getTempWeapon(brute, modifiers) : null),
-    [brute, hoverSelectAscend, modifiers]
+    () => (brute && !hoverSelectAscend ? brute.randomWeapon : null),
+    [brute, hoverSelectAscend]
   );
 
   const getFilter = (weapon: WeaponName) => {
     if (randomWeapon === weapon) return `drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
     if (brute?.ascendedWeapons.includes(weapon)
       || selectedWeapon === weapon
-      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons.includes(weapon))) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
+      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon])) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
     return 'none';
   };
 
@@ -94,7 +91,7 @@ const CellWeapons = (
     if (clicked === 'bare-hands') {
       return;
     }
-    if (!brute?.weapons.includes(clicked)) {
+    if (!brute?.weapons[clicked]) {
       return;
     }
     selectCallback(clicked);
@@ -142,7 +139,7 @@ const CellWeapons = (
         >
           <use height="198.65" transform="matrix(1.0, 0.0, 0.0, 1.0, -3.8, 3.4)" width="303.95" xlinkHref="#shape2" />
           <use height="30" onMouseEnter={hoverWeapon('bare-hands')} onMouseLeave={leaveWeapon} transform="matrix(0.25, 0, 0, 0.25, 2.2, 178)" width="30" xlinkHref="#bare-hands" />
-          {brute.weapons.map((weapon) => (
+          {entries(brute.weapons).map(([weapon]) => (
             <use
               key={weapon}
               id={weaponSvgProps[weapon].id}
@@ -169,18 +166,6 @@ const CellWeapons = (
               opacity="0.2"
             />
           )))}
-          {randomWeapon && (
-            <use
-              id={weaponSvgProps[randomWeapon].id}
-              height={weaponSvgProps[randomWeapon].height}
-              transform={weaponSvgProps[randomWeapon].transform}
-              width={weaponSvgProps[randomWeapon].width}
-              xlinkHref={weaponSvgProps[randomWeapon].xlinkHref}
-              onMouseEnter={hoverWeapon(randomWeapon)}
-              onMouseLeave={leaveWeapon}
-              filter={getFilter(randomWeapon)}
-            />
-          )}
         </g>
         <defs>
           <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">

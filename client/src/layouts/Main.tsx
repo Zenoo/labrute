@@ -22,7 +22,7 @@ import Server from '../utils/Server';
 
 const Main = () => {
   const theme = useTheme();
-  const { authing, user, signout, modifiers, updateData, currentEvent } = useAuth();
+  const { authing, user, signout, updateData, currentEvent } = useAuth();
   const Alert = useAlert();
   const { t } = useTranslation();
   const colorMode = useContext(ColorModeContext);
@@ -190,7 +190,7 @@ const Main = () => {
               mr={1}
             >
               <Badge
-                badgeContent={getFightsLeft(b, modifiers)}
+                badgeContent={getFightsLeft(b)}
                 color="info"
                 componentsProps={{
                   badge: { style: { marginTop: 4 } },

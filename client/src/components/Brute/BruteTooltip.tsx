@@ -1,9 +1,8 @@
-import { FightStat, Fighter, SkillById, getFinalHP, getFinalStat, skillMap, skills } from '@labrute/core';
+import { FightStat, Fighter, SkillById, skillMap, skills } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../hooks/useAuth';
 import ArenaStat from '../Arena/ArenaStat';
 import Text from '../Text';
 import BruteHP from './BruteHP';
@@ -47,23 +46,22 @@ const BruteTooltip = ({
   ...rest
 }: BruteTooltipProps) => {
   const { t } = useTranslation();
-  const { modifiers } = useAuth();
 
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
 
   const hp = fighter
     ? fighter.hp
-    : brute ? getFinalHP(brute, modifiers) : 0;
+    : brute ? brute.hp : 0;
   const strength = fighter
     ? fighter.strength
-    : brute ? getFinalStat(brute, 'strength', modifiers) : 0;
+    : brute ? brute.strengthValue : 0;
   const agility = fighter
     ? fighter.agility
-    : brute ? getFinalStat(brute, 'agility', modifiers) : 0;
+    : brute ? brute.agilityValue : 0;
   const speed = fighter
     ? fighter.speed
-    : brute ? getFinalStat(brute, 'speed', modifiers) : 0;
+    : brute ? brute.speedValue : 0;
 
   return (
     <Tooltip

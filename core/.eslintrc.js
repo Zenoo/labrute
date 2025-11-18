@@ -1,73 +1,75 @@
 module.exports = {
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: [".eslintrc.js"],
   root: true,
-  'env': {
-    'browser': true,
-    'es2021': true,
+  env: {
+    browser: true,
+    es2021: true,
   },
-  "settings": {
+  settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts"]
+      "@typescript-eslint/parser": [".ts"],
     },
     "import/resolver": {
-      "typescript": {},
-      "node": {
-        "moduleDirectory": ["node_modules", "./"]
-      }
+      typescript: {},
+      node: {
+        moduleDirectory: ["node_modules", "./"],
+      },
     },
   },
-  'extends': [
-    'plugin:@typescript-eslint/recommended',
-    'airbnb',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+  extends: [
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
   ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaFeatures': {
-      'jsx': false
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: false,
     },
-    'ecmaVersion': 'latest',
-    'sourceType': 'module',
-    'tsconfigRootDir': __dirname,
-    'project': ['./tsconfig.json']
+    ecmaVersion: "latest",
+    sourceType: "module",
+    tsconfigRootDir: __dirname,
+    project: ["./tsconfig.json"],
   },
-  'plugins': [
-    '@typescript-eslint',
-    'import',
-  ],
-  'rules': {
-    'semi': 'off',
-    '@typescript-eslint/semi': ['error'],
-    'linebreak-style': 'off',
+  plugins: ["@typescript-eslint", "import"],
+  rules: {
+    semi: "off",
+    "@typescript-eslint/semi": ["error"],
+    "linebreak-style": "off",
     "no-unused-vars": "off",
+    "no-continue": "off",
+    "no-param-reassign": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        "args": "all",
-        "argsIgnorePattern": "^_",
-        "caughtErrors": "all",
-        "caughtErrorsIgnorePattern": "^_",
-        "destructuredArrayIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "ignoreRestSiblings": true
-      }
+        args: "all",
+        argsIgnorePattern: "^_",
+        caughtErrors: "all",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+      },
     ],
-    'import/extensions': [
-      'error',
+    "import/extensions": [
+      "error",
       {
-        'js': 'never',
-        'ts': 'never',
-        'json': 'always',
-      }
+        js: "never",
+        ts: "never",
+        json: "always",
+      },
     ],
-    'no-nested-ternary': 'off',
-    "object-curly-newline": ["error", {
-        "ImportDeclaration": "never",
-    }],
-    'import/order': 'off',
+    "no-nested-ternary": "off",
+    "object-curly-newline": [
+      "error",
+      {
+        ImportDeclaration: "never",
+      },
+    ],
+    "import/order": "off",
     "import/no-unresolved": "error",
     "import/no-default-export": "error",
     "no-console": ["warn", { allow: ["warn", "error"] }],
@@ -75,31 +77,31 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
-        "checksVoidReturn": {
-          "properties": false,
-          "attributes": false
-        }
-      }
+        checksVoidReturn: {
+          properties: false,
+          attributes: false,
+        },
+      },
     ],
-    "@typescript-eslint/no-floating-promises": [
+    "@typescript-eslint/no-floating-promises": ["error", { ignoreIIFE: true }],
+    "max-len": [
       "error",
-      { ignoreIIFE: true }
+      {
+        code: 100,
+        ignoreComments: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+      },
     ],
-    "max-len": ["error", {
-      "code": 100,
-      "ignoreComments": true,
-      "ignoreStrings": true,
-      "ignoreTemplateLiterals": true,
-    }],
-    "prefer-promise-reject-errors": 'off',
-    'comma-dangle': 'off',
-    'eol-last': 'off',
+    "prefer-promise-reject-errors": "off",
+    "comma-dangle": "off",
+    "eol-last": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
-    'no-plusplus': 'off',
+    "no-plusplus": "off",
     "no-restricted-syntax": "off",
     "import/prefer-default-export": "off",
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': 'error'
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
   },
 };

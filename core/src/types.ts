@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, Prisma, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
 import { WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -477,7 +477,13 @@ export type UserWithAchievements = User & {
 };
 
 // Brute
-export type HookBrute = Brute & {
+export type ServerHookBrute = Brute & {
+  master: Pick<Brute, 'id' | 'name'> | null;
+  clan: Pick<Clan, 'id' | 'name'> | null;
+  user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
+  tournaments: Tournament[];
+};
+export type HookBrute = CalculatedBrute & {
   master: Pick<Brute, 'id' | 'name'> | null;
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
@@ -685,6 +691,8 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
     'body' |
     'colors' |
     'skills' |
+    'weapons' |
+    'pets' |
     'eventId'
   >[],
   achievements: Pick<Achievement, 'name' | 'count'>[],
@@ -810,5 +818,21 @@ export type UserLogsListResponse = (UserLog & {
   user: Pick<User, 'name'>,
   brute: Pick<Brute, 'name'> | null,
 })[];
+
+export type Tiered<T> = T & {
+  tier: number;
+};
+
+export type TieredPerks = {
+  weapons: Partial<Record<WeaponName, number>>;
+  skills: Partial<Record<SkillName, number>>;
+  pets: Partial<Record<PetName, number>>;
+  /* Only used to display the random weapon differently in the brute cell */
+  randomWeapon?: WeaponName;
+  /* Only used to display the random skill differently in the brute cell */
+  randomSkill?: SkillName;
+};
+
+export type CalculatedBrute = Omit<Brute, 'weapons' | 'skills' | 'pets'> & TieredPerks;
 
 export type Modifiers = Partial<Record<FightModifier, true>>;

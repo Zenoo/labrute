@@ -9,6 +9,7 @@ import {
   DailyTournamentXpReward,
   EventPauseDuration,
   Fighter,
+  getCalculatedBrute,
   getNewElo,
   getWinsNeededToRankUp,
   GlobalTournamentGoldReward,
@@ -19,6 +20,7 @@ import {
   LAST_RELEASE,
   Modifiers,
   randomBetween,
+  refreshChaosSeeds,
   weightedRandom,
 } from '@labrute/core';
 import {
@@ -335,8 +337,8 @@ const handleDailyTournaments = async (
           try {
             const newGeneratedFight = await generateFight({
               prisma,
-              team1: { brutes: [brute1] },
-              team2: { brutes: [brute2] },
+              team1: { brutes: [getCalculatedBrute(brute1, modifiers)] },
+              team2: { brutes: [getCalculatedBrute(brute2, modifiers)] },
               modifiers,
               backups: false,
               achievements: true,
@@ -615,8 +617,8 @@ const handleGlobalTournament = async (
         try {
           const newGeneratedFight = await generateFight({
             prisma,
-            team1: { brutes: [brute1] },
-            team2: { brutes: [brute2] },
+            team1: { brutes: [getCalculatedBrute(brute1, modifiers)] },
+            team2: { brutes: [getCalculatedBrute(brute2, modifiers)] },
             modifiers,
             backups: false,
             achievements: true,
@@ -850,8 +852,8 @@ const handleUnlimitedGlobalTournament = async (
         try {
           const newGeneratedFight = await generateFight({
             prisma,
-            team1: { brutes: [brute1] },
-            team2: { brutes: [brute2] },
+            team1: { brutes: [getCalculatedBrute(brute1, modifiers)] },
+            team2: { brutes: [getCalculatedBrute(brute2, modifiers)] },
             modifiers,
             backups: false,
             achievements: true,
@@ -1694,8 +1696,8 @@ const handleClanWars = async (
       try {
         const newGeneratedFight = await generateFight({
           prisma,
-          team1: { brutes: attackers },
-          team2: { brutes: defenders },
+          team1: { brutes: attackers.map((brute) => getCalculatedBrute(brute, modifiers)) },
+          team2: { brutes: defenders.map((brute) => getCalculatedBrute(brute, modifiers)) },
           modifiers,
           backups: false,
           achievements: true,
@@ -2020,8 +2022,8 @@ const handleEventTournament = async (
       try {
         const newGeneratedFight = await generateFight({
           prisma,
-          team1: { brutes: [brute1] },
-          team2: { brutes: [brute2] },
+          team1: { brutes: [getCalculatedBrute(brute1, modifiers)] },
+          team2: { brutes: [getCalculatedBrute(brute2, modifiers)] },
           modifiers,
           backups: false,
           achievements: false,
@@ -2183,6 +2185,9 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Roll daily modifiers
     const modifiers = await handleModifiers(prisma);
     logMemory('After modifiers');
+
+    // Refresh chaos seeds
+    refreshChaosSeeds(modifiers);
 
     if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
       // Update server state to hold traffic

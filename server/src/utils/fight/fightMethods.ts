@@ -2026,7 +2026,6 @@ const startAttack = (
 };
 
 export const playFighterTurn = (
-  chaos: boolean,
   fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
@@ -2036,6 +2035,8 @@ export const playFighterTurn = (
   if (!fighter) {
     throw new Error('No fighter found');
   }
+
+  const chaos = !!fightData.modifiers[FightModifier.chaos];
 
   // Handle rare case when fighter is trapped
   if (fighter.trapped) {

@@ -1,4 +1,4 @@
-import { Modifiers, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
+import { CalculatedBrute, getCalculatedBrute, Modifiers, refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
 import { Event } from '@labrute/prisma';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,16 +7,20 @@ import Server from '../utils/Server';
 import { useAlert } from './useAlert';
 import { useLanguage } from './useLanguage';
 
-interface AuthContextInterface {
-  user: UserWithBrutesBodyColor | null,
+export type LoggedInUser = Omit<UserWithBrutesBodyColor, 'brutes'> & {
+  brutes: CalculatedBrute[];
+};
+
+type AuthContextInterface = {
+  user: LoggedInUser | null,
   modifiers: Modifiers,
   currentEvent: Event | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
   signin: () => void,
   signout: () => void,
-  updateData: (data: React.SetStateAction<UserWithBrutesBodyColor | null>) => void,
-}
+  updateData: (data: React.SetStateAction<LoggedInUser | null>) => void,
+};
 
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
@@ -41,14 +45,14 @@ export function useAuth(): AuthContextInterface {
   return useContext(AuthContext);
 }
 
-interface AuthProviderProps {
+type AuthProviderProps = {
   children: React.ReactNode;
-}
+};
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [modifiers, setModifiers] = useState<Modifiers>({});
   const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
-  const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
+  const [user, setUser] = useState<LoggedInUser | null>(null);
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
   const Alert = useAlert();
@@ -70,6 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     Server.User.authenticate(userId, token).then((response) => {
       setModifiers(response.modifiers);
+      refreshChaosSeeds(response.modifiers);
       setCurrentEvent(response.currentEvent);
 
       // Compare version
@@ -84,7 +89,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return;
       }
 
-      setUser(response.user);
+      const loggedInUser: LoggedInUser = {
+        ...response.user,
+        brutes: response.user.brutes.map((brute) => getCalculatedBrute(brute, response.modifiers)),
+      };
+
+      setUser(loggedInUser);
       setAuthing(false);
 
       // Update language
@@ -102,7 +112,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   }, []);
 
-  const updateData = useCallback((data: React.SetStateAction<UserWithBrutesBodyColor | null>) => {
+  const updateData = useCallback((data: React.SetStateAction<LoggedInUser | null>) => {
     setUser(data);
   }, []);
 

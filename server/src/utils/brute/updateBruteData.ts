@@ -1,5 +1,5 @@
 import {
-  applySkillModifiers, getFightsLeft, getHP, LevelUpChoice,
+  applySkillModifiers, getBruteToSave, getCalculatedBrute, getFightsLeft, getHP, LevelUpChoice,
   pets,
 } from '@labrute/core';
 import {
@@ -59,15 +59,19 @@ export const updateBruteData = (
       throw new Error('No skill provided');
     }
 
+    const calculatedBrute = getCalculatedBrute(updatedBrute, {});
+
     // Handle +2 fights for `regeneration`
     if (skillName === SkillName.regeneration && !brute.eventId) {
-      updatedBrute.fightsLeft = getFightsLeft(updatedBrute, {}) + 2;
+      updatedBrute.fightsLeft = getFightsLeft(calculatedBrute) + 2;
     }
 
     updatedBrute.skills.push(skillName);
 
     // STATS MODIFIERS
-    updatedBrute = applySkillModifiers(updatedBrute, skillName);
+    applySkillModifiers(calculatedBrute, skillName);
+
+    updatedBrute = getBruteToSave(calculatedBrute);
   } else if (destinyChoice.type === 'weapon') {
     // New weapon
     updatedBrute.weapons.push(destinyChoice.weapon as WeaponName);

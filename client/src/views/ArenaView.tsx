@@ -1,4 +1,4 @@
-import { BrutesGetOpponentsResponse, getFightsLeft, getXPNeeded } from '@labrute/core';
+import { BrutesGetOpponentsResponse, getCalculatedBrute, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,8 @@ import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 
+type CalculatedBruteGetOpponentsResponse = ReturnType<typeof getCalculatedBrute<BrutesGetOpponentsResponse[0]>>[];
+
 const ArenaView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
@@ -27,7 +29,7 @@ const ArenaView = () => {
   const { brute, updateBrute } = useBrute();
   const { modifiers, user, updateData, currentEvent } = useAuth();
 
-  const [opponents, setOpponents] = useState<BrutesGetOpponentsResponse>([]);
+  const [opponents, setOpponents] = useState<CalculatedBruteGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -35,8 +37,8 @@ const ArenaView = () => {
     && getXPNeeded(brute.level + 1), [brute]);
 
   const fightsLeft = useMemo(
-    () => (brute && getFightsLeft(brute, modifiers)) ?? 0,
-    [brute, modifiers]
+    () => (brute && getFightsLeft(brute)) ?? 0,
+    [brute]
   );
 
   // Fetch random opponents
@@ -71,12 +73,12 @@ const ArenaView = () => {
 
     Server.Brute.getOpponents(brute.name, brute.level).then((data) => {
       if (isSubscribed) {
-        setOpponents(data);
+        setOpponents(data.map((opponent) => getCalculatedBrute(opponent, modifiers)));
       }
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, brute, currentEvent?.maxLevel, fightsLeft, navigate, xpNeededForNextLevel]);
+  }, [Alert, brute, currentEvent?.maxLevel, fightsLeft, navigate, xpNeededForNextLevel, modifiers]);
 
   const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -154,7 +156,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute, modifiers) }) : t('youHaveOneFightLeft')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {/* No XP won for event brutes at max level */}

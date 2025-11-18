@@ -1,5 +1,5 @@
-import { BruteRanking, BrutesGetClanIdAsMasterResponse, ClanGetResponse, bosses, getFightsLeft } from '@labrute/core';
-import { BossName, Brute, ClanWarStatus, ClanWarType } from '@labrute/prisma';
+import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetResponse, bosses, getCalculatedBrute, getFightsLeft } from '@labrute/core';
+import { BossName, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline, Policy } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
 import dayjs from 'dayjs';
@@ -21,6 +21,11 @@ import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 
+type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'> & {
+  brutes: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
+  joinRequests: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
+};
+
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
 const ClanView = () => {
@@ -33,7 +38,7 @@ const ClanView = () => {
   const { brute, updateBrute, owner } = useBrute();
   const { palette: { mode } } = useTheme();
 
-  const [clan, setClan] = useState<ClanGetResponse | null>(null);
+  const [clan, setClan] = useState<CalculatedClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
   const [warEnabled, setWarEnabled] = useState(false);
@@ -61,10 +66,12 @@ const ClanView = () => {
     if (!id) return;
 
     Server.Clan.get(id).then((data) => {
-      setClan(data);
+      const clanBrutes = data.brutes.map((b) => getCalculatedBrute(b, modifiers));
+      const clanJoinRequests = data.joinRequests.map((b) => getCalculatedBrute(b, modifiers));
+      setClan({ ...data, brutes: clanBrutes, joinRequests: clanJoinRequests });
       setWarEnabled(data.participateInClanWar);
     }).catch(catchError(Alert));
-  }, [id, Alert]);
+  }, [id, Alert, modifiers]);
 
   // Fetch brute master of clan id
   useEffect(() => {
@@ -88,7 +95,7 @@ const ClanView = () => {
   useEffect(() => {
     setClan((prevClan) => {
       if (!prevClan) return prevClan;
-      const clanBrutes = prevClan.brutes.sort((a: Brute, b: Brute) => {
+      const clanBrutes = prevClan.brutes.sort((a, b) => {
         switch (sort) {
           case SortOption.Default:
             // Master first
@@ -169,7 +176,7 @@ const ClanView = () => {
   };
 
   // Accept join request
-  const acceptJoin = (requester: ClanGetResponse['brutes'][number]) => () => {
+  const acceptJoin = (requester: CalculatedClanGetResponse['brutes'][number]) => () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
@@ -197,7 +204,7 @@ const ClanView = () => {
   };
 
   // Reject join request
-  const rejectJoin = (requester: Brute) => () => {
+  const rejectJoin = (requester: CalculatedBrute) => () => {
     if (!clan) return;
 
     Confirm.open(t('rejectJoinRequest'), t('confirmRejectRequest'), () => {
@@ -214,7 +221,7 @@ const ClanView = () => {
   };
 
   // Remove brute from clan
-  const removeFromClan = (clanBrute: Brute) => (e: React.MouseEvent) => {
+  const removeFromClan = (clanBrute: CalculatedBrute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;
@@ -233,7 +240,7 @@ const ClanView = () => {
   };
 
   // Set as clan master
-  const setMaster = (clanBrute: ClanGetResponse['brutes'][number]) => (e: React.MouseEvent) => {
+  const setMaster = (clanBrute: CalculatedClanGetResponse['brutes'][number]) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!clan) return;
@@ -299,7 +306,7 @@ const ClanView = () => {
     if (!clan || !brute) return;
 
     // Check if brute still has fights left
-    if (getFightsLeft(brute, modifiers) <= 0) {
+    if (getFightsLeft(brute) <= 0) {
       Alert.open('error', t('noFightsLeft'));
       return;
     }
@@ -310,7 +317,7 @@ const ClanView = () => {
         ...data,
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b,
-          fightsLeft: getFightsLeft(b, modifiers) - 1,
+          fightsLeft: getFightsLeft(b) - 1,
           lastFight: new Date(),
         } : b)),
       }) : null));
@@ -320,7 +327,7 @@ const ClanView = () => {
 
         return {
           ...b,
-          fightsLeft: getFightsLeft(b, modifiers) - 1,
+          fightsLeft: getFightsLeft(b) - 1,
           lastFight: new Date(),
         };
       });

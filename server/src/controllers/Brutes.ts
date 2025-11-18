@@ -15,19 +15,21 @@ import {
   BrutesGetRankingResponse,
   DestinyBranch, EventFreeResets, ExpectedError,
   ForbiddenError,
-  HookBrute,
   LimitError,
   MAX_FAVORITE_BRUTES,
   MissingElementError,
   NotFoundError,
   RESET_PRICE,
+  ServerHookBrute,
   canLevelUp,
   createRandomBruteStats,
   getBruteGoldValue,
+  getBruteToSave,
   getFightsLeft,
   getGoldNeededForNewBrute,
   getLevelUpChoices,
   getRandomStartingStats,
+  getTieredSkills,
   getXPNeeded,
   isNameValid,
   isUuid,
@@ -48,6 +50,7 @@ import { checkColors } from '../utils/brute/checkColors.js';
 import { checkLevelUpAchievements } from '../utils/brute/checkLevelUpAchievements.js';
 import { getOpponents } from '../utils/brute/getOpponents.js';
 import { resetBrute } from '../utils/brute/resetBrute.js';
+import { updateBruteData } from '../utils/brute/updateBruteData.js';
 import { updateClanPoints } from '../utils/clan/updateClanPoints.js';
 import { createUserLog } from '../utils/createUserLog.js';
 import { ilike } from '../utils/ilike.js';
@@ -55,7 +58,6 @@ import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
-import { updateBruteData } from '../utils/brute/updateBruteData.js';
 
 export const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -93,7 +95,7 @@ export const Brutes = {
     req: Request<{
       name: string
     }>,
-    res: Response<HookBrute>,
+    res: Response<ServerHookBrute>,
   ) => {
     try {
       const brute = await prisma.brute.findFirst({
@@ -334,7 +336,7 @@ export const Brutes = {
       const brute = await prisma.brute.create({
         data: {
           name: req.body.name,
-          ...createRandomBruteStats(startingStats),
+          ...getBruteToSave(createRandomBruteStats(startingStats)),
           id: undefined,
           gender: req.body.gender,
           user: { connect: { id: user.id } },
@@ -1545,7 +1547,7 @@ export const Brutes = {
       // Get current modifiers
       const modifiers = await ServerState.getModifiers(prisma);
 
-      const fightsLeft = getFightsLeft(brute, modifiers, false);
+      const fightsLeft = getFightsLeft({ ...brute, skills: getTieredSkills(brute, modifiers) });
 
       res.send({
         fightsLeft,

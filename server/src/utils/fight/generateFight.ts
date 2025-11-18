@@ -5,18 +5,20 @@ import {
   Boss,
   BruteRanking,
   CLAN_SIZE_LIMIT,
+  CalculatedBrute,
   FightStep,
   Fighter, ForbiddenError, Modifiers, Skill, SkillByName,
   SkillId,
   StepType, Tiered, Weapon, WeaponByName,
   bossBackground, bosses,
   fightBackgrounds,
+  getCalculatedBrute,
   randomItem,
   tournamentBackground,
   weightedRandom,
 } from '@labrute/core';
 import {
-  Brute, FightModifier, Gender, InventoryItemType, LogType, Prisma, PrismaClient,
+  Gender, InventoryItemType, LogType, Prisma, PrismaClient,
   SkillName,
   UserLogType,
   WeaponName,
@@ -145,7 +147,7 @@ export type GenerateFightResult = {
 };
 
 type Team = {
-  brutes?: Brute[];
+  brutes?: CalculatedBrute[];
   bosses?: (Boss & {
     startHP: number;
   })[];
@@ -178,8 +180,6 @@ export const generateFight = async ({
     throw new ForbiddenError('Attempted to created a fight between the same brutes');
   }
 
-  const chaos = modifiers[FightModifier.chaos] === true;
-
   const background = (team1.bosses?.length || team2.bosses?.length)
     ? bossBackground
     : tournament
@@ -204,8 +204,8 @@ export const generateFight = async ({
   });
 
   // Get brute backups
-  const team1Backups: Brute[] = [];
-  const team2Backups: Brute[] = [];
+  const team1Backups: CalculatedBrute[] = [];
+  const team2Backups: CalculatedBrute[] = [];
   if (backups) {
     const brute1 = team1.brutes?.[0];
     const brute2 = team2.brutes?.[0];
@@ -214,7 +214,7 @@ export const generateFight = async ({
       throw new Error('No brute 1');
     }
 
-    if (brute1.skills.includes(SkillName.backup)) {
+    if (brute1.skills[SkillName.backup]) {
       const brute1Backups = await prisma.brute.findMany({
         where: {
           deletedAt: null,
@@ -225,11 +225,11 @@ export const generateFight = async ({
       });
 
       if (brute1Backups.length) {
-        team1Backups.push(randomItem(brute1Backups));
+        team1Backups.push(getCalculatedBrute(randomItem(brute1Backups), modifiers));
       }
     }
 
-    if (brute2 && brute2.skills.includes(SkillName.backup)) {
+    if (brute2 && brute2.skills[SkillName.backup]) {
       const brute2Backups = await prisma.brute.findMany({
         where: {
           deletedAt: null,
@@ -240,7 +240,7 @@ export const generateFight = async ({
       });
 
       if (brute2Backups.length) {
-        team2Backups.push(randomItem(brute2Backups));
+        team2Backups.push(getCalculatedBrute(randomItem(brute2Backups), modifiers));
       }
     }
   }
@@ -325,7 +325,7 @@ export const generateFight = async ({
     }
 
     // Play fighter turn
-    playFighterTurn(chaos, fightData, stats, achievementsStore);
+    playFighterTurn(fightData, stats, achievementsStore);
 
     // Check deaths
     checkDeaths(fightData, stats);

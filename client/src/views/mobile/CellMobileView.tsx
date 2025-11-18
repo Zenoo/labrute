@@ -22,6 +22,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
+import { keys } from '@labrute/core';
 
 export interface CellMobileViewProps {
   ad: AdResult;
@@ -142,7 +143,7 @@ const CellMobileView = ({
         </Grid>
         <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 4 : 0}>
           {/* PETS OR ADVERT */}
-          {brute.pets.length > 0 ? (
+          {keys(brute.pets).length > 0 ? (
             <CellPets />
           ) : (
             <Tooltip title={t(`${ad.name}.desc`)}>

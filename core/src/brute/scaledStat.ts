@@ -1,9 +1,9 @@
 import { Brute, PetName, SkillName } from '@labrute/prisma';
-import { seedToRandom } from '../utils';
+import { CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed } from './chaos';
 import { Pet } from './pets';
-import { Weapon } from './weapons';
 import { FightStat } from './skills';
-import { Tiered } from './tieredPerks';
+import { Weapon } from './weapons';
+import { Tiered } from '../types';
 
 const scalingByPet = {
   [PetName.bear]: {
@@ -43,10 +43,6 @@ export type TieredNumberKeysOf<T> = {
 }[keyof T];
 
 const CHAOS_SCALE = 3;
-
-const getSkillStatSeed = (skill: SkillName, stat: string, type: 'flat' | 'percent' = 'flat') => `skill:${skill}:${stat}:${type}`;
-const getPetStatSeed = (pet: Pet, stat: string) => `pet:${pet.name}:${stat}`;
-const getWeaponStatSeed = (weapon: Weapon, stat: string) => `weapon:${weapon.name}:${stat}`;
 
 export const getScaledStat = ({
   chaos,
@@ -98,7 +94,7 @@ export const getScaledStat = ({
   }
 
   // Generate a random number between min and max
-  const randomNumber = min + (seedToRandom(seed) * (max - min));
+  const randomNumber = min + ((CHAOS_SEEDS.get(seed) ?? 0) * (max - min));
 
   if (precision === 0) {
     return Math.ceil(randomNumber);

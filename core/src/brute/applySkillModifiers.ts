@@ -1,16 +1,10 @@
 import { Brute, SkillName } from '@labrute/prisma';
 import { FightStat, SkillModifiers } from './skills';
+import { TieredPerks } from '../types';
 
-type BruteStats = Pick<Brute, 'skills' | 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
+type BruteStats = Pick<TieredPerks, 'skills'> & Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
 
-export const applySkillModifiers = <T extends BruteStats>(brute: T, skillName: SkillName) => {
-  const updatedBrute = { ...brute };
-  const tieredSkills: Partial<Record<SkillName, number>> = {};
-
-  for (const skill of brute.skills) {
-    tieredSkills[skill] = tieredSkills[skill] ? tieredSkills[skill] + 1 : 1;
-  }
-
+export const applySkillModifiers = (brute: BruteStats, skillName: SkillName) => {
   Object.entries(SkillModifiers[skillName]).forEach(([unsafeStat, modifier]) => {
     const stat = unsafeStat as FightStat;
 
@@ -24,19 +18,17 @@ export const applySkillModifiers = <T extends BruteStats>(brute: T, skillName: S
 
     // Flat modifier
     if (modifier.flat) {
-      updatedBrute[`${stat}Stat`] += modifier.flat[(tieredSkills[skillName] ?? 1) - 1] ?? 0;
+      brute[`${stat}Stat`] += modifier.flat[(brute.skills[skillName] ?? 1) - 1] ?? 0;
     }
 
     // Percent modifier
     if (modifier.percent) {
-      updatedBrute[`${stat}Modifier`] *= 1 + (modifier.percent[(tieredSkills[skillName] ?? 1) - 1] ?? 0);
+      brute[`${stat}Modifier`] *= 1 + (modifier.percent[(brute.skills[skillName] ?? 1) - 1] ?? 0);
     }
 
     // Update value
     if (stat !== FightStat.ENDURANCE) {
-      updatedBrute[`${stat}Value`] = Math.floor(updatedBrute[`${stat}Stat`] * updatedBrute[`${stat}Modifier`]);
+      brute[`${stat}Value`] = Math.floor(brute[`${stat}Stat`] * brute[`${stat}Modifier`]);
     }
   });
-
-  return updatedBrute;
 };

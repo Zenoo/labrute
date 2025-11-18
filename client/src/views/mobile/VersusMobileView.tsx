@@ -1,3 +1,4 @@
+import { BrutesGetForVersusResponse, CalculatedBrute } from '@labrute/core';
 import { Box, Grid, Paper, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -5,11 +6,9 @@ import BruteRender from '../../components/Brute/Body/BruteRender';
 import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
-import { Brute } from '@labrute/prisma';
-import { BrutesGetForVersusResponse } from '@labrute/core';
 
 export interface VersusMobileViewProps {
-  brute: Brute;
+  brute: CalculatedBrute;
   opponent: BrutesGetForVersusResponse;
   startFight: () => void;
 }

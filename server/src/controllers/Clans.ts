@@ -1,12 +1,15 @@
 import {
+  bosses,
   ClanChallengeBossResponse,
   ClanCreateResponse,
   ClanGetForAdminResponse,
   ClanGetResponse, ClanGetThreadResponse,
   ClanGetThreadsResponse, ClanListResponse, ClanSort, ExpectedError,
   FightLogTemplateCount,
-  ForbiddenError, LimitError, MissingElementError, NotFoundError, bosses, getFightsLeft,
+  ForbiddenError,
+  getCalculatedBrute, getFightsLeft,
   isUuid,
+  LimitError, MissingElementError, NotFoundError,
   randomBetween,
 } from '@labrute/core';
 import {
@@ -1317,7 +1320,7 @@ export const Clans = {
         throw new MissingElementError(translate('missingId', user));
       }
 
-      const brute = await prisma.brute.findFirst({
+      const baseBrute = await prisma.brute.findFirst({
         where: {
           name: ilike(req.params.brute),
           deletedAt: null,
@@ -1325,15 +1328,17 @@ export const Clans = {
         },
       });
 
-      if (!brute) {
+      if (!baseBrute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get current modifiers
       const modifiers = await ServerState.getModifiers(prisma);
 
+      const brute = getCalculatedBrute(baseBrute, modifiers);
+
       // Check if the brute has fights left
-      if (getFightsLeft(brute, modifiers, false) <= 0) {
+      if (getFightsLeft(brute) <= 0) {
         throw new LimitError(translate('noFightsLeft', user));
       }
 
@@ -1366,7 +1371,7 @@ export const Clans = {
         where: { id: brute.id },
         data: {
           lastFight: new Date(),
-          fightsLeft: getFightsLeft(brute, modifiers, false) - 1,
+          fightsLeft: getFightsLeft(brute) - 1,
         },
         select: { id: true },
       });

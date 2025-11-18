@@ -2,7 +2,9 @@ import { EternaltwinNodeClient } from '@eternaltwin/client-node';
 import { ErrorCode } from '@eternaltwin/client-node/error';
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
-import { ExpectedError, ForbiddenError, UserWithBrutesBodyColor } from '@labrute/core';
+import {
+  ExpectedError, ForbiddenError, UsersAuthenticateResponse, UserWithBrutesBodyColor, Version,
+} from '@labrute/core';
 import {
   InventoryItemType, Prisma, PrismaClient, UserLogType,
 } from '@labrute/prisma';
@@ -49,7 +51,7 @@ export class OAuth {
 
   public async token(
     req: Request,
-    res: Response<UserWithBrutesBodyColor>,
+    res: Response<UsersAuthenticateResponse>,
   ) {
     // Disable CORS
     res.header('Access-Control-Allow-Origin', '*');
@@ -170,7 +172,12 @@ export class OAuth {
         userId: user.id,
       });
 
-      res.send(user);
+      res.send({
+        user,
+        modifiers: await ServerState.getModifiers(this.#prisma),
+        currentEvent: await ServerState.getCurrentEvent(this.#prisma),
+        version: Version,
+      });
     } catch (error: unknown) {
       if (error instanceof GetAccessTokenError) {
         switch (error?.eternaltwin?.code) {
