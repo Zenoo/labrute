@@ -37,7 +37,10 @@ export function main(cx: ServerContext) {
     cookieName: 'csrfToken',
     cookieOptions: {
       secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
     },
+    ignoredMethods: ['HEAD', 'OPTIONS'],
   });
 
   // CSRF getter
@@ -49,6 +52,16 @@ export function main(cx: ServerContext) {
 
   // CSRF middleware
   app.use(doubleCsrfProtection);
+
+  // Silence CSRF errors
+  const csrfErrorSilencer: express.ErrorRequestHandler = (err: Error, _req, res, next) => {
+    if (err && err.name === 'ForbiddenError' && err.message === 'invalid csrf token') {
+      return res.status(403).json({ message: 'Invalid CSRF token' });
+    }
+    return next(err);
+  };
+
+  app.use(csrfErrorSilencer);
 
   app.use(bodyParser.json());
   app.use(

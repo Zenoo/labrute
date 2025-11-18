@@ -17,7 +17,9 @@ import { useBrute } from '../hooks/useBrute';
 import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 
-type CalculatedBruteGetOpponentsResponse = ReturnType<typeof getCalculatedBrute<BrutesGetOpponentsResponse[0]>>[];
+type CalculatedBruteGetOpponentsResponse = ReturnType<
+  typeof getCalculatedBrute<BrutesGetOpponentsResponse[0]>
+>[];
 
 const ArenaView = () => {
   const { t } = useTranslation();
