@@ -584,7 +584,7 @@ export type UsersAdminUpdateRequest = {
 };
 export type UsersAuthenticateResponse = {
   user?: UserWithBrutesBodyColor,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
   currentEvent: Event | null,
   version: string,
 };
@@ -724,7 +724,7 @@ export type ClanChallengeBossResponse = {
   xp?: number,
   gold?: number,
 };
-export type UserGetNextModifiersResponse = FightModifier[];
+export type UserGetNextModifiersResponse = Modifiers;
 
 export type LogListResponse = (Log & {
   currentBrute: Pick<Brute, 'name'>,
@@ -810,3 +810,5 @@ export type UserLogsListResponse = (UserLog & {
   user: Pick<User, 'name'>,
   brute: Pick<Brute, 'name'> | null,
 })[];
+
+export type Modifiers = Partial<Record<FightModifier, true>>;

@@ -41,7 +41,7 @@ const BruteButton = ({
 }: BruteButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { chaos, modifiers } = useAuth();
+  const { modifiers } = useAuth();
 
   const bruteWeapons = useMemo(
     () => {
@@ -143,21 +143,21 @@ const BruteButton = ({
           )}
         </Text>
         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-          <BruteHP hp={getFinalHP(chaos, brute, modifiers)} />
+          <BruteHP hp={getFinalHP(brute, modifiers)} />
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}
-              value={getFinalStat(chaos, brute, 'strength', modifiers)}
+              value={getFinalStat(brute, 'strength', modifiers)}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.AGILITY}
-              value={getFinalStat(chaos, brute, 'agility', modifiers)}
+              value={getFinalStat(brute, 'agility', modifiers)}
               hideSkillText
             />
             <ArenaStat
               stat={FightStat.SPEED}
-              value={getFinalStat(chaos, brute, 'speed', modifiers)}
+              value={getFinalStat(brute, 'speed', modifiers)}
               hideSkillText
             />
           </Box>

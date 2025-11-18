@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { pad, Release } from '@labrute/core';
-import { Brute, FightModifier } from '@labrute/prisma';
+import {
+  keys, Modifiers, pad, Release,
+} from '@labrute/core';
+import { Brute } from '@labrute/prisma';
 import { EmbedBuilder, WebhookClient } from 'discord.js';
 import type { Response } from 'express';
 import { Logger } from '../logger/index.js';
@@ -38,7 +40,7 @@ export interface DiscordClient {
   sendError(error: Error, res?: Response): void;
   sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
   sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number): void;
-  sendModifiersNotification(modifiers: FightModifier[]): void;
+  sendModifiersNotification(modifiers: Modifiers): void;
   sendRelease(release: Release): Promise<void>;
   sendMessage(message: string): Promise<void>;
   updateKnownIssues(issues: string[]): Promise<void>;
@@ -58,7 +60,7 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   },
   sendModifiersNotification(modifiers) {
     // eslint-disable-next-line no-console
-    console.log(`Modifiers: ${modifiers.join(', ')}`);
+    console.log(`Modifiers: ${keys(modifiers).join(', ')}`);
   },
   sendRelease(release) {
     // eslint-disable-next-line no-console
@@ -293,7 +295,7 @@ ${error.stack}
     });
   }
 
-  public sendModifiersNotification(modifiers: FightModifier[]) {
+  public sendModifiersNotification(modifiers: Modifiers) {
     if (!this.#notificationClient) {
       return;
     }
@@ -310,7 +312,7 @@ ${error.stack}
       .setDescription('Lucky (or unlucky) you! Today is a special day, the following modifiers will be active:')
       .setThumbnail(`${this.#server}/images/header/right/1${pad(Math.floor(Math.random() * (11 - 1 + 1) + 1), 2)}.png`)
       .addFields(
-        modifiers.map((modifier) => ({
+        keys(modifiers).map((modifier) => ({
           name: translate(`modifier.${modifier}`),
           value: translate(`modifier.${modifier}.desc`),
         })),

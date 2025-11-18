@@ -8,6 +8,7 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { keys, Modifiers } from '@labrute/core';
 
 const AdminView = () => {
   const { t } = useTranslation();
@@ -53,13 +54,16 @@ const AdminView = () => {
   // Fetch next modifiers
   useEffect(() => {
     Server.User.getNextModifiers().then((modifiers) => {
-      setNextModifiers(modifiers);
+      setNextModifiers(keys(modifiers));
     }).catch(catchError(Alert));
   }, [Alert]);
 
   // Save next modifiers
   const saveNextModifiers = useCallback(() => {
-    Server.User.setNextModifiers(nextModifiers).then(() => {
+    Server.User.setNextModifiers(nextModifiers.reduce<Modifiers>((acc, modifier) => {
+      acc[modifier] = true;
+      return acc;
+    }, {})).then(() => {
       Alert.open('success', 'Next modifiers saved');
     }).catch(catchError(Alert));
   }, [Alert, nextModifiers]);

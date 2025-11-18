@@ -38,7 +38,7 @@ const statValue = (brute: Pick<Brute, 'enduranceModifier'>, stat: BruteStat | nu
 const LevelUpView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
-  const { chaos, user, updateData, modifiers } = useAuth();
+  const { user, updateData, modifiers } = useAuth();
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
@@ -96,15 +96,15 @@ const LevelUpView = () => {
     <>
       {/* HP */}
       <Box>
-        <BruteHP hp={getFinalHP(chaos, brute, modifiers)} />
+        <BruteHP hp={getFinalHP(brute, modifiers)} />
         <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
-      <CellStats value={getFinalStat(chaos, brute, 'strength', modifiers)} stat="strength" />
+      <CellStats value={getFinalStat(brute, 'strength', modifiers)} stat="strength" />
       {/* AGILITY */}
-      <CellStats value={getFinalStat(chaos, brute, 'agility', modifiers)} stat="agility" />
+      <CellStats value={getFinalStat(brute, 'agility', modifiers)} stat="agility" />
       {/* SPEED */}
-      <CellStats value={getFinalStat(chaos, brute, 'speed', modifiers)} stat="speed" />
+      <CellStats value={getFinalStat(brute, 'speed', modifiers)} stat="speed" />
       <Link to={`/${brute.name}/cell`}>
         <Text bold>{t('backToCell')}</Text>
       </Link>

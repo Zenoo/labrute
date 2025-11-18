@@ -2,15 +2,16 @@ import { Brute, FightModifier, SkillName } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { randomBetween } from '../utils';
 import { skillList } from './skills';
+import { Modifiers } from '../types';
 
 const unavailableTemporarySkills: SkillName[] = [SkillName.backup];
 
 export const getTempSkill = (
   brute: Pick<Brute, 'id' | 'skills'>,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
   useCache = true,
 ) => {
-  if (!modifiers.includes(FightModifier.randomSkill)) {
+  if (!modifiers[FightModifier.randomSkill]) {
     return null;
   }
 

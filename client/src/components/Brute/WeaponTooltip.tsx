@@ -6,6 +6,7 @@ import Text from '../Text';
 import StatColor from '../../utils/StatColor';
 import { useAuth } from '../../hooks/useAuth';
 import { TierStar } from './TierStar';
+import { FightModifier } from '@labrute/prisma';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -28,7 +29,9 @@ const WeaponTooltip = ({
 }: WeaponTooltipProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const { chaos } = useAuth();
+  const { modifiers } = useAuth();
+
+  const chaos = useMemo(() => !!modifiers[FightModifier.chaos], [modifiers]);
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
 

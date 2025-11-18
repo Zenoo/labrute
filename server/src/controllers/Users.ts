@@ -3,6 +3,7 @@ import {
   ForbiddenError,
   LimitError,
   MissingElementError,
+  Modifiers,
   NotFoundError,
   RaretyOrder,
   UserBannedListResponse,
@@ -16,7 +17,8 @@ import {
   isUuid,
 } from '@labrute/core';
 import {
-  Achievement, FightModifier, InventoryItemType, Lang,
+  Achievement,
+  InventoryItemType, Lang,
   Prisma,
   PrismaClient,
   UserLogType,
@@ -839,7 +841,7 @@ export const Users = {
     }
   },
   setNextModifiers: (prisma: PrismaClient) => async (
-    req: Request<never, unknown, { modifiers: FightModifier[] }>,
+    req: Request<never, unknown, { modifiers: Modifiers }>,
     res: Response,
   ) => {
     try {

@@ -14,8 +14,10 @@ import {
   GlobalTournamentGoldReward,
   GlobalTournamentXpReward,
   isWinner,
+  keys,
   knownIssues,
   LAST_RELEASE,
+  Modifiers,
   randomBetween,
   weightedRandom,
 } from '@labrute/core';
@@ -36,8 +38,8 @@ import { ServerState } from './utils/ServerState.js';
 import { resetBrute } from './utils/brute/resetBrute.js';
 import { updateClanPoints } from './utils/clan/updateClanPoints.js';
 import { generateFight } from './utils/fight/generateFight.js';
-import { shuffle } from './utils/shuffle.js';
 import { logMemory } from './utils/memory.js';
+import { shuffle } from './utils/shuffle.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
@@ -137,7 +139,7 @@ const deleteMisformattedTournaments = async (prisma: PrismaClient) => {
 
 const handleDailyTournaments = async (
   prisma: PrismaClient,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
 ) => {
   // Keep track of gains (xp, gold)
   const gains: Record<string, [number, number]> = {};
@@ -494,7 +496,7 @@ const handleDailyTournaments = async (
 
 const handleGlobalTournament = async (
   prisma: PrismaClient,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
   brutes: Pick<Brute, 'id'>[],
 ) => {
   // Keep track of gains
@@ -732,7 +734,7 @@ const handleGlobalTournament = async (
 
 const handleUnlimitedGlobalTournament = async (
   prisma: PrismaClient,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
   brutes: Pick<Brute, 'id'>[],
 ) => {
   const today = dayjs.utc().startOf('day');
@@ -1273,24 +1275,24 @@ const handleModifiers = async (prisma: PrismaClient) => {
     return ServerState.getModifiers(prisma);
   }
 
-  const rolledModifiers: FightModifier[] = [];
+  const rolledModifiers: Modifiers = {};
 
   // Chaos every sunday
   if (dayjs().utc().day() === 0) {
-    rolledModifiers.push(FightModifier.chaos);
+    rolledModifiers[FightModifier.chaos] = true;
   }
 
   // Check if next modifiers are preselected
   const nextModifiers = await ServerState.getNextModifiers(prisma);
 
-  if (nextModifiers.length) {
-    rolledModifiers.push(...nextModifiers);
+  if (keys(nextModifiers).length) {
+    Object.assign(rolledModifiers, nextModifiers);
 
     // Reset next modifiers
-    await ServerState.setNextModifiers(prisma, []);
+    await ServerState.setNextModifiers(prisma, {});
   }
 
-  if (!rolledModifiers.length && Math.random() < DailyModifierSpawnChance) {
+  if (!keys(rolledModifiers).length && Math.random() < DailyModifierSpawnChance) {
     const modifierCount = weightedRandom(DailyModifierCountOdds).count;
 
     const availableModifiers = [...DailyModifierOdds];
@@ -1299,7 +1301,7 @@ const handleModifiers = async (prisma: PrismaClient) => {
     for (let i = 0; i < modifierCount; i++) {
       const { modifier } = weightedRandom(availableModifiers);
 
-      rolledModifiers.push(modifier);
+      rolledModifiers[modifier] = true;
 
       // Remove modifier from available list
       availableModifiers.splice(availableModifiers.findIndex((m) => m.modifier === modifier), 1);
@@ -1309,7 +1311,7 @@ const handleModifiers = async (prisma: PrismaClient) => {
   // Store rolled modifiers
   await ServerState.setModifiers(prisma, rolledModifiers);
 
-  if (rolledModifiers.length) {
+  if (keys(rolledModifiers).length) {
     DISCORD().sendModifiersNotification(rolledModifiers);
   }
 
@@ -1431,7 +1433,7 @@ const cleanup = async (prisma: PrismaClient) => {
 
 const handleClanWars = async (
   prisma: PrismaClient,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
 ) => {
   const today = dayjs.utc().startOf('day');
 
@@ -1861,7 +1863,7 @@ const handleEventFinish = async (prisma: PrismaClient) => {
 
 const handleEventTournament = async (
   prisma: PrismaClient,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
 ) => {
   // Get last event
   const lastEvent = await prisma.event.findFirst({

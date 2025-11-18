@@ -1,6 +1,6 @@
 import {
   applySkillModifiers, getFightsLeft, getHP, LevelUpChoice,
-  pets
+  pets,
 } from '@labrute/core';
 import {
   Brute, BruteStat, DestinyChoice, PetName, SkillName, WeaponName,
@@ -61,7 +61,7 @@ export const updateBruteData = (
 
     // Handle +2 fights for `regeneration`
     if (skillName === SkillName.regeneration && !brute.eventId) {
-      updatedBrute.fightsLeft = getFightsLeft(updatedBrute, []) + 2;
+      updatedBrute.fightsLeft = getFightsLeft(updatedBrute, {}) + 2;
     }
 
     updatedBrute.skills.push(skillName);

@@ -1,4 +1,4 @@
-import { pad } from '@labrute/core';
+import { keys, pad } from '@labrute/core';
 import { Box, BoxProps, Link, Paper, Tooltip, useTheme } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -35,6 +35,8 @@ const Header = ({
     }
     return art;
   }, [leftArt]);
+
+  const modifierKeys = useMemo(() => keys(modifiers), [modifiers]);
 
   // Update time every minute
   useEffect(() => {
@@ -102,7 +104,7 @@ const Header = ({
           {time.format('HH:mm')}
         </Text>
       </Tooltip>
-      {!!modifiers.length && (
+      {!!modifierKeys.length && (
         <Paper sx={{ mx: 1, p: 0, cursor: 'pointer' }} onClick={pauseMarquee}>
           <Marquee
             pauseOnHover
@@ -114,7 +116,7 @@ const Header = ({
             <Text bold smallCaps sx={{ mr: 0.5 }}>
               {t('activeModifiers')}:
             </Text>
-            {modifiers.map((modifier) => (
+            {modifierKeys.map((modifier) => (
               <Text key={modifier} sx={{ mr: 1 }}>
                 <Text component="span" bold color="secondary" smallCaps>
                   {t(`modifier.${modifier}`)}

@@ -1,13 +1,15 @@
+import { keys, Modifiers } from '@labrute/core';
 import {
-  Event, EventStatus, FightModifier, PrismaClient,
+  Event, EventStatus,
+  PrismaClient,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { LOGGER } from '../context.js';
 
 let SERVER_READY = true;
-let MODIFIERS: FightModifier[] | null = null;
+let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
-let NEXT_MODIFIERS: FightModifier[] | null = null;
+let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
 
 const setReady = (ready: boolean) => {
@@ -55,20 +57,30 @@ const getModifiers = async (prisma: PrismaClient) => {
     },
   });
 
-  MODIFIERS = serverState?.activeModifiers || [];
+  MODIFIERS = (serverState?.activeModifiers ?? [])
+    .reduce<Modifiers>((acc, modifier) => {
+      acc[modifier] = true;
+      return acc;
+    }, {});
 
   return MODIFIERS;
 };
 
-const setModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) => {
+const setModifiers = async (
+  prisma: PrismaClient,
+  modifiers: Modifiers,
+) => {
   const tomorrow = dayjs.utc().add(1, 'day').toDate();
   const serverState = await prisma.serverState.findFirst({
     select: { id: true },
   });
+
+  const modifierList = keys(modifiers);
+
   if (!serverState) {
     await prisma.serverState.create({
       data: {
-        activeModifiers: modifiers,
+        activeModifiers: modifierList,
         modifiersEndAt: tomorrow,
       },
       select: { id: true },
@@ -77,7 +89,7 @@ const setModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) =>
     await prisma.serverState.update({
       where: { id: serverState.id },
       data: {
-        activeModifiers: modifiers,
+        activeModifiers: modifierList,
         modifiersEndAt: tomorrow,
       },
       select: { id: true },
@@ -138,20 +150,22 @@ const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
 };
 
-const setNextModifiers = async (prisma: PrismaClient, modifiers: FightModifier[]) => {
+const setNextModifiers = async (prisma: PrismaClient, modifiers: Modifiers) => {
   const serverState = await prisma.serverState.findFirst({
     select: { id: true },
   });
 
+  const modifierList = keys(modifiers);
+
   if (!serverState) {
     await prisma.serverState.create({
-      data: { nextModifiers: modifiers },
+      data: { nextModifiers: modifierList },
       select: { id: true },
     });
   } else {
     await prisma.serverState.update({
       where: { id: serverState.id },
-      data: { nextModifiers: modifiers },
+      data: { nextModifiers: modifierList },
       select: { id: true },
     });
   }
@@ -170,7 +184,11 @@ const getNextModifiers = async (prisma: PrismaClient) => {
     },
   });
 
-  return serverState?.nextModifiers || [];
+  return (serverState?.nextModifiers ?? [])
+    .reduce<Modifiers>((acc, modifier) => {
+      acc[modifier] = true;
+      return acc;
+    }, {});
 };
 
 const getCurrentEvent = async (prisma: PrismaClient) => {

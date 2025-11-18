@@ -1,5 +1,5 @@
 import { PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, convertEnduranceToHP, getPetScaledStat } from '@labrute/core';
-import { Brute } from '@labrute/prisma';
+import { Brute, FightModifier } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,8 @@ const PetTooltip = ({
   const { t } = useTranslation();
   const { brute: authedBrute } = useBrute();
   const theme = useTheme();
-  const { chaos } = useAuth();
+  const { modifiers } = useAuth();
+  const chaos = useMemo(() => !!modifiers[FightModifier.chaos], [modifiers]);
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
   const tieredPet = useMemo(() => {

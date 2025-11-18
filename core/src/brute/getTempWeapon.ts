@@ -2,13 +2,14 @@ import { Brute, FightModifier } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { randomBetween } from '../utils';
 import { weaponList } from './weapons';
+import { Modifiers } from '../types';
 
 export const getTempWeapon = (
   brute: Pick<Brute, 'id' | 'weapons'>,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
   useCache = true,
 ) => {
-  if (!modifiers.includes(FightModifier.randomWeapon)) {
+  if (!modifiers[FightModifier.randomWeapon]) {
     return null;
   }
 

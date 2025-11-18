@@ -1,11 +1,12 @@
 import { convertEnduranceToHP, entries, FightStat, getScaledStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 import { TierStar } from './TierStar';
+import { FightModifier } from '@labrute/prisma';
 
 // Rename endurance to HP
 const statName = (stat: FightStat) => {
@@ -33,7 +34,9 @@ const SkillTooltip = ({
   ...rest
 }: SkillTooltipProps) => {
   const { t } = useTranslation();
-  const { chaos } = useAuth();
+  const { modifiers } = useAuth();
+
+  const chaos = useMemo(() => !!modifiers[FightModifier.chaos], [modifiers]);
 
   return (
     <Tooltip

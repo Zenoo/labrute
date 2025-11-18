@@ -168,7 +168,7 @@ const getRandomOpponent = ({
   nonTrappedOrStunnedOnly?: boolean;
 }) => {
   // Focus opponent if modifier or if hypnosis
-  const focusOpponent = fightData.modifiers.includes(FightModifier.focusOpponent)
+  const focusOpponent = fightData.modifiers[FightModifier.focusOpponent]
     || !!fighter.skills[SkillName.hypnosis];
 
   let opponents = getOpponents({
@@ -287,7 +287,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   // Filter out net if no non-trapped / non-stunned fighters
   if (!getOpponents({ fightData, fighter }).some((f) => !f.trapped && !f.stunned)
     // or ennemy non-trapped pet alive and other anti-pet skills avalaible
-    || (!fightData.modifiers.includes(FightModifier.focusOpponent)
+    || (!fightData.modifiers[FightModifier.focusOpponent]
       && getOpponents({ fightData, fighter, petOnly: true }).some((p) => !p.trapped)
       && supers.some((skill) => skill.name === SkillName.hypnosis
         || skill.name === SkillName.cryOfTheDamned
@@ -309,7 +309,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   if (!supers.length) return null;
 
-  const NO_SUPER_TOSS = fightData.modifiers.includes(FightModifier.alwaysUseSupers) ? 0 : 10;
+  const NO_SUPER_TOSS = fightData.modifiers[FightModifier.alwaysUseSupers] ? 0 : 10;
   const randomSuper = randomBetween(
     0,
     supers.reduce((acc, skill) => acc + (skill.toss?.[skill.tier - 1] || 0), -1) + NO_SUPER_TOSS,
@@ -338,7 +338,7 @@ export const randomlyDrawWeapon = (
     totalToss += weapon.toss[weapon.tier - 1] ?? 0;
   }
 
-  if (!forceDraw && !fightData.modifiers.includes(FightModifier.drawEveryWeapon)) {
+  if (!forceDraw && !fightData.modifiers[FightModifier.drawEveryWeapon]) {
     totalToss += NO_WEAPON_TOSS;
   }
 
@@ -391,7 +391,7 @@ export const fighterArrives = (
   fightData: DetailedFight,
   fighter: DetailedFighter,
 ) => {
-  const arriveWithWeapon = fightData.modifiers.includes(FightModifier.startWithWeapon);
+  const arriveWithWeapon = fightData.modifiers[FightModifier.startWithWeapon];
 
   const step: ArriveStep = {
     a: StepType.Arrive,
@@ -737,14 +737,14 @@ const drawWeapon = (
   fighter: DetailedFighter,
   forceDraw: boolean = false,
 ): boolean => {
-  const bareHandsFirstHit = fightData.modifiers.includes(FightModifier.bareHandsFirstHit);
+  const bareHandsFirstHit = fightData.modifiers[FightModifier.bareHandsFirstHit];
 
   // Don't draw a weapon if the fighter hasn't hit yet
   if (bareHandsFirstHit && !fighter.bareHandHit) {
     return false;
   }
 
-  const drawEveryWeapon = fightData.modifiers.includes(FightModifier.drawEveryWeapon);
+  const drawEveryWeapon = fightData.modifiers[FightModifier.drawEveryWeapon];
 
   // Don't always draw a weapon if the fighter is already holding a weapon
   if (fighter.activeWeapon
@@ -2187,7 +2187,7 @@ export const playFighterTurn = (
           ? 'thrown' : 'melee'
       : 'melee';
 
-  if (attackType === 'thrown' && fightData.modifiers.includes(FightModifier.noThrows)) {
+  if (attackType === 'thrown' && fightData.modifiers[FightModifier.noThrows]) {
     attackType = 'melee';
   }
 

@@ -11,3 +11,7 @@ export const entries = <K extends string, V>(obj: Partial<Record<K, V>>): [K, V]
 
   return result;
 };
+
+export const keys = <K extends string, V>(
+  obj: Partial<Record<K, V>>
+): K[] => Object.keys(obj) as K[];

@@ -6,7 +6,7 @@ import {
   BruteRanking,
   CLAN_SIZE_LIMIT,
   FightStep,
-  Fighter, ForbiddenError, Skill, SkillByName,
+  Fighter, ForbiddenError, Modifiers, Skill, SkillByName,
   SkillId,
   StepType, Tiered, Weapon, WeaponByName,
   bossBackground, bosses,
@@ -125,7 +125,7 @@ export interface DetailedFighter {
 }
 
 export interface DetailedFight {
-  modifiers: FightModifier[];
+  modifiers: Modifiers;
   fighters: DetailedFighter[];
   initialFighters: DetailedFighter[];
   steps: FightStep[];
@@ -155,7 +155,7 @@ type GenerateFightParams = {
   prisma: PrismaClient;
   team1: Team;
   team2: Team;
-  modifiers: FightModifier[];
+  modifiers: Modifiers;
   backups: boolean;
   achievements: boolean;
   tournament?: 'fight' | 'finals';
@@ -178,7 +178,7 @@ export const generateFight = async ({
     throw new ForbiddenError('Attempted to created a fight between the same brutes');
   }
 
-  const chaos = modifiers.includes(FightModifier.chaos);
+  const chaos = modifiers[FightModifier.chaos] === true;
 
   const background = (team1.bosses?.length || team2.bosses?.length)
     ? bossBackground

@@ -1,16 +1,15 @@
-import { TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
-import { Event, FightModifier } from '@labrute/prisma';
+import { Modifiers, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
+import { Event } from '@labrute/prisma';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { deleteCookie, getCookie } from '../utils/cookies';
 import Server from '../utils/Server';
-import { useLanguage } from './useLanguage';
 import { useAlert } from './useAlert';
-import { useTranslation } from 'react-i18next';
+import { useLanguage } from './useLanguage';
 
 interface AuthContextInterface {
   user: UserWithBrutesBodyColor | null,
-  modifiers: FightModifier[],
-  chaos: boolean,
+  modifiers: Modifiers,
   currentEvent: Event | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
@@ -21,8 +20,7 @@ interface AuthContextInterface {
 
 const AuthContext = React.createContext<AuthContextInterface>({
   user: null,
-  modifiers: [],
-  chaos: false,
+  modifiers: {},
   currentEvent: null,
   authing: false,
   setAuthing: () => {
@@ -48,15 +46,13 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [modifiers, setModifiers] = useState<FightModifier[]>([]);
+  const [modifiers, setModifiers] = useState<Modifiers>({});
   const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
   const [user, setUser] = useState<UserWithBrutesBodyColor | null>(null);
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
   const Alert = useAlert();
   const { t } = useTranslation();
-
-  const chaos = useMemo(() => modifiers.includes(FightModifier.chaos), [modifiers]);
 
   const signin = useCallback(() => {
     if (authing || user) return;
@@ -113,14 +109,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const methods = useMemo(() => ({
     user,
     modifiers,
-    chaos,
     currentEvent,
     authing,
     setAuthing,
     signin,
     signout,
     updateData
-  }), [authing, chaos, currentEvent, modifiers, signin, signout, updateData, user]);
+  }), [authing, currentEvent, modifiers, signin, signout, updateData, user]);
 
   return (
     <AuthContext.Provider value={methods}>

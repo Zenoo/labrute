@@ -9,6 +9,7 @@ import {
   getTieredPets,
   getTieredSkills,
   getTieredWeapons,
+  Modifiers,
   pets,
   randomBetween,
   Skill,
@@ -129,7 +130,7 @@ const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
 type GetFightersParams = {
   team1: Team,
   team2: Team,
-  modifiers: FightModifier[],
+  modifiers: Modifiers,
   clanFight?: boolean,
 };
 
@@ -139,7 +140,7 @@ export const getFighters = ({
   modifiers,
   clanFight,
 }: GetFightersParams): DetailedFighter[] => {
-  const chaos = modifiers.includes(FightModifier.chaos);
+  const chaos = modifiers[FightModifier.chaos] === true;
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
@@ -166,10 +167,10 @@ export const getFighters = ({
 
       // Fetch brute stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const bruteHP = getFinalHP(chaos, brute, modifiers, false);
-      const bruteSpeed = getFinalStat(chaos, brute, 'speed', modifiers, false);
-      const bruteStrength = getFinalStat(chaos, brute, 'strength', modifiers, false);
-      const bruteAgility = getFinalStat(chaos, brute, 'agility', modifiers, false);
+      const bruteHP = getFinalHP(brute, modifiers, false);
+      const bruteSpeed = getFinalStat(brute, 'speed', modifiers, false);
+      const bruteStrength = getFinalStat(brute, 'strength', modifiers, false);
+      const bruteAgility = getFinalStat(brute, 'agility', modifiers, false);
 
       // Skills
       const tieredSkillNames = getTieredSkills(brute, modifiers);
@@ -338,10 +339,10 @@ export const getFighters = ({
 
       // Fetch backup stats before handling modifiers,
       // as both depend on the skills, which get modified
-      const backupHP = getFinalHP(chaos, backup, modifiers, false);
-      const backupSpeed = getFinalStat(chaos, backup, 'speed', modifiers, false);
-      const backupStrength = getFinalStat(chaos, backup, 'strength', modifiers, false);
-      const backupAgility = getFinalStat(chaos, backup, 'agility', modifiers, false);
+      const backupHP = getFinalHP(backup, modifiers, false);
+      const backupSpeed = getFinalStat(backup, 'speed', modifiers, false);
+      const backupStrength = getFinalStat(backup, 'strength', modifiers, false);
+      const backupAgility = getFinalStat(backup, 'agility', modifiers, false);
 
       // Skills
       const tieredSkillNames = getTieredSkills(backup, modifiers);

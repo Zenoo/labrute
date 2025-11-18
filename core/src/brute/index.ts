@@ -1,6 +1,7 @@
 export * from './applySkillModifiers';
 export * from './availableBodyParts';
 export * from './bosses';
+export * from './calculatedBrute';
 export * from './canLevelUp';
 export * from './colors';
 export * from './createRandomBruteStats';

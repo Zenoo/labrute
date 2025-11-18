@@ -1,4 +1,5 @@
-import { Brute, FightModifier, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { Brute, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { Modifiers } from '../types';
 import { getTempSkill } from './getTempSkill';
 import { getTempWeapon } from './getTempWeapon';
 
@@ -8,7 +9,7 @@ export type Tiered<T> = T & {
 
 export const getTieredSkills = (
   brute: Pick<Brute, 'id' | 'skills'>,
-  modifiers?: FightModifier[],
+  modifiers?: Modifiers,
   filter?: (skill: SkillName) => boolean,
 ) => {
   const tieredSkills: Partial<Record<SkillName, number>> = {};
@@ -36,7 +37,7 @@ export const getTieredSkills = (
 
 export const getTieredWeapons = (
   brute: Pick<Brute, 'id' | 'weapons'>,
-  modifiers?: FightModifier[]
+  modifiers?: Modifiers
 ) => {
   const tieredWeapons: Partial<Record<WeaponName, number>> = {};
 
