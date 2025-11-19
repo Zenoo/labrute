@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.12](https://github.com/Zenoo/labrute/compare/labrute-v2.83.11...labrute-v2.83.12) (2025-11-19)
+
+
+### Bug Fixes
+
+* Remove previous skill tier stats before applying the new ones ([87fed52](https://github.com/Zenoo/labrute/commit/87fed528110e2715e26be10b729dd4060a555df7))
+
 ## [2.83.11](https://github.com/Zenoo/labrute/compare/labrute-v2.83.10...labrute-v2.83.11) (2025-11-19)
 
 
