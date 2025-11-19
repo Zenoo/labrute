@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.11](https://github.com/Zenoo/labrute/compare/labrute-v2.83.10...labrute-v2.83.11) (2025-11-19)
+
+
+### Bug Fixes
+
+* Weapons not displaying in fights ([e8554ce](https://github.com/Zenoo/labrute/commit/e8554ce5f2529e83abfe511dd3193f266ca2d526))
+* Weapons/pets not showing their tiers in the cell ([00ca445](https://github.com/Zenoo/labrute/commit/00ca445359681005d0df6fec72ed9f3ffbbaef4c))
+
 ## [2.83.10](https://github.com/Zenoo/labrute/compare/labrute-v2.83.9...labrute-v2.83.10) (2025-11-19)
 
 
