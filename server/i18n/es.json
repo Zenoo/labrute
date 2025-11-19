@@ -28,6 +28,7 @@
   "nameAlreadyTaken": "Este nombre ya está en uso",
   "bruteLimitReached": "Has alcanzado tu límite de brutos. Necesitas {{gold}} de oro para desbloquear un nuevo bruto.",
   "bruteCannotLevelUp": "Tu bruto no puede subir de nivel",
+  "maxTierReached": "Maximum tier reached",
   "notEnoughXP": "No tienes suficiente XP",
   "destinyChoiceNotFound": "Opción del destino no encontrada",
   "slowDown": "¡Eeeeh, no tan rápido!",
