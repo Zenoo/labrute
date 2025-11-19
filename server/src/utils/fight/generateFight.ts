@@ -100,7 +100,7 @@ export interface DetailedFighter {
   // Available skills
   skills: Partial<Record<SkillName, Tiered<Skill>>>;
   // Available weapons
-  weapons: Map<WeaponName, Tiered<Weapon>>;
+  weapons: Partial<Record<WeaponName, Tiered<Weapon>>>;
   // Shield state
   shield: boolean;
   // Active skills
@@ -110,7 +110,7 @@ export interface DetailedFighter {
   keepWeaponChance: number;
   // Pre fight sabotage
   saboteur: boolean;
-  sabotagedWeapon: Weapon | null;
+  sabotagedWeapon: Tiered<Weapon> | null;
   // Status effects
   poisonedBy: number | null; // Fighter index
   trapped: boolean;

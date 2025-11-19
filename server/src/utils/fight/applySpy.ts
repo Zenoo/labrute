@@ -12,7 +12,7 @@ export const applySpy = (
   opponent: DetailedFighter,
 ) => {
   if (brute.skills[SkillName.spy]) {
-    let swappableOpponentWeapons = [...opponent.weapons.values()];
+    let swappableOpponentWeapons = Object.values(opponent.weapons);
 
     // If opponent has weaponMaster, can't swap it's sharp weapons
     if (opponent.skills[SkillName.weaponsMaster]) {
@@ -22,7 +22,8 @@ export const applySpy = (
     }
 
     const opponentWeaponsCount = swappableOpponentWeapons.length;
-    const bruteWeaponsCount = brute.weapons.size;
+    const bruteWeapons = Object.values(brute.weapons);
+    const bruteWeaponsCount = bruteWeapons.length;
     const weaponsToSwap = Math.min(opponentWeaponsCount, bruteWeaponsCount);
 
     if (weaponsToSwap === 0) {
@@ -32,7 +33,7 @@ export const applySpy = (
     // Only swap the amount of weapons the spy has (maxed at opponent's swappable weapons count)
     const opponentWeaponsToSwap = shuffle(swappableOpponentWeapons)
       .slice(0, weaponsToSwap);
-    const bruteWeaponsToSwap = shuffle([...brute.weapons.values()])
+    const bruteWeaponsToSwap = shuffle(bruteWeapons)
       .slice(0, weaponsToSwap);
 
     fightData.steps.push({
@@ -45,13 +46,13 @@ export const applySpy = (
 
     // Swap weapons
     for (const weaponToSwap of bruteWeaponsToSwap) {
-      brute.weapons.delete(weaponToSwap.name);
-      opponent.weapons.set(weaponToSwap.name, weaponToSwap);
+      delete brute.weapons[weaponToSwap.name];
+      opponent.weapons[weaponToSwap.name] = weaponToSwap;
     }
 
     for (const weaponToSwap of opponentWeaponsToSwap) {
-      opponent.weapons.delete(weaponToSwap.name);
-      brute.weapons.set(weaponToSwap.name, weaponToSwap);
+      delete opponent.weapons[weaponToSwap.name];
+      brute.weapons[weaponToSwap.name] = weaponToSwap;
     }
 
     // Add own weapons to opponent damaged weapons

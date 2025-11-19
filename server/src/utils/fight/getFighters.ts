@@ -174,12 +174,12 @@ export const getFighters = ({
       }
 
       // Weapons
-      const tieredWeapons = new Map<WeaponName, Tiered<Weapon>>();
+      const tieredWeapons: Partial<Record<WeaponName, Tiered<Weapon>>> = {};
       for (const [weaponName, tier] of entries(brute.weapons)) {
-        tieredWeapons.set(weaponName, {
+        tieredWeapons[weaponName] = {
           ...weapons[weaponName],
           tier,
-        });
+        };
       }
 
       // Brute stats
@@ -301,7 +301,7 @@ export const getFighters = ({
           resistant: false,
           fastMetabolism: null,
           skills: {},
-          weapons: new Map(),
+          weapons: {},
           shield: false,
           activeSkills: [],
           activeWeapon: null,
@@ -336,12 +336,12 @@ export const getFighters = ({
       }
 
       // Weapons
-      const tieredWeapons = new Map<WeaponName, Tiered<Weapon>>();
+      const tieredWeapons: Partial<Record<WeaponName, Tiered<Weapon>>> = {};
       for (const [weaponName, tier] of entries(backup.weapons)) {
-        tieredWeapons.set(weaponName, {
+        tieredWeapons[weaponName] = {
           ...weapons[weaponName],
           tier,
-        });
+        };
       }
 
       spawnedPets++;
@@ -458,7 +458,7 @@ export const getFighters = ({
         resistant: false,
         fastMetabolism: null,
         skills: {},
-        weapons: new Map(),
+        weapons: {},
         shield: false,
         activeSkills: [],
         activeWeapon: null,

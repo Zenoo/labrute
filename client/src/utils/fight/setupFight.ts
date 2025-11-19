@@ -452,6 +452,9 @@ const setupFight: (
     // Add to stage
     app.stage?.addChild(animationFighter.animation.container);
 
+    // Remove duplicate weapons (from higher tier weapons)
+    animationFighter.weapons = Array.from(new Set(fighter.weapons));
+
     // Update brute weapons
     updateWeapons(app, animationFighter);
 

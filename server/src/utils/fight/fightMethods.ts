@@ -2,7 +2,8 @@
 import {
   AchievementsStore,
   ArriveStep,
-  FightStat, HasteStep, HitStep, LeaveStep,
+  entries,
+  FightStat, HasteStep, HitStep, keys, LeaveStep,
   NO_WEAPON_TOSS,
   randomBetween, randomItem,
   Skill,
@@ -202,9 +203,11 @@ export const saboteur = (fightData: DetailedFight, achievements: AchievementsSto
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
     if (fighter.saboteur) {
       const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
-      if (opponent && opponent.weapons.size > 0) {
-        const sabotagedWeapon = randomItem(opponent.weapons);
-        opponent.sabotagedWeapon = sabotagedWeapon;
+      const opponentWeapons = entries(opponent?.weapons ?? {});
+      if (opponent && opponentWeapons.length > 0) {
+        const sabotagedWeapon = randomItem(opponentWeapons);
+        const [, tieredWeapon] = sabotagedWeapon;
+        opponent.sabotagedWeapon = tieredWeapon;
         updateAchievement(achievements, 'saboteur', 1, fighter.id);
       }
     }
@@ -280,7 +283,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out flashFlood if less than 3 weapons
-  if (fighter.weapons.size + (fighter.activeWeapon ? 1 : 0) < 3) {
+  if (keys(fighter.weapons).length + (fighter.activeWeapon ? 1 : 0) < 3) {
     supers = supers.filter((skill) => skill.name !== SkillName.flashFlood);
   }
 
@@ -328,13 +331,14 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
 export const randomlyDrawWeapon = (
   fightData: DetailedFight,
-  fighterWeapons: Map<WeaponName, Tiered<Weapon>>,
+  fighterWeapons: Partial<Record<WeaponName, Tiered<Weapon>>>,
   forceDraw?: boolean,
 ) => {
-  if (!fighterWeapons.size) return null;
+  const weapons = entries(fighterWeapons);
+  if (!weapons.length) return null;
 
   let totalToss = -1;
-  for (const weapon of fighterWeapons.values()) {
+  for (const [, weapon] of weapons) {
     totalToss += weapon.toss[weapon.tier - 1] ?? 0;
   }
 
@@ -346,7 +350,7 @@ export const randomlyDrawWeapon = (
 
   // Find weapon by accumulated toss
   let toss = 0;
-  for (const weapon of fighterWeapons.values()) {
+  for (const [, weapon] of weapons) {
     toss += weapon.toss[weapon.tier - 1] ?? 0;
     if (randomWeapon < toss) {
       return weapon;
@@ -408,7 +412,7 @@ export const fighterArrives = (
       fighter.keepWeaponChance = 0.5;
 
       // Remove weapon from possible weapons
-      fighter.weapons.delete(possibleWeapon.name);
+      delete fighter.weapons[possibleWeapon.name];
 
       // Add weapon to step
       step.w = WeaponByName[possibleWeapon.name];
@@ -749,7 +753,7 @@ const drawWeapon = (
   // Don't always draw a weapon if the fighter is already holding a weapon
   if (fighter.activeWeapon
     && !drawEveryWeapon
-    && randomBetween(0, fighter.weapons.size * 2) === 0) return false;
+    && randomBetween(0, keys(fighter.weapons).length * 2) === 0) return false;
 
   // Draw a weapon
   const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons, forceDraw);
@@ -782,7 +786,7 @@ const drawWeapon = (
   fighter.keepWeaponChance = 0.5;
 
   // Remove weapon from possible weapons
-  fighter.weapons.delete(possibleWeapon.name);
+  delete fighter.weapons[possibleWeapon.name];
 
   // Add equip step
   fightData.steps.push({
@@ -1201,25 +1205,26 @@ const activateSuper = (
 
       let throwShield = false;
       // Check if this is the last flashFlood cast, either by lack of uses or weapons
-      if (fighter.shield && (skill.uses[skill.tier - 1] === 1 || fighter.weapons.size < 6)) {
+      if (fighter.shield && (skill.uses[skill.tier - 1] === 1
+        || keys(fighter.weapons).length < 6)) {
         // Then throw shield
         throwShield = true;
         dropShield({ fightData, fighter, addStep: false });
       }
 
       // Shuffle weapons
-      const shuffledWeapons = [...fighter.weapons.values()].sort(() => Math.random() - 0.5);
+      const shuffledWeapons = [...entries(fighter.weapons)].sort(() => Math.random() - 0.5);
       // Get 3 weapons
       const weaponsToThrow = shuffledWeapons.slice(0, fighter.activeWeapon ? 2 : 3);
 
       // Remove those weapons from the fighter
-      for (const w of weaponsToThrow) {
-        fighter.weapons.delete(w.name);
+      for (const [, w] of weaponsToThrow) {
+        delete fighter.weapons[w.name];
       }
 
       // Add active weapon as first weapon if any
       if (fighter.activeWeapon) {
-        weaponsToThrow.unshift(fighter.activeWeapon);
+        weaponsToThrow.unshift([fighter.activeWeapon.name, fighter.activeWeapon]);
         fighter.activeWeapon = null;
       }
 
@@ -1232,7 +1237,7 @@ const activateSuper = (
 
       // Get damages for each weapon
       const damages = [];
-      for (const weapon of weaponsToThrow) {
+      for (const [, weapon] of weaponsToThrow) {
         const damage = Math.floor(getDamage(chaos, fighter, opponent, weapon).damage * 1.5);
         damages.push(damage);
 
@@ -1768,18 +1773,20 @@ const attack = (
 
   // Check if the fighter sabotages an opponent's weapon
   if (damage && fighter.sabotage) {
+    const opponentWeapons = keys(opponent.weapons);
+
     // 90% chance to sabotage
-    if (opponent.weapons.size && Math.random() < 0.9) {
+    if (opponentWeapons.length && Math.random() < 0.9) {
       // Remove a random weapon
-      const weapon = randomItem([...opponent.weapons.values()]);
-      opponent.weapons.delete(weapon.name);
+      const weapon = randomItem(opponentWeapons);
+      delete opponent.weapons[weapon];
 
       // Add sabotage step
       fightData.steps.push({
         a: StepType.Sabotage,
         f: fighter.index,
         t: opponent.index,
-        w: WeaponByName[weapon.name],
+        w: WeaponByName[weapon],
       });
     }
   }
