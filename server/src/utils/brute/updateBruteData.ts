@@ -71,7 +71,7 @@ export const updateBruteData = (
       : 1;
 
     // STATS MODIFIERS
-    applySkillModifiers(calculatedBrute, skillName);
+    applySkillModifiers(calculatedBrute, skillName, calculatedBrute.skills[skillName]);
 
     updatedBrute = getBruteToSave(calculatedBrute);
   } else if (destinyChoice.type === 'weapon') {
@@ -87,7 +87,10 @@ export const updateBruteData = (
     updatedBrute.pets.push(destinyChoice.pet as PetName);
 
     // Take into account the endurance malus from the pet
-    updatedBrute.enduranceStat -= pet.enduranceMalus;
+    if (updatedBrute.pets.filter((p) => p === destinyChoice.pet).length === 1) {
+      // Only apply the malus if it's the first time we get this pet
+      updatedBrute.enduranceStat -= pet.enduranceMalus;
+    }
   } else if (destinyChoice.stat1 && !destinyChoice.stat2) {
     // +X stat
     const stat = destinyChoice.stat1;

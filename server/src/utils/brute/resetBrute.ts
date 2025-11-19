@@ -1,16 +1,17 @@
 import {
   ARENA_OPPONENTS_MAX_GAP,
-  HookBrute,
   RESET_PRICE,
   ServerHookBrute,
   applySkillModifiers,
   createRandomBruteStats,
+  entries,
   getMaxFightsPerDay,
   getPetsList,
   getRandomStartingStats,
   getSkillsList,
   getTotalXP,
   getWeaponsList,
+  keys,
   pets,
   randomItem,
 } from '@labrute/core';
@@ -158,7 +159,11 @@ export const resetBrute = async ({
   }
 
   // Take into account the endurance malus from ascended pets
+  const tieredAscendedPets: Partial<Record<PetName, number>> = {};
   for (const petName of brute.ascendedPets) {
+    tieredAscendedPets[petName] = (tieredAscendedPets[petName] ?? 0) + 1;
+  }
+  for (const petName of keys(tieredAscendedPets)) {
     const petStats = pets[petName];
 
     stats.enduranceStat -= petStats.enduranceMalus;
@@ -166,8 +171,12 @@ export const resetBrute = async ({
   }
 
   // Apply ascended skill modifiers
+  const tieredAscendedSkills: Partial<Record<SkillName, number>> = {};
   for (const skillName of brute.ascendedSkills) {
-    applySkillModifiers(stats, skillName);
+    tieredAscendedSkills[skillName] = (tieredAscendedSkills[skillName] ?? 0) + 1;
+  }
+  for (const [skillName, tier] of entries(tieredAscendedSkills)) {
+    applySkillModifiers(stats, skillName, tier);
   }
 
   // Update the brute

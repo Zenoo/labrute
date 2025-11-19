@@ -4,7 +4,11 @@ import { TieredPerks } from '../types';
 
 type BruteStats = Pick<TieredPerks, 'skills'> & Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
 
-export const applySkillModifiers = (brute: BruteStats, skillName: SkillName) => {
+export const applySkillModifiers = (
+  brute: BruteStats,
+  skillName: SkillName,
+  skillTier = 1,
+) => {
   Object.entries(SkillModifiers[skillName]).forEach(([unsafeStat, modifier]) => {
     const stat = unsafeStat as FightStat;
 
@@ -18,12 +22,20 @@ export const applySkillModifiers = (brute: BruteStats, skillName: SkillName) => 
 
     // Flat modifier
     if (modifier.flat) {
-      brute[`${stat}Stat`] += modifier.flat[(brute.skills[skillName] ?? 1) - 1] ?? 0;
+      // Remove previous tier modifier if applicable
+      if (skillTier > 1) {
+        brute[`${stat}Stat`] -= modifier.flat[skillTier - 2] ?? 0;
+      }
+      brute[`${stat}Stat`] += modifier.flat[skillTier - 1] ?? 0;
     }
 
     // Percent modifier
     if (modifier.percent) {
-      brute[`${stat}Modifier`] *= 1 + (modifier.percent[(brute.skills[skillName] ?? 1) - 1] ?? 0);
+      // Remove previous tier modifier if applicable
+      if (skillTier > 1) {
+        brute[`${stat}Modifier`] /= 1 + (modifier.percent[skillTier - 2] ?? 0);
+      }
+      brute[`${stat}Modifier`] *= 1 + (modifier.percent[skillTier - 1] ?? 0);
     }
 
     // Update value
