@@ -55,9 +55,11 @@ const CellWeapons = (
 ) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
+  const [hoveredWeaponTier, setHoveredWeaponTier] = useState<number>();
 
-  const hoverWeapon = useCallback((weapon: WeaponName | 'bare-hands') => () => {
+  const hoverWeapon = useCallback((weapon: WeaponName | 'bare-hands', tier?: number) => () => {
     setHoveredWeapon(weapon);
+    setHoveredWeaponTier(tier);
   }, []);
 
   const leaveWeapon = useCallback(() => {
@@ -100,6 +102,7 @@ const CellWeapons = (
   return brute && (
     <WeaponTooltip
       weapon={(hoveredWeapon !== 'bare-hands' && hoveredWeapon) ? weapons[hoveredWeapon] : undefined}
+      tier={hoveredWeaponTier}
       open={hoveredWeapon !== null}
       bareHands={hoveredWeapon === 'bare-hands'}
       placement="bottom"
@@ -139,7 +142,7 @@ const CellWeapons = (
         >
           <use height="198.65" transform="matrix(1.0, 0.0, 0.0, 1.0, -3.8, 3.4)" width="303.95" xlinkHref="#shape2" />
           <use height="30" onMouseEnter={hoverWeapon('bare-hands')} onMouseLeave={leaveWeapon} transform="matrix(0.25, 0, 0, 0.25, 2.2, 178)" width="30" xlinkHref="#bare-hands" />
-          {entries(brute.weapons).map(([weapon]) => (
+          {entries(brute.weapons).map(([weapon, tier]) => (
             <use
               key={weapon}
               id={weaponSvgProps[weapon].id}
@@ -147,7 +150,7 @@ const CellWeapons = (
               transform={weaponSvgProps[weapon].transform}
               width={weaponSvgProps[weapon].width}
               xlinkHref={weaponSvgProps[weapon].xlinkHref}
-              onMouseEnter={hoverWeapon(weapon)}
+              onMouseEnter={hoverWeapon(weapon, tier)}
               onMouseLeave={leaveWeapon}
               filter={getFilter(weapon)}
               cursor="pointer"
