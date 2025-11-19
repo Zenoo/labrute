@@ -28,6 +28,7 @@
   "nameAlreadyTaken": "Questo nome è già stato preso",
   "bruteLimitReached": "Hai raggiunto il limite di Bruti. Ti serve {{gold}} Oro per sbloccare un nuovo Bruto.",
   "bruteCannotLevelUp": "Il tuo Bruto non può salire di livello",
+  "maxTierReached": "Maximum tier reached",
   "notEnoughXP": "XP insufficiente",
   "destinyChoiceNotFound": "Scelta del destino non trovata",
   "slowDown": "Eeeeehi, calma con quei clic!",
