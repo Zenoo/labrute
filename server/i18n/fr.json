@@ -28,7 +28,7 @@
   "nameAlreadyTaken": "Ce nom est déjà utilisé",
   "bruteLimitReached": "Vous avez atteint votre limite de brute. Vous avez besoin de {{gold}} Or pour débloquer une nouvelle brute.",
   "bruteCannotLevelUp": "Votre brute ne peut pas monter de niveau",
-  "maxTierReached": "Maximum tier reached",
+  "maxTierReached": "Niveau maximum atteint",
   "notEnoughXP": "Pas assez d'XP",
   "destinyChoiceNotFound": "Choix de destinée introuvable",
   "slowDown": "Wow, du calme avec tes clics !",
