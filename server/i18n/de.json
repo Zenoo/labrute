@@ -28,6 +28,7 @@
   "nameAlreadyTaken": "Dieser Name ist bereits vergeben",
   "bruteLimitReached": "Du hast das Brutalo Limit erreicht. Du benötigst {{gold}} Gold, um einen neuen freizuschalten.",
   "bruteCannotLevelUp": "Dein Brutalo kann nicht in der Stufe aufsteigen",
+  "maxTierReached": "Maximum tier reached",
   "notEnoughXP": "Nicht genug EP",
   "destinyChoiceNotFound": "Auswahl im Schicksal nicht gefunden",
   "slowDown": "Wooow, immer langsam mit dem Klicken!",
