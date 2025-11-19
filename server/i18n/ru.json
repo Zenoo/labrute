@@ -28,7 +28,7 @@
   "nameAlreadyTaken": "Имя уже существует",
   "bruteLimitReached": "Вы достигли максимальное количество Бруталов. За {{gold}} золотых его можно увеличить.",
   "bruteCannotLevelUp": "Ваш Брутал сейчас не может повысить уровень",
-  "maxTierReached": "Maximum tier reached",
+  "maxTierReached": "Достигнута максимальная степень",
   "notEnoughXP": "Недостаточно опыта",
   "destinyChoiceNotFound": "Выбор Судьбы не найден",
   "slowDown": "Эй, хорош кликать!",
