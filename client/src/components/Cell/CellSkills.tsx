@@ -5,6 +5,7 @@ import React, { useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor } from '../../utils/StatColor';
 import SkillTooltip from '../Brute/SkillTooltip';
+import { TierStar } from '../Brute/TierStar';
 
 const CellSkills = ({
   sx,
@@ -57,7 +58,8 @@ const CellSkills = ({
             sx={{
               opacity: hasSkill
                 ? 1
-                : 0.4
+                : 0.4,
+              position: 'relative',
             }}
             onClick={onSkillClick(skill.name)}
             onMouseEnter={() => setHoveredSkill(skill.name)}
@@ -75,6 +77,22 @@ const CellSkills = ({
                 }}
               />
             </SkillTooltip>
+            {(brute.skills[skill.name] ?? 0) > 1 && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: -4,
+                }}
+              >
+                {Array.from(
+                  { length: (brute.skills[skill.name] ?? 0) - 1 },
+                ).map((_, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <TierStar key={index} />
+                ))}
+              </Box>
+            )}
           </Grid>
         );
       })}

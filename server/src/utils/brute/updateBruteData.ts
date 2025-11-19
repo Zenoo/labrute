@@ -66,7 +66,9 @@ export const updateBruteData = (
       updatedBrute.fightsLeft = getFightsLeft(calculatedBrute) + 2;
     }
 
-    updatedBrute.skills.push(skillName);
+    calculatedBrute.skills[skillName] = calculatedBrute.skills[skillName]
+      ? calculatedBrute.skills[skillName] + 1
+      : 1;
 
     // STATS MODIFIERS
     applySkillModifiers(calculatedBrute, skillName);

@@ -1,4 +1,4 @@
-import { BrutesGetLevelUpChoicesResponse, convertEnduranceToHP, entries, getCalculatedBrute, getXPNeeded, skills, weapons } from '@labrute/core';
+import { BrutesGetLevelUpChoicesResponse, convertEnduranceToHP, entries, getCalculatedBrute, getXPNeeded, pets, skills, weapons } from '@labrute/core';
 import { Brute, BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -7,10 +7,12 @@ import { useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteHP from '../components/Brute/BruteHP';
+import PetTooltip from '../components/Brute/PetTooltip';
 import SkillTooltip from '../components/Brute/SkillTooltip';
 import WeaponTooltip from '../components/Brute/WeaponTooltip';
 import CellStats from '../components/Cell/CellStats';
 import Link from '../components/Link';
+import Loader from '../components/Loader';
 import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
@@ -44,6 +46,7 @@ const LevelUpView = () => {
   const smallScreen = useMediaQuery('(max-width: 638px)');
   const { brute, updateBrute } = useBrute();
   const theme = useTheme();
+  const [loading, setLoading] = useState(false);
 
   const [choices, setChoices] = useState<BrutesGetLevelUpChoicesResponse['choices'] | null>(null);
 
@@ -60,6 +63,7 @@ const LevelUpView = () => {
             navigate(`/${bruteName}/cell`);
           } else {
             setChoices(data.choices);
+            setLoading(false);
           }
         }
       }).catch(() => {
@@ -73,12 +77,17 @@ const LevelUpView = () => {
   const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
     if (!brute || !choices) return;
 
+    setLoading(true);
+
     const newBrute = await Server.Brute.levelUp(
       brute.name,
       choice,
     ).catch(catchError(Alert));
 
-    if (!newBrute) return;
+    if (!newBrute) {
+      setLoading(false);
+      return;
+    }
 
     // Update user data
     updateData((data) => (data ? ({
@@ -213,88 +222,123 @@ const LevelUpView = () => {
           )}
           {/* CHOICES */}
           <Box sx={{ my: 1 }}>
-            {choices && choices.map((destinyChoice, i) => (
-              <Box
-                key={destinyChoice.id}
-                sx={{
-                  position: 'relative',
-                  height: 129,
-                  width: 255,
-                  display: 'inline-block',
-                  mx: 2,
-                  mb: 2,
-                }}
-              >
-                <BoxBg
-                  src={samePath
-                    && ((brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.LEFT
-                      && i === 0)
-                      || (brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.RIGHT
-                        && i === 1))
-                    ? `/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/box-current.png`
-                    : `/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/box.png`}
-                  sx={{
-                    pt: 5,
-                    height: 129,
-                  }}
-                >
-                  {/* CHOICE HEADER */}
-                  <Text caption>
-                    {/* +3 Skill */}
-                    {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
-                    {/* +2/+1 Skill */}
-                    {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
-                    {/* New weapon */}
-                    {destinyChoice.type === 'weapon' && `${t('newWeapon')} :`}
-                    {/* New skill */}
-                    {destinyChoice.type === 'skill' && `${t('newSkill')} :`}
-                    {/* New pet */}
-                    {destinyChoice.type === 'pet' && `${t('newPet')} :`}
-                  </Text>
+            {choices && choices.map((destinyChoice, i) => {
+              let maxedPerk = false;
+              if (destinyChoice.type === 'skill' && destinyChoice.skill) {
+                maxedPerk = (brute.skills[destinyChoice.skill] ?? 0) >= 3;
+              } else if (destinyChoice.type === 'weapon' && destinyChoice.weapon) {
+                maxedPerk = (brute.weapons[destinyChoice.weapon] ?? 0) >= 3;
+              } else if (destinyChoice.type === 'pet' && destinyChoice.pet) {
+                maxedPerk = (brute.pets[destinyChoice.pet] ?? 0) >= 3;
+              }
 
-                  {/* CHOICE CONTENT */}
-                  {/* Single value */}
-                  {(destinyChoice.type === 'skill' ? (
-                    <SkillTooltip
-                      skill={destinyChoice.skill && skills[destinyChoice.skill]}
-                    >
-                      <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
-                    </SkillTooltip>
-                  ) : destinyChoice.type === 'weapon' ? (
-                    <WeaponTooltip weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}>
-                      <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
-                    </WeaponTooltip>
-                  ) : destinyChoice.type === 'pet' ? (
-                    <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
-                  ) : !destinyChoice.stat2 ? (
-                    <Text h6 bold smallCaps>{t(statName(destinyChoice.stat1 as BruteStat))}</Text>
-                  ) : (
-                    <Text h6 bold smallCaps>
-                      {t(statName(destinyChoice.stat1 as BruteStat))}
-                      {' / '}
-                      {t(statName(destinyChoice.stat2))}
-                    </Text>
-                  ))}
-                </BoxBg>
-                {/* VALIDATE */}
-                <StyledButton
+              return (
+                <Box
+                  key={destinyChoice.id}
                   sx={{
-                    height: 42,
-                    width: 135,
-                    position: 'absolute',
-                    bottom: -8,
-                    right: -8,
+                    position: 'relative',
+                    height: 129,
+                    width: 255,
+                    display: 'inline-block',
+                    mx: 2,
+                    mb: 2,
                   }}
-                  image="/images/level-up/button.png"
-                  imageHover="/images/level-up/button-hover.png"
-                  shadow={false}
-                  contrast={false}
-                  onClick={levelUp(i === 0 ? DestinyChoiceSide.LEFT : DestinyChoiceSide.RIGHT)}
                 >
-                  <Text bold smallCaps color="success">{t('validate')}</Text>
-                </StyledButton>
-              </Box>
-            ))}
+                  <BoxBg
+                    src={samePath
+                      && ((brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.LEFT
+                        && i === 0)
+                        || (brute.previousDestinyPath[brute.level - 1] === DestinyChoiceSide.RIGHT
+                          && i === 1))
+                      ? `/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/box-current.png`
+                      : `/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/box.png`}
+                    sx={{
+                      pt: 5,
+                      height: 129,
+                    }}
+                  >
+                    {/* CHOICE HEADER */}
+                    <Text caption>
+                      {/* +3 Skill */}
+                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
+                      {/* +2/+1 Skill */}
+                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
+                      {/* New weapon */}
+                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon')} :`)}
+                      {/* New skill */}
+                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill')} :`)}
+                      {/* New pet */}
+                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet')} :`)}
+                    </Text>
+
+                    {/* CHOICE CONTENT */}
+                    {/* Single value */}
+                    {(destinyChoice.type === 'skill' ? (
+                      <SkillTooltip
+                        skill={destinyChoice.skill && skills[destinyChoice.skill]}
+                        tier={destinyChoice.skill
+                          ? (brute.skills[destinyChoice.skill] ?? 0) + 1
+                          : undefined}
+                      >
+                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                      </SkillTooltip>
+                    ) : destinyChoice.type === 'weapon' ? (
+                      <WeaponTooltip
+                        weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}
+                        tier={destinyChoice.weapon
+                          ? (brute.weapons[destinyChoice.weapon] ?? 0) + 1
+                          : undefined}
+                      >
+                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                      </WeaponTooltip>
+                    ) : destinyChoice.type === 'pet' ? (
+                      <PetTooltip
+                        pet={destinyChoice.pet && pets[destinyChoice.pet]}
+                        tier={destinyChoice.pet
+                          ? (brute.pets[destinyChoice.pet] ?? 0) + 1
+                          : undefined}
+                      >
+                        <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
+                      </PetTooltip>
+                    ) : !destinyChoice.stat2 ? (
+                      <Text h6 bold smallCaps>
+                        {t(statName(destinyChoice.stat1 as BruteStat))}
+                      </Text>
+                    ) : (
+                      <Text h6 bold smallCaps>
+                        {t(statName(destinyChoice.stat1 as BruteStat))}
+                        {' / '}
+                        {t(statName(destinyChoice.stat2))}
+                      </Text>
+                    ))}
+                  </BoxBg>
+                  {/* VALIDATE */}
+                  {!maxedPerk && (
+                    <StyledButton
+                      sx={{
+                        height: 42,
+                        width: 135,
+                        position: 'absolute',
+                        bottom: -8,
+                        right: -8,
+                        cursor: loading ? 'not-allowed' : 'pointer',
+                      }}
+                      image="/images/level-up/button.png"
+                      imageHover={loading ? '/images/level-up/button.png' : '/images/level-up/button-hover.png'}
+                      shadow={false}
+                      contrast={false}
+                      onClick={!loading ? levelUp(
+                        i === 0 ? DestinyChoiceSide.LEFT : DestinyChoiceSide.RIGHT
+                      ) : undefined}
+                    >
+                      {loading ? <Loader color="success" size="16px" /> : (
+                        <Text bold smallCaps color="success">{t('validate')}</Text>
+                      )}
+                    </StyledButton>
+                  )}
+                </Box>
+              );
+            })}
           </Box>
         </Box>
       </Paper>

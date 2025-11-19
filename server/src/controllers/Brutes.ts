@@ -29,10 +29,13 @@ import {
   getGoldNeededForNewBrute,
   getLevelUpChoices,
   getRandomStartingStats,
+  getTieredPets,
   getTieredSkills,
+  getTieredWeapons,
   getXPNeeded,
   isNameValid,
   isUuid,
+  pets,
 } from '@labrute/core';
 import {
   Brute,
@@ -575,6 +578,16 @@ export const Brutes = {
 
       if (!destinyChoice) {
         throw new NotFoundError(translate('destinyChoiceNotFound', authed));
+      }
+
+      // Check if the destiny choice is maxed
+      const bruteSkills = getTieredSkills(brute, {});
+      const bruteWeapons = getTieredWeapons(brute, {});
+      const brutePets = getTieredPets(brute);
+      if ((destinyChoice.type === 'skill' && destinyChoice.skill && (bruteSkills[destinyChoice.skill] ?? 0) >= 3)
+        || (destinyChoice.type === 'weapon' && destinyChoice.weapon && (bruteWeapons[destinyChoice.weapon] ?? 0) >= 3)
+        || (destinyChoice.type === 'pet' && destinyChoice.pet && (brutePets[destinyChoice.pet] ?? 0) >= pets[destinyChoice.pet].hp.length)) {
+        throw new LimitError(translate('maxTierReached', authed));
       }
 
       // Update brute data

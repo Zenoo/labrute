@@ -1,9 +1,10 @@
 import { Brute, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { randomBetween } from '../utils';
+import { keys, randomBetween } from '../utils';
 import { weightedRandom } from '../utils/weightedRandom';
-import { petList } from './pets';
+import { petList, pets } from './pets';
 import { skillList, skills } from './skills';
 import { MAX_LIMITED_WEAPONS, limitedWeapons, weaponList } from './weapons';
+import { getTieredPets, getTieredSkills, getTieredWeapons } from './calculatedBrute';
 
 const preventSomeBonuses = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
@@ -14,41 +15,48 @@ const preventSomeBonuses = (
 
   // Check if the perk should be prevented
   if (perkType === 'pet') {
-    const dogsUnlocked = brute.pets.filter((pet) => pet === 'dog1' || pet === 'dog2' || pet === 'dog3').length;
+    const brutePets = getTieredPets(brute);
+    const dogsUnlocked = (brutePets[PetName.dog1] ?? 0)
+      + (brutePets[PetName.dog2] ?? 0)
+      + (brutePets[PetName.dog3] ?? 0);
     const dogTier = dogsUnlocked <= 3 ? 1 : dogsUnlocked - 2;
     const higherDogTierLocked = dogsUnlocked < 3 || dogTier >= 3;
     switch (perkName) {
       case 'dog1':
-        preventPerk = brute.pets.includes('dog1') && higherDogTierLocked;
+        preventPerk = !!brutePets[PetName.dog1] && higherDogTierLocked;
         break;
       case 'dog2':
-        preventPerk = !brute.pets.includes('dog1') || (brute.pets.includes('dog2') && higherDogTierLocked);
+        preventPerk = !brutePets[PetName.dog1]
+          || !!brutePets[PetName.dog2];
         break;
       case 'dog3':
-        preventPerk = !brute.pets.includes('dog1') || !brute.pets.includes('dog2') || (brute.pets.includes('dog3') && higherDogTierLocked);
+        preventPerk = !brutePets[PetName.dog1]
+          || !brutePets[PetName.dog2]
+          || !!brutePets[PetName.dog3];
         break;
       case 'panther':
         // Allow for both panther and bear at a 1/1000 chance
-        preventPerk = brute.pets.includes('panther')
-          || (randomBetween(1, 1000) > 1 ? brute.pets.includes('bear') : false);
+        preventPerk = (brutePets[PetName.panther] ?? 0) >= pets[PetName.panther].hp.length
+          || (randomBetween(1, 1000) > 1 ? !!brutePets[PetName.bear] : false);
         break;
       case 'bear':
         // Allow for both panther and bear at a 1/1000 chance
-        preventPerk = brute.pets.includes('bear')
-          || (randomBetween(1, 1000) > 1 ? brute.pets.includes('panther') : false);
+        preventPerk = (brutePets[PetName.bear] ?? 0) >= pets[PetName.bear].hp.length
+          || (randomBetween(1, 1000) > 1 ? !!brutePets[PetName.panther] : false);
         break;
       default:
         break;
     }
   } else if (perkType === 'skill') {
+    const bruteSkills = getTieredSkills({ ...brute, id: '' }, {});
     const selectedSkill = skills[perkName as SkillName];
-    const hasSkill = brute.skills.includes(perkName as SkillName);
-    if (hasSkill) {
+    const hasMaxSkill = (bruteSkills[perkName as SkillName] ?? 0) >= 3;
+    if (hasMaxSkill) {
       preventPerk = true;
     } else if (selectedSkill?.type === 'booster') {
       // Decrease booster chances
       const boosters = skillList.filter((skill) => skill.type === 'booster');
-      const gottenBoosters = brute.skills.filter(
+      const gottenBoosters = keys(bruteSkills).filter(
         (skill) => boosters.find((booster) => booster.name === skill),
       );
 
@@ -85,7 +93,8 @@ const preventSomeBonuses = (
     }
   } else {
     // Limit some weapons
-    const gottenLimitedWeapons = brute.weapons.filter(
+    const bruteWeapons = getTieredWeapons({ ...brute, id: '' }, {});
+    const gottenLimitedWeapons = keys(bruteWeapons).filter(
       (weapon) => limitedWeapons.includes(weapon),
     );
 
@@ -93,8 +102,8 @@ const preventSomeBonuses = (
       && gottenLimitedWeapons.length >= MAX_LIMITED_WEAPONS) {
       preventPerk = true;
     } else {
-      // Prevent unlocking a weapon if the brute already has it
-      preventPerk = brute.weapons.includes(perkName as WeaponName);
+      // Prevent unlocking a weapon if the brute already has it maxed
+      preventPerk = (bruteWeapons[perkName as WeaponName] ?? 0) >= 3;
     }
   }
 

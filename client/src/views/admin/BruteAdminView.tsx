@@ -1,4 +1,4 @@
-import { AdminPanelBrute } from '@labrute/core';
+import { AdminPanelBrute, entries, getTieredPets, getTieredSkills, getTieredWeapons } from '@labrute/core';
 import { DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -22,6 +22,9 @@ export const BruteAdminView = () => {
   const Alert = useAlert();
 
   const [brute, setBrute] = useState<AdminPanelBrute | null>(null);
+  const [bruteSkills, setBruteSkills] = useState<string[]>([]);
+  const [bruteWeapons, setBruteWeapons] = useState<string[]>([]);
+  const [brutePets, setBrutePets] = useState<string[]>([]);
   const [item, setItem] = useState<InventoryItemType | ''>('');
 
   // Fetch brute on page load
@@ -30,6 +33,9 @@ export const BruteAdminView = () => {
 
     Server.Brute.getForAdmin(bruteName).then((b) => {
       setBrute(b);
+      setBruteSkills(entries(getTieredSkills(b, {})).map(([skillName, tier]) => `${skillName}:${tier}`));
+      setBruteWeapons(entries(getTieredWeapons(b, {})).map(([weaponName, tier]) => `${weaponName}:${tier}`));
+      setBrutePets(entries(getTieredPets(b)).map(([petName, tier]) => `${petName}:${tier}`));
     }).catch(catchError(Alert));
   }, [Alert, bruteName]);
 
@@ -338,20 +344,24 @@ export const BruteAdminView = () => {
                 <FormControl fullWidth>
                   <InputLabel>Weapons</InputLabel>
                   <Select
-                    value={brute.weapons}
+                    value={bruteWeapons}
                     label="Weapons"
                     multiple
                     onChange={(event) => {
+                      setBruteWeapons(event.target.value as string[]);
                       setBrute((b) => (b ? ({
                         ...b,
-                        weapons: event.target.value as WeaponName[],
+                        weapons: (event.target.value as string[]).map((w) => w.split(':')[0] as WeaponName),
                       }) : null));
                     }}
                   >
-                    {Object.values(WeaponName).map((weapon) => (
-                      <MenuItem key={weapon} value={weapon}>
-                        {weapon}
-                      </MenuItem>
+                    {Object.values(WeaponName).map((weapon) => Array.from(
+                      { length: 3 },
+                      (_, tier) => (
+                        <MenuItem key={`${weapon}:${tier + 1}`} value={`${weapon}:${tier + 1}`}>
+                          {`${weapon} ${tier > 0 ? `(${tier + 1})` : ''}`}
+                        </MenuItem>
+                      ),
                     ))}
                   </Select>
                 </FormControl>
@@ -360,20 +370,24 @@ export const BruteAdminView = () => {
                 <FormControl fullWidth>
                   <InputLabel>Skills</InputLabel>
                   <Select
-                    value={brute.skills}
+                    value={bruteSkills}
                     label="Skills"
                     multiple
                     onChange={(event) => {
+                      setBruteSkills(event.target.value as string[]);
                       setBrute((b) => (b ? ({
                         ...b,
-                        skills: event.target.value as SkillName[],
+                        skills: (event.target.value as string[]).map((s) => s.split(':')[0] as SkillName),
                       }) : null));
                     }}
                   >
-                    {Object.values(SkillName).map((skill) => (
-                      <MenuItem key={skill} value={skill}>
-                        {skill}
-                      </MenuItem>
+                    {Object.values(SkillName).map((skill) => Array.from(
+                      { length: 3 },
+                      (_, tier) => (
+                        <MenuItem key={`${skill}:${tier + 1}`} value={`${skill}:${tier + 1}`}>
+                          {`${skill} ${tier > 0 ? `(${tier + 1})` : ''}`}
+                        </MenuItem>
+                      ),
                     ))}
                   </Select>
                 </FormControl>
@@ -382,20 +396,24 @@ export const BruteAdminView = () => {
                 <FormControl fullWidth>
                   <InputLabel>Pets</InputLabel>
                   <Select
-                    value={brute.pets}
+                    value={brutePets}
                     label="Pets"
                     multiple
                     onChange={(event) => {
+                      setBrutePets(event.target.value as string[]);
                       setBrute((b) => (b ? ({
                         ...b,
-                        pets: event.target.value as PetName[],
+                        pets: (event.target.value as string[]).map((p) => p.split(':')[0] as PetName),
                       }) : null));
                     }}
                   >
-                    {Object.values(PetName).map((pet) => (
-                      <MenuItem key={pet} value={pet}>
-                        {pet}
-                      </MenuItem>
+                    {Object.values(PetName).map((pet) => Array.from(
+                      { length: 3 },
+                      (_, tier) => (
+                        <MenuItem key={`${pet}:${tier + 1}`} value={`${pet}:${tier + 1}`}>
+                          {`${pet} ${tier > 0 ? `(${tier + 1})` : ''}`}
+                        </MenuItem>
+                      ),
                     ))}
                   </Select>
                 </FormControl>

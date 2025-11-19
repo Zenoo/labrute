@@ -30,7 +30,7 @@ const generateBrute = (
   const gender: Gender = Math.random() > 0.5 ? 'male' : 'female';
 
   // Level 1 stats
-  let data = {
+  const data = {
     id: undefined,
     name,
     gender,

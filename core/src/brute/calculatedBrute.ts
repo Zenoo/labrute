@@ -28,6 +28,38 @@ export const getTieredSkills = (brute: Pick<Brute, 'id' | 'skills'>, modifiers: 
   return tieredSkills;
 };
 
+export const getTieredWeapons = (brute: Pick<Brute, 'id' | 'weapons'>, modifiers: Modifiers) => {
+  const tieredWeapons: TieredPerks['weapons'] = {};
+
+  for (const weapon of brute.weapons) {
+    tieredWeapons[weapon] = tieredWeapons[weapon]
+      ? tieredWeapons[weapon] + 1
+      : 1;
+  }
+
+  const randomWeapon = getTempWeapon(brute, modifiers);
+
+  if (randomWeapon) {
+    tieredWeapons[randomWeapon] = tieredWeapons[randomWeapon]
+      ? tieredWeapons[randomWeapon] + 1
+      : 1;
+  }
+
+  return tieredWeapons;
+};
+
+export const getTieredPets = (brute: Pick<Brute, 'pets'>) => {
+  const tieredPets: TieredPerks['pets'] = {};
+
+  for (const pet of brute.pets) {
+    tieredPets[pet] = tieredPets[pet]
+      ? tieredPets[pet] + 1
+      : 1;
+  }
+
+  return tieredPets;
+};
+
 /**
  * Get the calculated brute with temporary skills/weapons/pets applied
  * It includes all the recalculated stats
