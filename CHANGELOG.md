@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.13](https://github.com/Zenoo/labrute/compare/labrute-v2.83.12...labrute-v2.83.13) (2025-11-19)
+
+
+### Bug Fixes
+
+* Wrong skill tier calculation used for ascended skill resets ([22f42c6](https://github.com/Zenoo/labrute/commit/22f42c6bd1f79798c28547e8c00c844105f3d2f5))
+
 ## [2.83.12](https://github.com/Zenoo/labrute/compare/labrute-v2.83.11...labrute-v2.83.12) (2025-11-19)
 
 
