@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.10](https://github.com/Zenoo/labrute/compare/labrute-v2.83.9...labrute-v2.83.10) (2025-11-19)
+
+
+### Bug Fixes
+
+* Calculate brute final stats only once per server/client ([21a20c1](https://github.com/Zenoo/labrute/commit/21a20c12582ee098c6d54d00b780771ed4d75e66))
+* Enforce CSRF on GET routes + Silence CSRF errors ([19b128b](https://github.com/Zenoo/labrute/commit/19b128b5e21ed1fbcd066bf79eda4b65a0ef00bc))
+* Release notes ([a4f41ba](https://github.com/Zenoo/labrute/commit/a4f41ba9da09146f18979718a71170b3a0c7fe4a))
+* Store modifiers as an object for faster access and checks ([def8226](https://github.com/Zenoo/labrute/commit/def8226f3dbd86ad6dfda26fd60bb12b46ca6eab))
+* Tiered perk display on level up ([16c8f9c](https://github.com/Zenoo/labrute/commit/16c8f9ca315443c54086b893e5f09e5ffe751266))
+* Tiered perk stats + tiered tooltips ([c534fba](https://github.com/Zenoo/labrute/commit/c534fba9874176a50bd3b8226bca1a54efd64998))
+
 ## [2.83.9](https://github.com/Zenoo/labrute/compare/labrute-v2.83.8...labrute-v2.83.9) (2025-11-11)
 
 
