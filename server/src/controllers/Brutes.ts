@@ -1377,24 +1377,15 @@ export const Brutes = {
         if (!userBrute.weapons.includes(weapon as WeaponName)) {
           throw new MissingElementError(translate('bruteMissingWeapon', authed));
         }
-        if (userBrute.ascendedWeapons.includes(weapon as WeaponName)) {
-          throw new LimitError(translate('bruteWeaponAlreadyAscended', authed));
-        }
       }
       if (isSkill) {
         if (!userBrute.skills.includes(skill as SkillName)) {
           throw new MissingElementError(translate('bruteMissingSkill', authed));
         }
-        if (userBrute.ascendedSkills.includes(skill as SkillName)) {
-          throw new LimitError(translate('bruteSkillAlreadyAscended', authed));
-        }
       }
       if (isPet) {
         if (!userBrute.pets.includes(pet as PetName)) {
           throw new MissingElementError(translate('bruteMissingPet', authed));
-        }
-        if (userBrute.ascendedPets.includes(pet as PetName)) {
-          throw new LimitError(translate('brutePetAlreadyAscended', authed));
         }
 
         if (pet === PetName.dog2 && !userBrute.ascendedPets.includes(PetName.dog1)) {
