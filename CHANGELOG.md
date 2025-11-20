@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.15](https://github.com/Zenoo/labrute/compare/labrute-v2.83.14...labrute-v2.83.15) (2025-11-20)
+
+
+### Bug Fixes
+
+* Disable CSRF for /done endpoint ([19c86ba](https://github.com/Zenoo/labrute/commit/19c86ba02bf5bac8a25edfb70204ff906036c585))
+
 ## [2.83.14](https://github.com/Zenoo/labrute/compare/labrute-v2.83.13...labrute-v2.83.14) (2025-11-20)
 
 
