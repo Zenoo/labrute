@@ -1,6 +1,6 @@
 {
   "name": "@labrute/prisma",
-  "version": "2.83.15",
+  "version": "2.83.16",
   "main": "index.js",
   "types": "index.d.ts",
   "browser": "index-browser.js"

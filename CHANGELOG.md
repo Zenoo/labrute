@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.16](https://github.com/Zenoo/labrute/compare/labrute-v2.83.15...labrute-v2.83.16) (2025-11-20)
+
+
+### Bug Fixes
+
+* Replace only one perk on ascension. Fixes [#1190](https://github.com/Zenoo/labrute/issues/1190) ([3146707](https://github.com/Zenoo/labrute/commit/3146707ca0c9e5ff70952caf6350c2f3df27b8fd))
+
 ## [2.83.15](https://github.com/Zenoo/labrute/compare/labrute-v2.83.14...labrute-v2.83.15) (2025-11-20)
 
 
