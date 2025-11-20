@@ -168,7 +168,7 @@ export const getFighters = ({
       const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
       for (const [skillName, tier] of entries(brute.skills)) {
         tieredSkills[skillName] = {
-          ...skills[skillName],
+          ...structuredClone(skills[skillName]),
           tier,
         };
       }
@@ -177,7 +177,7 @@ export const getFighters = ({
       const tieredWeapons: Partial<Record<WeaponName, Tiered<Weapon>>> = {};
       for (const [weaponName, tier] of entries(brute.weapons)) {
         tieredWeapons[weaponName] = {
-          ...weapons[weaponName],
+          ...structuredClone(weapons[weaponName]),
           tier,
         };
       }
@@ -330,7 +330,7 @@ export const getFighters = ({
       const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
       for (const [skillName, tier] of entries(backup.skills)) {
         tieredSkills[skillName] = {
-          ...skills[skillName],
+          ...structuredClone(skills[skillName]),
           tier,
         };
       }
@@ -339,7 +339,7 @@ export const getFighters = ({
       const tieredWeapons: Partial<Record<WeaponName, Tiered<Weapon>>> = {};
       for (const [weaponName, tier] of entries(backup.weapons)) {
         tieredWeapons[weaponName] = {
-          ...weapons[weaponName],
+          ...structuredClone(weapons[weaponName]),
           tier,
         };
       }
