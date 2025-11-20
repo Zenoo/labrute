@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.14](https://github.com/Zenoo/labrute/compare/labrute-v2.83.13...labrute-v2.83.14) (2025-11-20)
+
+
+### Bug Fixes
+
+* Deep clone weapons/skills for fights to avoid the uses array from being transferred instead of copied ([4e2a909](https://github.com/Zenoo/labrute/commit/4e2a909552465fd369fff625253d05d7b2490580))
+
 ## [2.83.13](https://github.com/Zenoo/labrute/compare/labrute-v2.83.12...labrute-v2.83.13) (2025-11-19)
 
 
