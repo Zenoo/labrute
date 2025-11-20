@@ -2,10 +2,10 @@ import express = require('express');
 
 import { Version } from '@labrute/core';
 import bodyParser from 'body-parser';
-import cors from 'cors';
-import schedule from 'node-schedule';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import { doubleCsrf } from 'csrf-csrf';
+import schedule from 'node-schedule';
 import { GLOBAL, ServerContext } from './context.js';
 import { dailyJob } from './dailyJob.js';
 import './i18n.js';
@@ -41,6 +41,8 @@ export function main(cx: ServerContext) {
       path: '/',
     },
     ignoredMethods: ['HEAD', 'OPTIONS'],
+    // Disable CSRF for /api/user/:userId/done since it's used externally by other games
+    skipCsrfProtection: (req) => req.path.startsWith('/api/user/') && req.path.endsWith('/done'),
   });
 
   // CSRF getter
