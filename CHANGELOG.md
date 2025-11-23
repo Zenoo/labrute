@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.17](https://github.com/Zenoo/labrute/compare/labrute-v2.83.16...labrute-v2.83.17) (2025-11-23)
+
+
+### Bug Fixes
+
+* Prevent infinite fights with high deflect ([2f67bc8](https://github.com/Zenoo/labrute/commit/2f67bc8dc4b1ba7cabe00a2a11026d6fc230ed4d))
+
 ## [2.83.16](https://github.com/Zenoo/labrute/compare/labrute-v2.83.15...labrute-v2.83.16) (2025-11-20)
 
 
