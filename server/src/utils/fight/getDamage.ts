@@ -181,8 +181,9 @@ export const getDamage = (
   }
 
   // Reduce damage with opponent's armor if not thrown
+  // Max 90% armor reduction
   if (!thrown) {
-    damage = Math.ceil(damage * (1 - opponent.armor));
+    damage = Math.ceil(damage * (1 - Math.min(opponent.armor, 0.9)));
   }
 
   // Set minimum damage to 1

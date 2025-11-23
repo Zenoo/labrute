@@ -523,12 +523,12 @@ export const SkillModifiers: Record<
     [FightStat.COMBO]: { percent: [0.2, 0.3, 0.4] },
   },
   [SkillName.shield]: {
-    [FightStat.BLOCK]: { percent: [0.45, 0.55, 0.65] },
-    [FightStat.DAMAGE]: { percent: [-0.25, -0.30, -0.35] },
+    [FightStat.BLOCK]: { percent: [0.45, 0.50, 0.55] },
+    [FightStat.DAMAGE]: { percent: [-0.25, -0.25, -0.25] },
   },
   [SkillName.armor]: {
-    [FightStat.ARMOR]: { percent: [0.25, 0.35, 0.45] },
-    [FightStat.SPEED]: { percent: [-0.15, -0.20, -0.25] },
+    [FightStat.ARMOR]: { percent: [0.25, 0.30, 0.35] },
+    [FightStat.SPEED]: { percent: [-0.15, -0.15, -0.15] },
   },
   [SkillName.toughenedSkin]: {
     [FightStat.ARMOR]: { percent: [0.1, 0.15, 0.2] },
@@ -558,7 +558,7 @@ export const SkillModifiers: Record<
       weaponType: WeaponType.BLUNT,
       opponent: true,
     },
-    [FightStat.EVASION]: { percent: [-0.15, -0.2, -0.25] },
+    [FightStat.EVASION]: { percent: [-0.15, -0.15, -0.15] },
   },
   [SkillName.balletShoes]: {
     [FightStat.EVASION]: { percent: [0.1, 0.15, 0.2] },
@@ -569,7 +569,7 @@ export const SkillModifiers: Record<
   },
   [SkillName.resistant]: {},
   [SkillName.reconnaissance]: {
-    [FightStat.INITIATIVE]: { flat: [-200, -250, -300] },
+    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
     [FightStat.SPEED]: { flat: [5, 10, 15], percent: [1.5, 2, 2.5] },
     [FightStat.CRITICAL_DAMAGE]: { percent: [0.5, 0.6, 0.7] },
   },
@@ -600,8 +600,8 @@ export const SkillModifiers: Record<
   },
   [SkillName.monk]: {
     [FightStat.COUNTER]: { percent: [0.4, 0.45, 0.5] },
-    [FightStat.INITIATIVE]: { flat: [-200, -250, -300] },
-    [FightStat.HIT_SPEED]: { percent: [-1, -1.1, -1.2] },
+    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
+    [FightStat.HIT_SPEED]: { percent: [-1, -1, -1] },
   },
   [SkillName.vampirism]: {},
   [SkillName.chaining]: {},

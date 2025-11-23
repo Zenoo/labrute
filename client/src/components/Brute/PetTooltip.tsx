@@ -61,9 +61,9 @@ const PetTooltip = ({
       return (
         <Text bold sx={{ color }} {...textProps}>
           {(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}
-          {uniqueValue ? Math.round(
+          {uniqueValue ? Math.abs(Math.round(
             getPetScaledStat(chaos, brute, tieredPet, stat, precision) * 100,
-          ) : (
+          )) : (
             <>
               [
               {tieredPet[stat].map((_, index) => (

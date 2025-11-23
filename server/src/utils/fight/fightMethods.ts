@@ -1681,7 +1681,13 @@ const deflectProjectile = (chaos: boolean, fighter: DetailedFighter, timesDeflec
 
   const random = Math.random();
 
-  return random < getFighterStat(chaos, fighter, 'deflect', deflectWithWeapon ? undefined : 'fighter');
+  // Max 90% chance to deflect
+  const stat = Math.min(
+    getFighterStat(chaos, fighter, 'deflect', deflectWithWeapon ? undefined : 'fighter'),
+    0.9,
+  );
+
+  return random < stat;
 };
 
 const attack = (

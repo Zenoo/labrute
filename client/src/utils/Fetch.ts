@@ -84,7 +84,9 @@ const Fetch = <ReturnType>(url: string, data = {}, method = 'GET', additionalURL
         } else {
           response.text().then((text) => {
             if (response.status === 999) {
-              window.location.href = '/generating-tournaments';
+              if (window.location.pathname !== '/generating-tournaments') {
+                window.location.href = '/generating-tournaments';
+              }
             }
 
             reject({
