@@ -1279,8 +1279,8 @@ const handleModifiers = async (prisma: PrismaClient) => {
 
   const rolledModifiers: Modifiers = {};
 
-  // Chaos every sunday
-  if (dayjs().utc().day() === 0) {
+  // Chaos every 1st day of the month
+  if (dayjs().utc().date() === 1) {
     rolledModifiers[FightModifier.chaos] = true;
   }
 
