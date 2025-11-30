@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.18](https://github.com/Zenoo/labrute/compare/labrute-v2.83.17...labrute-v2.83.18) (2025-11-30)
+
+
+### Bug Fixes
+
+* Limit chaos to 1st day of the month ([5575553](https://github.com/Zenoo/labrute/commit/55755536ffeb72add324b707836dc0053897c35f))
+
 ## [2.83.17](https://github.com/Zenoo/labrute/compare/labrute-v2.83.16...labrute-v2.83.17) (2025-11-23)
 
 
