@@ -12,6 +12,7 @@ import {
 import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { auth } from '../utils/auth.js';
+import { ClanPermission } from '../utils/clan/permissions.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 
@@ -34,7 +35,17 @@ export const ClanWars = {
       // Check if one of the user's brutes is the clan master
       const userBrutes = await prisma.brute.findMany({
         where: { userId: user.id, deletedAt: null },
-        select: { id: true, masterOfClan: { select: { id: true } } },
+        select: {
+          id: true,
+          masterOfClan: { select: { id: true } },
+          clanRoles: {
+            select: {
+              role: {
+                select: { permissions: true },
+              },
+            },
+          },
+        },
       });
 
       if (!userBrutes.some((brute) => brute.masterOfClan?.id === req.params.clan)) {
@@ -360,13 +371,28 @@ export const ClanWars = {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
-      // Check if one of the user's brutes is the clan master
+      // Check if one of the user's brutes has permission to select war fighters
       const userBrutes = await prisma.brute.findMany({
-        where: { userId: user.id, deletedAt: null },
-        select: { id: true, masterOfClan: { select: { id: true } } },
+        where: { userId: user.id, deletedAt: null, clanId: req.body.clan },
+        select: {
+          id: true,
+          masterOfClan: { select: { id: true } },
+          clanRoles: {
+            select: {
+              role: {
+                select: { permissions: true },
+              },
+            },
+          },
+        },
       });
 
-      if (!userBrutes.some((brute) => brute.masterOfClan?.id === req.body.clan)) {
+      const hasWarPermission = userBrutes.some((b) => {
+        if (b.masterOfClan?.id === req.body.clan) return true;
+        return b.clanRoles.some((r) => r.role.permissions.includes(ClanPermission.canSelectWarFighters));
+      });
+
+      if (!hasWarPermission) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
 
