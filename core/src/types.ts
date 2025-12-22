@@ -1,4 +1,13 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
+import type {
+  Achievement, AchievementName, BossDamage, BossName, Brute,
+  BruteReport, BruteReportReason, BruteReportStatus, BruteStat, ClanWarStatus, ClanWarType, Config, DestinyChoice, DestinyChoiceType,
+  DestinyChoiceSide, Event, EventStatus, EventType, Fight, FightModifier, Gender, InventoryItem,
+  InventoryItemType, Log, LogType, Notification, NotificationSeverity, PetName,
+  Prisma, Release, ServerState, SkillName, Tournament, TournamentAchievement,
+  TournamentGold, TournamentType, TournamentXp, User, UserLog, UserLogType, WeaponName, Clan,
+  ClanPost, ClanThread, ClanWar, ClanWarFighters, ClanRole, ClanMemberRole, ClanPermission,
+} from '@labrute/prisma';
+export { ClanPermission } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
 import { WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -627,6 +636,7 @@ export type ClanGetResponse = Clan & {
   master: BruteForRender | null,
   brutes: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
+    clanRoles: { role: ClanRole }[],
   })[],
   joinRequests: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
@@ -663,6 +673,23 @@ export type ClanGetThreadResponse = ClanThread & {
 export type ClanGetForAdminResponse = Clan & {
   brutes: Pick<Brute, 'id' | 'name'>[],
 };
+
+// Clan Roles Types
+export type ClanRoleWithMemberCount = ClanRole & {
+  memberCount: number;
+};
+
+export type ClanGetRolesResponse = ClanRoleWithMemberCount[];
+
+export type ClanCreateRoleRequest = Pick<ClanRole, 'name' | 'permissions'>;
+export type ClanCreateRoleResponse = Pick<ClanRole, 'id' | 'name' | 'permissions' | 'clanId'>;
+export type ClanUpdateRoleRequest = Partial<Pick<ClanRole, 'name' | 'permissions'>>;
+export type ClanUpdateRoleResponse = Pick<ClanRole, 'id' | 'name' | 'permissions' | 'clanId'>;
+
+export type ClanAssignRoleResponse = { success: boolean };
+export type ClanRemoveRoleResponse = { success: boolean };
+export type ClanDeleteRoleResponse = { success: boolean };
+
 
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
