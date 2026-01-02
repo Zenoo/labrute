@@ -5,47 +5,38 @@ export { ClanPermission };
 export const hasPermission = (
   clan: {
     masterId: string | null;
-    brutes: {
+    brutes?: {
       id: string;
-      clanRoles: {
-        role: {
-          permissions: ClanPermission[];
-        };
-      }[];
+      clanRole: {
+        permissions: ClanPermission[];
+      } | null;
     }[];
   },
-  bruteId: string,
+  brute: string | {
+    id: string;
+    clanRole: {
+      permissions: ClanPermission[];
+    } | null;
+  },
   permission: ClanPermission,
 ): boolean => {
+  const bruteId = typeof brute === 'string' ? brute : brute.id;
+
   if (clan.masterId === bruteId) {
     return true;
   }
 
-  const brute = clan.brutes.find((b) => b.id === bruteId);
+  const foundBrute = typeof brute === 'string'
+    ? clan.brutes?.find((b) => b.id === brute)
+    : brute;
 
-  if (!brute) return false;
+  if (!foundBrute) return false;
 
-  return brute.clanRoles.some((r) => r.role.permissions.includes(permission));
+  return foundBrute.clanRole?.permissions.includes(permission) ?? false;
 };
 
 
-export const getBruteRoles = async (
-  prisma: PrismaClient,
-  bruteId: string,
-  clanId: string,
-) => {
-  const memberRoles = await prisma.clanMemberRole.findMany({
-    where: {
-      bruteId,
-      role: { clanId },
-    },
-    include: {
-      role: true,
-    },
-  });
 
-  return memberRoles.map((mr) => mr.role);
-};
 
 
 

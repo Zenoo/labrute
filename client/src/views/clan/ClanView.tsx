@@ -73,10 +73,8 @@ const ClanView = () => {
     if (!clan || !brute) return false;
     if (clan.masterId === brute.id) return true;
     const bruteMember = clan.brutes.find((b) => b.id === brute.id);
-    return bruteMember?.clanRoles.some((r) =>
-      r.role.permissions.includes(ClanPermission.canCreateRoles) ||
-      r.role.permissions.includes(ClanPermission.canChangeRoles)
-    ) ?? false;
+    return bruteMember?.clanRole?.permissions.includes(ClanPermission.canCreateRoles)
+      || bruteMember?.clanRole?.permissions.includes(ClanPermission.canChangeRoles) || false;
   }, [clan, brute]);
 
   // Fetch clan
@@ -205,7 +203,7 @@ const ClanView = () => {
         setClan((prevClan) => (prevClan ? ({
           ...prevClan,
           joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
-          brutes: [...prevClan.brutes, { ...requester, clanRoles: [] }],
+          brutes: [...prevClan.brutes, { ...requester, clanRole: null }],
         }) : null));
 
         // Update user data if it's an own brute
@@ -316,7 +314,20 @@ const ClanView = () => {
       }).catch(catchError(Alert));
     });
   };
-
+  const handleEditRole = (role: ClanGetRolesResponse[number] | null) => {
+    setEditingRole(role);
+    setRoleListOpen(false);
+    setRoleModalOpen(true);
+  };
+  const handleAssignRole = (role: ClanGetRolesResponse[number]) => {
+    setAssigningRole(role);
+    setRoleListOpen(false);
+    setRoleAssignmentOpen(true);
+  };
+  const handleOnClose = () => {
+    setRoleAssignmentOpen(false);
+    setAssigningRole(null);
+  };
   // Challenge boss
   const challengeBoss = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -1025,23 +1036,12 @@ const ClanView = () => {
             open={roleListOpen}
             onClose={() => setRoleListOpen(false)}
             clanId={clan.id}
-            onEditRole={(role) => {
-              setEditingRole(role);
-              setRoleListOpen(false);
-              setRoleModalOpen(true);
-            }}
-            onAssignRole={(role) => {
-              setAssigningRole(role);
-              setRoleListOpen(false);
-              setRoleAssignmentOpen(true);
-            }}
+            onEditRole={handleEditRole}
+            onAssignRole={handleAssignRole}
           />
           <RoleAssignmentModal
             open={roleAssignmentOpen}
-            onClose={() => {
-              setRoleAssignmentOpen(false);
-              setAssigningRole(null);
-            }}
+            onClose={handleOnClose}
             clanId={clan.id}
             role={assigningRole}
             members={clan.brutes.map((b) => ({ id: b.id, name: b.name }))}

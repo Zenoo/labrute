@@ -5,7 +5,7 @@ import type {
   InventoryItemType, Log, LogType, Notification, NotificationSeverity, PetName,
   Prisma, Release, ServerState, SkillName, Tournament, TournamentAchievement,
   TournamentGold, TournamentType, TournamentXp, User, UserLog, UserLogType, WeaponName, Clan,
-  ClanPost, ClanThread, ClanWar, ClanWarFighters, ClanRole, ClanMemberRole, ClanPermission,
+  ClanPost, ClanThread, ClanWar, ClanWarFighters, ClanRole, ClanPermission,
 } from '@labrute/prisma';
 export { ClanPermission } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
@@ -636,7 +636,7 @@ export type ClanGetResponse = Clan & {
   master: BruteForRender | null,
   brutes: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
-    clanRoles: { role: ClanRole }[],
+    clanRole: Pick<ClanRole, 'id' | 'name' | 'permissions'> | null,
   })[],
   joinRequests: (Brute & {
     user: Pick<User, 'lastSeen'> | null,

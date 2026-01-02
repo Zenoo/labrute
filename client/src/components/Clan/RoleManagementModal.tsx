@@ -9,13 +9,13 @@ import catchError from '../../utils/catchError';
 
 import { ClanGetRolesResponse, ClanPermission } from '@labrute/core';
 
-interface RoleManagementModalProps {
+type RoleManagementModalProps = {
   open: boolean;
   onClose: () => void;
   clanId: string;
   role?: ClanGetRolesResponse[number] | null;
   onRoleCreated?: () => void;
-}
+};
 
 const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
   open,
@@ -28,57 +28,23 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
   const Alert = useAlert();
 
   const [roleName, setRoleName] = useState('');
-  const [permissions, setPermissions] = useState({
-    canAcceptJoinRequests: false,
-    canRejectJoinRequests: false,
-    canRemoveMembers: false,
-    canSelectWarFighters: false,
-    canPinThreads: false,
-    canUnpinThreads: false,
-    canDeletePosts: false,
-    canDeleteThreads: false,
-    canCreateRoles: false,
-    canChangeRoles: false,
-  });
+  const [permissions, setPermissions] = useState<ClanPermission[]>([]);
 
   // Load role data when editing
   useEffect(() => {
     if (open && role) {
       setRoleName(role.name);
-      setPermissions({
-        canAcceptJoinRequests: role.permissions.includes(ClanPermission.canAcceptJoinRequests),
-        canRejectJoinRequests: role.permissions.includes(ClanPermission.canRejectJoinRequests),
-        canRemoveMembers: role.permissions.includes(ClanPermission.canRemoveMembers),
-        canSelectWarFighters: role.permissions.includes(ClanPermission.canSelectWarFighters),
-        canPinThreads: role.permissions.includes(ClanPermission.canPinThreads),
-        canUnpinThreads: role.permissions.includes(ClanPermission.canUnpinThreads),
-        canDeletePosts: role.permissions.includes(ClanPermission.canDeletePosts),
-        canDeleteThreads: role.permissions.includes(ClanPermission.canDeleteThreads),
-        canCreateRoles: role.permissions.includes(ClanPermission.canCreateRoles),
-        canChangeRoles: role.permissions.includes(ClanPermission.canChangeRoles),
-      });
+      setPermissions(role.permissions);
     } else if (open && !role) {
       setRoleName('');
-      setPermissions({
-        canAcceptJoinRequests: false,
-        canRejectJoinRequests: false,
-        canRemoveMembers: false,
-        canSelectWarFighters: false,
-        canPinThreads: false,
-        canUnpinThreads: false,
-        canDeletePosts: false,
-        canDeleteThreads: false,
-        canCreateRoles: false,
-        canChangeRoles: false,
-      });
+      setPermissions([]);
     }
   }, [open, role]);
 
-  const handlePermissionChange = (permission: keyof typeof permissions) => {
-    setPermissions((prev) => ({
-      ...prev,
-      [permission]: !prev[permission],
-    }));
+  const handlePermissionChange = (permission: ClanPermission) => {
+    setPermissions((prev) => (prev.includes(permission)
+      ? prev.filter((p) => p !== permission)
+      : [...prev, permission]));
   };
 
   const handleSaveRole = () => {
@@ -87,13 +53,9 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
       return;
     }
 
-    const permissionsArray = (Object.keys(permissions) as ClanPermission[]).filter(
-      (key) => permissions[key as keyof typeof permissions],
-    );
-
     const roleData = {
       name: roleName,
-      permissions: permissionsArray,
+      permissions,
     };
 
     const promise = role
@@ -103,18 +65,7 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
     promise.then(() => {
       Alert.open('success', role ? t('roleUpdatedSuccessfully') : t('roleCreatedSuccessfully'));
       setRoleName('');
-      setPermissions({
-        canAcceptJoinRequests: false,
-        canRejectJoinRequests: false,
-        canRemoveMembers: false,
-        canSelectWarFighters: false,
-        canPinThreads: false,
-        canUnpinThreads: false,
-        canDeletePosts: false,
-        canDeleteThreads: false,
-        canCreateRoles: false,
-        canChangeRoles: false,
-      });
+      setPermissions([]);
       onRoleCreated?.();
       onClose();
     }).catch(catchError(Alert));
@@ -179,8 +130,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canAcceptJoinRequests}
-                  onChange={() => handlePermissionChange('canAcceptJoinRequests')}
+                  checked={permissions.includes(ClanPermission.canAcceptJoinRequests)}
+                  onChange={() => handlePermissionChange(ClanPermission.canAcceptJoinRequests)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -191,8 +142,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canRejectJoinRequests}
-                  onChange={() => handlePermissionChange('canRejectJoinRequests')}
+                  checked={permissions.includes(ClanPermission.canRejectJoinRequests)}
+                  onChange={() => handlePermissionChange(ClanPermission.canRejectJoinRequests)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -203,8 +154,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canRemoveMembers}
-                  onChange={() => handlePermissionChange('canRemoveMembers')}
+                  checked={permissions.includes(ClanPermission.canRemoveMembers)}
+                  onChange={() => handlePermissionChange(ClanPermission.canRemoveMembers)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -215,8 +166,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canSelectWarFighters}
-                  onChange={() => handlePermissionChange('canSelectWarFighters')}
+                  checked={permissions.includes(ClanPermission.canSelectWarFighters)}
+                  onChange={() => handlePermissionChange(ClanPermission.canSelectWarFighters)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -227,8 +178,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canPinThreads}
-                  onChange={() => handlePermissionChange('canPinThreads')}
+                  checked={permissions.includes(ClanPermission.canPinThreads)}
+                  onChange={() => handlePermissionChange(ClanPermission.canPinThreads)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -239,8 +190,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canUnpinThreads}
-                  onChange={() => handlePermissionChange('canUnpinThreads')}
+                  checked={permissions.includes(ClanPermission.canUnpinThreads)}
+                  onChange={() => handlePermissionChange(ClanPermission.canUnpinThreads)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -251,8 +202,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canDeletePosts}
-                  onChange={() => handlePermissionChange('canDeletePosts')}
+                  checked={permissions.includes(ClanPermission.canDeletePosts)}
+                  onChange={() => handlePermissionChange(ClanPermission.canDeletePosts)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -263,8 +214,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canDeleteThreads}
-                  onChange={() => handlePermissionChange('canDeleteThreads')}
+                  checked={permissions.includes(ClanPermission.canDeleteThreads)}
+                  onChange={() => handlePermissionChange(ClanPermission.canDeleteThreads)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -275,8 +226,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canCreateRoles}
-                  onChange={() => handlePermissionChange('canCreateRoles')}
+                  checked={permissions.includes(ClanPermission.canCreateRoles)}
+                  onChange={() => handlePermissionChange(ClanPermission.canCreateRoles)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}
@@ -287,8 +238,8 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={permissions.canChangeRoles}
-                  onChange={() => handlePermissionChange('canChangeRoles')}
+                  checked={permissions.includes(ClanPermission.canChangeRoles)}
+                  onChange={() => handlePermissionChange(ClanPermission.canChangeRoles)}
                   sx={{ color: 'secondary.main' }}
                 />
               )}

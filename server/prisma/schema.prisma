@@ -295,7 +295,8 @@ model Brute {
   wonEvents                    Event[]                 @relation("EventBruteWinner")
   resets                       Int                     @default(0)
   userlogs                     UserLog[]
-  clanRoles                    ClanMemberRole[]
+  clanRole                     ClanRole?               @relation(fields: [clanRoleId], references: [id])
+  clanRoleId                   String?                 @db.Uuid
 
   @@index([deletedAt, eventId, ranking])
   @@index([ascensions, level, xp])
@@ -931,7 +932,7 @@ model ClanRole {
   name                     String           @db.VarChar(50)
   // Permissions
   permissions              ClanPermission[] @default([])
-  members                  ClanMemberRole[]
+  brutes                   Brute[]
   createdAt                DateTime         @default(now()) @db.Timestamptz()
 
   @@index([clanId])
@@ -939,16 +940,4 @@ model ClanRole {
   @@index([clanId, name])
 }
 
-model ClanMemberRole {
-  id      String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute   Brute    @relation(fields: [bruteId], references: [id], onDelete: Cascade)
-  bruteId String   @db.Uuid
-  role    ClanRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  roleId  String   @db.Uuid
 
-  @@unique([bruteId, roleId])
-  @@index([bruteId])
-  @@index([roleId])
-  @@index([bruteId, roleId])
-  @@index([roleId, bruteId])
-}
