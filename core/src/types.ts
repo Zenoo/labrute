@@ -649,7 +649,7 @@ export type ClanGetResponse = Clan & {
   master: BruteForRender | null,
   brutes: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
-    clanRoles: { role: ClanRole }[],
+    clanRole: Pick<ClanRole, 'id' | 'name' | 'permissions'> | null,
   })[],
   joinRequests: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
