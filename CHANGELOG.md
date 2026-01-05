@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.83.19](https://github.com/Zenoo/labrute/compare/labrute-v2.83.18...labrute-v2.83.19) (2026-01-05)
+
+
+### Bug Fixes
+
+* Allow setting an empty destiny path ([655a6e6](https://github.com/Zenoo/labrute/commit/655a6e620c755fed6fb46de43237e248216a49ab))
+
 ## [2.83.18](https://github.com/Zenoo/labrute/compare/labrute-v2.83.17...labrute-v2.83.18) (2025-12-02)
 
 
