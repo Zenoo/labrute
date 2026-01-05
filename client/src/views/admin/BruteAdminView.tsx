@@ -95,7 +95,7 @@ export const BruteAdminView = () => {
                   onChange={(event) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      destinyPath: event.target.value.split(',') as DestinyChoiceSide[],
+                      destinyPath: event.target.value ? event.target.value.split(',') as DestinyChoiceSide[] : [],
                     }) : null));
                   }}
                   fullWidth
