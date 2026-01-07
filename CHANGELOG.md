@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.84.0](https://github.com/Zenoo/labrute/compare/labrute-v2.83.19...labrute-v2.84.0) (2026-01-07)
+
+
+### Features
+
+* Add report cancel option for admin/moderator ([0b76798](https://github.com/Zenoo/labrute/commit/0b76798861800dd494e9a63f3a92a0df0ed6614c))
+
+
+### Bug Fixes
+
+* Hide report button for own brutes ([68d4dcf](https://github.com/Zenoo/labrute/commit/68d4dcfbcd13e1e360daed66b541174bf064e6c8))
+* Order reports ([bb527c1](https://github.com/Zenoo/labrute/commit/bb527c172a3829bfc9379b1d2c413dddf65f6486))
+
 ## [2.83.19](https://github.com/Zenoo/labrute/compare/labrute-v2.83.18...labrute-v2.83.19) (2026-01-05)
 
 
