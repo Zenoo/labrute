@@ -1609,6 +1609,7 @@
   "bruteSetForDeletion": "Einer deiner Brutalos wurde zum Löschen vorgesehen.",
   "reportAccepted": "Meldung akzeptiert",
   "reportRejected": "Meldung abgelehnt",
+  "reportCancelled": "Report cancelled",
   "status": "Status",
   "pending": "Ausstehend",
   "accepted": "Akzeptiert",
