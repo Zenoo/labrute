@@ -1609,6 +1609,7 @@
   "bruteSetForDeletion": "One of your brutes has been set for deletion.",
   "reportAccepted": "Report accepted",
   "reportRejected": "Report rejected",
+  "reportCancelled": "Report cancelled",
   "status": "Status",
   "pending": "Pending",
   "accepted": "Accepted",
