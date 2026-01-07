@@ -382,15 +382,17 @@ const CellView = () => {
                   {t('eventHistory')}
                 </FantasyButton>
               </Box>
-              <Text
-                smallCaps
-                subtitle2
-                center
-                onClick={confirmReport}
-                sx={{ cursor: 'pointer', ml: 2 }}
-              >
-                {t('report')}
-              </Text>
+              {user && brute.userId !== user.id && (
+                <Text
+                  smallCaps
+                  subtitle2
+                  center
+                  onClick={confirmReport}
+                  sx={{ cursor: 'pointer', ml: 2 }}
+                >
+                  {t('report')}
+                </Text>
+              )}
               {user?.admin && (
                 <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
                   <Tooltip title={t('adminPanel')}>
