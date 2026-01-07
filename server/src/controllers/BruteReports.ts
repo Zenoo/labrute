@@ -25,11 +25,6 @@ export const BruteReports = {
     try {
       await auth(prisma, req, { moderator: true });
 
-      // Order by count for pending, by handledAt for others
-      const orderBy = req.params.status === BruteReportStatus.pending
-        ? { count: 'desc' } as const
-        : { handledAt: 'desc' } as const;
-
       // Get reports
       const reports = await prisma.bruteReport.findMany({
         where: {
@@ -57,7 +52,10 @@ export const BruteReports = {
             },
           },
         },
-        orderBy,
+        // Order by count for pending, by handledAt for others
+        orderBy: req.params.status === BruteReportStatus.pending
+          ? [{ count: 'desc' }, { date: 'desc' }]
+          : { handledAt: { sort: 'desc', nulls: 'last' } },
       });
 
       res.status(200).send(reports);
