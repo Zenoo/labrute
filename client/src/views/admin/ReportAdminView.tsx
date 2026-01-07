@@ -69,6 +69,15 @@ const ReportAdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, t]);
 
+  // Cancel report
+  const cancelReport = useCallback((reportId: string) => () => {
+    Server.BruteReport.cancel(reportId).then(() => {
+      setReports((r) => r.filter((report) => report.id !== reportId));
+
+      Alert.open('success', t('reportCancelled'));
+    }).catch(catchError(Alert));
+  }, [Alert, t]);
+
   // Add banned word
   const addBannedWord = useCallback(() => {
     if (!user?.admin) return;
@@ -130,6 +139,12 @@ const ReportAdminView = () => {
                         </IconButton>
                       </Tooltip>
                     </>
+                  ) : status === BruteReportStatus.accepted ? (
+                    <Tooltip title={t('cancel')}>
+                      <IconButton onClick={cancelReport(report.id)}>
+                        <Close />
+                      </IconButton>
+                    </Tooltip>
                   ) : null}
                 >
                   <ListItemText
