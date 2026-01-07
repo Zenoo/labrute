@@ -1609,6 +1609,7 @@
   "bruteSetForDeletion": "Один из ваших Бруталов был помечен на удаление.",
   "reportAccepted": "Жалоба одобрена",
   "reportRejected": "Жалоба отклонена",
+  "reportCancelled": "Report cancelled",
   "status": "Статус",
   "pending": "В ожидании",
   "accepted": "Одобрено",
