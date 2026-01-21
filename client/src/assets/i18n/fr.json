@@ -1609,6 +1609,7 @@
   "bruteSetForDeletion": "Une de vos brutes a été marquée pour suppression.",
   "reportAccepted": "Signalement accepté",
   "reportRejected": "Signalement refusé",
+  "reportCancelled": "Report cancelled",
   "status": "Statut",
   "pending": "En attente",
   "accepted": "Accepté",
