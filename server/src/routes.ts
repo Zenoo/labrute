@@ -124,6 +124,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.put('/api/report/send/:name/:reason', BruteReports.send(prisma));
   app.patch('/api/report/:id/accept', BruteReports.accept(prisma));
   app.patch('/api/report/:id/reject', BruteReports.reject(prisma));
+  app.patch('/api/report/:id/cancel', BruteReports.cancel(prisma));
   app.put('/api/report/banned-word/:word', BruteReports.addBannedWord(prisma));
 
   // Clan

@@ -25,11 +25,6 @@ export const BruteReports = {
     try {
       await auth(prisma, req, { moderator: true });
 
-      // Order by count for pending, by handledAt for others
-      const orderBy = req.params.status === BruteReportStatus.pending
-        ? { count: 'desc' } as const
-        : { handledAt: 'desc' } as const;
-
       // Get reports
       const reports = await prisma.bruteReport.findMany({
         where: {
@@ -57,7 +52,10 @@ export const BruteReports = {
             },
           },
         },
-        orderBy,
+        // Order by count for pending, by handledAt for others
+        orderBy: req.params.status === BruteReportStatus.pending
+          ? [{ count: 'desc' }, { date: 'desc' }]
+          : { handledAt: { sort: 'desc', nulls: 'last' } },
       });
 
       res.status(200).send(reports);
@@ -228,7 +226,7 @@ export const BruteReports = {
       // Add name to banned words
       await prisma.bannedWord.create({
         data: {
-          word: report.brute?.name.toLowerCase() || report.bruteName.toLowerCase(),
+          word: report.brute?.name.toLowerCase() ?? report.bruteName.toLowerCase(),
         },
         select: { id: true },
       });
@@ -329,6 +327,74 @@ export const BruteReports = {
         },
         select: { id: true },
       });
+
+      res.status(200).send({
+        success: true,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  cancel: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      const report = await prisma.bruteReport.findFirst({
+        where: {
+          id: req.params.id,
+          status: BruteReportStatus.accepted,
+        },
+        select: {
+          id: true,
+          brute: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!report || !report.brute) {
+        throw new NotFoundError(translate('reportNotFound', user));
+      }
+
+      // Revert report status to rejected
+      await prisma.bruteReport.update({
+        where: {
+          id: report.id,
+        },
+        data: {
+          status: BruteReportStatus.rejected,
+          handledAt: new Date(),
+          handlerId: user.id,
+        },
+        select: { id: true },
+      });
+
+      // Remove brute from deletion queue
+      await prisma.brute.update({
+        where: {
+          id: report.brute.id,
+        },
+        data: {
+          willBeDeletedAt: null,
+          deletionReason: null,
+        },
+        select: { id: true },
+      });
+
+      // Remove name from banned words
+      await prisma.bannedWord.deleteMany({
+        where: {
+          word: report.brute.name.toLowerCase(),
+        },
+      });
+
+      LOGGER.log(`Report for brute ${report.brute.name} cancelled by ${user.id}`);
 
       res.status(200).send({
         success: true,
