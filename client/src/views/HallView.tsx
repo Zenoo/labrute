@@ -3,7 +3,7 @@ import { Check, CrisisAlert, Stars } from '@mui/icons-material';
 import { Box, Paper, Tooltip, useTheme } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import ArenaStat from '../components/Arena/ArenaStat';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import BruteHP from '../components/Brute/BruteHP';

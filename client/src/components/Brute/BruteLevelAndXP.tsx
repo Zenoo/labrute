@@ -4,7 +4,7 @@ import { Box, BoxProps, Tooltip } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Text, { TextProps } from '../Text';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 interface BruteLevelAndXPProps extends BoxProps {
   brute: Pick<Brute, 'level' | 'xp' | 'eventId' | 'name'>;

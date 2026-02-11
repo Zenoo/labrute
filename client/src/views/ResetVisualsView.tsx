@@ -2,7 +2,7 @@ import { getRandomBody, getRandomColors } from '@labrute/core';
 import { Box, Paper, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import FantasyButton from '../components/FantasyButton';
 import Page from '../components/Page';

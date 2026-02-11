@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import CellPets from '../components/Cell/CellPets';
 import CellSkills from '../components/Cell/CellSkills';
 import CellWeapons from '../components/Cell/CellWeapons';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import Link from '../components/Link';

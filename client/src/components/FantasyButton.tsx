@@ -1,7 +1,7 @@
 import { adjustColor } from '@labrute/core';
 import { Box, BoxProps, useTheme } from '@mui/material';
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 interface FantasyButtonProps extends BoxProps {
   color: 'primary'

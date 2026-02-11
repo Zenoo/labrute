@@ -4,7 +4,7 @@ import { Lock, LockOpen } from '@mui/icons-material';
 import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import BoxBg from '../components/BoxBg';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import EmptyBrute from '../components/Brute/Body/EmptyBrute';

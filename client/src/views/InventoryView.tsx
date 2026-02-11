@@ -3,7 +3,7 @@ import { InventoryItemType } from '@labrute/prisma';
 import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
 import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
 import Link from '../components/Link';

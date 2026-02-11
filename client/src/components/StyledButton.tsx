@@ -1,6 +1,6 @@
 import { Box, BoxProps, useTheme } from '@mui/material';
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export interface StyledButtonProps extends Omit<BoxProps, 'translate'> {
   image?: string;
