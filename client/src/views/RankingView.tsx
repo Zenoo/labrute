@@ -22,7 +22,8 @@ const RankingView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { currentEvent } = useAuth();
   const { brute } = useBrute();
-
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const ITEMS_PER_PAGE = 15;
   const ranking = useMemo(() => (typeof rank === 'undefined' ? brute?.eventId ? -1 : undefined : rank === 'event' ? -1 : +rank), [brute?.eventId, rank]);
 
   const rankingProps = useMemo(() => ({
@@ -200,6 +201,66 @@ const RankingView = () => {
                   </TableCell>
                 </TableRow>
               </TableBody>
+              {/* Pagination Controls */}
+              <TableRow>
+                <TableCell colSpan={rankingSelected === 0 ? 4 : 3} align="center">
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, py: 2 }}>
+                    <StyledButton
+                      image="/images/button.webp"
+                      imageHover="/images/button_hover.webp"
+                      onClick={() => setCurrentPage(1)}
+                      sx={{ width: 60 }}
+                    >
+                      {'<<'}
+                    </StyledButton>
+                    <StyledButton
+                      image="/images/button.webp"
+                      imageHover="/images/button_hover.webp"
+                      onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                      sx={{ width: 60 }}
+                      >
+                      {'<'}
+                    </StyledButton>
+
+                    <StyledButton
+                      image="/images/button.webp"
+                      imageHover="/images/button_hover.webp"
+                      onClick={() => {
+                        if (rankings?.position) {
+                          const myPage = Math.ceil(rankings.position / ITEMS_PER_PAGE);
+                          setCurrentPage(myPage);
+                        }
+                      }}
+                      sx={{ width: 150 }}
+                    >
+                      {t('goToMyBrute')}
+                    </StyledButton>
+
+                    <StyledButton
+                      image="/images/button.webp"
+                      imageHover="/images/button_hover.webp"
+                      onClick={() => setCurrentPage((prev) => prev + 1)}
+                      sx={{ width: 60 }}
+                    >
+                      {'>'}
+                    </StyledButton>
+
+                    <StyledButton
+                      image="/images/button.webp"
+                      imageHover="/images/button_hover.webp"
+                      onClick={() => {
+                        if (rankings?.total) {
+                          const lastPage = Math.ceil(rankings.total / ITEMS_PER_PAGE);
+                          setCurrentPage(lastPage);
+                        }
+                      }}
+                      sx={{ width: 60 }}
+                    >
+                      {'>>'}
+                    </StyledButton>
+                  </Box>
+                </TableCell>
+              </TableRow>
             </Table>
           </Grid>
           {!isMd && (

@@ -140,7 +140,7 @@ const ClanWarFightView = () => {
                         {attackers[i] && (
                           <BruteTooltip fighter={attackers[i]}>
                             <Text bold color="secondary">
-                              <Link to={`/${attackers[i].name}/cell`}>{attackers[i].name}</Link>
+                              <Link to={`/${attackers[i]?.name}/cell`}>{attackers[i]?.name}</Link>
                             </Text>
                           </BruteTooltip>
                         )}
@@ -149,7 +149,7 @@ const ClanWarFightView = () => {
                         {defenders[i] && (
                           <BruteTooltip fighter={defenders[i]}>
                             <Text bold color="secondary">
-                              <Link to={`/${defenders[i].name}/cell`}>{defenders[i].name}</Link>
+                              <Link to={`/${defenders[i]?.name}/cell`}>{defenders[i]?.name}</Link>
                             </Text>
                           </BruteTooltip>
                         )}
