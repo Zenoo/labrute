@@ -1,4 +1,4 @@
-import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetResponse, bosses, getCalculatedBrute, getFightsLeft } from '@labrute/core';
+import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetRolesResponse, ClanGetResponse, ClanPermission, TieredPerks, bosses, getCalculatedBrute, getFightsLeft } from '@labrute/core';
 import { BossName, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline, Policy } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
@@ -18,12 +18,15 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
+import RoleManagementModal from '../../components/Clan/RoleManagementModal';
+import RoleListView from '../../components/Clan/RoleListView';
+import RoleAssignmentModal from '../../components/Clan/RoleAssignmentModal';
 import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 
 type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'> & {
-  brutes: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
-  joinRequests: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
+  brutes: (Omit<ClanGetResponse['brutes'][number], 'weapons' | 'skills' | 'pets'> & TieredPerks)[];
+  joinRequests: (Omit<ClanGetResponse['joinRequests'][number], 'weapons' | 'skills' | 'pets'> & TieredPerks)[];
 };
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
@@ -43,6 +46,11 @@ const ClanView = () => {
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
   const [warEnabled, setWarEnabled] = useState(false);
   const [masterOfClan, setMasterOfClan] = useState<BrutesGetClanIdAsMasterResponse['id']>(null);
+  const [roleModalOpen, setRoleModalOpen] = useState(false);
+  const [roleListOpen, setRoleListOpen] = useState(false);
+  const [roleAssignmentOpen, setRoleAssignmentOpen] = useState(false);
+  const [editingRole, setEditingRole] = useState<ClanGetRolesResponse[number] | null>(null);
+  const [assigningRole, setAssigningRole] = useState<{ id: string; name: string } | null>(null);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
   const displayedBossName = useMemo(() => {
@@ -60,6 +68,14 @@ const ClanView = () => {
   }, [clan]);
 
   const clanWar = clan?.attacks[0] || clan?.defenses[0];
+
+  const canManageRoles = useMemo(() => {
+    if (!clan || !brute) return false;
+    if (clan.masterId === brute.id) return true;
+    const bruteMember = clan.brutes.find((b) => b.id === brute.id);
+    return bruteMember?.clanRole?.permissions.includes(ClanPermission.canCreateRoles)
+      || bruteMember?.clanRole?.permissions.includes(ClanPermission.canChangeRoles) || false;
+  }, [clan, brute]);
 
   // Fetch clan
   useEffect(() => {
@@ -176,7 +192,7 @@ const ClanView = () => {
   };
 
   // Accept join request
-  const acceptJoin = (requester: CalculatedClanGetResponse['brutes'][number]) => () => {
+  const acceptJoin = (requester: CalculatedClanGetResponse['joinRequests'][number]) => () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
@@ -187,7 +203,7 @@ const ClanView = () => {
         setClan((prevClan) => (prevClan ? ({
           ...prevClan,
           joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
-          brutes: [...prevClan.brutes, requester],
+          brutes: [...prevClan.brutes, { ...requester, clanRole: null }],
         }) : null));
 
         // Update user data if it's an own brute
@@ -298,7 +314,20 @@ const ClanView = () => {
       }).catch(catchError(Alert));
     });
   };
-
+  const handleEditRole = (role: ClanGetRolesResponse[number] | null) => {
+    setEditingRole(role);
+    setRoleListOpen(false);
+    setRoleModalOpen(true);
+  };
+  const handleAssignRole = (role: ClanGetRolesResponse[number]) => {
+    setAssigningRole(role);
+    setRoleListOpen(false);
+    setRoleAssignmentOpen(true);
+  };
+  const handleOnClose = () => {
+    setRoleAssignmentOpen(false);
+    setAssigningRole(null);
+  };
   // Challenge boss
   const challengeBoss = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -774,8 +803,13 @@ const ClanView = () => {
           </Box>
         )}
         {user && owner && brute?.clanId === clan.id && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1, gap: 1 }}>
             <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
+            {canManageRoles && (
+              <FantasyButton color="secondary" onClick={() => setRoleListOpen(true)}>
+                {t('manageRoles')}
+              </FantasyButton>
+            )}
           </Box>
         )}
         {/* MEMBERS */}
@@ -974,7 +1008,49 @@ const ClanView = () => {
           <History sx={{ verticalAlign: 'middle', mr: 1 }} />
           {t('clanWarHistory')}
         </FantasyButton>
+        {!clan && (
+          <FantasyButton
+            color="warning"
+            onClick={askToJoin}
+            sx={{ m: 1 }}
+          >
+            {t('joinAClan')}
+          </FantasyButton>
+        )}
       </Paper>
+      {canManageRoles && (
+        <>
+          <RoleManagementModal
+            open={roleModalOpen}
+            onClose={() => {
+              setRoleModalOpen(false);
+              setEditingRole(null);
+            }}
+            clanId={clan.id}
+            role={editingRole}
+            onRoleCreated={() => {
+              setRoleListOpen(true);
+            }}
+          />
+          <RoleListView
+            open={roleListOpen}
+            onClose={() => setRoleListOpen(false)}
+            clanId={clan.id}
+            onEditRole={handleEditRole}
+            onAssignRole={handleAssignRole}
+          />
+          <RoleAssignmentModal
+            open={roleAssignmentOpen}
+            onClose={handleOnClose}
+            clanId={clan.id}
+            role={assigningRole}
+            members={clan.brutes.map((b) => ({ id: b.id, name: b.name }))}
+            onAssigned={() => {
+              setRoleListOpen(true);
+            }}
+          />
+        </>
+      )}
     </Page>
   );
 };

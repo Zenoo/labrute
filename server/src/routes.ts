@@ -152,6 +152,14 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.get('/api/clan/:id/admin', Clans.getForAdmin(prisma));
   app.patch('/api/clan/:id/update', Clans.adminUpdate(prisma));
 
+  // Clan Roles
+  app.get('/api/clan/:id/roles', Clans.getRoles(prisma));
+  app.post('/api/clan/:id/roles', Clans.createRole(prisma));
+  app.put('/api/clan/:id/roles/:roleId', Clans.updateRole(prisma));
+  app.delete('/api/clan/:id/roles/:roleId', Clans.deleteRole(prisma));
+  app.post('/api/clan/:id/roles/:roleId/assign-members', Clans.assignRoleBatch(prisma));
+  app.delete('/api/clan/:id/members/:bruteId/roles/:roleId', Clans.removeRole(prisma));
+
   // Clan war
   app.put('/api/clan/war/friendly', ClanWars.declareFriendlyWar(prisma));
   app.post('/api/clan/war/fighters', ClanWars.getAvailableFighters(prisma));

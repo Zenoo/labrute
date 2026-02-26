@@ -78,3 +78,5 @@ lib/
 *.tsbuildinfo
 
 *.local.toml
+
+docker-compose.local.yml
