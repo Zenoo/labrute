@@ -4,7 +4,7 @@ import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { AlwaysOnSampler, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
-import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import { SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_DEPLOYMENT_ENVIRONMENT } from '@opentelemetry/semantic-conventions';
 import { PrismaInstrumentation } from '@prisma/instrumentation';
 import { Buffer } from 'buffer';
 import dayjs from 'dayjs';
@@ -36,8 +36,8 @@ function initOpentelemetry(config: Config): NodeSDK {
 
   const otelSdk = new NodeSDK({
     resource: resourceFromAttributes({
-      [ATTR_SERVICE_NAME]: config.eternaltwin.app,
-      'deployment.environment.name': config.eternaltwin.channel,
+      [SEMRESATTRS_SERVICE_NAME]: config.eternaltwin.app,
+      [SEMRESATTRS_DEPLOYMENT_ENVIRONMENT]: config.eternaltwin.channel,
     }),
     spanProcessors: [
       config.isProduction ? new BatchSpanProcessor(exporter) : new SimpleSpanProcessor(exporter),
