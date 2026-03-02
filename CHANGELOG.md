@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.85.0](https://github.com/Zenoo/labrute/compare/labrute-v2.84.1...labrute-v2.85.0) (2026-03-02)
+
+
+### Features
+
+* add react-router dependency ([a1f0390](https://github.com/Zenoo/labrute/commit/a1f039037e89be42ed6042b6b2abc3cfad68f4ff))
+
 ## [2.84.1](https://github.com/Zenoo/labrute/compare/labrute-v2.84.0...labrute-v2.84.1) (2026-03-02)
 
 
