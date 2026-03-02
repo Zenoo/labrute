@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.84.1](https://github.com/Zenoo/labrute/compare/labrute-v2.84.0...labrute-v2.84.1) (2026-03-02)
+
+
+### Bug Fixes
+
+* otel exporter authentication ([#1222](https://github.com/Zenoo/labrute/issues/1222)) ([c45b014](https://github.com/Zenoo/labrute/commit/c45b0141740953d03ac6206ec94ef3901c6271bb))
+* react router mismatch ([ee4c0ec](https://github.com/Zenoo/labrute/commit/ee4c0ecfbb0c1256b98568b9f29e0730c5f620b3))
+* Unused alert in language hook ([27d04a8](https://github.com/Zenoo/labrute/commit/27d04a8230807a21fd45b97b97fba77a4ae8c636))
+
 ## [2.84.0](https://github.com/Zenoo/labrute/compare/labrute-v2.83.19...labrute-v2.84.0) (2026-01-07)
 
 
