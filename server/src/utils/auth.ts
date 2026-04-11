@@ -1,4 +1,5 @@
 import {
+  checkPredictableHeaders,
   ExpectedError, ForbiddenError, isUuid, NotFoundError,
 } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
@@ -106,6 +107,14 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // it means it was tampered with, as fingerprints can only
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
+    await banUser(prisma, user.id, 'invalid_fingerprint');
+    throw new ForbiddenError('Invalid fingerprint');
+  }
+
+  // Check expected headers
+  try {
+    checkPredictableHeaders(request.headers);
+  } catch (_error) {
     await banUser(prisma, user.id, 'invalid_fingerprint');
     throw new ForbiddenError('Invalid fingerprint');
   }

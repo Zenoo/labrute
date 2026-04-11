@@ -1,4 +1,4 @@
-import { TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
+import { getPredictableHeaders, TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
 
@@ -83,7 +83,8 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
       Accept: 'application/json',
       'x-csrf-token': localStorage.getItem('csrfToken') || '',
       Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
-      'x-fp': getFingerprint() ?? ''
+      'x-fp': getFingerprint() ?? '',
+      ...getPredictableHeaders(),
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
