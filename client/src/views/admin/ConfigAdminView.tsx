@@ -13,7 +13,9 @@ import catchError from '../../utils/catchError';
 export const ConfigAdminView = () => {
   const Alert = useAlert();
 
-  const [configs, setConfigs] = useState<ConfigsListResponse>([]);
+  const [configs, setConfigs] = useState<(ConfigsListResponse[number] & {
+    decrypted?: string;
+  })[]>([]);
   const [editing, setEditing] = useState(false);
   const [editingConfigKey, setEditingConfigKey] = useState('');
   const [editingConfigValue, setEditingConfigValue] = useState('');
@@ -55,7 +57,7 @@ export const ConfigAdminView = () => {
   const reveal = (config: ConfigsListResponse[number]) => () => {
     Server.Config.decrypt(config.value).then(({ decrypted }) => {
       setConfigs((prev) => prev.map((c) => (c.key === config.key
-        ? { ...c, value: decrypted }
+        ? { ...c, decrypted }
         : c)));
       Alert.open('success', 'Config decrypted');
     }).catch(catchError(Alert));
@@ -138,7 +140,7 @@ export const ConfigAdminView = () => {
             >
               <ListItemText
                 primary={config.key}
-                secondary={config.value}
+                secondary={config.decrypted ?? config.value}
                 secondaryTypographyProps={{ sx: { wordBreak: 'break-all', mr: 8 } }}
               />
             </ListItem>
