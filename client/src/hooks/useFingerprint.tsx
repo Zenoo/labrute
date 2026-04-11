@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import FingerprintJS, { GetResult } from '@fingerprintjs/fingerprintjs';
 import Server from '../utils/Server';
 import { setFingerprint } from '../utils/fingerprint';
+import { useCsrf } from './useCsrf';
 
 type FingerprintContext = {
   loading: boolean;
@@ -31,41 +32,45 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
   const [eventId, setEventId] = useState<string | null>(null);
   const [data, setData] = useState<GetResult | null>(null);
   const [error, setError] = useState<unknown>(null);
+  const { csrfToken } = useCsrf();
 
   useEffect(() => {
     let isMounted = true;
-    const fpPromise = FingerprintJS.load();
 
-    fpPromise
-      .then((fp) => fp.get())
-      .then((result) => {
-        if (isMounted) {
-          setData(result);
-          Server.fpe(result)
-            .then((d) => {
-              setId(d.visitorId);
-              setEventId(d.eventId);
-              setFingerprint(d.visitorId);
-              setLoading(false);
-            })
-            .catch((err) => {
-              console.error('Failed to send fingerprint to server:', err);
-              setError(err);
-              setLoading(false);
-            });
-        }
-      })
-      .catch((err) => {
-        if (isMounted) {
-          setError(err);
-          setLoading(false);
-        }
-      });
+    if (!csrfToken) {
+      return () => { isMounted = false; };
+    }
+
+    const process = async () => {
+      const result = await (await FingerprintJS.load()).get();
+      if (isMounted) {
+        setData(result);
+        Server.fpe(result)
+          .then((d) => {
+            setId(d.visitorId);
+            setEventId(d.eventId);
+            setFingerprint(d.visitorId);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error('Failed to send fingerprint to server:', err);
+            setError(err);
+            setLoading(false);
+          });
+      }
+    };
+
+    process().catch((err) => {
+      if (isMounted) {
+        setError(err);
+        setLoading(false);
+      }
+    });
 
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [csrfToken]);
 
   const contextValue = useMemo(() => ({
     loading,

@@ -45,11 +45,11 @@ const App = () => {
   );
 
   return (
-    <FingerprintProvider>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <HelmetProvider>
-          <CssBaseline />
-          <CsrfProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <HelmetProvider>
+        <CssBaseline />
+        <CsrfProvider>
+          <FingerprintProvider>
             <AlertProvider>
               <AuthProvider>
                 <BruteProvider>
@@ -69,10 +69,10 @@ const App = () => {
                 </BruteProvider>
               </AuthProvider>
             </AlertProvider>
-          </CsrfProvider>
-        </HelmetProvider>
-      </LocalizationProvider>
-    </FingerprintProvider>
+          </FingerprintProvider>
+        </CsrfProvider>
+      </HelmetProvider>
+    </LocalizationProvider>
   );
 };
 

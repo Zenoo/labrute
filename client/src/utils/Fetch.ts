@@ -39,6 +39,24 @@ const waitForFingerprint = async () => {
   });
 };
 
+export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {
+  fetch('/api/csrf', {
+    headers: {
+      Accept: 'application/json'
+    }
+  }).then((response) => {
+    response.json().then((json) => {
+      const { csrfToken } = (json as { csrfToken: string });
+      localStorage.setItem('csrfToken', csrfToken);
+      resolve(csrfToken);
+    }).catch((err) => {
+      reject(err);
+    });
+  }).catch((error) => {
+    reject(error);
+  });
+});
+
 const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, skipFingerprint = false): Promise<ReturnType> => {
   if (!skipFingerprint) {
     await waitForFingerprint();
@@ -48,17 +66,8 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
   // If not, fetch it from the server
   if (!localStorage.getItem('csrfToken')) {
     return new Promise((resolve, reject) => {
-      fetch('/api/csrf', {
-        headers: {
-          Accept: 'application/json'
-        }
-      }).then((response) => {
-        response.json().then((json) => {
-          localStorage.setItem('csrfToken', (json as { csrfToken: string }).csrfToken);
-          resolve(Fetch(url, data, method, additionalURLParams));
-        }).catch((err) => {
-          reject(err);
-        });
+      fetchCsrfToken().then(() => {
+        resolve(Fetch(url, data, method, additionalURLParams));
       }).catch((error) => {
         reject(error);
       });
