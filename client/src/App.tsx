@@ -1,3 +1,4 @@
+import { FingerprintProvider } from '@fingerprint/react';
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -6,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { useRoutes } from 'react-router-dom';
 import Loader from './components/Loader';
 import { AlertProvider } from './hooks/useAlert';
+import { useAnalytics } from './hooks/useAnalytics';
 import { AuthProvider } from './hooks/useAuth';
 import { BruteProvider } from './hooks/useBrute';
 import { ConfirmProvider } from './hooks/useConfirm';
@@ -15,7 +17,6 @@ import routes from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
-import { useAnalytics } from './hooks/useAnalytics';
 
 const App = () => {
   useAnalytics();
@@ -44,32 +45,37 @@ const App = () => {
   );
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <HelmetProvider>
-        <CssBaseline />
-        <CsrfProvider>
-          <AlertProvider>
-            <AuthProvider>
-              <BruteProvider>
-                <RendererProvider>
-                  <StyledEngineProvider injectFirst>
-                    <ColorModeContext.Provider value={colorMode}>
-                      <ThemeProvider theme={theme}>
-                        <ConfirmProvider>
-                          <Suspense fallback={<Loader />}>
-                            {routing}
-                          </Suspense>
-                        </ConfirmProvider>
-                      </ThemeProvider>
-                    </ColorModeContext.Provider>
-                  </StyledEngineProvider>
-                </RendererProvider>
-              </BruteProvider>
-            </AuthProvider>
-          </AlertProvider>
-        </CsrfProvider>
-      </HelmetProvider>
-    </LocalizationProvider>
+    <FingerprintProvider
+      apiKey="U1AD6z7rwKNvUC7KXCZg"
+      region="eu"
+    >
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <HelmetProvider>
+          <CssBaseline />
+          <CsrfProvider>
+            <AlertProvider>
+              <AuthProvider>
+                <BruteProvider>
+                  <RendererProvider>
+                    <StyledEngineProvider injectFirst>
+                      <ColorModeContext.Provider value={colorMode}>
+                        <ThemeProvider theme={theme}>
+                          <ConfirmProvider>
+                            <Suspense fallback={<Loader />}>
+                              {routing}
+                            </Suspense>
+                          </ConfirmProvider>
+                        </ThemeProvider>
+                      </ColorModeContext.Provider>
+                    </StyledEngineProvider>
+                  </RendererProvider>
+                </BruteProvider>
+              </AuthProvider>
+            </AlertProvider>
+          </CsrfProvider>
+        </HelmetProvider>
+      </LocalizationProvider>
+    </FingerprintProvider>
   );
 };
 

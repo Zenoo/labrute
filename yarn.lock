@@ -2950,6 +2950,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fingerprint/agent@npm:^4.0.0":
+  version: 4.0.3
+  resolution: "@fingerprint/agent@npm:4.0.3"
+  checksum: b1603a20fc1b6aefd74790bbf34349b0aac2cd459d5daa00718c8a3a2fef10d0e7a85212a976e8381af71ecf5ce7b4a7f65bcadb1473bc61e57669d177acd8ea
+  languageName: node
+  linkType: hard
+
+"@fingerprint/node-sdk@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fingerprint/node-sdk@npm:7.0.0"
+  checksum: ec294cefeb1fde6e23f2c1e46c9e88eead37ee9997189836b619fc356fcaa73332926ce89092a5e81c87010f59d08a1f8273f9b498f170b87d3c9f92613f494d
+  languageName: node
+  linkType: hard
+
+"@fingerprint/react@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@fingerprint/react@npm:3.0.0"
+  dependencies:
+    "@fingerprint/agent": "npm:^4.0.0"
+    fast-deep-equal: "npm:3.1.3"
+  checksum: 90975fd0afe1276dfd578470b7cacdc9b1cf4abecf9486e7313fa2ed69638f6cba7361f43abfc594c8704ebf035773e5edd0dd3161063dc3c568b067aa69db33
+  languageName: node
+  linkType: hard
+
 "@floating-ui/core@npm:^1.7.3":
   version: 1.7.3
   resolution: "@floating-ui/core@npm:1.7.3"
@@ -3414,6 +3438,7 @@ __metadata:
     "@ckeditor/ckeditor5-watchdog": "npm:^42.0.2"
     "@emotion/react": "npm:^11.10.5"
     "@emotion/styled": "npm:^11.10.5"
+    "@fingerprint/react": "npm:^3.0.0"
     "@labrute/core": "workspace:*"
     "@labrute/prisma": "workspace:*"
     "@mui/icons-material": "npm:^5.14.19"
@@ -3485,6 +3510,7 @@ __metadata:
     "@eternaltwin/client-node": "npm:^0.16.4"
     "@eternaltwin/core": "npm:^0.16.0"
     "@eternaltwin/oauth-client-http": "npm:^0.16.1"
+    "@fingerprint/node-sdk": "npm:^7.0.0"
     "@labrute/core": "workspace:*"
     "@labrute/prisma": "workspace:*"
     "@opentelemetry/api": "npm:^1.9.0"

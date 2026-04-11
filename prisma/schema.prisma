@@ -35,6 +35,7 @@ model User {
   backgroundMusic        Boolean          @default(true)
   dinorpgDone            DateTime?        @db.Date
   ips                    String[]         @default([])
+  fingerprints           String[]         @default([])
   bannedAt               DateTime?        @db.Date
   banReason              String?
   displayVersusPage      Boolean          @default(true)
@@ -691,6 +692,10 @@ model BannedWord {
 }
 
 model BannedIp {
+  id String @id @db.VarChar(255)
+}
+
+model BannedFingerprint {
   id String @id @db.VarChar(255)
 }
 

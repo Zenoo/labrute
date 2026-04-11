@@ -11,6 +11,7 @@ import {
   UserMultipleAccountsListResponse,
   UserUpdateSettingsRequest,
   UsersAdminUpdateRequest,
+  UsersAuthenticateRequest,
   UsersAuthenticateResponse,
   Version,
   getFightsLeft,
@@ -19,21 +20,20 @@ import {
 } from '@labrute/core';
 import {
   Achievement,
-  InventoryItemType, Lang,
-  Prisma,
-  PrismaClient,
+  InventoryItemType, Lang, PrismaClient,
   UserLogType,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
 import fetch from 'node-fetch';
-import { DISCORD, GLOBAL, LOGGER } from '../context.js';
+import { DISCORD, GLOBAL } from '../context.js';
 import { dailyJob } from '../dailyJob.js';
 import { ServerState } from '../utils/ServerState.js';
 import { auth } from '../utils/auth.js';
 import { createUserLog } from '../utils/createUserLog.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
+import { banUser } from '../utils/user/banUser.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
@@ -95,13 +95,39 @@ export const Users = {
     }
   },
   authenticate: (prisma: PrismaClient) => async (
-    req: Request,
+    req: Request<never, unknown, UsersAuthenticateRequest>,
     res: Response<UsersAuthenticateResponse>,
   ) => {
     try {
       let authResult: Awaited<ReturnType<typeof auth>>;
       try {
-        authResult = await auth(prisma, req);
+        authResult = await auth(prisma, req, { skipFingerprintCheck: true });
+
+        if (GLOBAL.fingerprint) {
+          if (typeof req.body.eventId !== 'string') {
+            throw new ExpectedError('Invalid event ID');
+          }
+
+          const fingerprintEvent = await GLOBAL.fingerprint.getEvent(req.body.eventId);
+
+          if (fingerprintEvent.bot === 'bad') {
+            await banUser(prisma, authResult.id, 'bot');
+            throw new ForbiddenError('Nope.');
+          }
+
+          if (fingerprintEvent.identification
+            && !authResult.fingerprints.includes(fingerprintEvent.identification.visitor_id)) {
+            await prisma.user.update({
+              where: { id: authResult.id },
+              data: {
+                fingerprints: {
+                  push: fingerprintEvent.identification.visitor_id,
+                },
+              },
+            });
+            authResult.fingerprints.push(fingerprintEvent.identification.visitor_id);
+          }
+        }
       } catch (_error) {
         res.send({
           modifiers: await ServerState.getModifiers(prisma),
@@ -605,78 +631,7 @@ export const Users = {
         throw new ExpectedError(translate('invalidParameters', authed));
       }
 
-      const user = await prisma.user.findFirst({
-        where: { id: req.params.userId },
-        select: {
-          bannedAt: true,
-          ips: true,
-          brutes: {
-            where: {
-              deletedAt: null,
-            },
-            select: { id: true },
-          },
-        },
-      });
-
-      if (!user) {
-        throw new NotFoundError(translate('userNotFound', authed));
-      }
-
-      if (user.bannedAt) {
-        throw new LimitError(translate('userAlreadyBanned', authed));
-      }
-
-      // Delete all brutes
-      await prisma.brute.updateMany({
-        where: {
-          userId: req.params.userId,
-          deletedAt: null,
-        },
-        data: {
-          deletedAt: new Date(),
-          deletionReason: BruteDeletionReason.BANNED_USER,
-        },
-      });
-
-      // Remove brutes from clan fighters
-      if (user.brutes.length > 0) {
-        const joinedBruteIds = Prisma.join(user.brutes.map((b) => Prisma.sql`${b.id}::uuid`));
-        await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
-        await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
-      }
-
-      for (const brute of user.brutes) {
-        // Remove brutes from followed
-        await prisma.brute.update({
-          where: { id: brute.id },
-          data: {
-            followers: {
-              set: [],
-            },
-          },
-        });
-      }
-
-      // Ban user
-      await prisma.user.update({
-        where: { id: req.params.userId },
-        data: {
-          bannedAt: new Date(),
-          banReason: req.body.reason,
-        },
-      });
-
-      // User log
-      createUserLog(prisma, {
-        type: UserLogType.BANNED,
-        userId: req.params.userId,
-      });
-
-      // IP ban
-      await ServerState.addBannedIps(prisma, user.ips);
-
-      LOGGER.log(`User ${req.params.userId} has been banned by ${authed.id}`);
+      await banUser(prisma, req.params.userId, req.body.reason, authed);
 
       res.send({
         success: true,

@@ -97,6 +97,11 @@ export interface Config {
   readonly csrfSecret: string;
 
   /**
+   * Secret key for the fingerprint server to authenticate and receive the event_id.
+   */
+  readonly fingerprintServerKey?: string;
+
+  /**
    * Configuration for the Eternaltwin client.
    */
   readonly eternaltwin: EternaltwinConfig;
@@ -232,6 +237,13 @@ export function readCsrfSecret(envCsrfSecret: string | undefined) {
   return emptyConfig.csrfSecret;
 }
 
+export function readFingerprintServerKey(envFingerprintServerKey: string | undefined) {
+  if (typeof envFingerprintServerKey === 'string') {
+    return envFingerprintServerKey;
+  }
+  return undefined;
+}
+
 /**
  * Read the provided environment recorded and build a config object.
  */
@@ -245,6 +257,7 @@ export async function readConfig(
   const corsRegex = readCorsRegex(env.CORS_REGEX);
   const cookieSecret = readCookieSecret(env.COOKIE_SECRET);
   const csrfSecret = readCsrfSecret(env.CSRF_SECRET);
+  let fingerprintServerKey = readFingerprintServerKey(env.FINGERPRINT_SERVER_KEY);
 
   const configVars = await prisma?.config.findMany({
     select: {
@@ -319,6 +332,9 @@ export async function readConfig(
       case 'DINORPG_URL':
         dinoRpgUrl = decryptedValue;
         break;
+      case 'FINGERPRINT_SERVER_KEY':
+        fingerprintServerKey = decryptedValue;
+        break;
       default:
         break;
     }
@@ -387,6 +403,7 @@ export async function readConfig(
     discordKnownIssues,
     discordKnownIssuesMessageId,
     dinoRpgUrl,
+    fingerprintServerKey,
   };
 }
 

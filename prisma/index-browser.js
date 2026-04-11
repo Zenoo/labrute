@@ -133,6 +133,7 @@ exports.Prisma.UserScalarFieldEnum = {
   backgroundMusic: 'backgroundMusic',
   dinorpgDone: 'dinorpgDone',
   ips: 'ips',
+  fingerprints: 'fingerprints',
   bannedAt: 'bannedAt',
   banReason: 'banReason',
   displayVersusPage: 'displayVersusPage',
@@ -338,6 +339,10 @@ exports.Prisma.BannedWordScalarFieldEnum = {
 };
 
 exports.Prisma.BannedIpScalarFieldEnum = {
+  id: 'id'
+};
+
+exports.Prisma.BannedFingerprintScalarFieldEnum = {
   id: 'id'
 };
 
@@ -814,6 +819,7 @@ exports.Prisma.ModelName = {
   ServerState: 'ServerState',
   BannedWord: 'BannedWord',
   BannedIp: 'BannedIp',
+  BannedFingerprint: 'BannedFingerprint',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',

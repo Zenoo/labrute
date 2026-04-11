@@ -14,5 +14,10 @@
 	"[typescriptreact]": {
 		"editor.autoClosingBrackets": "languageDefined",
 		"editor.defaultFormatter": "vscode.typescript-language-features"
-	},
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.addMissingImports.ts": "always",
+    "source.removeUnusedImports": "always"
+  },
 }
