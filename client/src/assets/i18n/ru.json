@@ -1513,6 +1513,8 @@
   "banReason.innapropriateName": "Неуместное имя",
   "banReason.innapropriateBruteName": "Неуместное имя Брутала",
   "banReason.multipleAccounts": "Несколько учётных записей",
+  "banReason.invalid_fingerprint": "Botting",
+  "banReason.bot": "Botting",
   "afterBlock": "после блокирования",
   "againstThrows": "против метания",
   "atOneHp": "при 1 ОЗ",
@@ -1627,5 +1629,9 @@
   "dayOver": "День {{day}} закончился",
   "seeParticipants": "Показать участников",
   "searchForParticipant": "Поиск участника",
-  "outdatedVersion": "Вы используете устаревшую версию игры. Пожалуйста, обновите страницу, чтобы выйти на текущую версию. Если это сообщение вновь будет появляться, очистите кэш браузера и обновите страницу."
+  "outdatedVersion": "Вы используете устаревшую версию игры. Пожалуйста, обновите страницу, чтобы выйти на текущую версию. Если это сообщение вновь будет появляться, очистите кэш браузера и обновите страницу.",
+  "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support.",
+  "deleteAccount": "Delete account",
+  "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
+  "accountDeleted": "Your account has been deleted"
 }
