@@ -1513,8 +1513,8 @@
   "banReason.innapropriateName": "Nom inapproprié",
   "banReason.innapropriateBruteName": "Nom de brute inapproprié",
   "banReason.multipleAccounts": "Comptes multiples",
-  "banReason.invalid_fingerprint": "Botting",
-  "banReason.bot": "Botting",
+  "banReason.invalid_fingerprint": "Automatisation",
+  "banReason.bot": "Automatisation",
   "afterBlock": "après blocage",
   "againstThrows": "contre les lancers",
   "atOneHp": "à 1 PV",
@@ -1611,7 +1611,7 @@
   "bruteSetForDeletion": "Une de vos brutes a été marquée pour suppression.",
   "reportAccepted": "Signalement accepté",
   "reportRejected": "Signalement refusé",
-  "reportCancelled": "Report cancelled",
+  "reportCancelled": "Signalement annulé",
   "status": "Statut",
   "pending": "En attente",
   "accepted": "Accepté",
@@ -1630,8 +1630,8 @@
   "seeParticipants": "Voir les participants",
   "searchForParticipant": "Rechercher un participant",
   "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page.",
-  "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support.",
-  "deleteAccount": "Delete account",
-  "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
-  "accountDeleted": "Your account has been deleted"
+  "fingerprintError": "Une erreur s'est produite lors de la génération de votre empreinte digitale. Veuillez désactiver votre bloqueur de publicité/protection de suivi pour ce site. Elle est utilisée uniquement pour empêcher les robots, vous ne verrez aucune publicité. Si le problème persiste, veuillez contacter le support.",
+  "deleteAccount": "Supprimer le compte",
+  "deleteAccountConfirm": "Êtes-vous sûr de vouloir supprimer votre compte ? Toutes vos brutes et progression seront perdues. Cette action est irréversible.",
+  "accountDeleted": "Votre compte a été supprimé"
 }
