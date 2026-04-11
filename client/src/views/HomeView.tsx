@@ -78,6 +78,7 @@ const HomeView = () => {
         setCookie(USER_COOKIE, response.user.id, 7);
         setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
         Alert.open('success', t('loginSuccess'));
+        console.log('Logged in user:', loggedInUser);
 
         // Redirect to first brute if exists
         if (loggedInUser.brutes.length) {

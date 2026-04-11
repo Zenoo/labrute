@@ -24,6 +24,7 @@
     "@eternaltwin/client-node": "^0.16.4",
     "@eternaltwin/core": "^0.16.0",
     "@eternaltwin/oauth-client-http": "^0.16.1",
+    "@fingerprint/node-sdk": "^7.0.0",
     "@labrute/core": "workspace:*",
     "@labrute/prisma": "workspace:*",
     "@opentelemetry/api": "^1.9.0",

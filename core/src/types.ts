@@ -588,6 +588,9 @@ export type UsersAdminUpdateRequest = {
   user: Prisma.UserUncheckedUpdateInput,
   achievements: Pick<Achievement, 'count' | 'name'>[],
 };
+export type UsersAuthenticateRequest = {
+  eventId: string;
+};
 export type UsersAuthenticateResponse = {
   user?: UserWithBrutesBodyColor,
   modifiers: Modifiers,

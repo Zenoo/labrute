@@ -1,11 +1,13 @@
 import { CalculatedBrute, getCalculatedBrute, Modifiers, refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
 import { Event } from '@labrute/prisma';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { deleteCookie, getCookie } from '../utils/cookies';
+import { deleteCookie } from '../utils/cookies';
 import Server from '../utils/Server';
 import { useAlert } from './useAlert';
 import { useLanguage } from './useLanguage';
+import { useVisitorData } from '@fingerprint/react';
+import { setFingerprint } from '../utils/fingerprintStore';
 
 export type LoggedInUser = Omit<UserWithBrutesBodyColor, 'brutes'> & {
   brutes: CalculatedBrute[];
@@ -57,6 +59,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const { setLanguage } = useLanguage();
   const Alert = useAlert();
   const { t } = useTranslation();
+  const { data: fingerPrintData } = useVisitorData();
+
+  // Store fingerprint to be used in the fetch request
+  useEffect(() => {
+    if (!fingerPrintData?.visitor_id) return;
+
+    setFingerprint(fingerPrintData.visitor_id);
+  }, [fingerPrintData]);
 
   const signin = useCallback(() => {
     if (authing || user) return;
@@ -67,12 +77,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
+    if (!fingerPrintData || !fingerPrintData.event_id) {
+      Alert.open('error', t('fingerprintError'));
+      deleteCookie(USER_COOKIE);
+      deleteCookie(TOKEN_COOKIE);
+      return;
+    }
+
     setAuthing(true);
 
-    const userId = getCookie(USER_COOKIE) ?? '';
-    const token = getCookie(TOKEN_COOKIE) ?? '';
-
-    Server.User.authenticate(userId, token).then((response) => {
+    Server.User.authenticate({
+      eventId: fingerPrintData.event_id
+    }).then((response) => {
       setModifiers(response.modifiers);
       refreshChaosSeeds(response.modifiers);
       setCurrentEvent(response.currentEvent);
@@ -104,7 +120,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       deleteCookie(TOKEN_COOKIE);
       setAuthing(false);
     });
-  }, [Alert, authing, setLanguage, t, user]);
+  }, [Alert, authing, fingerPrintData, setLanguage, t, user]);
 
   const signout = useCallback(() => {
     deleteCookie(USER_COOKIE);

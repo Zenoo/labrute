@@ -46,6 +46,7 @@ const UserAdminView = () => {
         bannedAt: u.bannedAt,
         banReason: u.banReason,
         ips: u.ips,
+        fingerprints: u.fingerprints,
         displayVersusPage: u.displayVersusPage,
         displayOpponentDetails: u.displayOpponentDetails,
         lastSeen: u.lastSeen,

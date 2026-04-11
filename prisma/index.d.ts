@@ -94,6 +94,11 @@ export type BannedWord = $Result.DefaultSelection<Prisma.$BannedWordPayload>
  */
 export type BannedIp = $Result.DefaultSelection<Prisma.$BannedIpPayload>
 /**
+ * Model BannedFingerprint
+ * 
+ */
+export type BannedFingerprint = $Result.DefaultSelection<Prisma.$BannedFingerprintPayload>
+/**
  * Model Clan
  * 
  */
@@ -939,6 +944,16 @@ export class PrismaClient<
   get bannedIp(): Prisma.BannedIpDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.bannedFingerprint`: Exposes CRUD operations for the **BannedFingerprint** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BannedFingerprints
+    * const bannedFingerprints = await prisma.bannedFingerprint.findMany()
+    * ```
+    */
+  get bannedFingerprint(): Prisma.BannedFingerprintDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
     * Example usage:
     * ```ts
@@ -1503,6 +1518,7 @@ export namespace Prisma {
     ServerState: 'ServerState',
     BannedWord: 'BannedWord',
     BannedIp: 'BannedIp',
+    BannedFingerprint: 'BannedFingerprint',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
     ClanPost: 'ClanPost',
@@ -1532,7 +1548,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2720,6 +2736,80 @@ export namespace Prisma {
           }
         }
       }
+      BannedFingerprint: {
+        payload: Prisma.$BannedFingerprintPayload<ExtArgs>
+        fields: Prisma.BannedFingerprintFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BannedFingerprintFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BannedFingerprintFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>
+          }
+          findFirst: {
+            args: Prisma.BannedFingerprintFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BannedFingerprintFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>
+          }
+          findMany: {
+            args: Prisma.BannedFingerprintFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>[]
+          }
+          create: {
+            args: Prisma.BannedFingerprintCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>
+          }
+          createMany: {
+            args: Prisma.BannedFingerprintCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BannedFingerprintCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>[]
+          }
+          delete: {
+            args: Prisma.BannedFingerprintDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>
+          }
+          update: {
+            args: Prisma.BannedFingerprintUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>
+          }
+          deleteMany: {
+            args: Prisma.BannedFingerprintDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BannedFingerprintUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BannedFingerprintUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>[]
+          }
+          upsert: {
+            args: Prisma.BannedFingerprintUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BannedFingerprintPayload>
+          }
+          aggregate: {
+            args: Prisma.BannedFingerprintAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBannedFingerprint>
+          }
+          groupBy: {
+            args: Prisma.BannedFingerprintGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BannedFingerprintGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BannedFingerprintCountArgs<ExtArgs>
+            result: $Utils.Optional<BannedFingerprintCountAggregateOutputType> | number
+          }
+        }
+      }
       Clan: {
         payload: Prisma.$ClanPayload<ExtArgs>
         fields: Prisma.ClanFieldRefs
@@ -3646,6 +3736,7 @@ export namespace Prisma {
     serverState?: ServerStateOmit
     bannedWord?: BannedWordOmit
     bannedIp?: BannedIpOmit
+    bannedFingerprint?: BannedFingerprintOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
     clanPost?: ClanPostOmit
@@ -4503,6 +4594,7 @@ export namespace Prisma {
     backgroundMusic: number
     dinorpgDone: number
     ips: number
+    fingerprints: number
     bannedAt: number
     banReason: number
     displayVersusPage: number
@@ -4575,6 +4667,7 @@ export namespace Prisma {
     backgroundMusic?: true
     dinorpgDone?: true
     ips?: true
+    fingerprints?: true
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
@@ -4682,6 +4775,7 @@ export namespace Prisma {
     backgroundMusic: boolean
     dinorpgDone: Date | null
     ips: string[]
+    fingerprints: string[]
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean
@@ -4721,6 +4815,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: boolean
     ips?: boolean
+    fingerprints?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4752,6 +4847,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: boolean
     ips?: boolean
+    fingerprints?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4772,6 +4868,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: boolean
     ips?: boolean
+    fingerprints?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4792,6 +4889,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: boolean
     ips?: boolean
+    fingerprints?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4799,7 +4897,7 @@ export namespace Prisma {
     lastSeen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "lastSeen", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "lastSeen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -4843,6 +4941,7 @@ export namespace Prisma {
       backgroundMusic: boolean
       dinorpgDone: Date | null
       ips: string[]
+      fingerprints: string[]
       bannedAt: Date | null
       banReason: string | null
       displayVersusPage: boolean
@@ -5293,6 +5392,7 @@ export namespace Prisma {
     readonly backgroundMusic: FieldRef<"User", 'Boolean'>
     readonly dinorpgDone: FieldRef<"User", 'DateTime'>
     readonly ips: FieldRef<"User", 'String[]'>
+    readonly fingerprints: FieldRef<"User", 'String[]'>
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
     readonly displayVersusPage: FieldRef<"User", 'Boolean'>
@@ -24477,6 +24577,958 @@ export namespace Prisma {
 
 
   /**
+   * Model BannedFingerprint
+   */
+
+  export type AggregateBannedFingerprint = {
+    _count: BannedFingerprintCountAggregateOutputType | null
+    _min: BannedFingerprintMinAggregateOutputType | null
+    _max: BannedFingerprintMaxAggregateOutputType | null
+  }
+
+  export type BannedFingerprintMinAggregateOutputType = {
+    id: string | null
+  }
+
+  export type BannedFingerprintMaxAggregateOutputType = {
+    id: string | null
+  }
+
+  export type BannedFingerprintCountAggregateOutputType = {
+    id: number
+    _all: number
+  }
+
+
+  export type BannedFingerprintMinAggregateInputType = {
+    id?: true
+  }
+
+  export type BannedFingerprintMaxAggregateInputType = {
+    id?: true
+  }
+
+  export type BannedFingerprintCountAggregateInputType = {
+    id?: true
+    _all?: true
+  }
+
+  export type BannedFingerprintAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannedFingerprint to aggregate.
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedFingerprints to fetch.
+     */
+    orderBy?: BannedFingerprintOrderByWithRelationInput | BannedFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BannedFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BannedFingerprints
+    **/
+    _count?: true | BannedFingerprintCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BannedFingerprintMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BannedFingerprintMaxAggregateInputType
+  }
+
+  export type GetBannedFingerprintAggregateType<T extends BannedFingerprintAggregateArgs> = {
+        [P in keyof T & keyof AggregateBannedFingerprint]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBannedFingerprint[P]>
+      : GetScalarType<T[P], AggregateBannedFingerprint[P]>
+  }
+
+
+
+
+  export type BannedFingerprintGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BannedFingerprintWhereInput
+    orderBy?: BannedFingerprintOrderByWithAggregationInput | BannedFingerprintOrderByWithAggregationInput[]
+    by: BannedFingerprintScalarFieldEnum[] | BannedFingerprintScalarFieldEnum
+    having?: BannedFingerprintScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BannedFingerprintCountAggregateInputType | true
+    _min?: BannedFingerprintMinAggregateInputType
+    _max?: BannedFingerprintMaxAggregateInputType
+  }
+
+  export type BannedFingerprintGroupByOutputType = {
+    id: string
+    _count: BannedFingerprintCountAggregateOutputType | null
+    _min: BannedFingerprintMinAggregateOutputType | null
+    _max: BannedFingerprintMaxAggregateOutputType | null
+  }
+
+  type GetBannedFingerprintGroupByPayload<T extends BannedFingerprintGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BannedFingerprintGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BannedFingerprintGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BannedFingerprintGroupByOutputType[P]>
+            : GetScalarType<T[P], BannedFingerprintGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BannedFingerprintSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["bannedFingerprint"]>
+
+  export type BannedFingerprintSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["bannedFingerprint"]>
+
+  export type BannedFingerprintSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["bannedFingerprint"]>
+
+  export type BannedFingerprintSelectScalar = {
+    id?: boolean
+  }
+
+  export type BannedFingerprintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id", ExtArgs["result"]["bannedFingerprint"]>
+
+  export type $BannedFingerprintPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BannedFingerprint"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+    }, ExtArgs["result"]["bannedFingerprint"]>
+    composites: {}
+  }
+
+  type BannedFingerprintGetPayload<S extends boolean | null | undefined | BannedFingerprintDefaultArgs> = $Result.GetResult<Prisma.$BannedFingerprintPayload, S>
+
+  type BannedFingerprintCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BannedFingerprintFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BannedFingerprintCountAggregateInputType | true
+    }
+
+  export interface BannedFingerprintDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BannedFingerprint'], meta: { name: 'BannedFingerprint' } }
+    /**
+     * Find zero or one BannedFingerprint that matches the filter.
+     * @param {BannedFingerprintFindUniqueArgs} args - Arguments to find a BannedFingerprint
+     * @example
+     * // Get one BannedFingerprint
+     * const bannedFingerprint = await prisma.bannedFingerprint.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BannedFingerprintFindUniqueArgs>(args: SelectSubset<T, BannedFingerprintFindUniqueArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BannedFingerprint that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BannedFingerprintFindUniqueOrThrowArgs} args - Arguments to find a BannedFingerprint
+     * @example
+     * // Get one BannedFingerprint
+     * const bannedFingerprint = await prisma.bannedFingerprint.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BannedFingerprintFindUniqueOrThrowArgs>(args: SelectSubset<T, BannedFingerprintFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BannedFingerprint that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintFindFirstArgs} args - Arguments to find a BannedFingerprint
+     * @example
+     * // Get one BannedFingerprint
+     * const bannedFingerprint = await prisma.bannedFingerprint.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BannedFingerprintFindFirstArgs>(args?: SelectSubset<T, BannedFingerprintFindFirstArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BannedFingerprint that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintFindFirstOrThrowArgs} args - Arguments to find a BannedFingerprint
+     * @example
+     * // Get one BannedFingerprint
+     * const bannedFingerprint = await prisma.bannedFingerprint.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BannedFingerprintFindFirstOrThrowArgs>(args?: SelectSubset<T, BannedFingerprintFindFirstOrThrowArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BannedFingerprints that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BannedFingerprints
+     * const bannedFingerprints = await prisma.bannedFingerprint.findMany()
+     * 
+     * // Get first 10 BannedFingerprints
+     * const bannedFingerprints = await prisma.bannedFingerprint.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bannedFingerprintWithIdOnly = await prisma.bannedFingerprint.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BannedFingerprintFindManyArgs>(args?: SelectSubset<T, BannedFingerprintFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BannedFingerprint.
+     * @param {BannedFingerprintCreateArgs} args - Arguments to create a BannedFingerprint.
+     * @example
+     * // Create one BannedFingerprint
+     * const BannedFingerprint = await prisma.bannedFingerprint.create({
+     *   data: {
+     *     // ... data to create a BannedFingerprint
+     *   }
+     * })
+     * 
+     */
+    create<T extends BannedFingerprintCreateArgs>(args: SelectSubset<T, BannedFingerprintCreateArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BannedFingerprints.
+     * @param {BannedFingerprintCreateManyArgs} args - Arguments to create many BannedFingerprints.
+     * @example
+     * // Create many BannedFingerprints
+     * const bannedFingerprint = await prisma.bannedFingerprint.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BannedFingerprintCreateManyArgs>(args?: SelectSubset<T, BannedFingerprintCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BannedFingerprints and returns the data saved in the database.
+     * @param {BannedFingerprintCreateManyAndReturnArgs} args - Arguments to create many BannedFingerprints.
+     * @example
+     * // Create many BannedFingerprints
+     * const bannedFingerprint = await prisma.bannedFingerprint.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BannedFingerprints and only return the `id`
+     * const bannedFingerprintWithIdOnly = await prisma.bannedFingerprint.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BannedFingerprintCreateManyAndReturnArgs>(args?: SelectSubset<T, BannedFingerprintCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BannedFingerprint.
+     * @param {BannedFingerprintDeleteArgs} args - Arguments to delete one BannedFingerprint.
+     * @example
+     * // Delete one BannedFingerprint
+     * const BannedFingerprint = await prisma.bannedFingerprint.delete({
+     *   where: {
+     *     // ... filter to delete one BannedFingerprint
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BannedFingerprintDeleteArgs>(args: SelectSubset<T, BannedFingerprintDeleteArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BannedFingerprint.
+     * @param {BannedFingerprintUpdateArgs} args - Arguments to update one BannedFingerprint.
+     * @example
+     * // Update one BannedFingerprint
+     * const bannedFingerprint = await prisma.bannedFingerprint.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BannedFingerprintUpdateArgs>(args: SelectSubset<T, BannedFingerprintUpdateArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BannedFingerprints.
+     * @param {BannedFingerprintDeleteManyArgs} args - Arguments to filter BannedFingerprints to delete.
+     * @example
+     * // Delete a few BannedFingerprints
+     * const { count } = await prisma.bannedFingerprint.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BannedFingerprintDeleteManyArgs>(args?: SelectSubset<T, BannedFingerprintDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BannedFingerprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BannedFingerprints
+     * const bannedFingerprint = await prisma.bannedFingerprint.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BannedFingerprintUpdateManyArgs>(args: SelectSubset<T, BannedFingerprintUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BannedFingerprints and returns the data updated in the database.
+     * @param {BannedFingerprintUpdateManyAndReturnArgs} args - Arguments to update many BannedFingerprints.
+     * @example
+     * // Update many BannedFingerprints
+     * const bannedFingerprint = await prisma.bannedFingerprint.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BannedFingerprints and only return the `id`
+     * const bannedFingerprintWithIdOnly = await prisma.bannedFingerprint.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BannedFingerprintUpdateManyAndReturnArgs>(args: SelectSubset<T, BannedFingerprintUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BannedFingerprint.
+     * @param {BannedFingerprintUpsertArgs} args - Arguments to update or create a BannedFingerprint.
+     * @example
+     * // Update or create a BannedFingerprint
+     * const bannedFingerprint = await prisma.bannedFingerprint.upsert({
+     *   create: {
+     *     // ... data to create a BannedFingerprint
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BannedFingerprint we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BannedFingerprintUpsertArgs>(args: SelectSubset<T, BannedFingerprintUpsertArgs<ExtArgs>>): Prisma__BannedFingerprintClient<$Result.GetResult<Prisma.$BannedFingerprintPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BannedFingerprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintCountArgs} args - Arguments to filter BannedFingerprints to count.
+     * @example
+     * // Count the number of BannedFingerprints
+     * const count = await prisma.bannedFingerprint.count({
+     *   where: {
+     *     // ... the filter for the BannedFingerprints we want to count
+     *   }
+     * })
+    **/
+    count<T extends BannedFingerprintCountArgs>(
+      args?: Subset<T, BannedFingerprintCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BannedFingerprintCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BannedFingerprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BannedFingerprintAggregateArgs>(args: Subset<T, BannedFingerprintAggregateArgs>): Prisma.PrismaPromise<GetBannedFingerprintAggregateType<T>>
+
+    /**
+     * Group by BannedFingerprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BannedFingerprintGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BannedFingerprintGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BannedFingerprintGroupByArgs['orderBy'] }
+        : { orderBy?: BannedFingerprintGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BannedFingerprintGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBannedFingerprintGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BannedFingerprint model
+   */
+  readonly fields: BannedFingerprintFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BannedFingerprint.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BannedFingerprintClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BannedFingerprint model
+   */
+  interface BannedFingerprintFieldRefs {
+    readonly id: FieldRef<"BannedFingerprint", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BannedFingerprint findUnique
+   */
+  export type BannedFingerprintFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedFingerprint to fetch.
+     */
+    where: BannedFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint findUniqueOrThrow
+   */
+  export type BannedFingerprintFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedFingerprint to fetch.
+     */
+    where: BannedFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint findFirst
+   */
+  export type BannedFingerprintFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedFingerprint to fetch.
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedFingerprints to fetch.
+     */
+    orderBy?: BannedFingerprintOrderByWithRelationInput | BannedFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannedFingerprints.
+     */
+    cursor?: BannedFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannedFingerprints.
+     */
+    distinct?: BannedFingerprintScalarFieldEnum | BannedFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint findFirstOrThrow
+   */
+  export type BannedFingerprintFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedFingerprint to fetch.
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedFingerprints to fetch.
+     */
+    orderBy?: BannedFingerprintOrderByWithRelationInput | BannedFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BannedFingerprints.
+     */
+    cursor?: BannedFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BannedFingerprints.
+     */
+    distinct?: BannedFingerprintScalarFieldEnum | BannedFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint findMany
+   */
+  export type BannedFingerprintFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which BannedFingerprints to fetch.
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BannedFingerprints to fetch.
+     */
+    orderBy?: BannedFingerprintOrderByWithRelationInput | BannedFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BannedFingerprints.
+     */
+    cursor?: BannedFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BannedFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BannedFingerprints.
+     */
+    skip?: number
+    distinct?: BannedFingerprintScalarFieldEnum | BannedFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint create
+   */
+  export type BannedFingerprintCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * The data needed to create a BannedFingerprint.
+     */
+    data: XOR<BannedFingerprintCreateInput, BannedFingerprintUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint createMany
+   */
+  export type BannedFingerprintCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BannedFingerprints.
+     */
+    data: BannedFingerprintCreateManyInput | BannedFingerprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BannedFingerprint createManyAndReturn
+   */
+  export type BannedFingerprintCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * The data used to create many BannedFingerprints.
+     */
+    data: BannedFingerprintCreateManyInput | BannedFingerprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BannedFingerprint update
+   */
+  export type BannedFingerprintUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * The data needed to update a BannedFingerprint.
+     */
+    data: XOR<BannedFingerprintUpdateInput, BannedFingerprintUncheckedUpdateInput>
+    /**
+     * Choose, which BannedFingerprint to update.
+     */
+    where: BannedFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint updateMany
+   */
+  export type BannedFingerprintUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BannedFingerprints.
+     */
+    data: XOR<BannedFingerprintUpdateManyMutationInput, BannedFingerprintUncheckedUpdateManyInput>
+    /**
+     * Filter which BannedFingerprints to update
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * Limit how many BannedFingerprints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BannedFingerprint updateManyAndReturn
+   */
+  export type BannedFingerprintUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * The data used to update BannedFingerprints.
+     */
+    data: XOR<BannedFingerprintUpdateManyMutationInput, BannedFingerprintUncheckedUpdateManyInput>
+    /**
+     * Filter which BannedFingerprints to update
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * Limit how many BannedFingerprints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BannedFingerprint upsert
+   */
+  export type BannedFingerprintUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * The filter to search for the BannedFingerprint to update in case it exists.
+     */
+    where: BannedFingerprintWhereUniqueInput
+    /**
+     * In case the BannedFingerprint found by the `where` argument doesn't exist, create a new BannedFingerprint with this data.
+     */
+    create: XOR<BannedFingerprintCreateInput, BannedFingerprintUncheckedCreateInput>
+    /**
+     * In case the BannedFingerprint was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BannedFingerprintUpdateInput, BannedFingerprintUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint delete
+   */
+  export type BannedFingerprintDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter which BannedFingerprint to delete.
+     */
+    where: BannedFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BannedFingerprint deleteMany
+   */
+  export type BannedFingerprintDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BannedFingerprints to delete
+     */
+    where?: BannedFingerprintWhereInput
+    /**
+     * Limit how many BannedFingerprints to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BannedFingerprint without action
+   */
+  export type BannedFingerprintDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BannedFingerprint
+     */
+    select?: BannedFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BannedFingerprint
+     */
+    omit?: BannedFingerprintOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Clan
    */
 
@@ -37159,6 +38211,7 @@ export namespace Prisma {
     backgroundMusic: 'backgroundMusic',
     dinorpgDone: 'dinorpgDone',
     ips: 'ips',
+    fingerprints: 'fingerprints',
     bannedAt: 'bannedAt',
     banReason: 'banReason',
     displayVersusPage: 'displayVersusPage',
@@ -37416,6 +38469,13 @@ export namespace Prisma {
   };
 
   export type BannedIpScalarFieldEnum = (typeof BannedIpScalarFieldEnum)[keyof typeof BannedIpScalarFieldEnum]
+
+
+  export const BannedFingerprintScalarFieldEnum: {
+    id: 'id'
+  };
+
+  export type BannedFingerprintScalarFieldEnum = (typeof BannedFingerprintScalarFieldEnum)[keyof typeof BannedFingerprintScalarFieldEnum]
 
 
   export const ClanScalarFieldEnum: {
@@ -37972,6 +39032,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
+    fingerprints?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
@@ -38002,6 +39063,7 @@ export namespace Prisma {
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrderInput | SortOrder
     ips?: SortOrder
+    fingerprints?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
@@ -38035,6 +39097,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
+    fingerprints?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
@@ -38065,6 +39128,7 @@ export namespace Prisma {
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrderInput | SortOrder
     ips?: SortOrder
+    fingerprints?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
@@ -38093,6 +39157,7 @@ export namespace Prisma {
     backgroundMusic?: BoolWithAggregatesFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
+    fingerprints?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
     displayVersusPage?: BoolWithAggregatesFilter<"User"> | boolean
@@ -39445,6 +40510,38 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"BannedIp"> | string
   }
 
+  export type BannedFingerprintWhereInput = {
+    AND?: BannedFingerprintWhereInput | BannedFingerprintWhereInput[]
+    OR?: BannedFingerprintWhereInput[]
+    NOT?: BannedFingerprintWhereInput | BannedFingerprintWhereInput[]
+    id?: StringFilter<"BannedFingerprint"> | string
+  }
+
+  export type BannedFingerprintOrderByWithRelationInput = {
+    id?: SortOrder
+  }
+
+  export type BannedFingerprintWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BannedFingerprintWhereInput | BannedFingerprintWhereInput[]
+    OR?: BannedFingerprintWhereInput[]
+    NOT?: BannedFingerprintWhereInput | BannedFingerprintWhereInput[]
+  }, "id">
+
+  export type BannedFingerprintOrderByWithAggregationInput = {
+    id?: SortOrder
+    _count?: BannedFingerprintCountOrderByAggregateInput
+    _max?: BannedFingerprintMaxOrderByAggregateInput
+    _min?: BannedFingerprintMinOrderByAggregateInput
+  }
+
+  export type BannedFingerprintScalarWhereWithAggregatesInput = {
+    AND?: BannedFingerprintScalarWhereWithAggregatesInput | BannedFingerprintScalarWhereWithAggregatesInput[]
+    OR?: BannedFingerprintScalarWhereWithAggregatesInput[]
+    NOT?: BannedFingerprintScalarWhereWithAggregatesInput | BannedFingerprintScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BannedFingerprint"> | string
+  }
+
   export type ClanWhereInput = {
     AND?: ClanWhereInput | ClanWhereInput[]
     OR?: ClanWhereInput[]
@@ -40206,6 +41303,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -40236,6 +41334,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -40266,6 +41365,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -40296,6 +41396,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -40326,6 +41427,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -40346,6 +41448,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -40366,6 +41469,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -41837,6 +42941,34 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type BannedFingerprintCreateInput = {
+    id: string
+  }
+
+  export type BannedFingerprintUncheckedCreateInput = {
+    id: string
+  }
+
+  export type BannedFingerprintUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedFingerprintUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedFingerprintCreateManyInput = {
+    id: string
+  }
+
+  export type BannedFingerprintUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BannedFingerprintUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ClanCreateInput = {
     id?: string
     name: string
@@ -42785,6 +43917,7 @@ export namespace Prisma {
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrder
     ips?: SortOrder
+    fingerprints?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
@@ -44179,6 +45312,18 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type BannedFingerprintCountOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BannedFingerprintMaxOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BannedFingerprintMinOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type EnumBossNameFilter<$PrismaModel = never> = {
     equals?: $Enums.BossName | EnumBossNameFieldRefInput<$PrismaModel>
     in?: $Enums.BossName[] | ListEnumBossNameFieldRefInput<$PrismaModel>
@@ -44728,6 +45873,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type UserCreatefingerprintsInput = {
+    set: string[]
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -44887,6 +46036,11 @@ export namespace Prisma {
   }
 
   export type UserUpdateipsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdatefingerprintsInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -49225,6 +50379,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -49254,6 +50409,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -49468,6 +50624,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -49497,6 +50654,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -49701,6 +50859,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -49730,6 +50889,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -51006,6 +52166,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -51035,6 +52196,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -51213,6 +52375,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -51242,6 +52405,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -52000,6 +53164,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFilter<"User"> | boolean
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
+    fingerprints?: StringNullableListFilter<"User">
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
@@ -52886,6 +54051,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -52915,6 +54081,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -55023,6 +56190,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -55052,6 +56220,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -55097,6 +56266,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -55126,6 +56296,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -55668,6 +56839,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -55697,6 +56869,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -55917,6 +57090,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -55946,6 +57120,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -56144,6 +57319,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56173,6 +57349,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56207,6 +57384,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56236,6 +57414,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56472,6 +57651,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -56501,6 +57681,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -59855,6 +61036,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -59884,6 +61066,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -60104,6 +61287,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -60133,6 +61317,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -60748,6 +61933,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -60777,6 +61963,7 @@ export namespace Prisma {
     backgroundMusic?: boolean
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -60822,6 +62009,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -60851,6 +62039,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -62977,6 +64166,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63006,6 +64196,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63035,6 +64226,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63211,6 +64403,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63240,6 +64433,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63269,6 +64463,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63641,6 +64836,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63670,6 +64866,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -63699,6 +64896,7 @@ export namespace Prisma {
     backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean

@@ -1513,6 +1513,8 @@
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
   "banReason.multipleAccounts": "Multiple accounts",
+  "banReason.invalid_fingerprint": "Botting",
+  "banReason.bot": "Botting",
   "afterBlock": "after blocking",
   "againstThrows": "against throws",
   "atOneHp": "at 1HP",
@@ -1627,5 +1629,6 @@
   "dayOver": "Day {{day}} is over",
   "seeParticipants": "See participants",
   "searchForParticipant": "Search for a participant",
-  "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page."
+  "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page.",
+  "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support."
 }

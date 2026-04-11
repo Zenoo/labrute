@@ -9,6 +9,7 @@ import { LOGGER } from '../context.js';
 let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
+let BANNED_FINGERPRINTS: string[] | null = null;
 let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
 
@@ -150,6 +151,49 @@ const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
 };
 
+const getBannedFingerprints = async (prisma: PrismaClient) => {
+  if (BANNED_FINGERPRINTS) {
+    return BANNED_FINGERPRINTS;
+  }
+
+  const bannedFingerprints = await prisma.bannedFingerprint.findMany({
+    select: { id: true },
+  });
+
+  BANNED_FINGERPRINTS = bannedFingerprints.map((fp) => fp.id);
+
+  return BANNED_FINGERPRINTS;
+};
+
+const addBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[]) => {
+  const bannedFingerprints = await getBannedFingerprints(prisma);
+  const newFingerprints = fingerprints.filter((fp) => !bannedFingerprints.includes(fp));
+
+  await prisma.bannedFingerprint.createMany({
+    data: newFingerprints.map((fp) => ({ id: fp })),
+  });
+
+  if (BANNED_FINGERPRINTS) BANNED_FINGERPRINTS.push(...newFingerprints);
+};
+
+const isFingerprintBanned = async (prisma: PrismaClient, fingerprint: string) => {
+  const bannedFingerprints = await getBannedFingerprints(prisma);
+
+  return bannedFingerprints.includes(fingerprint);
+};
+
+const removeBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[]) => {
+  const bannedFingerprints = await getBannedFingerprints(prisma);
+
+  await prisma.bannedFingerprint.deleteMany({
+    where: { id: { in: fingerprints } },
+  });
+
+  if (BANNED_FINGERPRINTS) {
+    BANNED_FINGERPRINTS = bannedFingerprints.filter((fp) => !fingerprints.includes(fp));
+  }
+};
+
 const setNextModifiers = async (prisma: PrismaClient, modifiers: Modifiers) => {
   const serverState = await prisma.serverState.findFirst({
     select: { id: true },
@@ -225,4 +269,8 @@ export const ServerState = {
   getNextModifiers,
   getCurrentEvent,
   setCurrentEvent,
+  getBannedFingerprints,
+  addBannedFingerprints,
+  isFingerprintBanned,
+  removeBannedFingerprints,
 };

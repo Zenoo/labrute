@@ -30,6 +30,8 @@
 
 - Start the server, client and etwin local server with `yarn dev`
 
+- **Important**: Disable your adblocker for the local development environment, as it may block fingerprint requests
+
 - Commit and push your changes
 
 - Create a pull request to merge your fork into `main`
@@ -66,12 +68,11 @@
 
 - Requirements: install ffmpeg on your Pc, node v18 minimum
 
-- Run the script : `yarn sfx:generate` if you use git bash and  `yarn sfx:wsl:generate` if you use WSL
+- Run the script : `yarn sfx:generate` if you use git bash and `yarn sfx:wsl:generate` if you use WSL
 
 ## Sitemap
 
 - After editing any of the main Google accessible pages, run `yarn sitemap:generate` to update the sitemap
-
 
 ## File Structure
 

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@labrute/prisma';
 import { isMainThread } from 'node:worker_threads';
+import { FingerprintServerApiClient, Region } from '@fingerprint/node-sdk';
 import { Config, emptyConfig, loadConfig } from './config.js';
 import { CONSOLE } from './logger/console.js';
 import { DiscordLogHandler } from './logger/discord.js';
@@ -16,6 +17,8 @@ export class ServerContext {
   public logger = new Logger([CONSOLE]);
 
   public prisma: PrismaClient;
+
+  public fingerprint?: FingerprintServerApiClient;
 
   public config: Config = emptyConfig;
 
@@ -93,6 +96,15 @@ export class ServerContext {
     this.config = config;
     this.discord = discord;
     this.logger = logger;
+
+    if (config.fingerprintServerKey) {
+      this.fingerprint = new FingerprintServerApiClient({
+        apiKey: config.fingerprintServerKey,
+        region: Region.EU,
+      });
+    } else {
+      this.logger.warn('FINGERPRINT_SERVER_KEY is not set, fingerprint server integration is disabled');
+    }
 
     this.logger.info('Config initialized');
 
