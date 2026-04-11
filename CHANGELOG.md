@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.2](https://github.com/Zenoo/labrute/compare/labrute-v2.86.1...labrute-v2.86.2) (2026-04-11)
+
+
+### Bug Fixes
+
+* Use server API as a hook to wait for fingerprint before querying ([b0cb3ab](https://github.com/Zenoo/labrute/commit/b0cb3ab22af61bc07b2dda98d10028d198825a34))
+
 ## [2.86.1](https://github.com/Zenoo/labrute/compare/labrute-v2.86.0...labrute-v2.86.1) (2026-04-11)
 
 
