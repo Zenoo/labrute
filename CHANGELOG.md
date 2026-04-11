@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.0](https://github.com/Zenoo/labrute/compare/labrute-v2.85.0...labrute-v2.86.0) (2026-04-11)
+
+
+### Features
+
+* Account deletion button ([903dee9](https://github.com/Zenoo/labrute/commit/903dee935895c669391981e81b39574d69425e30))
+* Fingerprinting using FingerprintJS ([f812761](https://github.com/Zenoo/labrute/commit/f812761bd6ec1c11bdacd70153dddcccd603710e))
+* Secure fingerprint without paid version ([3e79bd9](https://github.com/Zenoo/labrute/commit/3e79bd91113f2a3527406c172776845fcb7ad633))
+
+
+### Bug Fixes
+
+* Add configurable secrets ([ba18b07](https://github.com/Zenoo/labrute/commit/ba18b077b9e49268491fcec8809d3666e5e1fd7a))
+* Add predictable headers ([9da5320](https://github.com/Zenoo/labrute/commit/9da53205164ae42e714b1a2e69dc93b9f2063ccd))
+* Config admin panel decrypt error ([0b20837](https://github.com/Zenoo/labrute/commit/0b20837462df7bd039395eddc96375eeb6aa0838))
+
 ## [2.85.0](https://github.com/Zenoo/labrute/compare/labrute-v2.84.1...labrute-v2.85.0) (2026-03-02)
 
 
