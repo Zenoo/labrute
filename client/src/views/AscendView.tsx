@@ -15,8 +15,8 @@ import FantasyButton from '../components/FantasyButton';
 import { PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { useConfirm } from '../hooks/useConfirm';
 import { useAlert } from '../hooks/useAlert';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 /**
  * AscendView component
@@ -29,6 +29,7 @@ const AscendView = () => {
   const Confirm = useConfirm();
   const Alert = useAlert();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
+  const Server = useServer();
 
   const [selectedPerk, setSelectedPerk] = useState<WeaponName | SkillName | PetName | null>(null);
 
@@ -174,7 +175,8 @@ const AscendView = () => {
         })
         .catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute, getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
+  }, [Alert, Confirm, Server.Brute, brute,
+    getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
 
   return brute && (
     <Page title={t('ascension')} headerUrl={`/${brute.name}/cell`}>

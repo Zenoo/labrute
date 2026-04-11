@@ -26,11 +26,11 @@ import { useBrute } from '../hooks/useBrute';
 import { useConfirm } from '../hooks/useConfirm';
 import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
 import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
 import CellMobileView from './mobile/CellMobileView';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
+import { useServer } from '../hooks/useServer';
 
 /**
  * CellView component
@@ -46,6 +46,7 @@ const CellView = () => {
   const Alert = useAlert();
   const { user, updateData } = useAuth();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Sacrifice brute
@@ -65,7 +66,7 @@ const CellView = () => {
         }) : null));
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute, navigate, t, updateData]);
+  }, [Alert, Confirm, Server.Brute, brute, navigate, t, updateData]);
 
   const switchBrute = useCallback((side: number) => {
     if (!user || !brute || !user.brutes || !owner) return;
@@ -103,7 +104,7 @@ const CellView = () => {
         updateBrute(newBrute);
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute, t, updateBrute, updateData]);
+  }, [Alert, Confirm, Server.Brute, brute, t, updateBrute, updateData]);
 
   // Randomized advertising
   const ad = useMemo(() => getRandomAd(language), [language]);
@@ -117,7 +118,7 @@ const CellView = () => {
         Alert.open('success', t('reportSuccess'));
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute, t]);
+  }, [Alert, Confirm, Server.BruteReport, brute, t]);
 
   // Handle keys
   useEffect(() => {

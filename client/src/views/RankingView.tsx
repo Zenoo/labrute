@@ -10,10 +10,10 @@ import Page from '../components/Page';
 import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
+import { useServer } from '../hooks/useServer';
 
 const RankingView = () => {
   const { t } = useTranslation();
@@ -22,6 +22,7 @@ const RankingView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { currentEvent } = useAuth();
   const { brute } = useBrute();
+  const Server = useServer();
 
   const ranking = useMemo(() => (typeof rank === 'undefined' ? brute?.eventId ? -1 : undefined : rank === 'event' ? -1 : +rank), [brute?.eventId, rank]);
 

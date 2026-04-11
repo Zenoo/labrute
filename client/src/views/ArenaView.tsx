@@ -14,8 +14,8 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 type CalculatedBruteGetOpponentsResponse = ReturnType<
   typeof getCalculatedBrute<BrutesGetOpponentsResponse[0]>
@@ -30,6 +30,7 @@ const ArenaView = () => {
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, updateBrute } = useBrute();
   const { modifiers, user, updateData, currentEvent } = useAuth();
+  const Server = useServer();
 
   const [opponents, setOpponents] = useState<CalculatedBruteGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
@@ -80,7 +81,8 @@ const ArenaView = () => {
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, brute, currentEvent?.maxLevel, fightsLeft, navigate, xpNeededForNextLevel, modifiers]);
+  }, [Alert, brute, currentEvent?.maxLevel, fightsLeft,
+    navigate, xpNeededForNextLevel, modifiers, Server.Brute]);
 
   const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -105,7 +107,8 @@ const ArenaView = () => {
         navigate(`/${bruteName || ''}/versus/${response.name}`);
       }
     }).catch(catchError(Alert));
-  }, [Alert, brute, bruteName, navigate, search, t]);
+  }, [Alert, Server.Brute, brute, bruteName,
+    navigate, search, t]);
 
   // Go to versus page
   const goToVersus = useCallback((opponentName: string) => () => {
@@ -145,7 +148,7 @@ const ArenaView = () => {
     } else {
       navigate(`/${bruteName || ''}/versus/${opponentName}`);
     }
-  }, [Alert, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
+  }, [Alert, Server.Fight, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
 
   return brute && (
     <Page title={t('arena')} headerUrl={`/${brute.name}/cell`}>

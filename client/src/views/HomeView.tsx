@@ -20,8 +20,8 @@ import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
 import { setCookie } from '../utils/cookies';
 import Fetch from '../utils/Fetch';
-import Server from '../utils/Server';
 import HomeMobileView from './mobile/HomeMobileView';
+import { useServer } from '../hooks/useServer';
 
 /**
  * HomeView component
@@ -34,6 +34,7 @@ const HomeView = () => {
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   // On login error
   useEffect(() => {
@@ -78,7 +79,6 @@ const HomeView = () => {
         setCookie(USER_COOKIE, response.user.id, 7);
         setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
         Alert.open('success', t('loginSuccess'));
-        console.log('Logged in user:', loggedInUser);
 
         // Redirect to first brute if exists
         if (loggedInUser.brutes.length) {
@@ -209,7 +209,7 @@ const HomeView = () => {
       // Redirect to brute page
       navigate(`/${name}/cell`);
     }
-  }, [user, name, Alert, gender, body, colors, t, updateData, modifiers, navigate]);
+  }, [user, name, Server.Brute, Alert, gender, body, colors, t, updateData, modifiers, navigate]);
 
   // Login
   const login = useCallback(() => {

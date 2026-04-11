@@ -11,12 +11,13 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 const ReportAdminView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
+  const Server = useServer();
 
   const [newBanndedWord, setNewBannedWord] = React.useState('');
   const [reports, setReports] = React.useState<BruteReportWithNames[]>([]);
@@ -42,7 +43,7 @@ const ReportAdminView = () => {
     }, 200);
 
     return () => clearTimeout(handler);
-  }, [user, status, Alert, page]);
+  }, [user, status, Alert, page, Server.BruteReport]);
 
   // Change status
   const changeStatus = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +59,7 @@ const ReportAdminView = () => {
 
       Alert.open('success', t('reportAccepted'));
     }).catch(catchError(Alert));
-  }, [Alert, t]);
+  }, [Alert, Server.BruteReport, t]);
 
   // Reject report
   const rejectReport = useCallback((reportId: string) => () => {
@@ -67,7 +68,7 @@ const ReportAdminView = () => {
 
       Alert.open('success', t('reportRejected'));
     }).catch(catchError(Alert));
-  }, [Alert, t]);
+  }, [Alert, Server.BruteReport, t]);
 
   // Cancel report
   const cancelReport = useCallback((reportId: string) => () => {
@@ -76,7 +77,7 @@ const ReportAdminView = () => {
 
       Alert.open('success', t('reportCancelled'));
     }).catch(catchError(Alert));
-  }, [Alert, t]);
+  }, [Alert, Server.BruteReport, t]);
 
   // Add banned word
   const addBannedWord = useCallback(() => {
@@ -85,7 +86,7 @@ const ReportAdminView = () => {
     Server.BruteReport.addBannedWord(newBanndedWord).then(() => {
       Alert.open('success', 'Banned word added');
     }).catch(catchError(Alert));
-  }, [Alert, newBanndedWord, user]);
+  }, [Alert, newBanndedWord, user, Server.BruteReport]);
 
   return (
     <Page title="Reports" headerUrl="/">

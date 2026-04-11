@@ -7,7 +7,7 @@ import { formatFP } from './fingerprint';
 const Server = {
   isReady: () => Fetch<ServerReadyResponse>('/api/is-ready'),
   csrf: () => Fetch<{ csrfToken: string }>('/api/csrf'),
-  fpe: (data: GetResult) => Fetch<GetFingerprintResponse>('/api/fpe', { data: formatFP(data) }, 'POST', {}, true),
+  fpe: (data: GetResult) => Fetch<GetFingerprintResponse>('/api/fpe', { data: formatFP(data) }, 'POST'),
   User: {
     authenticate: (params: UsersAuthenticateRequest) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', params, 'POST'),
     getForAdmin: (id: string) => Fetch<UserGetAdminResponse>(`/api/user/${id}/admin`),

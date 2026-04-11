@@ -11,8 +11,8 @@ import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 const ClanPostView = () => {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ const ClanPostView = () => {
   const Alert = useAlert();
   const navigate = useNavigate();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   const [title, setTitle] = useState('');
   const [post, setPost] = useState<ClanGetThreadResponse['posts'][number]>();
@@ -96,7 +97,7 @@ const ClanPostView = () => {
         })
         .catch(catchError(Alert));
     }
-  }, [Alert, bruteName, editing, id, tid]);
+  }, [Alert, Server.Clan, bruteName, editing, id, tid]);
   return (
     <Page title={tid === '0' ? t('startThread') : t('reply')} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>

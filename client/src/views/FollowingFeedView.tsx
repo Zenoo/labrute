@@ -14,13 +14,14 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 export const FollowingFeedView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
   const { user } = useAuth();
+  const Server = useServer();
 
   const [logs, setLogs] = React.useState<LogGetForUserFeedResponse['logs']>([]);
   const [followedBrutes, setFollowedBrutes] = React.useState<LogGetForUserFeedResponse['brutes']>([]);
@@ -44,7 +45,7 @@ export const FollowingFeedView = () => {
       // Set last page
       setLastPage(data.logs.length < 20);
     }).catch(catchError(Alert));
-  }, [user, Alert, page]);
+  }, [user, Alert, page, Server.Log]);
 
   return (
     <Page title={`${t('followingFeed')} ${t('MyBrute')}`} headerUrl={`/user/${user?.id}`}>

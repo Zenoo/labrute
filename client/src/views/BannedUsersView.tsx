@@ -9,14 +9,15 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 export const BannedUsersView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
   const { user: admin } = useAuth();
   const Confirm = useConfirm();
+  const Server = useServer();
 
   const [users, setUsers] = React.useState<UserBannedListResponse>([]);
 
@@ -27,7 +28,7 @@ export const BannedUsersView = () => {
     Server.User.banlist().then((data) => {
       setUsers(data);
     }).catch(catchError(Alert));
-  }, [admin, Alert]);
+  }, [admin, Alert, Server.User]);
 
   // Unban user
   const unbanUser = useCallback((id: string) => () => {
@@ -36,7 +37,7 @@ export const BannedUsersView = () => {
         Alert.open('success', t('unbanSuccess'));
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, t]);
+  }, [Alert, Confirm, Server.User, t]);
 
   return (
     <Page title="Banned users" headerUrl="/">

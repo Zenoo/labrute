@@ -3,12 +3,13 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Page from '../components/Page';
 import Text from '../components/Text';
-import Server from '../utils/Server';
 import useStateAsync from '../hooks/useStateAsync';
+import { useServer } from '../hooks/useServer';
 
 const GeneratingView = () => {
   const { t } = useTranslation();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   // Get server state
   const { data: serverState, reload } = useStateAsync(null, Server.isReady, undefined);

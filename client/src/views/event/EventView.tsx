@@ -17,7 +17,7 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
-import Server from '../../utils/Server';
+import { useServer } from '../../hooks/useServer';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -44,6 +44,7 @@ export const EventView = () => {
   const { brute, owner, updateBrute } = useBrute();
   const navigate = useNavigate();
   const theme = useTheme();
+  const Server = useServer();
 
   const [data, setData] = useState<EventGetResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -68,7 +69,7 @@ export const EventView = () => {
       })
       .catch(catchError(Alert))
       .finally(() => setLoading(false));
-  }, [Alert, brute, id]);
+  }, [Alert, Server.Event, brute, id]);
 
   const watchingRound = useMemo(() => {
     if (!data) return 0;

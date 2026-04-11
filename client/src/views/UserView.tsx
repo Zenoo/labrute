@@ -17,8 +17,8 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> & {
   brutes: ReturnType<typeof getCalculatedBrute<UserGetProfileResponse['brutes'][0]>>[];
@@ -32,6 +32,7 @@ const UserView = () => {
   const { modifiers, user: authedUser, updateData, signout } = useAuth();
   const Confirm = useConfirm();
   const navigate = useNavigate();
+  const Server = useServer();
 
   const [user, setUser] = useState<CalculatedUserGetProfileResponse | null>(null);
   const [banReason, setBanReason] = useState('');
@@ -46,7 +47,7 @@ const UserView = () => {
       const brutes = profile.brutes.map((brute) => getCalculatedBrute(brute, modifiers));
       setUser({ ...profile, brutes });
     }).catch(catchError(Alert));
-  }, [Alert, modifiers, userId]);
+  }, [Alert, Server.User, modifiers, userId]);
 
   const getDinoRpgReward = useCallback(() => {
     if (!authedUser) return;
@@ -63,7 +64,7 @@ const UserView = () => {
         })),
       }) : null));
     }).catch(catchError(Alert));
-  }, [Alert, authedUser, t, updateData]);
+  }, [Alert, Server.User, authedUser, t, updateData]);
 
   // Ban user
   const banUser = useCallback(() => {
@@ -74,7 +75,7 @@ const UserView = () => {
         Alert.open('success', t('banSuccess'));
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, banReason, t, user]);
+  }, [Alert, Confirm, Server.User, banReason, t, user]);
 
   // Delete account
   const deleteAccount = useCallback(() => {
@@ -88,7 +89,7 @@ const UserView = () => {
         navigate('/');
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, authedUser, t, user, signout, navigate]);
+  }, [user, authedUser?.id, Confirm, t, Server.User, Alert, signout, navigate]);
 
   return (
     <Page

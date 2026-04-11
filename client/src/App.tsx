@@ -17,6 +17,7 @@ import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
 import { FingerprintProvider } from './hooks/useFingerprint';
+import { ServerProvider } from './hooks/useServer';
 
 const App = () => {
   useAnalytics();
@@ -50,25 +51,27 @@ const App = () => {
         <CssBaseline />
         <CsrfProvider>
           <FingerprintProvider>
-            <AlertProvider>
-              <AuthProvider>
-                <BruteProvider>
-                  <RendererProvider>
-                    <StyledEngineProvider injectFirst>
-                      <ColorModeContext.Provider value={colorMode}>
-                        <ThemeProvider theme={theme}>
-                          <ConfirmProvider>
-                            <Suspense fallback={<Loader />}>
-                              {routing}
-                            </Suspense>
-                          </ConfirmProvider>
-                        </ThemeProvider>
-                      </ColorModeContext.Provider>
-                    </StyledEngineProvider>
-                  </RendererProvider>
-                </BruteProvider>
-              </AuthProvider>
-            </AlertProvider>
+            <ServerProvider>
+              <AlertProvider>
+                <AuthProvider>
+                  <BruteProvider>
+                    <RendererProvider>
+                      <StyledEngineProvider injectFirst>
+                        <ColorModeContext.Provider value={colorMode}>
+                          <ThemeProvider theme={theme}>
+                            <ConfirmProvider>
+                              <Suspense fallback={<Loader />}>
+                                {routing}
+                              </Suspense>
+                            </ConfirmProvider>
+                          </ThemeProvider>
+                        </ColorModeContext.Provider>
+                      </StyledEngineProvider>
+                    </RendererProvider>
+                  </BruteProvider>
+                </AuthProvider>
+              </AlertProvider>
+            </ServerProvider>
           </FingerprintProvider>
         </CsrfProvider>
       </HelmetProvider>

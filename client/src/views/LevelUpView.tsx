@@ -19,9 +19,9 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import Server from '../utils/Server';
 import StatColor from '../utils/StatColor';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
@@ -46,8 +46,9 @@ const LevelUpView = () => {
   const smallScreen = useMediaQuery('(max-width: 638px)');
   const { brute, updateBrute } = useBrute();
   const theme = useTheme();
-  const [loading, setLoading] = useState(false);
+  const Server = useServer();
 
+  const [loading, setLoading] = useState(false);
   const [choices, setChoices] = useState<BrutesGetLevelUpChoicesResponse['choices'] | null>(null);
 
   const samePath = brute?.previousDestinyPath.toString().startsWith(brute?.destinyPath.toString());
@@ -71,7 +72,7 @@ const LevelUpView = () => {
       });
     }
     return () => { isSubscribed = false; };
-  }, [Alert, brute, bruteName, navigate, user]);
+  }, [Alert, Server.Brute, brute, bruteName, navigate, user]);
 
   // Trigger level up
   const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
@@ -103,7 +104,7 @@ const LevelUpView = () => {
       : null));
 
     navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
-  }, [Alert, brute, choices, modifiers, navigate, updateBrute, updateData]);
+  }, [Alert, Server.Brute, brute, choices, modifiers, navigate, updateBrute, updateData]);
 
   const stats = brute && (
     <>

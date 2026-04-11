@@ -3,11 +3,11 @@ import { Event } from '@labrute/prisma';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { deleteCookie } from '../utils/cookies';
-import Server from '../utils/Server';
 import { useAlert } from './useAlert';
 import { useLanguage } from './useLanguage';
 import { useFingerprint } from './useFingerprint';
 import { setFingerprint } from '../utils/fingerprint';
+import { useServer } from './useServer';
 
 export type LoggedInUser = Omit<UserWithBrutesBodyColor, 'brutes'> & {
   brutes: CalculatedBrute[];
@@ -60,6 +60,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const Alert = useAlert();
   const { t } = useTranslation();
   const fingerprint = useFingerprint();
+  const Server = useServer();
 
   // Store fingerprint to be used in the fetch request
   useEffect(() => {
@@ -120,7 +121,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       deleteCookie(TOKEN_COOKIE);
       setAuthing(false);
     });
-  }, [Alert, authing, fingerprint, setLanguage, t, user]);
+  }, [Alert, Server.User, authing,
+    fingerprint.data, fingerprint.eventId, fingerprint.id, setLanguage, t, user]);
 
   const signout = useCallback(() => {
     deleteCookie(USER_COOKIE);

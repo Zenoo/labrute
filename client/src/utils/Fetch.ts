@@ -16,29 +16,6 @@ export type ErrorType = string | {
   status: number;
 };
 
-const waitForFingerprint = async () => {
-  let fingerprintWaitRetryCount = 0;
-  const fingerprint = getFingerprint();
-  if (fingerprint) return;
-
-  await new Promise<void>((resolve, reject) => {
-    const check = () => {
-      const retryFingerprint = getFingerprint();
-      if (retryFingerprint) resolve();
-      else {
-        fingerprintWaitRetryCount++;
-        if (fingerprintWaitRetryCount > 100) {
-          console.error('Fingerprint is taking too long to load');
-          reject(new Error('Fingerprint loading timeout'));
-        } else {
-          setTimeout(check, 50);
-        }
-      }
-    };
-    check();
-  });
-};
-
 export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {
   fetch('/api/csrf', {
     headers: {
@@ -57,11 +34,7 @@ export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) 
   });
 });
 
-const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, skipFingerprint = false): Promise<ReturnType> => {
-  if (!skipFingerprint) {
-    await waitForFingerprint();
-  }
-
+const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
   // Check if the CSRF token is present in the localStorage
   // If not, fetch it from the server
   if (!localStorage.getItem('csrfToken')) {

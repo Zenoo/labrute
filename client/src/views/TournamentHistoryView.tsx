@@ -9,13 +9,14 @@ import Loader from '../components/Loader';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
+import { useServer } from '../hooks/useServer';
 
 const TournamentHistoryView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
+  const Server = useServer();
 
   const { data: tournaments } = useStateAsync(null, Server.Tournament.getHistory, bruteName || '');
 

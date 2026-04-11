@@ -10,13 +10,14 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ErrorType } from '../../utils/Fetch';
-import Server from '../../utils/Server';
+import { useServer } from '../../hooks/useServer';
 
 export const EventRoundView = () => {
   const { t } = useTranslation();
   const { bruteName, id, round } = useParams();
   const Alert = useAlert();
   const theme = useTheme();
+  const Server = useServer();
 
   const [event, setEvent] = useState<EventGetRoundResponse | null>(null);
   const [parsedFights, setParsedFights] = useState<(Omit<NonNullable<EventGetRoundResponse['tournament']>['fights'][number], 'fighters'> & {
@@ -55,7 +56,7 @@ export const EventRoundView = () => {
       setEvent(null);
       setLoading(false);
     });
-  }, [Alert, id, round]);
+  }, [Alert, id, round, Server.Event]);
 
   return (
     <Page title={`${t(`event.${event?.type}`)} | ${t('day', { day: round })} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/event/${id}`}>

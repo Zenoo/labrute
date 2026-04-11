@@ -18,8 +18,8 @@ import { ColorModeContext } from '../theme/ColorModeContext';
 import dark from '../theme/dark';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
-import Server from '../utils/Server';
 import { useFingerprint } from '../hooks/useFingerprint';
+import { useServer } from '../hooks/useServer';
 
 const Main = () => {
   const theme = useTheme();
@@ -33,6 +33,7 @@ const Main = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   // Load fingerprint data as early as possible
   useFingerprint();
+  const Server = useServer();
 
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<UserUpdateSettingsRequest>({
@@ -78,7 +79,7 @@ const Main = () => {
         signout();
         toggleDrawer(false)();
       });
-  }, [Alert, signout, t]);
+  }, [Alert, Server.User, signout, t]);
 
   // Change language
   const changeLanguage = useCallback((lang: Lang) => () => {
@@ -93,7 +94,7 @@ const Main = () => {
         }));
       }).catch(catchError(Alert));
     }
-  }, [Alert, setLanguage, updateData, user]);
+  }, [Alert, Server.User, setLanguage, updateData, user]);
 
   // Redirect to page
   const goTo = (path: string) => () => {

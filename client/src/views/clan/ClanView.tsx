@@ -18,8 +18,8 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'> & {
   brutes: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
@@ -37,6 +37,7 @@ const ClanView = () => {
   const Confirm = useConfirm();
   const { brute, updateBrute, owner } = useBrute();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   const [clan, setClan] = useState<CalculatedClanGetResponse | null>(null);
   const [damageDisplayed, setDamageDisplayed] = useState(false);
@@ -71,7 +72,7 @@ const ClanView = () => {
       setClan({ ...data, brutes: clanBrutes, joinRequests: clanJoinRequests });
       setWarEnabled(data.participateInClanWar);
     }).catch(catchError(Alert));
-  }, [id, Alert, modifiers]);
+  }, [id, Alert, modifiers, Server.Clan]);
 
   // Fetch brute master of clan id
   useEffect(() => {
@@ -85,7 +86,7 @@ const ClanView = () => {
     Server.Brute.getClanIdAsMaster(brute.name).then((data) => {
       setMasterOfClan(data.id);
     }).catch(catchError(Alert));
-  }, [brute, Alert, clan, owner]);
+  }, [brute, Alert, clan, owner, Server.Brute]);
 
   // Go to cell page
   const goToCell = (name: string) => () => {

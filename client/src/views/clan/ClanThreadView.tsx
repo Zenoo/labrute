@@ -11,8 +11,8 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 const ClanThreadView = () => {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ const ClanThreadView = () => {
   const { user } = useAuth();
   const Confirm = useConfirm();
   const navigate = useNavigate();
+  const Server = useServer();
 
   const brute = useMemo(() => user?.brutes.find((b) => b.name === bruteName), [bruteName, user]);
 
@@ -34,7 +35,7 @@ const ClanThreadView = () => {
     Server.Clan.getThread(bruteName, id, tid, page)
       .then(setThread)
       .catch(catchError(Alert));
-  }, [Alert, bruteName, id, page, tid]);
+  }, [Alert, Server.Clan, bruteName, id, page, tid]);
 
   // Lock thread
   const lockThread = (e: React.MouseEvent) => {
@@ -204,9 +205,9 @@ const ClanThreadView = () => {
                 }}
                 >
                   {post?.author && (
-                  <BruteRender
-                    brute={post.author}
-                  />
+                    <BruteRender
+                      brute={post.author}
+                    />
                   )}
                 </Box>
               </Box>

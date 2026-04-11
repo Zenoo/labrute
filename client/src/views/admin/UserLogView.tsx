@@ -13,8 +13,8 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 const renderLog = (log: UserLogsListResponse[number]) => {
   switch (log.type) {
@@ -86,6 +86,7 @@ export const UserLogView = () => {
   const Alert = useAlert();
   const { user } = useAuth();
   const { userId } = useParams();
+  const Server = useServer();
 
   const [userIds, setUserIds] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(1);
@@ -117,7 +118,7 @@ export const UserLogView = () => {
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [Alert, userIds, page]);
+  }, [Alert, userIds, page, Server.UserLog]);
 
   return (
     <Page title={t('adminPanel')} headerUrl="/">

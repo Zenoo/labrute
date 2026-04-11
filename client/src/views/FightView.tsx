@@ -11,8 +11,8 @@ import { useAlert } from '../hooks/useAlert';
 import { useLanguage } from '../hooks/useLanguage';
 import { getRandomAd } from '../utils/ads';
 import catchError from '../utils/catchError';
-import Server from '../utils/Server';
 import FightMobileView from './mobile/FightMobileView';
+import { useServer } from '../hooks/useServer';
 
 const FightView = () => {
   const { t } = useTranslation();
@@ -22,6 +22,7 @@ const FightView = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   // Fight data
   const [fight, setFight] = useState<FightGetResponse | null>(null);
@@ -43,7 +44,7 @@ const FightView = () => {
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, fightId, navigate]);
+  }, [Alert, Server.Fight, fightId, navigate]);
 
   // Randomized adverts (must be different)
   const ads = useMemo(() => {

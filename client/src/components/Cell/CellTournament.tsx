@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import FantasyButton from '../FantasyButton';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
+import { useServer } from '../../hooks/useServer';
 
 export interface CellTournamentProps extends PaperProps {
   language: Lang;
@@ -25,6 +25,7 @@ const CellTournament = ({
   const Alert = useAlert();
   const { brute, owner, updateBrute } = useBrute();
   const { updateData } = useAuth();
+  const Server = useServer();
 
   const now = useMemo(() => dayjs.utc(), []);
   const tomorrow = useMemo(() => dayjs.utc().add(1, 'day'), []);
@@ -51,7 +52,7 @@ const CellTournament = ({
         }),
       }) : data));
     }).catch(catchError(Alert));
-  }, [Alert, brute, t, updateBrute, updateData]);
+  }, [Alert, Server.Tournament, brute, t, updateBrute, updateData]);
 
   return brute && (
     <>

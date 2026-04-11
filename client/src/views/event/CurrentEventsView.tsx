@@ -8,17 +8,18 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ErrorType } from '../../utils/Fetch';
-import Server from '../../utils/Server';
 import { EventType } from '@labrute/prisma';
 import FantasyButton from '../../components/FantasyButton';
 import { History } from '@mui/icons-material';
 import Loader from '../../components/Loader';
+import { useServer } from '../../hooks/useServer';
 
 export const CurrentEventsView = () => {
   const { t } = useTranslation();
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
+  const Server = useServer();
 
   const [events, setEvents] = useState<EventListCurrentResponse>([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +35,7 @@ export const CurrentEventsView = () => {
       setEvents([]);
       setLoading(false);
     });
-  }, [Alert]);
+  }, [Alert, Server.Event]);
 
   const goTo = (url: string) => () => {
     navigate(url);

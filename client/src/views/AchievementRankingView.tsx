@@ -8,15 +8,16 @@ import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import Loader from '../components/Loader';
 import { ErrorType } from '../utils/Fetch';
+import { useServer } from '../hooks/useServer';
 
 const AchievementRankingView = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const Alert = useAlert();
+  const Server = useServer();
 
   const [byUser, setByUser] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,7 @@ const AchievementRankingView = () => {
     }).finally(() => {
       setLoading(false);
     });
-  }, [Alert, byUser]);
+  }, [Alert, Server.Achievement, byUser]);
 
   return (
     <Page

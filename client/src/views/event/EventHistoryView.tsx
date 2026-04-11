@@ -12,7 +12,7 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
 import { ErrorType } from '../../utils/Fetch';
-import Server from '../../utils/Server';
+import { useServer } from '../../hooks/useServer';
 
 export const EventHistoryView = () => {
   const { t } = useTranslation();
@@ -20,6 +20,7 @@ export const EventHistoryView = () => {
   const Alert = useAlert();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
+  const Server = useServer();
 
   const [page, setPage] = useState(1);
   const [events, setEvents] = useState<EventListResponse | null>(null);
@@ -32,7 +33,7 @@ export const EventHistoryView = () => {
       catchError(Alert)(error);
       setEvents([]);
     });
-  }, [Alert, page]);
+  }, [Alert, Server.Event, page]);
 
   const changePage = (delta: number) => () => {
     setEvents(null);

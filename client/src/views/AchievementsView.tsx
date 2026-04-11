@@ -9,10 +9,10 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { AchievementHeader } from '../components/AchievementHeader';
+import { useServer } from '../hooks/useServer';
 
 const AchievementsView = () => {
   const { t } = useTranslation();
@@ -20,6 +20,7 @@ const AchievementsView = () => {
   const { bruteName } = useParams();
   const { user } = useAuth();
   const Alert = useAlert();
+  const Server = useServer();
 
   const [achievements, setAchievements] = useState<AchievementsGetResponse>([]);
 
@@ -34,7 +35,7 @@ const AchievementsView = () => {
         setAchievements(data);
       }).catch(catchError(Alert));
     }
-  }, [Alert, bruteName, user]);
+  }, [Alert, Server.Achievement, bruteName, user]);
 
   return (
     <Page

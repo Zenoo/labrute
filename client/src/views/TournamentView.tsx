@@ -15,8 +15,8 @@ import Text from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
 import TournamentMobileView from './mobile/TournamentMobileView';
+import { useServer } from '../hooks/useServer';
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
   ? base * 0.5
@@ -51,6 +51,7 @@ const TournamentView = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { brute, updateBrute } = useBrute();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
@@ -151,7 +152,7 @@ const TournamentView = () => {
         currentTournamentStepWatched: step,
       } : null));
     }).catch(console.error);
-  }, [brute, bruteName, navigate, ownsBrute, updateBrute]);
+  }, [Server.Tournament, brute, bruteName, navigate, ownsBrute, updateBrute]);
 
   const setWatched = useCallback(async () => {
     if (!brute) return;
@@ -163,7 +164,7 @@ const TournamentView = () => {
       currentTournamentDate: dayjs.utc().startOf('day').toDate(),
       currentTournamentStepWatched: 6,
     } : null));
-  }, [brute, updateBrute]);
+  }, [Server.Tournament, brute, updateBrute]);
 
   return tournament && (smallScreen
     ? (

@@ -9,7 +9,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Fetch from '../../utils/Fetch';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
 import BruteLevelAndXP from '../Brute/BruteLevelAndXP';
@@ -19,6 +18,7 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
+import { useServer } from '../../hooks/useServer';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -39,6 +39,7 @@ const CellMain = ({
   const Alert = useAlert();
   const { brute, owner } = useBrute();
   const { user, authing, currentEvent } = useAuth();
+  const Server = useServer();
 
   const xpNeededForNextLevel = useMemo(
     () => (brute ? getXPNeeded(brute.level + 1) : 0),
@@ -60,7 +61,7 @@ const CellMain = ({
         window.location.reload();
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, brute, t]);
+  }, [Alert, Confirm, Server.Brute, brute, t]);
 
   // Login
   const login = useCallback(() => {

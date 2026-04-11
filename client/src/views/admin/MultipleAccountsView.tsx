@@ -6,12 +6,13 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 export const MultipleAccountsView = () => {
   const Alert = useAlert();
   const { user: admin } = useAuth();
+  const Server = useServer();
 
   const [instances, setInstances] = React.useState<UserMultipleAccountsListResponse>([]);
 
@@ -22,7 +23,7 @@ export const MultipleAccountsView = () => {
     Server.User.multipleAccounts().then((data) => {
       setInstances(data);
     }).catch(catchError(Alert));
-  }, [admin, Alert]);
+  }, [admin, Server.User, Alert]);
 
   return (
     <Page title="Multiple accounts" headerUrl="/">

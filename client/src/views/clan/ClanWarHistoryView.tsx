@@ -11,12 +11,13 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import catchError from '../../utils/catchError';
-import Server from '../../utils/Server';
+import { useServer } from '../../hooks/useServer';
 
 export const ClanWarHistoryView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
   const Alert = useAlert();
+  const Server = useServer();
 
   const [wars, setWars] = useState<ClanWarGetHistoryResponse | null>(null);
 
@@ -27,7 +28,7 @@ export const ClanWarHistoryView = () => {
     Server.ClanWar.getHistory(id)
       .then(setWars)
       .catch(catchError(Alert));
-  }, [Alert, id]);
+  }, [Alert, Server.ClanWar, id]);
 
   return (
     <Page title={`${t('clanWarHistory')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>

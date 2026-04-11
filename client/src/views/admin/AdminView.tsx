@@ -6,13 +6,14 @@ import FantasyButton from '../../components/FantasyButton';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
 import { keys, Modifiers } from '@labrute/core';
+import { useServer } from '../../hooks/useServer';
 
 const AdminView = () => {
   const { t } = useTranslation();
   const Alert = useAlert();
+  const Server = useServer();
 
   const [bruteId, setBruteId] = useState('');
   const [globalTournamentValid, setGlobalTournamentValid] = useState(true);
@@ -28,35 +29,35 @@ const AdminView = () => {
     Server.Tournament.deleteDaily().then(() => {
       Alert.open('success', 'Daily tournaments deleted');
     }).catch(catchError(Alert));
-  }, [Alert]);
+  }, [Alert, Server.Tournament]);
 
   // Delete global tournament
   const deleteGlobalTournament = useCallback(() => {
     Server.Tournament.deleteGlobal().then(() => {
       Alert.open('success', 'Global tournament deleted');
     }).catch(catchError(Alert));
-  }, [Alert]);
+  }, [Alert, Server.Tournament]);
 
   // Run daily job
   const runDailyJob = useCallback(() => {
     Server.User.runDailyJob().then(() => {
       Alert.open('success', 'Daily job done');
     }).catch(catchError(Alert));
-  }, [Alert]);
+  }, [Alert, Server.User]);
 
   // Fetch global tournament status
   useEffect(() => {
     Server.Tournament.isGlobalTournamentValid().then(({ isValid }) => {
       setGlobalTournamentValid(isValid);
     }).catch(catchError(Alert));
-  }, [Alert]);
+  }, [Alert, Server.Tournament]);
 
   // Fetch next modifiers
   useEffect(() => {
     Server.User.getNextModifiers().then((modifiers) => {
       setNextModifiers(keys(modifiers));
     }).catch(catchError(Alert));
-  }, [Alert]);
+  }, [Alert, Server.User]);
 
   // Save next modifiers
   const saveNextModifiers = useCallback(() => {
@@ -66,7 +67,7 @@ const AdminView = () => {
     }, {})).then(() => {
       Alert.open('success', 'Next modifiers saved');
     }).catch(catchError(Alert));
-  }, [Alert, nextModifiers]);
+  }, [Alert, Server.User, nextModifiers]);
 
   // Restore brute
   const restoreBrute = useCallback(() => {
@@ -75,7 +76,7 @@ const AdminView = () => {
     Server.Brute.restore(bruteId).then(() => {
       Alert.open('success', 'Brute restored');
     }).catch(catchError(Alert));
-  }, [Alert, bruteId]);
+  }, [Alert, Server.Brute, bruteId]);
 
   return (
     <Page title={t('adminPanel')} headerUrl="/">

@@ -12,9 +12,9 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
 import VersusMobileView from './mobile/VersusMobileView';
+import { useServer } from '../hooks/useServer';
 
 const VersusView = () => {
   const { t } = useTranslation();
@@ -25,6 +25,7 @@ const VersusView = () => {
   const { brute, updateBrute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   // Prevent multi click
   const [fighting, setFighting] = React.useState(false);
@@ -101,7 +102,7 @@ const VersusView = () => {
     }
 
     setFighting(false);
-  }, [Alert, brute, fighting, navigate, opponent, updateBrute, updateData]);
+  }, [Alert, Server.Fight, brute, fighting, navigate, opponent, updateBrute, updateData]);
 
   if (brute && opponent && smallScreen) {
     return <VersusMobileView brute={brute} opponent={opponent} startFight={startFight} />;

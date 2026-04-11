@@ -12,8 +12,8 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 const HallView = () => {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ const HallView = () => {
   const { user, updateData } = useAuth();
   const Alert = useAlert();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   const fightsLeft = useMemo(() => user && user.brutes
     .reduce((acc, brute) => acc + getFightsLeft(brute), 0), [user]);
@@ -55,7 +56,7 @@ const HallView = () => {
           : a.favorite ? -1 : 1)),
       }) : null));
     }).catch(catchError(Alert));
-  }, [Alert, updateData, user]);
+  }, [Alert, Server.Brute, updateData, user]);
 
   return (
     <Page title={`${t('hall')} ${t('MyBrute')}`} headerUrl="">

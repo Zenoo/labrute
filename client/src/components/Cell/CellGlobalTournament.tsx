@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
-import Server from '../../utils/Server';
 import BruteRender from '../Brute/Body/BruteRender';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
+import { useServer } from '../../hooks/useServer';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -44,6 +44,7 @@ const CellGlobalTournament = ({
   const theme = useTheme();
   const Alert = useAlert();
   const navigate = useNavigate();
+  const Server = useServer();
 
   const now = useMemo(() => dayjs.utc(), []);
   const bruteName = useMemo(() => name || brute?.name || '', [brute, name]);
@@ -86,7 +87,7 @@ const CellGlobalTournament = ({
     });
 
     return () => { isSubscribed = false; };
-  }, [bruteName, date, now]);
+  }, [Server.Tournament, bruteName, date, now]);
 
   const lostRound = useMemo(
     () => (bruteName && data

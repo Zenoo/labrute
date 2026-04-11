@@ -3,7 +3,6 @@ import { Box, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMedi
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import Server from '../../utils/Server';
 import { useAlert } from '../../hooks/useAlert';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getRandomAd } from '../../utils/ads';
@@ -15,6 +14,7 @@ import FightComponent from '../../components/Arena/FightComponent';
 import catchError from '../../utils/catchError';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import Link from '../../components/Link';
+import { useServer } from '../../hooks/useServer';
 
 const ClanWarFightView = () => {
   const { t } = useTranslation();
@@ -24,6 +24,7 @@ const ClanWarFightView = () => {
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   // Fight data
   const [fight, setFight] = useState<FightGetResponse | null>(null);
@@ -45,7 +46,7 @@ const ClanWarFightView = () => {
     }).catch(catchError(Alert));
 
     return cleanup;
-  }, [Alert, fightId, id, navigate, warId]);
+  }, [Alert, Server.ClanWar, fightId, id, navigate, warId]);
 
   // Randomized adverts (must be different)
   const ads = useMemo(() => {

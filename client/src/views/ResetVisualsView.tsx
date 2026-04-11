@@ -13,8 +13,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { useConfirm } from '../hooks/useConfirm';
 import { useRenderer } from '../hooks/useRenderer';
-import Server from '../utils/Server';
 import catchError from '../utils/catchError';
+import { useServer } from '../hooks/useServer';
 
 const ResetVisualsView = () => {
   const { t } = useTranslation();
@@ -24,6 +24,7 @@ const ResetVisualsView = () => {
   const { updateData } = useAuth();
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
+  const Server = useServer();
 
   const [body, setBody] = useState<string | null>(
     null

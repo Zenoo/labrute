@@ -11,9 +11,9 @@ import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
-import Server from '../../utils/Server';
 import { useAlert } from '../../hooks/useAlert';
 import { ErrorType } from '../../utils/Fetch';
+import { useServer } from '../../hooks/useServer';
 
 const ClanRankingView = () => {
   const { t } = useTranslation();
@@ -22,6 +22,7 @@ const ClanRankingView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const Alert = useAlert();
+  const Server = useServer();
 
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<ClanSort>(ClanSort.points);
@@ -52,7 +53,7 @@ const ClanRankingView = () => {
 
     fetchClans();
     return () => { };
-  }, [Alert, page, search, sort]);
+  }, [Alert, Server.Clan, page, search, sort]);
 
   const changeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClans(null);

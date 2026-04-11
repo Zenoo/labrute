@@ -8,13 +8,14 @@ import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 const ClanForumView = () => {
   const { t } = useTranslation();
   const { bruteName, id } = useParams();
   const Alert = useAlert();
+  const Server = useServer();
 
   const [data, setData] = useState<ClanGetThreadsResponse | null>(null);
 
@@ -23,7 +24,7 @@ const ClanForumView = () => {
     if (!bruteName || !id) return;
 
     Server.Clan.getThreads({ brute: bruteName, id }).then(setData).catch(catchError(Alert));
-  }, [Alert, bruteName, id]);
+  }, [Alert, Server.Clan, bruteName, id]);
 
   return (
     <Page title={t('forum')} headerUrl={`/${bruteName || ''}/cell`}>

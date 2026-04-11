@@ -10,10 +10,10 @@ import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
 import catchError from '../../utils/catchError';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
-import Server from '../../utils/Server';
 import { ActivityStatus } from '../ActivityStatus';
 import Link from '../Link';
 import Text from '../Text';
+import { useServer } from '../../hooks/useServer';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -28,6 +28,7 @@ const CellSocials = ({
   const { user, updateData } = useAuth();
   const { t } = useTranslation();
   const Alert = useAlert();
+  const Server = useServer();
 
   const { data: getter } = useStateAsync(null, Server.Brute.getRanking, brute?.name || '');
 

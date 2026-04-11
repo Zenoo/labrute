@@ -51,11 +51,14 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
             setEventId(d.eventId);
             setFingerprint(d.visitorId);
             setLoading(false);
+            // Dispatch a custom event when fingerprint is ready
+            window.dispatchEvent(new Event('fingerprint-ready'));
           })
           .catch((err) => {
             console.error('Failed to send fingerprint to server:', err);
             setError(err);
             setLoading(false);
+            window.dispatchEvent(new Event('fingerprint-ready'));
           });
       }
     };
@@ -64,6 +67,7 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
       if (isMounted) {
         setError(err);
         setLoading(false);
+        window.dispatchEvent(new Event('fingerprint-ready'));
       }
     });
 

@@ -13,14 +13,15 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 export const ClanAdminView = () => {
   const { t } = useTranslation();
   const { clanId } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
+  const Server = useServer();
 
   const [clan, setClan] = useState<ClanGetForAdminResponse | null>(null);
 
@@ -31,7 +32,7 @@ export const ClanAdminView = () => {
     Server.Clan.getForAdmin(clanId).then((c) => {
       setClan(c);
     }).catch(catchError(Alert));
-  }, [Alert, clanId]);
+  }, [Alert, Server.Clan, clanId]);
 
   // Save clan
   const saveClan = useCallback(() => {
@@ -44,7 +45,7 @@ export const ClanAdminView = () => {
     Server.Clan.adminUpdate(clanId, clanData).then(() => {
       Alert.open('success', 'Clan saved');
     }).catch(catchError(Alert));
-  }, [Alert, clan, clanId]);
+  }, [Alert, Server.Clan, clan, clanId]);
 
   return (
     <Page title={t('adminPanel')} headerUrl="/">

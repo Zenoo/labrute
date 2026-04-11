@@ -12,13 +12,14 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
 import catchError from '../../utils/catchError';
-import Server from '../../utils/Server';
+import { useServer } from '../../hooks/useServer';
 
 export const ClanWarView = () => {
   const { t } = useTranslation();
   const { bruteName, id, warId } = useParams();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
+  const Server = useServer();
 
   const [war, setWar] = useState<ClanWarGetResponse | null>(null);
   const [brutes, setBrutes] = useState<ClanWarGetAvailableFightersResponse>([]);
@@ -41,7 +42,7 @@ export const ClanWarView = () => {
         setSelectedFighters(fighters.map((fighter) => fighter.id));
       })
       .catch(catchError(Alert));
-  }, [Alert, id, warId]);
+  }, [Alert, Server.ClanWar, id, warId]);
 
   // Fetch clan brutes
   useEffect(() => {
@@ -51,7 +52,7 @@ export const ClanWarView = () => {
     Server.ClanWar.getAvailableFighters(id, warId)
       .then(setBrutes)
       .catch(catchError(Alert));
-  }, [Alert, brute, id, owner, warId]);
+  }, [Alert, brute, id, owner, warId, Server.ClanWar]);
 
   // Fetch used brutes
   useEffect(() => {
@@ -60,7 +61,7 @@ export const ClanWarView = () => {
     Server.ClanWar.getUsedFighters(id, warId)
       .then(setUsedBrutes)
       .catch(catchError(Alert));
-  }, [Alert, id, warId]);
+  }, [Alert, id, warId, Server.ClanWar]);
 
   // Update day watched (localStorage)
   const updateDayWatched = (day: number) => () => {

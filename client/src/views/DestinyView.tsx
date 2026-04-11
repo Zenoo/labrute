@@ -13,8 +13,8 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
-import Server from '../utils/Server';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
+import { useServer } from '../hooks/useServer';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
@@ -103,6 +103,7 @@ const DestinyView = () => {
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const { palette: { mode } } = useTheme();
+  const Server = useServer();
 
   // Destiny choices
   const { data: tree } = useStateAsync(null, Server.Brute.getDestiny, bruteName || '');

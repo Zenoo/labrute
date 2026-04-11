@@ -11,12 +11,12 @@ import { useAuth } from '../../hooks/useAuth';
 import { useRenderer } from '../../hooks/useRenderer';
 import catchError from '../../utils/catchError';
 import setupFight from '../../utils/fight/setupFight';
-import Server from '../../utils/Server';
 import translateFightStep from '../../utils/translateFightStep';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
 import sfx from './sfx';
+import { useServer } from '../../hooks/useServer';
 
 const sounds = [
   'arrive',
@@ -118,6 +118,7 @@ const FightComponent = ({
   const { user, updateData } = useAuth();
   const Alert = useAlert();
   const renderer = useRenderer();
+  const Server = useServer();
 
   const fightSteps = useMemo(() => (fight
     ? JSON.parse(fight.steps) as FightStep[]
@@ -165,7 +166,7 @@ const FightComponent = ({
         return newFav;
       });
     }).catch(catchError(Alert));
-  }, [Alert, fight, t, user]);
+  }, [Alert, fight, Server.Fight, t, user]);
 
   // Tooltip
   const toggleTooltip = useCallback((brute: Fighter, forceValue?: boolean) => {
@@ -289,7 +290,7 @@ const FightComponent = ({
         });
       }).catch(catchError(Alert));
     }
-  }, [Alert, updateData, user]);
+  }, [Alert, Server.User, updateData, user]);
 
   // Sound
   const toggleSound = useCallback(() => {
@@ -315,7 +316,7 @@ const FightComponent = ({
         });
       }).catch(catchError(Alert));
     }
-  }, [Alert, updateData, user]);
+  }, [Alert, Server.User, updateData, user]);
 
   // Logs
   const toggleLogs = useCallback(() => {

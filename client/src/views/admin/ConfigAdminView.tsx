@@ -7,11 +7,12 @@ import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
-import Server from '../../utils/Server';
 import catchError from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 export const ConfigAdminView = () => {
   const Alert = useAlert();
+  const Server = useServer();
 
   const [configs, setConfigs] = useState<(ConfigsListResponse[number] & {
     decrypted?: string;
@@ -28,7 +29,7 @@ export const ConfigAdminView = () => {
     Server.Config.list().then((data) => {
       setConfigs(data);
     }).catch(catchError(Alert));
-  }, [user, Alert]);
+  }, [user, Server.Config, Alert]);
 
   // Save config
   const save = () => {
