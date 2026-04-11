@@ -1513,6 +1513,8 @@
   "banReason.innapropriateName": "Nom inapproprié",
   "banReason.innapropriateBruteName": "Nom de brute inapproprié",
   "banReason.multipleAccounts": "Comptes multiples",
+  "banReason.invalid_fingerprint": "Botting",
+  "banReason.bot": "Botting",
   "afterBlock": "après blocage",
   "againstThrows": "contre les lancers",
   "atOneHp": "à 1 PV",
@@ -1627,5 +1629,9 @@
   "dayOver": "Jour {{day}} terminé",
   "seeParticipants": "Voir les participants",
   "searchForParticipant": "Rechercher un participant",
-  "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page."
+  "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page.",
+  "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support.",
+  "deleteAccount": "Delete account",
+  "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
+  "accountDeleted": "Your account has been deleted"
 }
