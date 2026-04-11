@@ -97,11 +97,6 @@ export interface Config {
   readonly csrfSecret: string;
 
   /**
-   * Secret key for the fingerprint server to authenticate and receive the event_id.
-   */
-  readonly fingerprintServerKey?: string;
-
-  /**
    * AES secret for encrypting the fingerprint data
    */
   readonly fpAesSecret: string;
@@ -252,9 +247,8 @@ export async function readConfig(
   const corsRegex = readCorsRegex(env.CORS_REGEX);
   const cookieSecret = readStringEnv(env.COOKIE_SECRET, emptyConfig.cookieSecret);
   const csrfSecret = readStringEnv(env.CSRF_SECRET, emptyConfig.csrfSecret);
-  let fingerprintServerKey = readStringEnv(env.FINGERPRINT_SERVER_KEY, undefined);
-  const fpAesSecret = readStringEnv(env.FP_AES_SECRET, emptyConfig.fpAesSecret);
-  const fpAesIv = readStringEnv(env.FP_AES_IV, emptyConfig.fpAesIv);
+  let fpAesSecret = readStringEnv(env.FP_AES_SECRET, emptyConfig.fpAesSecret);
+  let fpAesIv = readStringEnv(env.FP_AES_IV, emptyConfig.fpAesIv);
 
   const configVars = await prisma?.config.findMany({
     select: {
@@ -329,8 +323,11 @@ export async function readConfig(
       case 'DINORPG_URL':
         dinoRpgUrl = decryptedValue;
         break;
-      case 'FINGERPRINT_SERVER_KEY':
-        fingerprintServerKey = decryptedValue;
+      case 'FP_AES_SECRET':
+        fpAesSecret = decryptedValue;
+        break;
+      case 'FP_AES_IV':
+        fpAesIv = decryptedValue;
         break;
       default:
         break;
@@ -400,7 +397,6 @@ export async function readConfig(
     discordKnownIssues,
     discordKnownIssuesMessageId,
     dinoRpgUrl,
-    fingerprintServerKey,
     fpAesSecret,
     fpAesIv,
   };
