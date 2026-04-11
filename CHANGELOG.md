@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.1](https://github.com/Zenoo/labrute/compare/labrute-v2.86.0...labrute-v2.86.1) (2026-04-11)
+
+
+### Bug Fixes
+
+* Fetch CSRF token before fingerprinting ([84d5f72](https://github.com/Zenoo/labrute/commit/84d5f72592851ae4679352fdfc7b960e2a875c88))
+
 ## [2.86.0](https://github.com/Zenoo/labrute/compare/labrute-v2.85.0...labrute-v2.86.0) (2026-04-11)
 
 
