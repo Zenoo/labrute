@@ -18,6 +18,7 @@ import { Users } from './controllers/Users.js';
 import { ServerState } from './utils/ServerState.js';
 import { Configs } from './controllers/Configs.js';
 import { UserLogs } from './controllers/UserLogs.js';
+import { getFingerprintEvent } from './utils/fingerprint.js';
 
 export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) => {
   app.get('/api', (_req: Request, res: Response) => res.status(200).send({
@@ -38,6 +39,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   const oauth = new OAuth(config, prisma);
   app.get('/api/oauth/redirect', oauth.redirect.bind(oauth));
   app.get('/api/oauth/token', oauth.token.bind(oauth));
+
+  // Fingerprint event getter
+  app.post('/api/fpe', getFingerprintEvent);
 
   // Daily job
   app.patch('/api/run-daily-job', Users.runDailyJob(prisma));

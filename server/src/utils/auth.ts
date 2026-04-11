@@ -97,7 +97,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // Check if any of the user fingerprints are banned
   for (const userFingerprint of user.fingerprints) {
     if (await ServerState.isFingerprintBanned(prisma, userFingerprint)) {
-      throw new ForbiddenError('Nope again.');
+      throw new ForbiddenError('Nope.');
     }
   }
 

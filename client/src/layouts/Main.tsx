@@ -19,7 +19,7 @@ import dark from '../theme/dark';
 import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import Server from '../utils/Server';
-import { useVisitorData } from '@fingerprint/react';
+import { useFingerprint } from '../hooks/useFingerprint';
 
 const Main = () => {
   const theme = useTheme();
@@ -32,7 +32,7 @@ const Main = () => {
   const { brute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   // Load fingerprint data as early as possible
-  useVisitorData();
+  useFingerprint();
 
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState<UserUpdateSettingsRequest>({

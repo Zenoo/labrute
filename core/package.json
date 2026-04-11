@@ -10,6 +10,7 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^5.2.0",
     "@labrute/prisma": "workspace:*",
     "dayjs": "^1.11.13"
   }

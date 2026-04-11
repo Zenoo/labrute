@@ -1,5 +1,6 @@
 export * from './adjustColor';
 export * from './date';
+export * from './fingerprint';
 export * from './formatLargeNumber';
 export * from './hexToRgba';
 export * from './isUuid';

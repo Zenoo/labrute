@@ -6,8 +6,8 @@ import { deleteCookie } from '../utils/cookies';
 import Server from '../utils/Server';
 import { useAlert } from './useAlert';
 import { useLanguage } from './useLanguage';
-import { useVisitorData } from '@fingerprint/react';
-import { setFingerprint } from '../utils/fingerprintStore';
+import { useFingerprint } from './useFingerprint';
+import { setFingerprint } from '../utils/fingerprint';
 
 export type LoggedInUser = Omit<UserWithBrutesBodyColor, 'brutes'> & {
   brutes: CalculatedBrute[];
@@ -59,14 +59,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const { setLanguage } = useLanguage();
   const Alert = useAlert();
   const { t } = useTranslation();
-  const { data: fingerPrintData } = useVisitorData();
+  const fingerprint = useFingerprint();
 
   // Store fingerprint to be used in the fetch request
   useEffect(() => {
-    if (!fingerPrintData?.visitor_id) return;
-
-    setFingerprint(fingerPrintData.visitor_id);
-  }, [fingerPrintData]);
+    if (!fingerprint.id) return;
+    setFingerprint(fingerprint.id);
+  }, [fingerprint.id]);
 
   const signin = useCallback(() => {
     if (authing || user) return;
@@ -77,7 +76,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return;
     }
 
-    if (!fingerPrintData || !fingerPrintData.event_id) {
+    // For the open source version, event_id is not available, use visitorId (id)
+    if (!fingerprint.data || !fingerprint.id || !fingerprint.eventId) {
       Alert.open('error', t('fingerprintError'));
       deleteCookie(USER_COOKIE);
       deleteCookie(TOKEN_COOKIE);
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setAuthing(true);
 
     Server.User.authenticate({
-      eventId: fingerPrintData.event_id
+      eventId: fingerprint.eventId
     }).then((response) => {
       setModifiers(response.modifiers);
       refreshChaosSeeds(response.modifiers);
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       deleteCookie(TOKEN_COOKIE);
       setAuthing(false);
     });
-  }, [Alert, authing, fingerPrintData, setLanguage, t, user]);
+  }, [Alert, authing, fingerprint, setLanguage, t, user]);
 
   const signout = useCallback(() => {
     deleteCookie(USER_COOKIE);

@@ -102,6 +102,16 @@ export interface Config {
   readonly fingerprintServerKey?: string;
 
   /**
+   * AES secret for encrypting the fingerprint data
+   */
+  readonly fpAesSecret: string;
+
+  /**
+   * AES initialization vector for encrypting the fingerprint data
+   */
+  readonly fpAesIv: string;
+
+  /**
    * Configuration for the Eternaltwin client.
    */
   readonly eternaltwin: EternaltwinConfig;
@@ -163,6 +173,8 @@ export const emptyConfig: Config = {
   discordKnownIssues: null,
   discordKnownIssuesMessageId: '1310056621774471241',
   dinoRpgUrl: 'https://dinorpg.eternaltwin.org',
+  fpAesSecret: 'default_secret_key_32bytes!',
+  fpAesIv: 'default_iv_16_bytes',
 };
 
 /**
@@ -217,31 +229,14 @@ export function readCorsRegex(envCorsRegex: string | undefined) {
   return /.*/;
 }
 
-/**
- * Read the cookie secret value based on the provided env value.
- */
-export function readCookieSecret(envCookieSecret: string | undefined) {
-  if (typeof envCookieSecret === 'string') {
-    return envCookieSecret;
+export function readStringEnv<Default extends string | undefined>(
+  envValue: string | undefined,
+  defaultValue: Default,
+) {
+  if (typeof envValue === 'string') {
+    return envValue;
   }
-  return emptyConfig.cookieSecret;
-}
-
-/**
- * Read the CSRF secret value based on the provided env value.
- */
-export function readCsrfSecret(envCsrfSecret: string | undefined) {
-  if (typeof envCsrfSecret === 'string') {
-    return envCsrfSecret;
-  }
-  return emptyConfig.csrfSecret;
-}
-
-export function readFingerprintServerKey(envFingerprintServerKey: string | undefined) {
-  if (typeof envFingerprintServerKey === 'string') {
-    return envFingerprintServerKey;
-  }
-  return undefined;
+  return defaultValue;
 }
 
 /**
@@ -255,9 +250,11 @@ export async function readConfig(
   const port = readPort(env.PORT);
   const selfUrl = readSelfUrl(env.SELF_URL);
   const corsRegex = readCorsRegex(env.CORS_REGEX);
-  const cookieSecret = readCookieSecret(env.COOKIE_SECRET);
-  const csrfSecret = readCsrfSecret(env.CSRF_SECRET);
-  let fingerprintServerKey = readFingerprintServerKey(env.FINGERPRINT_SERVER_KEY);
+  const cookieSecret = readStringEnv(env.COOKIE_SECRET, emptyConfig.cookieSecret);
+  const csrfSecret = readStringEnv(env.CSRF_SECRET, emptyConfig.csrfSecret);
+  let fingerprintServerKey = readStringEnv(env.FINGERPRINT_SERVER_KEY, undefined);
+  const fpAesSecret = readStringEnv(env.FP_AES_SECRET, emptyConfig.fpAesSecret);
+  const fpAesIv = readStringEnv(env.FP_AES_IV, emptyConfig.fpAesIv);
 
   const configVars = await prisma?.config.findMany({
     select: {
@@ -404,6 +401,8 @@ export async function readConfig(
     discordKnownIssuesMessageId,
     dinoRpgUrl,
     fingerprintServerKey,
+    fpAesSecret,
+    fpAesIv,
   };
 }
 

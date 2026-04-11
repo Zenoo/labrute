@@ -8,7 +8,7 @@ import Header from './Header';
 import Link from './Link';
 import { SEO } from './SEO';
 import Text from './Text';
-import { useVisitorData } from '@fingerprint/react';
+import { useFingerprint } from '../hooks/useFingerprint';
 
 interface Props extends BoxProps {
   title: string,
@@ -29,15 +29,15 @@ const Page = ({
   const { t } = useTranslation();
   const { authing, signin, user } = useAuth();
   const signinInitiated = useRef(false);
-  const { isLoading: isFingerprintLoading } = useVisitorData();
+  const fingerprint = useFingerprint();
 
   // Auth on page load
   useEffect(() => {
-    if (!user && !authing && !signinInitiated.current && !isFingerprintLoading) {
+    if (!user && !authing && !signinInitiated.current && !fingerprint.loading) {
       signinInitiated.current = true;
       signin();
     }
-  }, [authing, signin, user, isFingerprintLoading]);
+  }, [authing, signin, user, fingerprint.loading]);
 
   return (
     <Box
