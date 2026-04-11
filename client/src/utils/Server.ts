@@ -27,6 +27,7 @@ const Server = {
     toggleFollow: (bruteId: string) => Fetch<never>(`/api/user/toggle-follow/${bruteId}`, {}, 'PATCH'),
     updateSettings: (settings: UserUpdateSettingsRequest) => Fetch<never>('/api/user/settings', settings, 'PUT'),
     disconnect: () => Fetch<never>('/api/user/disconnect', {}, 'PATCH'),
+    deleteAccount: () => Fetch<never>('/api/user', {}, 'DELETE'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),

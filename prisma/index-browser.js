@@ -479,7 +479,8 @@ exports.UserLogType = exports.$Enums.UserLogType = {
   CREATE_BRUTE: 'CREATE_BRUTE',
   RENAME_BRUTE: 'RENAME_BRUTE',
   SACRIFICE_BRUTE: 'SACRIFICE_BRUTE',
-  BANNED: 'BANNED'
+  BANNED: 'BANNED',
+  DELETED: 'DELETED'
 };
 
 exports.Gender = exports.$Enums.Gender = {

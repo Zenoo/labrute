@@ -1,10 +1,11 @@
-import { NotFoundError, LimitError, BruteDeletionReason } from '@labrute/core';
-import { PrismaClient, Prisma, UserLogType } from '@labrute/prisma';
+import { NotFoundError, LimitError } from '@labrute/core';
+import { PrismaClient, UserLogType } from '@labrute/prisma';
 import { LOGGER } from '../../context.js';
 import { createUserLog } from '../createUserLog.js';
 import { translate } from '../translate.js';
 import { AuthedUser } from '../auth.js';
 import { ServerState } from '../ServerState.js';
+import { deleteUserBrutes } from './deleteUserBrutes.js';
 
 export const banUser = async (
   prisma: PrismaClient,
@@ -15,6 +16,7 @@ export const banUser = async (
   const user = await prisma.user.findFirst({
     where: { id: userId },
     select: {
+      id: true,
       bannedAt: true,
       fingerprints: true,
       brutes: {
@@ -35,35 +37,7 @@ export const banUser = async (
   }
 
   // Delete all brutes
-  await prisma.brute.updateMany({
-    where: {
-      userId,
-      deletedAt: null,
-    },
-    data: {
-      deletedAt: new Date(),
-      deletionReason: BruteDeletionReason.BANNED_USER,
-    },
-  });
-
-  // Remove brutes from clan fighters
-  if (user.brutes.length > 0) {
-    const joinedBruteIds = Prisma.join(user.brutes.map((b) => Prisma.sql`${b.id}::uuid`));
-    await prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`;
-    await prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`;
-  }
-
-  for (const brute of user.brutes) {
-    // Remove brutes from followed
-    await prisma.brute.update({
-      where: { id: brute.id },
-      data: {
-        followers: {
-          set: [],
-        },
-      },
-    });
-  }
+  await deleteUserBrutes(prisma, user);
 
   // Ban user
   await prisma.user.update({

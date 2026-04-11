@@ -4,7 +4,7 @@ import { Box, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, Men
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { AchievementHeader } from '../components/AchievementHeader';
 import { AchievementTooltip } from '../components/AchievementTooltip';
@@ -29,8 +29,9 @@ const UserView = () => {
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
-  const { modifiers, user: authedUser, updateData } = useAuth();
+  const { modifiers, user: authedUser, updateData, signout } = useAuth();
   const Confirm = useConfirm();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState<CalculatedUserGetProfileResponse | null>(null);
   const [banReason, setBanReason] = useState('');
@@ -74,6 +75,20 @@ const UserView = () => {
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, banReason, t, user]);
+
+  // Delete account
+  const deleteAccount = useCallback(() => {
+    if (!user) return;
+    if (user.id !== authedUser?.id) return;
+
+    Confirm.open(t('deleteAccount'), t('deleteAccountConfirm'), () => {
+      Server.User.deleteAccount().then(() => {
+        Alert.open('success', t('accountDeleted'));
+        signout();
+        navigate('/');
+      }).catch(catchError(Alert));
+    });
+  }, [Alert, Confirm, authedUser, t, user, signout, navigate]);
 
   return (
     <Page
@@ -363,6 +378,18 @@ const UserView = () => {
                   </TableBody>
                 </Table>
               </>
+            )}
+            {/* ACCOUNT DELETION */}
+            {user.id === authedUser?.id && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <FantasyButton
+                  onClick={deleteAccount}
+                  color="error"
+                  sx={{ m: 1 }}
+                >
+                  {t('deleteAccount')}
+                </FantasyButton>
+              </Box>
             )}
           </Paper>
         </>
