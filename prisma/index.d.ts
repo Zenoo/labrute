@@ -178,7 +178,8 @@ export const UserLogType: {
   CREATE_BRUTE: 'CREATE_BRUTE',
   RENAME_BRUTE: 'RENAME_BRUTE',
   SACRIFICE_BRUTE: 'SACRIFICE_BRUTE',
-  BANNED: 'BANNED'
+  BANNED: 'BANNED',
+  DELETED: 'DELETED'
 };
 
 export type UserLogType = (typeof UserLogType)[keyof typeof UserLogType]

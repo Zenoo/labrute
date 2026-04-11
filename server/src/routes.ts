@@ -65,6 +65,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));
   app.put('/api/user/settings', Users.updateSettings(prisma));
   app.patch('/api/user/disconnect', Users.disconnect(prisma));
+  app.delete('/api/user', Users.deleteAccount(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

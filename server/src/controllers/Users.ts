@@ -35,6 +35,7 @@ import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
+import { deleteUserBrutes } from '../utils/user/deleteUserBrutes.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
@@ -920,6 +921,50 @@ export const Users = {
       });
 
       res.send({ message: 'Disconnected' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  deleteAccount: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: {
+          id: true,
+          brutes: {
+            where: {
+              deletedAt: null,
+            },
+            select: { id: true },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new NotFoundError(translate('userNotFound', authed));
+      }
+
+      await deleteUserBrutes(prisma, user);
+
+      // Delete account (soft delete)
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          bannedAt: new Date(),
+          banReason: 'account_deleted',
+        },
+      });
+
+      createUserLog(prisma, {
+        type: UserLogType.DELETED,
+        userId: user.id,
+      });
+
+      res.send({ success: true });
     } catch (error) {
       sendError(res, error);
     }
