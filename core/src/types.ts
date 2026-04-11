@@ -822,6 +822,11 @@ export type UserLogsListResponse = (UserLog & {
   brute: Pick<Brute, 'name'> | null,
 })[];
 
+export type GetFingerprintResponse = {
+  eventId: string;
+  visitorId: string;
+};
+
 export type Tiered<T> = T & {
   tier: number;
 };

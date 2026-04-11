@@ -1,4 +1,3 @@
-import { FingerprintProvider } from '@fingerprint/react';
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -17,6 +16,7 @@ import routes from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
 import dark from './theme/dark';
 import light from './theme/light';
+import { FingerprintProvider } from './hooks/useFingerprint';
 
 const App = () => {
   useAnalytics();
@@ -45,10 +45,7 @@ const App = () => {
   );
 
   return (
-    <FingerprintProvider
-      apiKey="U1AD6z7rwKNvUC7KXCZg"
-      region="eu"
-    >
+    <FingerprintProvider>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <HelmetProvider>
           <CssBaseline />

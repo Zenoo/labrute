@@ -34,6 +34,7 @@ import { createUserLog } from '../utils/createUserLog.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
+import { decryptFPEvent } from '../utils/fingerprint.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
@@ -103,30 +104,22 @@ export const Users = {
       try {
         authResult = await auth(prisma, req, { skipFingerprintCheck: true });
 
-        if (GLOBAL.fingerprint) {
-          if (typeof req.body.eventId !== 'string') {
-            throw new ExpectedError('Invalid event ID');
-          }
+        if (typeof req.body.eventId !== 'string') {
+          throw new ExpectedError('Invalid event ID');
+        }
 
-          const fingerprintEvent = await GLOBAL.fingerprint.getEvent(req.body.eventId);
+        const fingerprint = decryptFPEvent(req.body.eventId);
 
-          if (fingerprintEvent.bot === 'bad') {
-            await banUser(prisma, authResult.id, 'bot');
-            throw new ForbiddenError('Nope.');
-          }
-
-          if (fingerprintEvent.identification
-            && !authResult.fingerprints.includes(fingerprintEvent.identification.visitor_id)) {
-            await prisma.user.update({
-              where: { id: authResult.id },
-              data: {
-                fingerprints: {
-                  push: fingerprintEvent.identification.visitor_id,
-                },
+        if (!authResult.fingerprints.includes(fingerprint)) {
+          await prisma.user.update({
+            where: { id: authResult.id },
+            data: {
+              fingerprints: {
+                push: fingerprint,
               },
-            });
-            authResult.fingerprints.push(fingerprintEvent.identification.visitor_id);
-          }
+            },
+          });
+          authResult.fingerprints.push(fingerprint);
         }
       } catch (_error) {
         res.send({

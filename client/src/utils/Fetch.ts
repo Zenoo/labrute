@@ -1,6 +1,6 @@
 import { TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
 import { getCookie } from './cookies';
-import { getFingerprint } from './fingerprintStore';
+import { getFingerprint } from './fingerprint';
 
 type HeadersType = {
   Accept: string;
@@ -39,8 +39,10 @@ const waitForFingerprint = async () => {
   });
 };
 
-const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
-  await waitForFingerprint();
+const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, skipFingerprint = false): Promise<ReturnType> => {
+  if (!skipFingerprint) {
+    await waitForFingerprint();
+  }
 
   // Check if the CSRF token is present in the localStorage
   // If not, fetch it from the server

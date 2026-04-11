@@ -20,7 +20,7 @@
     "@ckeditor/ckeditor5-watchdog": "^42.0.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@fingerprint/react": "^3.0.0",
+    "@fingerprintjs/fingerprintjs": "^5.2.0",
     "@labrute/core": "workspace:*",
     "@labrute/prisma": "workspace:*",
     "@mui/icons-material": "^5.14.19",
