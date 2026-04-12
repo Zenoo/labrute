@@ -45,6 +45,9 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
       const result = await (await FingerprintJS.load()).get();
       if (isMounted) {
         setData(result);
+        if (localStorage.getItem('x-fp-l') === '1') {
+          console.log(result);
+        }
         Server.fpe(result)
           .then((d) => {
             setId(d.visitorId);
