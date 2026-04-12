@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.4](https://github.com/Zenoo/labrute/compare/labrute-v2.86.3...labrute-v2.86.4) (2026-04-12)
+
+
+### Bug Fixes
+
+* Remove banned fingerprints on unban ([3066211](https://github.com/Zenoo/labrute/commit/3066211567f632bd7f55f07eb2c2265895b3a7de))
+
 ## [2.86.3](https://github.com/Zenoo/labrute/compare/labrute-v2.86.2...labrute-v2.86.3) (2026-04-12)
 
 
