@@ -45,7 +45,6 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
       const result = await (await FingerprintJS.load()).get();
       if (isMounted) {
         setData(result);
-        console.log(result);
         Server.fpe(result)
           .then((d) => {
             setId(d.visitorId);
