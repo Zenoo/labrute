@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.5](https://github.com/Zenoo/labrute/compare/labrute-v2.86.4...labrute-v2.86.5) (2026-04-12)
+
+
+### Bug Fixes
+
+* Improve error logging during authentication process ([e28a977](https://github.com/Zenoo/labrute/commit/e28a9771d7826ed6702644223ed25a68d0318ba1))
+
 ## [2.86.4](https://github.com/Zenoo/labrute/compare/labrute-v2.86.3...labrute-v2.86.4) (2026-04-12)
 
 
