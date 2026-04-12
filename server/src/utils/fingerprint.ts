@@ -118,15 +118,13 @@ export const getFingerprintEvent = (
 
   if (!visitorId) {
     DISCORD().logObject(fpData, 'Fingerprint missing visitorId').catch(() => { /* ignore */ });
+    throw new ExpectedError('Fingerprint missing visitorId');
   }
 
   // Collect TLS handshake info
   visitorId = appendTlsToVisitorId(visitorId, request);
 
-  let encryptedVisitorId = '';
-  if (typeof visitorId === 'string' && visitorId.length > 0) {
-    encryptedVisitorId = encryptFPEvent(visitorId);
-  }
+  const encryptedVisitorId = encryptFPEvent(visitorId);
   response.send({ eventId: encryptedVisitorId, visitorId });
 
   // TODO: look at the fingerprint to detect bots and ban the print
