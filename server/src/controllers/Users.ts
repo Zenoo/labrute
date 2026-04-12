@@ -123,7 +123,8 @@ export const Users = {
           authResult.fingerprints.push(fingerprint);
         }
       } catch (_error) {
-        DISCORD().sendError(_error as Error, res);
+        DISCORD().logObject(req.body, _error instanceof Error ? _error.message : 'unknown error during authentication')
+          .catch(() => { /* ignore */ });
         res.send({
           modifiers: await ServerState.getModifiers(prisma),
           currentEvent: await ServerState.getCurrentEvent(prisma),
