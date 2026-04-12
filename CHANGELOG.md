@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.3](https://github.com/Zenoo/labrute/compare/labrute-v2.86.2...labrute-v2.86.3) (2026-04-12)
+
+
+### Bug Fixes
+
+* Debug fingerprint issue ([1e3642c](https://github.com/Zenoo/labrute/commit/1e3642c20200267b8569e7776530f5815f49ed77))
+* Throw error when visitorId is missing in fingerprint event ([ef3629f](https://github.com/Zenoo/labrute/commit/ef3629f5179fd451b975eada789bd2a45569b074))
+
 ## [2.86.2](https://github.com/Zenoo/labrute/compare/labrute-v2.86.1...labrute-v2.86.2) (2026-04-11)
 
 
