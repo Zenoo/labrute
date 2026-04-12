@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { TLSSocket } from 'tls';
 import { DISCORD, GLOBAL } from '../context.js';
+import { sendError } from './sendError.js';
 
 const c = (A: string) => {
   const u = e(3);
@@ -135,23 +136,27 @@ export const getFingerprintEvent = (
   request: Request<unknown, unknown, { data: string }>,
   response: Response<GetFingerprintResponse>,
 ) => {
-  if (typeof request.body.data !== 'string') {
-    throw new ExpectedError('Invalid fingerprint data');
+  try {
+    if (typeof request.body.data !== 'string') {
+      throw new ExpectedError('Invalid fingerprint data');
+    }
+
+    const fpData = readFP(request.body.data) as FingerPrint;
+    let visitorId = fpData.visitorId ?? '';
+
+    if (!visitorId) {
+      DISCORD().logObject(fpData, 'Fingerprint missing visitorId').catch(() => { /* ignore */ });
+      throw new ExpectedError('Fingerprint missing visitorId');
+    }
+
+    // Collect TLS handshake info
+    visitorId = appendTlsToVisitorId(visitorId, request);
+
+    const encryptedVisitorId = encryptFPEvent(visitorId);
+    response.send({ eventId: encryptedVisitorId, visitorId });
+
+    // TODO: look at the fingerprint to detect bots and ban the print
+  } catch (error) {
+    sendError(response, error);
   }
-
-  const fpData = readFP(request.body.data) as FingerPrint;
-  let visitorId = fpData.visitorId ?? '';
-
-  if (!visitorId) {
-    DISCORD().logObject(fpData, 'Fingerprint missing visitorId').catch(() => { /* ignore */ });
-    throw new ExpectedError('Fingerprint missing visitorId');
-  }
-
-  // Collect TLS handshake info
-  visitorId = appendTlsToVisitorId(visitorId, request);
-
-  const encryptedVisitorId = encryptFPEvent(visitorId);
-  response.send({ eventId: encryptedVisitorId, visitorId });
-
-  // TODO: look at the fingerprint to detect bots and ban the print
 };
