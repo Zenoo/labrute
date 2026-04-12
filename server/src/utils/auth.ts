@@ -25,6 +25,9 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   if (typeof fingerprint !== 'string') {
     throw new ExpectedError('Invalid fingerprint header');
   }
+  if (!fingerprint.length) {
+    throw new ExpectedError('Invalid fingerprint header length');
+  }
 
   const [id, token] = Buffer.from(authorization.split(' ')[1] || '', 'base64')
     .toString().split(':');
@@ -98,7 +101,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // Check if any of the user fingerprints are banned
   for (const userFingerprint of user.fingerprints) {
     if (await ServerState.isFingerprintBanned(prisma, userFingerprint)) {
-      throw new ForbiddenError('Nope.');
+      throw new ForbiddenError('Fingerprint banned');
     }
   }
 
@@ -107,16 +110,16 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // it means it was tampered with, as fingerprints can only
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
-    await banUser(prisma, user.id, 'invalid_fingerprint');
-    throw new ForbiddenError('Invalid fingerprint');
+    await banUser(prisma, user.id, 'unrecognized_fingerprint');
+    throw new ForbiddenError('Unrecognized fingerprint');
   }
 
   // Check expected headers
   try {
     checkPredictableHeaders(request.headers);
   } catch (_error) {
-    await banUser(prisma, user.id, 'invalid_fingerprint');
-    throw new ForbiddenError('Invalid fingerprint');
+    await banUser(prisma, user.id, 'headers_tampering');
+    throw new ForbiddenError('Headers tampering detected');
   }
 
   if (ip && !user.ips.includes(ip)) {

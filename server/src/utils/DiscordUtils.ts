@@ -44,6 +44,7 @@ export interface DiscordClient {
   sendRelease(release: Release): Promise<void>;
   sendMessage(message: string): Promise<void>;
   updateKnownIssues(issues: string[]): Promise<void>;
+  logObject(obj: unknown, message?: string): Promise<void>;
 }
 
 export const NOOP_DISCORD_CLIENT: DiscordClient = {
@@ -73,6 +74,11 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
     return Promise.resolve();
   },
   updateKnownIssues() {
+    return Promise.resolve();
+  },
+  logObject(obj, message) {
+    // eslint-disable-next-line no-console
+    console.log(message || 'Logged object:', JSON.stringify(obj, null, 2));
     return Promise.resolve();
   },
 };
@@ -380,6 +386,30 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
         - SEND_MESSAGE_PREFIX.length
         - SEND_MESSAGE_SUFFIX_TRUNCATED.length;
       const short = message.substring(0, shortLen);
+      content = SEND_MESSAGE_PREFIX + short + SEND_MESSAGE_SUFFIX_TRUNCATED;
+    }
+    await this.#logClient.send({ content });
+  }
+
+  /**
+   * Log a JS object (pretty-printed as JSON) to Discord
+   */
+  public async logObject(obj: unknown, message?: string) {
+    if (!this.#logClient) {
+      return;
+    }
+    let content = '';
+    if (message) {
+      content += `${message}\n`;
+    }
+    content += JSON.stringify(obj, null, 2);
+    // Wrap in code block for readability
+    content = SEND_MESSAGE_PREFIX + content + SEND_MESSAGE_SUFFIX;
+    if (content.length > MAX_CONTENT_LENGTH) {
+      const shortLen = MAX_CONTENT_LENGTH
+        - SEND_MESSAGE_PREFIX.length
+        - SEND_MESSAGE_SUFFIX_TRUNCATED.length;
+      const short = (message ? `${message}\n` : '') + JSON.stringify(obj, null, 2).substring(0, shortLen);
       content = SEND_MESSAGE_PREFIX + short + SEND_MESSAGE_SUFFIX_TRUNCATED;
     }
     await this.#logClient.send({ content });

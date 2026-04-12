@@ -2,7 +2,7 @@ import { e, ExpectedError, GetFingerprintResponse } from '@labrute/core';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { TLSSocket } from 'tls';
-import { GLOBAL } from '../context.js';
+import { DISCORD, GLOBAL } from '../context.js';
 
 const c = (A: string) => {
   const u = e(3);
@@ -115,6 +115,10 @@ export const getFingerprintEvent = (
 
   const fpData = readFP(request.body.data) as FingerPrint;
   let visitorId = fpData.visitorId ?? '';
+
+  if (!visitorId) {
+    DISCORD().logObject(fpData, 'Fingerprint missing visitorId').catch(() => { /* ignore */ });
+  }
 
   // Collect TLS handshake info
   visitorId = appendTlsToVisitorId(visitorId, request);

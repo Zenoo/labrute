@@ -57,7 +57,7 @@ export const checkPredictableHeaders = (headers: Record<string, string | string[
 
   for (const key of expectedHeaderKeys) {
     if (headers[key] !== expectedHeaders[key]) {
-      throw new Error('Bot');
+      throw new Error('Bot again');
     }
   }
 };
