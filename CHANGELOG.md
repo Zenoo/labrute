@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.6](https://github.com/Zenoo/labrute/compare/labrute-v2.86.5...labrute-v2.86.6) (2026-04-12)
+
+
+### Bug Fixes
+
+* Enhance fingerprint parsing to handle escaped characters correctly ([9c83cc0](https://github.com/Zenoo/labrute/commit/9c83cc043916dffe2e6ce5aa6fb8af793cb189c9))
+
 ## [2.86.5](https://github.com/Zenoo/labrute/compare/labrute-v2.86.4...labrute-v2.86.5) (2026-04-12)
 
 
