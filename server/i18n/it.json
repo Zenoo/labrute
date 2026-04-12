@@ -113,6 +113,8 @@
   "banReason.innapropriateName": "Nome inappropriato",
   "banReason.innapropriateBruteName": "Nome del bruto inappropriato",
   "banReason.multipleAccounts": "Account multipli",
+  "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
+  "banReason.headers_tampering": "Headers tampering detected",
   "ipBanned": "Il tuo IP è bannato",
   "fightNotFound": "Combattimento non trovato",
   "favoriteLimit": "Hai raggiunto il tuo limite di combattimenti preferiti",

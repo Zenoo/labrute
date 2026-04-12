@@ -113,6 +113,8 @@
   "banReason.innapropriateName": "Nom inapproprié",
   "banReason.innapropriateBruteName": "Nom de brute inapproprié",
   "banReason.multipleAccounts": "Comptes multiples",
+  "banReason.unrecognized_fingerprint": "Empreinte digitale non reconnue",
+  "banReason.headers_tampering": "En-têtes altérés détectés",
   "ipBanned": "Votre adresse IP est bannie",
   "fightNotFound": "Combat introuvable",
   "favoriteLimit": "Vous avez atteint votre limite de combats favoris",

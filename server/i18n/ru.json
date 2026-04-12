@@ -113,6 +113,8 @@
   "banReason.innapropriateName": "Неуместное имя",
   "banReason.innapropriateBruteName": "Неуместное имя Брутала",
   "banReason.multipleAccounts": "Несколько учётных записей",
+  "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
+  "banReason.headers_tampering": "Headers tampering detected",
   "ipBanned": "Ваш IP-адрес забанен",
   "fightNotFound": "Битва не найдена",
   "favoriteLimit": "Вы достигли максимальное количество избранных битв",
