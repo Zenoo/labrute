@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.7](https://github.com/Zenoo/labrute/compare/labrute-v2.86.6...labrute-v2.86.7) (2026-04-12)
+
+
+### Bug Fixes
+
+* Add error handling for fingerprint data processing and log errors ([010b286](https://github.com/Zenoo/labrute/commit/010b2867e4a585a1aa6016306c3678f2a1413071))
+
 ## [2.86.6](https://github.com/Zenoo/labrute/compare/labrute-v2.86.5...labrute-v2.86.6) (2026-04-12)
 
 
