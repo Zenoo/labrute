@@ -651,6 +651,7 @@ export const Users = {
         select: {
           bannedAt: true,
           ips: true,
+          fingerprints: true,
           brutes: {
             where: {
               deletedAt: { not: null },
@@ -680,6 +681,9 @@ export const Users = {
 
       // IP unban
       await ServerState.removeBannedIps(prisma, user.ips);
+
+      // Fingerprint unban
+      await ServerState.removeBannedFingerprints(prisma, user.fingerprints);
 
       // Restore all brutes
       for (const brute of user.brutes) {
