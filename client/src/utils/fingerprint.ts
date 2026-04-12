@@ -10,15 +10,18 @@ export const setFingerprint = (f: string) => {
 
 export const getFingerprint = () => fingerprint;
 
+const k = (key: string) => key.replace(/([:|\\])/g, '\\$1');
+
 const a = (x: Record<string, unknown>, y = '') => {
   let z: string[] = [];
   for (const w of Object.keys(x).sort()) {
     const v = x[w];
     const u = y ? `${y}.${w}` : w;
+    const s = k(u);
     if (v && typeof v === 'object' && !Array.isArray(v)) {
-      z = z.concat(a(v as Record<string, unknown>, u));
+      z = z.concat(a(v as Record<string, unknown>, s));
     } else {
-      z.push(`${u}:${JSON.stringify(v)}`);
+      z.push(`${s}:${JSON.stringify(v)}`);
     }
   }
   return z;

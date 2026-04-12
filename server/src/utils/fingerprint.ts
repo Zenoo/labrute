@@ -24,20 +24,46 @@ const c = (A: string) => {
   return F.join('');
 };
 
+const u = (key: string) => key.replace(/\\([:|\\])/g, '$1');
+
 export const readFP = (input: string): Record<string, unknown> => {
   const decoded = c(input);
   const result: Record<string, unknown> = {};
-  for (const entry of decoded.split('|')) {
-    const sep = entry.indexOf(':');
-    if (sep === -1) continue;
-    const key = entry.slice(0, sep);
-    let value: unknown;
-    try {
-      value = JSON.parse(entry.slice(sep + 1));
-    } catch {
-      value = entry.slice(sep + 1);
+  let buffer = '';
+  let inEscape = false;
+  let key = '';
+  let value = '';
+  let readingKey = true;
+  for (let i = 0; i <= decoded.length; i++) {
+    const char = decoded[i] ?? '|'; // treat end as delimiter
+    if (readingKey) {
+      if (char === ':' && !inEscape) {
+        key = buffer;
+        buffer = '';
+        readingKey = false;
+      } else if (char === '\\' && !inEscape) {
+        inEscape = true;
+      } else {
+        buffer += char;
+        inEscape = false;
+      }
+    } else if (char === '|' && !inEscape) {
+      value = buffer;
+      buffer = '';
+      readingKey = true;
+      let parsed;
+      try {
+        parsed = JSON.parse(value) as unknown;
+      } catch {
+        parsed = value;
+      }
+      result[u(key)] = parsed;
+    } else if (char === '\\' && !inEscape) {
+      inEscape = true;
+    } else {
+      buffer += char;
+      inEscape = false;
     }
-    result[key] = value;
   }
   return result;
 };
