@@ -1630,8 +1630,8 @@
   "seeParticipants": "Teilnehmer anzeigen",
   "searchForParticipant": "Teilnehmer suchen",
   "outdatedVersion": "Du verwendest eine veraltete Version des Spiels. Bitte aktualisiere die Seite, um zur neuesten Version zu gelangen. Falls diese Nachricht weiterhin bestehen sollte, leere bitte deinen Browser-Cache und aktualisiere die Seite erneut.",
-  "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support.",
-  "deleteAccount": "Delete account",
-  "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
-  "accountDeleted": "Your account has been deleted"
+  "fingerprintError": "Beim Generieren deiner digitalen Signatur ist ein Fehler aufgetreten. Bitte deaktiviere den Adblocker/Tracking-Schutz für diese Seite. Es wird nur verwendet, um Bots zu verhindern – es wird keine Werbung auftauchen. Falls das Problem weiterhin besteht, kontaktiere bitte den Support.",
+  "deleteAccount": "Konto löschen",
+  "deleteAccountConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? All deine Brutalos und Fortschritt gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.",
+  "accountDeleted": "Dein Konto wurde gelöscht"
 }
