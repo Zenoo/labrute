@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.11](https://github.com/Zenoo/labrute/compare/labrute-v2.86.10...labrute-v2.86.11) (2026-04-13)
+
+
+### Bug Fixes
+
+* log headers tampering detection in Discord ([56d6c03](https://github.com/Zenoo/labrute/commit/56d6c032a36cf150f693e81c8879b9bf2f7fecbd))
+
 ## [2.86.10](https://github.com/Zenoo/labrute/compare/labrute-v2.86.9...labrute-v2.86.10) (2026-04-13)
 
 
