@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.10](https://github.com/Zenoo/labrute/compare/labrute-v2.86.9...labrute-v2.86.10) (2026-04-13)
+
+
+### Bug Fixes
+
+* enhance fingerprint handling and obfuscation methods ([be743cc](https://github.com/Zenoo/labrute/commit/be743ccede4fc9742423b9dfba1799b64cafc7dc))
+* remove error logging during authentication process ([897d33f](https://github.com/Zenoo/labrute/commit/897d33f293f303af2446f1bf8658bdb759883cea))
+
 ## [2.86.9](https://github.com/Zenoo/labrute/compare/labrute-v2.86.8...labrute-v2.86.9) (2026-04-12)
 
 
