@@ -8,6 +8,7 @@ import type { Request } from 'express';
 import { ServerState } from './ServerState.js';
 import { translate } from './translate.js';
 import { banUser } from './user/banUser.js';
+import { DISCORD } from '../context.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -119,6 +120,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     checkPredictableHeaders(request.headers);
   } catch (_error) {
     await banUser(prisma, user.id, 'headers_tampering');
+    DISCORD().logObject(Object.fromEntries(Object.entries(request.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
     throw new ForbiddenError('Headers tampering detected');
   }
 
