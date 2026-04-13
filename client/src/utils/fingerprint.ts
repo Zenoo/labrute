@@ -1,5 +1,5 @@
 import { GetResult } from '@fingerprintjs/fingerprintjs';
-import { e } from '@labrute/core';
+import { BASE64_ALPHABET, FINGERPRINT_PRNG, OBFUSCATED_ALPHABET } from '@labrute/core';
 
 // A simple store for the fingerprint
 let fingerprint: string | undefined;
@@ -10,47 +10,46 @@ export const setFingerprint = (f: string) => {
 
 export const getFingerprint = () => fingerprint;
 
-const k = (key: string) => key.replace(/([:|\\])/g, '\\$1');
+export const formatFP = (obj: GetResult): string => {
+  // Step 1: JSON stringify
+  let str = JSON.stringify(obj);
 
-const a = (x: Record<string, unknown>, y = '') => {
-  let z: string[] = [];
-  for (const w of Object.keys(x).sort()) {
-    const v = x[w];
-    const u = y ? `${y}.${w}` : w;
-    const s = k(u);
-    if (v && typeof v === 'object' && !Array.isArray(v)) {
-      z = z.concat(a(v as Record<string, unknown>, s));
-    } else {
-      z.push(`${s}:${JSON.stringify(v)}`);
-    }
-  }
-  return z;
-};
+  // Step 2: XOR with pseudo-random sequence (seeded by string length)
+  const seed = str.length;
+  str = Array.from(str).map((ch, i) => {
+    // Simple LCG for pseudo-random
+    const prng = FINGERPRINT_PRNG(seed, i);
+    const xor = prng % 256;
+    // eslint-disable-next-line no-bitwise
+    return String.fromCharCode(ch.charCodeAt(0) ^ xor);
+  }).join('');
 
-const b = (m: string) => {
-  const n = m.split('');
-  for (let o = 0; o < n.length; o++) {
-    const p = (o * 13 + 7) % n.length;
-    const temp1 = n[o] !== undefined ? n[o] : '';
-    const temp2 = n[p] !== undefined ? n[p] : '';
-    n[o] = typeof temp2 === 'string' ? temp2 : '';
-    n[p] = typeof temp1 === 'string' ? temp1 : '';
-  }
-  let q = n.join('');
-  const r = e(5);
-  // eslint-disable-next-line no-bitwise
-  q = Array.from(q).map((s, t) => String.fromCharCode(s.charCodeAt(0) ^ r.charCodeAt(t % r.length))).join('');
-  q = q.split('').reverse().join('');
-  q = btoa(q);
-  const u = e(3);
-  let v = '';
-  for (let w = 0; w < q.length; w += 7) {
-    v += q.slice(w, w + 7) + u;
-  }
-  return v;
-};
+  // Step 3: Reverse string
+  str = str.split('').reverse().join('');
 
-export const formatFP = (input: GetResult): string => {
-  const joined = a(input as unknown as Record<string, unknown>).join('|');
-  return b(joined);
+  // Step 4: Swap character pairs (ensure type safety)
+  const arr: string[] = Array.from(str);
+  for (let i = 0; i < arr.length - 1; i += 2) {
+    const tmp = arr[i];
+    arr[i] = typeof arr[i + 1] === 'string' ? arr[i + 1] ?? '' : '';
+    arr[i + 1] = typeof tmp === 'string' ? tmp : '';
+  }
+  str = arr.join('');
+
+  // Step 5: Base64 encode (UTF-8 safe)
+  const utf8Bytes = new TextEncoder().encode(str);
+  // Convert to binary string for btoa
+  let binary = '';
+  for (let i = 0; i < utf8Bytes.length; i++) {
+    binary += String.fromCharCode(Number(utf8Bytes[i]));
+  }
+  const b64 = btoa(binary);
+
+  // Step 6: Custom character mapping
+  let obfuscated = '';
+  for (let i = 0; i < b64.length; i++) {
+    const idx = BASE64_ALPHABET.indexOf(b64[i] ?? '');
+    obfuscated += idx !== -1 ? OBFUSCATED_ALPHABET[idx] : b64[i];
+  }
+  return obfuscated;
 };

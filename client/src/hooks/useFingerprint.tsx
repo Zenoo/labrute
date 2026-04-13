@@ -46,6 +46,7 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
       if (isMounted) {
         setData(result);
         if (localStorage.getItem('x-fp-l') === '1') {
+          // eslint-disable-next-line no-console
           console.log(result);
         }
         Server.fpe(result)

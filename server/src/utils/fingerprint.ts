@@ -1,72 +1,48 @@
-import { e, ExpectedError, GetFingerprintResponse } from '@labrute/core';
+import {
+  BASE64_ALPHABET, ExpectedError, FINGERPRINT_PRNG, GetFingerprintResponse, OBFUSCATED_ALPHABET,
+} from '@labrute/core';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { TLSSocket } from 'tls';
 import { DISCORD, GLOBAL } from '../context.js';
 import { sendError } from './sendError.js';
 
-const c = (A: string) => {
-  const u = e(3);
-  const esc = u.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-  let B = A.replace(new RegExp(`(.{7})${esc}`, 'g'), '$1');
-  B = Buffer.from(B, 'base64').toString('binary');
-  B = B.split('').reverse().join('');
-  const r = e(5);
-  // eslint-disable-next-line no-bitwise
-  B = Array.from(B).map((D, E) => String.fromCharCode(D.charCodeAt(0) ^ r.charCodeAt(E % r.length))).join('');
-  const F = B.split('');
-  for (let G = F.length - 1; G >= 0; G--) {
-    const H = (G * 13 + 7) % F.length;
-    const temp1 = F[G] !== undefined ? F[G] : '';
-    const temp2 = F[H] !== undefined ? F[H] : '';
-    F[G] = typeof temp2 === 'string' ? temp2 : '';
-    F[H] = typeof temp1 === 'string' ? temp1 : '';
-  }
-  return F.join('');
-};
-
-const u = (key: string) => key.replace(/\\([:|\\])/g, '$1');
-
 export const readFP = (input: string): Record<string, unknown> => {
-  const decoded = c(input);
-  const result: Record<string, unknown> = {};
-  let buffer = '';
-  let inEscape = false;
-  let key = '';
-  let value = '';
-  let readingKey = true;
-  for (let i = 0; i <= decoded.length; i++) {
-    const char = decoded[i] ?? '|'; // treat end as delimiter
-    if (readingKey) {
-      if (char === ':' && !inEscape) {
-        key = buffer;
-        buffer = '';
-        readingKey = false;
-      } else if (char === '\\' && !inEscape) {
-        inEscape = true;
-      } else {
-        buffer += char;
-        inEscape = false;
-      }
-    } else if (char === '|' && !inEscape) {
-      value = buffer;
-      buffer = '';
-      readingKey = true;
-      let parsed;
-      try {
-        parsed = JSON.parse(value) as unknown;
-      } catch {
-        parsed = value;
-      }
-      result[u(key)] = parsed;
-    } else if (char === '\\' && !inEscape) {
-      inEscape = true;
-    } else {
-      buffer += char;
-      inEscape = false;
-    }
+  // Step 6: Reverse custom character mapping
+  let b64 = '';
+  for (let i = 0; i < input.length; i++) {
+    const idx = OBFUSCATED_ALPHABET.indexOf(input[i] ?? '');
+    b64 += idx !== -1 ? BASE64_ALPHABET[idx] : input[i];
   }
-  return result;
+
+  // Step 5: Base64 decode (to binary string)
+  const binary = Buffer.from(b64, 'base64');
+  // Convert binary to UTF-8 string
+  let decoded = new TextDecoder().decode(binary);
+
+  // Step 4: Unswap character pairs (ensure type safety)
+  const arr: string[] = Array.from(decoded);
+  for (let i = 0; i < arr.length - 1; i += 2) {
+    const tmp = arr[i];
+    arr[i] = typeof arr[i + 1] === 'string' ? arr[i + 1] ?? '' : '';
+    arr[i + 1] = typeof tmp === 'string' ? tmp : '';
+  }
+  decoded = arr.join('');
+
+  // Step 3: Reverse string
+  decoded = decoded.split('').reverse().join('');
+
+  // Step 2: Un-XOR with pseudo-random sequence (seeded by string length)
+  const seed = decoded.length;
+  decoded = Array.from(decoded).map((ch, i) => {
+    const prng = FINGERPRINT_PRNG(seed, i);
+    const xor = prng % 256;
+    // eslint-disable-next-line no-bitwise
+    return String.fromCharCode(ch.charCodeAt(0) ^ xor);
+  }).join('');
+
+  // Step 1: Parse JSON
+  return JSON.parse(decoded) as Record<string, unknown>;
 };
 
 const encryptFPEvent = (text: string) => {
