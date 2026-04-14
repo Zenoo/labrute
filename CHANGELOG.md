@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.86.12](https://github.com/Zenoo/labrute/compare/labrute-v2.86.11...labrute-v2.86.12) (2026-04-14)
+
+
+### Bug Fixes
+
+* log unrecognized fingerprint detection in Discord ([bfdd75d](https://github.com/Zenoo/labrute/commit/bfdd75d994bd7f2e3db68bd65648f79da3dbbc1c))
+
 ## [2.86.11](https://github.com/Zenoo/labrute/compare/labrute-v2.86.10...labrute-v2.86.11) (2026-04-13)
 
 
