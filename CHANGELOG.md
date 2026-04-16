@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.87.1](https://github.com/Zenoo/labrute/compare/labrute-v2.87.0...labrute-v2.87.1) (2026-04-16)
+
+
+### Bug Fixes
+
+* Set body parser limits for JSON and URL-encoded data ([a092f5f](https://github.com/Zenoo/labrute/commit/a092f5fdc22c902bea0029fa6ec9d4b935893ac7))
+* Update clan deletion to set deletedAt timestamp instead of direct deletion ([d6bdb01](https://github.com/Zenoo/labrute/commit/d6bdb01707633e9deaedb49db15865831fb769ed))
+
 ## [2.87.0](https://github.com/Zenoo/labrute/compare/labrute-v2.86.12...labrute-v2.87.0) (2026-04-16)
 
 
