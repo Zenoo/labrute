@@ -6,13 +6,13 @@ import { useNavigate, useParams } from 'react-router';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import catchError from '../../utils/catchError';
 import { ErrorType } from '../../utils/Fetch';
 import { EventType } from '@labrute/prisma';
 import FantasyButton from '../../components/FantasyButton';
 import { History } from '@mui/icons-material';
 import Loader from '../../components/Loader';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 export const CurrentEventsView = () => {
   const { t } = useTranslation();

@@ -13,8 +13,8 @@ import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import catchError from '../../utils/catchError';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 export const BruteAdminView = () => {
   const { t } = useTranslation();

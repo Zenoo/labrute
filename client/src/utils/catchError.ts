@@ -1,15 +1,37 @@
 import { AlertContextInterface } from '../hooks/useAlert';
 import { ErrorType } from './Fetch';
 
-const catchError = (Alert: AlertContextInterface) => (error: ErrorType | string) => {
-  const errorMessage = typeof error === 'string'
-    ? error
-    : error.message
-      ? error.message.includes('<h1>404 Not Found</h1>')
-        ? error.statusText
-        : error.message
-      : error.statusText;
-  Alert.open('error', errorMessage);
+const catchErrorHandler = (Alert: AlertContextInterface, error: unknown) => {
+  if (typeof error === 'string') {
+    Alert.open('error', error);
+    return;
+  }
+
+  if (!(typeof error === 'object' && error !== null)) {
+    Alert.open('error', 'An unknown error occurred');
+    return;
+  }
+
+  const knownError = error as ErrorType;
+
+  const errorMessage = knownError.message
+    ? knownError.message.includes('<h1>404 Not Found</h1>')
+      ? knownError.statusText
+      : knownError.message
+    : knownError.statusText;
+
+  Alert.open('error', errorMessage ?? 'An unknown error occurred');
 };
 
-export default catchError;
+export function catchError(Alert: AlertContextInterface): (error: unknown) => void;
+export function catchError(Alert: AlertContextInterface, error: unknown): void;
+export function catchError(Alert: AlertContextInterface, error?: unknown) {
+  if (error === undefined) {
+    return (_error: unknown) => {
+      catchErrorHandler(Alert, _error);
+    };
+  }
+
+  catchErrorHandler(Alert, error);
+  return undefined;
+}

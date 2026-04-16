@@ -8,10 +8,9 @@ import Link from '../components/Link';
 import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
-import catchError from '../utils/catchError';
 import Loader from '../components/Loader';
-import { ErrorType } from '../utils/Fetch';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const AchievementRankingView = () => {
   const { t } = useTranslation();
@@ -40,8 +39,8 @@ const AchievementRankingView = () => {
       }, {} as Record<AchievementName, AchievementGetRankingsResponse>);
 
       setRankings(groupedRankings);
-    }).catch((reason: ErrorType) => {
-      catchError(Alert)(reason);
+    }).catch((error) => {
+      catchError(Alert, error);
       setRankings(null);
     }).finally(() => {
       setLoading(false);

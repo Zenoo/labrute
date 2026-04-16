@@ -18,8 +18,8 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
-import catchError from '../../utils/catchError';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'> & {
   brutes: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];

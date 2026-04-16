@@ -12,10 +12,10 @@ type HeadersType = {
   'x-brute-lang': string;
 };
 
-export type ErrorType = string | {
-  message: string;
-  statusText: string;
-  status: number;
+export type ErrorType = {
+  message?: string;
+  statusText?: string;
+  status?: number;
 };
 
 export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {

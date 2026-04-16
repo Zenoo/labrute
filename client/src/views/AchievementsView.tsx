@@ -9,10 +9,10 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import catchError from '../utils/catchError';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { AchievementHeader } from '../components/AchievementHeader';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const AchievementsView = () => {
   const { t } = useTranslation();

@@ -11,10 +11,10 @@ import Page from '../../components/Page';
 import BoxBg from '../../components/BoxBg';
 import Text from '../../components/Text';
 import FightComponent from '../../components/Arena/FightComponent';
-import catchError from '../../utils/catchError';
 import BruteTooltip from '../../components/Brute/BruteTooltip';
 import Link from '../../components/Link';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 const ClanWarFightView = () => {
   const { t } = useTranslation();

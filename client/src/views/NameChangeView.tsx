@@ -8,8 +8,8 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useBrute } from '../hooks/useBrute';
 import { useConfirm } from '../hooks/useConfirm';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const NameChangeView = () => {
   const { t } = useTranslation();

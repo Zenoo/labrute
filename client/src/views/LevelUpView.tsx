@@ -20,8 +20,8 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import StatColor from '../utils/StatColor';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
@@ -80,30 +80,35 @@ const LevelUpView = () => {
 
     setLoading(true);
 
-    const newBrute = await Server.Brute.levelUp(
-      brute.name,
-      choice,
-    ).catch(catchError(Alert));
+    try {
+      const newBrute = await Server.Brute.levelUp(
+        brute.name,
+        choice,
+      );
 
-    if (!newBrute) {
+      if (!newBrute) {
+        setLoading(false);
+        return;
+      }
+
+      // Update user data
+      updateData((data) => (data ? ({
+        ...data,
+        brutes: data.brutes.map((b) => (b.name === brute.name
+          ? ({ ...b, ...getCalculatedBrute(newBrute, modifiers) })
+          : b)),
+      }) : null));
+
+      // Update brute data
+      updateBrute((data) => (data
+        ? ({ ...data, ...getCalculatedBrute(newBrute, modifiers) })
+        : null));
+
+      navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
+    } catch (error) {
+      catchError(Alert, error);
       setLoading(false);
-      return;
     }
-
-    // Update user data
-    updateData((data) => (data ? ({
-      ...data,
-      brutes: data.brutes.map((b) => (b.name === brute.name
-        ? ({ ...b, ...getCalculatedBrute(newBrute, modifiers) })
-        : b)),
-    }) : null));
-
-    // Update brute data
-    updateBrute((data) => (data
-      ? ({ ...data, ...getCalculatedBrute(newBrute, modifiers) })
-      : null));
-
-    navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
   }, [Alert, Server.Brute, brute, choices, modifiers, navigate, updateBrute, updateData]);
 
   const stats = brute && (

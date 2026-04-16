@@ -8,12 +8,12 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import useStateAsync from '../../hooks/useStateAsync';
-import catchError from '../../utils/catchError';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
 import { ActivityStatus } from '../ActivityStatus';
 import Link from '../Link';
 import Text from '../Text';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -45,10 +45,11 @@ const CellSocials = ({
   };
 
   // Toggle follow
-  const toggleFollow = () => {
+  const toggleFollow = async () => {
     if (!brute) return;
 
-    Server.User.toggleFollow(brute.id).then(() => {
+    try {
+      await Server.User.toggleFollow(brute.id);
       Alert.open('success', isFollowing ? t('unfollowed') : t('followed'));
       updateData((prev) => (prev ? {
         ...prev,
@@ -56,7 +57,9 @@ const CellSocials = ({
           ? prev.following.filter((following) => following.id !== brute.id)
           : prev.following.concat({ id: brute.id }),
       } : null));
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   };
 
   return brute && (

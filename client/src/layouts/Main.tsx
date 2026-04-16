@@ -16,10 +16,10 @@ import { useBrute } from '../hooks/useBrute';
 import { useLanguage } from '../hooks/useLanguage';
 import { ColorModeContext } from '../theme/ColorModeContext';
 import dark from '../theme/dark';
-import catchError from '../utils/catchError';
 import Fetch from '../utils/Fetch';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const Main = () => {
   const theme = useTheme();
@@ -62,37 +62,42 @@ const Main = () => {
   };
 
   // Login
-  const oauth = useCallback(() => {
-    Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
+  const oauth = useCallback(async () => {
+    try {
+      const { url } = await Fetch<{ url: string }>('/api/oauth/redirect');
       window.location.href = url;
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   }, [Alert]);
 
   // Logout
-  const logout = useCallback(() => {
-    Server.User.disconnect()
-      .then(() => {
-        Alert.open('success', t('logoutSuccess'));
-      })
-      .catch(catchError(Alert))
-      .finally(() => {
-        signout();
-        toggleDrawer(false)();
-      });
+  const logout = useCallback(async () => {
+    try {
+      await Server.User.disconnect();
+      Alert.open('success', t('logoutSuccess'));
+    } catch (error) {
+      catchError(Alert, error);
+    }
+    signout();
+    toggleDrawer(false)();
   }, [Alert, Server.User, signout, t]);
 
   // Change language
-  const changeLanguage = useCallback((lang: Lang) => () => {
+  const changeLanguage = useCallback((lang: Lang) => async () => {
     setLanguage(lang);
 
     // Update user language if logged in
     if (user && user.lang !== lang) {
-      Server.User.changeLanguage(lang).then(() => {
+      try {
+        await Server.User.changeLanguage(lang);
         updateData(({
           ...user,
           lang,
         }));
-      }).catch(catchError(Alert));
+      } catch (error) {
+        catchError(Alert, error);
+      }
     }
   }, [Alert, Server.User, setLanguage, updateData, user]);
 
@@ -110,7 +115,7 @@ const Main = () => {
   };
 
   // Toggle setting
-  const toggle = (key: keyof UserUpdateSettingsRequest) => () => {
+  const toggle = (key: keyof UserUpdateSettingsRequest) => async () => {
     const newSettings: UserUpdateSettingsRequest = {
       fightSpeed: settings.fightSpeed,
       backgroundMusic: settings.backgroundMusic,
@@ -126,7 +131,8 @@ const Main = () => {
 
     setSettings(newSettings);
 
-    Server.User.updateSettings(newSettings).then(() => {
+    try {
+      await Server.User.updateSettings(newSettings);
       updateData((d) => (d ? {
         ...d,
         fightSpeed: newSettings.fightSpeed,
@@ -134,17 +140,22 @@ const Main = () => {
         displayVersusPage: newSettings.displayVersusPage,
         displayOpponentDetails: newSettings.displayOpponentDetails,
       } : null));
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   };
 
   // All notifications read
-  const allRead = () => {
-    Server.Notification.setAllRead().then(() => {
+  const allRead = async () => {
+    try {
+      await Server.Notification.setAllRead();
       updateData((d) => (d ? {
         ...d,
         notifications: [],
       } : null));
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   };
 
   return (

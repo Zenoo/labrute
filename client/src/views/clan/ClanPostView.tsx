@@ -11,8 +11,8 @@ import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import catchError from '../../utils/catchError';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 const ClanPostView = () => {
   const { t } = useTranslation();

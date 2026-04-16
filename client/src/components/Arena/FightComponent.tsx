@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useRenderer } from '../../hooks/useRenderer';
-import catchError from '../../utils/catchError';
 import setupFight from '../../utils/fight/setupFight';
 import translateFightStep from '../../utils/translateFightStep';
 import BruteTooltip from '../Brute/BruteTooltip';
@@ -17,6 +16,7 @@ import Link from '../Link';
 import Text from '../Text';
 import sfx from './sfx';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 const sounds = [
   'arrive',
@@ -154,10 +154,12 @@ const FightComponent = ({
     setFavorite(fight.favoritedBy.some((f) => f.id === user.id));
   }, [fight, user]);
 
-  const toggleFavorite = useCallback(() => {
+  const toggleFavorite = useCallback(async () => {
     if (!user || !fight) return;
 
-    Server.Fight.toggleFavorite(fight.id).then(() => {
+    try {
+      await Server.Fight.toggleFavorite(fight.id);
+
       setFavorite((prev) => {
         const newFav = !prev;
 
@@ -165,7 +167,9 @@ const FightComponent = ({
 
         return newFav;
       });
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   }, [Alert, fight, Server.Fight, t, user]);
 
   // Tooltip
@@ -275,20 +279,23 @@ const FightComponent = ({
   }, []);
 
   // Speed
-  const toggleSpeed = useCallback(() => {
+  const toggleSpeed = useCallback(async () => {
     const newSpeed = speedRef.current === 1 ? 2 : 1;
     speedRef.current = newSpeed;
     setSpeed(newSpeed);
     localStorage.setItem('fightSpeed', newSpeed.toString());
 
     // Update user settings
-    if (user) {
-      Server.User.changeFightSpeed(newSpeed).then(() => {
-        updateData({
-          ...user,
-          fightSpeed: newSpeed,
-        });
-      }).catch(catchError(Alert));
+    if (!user) return;
+
+    try {
+      await Server.User.changeFightSpeed(newSpeed);
+      updateData({
+        ...user,
+        fightSpeed: newSpeed,
+      });
+    } catch (error) {
+      catchError(Alert, error);
     }
   }, [Alert, Server.User, updateData, user]);
 
@@ -300,7 +307,7 @@ const FightComponent = ({
     sound.volumeAll = newSound ? 1 : 0;
   }, []);
 
-  const toggleBackgroundMusic = useCallback(() => {
+  const toggleBackgroundMusic = useCallback(async () => {
     const newBackgroundMusic = !backgroundMusicRef.current;
     backgroundMusicRef.current = newBackgroundMusic;
     setBackgroundMusicOn(newBackgroundMusic);
@@ -308,13 +315,16 @@ const FightComponent = ({
     localStorage.setItem('fightBackgroundMusic', newBackgroundMusic.toString());
 
     // Update user settings
-    if (user) {
-      Server.User.toggleBackgroundMusic(newBackgroundMusic).then(() => {
-        updateData({
-          ...user,
-          backgroundMusic: newBackgroundMusic,
-        });
-      }).catch(catchError(Alert));
+    if (!user) return;
+
+    try {
+      await Server.User.toggleBackgroundMusic(newBackgroundMusic);
+      updateData({
+        ...user,
+        backgroundMusic: newBackgroundMusic,
+      });
+    } catch (error) {
+      catchError(Alert, error);
     }
   }, [Alert, Server.User, updateData, user]);
 

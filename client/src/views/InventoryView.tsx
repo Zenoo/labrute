@@ -12,8 +12,8 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useBrute } from '../hooks/useBrute';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',

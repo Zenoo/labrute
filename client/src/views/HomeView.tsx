@@ -17,12 +17,12 @@ import { useAlert } from '../hooks/useAlert';
 import { LoggedInUser, useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { getRandomAd } from '../utils/ads';
-import catchError from '../utils/catchError';
 import { setCookie } from '../utils/cookies';
 import Fetch from '../utils/Fetch';
 import HomeMobileView from './mobile/HomeMobileView';
 import { useServer } from '../hooks/useServer';
 import { useFingerprint } from '../hooks/useFingerprint';
+import { catchError } from '../utils/catchError';
 
 /**
  * HomeView component
@@ -169,38 +169,32 @@ const HomeView = () => {
       return;
     }
 
-    // Check if the name is available
-    const isNameAvailable = await Server.Brute.isNameAvailable(name)
-      .catch(catchError(Alert));
+    try {
+      // Check if the name is available
+      const isNameAvailable = await Server.Brute.isNameAvailable(name);
 
-    if (typeof isNameAvailable !== 'boolean') {
-      Alert.open('error', 'wut?');
-      return;
-    }
+      if (!isNameAvailable) {
+        Alert.open('error', t('nameUnavailable'));
+        return;
+      }
 
-    if (!isNameAvailable) {
-      Alert.open('error', t('nameUnavailable'));
-      return;
-    }
+      // Create brute
 
-    // Create brute
+      // Get referer
+      const url = new URL(window.location.href);
+      const referer = url.searchParams.get('ref');
+      const eventId = url.searchParams.get('event');
 
-    // Get referer
-    const url = new URL(window.location.href);
-    const referer = url.searchParams.get('ref');
-    const eventId = url.searchParams.get('event');
+      const response = await Server.Brute.create(
+        name,
+        user.id,
+        gender,
+        body,
+        colors,
+        referer,
+        eventId
+      );
 
-    const response = await Server.Brute.create(
-      name,
-      user.id,
-      gender,
-      body,
-      colors,
-      referer,
-      eventId
-    ).catch(catchError(Alert));
-
-    if (response?.brute) {
       updateData({
         ...user,
         // Add brute to user brutes
@@ -214,6 +208,8 @@ const HomeView = () => {
       });
       // Redirect to brute page
       navigate(`/${name}/cell`);
+    } catch (error) {
+      catchError(Alert, error);
     }
   }, [user, name, Server.Brute, Alert, gender, body, colors, t, updateData, modifiers, navigate]);
 

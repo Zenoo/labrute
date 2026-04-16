@@ -9,7 +9,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import Fetch from '../../utils/Fetch';
-import catchError from '../../utils/catchError';
 import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
 import BruteLevelAndXP from '../Brute/BruteLevelAndXP';
 import FantasyButton from '../FantasyButton';
@@ -19,6 +18,7 @@ import Text from '../Text';
 import CellGlobalTournament from './CellGlobalTournament';
 import CellTournament from './CellTournament';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 export interface CellMainProps extends BoxProps {
   language: Lang;
@@ -55,19 +55,25 @@ const CellMain = ({
   const rankUp = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('rankUp'), t('rankUpConfirm'), () => {
-      Server.Brute.rankUp(brute.name).then(() => {
+    Confirm.open(t('rankUp'), t('rankUpConfirm'), async () => {
+      try {
+        await Server.Brute.rankUp(brute.name);
         // Reload page
         window.location.reload();
-      }).catch(catchError(Alert));
+      } catch (error) {
+        catchError(Alert, error);
+      }
     });
   }, [Alert, Confirm, Server.Brute, brute, t]);
 
   // Login
-  const login = useCallback(() => {
-    Fetch<{ url: string }>('/api/oauth/redirect').then(({ url }) => {
+  const login = useCallback(async () => {
+    try {
+      const { url } = await Fetch<{ url: string }>('/api/oauth/redirect');
       window.location.href = url;
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   }, [Alert]);
 
   return brute && (

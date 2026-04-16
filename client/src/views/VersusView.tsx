@@ -12,9 +12,9 @@ import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import useStateAsync from '../hooks/useStateAsync';
-import catchError from '../utils/catchError';
 import VersusMobileView from './mobile/VersusMobileView';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const VersusView = () => {
   const { t } = useTranslation();
@@ -71,11 +71,10 @@ const VersusView = () => {
 
     setFighting(true);
 
-    // Create the fight
-    const fight = await Server.Fight.create(brute.name, opponent.name)
-      .catch(catchError(Alert));
+    try {
+      // Create the fight
+      const fight = await Server.Fight.create(brute.name, opponent.name);
 
-    if (fight) {
       navigate(`/${brute.name}/fight/${fight.id}`);
 
       // Update brute data
@@ -99,6 +98,8 @@ const VersusView = () => {
         losses: data.losses + fight.losses,
         lastFight: new Date(),
       }) : null));
+    } catch (error) {
+      catchError(Alert, error);
     }
 
     setFighting(false);

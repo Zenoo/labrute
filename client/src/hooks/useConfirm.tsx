@@ -4,7 +4,12 @@ import { useTranslation } from 'react-i18next';
 import StyledInput from '../components/StyledInput';
 
 interface ConfirmContextInterface {
-  open: (title: string, content: string, onAccept?: () => void, onCancel?: () => void) => void;
+  open: (
+    title: string,
+    content: string,
+    onAccept?: () => void | Promise<void>,
+    onCancel?: () => void | Promise<void>
+  ) => void;
   close: () => void;
 }
 

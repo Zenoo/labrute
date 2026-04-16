@@ -27,10 +27,10 @@ import { useConfirm } from '../hooks/useConfirm';
 import { useLanguage } from '../hooks/useLanguage';
 import useStateAsync from '../hooks/useStateAsync';
 import { getRandomAd } from '../utils/ads';
-import catchError from '../utils/catchError';
 import CellMobileView from './mobile/CellMobileView';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 /**
  * CellView component

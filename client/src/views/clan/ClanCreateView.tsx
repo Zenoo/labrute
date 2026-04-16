@@ -6,10 +6,10 @@ import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import catchError from '../../utils/catchError';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 const ClanCreateView = () => {
   const { t } = useTranslation();

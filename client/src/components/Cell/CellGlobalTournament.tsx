@@ -8,12 +8,12 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
-import catchError from '../../utils/catchError';
 import BruteRender from '../Brute/Body/BruteRender';
 import BruteTooltip from '../Brute/BruteTooltip';
 import Link from '../Link';
 import Text from '../Text';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -105,9 +105,10 @@ const CellGlobalTournament = ({
     round: number,
     fightId: string,
     skipUpdate?: boolean
-  ) => () => {
+  ) => async () => {
     if (owner && !skipUpdate && round >= watchingRound) {
-      Server.Tournament.updateGlobalRoundWatched(currentBrute, fightId).then((d) => {
+      try {
+        const d = await Server.Tournament.updateGlobalRoundWatched(currentBrute, fightId);
         updateBrute((b) => (b ? ({
           ...b,
           globalTournamentRoundWatched: d.globalTournamentRoundWatched,
@@ -115,22 +116,27 @@ const CellGlobalTournament = ({
         }) : b));
 
         navigate(`/${currentBrute}/fight/${fightId}`);
-      }).catch(catchError(Alert));
+      } catch (error) {
+        catchError(Alert, error);
+      }
     } else {
       navigate(`/${currentBrute}/fight/${fightId}`);
     }
   };
 
   // Skip watching fights
-  const skipWatching = () => {
+  const skipWatching = async () => {
     if (owner) {
-      Server.Tournament.skipWatchingGlobal(bruteName).then(() => {
+      try {
+        await Server.Tournament.skipWatchingGlobal(bruteName);
         updateBrute((b) => (b ? ({
           ...b,
           globalTournamentRoundWatched: 999,
           globalTournamentWatchedDate: new Date(),
         }) : b));
-      }).catch(catchError(Alert));
+      } catch (error) {
+        catchError(Alert, error);
+      }
     }
   };
 

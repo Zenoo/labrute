@@ -12,8 +12,8 @@ import StyledButton from '../components/StyledButton';
 import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const HallView = () => {
   const { t } = useTranslation();

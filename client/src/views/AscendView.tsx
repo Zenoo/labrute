@@ -15,8 +15,8 @@ import FantasyButton from '../components/FantasyButton';
 import { PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { useConfirm } from '../hooks/useConfirm';
 import { useAlert } from '../hooks/useAlert';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 /**
  * AscendView component
@@ -167,13 +167,14 @@ const AscendView = () => {
       return;
     }
 
-    Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, () => {
-      Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk })
-        .then(() => {
-          goToCell(brute.name)();
-          window.location.reload();
-        })
-        .catch(catchError(Alert));
+    Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, async () => {
+      try {
+        await Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk });
+        goToCell(brute.name)();
+        window.location.reload();
+      } catch (error) {
+        catchError(Alert, error);
+      }
     });
   }, [Alert, Confirm, Server.Brute, brute,
     getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);

@@ -14,8 +14,8 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 type CalculatedBruteGetOpponentsResponse = ReturnType<
   typeof getCalculatedBrute<BrutesGetOpponentsResponse[0]>
@@ -89,7 +89,7 @@ const ArenaView = () => {
   }, []);
 
   // Search for opponents
-  const searchOpponent = useCallback(() => {
+  const searchOpponent = useCallback(async () => {
     if (!brute) return;
     if (search.length < 3) {
       Alert.open('error', t('arena.search.atLeastThreeCharacters'));
@@ -100,18 +100,21 @@ const ArenaView = () => {
       return;
     }
 
-    Server.Brute.exists(search).then((response) => {
+    try {
+      const response = await Server.Brute.exists(search);
       if (!response.exists) {
         Alert.open('error', t('arena.search.notFound'));
       } else {
         navigate(`/${bruteName || ''}/versus/${response.name}`);
       }
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   }, [Alert, Server.Brute, brute, bruteName,
     navigate, search, t]);
 
   // Go to versus page
-  const goToVersus = useCallback((opponentName: string) => () => {
+  const goToVersus = useCallback((opponentName: string) => async () => {
     if (!user || !brute || loading) return;
 
     // Skip versus page
@@ -119,32 +122,34 @@ const ArenaView = () => {
       setLoading(true);
 
       // Create the fight
-      Server.Fight.create(brute.name, opponentName)
-        .then((fight) => {
-          navigate(`/${brute.name}/fight/${fight.id}`);
+      try {
+        const fight = await Server.Fight.create(brute.name, opponentName);
+        navigate(`/${brute.name}/fight/${fight.id}`);
 
-          // Update brute data
-          updateData((data) => (data ? ({
-            ...data,
-            brutes: data.brutes.map((b) => (b.name === brute.name ? {
-              ...b,
-              fightsLeft: fight.fightsLeft,
-              xp: b.xp + fight.xpWon,
-              victories: b.victories + fight.victories,
-              lastFight: new Date(),
-            } : b)),
-          }) : null));
-
-          updateBrute((data) => (data ? ({
-            ...data,
+        // Update brute data
+        updateData((data) => (data ? ({
+          ...data,
+          brutes: data.brutes.map((b) => (b.name === brute.name ? {
+            ...b,
             fightsLeft: fight.fightsLeft,
-            xp: data.xp + fight.xpWon,
-            victories: data.victories + fight.victories,
+            xp: b.xp + fight.xpWon,
+            victories: b.victories + fight.victories,
             lastFight: new Date(),
-          }) : null));
-        })
-        .catch(catchError(Alert))
-        .finally(() => setLoading(false));
+          } : b)),
+        }) : null));
+
+        updateBrute((data) => (data ? ({
+          ...data,
+          fightsLeft: fight.fightsLeft,
+          xp: data.xp + fight.xpWon,
+          victories: data.victories + fight.victories,
+          lastFight: new Date(),
+        }) : null));
+      } catch (error) {
+        catchError(Alert, error);
+      } finally {
+        setLoading(false);
+      }
     } else {
       navigate(`/${bruteName || ''}/versus/${opponentName}`);
     }

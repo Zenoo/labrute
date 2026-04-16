@@ -17,8 +17,8 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> & {
   brutes: ReturnType<typeof getCalculatedBrute<UserGetProfileResponse['brutes'][0]>>[];

@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import catchError from '../../utils/catchError';
 import FantasyButton from '../FantasyButton';
 import StyledButton from '../StyledButton';
 import Text from '../Text';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 export interface CellTournamentProps extends PaperProps {
   language: Lang;
@@ -30,9 +30,10 @@ const CellTournament = ({
   const now = useMemo(() => dayjs.utc(), []);
   const tomorrow = useMemo(() => dayjs.utc().add(1, 'day'), []);
 
-  const registerBrute = useCallback(() => {
+  const registerBrute = useCallback(async () => {
     if (!brute) return;
-    Server.Tournament.registerDaily(brute?.name || '').then(() => {
+    try {
+      await Server.Tournament.registerDaily(brute?.name || '');
       Alert.open('success', t('bruteRegistered'));
 
       updateBrute({
@@ -51,7 +52,9 @@ const CellTournament = ({
           return b;
         }),
       }) : data));
-    }).catch(catchError(Alert));
+    } catch (error) {
+      catchError(Alert, error);
+    }
   }, [Alert, Server.Tournament, brute, t, updateBrute, updateData]);
 
   return brute && (

@@ -13,8 +13,8 @@ import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { useConfirm } from '../hooks/useConfirm';
 import { useRenderer } from '../hooks/useRenderer';
-import catchError from '../utils/catchError';
 import { useServer } from '../hooks/useServer';
+import { catchError } from '../utils/catchError';
 
 const ResetVisualsView = () => {
   const { t } = useTranslation();

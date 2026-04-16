@@ -10,10 +10,10 @@ import Page from '../../components/Page';
 import StyledInput from '../../components/StyledInput';
 import Text from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
-import catchError from '../../utils/catchError';
 import { useAlert } from '../../hooks/useAlert';
 import { ErrorType } from '../../utils/Fetch';
 import { useServer } from '../../hooks/useServer';
+import { catchError } from '../../utils/catchError';
 
 const ClanRankingView = () => {
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ const ClanRankingView = () => {
       }).then((response) => {
         setClans(response);
       }).catch((error: ErrorType) => {
-        catchError(Alert)(error);
+        catchError(Alert, error);
         setClans([]);
       });
     };
