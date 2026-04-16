@@ -38,7 +38,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   // OAuth
   const oauth = new OAuth(config, prisma);
   app.get('/api/oauth/redirect', oauth.redirect.bind(oauth));
-  app.get('/api/oauth/token', oauth.token.bind(oauth));
+  app.post('/api/oauth/token', oauth.token.bind(oauth));
 
   // Fingerprint event getter
   app.post('/api/fpe', getFingerprintEvent);

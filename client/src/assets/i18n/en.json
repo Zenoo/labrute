@@ -1630,6 +1630,7 @@
   "seeParticipants": "See participants",
   "searchForParticipant": "Search for a participant",
   "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page.",
+  "fingerprintLoading": "Generating your fingerprint...",
   "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support.",
   "deleteAccount": "Delete account",
   "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",

@@ -1,4 +1,4 @@
-import { getPredictableHeaders, TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
+import { getPredictableHeaders, TOKEN_COOKIE, USER_COOKIE, Version } from '@labrute/core';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
 
@@ -8,6 +8,8 @@ type HeadersType = {
   Authorization: string;
   'Content-Type'?: string;
   'x-fp'?: string;
+  'x-brute-version': string;
+  'x-brute-lang': string;
 };
 
 export type ErrorType = string | {
@@ -66,6 +68,8 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
       'x-csrf-token': localStorage.getItem('csrfToken') || '',
       Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
       'x-fp': getFingerprint() ?? '',
+      'x-brute-version': Version,
+      'x-brute-lang': document.documentElement.lang || 'en',
       ...getPredictableHeaders(),
     };
 

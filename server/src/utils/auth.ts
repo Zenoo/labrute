@@ -1,8 +1,9 @@
 import {
   checkPredictableHeaders,
   ExpectedError, ForbiddenError, isUuid, NotFoundError,
+  Version,
 } from '@labrute/core';
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request } from 'express';
 import { ServerState } from './ServerState.js';
@@ -15,6 +16,10 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   moderator?: boolean;
   skipFingerprintCheck?: boolean;
 }) => {
+  if (request.headers['x-brute-version'] !== Version) {
+    throw new ForbiddenError(translate('outdatedVersion', { lang: request.headers['x-brute-lang']?.toString() as Lang || Lang.en }));
+  }
+
   const { headers: { authorization, 'x-fp': fingerprint } } = request;
 
   if (!authorization) {
@@ -85,7 +90,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     const bannedIp = await ServerState.isIpBanned(prisma, ip);
 
     if (bannedIp) {
-      throw new ForbiddenError(translate('ipBanned', null));
+      throw new ForbiddenError(translate('ipBanned', user));
     }
   }
 
@@ -102,7 +107,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // Check if any of the user fingerprints are banned
   for (const userFingerprint of user.fingerprints) {
     if (await ServerState.isFingerprintBanned(prisma, userFingerprint)) {
-      throw new ForbiddenError('Fingerprint banned');
+      throw new ForbiddenError(translate('fingerprintBanned', user));
     }
   }
 
@@ -113,7 +118,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
     await banUser(prisma, user.id, 'unrecognized_fingerprint');
     DISCORD().logObject({ userId: user.id, knowns: user.fingerprints, fingerprint }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
-    throw new ForbiddenError('Unrecognized fingerprint');
+    throw new ForbiddenError(translate('banReason.unrecognized_fingerprint', user));
   }
 
   // Check expected headers
@@ -122,7 +127,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   } catch (_error) {
     await banUser(prisma, user.id, 'headers_tampering');
     DISCORD().logObject(Object.fromEntries(Object.entries(request.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
-    throw new ForbiddenError('Headers tampering detected');
+    throw new ForbiddenError(translate('banReason.headers_tampering', user));
   }
 
   if (ip && !user.ips.includes(ip)) {

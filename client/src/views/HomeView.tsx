@@ -1,4 +1,4 @@
-import { getCalculatedBrute, getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE, UsersAuthenticateResponse } from '@labrute/core';
+import { getCalculatedBrute, getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Lock, LockOpen } from '@mui/icons-material';
 import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
@@ -22,6 +22,7 @@ import { setCookie } from '../utils/cookies';
 import Fetch from '../utils/Fetch';
 import HomeMobileView from './mobile/HomeMobileView';
 import { useServer } from '../hooks/useServer';
+import { useFingerprint } from '../hooks/useFingerprint';
 
 /**
  * HomeView component
@@ -35,6 +36,7 @@ const HomeView = () => {
   const { language, setLanguage } = useLanguage();
   const { palette: { mode } } = useTheme();
   const Server = useServer();
+  const fingerprint = useFingerprint();
 
   // On login error
   useEffect(() => {
@@ -57,9 +59,12 @@ const HomeView = () => {
       url.searchParams.delete('state');
     }
 
-    if (code && !authing && !user) {
+    if (code && !authing && !user && fingerprint.eventId) {
       setAuthing(true);
-      Fetch<UsersAuthenticateResponse>('/api/oauth/token', { code }).then((response) => {
+      Server.OAuth.token({
+        code,
+        eventId: fingerprint.eventId
+      }).then((response) => {
         if (!response.user) {
           throw new Error('No user returned from OAuth token endpoint');
         }
@@ -94,7 +99,8 @@ const HomeView = () => {
         setAuthing(false);
       });
     }
-  }, [Alert, authing, setAuthing, setLanguage, t, updateData, user]);
+  }, [Alert, Server.OAuth, authing, fingerprint.eventId,
+    setAuthing, setLanguage, t, updateData, user]);
 
   // Randomized left ad
   const leftAd = useMemo(() => getRandomAd(language), [language]);

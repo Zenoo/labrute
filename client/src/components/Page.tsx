@@ -1,5 +1,5 @@
 import { Version } from '@labrute/core';
-import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Tooltip } from '@mui/material';
+import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Paper, Tooltip } from '@mui/material';
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
@@ -53,7 +53,19 @@ const Page = ({
       />
       {/* HEADER */}
       <Header url={headerUrl} />
-      {children}
+      {fingerprint.loading ? (
+        <Paper sx={{ textAlign: 'center', mt: 4 }}>
+          <Text>
+            {t('fingerprintLoading')}
+          </Text>
+        </Paper>
+      ) : fingerprint.error ? (
+        <Paper sx={{ textAlign: 'center', mt: 4 }}>
+          <Text color="error">
+            {t('fingerprintError')}
+          </Text>
+        </Paper>
+      ) : children}
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>

@@ -3,7 +3,8 @@ import { ErrorCode } from '@eternaltwin/client-node/error';
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import {
-  ExpectedError, ForbiddenError, UsersAuthenticateResponse, UserWithBrutesBodyColor, Version,
+  ExpectedError, ForbiddenError, OAuthTokenRequest,
+  UsersAuthenticateResponse, UserWithBrutesBodyColor, Version,
 } from '@labrute/core';
 import {
   InventoryItemType, Prisma, PrismaClient, UserLogType,
@@ -16,6 +17,7 @@ import { createUserLog } from '../utils/createUserLog.js';
 import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
+import { decryptFPEvent } from '../utils/fingerprint.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -50,19 +52,19 @@ export class OAuth {
   }
 
   public async token(
-    req: Request,
+    req: Request<never, never, OAuthTokenRequest>,
     res: Response<UsersAuthenticateResponse>,
   ) {
     // Disable CORS
     res.header('Access-Control-Allow-Origin', '*');
 
     try {
-      if (!req.query.code || typeof req.query.code !== 'string') {
+      if (!req.body.code || typeof req.body.code !== 'string') {
         throw new ExpectedError('Invalid code');
       }
 
       // ETwin Token
-      const token = await this.#oauthClient.getAccessToken(req.query.code);
+      const token = await this.#oauthClient.getAccessToken(req.body.code);
 
       // ETWin User
       const self = await this.#eternaltwinClient.getAuthSelf({ auth: token.accessToken });
@@ -159,6 +161,20 @@ export class OAuth {
         } else {
           throw error;
         }
+      }
+
+      // Handle new fingerprints
+      const fingerprint = decryptFPEvent(req.body.eventId);
+      if (!user.fingerprints.includes(fingerprint)) {
+        await this.#prisma.user.update({
+          where: { id: user.id },
+          data: {
+            fingerprints: {
+              push: fingerprint,
+            },
+          },
+        });
+        user.fingerprints.push(fingerprint);
       }
 
       // Check if user is banned
