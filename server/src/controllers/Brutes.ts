@@ -857,6 +857,7 @@ export const Brutes = {
         data: {
           deletedAt: new Date(),
           clanId: null,
+          favorite: false,
           // Delete join request
           wantToJoinClanId: null,
           // Remove from followed brutes

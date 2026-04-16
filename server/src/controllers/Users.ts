@@ -944,7 +944,10 @@ export const Users = {
             where: {
               deletedAt: null,
             },
-            select: { id: true },
+            select: {
+              id: true,
+              masterOfClan: { select: { id: true } },
+            },
           },
         },
       });

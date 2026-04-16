@@ -44,6 +44,7 @@ const UserAdminView = () => {
         fightSpeed: u.fightSpeed,
         backgroundMusic: u.backgroundMusic,
         dinorpgDone: u.dinorpgDone,
+        createdAt: u.createdAt,
         bannedAt: u.bannedAt,
         banReason: u.banReason,
         ips: u.ips,

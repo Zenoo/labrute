@@ -23,7 +23,12 @@ export const banUser = async (
         where: {
           deletedAt: null,
         },
-        select: { id: true },
+        select: {
+          id: true,
+          masterOfClan: {
+            select: { id: true },
+          },
+        },
       },
     },
   });
