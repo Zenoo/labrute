@@ -1630,7 +1630,7 @@
   "seeParticipants": "Teilnehmer anzeigen",
   "searchForParticipant": "Teilnehmer suchen",
   "outdatedVersion": "Du verwendest eine veraltete Version des Spiels. Bitte aktualisiere die Seite, um zur neuesten Version zu gelangen. Falls diese Nachricht weiterhin bestehen sollte, leere bitte deinen Browser-Cache und aktualisiere die Seite erneut.",
-  "fingerprintLoading": "Generating your fingerprint...",
+  "fingerprintLoading": "Digitale Signatur wird generiert...",
   "fingerprintError": "Beim Generieren deiner digitalen Signatur ist ein Fehler aufgetreten. Bitte deaktiviere den Adblocker/Tracking-Schutz für diese Seite. Es wird nur verwendet, um Bots zu verhindern – es wird keine Werbung auftauchen. Falls das Problem weiterhin besteht, kontaktiere bitte den Support.",
   "deleteAccount": "Konto löschen",
   "deleteAccountConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? All deine Brutalos und Fortschritt gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.",
