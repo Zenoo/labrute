@@ -4556,6 +4556,7 @@ export namespace Prisma {
     fightSpeed: number | null
     backgroundMusic: boolean | null
     dinorpgDone: Date | null
+    createdAt: Date | null
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean | null
@@ -4575,6 +4576,7 @@ export namespace Prisma {
     fightSpeed: number | null
     backgroundMusic: boolean | null
     dinorpgDone: Date | null
+    createdAt: Date | null
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean | null
@@ -4596,6 +4598,7 @@ export namespace Prisma {
     dinorpgDone: number
     ips: number
     fingerprints: number
+    createdAt: number
     bannedAt: number
     banReason: number
     displayVersusPage: number
@@ -4629,6 +4632,7 @@ export namespace Prisma {
     fightSpeed?: true
     backgroundMusic?: true
     dinorpgDone?: true
+    createdAt?: true
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
@@ -4648,6 +4652,7 @@ export namespace Prisma {
     fightSpeed?: true
     backgroundMusic?: true
     dinorpgDone?: true
+    createdAt?: true
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
@@ -4669,6 +4674,7 @@ export namespace Prisma {
     dinorpgDone?: true
     ips?: true
     fingerprints?: true
+    createdAt?: true
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
@@ -4777,6 +4783,7 @@ export namespace Prisma {
     dinorpgDone: Date | null
     ips: string[]
     fingerprints: string[]
+    createdAt: Date
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean
@@ -4817,6 +4824,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4849,6 +4857,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4870,6 +4879,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4891,6 +4901,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
@@ -4898,7 +4909,7 @@ export namespace Prisma {
     lastSeen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "lastSeen", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "lastSeen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -4943,6 +4954,7 @@ export namespace Prisma {
       dinorpgDone: Date | null
       ips: string[]
       fingerprints: string[]
+      createdAt: Date
       bannedAt: Date | null
       banReason: string | null
       displayVersusPage: boolean
@@ -5394,6 +5406,7 @@ export namespace Prisma {
     readonly dinorpgDone: FieldRef<"User", 'DateTime'>
     readonly ips: FieldRef<"User", 'String[]'>
     readonly fingerprints: FieldRef<"User", 'String[]'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
     readonly displayVersusPage: FieldRef<"User", 'Boolean'>
@@ -38213,6 +38226,7 @@ export namespace Prisma {
     dinorpgDone: 'dinorpgDone',
     ips: 'ips',
     fingerprints: 'fingerprints',
+    createdAt: 'createdAt',
     bannedAt: 'bannedAt',
     banReason: 'banReason',
     displayVersusPage: 'displayVersusPage',
@@ -39034,6 +39048,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
@@ -39065,6 +39080,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrderInput | SortOrder
     ips?: SortOrder
     fingerprints?: SortOrder
+    createdAt?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
@@ -39099,6 +39115,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
@@ -39130,6 +39147,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrderInput | SortOrder
     ips?: SortOrder
     fingerprints?: SortOrder
+    createdAt?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
@@ -39159,6 +39177,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
     displayVersusPage?: BoolWithAggregatesFilter<"User"> | boolean
@@ -41305,6 +41324,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -41336,6 +41356,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -41367,6 +41388,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -41398,6 +41420,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -41429,6 +41452,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -41450,6 +41474,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -41471,6 +41496,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -43794,6 +43820,17 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -43807,17 +43844,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type BruteListRelationFilter = {
@@ -43919,6 +43945,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrder
     ips?: SortOrder
     fingerprints?: SortOrder
+    createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
@@ -43944,6 +43971,7 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrder
+    createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
@@ -43963,6 +43991,7 @@ export namespace Prisma {
     fightSpeed?: SortOrder
     backgroundMusic?: SortOrder
     dinorpgDone?: SortOrder
+    createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
@@ -44057,6 +44086,20 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -44073,20 +44116,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type EnumUserLogTypeFilter<$PrismaModel = never> = {
@@ -46046,12 +46075,12 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type BruteUpdateManyWithoutUserNestedInput = {
@@ -48924,6 +48953,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -48936,17 +48976,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -49050,6 +49079,20 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -49065,20 +49108,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumUserLogTypeFilter<$PrismaModel = never> = {
@@ -50381,6 +50410,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -50411,6 +50441,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -50626,6 +50657,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -50656,6 +50688,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -50861,6 +50894,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -50891,6 +50925,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -52168,6 +52203,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -52198,6 +52234,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -52377,6 +52414,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -52407,6 +52445,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -53166,6 +53205,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
@@ -54053,6 +54093,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -54083,6 +54124,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56192,6 +56234,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56222,6 +56265,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56268,6 +56312,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -56298,6 +56343,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -56841,6 +56887,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -56871,6 +56918,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -57092,6 +57140,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -57122,6 +57171,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -57321,6 +57371,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -57351,6 +57402,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -57386,6 +57438,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -57416,6 +57469,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -57653,6 +57707,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -57683,6 +57738,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -61038,6 +61094,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -61068,6 +61125,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -61289,6 +61347,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -61319,6 +61378,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -61935,6 +61995,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -61965,6 +62026,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
@@ -62011,6 +62073,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -62041,6 +62104,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64168,6 +64232,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64198,6 +64263,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64228,6 +64294,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64405,6 +64472,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64435,6 +64503,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64465,6 +64534,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64838,6 +64908,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64868,6 +64939,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
@@ -64898,6 +64970,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean

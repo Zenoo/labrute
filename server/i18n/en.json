@@ -32,6 +32,7 @@
   "notEnoughXP": "Not enough XP",
   "destinyChoiceNotFound": "Destiny choice not found",
   "slowDown": "Wooow, slow your clicks down!",
+  "cannotDeleteSameDay": "You cannot delete your account the day of creation",
   "cannotSacrificeSameDay": "You cannot sacrifice your brute the day of creation",
   "cannotSacrificeClanMaster": "You cannot sacrifice the master of a clan",
   "missingName": "Missing name",

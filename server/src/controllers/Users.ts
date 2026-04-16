@@ -939,6 +939,7 @@ export const Users = {
         where: { id: authed.id },
         select: {
           id: true,
+          createdAt: true,
           brutes: {
             where: {
               deletedAt: null,
@@ -950,6 +951,11 @@ export const Users = {
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound', authed));
+      }
+
+      // Prevent deleting the day of creation
+      if (dayjs.utc().isSame(dayjs.utc(user.createdAt), 'day')) {
+        throw new ForbiddenError(translate('cannotDeleteSameDay', authed));
       }
 
       await deleteUserBrutes(prisma, user);

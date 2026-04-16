@@ -36,6 +36,7 @@ model User {
   dinorpgDone            DateTime?        @db.Date
   ips                    String[]         @default([])
   fingerprints           String[]         @default([])
+  createdAt              DateTime         @default(now()) @db.Date
   bannedAt               DateTime?        @db.Date
   banReason              String?
   displayVersusPage      Boolean          @default(true)

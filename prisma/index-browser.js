@@ -134,6 +134,7 @@ exports.Prisma.UserScalarFieldEnum = {
   dinorpgDone: 'dinorpgDone',
   ips: 'ips',
   fingerprints: 'fingerprints',
+  createdAt: 'createdAt',
   bannedAt: 'bannedAt',
   banReason: 'banReason',
   displayVersusPage: 'displayVersusPage',
