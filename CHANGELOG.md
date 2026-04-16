@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.87.0](https://github.com/Zenoo/labrute/compare/labrute-v2.86.12...labrute-v2.87.0) (2026-04-16)
+
+
+### Features
+
+* add account creation date and prevent same-day deletion ([69c76f3](https://github.com/Zenoo/labrute/commit/69c76f323cc2c4cc2357f144185339fcf9bf6406))
+* Enhance clan management during brute deletion on ban ([8737ecd](https://github.com/Zenoo/labrute/commit/8737ecd1cb2b8d58ee2402d5395051dbf7f252b7))
+* enhance fingerprint handling and add OAuth token fingerprint support ([f2ba6e7](https://github.com/Zenoo/labrute/commit/f2ba6e72887cf8d4ecc39de4b83f8be48de46eb4))
+
+
+### Bug Fixes
+
+* Avoid await ... .catch() pattern ([a64dca2](https://github.com/Zenoo/labrute/commit/a64dca26ad744fa096ea264bd2c3ad054e652309))
+
 ## [2.86.12](https://github.com/Zenoo/labrute/compare/labrute-v2.86.11...labrute-v2.86.12) (2026-04-14)
 
 
