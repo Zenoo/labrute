@@ -32,6 +32,7 @@
   "notEnoughXP": "No tienes suficiente XP",
   "destinyChoiceNotFound": "Opción del destino no encontrada",
   "slowDown": "¡Eeeeh, no tan rápido!",
+  "cannotDeleteSameDay": "You cannot delete your account the day of creation",
   "cannotSacrificeSameDay": "No puedes sacrificar tu bruto el día que ha sido creado",
   "cannotSacrificeClanMaster": "No puedes sacrificar al maestro de un clan",
   "missingName": "Falta el nombre",
@@ -115,6 +116,7 @@
   "banReason.multipleAccounts": "Múltiples cuentas",
   "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
   "banReason.headers_tampering": "Headers tampering detected",
+  "fingerprintBanned": "This fingerprint is banned",
   "ipBanned": "Tu IP está baneada",
   "fightNotFound": "Pelea no encontrada",
   "favoriteLimit": "Has alcanzado tu límite de peleas favoritas",
@@ -128,5 +130,6 @@
   "eventAlreadyStarted": "El evento ya está en curso",
   "eventMaxLevelReached": "Has alcanzado el nivel máximo para este evento",
   "reportAlreadyHandled": "Reporte ya manejado",
-  "cantFightBeforeLevelingUp": "No puedes combatir hasta que subas de nivel"
+  "cantFightBeforeLevelingUp": "No puedes combatir hasta que subas de nivel",
+  "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page."
 }

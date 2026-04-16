@@ -32,6 +32,7 @@
   "notEnoughXP": "Nicht genug EP",
   "destinyChoiceNotFound": "Auswahl im Schicksal nicht gefunden",
   "slowDown": "Wooow, immer langsam mit dem Klicken!",
+  "cannotDeleteSameDay": "You cannot delete your account the day of creation",
   "cannotSacrificeSameDay": "Du kannst deinen Brutalo nicht am Tag seiner Erstellung opfern",
   "cannotSacrificeClanMaster": "Der Klanführer kann nicht geopfert werden",
   "missingName": "Name fehlt",
@@ -115,6 +116,7 @@
   "banReason.multipleAccounts": "Mehrere Accounts",
   "banReason.unrecognized_fingerprint": "Digitale Signatur nicht erkannt",
   "banReason.headers_tampering": "Header-Manipulation festgestellt",
+  "fingerprintBanned": "This fingerprint is banned",
   "ipBanned": "Deine IP ist gebannt",
   "fightNotFound": "Kampf nicht gefunden",
   "favoriteLimit": "Du hast das Maximum an Favorit-Kämpfen erreicht",
@@ -128,5 +130,6 @@
   "eventAlreadyStarted": "Ereignis bereits begonnen",
   "eventMaxLevelReached": "Du hast für dieses Ereignis die maximale Stufe erreicht",
   "reportAlreadyHandled": "Meldung bereits bearbeitet",
-  "cantFightBeforeLevelingUp": "Du kannst nicht kämpfen, ehe du eine Stufe aufsteigst"
+  "cantFightBeforeLevelingUp": "Du kannst nicht kämpfen, ehe du eine Stufe aufsteigst",
+  "outdatedVersion": "You are using an outdated version of the game. Please refresh the page to get the latest version. If you keep seeing this message, please clear your cache and refresh the page."
 }
