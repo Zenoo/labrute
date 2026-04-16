@@ -65,10 +65,13 @@ export function main(cx: ServerContext) {
 
   app.use(csrfErrorSilencer);
 
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({
+    limit: '1mb',
+  }));
   app.use(
     bodyParser.urlencoded({
       extended: true,
+      limit: '1mb',
     }),
   );
   app.use(lockMiddleware);
