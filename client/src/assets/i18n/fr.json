@@ -1630,6 +1630,7 @@
   "seeParticipants": "Voir les participants",
   "searchForParticipant": "Rechercher un participant",
   "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page.",
+  "fingerprintLoading": "Generating your fingerprint...",
   "fingerprintError": "Une erreur s'est produite lors de la génération de votre empreinte digitale. Veuillez désactiver votre bloqueur de publicité/protection de suivi pour ce site. Elle est utilisée uniquement pour empêcher les robots, vous ne verrez aucune publicité. Si le problème persiste, veuillez contacter le support.",
   "deleteAccount": "Supprimer le compte",
   "deleteAccountConfirm": "Êtes-vous sûr de vouloir supprimer votre compte ? Toutes vos brutes et progression seront perdues. Cette action est irréversible.",
