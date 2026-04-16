@@ -24,6 +24,12 @@ SET "masterId" = (
 WHERE "masterId" IS NULL;
 
 -- Delete empty clans
+WITH empty_clans AS (
+  SELECT "id", ROW_NUMBER() OVER () AS rn
+  FROM "Clan"
+  WHERE "masterId" IS NULL
+)
 UPDATE "Clan"
-SET "deletedAt" = CURRENT_TIMESTAMP
-WHERE "masterId" IS NULL;
+SET "deletedAt" = NOW() + (empty_clans.rn || ' seconds')::interval
+FROM empty_clans
+WHERE "Clan"."id" = empty_clans."id";
