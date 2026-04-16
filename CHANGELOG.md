@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.87.2](https://github.com/Zenoo/labrute/compare/labrute-v2.87.1...labrute-v2.87.2) (2026-04-16)
+
+
+### Bug Fixes
+
+* Update migration to set deletedAt timestamp for empty clans with interval ([ff51e23](https://github.com/Zenoo/labrute/commit/ff51e23b935a880e0cb20c5aa211a8a743979e1f))
+
 ## [2.87.1](https://github.com/Zenoo/labrute/compare/labrute-v2.87.0...labrute-v2.87.1) (2026-04-16)
 
 
