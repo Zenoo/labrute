@@ -24,5 +24,6 @@ SET "masterId" = (
 WHERE "masterId" IS NULL;
 
 -- Delete empty clans
-DELETE FROM "Clan"
+UPDATE "Clan"
+SET "deletedAt" = CURRENT_TIMESTAMP
 WHERE "masterId" IS NULL;

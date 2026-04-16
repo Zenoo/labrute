@@ -63,8 +63,11 @@ export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'i
         });
       } else {
         // If no other brute is available, delete the clan
-        await prisma.clan.delete({
+        await prisma.clan.update({
           where: { id: brute.masterOfClan.id },
+          data: {
+            deletedAt: new Date(),
+          },
         });
       }
     }
