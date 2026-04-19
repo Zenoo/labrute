@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.87.3](https://github.com/Zenoo/labrute/compare/labrute-v2.87.2...labrute-v2.87.3) (2026-04-19)
+
+
+### Bug Fixes
+
+* Prevent page reload on login ([b49d6ac](https://github.com/Zenoo/labrute/commit/b49d6ac23e06fa14c171373bf9bbcaf0b8a450e2))
+
 ## [2.87.2](https://github.com/Zenoo/labrute/compare/labrute-v2.87.1...labrute-v2.87.2) (2026-04-16)
 
 
