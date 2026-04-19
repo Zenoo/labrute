@@ -49,58 +49,70 @@ const HomeView = () => {
 
   // On login success
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const code = url.searchParams.get('code');
+    const cleanUrl = new URL(window.location.href);
+    const code = cleanUrl.searchParams.get('code');
 
-    // Default URL to website root, clear all OAuth search params.
-    if (url.pathname === '/oauth/callback') {
-      url.pathname = '/';
-      url.searchParams.delete('code');
-      url.searchParams.delete('state');
+    // Prepare new URL without code/state
+    if (cleanUrl.pathname === '/oauth/callback') {
+      cleanUrl.searchParams.delete('code');
+      cleanUrl.searchParams.delete('state');
     }
 
-    if (code && !authing && !user && fingerprint.eventId) {
-      setAuthing(true);
-      Server.OAuth.token({
-        code,
-        eventId: fingerprint.eventId
-      }).then((response) => {
-        if (!response.user) {
-          throw new Error('No user returned from OAuth token endpoint');
-        }
+    const cleanUrlSearch = cleanUrl.searchParams.toString() ? `?${cleanUrl.searchParams.toString()}` : '';
 
-        // Update language
-        setLanguage(response.user.lang);
-
-        const loggedInUser: LoggedInUser = {
-          ...response.user,
-          brutes: response.user.brutes
-            .map((brute) => getCalculatedBrute(brute, response.modifiers)),
-        };
-
-        updateData(loggedInUser);
-
-        // Save user data in cookies
-        setCookie(USER_COOKIE, response.user.id, 7);
-        setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
-        Alert.open('success', t('loginSuccess'));
-
-        // Redirect to first brute if exists
-        if (loggedInUser.brutes.length) {
-          url.pathname = `/${loggedInUser.brutes[0]?.name}/cell`;
-          // force refresh
-          window.location.href = url.toString();
-        } else {
-          window.location.href = '/';
-        }
-        window.history.replaceState({}, '', url.toString());
-      }).catch(catchError(Alert)).finally(() => {
-        window.history.replaceState({}, '', url.toString());
-        setAuthing(false);
-      });
+    if (!code || authing || user || !fingerprint.eventId) {
+      return;
     }
+
+    setAuthing(true);
+    Server.OAuth.token({
+      code,
+      eventId: fingerprint.eventId
+    }).then((response) => {
+      if (!response.user) {
+        throw new Error('No user returned from OAuth token endpoint');
+      }
+
+      // Update language
+      setLanguage(response.user.lang);
+
+      const loggedInUser: LoggedInUser = {
+        ...response.user,
+        brutes: response.user.brutes
+          .map((brute) => getCalculatedBrute(brute, response.modifiers)),
+      };
+
+      updateData(loggedInUser);
+
+      // Save user data in cookies
+      setCookie(USER_COOKIE, response.user.id, 7);
+      setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
+      Alert.open('success', t('loginSuccess'));
+
+      // Redirect to first brute if exists, else home, using navigate (no reload)
+      if (loggedInUser.brutes.length) {
+        const brutePath = `/${loggedInUser.brutes[0]?.name}/cell`;
+        navigate({
+          pathname: brutePath,
+          search: cleanUrlSearch,
+        }, { replace: true });
+      } else {
+        navigate({
+          pathname: '/',
+          search: cleanUrlSearch,
+        }, { replace: true });
+      }
+    }).catch((error) => {
+      catchError(Alert, error);
+      navigate({
+        pathname: cleanUrl.pathname,
+        search: cleanUrlSearch,
+      }, { replace: true });
+    }).finally(() => {
+      setAuthing(false);
+    });
   }, [Alert, Server.OAuth, authing, fingerprint.eventId,
-    setAuthing, setLanguage, t, updateData, user]);
+    setAuthing, setLanguage, t, updateData, user, navigate]);
 
   // Randomized left ad
   const leftAd = useMemo(() => getRandomAd(language), [language]);
