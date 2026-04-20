@@ -7,29 +7,45 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.83.10',
-  date: '2025-11-19',
+  version: '2.88.0',
+  date: '2026-04-20',
   features: [
-    'Tiered perks: Each perk (weapon/skill/pet) can now be unlocked up to 3 times, increasing their stats. Things will be unbalanced for a while, but I will adjust the perks over time. Immortality III anyone?',
-    'Chaos mode: Every sunday, a unique modifier will now trigger, randomizing all stats for the day. Have fun!',
-    'Brutes who can rank up are now separated in an "unlimited" global tournament',
-    'Fast Metabolism rework: Your brute now regenerates 1% of their health at the end of each turn. At 50% HP, they can regenerate up to 10 times 5% HP if they don\'t take damage.',
-    'Backup rework: The brute with the backup skill now calls a lower level brute to help them in the fight. Not the other way around.',
+    'User fingerprinting: A fingerprint is now generated for each user, and is required to access and play the game. This should help prevent bots from ruining the game for everyone else. If you are having issues with the fingerprinting, please open an issue on Discord.',
+    'You can now delete your account by clicking on the button on your profile. (Can only be done a day after creating the account)',
+    'You can now transfer a single brute from an account to another. You need to have logged in to both accounts on the same device for it to work.',
+    'We are moving along the plan to disallow multiple accounts for a single user with all those changes. Very soon, users with multiple accounts will be banned on sight. To prevent that, please transfer the brutes you want to keep to a single account, and delete the other accounts. If you have been banned by mistake, please open an issue on Discord.',
   ],
   fixes: [
-    'Security fixes, again :D',
-    'Replace endurance by HP everywhere it wasn\'t already done',
-    'Bodybuilder: Damage now only applies with the correct weapon type',
-    'Notification when the user game version is outdated',
-    'End-of-fight poison damage greatly increased to prevent infinite fights',
-    'Skill boosters applied correctly on ascension',
-    'Initiative taken into account when choosing which brute\'s spy activates first',
-    'Use correct stat perk instead of a random one when ascending with your first perk'
+    'Many fixes related to tiered perks',
+    'Prevent infinite fights with high deflection chances and low damage',
+    'Chaos day now only happens the first day of the month',
+    'Report button hidden for your own brutes'
   ],
-  attachments: ['tiers.png', 'chaos.png'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.83.10',
+    date: '2025-11-19',
+    features: [
+      'Tiered perks: Each perk (weapon/skill/pet) can now be unlocked up to 3 times, increasing their stats. Things will be unbalanced for a while, but I will adjust the perks over time. Immortality III anyone?',
+      'Chaos mode: Every sunday, a unique modifier will now trigger, randomizing all stats for the day. Have fun!',
+      'Brutes who can rank up are now separated in an "unlimited" global tournament',
+      'Fast Metabolism rework: Your brute now regenerates 1% of their health at the end of each turn. At 50% HP, they can regenerate up to 10 times 5% HP if they don\'t take damage.',
+      'Backup rework: The brute with the backup skill now calls a lower level brute to help them in the fight. Not the other way around.',
+    ],
+    fixes: [
+      'Security fixes, again :D',
+      'Replace endurance by HP everywhere it wasn\'t already done',
+      'Bodybuilder: Damage now only applies with the correct weapon type',
+      'Notification when the user game version is outdated',
+      'End-of-fight poison damage greatly increased to prevent infinite fights',
+      'Skill boosters applied correctly on ascension',
+      'Initiative taken into account when choosing which brute\'s spy activates first',
+      'Use correct stat perk instead of a random one when ascending with your first perk'
+    ],
+    attachments: ['tiers.png', 'chaos.png'],
+  },
   {
     version: '2.79.1',
     date: '2025-01-21',
