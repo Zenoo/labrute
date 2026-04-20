@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.88.0](https://github.com/Zenoo/labrute/compare/labrute-v2.87.3...labrute-v2.88.0) (2026-04-20)
+
+
+### Features
+
+* Brute transfer between same user accounts ([b6c49be](https://github.com/Zenoo/labrute/commit/b6c49bef146f1bfad5c736add2b933887f3814e3))
+
+
+### Bug Fixes
+
+* Release notes ([6190d6c](https://github.com/Zenoo/labrute/commit/6190d6cdfd885e55c99fe68d9ee2a9d8dbfbb8ff))
+
 ## [2.87.3](https://github.com/Zenoo/labrute/compare/labrute-v2.87.2...labrute-v2.87.3) (2026-04-19)
 
 
