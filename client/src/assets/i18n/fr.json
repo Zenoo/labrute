@@ -1635,9 +1635,9 @@
   "deleteAccount": "Supprimer le compte",
   "deleteAccountConfirm": "Êtes-vous sûr de vouloir supprimer votre compte ? Toutes vos brutes et progression seront perdues. Cette action est irréversible.",
   "accountDeleted": "Votre compte a été supprimé",
-  "transferBrute": "Transfer brute",
-  "bruteTransfer": "Brute transfer",
-  "transfer": "Transfer",
-  "bruteTransferred": "Brute transferred",
-  "confirmBruteTransfer": "Are you sure you want to transfer {{bruteName}}? You will lose access to this brute and all its progress. This action is irreversible."
+  "transferBrute": "Transférer une brute",
+  "bruteTransfer": "Transfert de brute",
+  "transfer": "Transférer",
+  "bruteTransferred": "Brute transférée",
+  "confirmBruteTransfer": "Êtes-vous sûr de vouloir transférer {{bruteName}}? Vous perdrez l'accès à cette brute et à toute sa progression. Cette action est irréversible."
 }
