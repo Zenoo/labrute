@@ -1634,5 +1634,10 @@
   "fingerprintError": "An error occurred while generating your fingerprint. Please disable your adblocker/tracking protection for this site. It is only used to prevent bots, you won't see any ads. If the problem persists, please contact support.",
   "deleteAccount": "Delete account",
   "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
-  "accountDeleted": "Your account has been deleted"
+  "accountDeleted": "Your account has been deleted",
+  "transferBrute": "Transfer brute",
+  "bruteTransfer": "Brute transfer",
+  "transfer": "Transfer",
+  "bruteTransferred": "Brute transferred",
+  "confirmBruteTransfer": "Are you sure you want to transfer {{bruteName}}? You will lose access to this brute and all its progress. This action is irreversible."
 }
