@@ -3,6 +3,7 @@ import { ErrorCode } from '@eternaltwin/client-node/error';
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import {
+  checkPredictableHeaders,
   ExpectedError, ForbiddenError, OAuthTokenRequest,
   UsersAuthenticateResponse, UserWithBrutesBodyColor, Version,
 } from '@labrute/core';
@@ -18,6 +19,8 @@ import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
+import { banUser } from '../utils/user/banUser.js';
+import { DISCORD } from '../context.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -84,6 +87,11 @@ export class OAuth {
         if (bannedIp) {
           throw new ForbiddenError(translate('ipBanned', null));
         }
+      }
+
+      const fingerprint = decryptFPEvent(req.body.eventId);
+      if (await ServerState.isFingerprintBanned(this.#prisma, fingerprint)) {
+        throw new ForbiddenError(translate('fingerprintBanned'));
       }
 
       // Update or store user
@@ -164,7 +172,6 @@ export class OAuth {
       }
 
       // Handle new fingerprints
-      const fingerprint = decryptFPEvent(req.body.eventId);
       if (!user.fingerprints.includes(fingerprint)) {
         await this.#prisma.user.update({
           where: { id: user.id },
@@ -193,6 +200,22 @@ export class OAuth {
         } else {
           throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
         }
+      }
+
+      // Check if any of the user fingerprints are banned
+      for (const userFingerprint of user.fingerprints) {
+        if (await ServerState.isFingerprintBanned(this.#prisma, userFingerprint)) {
+          throw new ForbiddenError(translate('fingerprintBanned', user));
+        }
+      }
+
+      // Check expected headers
+      try {
+        checkPredictableHeaders(req.headers);
+      } catch (_error) {
+        await banUser(this.#prisma, user.id, 'headers_tampering');
+        DISCORD().logObject(Object.fromEntries(Object.entries(req.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
+        throw new ForbiddenError(translate('banReason.headers_tampering', user));
       }
 
       // Connect log
