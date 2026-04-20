@@ -131,5 +131,8 @@
   "eventMaxLevelReached": "Вы достигли максимальный уровень в этом мероприятии",
   "reportAlreadyHandled": "Жалоба уже обработана",
   "cantFightBeforeLevelingUp": "Вы не можете сражаться до повышения уровня",
-  "outdatedVersion": "Вы используете устаревшую версию игры. Пожалуйста, обновите страницу, чтобы выйти на текущую версию. Если это сообщение вновь будет появляться, очистите кэш браузера и обновите страницу."
+  "outdatedVersion": "Вы используете устаревшую версию игры. Пожалуйста, обновите страницу, чтобы выйти на текущую версию. Если это сообщение вновь будет появляться, очистите кэш браузера и обновите страницу.",
+  "transferLimitReached": "You have reached your transfer limit.",
+  "targetUserBruteLimitReached": "The target user has reached their brute limit. They need to have a free slot to be able to receive a brute.",
+  "targetUserWithoutSharedFingerprint": "The target user doesn't have a shared fingerprint. You need to log in with both accounts on the same device at least once to be able to transfer a brute between them."
 }
