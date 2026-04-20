@@ -58,14 +58,6 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     lastSeen: true,
   };
 
-  if (options?.admin) {
-    toSelect.admin = true;
-  }
-
-  if (options?.moderator) {
-    toSelect.moderator = true;
-  }
-
   const user = await prisma.user.findFirst({
     where: {
       id,
