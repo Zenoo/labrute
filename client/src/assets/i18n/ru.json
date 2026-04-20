@@ -1634,5 +1634,10 @@
   "fingerprintError": "Произошла ошибка при создании цифрового отпечатка. Пожалуйста, отключите блокировку рекламы/отслеживание для этого сайта. Они используются только для предотвращения ботов — реклама появляться не станет. Если проблема повторится, обратитесь в поддержку.",
   "deleteAccount": "Удалить учётную запись",
   "deleteAccountConfirm": "Вы уверены, что хотите удалить свою учетную запись? Все ваши Бруталы и прогресс будут утеряны. Это действие необратимо.",
-  "accountDeleted": "Ваша учетная запись была удалена"
+  "accountDeleted": "Ваша учетная запись была удалена",
+  "transferBrute": "Transfer brute",
+  "bruteTransfer": "Brute transfer",
+  "transfer": "Transfer",
+  "bruteTransferred": "Brute transferred",
+  "confirmBruteTransfer": "Are you sure you want to transfer {{bruteName}}? You will lose access to this brute and all its progress. This action is irreversible."
 }

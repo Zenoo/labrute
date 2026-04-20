@@ -1634,5 +1634,10 @@
   "fingerprintError": "Une erreur s'est produite lors de la génération de votre empreinte digitale. Veuillez désactiver votre bloqueur de publicité/protection de suivi pour ce site. Elle est utilisée uniquement pour empêcher les robots, vous ne verrez aucune publicité. Si le problème persiste, veuillez contacter le support.",
   "deleteAccount": "Supprimer le compte",
   "deleteAccountConfirm": "Êtes-vous sûr de vouloir supprimer votre compte ? Toutes vos brutes et progression seront perdues. Cette action est irréversible.",
-  "accountDeleted": "Votre compte a été supprimé"
+  "accountDeleted": "Votre compte a été supprimé",
+  "transferBrute": "Transférer une brute",
+  "bruteTransfer": "Transfert de brute",
+  "transfer": "Transférer",
+  "bruteTransferred": "Brute transférée",
+  "confirmBruteTransfer": "Êtes-vous sûr de vouloir transférer {{bruteName}}? Vous perdrez l'accès à cette brute et à toute sa progression. Cette action est irréversible."
 }
