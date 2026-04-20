@@ -131,5 +131,8 @@
   "eventMaxLevelReached": "Vous avez atteint le niveau maximum pour cet événement",
   "reportAlreadyHandled": "Signalement déjà traité",
   "cantFightBeforeLevelingUp": "Vous ne pouvez pas vous battre avant de monter de niveau",
-  "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page."
+  "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page.",
+  "transferLimitReached": "You have reached your transfer limit.",
+  "targetUserBruteLimitReached": "The target user has reached their brute limit. They need to have a free slot to be able to receive a brute.",
+  "targetUserWithoutSharedFingerprint": "The target user doesn't have a shared fingerprint. You need to log in with both accounts on the same device at least once to be able to transfer a brute between them."
 }
