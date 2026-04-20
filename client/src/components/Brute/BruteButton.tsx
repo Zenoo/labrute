@@ -21,12 +21,14 @@ type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   displayDetails?: false;
   owner?: Pick<User, 'lastSeen'>;
   shiftMargin?: boolean;
+  selected?: boolean;
 } | {
   brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
   owner?: Pick<User, 'lastSeen'>;
   shiftMargin?: boolean;
+  selected?: boolean;
 });
 
 const BruteButton = ({
@@ -35,6 +37,7 @@ const BruteButton = ({
   displayDetails,
   owner,
   shiftMargin = false,
+  selected = false,
   sx,
   ...rest
 }: BruteButtonProps) => {
@@ -198,6 +201,11 @@ const BruteButton = ({
           <BruteRender
             brute={brute}
             looking="left"
+            sx={{
+              filter: selected
+                ? 'drop-shadow(0 0 2px rgb(255, 0, 255))'
+                : undefined,
+            }}
           />
         </Box>
       </Box>

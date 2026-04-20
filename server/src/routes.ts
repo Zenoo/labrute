@@ -66,6 +66,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.put('/api/user/settings', Users.updateSettings(prisma));
   app.patch('/api/user/disconnect', Users.disconnect(prisma));
   app.delete('/api/user', Users.deleteAccount(prisma));
+  app.patch('/api/user/transfer-brute', Users.transferBrute(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

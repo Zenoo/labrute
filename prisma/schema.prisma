@@ -41,6 +41,7 @@ model User {
   banReason              String?
   displayVersusPage      Boolean          @default(true)
   displayOpponentDetails Boolean          @default(false)
+  transferedBrutesCount  Int              @default(0)
   lastSeen               DateTime         @default(now()) @db.Date
   brutes                 Brute[]
   achievements           Achievement[]
@@ -62,20 +63,22 @@ enum UserLogType {
   CREATE_BRUTE
   RENAME_BRUTE
   SACRIFICE_BRUTE
+  TRANSFER_BRUTE
   BANNED
   DELETED
 }
 
 model UserLog {
-  id      String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date    DateTime    @default(now()) @db.Timestamp()
-  user    User        @relation(fields: [userId], references: [id])
-  userId  String      @db.Uuid
-  type    UserLogType
-  brute   Brute?      @relation(fields: [bruteId], references: [id])
-  bruteId String?     @db.Uuid
-  gold    Int?
-  oldName String?
+  id           String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date         DateTime    @default(now()) @db.Timestamp()
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String      @db.Uuid
+  type         UserLogType
+  brute        Brute?      @relation(fields: [bruteId], references: [id])
+  bruteId      String?     @db.Uuid
+  gold         Int?
+  oldName      String?
+  targetUserId String?     @db.Uuid
 
   @@index([userId, date])
   @@index([bruteId])

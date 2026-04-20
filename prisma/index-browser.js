@@ -139,6 +139,7 @@ exports.Prisma.UserScalarFieldEnum = {
   banReason: 'banReason',
   displayVersusPage: 'displayVersusPage',
   displayOpponentDetails: 'displayOpponentDetails',
+  transferedBrutesCount: 'transferedBrutesCount',
   lastSeen: 'lastSeen'
 };
 
@@ -154,7 +155,8 @@ exports.Prisma.UserLogScalarFieldEnum = {
   type: 'type',
   bruteId: 'bruteId',
   gold: 'gold',
-  oldName: 'oldName'
+  oldName: 'oldName',
+  targetUserId: 'targetUserId'
 };
 
 exports.Prisma.BruteScalarFieldEnum = {
@@ -480,6 +482,7 @@ exports.UserLogType = exports.$Enums.UserLogType = {
   CREATE_BRUTE: 'CREATE_BRUTE',
   RENAME_BRUTE: 'RENAME_BRUTE',
   SACRIFICE_BRUTE: 'SACRIFICE_BRUTE',
+  TRANSFER_BRUTE: 'TRANSFER_BRUTE',
   BANNED: 'BANNED',
   DELETED: 'DELETED'
 };

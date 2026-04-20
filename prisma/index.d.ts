@@ -178,6 +178,7 @@ export const UserLogType: {
   CREATE_BRUTE: 'CREATE_BRUTE',
   RENAME_BRUTE: 'RENAME_BRUTE',
   SACRIFICE_BRUTE: 'SACRIFICE_BRUTE',
+  TRANSFER_BRUTE: 'TRANSFER_BRUTE',
   BANNED: 'BANNED',
   DELETED: 'DELETED'
 };
@@ -4536,12 +4537,14 @@ export namespace Prisma {
     bruteLimit: number | null
     gold: number | null
     fightSpeed: number | null
+    transferedBrutesCount: number | null
   }
 
   export type UserSumAggregateOutputType = {
     bruteLimit: number | null
     gold: number | null
     fightSpeed: number | null
+    transferedBrutesCount: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -4561,6 +4564,7 @@ export namespace Prisma {
     banReason: string | null
     displayVersusPage: boolean | null
     displayOpponentDetails: boolean | null
+    transferedBrutesCount: number | null
     lastSeen: Date | null
   }
 
@@ -4581,6 +4585,7 @@ export namespace Prisma {
     banReason: string | null
     displayVersusPage: boolean | null
     displayOpponentDetails: boolean | null
+    transferedBrutesCount: number | null
     lastSeen: Date | null
   }
 
@@ -4603,6 +4608,7 @@ export namespace Prisma {
     banReason: number
     displayVersusPage: number
     displayOpponentDetails: number
+    transferedBrutesCount: number
     lastSeen: number
     _all: number
   }
@@ -4612,12 +4618,14 @@ export namespace Prisma {
     bruteLimit?: true
     gold?: true
     fightSpeed?: true
+    transferedBrutesCount?: true
   }
 
   export type UserSumAggregateInputType = {
     bruteLimit?: true
     gold?: true
     fightSpeed?: true
+    transferedBrutesCount?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -4637,6 +4645,7 @@ export namespace Prisma {
     banReason?: true
     displayVersusPage?: true
     displayOpponentDetails?: true
+    transferedBrutesCount?: true
     lastSeen?: true
   }
 
@@ -4657,6 +4666,7 @@ export namespace Prisma {
     banReason?: true
     displayVersusPage?: true
     displayOpponentDetails?: true
+    transferedBrutesCount?: true
     lastSeen?: true
   }
 
@@ -4679,6 +4689,7 @@ export namespace Prisma {
     banReason?: true
     displayVersusPage?: true
     displayOpponentDetails?: true
+    transferedBrutesCount?: true
     lastSeen?: true
     _all?: true
   }
@@ -4788,6 +4799,7 @@ export namespace Prisma {
     banReason: string | null
     displayVersusPage: boolean
     displayOpponentDetails: boolean
+    transferedBrutesCount: number
     lastSeen: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -4829,6 +4841,7 @@ export namespace Prisma {
     banReason?: boolean
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: boolean
     lastSeen?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -4862,6 +4875,7 @@ export namespace Prisma {
     banReason?: boolean
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: boolean
     lastSeen?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -4884,6 +4898,7 @@ export namespace Prisma {
     banReason?: boolean
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: boolean
     lastSeen?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -4906,10 +4921,11 @@ export namespace Prisma {
     banReason?: boolean
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: boolean
     lastSeen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "lastSeen", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "lastSeen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -4959,6 +4975,7 @@ export namespace Prisma {
       banReason: string | null
       displayVersusPage: boolean
       displayOpponentDetails: boolean
+      transferedBrutesCount: number
       lastSeen: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -5411,6 +5428,7 @@ export namespace Prisma {
     readonly banReason: FieldRef<"User", 'String'>
     readonly displayVersusPage: FieldRef<"User", 'Boolean'>
     readonly displayOpponentDetails: FieldRef<"User", 'Boolean'>
+    readonly transferedBrutesCount: FieldRef<"User", 'Int'>
     readonly lastSeen: FieldRef<"User", 'DateTime'>
   }
     
@@ -6095,6 +6113,7 @@ export namespace Prisma {
     bruteId: string | null
     gold: number | null
     oldName: string | null
+    targetUserId: string | null
   }
 
   export type UserLogMaxAggregateOutputType = {
@@ -6105,6 +6124,7 @@ export namespace Prisma {
     bruteId: string | null
     gold: number | null
     oldName: string | null
+    targetUserId: string | null
   }
 
   export type UserLogCountAggregateOutputType = {
@@ -6115,6 +6135,7 @@ export namespace Prisma {
     bruteId: number
     gold: number
     oldName: number
+    targetUserId: number
     _all: number
   }
 
@@ -6135,6 +6156,7 @@ export namespace Prisma {
     bruteId?: true
     gold?: true
     oldName?: true
+    targetUserId?: true
   }
 
   export type UserLogMaxAggregateInputType = {
@@ -6145,6 +6167,7 @@ export namespace Prisma {
     bruteId?: true
     gold?: true
     oldName?: true
+    targetUserId?: true
   }
 
   export type UserLogCountAggregateInputType = {
@@ -6155,6 +6178,7 @@ export namespace Prisma {
     bruteId?: true
     gold?: true
     oldName?: true
+    targetUserId?: true
     _all?: true
   }
 
@@ -6252,6 +6276,7 @@ export namespace Prisma {
     bruteId: string | null
     gold: number | null
     oldName: string | null
+    targetUserId: string | null
     _count: UserLogCountAggregateOutputType | null
     _avg: UserLogAvgAggregateOutputType | null
     _sum: UserLogSumAggregateOutputType | null
@@ -6281,6 +6306,7 @@ export namespace Prisma {
     bruteId?: boolean
     gold?: boolean
     oldName?: boolean
+    targetUserId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     brute?: boolean | UserLog$bruteArgs<ExtArgs>
   }, ExtArgs["result"]["userLog"]>
@@ -6293,6 +6319,7 @@ export namespace Prisma {
     bruteId?: boolean
     gold?: boolean
     oldName?: boolean
+    targetUserId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     brute?: boolean | UserLog$bruteArgs<ExtArgs>
   }, ExtArgs["result"]["userLog"]>
@@ -6305,6 +6332,7 @@ export namespace Prisma {
     bruteId?: boolean
     gold?: boolean
     oldName?: boolean
+    targetUserId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     brute?: boolean | UserLog$bruteArgs<ExtArgs>
   }, ExtArgs["result"]["userLog"]>
@@ -6317,9 +6345,10 @@ export namespace Prisma {
     bruteId?: boolean
     gold?: boolean
     oldName?: boolean
+    targetUserId?: boolean
   }
 
-  export type UserLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "userId" | "type" | "bruteId" | "gold" | "oldName", ExtArgs["result"]["userLog"]>
+  export type UserLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "userId" | "type" | "bruteId" | "gold" | "oldName" | "targetUserId", ExtArgs["result"]["userLog"]>
   export type UserLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     brute?: boolean | UserLog$bruteArgs<ExtArgs>
@@ -6347,6 +6376,7 @@ export namespace Prisma {
       bruteId: string | null
       gold: number | null
       oldName: string | null
+      targetUserId: string | null
     }, ExtArgs["result"]["userLog"]>
     composites: {}
   }
@@ -6779,6 +6809,7 @@ export namespace Prisma {
     readonly bruteId: FieldRef<"UserLog", 'String'>
     readonly gold: FieldRef<"UserLog", 'Int'>
     readonly oldName: FieldRef<"UserLog", 'String'>
+    readonly targetUserId: FieldRef<"UserLog", 'String'>
   }
     
 
@@ -38231,6 +38262,7 @@ export namespace Prisma {
     banReason: 'banReason',
     displayVersusPage: 'displayVersusPage',
     displayOpponentDetails: 'displayOpponentDetails',
+    transferedBrutesCount: 'transferedBrutesCount',
     lastSeen: 'lastSeen'
   };
 
@@ -38252,7 +38284,8 @@ export namespace Prisma {
     type: 'type',
     bruteId: 'bruteId',
     gold: 'gold',
-    oldName: 'oldName'
+    oldName: 'oldName',
+    targetUserId: 'targetUserId'
   };
 
   export type UserLogScalarFieldEnum = (typeof UserLogScalarFieldEnum)[keyof typeof UserLogScalarFieldEnum]
@@ -39053,6 +39086,7 @@ export namespace Prisma {
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
+    transferedBrutesCount?: IntFilter<"User"> | number
     lastSeen?: DateTimeFilter<"User"> | Date | string
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
@@ -39085,6 +39119,7 @@ export namespace Prisma {
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
+    transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
@@ -39120,6 +39155,7 @@ export namespace Prisma {
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
+    transferedBrutesCount?: IntFilter<"User"> | number
     lastSeen?: DateTimeFilter<"User"> | Date | string
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
@@ -39152,6 +39188,7 @@ export namespace Prisma {
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
+    transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -39182,6 +39219,7 @@ export namespace Prisma {
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
     displayVersusPage?: BoolWithAggregatesFilter<"User"> | boolean
     displayOpponentDetails?: BoolWithAggregatesFilter<"User"> | boolean
+    transferedBrutesCount?: IntWithAggregatesFilter<"User"> | number
     lastSeen?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -39196,6 +39234,7 @@ export namespace Prisma {
     bruteId?: UuidNullableFilter<"UserLog"> | string | null
     gold?: IntNullableFilter<"UserLog"> | number | null
     oldName?: StringNullableFilter<"UserLog"> | string | null
+    targetUserId?: UuidNullableFilter<"UserLog"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
   }
@@ -39208,6 +39247,7 @@ export namespace Prisma {
     bruteId?: SortOrderInput | SortOrder
     gold?: SortOrderInput | SortOrder
     oldName?: SortOrderInput | SortOrder
+    targetUserId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     brute?: BruteOrderByWithRelationInput
   }
@@ -39223,6 +39263,7 @@ export namespace Prisma {
     bruteId?: UuidNullableFilter<"UserLog"> | string | null
     gold?: IntNullableFilter<"UserLog"> | number | null
     oldName?: StringNullableFilter<"UserLog"> | string | null
+    targetUserId?: UuidNullableFilter<"UserLog"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     brute?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
   }, "id" | "id">
@@ -39235,6 +39276,7 @@ export namespace Prisma {
     bruteId?: SortOrderInput | SortOrder
     gold?: SortOrderInput | SortOrder
     oldName?: SortOrderInput | SortOrder
+    targetUserId?: SortOrderInput | SortOrder
     _count?: UserLogCountOrderByAggregateInput
     _avg?: UserLogAvgOrderByAggregateInput
     _max?: UserLogMaxOrderByAggregateInput
@@ -39253,6 +39295,7 @@ export namespace Prisma {
     bruteId?: UuidNullableWithAggregatesFilter<"UserLog"> | string | null
     gold?: IntNullableWithAggregatesFilter<"UserLog"> | number | null
     oldName?: StringNullableWithAggregatesFilter<"UserLog"> | string | null
+    targetUserId?: UuidNullableWithAggregatesFilter<"UserLog"> | string | null
   }
 
   export type BruteWhereInput = {
@@ -41329,6 +41372,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -41361,6 +41405,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -41393,6 +41438,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -41425,6 +41471,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -41457,6 +41504,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
   }
 
@@ -41479,6 +41527,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -41501,6 +41550,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -41510,6 +41560,7 @@ export namespace Prisma {
     type: $Enums.UserLogType
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
     user: UserCreateNestedOneWithoutLogsInput
     brute?: BruteCreateNestedOneWithoutUserlogsInput
   }
@@ -41522,6 +41573,7 @@ export namespace Prisma {
     bruteId?: string | null
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
   }
 
   export type UserLogUpdateInput = {
@@ -41530,6 +41582,7 @@ export namespace Prisma {
     type?: EnumUserLogTypeFieldUpdateOperationsInput | $Enums.UserLogType
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutLogsNestedInput
     brute?: BruteUpdateOneWithoutUserlogsNestedInput
   }
@@ -41542,6 +41595,7 @@ export namespace Prisma {
     bruteId?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserLogCreateManyInput = {
@@ -41552,6 +41606,7 @@ export namespace Prisma {
     bruteId?: string | null
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
   }
 
   export type UserLogUpdateManyMutationInput = {
@@ -41560,6 +41615,7 @@ export namespace Prisma {
     type?: EnumUserLogTypeFieldUpdateOperationsInput | $Enums.UserLogType
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserLogUncheckedUpdateManyInput = {
@@ -41570,6 +41626,7 @@ export namespace Prisma {
     bruteId?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateInput = {
@@ -43950,6 +44007,7 @@ export namespace Prisma {
     banReason?: SortOrder
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
+    transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
   }
 
@@ -43957,6 +44015,7 @@ export namespace Prisma {
     bruteLimit?: SortOrder
     gold?: SortOrder
     fightSpeed?: SortOrder
+    transferedBrutesCount?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -43976,6 +44035,7 @@ export namespace Prisma {
     banReason?: SortOrder
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
+    transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
   }
 
@@ -43996,6 +44056,7 @@ export namespace Prisma {
     banReason?: SortOrder
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
+    transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
   }
 
@@ -44003,6 +44064,7 @@ export namespace Prisma {
     bruteLimit?: SortOrder
     gold?: SortOrder
     fightSpeed?: SortOrder
+    transferedBrutesCount?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -44166,6 +44228,7 @@ export namespace Prisma {
     bruteId?: SortOrder
     gold?: SortOrder
     oldName?: SortOrder
+    targetUserId?: SortOrder
   }
 
   export type UserLogAvgOrderByAggregateInput = {
@@ -44180,6 +44243,7 @@ export namespace Prisma {
     bruteId?: SortOrder
     gold?: SortOrder
     oldName?: SortOrder
+    targetUserId?: SortOrder
   }
 
   export type UserLogMinOrderByAggregateInput = {
@@ -44190,6 +44254,7 @@ export namespace Prisma {
     bruteId?: SortOrder
     gold?: SortOrder
     oldName?: SortOrder
+    targetUserId?: SortOrder
   }
 
   export type UserLogSumOrderByAggregateInput = {
@@ -50056,6 +50121,7 @@ export namespace Prisma {
     type: $Enums.UserLogType
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
     brute?: BruteCreateNestedOneWithoutUserlogsInput
   }
 
@@ -50066,6 +50132,7 @@ export namespace Prisma {
     bruteId?: string | null
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
   }
 
   export type UserLogCreateOrConnectWithoutUserInput = {
@@ -50394,6 +50461,7 @@ export namespace Prisma {
     bruteId?: UuidNullableFilter<"UserLog"> | string | null
     gold?: IntNullableFilter<"UserLog"> | number | null
     oldName?: StringNullableFilter<"UserLog"> | string | null
+    targetUserId?: UuidNullableFilter<"UserLog"> | string | null
   }
 
   export type UserCreateWithoutLogsInput = {
@@ -50415,6 +50483,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -50446,6 +50515,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -50662,6 +50732,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -50693,6 +50764,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -50899,6 +50971,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -50930,6 +51003,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -52208,6 +52282,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -52239,6 +52314,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -52367,6 +52443,7 @@ export namespace Prisma {
     type: $Enums.UserLogType
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
     user: UserCreateNestedOneWithoutLogsInput
   }
 
@@ -52377,6 +52454,7 @@ export namespace Prisma {
     type: $Enums.UserLogType
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
   }
 
   export type UserLogCreateOrConnectWithoutBruteInput = {
@@ -52419,6 +52497,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -52450,6 +52529,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -53210,6 +53290,7 @@ export namespace Prisma {
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
+    transferedBrutesCount?: IntFilter<"User"> | number
     lastSeen?: DateTimeFilter<"User"> | Date | string
   }
 
@@ -54098,6 +54179,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -54129,6 +54211,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -56239,6 +56322,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -56270,6 +56354,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -56317,6 +56402,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -56348,6 +56434,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -56892,6 +56979,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -56923,6 +57011,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -57145,6 +57234,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -57176,6 +57266,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -57376,6 +57467,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -57407,6 +57499,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -57443,6 +57536,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -57474,6 +57568,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -57712,6 +57807,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -57743,6 +57839,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -61099,6 +61196,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -61130,6 +61228,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -61352,6 +61451,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -61383,6 +61483,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -62000,6 +62101,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -62031,6 +62133,7 @@ export namespace Prisma {
     banReason?: string | null
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -62078,6 +62181,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -62109,6 +62213,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -62227,6 +62332,7 @@ export namespace Prisma {
     bruteId?: string | null
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -62899,6 +63005,7 @@ export namespace Prisma {
     type?: EnumUserLogTypeFieldUpdateOperationsInput | $Enums.UserLogType
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
     brute?: BruteUpdateOneWithoutUserlogsNestedInput
   }
 
@@ -62909,6 +63016,7 @@ export namespace Prisma {
     bruteId?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserLogUncheckedUpdateManyWithoutUserInput = {
@@ -62918,6 +63026,7 @@ export namespace Prisma {
     bruteId?: NullableStringFieldUpdateOperationsInput | string | null
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateManyMasterInput = {
@@ -63124,6 +63233,7 @@ export namespace Prisma {
     type: $Enums.UserLogType
     gold?: number | null
     oldName?: string | null
+    targetUserId?: string | null
   }
 
   export type BruteUpdateWithoutMasterInput = {
@@ -64237,6 +64347,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -64268,6 +64379,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -64299,6 +64411,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -64385,6 +64498,7 @@ export namespace Prisma {
     type?: EnumUserLogTypeFieldUpdateOperationsInput | $Enums.UserLogType
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutLogsNestedInput
   }
 
@@ -64395,6 +64509,7 @@ export namespace Prisma {
     type?: EnumUserLogTypeFieldUpdateOperationsInput | $Enums.UserLogType
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserLogUncheckedUpdateManyWithoutBruteInput = {
@@ -64404,6 +64519,7 @@ export namespace Prisma {
     type?: EnumUserLogTypeFieldUpdateOperationsInput | $Enums.UserLogType
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogCreateManyFightInput = {
@@ -64477,6 +64593,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -64508,6 +64625,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -64539,6 +64657,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -64913,6 +65032,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -64944,6 +65064,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -64975,6 +65096,7 @@ export namespace Prisma {
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

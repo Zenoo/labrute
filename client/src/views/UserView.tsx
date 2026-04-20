@@ -380,6 +380,18 @@ const UserView = () => {
                 </Table>
               </>
             )}
+            {/* BRUTE TRANSFER */}
+            {user.id !== authedUser?.id && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <FantasyButton
+                  to={`/user/${user.id}/transfer-brute`}
+                  color="warning"
+                  sx={{ m: 1 }}
+                >
+                  {t('transferBrute')}
+                </FantasyButton>
+              </Box>
+            )}
             {/* ACCOUNT DELETION */}
             {user.id === authedUser?.id && (
               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>

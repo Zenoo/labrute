@@ -9,6 +9,7 @@ import {
   UserBannedListResponse,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
+  UserTransferBruteRequest,
   UserUpdateSettingsRequest,
   UsersAdminUpdateRequest,
   UsersAuthenticateRequest,
@@ -978,6 +979,143 @@ export const Users = {
       });
 
       res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  transferBrute: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, UserTransferBruteRequest>,
+    res: Response,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const { bruteId, targetUserId } = req.body;
+
+      if (!isUuid(bruteId) || !isUuid(targetUserId)) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      if (targetUserId === authed.id) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      const brute = await prisma.brute.findFirst({
+        where: {
+          id: bruteId,
+          userId: authed.id,
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+
+      if (!brute) {
+        throw new NotFoundError(translate('bruteNotFound', authed));
+      }
+
+      const user = await prisma.user.findFirst({
+        where: { id: authed.id },
+        select: {
+          transferedBrutesCount: true,
+          fingerprints: true,
+        },
+      });
+
+      if (!user) {
+        throw new NotFoundError(translate('userNotFound', authed));
+      }
+
+      if (user.transferedBrutesCount >= 1) {
+        throw new LimitError(translate('transferLimitReached', authed));
+      }
+
+      const targetUser = await prisma.user.findFirst({
+        where: {
+          id: targetUserId,
+          bannedAt: null,
+        },
+        select: {
+          id: true,
+          name: true,
+          bruteLimit: true,
+          fingerprints: true,
+          brutes: {
+            where: {
+              deletedAt: null,
+            },
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      if (!targetUser) {
+        throw new NotFoundError(translate('targetUserNotFound', authed));
+      }
+
+      if (!targetUser.fingerprints.some((fp) => user.fingerprints.includes(fp))) {
+        throw new ForbiddenError(translate('targetUserWithoutSharedFingerprint', authed));
+      }
+
+      if (targetUser.brutes.length >= targetUser.bruteLimit) {
+        throw new LimitError(translate('targetUserBruteLimitReached', authed));
+      }
+
+      // Transfer brute
+      await prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          userId: targetUser.id,
+          favorite: false,
+        },
+      });
+
+      // Transfer achievements related to the brute
+      await prisma.achievement.updateMany({
+        where: {
+          userId: authed.id,
+          bruteId: brute.id,
+        },
+        data: {
+          userId: targetUser.id,
+        },
+      });
+
+      // Transfer inventory items related to the brute
+      await prisma.inventoryItem.updateMany({
+        where: {
+          userId: authed.id,
+          bruteId: brute.id,
+        },
+        data: {
+          userId: targetUser.id,
+        },
+      });
+
+      // Increment transfer count
+      await prisma.user.update({
+        where: { id: authed.id },
+        data: {
+          transferedBrutesCount: {
+            increment: 1,
+          },
+        },
+      });
+
+      createUserLog(prisma, {
+        type: UserLogType.TRANSFER_BRUTE,
+        userId: authed.id,
+        bruteId: brute.id,
+        targetUserId: targetUser.id,
+      });
+
+      res.send({
+        success: true,
+      });
     } catch (error) {
       sendError(res, error);
     }

@@ -52,6 +52,7 @@ const UserAdminView = () => {
         displayVersusPage: u.displayVersusPage,
         displayOpponentDetails: u.displayOpponentDetails,
         lastSeen: u.lastSeen,
+        transferedBrutesCount: u.transferedBrutesCount,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference

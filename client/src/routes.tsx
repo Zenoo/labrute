@@ -51,6 +51,7 @@ import { ClanAdminView } from './views/admin/ClanAdminView';
 import { CurrentEventsView } from './views/event/CurrentEventsView';
 import { EventRoundView } from './views/event/EventRoundView';
 import { UserLogView } from './views/admin/UserLogView';
+import { TransferBruteView } from './views/TransferBruteView';
 
 const routes: RouteObject[] = [
   {
@@ -71,6 +72,7 @@ const routes: RouteObject[] = [
         children: [
           { path: '', element: <UserView /> },
           { path: 'feed', element: <FollowingFeedView /> },
+          { path: 'transfer-brute', element: <TransferBruteView /> },
         ]
       },
       {
