@@ -181,7 +181,7 @@ const DestinyView = () => {
 
   return brute && (
     <Page
-      title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`}
+      title={`${t('MyBrute', { ns: 'global' })}. ${t('destinyOf')} ${brute.name || ''}`}
       description={t('destiny', {
         name: brute.name,
         level: brute.level,

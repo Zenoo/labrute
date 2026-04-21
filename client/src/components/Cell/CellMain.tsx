@@ -167,7 +167,7 @@ const CellMain = ({
           onClick={login}
           sx={{ mt: 2 }}
         >
-          {t('connect')}
+          {t('connect', { ns: 'global' })}
         </FantasyButton>
       )}
       {owner && ((brute.xp < xpNeededForNextLevel

@@ -85,7 +85,7 @@ export const ClanWarView = () => {
   };
 
   return (
-    <Page title={`${t('clanWar')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
+    <Page title={`${t('clanWar')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           <Link to={`/${bruteName || ''}/clan/${war?.attacker.id}`} sx={{ display: 'inline' }}>

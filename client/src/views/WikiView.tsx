@@ -26,7 +26,7 @@ export const WikiView = () => {
 
   return (
     <Page
-      title={`${t('wiki')} ${t('MyBrute')}`}
+      title={`${t('wiki')} ${t('MyBrute', { ns: 'global' })}`}
       description={t('wiki.desc')}
       headerUrl=""
     >

@@ -161,7 +161,7 @@ const LevelUpView = () => {
   );
 
   return brute && (
-    <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={`${t('MyBrute', { ns: 'global' })}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
       <MuiAlert severity="success" variant="filled">
         <Text h5>{t('newLevelFor')} {brute.name} !</Text>
       </MuiAlert>
@@ -338,7 +338,7 @@ const LevelUpView = () => {
                       ) : undefined}
                     >
                       {loading ? <Loader color="success" size="16px" /> : (
-                        <Text bold smallCaps color="success">{t('validate')}</Text>
+                        <Text bold smallCaps color="success">{t('validate', { ns: 'global' })}</Text>
                       )}
                     </StyledButton>
                   )}

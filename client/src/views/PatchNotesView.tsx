@@ -20,7 +20,7 @@ const PatchNotesView = () => {
 
   return (
     <Page
-      title={`${t('MyBrute')} - ${t('patchNotes')}`}
+      title={`${t('MyBrute', { ns: 'global' })} - ${t('patchNotes')}`}
       description={t('patchNotes.desc', { version: LAST_RELEASE.version })}
     >
       <Paper sx={{

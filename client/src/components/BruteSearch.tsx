@@ -18,7 +18,7 @@ export const BruteSearch = () => {
   const searchBrute = () => {
     if (!search) return;
     if (!isNameValid(search)) {
-      Alert.open('error', t('invalidName'));
+      Alert.open('error', t('invalidName', { ns: 'global' }));
       return;
     }
 

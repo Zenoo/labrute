@@ -29,7 +29,7 @@ const FightMobileView = ({
 
   return (
     <Page
-      title={`${pageTitle ?? ''} ${t('MyBrute')}`}
+      title={`${pageTitle ?? ''} ${t('MyBrute', { ns: 'global' })}`}
       headerUrl={headerUrl}
     >
       <Paper sx={{ textAlign: 'center' }}>

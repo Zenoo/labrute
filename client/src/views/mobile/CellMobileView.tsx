@@ -49,7 +49,7 @@ const CellMobileView = ({
 
   return brute && (
     <Page
-      title={`${brute.name || ''} ${t('MyBrute')}`}
+      title={`${brute.name || ''} ${t('MyBrute', { ns: 'global' })}`}
       description={t('cell.desc', {
         name: brute.name,
         level: brute.level,

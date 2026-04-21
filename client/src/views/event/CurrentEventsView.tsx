@@ -42,7 +42,7 @@ export const CurrentEventsView = () => {
   };
 
   return (
-    <Page title={`${t('currentEvents')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}`}>
+    <Page title={`${t('currentEvents')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('currentEvents')}</Text>
       </Paper>

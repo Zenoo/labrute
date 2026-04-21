@@ -31,7 +31,7 @@ export const ClanWarHistoryView = () => {
   }, [Alert, Server.ClanWar, id]);
 
   return (
-    <Page title={`${t('clanWarHistory')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
+    <Page title={`${t('clanWarHistory')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('clanWarHistory')}</Text>
       </Paper>

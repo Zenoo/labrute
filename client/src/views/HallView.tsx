@@ -59,7 +59,7 @@ const HallView = () => {
   }, [Alert, Server.Brute, updateData, user]);
 
   return (
-    <Page title={`${t('hall')} ${t('MyBrute')}`} headerUrl="">
+    <Page title={`${t('hall')} ${t('MyBrute', { ns: 'global' })}`} headerUrl="">
       <Paper sx={{
         mx: 4,
         display: 'flex',

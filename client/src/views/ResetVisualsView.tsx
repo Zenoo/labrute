@@ -132,7 +132,7 @@ const ResetVisualsView = () => {
               mb: 1,
             }}
             >
-              <Tooltip title={t('changeAppearance')}>
+              <Tooltip title={t('changeAppearance', { ns: 'global' })}>
                 <StyledButton
                   onClick={changeAppearance}
                   image="/images/creation/bodyType.svg"
@@ -143,7 +143,7 @@ const ResetVisualsView = () => {
                   }}
                 />
               </Tooltip>
-              <Tooltip title={t('changeColors')}>
+              <Tooltip title={t('changeColors', { ns: 'global' })}>
                 <StyledButton
                   onClick={changeColors}
                   image="/images/creation/color.svg"
@@ -157,7 +157,7 @@ const ResetVisualsView = () => {
             </Box>
             {/* VALIDATION */}
             <Box sx={{ textAlign: 'center' }}>
-              <FantasyButton color="success" onClick={resetVisuals}>{t('validate')}</FantasyButton>
+              <FantasyButton color="success" onClick={resetVisuals}>{t('validate', { ns: 'global' })}</FantasyButton>
             </Box>
           </>
         )}

@@ -17,7 +17,7 @@ export const AdminLayout = () => {
   return user?.admin ? (
     <Outlet />
   ) : authing ? null : (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page title={t('MyBrute', { ns: 'global' })} headerUrl="/">
       <Paper sx={{
         mx: 4,
         display: 'flex',
