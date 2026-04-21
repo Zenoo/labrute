@@ -1,0 +1,15 @@
+{
+  "MyBrute": "Meu Bruto",
+  "connect": "Conectar",
+  "validate": "Validar",
+  "chooseName": "Choose a name",
+  "changeAppearance": "Mudar a aparência",
+  "changeColors": "Mudar as cores",
+  "lockBruteAppearance": "Lock appearance",
+  "unlockBruteAppearance": "Unlock appearance",
+  "invalidName": "Nome inválido. Os caracteres aceitos são a-z, AZ, 0-9, '_' e '-'. Deve ter entre 3 e 16 caracteres.",
+  "myHordes.desc": "MyHordes: O primeiro jogo gratuito de sobrevivência zumbi em um mundo hostil cheio de mortos-vivos!",
+  "eMush.desc": "eMush: Você está prestes a acordar a bordo da Daedalus com outros 15 rebeldes. Como você, eles fogem do Mush, um fungo parasita que devasta a Terra e ameaça a Humanidade.",
+  "dinorpg.desc": "DinoRPG: Crie os seus dinoz num jogo de aventura extraordinário!",
+  "eternalKingdom.desc": "Eternal Kingdom: Faça prosperar a sua capital. Recrute soldados e torne-se... Imperador!"
+}

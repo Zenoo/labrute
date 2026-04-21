@@ -33,20 +33,20 @@ const HomeMobileView = ({
   fixBruteAppearance,
   setFixBruteAppearance
 }: HomeMobileViewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['home', 'global']);
   const theme = useTheme();
   const isSx = useMediaQuery(theme.breakpoints.only('xs'));
 
   const adverts = (
     <Paper sx={{ mt: !isSx ? 4 : null }}>
       {/* SECOND TEXT */}
-      <Text h4 bold typo="handwritten" color="secondary">{t('orNotToBe')}</Text>
-      <Text bold color="text.primary">{t('otherGames')}</Text>
+      <Text h4 bold typo="handwritten" color="secondary">{t('otherGamesTitle', { ns: 'home' })}</Text>
+      <Text bold color="text.primary">{t('otherGamesBody', { ns: 'home' })}</Text>
       {/* OTHER GAMES */}
       <Grid container spacing={1}>
         {[leftAd, isSx ? rightAd : null].map((ad) => ad && (
           <Grid item xs={12} key={ad.name} sx={{ textAlign: 'center', mt: 1 }}>
-            <Tooltip title={t(`${ad.name}.desc`)}>
+            <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })}>
               <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                 <Box
                   component="img"
@@ -62,13 +62,13 @@ const HomeMobileView = ({
   );
 
   return (
-    <Page title={t('MyBrute')} description={t('home.desc')}>
+    <Page title={t('MyBrute', { ns: 'global' })} description={t('description', { ns: 'home' })}>
       <Grid container spacing={1}>
         {/* FIRST TEXT */}
         <Grid item xs={12} sm={6}>
           <Paper sx={{ bgcolor: 'background.paperLight' }}>
-            <Text h4 bold typo="handwritten" color="secondary">{t('toBeABrute')}</Text>
-            <Text bold color="text.primary">{t('createBrute')}</Text>
+            <Text h4 bold typo="handwritten" color="secondary">{t('heroTitle', { ns: 'home' })}</Text>
+            <Text bold color="text.primary">{t('heroBody', { ns: 'home' })}</Text>
           </Paper>
           {!isSx && adverts}
         </Grid>
@@ -78,7 +78,7 @@ const HomeMobileView = ({
             {/* CREATION HEADER */}
             <Grid container>
               <Grid item xs={6}>
-                <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
+                <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName', { ns: 'global' })}</Text>
               </Grid>
               <Grid item xs={6}>
                 <Box component="img" src="/images/creation/arrow.png" />
@@ -91,7 +91,10 @@ const HomeMobileView = ({
                 value={name}
                 sx={{ mx: 'auto' }}
               />
-              <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
+              <Tooltip title={fixBruteAppearance
+                ? t('unlockBruteAppearance', { ns: 'global' })
+                : t('lockBruteAppearance', { ns: 'global' })}
+              >
                 <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
@@ -100,7 +103,7 @@ const HomeMobileView = ({
               {character}
               {/* CUSTOMIZATION BUTTONS */}
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Tooltip title={t('changeAppearance')}>
+                <Tooltip title={t('changeAppearance', { ns: 'global' })}>
                   <StyledButton
                     onClick={changeAppearance}
                     image="/images/creation/bodyType.svg"
@@ -108,7 +111,7 @@ const HomeMobileView = ({
                     sx={{ width: 89, height: 89, mt: -9.5 }}
                   />
                 </Tooltip>
-                <Tooltip title={t('changeColors')}>
+                <Tooltip title={t('changeColors', { ns: 'global' })}>
                   <StyledButton
                     onClick={changeColors}
                     image="/images/creation/color.svg"
@@ -134,7 +137,7 @@ const HomeMobileView = ({
                   width: 246,
                 }}
               >
-                {t('validate')}
+                {t('validate', { ns: 'global' })}
               </StyledButton>
             </Box>
           </Paper>

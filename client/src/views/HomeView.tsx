@@ -28,7 +28,7 @@ import { catchError } from '../utils/catchError';
  * HomeView component
  */
 const HomeView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['home', 'global']);
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
   const { authing, modifiers, setAuthing, updateData, user } = useAuth();
@@ -43,7 +43,7 @@ const HomeView = () => {
     const url = new URL(window.location.href);
     const error = url.searchParams.get('error');
     if (error) {
-      Alert.open('error', t('loginError'));
+      Alert.open('error', t('loginError', { ns: 'home' }));
     }
   }, [Alert, t]);
 
@@ -87,7 +87,7 @@ const HomeView = () => {
       // Save user data in cookies
       setCookie(USER_COOKIE, response.user.id, 7);
       setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
-      Alert.open('success', t('loginSuccess'));
+      Alert.open('success', t('loginSuccess', { ns: 'home' }));
 
       // Redirect to first brute if exists, else home, using navigate (no reload)
       if (loggedInUser.brutes.length) {
@@ -171,13 +171,13 @@ const HomeView = () => {
   const createBrute = useCallback(async () => {
     // Check if logged in
     if (!user) {
-      Alert.open('error', t('pleaseLogin'));
+      Alert.open('error', t('pleaseLogin', { ns: 'home' }));
       return;
     }
 
     // Check name validity
     if (!isNameValid(name)) {
-      Alert.open('error', t('invalidName'));
+      Alert.open('error', t('invalidName', { ns: 'global' }));
       return;
     }
 
@@ -186,7 +186,7 @@ const HomeView = () => {
       const isNameAvailable = await Server.Brute.isNameAvailable(name);
 
       if (!isNameAvailable) {
-        Alert.open('error', t('nameUnavailable'));
+        Alert.open('error', t('nameUnavailable', { ns: 'home' }));
         return;
       }
 
@@ -270,8 +270,8 @@ const HomeView = () => {
     )
     : (
       <Page
-        title={t('MyBrute')}
-        description={t('home.desc')}
+        title={t('MyBrute', { ns: 'global' })}
+        description={t('description', { ns: 'home' })}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}
@@ -293,7 +293,7 @@ const HomeView = () => {
               mt: 1.5,
             }}
             >
-              <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
+              <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName', { ns: 'global' })}</Text>
               <Box
                 component="img"
                 src="/images/creation/arrow.png"
@@ -306,7 +306,10 @@ const HomeView = () => {
                 onChange={changeName}
                 value={name}
               />
-              <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
+              <Tooltip title={fixBruteAppearance
+                ? t('unlockBruteAppearance', { ns: 'global' })
+                : t('lockBruteAppearance', { ns: 'global' })}
+              >
                 <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
@@ -320,7 +323,7 @@ const HomeView = () => {
                 mt: -11.25,
               }}
               >
-                <Tooltip title={t('changeAppearance')}>
+                <Tooltip title={t('changeAppearance', { ns: 'global' })}>
                   <StyledButton
                     onClick={changeAppearance}
                     image="/images/creation/bodyType.svg"
@@ -332,7 +335,7 @@ const HomeView = () => {
                     }}
                   />
                 </Tooltip>
-                <Tooltip title={t('changeColors')}>
+                <Tooltip title={t('changeColors', { ns: 'global' })}>
                   <StyledButton
                     onClick={changeColors}
                     image="/images/creation/color.svg"
@@ -354,7 +357,7 @@ const HomeView = () => {
               />
               {/* VALIDATION */}
               <Box sx={{ textAlign: 'center' }}>
-                <StyledButton onClick={createBrute}>{t('validate')}</StyledButton>
+                <StyledButton onClick={createBrute}>{t('validate', { ns: 'global' })}</StyledButton>
               </Box>
 
               {(user || authing) ? (
@@ -371,7 +374,7 @@ const HomeView = () => {
                   onClick={login}
                   sx={{ mt: 2 }}
                 >
-                  {t('connect')}
+                  {t('connect', { ns: 'global' })}
                 </FantasyButton>
               )}
             </Box>
@@ -383,18 +386,18 @@ const HomeView = () => {
           >
             {/* FIRST TEXT */}
             <Box sx={{ width: 300, mt: 2 }}>
-              <Text h5 bold typo="handwritten" color="secondary">{t('toBeABrute')}</Text>
-              <Text bold color="text.primary">{t('createBrute')}</Text>
+              <Text h5 bold typo="handwritten" color="secondary">{t('heroTitle', { ns: 'home' })}</Text>
+              <Text bold color="text.primary">{t('heroBody', { ns: 'home' })}</Text>
             </Box>
             {/* SECOND TEXT */}
             <Box sx={{ width: 300, mt: 4, ml: 2 }}>
-              <Text h5 bold typo="handwritten" color="secondary">{t('orNotToBe')}</Text>
-              <Text bold color="text.primary">{t('otherGames')}</Text>
+              <Text h5 bold typo="handwritten" color="secondary">{t('otherGamesTitle', { ns: 'home' })}</Text>
+              <Text bold color="text.primary">{t('otherGamesBody', { ns: 'home' })}</Text>
             </Box>
             {/* OTHER GAMES */}
             <Box sx={{ mt: 1, ml: 2 }}>
               {[leftAd, rightAd].map((ad) => (
-                <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
+                <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })} key={ad.name}>
                   <Link href={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"

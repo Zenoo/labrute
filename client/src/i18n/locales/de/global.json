@@ -1,0 +1,15 @@
+{
+  "MyBrute": "MeinBrutalo",
+  "connect": "Verbinden",
+  "validate": "Bestätigen",
+  "chooseName": "Wähle einen Namen",
+  "changeAppearance": "Ändere das Aussehen",
+  "changeColors": "Ändere die Farben",
+  "lockBruteAppearance": "Aussehen arretieren",
+  "unlockBruteAppearance": "Aussehen freigeben",
+  "invalidName": "Ungültiger Name. Akzeptierte Buchstaben sind a-z, A-Z, 0-9, '_' and '-'. Muss zwischen 3 und 16 Buchstaben enthalten.",
+  "myHordes.desc": "MyHordes: Das erste kostenlose Zombie-Survival-Spiel in einer feindlichen Welt voller Untoter!",
+  "eMush.desc": "eMush: Du wirst gleich an Bord der Daedalus mit 15 weiteren Rebellen aufwachen. Wie du fliehen sie vor dem Mush, einem parasitären Pilz, der die Erde verwüstet und die Menschheit bedroht.",
+  "dinorpg.desc": "DinoRPG: Ziehe deine Dinoz in einem außergewöhnlichen Abenteuerspiel groß!",
+  "eternalKingdom.desc": "Eternal Kingdom: Lass deine Hauptstadt gedeihen. Rekrutiere Soldaten und werde... Kaiser!"
+}

@@ -1,0 +1,15 @@
+{
+  "MyBrute": "MyBrute",
+  "connect": "Connect",
+  "validate": "Validate",
+  "chooseName": "Choose a name",
+  "changeAppearance": "Change the appearance",
+  "changeColors": "Change the colors",
+  "lockBruteAppearance": "Lock appearance",
+  "unlockBruteAppearance": "Unlock appearance",
+  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
+  "myHordes.desc": "MyHordes: The first free zombie survival game set in a hostile world filled with the undead!",
+  "eMush.desc": "eMush: You are about to wake up aboard the Daedalus with 15 other rebels. Like you, they are fleeing the Mush, a parasitic fungus devastating Earth and threatening Humanity.",
+  "dinorpg.desc": "DinoRPG: Raise your dinoz in an extraordinary adventure game!",
+  "eternalKingdom.desc": "Eternal Kingdom: Grow your capital. Recruit soldiers and become... Emperor!"
+}
