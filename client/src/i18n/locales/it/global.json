@@ -1,0 +1,15 @@
+{
+  "MyBrute": "IlBruto",
+  "connect": "Connettersi",
+  "validate": "Conferma",
+  "chooseName": "Scegli un nome",
+  "changeAppearance": "Cambia aspetto",
+  "changeColors": "Cambia colori",
+  "lockBruteAppearance": "Lock appearance",
+  "unlockBruteAppearance": "Unlock appearance",
+  "invalidName": "Invalid name. Accepted characters are a-z, A-Z, 0-9, '_' and '-'. Must be between 3 and 16 characters long.",
+  "myHordes.desc": "MyHordes: Il primo gioco gratuito di sopravvivenza zombi ambientato in un mondo ostile popolato da morti viventi!",
+  "eMush.desc": "eMush: Stai per svegliarti a bordo del Deadalus insieme ad altri",
+  "dinorpg.desc": "DinoRPG: Cresci i tuoi dino in uno straordinario gioco d'avventura!",
+  "eternalKingdom.desc": "Eternal Kingdom: Cresci la tua capitale. Arruola soldati e diventa... Imperatore!"
+}
