@@ -1,11 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import fr from './assets/i18n/fr.json';
-import en from './assets/i18n/en.json';
-import es from './assets/i18n/es.json';
-import de from './assets/i18n/de.json';
-import ru from './assets/i18n/ru.json';
-import pt from './assets/i18n/pt.json';
+import fr from './i18n/locales/fr/common.json';
+import en from './i18n/locales/en/common.json';
+import es from './i18n/locales/es/common.json';
+import de from './i18n/locales/de/common.json';
+import ru from './i18n/locales/ru/common.json';
+import pt from './i18n/locales/pt/common.json';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { HOST, Host } from './utils/host';
@@ -20,22 +20,22 @@ export const defaultLangByHost: Record<string, Lang> = {
 export const defaultNS = 'common';
 export const resources = {
   en: {
-    translation: en,
+    common: en,
   },
   fr: {
-    translation: fr,
+    common: fr,
   },
   es: {
-    translation: es,
+    common: es,
   },
   de: {
-    translation: de,
+    common: de,
   },
   ru: {
-    translation: ru,
+    common: ru,
   },
   pt: {
-    translation: pt,
+    common: pt,
   },
 } as const;
 
@@ -44,6 +44,7 @@ const lang = defaultLangByHost[HOST] ?? DEFAULT_LANGUAGE;
 i18n.use(initReactI18next).init({
   lng: lang,
   resources,
+  defaultNS,
   interpolation: {
     escapeValue: false
   },
