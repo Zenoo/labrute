@@ -1,4 +1,4 @@
-import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetRolesResponse, ClanGetResponse, ClanPermission, TieredPerks, bosses, getCalculatedBrute, getFightsLeft } from '@labrute/core';
+import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetResponse, ClanGetRolesResponse, ClanPermission, TieredPerks, bosses, getCalculatedBrute, getFightsLeft } from '@labrute/core';
 import { BossName, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline, Policy } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
@@ -9,6 +9,9 @@ import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { ActivityStatus } from '../../components/ActivityStatus';
 import BruteRender from '../../components/Brute/Body/BruteRender';
+import RoleAssignmentModal from '../../components/Clan/RoleAssignmentModal';
+import RoleListView from '../../components/Clan/RoleListView';
+import RoleManagementModal from '../../components/Clan/RoleManagementModal';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
@@ -18,9 +21,6 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
-import RoleManagementModal from '../../components/Clan/RoleManagementModal';
-import RoleListView from '../../components/Clan/RoleListView';
-import RoleAssignmentModal from '../../components/Clan/RoleAssignmentModal';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 

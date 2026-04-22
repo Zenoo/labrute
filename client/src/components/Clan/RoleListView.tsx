@@ -8,7 +8,7 @@ import Text from '../Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useConfirm } from '../../hooks/useConfirm';
 import Server from '../../utils/Server';
-import catchError from '../../utils/catchError';
+import { catchError } from '../../utils/catchError';
 
 type Role = ClanGetRolesResponse[number];
 

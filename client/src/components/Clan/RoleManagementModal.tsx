@@ -5,7 +5,7 @@ import FantasyButton from '../FantasyButton';
 import Text from '../Text';
 import { useAlert } from '../../hooks/useAlert';
 import Server from '../../utils/Server';
-import catchError from '../../utils/catchError';
+import { catchError } from '../../utils/catchError';
 
 import { ClanGetRolesResponse, ClanPermission } from '@labrute/core';
 
