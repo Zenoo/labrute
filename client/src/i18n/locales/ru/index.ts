@@ -13,6 +13,7 @@ import global from './global.json';
 import globalTournament from './globalTournament.json';
 import hall from './hall.json';
 import home from './home.json';
+import inventory from './inventory.json';
 
 const ru = {
   achievement,
@@ -30,6 +31,7 @@ const ru = {
   globalTournament,
   hall,
   home,
+  inventory,
 } as const;
 
 export default ru;

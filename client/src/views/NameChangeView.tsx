@@ -12,7 +12,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const NameChangeView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('global');
   const Alert = useAlert();
   const { brute, owner } = useBrute();
   const Confirm = useConfirm();
@@ -24,7 +24,7 @@ const NameChangeView = () => {
   const changeName = () => {
     if (!brute) return;
 
-    Confirm.open(t('inventory.item.nameChange'), t('nameChangeConfirm', { name }), () => {
+    Confirm.open(t('inventory.item.nameChange'), t('nameChangeConfirm', { ns: 'common', name }), () => {
       Server.Brute.changeName(brute.name, name).then(() => {
         // Go to new cell
         window.location.href = `/${name}/cell`;

@@ -110,7 +110,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                 ? t('log.xpAndGold', { xp: log.xp, gold: log.gold })
                 : t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })
               : log.type === LogType.bossDefeat
-                ? t('log.itemAndGold', { count: 1, item: t(`inventory.item.${InventoryItemType.bossTicket}`), gold: log.gold })
+                ? t('log.itemAndGold', { count: 1, item: t(`inventory.item.${InventoryItemType.bossTicket}`, { ns: 'global' }), gold: log.gold })
                 : t('log.gold', { gold: log.gold })}
           </Text>
         )}
