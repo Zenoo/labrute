@@ -10,6 +10,7 @@ import destiny from './destiny.json';
 import followingFeed from './followingFeed.json';
 import generating from './generating.json';
 import global from './global.json';
+import globalTournament from './globalTournament.json';
 import home from './home.json';
 
 const it = {
@@ -25,6 +26,7 @@ const it = {
   followingFeed,
   generating,
   global,
+  globalTournament,
   home,
 } as const;
 

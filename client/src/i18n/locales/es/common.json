@@ -367,8 +367,6 @@
   "tournamentOf.desc": "Ver la participación de {{brute}} en el torneo del {{date}}.",
   "globalTournament": "Torneo global",
   "unlimited": "Ilimitado",
-  "globalTournament.desc": "Ver la participación de {{brute}} en el torneo global del {{date}}.",
-  "globalTournamentOf": "Torneo global de",
   "automaticallyQualified": "Clasificado automáticamente",
   "eliminatedBy": "Tu Bruto ha sido eliminado por {{value}}. ¡Qué humillación!",
   "nextOpponent": "Tu próximo oponente es",

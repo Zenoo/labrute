@@ -367,8 +367,6 @@
   "tournamentOf.desc": "Просмотрите участие {{brute}} в турнире {{date}}.",
   "globalTournament": "Всеобщий турнир",
   "unlimited": "Без ограничений",
-  "globalTournament.desc": "Просмотрите участие {{brute}} во всеобщем турнире {{date}}.",
-  "globalTournamentOf": "Всеобщий турнир",
   "automaticallyQualified": "Должная квалификация",
   "eliminatedBy": "Ваш Брутал был повержен {{value}}. Как унизительно!",
   "nextOpponent": "Ваш следующий соперник:",
