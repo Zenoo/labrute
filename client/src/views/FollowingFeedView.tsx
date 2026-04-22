@@ -95,7 +95,7 @@ export const FollowingFeedView = () => {
                         <Text body2>
                           {t(`log.${log.type}`, {
                             brute: log.currentBrute?.name,
-                            value: log.type === LogType.lvl ? t(`lvl_${log.level}`) : log.level,
+                            value: log.type === LogType.lvl ? t(`lvl_${log.level}`, { ns: 'global' }) : log.level,
                           })}
                         </Text>
                         {log.type === LogType.up && (

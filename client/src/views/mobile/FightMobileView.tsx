@@ -99,7 +99,7 @@ const FightMobileView = ({
         <Grid container spacing={2}>
           {ads.map((ad) => (
             <Grid item key={ad.name} xs={12} sm={6}>
-              <Tooltip title={t(`${ad.name}.desc`)}>
+              <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })}>
                 <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"

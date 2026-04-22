@@ -240,7 +240,7 @@ export const ClanWarView = () => {
                         </Text>
                         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                           <Box component="img" src={`/images/rankings/lvl_${b.ranking}.webp`} sx={{ mr: 1 }} />
-                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`)}</Text>
+                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`, { ns: 'global' })}</Text>
                         </Box>
                         <Box sx={{
                           position: 'absolute',
@@ -321,7 +321,7 @@ export const ClanWarView = () => {
                         </Text>
                         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                           <Box component="img" src={`/images/rankings/lvl_${b.ranking}.webp`} sx={{ mr: 1 }} />
-                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`)}</Text>
+                          <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`, { ns: 'global' })}</Text>
                         </Box>
                         <Box sx={{
                           position: 'absolute',

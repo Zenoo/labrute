@@ -79,14 +79,14 @@ const AdminView = () => {
   }, [Alert, Server.Brute, bruteId]);
 
   return (
-    <Page title={t('adminPanel')} headerUrl="/">
+    <Page title={t('adminPanel', { ns: 'global' })} headerUrl="/">
       {!globalTournamentValid && (
         <MuiAlert severity="warning" variant="filled">
           <Text h5>Global tournament malformed</Text>
         </MuiAlert>
       )}
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'global' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Stack spacing={2}>

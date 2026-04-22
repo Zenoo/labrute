@@ -73,7 +73,7 @@ const RankingView = () => {
       description={t('ranking.desc', {
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`),
+        rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${bruteName || ''}/cell`}
@@ -81,7 +81,7 @@ const RankingView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {
-            value: rankingSelected === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`),
+            value: rankingSelected === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`, { ns: 'global' }),
           })}
         </Text>
       </Paper>
@@ -115,7 +115,7 @@ const RankingView = () => {
             </Tooltip>
           )}
           {BruteRankings.map((bruteRanking) => (
-            <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`)}>
+            <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`, { ns: 'global' })}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>
                 <StyledButton
                   image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}

@@ -41,9 +41,9 @@ export const EventHistoryView = () => {
   };
 
   return (
-    <Page title={`${t('eventHistory')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}`}>
+    <Page title={`${t('eventHistory', { ns: 'global' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('eventHistory')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('eventHistory', { ns: 'global' })}</Text>
       </Paper>
       <Paper sx={{
         bgcolor: 'background.paperLight',

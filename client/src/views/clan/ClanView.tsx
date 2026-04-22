@@ -439,7 +439,7 @@ const ClanView = () => {
           )}
           {t('clan')} {clan.name}
           {user?.admin && (
-            <Tooltip title={t('adminPanel')}>
+            <Tooltip title={t('adminPanel', { ns: 'global' })}>
               <IconButton
                 component={RouterLink}
                 to={`/admin-panel/clan/${clan.id}`}
@@ -876,7 +876,7 @@ const ClanView = () => {
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                   <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.webp`} sx={{ mr: 1 }} />
-                  <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`)}</Text>
+                  <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`, { ns: 'global' })}</Text>
                 </Box>
                 <Box sx={{
                   position: 'absolute',

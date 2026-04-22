@@ -423,7 +423,7 @@ const Main = () => {
                     to="/admin-panel"
                     Icon={AdminPanelSettings}
                     iconColor={theme.palette.success.main}
-                    title={t('adminPanel')}
+                    title={t('adminPanel', { ns: 'global' })}
                   />
                 )}
                 <ActionButton

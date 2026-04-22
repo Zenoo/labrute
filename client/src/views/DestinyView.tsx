@@ -185,7 +185,7 @@ const DestinyView = () => {
       description={t('destiny', {
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`),
+        rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${brute.name}/cell`}

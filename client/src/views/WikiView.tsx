@@ -78,7 +78,7 @@ export const WikiView = () => {
             {/* TOURNAMENTS */}
             <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
               <EmojiEvents sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('tournaments')}
+              {t('tournaments', { ns: 'global' })}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howWork')}</Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament')}</Text>

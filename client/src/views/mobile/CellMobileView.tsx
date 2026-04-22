@@ -51,9 +51,10 @@ const CellMobileView = ({
     <Page
       title={`${brute.name || ''} ${t('MyBrute', { ns: 'global' })}`}
       description={t('cell.desc', {
+        ns: 'cell',
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`),
+        rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${brute.name}/cell`}
@@ -77,7 +78,7 @@ const CellMobileView = ({
             textAlign: 'center',
           }}
           >
-            <Tooltip title={t('refLink')}>
+            <Tooltip title={t('refLink', { ns: 'cell' })}>
               <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
             {(owner || !!brute.clanId) && (
@@ -89,7 +90,7 @@ const CellMobileView = ({
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
             <Text bold center color={theme.palette.mode === 'dark' ? 'text.primary' : undefined} sx={{ mb: 0.5 }}>
-              <Tooltip title={t('inventory')}>
+              <Tooltip title={t('inventory', { ns: 'global' })}>
                 <Link to={`/${brute.name}/inventory`}>
                   <Box
                     component="img"
@@ -102,7 +103,7 @@ const CellMobileView = ({
                   />
                 </Link>
               </Tooltip>
-              {t('weaponsBonuses')}
+              {t('weaponsBonuses', { ns: 'cell' })}
             </Text>
             <CellWeapons sx={{ width: 1 }} />
             {/* SKILLS */}
@@ -125,11 +126,11 @@ const CellMobileView = ({
             color={theme.palette.mode === 'dark' ? 'text.primary' : undefined}
             sx={{ cursor: 'pointer' }}
           >
-            {t('report')}
+            {t('report', { ns: 'cell' })}
           </Text>
           {user?.admin && (
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Tooltip title={t('adminPanel')}>
+              <Tooltip title={t('adminPanel', { ns: 'global' })}>
                 <IconButton
                   component={RouterLink}
                   to={`/admin-panel/brute/${brute.name}`}
@@ -146,7 +147,7 @@ const CellMobileView = ({
           {keys(brute.pets).length > 0 ? (
             <CellPets />
           ) : (
-            <Tooltip title={t(`${ad.name}.desc`)}>
+            <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })}>
               <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 'auto' }}>
                 <Box
                   component="img"
@@ -184,13 +185,13 @@ const CellMobileView = ({
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <FantasyButton to={`/${brute.name}/tournaments`} color="secondary" sx={{ m: 1 }}>
           <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('tournaments')}
+          {t('tournaments', { ns: 'global' })}
         </FantasyButton>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <FantasyButton to={`/${brute.name}/event/history`} color="primary" sx={{ m: 1 }}>
           <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('eventHistory')}
+          {t('eventHistory', { ns: 'global' })}
         </FantasyButton>
       </Box>
       {/* BRUTE SACRIFICE */}
@@ -205,7 +206,7 @@ const CellMobileView = ({
                 mt: 1,
               }}
             >
-              {t('sacrifice')}
+              {t('sacrifice', { ns: 'cell' })}
             </FantasyButton>
           </Box>
         )}
@@ -219,7 +220,7 @@ const CellMobileView = ({
               mt: 2,
             }}
           >
-            {t('reset')}
+            {t('reset', { ns: 'cell' })}
           </FantasyButton>
         </Box>
       )}

@@ -53,9 +53,9 @@ const CellView = () => {
   const confirmSacrifice = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { gold: getBruteGoldValue(brute) }), () => {
+    Confirm.open(t('sacrifice', { ns: 'cell' }), t('sacrificeConfirm', { ns: 'cell', gold: getBruteGoldValue(brute) }), () => {
       Server.Brute.sacrifice(brute.name).then(({ gold }) => {
-        Alert.open('success', t('sacrificeSuccess', { gold }));
+        Alert.open('success', t('sacrificeSuccess', { ns: 'cell', gold }));
         navigate('/');
 
         // Update user data
@@ -89,9 +89,9 @@ const CellView = () => {
   const confirmReset = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('reset'), t(brute.eventId ? 'resetEventConfirm' : 'resetConfirm', { gold: getResetCost(brute) }), () => {
+    Confirm.open(t('reset', { ns: 'cell' }), t(brute.eventId ? 'resetEventConfirm' : 'resetConfirm', { ns: 'cell', gold: getResetCost(brute) }), () => {
       Server.Brute.reset(brute.name).then((newBrute) => {
-        Alert.open('success', t('resetSuccess'));
+        Alert.open('success', t('resetSuccess', { ns: 'cell' }));
 
         // Update user data
         updateData((data) => (data ? ({
@@ -113,9 +113,9 @@ const CellView = () => {
   const confirmReport = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('reportName'), t('reportConfirm', { brute: brute.name }), () => {
+    Confirm.open(t('reportName', { ns: 'cell' }), t('reportConfirm', { ns: 'cell', brute: brute.name }), () => {
       Server.BruteReport.send(brute.name, BruteReportReason.name).then(() => {
-        Alert.open('success', t('reportSuccess'));
+        Alert.open('success', t('reportSuccess', { ns: 'cell' }));
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, Server.BruteReport, brute, t]);
@@ -178,7 +178,7 @@ const CellView = () => {
   }, [brute, navigate, owner, switchBrute]);
 
   const previousBruteArrow = owner && (
-    <Tooltip title={t('previousBrute')}>
+    <Tooltip title={t('previousBrute', { ns: 'cell' })}>
       <Fab
         size="small"
         onClick={() => switchBrute(-1)}
@@ -196,7 +196,7 @@ const CellView = () => {
     </Tooltip>
   );
   const nextBruteArrow = owner && (
-    <Tooltip title={t('nextBrute')}>
+    <Tooltip title={t('nextBrute', { ns: 'cell' })}>
       <Fab
         size="small"
         onClick={() => switchBrute(1)}
@@ -233,9 +233,10 @@ const CellView = () => {
       <Page
         title={`${brute.name} ${t('MyBrute', { ns: 'global' })}`}
         description={t('cell.desc', {
+          ns: 'cell',
           name: brute.name,
           level: brute.level,
-          rank: t(`lvl_${brute.ranking}`),
+          rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
           winrate: getBruteWinrate(brute),
         })}
         headerUrl={`/${brute.name}/cell`}
@@ -290,7 +291,7 @@ const CellView = () => {
                 <Text bold center sx={{ mb: 0.5 }}>
                   {/* INVENTORY */}
                   {owner && (
-                    <Tooltip title={t('inventory')}>
+                    <Tooltip title={t('inventory', { ns: 'global' })}>
                       <Link to={`/${brute.name}/inventory`}>
                         <Box
                           component="img"
@@ -304,7 +305,7 @@ const CellView = () => {
                       </Link>
                     </Tooltip>
                   )}
-                  {t('weaponsBonuses')}
+                  {t('weaponsBonuses', { ns: 'cell' })}
                 </Text>
                 {/* WEAPONS */}
                 <CellWeapons />
@@ -329,7 +330,7 @@ const CellView = () => {
             }}
             >
               {/* REF LINK */}
-              <Tooltip title={t('refLink')}>
+              <Tooltip title={t('refLink', { ns: 'cell' })}>
                 <Paper sx={{
                   p: 1,
                   mr: 0,
@@ -355,7 +356,7 @@ const CellView = () => {
                   ml: 0.5,
                 }}
               >
-                <Tooltip title={t(`${ad.name}.desc`)}>
+                <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })}>
                   <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"
@@ -373,14 +374,14 @@ const CellView = () => {
                 <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
                   <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
                     <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('tournaments')}
+                    {t('tournaments', { ns: 'global' })}
                   </FantasyButton>
                 </Box>
               )}
               <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
                 <FantasyButton color="primary" to={`/${brute.name}/event/history`} sx={{ m: 1 }}>
                   <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                  {t('eventHistory')}
+                  {t('eventHistory', { ns: 'global' })}
                 </FantasyButton>
               </Box>
               {user && brute.userId !== user.id && (
@@ -391,12 +392,12 @@ const CellView = () => {
                   onClick={confirmReport}
                   sx={{ cursor: 'pointer', ml: 2 }}
                 >
-                  {t('report')}
+                  {t('report', { ns: 'cell' })}
                 </Text>
               )}
               {user?.admin && (
                 <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
-                  <Tooltip title={t('adminPanel')}>
+                  <Tooltip title={t('adminPanel', { ns: 'global' })}>
                     <IconButton
                       component={RouterLink}
                       to={`/admin-panel/brute/${brute.name}`}

@@ -72,7 +72,7 @@ const Page = ({
           {t('moreGames')} :{' '}
           {Object.entries(ads).map(([name, ad]) => (
             <Fragment key={name}>
-              <Tooltip title={t(`${name as AdName}.desc`)}>
+              <Tooltip title={t(`${name as AdName}.desc`, { ns: 'global' })}>
                 <Link href={ad.url} target="_blank">{t(name as AdName)}</Link>
               </Tooltip>
               {' '}

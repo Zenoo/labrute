@@ -69,7 +69,7 @@ export const InventoryView = () => {
   }, [brute, navigate, Alert, t]);
 
   return brute && (
-    <Page title={t('inventory')} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('inventory', { ns: 'global' })} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -78,7 +78,7 @@ export const InventoryView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory', { ns: 'global' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {owner && (

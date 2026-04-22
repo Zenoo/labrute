@@ -78,7 +78,7 @@ const FightView = () => {
           <Box sx={{ width: 236, mt: 5 }}>
             <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames')}</Text>
             {ads.map((ad) => (
-              <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
+              <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })} key={ad.name}>
                 <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"

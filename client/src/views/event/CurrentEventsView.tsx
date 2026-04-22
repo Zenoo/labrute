@@ -138,7 +138,7 @@ export const CurrentEventsView = () => {
         <Box sx={{ display: 'flex', mt: 1, justifyContent: 'center' }}>
           <FantasyButton color="secondary" to="../history" sx={{ m: 1 }}>
             <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('eventHistory')}
+            {t('eventHistory', { ns: 'global' })}
           </FantasyButton>
         </Box>
       </Paper>
