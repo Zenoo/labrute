@@ -88,9 +88,9 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           ) : (
             <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
               {log.type === LogType.lvl
-                ? t('log.lvl', { brute: log.currentBrute.name, value: t(`lvl_${log.level}`, { ns: 'global' }) })
+                ? t('log.lvl', { ns: 'global', brute: log.currentBrute.name, value: t(`lvl_${log.level}`, { ns: 'global' }) })
                 : log.type === LogType.up
-                  ? t('log.up', { brute: log.currentBrute.name, value: log.level ?? 0 })
+                  ? t('log.up', { ns: 'global', brute: log.currentBrute.name, value: log.level ?? 0 })
                   : log.type === LogType.ascend
                     ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { brute: log.currentBrute.name, value: log.level ?? 0 })
                     : log.type === LogType.tournament

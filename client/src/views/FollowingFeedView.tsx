@@ -18,7 +18,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 export const FollowingFeedView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['followingFeed', 'global']);
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();
@@ -48,9 +48,9 @@ export const FollowingFeedView = () => {
   }, [user, Alert, page, Server.Log]);
 
   return (
-    <Page title={`${t('followingFeed')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/user/${user?.id}`}>
+    <Page title={`${t('followingFeed', { ns: 'followingFeed' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/user/${user?.id}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('followingFeed')}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('followingFeed', { ns: 'followingFeed' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {user && (
@@ -94,6 +94,7 @@ export const FollowingFeedView = () => {
                       <Link to={`/${log.currentBrute?.name}/cell`}>
                         <Text body2>
                           {t(`log.${log.type}`, {
+                            ns: 'global',
                             brute: log.currentBrute?.name,
                             value: log.type === LogType.lvl ? t(`lvl_${log.level}`, { ns: 'global' }) : log.level,
                           })}
@@ -156,7 +157,7 @@ export const FollowingFeedView = () => {
         disabled={lastPage}
         sx={{ mx: 'auto', mt: 3 }}
       >
-        {t('showMore')}
+        {t('showMore', { ns: 'global' })}
       </FantasyButton>
     </Page>
   );

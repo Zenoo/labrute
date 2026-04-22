@@ -7,6 +7,7 @@ import bruteNotFound from './bruteNotFound.json';
 import cell from './cell.json';
 import common from './common.json';
 import destiny from './destiny.json';
+import followingFeed from './followingFeed.json';
 import global from './global.json';
 import home from './home.json';
 
@@ -20,6 +21,7 @@ const en = {
   cell,
   common,
   destiny,
+  followingFeed,
   global,
   home,
 } as const;

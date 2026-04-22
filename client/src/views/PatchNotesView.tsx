@@ -9,7 +9,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const PatchNotesView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'global']);
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
 
@@ -100,7 +100,7 @@ const PatchNotesView = () => {
           onClick={showMoreReleases}
           sx={{ mx: 'auto' }}
         >
-          {t('showMore')}
+          {t('showMore', { ns: 'global' })}
         </FantasyButton>
       )}
     </Page>

@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ReportAdminView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'global']);
   const Alert = useAlert();
   const Server = useServer();
 
@@ -175,7 +175,7 @@ const ReportAdminView = () => {
                   onClick={() => setPage((prev) => prev + 1)}
                   sx={{ mx: 'auto', mt: 3 }}
                 >
-                  {t('showMore')}
+                  {t('showMore', { ns: 'global' })}
                 </FantasyButton>
               </Box>
             )}
