@@ -465,7 +465,7 @@ const ClanView = () => {
           </Link>
           {/* CLAN RANKING PAGE */}
           <Link to={`/${bruteName || ''}/clan/ranking`}>
-            <Text bold smallCaps>{t('ranking')}</Text>
+            <Text bold smallCaps>{t('ranking', { ns: 'global' })}</Text>
           </Link>
           {/* FORUM */}
           {user && brute?.clanId === clan.id && (
@@ -921,7 +921,7 @@ const ClanView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('ranking')}</TableCell>
+                  <TableCell>{t('ranking', { ns: 'global' })}</TableCell>
                   <TableCell>{t('brute')}</TableCell>
                   <TableCell align="right">{t('level')}</TableCell>
                   <TableCell align="right">{t('actions')}</TableCell>

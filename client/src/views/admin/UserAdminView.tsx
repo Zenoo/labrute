@@ -229,7 +229,7 @@ const UserAdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Text h3 bold upperCase typo="handwritten">{t('achievements')}</Text>
+                    <Text h3 bold upperCase typo="handwritten">{t('achievements', { ns: 'global' })}</Text>
                   </Grid>
                   {Object.keys(AchievementName).map((key) => (
                     <Grid item xs={6} sm={3} key={key}>

@@ -151,7 +151,7 @@ const UserView = () => {
                   }}
                 >
                   <AchievementHeader />
-                  <Text bold h6>{t('achievements')}</Text>
+                  <Text bold h6>{t('achievements', { ns: 'global' })}</Text>
                   <Box sx={{
                     mt: 1,
                     bgcolor: 'background.paperLight',
@@ -208,7 +208,7 @@ const UserView = () => {
                     overflow: 'auto',
                   }}
                 >
-                  <Text bold h6>{t('titles')}</Text>
+                  <Text bold h6>{t('titles', { ns: 'global' })}</Text>
                   <Box sx={{
                     mt: 1,
                     bgcolor: 'background.paperLight',
@@ -252,7 +252,7 @@ const UserView = () => {
                           )}
                         >
                           {availableTitles.map((titleCount, i) => {
-                            let translation = t(`${achievement.name}.title.${i + 1}`);
+                            let translation = t(`${achievement.name}.title.${i + 1}`, { ns: 'global' });
 
                             if (!translation || translation === `${achievement.name}.title.${i + 1}`) {
                               translation = 'TODO';
@@ -293,7 +293,7 @@ const UserView = () => {
                     mt: 3,
                   }}
                 >
-                  {t('ranking')}
+                  {t('ranking', { ns: 'global' })}
                 </FantasyButton>
               </Grid>
             </Grid>

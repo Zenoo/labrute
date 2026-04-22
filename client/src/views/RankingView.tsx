@@ -69,7 +69,7 @@ const RankingView = () => {
 
   return rankings && brute && (
     <Page
-      title={t('ranking')}
+      title={t('ranking', { ns: 'global' })}
       description={t('ranking.desc', {
         name: brute.name,
         level: brute.level,

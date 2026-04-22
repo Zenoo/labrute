@@ -15,7 +15,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementsView = () => {
-  const { t } = useTranslation(['common', 'global']);
+  const { t } = useTranslation(['common', 'global', 'achievement']);
   const theme = useTheme();
   const { bruteName } = useParams();
   const { user } = useAuth();
@@ -39,12 +39,12 @@ const AchievementsView = () => {
 
   return (
     <Page
-      title={t('achievements')}
-      description={t('achievements.desc', { ns: 'global' })}
+      title={t('achievements', { ns: 'global' })}
+      description={t('achievements.desc', { ns: 'achievement' })}
       headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
     >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements', { ns: 'global' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <FantasyButton
@@ -54,7 +54,7 @@ const AchievementsView = () => {
             mb: 1,
           }}
         >
-          {t('ranking')}
+          {t('ranking', { ns: 'global' })}
         </FantasyButton>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
@@ -67,7 +67,7 @@ const AchievementsView = () => {
               }}
             >
               <AchievementHeader />
-              <Text bold h6>{t('achievements')}</Text>
+              <Text bold h6>{t('achievements', { ns: 'global' })}</Text>
               <Box sx={{
                 mt: 1,
                 bgcolor: 'background.paperLight',
@@ -118,7 +118,7 @@ const AchievementsView = () => {
               }}
             >
               <AchievementHeader />
-              <Text bold h6>{t('titles')}</Text>
+              <Text bold h6>{t('titles', { ns: 'global' })}</Text>
               <Box sx={{
                 mt: 1,
                 bgcolor: 'background.paperLight',
@@ -162,7 +162,7 @@ const AchievementsView = () => {
                       )}
                     >
                       {availableTitles.map((titleCount, i) => {
-                        let translation = t(`${achievement.name}.title.${i + 1}`);
+                        let translation = t(`${achievement.name}.title.${i + 1}`, { ns: 'global' });
 
                         if (!translation || translation === `${achievement.name}.title.${i + 1}`) {
                           translation = 'TODO';

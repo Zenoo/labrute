@@ -68,7 +68,7 @@ const CellSocials = ({
         <Grid item xs={smallScreen ? 12 : 6}>
           {/* No achievements for bots */}
           {brute.userId && (
-            <Tooltip title={t('achievements')}>
+            <Tooltip title={t('achievements', { ns: 'global' })}>
               <Link
                 to={`/${brute.name}/achievements`}
                 sx={{ mr: 1 }}
@@ -123,7 +123,7 @@ const CellSocials = ({
             )}
             <Grid item xs={6}>
               <Link to={`/${brute.name}/ranking`}>
-                <Text bold color="secondary" component="span">{t('ranking')}: </Text>
+                <Text bold color="secondary" component="span">{t('ranking', { ns: 'global' })}: </Text>
                 <Text bold component="span">
                   {getter?.ranking || 'NA'}
                 </Text>

@@ -1,9 +1,11 @@
+import achievement from './achievement.json';
 import achievementRanking from './achievementRanking.json';
 import common from './common.json';
 import global from './global.json';
 import home from './home.json';
 
 const de = {
+  achievement,
   achievementRanking,
   common,
   global,

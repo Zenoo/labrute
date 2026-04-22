@@ -121,7 +121,7 @@ const ClanThreadView = () => {
                 <Text bold smallCaps>{t('goBackToYourCell')}</Text>
               </Link>
               <Link to={`/${bruteName || ''}/clan/ranking`}>
-                <Text bold smallCaps>{t('ranking')}</Text>
+                <Text bold smallCaps>{t('ranking', { ns: 'global' })}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/${id}`}>
                 <Text bold smallCaps>{t('myClan')}</Text>

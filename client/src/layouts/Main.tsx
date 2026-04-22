@@ -397,7 +397,7 @@ const Main = () => {
                 <ActionButton
                   to="/achievements/rankings"
                   Icon={MilitaryTech}
-                  title={t('ranking')}
+                  title={t('ranking', { ns: 'global' })}
                 />
                 <ActionButton
                   to="/patch-notes"
