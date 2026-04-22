@@ -1,0 +1,17 @@
+{
+  "ascendWith.firstDog": "ein Hund",
+  "ascendWith.secondDog": "ein zweiter Hund",
+  "ascendWith.thirdDog": "ein dritter Hund",
+  "youWillAscendWithDog": "Bei deinem Aufstieg wird dich {{one_or_a_second_pet_dog}} begleiten",
+  "youWillAscendWith": "Du hast dich entschieden, mit {{perkType}} „{{perkName}}“ aufzusteigen.",
+  "ascendConfirmShort": "Möchtest du wirklich aufsteigen?",
+  "ascendConfirm": "Dein Brutalo wird auf Stufe 1 zurückgesetzt, behält jedoch seinen Rang, vorherige Aufstiegsboni und den Bonus, den du ausgewählt hast, der überall im Schicksal durch Attribute ersetzt werden wird.",
+  "ascension": "Aufstieg",
+  "youAreAboutToAscend": "Du bist dabei aufzusteigen",
+  "ascensionExplanationText": "Aufstiege ermöglichen es, im Besitz von einem permanenten Bonus erneut anzufangen. Dein Brutalo wird auf Stufe 1 zurückgesetzt, behält jedoch seinen Rang, Boni vorheriger Aufstiege und den Bonus, den du dabei bist auszuwählen.",
+  "rankingPrioritizeAscensions": "Die Rangliste bevorzugt die Anzahl an Aufstiegen vor Stufe und Erfahrung!",
+  "youMustSelectToAscend": "Du musst eine Waffe, Fähigkeit oder einen Tierbegleiter wählen, um aufzusteigen.",
+  "perkType.weapon": "Waffe",
+  "perkType.skill": "Fähigkeit",
+  "perkType.pet": "Tierbegleiter"
+}

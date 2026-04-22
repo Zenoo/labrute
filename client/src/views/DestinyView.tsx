@@ -147,14 +147,14 @@ const DestinyView = () => {
                 <SkillTooltip
                   skill={branch.skill && skills[branch.skill]}
                 >
-                  <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
+                  <Text h6 bold smallCaps>{t(branch.skill as SkillName, { ns: 'global' })}</Text>
                 </SkillTooltip>
               ) : branch.type === 'weapon' ? (
                 <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]}>
-                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
+                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName, { ns: 'global' })}</Text>
                 </WeaponTooltip>
               ) : branch.type === 'pet' ? (
-                <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
+                <Text h6 bold smallCaps>{t(branch.pet as PetName, { ns: 'global' })}</Text>
               ) : !branch.stat2 ? (
                 <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat))}</Text>
               ) : (

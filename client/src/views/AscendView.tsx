@@ -23,7 +23,7 @@ import { catchError } from '../utils/catchError';
  */
 const AscendView = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation(['ascend', 'global']);
   const { brute } = useBrute();
   const navigate = useNavigate();
   const Confirm = useConfirm();
@@ -132,31 +132,31 @@ const AscendView = () => {
         return '';
       }
       if (selectedPerk === 'dog1') {
-        return t('ascendWith.firstDog');
+        return t('ascendWith.firstDog', { ns: 'ascend' });
       }
       if (selectedPerk === 'dog2') {
-        return t('ascendWith.secondDog');
+        return t('ascendWith.secondDog', { ns: 'ascend' });
       }
       if (selectedPerk === 'dog3') {
-        return t('ascendWith.thirdDog');
+        return t('ascendWith.thirdDog', { ns: 'ascend' });
       }
-      return t(selectedPerk);
+      return t(selectedPerk, { ns: 'global' });
     };
 
     const getSelectedPerkTypeLabel = () => {
       if (!selectedPerkType) {
         return '';
       }
-      return t(`perkType.${selectedPerkType}`);
+      return t(`perkType.${selectedPerkType}`, { ns: 'ascend' });
     };
 
     if (!selectedPerk || !selectedPerkType) {
       return '';
     }
     if (selectedPerk === 'dog1' || selectedPerk === 'dog2' || selectedPerk === 'dog3') {
-      return t('youWillAscendWithDog', { one_or_a_second_pet_dog: t(getSelectedPerkLabel()) });
+      return t('youWillAscendWithDog', { ns: 'ascend', one_or_a_second_pet_dog: getSelectedPerkLabel() });
     }
-    return t('youWillAscendWith', { perkName: t(getSelectedPerkLabel()), perkType: getSelectedPerkTypeLabel() });
+    return t('youWillAscendWith', { ns: 'ascend', perkName: getSelectedPerkLabel(), perkType: getSelectedPerkTypeLabel() });
   }, [selectedPerk, selectedPerkType, t]);
 
   const ascend = useCallback(() => {
@@ -167,7 +167,7 @@ const AscendView = () => {
       return;
     }
 
-    Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, async () => {
+    Confirm.open(t('ascendConfirmShort', { ns: 'ascend' }), `${t('ascendConfirm', { ns: 'ascend' })} ${getAscendWithLabel()}`, async () => {
       try {
         await Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk });
         goToCell(brute.name)();
@@ -180,7 +180,7 @@ const AscendView = () => {
     getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
 
   return brute && (
-    <Page title={t('ascension')} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('ascension', { ns: 'ascend' })} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -189,16 +189,16 @@ const AscendView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ascension')}</Text>
-        <Text bold color="secondary">{t('youAreAboutToAscend')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ascension', { ns: 'ascend' })}</Text>
+        <Text bold color="secondary">{t('youAreAboutToAscend', { ns: 'ascend' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container>
           {isMd && (
             <>
               <Grid item xs={12} md={3.4}>
-                <Text bold fontSize="82%">{t('ascensionExplanationText')}</Text>
-                <Text bold fontSize="85%">{t('rankingPrioritizeAscensions')}</Text>
+                <Text bold fontSize="82%">{t('ascensionExplanationText', { ns: 'ascend' })}</Text>
+                <Text bold fontSize="85%">{t('rankingPrioritizeAscensions', { ns: 'ascend' })}</Text>
               </Grid>
               <Grid item xs={12} md={1} sx={{ height: 10 }} />
             </>
@@ -237,19 +237,19 @@ const AscendView = () => {
                 <Text bold>{getAscendWithLabel()}</Text>
               )}
               {(!selectedPerk || !selectedPerkType) && (
-                <Text bold>{t('youMustSelectToAscend')}</Text>
+                <Text bold>{t('youMustSelectToAscend', { ns: 'ascend' })}</Text>
               )}
             </Box>
             <Box sx={{ width: 315, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
               <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }} disabled={!selectedPerk || !selectedPerkType}>
-                {t('ascend')}
+                {t('ascend', { ns: 'global' })}
               </FantasyButton>
             </Box>
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3.4}>
-              <Text bold fontSize="82%">{t('ascensionExplanationText')}</Text>
-              <Text bold fontSize="85%">{t('rankingPrioritizeAscensions')}</Text>
+              <Text bold fontSize="82%">{t('ascensionExplanationText', { ns: 'ascend' })}</Text>
+              <Text bold fontSize="85%">{t('rankingPrioritizeAscensions', { ns: 'ascend' })}</Text>
             </Grid>
           )}
         </Grid>

@@ -286,7 +286,7 @@ const LevelUpView = () => {
                           ? (brute.skills[destinyChoice.skill] ?? 0) + 1
                           : undefined}
                       >
-                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName, { ns: 'global' })}</Text>
                       </SkillTooltip>
                     ) : destinyChoice.type === 'weapon' ? (
                       <WeaponTooltip
@@ -295,7 +295,7 @@ const LevelUpView = () => {
                           ? (brute.weapons[destinyChoice.weapon] ?? 0) + 1
                           : undefined}
                       >
-                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName, { ns: 'global' })}</Text>
                       </WeaponTooltip>
                     ) : destinyChoice.type === 'pet' ? (
                       <PetTooltip
@@ -304,7 +304,7 @@ const LevelUpView = () => {
                           ? (brute.pets[destinyChoice.pet] ?? 0) + 1
                           : undefined}
                       >
-                        <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
+                        <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName, { ns: 'global' })}</Text>
                       </PetTooltip>
                     ) : !destinyChoice.stat2 ? (
                       <Text h6 bold smallCaps>

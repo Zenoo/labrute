@@ -48,7 +48,7 @@ const SkillTooltip = ({
             src={`/images/skills/${skill.name}.svg`}
             sx={{ width: 68, float: 'left', marginRight: 1 }}
           />
-          <Text bold h5>{t(skill.name)}</Text>
+          <Text bold h5>{t(skill.name, { ns: 'global' })}</Text>
           <Divider />
           <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (

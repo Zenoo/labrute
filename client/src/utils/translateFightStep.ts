@@ -2,6 +2,8 @@ import { TFunction } from 'react-i18next';
 import { FightStep, Fighter, SkillById, StepType, WeaponById } from '@labrute/core';
 import { BossName, PetName } from '@labrute/prisma';
 
+const petNames = new Set(Object.values(PetName));
+
 const getFighterName = (
   fighters: Fighter[],
   fighterId: number,
@@ -16,7 +18,9 @@ const getFighterName = (
     return fighter.name;
   }
 
-  return t(fighter.name as PetName | BossName);
+  return petNames.has(fighter.name as PetName)
+    ? t(fighter.name as PetName, { ns: 'global' })
+    : t(fighter.name as BossName);
 };
 
 const translateFightStep = (
@@ -27,7 +31,7 @@ const translateFightStep = (
   switch (step.a) {
     case StepType.Saboteur:
       return t('fight.step.saboteur', {
-        weapon: t(WeaponById[step.w]),
+        weapon: t(WeaponById[step.w], { ns: 'global' }),
       });
     case StepType.Leave:
       return t('fight.step.leave', {
@@ -40,12 +44,12 @@ const translateFightStep = (
     case StepType.Trash:
       return t('fight.step.trash', {
         brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w]),
+        name: t(WeaponById[step.w], { ns: 'global' }),
       });
     case StepType.Steal:
       return t('fight.step.steal', {
         brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w]),
+        name: t(WeaponById[step.w], { ns: 'global' }),
         target: getFighterName(fighters, step.t, t),
       });
     case StepType.Trap:
@@ -77,7 +81,7 @@ const translateFightStep = (
       if (typeof step.w !== 'undefined') {
         text += t('fight.step.hitWith', {
           ...data,
-          weapon: t(WeaponById[step.w]),
+          weapon: t(WeaponById[step.w], { ns: 'global' }),
         });
       } else {
         text += t('fight.step.hit', data);
@@ -109,7 +113,7 @@ const translateFightStep = (
           brute: getFighterName(fighters, step.f, t),
           damage: step.d,
           target: getFighterName(fighters, step.t, t),
-          weapon: t(WeaponById[step.w]),
+          weapon: t(WeaponById[step.w], { ns: 'global' }),
         });
       }
       return '';
@@ -141,7 +145,7 @@ const translateFightStep = (
     case StepType.Equip:
       return t('fight.step.equip', {
         brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w]),
+        name: t(WeaponById[step.w], { ns: 'global' }),
       });
     case StepType.AttemptHit: {
       let text = t('fight.step.attemptHit', {
@@ -172,13 +176,13 @@ const translateFightStep = (
       return t('fight.step.sabotage', {
         fighter: getFighterName(fighters, step.f, t),
         opponent: getFighterName(fighters, step.t, t),
-        weapon: t(WeaponById[step.w]),
+        weapon: t(WeaponById[step.w], { ns: 'global' }),
       });
     case StepType.Disarm:
       return t('fight.step.disarm', {
         fighter: getFighterName(fighters, step.f, t),
         opponent: getFighterName(fighters, step.t, t),
-        weapon: t(WeaponById[step.w]),
+        weapon: t(WeaponById[step.w], { ns: 'global' }),
       });
     case StepType.Death:
       return t('fight.step.death', {
@@ -188,7 +192,7 @@ const translateFightStep = (
       return t('fight.step.throw', {
         fighter: getFighterName(fighters, step.f, t),
         opponent: getFighterName(fighters, step.t, t),
-        weapon: t(WeaponById[step.w]),
+        weapon: t(WeaponById[step.w], { ns: 'global' }),
       });
     case StepType.End:
       return t('fight.step.end', {
@@ -204,12 +208,12 @@ const translateFightStep = (
       return t('fight.step.skillExpire', {
         // TODO: only step.f on release
         brute: getFighterName(fighters, step.b || step.f || 1, t),
-        skill: t(SkillById[step.s]),
+        skill: t(SkillById[step.s], { ns: 'global' }),
       });
     case StepType.SkillActivate:
       return t('fight.step.skillActivate', {
         brute: getFighterName(fighters, step.b, t),
-        skill: t(SkillById[step.s]),
+        skill: t(SkillById[step.s], { ns: 'global' }),
       });
     case StepType.Spy:
       return t('fight.step.spy', {
