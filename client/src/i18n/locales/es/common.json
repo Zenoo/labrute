@@ -468,8 +468,6 @@
   "total": "Total",
   "notFound.title": "Página no encontrada",
   "notFound.subtitle": "La página que estás buscando no existe.",
-  "pleaseWait": "Espere por favor...",
-  "generatingTournaments": "El torneo de hoy se está generado. Por favor espere unos minutos.",
   "chooseAsFavorite": "Elige como favorito (máx. {{amount}})",
   "removeFromFavorites": "Eliminar de favoritos",
   "bareHands": "Manos descubiertas",

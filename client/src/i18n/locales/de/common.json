@@ -468,8 +468,6 @@
   "total": "Gesamt",
   "notFound.title": "Seite nicht gefunden",
   "notFound.subtitle": "Die Seite, die du suchst, existiert nicht.",
-  "pleaseWait": "Bitte warten...",
-  "generatingTournaments": "Heutige Wettkämpfe werden erstellt. Bitte warte einige Minuten.",
   "chooseAsFavorite": "Zum Favorit ernennen (maximal {{amount}})",
   "removeFromFavorites": "Nicht mehr favorisieren",
   "bareHands": "Bloße Hände",

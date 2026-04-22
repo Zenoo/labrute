@@ -468,8 +468,6 @@
   "total": "Всего",
   "notFound.title": "Страница не найдена",
   "notFound.subtitle": "Эта страница не существует.",
-  "pleaseWait": "Подождите, пожалуйста...",
-  "generatingTournaments": "Мы составляем сегодняшние турниры. Подождите, пожалуйста, пару минут.",
   "chooseAsFavorite": "Сделать избранным (макс. {{amount}})",
   "removeFromFavorites": "Удалить из избранных",
   "bareHands": "Голые руки",
