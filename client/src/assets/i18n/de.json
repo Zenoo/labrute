@@ -1635,9 +1635,9 @@
   "deleteAccount": "Konto löschen",
   "deleteAccountConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? All deine Brutalos und Fortschritt gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.",
   "accountDeleted": "Dein Konto wurde gelöscht",
-  "transferBrute": "Transfer brute",
-  "bruteTransfer": "Brute transfer",
-  "transfer": "Transfer",
-  "bruteTransferred": "Brute transferred",
-  "confirmBruteTransfer": "Are you sure you want to transfer {{bruteName}}? You will lose access to this brute and all its progress. This action is irreversible."
+  "transferBrute": "Brutalo übertragen",
+  "bruteTransfer": "Brutalo-Übertragung",
+  "transfer": "Übertragen",
+  "bruteTransferred": "Brutalo übertragen",
+  "confirmBruteTransfer": "Bist du sicher, dass du {{bruteName}} übertragen möchtest? Du verlierst den Zugriff zu diesem Brutalo und all seinem Fortschritt. Dieser Vorgang kann nicht rückgängig gemacht werden."
 }

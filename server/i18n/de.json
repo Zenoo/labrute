@@ -26,7 +26,7 @@
   "reportNotFound": "Meldung nicht gefunden",
   "invalidCreation": "Ich verspüre eine Schwankung in der Macht.",
   "nameAlreadyTaken": "Dieser Name ist bereits vergeben",
-  "bruteLimitReached": "Du hast das Brutalo Limit erreicht. Du benötigst {{gold}} Gold, um einen neuen freizuschalten.",
+  "bruteLimitReached": "Du hast die Höchstanzahl an Brutalos erreicht. Du benötigst {{gold}} Gold, um einen neuen freizuschalten.",
   "bruteCannotLevelUp": "Dein Brutalo kann nicht in der Stufe aufsteigen",
   "maxTierReached": "Maximale Aufwertung erreicht",
   "notEnoughXP": "Nicht genug EP",
@@ -57,7 +57,7 @@
   "userNotFound": "Nutzer nicht gefunden",
   "invalidParameters": "Ungültige Parameter",
   "nameContainsBannedWord": "Dieser Name enthält ein verbotenes Wort",
-  "favoriteLimitReached": "Du hast das Maximum an Favoriten erreicht",
+  "favoriteLimitReached": "Du hast die Höchstanzahl an Brutalo-Favoriten erreicht",
   "notEnoughGold": "Nicht genügend Gold",
   "clanNameLength": "Der Name deines Klans muss zwischen 3 und 50 Zeichen lang sein.",
   "clanNameAlreadyTaken": "Dieser Name ist bereits vergeben",
@@ -119,7 +119,7 @@
   "fingerprintBanned": "Diese Signatur ist gebannt",
   "ipBanned": "Deine IP ist gebannt",
   "fightNotFound": "Kampf nicht gefunden",
-  "favoriteLimit": "Du hast das Maximum an Favorit-Kämpfen erreicht",
+  "favoriteLimit": "Du hast die Höchstanzahl an Favorit-Kämpfen erreicht",
   "warOngoing": "Ein Clan-Krieg läuft bereits, du kannst keinen neuen beginnen",
   "opponentWarOngoing": "Der gegnerische Klan befindet sich bereits im Krieg",
   "warNotFound": "Krieg nicht gefunden",
@@ -132,7 +132,7 @@
   "reportAlreadyHandled": "Meldung bereits bearbeitet",
   "cantFightBeforeLevelingUp": "Du kannst nicht kämpfen, ehe du eine Stufe aufsteigst",
   "outdatedVersion": "Du verwendest eine veraltete Version des Spiels. Bitte aktualisiere die Seite, um zur neuesten Version zu gelangen. Falls diese Nachricht weiterhin bestehen sollte, leere bitte deinen Browser-Cache und aktualisiere die Seite erneut.",
-  "transferLimitReached": "You have reached your transfer limit.",
-  "targetUserBruteLimitReached": "The target user has reached their brute limit. They need to have a free slot to be able to receive a brute.",
-  "targetUserWithoutSharedFingerprint": "The target user doesn't have a shared fingerprint. You need to log in with both accounts on the same device at least once to be able to transfer a brute between them."
+  "transferLimitReached": "Du hast die Höchstanzahl an Übertragungen erreicht.",
+  "targetUserBruteLimitReached": "Der Zielnutzer hat seine Höchstanzahl an Brutalos erreicht. Dieser bräuchte zunächst einen freien Platz, um einen Brutalo erhalten zu können.",
+  "targetUserWithoutSharedFingerprint": "Der Zielnutzer hat keine übereinstimmende digitale Signatur. Du musst dich in beide Konten wenigstens ein Mal auf dem gleichen Gerät anmelden, um einen Brutalo zwischen diesen übertragen zu können."
 }
