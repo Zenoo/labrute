@@ -3532,7 +3532,7 @@ __metadata:
     eslint-plugin-tsdoc: "npm:^0.2.17"
     express: "npm:^4.21.2"
     i18next: "npm:^24.2.1"
-    i18next-fs-backend: "npm:^2.6.0"
+    i18next-fs-backend: "npm:^2.6.4"
     node-fetch: "npm:^3.3.2"
     node-schedule: "npm:^2.1.1"
     prisma: "npm:^6.16.2"
@@ -11104,10 +11104,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-fs-backend@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "i18next-fs-backend@npm:2.6.0"
-  checksum: e23b6337326bea870c9e0a3e004241a27dcc56ac803946b859992bc2030e5f8d41cb10fbf3b74424155055387587f8d308b60118e07f75104198865f329013a9
+"i18next-fs-backend@npm:^2.6.4":
+  version: 2.6.4
+  resolution: "i18next-fs-backend@npm:2.6.4"
+  checksum: b618ff9af83b624ca43b530d8346182e911a8167e3970e54c1a417814a09a147994787d01c8bfed53aa09267a8301ad7404a32c20ff7f060a35d3efbb3d6c873
   languageName: node
   linkType: hard
 
