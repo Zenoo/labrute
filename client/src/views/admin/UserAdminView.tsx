@@ -89,6 +89,7 @@ const UserAdminView = () => {
         gold: user.gold,
         fightSpeed: user.fightSpeed,
         backgroundMusic: user.backgroundMusic,
+        transferedBrutesCount: user.transferedBrutesCount,
       },
       achievements: changedAchievements,
     }).then(() => {
@@ -174,6 +175,22 @@ const UserAdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
+                    <FormControlLabel
+                      control={(
+                        <Checkbox
+                          checked={user.backgroundMusic}
+                          onChange={(event) => {
+                            setUser((b) => (b ? ({
+                              ...b,
+                              backgroundMusic: event.target.checked,
+                            }) : null));
+                          }}
+                        />
+                      )}
+                      label="Background Music"
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
                     <StyledInput
                       label="Brute limit"
                       value={user.bruteLimit}
@@ -213,19 +230,16 @@ const UserAdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={6} sm={3}>
-                    <FormControlLabel
-                      control={(
-                        <Checkbox
-                          checked={user.backgroundMusic}
-                          onChange={(event) => {
-                            setUser((b) => (b ? ({
-                              ...b,
-                              backgroundMusic: event.target.checked,
-                            }) : null));
-                          }}
-                        />
-                      )}
-                      label="Background Music"
+                    <StyledInput
+                      label="Transfered Brutes Count"
+                      value={user.transferedBrutesCount}
+                      onChange={(event) => {
+                        setUser((b) => (b ? ({
+                          ...b,
+                          transferedBrutesCount: +event.target.value,
+                        }) : null));
+                      }}
+                      fullWidth
                     />
                   </Grid>
                   <Grid item xs={12}>
