@@ -59,7 +59,7 @@ const HallView = () => {
   }, [Alert, Server.Brute, updateData, user]);
 
   return (
-    <Page title={`${t('hall')} ${t('MyBrute', { ns: 'global' })}`} headerUrl="">
+    <Page title={`${t('hall', { ns: 'hall' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl="">
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -68,7 +68,7 @@ const HallView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall', { ns: 'hall' })}</Text>
         {!!fightsLeft && (
           <Text bold color="secondary">
             {fightsLeft > 1
@@ -123,7 +123,7 @@ const HallView = () => {
                   <Box display="flex" alignItems="center">
                     {/* Registration status */}
                     {brute.registeredForTournament && (
-                      <Tooltip title={t('bruteRegistered')}>
+                      <Tooltip title={t('bruteRegistered', { ns: 'global' })}>
                         <Check
                           fontSize="small"
                           sx={{
@@ -137,7 +137,10 @@ const HallView = () => {
                     )}
                     <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
                   </Box>
-                  <Tooltip title={brute.favorite ? t('removeFromFavorites') : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES })}>
+                  <Tooltip title={brute.favorite
+                    ? t('removeFromFavorites', { ns: 'hall' })
+                    : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES, ns: 'hall' })}
+                  >
                     <Stars
                       onClick={toggleFavorite(brute)}
                       fontSize="small"
@@ -211,7 +214,7 @@ const HallView = () => {
                 </Box>
               </Box>
               {/* Fights left */}
-              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft })}>
+              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft, ns: 'global' })}>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: 'center',

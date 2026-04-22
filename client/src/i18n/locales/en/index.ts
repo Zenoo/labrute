@@ -11,6 +11,7 @@ import followingFeed from './followingFeed.json';
 import generating from './generating.json';
 import global from './global.json';
 import globalTournament from './globalTournament.json';
+import hall from './hall.json';
 import home from './home.json';
 
 const en = {
@@ -27,6 +28,7 @@ const en = {
   generating,
   global,
   globalTournament,
+  hall,
   home,
 } as const;
 

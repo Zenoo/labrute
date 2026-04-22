@@ -10,6 +10,8 @@
   "invalidName": "Nombre inválido. Los caracteres permitidos son a-z, A-Z, 0-9, '_' y '-'. Debe tener una longitud entre 3 y 16 caracteres.",
   "youHaveXFightsLeft": "¡Te quedan {{value}} combates para el día de hoy!",
   "youHaveOneFightLeft": "¡Te queda 1 combate para el día de hoy!",
+  "fightsLeft": "Te quedan {{value}} combates para el día de hoy.",
+  "bruteRegistered": "Inscripción registrada con éxito.",
   "backToCell": "Volver a la celda",
   "level": "Nivel",
   "endurance": "Vida",

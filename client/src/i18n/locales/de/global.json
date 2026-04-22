@@ -10,6 +10,8 @@
   "invalidName": "Ungültiger Name. Akzeptierte Buchstaben sind a-z, A-Z, 0-9, '_' and '-'. Muss zwischen 3 und 16 Buchstaben enthalten.",
   "youHaveXFightsLeft": "Es bleiben dir heute noch {{value}} Kämpfe!",
   "youHaveOneFightLeft": "Es bleibt dir heute noch ein Kampf!",
+  "fightsLeft": "Dir verbleiben heute {{value}} Kämpfe.",
+  "bruteRegistered": "Brutalo erfolgreich angemeldet.",
   "backToCell": "Zurück zur Zelle",
   "level": "Stufe",
   "endurance": "Ausdauer",

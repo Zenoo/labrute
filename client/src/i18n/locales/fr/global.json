@@ -10,6 +10,8 @@
   "invalidName": "Nom invalide. Les caractères autorisés sont a-z, A-Z, 0-9, _ et -. Il doit faire entre 3 et 16 caractères.",
   "youHaveXFightsLeft": "Il te reste {{value}} combats aujourd'hui !",
   "youHaveOneFightLeft": "Il te reste un combat aujourd'hui !",
+  "fightsLeft": "Il te reste {{value}} combats aujourd'hui.",
+  "bruteRegistered": "Brute inscrite.",
   "backToCell": "Retour en cellule",
   "level": "Niveau",
   "endurance": "Endurance",
