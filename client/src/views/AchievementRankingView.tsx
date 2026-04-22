@@ -13,7 +13,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementRankingView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['achievementRanking', 'global']);
   const theme = useTheme();
   const Alert = useAlert();
   const Server = useServer();
@@ -49,12 +49,12 @@ const AchievementRankingView = () => {
 
   return (
     <Page
-      title={t('achievementRankings')}
-      description={t('achievementRankings.desc')}
+      title={t('achievementRankings', { ns: 'achievementRanking' })}
+      description={t('achievementRankings.desc', { ns: 'achievementRanking' })}
       headerUrl="/"
     >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievementRankings')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievementRankings', { ns: 'achievementRanking' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <FormControlLabel
@@ -66,7 +66,7 @@ const AchievementRankingView = () => {
               }}
             />
           )}
-          label={t('byUser')}
+          label={t('byUser', { ns: 'achievementRanking' })}
         />
         {/* ACHIEVEMENTS */}
         {loading ? <Loader /> : (
@@ -99,7 +99,7 @@ const AchievementRankingView = () => {
                               src={`/images/achievements/${AchievementData[achievementName].illustration || ''}`}
                               sx={{ width: 20 }}
                             />
-                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievementName}`)}</Text>
+                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievementName}`, { ns: 'global' })}</Text>
                           </ListSubheader>
                         </AchievementTooltip>
                       )}

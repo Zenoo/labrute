@@ -25,7 +25,7 @@ type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> &
 };
 
 const UserView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'global']);
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
@@ -246,7 +246,7 @@ const UserView = () => {
                                   src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`}
                                   sx={{ width: 20 }}
                                 />
-                                <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`)}</Text>
+                                <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`, { ns: 'global' })}</Text>
                               </ListSubheader>
                             </AchievementTooltip>
                           )}
@@ -259,7 +259,7 @@ const UserView = () => {
                             }
 
                             return (
-                              <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
+                              <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`, { ns: 'global' })} x ${titleCount}`}>
                                 <ListItem sx={{
                                   py: 0,
                                   '&:not(:last-child)': {

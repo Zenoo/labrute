@@ -15,7 +15,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementsView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'global']);
   const theme = useTheme();
   const { bruteName } = useParams();
   const { user } = useAuth();
@@ -40,7 +40,7 @@ const AchievementsView = () => {
   return (
     <Page
       title={t('achievements')}
-      description={t('achievements.desc')}
+      description={t('achievements.desc', { ns: 'global' })}
       headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
     >
       <Paper sx={{ mx: 4 }}>
@@ -156,7 +156,7 @@ const AchievementsView = () => {
                               src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`}
                               sx={{ width: 20 }}
                             />
-                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`)}</Text>
+                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`, { ns: 'global' })}</Text>
                           </ListSubheader>
                         </AchievementTooltip>
                       )}
@@ -169,7 +169,7 @@ const AchievementsView = () => {
                         }
 
                         return (
-                          <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
+                          <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`, { ns: 'global' })} x ${titleCount}`}>
                             <ListItem sx={{
                               py: 0,
                               '&:not(:last-child)': {
