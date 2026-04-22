@@ -19,6 +19,7 @@
   "agility": "Agilité",
   "speed": "Rapidité",
   "HP": "PV",
+  "healthPoints": "points de vie",
   "newWeapon": "Nouvelle arme",
   "newSkill": "Nouvelle compétence",
   "newPet": "Nouveau familier",

@@ -19,6 +19,7 @@
   "agility": "Flinkheit",
   "speed": "Schnelligkeit",
   "HP": "LP",
+  "healthPoints": "Lebenspunkte",
   "newWeapon": "Neue Waffe",
   "newSkill": "Neue Fähigkeit",
   "newPet": "Neues Wildtier",

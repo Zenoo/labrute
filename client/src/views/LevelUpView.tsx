@@ -38,7 +38,7 @@ const statValue = (brute: Pick<Brute, 'enduranceModifier'>, stat: BruteStat | nu
 };
 
 const LevelUpView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('levelUp');
   const { bruteName } = useParams();
   const { user, updateData, modifiers } = useAuth();
   const navigate = useNavigate();
@@ -116,7 +116,7 @@ const LevelUpView = () => {
       {/* HP */}
       <Box>
         <BruteHP hp={brute.hp} />
-        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
+        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints', { ns: 'global' })}</Text>
       </Box>
       {/* STRENGTH */}
       <CellStats value={brute.strengthValue} stat="strength" />

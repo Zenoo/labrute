@@ -19,6 +19,7 @@
   "agility": "Agility",
   "speed": "Speed",
   "HP": "HP",
+  "healthPoints": "health points",
   "newWeapon": "New weapon",
   "newSkill": "New skill",
   "newPet": "New pet",

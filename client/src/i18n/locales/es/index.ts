@@ -14,6 +14,7 @@ import globalTournament from './globalTournament.json';
 import hall from './hall.json';
 import home from './home.json';
 import inventory from './inventory.json';
+import levelUp from './levelUp.json';
 
 const es = {
   achievement,
@@ -32,6 +33,7 @@ const es = {
   hall,
   home,
   inventory,
+  levelUp,
 } as const;
 
 export default es;

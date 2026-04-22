@@ -48,7 +48,7 @@ const BruteBodyAndStats = ({
         >
           <Box>
             <BruteHP hp={brute.hp} />
-            <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
+            <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints', { ns: 'global' })}</Text>
           </Box>
         </Tooltip>
         {/* STRENGTH */}
