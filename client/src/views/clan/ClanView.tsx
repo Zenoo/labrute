@@ -456,6 +456,22 @@ const ClanView = () => {
       });
     }).catch(catchError(Alert));
   };
+  const onCloseRoleManagement = () => {
+    setRoleModalOpen(false);
+    setEditingRole(null);
+  };
+
+  const onAssignedModal = () => {
+    setRoleListOpen(true);
+  };
+
+  const onRoleCreated = () => {
+    setRoleListOpen(true);
+  };
+
+  const onCloseRoleList = () => {
+    setRoleListOpen(false);
+  };
 
   return clan && (
     <Page title={`${t('clan')} ${clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
@@ -1023,19 +1039,14 @@ const ClanView = () => {
         <>
           <RoleManagementModal
             open={roleModalOpen}
-            onClose={() => {
-              setRoleModalOpen(false);
-              setEditingRole(null);
-            }}
+            onClose={onCloseRoleManagement}
             clanId={clan.id}
             role={editingRole}
-            onRoleCreated={() => {
-              setRoleListOpen(true);
-            }}
+            onRoleCreated={onRoleCreated}
           />
           <RoleListView
             open={roleListOpen}
-            onClose={() => setRoleListOpen(false)}
+            onClose={onCloseRoleList}
             clanId={clan.id}
             onEditRole={handleEditRole}
             onAssignRole={handleAssignRole}
@@ -1046,9 +1057,7 @@ const ClanView = () => {
             clanId={clan.id}
             role={assigningRole}
             members={clan.brutes.map((b) => ({ id: b.id, name: b.name }))}
-            onAssigned={() => {
-              setRoleListOpen(true);
-            }}
+            onAssigned={onAssignedModal}
           />
         </>
       )}

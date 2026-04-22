@@ -113,6 +113,7 @@ const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
               label={t('roleName')}
               value={roleName}
               onChange={(e) => setRoleName(e.target.value)}
+              inputProps={{ maxLength: 50 }}
               variant="outlined"
               sx={{
                 '& .MuiOutlinedInput-root': {
