@@ -79,7 +79,7 @@ const CellSocials = ({
           )}
           {/* No destiny for bots */}
           {brute.userId && (
-            <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
+            <Tooltip title={`${t('destinyOf', { ns: 'global' })} ${brute.name}`}>
               <Link
                 to={`/${brute.name}/destiny`}
                 sx={{ mr: 1 }}

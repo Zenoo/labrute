@@ -78,7 +78,7 @@ const BruteTooltip = ({
         <>
           <Text bold color="secondary">{target.name}</Text>
           <Text bold smallCaps color="text.primary">
-            {t('level')}
+            {t('level', { ns: 'global' })}
             <Text component="span" bold color="secondary"> {target.level}</Text>
             {target.eventId ? (
               <Box

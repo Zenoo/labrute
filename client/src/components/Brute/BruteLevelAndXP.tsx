@@ -42,7 +42,7 @@ const BruteLevelAndXP = ({
             />
           </Tooltip>
         )}
-        {t('level')} {brute.level}
+        {t('level', { ns: 'global' })} {brute.level}
       </Text>
       {/* LEVEL BAR */}
       <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>

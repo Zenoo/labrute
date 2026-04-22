@@ -99,7 +99,7 @@ const styles: Record<string, SxProps> = {
 };
 
 const DestinyView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'global', 'destiny']);
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const { palette: { mode } } = useTheme();
@@ -126,19 +126,19 @@ const DestinyView = () => {
           {branch ? (
             <>
               {/* LEVEL */}
-              <Text h6 bold smallCaps>{t('level')} {branch.level}</Text>
+              <Text h6 bold smallCaps>{t('level', { ns: 'global' })} {branch.level}</Text>
               {/* CHOICE HEADER */}
               <Text caption>
                 {/* +3 Skill */}
-                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in')}`}
+                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in', { ns: 'global' })}`}
                 {/* +2/+1 Skill */}
-                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in')}`}
+                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in', { ns: 'global' })}`}
                 {/* New weapon */}
-                {branch.type === 'weapon' && `${t('newWeapon')} :`}
+                {branch.type === 'weapon' && `${t('newWeapon', { ns: 'global' })} :`}
                 {/* New skill */}
-                {branch.type === 'skill' && `${t('newSkill')} :`}
+                {branch.type === 'skill' && `${t('newSkill', { ns: 'global' })} :`}
                 {/* New pet */}
-                {branch.type === 'pet' && `${t('newPet')} :`}
+                {branch.type === 'pet' && `${t('newPet', { ns: 'global' })} :`}
               </Text>
 
               {/* CHOICE CONTENT */}
@@ -156,12 +156,12 @@ const DestinyView = () => {
               ) : branch.type === 'pet' ? (
                 <Text h6 bold smallCaps>{t(branch.pet as PetName, { ns: 'global' })}</Text>
               ) : !branch.stat2 ? (
-                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat))}</Text>
+                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat), { ns: 'global' })}</Text>
               ) : (
                 <Text h6 bold smallCaps>
-                  {t(statName(branch.stat1 as BruteStat))}
+                  {t(statName(branch.stat1 as BruteStat), { ns: 'global' })}
                   {' / '}
-                  {t(statName(branch.stat2))}
+                  {t(statName(branch.stat2), { ns: 'global' })}
                 </Text>
               ))}
             </>
@@ -181,8 +181,9 @@ const DestinyView = () => {
 
   return brute && (
     <Page
-      title={`${t('MyBrute', { ns: 'global' })}. ${t('destinyOf')} ${brute.name || ''}`}
-      description={t('destiny', {
+      title={`${t('MyBrute', { ns: 'global' })}. ${t('destinyOf', { ns: 'global' })} ${brute.name || ''}`}
+      description={t('destiny.desc', {
+        ns: 'destiny',
         name: brute.name,
         level: brute.level,
         rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),

@@ -266,15 +266,15 @@ const LevelUpView = () => {
                     {/* CHOICE HEADER */}
                     <Text caption>
                       {/* +3 Skill */}
-                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
+                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in', { ns: 'global' })}`}
                       {/* +2/+1 Skill */}
-                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
+                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in', { ns: 'global' })}`}
                       {/* New weapon */}
-                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon')} :`)}
+                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon', { ns: 'global' })} :`)}
                       {/* New skill */}
-                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill')} :`)}
+                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill', { ns: 'global' })} :`)}
                       {/* New pet */}
-                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet')} :`)}
+                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet', { ns: 'global' })} :`)}
                     </Text>
 
                     {/* CHOICE CONTENT */}
@@ -308,13 +308,13 @@ const LevelUpView = () => {
                       </PetTooltip>
                     ) : !destinyChoice.stat2 ? (
                       <Text h6 bold smallCaps>
-                        {t(statName(destinyChoice.stat1 as BruteStat))}
+                        {t(statName(destinyChoice.stat1 as BruteStat), { ns: 'global' })}
                       </Text>
                     ) : (
                       <Text h6 bold smallCaps>
-                        {t(statName(destinyChoice.stat1 as BruteStat))}
+                        {t(statName(destinyChoice.stat1 as BruteStat), { ns: 'global' })}
                         {' / '}
-                        {t(statName(destinyChoice.stat2))}
+                        {t(statName(destinyChoice.stat2), { ns: 'global' })}
                       </Text>
                     ))}
                   </BoxBg>

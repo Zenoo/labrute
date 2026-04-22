@@ -88,7 +88,7 @@ const SkillTooltip = ({
                     </>
                   )}
                   {' '}
-                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
+                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat), { ns: 'global' })}
                   {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
                   {modifier.details ? ` ${t(modifier.details)}` : ''}
                 </Text>
@@ -130,7 +130,7 @@ const SkillTooltip = ({
                     </>
                   )}
                   {'% '}
-                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
+                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat), { ns: 'global' })}
                   {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
                   {modifier.details ? ` ${t(modifier.details)}` : ''}
                 </Text>

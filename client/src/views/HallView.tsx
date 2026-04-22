@@ -152,7 +152,7 @@ const HallView = () => {
                   </Tooltip>
                 </Box>
                 <Text bold smallCaps color="text.primary">
-                  {t('level')}
+                  {t('level', { ns: 'global' })}
                   <Text component="span" bold color="secondary"> {brute.level}</Text>
                   {brute.eventId ? (
                     <Box

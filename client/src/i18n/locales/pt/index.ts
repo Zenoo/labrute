@@ -6,6 +6,7 @@ import bannedUsers from './bannedUsers.json';
 import bruteNotFound from './bruteNotFound.json';
 import cell from './cell.json';
 import common from './common.json';
+import destiny from './destiny.json';
 import global from './global.json';
 import home from './home.json';
 
@@ -18,6 +19,7 @@ const pt = {
   bruteNotFound,
   cell,
   common,
+  destiny,
   global,
   home,
 } as const;

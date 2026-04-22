@@ -60,7 +60,7 @@ const RankingView = () => {
           </Link>
         </Box>
       </TableCell>
-      <TableCell align="right">{t('level')} {b.level}</TableCell>
+      <TableCell align="right">{t('level', { ns: 'global' })} {b.level}</TableCell>
       {rankingSelected === 0 && (
         <TableCell align="right">{b.ascensions}</TableCell>
       )}

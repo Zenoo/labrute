@@ -101,21 +101,21 @@ export const FollowingFeedView = () => {
                         {log.type === LogType.up && (
                           <Text body2>
                             {/* +3 Skill */}
-                            {log.destinyChoice?.type === 'stats' && !log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''} ${t('in')} `}
+                            {log.destinyChoice?.type === 'stats' && !log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''} ${t('in', { ns: 'global' })} `}
                             {/* +2/+1 Skill */}
-                            {log.destinyChoice?.type === 'stats' && log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''}/+${log.destinyChoice?.stat2Value || ''} ${t('in')} `}
+                            {log.destinyChoice?.type === 'stats' && log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''}/+${log.destinyChoice?.stat2Value || ''} ${t('in', { ns: 'global' })} `}
                             {/* New weapon */}
-                            {log.destinyChoice?.type === 'weapon' && `${t('newWeapon')} : `}
+                            {log.destinyChoice?.type === 'weapon' && `${t('newWeapon', { ns: 'global' })} : `}
                             {/* New skill */}
-                            {log.destinyChoice?.type === 'skill' && `${t('newSkill')} : `}
+                            {log.destinyChoice?.type === 'skill' && `${t('newSkill', { ns: 'global' })} : `}
                             {/* New pet */}
-                            {log.destinyChoice?.type === 'pet' && `${t('newPet')} : `}
+                            {log.destinyChoice?.type === 'pet' && `${t('newPet', { ns: 'global' })} : `}
                             {(log.destinyChoice?.type === 'skill' ? (
                               <SkillTooltip
                                 skill={log.destinyChoice?.skill && skills[log.destinyChoice?.skill]}
                               >
                                 <Text component="span" body2>
-                                  {t(log.destinyChoice?.skill ?? '')}
+                                  {t(log.destinyChoice?.skill ?? '', { ns: 'global' })}
                                 </Text>
                               </SkillTooltip>
                             ) : log.destinyChoice?.type === 'weapon' ? (
@@ -124,18 +124,18 @@ export const FollowingFeedView = () => {
                                   && weapons[log.destinyChoice?.weapon]}
                               >
                                 <Text component="span" body2>
-                                  {t(log.destinyChoice?.weapon ?? '')}
+                                  {t(log.destinyChoice?.weapon ?? '', { ns: 'global' })}
                                 </Text>
                               </WeaponTooltip>
                             ) : log.destinyChoice?.type === 'pet' ? (
-                              <Text component="span" body2>{t(log.destinyChoice?.pet ?? '')}</Text>
+                              <Text component="span" body2>{t(log.destinyChoice?.pet ?? '', { ns: 'global' })}</Text>
                             ) : !log.destinyChoice?.stat2 ? (
                               <Text component="span" body2>
-                                {t(log.destinyChoice?.stat1 ?? '')}
+                                {t(log.destinyChoice?.stat1 ?? '', { ns: 'global' })}
                               </Text>
                             ) : (
                               <Text component="span" body2>
-                                {t(log.destinyChoice?.stat1 ?? '')} / {t(log.destinyChoice?.stat2)}
+                                {t(log.destinyChoice?.stat1 ?? '', { ns: 'global' })} / {t(log.destinyChoice?.stat2, { ns: 'global' })}
                               </Text>
                             ))}
                           </Text>

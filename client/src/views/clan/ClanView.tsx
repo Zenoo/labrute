@@ -871,7 +871,7 @@ const ClanView = () => {
                   {clanBrute.user && (
                     <ActivityStatus user={clanBrute.user} sx={{ fontSize: 10, mr: 0.5 }} />
                   )}
-                  {t('level')}
+                  {t('level', { ns: 'global' })}
                   <Text component="span" bold color="secondary"> {clanBrute.level}</Text>
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
@@ -923,7 +923,7 @@ const ClanView = () => {
                 <TableRow>
                   <TableCell>{t('ranking', { ns: 'global' })}</TableCell>
                   <TableCell>{t('brute')}</TableCell>
-                  <TableCell align="right">{t('level')}</TableCell>
+                  <TableCell align="right">{t('level', { ns: 'global' })}</TableCell>
                   <TableCell align="right">{t('actions')}</TableCell>
                 </TableRow>
               </TableHead>
@@ -947,7 +947,7 @@ const ClanView = () => {
                         </Link>
                       </Box>
                     </TableCell>
-                    <TableCell align="right">{t('level')} {requester.level}</TableCell>
+                    <TableCell align="right">{t('level', { ns: 'global' })} {requester.level}</TableCell>
                     <TableCell align="right">
                       <Box sx={{
                         display: 'flex',
