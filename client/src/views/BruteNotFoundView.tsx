@@ -7,16 +7,16 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const BruteNotFoundView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['bruteNotFound', 'global']);
 
   return (
     <Page
-      title={t('bruteNotFound.title')}
-      description={t('bruteNotFound.desc')}
+      title={t('title', { ns: 'bruteNotFound' })}
+      description={t('desc', { ns: 'bruteNotFound' })}
       headerUrl="/"
     >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('bruteNotFound.title')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title', { ns: 'bruteNotFound' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Box sx={{
@@ -26,11 +26,11 @@ const BruteNotFoundView = () => {
         }}
         >
           <Text h4 color="secondary" bold sx={{ mb: 2 }}>
-            {t('bruteNotFound.subtitle')}
+            {t('subtitle', { ns: 'bruteNotFound' })}
           </Text>
           <FantasyButton color="secondary" to="/">
             <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('home')}
+            {t('home', { ns: 'global' })}
           </FantasyButton>
         </Box>
       </Paper>
