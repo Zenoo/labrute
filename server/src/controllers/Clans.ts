@@ -1952,6 +1952,10 @@ export const Clans = {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
+      if (name.length > 50) {
+        throw new MissingElementError(translate('missingParameters', user));
+      }
+
       const clan = await prisma.clan.findFirst({
         where: { id, deletedAt: null },
         select: {
@@ -2053,6 +2057,9 @@ export const Clans = {
       if (req.body.name && typeof req.body.name !== 'string') {
         throw new MissingElementError(translate('missingParameters', user));
       }
+      if (typeof req.body.name === 'string' && req.body.name.length > 50) {
+        throw new MissingElementError(translate('missingParameters', user));
+      }
       if (req.body.permissions && !Array.isArray(req.body.permissions)) {
         throw new MissingElementError(translate('missingParameters', user));
       }
@@ -2108,6 +2115,12 @@ export const Clans = {
       if (!clan.brutes.some((b) => b.id === clan.masterId)) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
+
+      // Unassign brutes from this role before deleting
+      await prisma.brute.updateMany({
+        where: { clanRoleId: roleId },
+        data: { clanRoleId: null },
+      });
 
       await prisma.clanRole.delete({
         where: { id: roleId },
