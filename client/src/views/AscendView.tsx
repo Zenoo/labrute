@@ -213,7 +213,7 @@ const AscendView = () => {
             <BruteBodyAndStats brute={brute} isMd={isMd} centered />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>
-                <Text bold>{t('backToCell')}</Text>
+                <Text bold>{t('backToCell', { ns: 'global' })}</Text>
               </Link>
             </Box>
           </Grid>

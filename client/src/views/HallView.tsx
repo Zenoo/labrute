@@ -72,8 +72,8 @@ const HallView = () => {
         {!!fightsLeft && (
           <Text bold color="secondary">
             {fightsLeft > 1
-              ? t('youHaveXFightsLeft', { value: fightsLeft })
-              : t('youHaveOneFightLeft')}
+              ? t('youHaveXFightsLeft', { value: fightsLeft, ns: 'global' })
+              : t('youHaveOneFightLeft', { ns: 'global' })}
           </Text>
         )}
       </Paper>

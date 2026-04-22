@@ -125,7 +125,7 @@ const LevelUpView = () => {
       {/* SPEED */}
       <CellStats value={brute.speedValue} stat="speed" />
       <Link to={`/${brute.name}/cell`}>
-        <Text bold>{t('backToCell')}</Text>
+        <Text bold>{t('backToCell', { ns: 'global' })}</Text>
       </Link>
     </>
 

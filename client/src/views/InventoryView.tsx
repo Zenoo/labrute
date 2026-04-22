@@ -93,7 +93,7 @@ export const InventoryView = () => {
               <BruteBodyAndStats brute={brute} isMd={isMd} />
               <Box sx={{ textAlign: 'center', mt: 1 }}>
                 <Link to={`/${brute.name}/cell`}>
-                  <Text bold>{t('backToCell')}</Text>
+                  <Text bold>{t('backToCell', { ns: 'global' })}</Text>
                 </Link>
                 {!isMd && (
                   <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />

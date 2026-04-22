@@ -22,7 +22,7 @@ type CalculatedBruteGetOpponentsResponse = ReturnType<
 >[];
 
 const ArenaView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['arena', 'global']);
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -92,18 +92,18 @@ const ArenaView = () => {
   const searchOpponent = useCallback(async () => {
     if (!brute) return;
     if (search.length < 3) {
-      Alert.open('error', t('arena.search.atLeastThreeCharacters'));
+      Alert.open('error', t('search.atLeastThreeCharacters'));
       return;
     }
     if (search === brute.name) {
-      Alert.open('error', t('arena.search.noSelf'));
+      Alert.open('error', t('search.noSelf'));
       return;
     }
 
     try {
       const response = await Server.Brute.exists(search);
       if (!response.exists) {
-        Alert.open('error', t('arena.search.notFound'));
+        Alert.open('error', t('search.notFound'));
       } else {
         navigate(`/${bruteName || ''}/versus/${response.name}`);
       }
@@ -156,7 +156,7 @@ const ArenaView = () => {
   }, [Alert, Server.Fight, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
 
   return brute && (
-    <Page title={t('arena')} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('title')} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -165,14 +165,14 @@ const ArenaView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('arena')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute) }) : t('youHaveOneFightLeft')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute), ns: 'global' }) : t('youHaveOneFightLeft', { ns: 'global' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {/* No XP won for event brutes at max level */}
         {brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999) && (
           <MuiAlert severity="info" sx={{ borderRadius: 0 }}>
-            {t('arena.noXP')}
+            {t('noXP')}
           </MuiAlert>
         )}
         <Grid container spacing={1}>
@@ -186,7 +186,7 @@ const ArenaView = () => {
             <BruteBodyAndStats brute={brute} isMd={isMd} />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>
-                <Text bold>{t('backToCell')}</Text>
+                <Text bold>{t('backToCell', { ns: 'global' })}</Text>
               </Link>
               {!isMd && (
                 <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
@@ -218,7 +218,7 @@ const ArenaView = () => {
                 value={search}
                 sx={{ mr: 2 }}
               />
-              <Button onClick={searchOpponent} variant="mybrute">{t('arena.search')}</Button>
+              <Button onClick={searchOpponent} variant="mybrute">{t('search')}</Button>
             </Box>
           </Grid>
           {!isMd && (
