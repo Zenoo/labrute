@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useRef, useMemo } from 'react';
 import Server from '../utils/Server';
 import { useFingerprint } from './useFingerprint';
 
@@ -20,7 +20,19 @@ type PromisifyFunctions<T> = {
   : T[K];
 };
 
-function wrapServer<T extends object>(obj: T, loading: boolean): PromisifyFunctions<T> {
+// Cache for wrapped nested objects to maintain stable references
+const wrappedCache = new WeakMap<object, unknown>();
+
+function wrapServer<T extends object>(
+  obj: T,
+  loadingRef: { current: boolean }
+): PromisifyFunctions<T> {
+  // Check cache first
+  const cached = wrappedCache.get(obj);
+  if (cached) {
+    return cached as PromisifyFunctions<T>;
+  }
+
   const result = {} as PromisifyFunctions<T>;
   (Object.keys(obj) as Array<keyof T>).forEach((_key) => {
     const key = _key;
@@ -30,7 +42,7 @@ function wrapServer<T extends object>(obj: T, loading: boolean): PromisifyFuncti
         ? (...args: A) => Promise<Awaited<R>>
         : never;
       (result[key] as Func) = ((...args: unknown[]) => {
-        if (!loading) {
+        if (!loadingRef.current) {
           return Promise.resolve(
             (value as (...args: unknown[]) => unknown)(...args)
           );
@@ -52,21 +64,33 @@ function wrapServer<T extends object>(obj: T, loading: boolean): PromisifyFuncti
         });
       }) as Func;
     } else if (typeof value === 'object' && value !== null) {
-      (result[key] as PromisifyFunctions<T[typeof key]>) = wrapServer(value, loading);
+      (result[key] as PromisifyFunctions<T[typeof key]>) = wrapServer(value, loadingRef);
     } else {
       (result[key] as T[typeof key]) = value;
     }
   });
+
+  // Cache the wrapped object
+  wrappedCache.set(obj, result);
+
   return result;
 }
 
 export const ServerProvider = ({ children }: { children: React.ReactNode }) => {
   const fingerprint = useFingerprint();
 
+  // Use ref to track loading state dynamically
+  const loadingRef = useRef(fingerprint.loading);
+  loadingRef.current = fingerprint.loading;
+
+  // Memoize the wrapped server with stable reference
   const value: ServerContextType = useMemo(() => ({
-    ...wrapServer(Server, fingerprint.loading),
-    loading: fingerprint.loading,
-  }), [fingerprint.loading]);
+    ...wrapServer(Server, loadingRef),
+    loading: loadingRef.current,
+  }), []); // Empty deps - only create once
+
+  // Update the loading property without recreating the object
+  value.loading = fingerprint.loading;
 
   return (
     <ServerContext.Provider value={value}>

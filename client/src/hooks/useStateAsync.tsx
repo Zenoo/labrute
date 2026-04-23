@@ -14,6 +14,7 @@ const useStateAsync = <State, Params>(
 
   useEffect(() => {
     let isSubscribed = true;
+
     getter(getterParams).then((data) => {
       if (isSubscribed) {
         setState(data);
