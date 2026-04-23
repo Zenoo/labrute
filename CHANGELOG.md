@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.1](https://github.com/Zenoo/labrute/compare/labrute-v2.89.0...labrute-v2.89.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* Prevent duped requests on page load ([0c85ab9](https://github.com/Zenoo/labrute/commit/0c85ab999f66dedb37d8d4d50261dfa78328917f))
+
 ## [2.89.0](https://github.com/Zenoo/labrute/compare/labrute-v2.88.0...labrute-v2.89.0) (2026-04-22)
 
 
