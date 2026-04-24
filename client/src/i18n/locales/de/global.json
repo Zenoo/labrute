@@ -957,5 +957,11 @@
   "date": "Datum",
   "tournament": "Wettkampf",
   "dailyTournament": "Tägliches Turnier",
-  "globalTournament": "Globaler Wettkampf"
+  "globalTournament": "Globaler Wettkampf",
+  "tournamentOf": "Wettkampf von",
+  "setAsWatched": "Als angesehen setzen",
+  "round": "Runde {{value}}",
+  "quarterFinals": "Viertelfinale",
+  "semiFinals": "Halbfinale",
+  "finals": "Finale"
 }

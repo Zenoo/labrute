@@ -21,6 +21,7 @@ import patchNotes from './patchNotes.json';
 import ranking from './ranking.json';
 import resetVisuals from './resetVisuals.json';
 import tournamentHistory from './tournamentHistory.json';
+import tournament from './tournament.json';
 
 const de = {
   achievement,
@@ -46,6 +47,7 @@ const de = {
   ranking,
   resetVisuals,
   tournamentHistory,
+  tournament,
 } as const;
 
 export default de;

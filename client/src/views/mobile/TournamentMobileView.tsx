@@ -60,7 +60,7 @@ const TournamentMobileView = ({
   goToFight,
   setWatched,
 }: Props) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('global');
   const { authing } = useAuth();
   const { palette: { mode } } = useTheme();
 

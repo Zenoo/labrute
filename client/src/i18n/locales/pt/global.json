@@ -957,5 +957,11 @@
   "date": "Data",
   "tournament": "Torneio",
   "dailyTournament": "Torneio diário",
-  "globalTournament": "Torneio global"
+  "globalTournament": "Torneio global",
+  "tournamentOf": "Torneio de",
+  "setAsWatched": "Definir como assistido",
+  "round": "Rodada {{value}}",
+  "quarterFinals": "Quartas-de-final",
+  "semiFinals": "Semifinais",
+  "finals": "Finais"
 }

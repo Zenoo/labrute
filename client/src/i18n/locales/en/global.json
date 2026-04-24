@@ -957,5 +957,11 @@
   "date": "Date",
   "tournament": "Tournament",
   "dailyTournament": "Daily tournament",
-  "globalTournament": "Global tournament"
+  "globalTournament": "Global tournament",
+  "tournamentOf": "Tournament of",
+  "setAsWatched": "Set as watched",
+  "round": "Round {{value}}",
+  "quarterFinals": "Quarter-finals",
+  "semiFinals": "Semi-finals",
+  "finals": "Finals"
 }

@@ -957,5 +957,11 @@
   "date": "Дата",
   "tournament": "Турнир",
   "dailyTournament": "Ежедневный турнир",
-  "globalTournament": "Всеобщий турнир"
+  "globalTournament": "Всеобщий турнир",
+  "tournamentOf": "Турнир",
+  "setAsWatched": "Пометить просмотренным",
+  "round": "{{value}} раунд",
+  "quarterFinals": "Четвертьфинал",
+  "semiFinals": "Полуфинал",
+  "finals": "Финал"
 }

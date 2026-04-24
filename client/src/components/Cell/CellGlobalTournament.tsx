@@ -524,7 +524,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals', { ns: 'global' })}</Text>
                   {data.lastRounds
                     .filter((fight) => fight.tournamentStep === lastRoundsFirstStep)
                     .map((fight) => renderFight(fight))}
@@ -559,7 +559,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals', { ns: 'global' })}</Text>
                   {data.lastRounds
                     .filter((fight) => fight.tournamentStep === lastRoundsFirstStep + 1)
                     .map((step) => renderFight(step))}
@@ -596,7 +596,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{(data.lastRounds[data.lastRounds.length - 1]?.tournamentStep ?? 0) + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{(data.lastRounds[data.lastRounds.length - 1]?.tournamentStep ?? 0) + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals', { ns: 'global' })}</Text>
                   {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
                 </Box>
                 {/* Lost marker */}
@@ -638,7 +638,7 @@ const CellGlobalTournament = ({
                 }
               }}
             >
-              <Text smallCaps subtitle2 center>{t('setAsWatched')}</Text>
+              <Text smallCaps subtitle2 center>{t('setAsWatched', { ns: 'global' })}</Text>
             </Box>
           )}
         </Box>

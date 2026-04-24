@@ -636,7 +636,7 @@ export const EventView = () => {
                         <Text bold sx={{ flexBasis: '100%' }}>
                           {t('day', { day: lastRoundsFirstStep })}
                           {' '}
-                          {t('quarterFinals')}
+                          {t('quarterFinals', { ns: 'global' })}
                         </Text>
                         {data.lastRounds
                           .filter((fight) => fight.tournamentStep === lastRoundsFirstStep)
@@ -670,7 +670,7 @@ export const EventView = () => {
                         <Text bold sx={{ flexBasis: '100%' }}>
                           {t('day', { day: lastRoundsFirstStep + 1 })}
                           {' '}
-                          {t('semiFinals')}
+                          {t('semiFinals', { ns: 'global' })}
                         </Text>
                         {data.lastRounds
                           .filter((fight) => fight.tournamentStep === lastRoundsFirstStep + 1)
@@ -706,7 +706,7 @@ export const EventView = () => {
                         <Text bold sx={{ flexBasis: '100%' }}>
                           {t('day', { day: lastRoundsFirstStep + 2 })}
                           {' '}
-                          {t('finals')}
+                          {t('finals', { ns: 'global' })}
                         </Text>
                         {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
                       </Box>

@@ -34,7 +34,7 @@ const CellTournament = ({
     if (!brute) return;
     try {
       await Server.Tournament.registerDaily(brute?.name || '');
-      Alert.open('success', t('bruteRegistered'));
+      Alert.open('success', t('bruteRegistered', { ns: 'global' }));
 
       updateBrute({
         ...brute,
@@ -85,9 +85,9 @@ const CellTournament = ({
             }}
             {...rest}
           >
-            <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
+            <Text bold h6>{t('tournamentOf', { ns: 'global' })} {tomorrow.format('DD MMMM YYYY')}</Text>
             {(brute.registeredForTournament) ? (
-              <Text>{t('bruteRegistered')}</Text>
+              <Text>{t('bruteRegistered', { ns: 'global' })}</Text>
             ) : (
               <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
             )}
