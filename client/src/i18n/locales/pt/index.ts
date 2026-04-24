@@ -17,6 +17,7 @@ import inventory from './inventory.json';
 import levelUp from './levelUp.json';
 import nameChange from './nameChange.json';
 import notFound from './notFound.json';
+import patchNotes from './patchNotes.json';
 
 const pt = {
   achievement,
@@ -38,6 +39,7 @@ const pt = {
   levelUp,
   nameChange,
   notFound,
+  patchNotes,
 } as const;
 
 export default pt;

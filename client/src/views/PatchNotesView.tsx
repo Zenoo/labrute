@@ -9,7 +9,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const PatchNotesView = () => {
-  const { t } = useTranslation(['common', 'global']);
+  const { t } = useTranslation(['patchNotes', 'global']);
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
 
@@ -20,8 +20,8 @@ const PatchNotesView = () => {
 
   return (
     <Page
-      title={`${t('MyBrute', { ns: 'global' })} - ${t('patchNotes')}`}
-      description={t('patchNotes.desc', { version: LAST_RELEASE.version })}
+      title={`${t('MyBrute', { ns: 'global' })} - ${t('patchNotes', { ns: 'global' })}`}
+      description={t('desc', { version: LAST_RELEASE.version })}
     >
       <Paper sx={{
         mx: 4,
@@ -31,7 +31,7 @@ const PatchNotesView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes', { ns: 'global' })}</Text>
       </Paper>
       {displayedReleases.map((release) => (
         <Paper key={release.version} sx={{ bgcolor: 'background.paperLight', my: 3 }}>

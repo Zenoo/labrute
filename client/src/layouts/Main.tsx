@@ -402,7 +402,7 @@ const Main = () => {
                 <ActionButton
                   to="/patch-notes"
                   Icon={NewReleases}
-                  title={t('patchNotes')}
+                  title={t('patchNotes', { ns: 'global' })}
                 />
                 <ActionButton
                   onClick={colorMode.toggleColorMode}
