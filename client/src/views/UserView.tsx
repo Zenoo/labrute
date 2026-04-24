@@ -388,7 +388,7 @@ const UserView = () => {
                   color="warning"
                   sx={{ m: 1 }}
                 >
-                  {t('transferBrute')}
+                  {t('transferBrute', { ns: 'global' })}
                 </FantasyButton>
               </Box>
             )}

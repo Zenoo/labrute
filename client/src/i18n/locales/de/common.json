@@ -572,10 +572,5 @@
   "fingerprintError": "Beim Generieren deiner digitalen Signatur ist ein Fehler aufgetreten. Bitte deaktiviere den Adblocker/Tracking-Schutz für diese Seite. Es wird nur verwendet, um Bots zu verhindern – es wird keine Werbung auftauchen. Falls das Problem weiterhin besteht, kontaktiere bitte den Support.",
   "deleteAccount": "Konto löschen",
   "deleteAccountConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? All deine Brutalos und Fortschritt gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.",
-  "accountDeleted": "Dein Konto wurde gelöscht",
-  "transferBrute": "Transfer brute",
-  "bruteTransfer": "Brute transfer",
-  "transfer": "Transfer",
-  "bruteTransferred": "Brute transferred",
-  "confirmBruteTransfer": "Are you sure you want to transfer {{bruteName}}? You will lose access to this brute and all its progress. This action is irreversible."
+  "accountDeleted": "Dein Konto wurde gelöscht"
 }

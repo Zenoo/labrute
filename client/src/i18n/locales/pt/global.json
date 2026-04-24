@@ -963,5 +963,6 @@
   "round": "Rodada {{value}}",
   "quarterFinals": "Quartas-de-final",
   "semiFinals": "Semifinais",
-  "finals": "Finais"
+  "finals": "Finais",
+  "transferBrute": "Transfer brute"
 }

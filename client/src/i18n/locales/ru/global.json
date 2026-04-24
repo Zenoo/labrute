@@ -963,5 +963,6 @@
   "round": "{{value}} раунд",
   "quarterFinals": "Четвертьфинал",
   "semiFinals": "Полуфинал",
-  "finals": "Финал"
+  "finals": "Финал",
+  "transferBrute": "Transfer brute"
 }

@@ -13,7 +13,7 @@ import FantasyButton from '../components/FantasyButton';
 import { useConfirm } from '../hooks/useConfirm';
 
 export const TransferBruteView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['transferBrute', 'global']);
   const navigate = useNavigate();
   const Alert = useAlert();
   const Server = useServer();
@@ -33,10 +33,10 @@ export const TransferBruteView = () => {
       return;
     }
 
-    Confirm.open(t('transferBrute'), t('confirmBruteTransfer', { bruteName: user.brutes.find((b) => b.id === selectedBrute)?.name }), async () => {
+    Confirm.open(t('transferBrute', { ns: 'global' }), t('confirmBruteTransfer', { ns: 'transferBrute', bruteName: user.brutes.find((b) => b.id === selectedBrute)?.name }), async () => {
       try {
         await Server.User.transferBrute({ bruteId: selectedBrute, targetUserId });
-        Alert.open('success', t('bruteTransferred'));
+        Alert.open('success', t('bruteTransferred', { ns: 'transferBrute' }));
 
         updateData({
           ...user,
@@ -53,7 +53,7 @@ export const TransferBruteView = () => {
   }, [user, targetUserId, selectedBrute, Confirm, t, Server.User, Alert, updateData, navigate]);
 
   return (
-    <Page title={t('bruteTransfer')} headerUrl={`/user/${targetUserId}`}>
+    <Page title={t('bruteTransfer', { ns: 'transferBrute' })} headerUrl={`/user/${targetUserId}`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -62,7 +62,7 @@ export const TransferBruteView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('bruteTransfer')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('bruteTransfer', { ns: 'transferBrute' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Box sx={{
@@ -89,7 +89,7 @@ export const TransferBruteView = () => {
             disabled={!selectedBrute || !targetUserId || targetUserId === user?.id}
             sx={{ m: 1 }}
           >
-            {t('transfer')}
+            {t('transfer', { ns: 'transferBrute' })}
           </FantasyButton>
         </Box>
       </Paper>

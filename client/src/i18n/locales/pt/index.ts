@@ -22,6 +22,7 @@ import ranking from './ranking.json';
 import resetVisuals from './resetVisuals.json';
 import tournamentHistory from './tournamentHistory.json';
 import tournament from './tournament.json';
+import transferBrute from './transferBrute.json';
 
 const pt = {
   achievement,
@@ -48,6 +49,7 @@ const pt = {
   resetVisuals,
   tournamentHistory,
   tournament,
+  transferBrute,
 } as const;
 
 export default pt;
