@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ReportAdminView = () => {
-  const { t } = useTranslation(['common', 'global']);
+  const { t } = useTranslation(['admin', 'global']);
   const Alert = useAlert();
   const Server = useServer();
 
@@ -57,7 +57,7 @@ const ReportAdminView = () => {
     Server.BruteReport.accept(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
-      Alert.open('success', t('reportAccepted'));
+      Alert.open('success', t('reportAccepted', { ns: 'admin' }));
     }).catch(catchError(Alert));
   }, [Alert, Server.BruteReport, t]);
 
@@ -66,7 +66,7 @@ const ReportAdminView = () => {
     Server.BruteReport.reject(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
-      Alert.open('success', t('reportRejected'));
+      Alert.open('success', t('reportRejected', { ns: 'admin' }));
     }).catch(catchError(Alert));
   }, [Alert, Server.BruteReport, t]);
 
@@ -75,7 +75,7 @@ const ReportAdminView = () => {
     Server.BruteReport.cancel(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
-      Alert.open('success', t('reportCancelled'));
+      Alert.open('success', t('reportCancelled', { ns: 'admin' }));
     }).catch(catchError(Alert));
   }, [Alert, Server.BruteReport, t]);
 
@@ -111,14 +111,14 @@ const ReportAdminView = () => {
               </Box>
             )}
             <FormControl>
-              <FormLabel>{t('status')}</FormLabel>
+              <FormLabel>{t('status', { ns: 'admin' })}</FormLabel>
               <RadioGroup
                 row
                 value={status}
                 onChange={changeStatus}
               >
                 {Object.keys(BruteReportStatus).map((key) => (
-                  <FormControlLabel key={key} value={key} control={<Radio />} label={t(key)} />
+                  <FormControlLabel key={key} value={key} control={<Radio />} label={t(key, { ns: 'admin' })} />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -129,19 +129,19 @@ const ReportAdminView = () => {
                   key={report.id}
                   secondaryAction={status === BruteReportStatus.pending ? (
                     <>
-                      <Tooltip title={t('accept')}>
+                      <Tooltip title={t('accept', { ns: 'global' })}>
                         <IconButton onClick={acceptReport(report.id)}>
                           <Check />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title={t('reject')}>
+                      <Tooltip title={t('reject', { ns: 'global' })}>
                         <IconButton edge="end" onClick={rejectReport(report.id)}>
                           <Close />
                         </IconButton>
                       </Tooltip>
                     </>
                   ) : status === BruteReportStatus.accepted ? (
-                    <Tooltip title={t('cancel')}>
+                    <Tooltip title={t('cancel', { ns: 'global' })}>
                       <IconButton onClick={cancelReport(report.id)}>
                         <Close />
                       </IconButton>
@@ -155,11 +155,11 @@ const ReportAdminView = () => {
                     secondary={(
                       <>
                         <Text body2 component="span" display="block">
-                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
+                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy', { ns: 'admin' })} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
                         </Text>
                         {status !== BruteReportStatus.pending && (
                           <Text body2 component="span" display="block">
-                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
+                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy', { ns: 'admin' })} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown', { ns: 'admin' })}</Link>
                           </Text>
                         )}
                       </>

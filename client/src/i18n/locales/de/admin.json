@@ -1,0 +1,12 @@
+{
+  "status": "Status",
+  "pending": "Ausstehend",
+  "accepted": "Akzeptiert",
+  "rejected": "Abgelehnt",
+  "reportedBy": "Gemeldet von",
+  "handledBy": "Bearbeitet von",
+  "unknown": "Unbekannt",
+  "reportAccepted": "Meldung akzeptiert",
+  "reportRejected": "Meldung abgelehnt",
+  "reportCancelled": "Meldung abgebrochen"
+}

@@ -652,7 +652,7 @@ const ClanView = () => {
                     onClick={cancelClanWar}
                     sx={{ m: 1 }}
                   >
-                    {t('cancel')}
+                    {t('cancel', { ns: 'global' })}
                   </FantasyButton>
                 </Box>
               )}
@@ -674,7 +674,7 @@ const ClanView = () => {
                     onClick={acceptClanWar}
                     sx={{ m: 1 }}
                   >
-                    {t('accept')}
+                    {t('accept', { ns: 'global' })}
                   </FantasyButton>
                   {/* REJECT */}
                   <FantasyButton
@@ -682,7 +682,7 @@ const ClanView = () => {
                     onClick={cancelClanWar}
                     sx={{ m: 1 }}
                   >
-                    {t('reject')}
+                    {t('reject', { ns: 'global' })}
                   </FantasyButton>
                 </Box>
               )}
@@ -956,8 +956,8 @@ const ClanView = () => {
                         gap: 1,
                       }}
                       >
-                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept')}</FantasyButton>
-                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject')}</FantasyButton>
+                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept', { ns: 'global' })}</FantasyButton>
+                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject', { ns: 'global' })}</FantasyButton>
                       </Box>
                     </TableCell>
                   </TableRow>

@@ -111,7 +111,7 @@ const AdminView = () => {
             sx={{ m: 1 }}
           >
             {Object.values(FightModifier).map((modifier) => (
-              <MenuItem key={modifier} value={modifier}>{t(`modifier.${modifier}`)}</MenuItem>
+              <MenuItem key={modifier} value={modifier}>{t(`modifier.${modifier}`, { ns: 'global' })}</MenuItem>
             ))}
           </Select>
           <FantasyButton color="success" onClick={saveNextModifiers}>Save</FantasyButton>

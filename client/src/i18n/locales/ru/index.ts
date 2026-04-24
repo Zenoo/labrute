@@ -1,5 +1,6 @@
 import achievement from './achievement.json';
 import achievementRanking from './achievementRanking.json';
+import admin from './admin.json';
 import arena from './arena.json';
 import ascend from './ascend.json';
 import bannedUsers from './bannedUsers.json';
@@ -30,6 +31,7 @@ import wiki from './wiki.json';
 const ru = {
   achievement,
   achievementRanking,
+  admin,
   arena,
   ascend,
   bannedUsers,

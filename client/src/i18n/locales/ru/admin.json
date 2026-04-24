@@ -1,0 +1,12 @@
+{
+  "status": "Статус",
+  "pending": "В ожидании",
+  "accepted": "Одобрено",
+  "rejected": "Отклонено",
+  "reportedBy": "Автор жалобы:",
+  "handledBy": "Обработчик:",
+  "unknown": "Неизвестно",
+  "reportAccepted": "Жалоба одобрена",
+  "reportRejected": "Жалоба отклонена",
+  "reportCancelled": "Жалоба отменена"
+}

@@ -117,7 +117,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
             variant="mybrute"
             sx={{ color: 'text.secondary' }}
           >
-            {t('cancel')}
+            {t('cancel', { ns: 'global' })}
           </Button>
           <Button
             onClick={accept}

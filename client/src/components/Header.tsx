@@ -119,9 +119,9 @@ const Header = ({
             {modifierKeys.map((modifier) => (
               <Text key={modifier} sx={{ mr: 1 }}>
                 <Text component="span" bold color="secondary" smallCaps>
-                  {t(`modifier.${modifier}`)}
+                  {t(`modifier.${modifier}`, { ns: 'global' })}
                 </Text>:{' '}
-                {t(`modifier.${modifier}.desc`)}
+                {t(`modifier.${modifier}.desc`, { ns: 'global' })}
               </Text>
             ))}
           </Marquee>
