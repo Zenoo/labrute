@@ -91,7 +91,7 @@ export const ClanWarView = () => {
           <Link to={`/${bruteName || ''}/clan/${war?.attacker.id}`} sx={{ display: 'inline' }}>
             {war?.attacker.name}
           </Link>
-          {' '}{t('vs')}{' '}
+          {' '}{t('vs', { ns: 'global' })}{' '}
           <Link to={`/${bruteName || ''}/clan/${war?.defender.id}`} sx={{ display: 'inline' }}>
             {war?.defender.name}
           </Link>

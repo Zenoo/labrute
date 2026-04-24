@@ -24,6 +24,7 @@ import tournamentHistory from './tournamentHistory.json';
 import tournament from './tournament.json';
 import transferBrute from './transferBrute.json';
 import user from './user.json';
+import versus from './versus.json';
 
 const it = {
   achievement,
@@ -52,6 +53,7 @@ const it = {
   tournament,
   transferBrute,
   user,
+  versus,
 } as const;
 
 export default it;

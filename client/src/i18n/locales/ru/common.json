@@ -362,8 +362,6 @@
   "bruteIsResting": "{{brute}} отдыхает.",
   "newFightsTomorrow": "Завтра вас будут ожидать {{amount}} новых битв!",
   "bruteIsPreparing": "{{brute}} подготавливается.",
-  "dareChallenge": "Вы смеете бросить вызов {{value}}!",
-  "startFight": "Начать битву",
   "fight.step.saboteur": "{{weapon}} подвергается саботажу!",
   "fight.step.leave": "{{name}} сматывается!",
   "fight.step.arrive": "{{name}} прибывает на поле боя!",

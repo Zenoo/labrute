@@ -362,8 +362,6 @@
   "bruteIsResting": "{{brute}} está descansando.",
   "newFightsTomorrow": "¡{{amount}} nuevos combates estarán disponibles mañana!",
   "bruteIsPreparing": "{{brute}} se está preparando.",
-  "dareChallenge": "¡Has osado desafiar a {{value}}!",
-  "startFight": "Comenzar el combate",
   "fight.step.saboteur": "¡{{weapon}} fue saboteada!",
   "fight.step.leave": "¡{{name}} ha huído!",
   "fight.step.arrive": "¡{{name}} ha llegado!",
