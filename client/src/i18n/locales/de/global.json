@@ -1008,5 +1008,10 @@
   "next": "Nächste",
   "attackers": "Angreifer",
   "defenders": "Verteidiger",
-  "day": "Tag {{day}}"
+  "day": "Tag {{day}}",
+  "automaticallyQualified": "Automatisch qualifiziert",
+  "eliminatedBy": "Dein Brutalo wurde von {{value}} eliminiert. Was für eine Schande!",
+  "log.fight": "Dein Brutalo hat gegen {{value}} gekämpft.",
+  "log.win": "Dein Brutalo hat {{value}} zerschmettert.",
+  "log.lose": "{{value}} hat deinen Brutalo geplättet."
 }

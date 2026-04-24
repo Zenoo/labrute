@@ -1008,5 +1008,10 @@
   "next": "Suivant",
   "attackers": "Attaquants",
   "defenders": "Défenseurs",
-  "day": "Jour {{day}}"
+  "day": "Jour {{day}}",
+  "automaticallyQualified": "Qualifié d'office",
+  "eliminatedBy": "Ta brute a été éliminée par {{value}}. Quelle humiliation !",
+  "log.fight": "Ta brute a combattu {{value}}.",
+  "log.win": "Ta brute a écrasé {{value}}.",
+  "log.lose": "{{value}} a battu ta brute."
 }

@@ -1008,5 +1008,10 @@
   "next": "Siguiente",
   "attackers": "Atacantes",
   "defenders": "Defensores",
-  "day": "Día {{day}}"
+  "day": "Día {{day}}",
+  "automaticallyQualified": "Clasificado automáticamente",
+  "eliminatedBy": "Tu Bruto ha sido eliminado por {{value}}. ¡Qué humillación!",
+  "log.fight": "Tu Bruto ha combatido contra {{value}}.",
+  "log.win": "Tu Bruto ha aplastado a {{value}}.",
+  "log.lose": "{{value}} le ha dado una paliza a tu Bruto."
 }

@@ -1008,5 +1008,10 @@
   "next": "Prossimo",
   "attackers": "Aggressori",
   "defenders": "Difensori",
-  "day": "Giorno {{day}}"
+  "day": "Giorno {{day}}",
+  "automaticallyQualified": "Qualified ex-officio",
+  "eliminatedBy": "Your brute was eliminated by {{value}}. How humiliating!",
+  "log.fight": "Il tuo Bruto ha combattuto contro {{value}}.",
+  "log.win": "Il tuo Bruto ha schiacciato {{value}}.",
+  "log.lose": "{{value}} ha appiattito il tuo Bruto."
 }

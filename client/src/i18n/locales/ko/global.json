@@ -1008,5 +1008,10 @@
   "next": "다음",
   "attackers": "Attackers",
   "defenders": "Defenders",
-  "day": "Day {{day}}"
+  "day": "Day {{day}}",
+  "automaticallyQualified": "Qualified ex-officio",
+  "eliminatedBy": "Your brute was eliminated by {{value}}. How humiliating!",
+  "log.fight": "Your Brute has fought against {{value}}.",
+  "log.win": "Your Brute has crushed {{value}}.",
+  "log.lose": "{{value}} has flattened your Brute."
 }

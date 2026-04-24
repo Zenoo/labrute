@@ -9,6 +9,7 @@ import cell from './cell.json';
 import clan from './clan.json';
 import common from './common.json';
 import destiny from './destiny.json';
+import eventTranslations from './event.json';
 import followingFeed from './followingFeed.json';
 import generating from './generating.json';
 import global from './global.json';
@@ -41,6 +42,7 @@ const pt = {
   clan,
   common,
   destiny,
+  event: eventTranslations,
   followingFeed,
   generating,
   global,

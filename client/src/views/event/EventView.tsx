@@ -37,7 +37,7 @@ const eventRules = {
 };
 
 export const EventView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['event', 'global']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
@@ -266,6 +266,7 @@ export const EventView = () => {
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
+          ns: 'global',
           value: lostRound.winner
         })}
       </Text>
@@ -477,7 +478,7 @@ export const EventView = () => {
                           </Link>
                         </Tooltip>
                         <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { ns: 'global', day: i + 1 })}</Text>
-                        <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
+                        <Text bold color="text.disabled">{t('automaticallyQualified', { ns: 'global' })}</Text>
                       </Box>
                     );
                   }
@@ -539,7 +540,7 @@ export const EventView = () => {
                               bold
                               color="warning.main"
                             >
-                              {t('log.fight', { value: opponent })}
+                              {t('log.fight', { ns: 'global', value: opponent })}
                             </Text>
                           </Box>
                         </BruteTooltip>
@@ -601,8 +602,8 @@ export const EventView = () => {
                             color={won ? 'success.main' : 'error'}
                           >
                             {won
-                              ? t('log.win', { value: opponent })
-                              : t('log.lose', { value: opponent })}
+                              ? t('log.win', { ns: 'global', value: opponent })
+                              : t('log.lose', { ns: 'global', value: opponent })}
                           </Text>
                         </Link>
                       </BruteTooltip>
