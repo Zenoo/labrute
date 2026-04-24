@@ -25,7 +25,7 @@ type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> &
 };
 
 const UserView = () => {
-  const { t } = useTranslation(['common', 'global']);
+  const { t } = useTranslation(['user', 'global']);
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
@@ -309,13 +309,13 @@ const UserView = () => {
                     sx={{ m: 1 }}
                   >
                     <Check sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('dinorpg')}
+                    {t('dinorpg', { ns: 'global' })}
                   </FantasyButton>
                 </Box>
               </>
             )}
             {/* BRUTES */}
-            <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('brutes')}</Text>
+            <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('brutes', { ns: 'global' })}</Text>
             <Box sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -369,7 +369,7 @@ const UserView = () => {
                         >
                           <TableCell>
                             <Link to={`/fight/${fight.id}`}>
-                              {brute1} {t('vs')} {brute2}
+                              {brute1} {t('vs', { ns: 'global' })} {brute2}
                             </Link>
                           </TableCell>
                           <TableCell align="right">{dayjs.utc(fight.date).format('DD/MM/YYYY')}</TableCell>

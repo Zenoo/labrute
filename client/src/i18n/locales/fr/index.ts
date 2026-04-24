@@ -23,6 +23,7 @@ import resetVisuals from './resetVisuals.json';
 import tournamentHistory from './tournamentHistory.json';
 import tournament from './tournament.json';
 import transferBrute from './transferBrute.json';
+import user from './user.json';
 
 const fr = {
   achievement,
@@ -50,6 +51,7 @@ const fr = {
   tournamentHistory,
   tournament,
   transferBrute,
+  user,
 } as const;
 
 export default fr;
