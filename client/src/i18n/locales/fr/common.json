@@ -469,7 +469,6 @@
   "deletionReason.DUPLICATE_NAME": "Votre brute a le même nom qu'une autre brute. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
   "deletionReason.INNAPROPRIATE_NAME": "Votre brute a un nom inapproprié. Utilisez l'objet dans votre inventaire pour le modifier et éviter la suppression.",
   "deletionReason.EVENT_LOSS": "Votre brute a perdu lors de l'événement. Elle sera supprimée dans {{days}} jours.",
-  "nameChangeConfirm": "Êtes-vous sûr de vouloir changer le nom de votre brute en {{name}}?",
   "activeModifiers": "Modificateurs actifs",
   "modifier.noThrows": "Mains collantes",
   "modifier.noThrows.desc": "Qui a collé ces armes ?! Vous ne pouvez plus jeter vos armes.",

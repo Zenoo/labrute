@@ -15,6 +15,7 @@ import hall from './hall.json';
 import home from './home.json';
 import inventory from './inventory.json';
 import levelUp from './levelUp.json';
+import nameChange from './nameChange.json';
 
 const ru = {
   achievement,
@@ -34,6 +35,7 @@ const ru = {
   home,
   inventory,
   levelUp,
+  nameChange,
 } as const;
 
 export default ru;

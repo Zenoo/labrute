@@ -469,7 +469,6 @@
   "deletionReason.DUPLICATE_NAME": "Your brute has the same name as another brute. Use the item in your inventory to change it and avoid deletion.",
   "deletionReason.INNAPROPRIATE_NAME": "Your brute has an inappropriate name. Use the item in your inventory to change it and avoid deletion.",
   "deletionReason.EVENT_LOSS": "Your brute lost in the event. It will be deleted in {{days}} days.",
-  "nameChangeConfirm": "Are you sure you want to change your brute's name to {{name}}?",
   "activeModifiers": "Active modifiers",
   "modifier.noThrows": "Sticky hands",
   "modifier.noThrows.desc": "Who superglued those weapons ?! You can't throw your weapons anymore.",

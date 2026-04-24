@@ -469,7 +469,6 @@
   "deletionReason.DUPLICATE_NAME": "Tu bruto tiene el mismo nombre que otro bruto. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
   "deletionReason.INNAPROPRIATE_NAME": "El nombre de tu bruto es inapropiado. Usa el objeto de tu inventario para cambiarlo y evitar que tu bruto sea eliminado.",
   "deletionReason.EVENT_LOSS": "Tu bruto perdió en el evento. Será eliminado en {{days}} días.",
-  "nameChangeConfirm": "¿Estás seguro de que quieres cambiar el nombre de tu bruto a {{name}}?",
   "activeModifiers": "Modificadores activos",
   "modifier.noThrows": "Manos pegajosas",
   "modifier.noThrows.desc": "¿Quién ha pegado esas armas? Ya no puedes lanzar tus armas.",

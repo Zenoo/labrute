@@ -12,7 +12,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const NameChangeView = () => {
-  const { t } = useTranslation('global');
+  const { t } = useTranslation(['global', 'nameChange']);
   const Alert = useAlert();
   const { brute, owner } = useBrute();
   const Confirm = useConfirm();
@@ -24,7 +24,7 @@ const NameChangeView = () => {
   const changeName = () => {
     if (!brute) return;
 
-    Confirm.open(t('inventory.item.nameChange'), t('nameChangeConfirm', { ns: 'common', name }), () => {
+    Confirm.open(t('title', { ns: 'nameChange' }), t('confirm', { ns: 'nameChange', name }), () => {
       Server.Brute.changeName(brute.name, name).then(() => {
         // Go to new cell
         window.location.href = `/${name}/cell`;
@@ -33,7 +33,7 @@ const NameChangeView = () => {
   };
 
   return brute && (
-    <Page title={t('inventory.item.nameChange')} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('title', { ns: 'nameChange' })} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -42,7 +42,7 @@ const NameChangeView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory.item.nameChange')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title', { ns: 'nameChange' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {owner && (
