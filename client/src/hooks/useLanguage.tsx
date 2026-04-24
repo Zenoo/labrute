@@ -1,13 +1,13 @@
 import 'dayjs/locale/de';
 import 'dayjs/locale/es';
 import 'dayjs/locale/fr';
+import 'dayjs/locale/pt';
 import 'dayjs/locale/ru';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Lang } from '@labrute/prisma';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
-import { defaultLangByHost } from '../i18n';
-import { HOST } from '../utils/host';
+import { Lang } from '@labrute/prisma';
+import { getInitialLanguage } from '../i18n';
 import dayjs from 'dayjs';
 
 interface LanguageContextInterface {
@@ -16,7 +16,7 @@ interface LanguageContextInterface {
 }
 
 const LanguageContext = React.createContext<LanguageContextInterface>({
-  language: DEFAULT_LANGUAGE,
+  language: DEFAULT_LANGUAGE as Lang,
   setLanguage: () => {
     console.error('LanguageContext.setLanguage() not implemented');
   },
@@ -32,7 +32,7 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [language, setLanguage] = useState<Lang>(localStorage.getItem('language') as Lang || (defaultLangByHost[HOST] ?? DEFAULT_LANGUAGE));
+  const [language, setLanguage] = useState<Lang>(getInitialLanguage);
   const { i18n } = useTranslation();
 
   useEffect(() => {
