@@ -99,7 +99,7 @@ const styles: Record<string, SxProps> = {
 };
 
 const DestinyView = () => {
-  const { t } = useTranslation(['common', 'global', 'destiny']);
+  const { t } = useTranslation(['global', 'destiny']);
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const { palette: { mode } } = useTheme();

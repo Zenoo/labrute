@@ -17,7 +17,7 @@ export const defaultLangByHost: Record<string, Lang> = {
   [Host.MeinBrutalo]: Lang.de,
 };
 
-export const defaultNS = 'common';
+export const defaultNS = 'global';
 export const resources = {
   en,
   fr,

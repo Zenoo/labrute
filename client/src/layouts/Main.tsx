@@ -25,7 +25,7 @@ const Main = () => {
   const theme = useTheme();
   const { authing, user, signout, updateData, currentEvent } = useAuth();
   const Alert = useAlert();
-  const { t } = useTranslation();
+  const { t } = useTranslation('global');
   const colorMode = useContext(ColorModeContext);
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();

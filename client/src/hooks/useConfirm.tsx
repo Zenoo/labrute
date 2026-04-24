@@ -40,7 +40,7 @@ interface ConfirmParams {
 }
 
 export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('global');
 
   const [open, setOpen] = useState(false);
   const [params, setParams] = useState<ConfirmParams>({

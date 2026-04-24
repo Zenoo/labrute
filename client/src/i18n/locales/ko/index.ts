@@ -7,7 +7,6 @@ import bannedUsers from './bannedUsers.json';
 import bruteNotFound from './bruteNotFound.json';
 import cell from './cell.json';
 import clan from './clan.json';
-import common from './common.json';
 import destiny from './destiny.json';
 import eventTranslations from './event.json';
 import followingFeed from './followingFeed.json';
@@ -40,7 +39,6 @@ const ko = {
   bruteNotFound,
   cell,
   clan,
-  common,
   destiny,
   event: eventTranslations,
   followingFeed,
