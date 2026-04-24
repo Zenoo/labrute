@@ -387,7 +387,7 @@ const Main = () => {
                 <ActionButton
                   to="/wiki"
                   Icon={Info}
-                  title={t('wiki')}
+                  title={t('wiki', { ns: 'global' })}
                 />
                 <ActionButton
                   to={`/user/${user.id}/feed`}

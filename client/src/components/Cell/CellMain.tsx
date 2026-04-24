@@ -55,7 +55,7 @@ const CellMain = ({
   const rankUp = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('rankUp'), t('rankUpConfirm'), async () => {
+    Confirm.open(t('rankUp', { ns: 'global' }), t('rankUpConfirm'), async () => {
       try {
         await Server.Brute.rankUp(brute.name);
         // Reload page
@@ -143,7 +143,7 @@ const CellMain = ({
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!dayjs.utc(brute.canRankUpSince).isSame(dayjs.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
-          {t('rankUp')}
+          {t('rankUp', { ns: 'global' })}
         </FantasyButton>
       )}
       {/* Ascend */}
