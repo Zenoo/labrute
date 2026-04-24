@@ -98,7 +98,7 @@ const CellMain = ({
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`, { ns: 'global' })}</Text>
               {brute.ascensions > 0 && (
-                <Tooltip title={t('ascensions')}>
+                <Tooltip title={t('ascensions', { ns: 'global' })}>
                   <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
                     <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
                     <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />

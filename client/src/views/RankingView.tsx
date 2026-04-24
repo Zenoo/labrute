@@ -16,7 +16,7 @@ import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 
 const RankingView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['ranking', 'global']);
   const { bruteName, rank } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -71,6 +71,7 @@ const RankingView = () => {
     <Page
       title={t('ranking', { ns: 'global' })}
       description={t('ranking.desc', {
+        ns: 'ranking',
         name: brute.name,
         level: brute.level,
         rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
@@ -81,7 +82,8 @@ const RankingView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {
-            value: rankingSelected === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`, { ns: 'global' }),
+            ns: 'ranking',
+            value: rankingSelected === -1 ? t('event', { ns: 'global' }) : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`, { ns: 'global' }),
           })}
         </Text>
       </Paper>
@@ -93,7 +95,7 @@ const RankingView = () => {
         }}
         >
           {currentEvent && (
-            <Tooltip title={t('event')}>
+            <Tooltip title={t('event', { ns: 'global' })}>
               <RouterLink to={`/${bruteName || ''}/ranking/event`}>
                 <StyledButton
                   image={rankingSelected === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
@@ -163,10 +165,10 @@ const RankingView = () => {
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell>{t('brute')}</TableCell>
-                  <TableCell align="right">{t('experience')}</TableCell>
+                  <TableCell>{t('brute', { ns: 'global' })}</TableCell>
+                  <TableCell align="right">{t('experience', { ns: 'ranking' })}</TableCell>
                   {rankingSelected === 0 && (
-                    <TableCell align="right">{t('ascensions')}</TableCell>
+                    <TableCell align="right">{t('ascensions', { ns: 'global' })}</TableCell>
                   )}
                 </TableRow>
               </TableHead>
@@ -194,7 +196,7 @@ const RankingView = () => {
                 {/* Total */}
                 <TableRow>
                   <TableCell component="th" scope="row">
-                    {t('total')}
+                    {t('total', { ns: 'ranking' })}
                   </TableCell>
                   <TableCell component="th" scope="row" colSpan={rankingSelected === 0 ? 3 : 2} align="right">
                     {rankings.total}

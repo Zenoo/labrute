@@ -950,5 +950,8 @@
   "neoparc.desc": "Neoparc: Fight other Dinoz and gradually gain experience in merciless fights!",
   "eternalfest.desc": "Eternalfest: Over 200 levels! A wide variety of very very bad enemies!",
   "directquiz.desc": "Directquiz: Put your culture to the test in Direct Quiz, the craziest quiz game on the web!",
-  "ePopotamo.desc": "ePopotamo: The relaxing word game playable in any situation!"
+  "ePopotamo.desc": "ePopotamo: The relaxing word game playable in any situation!",
+  "event": "Event",
+  "brute": "Brute",
+  "ascensions": "Ascensions"
 }

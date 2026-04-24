@@ -748,7 +748,7 @@ const ClanView = () => {
                       <TableHead>
                         <TableRow>
                           <TableCell />
-                          <TableCell>{t('brute')}</TableCell>
+                          <TableCell>{t('brute', { ns: 'global' })}</TableCell>
                           <TableCell align="right">{t('damage')}</TableCell>
                         </TableRow>
                       </TableHead>
@@ -922,7 +922,7 @@ const ClanView = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t('ranking', { ns: 'global' })}</TableCell>
-                  <TableCell>{t('brute')}</TableCell>
+                  <TableCell>{t('brute', { ns: 'global' })}</TableCell>
                   <TableCell align="right">{t('level', { ns: 'global' })}</TableCell>
                   <TableCell align="right">{t('actions')}</TableCell>
                 </TableRow>

@@ -1,0 +1,6 @@
+{
+  "ranking.desc": "Rango de {{name}}. Nivel {{level}} {{rank}} con un ratio de victoria de {{winrate}}.",
+  "rankings": "{{value}} clasificaciones",
+  "experience": "Experiencia",
+  "total": "Total"
+}
