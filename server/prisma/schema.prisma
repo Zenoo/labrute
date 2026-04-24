@@ -312,6 +312,7 @@ model Brute {
   @@index([clanId])
   @@index([wantToJoinClanId])
   @@index([eventId])
+  @@index([clanRoleId])
 }
 
 model BruteStartingStats {
@@ -936,18 +937,16 @@ model Config {
 
 // CLAN ROLES
 model ClanRole {
-  id                       String           @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  clan                     Clan             @relation(fields: [clanId], references: [id], onDelete: Cascade)
-  clanId                   String           @db.Uuid
-  name                     String           @db.VarChar(50)
+  id          String           @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  clan        Clan             @relation(fields: [clanId], references: [id], onDelete: Cascade)
+  clanId      String           @db.Uuid
+  name        String           @db.VarChar(50)
   // Permissions
-  permissions              ClanPermission[] @default([])
-  brutes                   Brute[]
-  createdAt                DateTime         @default(now()) @db.Timestamptz()
+  permissions ClanPermission[] @default([])
+  brutes      Brute[]
+  createdAt   DateTime         @default(now()) @db.Timestamptz()
 
   @@index([clanId])
   @@index([id, clanId])
   @@index([clanId, name])
 }
-
-

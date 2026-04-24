@@ -312,6 +312,7 @@ model Brute {
   @@index([clanId])
   @@index([wantToJoinClanId])
   @@index([eventId])
+  @@index([clanRoleId])
 }
 
 model BruteStartingStats {

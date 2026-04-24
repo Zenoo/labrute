@@ -104,7 +104,7 @@ module.exports = {
     'no-plusplus': 'off',
     'no-restricted-syntax': 'off',
     "no-shadow": "off",
-  "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-shadow": ["error"],
     'import/prefer-default-export': 'off',
     'no-continue': 'off',
     'no-await-in-loop': 'off',

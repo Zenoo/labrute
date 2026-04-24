@@ -132,6 +132,11 @@ export const Brutes = {
               date: dayjs.utc().startOf('day').toDate(),
             },
           },
+          clanRole: {
+            select: {
+              permissions: true,
+            },
+          },
           inventory: {
             select: {
               type: true,
@@ -857,6 +862,7 @@ export const Brutes = {
         data: {
           deletedAt: new Date(),
           clanId: null,
+          clanRoleId: null,
           favorite: false,
           // Delete join request
           wantToJoinClanId: null,

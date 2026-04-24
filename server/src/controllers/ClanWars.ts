@@ -1,134 +1,23 @@
 import {
   ClanWarCreateResponse, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse,
-  ClanWarGetResponse, ClanWarGetUsedFightersResponse, ClanWarMaxParticipants,
-  ClanWarUpdateFightersResponse, ExpectedError,
+  ClanWarGetResponse, ClanWarGetUsedFightersResponse, ClanWarMaxParticipants, ExpectedError,
   FightGetResponse,
   ForbiddenError,
+  hasPermission,
   isUuid,
   LimitError,
   MissingElementError,
   NotFoundError,
 } from '@labrute/core';
-import { ClanWarStatus, ClanWarType, PrismaClient } from '@labrute/prisma';
+import {
+  ClanPermission, ClanWarStatus, ClanWarType, PrismaClient,
+} from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { auth } from '../utils/auth.js';
-import { ClanPermission, hasPermission } from '../utils/clan/permissions.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 
 export const ClanWars = {
-  updateFighters: (prisma: PrismaClient) => async (
-    req: Request<{ clan: string; war: string; }, unknown, { day: number; fighters: string[] }>,
-    res: Response<ClanWarUpdateFightersResponse>,
-  ) => {
-    try {
-      const user = await auth(prisma, req);
-
-      if (!req.params.clan
-        || !req.params.war
-        || !Array.isArray(req.body.fighters)
-        || req.body.fighters.some((fighter) => !isUuid(fighter))
-        || !req.body.day) {
-        throw new MissingElementError(translate('missingParameters', user));
-      }
-
-      // Check if one of the user's brutes has permission to select war fighters
-      const userBrutes = await prisma.brute.findMany({
-        where: { userId: user.id, deletedAt: null },
-        select: {
-          id: true,
-          clanId: true,
-          masterOfClan: { select: { id: true } },
-          clanRole: {
-            select: { permissions: true },
-          },
-        },
-      });
-
-      const hasWarPermission = userBrutes.some((b) => {
-        const isMaster = b.masterOfClan?.id === req.params.clan;
-        const isMember = b.clanId === req.params.clan;
-
-        if (!isMaster && !isMember) return false;
-
-        return hasPermission(
-          { masterId: isMaster ? b.id : null },
-          { id: b.id, clanRole: b.clanRole },
-          ClanPermission.canSelectWarFighters,
-        );
-      });
-
-      if (!hasWarPermission) {
-        throw new ForbiddenError(translate('unauthorized', user));
-      }
-
-      const war = await prisma.clanWar.findFirst({
-        where: {
-          id: req.params.war,
-          status: ClanWarStatus.ongoing,
-          OR: [
-            { attackerId: req.params.clan },
-            { defenderId: req.params.clan },
-          ],
-        },
-        select: {
-          id: true,
-          duration: true,
-          attackerId: true,
-          defenderId: true,
-        },
-      });
-
-      if (!war) {
-        throw new NotFoundError(translate('warNotFound', user));
-      }
-
-      // Check if the day is valid
-      if (req.body.day < 1 || req.body.day > war.duration) {
-        throw new ExpectedError(translate('invalidParameters', user));
-      }
-
-      // Get the fighters
-      const brutes = await prisma.brute.findMany({
-        where: {
-          id: { in: req.body.fighters },
-          clanId: req.params.clan,
-          deletedAt: null,
-        },
-        select: { id: true },
-      });
-
-      // Update the clan war fighters
-      await prisma.clanWarFighters.upsert({
-        where: {
-          clanWarId_day: { clanWarId: war.id, day: req.body.day },
-        },
-        create: {
-          clanWar: { connect: { id: war.id } },
-          day: req.body.day,
-          attackers: war.attackerId === req.params.clan
-            ? { connect: brutes.map((brute) => ({ id: brute.id })) }
-            : undefined,
-          defenders: war.defenderId === req.params.clan
-            ? { connect: brutes.map((brute) => ({ id: brute.id })) }
-            : undefined,
-        },
-        update: {
-          attackers: war.attackerId === req.params.clan
-            ? { set: brutes.map((brute) => ({ id: brute.id })) }
-            : undefined,
-          defenders: war.defenderId === req.params.clan
-            ? { set: brutes.map((brute) => ({ id: brute.id })) }
-            : undefined,
-        },
-        select: { id: true },
-      });
-
-      res.status(200).send(brutes);
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
   get: (prisma: PrismaClient) => async (
     req: Request<{ clan: string; war: string }>,
     res: Response<ClanWarGetResponse>,
@@ -231,13 +120,33 @@ export const ClanWars = {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
-      // Check if one of the user's brutes is the clan master
-      const userBrutes = await prisma.brute.findMany({
-        where: { userId: user.id, deletedAt: null },
-        select: { id: true, masterOfClan: { select: { id: true } } },
+      const clan = await prisma.clan.findFirst({
+        where: { id: req.body.clan, deletedAt: null },
+        select: {
+          id: true,
+          masterId: true,
+          brutes: {
+            where: { userId: user.id, deletedAt: null },
+            select: {
+              id: true,
+              clanId: true,
+              clanRole: {
+                select: { permissions: true },
+              },
+            },
+          },
+        },
       });
 
-      if (!userBrutes.some((brute) => brute.masterOfClan?.id === req.body.clan)) {
+      if (!clan) {
+        throw new NotFoundError(translate('clanNotFound', user));
+      }
+
+      if (!clan.brutes.some((brute) => hasPermission(
+        brute,
+        clan,
+        ClanPermission.canSelectWarFighters,
+      ))) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
 
@@ -381,21 +290,32 @@ export const ClanWars = {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
-      // Check if one of the user's brutes has permission to select war fighters
-      const userBrutes = await prisma.brute.findMany({
-        where: { userId: user.id, deletedAt: null, clanId: req.body.clan },
+      const clan = await prisma.clan.findFirst({
+        where: { id: req.body.clan, deletedAt: null },
         select: {
           id: true,
-          masterOfClan: { select: { id: true } },
-          clanRole: {
-            select: { permissions: true },
+          masterId: true,
+          brutes: {
+            where: { userId: user.id, deletedAt: null },
+            select: {
+              id: true,
+              clanId: true,
+              clanRole: {
+                select: { permissions: true },
+              },
+            },
           },
         },
       });
 
-      const hasWarPermission = userBrutes.some((b) => hasPermission(
-        { masterId: b.masterOfClan?.id === req.body.clan ? b.id : null },
-        { id: b.id, clanRole: b.clanRole },
+      if (!clan) {
+        throw new NotFoundError(translate('clanNotFound', user));
+      }
+
+      // Check if one of the user's brutes has permission to select war fighters
+      const hasWarPermission = clan.brutes.some((b) => hasPermission(
+        b,
+        clan,
         ClanPermission.canSelectWarFighters,
       ));
 
