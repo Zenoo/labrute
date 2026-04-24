@@ -8,7 +8,7 @@ import { GlowFilter } from '@pixi/filter-glow';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import dayjs from 'dayjs';
-import { TFunction } from 'i18next';
+import { TFunction } from 'react-i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import { AnimatedSprite, BaseTexture, Texture } from 'pixi.js';
