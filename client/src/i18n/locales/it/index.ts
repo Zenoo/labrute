@@ -16,6 +16,7 @@ import home from './home.json';
 import inventory from './inventory.json';
 import levelUp from './levelUp.json';
 import nameChange from './nameChange.json';
+import notFound from './notFound.json';
 
 const it = {
   achievement,
@@ -36,6 +37,7 @@ const it = {
   inventory,
   levelUp,
   nameChange,
+  notFound,
 } as const;
 
 export default it;

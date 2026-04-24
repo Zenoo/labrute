@@ -7,12 +7,16 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const NotFoundView = () => {
-  const { t } = useTranslation(['common', 'global']);
+  const { t } = useTranslation(['notFound', 'global']);
 
   return (
-    <Page title={t('notFound.title')} description={t('notFound.subtitle')} headerUrl="/">
+    <Page
+      title={t('title', { ns: 'notFound' })}
+      description={t('subtitle', { ns: 'notFound' })}
+      headerUrl="/"
+    >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('notFound.title')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title', { ns: 'notFound' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Box sx={{
@@ -22,7 +26,7 @@ const NotFoundView = () => {
         }}
         >
           <Text h4 color="secondary" bold sx={{ mb: 2 }}>
-            {t('notFound.subtitle')}
+            {t('subtitle', { ns: 'notFound' })}
           </Text>
           <FantasyButton color="secondary" to="/">
             <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
