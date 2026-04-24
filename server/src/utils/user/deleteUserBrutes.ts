@@ -32,6 +32,7 @@ export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'i
         },
         // Remove from clan
         clanId: null,
+        clanRoleId: null,
         masterOfClan: brute.masterOfClan ? {
           disconnect: true,
         } : undefined,

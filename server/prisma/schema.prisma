@@ -338,6 +338,7 @@ model Brute {
   @@index([rankingsUpperUpperNeighbourId])
   @@index([rankingsLowerNeighbourId])
   @@index([rankingsLowerLowerNeighbourId])
+  @@index([clanRoleId])
 }
 
 model BruteStartingStats {

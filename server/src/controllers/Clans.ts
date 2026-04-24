@@ -9,23 +9,26 @@ import {
   ClanGetRolesResponse,
   ClanGetResponse,
   ClanGetThreadResponse,
-  ClanGetThreadsResponse, ClanListResponse, ClanRemoveRoleResponse, ClanSort, ClanUpdateRoleResponse, ExpectedError,
+  ClanGetThreadsResponse, ClanListResponse,
+  ClanRemoveRoleResponse, ClanSort, ClanUpdateRoleResponse, ExpectedError,
   FightLogTemplateCount,
   ForbiddenError,
   getCalculatedBrute, getFightsLeft,
   isUuid,
   LimitError, MissingElementError, NotFoundError,
   randomBetween,
+  ClanCreateRoleRequest,
+  ClanUpdateRoleRequest,
+  hasPermission,
 } from '@labrute/core';
 import {
   BossName,
-  Clan, ClanWarStatus, LogType, Prisma, PrismaClient,
+  Clan, ClanPermission, ClanWarStatus, LogType, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { DISCORD, LOGGER } from '../context.js';
 import { auth } from '../utils/auth.js';
 import { updateClanPoints } from '../utils/clan/updateClanPoints.js';
-import { ClanPermission, hasPermission } from '../utils/clan/permissions.js';
 import { generateFight, GenerateFightResult } from '../utils/fight/generateFight.js';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
@@ -492,6 +495,7 @@ export const Clans = {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { id: true, name: true, permissions: true },
               },
@@ -508,8 +512,9 @@ export const Clans = {
       }
 
       // Check if brute has permission to accept join requests
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canAcceptJoinRequests));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canAcceptJoinRequests),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -589,6 +594,7 @@ export const Clans = {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { id: true, name: true, permissions: true },
               },
@@ -606,8 +612,9 @@ export const Clans = {
       }
 
       // Check if brute has permission to reject join requests
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canRejectJoinRequests));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canRejectJoinRequests),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -658,6 +665,7 @@ export const Clans = {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { id: true, name: true, permissions: true },
               },
@@ -675,8 +683,9 @@ export const Clans = {
       }
 
       // Check if brute has permission to remove members
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canRemoveMembers));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canRemoveMembers),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -811,7 +820,9 @@ export const Clans = {
           name: ilike(req.params.brute),
           deletedAt: null,
         },
-        select: { id: true, level: true, ranking: true },
+        select: {
+          id: true, level: true, ranking: true, clanRoleId: true,
+        },
       }));
 
       if (!brute) {
@@ -837,14 +848,25 @@ export const Clans = {
             deletedAt: new Date(),
             master: { disconnect: true },
             brutes: { disconnect: { id: brute.id } },
+            roles: { deleteMany: {} },
           },
         }));
       } else {
+        const removeRole = brute.clanRoleId ? {
+          roles: {
+            updateMany: {
+              where: { id: brute.clanRoleId ?? '' },
+              data: { brutes: { disconnect: { id: brute.id } } },
+            },
+          },
+        } : undefined;
+
         // Update clan
         await traced('clans.leave.updateClan', () => prisma.clan.update({
           where: { id },
           data: {
             brutes: { disconnect: { id: brute.id } },
+            ...removeRole,
           },
           select: { id: true },
         }));
@@ -1328,7 +1350,7 @@ export const Clans = {
               author: true,
             },
           },
-          clan: { select: { masterId: true, name: true } },
+          clan: { select: { id: true, masterId: true, name: true } },
         },
       }));
 
@@ -1542,7 +1564,7 @@ export const Clans = {
         throw new ForbiddenError(translate('notYourClan', user));
       }
 
-      if (!hasPermission(clan, brute, ClanPermission.canPinThreads)) {
+      if (!hasPermission(brute, clan, ClanPermission.canPinThreads)) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
 
@@ -1622,7 +1644,7 @@ export const Clans = {
         throw new ForbiddenError(translate('notYourClan', user));
       }
 
-      if (!hasPermission(clan, brute, ClanPermission.canPinThreads)) {
+      if (!hasPermission(brute, clan, ClanPermission.canUnpinThreads)) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
 
@@ -1714,7 +1736,7 @@ export const Clans = {
         throw new NotFoundError(translate('threadNotFound', user));
       }
 
-      const canDelete = hasPermission(clan, brute, ClanPermission.canDeleteThreads);
+      const canDelete = hasPermission(brute, clan, ClanPermission.canDeleteThreads);
       if (!canDelete && thread.creatorId !== brute.id) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
@@ -1933,7 +1955,7 @@ export const Clans = {
     }
   },
   createRole: (prisma: PrismaClient) => async (
-    req: Request<{ id: string }>,
+    req: Request<{ id: string }, unknown, ClanCreateRoleRequest>,
     res: Response<ClanCreateRoleResponse>,
   ) => {
     try {
@@ -1957,11 +1979,13 @@ export const Clans = {
       const clan = await prisma.clan.findFirst({
         where: { id, deletedAt: null },
         select: {
+          id: true,
           masterId: true,
           brutes: {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { permissions: true },
               },
@@ -1979,8 +2003,9 @@ export const Clans = {
       }
 
       // Check if user has permission to create roles
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canCreateRoles));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canCreateRoles),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -2007,13 +2032,16 @@ export const Clans = {
     }
   },
   updateRole: (prisma: PrismaClient) => async (
-    req: Request<{ id: string; roleId: string }>,
+    req: Request<{ id: string; roleId: string }, unknown, ClanUpdateRoleRequest>,
     res: Response<ClanUpdateRoleResponse>,
   ) => {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || !isUuid(req.params.id) || !req.params.roleId || !isUuid(req.params.roleId)) {
+      if (!req.params.id
+        || !isUuid(req.params.id)
+        || !req.params.roleId
+        || !isUuid(req.params.roleId)) {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
@@ -2028,6 +2056,7 @@ export const Clans = {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { permissions: true },
               },
@@ -2045,8 +2074,9 @@ export const Clans = {
       }
 
       // Check if user has permission to create roles (which includes editing)
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canCreateRoles));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canCreateRoles),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -2089,7 +2119,10 @@ export const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || !isUuid(req.params.id) || !req.params.roleId || !isUuid(req.params.roleId)) {
+      if (!req.params.id
+        || !isUuid(req.params.id)
+        || !req.params.roleId
+        || !isUuid(req.params.roleId)) {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
@@ -2136,7 +2169,8 @@ export const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || !isUuid(req.params.id) || !req.params.roleId || !isUuid(req.params.roleId)
+      if (!req.params.id
+        || !isUuid(req.params.id) || !req.params.roleId || !isUuid(req.params.roleId)
         || !req.body.bruteIds || !Array.isArray(req.body.bruteIds)) {
         throw new MissingElementError(translate('missingParameters', user));
       }
@@ -2153,6 +2187,7 @@ export const Clans = {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { permissions: true },
               },
@@ -2169,8 +2204,9 @@ export const Clans = {
         throw new ForbiddenError(translate('unauthorized', user));
       }
 
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canChangeRoles));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canChangeRoles),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -2216,7 +2252,12 @@ export const Clans = {
     try {
       const user = await auth(prisma, req);
 
-      if (!req.params.id || !isUuid(req.params.id) || !req.params.bruteId || !isUuid(req.params.bruteId) || !req.params.roleId || !isUuid(req.params.roleId)) {
+      if (!req.params.id
+        || !isUuid(req.params.id)
+        || !req.params.bruteId
+        || !isUuid(req.params.bruteId)
+        || !req.params.roleId
+        || !isUuid(req.params.roleId)) {
         throw new MissingElementError(translate('missingParameters', user));
       }
 
@@ -2231,6 +2272,7 @@ export const Clans = {
             where: { userId: user.id, deletedAt: null },
             select: {
               id: true,
+              clanId: true,
               clanRole: {
                 select: { permissions: true },
               },
@@ -2248,8 +2290,9 @@ export const Clans = {
       }
 
       // Check if user has permission to change roles
-      const hasPerm = clan.brutes.some((b) => b.id === clan.masterId
-        || b.clanRole?.permissions.includes(ClanPermission.canChangeRoles));
+      const hasPerm = clan.brutes.some(
+        (b) => hasPermission(b, clan, ClanPermission.canChangeRoles),
+      );
 
       if (!hasPerm) {
         throw new ForbiddenError(translate('unauthorized', user));
