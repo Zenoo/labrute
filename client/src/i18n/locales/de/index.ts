@@ -19,6 +19,7 @@ import nameChange from './nameChange.json';
 import notFound from './notFound.json';
 import patchNotes from './patchNotes.json';
 import ranking from './ranking.json';
+import resetVisuals from './resetVisuals.json';
 
 const de = {
   achievement,
@@ -42,6 +43,7 @@ const de = {
   notFound,
   patchNotes,
   ranking,
+  resetVisuals,
 } as const;
 
 export default de;
