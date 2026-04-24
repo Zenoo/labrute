@@ -1000,5 +1000,13 @@
   "modifier.randomWeapon": "Arme opportune",
   "modifier.randomWeapon.desc": "Vous avez trouvé une arme sur le sol. Vous gagnez une arme aléatoire pour la journée.",
   "modifier.startWithWeapon": "Paré au combat",
-  "modifier.startWithWeapon.desc": "Pas de temps pour les plaisanteries, il est temps de se battre ! Vous commencerez le combat avec une arme déjà tirée."
+  "modifier.startWithWeapon.desc": "Pas de temps pour les plaisanteries, il est temps de se battre ! Vous commencerez le combat avec une arme déjà tirée.",
+  "master": "Maitre",
+  "clan": "Clan",
+  "joinAClan": "Rejoins un clan !",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "attackers": "Attaquants",
+  "defenders": "Défenseurs",
+  "day": "Jour {{day}}"
 }

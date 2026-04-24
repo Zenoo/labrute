@@ -108,7 +108,7 @@ export const CurrentEventsView = () => {
                           >
                             <Badge
                               color="info"
-                              badgeContent={event.tournament ? t('day', { day: event.tournament?.rounds }) : 0}
+                              badgeContent={event.tournament ? t('day', { ns: 'global', day: event.tournament?.rounds }) : 0}
                               sx={{ width: 1 }}
                               anchorOrigin={{
                                 vertical: 'bottom',

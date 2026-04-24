@@ -117,7 +117,7 @@ const CellSocials = ({
           <Grid container>
             {!!brute.master && (
               <Grid item xs={6}>
-                <Text bold color="secondary" component="span">{t('master')}: </Text>
+                <Text bold color="secondary" component="span">{t('master', { ns: 'global' })}: </Text>
                 <Text bold component="span"><Link to={`/${brute.master.name}/cell`}>{brute.master.name}</Link></Text>
               </Grid>
             )}

@@ -1000,5 +1000,13 @@
   "modifier.randomWeapon": "Arma de la suerte",
   "modifier.randomWeapon.desc": "Has encontrado un arma en el suelo. Ganas un arma aleatoria durante el día.",
   "modifier.startWithWeapon": "Armado y Preparado",
-  "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás el combate con un arma en las manos."
+  "modifier.startWithWeapon.desc": "No hay tiempo para bromear, ¡es hora de luchar! Empezarás el combate con un arma en las manos.",
+  "master": "Maestro",
+  "clan": "Clan",
+  "joinAClan": "¡Únete a un clan!",
+  "previous": "Anterior",
+  "next": "Siguiente",
+  "attackers": "Atacantes",
+  "defenders": "Defensores",
+  "day": "Día {{day}}"
 }

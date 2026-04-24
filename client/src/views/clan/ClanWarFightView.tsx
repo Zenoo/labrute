@@ -17,7 +17,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanWarFightView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['clan', 'global']);
   const { id, warId, fightId } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -128,8 +128,8 @@ const ClanWarFightView = () => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('attackers')}</TableCell>
-                    <TableCell align="right">{t('defenders')}</TableCell>
+                    <TableCell>{t('attackers', { ns: 'global' })}</TableCell>
+                    <TableCell align="right">{t('defenders', { ns: 'global' })}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

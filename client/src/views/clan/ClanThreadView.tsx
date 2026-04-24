@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanThreadView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['clan', 'global']);
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
@@ -220,7 +220,7 @@ const ClanThreadView = () => {
               )}
               {page > 1 && (
                 <Link onClick={changePage(-1)} href="#">
-                  <Text>{t('previous')}</Text>
+                  <Text>{t('previous', { ns: 'global' })}</Text>
                 </Link>
               )}
               {!thread.locked && (
@@ -230,7 +230,7 @@ const ClanThreadView = () => {
               )}
               {page * 10 < thread.postCount && (
                 <Link onClick={changePage(1)} href="#">
-                  <Text>{t('next')}</Text>
+                  <Text>{t('next', { ns: 'global' })}</Text>
                 </Link>
               )}
               {page * 10 < thread.postCount && (

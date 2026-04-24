@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const ClanWarView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['clan', 'global']);
   const { bruteName, id, warId } = useParams();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
@@ -140,7 +140,7 @@ export const ClanWarView = () => {
                           to={`fight/${fight.id}`}
                           onClick={updateDayWatched(index + 1)}
                         >
-                          {t('day', { day: index + 1 })}
+                          {t('day', { ns: 'global', day: index + 1 })}
                         </Link>
                       </TableCell>
                       <TableCell align="right">

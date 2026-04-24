@@ -334,7 +334,7 @@ export const EventView = () => {
                   >
                     <Badge
                       color="info"
-                      badgeContent={data.event.tournament ? t('day', { day: data.event.tournament?.rounds }) : 0}
+                      badgeContent={data.event.tournament ? t('day', { ns: 'global', day: data.event.tournament?.rounds }) : 0}
                       sx={{ width: 1 }}
                       anchorOrigin={{
                         vertical: 'bottom',
@@ -476,7 +476,7 @@ export const EventView = () => {
                             />
                           </Link>
                         </Tooltip>
-                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: i + 1 })}</Text>
+                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { ns: 'global', day: i + 1 })}</Text>
                         <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
                       </Box>
                     );
@@ -533,7 +533,7 @@ export const EventView = () => {
                               color="warning.main"
                               sx={{ width: 50 }}
                             >
-                              {t('day', { day: fight.tournamentStep })}
+                              {t('day', { ns: 'global', day: fight.tournamentStep })}
                             </Text>
                             <Text
                               bold
@@ -589,7 +589,7 @@ export const EventView = () => {
                             color={won ? 'success.main' : 'error'}
                             sx={{ width: 50 }}
                           >
-                            {t('day', { day: fight.tournamentStep })}
+                            {t('day', { ns: 'global', day: fight.tournamentStep })}
                           </Text>
                           <Box
                             component="img"
@@ -634,7 +634,7 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { day: lastRoundsFirstStep })}
+                          {t('day', { ns: 'global', day: lastRoundsFirstStep })}
                           {' '}
                           {t('quarterFinals', { ns: 'global' })}
                         </Text>
@@ -668,7 +668,7 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { day: lastRoundsFirstStep + 1 })}
+                          {t('day', { ns: 'global', day: lastRoundsFirstStep + 1 })}
                           {' '}
                           {t('semiFinals', { ns: 'global' })}
                         </Text>
@@ -704,7 +704,7 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { day: lastRoundsFirstStep + 2 })}
+                          {t('day', { ns: 'global', day: lastRoundsFirstStep + 2 })}
                           {' '}
                           {t('finals', { ns: 'global' })}
                         </Text>

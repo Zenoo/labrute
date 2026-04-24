@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanPostView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['clan', 'global']);
   const location = useLocation();
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();

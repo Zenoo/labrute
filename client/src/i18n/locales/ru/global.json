@@ -1000,5 +1000,13 @@
   "modifier.randomWeapon": "Оружие Удачи",
   "modifier.randomWeapon.desc": "Вы нашли оружие прямо на полу. На день вы получаете случайное оружие.",
   "modifier.startWithWeapon": "Вооружён и Готов",
-  "modifier.startWithWeapon.desc": "Некогда любезничать, — пора сражаться! Вы вступаете в битвы с оружием в руках."
+  "modifier.startWithWeapon.desc": "Некогда любезничать, — пора сражаться! Вы вступаете в битвы с оружием в руках.",
+  "master": "Лидер",
+  "clan": "Клан",
+  "joinAClan": "Вступить в клан!",
+  "previous": "Предыдущая",
+  "next": "Следующая",
+  "attackers": "Нападающие",
+  "defenders": "Защищающиеся",
+  "day": "День {{day}}"
 }

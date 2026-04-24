@@ -105,10 +105,10 @@ export const EventHistoryView = () => {
             </Table>
             <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
               {page > 1 && (
-                <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
+                <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous', { ns: 'global' })}</FantasyButton>
               )}
               {events?.length === 15 && (
-                <FantasyButton color="primary" onClick={changePage(1)}>{t('next')}</FantasyButton>
+                <FantasyButton color="primary" onClick={changePage(1)}>{t('next', { ns: 'global' })}</FantasyButton>
               )}
             </Box>
           </Grid>

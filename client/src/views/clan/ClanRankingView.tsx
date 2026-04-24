@@ -16,7 +16,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanRankingView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['clan', 'global']);
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const theme = useTheme();
@@ -141,8 +141,8 @@ const ClanRankingView = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell />
-                      <TableCell>{t('clan')}</TableCell>
-                      <TableCell>{t('master')}</TableCell>
+                      <TableCell>{t('clan', { ns: 'global' })}</TableCell>
+                      <TableCell>{t('master', { ns: 'global' })}</TableCell>
                       <TableCell>{t('members')}</TableCell>
                       <TableCell onClick={changeSort(ClanSort.elo)} sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
                         {t('elo')}
@@ -191,10 +191,10 @@ const ClanRankingView = () => {
                 </Table>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
                   {page > 1 && (
-                    <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
+                    <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous', { ns: 'global' })}</FantasyButton>
                   )}
                   {clans?.length === 15 && (
-                    <FantasyButton color="primary" onClick={changePage(1)}>{t('next')}</FantasyButton>
+                    <FantasyButton color="primary" onClick={changePage(1)}>{t('next', { ns: 'global' })}</FantasyButton>
                   )}
                 </Box>
               </Grid>

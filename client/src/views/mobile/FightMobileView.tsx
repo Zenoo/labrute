@@ -64,8 +64,8 @@ const FightMobileView = ({
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('attackers')}</TableCell>
-                  <TableCell align="right">{t('defenders')}</TableCell>
+                  <TableCell>{t('attackers', { ns: 'global' })}</TableCell>
+                  <TableCell align="right">{t('defenders', { ns: 'global' })}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

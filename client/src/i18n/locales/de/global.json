@@ -1000,5 +1000,13 @@
   "modifier.randomWeapon": "Glückswaffe",
   "modifier.randomWeapon.desc": "Du hast auf dem Boden eine Waffe gefunden. Erhalte für den Tag eine zufällige Waffe.",
   "modifier.startWithWeapon": "Bewaffnet und Bereit",
-  "modifier.startWithWeapon.desc": "Keine Zeit für Höflichkeiten, es ist Zeit zu kämpfen! Du startest den Kampf mit einer bereits gezogenen Waffe."
+  "modifier.startWithWeapon.desc": "Keine Zeit für Höflichkeiten, es ist Zeit zu kämpfen! Du startest den Kampf mit einer bereits gezogenen Waffe.",
+  "master": "Anführer",
+  "clan": "Klan",
+  "joinAClan": "Klan beitreten!",
+  "previous": "Vorherige",
+  "next": "Nächste",
+  "attackers": "Angreifer",
+  "defenders": "Verteidiger",
+  "day": "Tag {{day}}"
 }

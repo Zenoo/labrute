@@ -6,6 +6,7 @@ import ascend from './ascend.json';
 import bannedUsers from './bannedUsers.json';
 import bruteNotFound from './bruteNotFound.json';
 import cell from './cell.json';
+import clan from './clan.json';
 import common from './common.json';
 import destiny from './destiny.json';
 import followingFeed from './followingFeed.json';
@@ -37,6 +38,7 @@ const ko = {
   bannedUsers,
   bruteNotFound,
   cell,
+  clan,
   common,
   destiny,
   followingFeed,

@@ -29,7 +29,7 @@ type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
 const ClanView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['clan', 'global']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user, updateData, modifiers } = useAuth();
@@ -144,7 +144,7 @@ const ClanView = () => {
 
     if (!brute || !clan) return;
 
-    Confirm.open(t('joinAClan'), t('confirmJoin'), () => {
+    Confirm.open(t('joinAClan', { ns: 'global' }), t('confirmJoin'), () => {
       Server.Clan.request(brute.name, clan.id).then(() => {
         Alert.open('success', t('requestSent'));
 
@@ -429,7 +429,7 @@ const ClanView = () => {
   };
 
   return clan && (
-    <Page title={`${t('clan')} ${clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('clan', { ns: 'global' })} ${clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {warEnabled && (
@@ -437,7 +437,7 @@ const ClanView = () => {
               <Box component="img" src="/images/clan/war.webp" sx={{ width: 20, mr: 1 }} />
             </Tooltip>
           )}
-          {t('clan')} {clan.name}
+          {t('clan', { ns: 'global' })} {clan.name}
           {user?.admin && (
             <Tooltip title={t('adminPanel', { ns: 'global' })}>
               <IconButton
