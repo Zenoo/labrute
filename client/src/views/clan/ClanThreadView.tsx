@@ -1,7 +1,7 @@
-import { ClanGetThreadResponse } from '@labrute/core';
+import { ClanGetThreadResponse, ClanPermission, hasPermission } from '@labrute/core';
 import { Box, Paper } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BruteRender from '../../components/Brute/Body/BruteRender';
@@ -9,21 +9,19 @@ import Link from '../../components/Link';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
-import { useAuth } from '../../hooks/useAuth';
 import { useConfirm } from '../../hooks/useConfirm';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
+import { useBrute } from '../../hooks/useBrute';
 
 const ClanThreadView = () => {
   const { t } = useTranslation();
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
-  const { user } = useAuth();
   const Confirm = useConfirm();
   const navigate = useNavigate();
   const Server = useServer();
-
-  const brute = useMemo(() => user?.brutes.find((b) => b.name === bruteName), [bruteName, user]);
+  const { brute } = useBrute();
 
   const [thread, setThread] = useState<ClanGetThreadResponse | null>(null);
   const [page, setPage] = useState(1);
@@ -131,21 +129,27 @@ const ClanThreadView = () => {
                   <Text bold smallCaps>{t('lockThread')}</Text>
                 </Link>
               )}
-              {brute.id === thread.clan.masterId && !thread.pinned && (
-                <Link href="#" onClick={pinThread}>
-                  <Text bold smallCaps>{t('pinThread')}</Text>
-                </Link>
-              )}
-              {brute.id === thread.clan.masterId && thread.pinned && (
-                <Link href="#" onClick={unpinThread}>
-                  <Text bold smallCaps>{t('unpinThread')}</Text>
-                </Link>
-              )}
-              {(brute.id === thread.clan.masterId || brute.id === thread.creatorId) && (
-                <Link href="#" onClick={deleteThread}>
-                  <Text bold smallCaps>{t('deleteThread')}</Text>
-                </Link>
-              )}
+              {hasPermission(brute, thread.clan, ClanPermission.canPinThreads)
+                && !thread.pinned
+                && (
+                  <Link href="#" onClick={pinThread}>
+                    <Text bold smallCaps>{t('pinThread')}</Text>
+                  </Link>
+                )}
+              {hasPermission(brute, thread.clan, ClanPermission.canUnpinThreads)
+                && thread.pinned
+                && (
+                  <Link href="#" onClick={unpinThread}>
+                    <Text bold smallCaps>{t('unpinThread')}</Text>
+                  </Link>
+                )}
+              {(hasPermission(brute, thread.clan, ClanPermission.canDeleteThreads)
+                || brute.id === thread.creatorId)
+                && (
+                  <Link href="#" onClick={deleteThread}>
+                    <Text bold smallCaps>{t('deleteThread')}</Text>
+                  </Link>
+                )}
               {brute.id === thread.creatorId && (
                 <Link to={`/${bruteName}/clan/${id}/post/${thread.id}/edit`}>
                   <Text bold smallCaps>{t('editThread')}</Text>

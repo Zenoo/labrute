@@ -1,4 +1,4 @@
-import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetResponse, bosses, getCalculatedBrute, getFightsLeft } from '@labrute/core';
+import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetResponse, ClanGetRolesResponse, ClanPermission, bosses, getCalculatedBrute, getFightsLeft, hasPermission } from '@labrute/core';
 import { BossName, ClanWarStatus, ClanWarType } from '@labrute/prisma';
 import { HighlightOff, History, PlayCircleOutline, Policy } from '@mui/icons-material';
 import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
@@ -9,6 +9,9 @@ import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { ActivityStatus } from '../../components/ActivityStatus';
 import BruteRender from '../../components/Brute/Body/BruteRender';
+import RoleAssignmentModal from '../../components/Clan/RoleAssignmentModal';
+import RoleListView from '../../components/Clan/RoleListView';
+import RoleManagementModal from '../../components/Clan/RoleManagementModal';
 import FantasyButton from '../../components/FantasyButton';
 import Link from '../../components/Link';
 import Page from '../../components/Page';
@@ -23,7 +26,7 @@ import { catchError } from '../../utils/catchError';
 
 type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'> & {
   brutes: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
-  joinRequests: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
+  joinRequests: ReturnType<typeof getCalculatedBrute<ClanGetResponse['joinRequests'][number]>>[];
 };
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
@@ -44,6 +47,11 @@ const ClanView = () => {
   const [sort, setSort] = useState<SortOption>(SortOption.Default);
   const [warEnabled, setWarEnabled] = useState(false);
   const [masterOfClan, setMasterOfClan] = useState<BrutesGetClanIdAsMasterResponse['id']>(null);
+  const [roleModalOpen, setRoleModalOpen] = useState(false);
+  const [roleListOpen, setRoleListOpen] = useState(false);
+  const [roleAssignmentOpen, setRoleAssignmentOpen] = useState(false);
+  const [editingRole, setEditingRole] = useState<ClanGetRolesResponse[number] | null>(null);
+  const [assigningRole, setAssigningRole] = useState<{ id: string; name: string } | null>(null);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
   const displayedBossName = useMemo(() => {
@@ -61,6 +69,14 @@ const ClanView = () => {
   }, [clan]);
 
   const clanWar = clan?.attacks[0] || clan?.defenses[0];
+
+  const canManageRoles = useMemo(() => {
+    if (!clan || !brute) return false;
+    if (clan.masterId === brute.id) return true;
+    const bruteMember = clan.brutes.find((b) => b.id === brute.id);
+    return bruteMember?.clanRole?.permissions.includes(ClanPermission.canCreateRoles)
+      || bruteMember?.clanRole?.permissions.includes(ClanPermission.canChangeRoles) || false;
+  }, [clan, brute]);
 
   // Fetch clan
   useEffect(() => {
@@ -177,7 +193,7 @@ const ClanView = () => {
   };
 
   // Accept join request
-  const acceptJoin = (requester: CalculatedClanGetResponse['brutes'][number]) => () => {
+  const acceptJoin = (requester: CalculatedClanGetResponse['joinRequests'][number]) => () => {
     if (!user || !clan) return;
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
@@ -188,7 +204,7 @@ const ClanView = () => {
         setClan((prevClan) => (prevClan ? ({
           ...prevClan,
           joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
-          brutes: [...prevClan.brutes, requester],
+          brutes: [...prevClan.brutes, { ...requester, clanRole: null }],
         }) : null));
 
         // Update user data if it's an own brute
@@ -299,7 +315,20 @@ const ClanView = () => {
       }).catch(catchError(Alert));
     });
   };
-
+  const handleEditRole = (role: ClanGetRolesResponse[number] | null) => {
+    setEditingRole(role);
+    setRoleListOpen(false);
+    setRoleModalOpen(true);
+  };
+  const handleAssignRole = (role: ClanGetRolesResponse[number]) => {
+    setAssigningRole(role);
+    setRoleListOpen(false);
+    setRoleAssignmentOpen(true);
+  };
+  const handleOnClose = () => {
+    setRoleAssignmentOpen(false);
+    setAssigningRole(null);
+  };
   // Challenge boss
   const challengeBoss = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -426,6 +455,22 @@ const ClanView = () => {
         return newClan;
       });
     }).catch(catchError(Alert));
+  };
+  const onCloseRoleManagement = () => {
+    setRoleModalOpen(false);
+    setEditingRole(null);
+  };
+
+  const onAssignedModal = () => {
+    setRoleListOpen(true);
+  };
+
+  const onRoleCreated = () => {
+    setRoleListOpen(true);
+  };
+
+  const onCloseRoleList = () => {
+    setRoleListOpen(false);
   };
 
   return clan && (
@@ -775,8 +820,13 @@ const ClanView = () => {
           </Box>
         )}
         {user && owner && brute?.clanId === clan.id && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1, gap: 1 }}>
             <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
+            {canManageRoles && (
+              <FantasyButton color="secondary" onClick={() => setRoleListOpen(true)}>
+                {t('manageRoles')}
+              </FantasyButton>
+            )}
           </Box>
         )}
         {/* MEMBERS */}
@@ -843,16 +893,19 @@ const ClanView = () => {
                       <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
                     )}
                     {/* Button to remove brute from clan */}
-                    {clan.masterId === brute?.id && clan.masterId !== clanBrute.id && (
-                      <Tooltip title={t('removeFromClan')}>
-                        <HighlightOff
-                          onClick={removeFromClan(clanBrute)}
-                          fontSize="small"
-                          color="error"
-                          sx={{ mr: 0.5 }}
-                        />
-                      </Tooltip>
-                    )}
+                    {hasPermission(brute, clan, ClanPermission.canRemoveMembers)
+                      && clan.masterId !== clanBrute.id
+                      && clanBrute.id !== brute?.id
+                      && (
+                        <Tooltip title={t('removeFromClan')}>
+                          <HighlightOff
+                            onClick={removeFromClan(clanBrute)}
+                            fontSize="small"
+                            color="error"
+                            sx={{ mr: 0.5 }}
+                          />
+                        </Tooltip>
+                      )}
                     {/* Button to set brute as master */}
                     {clan.masterId === brute?.id && clan.masterId !== clanBrute.id && (
                       <Tooltip title={t('setAsClanMaster')}>
@@ -896,76 +949,85 @@ const ClanView = () => {
           ))}
         </Box>
         {/* JOIN REQUESTS */}
-        {owner && clan.masterId === brute?.id && !!clan.joinRequests.length && (
-          <>
-            <Text bold h4 sx={{ my: 1 }}>{t('joinRequests')}</Text>
-            <Table sx={{
-              maxWidth: 1,
-              '& th': {
-                bgcolor: 'secondary.main',
-                color: 'secondary.contrastText',
-                py: 0.5,
-                px: 1,
-                fontWeight: 'bold',
-                border: '1px solid',
-                borderColor: 'background.default',
-              },
-              '& td': {
-                bgcolor: 'background.paperDark',
-                py: 0.5,
-                px: 1,
-                border: '1px solid',
-                borderColor: 'background.default',
-              },
-            }}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('ranking')}</TableCell>
-                  <TableCell>{t('brute')}</TableCell>
-                  <TableCell align="right">{t('level')}</TableCell>
-                  <TableCell align="right">{t('actions')}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {clan.joinRequests.map((requester) => (
-                  <TableRow
-                    key={requester.id}
-                  >
-                    <TableCell component="th" scope="row">
-                      <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.webp`} sx={{ width: 20 }} />
-                    </TableCell>
-                    <TableCell sx={{ overflow: 'hidden' }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Box width={40} height={45} mx={1}>
-                          <BruteRender
-                            brute={requester}
-                          />
-                        </Box>
-                        <Link to={`/${requester.name}/cell`}>
-                          <Text bold>{requester.name}</Text>
-                        </Link>
-                      </Box>
-                    </TableCell>
-                    <TableCell align="right">{t('level')} {requester.level}</TableCell>
-                    <TableCell align="right">
-                      <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        p: 1,
-                        gap: 1,
-                      }}
-                      >
-                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept')}</FantasyButton>
-                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject')}</FantasyButton>
-                      </Box>
-                    </TableCell>
+        {owner
+          && hasPermission(brute, clan, [
+            ClanPermission.canAcceptJoinRequests, ClanPermission.canRejectJoinRequests
+          ])
+          && !!clan.joinRequests.length
+          && (
+            <>
+              <Text bold h4 sx={{ my: 1 }}>{t('joinRequests')}</Text>
+              <Table sx={{
+                maxWidth: 1,
+                '& th': {
+                  bgcolor: 'secondary.main',
+                  color: 'secondary.contrastText',
+                  py: 0.5,
+                  px: 1,
+                  fontWeight: 'bold',
+                  border: '1px solid',
+                  borderColor: 'background.default',
+                },
+                '& td': {
+                  bgcolor: 'background.paperDark',
+                  py: 0.5,
+                  px: 1,
+                  border: '1px solid',
+                  borderColor: 'background.default',
+                },
+              }}
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{t('ranking')}</TableCell>
+                    <TableCell>{t('brute')}</TableCell>
+                    <TableCell align="right">{t('level')}</TableCell>
+                    <TableCell align="right">{t('actions')}</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </>
-        )}
+                </TableHead>
+                <TableBody>
+                  {clan.joinRequests.map((requester) => (
+                    <TableRow
+                      key={requester.id}
+                    >
+                      <TableCell component="th" scope="row">
+                        <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.webp`} sx={{ width: 20 }} />
+                      </TableCell>
+                      <TableCell sx={{ overflow: 'hidden' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                          <Box width={40} height={45} mx={1}>
+                            <BruteRender
+                              brute={requester}
+                            />
+                          </Box>
+                          <Link to={`/${requester.name}/cell`}>
+                            <Text bold>{requester.name}</Text>
+                          </Link>
+                        </Box>
+                      </TableCell>
+                      <TableCell align="right">{t('level')} {requester.level}</TableCell>
+                      <TableCell align="right">
+                        <Box sx={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                          p: 1,
+                          gap: 1,
+                        }}
+                        >
+                          {hasPermission(brute, clan, ClanPermission.canAcceptJoinRequests) && (
+                            <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept')}</FantasyButton>
+                          )}
+                          {hasPermission(brute, clan, ClanPermission.canRejectJoinRequests) && (
+                            <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject')}</FantasyButton>
+                          )}
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </>
+          )}
         {/* CLAN WAR HISTORY */}
         <FantasyButton
           color="primary"
@@ -975,7 +1037,43 @@ const ClanView = () => {
           <History sx={{ verticalAlign: 'middle', mr: 1 }} />
           {t('clanWarHistory')}
         </FantasyButton>
+        {!clan && (
+          <FantasyButton
+            color="warning"
+            onClick={askToJoin}
+            sx={{ m: 1 }}
+          >
+            {t('joinAClan')}
+          </FantasyButton>
+        )}
       </Paper>
+      {canManageRoles && (
+        <>
+          <RoleManagementModal
+            open={roleModalOpen}
+            onClose={onCloseRoleManagement}
+            clanId={clan.id}
+            role={editingRole}
+            onRoleCreated={onRoleCreated}
+          />
+          <RoleListView
+            clan={clan}
+            open={roleListOpen}
+            onClose={onCloseRoleList}
+            clanId={clan.id}
+            onEditRole={handleEditRole}
+            onAssignRole={handleAssignRole}
+          />
+          <RoleAssignmentModal
+            open={roleAssignmentOpen}
+            onClose={handleOnClose}
+            clanId={clan.id}
+            role={assigningRole}
+            members={clan.brutes.map((b) => ({ id: b.id, name: b.name }))}
+            onAssigned={onAssignedModal}
+          />
+        </>
+      )}
     </Page>
   );
 };
