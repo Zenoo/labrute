@@ -12,7 +12,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import { useServer } from '../hooks/useServer';
 
 const TournamentHistoryView = () => {
-  const { t } = useTranslation(['tournamentHistory', 'global']);
+  const { t } = useTranslation(['tournamentHistory', 'common']);
   const { bruteName } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -54,8 +54,8 @@ const TournamentHistoryView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('date', { ns: 'global' })}</TableCell>
-                  <TableCell align="right">{t('tournament', { ns: 'global' })}</TableCell>
+                  <TableCell>{t('date', { ns: 'common' })}</TableCell>
+                  <TableCell align="right">{t('tournament', { ns: 'common' })}</TableCell>
                   <TableCell align="right" sx={{ width: 10 }}>{t('result')}</TableCell>
                 </TableRow>
               </TableHead>
@@ -80,10 +80,10 @@ const TournamentHistoryView = () => {
                         <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${dayjs.utc(tournament.date).format('YYYY-MM-DD')}`}>
                           <Text bold>
                             {tournament.type === TournamentType.DAILY
-                              ? t('dailyTournament', { ns: 'global' })
+                              ? t('dailyTournament', { ns: 'common' })
                               : (tournament.type === TournamentType.GLOBAL
                                 || tournament.type === TournamentType.UNLIMITED_GLOBAL)
-                                ? t('globalTournament', { ns: 'global' })
+                                ? t('globalTournament', { ns: 'common' })
                                 : tournament.type}
                           </Text>
                         </Link>

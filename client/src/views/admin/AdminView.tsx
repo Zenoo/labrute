@@ -79,14 +79,14 @@ const AdminView = () => {
   }, [Alert, Server.Brute, bruteId]);
 
   return (
-    <Page title={t('adminPanel', { ns: 'global' })} headerUrl="/">
+    <Page title={t('adminPanel', { ns: 'common' })} headerUrl="/">
       {!globalTournamentValid && (
         <MuiAlert severity="warning" variant="filled">
           <Text h5>Global tournament malformed</Text>
         </MuiAlert>
       )}
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Stack spacing={2}>
@@ -111,7 +111,7 @@ const AdminView = () => {
             sx={{ m: 1 }}
           >
             {Object.values(FightModifier).map((modifier) => (
-              <MenuItem key={modifier} value={modifier}>{t(`modifier.${modifier}`, { ns: 'global' })}</MenuItem>
+              <MenuItem key={modifier} value={modifier}>{t(`modifier.${modifier}`, { ns: 'common' })}</MenuItem>
             ))}
           </Select>
           <FantasyButton color="success" onClick={saveNextModifiers}>Save</FantasyButton>

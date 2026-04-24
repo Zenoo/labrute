@@ -11,13 +11,13 @@ import { useAuth } from '../hooks/useAuth';
  */
 export const AdminLayout = () => {
   const { user, authing } = useAuth();
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
   const { palette: { mode } } = useTheme();
 
   return user?.admin ? (
     <Outlet />
   ) : authing ? null : (
-    <Page title={t('MyBrute', { ns: 'global' })} headerUrl="/">
+    <Page title={t('MyBrute', { ns: 'common' })} headerUrl="/">
       <Paper sx={{
         mx: 4,
         display: 'flex',

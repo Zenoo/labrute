@@ -25,7 +25,7 @@ const Main = () => {
   const theme = useTheme();
   const { authing, user, signout, updateData, currentEvent } = useAuth();
   const Alert = useAlert();
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
   const colorMode = useContext(ColorModeContext);
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
@@ -387,7 +387,7 @@ const Main = () => {
                 <ActionButton
                   to="/wiki"
                   Icon={Info}
-                  title={t('wiki', { ns: 'global' })}
+                  title={t('wiki', { ns: 'common' })}
                 />
                 <ActionButton
                   to={`/user/${user.id}/feed`}
@@ -397,12 +397,12 @@ const Main = () => {
                 <ActionButton
                   to="/achievements/rankings"
                   Icon={MilitaryTech}
-                  title={t('ranking', { ns: 'global' })}
+                  title={t('ranking', { ns: 'common' })}
                 />
                 <ActionButton
                   to="/patch-notes"
                   Icon={NewReleases}
-                  title={t('patchNotes', { ns: 'global' })}
+                  title={t('patchNotes', { ns: 'common' })}
                 />
                 <ActionButton
                   onClick={colorMode.toggleColorMode}
@@ -423,7 +423,7 @@ const Main = () => {
                     to="/admin-panel"
                     Icon={AdminPanelSettings}
                     iconColor={theme.palette.success.main}
-                    title={t('adminPanel', { ns: 'global' })}
+                    title={t('adminPanel', { ns: 'common' })}
                   />
                 )}
                 <ActionButton
@@ -542,7 +542,7 @@ const Main = () => {
                   <ListItemIcon>
                     <MusicNote />
                   </ListItemIcon>
-                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic', { ns: 'global' })} />
+                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic', { ns: 'common' })} />
                   <Switch
                     edge="end"
                     size="small"

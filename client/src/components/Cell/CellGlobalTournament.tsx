@@ -279,7 +279,7 @@ const CellGlobalTournament = ({
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          ns: 'global',
+          ns: 'common',
           value: lostRound.winner
         })}
       </Text>
@@ -300,7 +300,7 @@ const CellGlobalTournament = ({
     }}
     >
       <Text bold color="text.disabled">
-        {t('nextOpponent', { ns: 'global' })}
+        {t('nextOpponent', { ns: 'common' })}
         {' '}
         <Link to={`/${data.nextOpponent}/cell`} sx={{ color: 'text.secondary' }}>
           {data.nextOpponent}
@@ -312,7 +312,7 @@ const CellGlobalTournament = ({
   return bruteName ? data && data.tournament && data?.lastRounds.length < 8 && (
     <Badge
       color="secondary"
-      badgeContent={t('unlimited', { ns: 'global' })}
+      badgeContent={t('unlimited', { ns: 'common' })}
       componentsProps={{
         badge: {
           style: {
@@ -335,7 +335,7 @@ const CellGlobalTournament = ({
         }}
         {...rest}
       >
-        <Text bold h6>{t('globalTournament', { ns: 'global' })}</Text>
+        <Text bold h6>{t('globalTournament', { ns: 'common' })}</Text>
         <Text>{(date || now).format('DD MMMM YYYY')}</Text>
         <Box sx={{
           mt: 1,
@@ -384,7 +384,7 @@ const CellGlobalTournament = ({
                   }}
                 >
                   <Text bold color="text.disabled" sx={{ width: 30 }}>{i + GLOBAL_TOURNAMENT_START_HOUR}h</Text>
-                  <Text bold color="text.disabled">{t('automaticallyQualified', { ns: 'global' })}</Text>
+                  <Text bold color="text.disabled">{t('automaticallyQualified', { ns: 'common' })}</Text>
                 </Box>
               );
             }
@@ -437,7 +437,7 @@ const CellGlobalTournament = ({
                       color="warning.main"
                       sx={{ ml: 2.5 }}
                     >
-                      {t('log.fight', { ns: 'global', value: opponent })}
+                      {t('log.fight', { ns: 'common', value: opponent })}
                     </Text>
                   </Box>
                 </BruteTooltip>
@@ -488,8 +488,8 @@ const CellGlobalTournament = ({
                     color={won ? 'success.main' : 'error'}
                   >
                     {won
-                      ? t('log.win', { ns: 'global', value: opponent })
-                      : t('log.lose', { ns: 'global', value: opponent })}
+                      ? t('log.win', { ns: 'common', value: opponent })
+                      : t('log.lose', { ns: 'common', value: opponent })}
                   </Text>
                 </Link>
               </BruteTooltip>
@@ -525,7 +525,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals', { ns: 'global' })}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals', { ns: 'common' })}</Text>
                   {data.lastRounds
                     .filter((fight) => fight.tournamentStep === lastRoundsFirstStep)
                     .map((fight) => renderFight(fight))}
@@ -560,7 +560,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals', { ns: 'global' })}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals', { ns: 'common' })}</Text>
                   {data.lastRounds
                     .filter((fight) => fight.tournamentStep === lastRoundsFirstStep + 1)
                     .map((step) => renderFight(step))}
@@ -597,7 +597,7 @@ const CellGlobalTournament = ({
                   }
                 }}
                 >
-                  <Text bold sx={{ flexBasis: '100%' }}>{(data.lastRounds[data.lastRounds.length - 1]?.tournamentStep ?? 0) + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals', { ns: 'global' })}</Text>
+                  <Text bold sx={{ flexBasis: '100%' }}>{(data.lastRounds[data.lastRounds.length - 1]?.tournamentStep ?? 0) + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals', { ns: 'common' })}</Text>
                   {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
                 </Box>
                 {/* Lost marker */}
@@ -621,7 +621,7 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold color="text.disabled">{t('comeBackInOneHour', { ns: 'global' })} ...</Text>
+                <Text bold color="text.disabled">{t('comeBackInOneHour', { ns: 'common' })} ...</Text>
               </Box>
             )}
           {/* Skip watching fights */}
@@ -639,7 +639,7 @@ const CellGlobalTournament = ({
                 }
               }}
             >
-              <Text smallCaps subtitle2 center>{t('setAsWatched', { ns: 'global' })}</Text>
+              <Text smallCaps subtitle2 center>{t('setAsWatched', { ns: 'common' })}</Text>
             </Box>
           )}
         </Box>

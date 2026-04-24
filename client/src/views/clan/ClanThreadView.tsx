@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanThreadView = () => {
-  const { t } = useTranslation(['clan', 'global']);
+  const { t } = useTranslation(['clan', 'common']);
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
@@ -121,7 +121,7 @@ const ClanThreadView = () => {
                 <Text bold smallCaps>{t('goBackToYourCell')}</Text>
               </Link>
               <Link to={`/${bruteName || ''}/clan/ranking`}>
-                <Text bold smallCaps>{t('ranking', { ns: 'global' })}</Text>
+                <Text bold smallCaps>{t('ranking', { ns: 'common' })}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/${id}`}>
                 <Text bold smallCaps>{t('myClan')}</Text>
@@ -220,7 +220,7 @@ const ClanThreadView = () => {
               )}
               {page > 1 && (
                 <Link onClick={changePage(-1)} href="#">
-                  <Text>{t('previous', { ns: 'global' })}</Text>
+                  <Text>{t('previous', { ns: 'common' })}</Text>
                 </Link>
               )}
               {!thread.locked && (
@@ -230,7 +230,7 @@ const ClanThreadView = () => {
               )}
               {page * 10 < thread.postCount && (
                 <Link onClick={changePage(1)} href="#">
-                  <Text>{t('next', { ns: 'global' })}</Text>
+                  <Text>{t('next', { ns: 'common' })}</Text>
                 </Link>
               )}
               {page * 10 < thread.postCount && (

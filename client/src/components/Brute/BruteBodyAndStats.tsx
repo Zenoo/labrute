@@ -40,7 +40,7 @@ const BruteBodyAndStats = ({
         {/* HP */}
         <Tooltip title={(
           <>
-            <code>{readableHPFormula(t('level', { ns: 'global' }), t('endurance', { ns: 'global' }))}</code>
+            <code>{readableHPFormula(t('level', { ns: 'common' }), t('endurance', { ns: 'common' }))}</code>
             <Divider />
             <code>{readableHPFormula(brute.level, brute.enduranceValue)}</code>
           </>
@@ -48,7 +48,7 @@ const BruteBodyAndStats = ({
         >
           <Box>
             <BruteHP hp={brute.hp} />
-            <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints', { ns: 'global' })}</Text>
+            <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints', { ns: 'common' })}</Text>
           </Box>
         </Tooltip>
         {/* STRENGTH */}

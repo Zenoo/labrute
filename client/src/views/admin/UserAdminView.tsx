@@ -97,9 +97,9 @@ const UserAdminView = () => {
   }, [Alert, Server.User, achievements, initialAchievements, user]);
 
   return (
-    <Page title={t('adminPanel', { ns: 'global' })} headerUrl="/">
+    <Page title={t('adminPanel', { ns: 'common' })} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {admin?.admin ? (
@@ -229,7 +229,7 @@ const UserAdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Text h3 bold upperCase typo="handwritten">{t('achievements', { ns: 'global' })}</Text>
+                    <Text h3 bold upperCase typo="handwritten">{t('achievements', { ns: 'common' })}</Text>
                   </Grid>
                   {Object.keys(AchievementName).map((key) => (
                     <Grid item xs={6} sm={3} key={key}>

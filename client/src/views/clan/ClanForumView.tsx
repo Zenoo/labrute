@@ -12,7 +12,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanForumView = () => {
-  const { t } = useTranslation(['clan', 'global']);
+  const { t } = useTranslation(['clan', 'common']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const Server = useServer();
@@ -44,7 +44,7 @@ const ClanForumView = () => {
                 <Text bold smallCaps>{t('goBackToYourCell')}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/ranking`}>
-                <Text bold smallCaps>{t('ranking', { ns: 'global' })}</Text>
+                <Text bold smallCaps>{t('ranking', { ns: 'common' })}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/${id}`}>
                 <Text bold smallCaps>{t('myClan')}</Text>

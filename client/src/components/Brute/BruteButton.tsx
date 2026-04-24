@@ -92,7 +92,7 @@ const BruteButton = ({
         </Box>
         <Text bold smallCaps color="text.primary">
           {owner && <ActivityStatus user={owner} />}
-          {t('level', { ns: 'global' })}
+          {t('level', { ns: 'common' })}
           <Text component="span" bold color="secondary"> {brute.level}</Text>
           {brute.eventId ? (
             <Box

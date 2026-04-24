@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const CurrentEventsView = () => {
-  const { t } = useTranslation(['event', 'global']);
+  const { t } = useTranslation(['event', 'common']);
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const CurrentEventsView = () => {
   };
 
   return (
-    <Page title={`${t('currentEvents')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}`}>
+    <Page title={`${t('currentEvents')} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('currentEvents')}</Text>
       </Paper>
@@ -108,7 +108,7 @@ export const CurrentEventsView = () => {
                           >
                             <Badge
                               color="info"
-                              badgeContent={event.tournament ? t('day', { ns: 'global', day: event.tournament?.rounds }) : 0}
+                              badgeContent={event.tournament ? t('day', { ns: 'common', day: event.tournament?.rounds }) : 0}
                               sx={{ width: 1 }}
                               anchorOrigin={{
                                 vertical: 'bottom',
@@ -138,7 +138,7 @@ export const CurrentEventsView = () => {
         <Box sx={{ display: 'flex', mt: 1, justifyContent: 'center' }}>
           <FantasyButton color="secondary" to="../history" sx={{ m: 1 }}>
             <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('eventHistory', { ns: 'global' })}
+            {t('eventHistory', { ns: 'common' })}
           </FantasyButton>
         </Box>
       </Paper>

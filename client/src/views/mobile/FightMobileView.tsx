@@ -29,7 +29,7 @@ const FightMobileView = ({
 
   return (
     <Page
-      title={`${pageTitle ?? ''} ${t('MyBrute', { ns: 'global' })}`}
+      title={`${pageTitle ?? ''} ${t('MyBrute', { ns: 'common' })}`}
       headerUrl={headerUrl}
     >
       <Paper sx={{ textAlign: 'center' }}>
@@ -64,8 +64,8 @@ const FightMobileView = ({
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('attackers', { ns: 'global' })}</TableCell>
-                  <TableCell align="right">{t('defenders', { ns: 'global' })}</TableCell>
+                  <TableCell>{t('attackers', { ns: 'common' })}</TableCell>
+                  <TableCell align="right">{t('defenders', { ns: 'common' })}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -95,11 +95,11 @@ const FightMobileView = ({
         )}
 
         {/* ADVERTS */}
-        <Text color="text.primary" center typo="GameFont" upperCase sx={{ mt: 2 }}>{t('fight.discoverGames', { ns: 'global' })}</Text>
+        <Text color="text.primary" center typo="GameFont" upperCase sx={{ mt: 2 }}>{t('fight.discoverGames', { ns: 'common' })}</Text>
         <Grid container spacing={2}>
           {ads.map((ad) => (
             <Grid item key={ad.name} xs={12} sm={6}>
-              <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })}>
+              <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })}>
                 <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"

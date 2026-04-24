@@ -48,9 +48,9 @@ export const ClanAdminView = () => {
   }, [Alert, Server.Clan, clan, clanId]);
 
   return (
-    <Page title={t('adminPanel', { ns: 'global' })} headerUrl="/">
+    <Page title={t('adminPanel', { ns: 'common' })} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {clan ? (

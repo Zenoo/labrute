@@ -22,11 +22,11 @@ const sacrificeExamples = [
 ];
 
 export const WikiView = () => {
-  const { t } = useTranslation(['wiki', 'global']);
+  const { t } = useTranslation(['wiki', 'common']);
 
   return (
     <Page
-      title={`${t('wiki', { ns: 'global' })} ${t('MyBrute', { ns: 'global' })}`}
+      title={`${t('wiki', { ns: 'common' })} ${t('MyBrute', { ns: 'common' })}`}
       description={t('desc')}
       headerUrl=""
     >
@@ -38,7 +38,7 @@ export const WikiView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="LaBrute" sx={{ mr: 2 }}>{t('wiki', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="LaBrute" sx={{ mr: 2 }}>{t('wiki', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{
         display: 'flex',
@@ -53,7 +53,7 @@ export const WikiView = () => {
             {/* RANK UP */}
             <FantasyButton color="success" sx={{ ml: 0 }}>
               <KeyboardDoubleArrowUp sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('rankUp', { ns: 'global' })}
+              {t('rankUp', { ns: 'common' })}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToRankup')}</Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('winDaily')}</Text>
@@ -78,14 +78,14 @@ export const WikiView = () => {
             {/* TOURNAMENTS */}
             <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
               <EmojiEvents sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('tournaments', { ns: 'global' })}
+              {t('tournaments', { ns: 'common' })}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howWork')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament', { ns: 'global' })}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament', { ns: 'common' })}</Text>
             <Text body2>- {t('manualRegister')}</Text>
             <Text body2>- {t('allowRankUp')}</Text>
             <Text body2>- {t('xpPerWin', { count: DailyTournamentXpReward })}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('globalTournament', { ns: 'global' })}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('globalTournament', { ns: 'common' })}</Text>
             <Text body2>- {t('autoRegister')}</Text>
             <Text body2>- {t('activePreviousDay')}</Text>
             <Text body2>- {t('xpPerWin', { count: GlobalTournamentXpReward })}</Text>
@@ -118,7 +118,7 @@ export const WikiView = () => {
             {/* GOLD */}
             <FantasyButton color="warning" sx={{ ml: 0 }}>
               <Box component="img" src="/images/gold.png" sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('gold', { ns: 'global' })}
+              {t('gold', { ns: 'common' })}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToGetGold')}</Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('sacrifice')}</Text>

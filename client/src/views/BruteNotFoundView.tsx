@@ -7,7 +7,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const BruteNotFoundView = () => {
-  const { t } = useTranslation(['bruteNotFound', 'global']);
+  const { t } = useTranslation(['bruteNotFound', 'common']);
 
   return (
     <Page
@@ -30,7 +30,7 @@ const BruteNotFoundView = () => {
           </Text>
           <FantasyButton color="secondary" to="/">
             <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('home', { ns: 'global' })}
+            {t('home', { ns: 'common' })}
           </FantasyButton>
         </Box>
       </Paper>

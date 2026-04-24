@@ -12,7 +12,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const NameChangeView = () => {
-  const { t } = useTranslation(['global', 'nameChange']);
+  const { t } = useTranslation(['common', 'nameChange']);
   const Alert = useAlert();
   const { brute, owner } = useBrute();
   const Confirm = useConfirm();
@@ -47,7 +47,7 @@ const NameChangeView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {owner && (
           <Box sx={{ textAlign: 'center' }}>
-            <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName', { ns: 'global' })}</Text>
+            <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName', { ns: 'common' })}</Text>
             <Box
               component="img"
               src="/images/creation/arrow.png"
@@ -61,7 +61,7 @@ const NameChangeView = () => {
             />
             {/* VALIDATION */}
             <Box sx={{ textAlign: 'center' }}>
-              <FantasyButton color="success" onClick={changeName}>{t('validate', { ns: 'global' })}</FantasyButton>
+              <FantasyButton color="success" onClick={changeName}>{t('validate', { ns: 'common' })}</FantasyButton>
             </Box>
           </Box>
         )}

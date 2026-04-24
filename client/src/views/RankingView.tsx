@@ -16,7 +16,7 @@ import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 
 const RankingView = () => {
-  const { t } = useTranslation(['ranking', 'global']);
+  const { t } = useTranslation(['ranking', 'common']);
   const { bruteName, rank } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -60,7 +60,7 @@ const RankingView = () => {
           </Link>
         </Box>
       </TableCell>
-      <TableCell align="right">{t('level', { ns: 'global' })} {b.level}</TableCell>
+      <TableCell align="right">{t('level', { ns: 'common' })} {b.level}</TableCell>
       {rankingSelected === 0 && (
         <TableCell align="right">{b.ascensions}</TableCell>
       )}
@@ -69,12 +69,12 @@ const RankingView = () => {
 
   return rankings && brute && (
     <Page
-      title={t('ranking', { ns: 'global' })}
+      title={t('ranking', { ns: 'common' })}
       description={t('ranking.desc', {
         ns: 'ranking',
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
+        rank: t(`lvl_${brute.ranking}`, { ns: 'common' }),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${bruteName || ''}/cell`}
@@ -83,7 +83,7 @@ const RankingView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {
             ns: 'ranking',
-            value: rankingSelected === -1 ? t('event', { ns: 'global' }) : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`, { ns: 'global' }),
+            value: rankingSelected === -1 ? t('event', { ns: 'common' }) : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`, { ns: 'common' }),
           })}
         </Text>
       </Paper>
@@ -95,7 +95,7 @@ const RankingView = () => {
         }}
         >
           {currentEvent && (
-            <Tooltip title={t('event', { ns: 'global' })}>
+            <Tooltip title={t('event', { ns: 'common' })}>
               <RouterLink to={`/${bruteName || ''}/ranking/event`}>
                 <StyledButton
                   image={rankingSelected === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
@@ -117,7 +117,7 @@ const RankingView = () => {
             </Tooltip>
           )}
           {BruteRankings.map((bruteRanking) => (
-            <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`, { ns: 'global' })}>
+            <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`, { ns: 'common' })}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>
                 <StyledButton
                   image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
@@ -165,10 +165,10 @@ const RankingView = () => {
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell>{t('brute', { ns: 'global' })}</TableCell>
+                  <TableCell>{t('brute', { ns: 'common' })}</TableCell>
                   <TableCell align="right">{t('experience', { ns: 'ranking' })}</TableCell>
                   {rankingSelected === 0 && (
-                    <TableCell align="right">{t('ascensions', { ns: 'global' })}</TableCell>
+                    <TableCell align="right">{t('ascensions', { ns: 'common' })}</TableCell>
                   )}
                 </TableRow>
               </TableHead>

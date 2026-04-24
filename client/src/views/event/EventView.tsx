@@ -37,7 +37,7 @@ const eventRules = {
 };
 
 export const EventView = () => {
-  const { t } = useTranslation(['event', 'global']);
+  const { t } = useTranslation(['event', 'common']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
@@ -266,7 +266,7 @@ export const EventView = () => {
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          ns: 'global',
+          ns: 'common',
           value: lostRound.winner
         })}
       </Text>
@@ -274,10 +274,10 @@ export const EventView = () => {
   );
 
   return (
-    <Page title={`${t('event', { ns: 'global' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('event', { ns: 'common' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-          {t('event', { ns: 'global' })}
+          {t('event', { ns: 'common' })}
         </Text>
       </Paper>
       <Paper sx={{
@@ -335,7 +335,7 @@ export const EventView = () => {
                   >
                     <Badge
                       color="info"
-                      badgeContent={data.event.tournament ? t('day', { ns: 'global', day: data.event.tournament?.rounds }) : 0}
+                      badgeContent={data.event.tournament ? t('day', { ns: 'common', day: data.event.tournament?.rounds }) : 0}
                       sx={{ width: 1 }}
                       anchorOrigin={{
                         vertical: 'bottom',
@@ -477,8 +477,8 @@ export const EventView = () => {
                             />
                           </Link>
                         </Tooltip>
-                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { ns: 'global', day: i + 1 })}</Text>
-                        <Text bold color="text.disabled">{t('automaticallyQualified', { ns: 'global' })}</Text>
+                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { ns: 'common', day: i + 1 })}</Text>
+                        <Text bold color="text.disabled">{t('automaticallyQualified', { ns: 'common' })}</Text>
                       </Box>
                     );
                   }
@@ -534,13 +534,13 @@ export const EventView = () => {
                               color="warning.main"
                               sx={{ width: 50 }}
                             >
-                              {t('day', { ns: 'global', day: fight.tournamentStep })}
+                              {t('day', { ns: 'common', day: fight.tournamentStep })}
                             </Text>
                             <Text
                               bold
                               color="warning.main"
                             >
-                              {t('log.fight', { ns: 'global', value: opponent })}
+                              {t('log.fight', { ns: 'common', value: opponent })}
                             </Text>
                           </Box>
                         </BruteTooltip>
@@ -590,7 +590,7 @@ export const EventView = () => {
                             color={won ? 'success.main' : 'error'}
                             sx={{ width: 50 }}
                           >
-                            {t('day', { ns: 'global', day: fight.tournamentStep })}
+                            {t('day', { ns: 'common', day: fight.tournamentStep })}
                           </Text>
                           <Box
                             component="img"
@@ -602,8 +602,8 @@ export const EventView = () => {
                             color={won ? 'success.main' : 'error'}
                           >
                             {won
-                              ? t('log.win', { ns: 'global', value: opponent })
-                              : t('log.lose', { ns: 'global', value: opponent })}
+                              ? t('log.win', { ns: 'common', value: opponent })
+                              : t('log.lose', { ns: 'common', value: opponent })}
                           </Text>
                         </Link>
                       </BruteTooltip>
@@ -635,9 +635,9 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { ns: 'global', day: lastRoundsFirstStep })}
+                          {t('day', { ns: 'common', day: lastRoundsFirstStep })}
                           {' '}
-                          {t('quarterFinals', { ns: 'global' })}
+                          {t('quarterFinals', { ns: 'common' })}
                         </Text>
                         {data.lastRounds
                           .filter((fight) => fight.tournamentStep === lastRoundsFirstStep)
@@ -669,9 +669,9 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { ns: 'global', day: lastRoundsFirstStep + 1 })}
+                          {t('day', { ns: 'common', day: lastRoundsFirstStep + 1 })}
                           {' '}
-                          {t('semiFinals', { ns: 'global' })}
+                          {t('semiFinals', { ns: 'common' })}
                         </Text>
                         {data.lastRounds
                           .filter((fight) => fight.tournamentStep === lastRoundsFirstStep + 1)
@@ -705,9 +705,9 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { ns: 'global', day: lastRoundsFirstStep + 2 })}
+                          {t('day', { ns: 'common', day: lastRoundsFirstStep + 2 })}
                           {' '}
-                          {t('finals', { ns: 'global' })}
+                          {t('finals', { ns: 'common' })}
                         </Text>
                         {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
                       </Box>

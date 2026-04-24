@@ -11,7 +11,7 @@ import { useAuth } from '../hooks/useAuth';
  */
 export const ModeratorLayout = () => {
   const { user, authing } = useAuth();
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
   const { palette: { mode } } = useTheme();
 
   const moderator = user?.moderator || user?.admin;
@@ -19,7 +19,7 @@ export const ModeratorLayout = () => {
   return moderator ? (
     <Outlet />
   ) : authing ? null : (
-    <Page title={t('MyBrute', { ns: 'global' })} headerUrl="/">
+    <Page title={t('MyBrute', { ns: 'common' })} headerUrl="/">
       <Paper sx={{
         mx: 4,
         display: 'flex',

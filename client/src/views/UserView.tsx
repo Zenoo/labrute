@@ -25,7 +25,7 @@ type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> &
 };
 
 const UserView = () => {
-  const { t } = useTranslation(['user', 'global']);
+  const { t } = useTranslation(['user', 'common']);
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
@@ -151,7 +151,7 @@ const UserView = () => {
                   }}
                 >
                   <AchievementHeader />
-                  <Text bold h6>{t('achievements', { ns: 'global' })}</Text>
+                  <Text bold h6>{t('achievements', { ns: 'common' })}</Text>
                   <Box sx={{
                     mt: 1,
                     bgcolor: 'background.paperLight',
@@ -208,7 +208,7 @@ const UserView = () => {
                     overflow: 'auto',
                   }}
                 >
-                  <Text bold h6>{t('titles', { ns: 'global' })}</Text>
+                  <Text bold h6>{t('titles', { ns: 'common' })}</Text>
                   <Box sx={{
                     mt: 1,
                     bgcolor: 'background.paperLight',
@@ -246,20 +246,20 @@ const UserView = () => {
                                   src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`}
                                   sx={{ width: 20 }}
                                 />
-                                <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`, { ns: 'global' })}</Text>
+                                <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`, { ns: 'common' })}</Text>
                               </ListSubheader>
                             </AchievementTooltip>
                           )}
                         >
                           {availableTitles.map((titleCount, i) => {
-                            let translation = t(`${achievement.name}.title.${i + 1}`, { ns: 'global' });
+                            let translation = t(`${achievement.name}.title.${i + 1}`, { ns: 'common' });
 
                             if (!translation || translation === `${achievement.name}.title.${i + 1}`) {
                               translation = 'TODO';
                             }
 
                             return (
-                              <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`, { ns: 'global' })} x ${titleCount}`}>
+                              <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`, { ns: 'common' })} x ${titleCount}`}>
                                 <ListItem sx={{
                                   py: 0,
                                   '&:not(:last-child)': {
@@ -293,7 +293,7 @@ const UserView = () => {
                     mt: 3,
                   }}
                 >
-                  {t('ranking', { ns: 'global' })}
+                  {t('ranking', { ns: 'common' })}
                 </FantasyButton>
               </Grid>
             </Grid>
@@ -309,13 +309,13 @@ const UserView = () => {
                     sx={{ m: 1 }}
                   >
                     <Check sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('dinorpg', { ns: 'global' })}
+                    {t('dinorpg', { ns: 'common' })}
                   </FantasyButton>
                 </Box>
               </>
             )}
             {/* BRUTES */}
-            <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('brutes', { ns: 'global' })}</Text>
+            <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('brutes', { ns: 'common' })}</Text>
             <Box sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -353,8 +353,8 @@ const UserView = () => {
                 >
                   <TableHead>
                     <TableRow>
-                      <TableCell>{t('fight', { ns: 'global' })}</TableCell>
-                      <TableCell align="right">{t('date', { ns: 'global' })}</TableCell>
+                      <TableCell>{t('fight', { ns: 'common' })}</TableCell>
+                      <TableCell align="right">{t('date', { ns: 'common' })}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -369,7 +369,7 @@ const UserView = () => {
                         >
                           <TableCell>
                             <Link to={`/fight/${fight.id}`}>
-                              {brute1} {t('vs', { ns: 'global' })} {brute2}
+                              {brute1} {t('vs', { ns: 'common' })} {brute2}
                             </Link>
                           </TableCell>
                           <TableCell align="right">{dayjs.utc(fight.date).format('DD/MM/YYYY')}</TableCell>
@@ -388,7 +388,7 @@ const UserView = () => {
                   color="warning"
                   sx={{ m: 1 }}
                 >
-                  {t('transferBrute', { ns: 'global' })}
+                  {t('transferBrute', { ns: 'common' })}
                 </FantasyButton>
               </Box>
             )}

@@ -83,14 +83,14 @@ const PetTooltip = ({
               ]
             </>
           )}
-          % {t(label, { ns: 'global' })}
+          % {t(label, { ns: 'common' })}
         </Text>
       );
     }
 
     return (
       <Text {...textProps}>
-        {t(label, { ns: 'global' })}:
+        {t(label, { ns: 'common' })}:
         {' '}
         <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
           {uniqueValue ? (
@@ -133,11 +133,11 @@ const PetTooltip = ({
           )}
           <Box sx={{ textAlign: 'center', my: 0.5 }}>
             {/* NAME */}
-            <Text bold h5>{t(tieredPet.name, { ns: 'global' })}</Text>
+            <Text bold h5>{t(tieredPet.name, { ns: 'common' })}</Text>
           </Box>
           {/* ODDS */}
           <Text {...textProps}>
-            {t('odds', { ns: 'global' })}:
+            {t('odds', { ns: 'common' })}:
             {' '}
             <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
               {((tieredPet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
@@ -145,7 +145,7 @@ const PetTooltip = ({
           </Text>
           {/* HP MALUS */}
           <Text {...textProps}>
-            {t('hpMalus', { ns: 'global' })}:
+            {t('hpMalus', { ns: 'common' })}:
             {' '}
             <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
               {convertEnduranceToHP(brute, tieredPet.enduranceMalus)}

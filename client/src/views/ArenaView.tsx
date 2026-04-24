@@ -22,7 +22,7 @@ type CalculatedBruteGetOpponentsResponse = ReturnType<
 >[];
 
 const ArenaView = () => {
-  const { t } = useTranslation(['arena', 'global']);
+  const { t } = useTranslation(['arena', 'common']);
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -166,7 +166,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute), ns: 'global' }) : t('youHaveOneFightLeft', { ns: 'global' })}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute), ns: 'common' }) : t('youHaveOneFightLeft', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {/* No XP won for event brutes at max level */}
@@ -186,7 +186,7 @@ const ArenaView = () => {
             <BruteBodyAndStats brute={brute} isMd={isMd} />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>
-                <Text bold>{t('backToCell', { ns: 'global' })}</Text>
+                <Text bold>{t('backToCell', { ns: 'common' })}</Text>
               </Link>
               {!isMd && (
                 <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />

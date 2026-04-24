@@ -60,12 +60,12 @@ const TournamentMobileView = ({
   goToFight,
   setWatched,
 }: Props) => {
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
   const { authing } = useAuth();
   const { palette: { mode } } = useTheme();
 
   return tournament && (
-    <Page title={`${t('tournament', { ns: 'global' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('tournament', { ns: 'common' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{
         mx: 4,
         textAlign: 'center',

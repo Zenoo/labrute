@@ -17,7 +17,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const ResetVisualsView = () => {
-  const { t } = useTranslation(['resetVisuals', 'global']);
+  const { t } = useTranslation(['resetVisuals', 'common']);
   const Alert = useAlert();
   const navigate = useNavigate();
   const { brute, updateBrute, owner } = useBrute();
@@ -132,7 +132,7 @@ const ResetVisualsView = () => {
               mb: 1,
             }}
             >
-              <Tooltip title={t('changeAppearance', { ns: 'global' })}>
+              <Tooltip title={t('changeAppearance', { ns: 'common' })}>
                 <StyledButton
                   onClick={changeAppearance}
                   image="/images/creation/bodyType.svg"
@@ -143,7 +143,7 @@ const ResetVisualsView = () => {
                   }}
                 />
               </Tooltip>
-              <Tooltip title={t('changeColors', { ns: 'global' })}>
+              <Tooltip title={t('changeColors', { ns: 'common' })}>
                 <StyledButton
                   onClick={changeColors}
                   image="/images/creation/color.svg"
@@ -157,7 +157,7 @@ const ResetVisualsView = () => {
             </Box>
             {/* VALIDATION */}
             <Box sx={{ textAlign: 'center' }}>
-              <FantasyButton color="success" onClick={resetVisuals}>{t('validate', { ns: 'global' })}</FantasyButton>
+              <FantasyButton color="success" onClick={resetVisuals}>{t('validate', { ns: 'common' })}</FantasyButton>
             </Box>
           </>
         )}

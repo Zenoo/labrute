@@ -99,7 +99,7 @@ const styles: Record<string, SxProps> = {
 };
 
 const DestinyView = () => {
-  const { t } = useTranslation(['global', 'destiny']);
+  const { t } = useTranslation(['common', 'destiny']);
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const { palette: { mode } } = useTheme();
@@ -126,19 +126,19 @@ const DestinyView = () => {
           {branch ? (
             <>
               {/* LEVEL */}
-              <Text h6 bold smallCaps>{t('level', { ns: 'global' })} {branch.level}</Text>
+              <Text h6 bold smallCaps>{t('level', { ns: 'common' })} {branch.level}</Text>
               {/* CHOICE HEADER */}
               <Text caption>
                 {/* +3 Skill */}
-                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in', { ns: 'global' })}`}
+                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in', { ns: 'common' })}`}
                 {/* +2/+1 Skill */}
-                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in', { ns: 'global' })}`}
+                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in', { ns: 'common' })}`}
                 {/* New weapon */}
-                {branch.type === 'weapon' && `${t('newWeapon', { ns: 'global' })} :`}
+                {branch.type === 'weapon' && `${t('newWeapon', { ns: 'common' })} :`}
                 {/* New skill */}
-                {branch.type === 'skill' && `${t('newSkill', { ns: 'global' })} :`}
+                {branch.type === 'skill' && `${t('newSkill', { ns: 'common' })} :`}
                 {/* New pet */}
-                {branch.type === 'pet' && `${t('newPet', { ns: 'global' })} :`}
+                {branch.type === 'pet' && `${t('newPet', { ns: 'common' })} :`}
               </Text>
 
               {/* CHOICE CONTENT */}
@@ -147,21 +147,21 @@ const DestinyView = () => {
                 <SkillTooltip
                   skill={branch.skill && skills[branch.skill]}
                 >
-                  <Text h6 bold smallCaps>{t(branch.skill as SkillName, { ns: 'global' })}</Text>
+                  <Text h6 bold smallCaps>{t(branch.skill as SkillName, { ns: 'common' })}</Text>
                 </SkillTooltip>
               ) : branch.type === 'weapon' ? (
                 <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]}>
-                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName, { ns: 'global' })}</Text>
+                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName, { ns: 'common' })}</Text>
                 </WeaponTooltip>
               ) : branch.type === 'pet' ? (
-                <Text h6 bold smallCaps>{t(branch.pet as PetName, { ns: 'global' })}</Text>
+                <Text h6 bold smallCaps>{t(branch.pet as PetName, { ns: 'common' })}</Text>
               ) : !branch.stat2 ? (
-                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat), { ns: 'global' })}</Text>
+                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat), { ns: 'common' })}</Text>
               ) : (
                 <Text h6 bold smallCaps>
-                  {t(statName(branch.stat1 as BruteStat), { ns: 'global' })}
+                  {t(statName(branch.stat1 as BruteStat), { ns: 'common' })}
                   {' / '}
-                  {t(statName(branch.stat2), { ns: 'global' })}
+                  {t(statName(branch.stat2), { ns: 'common' })}
                 </Text>
               ))}
             </>
@@ -181,12 +181,12 @@ const DestinyView = () => {
 
   return brute && (
     <Page
-      title={`${t('MyBrute', { ns: 'global' })}. ${t('destinyOf', { ns: 'global' })} ${brute.name || ''}`}
+      title={`${t('MyBrute', { ns: 'common' })}. ${t('destinyOf', { ns: 'common' })} ${brute.name || ''}`}
       description={t('destiny.desc', {
         ns: 'destiny',
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`, { ns: 'global' }),
+        rank: t(`lvl_${brute.ranking}`, { ns: 'common' }),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${brute.name}/cell`}

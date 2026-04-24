@@ -9,7 +9,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const PatchNotesView = () => {
-  const { t } = useTranslation(['patchNotes', 'global']);
+  const { t } = useTranslation(['patchNotes', 'common']);
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
 
@@ -20,7 +20,7 @@ const PatchNotesView = () => {
 
   return (
     <Page
-      title={`${t('MyBrute', { ns: 'global' })} - ${t('patchNotes', { ns: 'global' })}`}
+      title={`${t('MyBrute', { ns: 'common' })} - ${t('patchNotes', { ns: 'common' })}`}
       description={t('desc', { version: LAST_RELEASE.version })}
     >
       <Paper sx={{
@@ -31,7 +31,7 @@ const PatchNotesView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes', { ns: 'common' })}</Text>
       </Paper>
       {displayedReleases.map((release) => (
         <Paper key={release.version} sx={{ bgcolor: 'background.paperLight', my: 3 }}>
@@ -100,7 +100,7 @@ const PatchNotesView = () => {
           onClick={showMoreReleases}
           sx={{ mx: 'auto' }}
         >
-          {t('showMore', { ns: 'global' })}
+          {t('showMore', { ns: 'common' })}
         </FantasyButton>
       )}
     </Page>

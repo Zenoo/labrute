@@ -48,9 +48,9 @@ const SkillTooltip = ({
             src={`/images/skills/${skill.name}.svg`}
             sx={{ width: 68, float: 'left', marginRight: 1 }}
           />
-          <Text bold h5>{t(skill.name, { ns: 'global' })}</Text>
+          <Text bold h5>{t(skill.name, { ns: 'common' })}</Text>
           <Divider />
-          <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`, { ns: 'global' })}</Text>
+          <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`, { ns: 'common' })}</Text>
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (
             <Fragment key={stat}>
               {!!modifier.flat && (
@@ -88,9 +88,9 @@ const SkillTooltip = ({
                     </>
                   )}
                   {' '}
-                  {modifier.opponent ? t(`opponent-${stat}`, { ns: 'global' }) : t(statName(stat), { ns: 'global' })}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons', { ns: 'global' })}: ${t(modifier.weaponType || 'none', { ns: 'global' })})`}
-                  {modifier.details ? ` ${t(modifier.details, { ns: 'global' })}` : ''}
+                  {modifier.opponent ? t(`opponent-${stat}`, { ns: 'common' }) : t(statName(stat), { ns: 'common' })}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons', { ns: 'common' })}: ${t(modifier.weaponType || 'none', { ns: 'common' })})`}
+                  {modifier.details ? ` ${t(modifier.details, { ns: 'common' })}` : ''}
                 </Text>
               )}
               {!!modifier.percent && (
@@ -130,15 +130,15 @@ const SkillTooltip = ({
                     </>
                   )}
                   {'% '}
-                  {modifier.opponent ? t(`opponent-${stat}`, { ns: 'global' }) : t(statName(stat), { ns: 'global' })}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons', { ns: 'global' })}: ${t(modifier.weaponType || 'none', { ns: 'global' })})`}
-                  {modifier.details ? ` ${t(modifier.details, { ns: 'global' })}` : ''}
+                  {modifier.opponent ? t(`opponent-${stat}`, { ns: 'common' }) : t(statName(stat), { ns: 'common' })}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons', { ns: 'common' })}: ${t(modifier.weaponType || 'none', { ns: 'common' })})`}
+                  {modifier.details ? ` ${t(modifier.details, { ns: 'common' })}` : ''}
                 </Text>
               )}
             </Fragment>
           ))}
-          {t(`${skill.name}.effect`, { ns: 'global', uses: skill.uses }) !== `${skill.name}.effect` && (
-            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { ns: 'global', uses: skill.uses })}</Text>
+          {t(`${skill.name}.effect`, { ns: 'common', uses: skill.uses }) !== `${skill.name}.effect` && (
+            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { ns: 'common', uses: skill.uses })}</Text>
           )}
           <Box sx={{
             display: 'flex',
@@ -146,7 +146,7 @@ const SkillTooltip = ({
             gap: 1,
           }}
           >
-            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds', { ns: 'global' })}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
+            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds', { ns: 'common' })}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
             {tier > 1 && (
               <Box>
                 {Array.from({ length: tier - 1 }).map((_, index) => (

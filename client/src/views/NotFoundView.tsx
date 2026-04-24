@@ -7,7 +7,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const NotFoundView = () => {
-  const { t } = useTranslation(['notFound', 'global']);
+  const { t } = useTranslation(['notFound', 'common']);
 
   return (
     <Page
@@ -30,7 +30,7 @@ const NotFoundView = () => {
           </Text>
           <FantasyButton color="secondary" to="/">
             <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('home', { ns: 'global' })}
+            {t('home', { ns: 'common' })}
           </FantasyButton>
         </Box>
       </Paper>

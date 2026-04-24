@@ -59,7 +59,7 @@ const HallView = () => {
   }, [Alert, Server.Brute, updateData, user]);
 
   return (
-    <Page title={`${t('hall', { ns: 'hall' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl="">
+    <Page title={`${t('hall', { ns: 'hall' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl="">
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -72,8 +72,8 @@ const HallView = () => {
         {!!fightsLeft && (
           <Text bold color="secondary">
             {fightsLeft > 1
-              ? t('youHaveXFightsLeft', { value: fightsLeft, ns: 'global' })
-              : t('youHaveOneFightLeft', { ns: 'global' })}
+              ? t('youHaveXFightsLeft', { value: fightsLeft, ns: 'common' })
+              : t('youHaveOneFightLeft', { ns: 'common' })}
           </Text>
         )}
       </Paper>
@@ -123,7 +123,7 @@ const HallView = () => {
                   <Box display="flex" alignItems="center">
                     {/* Registration status */}
                     {brute.registeredForTournament && (
-                      <Tooltip title={t('bruteRegistered', { ns: 'global' })}>
+                      <Tooltip title={t('bruteRegistered', { ns: 'common' })}>
                         <Check
                           fontSize="small"
                           sx={{
@@ -155,7 +155,7 @@ const HallView = () => {
                   </Tooltip>
                 </Box>
                 <Text bold smallCaps color="text.primary">
-                  {t('level', { ns: 'global' })}
+                  {t('level', { ns: 'common' })}
                   <Text component="span" bold color="secondary"> {brute.level}</Text>
                   {brute.eventId ? (
                     <Box
@@ -214,7 +214,7 @@ const HallView = () => {
                 </Box>
               </Box>
               {/* Fights left */}
-              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft, ns: 'global' })}>
+              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft, ns: 'common' })}>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: 'center',

@@ -18,12 +18,12 @@ const VersusMobileView = ({
   opponent,
   startFight,
 }: VersusMobileViewProps) => {
-  const { t } = useTranslation(['versus', 'global']);
+  const { t } = useTranslation(['versus', 'common']);
   const { palette: { mode } } = useTheme();
 
   return (
     <Page
-      title={`${brute.name} ${t('vs', { ns: 'global' })} ${opponent.name}`}
+      title={`${brute.name} ${t('vs', { ns: 'common' })} ${opponent.name}`}
       headerUrl={`/${brute.name}/cell`}
       sx={{ textAlign: 'center' }}
     >
@@ -56,7 +56,7 @@ const VersusMobileView = ({
               />
             </Box>
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'global' })} {brute.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'common' })} {brute.level}</Text>
           </Grid>
           <Grid item xs={12} sm={2} alignSelf="center">
             <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/versus/vs.webp`} sx={{ width: 100, maxWidth: 1 }} />
@@ -69,7 +69,7 @@ const VersusMobileView = ({
               />
             </Box>
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'global' })} {opponent.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'common' })} {opponent.level}</Text>
           </Grid>
         </Grid>
         <StyledButton

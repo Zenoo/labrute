@@ -56,7 +56,7 @@ const FightView = () => {
   if (smallScreen) {
     return (
       <FightMobileView
-        pageTitle={bruteName ? `${bruteName} ${t('fight', { ns: 'global' })}` : t('fight', { ns: 'global' })}
+        pageTitle={bruteName ? `${bruteName} ${t('fight', { ns: 'common' })}` : t('fight', { ns: 'common' })}
         headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
         ads={ads}
         fight={fight}
@@ -65,7 +65,7 @@ const FightView = () => {
   }
 
   return fightId ? (
-    <Page title={bruteName ? `${bruteName} ${t('fight', { ns: 'global' })}` : t('fight', { ns: 'global' })} headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
+    <Page title={bruteName ? `${bruteName} ${t('fight', { ns: 'common' })}` : t('fight', { ns: 'common' })} headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{
@@ -76,9 +76,9 @@ const FightView = () => {
         <Box display="flex">
           {/* ADVERTS */}
           <Box sx={{ width: 236, mt: 5 }}>
-            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames', { ns: 'global' })}</Text>
+            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames', { ns: 'common' })}</Text>
             {ads.map((ad) => (
-              <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })} key={ad.name}>
+              <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })} key={ad.name}>
                 <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"

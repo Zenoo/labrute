@@ -13,7 +13,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const EventRoundView = () => {
-  const { t } = useTranslation(['event', 'global']);
+  const { t } = useTranslation(['event', 'common']);
   const { bruteName, id, round } = useParams();
   const Alert = useAlert();
   const theme = useTheme();
@@ -59,9 +59,9 @@ export const EventRoundView = () => {
   }, [Alert, id, round, Server.Event]);
 
   return (
-    <Page title={`${t(`event.${event?.type}`)} | ${t('day', { ns: 'global', day: round })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/event/${id}`}>
+    <Page title={`${t(`event.${event?.type}`)} | ${t('day', { ns: 'common', day: round })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}/event/${id}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t(`event.${event?.type}`)}, {t('day', { ns: 'global', day: round })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t(`event.${event?.type}`)}, {t('day', { ns: 'common', day: round })}</Text>
       </Paper>
       <Paper sx={{
         bgcolor: 'background.paperLight',

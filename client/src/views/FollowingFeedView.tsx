@@ -18,7 +18,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 export const FollowingFeedView = () => {
-  const { t } = useTranslation(['followingFeed', 'global']);
+  const { t } = useTranslation(['followingFeed', 'common']);
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();
@@ -48,7 +48,7 @@ export const FollowingFeedView = () => {
   }, [user, Alert, page, Server.Log]);
 
   return (
-    <Page title={`${t('followingFeed', { ns: 'followingFeed' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/user/${user?.id}`}>
+    <Page title={`${t('followingFeed', { ns: 'followingFeed' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/user/${user?.id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('followingFeed', { ns: 'followingFeed' })}</Text>
       </Paper>
@@ -94,29 +94,29 @@ export const FollowingFeedView = () => {
                       <Link to={`/${log.currentBrute?.name}/cell`}>
                         <Text body2>
                           {t(`log.${log.type}`, {
-                            ns: 'global',
+                            ns: 'common',
                             brute: log.currentBrute?.name,
-                            value: log.type === LogType.lvl ? t(`lvl_${log.level}`, { ns: 'global' }) : log.level,
+                            value: log.type === LogType.lvl ? t(`lvl_${log.level}`, { ns: 'common' }) : log.level,
                           })}
                         </Text>
                         {log.type === LogType.up && (
                           <Text body2>
                             {/* +3 Skill */}
-                            {log.destinyChoice?.type === 'stats' && !log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''} ${t('in', { ns: 'global' })} `}
+                            {log.destinyChoice?.type === 'stats' && !log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''} ${t('in', { ns: 'common' })} `}
                             {/* +2/+1 Skill */}
-                            {log.destinyChoice?.type === 'stats' && log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''}/+${log.destinyChoice?.stat2Value || ''} ${t('in', { ns: 'global' })} `}
+                            {log.destinyChoice?.type === 'stats' && log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''}/+${log.destinyChoice?.stat2Value || ''} ${t('in', { ns: 'common' })} `}
                             {/* New weapon */}
-                            {log.destinyChoice?.type === 'weapon' && `${t('newWeapon', { ns: 'global' })} : `}
+                            {log.destinyChoice?.type === 'weapon' && `${t('newWeapon', { ns: 'common' })} : `}
                             {/* New skill */}
-                            {log.destinyChoice?.type === 'skill' && `${t('newSkill', { ns: 'global' })} : `}
+                            {log.destinyChoice?.type === 'skill' && `${t('newSkill', { ns: 'common' })} : `}
                             {/* New pet */}
-                            {log.destinyChoice?.type === 'pet' && `${t('newPet', { ns: 'global' })} : `}
+                            {log.destinyChoice?.type === 'pet' && `${t('newPet', { ns: 'common' })} : `}
                             {(log.destinyChoice?.type === 'skill' ? (
                               <SkillTooltip
                                 skill={log.destinyChoice?.skill && skills[log.destinyChoice?.skill]}
                               >
                                 <Text component="span" body2>
-                                  {t(log.destinyChoice?.skill ?? '', { ns: 'global' })}
+                                  {t(log.destinyChoice?.skill ?? '', { ns: 'common' })}
                                 </Text>
                               </SkillTooltip>
                             ) : log.destinyChoice?.type === 'weapon' ? (
@@ -125,18 +125,18 @@ export const FollowingFeedView = () => {
                                   && weapons[log.destinyChoice?.weapon]}
                               >
                                 <Text component="span" body2>
-                                  {t(log.destinyChoice?.weapon ?? '', { ns: 'global' })}
+                                  {t(log.destinyChoice?.weapon ?? '', { ns: 'common' })}
                                 </Text>
                               </WeaponTooltip>
                             ) : log.destinyChoice?.type === 'pet' ? (
-                              <Text component="span" body2>{t(log.destinyChoice?.pet ?? '', { ns: 'global' })}</Text>
+                              <Text component="span" body2>{t(log.destinyChoice?.pet ?? '', { ns: 'common' })}</Text>
                             ) : !log.destinyChoice?.stat2 ? (
                               <Text component="span" body2>
-                                {t(log.destinyChoice?.stat1 ?? '', { ns: 'global' })}
+                                {t(log.destinyChoice?.stat1 ?? '', { ns: 'common' })}
                               </Text>
                             ) : (
                               <Text component="span" body2>
-                                {t(log.destinyChoice?.stat1 ?? '', { ns: 'global' })} / {t(log.destinyChoice?.stat2, { ns: 'global' })}
+                                {t(log.destinyChoice?.stat1 ?? '', { ns: 'common' })} / {t(log.destinyChoice?.stat2, { ns: 'common' })}
                               </Text>
                             ))}
                           </Text>
@@ -157,7 +157,7 @@ export const FollowingFeedView = () => {
         disabled={lastPage}
         sx={{ mx: 'auto', mt: 3 }}
       >
-        {t('showMore', { ns: 'global' })}
+        {t('showMore', { ns: 'common' })}
       </FantasyButton>
     </Page>
   );

@@ -14,7 +14,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const ClanWarHistoryView = () => {
-  const { t } = useTranslation(['clan', 'global']);
+  const { t } = useTranslation(['clan', 'common']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const Server = useServer();
@@ -31,7 +31,7 @@ export const ClanWarHistoryView = () => {
   }, [Alert, Server.ClanWar, id]);
 
   return (
-    <Page title={`${t('clanWarHistory')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
+    <Page title={`${t('clanWarHistory')} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('clanWarHistory')}</Text>
       </Paper>
@@ -64,7 +64,7 @@ export const ClanWarHistoryView = () => {
         >
           <TableHead>
             <TableRow>
-              <TableCell>{t('date', { ns: 'global' })}</TableCell>
+              <TableCell>{t('date', { ns: 'common' })}</TableCell>
               <TableCell align="right">{t('attacker')}</TableCell>
               <TableCell align="right">{t('defender')}</TableCell>
               <TableCell align="right">{t('W/L')}</TableCell>

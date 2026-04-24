@@ -11,7 +11,7 @@ import destiny from './destiny.json';
 import eventTranslations from './event.json';
 import followingFeed from './followingFeed.json';
 import generating from './generating.json';
-import global from './global.json';
+import common from './common.json';
 import globalTournament from './globalTournament.json';
 import hall from './hall.json';
 import home from './home.json';
@@ -43,7 +43,7 @@ const ru = {
   event: eventTranslations,
   followingFeed,
   generating,
-  global,
+  common,
   globalTournament,
   hall,
   home,

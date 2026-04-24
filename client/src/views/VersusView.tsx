@@ -17,7 +17,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const VersusView = () => {
-  const { t } = useTranslation(['versus', 'global']);
+  const { t } = useTranslation(['versus', 'common']);
   const { opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();
@@ -110,7 +110,7 @@ const VersusView = () => {
   }
 
   return brute && opponent && (
-    <Page title={`${brute.name} ${t('vs', { ns: 'global' })} ${opponent.name}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={`${brute.name} ${t('vs', { ns: 'common' })} ${opponent.name}`} headerUrl={`/${brute.name}/cell`}>
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/versus/background.webp`}
         sx={{
@@ -131,7 +131,7 @@ const VersusView = () => {
               />
             </Box>
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'global' })} {brute.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'common' })} {brute.level}</Text>
           </Grid>
           <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
           <Grid item xs={12} sm={4}>
@@ -142,7 +142,7 @@ const VersusView = () => {
               />
             </Box>
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'global' })} {opponent.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'common' })} {opponent.level}</Text>
           </Grid>
         </Grid>
         <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>

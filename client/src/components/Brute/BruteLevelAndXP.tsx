@@ -33,7 +33,7 @@ const BruteLevelAndXP = ({
     <Box {...rest}>
       <Text bold h3 smallCaps color="secondary" {...textProps}>
         {brute.eventId && (
-          <Tooltip title={t('eventBrute', { ns: 'global' })}>
+          <Tooltip title={t('eventBrute', { ns: 'common' })}>
             <Box
               component="img"
               src="/images/event.webp"
@@ -42,7 +42,7 @@ const BruteLevelAndXP = ({
             />
           </Tooltip>
         )}
-        {t('level', { ns: 'global' })} {brute.level}
+        {t('level', { ns: 'common' })} {brute.level}
       </Text>
       {/* LEVEL BAR */}
       <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>

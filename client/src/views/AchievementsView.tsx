@@ -15,7 +15,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementsView = () => {
-  const { t } = useTranslation(['global', 'achievement']);
+  const { t } = useTranslation(['common', 'achievement']);
   const theme = useTheme();
   const { bruteName } = useParams();
   const { user } = useAuth();
@@ -39,12 +39,12 @@ const AchievementsView = () => {
 
   return (
     <Page
-      title={t('achievements', { ns: 'global' })}
+      title={t('achievements', { ns: 'common' })}
       description={t('achievements.desc', { ns: 'achievement' })}
       headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
     >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <FantasyButton
@@ -54,7 +54,7 @@ const AchievementsView = () => {
             mb: 1,
           }}
         >
-          {t('ranking', { ns: 'global' })}
+          {t('ranking', { ns: 'common' })}
         </FantasyButton>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
@@ -67,7 +67,7 @@ const AchievementsView = () => {
               }}
             >
               <AchievementHeader />
-              <Text bold h6>{t('achievements', { ns: 'global' })}</Text>
+              <Text bold h6>{t('achievements', { ns: 'common' })}</Text>
               <Box sx={{
                 mt: 1,
                 bgcolor: 'background.paperLight',
@@ -118,7 +118,7 @@ const AchievementsView = () => {
               }}
             >
               <AchievementHeader />
-              <Text bold h6>{t('titles', { ns: 'global' })}</Text>
+              <Text bold h6>{t('titles', { ns: 'common' })}</Text>
               <Box sx={{
                 mt: 1,
                 bgcolor: 'background.paperLight',
@@ -156,20 +156,20 @@ const AchievementsView = () => {
                               src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`}
                               sx={{ width: 20 }}
                             />
-                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`, { ns: 'global' })}</Text>
+                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`, { ns: 'common' })}</Text>
                           </ListSubheader>
                         </AchievementTooltip>
                       )}
                     >
                       {availableTitles.map((titleCount, i) => {
-                        let translation = t(`${achievement.name}.title.${i + 1}`, { ns: 'global' });
+                        let translation = t(`${achievement.name}.title.${i + 1}`, { ns: 'common' });
 
                         if (!translation || translation === `${achievement.name}.title.${i + 1}`) {
                           translation = 'TODO';
                         }
 
                         return (
-                          <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`, { ns: 'global' })} x ${titleCount}`}>
+                          <Tooltip key={`${achievement.name}x${titleCount}`} title={`${t(`achievements.${achievement.name}`, { ns: 'common' })} x ${titleCount}`}>
                             <ListItem sx={{
                               py: 0,
                               '&:not(:last-child)': {

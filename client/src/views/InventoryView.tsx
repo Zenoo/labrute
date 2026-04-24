@@ -23,7 +23,7 @@ const itemImage: Record<InventoryItemType, string> = {
 };
 
 export const InventoryView = () => {
-  const { t } = useTranslation(['inventory', 'global']);
+  const { t } = useTranslation(['inventory', 'common']);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, owner } = useBrute();
@@ -69,7 +69,7 @@ export const InventoryView = () => {
   }, [brute, navigate, Alert, t]);
 
   return brute && (
-    <Page title={t('inventory', { ns: 'global' })} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('inventory', { ns: 'common' })} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -78,7 +78,7 @@ export const InventoryView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {owner && (
@@ -93,7 +93,7 @@ export const InventoryView = () => {
               <BruteBodyAndStats brute={brute} isMd={isMd} />
               <Box sx={{ textAlign: 'center', mt: 1 }}>
                 <Link to={`/${brute.name}/cell`}>
-                  <Text bold>{t('backToCell', { ns: 'global' })}</Text>
+                  <Text bold>{t('backToCell', { ns: 'common' })}</Text>
                 </Link>
                 {!isMd && (
                   <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
@@ -126,7 +126,7 @@ export const InventoryView = () => {
                       }}
                       >
                         <Text bold color="secondary">
-                          {t(`inventory.item.${item.type}`, { ns: 'global' })}
+                          {t(`inventory.item.${item.type}`, { ns: 'common' })}
                           {item.count > 1 && (
                             <Text component="span" color="primary" italic>
                               {` x${item.count}`}

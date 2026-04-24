@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const EventHistoryView = () => {
-  const { t } = useTranslation(['event', 'global']);
+  const { t } = useTranslation(['event', 'common']);
   const { bruteName } = useParams();
   const Alert = useAlert();
   const theme = useTheme();
@@ -41,9 +41,9 @@ export const EventHistoryView = () => {
   };
 
   return (
-    <Page title={`${t('eventHistory', { ns: 'global' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}`}>
+    <Page title={`${t('eventHistory', { ns: 'common' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('eventHistory', { ns: 'global' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('eventHistory', { ns: 'common' })}</Text>
       </Paper>
       <Paper sx={{
         bgcolor: 'background.paperLight',
@@ -77,8 +77,8 @@ export const EventHistoryView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('date', { ns: 'global' })}</TableCell>
-                  <TableCell>{t('event', { ns: 'global' })}</TableCell>
+                  <TableCell>{t('date', { ns: 'common' })}</TableCell>
+                  <TableCell>{t('event', { ns: 'common' })}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,10 +105,10 @@ export const EventHistoryView = () => {
             </Table>
             <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
               {page > 1 && (
-                <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous', { ns: 'global' })}</FantasyButton>
+                <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous', { ns: 'common' })}</FantasyButton>
               )}
               {events?.length === 15 && (
-                <FantasyButton color="primary" onClick={changePage(1)}>{t('next', { ns: 'global' })}</FantasyButton>
+                <FantasyButton color="primary" onClick={changePage(1)}>{t('next', { ns: 'common' })}</FantasyButton>
               )}
             </Box>
           </Grid>

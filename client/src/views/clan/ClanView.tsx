@@ -29,7 +29,7 @@ type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
 const ClanView = () => {
-  const { t } = useTranslation(['clan', 'global']);
+  const { t } = useTranslation(['clan', 'common']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user, updateData, modifiers } = useAuth();
@@ -144,7 +144,7 @@ const ClanView = () => {
 
     if (!brute || !clan) return;
 
-    Confirm.open(t('joinAClan', { ns: 'global' }), t('confirmJoin'), () => {
+    Confirm.open(t('joinAClan', { ns: 'common' }), t('confirmJoin'), () => {
       Server.Clan.request(brute.name, clan.id).then(() => {
         Alert.open('success', t('requestSent'));
 
@@ -429,7 +429,7 @@ const ClanView = () => {
   };
 
   return clan && (
-    <Page title={`${t('clan', { ns: 'global' })} ${clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('clan', { ns: 'common' })} ${clan.name}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {warEnabled && (
@@ -437,9 +437,9 @@ const ClanView = () => {
               <Box component="img" src="/images/clan/war.webp" sx={{ width: 20, mr: 1 }} />
             </Tooltip>
           )}
-          {t('clan', { ns: 'global' })} {clan.name}
+          {t('clan', { ns: 'common' })} {clan.name}
           {user?.admin && (
-            <Tooltip title={t('adminPanel', { ns: 'global' })}>
+            <Tooltip title={t('adminPanel', { ns: 'common' })}>
               <IconButton
                 component={RouterLink}
                 to={`/admin-panel/clan/${clan.id}`}
@@ -465,7 +465,7 @@ const ClanView = () => {
           </Link>
           {/* CLAN RANKING PAGE */}
           <Link to={`/${bruteName || ''}/clan/ranking`}>
-            <Text bold smallCaps>{t('ranking', { ns: 'global' })}</Text>
+            <Text bold smallCaps>{t('ranking', { ns: 'common' })}</Text>
           </Link>
           {/* FORUM */}
           {user && brute?.clanId === clan.id && (
@@ -652,7 +652,7 @@ const ClanView = () => {
                     onClick={cancelClanWar}
                     sx={{ m: 1 }}
                   >
-                    {t('cancel', { ns: 'global' })}
+                    {t('cancel', { ns: 'common' })}
                   </FantasyButton>
                 </Box>
               )}
@@ -674,7 +674,7 @@ const ClanView = () => {
                     onClick={acceptClanWar}
                     sx={{ m: 1 }}
                   >
-                    {t('accept', { ns: 'global' })}
+                    {t('accept', { ns: 'common' })}
                   </FantasyButton>
                   {/* REJECT */}
                   <FantasyButton
@@ -682,7 +682,7 @@ const ClanView = () => {
                     onClick={cancelClanWar}
                     sx={{ m: 1 }}
                   >
-                    {t('reject', { ns: 'global' })}
+                    {t('reject', { ns: 'common' })}
                   </FantasyButton>
                 </Box>
               )}
@@ -748,7 +748,7 @@ const ClanView = () => {
                       <TableHead>
                         <TableRow>
                           <TableCell />
-                          <TableCell>{t('brute', { ns: 'global' })}</TableCell>
+                          <TableCell>{t('brute', { ns: 'common' })}</TableCell>
                           <TableCell align="right">{t('damage')}</TableCell>
                         </TableRow>
                       </TableHead>
@@ -871,12 +871,12 @@ const ClanView = () => {
                   {clanBrute.user && (
                     <ActivityStatus user={clanBrute.user} sx={{ fontSize: 10, mr: 0.5 }} />
                   )}
-                  {t('level', { ns: 'global' })}
+                  {t('level', { ns: 'common' })}
                   <Text component="span" bold color="secondary"> {clanBrute.level}</Text>
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
                   <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.webp`} sx={{ mr: 1 }} />
-                  <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`, { ns: 'global' })}</Text>
+                  <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`, { ns: 'common' })}</Text>
                 </Box>
                 <Box sx={{
                   position: 'absolute',
@@ -921,9 +921,9 @@ const ClanView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('ranking', { ns: 'global' })}</TableCell>
-                  <TableCell>{t('brute', { ns: 'global' })}</TableCell>
-                  <TableCell align="right">{t('level', { ns: 'global' })}</TableCell>
+                  <TableCell>{t('ranking', { ns: 'common' })}</TableCell>
+                  <TableCell>{t('brute', { ns: 'common' })}</TableCell>
+                  <TableCell align="right">{t('level', { ns: 'common' })}</TableCell>
                   <TableCell align="right">{t('actions')}</TableCell>
                 </TableRow>
               </TableHead>
@@ -947,7 +947,7 @@ const ClanView = () => {
                         </Link>
                       </Box>
                     </TableCell>
-                    <TableCell align="right">{t('level', { ns: 'global' })} {requester.level}</TableCell>
+                    <TableCell align="right">{t('level', { ns: 'common' })} {requester.level}</TableCell>
                     <TableCell align="right">
                       <Box sx={{
                         display: 'flex',
@@ -956,8 +956,8 @@ const ClanView = () => {
                         gap: 1,
                       }}
                       >
-                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept', { ns: 'global' })}</FantasyButton>
-                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject', { ns: 'global' })}</FantasyButton>
+                        <FantasyButton color="success" onClick={acceptJoin(requester)}>{t('accept', { ns: 'common' })}</FantasyButton>
+                        <FantasyButton color="error" onClick={rejectJoin(requester)}>{t('reject', { ns: 'common' })}</FantasyButton>
                       </Box>
                     </TableCell>
                   </TableRow>

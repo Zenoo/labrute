@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
   const Alert = useAlert();
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
   const fingerprint = useFingerprint();
   const Server = useServer();
 
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // For the open source version, event_id is not available, use visitorId (id)
     if (!fingerprint.data || !fingerprint.id || !fingerprint.eventId) {
-      Alert.open('error', t('fingerprintError', { ns: 'global' }));
+      Alert.open('error', t('fingerprintError', { ns: 'common' }));
       deleteCookie(USER_COOKIE);
       deleteCookie(TOKEN_COOKIE);
       return;

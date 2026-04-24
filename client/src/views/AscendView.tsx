@@ -23,7 +23,7 @@ import { catchError } from '../utils/catchError';
  */
 const AscendView = () => {
   const theme = useTheme();
-  const { t } = useTranslation(['ascend', 'global']);
+  const { t } = useTranslation(['ascend', 'common']);
   const { brute } = useBrute();
   const navigate = useNavigate();
   const Confirm = useConfirm();
@@ -140,7 +140,7 @@ const AscendView = () => {
       if (selectedPerk === 'dog3') {
         return t('ascendWith.thirdDog', { ns: 'ascend' });
       }
-      return t(selectedPerk, { ns: 'global' });
+      return t(selectedPerk, { ns: 'common' });
     };
 
     const getSelectedPerkTypeLabel = () => {
@@ -213,7 +213,7 @@ const AscendView = () => {
             <BruteBodyAndStats brute={brute} isMd={isMd} centered />
             <Box sx={{ textAlign: 'center', mt: 1 }}>
               <Link to={`/${brute.name}/cell`}>
-                <Text bold>{t('backToCell', { ns: 'global' })}</Text>
+                <Text bold>{t('backToCell', { ns: 'common' })}</Text>
               </Link>
             </Box>
           </Grid>
@@ -242,7 +242,7 @@ const AscendView = () => {
             </Box>
             <Box sx={{ width: 315, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
               <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }} disabled={!selectedPerk || !selectedPerkType}>
-                {t('ascend', { ns: 'global' })}
+                {t('ascend', { ns: 'common' })}
               </FantasyButton>
             </Box>
           </Grid>

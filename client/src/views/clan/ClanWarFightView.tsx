@@ -17,7 +17,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanWarFightView = () => {
-  const { t } = useTranslation(['clan', 'global']);
+  const { t } = useTranslation(['clan', 'common']);
   const { id, warId, fightId } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const ClanWarFightView = () => {
   }
 
   return (id && fightId) ? (
-    <Page title={t('fight', { ns: 'global' })} headerUrl="..">
+    <Page title={t('fight', { ns: 'common' })} headerUrl="..">
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{
@@ -83,9 +83,9 @@ const ClanWarFightView = () => {
         <Box display="flex">
           {/* ADVERTS */}
           <Box sx={{ width: 236, mt: 5 }}>
-            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames', { ns: 'global' })}</Text>
+            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames', { ns: 'common' })}</Text>
             {ads.map((ad) => (
-              <Tooltip title={t(`${ad.name}.desc`, { ns: 'global' })} key={ad.name}>
+              <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })} key={ad.name}>
                 <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"
@@ -128,8 +128,8 @@ const ClanWarFightView = () => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('attackers', { ns: 'global' })}</TableCell>
-                    <TableCell align="right">{t('defenders', { ns: 'global' })}</TableCell>
+                    <TableCell>{t('attackers', { ns: 'common' })}</TableCell>
+                    <TableCell align="right">{t('defenders', { ns: 'common' })}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -40,7 +40,7 @@ interface ConfirmParams {
 }
 
 export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
 
   const [open, setOpen] = useState(false);
   const [params, setParams] = useState<ConfirmParams>({
@@ -117,7 +117,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
             variant="mybrute"
             sx={{ color: 'text.secondary' }}
           >
-            {t('cancel', { ns: 'global' })}
+            {t('cancel', { ns: 'common' })}
           </Button>
           <Button
             onClick={accept}

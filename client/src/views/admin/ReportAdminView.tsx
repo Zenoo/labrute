@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ReportAdminView = () => {
-  const { t } = useTranslation(['admin', 'global']);
+  const { t } = useTranslation(['admin', 'common']);
   const Alert = useAlert();
   const Server = useServer();
 
@@ -129,19 +129,19 @@ const ReportAdminView = () => {
                   key={report.id}
                   secondaryAction={status === BruteReportStatus.pending ? (
                     <>
-                      <Tooltip title={t('accept', { ns: 'global' })}>
+                      <Tooltip title={t('accept', { ns: 'common' })}>
                         <IconButton onClick={acceptReport(report.id)}>
                           <Check />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title={t('reject', { ns: 'global' })}>
+                      <Tooltip title={t('reject', { ns: 'common' })}>
                         <IconButton edge="end" onClick={rejectReport(report.id)}>
                           <Close />
                         </IconButton>
                       </Tooltip>
                     </>
                   ) : status === BruteReportStatus.accepted ? (
-                    <Tooltip title={t('cancel', { ns: 'global' })}>
+                    <Tooltip title={t('cancel', { ns: 'common' })}>
                       <IconButton onClick={cancelReport(report.id)}>
                         <Close />
                       </IconButton>
@@ -175,7 +175,7 @@ const ReportAdminView = () => {
                   onClick={() => setPage((prev) => prev + 1)}
                   sx={{ mx: 'auto', mt: 3 }}
                 >
-                  {t('showMore', { ns: 'global' })}
+                  {t('showMore', { ns: 'common' })}
                 </FantasyButton>
               </Box>
             )}

@@ -16,7 +16,7 @@ export const AchievementTooltip = ({
   children,
   ...rest
 }: AchievementTooltipProps) => {
-  const { t } = useTranslation('global');
+  const { t } = useTranslation('common');
   const { palette: { mode } } = useTheme();
 
   const achievementName = achievement?.name || name || AchievementName.win;

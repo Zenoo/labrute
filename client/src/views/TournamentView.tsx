@@ -44,7 +44,7 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 const TournamentView = () => {
-  const { t } = useTranslation(['tournament', 'global']);
+  const { t } = useTranslation(['tournament', 'common']);
   const { bruteName, date } = useParams();
   const { user, authing } = useAuth();
   const navigate = useNavigate();
@@ -182,7 +182,7 @@ const TournamentView = () => {
       />
     ) : (
       <Page
-        title={`${t('tournamentOf', { ns: 'global' })} ${dayjs.utc(tournament.date).format('DD MMMM YYYY')}`}
+        title={`${t('tournamentOf', { ns: 'common' })} ${dayjs.utc(tournament.date).format('DD MMMM YYYY')}`}
         description={t('tournamentOf.desc', {
           ns: 'tournament',
           brute: bruteName,
@@ -195,12 +195,12 @@ const TournamentView = () => {
           textAlign: 'center',
         }}
         >
-          <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf', { ns: 'global' })} {dayjs.utc(tournament.date).format('DD MMMM YYYY')}</Text>
+          <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf', { ns: 'common' })} {dayjs.utc(tournament.date).format('DD MMMM YYYY')}</Text>
         </Paper>
         <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
           {ownsBrute && stepWatched < 6 && (
             <FantasyButton onClick={setWatched} color="success">
-              {t('setAsWatched', { ns: 'global' })}
+              {t('setAsWatched', { ns: 'common' })}
             </FantasyButton>
           )}
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
