@@ -67,7 +67,7 @@ const WeaponTooltip = ({
     if (labelFirst) {
       return (
         <Text {...textProps}>
-          {t(label)}:
+          {t(label, { ns: 'global' })}:
           {' '}
           <Text component="span" bold sx={color} {...textProps}>
             {uniqueValue ? formatter(tier) : (
@@ -111,7 +111,7 @@ const WeaponTooltip = ({
             ]
           </>
         )}
-        {percent ? '%' : ''} {t(label)}
+        {percent ? '%' : ''} {t(label, { ns: 'global' })}
       </Text>
     );
   };
@@ -131,7 +131,7 @@ const WeaponTooltip = ({
               </Box>
             )}
             {/* NAME */}
-            <Text bold h5>{weapon ? t(weapon.name, { ns: 'global' }) : t('bareHands')}</Text>
+            <Text bold h5>{weapon ? t(weapon.name, { ns: 'global' }) : t('bareHands', { ns: 'global' })}</Text>
             {/* ILLUSTRATION */}
             {weapon && (
               <Box
@@ -144,7 +144,7 @@ const WeaponTooltip = ({
           {/* TYPES */}
           {weapon && (
             <Text {...textProps}>
-              {t('types')}:
+              {t('types', { ns: 'global' })}:
               {' '}
               {weapon.types.map((type, index) => (
                 <Fragment key={type}>
@@ -158,7 +158,7 @@ const WeaponTooltip = ({
                     }}
                     {...textProps}
                   >
-                    {t(type)}
+                    {t(type, { ns: 'global' })}
                   </Text>
                   {index < weapon.types.length - 1 && ', '}
                 </Fragment>
@@ -168,7 +168,7 @@ const WeaponTooltip = ({
           {/* ODDS */}
           {weapon && (
             <Text {...textProps}>
-              {t('odds')}:
+              {t('odds', { ns: 'global' })}:
               {' '}
               <Text bold component="span" sx={{ opacity: 0.7 }} {...textProps}>
                 {((weapon.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
@@ -187,7 +187,7 @@ const WeaponTooltip = ({
           {/* REACH */}
           {tieredWeapon && (
             <Text {...textProps}>
-              {t('reach')}:
+              {t('reach', { ns: 'global' })}:
               {' '}
               <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
                 {tieredWeapon.reach}

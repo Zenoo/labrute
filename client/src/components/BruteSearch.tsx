@@ -30,7 +30,7 @@ export const BruteSearch = () => {
     <OutlinedInput
       size="small"
       color="info"
-      placeholder={t('searchBrute')}
+      placeholder={t('searchBrute', { ns: 'global' })}
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       onKeyUp={(e) => e.key === 'Enter' && searchBrute()}
@@ -47,10 +47,10 @@ export const BruteSearch = () => {
         }
       }}
       endAdornment={(
-        <Tooltip title={t('searchBrute')}>
+        <Tooltip title={t('searchBrute', { ns: 'global' })}>
           <InputAdornment position="end">
             <IconButton
-              aria-label={t('searchBrute')}
+              aria-label={t('searchBrute', { ns: 'global' })}
               onClick={searchBrute}
               sx={{
                 color: theme.palette.topbar.contrast,

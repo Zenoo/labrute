@@ -55,7 +55,7 @@ const CellMain = ({
   const rankUp = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('rankUp', { ns: 'global' }), t('rankUpConfirm'), async () => {
+    Confirm.open(t('rankUp', { ns: 'global' }), t('rankUpConfirm', { ns: 'global' }), async () => {
       try {
         await Server.Brute.rankUp(brute.name);
         // Reload page
@@ -84,8 +84,8 @@ const CellMain = ({
           severity="error"
           variant="filled"
         >
-          <AlertTitle>{t('taggedForDeletion', { days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}</AlertTitle>
-          {t(`deletionReason.${brute.deletionReason}`, { days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}
+          <AlertTitle>{t('taggedForDeletion', { ns: 'global', days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}</AlertTitle>
+          {t(`deletionReason.${brute.deletionReason}`, { ns: 'global', days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}
         </MuiAlert>
       )}
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
@@ -116,7 +116,7 @@ const CellMain = ({
         && (
           <Tooltip title={t(
             brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
-            { value: getWinsNeededToRankUp(brute) }
+            { ns: 'global', value: getWinsNeededToRankUp(brute) }
           )}
           >
             <Box textAlign="center">
@@ -157,7 +157,7 @@ const CellMain = ({
           }}
         >
           <FantasyButton color="warning" sx={{ mb: 1 }}>
-            {t('ascend')}
+            {t('ascend', { ns: 'global' })}
           </FantasyButton>
         </Link>
       )}
@@ -175,7 +175,7 @@ const CellMain = ({
         ? fightsLeft > 0
           ? (
             <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-              <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
+              <Text bold sx={{ pl: 1 }}>{t('callToFight', { ns: 'global' })}</Text>
               <Link to={`/${brute.name}/arena`}>
                 <StyledButton
                   sx={{
@@ -188,18 +188,18 @@ const CellMain = ({
                   contrast={false}
                 />
               </Link>
-              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
+              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { ns: 'global', value: fightsLeft }) : t('fightLeft', { ns: 'global' })}</Text>
             </Stack>
           )
           : (
             <Box sx={{ textAlign: 'center' }}>
-              <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-              <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
+              <Text bold color="error">{t('bruteIsResting', { ns: 'global', brute: brute.name })}</Text>
+              <Text color="error">{t('newFightsTomorrow', { ns: 'global', amount: getMaxFightsPerDay(brute) })}</Text>
             </Box>
           )
         : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
           <FantasyButton color="success" to={`/${brute.name}/level-up`}>
-            {t('levelUp')}
+            {t('levelUp', { ns: 'global' })}
           </FantasyButton>
         )
           : null)}

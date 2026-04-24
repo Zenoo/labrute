@@ -33,7 +33,7 @@ const BruteLevelAndXP = ({
     <Box {...rest}>
       <Text bold h3 smallCaps color="secondary" {...textProps}>
         {brute.eventId && (
-          <Tooltip title={t('eventBrute')}>
+          <Tooltip title={t('eventBrute', { ns: 'global' })}>
             <Box
               component="img"
               src="/images/event.webp"

@@ -39,7 +39,7 @@ const CellSocials = ({
 
     if (brute.userId) {
       navigator.clipboard.writeText(brute.userId).then(() => {
-        Alert.open('success', t('userIdCopied'));
+        Alert.open('success', t('userIdCopied', { ns: 'global' }));
       }).catch(() => { });
     }
   };
@@ -50,7 +50,7 @@ const CellSocials = ({
 
     try {
       await Server.User.toggleFollow(brute.id);
-      Alert.open('success', isFollowing ? t('unfollowed') : t('followed'));
+      Alert.open('success', isFollowing ? t('unfollowed', { ns: 'global' }) : t('followed', { ns: 'global' }));
       updateData((prev) => (prev ? {
         ...prev,
         following: isFollowing
@@ -93,7 +93,7 @@ const CellSocials = ({
             {brute.user && (
               <>
                 {user?.moderator && (
-                  <Tooltip title={t('copyUserId')}>
+                  <Tooltip title={t('copyUserId', { ns: 'global' })}>
                     <IconButton size="small" onClick={copyUserId}>
                       <CopyAll color="primary" />
                     </IconButton>
@@ -130,15 +130,15 @@ const CellSocials = ({
               </Link>
             </Grid>
             <Grid item xs={6}>
-              <Text bold color="secondary" component="span">{t('winrate')}: </Text>
-              <Tooltip title={t('wins-losses', { wins: brute.victories, losses: brute.losses })}>
+              <Text bold color="secondary" component="span">{t('winrate', { ns: 'global' })}: </Text>
+              <Tooltip title={t('wins-losses', { ns: 'global', wins: brute.victories, losses: brute.losses })}>
                 <Text bold component="span">
                   {getBruteWinrate(brute)}
                 </Text>
               </Tooltip>
             </Grid>
             <Grid item xs={6}>
-              <Tooltip title={t('created', { date: dayjs.utc(brute.createdAt).format('LLL') })}>
+              <Tooltip title={t('created', { ns: 'global', date: dayjs.utc(brute.createdAt).format('LLL') })}>
                 <Text bold component="span">
                   <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
                   {dayjs.utc(brute.createdAt).fromNow()}
@@ -147,7 +147,7 @@ const CellSocials = ({
             </Grid>
             {!!brute.pupilsCount && (
               <Grid item xs={6}>
-                <Text bold color="secondary" component="span">{t('pupils')}: </Text>
+                <Text bold color="secondary" component="span">{t('pupils', { ns: 'global' })}: </Text>
                 <Text bold component="span">{brute.pupilsCount}</Text>
               </Grid>
             )}
@@ -156,7 +156,7 @@ const CellSocials = ({
       </Grid>
       {/* FOLLOW BUTTON */}
       {user && brute.userId !== user.id && (
-        <Tooltip title={isFollowing ? t('unfollow') : t('follow')}>
+        <Tooltip title={isFollowing ? t('unfollow', { ns: 'global' }) : t('follow', { ns: 'global' })}>
           <IconButton
             sx={{
               position: 'absolute',

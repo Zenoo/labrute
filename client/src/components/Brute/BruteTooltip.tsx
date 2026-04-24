@@ -125,12 +125,12 @@ const BruteTooltip = ({
           {displaySkills && fighter && (
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
-                <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type === 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
+                <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers', { ns: 'global' })}: </Text>
+                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type === 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s, { ns: 'global' })} (${tier})` : t(s, { ns: 'global' }))).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
-                <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type !== 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
+                <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills', { ns: 'global' })}: </Text>
+                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type !== 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s, { ns: 'global' })} (${tier})` : t(s, { ns: 'global' }))).join(', ')}
               </Text>
             </>
           )}

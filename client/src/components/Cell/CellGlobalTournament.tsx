@@ -300,7 +300,7 @@ const CellGlobalTournament = ({
     }}
     >
       <Text bold color="text.disabled">
-        {t('nextOpponent')}
+        {t('nextOpponent', { ns: 'global' })}
         {' '}
         <Link to={`/${data.nextOpponent}/cell`} sx={{ color: 'text.secondary' }}>
           {data.nextOpponent}
@@ -312,7 +312,7 @@ const CellGlobalTournament = ({
   return bruteName ? data && data.tournament && data?.lastRounds.length < 8 && (
     <Badge
       color="secondary"
-      badgeContent={t('unlimited')}
+      badgeContent={t('unlimited', { ns: 'global' })}
       componentsProps={{
         badge: {
           style: {
@@ -621,7 +621,7 @@ const CellGlobalTournament = ({
                 }
               }}
               >
-                <Text bold color="text.disabled">{t('comeBackInOneHour')} ...</Text>
+                <Text bold color="text.disabled">{t('comeBackInOneHour', { ns: 'global' })} ...</Text>
               </Box>
             )}
           {/* Skip watching fights */}

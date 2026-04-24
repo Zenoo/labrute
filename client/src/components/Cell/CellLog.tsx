@@ -61,7 +61,7 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       >
         {combatLogs.includes(log.type) || childLogs.includes(log.type)
           ? (
-            <Tooltip title={combatLogs.includes(log.type) ? t('seeFight') : t('bruteCell', { name: log.brute })}>
+            <Tooltip title={combatLogs.includes(log.type) ? t('seeFight', { ns: 'global' }) : t('bruteCell', { ns: 'global', name: log.brute })}>
               <Link
                 to={combatLogs.includes(log.type) ? `/${log.currentBrute.name}/fight/${log.fightId || 0}` : `/${log.brute}/cell`}
                 sx={{
@@ -77,11 +77,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
               >
                 <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
                   {combatLogs.includes(log.type)
-                    ? t(`log.fight.${log.template ?? '0'}`, {
+                    ? t(`log.fight.${log.template ?? '0'}`, { ns: 'global',
                       winner: log.type === LogType.win ? log.currentBrute.name : log.brute,
                       loser: log.type === LogType.win ? log.brute : log.currentBrute.name,
                     })
-                    : t(`log.${log.type}`, { value: log.brute })}
+                    : t(`log.${log.type}`, { ns: 'global', value: log.brute })}
                 </Text>
               </Link>
             </Tooltip>
@@ -92,10 +92,10 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                 : log.type === LogType.up
                   ? t('log.up', { ns: 'global', brute: log.currentBrute.name, value: log.level ?? 0 })
                   : log.type === LogType.ascend
-                    ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { brute: log.currentBrute.name, value: log.level ?? 0 })
+                    ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { ns: 'global', brute: log.currentBrute.name, value: log.level ?? 0 })
                     : log.type === LogType.tournament
-                      ? t('log.tournament', { date: dayjs.utc(log.date).format('DD/MM/YY') })
-                      : t(`log.${log.type}`, { value: log.brute })}
+                      ? t('log.tournament', { ns: 'global', date: dayjs.utc(log.date).format('DD/MM/YY') })
+                      : t(`log.${log.type}`, { ns: 'global', value: log.brute })}
             </Text>
           )}
         {(!!log.xp || !!log.gold) && (
@@ -107,11 +107,11 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
           >
             {log.xp
               ? log.gold
-                ? t('log.xpAndGold', { xp: log.xp, gold: log.gold })
-                : t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })
+                ? t('log.xpAndGold', { ns: 'global', xp: log.xp, gold: log.gold })
+                : t(log.xp === 1 ? 'log.xp' : 'log.xps', { ns: 'global', xp: log.xp })
               : log.type === LogType.bossDefeat
-                ? t('log.itemAndGold', { count: 1, item: t(`inventory.item.${InventoryItemType.bossTicket}`, { ns: 'global' }), gold: log.gold })
-                : t('log.gold', { gold: log.gold })}
+                ? t('log.itemAndGold', { ns: 'global', count: 1, item: t(`inventory.item.${InventoryItemType.bossTicket}`, { ns: 'global' }), gold: log.gold })
+                : t('log.gold', { ns: 'global', gold: log.gold })}
           </Text>
         )}
       </Box>

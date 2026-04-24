@@ -89,7 +89,7 @@ const CellTournament = ({
             {(brute.registeredForTournament) ? (
               <Text>{t('bruteRegistered', { ns: 'global' })}</Text>
             ) : (
-              <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
+              <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered', { ns: 'global' })}</Text>
             )}
             {owner && !brute.registeredForTournament && (
               <StyledButton

@@ -98,7 +98,7 @@ const Header = ({
           width: '23.118279569%',
         }}
       />
-      <Tooltip title={t('serverTime')}>
+      <Tooltip title={t('serverTime', { ns: 'global' })}>
         <Text center bold color="secondary">
           <Box component="img" src="/images/time.webp" sx={{ width: 11, mr: 0.5 }} />
           {time.format('HH:mm')}
@@ -114,7 +114,7 @@ const Header = ({
             }}
           >
             <Text bold smallCaps sx={{ mr: 0.5 }}>
-              {t('activeModifiers')}:
+              {t('activeModifiers', { ns: 'global' })}:
             </Text>
             {modifierKeys.map((modifier) => (
               <Text key={modifier} sx={{ mr: 1 }}>

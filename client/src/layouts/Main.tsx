@@ -542,7 +542,7 @@ const Main = () => {
                   <ListItemIcon>
                     <MusicNote />
                   </ListItemIcon>
-                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic')} />
+                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic', { ns: 'global' })} />
                   <Switch
                     edge="end"
                     size="small"

@@ -50,7 +50,7 @@ const SkillTooltip = ({
           />
           <Text bold h5>{t(skill.name, { ns: 'global' })}</Text>
           <Divider />
-          <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
+          <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`, { ns: 'global' })}</Text>
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (
             <Fragment key={stat}>
               {!!modifier.flat && (
@@ -88,9 +88,9 @@ const SkillTooltip = ({
                     </>
                   )}
                   {' '}
-                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat), { ns: 'global' })}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
-                  {modifier.details ? ` ${t(modifier.details)}` : ''}
+                  {modifier.opponent ? t(`opponent-${stat}`, { ns: 'global' }) : t(statName(stat), { ns: 'global' })}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons', { ns: 'global' })}: ${t(modifier.weaponType || 'none', { ns: 'global' })})`}
+                  {modifier.details ? ` ${t(modifier.details, { ns: 'global' })}` : ''}
                 </Text>
               )}
               {!!modifier.percent && (
@@ -130,15 +130,15 @@ const SkillTooltip = ({
                     </>
                   )}
                   {'% '}
-                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat), { ns: 'global' })}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
-                  {modifier.details ? ` ${t(modifier.details)}` : ''}
+                  {modifier.opponent ? t(`opponent-${stat}`, { ns: 'global' }) : t(statName(stat), { ns: 'global' })}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons', { ns: 'global' })}: ${t(modifier.weaponType || 'none', { ns: 'global' })})`}
+                  {modifier.details ? ` ${t(modifier.details, { ns: 'global' })}` : ''}
                 </Text>
               )}
             </Fragment>
           ))}
-          {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
-            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
+          {t(`${skill.name}.effect`, { ns: 'global', uses: skill.uses }) !== `${skill.name}.effect` && (
+            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { ns: 'global', uses: skill.uses })}</Text>
           )}
           <Box sx={{
             display: 'flex',
@@ -146,7 +146,7 @@ const SkillTooltip = ({
             gap: 1,
           }}
           >
-            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds')}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
+            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds', { ns: 'global' })}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
             {tier > 1 && (
               <Box>
                 {Array.from({ length: tier - 1 }).map((_, index) => (
