@@ -67,7 +67,7 @@ const CellTournament = ({
             to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}
             sx={{ my: 1 }}
           >
-            {t('tournament')}
+            {t('tournament', { ns: 'global' })}
           </FantasyButton>
         </Box>
       )}

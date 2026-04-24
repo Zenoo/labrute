@@ -77,7 +77,7 @@ export const EventHistoryView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('date')}</TableCell>
+                  <TableCell>{t('date', { ns: 'global' })}</TableCell>
                   <TableCell>{t('event', { ns: 'global' })}</TableCell>
                 </TableRow>
               </TableHead>

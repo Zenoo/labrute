@@ -81,11 +81,11 @@ export const WikiView = () => {
               {t('tournaments', { ns: 'global' })}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howWork')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament', { ns: 'global' })}</Text>
             <Text body2>- {t('wiki.manualRegister')}</Text>
             <Text body2>- {t('wiki.allowRankUp')}</Text>
             <Text body2>- {t('wiki.xpPerWin', { count: DailyTournamentXpReward })}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('globalTournament')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('globalTournament', { ns: 'global' })}</Text>
             <Text body2>- {t('wiki.autoRegister')}</Text>
             <Text body2>- {t('wiki.activePreviousDay')}</Text>
             <Text body2>- {t('wiki.xpPerWin', { count: GlobalTournamentXpReward })}</Text>

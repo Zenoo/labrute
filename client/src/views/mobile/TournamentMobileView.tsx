@@ -65,7 +65,7 @@ const TournamentMobileView = ({
   const { palette: { mode } } = useTheme();
 
   return tournament && (
-    <Page title={`${t('tournament')} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('tournament', { ns: 'global' })} ${t('MyBrute', { ns: 'global' })}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{
         mx: 4,
         textAlign: 'center',

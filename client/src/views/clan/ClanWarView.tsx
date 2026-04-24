@@ -125,7 +125,7 @@ export const ClanWarView = () => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('date')}</TableCell>
+                    <TableCell>{t('date', { ns: 'global' })}</TableCell>
                     <TableCell align="right">{t('attacker')}</TableCell>
                     <TableCell align="right">{t('defender')}</TableCell>
                   </TableRow>

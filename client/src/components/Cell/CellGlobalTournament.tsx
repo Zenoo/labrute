@@ -334,7 +334,7 @@ const CellGlobalTournament = ({
         }}
         {...rest}
       >
-        <Text bold h6>{t('globalTournament')}</Text>
+        <Text bold h6>{t('globalTournament', { ns: 'global' })}</Text>
         <Text>{(date || now).format('DD MMMM YYYY')}</Text>
         <Box sx={{
           mt: 1,

@@ -953,5 +953,9 @@
   "ePopotamo.desc": "«ePopotamo»: Игра слов, успокаивающая в любой ситуации!",
   "event": "Мероприятие",
   "brute": "Брутал",
-  "ascensions": "Превосходства"
+  "ascensions": "Превосходства",
+  "date": "Дата",
+  "tournament": "Турнир",
+  "dailyTournament": "Ежедневный турнир",
+  "globalTournament": "Всеобщий турнир"
 }

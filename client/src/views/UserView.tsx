@@ -354,7 +354,7 @@ const UserView = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>{t('fight', { ns: 'global' })}</TableCell>
-                      <TableCell align="right">{t('date')}</TableCell>
+                      <TableCell align="right">{t('date', { ns: 'global' })}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>

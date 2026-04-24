@@ -953,5 +953,9 @@
   "ePopotamo.desc": "ePopotamo: Le jeu de mots relax jouable en toute situation !",
   "event": "Événement",
   "brute": "Brute",
-  "ascensions": "Ascensions"
+  "ascensions": "Ascensions",
+  "date": "Date",
+  "tournament": "Tournoi",
+  "dailyTournament": "Tournoi quotidien",
+  "globalTournament": "Tournoi global"
 }
