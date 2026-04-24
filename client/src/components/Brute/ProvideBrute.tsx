@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router';
 import { useBrute } from '../../hooks/useBrute';
-import { getCalculatedBrute } from '@labrute/core';
+import { getCalculatedBrute, ServerHookBrute } from '@labrute/core';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 
@@ -13,17 +13,25 @@ const ProvideBrute = () => {
   const { updateBrute } = useBrute();
   const { modifiers } = useAuth();
   const Server = useServer();
+  const [rawBrute, setRawBrute] = useState<ServerHookBrute | null>(null);
 
-  // Fetch brute
+  // Fetch brute data (only when bruteName changes)
   useEffect(() => {
     if (!bruteName) return;
 
     Server.Brute.getForHook(bruteName).then((data) => {
-      updateBrute(getCalculatedBrute(data, modifiers));
+      setRawBrute(data);
     }).catch(() => {
       window.location.href = '/unknown-brute';
     });
-  }, [bruteName, updateBrute, modifiers, Server.Brute]);
+  }, [bruteName, Server.Brute]);
+
+  // Recalculate brute when raw data or modifiers change
+  useEffect(() => {
+    if (!rawBrute) return;
+
+    updateBrute(getCalculatedBrute(rawBrute, modifiers));
+  }, [rawBrute, modifiers, updateBrute]);
   return (
     <Outlet />
   );

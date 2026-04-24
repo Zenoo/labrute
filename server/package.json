@@ -1,6 +1,6 @@
 {
   "name": "@labrute/server",
-  "version": "2.88.0",
+  "version": "2.89.2",
   "private": true,
   "exports": "./src/server.js",
   "engines": {
@@ -46,7 +46,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "i18next": "^24.2.1",
-    "i18next-fs-backend": "^2.6.0",
+    "i18next-fs-backend": "^2.6.4",
     "node-fetch": "^3.3.2",
     "node-schedule": "^2.1.1",
     "unique-names-generator": "^4.7.1",

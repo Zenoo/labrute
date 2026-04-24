@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.2](https://github.com/Zenoo/labrute/compare/labrute-v2.89.1...labrute-v2.89.2) (2026-04-24)
+
+
+### Bug Fixes
+
+* remove duped fingerprint ban check from user update logic ([93d442f](https://github.com/Zenoo/labrute/commit/93d442f3a60468df0b65fc70ea383a30ae740189))
+
+## [2.89.1](https://github.com/Zenoo/labrute/compare/labrute-v2.89.0...labrute-v2.89.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* Prevent duped requests on page load ([0c85ab9](https://github.com/Zenoo/labrute/commit/0c85ab999f66dedb37d8d4d50261dfa78328917f))
+
+## [2.89.0](https://github.com/Zenoo/labrute/compare/labrute-v2.88.0...labrute-v2.89.0) (2026-04-22)
+
+
+### Features
+
+* implement fingerprint ban checks and header validation in OAuth flow ([6f7bd5c](https://github.com/Zenoo/labrute/commit/6f7bd5cf0d10850e3cc0eee99a7e6b9802f40f03))
+
+
+### Bug Fixes
+
+* Add transfered brutes count to admin panel ([735b7f0](https://github.com/Zenoo/labrute/commit/735b7f0ceef42c91ff2e0e9122e701e8adb1de93))
+* Remove useless auth conditions ([e9bdd94](https://github.com/Zenoo/labrute/commit/e9bdd9407f596442a64c856dc4f47accb8b0bafd))
+
 ## [2.88.0](https://github.com/Zenoo/labrute/compare/labrute-v2.87.3...labrute-v2.88.0) (2026-04-20)
 
 

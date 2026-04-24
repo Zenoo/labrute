@@ -89,11 +89,6 @@ export class OAuth {
         }
       }
 
-      const fingerprint = decryptFPEvent(req.body.eventId);
-      if (await ServerState.isFingerprintBanned(this.#prisma, fingerprint)) {
-        throw new ForbiddenError(translate('fingerprintBanned'));
-      }
-
       // Update or store user
       const { user: etwinUser } = self;
       let user: UserWithBrutesBodyColor | null = null;
@@ -170,6 +165,8 @@ export class OAuth {
           throw error;
         }
       }
+
+      const fingerprint = decryptFPEvent(req.body.eventId);
 
       // Handle new fingerprints
       if (!user.fingerprints.includes(fingerprint)) {
