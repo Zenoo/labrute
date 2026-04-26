@@ -101,11 +101,20 @@
 	    └── ...
 ```
 
-## ⚠️ Web3/Crypto/Blockchain Use Prohibited
+## 📜 License
 
-**This project is explicitly NOT available for use in any Web3, cryptocurrency, blockchain, NFT, or distributed ledger technology projects.**
+This project uses a **dual licensing structure**:
 
-This code is licensed under [CC BY-NC-SA 4.0](LICENSE), and any use in connection with cryptocurrencies, blockchain technologies, NFTs, DeFi, DAOs, or any other web3-related projects is **strictly forbidden**. This includes but is not limited to:
+- **Code** (TypeScript, JavaScript, configuration files, etc.): Licensed under [**PolyForm Noncommercial 1.0.0**](LICENSE)
+- **Assets** (images, sprites, textures, sounds, and other media): Licensed under [**CC BY-NC-SA 4.0**](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+Both licenses **prohibit commercial use**. You are free to use, modify, and distribute this project for personal, educational, or non-profit purposes, but any commercial use is forbidden.
+
+## ⚠️ Web3/Crypto/Blockchain Use Explicitly Prohibited
+
+**This project is NOT available for use in any Web3, cryptocurrency, blockchain, NFT, or distributed ledger technology projects.**
+
+Any use in connection with cryptocurrencies, blockchain technologies, NFTs, DeFi, DAOs, or any other web3-related projects is **strictly forbidden**. This includes but is not limited to:
 
 - Cryptocurrency exchanges, wallets, or payment systems
 - NFT marketplaces, minting platforms, or collections
@@ -115,4 +124,4 @@ This code is licensed under [CC BY-NC-SA 4.0](LICENSE), and any use in connectio
 - Smart contracts or dApps on any blockchain
 - Any project that integrates with, promotes, or facilitates cryptocurrency or blockchain technology
 
-Violation of this restriction will be considered a breach of the license terms and may result in legal action.
+Violation of this restriction will be considered a breach of the license terms.
