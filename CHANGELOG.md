@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.3](https://github.com/Zenoo/labrute/compare/labrute-v2.89.2...labrute-v2.89.3) (2026-04-26)
+
+
+### Bug Fixes
+
+* Headers stability across poorly synced devices + Headers wiggle room near the end of day ([368d0a3](https://github.com/Zenoo/labrute/commit/368d0a3ac34b7ccc2ae9756798c2faa9342d7ebe))
+* Improve brute/user admin panel ([65e0ad3](https://github.com/Zenoo/labrute/commit/65e0ad37f1e7c67bbd12b4b7e3105455f4c3a92b))
+
 ## [2.89.2](https://github.com/Zenoo/labrute/compare/labrute-v2.89.1...labrute-v2.89.2) (2026-04-24)
 
 
