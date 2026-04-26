@@ -489,7 +489,11 @@ export type HookBrute = CalculatedBrute & {
   user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
   tournaments: Tournament[];
 };
-export type AdminPanelBrute = Brute & {
+export type BruteGetForAdminRequest = {
+  name: string;
+  includeDeleted?: string;
+};
+export type BruteGetForAdminResponse = Brute & {
   user: User | null;
 };
 
@@ -671,8 +675,13 @@ export type ClanGetForAdminResponse = Clan & {
   brutes: Pick<Brute, 'id' | 'name'>[],
 };
 
+export type UserGetAdminRequest = {
+  identifier?: string;
+};
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
+  brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
+  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints'>[],
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<

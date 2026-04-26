@@ -1,6 +1,6 @@
 import {
   ARENA_OPPONENTS_COUNT,
-  AdminPanelBrute,
+  BruteGetForAdminResponse,
   BruteDeletionReason,
   BruteGetInventoryResponse,
   BruteRankings,
@@ -36,6 +36,7 @@ import {
   isNameValid,
   isUuid,
   pets,
+  BruteGetForAdminRequest,
 } from '@labrute/core';
 import {
   Brute,
@@ -151,10 +152,8 @@ export const Brutes = {
     }
   },
   getForAdmin: (prisma: PrismaClient) => async (
-    req: Request<{
-      name: string
-    }>,
-    res: Response<AdminPanelBrute>,
+    req: Request<BruteGetForAdminRequest>,
+    res: Response<BruteGetForAdminResponse>,
   ) => {
     try {
       await auth(prisma, req, { admin: true });
@@ -162,7 +161,7 @@ export const Brutes = {
       const brute = await prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
-          deletedAt: null,
+          deletedAt: req.query.includeDeleted === 'true' ? undefined : null,
         },
         include: {
           user: true,

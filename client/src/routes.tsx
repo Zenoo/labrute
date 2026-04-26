@@ -153,7 +153,7 @@ const routes: RouteObject[] = [
           { path: 'config', element: <ConfigAdminView /> },
           { path: 'banned-users', element: <BannedUsersView /> },
           { path: 'multiple-accounts', element: <MultipleAccountsView /> },
-          { path: 'brute/:bruteName', element: <BruteAdminView /> },
+          { path: 'brute/:bruteName?', element: <BruteAdminView /> },
           { path: 'clan/:clanId', element: <ClanAdminView /> },
           { path: 'user/logs/:userId?', element: <UserLogView /> },
         ],

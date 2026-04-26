@@ -7,6 +7,7 @@ import {
   NotFoundError,
   RaretyOrder,
   UserBannedListResponse,
+  UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
   UserTransferBruteRequest,
@@ -37,30 +38,40 @@ import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
 import { deleteUserBrutes } from '../utils/user/deleteUserBrutes.js';
+import { ilike } from '../utils/ilike.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
-    req: Request<{
-      id: string
-    }>,
+    req: Request<UserGetAdminRequest>,
     res: Response<UserGetAdminResponse>,
   ) => {
     try {
       const authed = await auth(prisma, req, { admin: true });
 
-      if (!isUuid(req.params.id)) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+      if (!req.params.identifier) {
+        throw new ExpectedError(translate('missingParameters', authed));
       }
+
+      const isId = isUuid(req.params.identifier);
 
       const user = await prisma.user.findFirst({
         where: {
-          id: req.params.id,
+          id: isId ? req.params.identifier : undefined,
+          name: !isId ? ilike(req.params.identifier) : undefined,
         },
         include: {
           achievements: {
             select: {
               count: true,
               name: true,
+            },
+          },
+          brutes: {
+            select: {
+              id: true,
+              name: true,
+              deletedAt: true,
+              deletionReason: true,
             },
           },
         },
@@ -89,9 +100,29 @@ export const Users = {
         return acc;
       }, [] as Pick<Achievement, 'count' | 'name'>[]);
 
+      // Get other users sharing fingerprints
+      const otherUsersSharingFingerprints = await prisma.user.findMany({
+        where: {
+          fingerprints: {
+            hasSome: user.fingerprints,
+          },
+          id: {
+            not: user.id,
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          bannedAt: true,
+          banReason: true,
+          fingerprints: true,
+        },
+      });
+
       res.send({
         ...user,
         achievements: mergedAchievements,
+        otherUsersSharingFingerprints,
       });
     } catch (error) {
       sendError(res, error);

@@ -49,7 +49,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.patch('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
-  app.get('/api/user/:id/admin', Users.get(prisma));
+  app.get('/api/user/:identifier/admin', Users.get(prisma));
   app.put('/api/user/change-language', Users.changeLanguage(prisma));
   app.put('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
   app.put('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
@@ -71,7 +71,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
   app.get('/api/brute/:name/for-hook', Brutes.getForHook(prisma));
-  app.get('/api/brute/:name/for-admin', Brutes.getForAdmin(prisma));
+  app.get('/api/brute/:name/for-admin/:includeDeleted', Brutes.getForAdmin(prisma));
   app.get('/api/brute/:name/fights-left', Brutes.getFightsLeft(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
   app.put('/api/brute', Brutes.create(prisma));

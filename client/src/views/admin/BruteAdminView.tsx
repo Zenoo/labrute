@@ -1,4 +1,4 @@
-import { AdminPanelBrute, entries, getTieredPets, getTieredSkills, getTieredWeapons } from '@labrute/core';
+import { BruteGetForAdminResponse, entries, getTieredPets, getTieredSkills, getTieredWeapons } from '@labrute/core';
 import { DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -15,30 +15,53 @@ import Text from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
+import StyledInput from '../../components/StyledInput';
 
 export const BruteAdminView = () => {
   const { t } = useTranslation();
-  const { bruteName } = useParams();
+  const { bruteName: urlBruteName } = useParams();
   const Alert = useAlert();
   const Server = useServer();
 
-  const [brute, setBrute] = useState<AdminPanelBrute | null>(null);
+  const [bruteName, setBruteName] = useState(urlBruteName ?? '');
+  const [includeDeleted, setIncludeDeleted] = useState(false);
+  const [brute, setBrute] = useState<BruteGetForAdminResponse | null>(null);
   const [bruteSkills, setBruteSkills] = useState<string[]>([]);
   const [bruteWeapons, setBruteWeapons] = useState<string[]>([]);
   const [brutePets, setBrutePets] = useState<string[]>([]);
   const [item, setItem] = useState<InventoryItemType | ''>('');
 
-  // Fetch brute on page load
+  // Update brute name when url changes
   useEffect(() => {
-    if (!bruteName) return;
+    setBruteName(urlBruteName ?? '');
+  }, [urlBruteName]);
 
-    Server.Brute.getForAdmin(bruteName).then((b) => {
+  const updateBrute = useCallback(() => {
+    Server.Brute.getForAdmin({
+      name: bruteName,
+      includeDeleted: includeDeleted ? 'true' : 'false',
+    }).then((b) => {
       setBrute(b);
       setBruteSkills(entries(getTieredSkills(b, {})).map(([skillName, tier]) => `${skillName}:${tier}`));
       setBruteWeapons(entries(getTieredWeapons(b, {})).map(([weaponName, tier]) => `${weaponName}:${tier}`));
       setBrutePets(entries(getTieredPets(b)).map(([petName, tier]) => `${petName}:${tier}`));
     }).catch(catchError(Alert));
-  }, [Alert, Server.Brute, bruteName]);
+  }, [Alert, Server.Brute, bruteName, includeDeleted]);
+
+  // Fetch brute on brute name change or includeDeleted change
+  useEffect(() => {
+    if (!bruteName) return undefined;
+
+    const timeout = setTimeout(() => {
+      updateBrute();
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [Alert, Server.Brute, bruteName, includeDeleted, updateBrute]);
+
+  const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setBruteName(e.target.value.trim());
+  }, []);
 
   // Save brute
   const saveBrute = useCallback(() => {
@@ -78,10 +101,24 @@ export const BruteAdminView = () => {
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+        <Text bold h3 smallCaps color="secondary">Brute</Text>
+        <StyledInput
+          onChange={changeBruteName}
+          value={bruteName}
+        />
+        <FormControlLabel
+          control={(
+            <Checkbox
+              checked={includeDeleted}
+              onChange={(e) => setIncludeDeleted(e.target.checked)}
+            />
+          )}
+          label="Include deleted"
+        />
         {brute ? (
           <>
             <Text h2 smallCaps>
-              <Link to={`/${brute.name}/cell`}>{brute.name}</Link>
+              <Link to={`/${brute.name}/cell`}>{brute.name}</Link> ({brute.id})
               {' '}
               ({brute.user?.name} {brute.user?.id})
             </Text>

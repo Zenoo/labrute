@@ -95,6 +95,7 @@ const AdminView = () => {
             <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
             <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
             <FantasyButton color="secondary" to="/admin-panel/user">USER ADMIN</FantasyButton>
+            <FantasyButton color="secondary" to="/admin-panel/brute/">BRUTE ADMIN</FantasyButton>
             <FantasyButton color="primary" to="/admin-panel/report">REPORTS</FantasyButton>
             <FantasyButton color="error" to="/admin-panel/banned-users">BANLIST</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/multiple-accounts">MULTIS</FantasyButton>
