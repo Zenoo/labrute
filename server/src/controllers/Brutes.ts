@@ -161,7 +161,7 @@ export const Brutes = {
       const brute = await prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
-          deletedAt: req.query.includeDeleted === 'true' ? undefined : null,
+          deletedAt: req.params.includeDeleted === 'true' ? undefined : null,
         },
         include: {
           user: true,
