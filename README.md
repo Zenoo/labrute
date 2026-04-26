@@ -100,3 +100,19 @@
  	  	├── utils       	# Utility functions
 	    └── ...
 ```
+
+## ⚠️ Web3/Crypto/Blockchain Use Prohibited
+
+**This project is explicitly NOT available for use in any Web3, cryptocurrency, blockchain, NFT, or distributed ledger technology projects.**
+
+This code is licensed under [CC BY-NC-SA 4.0](LICENSE), and any use in connection with cryptocurrencies, blockchain technologies, NFTs, DeFi, DAOs, or any other web3-related projects is **strictly forbidden**. This includes but is not limited to:
+
+- Cryptocurrency exchanges, wallets, or payment systems
+- NFT marketplaces, minting platforms, or collections
+- Blockchain networks or distributed ledger implementations
+- Decentralized finance (DeFi) protocols or applications
+- Decentralized autonomous organizations (DAOs)
+- Smart contracts or dApps on any blockchain
+- Any project that integrates with, promotes, or facilitates cryptocurrency or blockchain technology
+
+Violation of this restriction will be considered a breach of the license terms and may result in legal action.
