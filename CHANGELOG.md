@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.4](https://github.com/Zenoo/labrute/compare/labrute-v2.89.3...labrute-v2.89.4) (2026-04-26)
+
+
+### Bug Fixes
+
+* Correct parameter usage for includeDeleted in brute query ([7788dd4](https://github.com/Zenoo/labrute/commit/7788dd45223e0859c2a33e2f15412ebdd13027c4))
+
 ## [2.89.3](https://github.com/Zenoo/labrute/compare/labrute-v2.89.2...labrute-v2.89.3) (2026-04-26)
 
 
