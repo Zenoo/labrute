@@ -6,6 +6,7 @@ import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LS_KEY_FIGHT_BACKGROUND_MUSIC, LS_KEY_FIGHT_SPEED } from '../../utils/constants';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useRenderer } from '../../hooks/useRenderer';
@@ -129,13 +130,13 @@ const FightComponent = ({
   const [playing, setPlaying] = useState(true);
 
   // Fight speed
-  const speedRef = useRef(localStorage.getItem('fightSpeed') === '1' ? 1 : 2);
-  const [speed, setSpeed] = useState<1 | 2>(localStorage.getItem('fightSpeed') === '1' ? 1 : 2);
+  const speedRef = useRef(localStorage.getItem(LS_KEY_FIGHT_SPEED) === '1' ? 1 : 2);
+  const [speed, setSpeed] = useState<1 | 2>(localStorage.getItem(LS_KEY_FIGHT_SPEED) === '1' ? 1 : 2);
 
   // Fight sound
   const soundRef = useRef(false);
   const [soundOn, setSoundOn] = useState(false);
-  const backgroundMusicRef = useRef(localStorage.getItem('fightBackgroundMusic') !== 'false');
+  const backgroundMusicRef = useRef(localStorage.getItem(LS_KEY_FIGHT_BACKGROUND_MUSIC) !== 'false');
   const [backgroundMusicOn, setBackgroundMusicOn] = useState(backgroundMusicRef.current);
 
   // Logs display
@@ -283,7 +284,7 @@ const FightComponent = ({
     const newSpeed = speedRef.current === 1 ? 2 : 1;
     speedRef.current = newSpeed;
     setSpeed(newSpeed);
-    localStorage.setItem('fightSpeed', newSpeed.toString());
+    localStorage.setItem(LS_KEY_FIGHT_SPEED, newSpeed.toString());
 
     // Update user settings
     if (!user) return;
@@ -312,7 +313,7 @@ const FightComponent = ({
     backgroundMusicRef.current = newBackgroundMusic;
     setBackgroundMusicOn(newBackgroundMusic);
     sound.volume('background', newBackgroundMusic ? 1 : 0);
-    localStorage.setItem('fightBackgroundMusic', newBackgroundMusic.toString());
+    localStorage.setItem(LS_KEY_FIGHT_BACKGROUND_MUSIC, newBackgroundMusic.toString());
 
     // Update user settings
     if (!user) return;

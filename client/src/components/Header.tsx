@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
+import { LS_KEY_MARQUEE_PAUSED } from '../utils/constants';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import Text from './Text';
@@ -23,7 +24,7 @@ const Header = ({
   const { modifiers } = useAuth();
 
   const [time, setTime] = useState(dayjs.utc());
-  const [marqueePaused, setMarqueePaused] = useState(localStorage.getItem('marqueePaused') === dayjs.utc().format('YYYY-MM-DD'));
+  const [marqueePaused, setMarqueePaused] = useState(localStorage.getItem(LS_KEY_MARQUEE_PAUSED) === dayjs.utc().format('YYYY-MM-DD'));
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
@@ -50,10 +51,10 @@ const Header = ({
   const pauseMarquee = () => {
     setMarqueePaused((prev) => {
       if (prev) {
-        localStorage.removeItem('marqueePaused');
+        localStorage.removeItem(LS_KEY_MARQUEE_PAUSED);
         return false;
       }
-      localStorage.setItem('marqueePaused', time.format('YYYY-MM-DD'));
+      localStorage.setItem(LS_KEY_MARQUEE_PAUSED, time.format('YYYY-MM-DD'));
       return true;
     });
   };

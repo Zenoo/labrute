@@ -1,4 +1,6 @@
 import { getPredictableHeaders, TOKEN_COOKIE, USER_COOKIE, Version } from '@labrute/core';
+import dayjs from 'dayjs';
+import { LS_KEY_CSRF_TOKEN, LS_KEY_SERVER_TIME_OFFSET } from './constants';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
 
@@ -19,14 +21,23 @@ export type ErrorType = {
 };
 
 export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {
+  const clientTime = dayjs().utc().valueOf();
   fetch('/api/csrf', {
     headers: {
       Accept: 'application/json'
     }
   }).then((response) => {
     response.json().then((json) => {
-      const { csrfToken } = (json as { csrfToken: string });
-      localStorage.setItem('csrfToken', csrfToken);
+      const { csrfToken, serverTime } = (json as { csrfToken: string; serverTime: string });
+      localStorage.setItem(LS_KEY_CSRF_TOKEN, csrfToken);
+
+      // Calculate and store server time offset
+      if (serverTime) {
+        const serverTimestamp = dayjs(serverTime).utc().valueOf();
+        const offset = serverTimestamp - clientTime;
+        localStorage.setItem(LS_KEY_SERVER_TIME_OFFSET, offset.toString());
+      }
+
       resolve(csrfToken);
     }).catch((err) => {
       reject(err);
@@ -39,7 +50,7 @@ export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) 
 const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
   // Check if the CSRF token is present in the localStorage
   // If not, fetch it from the server
-  if (!localStorage.getItem('csrfToken')) {
+  if (!localStorage.getItem(LS_KEY_CSRF_TOKEN)) {
     return new Promise((resolve, reject) => {
       fetchCsrfToken().then(() => {
         resolve(Fetch(url, data, method, additionalURLParams));
@@ -63,14 +74,18 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
     const user = getCookie(USER_COOKIE) || '';
     const token = getCookie(TOKEN_COOKIE) || '';
 
+    // Get server time offset for accurate header generation
+    const serverTimeOffset = localStorage.getItem(LS_KEY_SERVER_TIME_OFFSET);
+    const offset = serverTimeOffset ? +serverTimeOffset : undefined;
+
     const headers: HeadersType = {
       Accept: 'application/json',
-      'x-csrf-token': localStorage.getItem('csrfToken') || '',
+      'x-csrf-token': localStorage.getItem(LS_KEY_CSRF_TOKEN) || '',
       Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
       'x-fp': getFingerprint() ?? '',
       'x-brute-version': Version,
       'x-brute-lang': document.documentElement.lang || 'en',
-      ...getPredictableHeaders(),
+      ...getPredictableHeaders(undefined, offset),
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {

@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { doubleCsrf } from 'csrf-csrf';
+import dayjs from 'dayjs';
 import schedule from 'node-schedule';
 import { GLOBAL, ServerContext } from './context.js';
 import { dailyJob } from './dailyJob.js';
@@ -49,7 +50,10 @@ export function main(cx: ServerContext) {
   app.get('/api/csrf', (req, res) => {
     const csrfToken = generateToken(req, res);
 
-    res.json({ csrfToken });
+    res.json({
+      csrfToken,
+      serverTime: dayjs().utc().toISOString(),
+    });
   });
 
   // CSRF middleware

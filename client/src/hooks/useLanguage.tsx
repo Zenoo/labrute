@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Lang } from '@labrute/prisma';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
+import { LS_KEY_LANGUAGE } from '../utils/constants';
 import { defaultLangByHost } from '../i18n';
 import { HOST } from '../utils/host';
 import dayjs from 'dayjs';
@@ -32,7 +33,9 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  const [language, setLanguage] = useState<Lang>(localStorage.getItem('language') as Lang || (defaultLangByHost[HOST] ?? DEFAULT_LANGUAGE));
+  const [language, setLanguage] = useState<Lang>(
+    localStorage.getItem(LS_KEY_LANGUAGE) as Lang || (defaultLangByHost[HOST] ?? DEFAULT_LANGUAGE)
+  );
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -48,7 +51,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     dayjs.locale(language);
 
     // Update language in localStorage
-    localStorage.setItem('language', language);
+    localStorage.setItem(LS_KEY_LANGUAGE, language);
   }, [i18n, language]);
 
   const methods = useMemo(() => ({

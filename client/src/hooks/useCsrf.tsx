@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { LS_KEY_CSRF_TOKEN } from '../utils/constants';
 import { fetchCsrfToken } from '../utils/Fetch';
 
 interface CsrfContextInterface {
@@ -26,7 +27,7 @@ export const CsrfProvider = ({ children }: CsrfProviderProps) => {
       setCsrfToken(token);
 
       // Set CSRF token in localStorage
-      localStorage.setItem('csrfToken', token);
+      localStorage.setItem(LS_KEY_CSRF_TOKEN, token);
     }).catch(() => {
       console.error('Failed to fetch CSRF token');
       setCsrfToken(null);
