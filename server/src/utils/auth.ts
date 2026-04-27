@@ -1,6 +1,16 @@
 import {
+  AUTHORIZATION_HEADER,
   checkPredictableHeaders,
-  ExpectedError, ForbiddenError, isUuid, NotFoundError,
+  ExpectedError,
+  FINGERPRINT_HEADER,
+  ForbiddenError,
+  FORWARDED_FOR_HEADER,
+  isUuid,
+  LANGUAGE_HEADER,
+  NotFoundError,
+  PREDICTABLE_HEADERS_PREFIX,
+  REAL_IP_HEADER,
+  VERSION_HEADER,
   Version,
 } from '@labrute/core';
 import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
@@ -16,11 +26,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   moderator?: boolean;
   skipFingerprintCheck?: boolean;
 }) => {
-  if (request.headers['x-brute-version'] !== Version) {
-    throw new ForbiddenError(translate('outdatedVersion', { lang: request.headers['x-brute-lang']?.toString() as Lang || Lang.en }));
+  if (request.headers[VERSION_HEADER] !== Version) {
+    const lang = request.headers[LANGUAGE_HEADER];
+    throw new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
   }
 
-  const { headers: { authorization, 'x-fp': fingerprint } } = request;
+  const authorization = request.headers[AUTHORIZATION_HEADER];
+  const fingerprint = request.headers[FINGERPRINT_HEADER];
 
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');
@@ -75,7 +87,11 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
   // Update user's IP
-  const ip = request.headers['x-forwarded-for']?.toString().split(', ')[0] || request.headers['x-real-ip']?.toString().split(', ')[0] || request.socket.remoteAddress;
+  const forwardedFor = request.headers[FORWARDED_FOR_HEADER];
+  const realIp = request.headers[REAL_IP_HEADER];
+  const ip = forwardedFor?.toString().split(', ')[0]
+    || realIp?.toString().split(', ')[0]
+    || request.socket.remoteAddress;
 
   if (ip) {
     // Check if the IP is banned
@@ -118,7 +134,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     checkPredictableHeaders(request.headers);
   } catch (_error) {
     await banUser(prisma, user.id, 'headers_tampering');
-    DISCORD().logObject(Object.fromEntries(Object.entries(request.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
+    DISCORD().logObject(
+      Object.fromEntries(
+        Object.entries(request.headers)
+          .filter(([k]) => k.startsWith(PREDICTABLE_HEADERS_PREFIX)),
+      ),
+      'Headers tampering detected',
+    ).catch(() => { /* ignore */ });
     throw new ForbiddenError(translate('banReason.headers_tampering', user));
   }
 

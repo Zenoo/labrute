@@ -1,17 +1,16 @@
-import { getPredictableHeaders, TOKEN_COOKIE, USER_COOKIE, Version } from '@labrute/core';
-import dayjs from 'dayjs';
-import { LS_KEY_CSRF_TOKEN, LS_KEY_SERVER_TIME_OFFSET } from './constants';
+import { ACCEPT_HEADER, AUTHORIZATION_HEADER, CONTENT_TYPE_HEADER, CSRF_COOKIE_NAME, CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders, LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version } from '@labrute/core';
+import { LS_KEY_CSRF_TOKEN } from './constants';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
 
 type HeadersType = {
-  Accept: string;
-  'x-csrf-token': string;
-  Authorization: string;
-  'Content-Type'?: string;
-  'x-fp'?: string;
-  'x-brute-version': string;
-  'x-brute-lang': string;
+  [ACCEPT_HEADER]: string;
+  [CSRF_HEADER]: string;
+  [AUTHORIZATION_HEADER]: string;
+  [CONTENT_TYPE_HEADER]?: string;
+  [FINGERPRINT_HEADER]?: string;
+  [VERSION_HEADER]: string;
+  [LANGUAGE_HEADER]: string;
 };
 
 export type ErrorType = {
@@ -21,23 +20,14 @@ export type ErrorType = {
 };
 
 export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {
-  const clientTime = dayjs().utc().valueOf();
   fetch('/api/csrf', {
     headers: {
-      Accept: 'application/json'
+      [ACCEPT_HEADER]: 'application/json'
     }
   }).then((response) => {
     response.json().then((json) => {
-      const { csrfToken, serverTime } = (json as { csrfToken: string; serverTime: string });
+      const { csrfToken } = (json as { csrfToken: string });
       localStorage.setItem(LS_KEY_CSRF_TOKEN, csrfToken);
-
-      // Calculate and store server time offset
-      if (serverTime) {
-        const serverTimestamp = dayjs(serverTime).utc().valueOf();
-        const offset = serverTimestamp - clientTime;
-        localStorage.setItem(LS_KEY_SERVER_TIME_OFFSET, offset.toString());
-      }
-
       resolve(csrfToken);
     }).catch((err) => {
       reject(err);
@@ -48,6 +38,14 @@ export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) 
 });
 
 const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
+  const csrfCookie = getCookie(CSRF_COOKIE_NAME);
+  const localStorageToken = localStorage.getItem(LS_KEY_CSRF_TOKEN);
+
+  // If localStorage has a token but the session cookie is gone, clear localStorage
+  if (localStorageToken && !csrfCookie) {
+    localStorage.removeItem(LS_KEY_CSRF_TOKEN);
+  }
+
   // Check if the CSRF token is present in the localStorage
   // If not, fetch it from the server
   if (!localStorage.getItem(LS_KEY_CSRF_TOKEN)) {
@@ -74,22 +72,21 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
     const user = getCookie(USER_COOKIE) || '';
     const token = getCookie(TOKEN_COOKIE) || '';
 
-    // Get server time offset for accurate header generation
-    const serverTimeOffset = localStorage.getItem(LS_KEY_SERVER_TIME_OFFSET);
-    const offset = serverTimeOffset ? +serverTimeOffset : undefined;
+    // Get the CSRF token to use as seed for predictable headers
+    const csrfToken = localStorage.getItem(LS_KEY_CSRF_TOKEN) || '';
 
     const headers: HeadersType = {
-      Accept: 'application/json',
-      'x-csrf-token': localStorage.getItem(LS_KEY_CSRF_TOKEN) || '',
-      Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
-      'x-fp': getFingerprint() ?? '',
-      'x-brute-version': Version,
-      'x-brute-lang': document.documentElement.lang || 'en',
-      ...getPredictableHeaders(undefined, offset),
+      [ACCEPT_HEADER]: 'application/json',
+      [CSRF_HEADER]: csrfToken,
+      [AUTHORIZATION_HEADER]: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
+      [FINGERPRINT_HEADER]: getFingerprint() ?? '',
+      [VERSION_HEADER]: Version,
+      [LANGUAGE_HEADER]: document.documentElement.lang || 'en',
+      ...getPredictableHeaders(csrfToken),
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
-      headers['Content-Type'] = 'application/json';
+      headers[CONTENT_TYPE_HEADER] = 'application/json';
     }
     fetch(finalUrl, {
       headers,

@@ -139,3 +139,17 @@ export const DEFAULT_LANGUAGE = Lang.en;
 
 export const USER_COOKIE = 'x-brute-user';
 export const TOKEN_COOKIE = 'x-brute-token';
+export const CSRF_COOKIE_NAME = 'csrfToken';
+export const CSRF_TOKEN_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+
+// HTTP Header keys
+export const PREDICTABLE_HEADERS_PREFIX = 'x-verif-x-';
+export const CSRF_HEADER = 'x-csrf-token';
+export const FINGERPRINT_HEADER = 'x-fp';
+export const VERSION_HEADER = 'x-brute-version';
+export const LANGUAGE_HEADER = 'x-brute-lang';
+export const FORWARDED_FOR_HEADER = 'x-forwarded-for';
+export const REAL_IP_HEADER = 'x-real-ip';
+export const ACCEPT_HEADER = 'Accept';
+export const AUTHORIZATION_HEADER = 'Authorization';
+export const CONTENT_TYPE_HEADER = 'Content-Type';

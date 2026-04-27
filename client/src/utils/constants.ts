@@ -1,6 +1,5 @@
 // localStorage keys
 export const LS_KEY_CSRF_TOKEN = 'csrfToken';
-export const LS_KEY_SERVER_TIME_OFFSET = 'serverTimeOffset';
 export const LS_KEY_THEME = 'mode';
 export const LS_KEY_MARQUEE_PAUSED = 'marqueePaused';
 export const LS_KEY_LANGUAGE = 'language';

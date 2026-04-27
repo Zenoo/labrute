@@ -1,26 +1,22 @@
 /* eslint-disable max-len, no-bitwise */
 
-import dayjs from 'dayjs';
+import { CSRF_HEADER, PREDICTABLE_HEADERS_PREFIX } from '../constants';
 import { randomBetween, seedToRandom } from './random';
 
-export const getPredictableHeaders = (date?: dayjs.Dayjs, serverTimeOffset?: number) => {
-  let now = date ?? dayjs().utc();
+// Base seed for predictable headers
+const HEADER_SEED_BASE = 'labrute-header-verification';
 
-  // Apply server time offset if provided (client-side only)
-  if (serverTimeOffset !== undefined) {
-    now = dayjs().utc().add(serverTimeOffset, 'milliseconds');
-  }
-
-  const daySeed = now.format('YYYY-MM-DD');
-
-  const numHeaders = randomBetween(1, 7, `numHeaders-${daySeed}`);
+// Generate headers based on CSRF token
+export const getPredictableHeaders = (csrfToken: string) => {
+  const headerSeed = `${HEADER_SEED_BASE}-${csrfToken}`;
+  const numHeaders = randomBetween(1, 7, `numHeaders-${headerSeed}`);
 
   const headers: Record<string, string> = {};
   for (let i = 0; i < numHeaders; i++) {
-    const nameSeed = `header-name-${i}-${daySeed}`;
-    const valueSeed = `header-value-${i}-${daySeed}`;
+    const nameSeed = `header-name-${i}-${headerSeed}`;
+    const valueSeed = `header-value-${i}-${headerSeed}`;
     const nameHash = Math.floor(seedToRandom(nameSeed) * 1e6).toString(36);
-    const headerName = `x-verif-x-${nameHash}`;
+    const headerName = `${PREDICTABLE_HEADERS_PREFIX}${nameHash}`;
     const valueHash = Math.floor(seedToRandom(valueSeed) * 1e12).toString(36);
     headers[headerName] = valueHash;
   }
@@ -28,58 +24,30 @@ export const getPredictableHeaders = (date?: dayjs.Dayjs, serverTimeOffset?: num
 };
 
 export const checkPredictableHeaders = (headers: Record<string, string | string[] | undefined>) => {
-  const receivedHeaders = Object.keys(headers).filter((h) => h.startsWith('x-verif-x-'));
+  const receivedHeaders = Object.keys(headers).filter((h) => h.startsWith(PREDICTABLE_HEADERS_PREFIX));
 
-  // First, check against current time
-  const expectedHeaders = getPredictableHeaders();
+  // Get the CSRF token from the request headers
+  const csrfToken = Array.isArray(headers[CSRF_HEADER])
+    ? headers[CSRF_HEADER][0]
+    : headers[CSRF_HEADER];
+
+  if (!csrfToken) {
+    throw new Error('Bot');
+  }
+
+  // Generate expected headers based on the CSRF token
+  const expectedHeaders = getPredictableHeaders(csrfToken);
   const expectedHeaderKeys = Object.keys(expectedHeaders);
 
   if (receivedHeaders.length !== expectedHeaderKeys.length) {
     throw new Error('Bot');
   }
 
-  let allMatch = true;
   for (const key of expectedHeaderKeys) {
     if (headers[key] !== expectedHeaders[key]) {
-      allMatch = false;
-      break;
+      throw new Error('Bot');
     }
   }
-
-  if (allMatch) {
-    return; // Headers are valid
-  }
-
-  // If current time check failed, check 10-minute window (before/after)
-  const now = dayjs().utc();
-  const timesToCheck = [
-    now.subtract(10, 'minutes'),
-    now.add(10, 'minutes'),
-  ];
-
-  for (const checkTime of timesToCheck) {
-    const windowHeaders = getPredictableHeaders(checkTime);
-    const windowHeaderKeys = Object.keys(windowHeaders);
-
-    if (receivedHeaders.length !== windowHeaderKeys.length) {
-      continue;
-    }
-
-    let windowMatch = true;
-    for (const key of windowHeaderKeys) {
-      if (headers[key] !== windowHeaders[key]) {
-        windowMatch = false;
-        break;
-      }
-    }
-
-    if (windowMatch) {
-      return; // Headers are valid in this window
-    }
-  }
-
-  // If no time window matched, throw error
-  throw new Error('Bot');
 };
 
 // Custom shuffled alphabet for post-Base64 obfuscation

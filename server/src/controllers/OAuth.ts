@@ -4,8 +4,15 @@ import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import {
   checkPredictableHeaders,
-  ExpectedError, ForbiddenError, OAuthTokenRequest,
-  UsersAuthenticateResponse, UserWithBrutesBodyColor, Version,
+  ExpectedError,
+  ForbiddenError,
+  FORWARDED_FOR_HEADER,
+  OAuthTokenRequest,
+  PREDICTABLE_HEADERS_PREFIX,
+  REAL_IP_HEADER,
+  UsersAuthenticateResponse,
+  UserWithBrutesBodyColor,
+  Version,
 } from '@labrute/core';
 import {
   InventoryItemType, Prisma, PrismaClient, UserLogType,
@@ -78,7 +85,11 @@ export class OAuth {
       trace.getActiveSpan()?.addEvent('getAuthSelf', { 'user.id': self.user.id });
 
       // Get user's IP
-      const ip = req.headers['x-forwarded-for']?.toString().split(', ')[0] || req.headers['x-real-ip']?.toString().split(', ')[0] || req.socket.remoteAddress;
+      const forwardedFor = req.headers[FORWARDED_FOR_HEADER];
+      const realIp = req.headers[REAL_IP_HEADER];
+      const ip = forwardedFor?.toString().split(', ')[0]
+        || realIp?.toString().split(', ')[0]
+        || req.socket.remoteAddress;
 
       if (ip) {
         // Check if the IP is banned
@@ -211,7 +222,13 @@ export class OAuth {
         checkPredictableHeaders(req.headers);
       } catch (_error) {
         await banUser(this.#prisma, user.id, 'headers_tampering');
-        DISCORD().logObject(Object.fromEntries(Object.entries(req.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
+        DISCORD().logObject(
+          Object.fromEntries(
+            Object.entries(req.headers)
+              .filter(([k]) => k.startsWith(PREDICTABLE_HEADERS_PREFIX)),
+          ),
+          'Headers tampering detected',
+        ).catch(() => { /* ignore */ });
         throw new ForbiddenError(translate('banReason.headers_tampering', user));
       }
 
