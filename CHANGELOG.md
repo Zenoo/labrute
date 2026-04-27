@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.6](https://github.com/Zenoo/labrute/compare/labrute-v2.89.5...labrute-v2.89.6) (2026-04-27)
+
+
+### Bug Fixes
+
+* Handle CSRF token errors and implement retry logic in Fetch function ([4e2e947](https://github.com/Zenoo/labrute/commit/4e2e9474f03a4d98453f8d42498c2bad1c2866b1))
+
 ## [2.89.5](https://github.com/Zenoo/labrute/compare/labrute-v2.89.4...labrute-v2.89.5) (2026-04-27)
 
 
