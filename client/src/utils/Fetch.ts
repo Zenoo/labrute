@@ -56,7 +56,7 @@ export const fetchCsrfToken = async () => {
   return csrfFetchPromise;
 };
 
-const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
+const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, isRetry = false): Promise<ReturnType> => {
   // Get the CSRF token from localStorage, or fetch if it doesn't exist
   let csrfToken: string | null = localStorage.getItem(LS_KEY_CSRF_TOKEN);
 
@@ -111,7 +111,19 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
             });
           } else {
             json.then((processedJson: ReturnType) => {
-              reject(processedJson);
+              // Check if this is a CSRF error and we haven't retried yet
+              if (!isRetry && response.status === 403 && typeof processedJson === 'object' && processedJson !== null && 'message' in processedJson && processedJson.message === 'Invalid CSRF token') {
+                // Clear the invalid CSRF token
+                localStorage.removeItem(LS_KEY_CSRF_TOKEN);
+                // Fetch a new token and retry the request
+                fetchCsrfToken().then(() => {
+                  Fetch<ReturnType>(url, data, method, additionalURLParams, true)
+                    .then(resolve)
+                    .catch(reject);
+                }).catch(reject);
+              } else {
+                reject(processedJson);
+              }
             }).catch((err) => {
               reject(err);
             });
