@@ -1,5 +1,4 @@
 import {
-  AUTHORIZATION_HEADER,
   checkPredictableHeaders,
   ExpectedError,
   FINGERPRINT_HEADER,
@@ -31,8 +30,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
   }
 
-  const authorization = request.headers[AUTHORIZATION_HEADER];
-  const fingerprint = request.headers[FINGERPRINT_HEADER];
+  const { authorization, [FINGERPRINT_HEADER]: fingerprint } = request.headers;
 
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');

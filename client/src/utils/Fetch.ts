@@ -1,13 +1,13 @@
-import { ACCEPT_HEADER, AUTHORIZATION_HEADER, CONTENT_TYPE_HEADER, CSRF_COOKIE_NAME, CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders, LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version } from '@labrute/core';
+import { CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders, LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version } from '@labrute/core';
 import { LS_KEY_CSRF_TOKEN } from './constants';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
 
 type HeadersType = {
-  [ACCEPT_HEADER]: string;
+  Accept: string;
   [CSRF_HEADER]: string;
-  [AUTHORIZATION_HEADER]: string;
-  [CONTENT_TYPE_HEADER]?: string;
+  Authorization: string;
+  'Content-Type'?: string;
   [FINGERPRINT_HEADER]?: string;
   [VERSION_HEADER]: string;
   [LANGUAGE_HEADER]: string;
@@ -19,43 +19,50 @@ export type ErrorType = {
   status?: number;
 };
 
-export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {
-  fetch('/api/csrf', {
-    headers: {
-      [ACCEPT_HEADER]: 'application/json'
-    }
-  }).then((response) => {
-    response.json().then((json) => {
-      const { csrfToken } = (json as { csrfToken: string });
-      localStorage.setItem(LS_KEY_CSRF_TOKEN, csrfToken);
-      resolve(csrfToken);
-    }).catch((err) => {
-      reject(err);
-    });
-  }).catch((error) => {
-    reject(error);
-  });
-});
+// Prevent multiple concurrent CSRF token fetches
+let csrfFetchPromise: Promise<string> | null = null;
 
-const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
-  const csrfCookie = getCookie(CSRF_COOKIE_NAME);
-  const localStorageToken = localStorage.getItem(LS_KEY_CSRF_TOKEN);
-
-  // If localStorage has a token but the session cookie is gone, clear localStorage
-  if (localStorageToken && !csrfCookie) {
-    localStorage.removeItem(LS_KEY_CSRF_TOKEN);
+export const fetchCsrfToken = async () => {
+  // If already fetching, return the existing promise
+  if (csrfFetchPromise) {
+    return csrfFetchPromise;
   }
 
-  // Check if the CSRF token is present in the localStorage
-  // If not, fetch it from the server
-  if (!localStorage.getItem(LS_KEY_CSRF_TOKEN)) {
-    return new Promise((resolve, reject) => {
-      fetchCsrfToken().then(() => {
-        resolve(Fetch(url, data, method, additionalURLParams));
-      }).catch((error) => {
-        reject(error);
+  csrfFetchPromise = new Promise<string>((resolve, reject) => {
+    fetch('/api/csrf', {
+      headers: {
+        Accept: 'application/json'
+      },
+      credentials: 'include', // Important: allows cookies to be set/sent
+    }).then((response) => {
+      response.json().then((json: { csrfToken: string }) => {
+        const { csrfToken } = json;
+        // Store token in localStorage (cookie is httpOnly and used by server)
+        if (csrfToken) {
+          localStorage.setItem(LS_KEY_CSRF_TOKEN, csrfToken);
+        }
+        csrfFetchPromise = null; // Clear the promise so future calls can fetch again
+        resolve(csrfToken);
+      }).catch((err) => {
+        csrfFetchPromise = null;
+        reject(err);
       });
+    }).catch((error) => {
+      csrfFetchPromise = null;
+      reject(error);
     });
+  });
+
+  return csrfFetchPromise;
+};
+
+const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
+  // Get the CSRF token from localStorage, or fetch if it doesn't exist
+  let csrfToken: string | null = localStorage.getItem(LS_KEY_CSRF_TOKEN);
+
+  if (!csrfToken) {
+    // Fetch new token (server will set httpOnly cookie AND return token value)
+    csrfToken = await fetchCsrfToken();
   }
 
   let body: Blob | FormData | string | null = null;
@@ -72,13 +79,10 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
     const user = getCookie(USER_COOKIE) || '';
     const token = getCookie(TOKEN_COOKIE) || '';
 
-    // Get the CSRF token to use as seed for predictable headers
-    const csrfToken = localStorage.getItem(LS_KEY_CSRF_TOKEN) || '';
-
     const headers: HeadersType = {
-      [ACCEPT_HEADER]: 'application/json',
+      Accept: 'application/json',
       [CSRF_HEADER]: csrfToken,
-      [AUTHORIZATION_HEADER]: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
+      Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
       [FINGERPRINT_HEADER]: getFingerprint() ?? '',
       [VERSION_HEADER]: Version,
       [LANGUAGE_HEADER]: document.documentElement.lang || 'en',
@@ -86,12 +90,13 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
-      headers[CONTENT_TYPE_HEADER] = 'application/json';
+      headers['Content-Type'] = 'application/json';
     }
     fetch(finalUrl, {
       headers,
       method,
-      body
+      body,
+      credentials: 'include', // Important: allows cookies to be set/sent
     })
       .then((response) => {
         const contentType = response.headers.get('content-type');

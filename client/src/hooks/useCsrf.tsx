@@ -1,7 +1,5 @@
-import { CSRF_COOKIE_NAME } from '@labrute/core';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { LS_KEY_CSRF_TOKEN } from '../utils/constants';
-import { getCookie } from '../utils/cookies';
 import { fetchCsrfToken } from '../utils/Fetch';
 
 interface CsrfContextInterface {
@@ -25,14 +23,16 @@ export const CsrfProvider = ({ children }: CsrfProviderProps) => {
 
   // Fetch CSRF token on page load
   useEffect(() => {
-    const csrfCookie = getCookie(CSRF_COOKIE_NAME);
-    const localStorageToken = localStorage.getItem(LS_KEY_CSRF_TOKEN);
+    // Check if we already have a token in localStorage
+    const existingToken = localStorage.getItem(LS_KEY_CSRF_TOKEN);
 
-    // If localStorage has a token but the session cookie is gone, clear localStorage
-    if (localStorageToken && !csrfCookie) {
-      localStorage.removeItem(LS_KEY_CSRF_TOKEN);
+    if (existingToken) {
+      // Token exists, use it
+      setCsrfToken(existingToken);
+      return;
     }
 
+    // Fetch new token (server will set httpOnly cookie AND return token value)
     fetchCsrfToken().then((token) => {
       setCsrfToken(token);
 

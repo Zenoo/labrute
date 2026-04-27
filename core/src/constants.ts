@@ -150,6 +150,3 @@ export const VERSION_HEADER = 'x-brute-version';
 export const LANGUAGE_HEADER = 'x-brute-lang';
 export const FORWARDED_FOR_HEADER = 'x-forwarded-for';
 export const REAL_IP_HEADER = 'x-real-ip';
-export const ACCEPT_HEADER = 'Accept';
-export const AUTHORIZATION_HEADER = 'Authorization';
-export const CONTENT_TYPE_HEADER = 'Content-Type';
