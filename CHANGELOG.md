@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.5](https://github.com/Zenoo/labrute/compare/labrute-v2.89.4...labrute-v2.89.5) (2026-04-27)
+
+
+### Bug Fixes
+
+* Improve headers handling ([06a37eb](https://github.com/Zenoo/labrute/commit/06a37ebc928aebdeff30ee8e43bef59b89696f77))
+* Restore csrf previous storage ([7b3750b](https://github.com/Zenoo/labrute/commit/7b3750b34279e3daeccadc83563d3d71b2fb4f97))
+
 ## [2.89.4](https://github.com/Zenoo/labrute/compare/labrute-v2.89.3...labrute-v2.89.4) (2026-04-26)
 
 
