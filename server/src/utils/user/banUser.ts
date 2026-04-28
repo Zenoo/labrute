@@ -59,7 +59,16 @@ export const banUser = async (
     userId,
   });
 
-  await ServerState.addBannedFingerprints(prisma, user.fingerprints);
+  // Filter out known fingerprints before banning
+  const fingerprintsToBan: string[] = [];
+  for (const fingerprint of user.fingerprints) {
+    const isKnown = await ServerState.isFingerprintKnown(prisma, fingerprint);
+    if (!isKnown) {
+      fingerprintsToBan.push(fingerprint);
+    }
+  }
+
+  await ServerState.addBannedFingerprints(prisma, fingerprintsToBan);
 
   if (authed) {
     LOGGER.log(`User ${userId} has been banned by ${authed.id}`);

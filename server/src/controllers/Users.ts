@@ -1,6 +1,9 @@
 import {
   AchievementData, BruteDeletionReason, ExpectedError,
   ForbiddenError,
+  KnownFingerprintAddRequest,
+  KnownFingerprintListResponse,
+  KnownFingerprintRemoveRequest,
   LimitError,
   MissingElementError,
   Modifiers,
@@ -116,6 +119,7 @@ export const Users = {
           bannedAt: true,
           banReason: true,
           fingerprints: true,
+          lastSeen: true,
         },
       });
 
@@ -713,8 +717,15 @@ export const Users = {
       // IP unban
       await ServerState.removeBannedIps(prisma, user.ips);
 
-      // Fingerprint unban
-      await ServerState.removeBannedFingerprints(prisma, user.fingerprints);
+      // Fingerprint unban (exclude known fingerprints)
+      const fingerprintsToUnban: string[] = [];
+      for (const fingerprint of user.fingerprints) {
+        const isKnown = await ServerState.isFingerprintKnown(prisma, fingerprint);
+        if (!isKnown) {
+          fingerprintsToUnban.push(fingerprint);
+        }
+      }
+      await ServerState.removeBannedFingerprints(prisma, fingerprintsToUnban);
 
       // Restore all brutes
       for (const brute of user.brutes) {
@@ -1147,6 +1158,64 @@ export const Users = {
       res.send({
         success: true,
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  knownFingerprintsList: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<KnownFingerprintListResponse>,
+  ) => {
+    try {
+      await auth(prisma, req, { admin: true });
+
+      const knownFingerprints = await prisma.knownFingerprint.findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+      });
+
+      res.send(knownFingerprints);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  addKnownFingerprint: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, KnownFingerprintAddRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.body.fingerprint) {
+        throw new ExpectedError(translate('missingParameters', authed));
+      }
+
+      await ServerState.addKnownFingerprint(
+        prisma,
+        req.body.fingerprint,
+        req.body.description,
+      );
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  removeKnownFingerprint: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, KnownFingerprintRemoveRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.body.fingerprint) {
+        throw new ExpectedError(translate('missingParameters', authed));
+      }
+
+      await ServerState.removeKnownFingerprint(prisma, req.body.fingerprint);
+
+      res.send({ success: true });
     } catch (error) {
       sendError(res, error);
     }

@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
 import { WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -681,7 +681,7 @@ export type UserGetAdminRequest = {
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
   brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
-  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints'>[],
+  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen'>[],
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<
@@ -723,6 +723,14 @@ export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMus
 export type UserTransferBruteRequest = {
   bruteId: string;
   targetUserId: string;
+};
+export type KnownFingerprintListResponse = KnownFingerprint[];
+export type KnownFingerprintAddRequest = {
+  fingerprint: string;
+  description?: string;
+};
+export type KnownFingerprintRemoveRequest = {
+  fingerprint: string;
 };
 
 export type AchievementGetRankingsResponse = {

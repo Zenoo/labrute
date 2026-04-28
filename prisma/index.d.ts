@@ -99,6 +99,11 @@ export type BannedIp = $Result.DefaultSelection<Prisma.$BannedIpPayload>
  */
 export type BannedFingerprint = $Result.DefaultSelection<Prisma.$BannedFingerprintPayload>
 /**
+ * Model KnownFingerprint
+ * 
+ */
+export type KnownFingerprint = $Result.DefaultSelection<Prisma.$KnownFingerprintPayload>
+/**
  * Model Clan
  * 
  */
@@ -956,6 +961,16 @@ export class PrismaClient<
   get bannedFingerprint(): Prisma.BannedFingerprintDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.knownFingerprint`: Exposes CRUD operations for the **KnownFingerprint** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KnownFingerprints
+    * const knownFingerprints = await prisma.knownFingerprint.findMany()
+    * ```
+    */
+  get knownFingerprint(): Prisma.KnownFingerprintDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
     * Example usage:
     * ```ts
@@ -1521,6 +1536,7 @@ export namespace Prisma {
     BannedWord: 'BannedWord',
     BannedIp: 'BannedIp',
     BannedFingerprint: 'BannedFingerprint',
+    KnownFingerprint: 'KnownFingerprint',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
     ClanPost: 'ClanPost',
@@ -1550,7 +1566,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2812,6 +2828,80 @@ export namespace Prisma {
           }
         }
       }
+      KnownFingerprint: {
+        payload: Prisma.$KnownFingerprintPayload<ExtArgs>
+        fields: Prisma.KnownFingerprintFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KnownFingerprintFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KnownFingerprintFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          findFirst: {
+            args: Prisma.KnownFingerprintFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KnownFingerprintFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          findMany: {
+            args: Prisma.KnownFingerprintFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>[]
+          }
+          create: {
+            args: Prisma.KnownFingerprintCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          createMany: {
+            args: Prisma.KnownFingerprintCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KnownFingerprintCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>[]
+          }
+          delete: {
+            args: Prisma.KnownFingerprintDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          update: {
+            args: Prisma.KnownFingerprintUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          deleteMany: {
+            args: Prisma.KnownFingerprintDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KnownFingerprintUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.KnownFingerprintUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>[]
+          }
+          upsert: {
+            args: Prisma.KnownFingerprintUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          aggregate: {
+            args: Prisma.KnownFingerprintAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKnownFingerprint>
+          }
+          groupBy: {
+            args: Prisma.KnownFingerprintGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KnownFingerprintGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KnownFingerprintCountArgs<ExtArgs>
+            result: $Utils.Optional<KnownFingerprintCountAggregateOutputType> | number
+          }
+        }
+      }
       Clan: {
         payload: Prisma.$ClanPayload<ExtArgs>
         fields: Prisma.ClanFieldRefs
@@ -3739,6 +3829,7 @@ export namespace Prisma {
     bannedWord?: BannedWordOmit
     bannedIp?: BannedIpOmit
     bannedFingerprint?: BannedFingerprintOmit
+    knownFingerprint?: KnownFingerprintOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
     clanPost?: ClanPostOmit
@@ -25574,6 +25665,984 @@ export namespace Prisma {
 
 
   /**
+   * Model KnownFingerprint
+   */
+
+  export type AggregateKnownFingerprint = {
+    _count: KnownFingerprintCountAggregateOutputType | null
+    _min: KnownFingerprintMinAggregateOutputType | null
+    _max: KnownFingerprintMaxAggregateOutputType | null
+  }
+
+  export type KnownFingerprintMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type KnownFingerprintMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type KnownFingerprintCountAggregateOutputType = {
+    id: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type KnownFingerprintMinAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type KnownFingerprintMaxAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type KnownFingerprintCountAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type KnownFingerprintAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KnownFingerprint to aggregate.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned KnownFingerprints
+    **/
+    _count?: true | KnownFingerprintCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KnownFingerprintMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KnownFingerprintMaxAggregateInputType
+  }
+
+  export type GetKnownFingerprintAggregateType<T extends KnownFingerprintAggregateArgs> = {
+        [P in keyof T & keyof AggregateKnownFingerprint]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKnownFingerprint[P]>
+      : GetScalarType<T[P], AggregateKnownFingerprint[P]>
+  }
+
+
+
+
+  export type KnownFingerprintGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KnownFingerprintWhereInput
+    orderBy?: KnownFingerprintOrderByWithAggregationInput | KnownFingerprintOrderByWithAggregationInput[]
+    by: KnownFingerprintScalarFieldEnum[] | KnownFingerprintScalarFieldEnum
+    having?: KnownFingerprintScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KnownFingerprintCountAggregateInputType | true
+    _min?: KnownFingerprintMinAggregateInputType
+    _max?: KnownFingerprintMaxAggregateInputType
+  }
+
+  export type KnownFingerprintGroupByOutputType = {
+    id: string
+    description: string | null
+    createdAt: Date
+    _count: KnownFingerprintCountAggregateOutputType | null
+    _min: KnownFingerprintMinAggregateOutputType | null
+    _max: KnownFingerprintMaxAggregateOutputType | null
+  }
+
+  type GetKnownFingerprintGroupByPayload<T extends KnownFingerprintGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KnownFingerprintGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KnownFingerprintGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KnownFingerprintGroupByOutputType[P]>
+            : GetScalarType<T[P], KnownFingerprintGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KnownFingerprintSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["knownFingerprint"]>
+
+  export type KnownFingerprintSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["knownFingerprint"]>
+
+  export type KnownFingerprintSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["knownFingerprint"]>
+
+  export type KnownFingerprintSelectScalar = {
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type KnownFingerprintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "createdAt", ExtArgs["result"]["knownFingerprint"]>
+
+  export type $KnownFingerprintPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "KnownFingerprint"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["knownFingerprint"]>
+    composites: {}
+  }
+
+  type KnownFingerprintGetPayload<S extends boolean | null | undefined | KnownFingerprintDefaultArgs> = $Result.GetResult<Prisma.$KnownFingerprintPayload, S>
+
+  type KnownFingerprintCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<KnownFingerprintFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: KnownFingerprintCountAggregateInputType | true
+    }
+
+  export interface KnownFingerprintDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['KnownFingerprint'], meta: { name: 'KnownFingerprint' } }
+    /**
+     * Find zero or one KnownFingerprint that matches the filter.
+     * @param {KnownFingerprintFindUniqueArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KnownFingerprintFindUniqueArgs>(args: SelectSubset<T, KnownFingerprintFindUniqueArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one KnownFingerprint that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {KnownFingerprintFindUniqueOrThrowArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KnownFingerprintFindUniqueOrThrowArgs>(args: SelectSubset<T, KnownFingerprintFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KnownFingerprint that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintFindFirstArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KnownFingerprintFindFirstArgs>(args?: SelectSubset<T, KnownFingerprintFindFirstArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KnownFingerprint that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintFindFirstOrThrowArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KnownFingerprintFindFirstOrThrowArgs>(args?: SelectSubset<T, KnownFingerprintFindFirstOrThrowArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more KnownFingerprints that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all KnownFingerprints
+     * const knownFingerprints = await prisma.knownFingerprint.findMany()
+     * 
+     * // Get first 10 KnownFingerprints
+     * const knownFingerprints = await prisma.knownFingerprint.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const knownFingerprintWithIdOnly = await prisma.knownFingerprint.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KnownFingerprintFindManyArgs>(args?: SelectSubset<T, KnownFingerprintFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a KnownFingerprint.
+     * @param {KnownFingerprintCreateArgs} args - Arguments to create a KnownFingerprint.
+     * @example
+     * // Create one KnownFingerprint
+     * const KnownFingerprint = await prisma.knownFingerprint.create({
+     *   data: {
+     *     // ... data to create a KnownFingerprint
+     *   }
+     * })
+     * 
+     */
+    create<T extends KnownFingerprintCreateArgs>(args: SelectSubset<T, KnownFingerprintCreateArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many KnownFingerprints.
+     * @param {KnownFingerprintCreateManyArgs} args - Arguments to create many KnownFingerprints.
+     * @example
+     * // Create many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KnownFingerprintCreateManyArgs>(args?: SelectSubset<T, KnownFingerprintCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many KnownFingerprints and returns the data saved in the database.
+     * @param {KnownFingerprintCreateManyAndReturnArgs} args - Arguments to create many KnownFingerprints.
+     * @example
+     * // Create many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many KnownFingerprints and only return the `id`
+     * const knownFingerprintWithIdOnly = await prisma.knownFingerprint.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KnownFingerprintCreateManyAndReturnArgs>(args?: SelectSubset<T, KnownFingerprintCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a KnownFingerprint.
+     * @param {KnownFingerprintDeleteArgs} args - Arguments to delete one KnownFingerprint.
+     * @example
+     * // Delete one KnownFingerprint
+     * const KnownFingerprint = await prisma.knownFingerprint.delete({
+     *   where: {
+     *     // ... filter to delete one KnownFingerprint
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KnownFingerprintDeleteArgs>(args: SelectSubset<T, KnownFingerprintDeleteArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one KnownFingerprint.
+     * @param {KnownFingerprintUpdateArgs} args - Arguments to update one KnownFingerprint.
+     * @example
+     * // Update one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KnownFingerprintUpdateArgs>(args: SelectSubset<T, KnownFingerprintUpdateArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more KnownFingerprints.
+     * @param {KnownFingerprintDeleteManyArgs} args - Arguments to filter KnownFingerprints to delete.
+     * @example
+     * // Delete a few KnownFingerprints
+     * const { count } = await prisma.knownFingerprint.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KnownFingerprintDeleteManyArgs>(args?: SelectSubset<T, KnownFingerprintDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KnownFingerprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KnownFingerprintUpdateManyArgs>(args: SelectSubset<T, KnownFingerprintUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KnownFingerprints and returns the data updated in the database.
+     * @param {KnownFingerprintUpdateManyAndReturnArgs} args - Arguments to update many KnownFingerprints.
+     * @example
+     * // Update many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more KnownFingerprints and only return the `id`
+     * const knownFingerprintWithIdOnly = await prisma.knownFingerprint.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends KnownFingerprintUpdateManyAndReturnArgs>(args: SelectSubset<T, KnownFingerprintUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one KnownFingerprint.
+     * @param {KnownFingerprintUpsertArgs} args - Arguments to update or create a KnownFingerprint.
+     * @example
+     * // Update or create a KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.upsert({
+     *   create: {
+     *     // ... data to create a KnownFingerprint
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the KnownFingerprint we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KnownFingerprintUpsertArgs>(args: SelectSubset<T, KnownFingerprintUpsertArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of KnownFingerprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintCountArgs} args - Arguments to filter KnownFingerprints to count.
+     * @example
+     * // Count the number of KnownFingerprints
+     * const count = await prisma.knownFingerprint.count({
+     *   where: {
+     *     // ... the filter for the KnownFingerprints we want to count
+     *   }
+     * })
+    **/
+    count<T extends KnownFingerprintCountArgs>(
+      args?: Subset<T, KnownFingerprintCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KnownFingerprintCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a KnownFingerprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KnownFingerprintAggregateArgs>(args: Subset<T, KnownFingerprintAggregateArgs>): Prisma.PrismaPromise<GetKnownFingerprintAggregateType<T>>
+
+    /**
+     * Group by KnownFingerprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KnownFingerprintGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KnownFingerprintGroupByArgs['orderBy'] }
+        : { orderBy?: KnownFingerprintGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KnownFingerprintGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKnownFingerprintGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the KnownFingerprint model
+   */
+  readonly fields: KnownFingerprintFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for KnownFingerprint.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KnownFingerprintClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the KnownFingerprint model
+   */
+  interface KnownFingerprintFieldRefs {
+    readonly id: FieldRef<"KnownFingerprint", 'String'>
+    readonly description: FieldRef<"KnownFingerprint", 'String'>
+    readonly createdAt: FieldRef<"KnownFingerprint", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * KnownFingerprint findUnique
+   */
+  export type KnownFingerprintFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findUniqueOrThrow
+   */
+  export type KnownFingerprintFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findFirst
+   */
+  export type KnownFingerprintFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KnownFingerprints.
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KnownFingerprints.
+     */
+    distinct?: KnownFingerprintScalarFieldEnum | KnownFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findFirstOrThrow
+   */
+  export type KnownFingerprintFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KnownFingerprints.
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KnownFingerprints.
+     */
+    distinct?: KnownFingerprintScalarFieldEnum | KnownFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findMany
+   */
+  export type KnownFingerprintFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprints to fetch.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing KnownFingerprints.
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    distinct?: KnownFingerprintScalarFieldEnum | KnownFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint create
+   */
+  export type KnownFingerprintCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data needed to create a KnownFingerprint.
+     */
+    data: XOR<KnownFingerprintCreateInput, KnownFingerprintUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint createMany
+   */
+  export type KnownFingerprintCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many KnownFingerprints.
+     */
+    data: KnownFingerprintCreateManyInput | KnownFingerprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KnownFingerprint createManyAndReturn
+   */
+  export type KnownFingerprintCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data used to create many KnownFingerprints.
+     */
+    data: KnownFingerprintCreateManyInput | KnownFingerprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KnownFingerprint update
+   */
+  export type KnownFingerprintUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data needed to update a KnownFingerprint.
+     */
+    data: XOR<KnownFingerprintUpdateInput, KnownFingerprintUncheckedUpdateInput>
+    /**
+     * Choose, which KnownFingerprint to update.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint updateMany
+   */
+  export type KnownFingerprintUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update KnownFingerprints.
+     */
+    data: XOR<KnownFingerprintUpdateManyMutationInput, KnownFingerprintUncheckedUpdateManyInput>
+    /**
+     * Filter which KnownFingerprints to update
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * Limit how many KnownFingerprints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * KnownFingerprint updateManyAndReturn
+   */
+  export type KnownFingerprintUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data used to update KnownFingerprints.
+     */
+    data: XOR<KnownFingerprintUpdateManyMutationInput, KnownFingerprintUncheckedUpdateManyInput>
+    /**
+     * Filter which KnownFingerprints to update
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * Limit how many KnownFingerprints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * KnownFingerprint upsert
+   */
+  export type KnownFingerprintUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The filter to search for the KnownFingerprint to update in case it exists.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    /**
+     * In case the KnownFingerprint found by the `where` argument doesn't exist, create a new KnownFingerprint with this data.
+     */
+    create: XOR<KnownFingerprintCreateInput, KnownFingerprintUncheckedCreateInput>
+    /**
+     * In case the KnownFingerprint was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KnownFingerprintUpdateInput, KnownFingerprintUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint delete
+   */
+  export type KnownFingerprintDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter which KnownFingerprint to delete.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint deleteMany
+   */
+  export type KnownFingerprintDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KnownFingerprints to delete
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * Limit how many KnownFingerprints to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * KnownFingerprint without action
+   */
+  export type KnownFingerprintDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Clan
    */
 
@@ -38526,6 +39595,15 @@ export namespace Prisma {
   export type BannedFingerprintScalarFieldEnum = (typeof BannedFingerprintScalarFieldEnum)[keyof typeof BannedFingerprintScalarFieldEnum]
 
 
+  export const KnownFingerprintScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type KnownFingerprintScalarFieldEnum = (typeof KnownFingerprintScalarFieldEnum)[keyof typeof KnownFingerprintScalarFieldEnum]
+
+
   export const ClanScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -40603,6 +41681,48 @@ export namespace Prisma {
     OR?: BannedFingerprintScalarWhereWithAggregatesInput[]
     NOT?: BannedFingerprintScalarWhereWithAggregatesInput | BannedFingerprintScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BannedFingerprint"> | string
+  }
+
+  export type KnownFingerprintWhereInput = {
+    AND?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    OR?: KnownFingerprintWhereInput[]
+    NOT?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    id?: StringFilter<"KnownFingerprint"> | string
+    description?: StringNullableFilter<"KnownFingerprint"> | string | null
+    createdAt?: DateTimeFilter<"KnownFingerprint"> | Date | string
+  }
+
+  export type KnownFingerprintOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KnownFingerprintWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    OR?: KnownFingerprintWhereInput[]
+    NOT?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    description?: StringNullableFilter<"KnownFingerprint"> | string | null
+    createdAt?: DateTimeFilter<"KnownFingerprint"> | Date | string
+  }, "id">
+
+  export type KnownFingerprintOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: KnownFingerprintCountOrderByAggregateInput
+    _max?: KnownFingerprintMaxOrderByAggregateInput
+    _min?: KnownFingerprintMinOrderByAggregateInput
+  }
+
+  export type KnownFingerprintScalarWhereWithAggregatesInput = {
+    AND?: KnownFingerprintScalarWhereWithAggregatesInput | KnownFingerprintScalarWhereWithAggregatesInput[]
+    OR?: KnownFingerprintScalarWhereWithAggregatesInput[]
+    NOT?: KnownFingerprintScalarWhereWithAggregatesInput | KnownFingerprintScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"KnownFingerprint"> | string
+    description?: StringNullableWithAggregatesFilter<"KnownFingerprint"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"KnownFingerprint"> | Date | string
   }
 
   export type ClanWhereInput = {
@@ -43053,6 +44173,48 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type KnownFingerprintCreateInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KnownFingerprintUncheckedCreateInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KnownFingerprintUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnownFingerprintUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnownFingerprintCreateManyInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KnownFingerprintUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnownFingerprintUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ClanCreateInput = {
     id?: string
     name: string
@@ -45417,6 +46579,24 @@ export namespace Prisma {
 
   export type BannedFingerprintMinOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type KnownFingerprintCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KnownFingerprintMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KnownFingerprintMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumBossNameFilter<$PrismaModel = never> = {

@@ -29,6 +29,7 @@ import GlobalTournamentView from './views/GlobalTournamentView';
 import HallView from './views/HallView';
 import HomeView from './views/HomeView';
 import { InventoryView } from './views/InventoryView';
+import { KnownFingerprintsView } from './views/KnownFingerprintsView';
 import LevelUpView from './views/LevelUpView';
 import { MultipleAccountsView } from './views/admin/MultipleAccountsView';
 import NameChangeView from './views/NameChangeView';
@@ -152,6 +153,7 @@ const routes: RouteObject[] = [
           { path: 'report', element: <ReportAdminView /> },
           { path: 'config', element: <ConfigAdminView /> },
           { path: 'banned-users', element: <BannedUsersView /> },
+          { path: 'known-fingerprints', element: <KnownFingerprintsView /> },
           { path: 'multiple-accounts', element: <MultipleAccountsView /> },
           { path: 'brute/:bruteName?', element: <BruteAdminView /> },
           { path: 'clan/:clanId', element: <ClanAdminView /> },

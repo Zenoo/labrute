@@ -60,6 +60,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/user/:userId/unban', Users.unban(prisma));
   app.get('/api/user/banlist', Users.bannedList(prisma));
   app.get('/api/user/multiple-accounts', Users.multipleAccountsList(prisma));
+  app.get('/api/user/known-fingerprints', Users.knownFingerprintsList(prisma));
+  app.post('/api/user/known-fingerprints', Users.addKnownFingerprint(prisma));
+  app.delete('/api/user/known-fingerprints', Users.removeKnownFingerprint(prisma));
   app.get('/api/user/next-modifiers', Users.getNextModifiers(prisma));
   app.put('/api/user/next-modifiers', Users.setNextModifiers(prisma));
   app.patch('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));

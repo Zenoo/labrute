@@ -704,6 +704,12 @@ model BannedFingerprint {
   id String @id @db.VarChar(255)
 }
 
+model KnownFingerprint {
+  id          String   @id @db.VarChar(255)
+  description String?  @db.VarChar(500)
+  createdAt   DateTime @default(now()) @db.Timestamp()
+}
+
 enum BossName {
   GoldClaw
   EmberFang

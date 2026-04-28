@@ -10,6 +10,7 @@ let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
 let BANNED_FINGERPRINTS: string[] | null = null;
+let KNOWN_FINGERPRINTS: string[] | null = null;
 let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
 
@@ -151,6 +152,54 @@ const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
 };
 
+const getKnownFingerprints = async (prisma: PrismaClient) => {
+  if (KNOWN_FINGERPRINTS) {
+    return KNOWN_FINGERPRINTS;
+  }
+
+  const knownFingerprints = await prisma.knownFingerprint.findMany({
+    select: { id: true },
+  });
+
+  KNOWN_FINGERPRINTS = knownFingerprints.map((fp) => fp.id);
+
+  return KNOWN_FINGERPRINTS;
+};
+
+const addKnownFingerprint = async (
+  prisma: PrismaClient,
+  fingerprint: string,
+  description?: string,
+) => {
+  const knownFingerprints = await getKnownFingerprints(prisma);
+
+  if (knownFingerprints.includes(fingerprint)) {
+    return;
+  }
+
+  await prisma.knownFingerprint.create({
+    data: { id: fingerprint, description },
+  });
+
+  if (KNOWN_FINGERPRINTS) KNOWN_FINGERPRINTS.push(fingerprint);
+};
+
+const isFingerprintKnown = async (prisma: PrismaClient, fingerprint: string) => {
+  const knownFingerprints = await getKnownFingerprints(prisma);
+
+  return knownFingerprints.includes(fingerprint);
+};
+
+const removeKnownFingerprint = async (prisma: PrismaClient, fingerprint: string) => {
+  await prisma.knownFingerprint.delete({
+    where: { id: fingerprint },
+  });
+
+  if (KNOWN_FINGERPRINTS) {
+    KNOWN_FINGERPRINTS = KNOWN_FINGERPRINTS.filter((fp) => fp !== fingerprint);
+  }
+};
+
 const getBannedFingerprints = async (prisma: PrismaClient) => {
   if (BANNED_FINGERPRINTS) {
     return BANNED_FINGERPRINTS;
@@ -177,6 +226,12 @@ const addBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[
 };
 
 const isFingerprintBanned = async (prisma: PrismaClient, fingerprint: string) => {
+  const knownFingerprints = await getKnownFingerprints(prisma);
+
+  if (knownFingerprints.includes(fingerprint)) {
+    return false;
+  }
+
   const bannedFingerprints = await getBannedFingerprints(prisma);
 
   return bannedFingerprints.includes(fingerprint);
@@ -273,4 +328,8 @@ export const ServerState = {
   addBannedFingerprints,
   isFingerprintBanned,
   removeBannedFingerprints,
+  getKnownFingerprints,
+  addKnownFingerprint,
+  isFingerprintKnown,
+  removeKnownFingerprint,
 };

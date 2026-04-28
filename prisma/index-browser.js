@@ -349,6 +349,12 @@ exports.Prisma.BannedFingerprintScalarFieldEnum = {
   id: 'id'
 };
 
+exports.Prisma.KnownFingerprintScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -825,6 +831,7 @@ exports.Prisma.ModelName = {
   BannedWord: 'BannedWord',
   BannedIp: 'BannedIp',
   BannedFingerprint: 'BannedFingerprint',
+  KnownFingerprint: 'KnownFingerprint',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',
