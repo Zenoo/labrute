@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.7](https://github.com/Zenoo/labrute/compare/labrute-v2.89.6...labrute-v2.89.7) (2026-04-28)
+
+
+### Bug Fixes
+
+* Add known fingerprints for common devices ([3076532](https://github.com/Zenoo/labrute/commit/30765326747beb909d6cb0cd177752730184cd69))
+
 ## [2.89.6](https://github.com/Zenoo/labrute/compare/labrute-v2.89.5...labrute-v2.89.6) (2026-04-27)
 
 
