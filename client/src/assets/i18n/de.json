@@ -1639,5 +1639,6 @@
   "bruteTransfer": "Brutalo-Übertragung",
   "transfer": "Übertragen",
   "bruteTransferred": "Brutalo übertragen",
-  "confirmBruteTransfer": "Bist du sicher, dass du {{bruteName}} übertragen möchtest? Du verlierst den Zugriff zu diesem Brutalo und all seinem Fortschritt. Dieser Vorgang kann nicht rückgängig gemacht werden."
+  "confirmBruteTransfer": "Bist du sicher, dass du {{bruteName}} übertragen möchtest? Du verlierst den Zugriff zu diesem Brutalo und all seinem Fortschritt. Dieser Vorgang kann nicht rückgängig gemacht werden.",
+  "authing": "Authenticating..."
 }
