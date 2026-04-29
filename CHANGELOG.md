@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.8](https://github.com/Zenoo/labrute/compare/labrute-v2.89.7...labrute-v2.89.8) (2026-04-29)
+
+
+### Bug Fixes
+
+* Wait for auth before rendering ([880d5cf](https://github.com/Zenoo/labrute/commit/880d5cf9b643cbbec36f90e3fc651d7f714c4521))
+
 ## [2.89.7](https://github.com/Zenoo/labrute/compare/labrute-v2.89.6...labrute-v2.89.7) (2026-04-28)
 
 
