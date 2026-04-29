@@ -1640,5 +1640,5 @@
   "transfer": "Transferir",
   "bruteTransferred": "Bruto transferido",
   "confirmBruteTransfer": "¿Estás seguro de que quieres transferir {{bruteName}}? Perderás el acceso a este bruto y todo su progreso. Esta acción es irreversible.",
-  "authing": "Authenticating..."
+  "authing": "Autenticando..."
 }
