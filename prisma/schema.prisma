@@ -305,6 +305,7 @@ model Brute {
   @@index([deletedAt, eventId, ranking])
   @@index([ascensions, level, xp])
   @@index([deletedAt])
+  @@index([deletedAt, level])
   @@index([masterId])
   @@index([userId])
   @@index([clanId])
@@ -647,6 +648,7 @@ model Achievement {
   @@unique([name, bruteId])
   @@index([bruteId])
   @@index([userId])
+  @@index([name, count(sort: Desc)])
 }
 
 // REPORTS
@@ -737,8 +739,8 @@ model Clan {
   wins                 ClanWar[]    @relation("ClanWarWinner")
 
   @@unique([name, deletedAt])
-  @@index([deletedAt, name, points])
-  @@index([deletedAt, name, elo])
+  @@index([deletedAt, points(sort: Desc), name])
+  @@index([deletedAt, elo(sort: Desc), name])
   @@index([masterId])
 }
 

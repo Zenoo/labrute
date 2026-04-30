@@ -1,4 +1,6 @@
+import 'dotenv/config';
 import { PrismaClient } from '@labrute/prisma';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { isMainThread } from 'node:worker_threads';
 import { Config, emptyConfig, loadConfig } from './config.js';
 import { CONSOLE } from './logger/console.js';
@@ -20,8 +22,13 @@ export class ServerContext {
   public config: Config = emptyConfig;
 
   public constructor() {
+    const adapter = new PrismaPg({
+      connectionString: process.env.DATABASE_URL,
+    });
+
     if (DEBUG_QUERIES) {
       const client = new PrismaClient({
+        adapter,
         log: [
           {
             emit: 'event',
@@ -53,7 +60,7 @@ export class ServerContext {
 
       this.prisma = client;
     } else {
-      this.prisma = new PrismaClient();
+      this.prisma = new PrismaClient({ adapter });
     }
   }
 

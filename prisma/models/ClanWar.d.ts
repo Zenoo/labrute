@@ -1,0 +1,2116 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model ClanWar
+ *
+ */
+export type ClanWarModel = runtime.Types.Result.DefaultSelection<Prisma.$ClanWarPayload>;
+export type AggregateClanWar = {
+    _count: ClanWarCountAggregateOutputType | null;
+    _avg: ClanWarAvgAggregateOutputType | null;
+    _sum: ClanWarSumAggregateOutputType | null;
+    _min: ClanWarMinAggregateOutputType | null;
+    _max: ClanWarMaxAggregateOutputType | null;
+};
+export type ClanWarAvgAggregateOutputType = {
+    duration: number | null;
+    attackerEloChange: number | null;
+    attackerWins: number | null;
+    defenderEloChange: number | null;
+    defenderWins: number | null;
+};
+export type ClanWarSumAggregateOutputType = {
+    duration: number | null;
+    attackerEloChange: number | null;
+    attackerWins: number | null;
+    defenderEloChange: number | null;
+    defenderWins: number | null;
+};
+export type ClanWarMinAggregateOutputType = {
+    id: string | null;
+    duration: number | null;
+    type: $Enums.ClanWarType | null;
+    date: Date | null;
+    status: $Enums.ClanWarStatus | null;
+    attackerId: string | null;
+    attackerEloChange: number | null;
+    attackerWins: number | null;
+    defenderId: string | null;
+    defenderEloChange: number | null;
+    defenderWins: number | null;
+    winnerId: string | null;
+};
+export type ClanWarMaxAggregateOutputType = {
+    id: string | null;
+    duration: number | null;
+    type: $Enums.ClanWarType | null;
+    date: Date | null;
+    status: $Enums.ClanWarStatus | null;
+    attackerId: string | null;
+    attackerEloChange: number | null;
+    attackerWins: number | null;
+    defenderId: string | null;
+    defenderEloChange: number | null;
+    defenderWins: number | null;
+    winnerId: string | null;
+};
+export type ClanWarCountAggregateOutputType = {
+    id: number;
+    duration: number;
+    type: number;
+    date: number;
+    status: number;
+    attackerId: number;
+    attackerEloChange: number;
+    attackerWins: number;
+    defenderId: number;
+    defenderEloChange: number;
+    defenderWins: number;
+    winnerId: number;
+    _all: number;
+};
+export type ClanWarAvgAggregateInputType = {
+    duration?: true;
+    attackerEloChange?: true;
+    attackerWins?: true;
+    defenderEloChange?: true;
+    defenderWins?: true;
+};
+export type ClanWarSumAggregateInputType = {
+    duration?: true;
+    attackerEloChange?: true;
+    attackerWins?: true;
+    defenderEloChange?: true;
+    defenderWins?: true;
+};
+export type ClanWarMinAggregateInputType = {
+    id?: true;
+    duration?: true;
+    type?: true;
+    date?: true;
+    status?: true;
+    attackerId?: true;
+    attackerEloChange?: true;
+    attackerWins?: true;
+    defenderId?: true;
+    defenderEloChange?: true;
+    defenderWins?: true;
+    winnerId?: true;
+};
+export type ClanWarMaxAggregateInputType = {
+    id?: true;
+    duration?: true;
+    type?: true;
+    date?: true;
+    status?: true;
+    attackerId?: true;
+    attackerEloChange?: true;
+    attackerWins?: true;
+    defenderId?: true;
+    defenderEloChange?: true;
+    defenderWins?: true;
+    winnerId?: true;
+};
+export type ClanWarCountAggregateInputType = {
+    id?: true;
+    duration?: true;
+    type?: true;
+    date?: true;
+    status?: true;
+    attackerId?: true;
+    attackerEloChange?: true;
+    attackerWins?: true;
+    defenderId?: true;
+    defenderEloChange?: true;
+    defenderWins?: true;
+    winnerId?: true;
+    _all?: true;
+};
+export type ClanWarAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClanWar to aggregate.
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ClanWars to fetch.
+     */
+    orderBy?: Prisma.ClanWarOrderByWithRelationInput | Prisma.ClanWarOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.ClanWarWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ClanWars from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ClanWars.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned ClanWars
+    **/
+    _count?: true | ClanWarCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: ClanWarAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: ClanWarSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClanWarMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClanWarMaxAggregateInputType;
+};
+export type GetClanWarAggregateType<T extends ClanWarAggregateArgs> = {
+    [P in keyof T & keyof AggregateClanWar]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateClanWar[P]> : Prisma.GetScalarType<T[P], AggregateClanWar[P]>;
+};
+export type ClanWarGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ClanWarWhereInput;
+    orderBy?: Prisma.ClanWarOrderByWithAggregationInput | Prisma.ClanWarOrderByWithAggregationInput[];
+    by: Prisma.ClanWarScalarFieldEnum[] | Prisma.ClanWarScalarFieldEnum;
+    having?: Prisma.ClanWarScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: ClanWarCountAggregateInputType | true;
+    _avg?: ClanWarAvgAggregateInputType;
+    _sum?: ClanWarSumAggregateInputType;
+    _min?: ClanWarMinAggregateInputType;
+    _max?: ClanWarMaxAggregateInputType;
+};
+export type ClanWarGroupByOutputType = {
+    id: string;
+    duration: number;
+    type: $Enums.ClanWarType;
+    date: Date;
+    status: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange: number;
+    attackerWins: number;
+    defenderId: string;
+    defenderEloChange: number;
+    defenderWins: number;
+    winnerId: string | null;
+    _count: ClanWarCountAggregateOutputType | null;
+    _avg: ClanWarAvgAggregateOutputType | null;
+    _sum: ClanWarSumAggregateOutputType | null;
+    _min: ClanWarMinAggregateOutputType | null;
+    _max: ClanWarMaxAggregateOutputType | null;
+};
+export type GetClanWarGroupByPayload<T extends ClanWarGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<ClanWarGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof ClanWarGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], ClanWarGroupByOutputType[P]> : Prisma.GetScalarType<T[P], ClanWarGroupByOutputType[P]>;
+}>>;
+export type ClanWarWhereInput = {
+    AND?: Prisma.ClanWarWhereInput | Prisma.ClanWarWhereInput[];
+    OR?: Prisma.ClanWarWhereInput[];
+    NOT?: Prisma.ClanWarWhereInput | Prisma.ClanWarWhereInput[];
+    id?: Prisma.UuidFilter<"ClanWar"> | string;
+    duration?: Prisma.IntFilter<"ClanWar"> | number;
+    type?: Prisma.EnumClanWarTypeFilter<"ClanWar"> | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFilter<"ClanWar"> | Date | string;
+    status?: Prisma.EnumClanWarStatusFilter<"ClanWar"> | $Enums.ClanWarStatus;
+    attackerId?: Prisma.UuidFilter<"ClanWar"> | string;
+    attackerEloChange?: Prisma.IntFilter<"ClanWar"> | number;
+    attackerWins?: Prisma.IntFilter<"ClanWar"> | number;
+    defenderId?: Prisma.UuidFilter<"ClanWar"> | string;
+    defenderEloChange?: Prisma.IntFilter<"ClanWar"> | number;
+    defenderWins?: Prisma.IntFilter<"ClanWar"> | number;
+    winnerId?: Prisma.UuidNullableFilter<"ClanWar"> | string | null;
+    attacker?: Prisma.XOR<Prisma.ClanScalarRelationFilter, Prisma.ClanWhereInput>;
+    defender?: Prisma.XOR<Prisma.ClanScalarRelationFilter, Prisma.ClanWhereInput>;
+    winner?: Prisma.XOR<Prisma.ClanNullableScalarRelationFilter, Prisma.ClanWhereInput> | null;
+    fights?: Prisma.FightListRelationFilter;
+    fighters?: Prisma.ClanWarFightersListRelationFilter;
+};
+export type ClanWarOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    duration?: Prisma.SortOrder;
+    type?: Prisma.SortOrder;
+    date?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    attackerId?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderId?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+    winnerId?: Prisma.SortOrderInput | Prisma.SortOrder;
+    attacker?: Prisma.ClanOrderByWithRelationInput;
+    defender?: Prisma.ClanOrderByWithRelationInput;
+    winner?: Prisma.ClanOrderByWithRelationInput;
+    fights?: Prisma.FightOrderByRelationAggregateInput;
+    fighters?: Prisma.ClanWarFightersOrderByRelationAggregateInput;
+};
+export type ClanWarWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    AND?: Prisma.ClanWarWhereInput | Prisma.ClanWarWhereInput[];
+    OR?: Prisma.ClanWarWhereInput[];
+    NOT?: Prisma.ClanWarWhereInput | Prisma.ClanWarWhereInput[];
+    duration?: Prisma.IntFilter<"ClanWar"> | number;
+    type?: Prisma.EnumClanWarTypeFilter<"ClanWar"> | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFilter<"ClanWar"> | Date | string;
+    status?: Prisma.EnumClanWarStatusFilter<"ClanWar"> | $Enums.ClanWarStatus;
+    attackerId?: Prisma.UuidFilter<"ClanWar"> | string;
+    attackerEloChange?: Prisma.IntFilter<"ClanWar"> | number;
+    attackerWins?: Prisma.IntFilter<"ClanWar"> | number;
+    defenderId?: Prisma.UuidFilter<"ClanWar"> | string;
+    defenderEloChange?: Prisma.IntFilter<"ClanWar"> | number;
+    defenderWins?: Prisma.IntFilter<"ClanWar"> | number;
+    winnerId?: Prisma.UuidNullableFilter<"ClanWar"> | string | null;
+    attacker?: Prisma.XOR<Prisma.ClanScalarRelationFilter, Prisma.ClanWhereInput>;
+    defender?: Prisma.XOR<Prisma.ClanScalarRelationFilter, Prisma.ClanWhereInput>;
+    winner?: Prisma.XOR<Prisma.ClanNullableScalarRelationFilter, Prisma.ClanWhereInput> | null;
+    fights?: Prisma.FightListRelationFilter;
+    fighters?: Prisma.ClanWarFightersListRelationFilter;
+}, "id" | "id">;
+export type ClanWarOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    duration?: Prisma.SortOrder;
+    type?: Prisma.SortOrder;
+    date?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    attackerId?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderId?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+    winnerId?: Prisma.SortOrderInput | Prisma.SortOrder;
+    _count?: Prisma.ClanWarCountOrderByAggregateInput;
+    _avg?: Prisma.ClanWarAvgOrderByAggregateInput;
+    _max?: Prisma.ClanWarMaxOrderByAggregateInput;
+    _min?: Prisma.ClanWarMinOrderByAggregateInput;
+    _sum?: Prisma.ClanWarSumOrderByAggregateInput;
+};
+export type ClanWarScalarWhereWithAggregatesInput = {
+    AND?: Prisma.ClanWarScalarWhereWithAggregatesInput | Prisma.ClanWarScalarWhereWithAggregatesInput[];
+    OR?: Prisma.ClanWarScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.ClanWarScalarWhereWithAggregatesInput | Prisma.ClanWarScalarWhereWithAggregatesInput[];
+    id?: Prisma.UuidWithAggregatesFilter<"ClanWar"> | string;
+    duration?: Prisma.IntWithAggregatesFilter<"ClanWar"> | number;
+    type?: Prisma.EnumClanWarTypeWithAggregatesFilter<"ClanWar"> | $Enums.ClanWarType;
+    date?: Prisma.DateTimeWithAggregatesFilter<"ClanWar"> | Date | string;
+    status?: Prisma.EnumClanWarStatusWithAggregatesFilter<"ClanWar"> | $Enums.ClanWarStatus;
+    attackerId?: Prisma.UuidWithAggregatesFilter<"ClanWar"> | string;
+    attackerEloChange?: Prisma.IntWithAggregatesFilter<"ClanWar"> | number;
+    attackerWins?: Prisma.IntWithAggregatesFilter<"ClanWar"> | number;
+    defenderId?: Prisma.UuidWithAggregatesFilter<"ClanWar"> | string;
+    defenderEloChange?: Prisma.IntWithAggregatesFilter<"ClanWar"> | number;
+    defenderWins?: Prisma.IntWithAggregatesFilter<"ClanWar"> | number;
+    winnerId?: Prisma.UuidNullableWithAggregatesFilter<"ClanWar"> | string | null;
+};
+export type ClanWarCreateInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    attacker: Prisma.ClanCreateNestedOneWithoutAttacksInput;
+    defender: Prisma.ClanCreateNestedOneWithoutDefensesInput;
+    winner?: Prisma.ClanCreateNestedOneWithoutWinsInput;
+    fights?: Prisma.FightCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUncheckedCreateInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+    fights?: Prisma.FightUncheckedCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersUncheckedCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    attacker?: Prisma.ClanUpdateOneRequiredWithoutAttacksNestedInput;
+    defender?: Prisma.ClanUpdateOneRequiredWithoutDefensesNestedInput;
+    winner?: Prisma.ClanUpdateOneWithoutWinsNestedInput;
+    fights?: Prisma.FightUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fights?: Prisma.FightUncheckedUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUncheckedUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarCreateManyInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+};
+export type ClanWarUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type ClanWarUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+};
+export type ClanWarNullableScalarRelationFilter = {
+    is?: Prisma.ClanWarWhereInput | null;
+    isNot?: Prisma.ClanWarWhereInput | null;
+};
+export type ClanWarListRelationFilter = {
+    every?: Prisma.ClanWarWhereInput;
+    some?: Prisma.ClanWarWhereInput;
+    none?: Prisma.ClanWarWhereInput;
+};
+export type ClanWarOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type ClanWarCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    duration?: Prisma.SortOrder;
+    type?: Prisma.SortOrder;
+    date?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    attackerId?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderId?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+    winnerId?: Prisma.SortOrder;
+};
+export type ClanWarAvgOrderByAggregateInput = {
+    duration?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+};
+export type ClanWarMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    duration?: Prisma.SortOrder;
+    type?: Prisma.SortOrder;
+    date?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    attackerId?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderId?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+    winnerId?: Prisma.SortOrder;
+};
+export type ClanWarMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    duration?: Prisma.SortOrder;
+    type?: Prisma.SortOrder;
+    date?: Prisma.SortOrder;
+    status?: Prisma.SortOrder;
+    attackerId?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderId?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+    winnerId?: Prisma.SortOrder;
+};
+export type ClanWarSumOrderByAggregateInput = {
+    duration?: Prisma.SortOrder;
+    attackerEloChange?: Prisma.SortOrder;
+    attackerWins?: Prisma.SortOrder;
+    defenderEloChange?: Prisma.SortOrder;
+    defenderWins?: Prisma.SortOrder;
+};
+export type ClanWarScalarRelationFilter = {
+    is?: Prisma.ClanWarWhereInput;
+    isNot?: Prisma.ClanWarWhereInput;
+};
+export type ClanWarCreateNestedOneWithoutFightsInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutFightsInput, Prisma.ClanWarUncheckedCreateWithoutFightsInput>;
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutFightsInput;
+    connect?: Prisma.ClanWarWhereUniqueInput;
+};
+export type ClanWarUpdateOneWithoutFightsNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutFightsInput, Prisma.ClanWarUncheckedCreateWithoutFightsInput>;
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutFightsInput;
+    upsert?: Prisma.ClanWarUpsertWithoutFightsInput;
+    disconnect?: Prisma.ClanWarWhereInput | boolean;
+    delete?: Prisma.ClanWarWhereInput | boolean;
+    connect?: Prisma.ClanWarWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.ClanWarUpdateToOneWithWhereWithoutFightsInput, Prisma.ClanWarUpdateWithoutFightsInput>, Prisma.ClanWarUncheckedUpdateWithoutFightsInput>;
+};
+export type ClanWarCreateNestedManyWithoutAttackerInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutAttackerInput, Prisma.ClanWarUncheckedCreateWithoutAttackerInput> | Prisma.ClanWarCreateWithoutAttackerInput[] | Prisma.ClanWarUncheckedCreateWithoutAttackerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutAttackerInput | Prisma.ClanWarCreateOrConnectWithoutAttackerInput[];
+    createMany?: Prisma.ClanWarCreateManyAttackerInputEnvelope;
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+};
+export type ClanWarCreateNestedManyWithoutDefenderInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutDefenderInput, Prisma.ClanWarUncheckedCreateWithoutDefenderInput> | Prisma.ClanWarCreateWithoutDefenderInput[] | Prisma.ClanWarUncheckedCreateWithoutDefenderInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutDefenderInput | Prisma.ClanWarCreateOrConnectWithoutDefenderInput[];
+    createMany?: Prisma.ClanWarCreateManyDefenderInputEnvelope;
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+};
+export type ClanWarCreateNestedManyWithoutWinnerInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutWinnerInput, Prisma.ClanWarUncheckedCreateWithoutWinnerInput> | Prisma.ClanWarCreateWithoutWinnerInput[] | Prisma.ClanWarUncheckedCreateWithoutWinnerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutWinnerInput | Prisma.ClanWarCreateOrConnectWithoutWinnerInput[];
+    createMany?: Prisma.ClanWarCreateManyWinnerInputEnvelope;
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+};
+export type ClanWarUncheckedCreateNestedManyWithoutAttackerInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutAttackerInput, Prisma.ClanWarUncheckedCreateWithoutAttackerInput> | Prisma.ClanWarCreateWithoutAttackerInput[] | Prisma.ClanWarUncheckedCreateWithoutAttackerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutAttackerInput | Prisma.ClanWarCreateOrConnectWithoutAttackerInput[];
+    createMany?: Prisma.ClanWarCreateManyAttackerInputEnvelope;
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+};
+export type ClanWarUncheckedCreateNestedManyWithoutDefenderInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutDefenderInput, Prisma.ClanWarUncheckedCreateWithoutDefenderInput> | Prisma.ClanWarCreateWithoutDefenderInput[] | Prisma.ClanWarUncheckedCreateWithoutDefenderInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutDefenderInput | Prisma.ClanWarCreateOrConnectWithoutDefenderInput[];
+    createMany?: Prisma.ClanWarCreateManyDefenderInputEnvelope;
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+};
+export type ClanWarUncheckedCreateNestedManyWithoutWinnerInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutWinnerInput, Prisma.ClanWarUncheckedCreateWithoutWinnerInput> | Prisma.ClanWarCreateWithoutWinnerInput[] | Prisma.ClanWarUncheckedCreateWithoutWinnerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutWinnerInput | Prisma.ClanWarCreateOrConnectWithoutWinnerInput[];
+    createMany?: Prisma.ClanWarCreateManyWinnerInputEnvelope;
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+};
+export type ClanWarUpdateManyWithoutAttackerNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutAttackerInput, Prisma.ClanWarUncheckedCreateWithoutAttackerInput> | Prisma.ClanWarCreateWithoutAttackerInput[] | Prisma.ClanWarUncheckedCreateWithoutAttackerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutAttackerInput | Prisma.ClanWarCreateOrConnectWithoutAttackerInput[];
+    upsert?: Prisma.ClanWarUpsertWithWhereUniqueWithoutAttackerInput | Prisma.ClanWarUpsertWithWhereUniqueWithoutAttackerInput[];
+    createMany?: Prisma.ClanWarCreateManyAttackerInputEnvelope;
+    set?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    disconnect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    delete?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    update?: Prisma.ClanWarUpdateWithWhereUniqueWithoutAttackerInput | Prisma.ClanWarUpdateWithWhereUniqueWithoutAttackerInput[];
+    updateMany?: Prisma.ClanWarUpdateManyWithWhereWithoutAttackerInput | Prisma.ClanWarUpdateManyWithWhereWithoutAttackerInput[];
+    deleteMany?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+};
+export type ClanWarUpdateManyWithoutDefenderNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutDefenderInput, Prisma.ClanWarUncheckedCreateWithoutDefenderInput> | Prisma.ClanWarCreateWithoutDefenderInput[] | Prisma.ClanWarUncheckedCreateWithoutDefenderInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutDefenderInput | Prisma.ClanWarCreateOrConnectWithoutDefenderInput[];
+    upsert?: Prisma.ClanWarUpsertWithWhereUniqueWithoutDefenderInput | Prisma.ClanWarUpsertWithWhereUniqueWithoutDefenderInput[];
+    createMany?: Prisma.ClanWarCreateManyDefenderInputEnvelope;
+    set?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    disconnect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    delete?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    update?: Prisma.ClanWarUpdateWithWhereUniqueWithoutDefenderInput | Prisma.ClanWarUpdateWithWhereUniqueWithoutDefenderInput[];
+    updateMany?: Prisma.ClanWarUpdateManyWithWhereWithoutDefenderInput | Prisma.ClanWarUpdateManyWithWhereWithoutDefenderInput[];
+    deleteMany?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+};
+export type ClanWarUpdateManyWithoutWinnerNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutWinnerInput, Prisma.ClanWarUncheckedCreateWithoutWinnerInput> | Prisma.ClanWarCreateWithoutWinnerInput[] | Prisma.ClanWarUncheckedCreateWithoutWinnerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutWinnerInput | Prisma.ClanWarCreateOrConnectWithoutWinnerInput[];
+    upsert?: Prisma.ClanWarUpsertWithWhereUniqueWithoutWinnerInput | Prisma.ClanWarUpsertWithWhereUniqueWithoutWinnerInput[];
+    createMany?: Prisma.ClanWarCreateManyWinnerInputEnvelope;
+    set?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    disconnect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    delete?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    update?: Prisma.ClanWarUpdateWithWhereUniqueWithoutWinnerInput | Prisma.ClanWarUpdateWithWhereUniqueWithoutWinnerInput[];
+    updateMany?: Prisma.ClanWarUpdateManyWithWhereWithoutWinnerInput | Prisma.ClanWarUpdateManyWithWhereWithoutWinnerInput[];
+    deleteMany?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+};
+export type ClanWarUncheckedUpdateManyWithoutAttackerNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutAttackerInput, Prisma.ClanWarUncheckedCreateWithoutAttackerInput> | Prisma.ClanWarCreateWithoutAttackerInput[] | Prisma.ClanWarUncheckedCreateWithoutAttackerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutAttackerInput | Prisma.ClanWarCreateOrConnectWithoutAttackerInput[];
+    upsert?: Prisma.ClanWarUpsertWithWhereUniqueWithoutAttackerInput | Prisma.ClanWarUpsertWithWhereUniqueWithoutAttackerInput[];
+    createMany?: Prisma.ClanWarCreateManyAttackerInputEnvelope;
+    set?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    disconnect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    delete?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    update?: Prisma.ClanWarUpdateWithWhereUniqueWithoutAttackerInput | Prisma.ClanWarUpdateWithWhereUniqueWithoutAttackerInput[];
+    updateMany?: Prisma.ClanWarUpdateManyWithWhereWithoutAttackerInput | Prisma.ClanWarUpdateManyWithWhereWithoutAttackerInput[];
+    deleteMany?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+};
+export type ClanWarUncheckedUpdateManyWithoutDefenderNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutDefenderInput, Prisma.ClanWarUncheckedCreateWithoutDefenderInput> | Prisma.ClanWarCreateWithoutDefenderInput[] | Prisma.ClanWarUncheckedCreateWithoutDefenderInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutDefenderInput | Prisma.ClanWarCreateOrConnectWithoutDefenderInput[];
+    upsert?: Prisma.ClanWarUpsertWithWhereUniqueWithoutDefenderInput | Prisma.ClanWarUpsertWithWhereUniqueWithoutDefenderInput[];
+    createMany?: Prisma.ClanWarCreateManyDefenderInputEnvelope;
+    set?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    disconnect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    delete?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    update?: Prisma.ClanWarUpdateWithWhereUniqueWithoutDefenderInput | Prisma.ClanWarUpdateWithWhereUniqueWithoutDefenderInput[];
+    updateMany?: Prisma.ClanWarUpdateManyWithWhereWithoutDefenderInput | Prisma.ClanWarUpdateManyWithWhereWithoutDefenderInput[];
+    deleteMany?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+};
+export type ClanWarUncheckedUpdateManyWithoutWinnerNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutWinnerInput, Prisma.ClanWarUncheckedCreateWithoutWinnerInput> | Prisma.ClanWarCreateWithoutWinnerInput[] | Prisma.ClanWarUncheckedCreateWithoutWinnerInput[];
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutWinnerInput | Prisma.ClanWarCreateOrConnectWithoutWinnerInput[];
+    upsert?: Prisma.ClanWarUpsertWithWhereUniqueWithoutWinnerInput | Prisma.ClanWarUpsertWithWhereUniqueWithoutWinnerInput[];
+    createMany?: Prisma.ClanWarCreateManyWinnerInputEnvelope;
+    set?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    disconnect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    delete?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    connect?: Prisma.ClanWarWhereUniqueInput | Prisma.ClanWarWhereUniqueInput[];
+    update?: Prisma.ClanWarUpdateWithWhereUniqueWithoutWinnerInput | Prisma.ClanWarUpdateWithWhereUniqueWithoutWinnerInput[];
+    updateMany?: Prisma.ClanWarUpdateManyWithWhereWithoutWinnerInput | Prisma.ClanWarUpdateManyWithWhereWithoutWinnerInput[];
+    deleteMany?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+};
+export type EnumClanWarTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ClanWarType;
+};
+export type EnumClanWarStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ClanWarStatus;
+};
+export type ClanWarCreateNestedOneWithoutFightersInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutFightersInput, Prisma.ClanWarUncheckedCreateWithoutFightersInput>;
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutFightersInput;
+    connect?: Prisma.ClanWarWhereUniqueInput;
+};
+export type ClanWarUpdateOneRequiredWithoutFightersNestedInput = {
+    create?: Prisma.XOR<Prisma.ClanWarCreateWithoutFightersInput, Prisma.ClanWarUncheckedCreateWithoutFightersInput>;
+    connectOrCreate?: Prisma.ClanWarCreateOrConnectWithoutFightersInput;
+    upsert?: Prisma.ClanWarUpsertWithoutFightersInput;
+    connect?: Prisma.ClanWarWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.ClanWarUpdateToOneWithWhereWithoutFightersInput, Prisma.ClanWarUpdateWithoutFightersInput>, Prisma.ClanWarUncheckedUpdateWithoutFightersInput>;
+};
+export type ClanWarCreateWithoutFightsInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    attacker: Prisma.ClanCreateNestedOneWithoutAttacksInput;
+    defender: Prisma.ClanCreateNestedOneWithoutDefensesInput;
+    winner?: Prisma.ClanCreateNestedOneWithoutWinsInput;
+    fighters?: Prisma.ClanWarFightersCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUncheckedCreateWithoutFightsInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+    fighters?: Prisma.ClanWarFightersUncheckedCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarCreateOrConnectWithoutFightsInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutFightsInput, Prisma.ClanWarUncheckedCreateWithoutFightsInput>;
+};
+export type ClanWarUpsertWithoutFightsInput = {
+    update: Prisma.XOR<Prisma.ClanWarUpdateWithoutFightsInput, Prisma.ClanWarUncheckedUpdateWithoutFightsInput>;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutFightsInput, Prisma.ClanWarUncheckedCreateWithoutFightsInput>;
+    where?: Prisma.ClanWarWhereInput;
+};
+export type ClanWarUpdateToOneWithWhereWithoutFightsInput = {
+    where?: Prisma.ClanWarWhereInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateWithoutFightsInput, Prisma.ClanWarUncheckedUpdateWithoutFightsInput>;
+};
+export type ClanWarUpdateWithoutFightsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    attacker?: Prisma.ClanUpdateOneRequiredWithoutAttacksNestedInput;
+    defender?: Prisma.ClanUpdateOneRequiredWithoutDefensesNestedInput;
+    winner?: Prisma.ClanUpdateOneWithoutWinsNestedInput;
+    fighters?: Prisma.ClanWarFightersUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateWithoutFightsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fighters?: Prisma.ClanWarFightersUncheckedUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarCreateWithoutAttackerInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    defender: Prisma.ClanCreateNestedOneWithoutDefensesInput;
+    winner?: Prisma.ClanCreateNestedOneWithoutWinsInput;
+    fights?: Prisma.FightCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUncheckedCreateWithoutAttackerInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+    fights?: Prisma.FightUncheckedCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersUncheckedCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarCreateOrConnectWithoutAttackerInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutAttackerInput, Prisma.ClanWarUncheckedCreateWithoutAttackerInput>;
+};
+export type ClanWarCreateManyAttackerInputEnvelope = {
+    data: Prisma.ClanWarCreateManyAttackerInput | Prisma.ClanWarCreateManyAttackerInput[];
+    skipDuplicates?: boolean;
+};
+export type ClanWarCreateWithoutDefenderInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    attacker: Prisma.ClanCreateNestedOneWithoutAttacksInput;
+    winner?: Prisma.ClanCreateNestedOneWithoutWinsInput;
+    fights?: Prisma.FightCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUncheckedCreateWithoutDefenderInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+    fights?: Prisma.FightUncheckedCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersUncheckedCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarCreateOrConnectWithoutDefenderInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutDefenderInput, Prisma.ClanWarUncheckedCreateWithoutDefenderInput>;
+};
+export type ClanWarCreateManyDefenderInputEnvelope = {
+    data: Prisma.ClanWarCreateManyDefenderInput | Prisma.ClanWarCreateManyDefenderInput[];
+    skipDuplicates?: boolean;
+};
+export type ClanWarCreateWithoutWinnerInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    attacker: Prisma.ClanCreateNestedOneWithoutAttacksInput;
+    defender: Prisma.ClanCreateNestedOneWithoutDefensesInput;
+    fights?: Prisma.FightCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUncheckedCreateWithoutWinnerInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    fights?: Prisma.FightUncheckedCreateNestedManyWithoutClanWarInput;
+    fighters?: Prisma.ClanWarFightersUncheckedCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarCreateOrConnectWithoutWinnerInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutWinnerInput, Prisma.ClanWarUncheckedCreateWithoutWinnerInput>;
+};
+export type ClanWarCreateManyWinnerInputEnvelope = {
+    data: Prisma.ClanWarCreateManyWinnerInput | Prisma.ClanWarCreateManyWinnerInput[];
+    skipDuplicates?: boolean;
+};
+export type ClanWarUpsertWithWhereUniqueWithoutAttackerInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    update: Prisma.XOR<Prisma.ClanWarUpdateWithoutAttackerInput, Prisma.ClanWarUncheckedUpdateWithoutAttackerInput>;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutAttackerInput, Prisma.ClanWarUncheckedCreateWithoutAttackerInput>;
+};
+export type ClanWarUpdateWithWhereUniqueWithoutAttackerInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateWithoutAttackerInput, Prisma.ClanWarUncheckedUpdateWithoutAttackerInput>;
+};
+export type ClanWarUpdateManyWithWhereWithoutAttackerInput = {
+    where: Prisma.ClanWarScalarWhereInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateManyMutationInput, Prisma.ClanWarUncheckedUpdateManyWithoutAttackerInput>;
+};
+export type ClanWarScalarWhereInput = {
+    AND?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+    OR?: Prisma.ClanWarScalarWhereInput[];
+    NOT?: Prisma.ClanWarScalarWhereInput | Prisma.ClanWarScalarWhereInput[];
+    id?: Prisma.UuidFilter<"ClanWar"> | string;
+    duration?: Prisma.IntFilter<"ClanWar"> | number;
+    type?: Prisma.EnumClanWarTypeFilter<"ClanWar"> | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFilter<"ClanWar"> | Date | string;
+    status?: Prisma.EnumClanWarStatusFilter<"ClanWar"> | $Enums.ClanWarStatus;
+    attackerId?: Prisma.UuidFilter<"ClanWar"> | string;
+    attackerEloChange?: Prisma.IntFilter<"ClanWar"> | number;
+    attackerWins?: Prisma.IntFilter<"ClanWar"> | number;
+    defenderId?: Prisma.UuidFilter<"ClanWar"> | string;
+    defenderEloChange?: Prisma.IntFilter<"ClanWar"> | number;
+    defenderWins?: Prisma.IntFilter<"ClanWar"> | number;
+    winnerId?: Prisma.UuidNullableFilter<"ClanWar"> | string | null;
+};
+export type ClanWarUpsertWithWhereUniqueWithoutDefenderInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    update: Prisma.XOR<Prisma.ClanWarUpdateWithoutDefenderInput, Prisma.ClanWarUncheckedUpdateWithoutDefenderInput>;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutDefenderInput, Prisma.ClanWarUncheckedCreateWithoutDefenderInput>;
+};
+export type ClanWarUpdateWithWhereUniqueWithoutDefenderInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateWithoutDefenderInput, Prisma.ClanWarUncheckedUpdateWithoutDefenderInput>;
+};
+export type ClanWarUpdateManyWithWhereWithoutDefenderInput = {
+    where: Prisma.ClanWarScalarWhereInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateManyMutationInput, Prisma.ClanWarUncheckedUpdateManyWithoutDefenderInput>;
+};
+export type ClanWarUpsertWithWhereUniqueWithoutWinnerInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    update: Prisma.XOR<Prisma.ClanWarUpdateWithoutWinnerInput, Prisma.ClanWarUncheckedUpdateWithoutWinnerInput>;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutWinnerInput, Prisma.ClanWarUncheckedCreateWithoutWinnerInput>;
+};
+export type ClanWarUpdateWithWhereUniqueWithoutWinnerInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateWithoutWinnerInput, Prisma.ClanWarUncheckedUpdateWithoutWinnerInput>;
+};
+export type ClanWarUpdateManyWithWhereWithoutWinnerInput = {
+    where: Prisma.ClanWarScalarWhereInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateManyMutationInput, Prisma.ClanWarUncheckedUpdateManyWithoutWinnerInput>;
+};
+export type ClanWarCreateWithoutFightersInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    attacker: Prisma.ClanCreateNestedOneWithoutAttacksInput;
+    defender: Prisma.ClanCreateNestedOneWithoutDefensesInput;
+    winner?: Prisma.ClanCreateNestedOneWithoutWinsInput;
+    fights?: Prisma.FightCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarUncheckedCreateWithoutFightersInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+    fights?: Prisma.FightUncheckedCreateNestedManyWithoutClanWarInput;
+};
+export type ClanWarCreateOrConnectWithoutFightersInput = {
+    where: Prisma.ClanWarWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutFightersInput, Prisma.ClanWarUncheckedCreateWithoutFightersInput>;
+};
+export type ClanWarUpsertWithoutFightersInput = {
+    update: Prisma.XOR<Prisma.ClanWarUpdateWithoutFightersInput, Prisma.ClanWarUncheckedUpdateWithoutFightersInput>;
+    create: Prisma.XOR<Prisma.ClanWarCreateWithoutFightersInput, Prisma.ClanWarUncheckedCreateWithoutFightersInput>;
+    where?: Prisma.ClanWarWhereInput;
+};
+export type ClanWarUpdateToOneWithWhereWithoutFightersInput = {
+    where?: Prisma.ClanWarWhereInput;
+    data: Prisma.XOR<Prisma.ClanWarUpdateWithoutFightersInput, Prisma.ClanWarUncheckedUpdateWithoutFightersInput>;
+};
+export type ClanWarUpdateWithoutFightersInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    attacker?: Prisma.ClanUpdateOneRequiredWithoutAttacksNestedInput;
+    defender?: Prisma.ClanUpdateOneRequiredWithoutDefensesNestedInput;
+    winner?: Prisma.ClanUpdateOneWithoutWinsNestedInput;
+    fights?: Prisma.FightUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateWithoutFightersInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fights?: Prisma.FightUncheckedUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarCreateManyAttackerInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+};
+export type ClanWarCreateManyDefenderInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderEloChange?: number;
+    defenderWins?: number;
+    winnerId?: string | null;
+};
+export type ClanWarCreateManyWinnerInput = {
+    id?: string;
+    duration?: number;
+    type?: $Enums.ClanWarType;
+    date?: Date | string;
+    status?: $Enums.ClanWarStatus;
+    attackerId: string;
+    attackerEloChange?: number;
+    attackerWins?: number;
+    defenderId: string;
+    defenderEloChange?: number;
+    defenderWins?: number;
+};
+export type ClanWarUpdateWithoutAttackerInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defender?: Prisma.ClanUpdateOneRequiredWithoutDefensesNestedInput;
+    winner?: Prisma.ClanUpdateOneWithoutWinsNestedInput;
+    fights?: Prisma.FightUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateWithoutAttackerInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fights?: Prisma.FightUncheckedUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUncheckedUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateManyWithoutAttackerInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+};
+export type ClanWarUpdateWithoutDefenderInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    attacker?: Prisma.ClanUpdateOneRequiredWithoutAttacksNestedInput;
+    winner?: Prisma.ClanUpdateOneWithoutWinsNestedInput;
+    fights?: Prisma.FightUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateWithoutDefenderInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    fights?: Prisma.FightUncheckedUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUncheckedUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateManyWithoutDefenderInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+};
+export type ClanWarUpdateWithoutWinnerInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    attacker?: Prisma.ClanUpdateOneRequiredWithoutAttacksNestedInput;
+    defender?: Prisma.ClanUpdateOneRequiredWithoutDefensesNestedInput;
+    fights?: Prisma.FightUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateWithoutWinnerInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    fights?: Prisma.FightUncheckedUpdateManyWithoutClanWarNestedInput;
+    fighters?: Prisma.ClanWarFightersUncheckedUpdateManyWithoutClanWarNestedInput;
+};
+export type ClanWarUncheckedUpdateManyWithoutWinnerInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    duration?: Prisma.IntFieldUpdateOperationsInput | number;
+    type?: Prisma.EnumClanWarTypeFieldUpdateOperationsInput | $Enums.ClanWarType;
+    date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    status?: Prisma.EnumClanWarStatusFieldUpdateOperationsInput | $Enums.ClanWarStatus;
+    attackerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    attackerEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    attackerWins?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderId?: Prisma.StringFieldUpdateOperationsInput | string;
+    defenderEloChange?: Prisma.IntFieldUpdateOperationsInput | number;
+    defenderWins?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+/**
+ * Count Type ClanWarCountOutputType
+ */
+export type ClanWarCountOutputType = {
+    fights: number;
+    fighters: number;
+};
+export type ClanWarCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    fights?: boolean | ClanWarCountOutputTypeCountFightsArgs;
+    fighters?: boolean | ClanWarCountOutputTypeCountFightersArgs;
+};
+/**
+ * ClanWarCountOutputType without action
+ */
+export type ClanWarCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWarCountOutputType
+     */
+    select?: Prisma.ClanWarCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * ClanWarCountOutputType without action
+ */
+export type ClanWarCountOutputTypeCountFightsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.FightWhereInput;
+};
+/**
+ * ClanWarCountOutputType without action
+ */
+export type ClanWarCountOutputTypeCountFightersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ClanWarFightersWhereInput;
+};
+export type ClanWarSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    duration?: boolean;
+    type?: boolean;
+    date?: boolean;
+    status?: boolean;
+    attackerId?: boolean;
+    attackerEloChange?: boolean;
+    attackerWins?: boolean;
+    defenderId?: boolean;
+    defenderEloChange?: boolean;
+    defenderWins?: boolean;
+    winnerId?: boolean;
+    attacker?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    defender?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    winner?: boolean | Prisma.ClanWar$winnerArgs<ExtArgs>;
+    fights?: boolean | Prisma.ClanWar$fightsArgs<ExtArgs>;
+    fighters?: boolean | Prisma.ClanWar$fightersArgs<ExtArgs>;
+    _count?: boolean | Prisma.ClanWarCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["clanWar"]>;
+export type ClanWarSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    duration?: boolean;
+    type?: boolean;
+    date?: boolean;
+    status?: boolean;
+    attackerId?: boolean;
+    attackerEloChange?: boolean;
+    attackerWins?: boolean;
+    defenderId?: boolean;
+    defenderEloChange?: boolean;
+    defenderWins?: boolean;
+    winnerId?: boolean;
+    attacker?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    defender?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    winner?: boolean | Prisma.ClanWar$winnerArgs<ExtArgs>;
+}, ExtArgs["result"]["clanWar"]>;
+export type ClanWarSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    duration?: boolean;
+    type?: boolean;
+    date?: boolean;
+    status?: boolean;
+    attackerId?: boolean;
+    attackerEloChange?: boolean;
+    attackerWins?: boolean;
+    defenderId?: boolean;
+    defenderEloChange?: boolean;
+    defenderWins?: boolean;
+    winnerId?: boolean;
+    attacker?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    defender?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    winner?: boolean | Prisma.ClanWar$winnerArgs<ExtArgs>;
+}, ExtArgs["result"]["clanWar"]>;
+export type ClanWarSelectScalar = {
+    id?: boolean;
+    duration?: boolean;
+    type?: boolean;
+    date?: boolean;
+    status?: boolean;
+    attackerId?: boolean;
+    attackerEloChange?: boolean;
+    attackerWins?: boolean;
+    defenderId?: boolean;
+    defenderEloChange?: boolean;
+    defenderWins?: boolean;
+    winnerId?: boolean;
+};
+export type ClanWarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "duration" | "type" | "date" | "status" | "attackerId" | "attackerEloChange" | "attackerWins" | "defenderId" | "defenderEloChange" | "defenderWins" | "winnerId", ExtArgs["result"]["clanWar"]>;
+export type ClanWarInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    attacker?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    defender?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    winner?: boolean | Prisma.ClanWar$winnerArgs<ExtArgs>;
+    fights?: boolean | Prisma.ClanWar$fightsArgs<ExtArgs>;
+    fighters?: boolean | Prisma.ClanWar$fightersArgs<ExtArgs>;
+    _count?: boolean | Prisma.ClanWarCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type ClanWarIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    attacker?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    defender?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    winner?: boolean | Prisma.ClanWar$winnerArgs<ExtArgs>;
+};
+export type ClanWarIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    attacker?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    defender?: boolean | Prisma.ClanDefaultArgs<ExtArgs>;
+    winner?: boolean | Prisma.ClanWar$winnerArgs<ExtArgs>;
+};
+export type $ClanWarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "ClanWar";
+    objects: {
+        attacker: Prisma.$ClanPayload<ExtArgs>;
+        defender: Prisma.$ClanPayload<ExtArgs>;
+        winner: Prisma.$ClanPayload<ExtArgs> | null;
+        fights: Prisma.$FightPayload<ExtArgs>[];
+        fighters: Prisma.$ClanWarFightersPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        duration: number;
+        type: $Enums.ClanWarType;
+        date: Date;
+        status: $Enums.ClanWarStatus;
+        attackerId: string;
+        attackerEloChange: number;
+        attackerWins: number;
+        defenderId: string;
+        defenderEloChange: number;
+        defenderWins: number;
+        winnerId: string | null;
+    }, ExtArgs["result"]["clanWar"]>;
+    composites: {};
+};
+export type ClanWarGetPayload<S extends boolean | null | undefined | ClanWarDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$ClanWarPayload, S>;
+export type ClanWarCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<ClanWarFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+    select?: ClanWarCountAggregateInputType | true;
+};
+export interface ClanWarDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['ClanWar'];
+        meta: {
+            name: 'ClanWar';
+        };
+    };
+    /**
+     * Find zero or one ClanWar that matches the filter.
+     * @param {ClanWarFindUniqueArgs} args - Arguments to find a ClanWar
+     * @example
+     * // Get one ClanWar
+     * const clanWar = await prisma.clanWar.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClanWarFindUniqueArgs>(args: Prisma.SelectSubset<T, ClanWarFindUniqueArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one ClanWar that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClanWarFindUniqueOrThrowArgs} args - Arguments to find a ClanWar
+     * @example
+     * // Get one ClanWar
+     * const clanWar = await prisma.clanWar.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClanWarFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, ClanWarFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first ClanWar that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarFindFirstArgs} args - Arguments to find a ClanWar
+     * @example
+     * // Get one ClanWar
+     * const clanWar = await prisma.clanWar.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClanWarFindFirstArgs>(args?: Prisma.SelectSubset<T, ClanWarFindFirstArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first ClanWar that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarFindFirstOrThrowArgs} args - Arguments to find a ClanWar
+     * @example
+     * // Get one ClanWar
+     * const clanWar = await prisma.clanWar.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClanWarFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, ClanWarFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more ClanWars that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClanWars
+     * const clanWars = await prisma.clanWar.findMany()
+     *
+     * // Get first 10 ClanWars
+     * const clanWars = await prisma.clanWar.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const clanWarWithIdOnly = await prisma.clanWar.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends ClanWarFindManyArgs>(args?: Prisma.SelectSubset<T, ClanWarFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a ClanWar.
+     * @param {ClanWarCreateArgs} args - Arguments to create a ClanWar.
+     * @example
+     * // Create one ClanWar
+     * const ClanWar = await prisma.clanWar.create({
+     *   data: {
+     *     // ... data to create a ClanWar
+     *   }
+     * })
+     *
+     */
+    create<T extends ClanWarCreateArgs>(args: Prisma.SelectSubset<T, ClanWarCreateArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many ClanWars.
+     * @param {ClanWarCreateManyArgs} args - Arguments to create many ClanWars.
+     * @example
+     * // Create many ClanWars
+     * const clanWar = await prisma.clanWar.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends ClanWarCreateManyArgs>(args?: Prisma.SelectSubset<T, ClanWarCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many ClanWars and returns the data saved in the database.
+     * @param {ClanWarCreateManyAndReturnArgs} args - Arguments to create many ClanWars.
+     * @example
+     * // Create many ClanWars
+     * const clanWar = await prisma.clanWar.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many ClanWars and only return the `id`
+     * const clanWarWithIdOnly = await prisma.clanWar.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends ClanWarCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ClanWarCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a ClanWar.
+     * @param {ClanWarDeleteArgs} args - Arguments to delete one ClanWar.
+     * @example
+     * // Delete one ClanWar
+     * const ClanWar = await prisma.clanWar.delete({
+     *   where: {
+     *     // ... filter to delete one ClanWar
+     *   }
+     * })
+     *
+     */
+    delete<T extends ClanWarDeleteArgs>(args: Prisma.SelectSubset<T, ClanWarDeleteArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one ClanWar.
+     * @param {ClanWarUpdateArgs} args - Arguments to update one ClanWar.
+     * @example
+     * // Update one ClanWar
+     * const clanWar = await prisma.clanWar.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends ClanWarUpdateArgs>(args: Prisma.SelectSubset<T, ClanWarUpdateArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more ClanWars.
+     * @param {ClanWarDeleteManyArgs} args - Arguments to filter ClanWars to delete.
+     * @example
+     * // Delete a few ClanWars
+     * const { count } = await prisma.clanWar.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends ClanWarDeleteManyArgs>(args?: Prisma.SelectSubset<T, ClanWarDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more ClanWars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClanWars
+     * const clanWar = await prisma.clanWar.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends ClanWarUpdateManyArgs>(args: Prisma.SelectSubset<T, ClanWarUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more ClanWars and returns the data updated in the database.
+     * @param {ClanWarUpdateManyAndReturnArgs} args - Arguments to update many ClanWars.
+     * @example
+     * // Update many ClanWars
+     * const clanWar = await prisma.clanWar.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more ClanWars and only return the `id`
+     * const clanWarWithIdOnly = await prisma.clanWar.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends ClanWarUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ClanWarUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one ClanWar.
+     * @param {ClanWarUpsertArgs} args - Arguments to update or create a ClanWar.
+     * @example
+     * // Update or create a ClanWar
+     * const clanWar = await prisma.clanWar.upsert({
+     *   create: {
+     *     // ... data to create a ClanWar
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClanWar we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClanWarUpsertArgs>(args: Prisma.SelectSubset<T, ClanWarUpsertArgs<ExtArgs>>): Prisma.Prisma__ClanWarClient<runtime.Types.Result.GetResult<Prisma.$ClanWarPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of ClanWars.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarCountArgs} args - Arguments to filter ClanWars to count.
+     * @example
+     * // Count the number of ClanWars
+     * const count = await prisma.clanWar.count({
+     *   where: {
+     *     // ... the filter for the ClanWars we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClanWarCountArgs>(args?: Prisma.Subset<T, ClanWarCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], ClanWarCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a ClanWar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClanWarAggregateArgs>(args: Prisma.Subset<T, ClanWarAggregateArgs>): Prisma.PrismaPromise<GetClanWarAggregateType<T>>;
+    /**
+     * Group by ClanWar.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClanWarGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends ClanWarGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: ClanWarGroupByArgs['orderBy'];
+    } : {
+        orderBy?: ClanWarGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, ClanWarGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClanWarGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the ClanWar model
+     */
+    readonly fields: ClanWarFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for ClanWar.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__ClanWarClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    attacker<T extends Prisma.ClanDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClanDefaultArgs<ExtArgs>>): Prisma.Prisma__ClanClient<runtime.Types.Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    defender<T extends Prisma.ClanDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClanDefaultArgs<ExtArgs>>): Prisma.Prisma__ClanClient<runtime.Types.Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    winner<T extends Prisma.ClanWar$winnerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClanWar$winnerArgs<ExtArgs>>): Prisma.Prisma__ClanClient<runtime.Types.Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    fights<T extends Prisma.ClanWar$fightsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClanWar$fightsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    fighters<T extends Prisma.ClanWar$fightersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClanWar$fightersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the ClanWar model
+ */
+export interface ClanWarFieldRefs {
+    readonly id: Prisma.FieldRef<"ClanWar", 'String'>;
+    readonly duration: Prisma.FieldRef<"ClanWar", 'Int'>;
+    readonly type: Prisma.FieldRef<"ClanWar", 'ClanWarType'>;
+    readonly date: Prisma.FieldRef<"ClanWar", 'DateTime'>;
+    readonly status: Prisma.FieldRef<"ClanWar", 'ClanWarStatus'>;
+    readonly attackerId: Prisma.FieldRef<"ClanWar", 'String'>;
+    readonly attackerEloChange: Prisma.FieldRef<"ClanWar", 'Int'>;
+    readonly attackerWins: Prisma.FieldRef<"ClanWar", 'Int'>;
+    readonly defenderId: Prisma.FieldRef<"ClanWar", 'String'>;
+    readonly defenderEloChange: Prisma.FieldRef<"ClanWar", 'Int'>;
+    readonly defenderWins: Prisma.FieldRef<"ClanWar", 'Int'>;
+    readonly winnerId: Prisma.FieldRef<"ClanWar", 'String'>;
+}
+/**
+ * ClanWar findUnique
+ */
+export type ClanWarFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * Filter, which ClanWar to fetch.
+     */
+    where: Prisma.ClanWarWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar findUniqueOrThrow
+ */
+export type ClanWarFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * Filter, which ClanWar to fetch.
+     */
+    where: Prisma.ClanWarWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar findFirst
+ */
+export type ClanWarFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * Filter, which ClanWar to fetch.
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ClanWars to fetch.
+     */
+    orderBy?: Prisma.ClanWarOrderByWithRelationInput | Prisma.ClanWarOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ClanWars.
+     */
+    cursor?: Prisma.ClanWarWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ClanWars from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ClanWars.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ClanWars.
+     */
+    distinct?: Prisma.ClanWarScalarFieldEnum | Prisma.ClanWarScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar findFirstOrThrow
+ */
+export type ClanWarFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * Filter, which ClanWar to fetch.
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ClanWars to fetch.
+     */
+    orderBy?: Prisma.ClanWarOrderByWithRelationInput | Prisma.ClanWarOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ClanWars.
+     */
+    cursor?: Prisma.ClanWarWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ClanWars from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ClanWars.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ClanWars.
+     */
+    distinct?: Prisma.ClanWarScalarFieldEnum | Prisma.ClanWarScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar findMany
+ */
+export type ClanWarFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * Filter, which ClanWars to fetch.
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ClanWars to fetch.
+     */
+    orderBy?: Prisma.ClanWarOrderByWithRelationInput | Prisma.ClanWarOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing ClanWars.
+     */
+    cursor?: Prisma.ClanWarWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ClanWars from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ClanWars.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ClanWars.
+     */
+    distinct?: Prisma.ClanWarScalarFieldEnum | Prisma.ClanWarScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar create
+ */
+export type ClanWarCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a ClanWar.
+     */
+    data: Prisma.XOR<Prisma.ClanWarCreateInput, Prisma.ClanWarUncheckedCreateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar createMany
+ */
+export type ClanWarCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClanWars.
+     */
+    data: Prisma.ClanWarCreateManyInput | Prisma.ClanWarCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * ClanWar createManyAndReturn
+ */
+export type ClanWarCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * The data used to create many ClanWars.
+     */
+    data: Prisma.ClanWarCreateManyInput | Prisma.ClanWarCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * ClanWar update
+ */
+export type ClanWarUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a ClanWar.
+     */
+    data: Prisma.XOR<Prisma.ClanWarUpdateInput, Prisma.ClanWarUncheckedUpdateInput>;
+    /**
+     * Choose, which ClanWar to update.
+     */
+    where: Prisma.ClanWarWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar updateMany
+ */
+export type ClanWarUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClanWars.
+     */
+    data: Prisma.XOR<Prisma.ClanWarUpdateManyMutationInput, Prisma.ClanWarUncheckedUpdateManyInput>;
+    /**
+     * Filter which ClanWars to update
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * Limit how many ClanWars to update.
+     */
+    limit?: number;
+};
+/**
+ * ClanWar updateManyAndReturn
+ */
+export type ClanWarUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * The data used to update ClanWars.
+     */
+    data: Prisma.XOR<Prisma.ClanWarUpdateManyMutationInput, Prisma.ClanWarUncheckedUpdateManyInput>;
+    /**
+     * Filter which ClanWars to update
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * Limit how many ClanWars to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * ClanWar upsert
+ */
+export type ClanWarUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the ClanWar to update in case it exists.
+     */
+    where: Prisma.ClanWarWhereUniqueInput;
+    /**
+     * In case the ClanWar found by the `where` argument doesn't exist, create a new ClanWar with this data.
+     */
+    create: Prisma.XOR<Prisma.ClanWarCreateInput, Prisma.ClanWarUncheckedCreateInput>;
+    /**
+     * In case the ClanWar was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.ClanWarUpdateInput, Prisma.ClanWarUncheckedUpdateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar delete
+ */
+export type ClanWarDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+    /**
+     * Filter which ClanWar to delete.
+     */
+    where: Prisma.ClanWarWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ClanWar deleteMany
+ */
+export type ClanWarDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClanWars to delete
+     */
+    where?: Prisma.ClanWarWhereInput;
+    /**
+     * Limit how many ClanWars to delete.
+     */
+    limit?: number;
+};
+/**
+ * ClanWar.winner
+ */
+export type ClanWar$winnerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clan
+     */
+    select?: Prisma.ClanSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Clan
+     */
+    omit?: Prisma.ClanOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanInclude<ExtArgs> | null;
+    where?: Prisma.ClanWhereInput;
+};
+/**
+ * ClanWar.fights
+ */
+export type ClanWar$fightsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Fight
+     */
+    select?: Prisma.FightSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Fight
+     */
+    omit?: Prisma.FightOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.FightInclude<ExtArgs> | null;
+    where?: Prisma.FightWhereInput;
+    orderBy?: Prisma.FightOrderByWithRelationInput | Prisma.FightOrderByWithRelationInput[];
+    cursor?: Prisma.FightWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.FightScalarFieldEnum | Prisma.FightScalarFieldEnum[];
+};
+/**
+ * ClanWar.fighters
+ */
+export type ClanWar$fightersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWarFighters
+     */
+    select?: Prisma.ClanWarFightersSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWarFighters
+     */
+    omit?: Prisma.ClanWarFightersOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarFightersInclude<ExtArgs> | null;
+    where?: Prisma.ClanWarFightersWhereInput;
+    orderBy?: Prisma.ClanWarFightersOrderByWithRelationInput | Prisma.ClanWarFightersOrderByWithRelationInput[];
+    cursor?: Prisma.ClanWarFightersWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ClanWarFightersScalarFieldEnum | Prisma.ClanWarFightersScalarFieldEnum[];
+};
+/**
+ * ClanWar without action
+ */
+export type ClanWarDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClanWar
+     */
+    select?: Prisma.ClanWarSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ClanWar
+     */
+    omit?: Prisma.ClanWarOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ClanWarInclude<ExtArgs> | null;
+};

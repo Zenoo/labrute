@@ -2,15 +2,14 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
+  provider        = "prisma-client"
   output          = "../../prisma"
-  previewFeatures = ["nativeDistinct", "relationJoins"]
+  previewFeatures = ["nativeDistinct", "relationJoins", "partialIndexes"]
   binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Lang {
@@ -310,6 +309,14 @@ model Brute {
   @@index([clanId])
   @@index([wantToJoinClanId])
   @@index([eventId])
+  // Optimized indexes for ranking queries (partial indexes only on non-deleted brutes)
+  @@index([deletedAt, level(sort: Desc), xp(sort: Desc)], where: { deletedAt: null })
+  @@index([deletedAt, eventId, level(sort: Desc), xp(sort: Desc)], where: { deletedAt: null, eventId: { not: null } })
+  @@index([deletedAt, ascensions(sort: Desc), level(sort: Desc), xp(sort: Desc)], where: { deletedAt: null })
+  // Index for getOpponents query (finding brutes by level)
+  @@index([deletedAt, level], where: { deletedAt: null })
+  // GIN index for ILIKE search on name (requires pg_trgm extension)
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin, where: { deletedAt: null }, map: "brute_name_trgm_gin")
 }
 
 model BruteStartingStats {
@@ -647,6 +654,8 @@ model Achievement {
   @@unique([name, bruteId])
   @@index([bruteId])
   @@index([userId])
+  // Index for achievement rankings (ROW_NUMBER() OVER PARTITION BY name ORDER BY count DESC)
+  @@index([name, count(sort: Desc)])
 }
 
 // REPORTS
@@ -737,9 +746,12 @@ model Clan {
   wins                 ClanWar[]    @relation("ClanWarWinner")
 
   @@unique([name, deletedAt])
-  @@index([deletedAt, name, points])
-  @@index([deletedAt, name, elo])
+  // Optimized indexes for clan list queries (sort columns first for better performance)
+  @@index([deletedAt, points(sort: Desc), name])
+  @@index([deletedAt, elo(sort: Desc), name])
   @@index([masterId])
+  // GIN index for ILIKE search on name (requires pg_trgm extension)
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin, map: "clan_name_trgm_gin")
 }
 
 model ClanThread {
