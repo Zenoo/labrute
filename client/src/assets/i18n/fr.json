@@ -127,6 +127,7 @@
   "master": "Maitre",
   "ranking": "Classement",
   "ranking.desc": "Classement de {{name}}. Une brute {{rank}} de niveau {{level}} avec un taux de victoire de {{winrate}}.",
+  "rankingUpdatedDaily": "Ranking is calculated once per day, not in real-time",
   "rankings": "Classement du rang {{value}}",
   "victories": "Victoires",
   "winrate": "Victoire",
