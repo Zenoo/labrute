@@ -123,7 +123,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
     await banUser(prisma, user.id, 'unrecognized_fingerprint');
-    DISCORD().logObject({ userId: user.id, knowns: user.fingerprints, fingerprint }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
+    DISCORD().logObject({
+      userId: user.id,
+      knowns: user.fingerprints,
+      fingerprint,
+      endpoint: `${request.method} ${request.path}`,
+      url: request.url,
+    }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
     throw new ForbiddenError(translate('banReason.unrecognized_fingerprint', user));
   }
 
