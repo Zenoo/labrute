@@ -135,5 +135,6 @@
   "transferLimitReached": "Has alcanzado tu límite de transferencia.",
   "targetUserBruteLimitReached": "El usuario objetivo ha alcanzado su límite de brutos. Necesita tener un espacio libre para poder recibir un nuevo bruto.",
   "targetUserWithoutSharedFingerprint": "El usuario de destino no tiene una huella digital compartida. Necesitas iniciar sesión con ambas cuentas en el mismo dispositivo al menos una vez para poder transferir un bruto entre las cuentas.",
-  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account."
+  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account.",
+  "rankingsNotReady": "The rankings are not ready yet. Please try again later."
 }
