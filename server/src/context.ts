@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import { PrismaClient } from '@labrute/prisma';
-import { PrismaPg } from '@prisma/adapter-pg';
 import { isMainThread } from 'node:worker_threads';
 import { Config, emptyConfig, loadConfig } from './config.js';
 import { CONSOLE } from './logger/console.js';
@@ -22,17 +21,8 @@ export class ServerContext {
   public config: Config = emptyConfig;
 
   public constructor() {
-    // Configure adapter to match Prisma ORM v6 defaults
-    // See: https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections/connection-pool#postgresql-using-the-pg-driver-adapter
-    const adapter = new PrismaPg({
-      connectionString: process.env.DATABASE_URL,
-      connectionTimeoutMillis: 5_000, // v6 connect_timeout was 5s
-      idleTimeoutMillis: 300_000, // v6 max_idle_connection_lifetime was 300s
-    });
-
     if (DEBUG_QUERIES) {
       const client = new PrismaClient({
-        adapter,
         log: [
           {
             emit: 'event',
@@ -64,7 +54,7 @@ export class ServerContext {
 
       this.prisma = client;
     } else {
-      this.prisma = new PrismaClient({ adapter });
+      this.prisma = new PrismaClient();
     }
   }
 

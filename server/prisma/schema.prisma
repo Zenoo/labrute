@@ -2,14 +2,15 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client"
+  provider        = "prisma-client-js"
   output          = "../../prisma"
-  previewFeatures = ["nativeDistinct", "relationJoins", "partialIndexes"]
+  previewFeatures = ["nativeDistinct", "relationJoins"]
   binaryTargets   = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum Lang {
@@ -300,6 +301,12 @@ model Brute {
   wonEvents                    Event[]                 @relation("EventBruteWinner")
   resets                       Int                     @default(0)
   userlogs                     UserLog[]
+  // Note: Optimized partial indexes for ranking queries and GIN indexes are maintained
+  // via manual migrations and are not defined in this schema to prevent Prisma from
+  // trying to recreate them
+  // See migrations:
+  // - 20260430134508_add_brute_name_case_insensitive_index
+  // - 20260430151322_add_optimized_performance_indexes
 
   @@index([deletedAt, eventId, ranking])
   @@index([ascensions, level, xp])
@@ -309,14 +316,6 @@ model Brute {
   @@index([clanId])
   @@index([wantToJoinClanId])
   @@index([eventId])
-  // Optimized indexes for ranking queries (partial indexes only on non-deleted brutes)
-  @@index([deletedAt, level(sort: Desc), xp(sort: Desc)], where: { deletedAt: null })
-  @@index([deletedAt, eventId, level(sort: Desc), xp(sort: Desc)], where: { deletedAt: null, eventId: { not: null } })
-  @@index([deletedAt, ascensions(sort: Desc), level(sort: Desc), xp(sort: Desc)], where: { deletedAt: null })
-  // Index for getOpponents query (finding brutes by level)
-  @@index([deletedAt, level], where: { deletedAt: null })
-  // GIN index for ILIKE search on name (requires pg_trgm extension)
-  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin, where: { deletedAt: null }, map: "brute_name_trgm_gin")
 }
 
 model BruteStartingStats {
