@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.0](https://github.com/Zenoo/labrute/compare/labrute-v2.90.1...labrute-v2.91.0) (2026-04-30)
+
+
+### Features
+
+* Prisma v7 + Query optimizations ([a979574](https://github.com/Zenoo/labrute/commit/a979574c3f7ca72d515748b00b3e7269a0097cba))
+
+
+### Bug Fixes
+
+* Display users creation date in admin panel ([b82d935](https://github.com/Zenoo/labrute/commit/b82d935be61f02e13edbb8e82c2d015e04989c90))
+
 ## [2.90.1](https://github.com/Zenoo/labrute/compare/labrute-v2.90.0...labrute-v2.90.1) (2026-04-30)
 
 
