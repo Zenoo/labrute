@@ -135,5 +135,6 @@
   "transferLimitReached": "You have reached your transfer limit.",
   "targetUserBruteLimitReached": "The target user has reached their brute limit. They need to have a free slot to be able to receive a brute.",
   "targetUserWithoutSharedFingerprint": "The target user doesn't have a shared fingerprint. You need to log in with both accounts on the same device at least once to be able to transfer a brute between them.",
-  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account."
+  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account.",
+  "rankingsNotReady": "The rankings are not ready yet. Please try again later."
 }
