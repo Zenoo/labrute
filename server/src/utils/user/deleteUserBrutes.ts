@@ -2,22 +2,11 @@ import { BruteDeletionReason } from '@labrute/core';
 import {
   Brute, Clan, Prisma, PrismaClient, User,
 } from '@labrute/prisma';
+import { updateClanPoints } from '../clan/updateClanPoints.js';
 
 export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'id'> & {
-  brutes: (Pick<Brute, 'id'> & { masterOfClan: Pick<Clan, 'id'> | null })[];
+  brutes: (Pick<Brute, 'id' | 'clanId' | 'level' | 'ranking'> & { masterOfClan: Pick<Clan, 'id'> | null })[];
 }) => {
-  // Delete all brutes
-  await prisma.brute.updateMany({
-    where: {
-      userId: user.id,
-      deletedAt: null,
-    },
-    data: {
-      deletedAt: new Date(),
-      deletionReason: BruteDeletionReason.BANNED_USER,
-    },
-  });
-
   if (user.brutes.length > 0) {
     // Remove brutes from clan fighters
     const joinedBruteIds = Prisma.join(user.brutes.map((b) => Prisma.sql`${b.id}::uuid`));
@@ -26,9 +15,16 @@ export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'i
   }
 
   for (const brute of user.brutes) {
+    // Update clan points
+    if (brute.clanId) {
+      await updateClanPoints(prisma, brute.clanId, 'remove', brute);
+    }
+
     await prisma.brute.update({
-      where: { id: brute.id },
+      where: { id: brute.id, deletedAt: null },
       data: {
+        deletedAt: new Date(),
+        deletionReason: BruteDeletionReason.BANNED_USER,
         // Remove from followed
         followers: {
           set: [],

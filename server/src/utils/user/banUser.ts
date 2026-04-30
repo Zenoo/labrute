@@ -25,6 +25,9 @@ export const banUser = async (
         },
         select: {
           id: true,
+          clanId: true,
+          level: true,
+          ranking: true,
           masterOfClan: {
             select: { id: true },
           },
