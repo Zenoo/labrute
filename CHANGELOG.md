@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.90.0](https://github.com/Zenoo/labrute/compare/labrute-v2.89.10...labrute-v2.90.0) (2026-04-30)
+
+
+### Features
+
+* Name DB queries for debugging ([5c235ed](https://github.com/Zenoo/labrute/commit/5c235ed9064c68780f09539702808a93ffb4940e))
+
 ## [2.89.10](https://github.com/Zenoo/labrute/compare/labrute-v2.89.9...labrute-v2.89.10) (2026-04-30)
 
 
