@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.2](https://github.com/Zenoo/labrute/compare/labrute-v2.91.1...labrute-v2.91.2) (2026-04-30)
+
+
+### Bug Fixes
+
+* update connection timeout settings to match Prisma ORM v6 defaults ([2c5f0de](https://github.com/Zenoo/labrute/commit/2c5f0de37dd9d2ebd6101a2d0d825c9ec263e210))
+
 ## [2.91.1](https://github.com/Zenoo/labrute/compare/labrute-v2.91.0...labrute-v2.91.1) (2026-04-30)
 
 
