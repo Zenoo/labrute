@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.3](https://github.com/Zenoo/labrute/compare/labrute-v2.91.2...labrute-v2.91.3) (2026-04-30)
+
+
+### Bug Fixes
+
+* Revert to Prisma V6 ([512f86a](https://github.com/Zenoo/labrute/commit/512f86aeff3b8827de8518d84306fb38bb77273a))
+
 ## [2.91.2](https://github.com/Zenoo/labrute/compare/labrute-v2.91.1...labrute-v2.91.2) (2026-04-30)
 
 
