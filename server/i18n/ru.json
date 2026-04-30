@@ -135,5 +135,5 @@
   "transferLimitReached": "Вы достигли максимальное количество перемещений.",
   "targetUserBruteLimitReached": "У целевого пользователя достигнуто максимальное количество Бруталов. Чтобы получить Брутала, нужна свободная ячейка.",
   "targetUserWithoutSharedFingerprint": "Цифровой отпечаток целевого пользователя не соответствует. Вы должны на одном и том же устройстве войти как минимум один раз войти в обе учётные записи, чтобы перемещать между ними Бруталов.",
-  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account."
+  "userCreatedAfterTransferImplementation": "Эта функция недоступна для учетных записей, созданных после 20 апреля 2026 года. Она была добавлена для предыдущих пользователей с несколькими учетными записями, чтобы те имели возможность перенести своих Бруталов на единую учетную запись."
 }
