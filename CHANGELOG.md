@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.4](https://github.com/Zenoo/labrute/compare/labrute-v2.91.3...labrute-v2.91.4) (2026-04-30)
+
+
+### Bug Fixes
+
+* Cache achievements ranking + brute cell ranking ([e5c6c7e](https://github.com/Zenoo/labrute/commit/e5c6c7ee2098e0ef26d647524c0eef81e67676ce))
+* Cache brute rankings ([946a74b](https://github.com/Zenoo/labrute/commit/946a74bdc4c1d096183b967a3c4995d924c6615c))
+
 ## [2.91.3](https://github.com/Zenoo/labrute/compare/labrute-v2.91.2...labrute-v2.91.3) (2026-04-30)
 
 
