@@ -127,6 +127,7 @@
   "master": "Лидер",
   "ranking": "Рейтинг",
   "ranking.desc": "Звание {{name}}. {{rank}} {{level}}-о уровня с долей побед: {{winrate}}.",
+  "rankingUpdatedDaily": "Ranking is calculated once per day, not in real-time",
   "rankings": "{{value}} рейтингов",
   "victories": "Победы",
   "winrate": "Доля побед",
