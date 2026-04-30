@@ -1,6 +1,6 @@
 import { BrutesGetOpponentsResponse, getCalculatedBrute, getFightsLeft, getXPNeeded } from '@labrute/core';
 import { Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
@@ -29,12 +29,13 @@ const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, updateBrute } = useBrute();
-  const { modifiers, user, updateData, currentEvent } = useAuth();
+  const { modifiers, user, updateData, currentEvent, authing } = useAuth();
   const Server = useServer();
 
   const [opponents, setOpponents] = useState<CalculatedBruteGetOpponentsResponse>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
+  const fetchingRef = useRef(false);
 
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);
@@ -47,8 +48,11 @@ const ArenaView = () => {
   // Fetch random opponents
   useEffect(() => {
     let isSubscribed = true;
-    const cleanup = () => { isSubscribed = false; };
+    const cleanup = () => {
+      isSubscribed = false;
+    };
     if (!brute) return cleanup;
+    if (!user || authing) return cleanup;
 
     // Redirect to cell if XP is too much
     // TODO: I think this part triggers when clicking on an opponent to fight it, redirecting to the cell page
@@ -74,15 +78,21 @@ const ArenaView = () => {
       }, 500);
     }
 
+    // Prevent duplicate fetches
+    if (fetchingRef.current) return cleanup;
+    fetchingRef.current = true;
+
     Server.Brute.getOpponents(brute.name, brute.level).then((data) => {
-      if (isSubscribed) {
-        setOpponents(data.map((opponent) => getCalculatedBrute(opponent, modifiers)));
-      }
-    }).catch(catchError(Alert));
+      setOpponents(data.map((opponent) => getCalculatedBrute(opponent, modifiers)));
+      fetchingRef.current = false;
+    }).catch((error) => {
+      catchError(Alert, error);
+      fetchingRef.current = false;
+    });
 
     return cleanup;
-  }, [Alert, brute, currentEvent?.maxLevel, fightsLeft,
-    navigate, xpNeededForNextLevel, modifiers, Server.Brute]);
+  }, [brute, currentEvent?.maxLevel, fightsLeft,
+    xpNeededForNextLevel, modifiers, user, authing, Server.Brute, navigate, Alert]);
 
   const changeSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -206,6 +216,7 @@ const ArenaView = () => {
                       sx={{
                         width: 185,
                         height: 1,
+                        m: '0 auto',
                       }}
                     />
                   </Grid>
