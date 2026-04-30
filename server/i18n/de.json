@@ -134,5 +134,6 @@
   "outdatedVersion": "Du verwendest eine veraltete Version des Spiels. Bitte aktualisiere die Seite, um zur neuesten Version zu gelangen. Falls diese Nachricht weiterhin bestehen sollte, leere bitte deinen Browser-Cache und aktualisiere die Seite erneut.",
   "transferLimitReached": "Du hast die Höchstanzahl an Übertragungen erreicht.",
   "targetUserBruteLimitReached": "Der Zielnutzer hat seine Höchstanzahl an Brutalos erreicht. Dieser bräuchte zunächst einen freien Platz, um einen Brutalo erhalten zu können.",
-  "targetUserWithoutSharedFingerprint": "Der Zielnutzer hat keine übereinstimmende digitale Signatur. Du musst dich in beide Konten wenigstens ein Mal auf dem gleichen Gerät anmelden, um einen Brutalo zwischen diesen übertragen zu können."
+  "targetUserWithoutSharedFingerprint": "Der Zielnutzer hat keine übereinstimmende digitale Signatur. Du musst dich in beide Konten wenigstens ein Mal auf dem gleichen Gerät anmelden, um einen Brutalo zwischen diesen übertragen zu können.",
+  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account."
 }
