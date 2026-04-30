@@ -151,7 +151,7 @@
     },
     "./*": "./*"
   },
-  "version": "6.19.3",
+  "version": "2.91.4",
   "sideEffects": false,
   "imports": {
     "#wasm-engine-loader": {
