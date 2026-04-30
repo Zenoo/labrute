@@ -681,7 +681,7 @@ export type UserGetAdminRequest = {
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
   brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
-  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen'>[],
+  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen' | 'createdAt'>[],
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<

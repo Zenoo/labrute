@@ -121,6 +121,7 @@ export const Users = {
           banReason: true,
           fingerprints: true,
           lastSeen: true,
+          createdAt: true,
         },
       }));
 

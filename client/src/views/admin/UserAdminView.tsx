@@ -159,6 +159,7 @@ const UserAdminView = () => {
                         <TableCell>Name</TableCell>
                         <TableCell align="right">ID</TableCell>
                         <TableCell align="right">Fingerprints</TableCell>
+                        <TableCell align="right">Created At</TableCell>
                         <TableCell align="right">Last seen</TableCell>
                         <TableCell align="right">Banned At</TableCell>
                         <TableCell align="right">Ban Reason</TableCell>
@@ -175,6 +176,7 @@ const UserAdminView = () => {
                           </TableCell>
                           <TableCell align="right">{otherUser.id}</TableCell>
                           <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
+                          <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
                           <TableCell align="right">{otherUser.banReason ? t(`banReason.${otherUser.banReason}`) : ''}</TableCell>
