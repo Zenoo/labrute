@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.90.1](https://github.com/Zenoo/labrute/compare/labrute-v2.90.0...labrute-v2.90.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* Add case insensitive brute name index ([19d5f51](https://github.com/Zenoo/labrute/commit/19d5f51c2fa507f45a7f4e8fb865cc02a1536cae))
+
 ## [2.90.0](https://github.com/Zenoo/labrute/compare/labrute-v2.89.10...labrute-v2.90.0) (2026-04-30)
 
 
