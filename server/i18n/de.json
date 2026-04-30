@@ -135,5 +135,6 @@
   "transferLimitReached": "Du hast die Höchstanzahl an Übertragungen erreicht.",
   "targetUserBruteLimitReached": "Der Zielnutzer hat seine Höchstanzahl an Brutalos erreicht. Dieser bräuchte zunächst einen freien Platz, um einen Brutalo erhalten zu können.",
   "targetUserWithoutSharedFingerprint": "Der Zielnutzer hat keine übereinstimmende digitale Signatur. Du musst dich in beide Konten wenigstens ein Mal auf dem gleichen Gerät anmelden, um einen Brutalo zwischen diesen übertragen zu können.",
-  "userCreatedAfterTransferImplementation": "Diese Funktion ist nicht verfügbar für Konten, die nach dem 20. April 2026 erstellt wurden. Es wurde lediglich für Benutzer implementiert, die ehemalig mehrere Konten hatten, damit sie ihre Brutalos auf ein einzelnes Konto übertragen zu können."
+  "userCreatedAfterTransferImplementation": "Diese Funktion ist nicht verfügbar für Konten, die nach dem 20. April 2026 erstellt wurden. Es wurde lediglich für Benutzer implementiert, die ehemalig mehrere Konten hatten, damit sie ihre Brutalos auf ein einzelnes Konto übertragen zu können.",
+  "rankingsNotReady": "The rankings are not ready yet. Please try again later."
 }
