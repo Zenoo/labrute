@@ -1122,6 +1122,8 @@ export const Brutes = {
           userId: true,
           ascensions: true,
           eventId: true,
+          rankingPosition: true,
+          rankingPositionUpdatedAt: true,
         },
       }));
 
@@ -1137,46 +1139,70 @@ export const Brutes = {
         return;
       }
 
-      const rank = brute.ranking;
+      const today = dayjs.utc().startOf('day');
+      const needsRecalculation = !brute.rankingPositionUpdatedAt
+        || dayjs.utc(brute.rankingPositionUpdatedAt).isBefore(today);
 
-      const rankOrEvent = brute.eventId
-        ? { eventId: { not: null } }
-        : rank === BruteRankings[0]
-          // Hide event brutes from the first rank
-          ? { eventId: null, ranking: rank }
-          : { ranking: rank };
+      let position: number;
 
-      // Find the brute position
-      const position = await traced('brutes.getRanking.countBrutePosition', () => prisma.brute.count({
-        where: {
-          ...rankOrEvent,
-          deletedAt: null,
-          id: { not: brute.id },
-          userId: { not: null },
-          OR: rank === 0
-            ? [
-              { ascensions: { gt: brute.ascensions } },
-              {
-                AND: [
-                  { ascensions: { equals: brute.ascensions } },
-                  {
-                    OR: [
-                      { level: { gt: brute.level } },
-                      { level: brute.level, xp: { gt: brute.xp } },
-                    ],
-                  },
-                ],
-              },
-            ]
-            : [
-              { level: { gt: brute.level } },
-              { level: brute.level, xp: { gt: brute.xp } },
-            ],
-        },
-      }));
+      if (needsRecalculation) {
+        // Calculate this brute's position
+        const rank = brute.ranking;
+
+        const rankOrEvent = brute.eventId
+          ? { eventId: { not: null } }
+          : rank === BruteRankings[0]
+            // Hide event brutes from the first rank
+            ? { eventId: null, ranking: rank }
+            : { ranking: rank };
+
+        // Count brutes ranked higher
+        const higherCount = await traced('brutes.getRanking.countBrutePosition', () => prisma.brute.count({
+          where: {
+            ...rankOrEvent,
+            deletedAt: null,
+            id: { not: brute.id },
+            userId: { not: null },
+            OR: rank === 0
+              ? [
+                { ascensions: { gt: brute.ascensions } },
+                {
+                  AND: [
+                    { ascensions: { equals: brute.ascensions } },
+                    {
+                      OR: [
+                        { level: { gt: brute.level } },
+                        { level: brute.level, xp: { gt: brute.xp } },
+                      ],
+                    },
+                  ],
+                },
+              ]
+              : [
+                { level: { gt: brute.level } },
+                { level: brute.level, xp: { gt: brute.xp } },
+              ],
+          },
+        }));
+
+        position = higherCount + 1;
+
+        // Cache the position
+        await traced('brutes.getRanking.updatePosition', () => prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            rankingPosition: position,
+            rankingPositionUpdatedAt: today.toDate(),
+          },
+          select: { id: true },
+        }));
+      } else {
+        // Use cached position
+        position = brute.rankingPosition || 0;
+      }
 
       res.send({
-        ranking: position + 1,
+        ranking: position,
       });
     } catch (error) {
       sendError(res, error);

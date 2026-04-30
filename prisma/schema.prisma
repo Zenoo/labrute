@@ -211,6 +211,8 @@ model Brute {
   speedModifier                Float                   @default(1)
   speedValue                   Int                     @default(0)
   ranking                      Int                     @default(11)
+  rankingPosition              Int?
+  rankingPositionUpdatedAt     DateTime?               @db.Date
   gender                       Gender
   user                         User?                   @relation(fields: [userId], references: [id])
   userId                       String?                 @db.Uuid

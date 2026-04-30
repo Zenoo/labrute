@@ -185,6 +185,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   speedModifier: 'speedModifier',
   speedValue: 'speedValue',
   ranking: 'ranking',
+  rankingPosition: 'rankingPosition',
+  rankingPositionUpdatedAt: 'rankingPositionUpdatedAt',
   gender: 'gender',
   userId: 'userId',
   body: 'body',

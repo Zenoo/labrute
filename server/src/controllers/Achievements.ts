@@ -10,6 +10,11 @@ import type { Request, Response } from 'express';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { traced } from '../utils/trace.js';
+import { translate } from '../utils/translate.js';
+
+// In-memory cache for achievement rankings (calculated daily)
+let cachedRankingsByBrute: AchievementGetRankingsResponse | null = null;
+let cachedRankingsByUser: AchievementGetRankingsResponse | null = null;
 
 export const increaseAchievement = async (
   prisma: PrismaClient,
@@ -91,6 +96,84 @@ export const increaseAchievement = async (
       }
     }
   }
+};
+
+/**
+ * Calculate and cache achievement rankings (should be called daily)
+ */
+export const calculateAchievementRankings = async (prisma: PrismaClient) => {
+  // Calculate rankings by brute
+  const top3ByBrute: {
+    name: AchievementName;
+    bruteId: string | null;
+    count: number;
+    bruteName: string | null;
+  }[] = await traced('achievements.calculateRankings.getTop3ByBrute', () => prisma.$queryRaw`
+    SELECT a.name, a."bruteId", a.count, b.name AS "bruteName"
+    FROM (
+      SELECT name, "bruteId", count,
+        ROW_NUMBER() OVER (PARTITION BY name ORDER BY count DESC) AS row_number
+      FROM "Achievement"
+      WHERE "bruteId" IN (
+          SELECT id
+          FROM "Brute"
+          WHERE "deletedAt" IS NULL
+        )
+    ) AS a
+    LEFT JOIN "Brute" b ON a."bruteId" = b.id
+    WHERE a.row_number <= 3
+    ORDER BY a.name, a.count DESC;
+  `);
+
+  cachedRankingsByBrute = top3ByBrute.filter((t) => t.bruteId).map((t) => ({
+    name: t.name,
+    user: null,
+    brute: {
+      name: t.bruteName || '',
+      id: t.bruteId || '',
+    },
+    count: t.count,
+  }));
+
+  // Calculate rankings by user
+  const top3ByUser: {
+    name: AchievementName;
+    userId: string | null;
+    count: number;
+    userName: string | null;
+  }[] = await traced('achievements.calculateRankings.getTop3ByUser', () => prisma.$queryRaw`
+    SELECT a.name, "userId", count, u.name as "userName"
+    FROM (
+        SELECT *,
+            ROW_NUMBER() OVER ( PARTITION BY name ORDER BY count DESC ) as rank
+        FROM (
+            SELECT name,
+                "userId",
+                CASE
+                    WHEN name = 'maxDamage' THEN MAX(count)
+                    WHEN name = 'maxLevel' THEN MAX(count)
+                    ELSE SUM(count)
+                END as count
+            FROM "Achievement"
+        WHERE "userId" IS NOT NULL
+            GROUP BY name, "userId"
+        )
+    ) AS a
+    LEFT JOIN "User" u ON "userId" = u.id
+    WHERE
+        rank <= 3
+    ORDER BY name ASC, rank ASC;
+  `);
+
+  cachedRankingsByUser = top3ByUser.filter((t) => t.userId).map((t) => ({
+    name: t.name,
+    user: {
+      name: t.userName || '',
+      id: t.userId || '',
+    },
+    brute: null,
+    count: Number(t.count),
+  }));
 };
 
 export const Achievements = {
@@ -201,86 +284,26 @@ export const Achievements = {
       sendError(res, error);
     }
   },
-  getRankings: (prisma: PrismaClient) => async (
+  getRankings: (
     req: Request,
     res: Response<AchievementGetRankingsResponse>,
   ) => {
     try {
       const byUser = req.query.byUser === 'true';
-      if (byUser) {
-        const top3: {
-          name: AchievementName;
-          userId: string | null;
-          count: number;
-          userName: string | null;
-        }[] = await traced('achievements.getRankings.getTop3ByUser', () => prisma.$queryRaw`
-          SELECT a.name, "userId", count, u.name as "userName"
-          FROM (
-              SELECT *,
-                  ROW_NUMBER() OVER ( PARTITION BY name ORDER BY count DESC ) as rank
-              FROM (
-                  SELECT name,
-                      "userId",
-                      CASE
-                          WHEN name = 'maxDamage' THEN MAX(count)
-                          WHEN name = 'maxLevel' THEN MAX(count)
-                          ELSE SUM(count)
-                      END as count
-                  FROM "Achievement"
-              WHERE "userId" IS NOT NULL
-                  GROUP BY name, "userId"
-              )
-          ) AS a
-          LEFT JOIN "User" u ON "userId" = u.id
-          WHERE
-              rank <= 3
-          ORDER BY name ASC, rank ASC;
-        `);
 
-        res.status(200).send(top3.filter((t) => t.userId).map((t) => ({
-          name: t.name,
-          user: {
-            name: t.userName || '',
-            id: t.userId || '',
-          },
-          brute: null,
-          count: Number(t.count),
-        })));
+      // Use cached rankings if available
+      if (byUser && cachedRankingsByUser) {
+        res.status(200).send(cachedRankingsByUser);
         return;
       }
 
-      // Get top 3
-      const top3: {
-        name: AchievementName;
-        bruteId: string | null;
-        count: number;
-        bruteName: string | null;
-      }[] = await traced('achievements.getRankings.getTop3ByBrute', () => prisma.$queryRaw`
-        SELECT a.name, a."bruteId", a.count, b.name AS "bruteName"
-        FROM (
-          SELECT name, "bruteId", count,
-            ROW_NUMBER() OVER (PARTITION BY name ORDER BY count DESC) AS row_number
-          FROM "Achievement"
-          WHERE "bruteId" IN (
-              SELECT id
-              FROM "Brute"
-              WHERE "deletedAt" IS NULL
-            )
-        ) AS a
-        LEFT JOIN "Brute" b ON a."bruteId" = b.id
-        WHERE a.row_number <= 3
-        ORDER BY a.name, a.count DESC;
-      `);
+      if (!byUser && cachedRankingsByBrute) {
+        res.status(200).send(cachedRankingsByBrute);
+        return;
+      }
 
-      res.status(200).send(top3.filter((t) => t.bruteId).map((t) => ({
-        name: t.name,
-        user: null,
-        brute: {
-          name: t.bruteName || '',
-          id: t.bruteId || '',
-        },
-        count: t.count,
-      })));
+      // Rankings not ready yet, wait
+      throw new Error(translate('rankingsNotReady'));
     } catch (error) {
       sendError(res, error);
     }

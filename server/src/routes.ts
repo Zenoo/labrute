@@ -126,7 +126,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.post('/api/achievements', Achievements.getForUser(prisma));
   // app.get('/api/achievements/titles-as-csv', Achievements.generateTitlesCSV);
   app.get('/api/achievements/:name', Achievements.getForBrute(prisma));
-  app.get('/api/achievements/rankings/all', Achievements.getRankings(prisma));
+  app.get('/api/achievements/rankings/all', Achievements.getRankings);
 
   // BruteReport
   app.get('/api/report/list/:status/:page', BruteReports.list(prisma));

@@ -1,13 +1,12 @@
 import { AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, Today } from '@mui/icons-material';
 import { Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip } from '@mui/material';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import useStateAsync from '../../hooks/useStateAsync';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
 import { ActivityStatus } from '../ActivityStatus';
 import Link from '../Link';
@@ -30,7 +29,41 @@ const CellSocials = ({
   const Alert = useAlert();
   const Server = useServer();
 
-  const { data: getter } = useStateAsync(null, Server.Brute.getRanking, brute?.name || '');
+  const [fetchedRanking, setFetchedRanking] = useState<number | null>(null);
+
+  // Check if ranking is cached and fresh (updated today)
+  const isRankingFresh = useMemo(() => Boolean(
+    brute?.rankingPositionUpdatedAt
+    && dayjs.utc(brute.rankingPositionUpdatedAt).isSame(dayjs.utc(), 'day')
+  ), [brute?.rankingPositionUpdatedAt]);
+
+  // Determine which ranking to display
+  const ranking = useMemo(() => {
+    if (isRankingFresh && brute?.rankingPosition) {
+      return brute.rankingPosition;
+    }
+    return fetchedRanking ?? undefined;
+  }, [isRankingFresh, brute?.rankingPosition, fetchedRanking]);
+
+  // Fetch ranking if not fresh
+  useEffect(() => {
+    if (!brute?.name || isRankingFresh) {
+      return;
+    }
+
+    Server.Brute.getRanking(brute.name)
+      .then((data) => {
+        setFetchedRanking(data.ranking);
+
+        // Update brute's ranking position and updatedAt in local state to avoid refetching during the same day
+        updateData((prev) => (prev ? {
+          ...prev,
+          rankingPosition: data.ranking,
+          rankingPositionUpdatedAt: new Date().toISOString(),
+        } : null));
+      })
+      .catch((error) => catchError(Alert, error));
+  }, [brute?.name, isRankingFresh, Server.Brute, Alert, updateData]);
 
   const isFollowing = user?.following.some((following) => following.id === brute?.id);
 
@@ -122,12 +155,14 @@ const CellSocials = ({
               </Grid>
             )}
             <Grid item xs={6}>
-              <Link to={`/${brute.name}/ranking`}>
-                <Text bold color="secondary" component="span">{t('ranking')}: </Text>
-                <Text bold component="span">
-                  {getter?.ranking || 'NA'}
-                </Text>
-              </Link>
+              <Tooltip title={t('rankingUpdatedDaily')}>
+                <Link to={`/${brute.name}/ranking`}>
+                  <Text bold color="secondary" component="span">{t('ranking')}: </Text>
+                  <Text bold component="span">
+                    {ranking || 'NA'}
+                  </Text>
+                </Link>
+              </Tooltip>
             </Grid>
             <Grid item xs={6}>
               <Text bold color="secondary" component="span">{t('winrate')}: </Text>

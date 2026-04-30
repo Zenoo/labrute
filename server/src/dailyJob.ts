@@ -35,7 +35,7 @@ import {
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { DISCORD, LOGGER } from './context.js';
-import { increaseAchievement } from './controllers/Achievements.js';
+import { calculateAchievementRankings, increaseAchievement } from './controllers/Achievements.js';
 import { ServerState } from './utils/ServerState.js';
 import { resetBrute } from './utils/brute/resetBrute.js';
 import { updateClanPoints } from './utils/clan/updateClanPoints.js';
@@ -2274,6 +2274,10 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Clean up DB
     await cleanup(prisma);
     logMemory('After cleanup');
+
+    // Calculate and cache achievement rankings
+    await calculateAchievementRankings(prisma);
+    logMemory('After calculating achievement rankings');
 
     // Update known issues
     await DISCORD().updateKnownIssues(knownIssues);
