@@ -1,6 +1,6 @@
-import { BruteRanking, BruteRankings, BrutesGetForRankResponse } from '@labrute/core';
+import { BruteRanking, BruteRankings, BrutesGetForRankResponse, BrutesGetNeighborsForRankResponse } from '@labrute/core';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
@@ -30,7 +30,67 @@ const RankingView = () => {
     name: bruteName || '',
     rank: ranking,
   }), [bruteName, ranking]);
-  const { data: rankings } = useStateAsync(null, Server.Brute.getForRank, rankingProps);
+  const { data: rankingData } = useStateAsync(null, Server.Brute.getForRank, rankingProps);
+  const [neighborsData, setNeighborsData] = useState<BrutesGetNeighborsForRankResponse | null>(
+    null
+  );
+
+  // Fetch neighbors only if brute is not in top 15 AND we're viewing the brute's own rank
+  useEffect(() => {
+    if (!rankingData || rankingData.bruteInTop || !brute) {
+      setNeighborsData(null);
+      return undefined;
+    }
+
+    // Only fetch neighbors when viewing the brute's own rank
+    if (ranking !== brute.ranking || (ranking === -1 && brute.eventId === null)) {
+      setNeighborsData(null);
+      return undefined;
+    }
+
+    let isSubscribed = true;
+    Server.Brute.getNeighborsForRank(rankingProps).then((data) => {
+      if (isSubscribed) {
+        setNeighborsData(data);
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    return () => { isSubscribed = false; };
+  }, [rankingData, rankingProps, Server.Brute, ranking, brute]);
+
+  const rankings = useMemo(() => {
+    if (!rankingData) return null;
+
+    // If brute is in top 15, no neighbors needed
+    if (rankingData.bruteInTop) {
+      return {
+        topBrutes: rankingData.topBrutes,
+        nearbyBrutes: [],
+        position: 0,
+        total: rankingData.total,
+      };
+    }
+
+    // If neighbors are loaded, merge them
+    if (neighborsData) {
+      return {
+        topBrutes: rankingData.topBrutes,
+        nearbyBrutes: neighborsData.nearbyBrutes,
+        position: neighborsData.position,
+        total: rankingData.total,
+      };
+    }
+
+    // Neighbors not yet loaded
+    return {
+      topBrutes: rankingData.topBrutes,
+      nearbyBrutes: [],
+      position: 0,
+      total: rankingData.total,
+    };
+  }, [rankingData, neighborsData]);
 
   const rankingSelected = useMemo(() => (typeof ranking !== 'undefined'
     ? ranking
@@ -202,6 +262,9 @@ const RankingView = () => {
                 </TableRow>
               </TableBody>
             </Table>
+            <Text align="center" subtitle2>
+              {t('rankingUpdatedDaily')}
+            </Text>
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>

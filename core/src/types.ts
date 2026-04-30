@@ -517,9 +517,12 @@ export type BruteReportWithNames = BruteReport & {
 export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
 export type BrutesGetForRankResponse = {
   topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  total: number,
+  bruteInTop: boolean,
+};
+export type BrutesGetNeighborsForRankResponse = {
   nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
   position: number,
-  total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
