@@ -135,5 +135,6 @@
   "transferLimitReached": "Vous avez atteint votre limite de transfert.",
   "targetUserBruteLimitReached": "L'utilisateur ciblé a atteint sa limite de brute. Il doit avoir un emplacement libre pour pouvoir recevoir une brute.",
   "targetUserWithoutSharedFingerprint": "L'utilisateur cible n'a pas d'empreinte partagée. Vous devez vous connecter avec les deux comptes sur le même appareil au moins une fois pour pouvoir transférer une brute entre eux.",
-  "userCreatedAfterTransferImplementation": "Cette fonctionnalité n'est pas disponible pour les comptes créés après le 20 avril 2026. Elle n'a été implémentée que pour les utilisateurs précédents de comptes multiples afin de pouvoir transférer leurs brutes vers un seul compte."
+  "userCreatedAfterTransferImplementation": "Cette fonctionnalité n'est pas disponible pour les comptes créés après le 20 avril 2026. Elle n'a été implémentée que pour les utilisateurs précédents de comptes multiples afin de pouvoir transférer leurs brutes vers un seul compte.",
+  "rankingsNotReady": "The rankings are not ready yet. Please try again later."
 }
