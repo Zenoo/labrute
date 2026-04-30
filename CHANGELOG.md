@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.1](https://github.com/Zenoo/labrute/compare/labrute-v2.91.0...labrute-v2.91.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* Don't ban users to abusing transfers ([609d2ff](https://github.com/Zenoo/labrute/commit/609d2ff3b7b8998dbc0c6de77287660860a1520d))
+
 ## [2.91.0](https://github.com/Zenoo/labrute/compare/labrute-v2.90.1...labrute-v2.91.0) (2026-04-30)
 
 
