@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.89.10](https://github.com/Zenoo/labrute/compare/labrute-v2.89.9...labrute-v2.89.10) (2026-04-30)
+
+
+### Bug Fixes
+
+* Check for transfer abuse ([16f19fd](https://github.com/Zenoo/labrute/commit/16f19fdac9c6d5b260a2988c67704606edd0a3f1))
+* Prevent auth race conditions when fetching opponents ([3b86438](https://github.com/Zenoo/labrute/commit/3b864387a84b94ec405b2d1bdf46409c84137ec0))
+* Update clan points on user ban ([9a5a6af](https://github.com/Zenoo/labrute/commit/9a5a6afb261071a10376bb6e4fe8890ec761cb88))
+
 ## [2.89.9](https://github.com/Zenoo/labrute/compare/labrute-v2.89.8...labrute-v2.89.9) (2026-04-30)
 
 
