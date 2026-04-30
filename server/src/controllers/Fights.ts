@@ -21,6 +21,7 @@ import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
+import { traced } from '../utils/trace.js';
 
 export const Fights = {
   get: (prisma: PrismaClient) => async (
@@ -37,7 +38,7 @@ export const Fights = {
       }
 
       // Get fight
-      const fight = await prisma.fight.findFirst({
+      const fight = await traced('fights.get.findFight', () => prisma.fight.findFirst({
         where: {
           id: req.params.id,
         },
@@ -46,20 +47,20 @@ export const Fights = {
             select: { id: true },
           },
         },
-      });
+      }));
 
       if (!fight) {
         throw new NotFoundError(translate('fightNotFound'));
       }
 
       // Limit viewing if the fight is from a global tournament round not yet reached
-      const tournament = await prisma.tournament.findFirst({
+      const tournament = await traced('fights.get.findTournament', () => prisma.tournament.findFirst({
         where: {
           type: TournamentType.GLOBAL,
           date: { gte: new Date() },
           fights: { some: { id: fight.id } },
         },
-      });
+      }));
 
       const now = dayjs.utc();
       const hour = now.hour();
@@ -85,7 +86,7 @@ export const Fights = {
       }
 
       // Get brutes
-      const baseBrute1 = await prisma.brute.findFirst({
+      const baseBrute1 = await traced('fights.create.findBrute1', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.body.brute1),
           deletedAt: null,
@@ -96,17 +97,17 @@ export const Fights = {
             select: { name: true },
           },
         },
-      });
+      }));
       if (!baseBrute1) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
-      const baseBrute2 = await prisma.brute.findFirst({
+      const baseBrute2 = await traced('fights.create.findBrute2', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.body.brute2),
           deletedAt: null,
         },
-      });
+      }));
       if (!baseBrute2) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -134,14 +135,14 @@ export const Fights = {
 
       // Update brute last fight and fights left if arena fight
       if (arenaFight) {
-        await prisma.brute.update({
+        await traced('fights.updateBrute.update', () => prisma.brute.update({
           where: { id: brute1.id },
           data: {
             lastFight: new Date(),
             fightsLeft: brute1FightsLeft - 1,
           },
           select: { id: true },
-        });
+        }));
       }
 
       // Generate fight (retry if failed)
@@ -182,10 +183,10 @@ export const Fights = {
       }
 
       // Save important fight data
-      const { id: fightId } = await prisma.fight.create({
+      const { id: fightId } = await traced('fights.create.createFight', () => prisma.fight.create({
         data: generatedFight,
         select: { id: true },
-      });
+      }));
 
       // Get current event
       const event = await ServerState.getCurrentEvent(prisma);
@@ -214,7 +215,7 @@ export const Fights = {
 
       // Update brute XP, victories and losses if arena fight
       if (arenaFight) {
-        await prisma.brute.update({
+        await traced('fights.updateBrute.update', () => prisma.brute.update({
           where: { id: brute1.id },
           data: {
             xp: { increment: xpGained },
@@ -222,11 +223,11 @@ export const Fights = {
             losses: { increment: brute1Won ? 0 : 1 },
           },
           select: { id: true },
-        });
+        }));
       }
 
       // Add fighter log
-      await prisma.log.create({
+      await traced('fights.create.createLog', () => prisma.log.create({
         data: {
           currentBrute: { connect: { id: brute1.id } },
           type: brute1Won ? LogType.win : LogType.lose,
@@ -236,10 +237,10 @@ export const Fights = {
           template: randomBetween(0, FightLogTemplateCount - 1).toString(),
         },
         select: { id: true },
-      });
+      }));
 
       // Add opponent log
-      await prisma.log.create({
+      await traced('fights.create.createOpponentLog', () => prisma.log.create({
         data: {
           currentBrute: { connect: { id: brute2.id } },
           type: isWinner(brute2, generatedFight) ? LogType.win : LogType.lose,
@@ -248,7 +249,7 @@ export const Fights = {
           template: randomBetween(0, FightLogTemplateCount - 1).toString(),
         },
         select: { id: true },
-      });
+      }));
 
       // Update brute opponents if the opponent was in the arena
       if (brute1.opponents.some((o) => o.name === brute2.name)) {
@@ -256,7 +257,7 @@ export const Fights = {
         const newOpponents = await getOpponents(prisma, brute1);
 
         // Save opponents
-        await prisma.brute.update({
+        await traced('fights.updateBrute.updateOpponents', () => prisma.brute.update({
           where: {
             id: brute1.id,
           },
@@ -270,7 +271,7 @@ export const Fights = {
             opponentsGeneratedAt: new Date(),
           },
           select: { id: true },
-        });
+        }));
       }
 
       const fightsLeft = getFightsLeft(brute1);
@@ -299,7 +300,7 @@ export const Fights = {
       }
 
       // Get fight
-      const fight = await prisma.fight.findFirst({
+      const fight = await traced('fights.toggleFavorite.findFight', () => prisma.fight.findFirst({
         where: {
           id: req.params.id,
         },
@@ -309,7 +310,7 @@ export const Fights = {
             select: { id: true },
           },
         },
-      });
+      }));
 
       if (!fight) {
         throw new NotFoundError(translate('fightNotFound', user));
@@ -320,7 +321,7 @@ export const Fights = {
 
       if (isFavorited) {
         // Unfavorite
-        await prisma.fight.update({
+        await traced('fights.toggleFavorite.unfavorite', () => prisma.fight.update({
           where: { id: fight.id },
           data: {
             favoritedBy: {
@@ -328,10 +329,10 @@ export const Fights = {
             },
           },
           select: { id: true },
-        });
+        }));
 
         // Add 1x favorite fight item
-        await prisma.inventoryItem.upsert({
+        await traced('fights.toggleFavorite.addFavoriteFightItem', () => prisma.inventoryItem.upsert({
           where: {
             type_userId: {
               type: InventoryItemType.favoriteFight,
@@ -348,23 +349,23 @@ export const Fights = {
             },
           },
           select: { id: true },
-        });
+        }));
       } else {
         // Check if user has enough favorite fight items
-        const favoriteFightItem = await prisma.inventoryItem.findFirst({
+        const favoriteFightItem = await traced('fights.toggleFavorite.findFavoriteFightItem', () => prisma.inventoryItem.findFirst({
           where: {
             type: InventoryItemType.favoriteFight,
             userId: user.id,
           },
           select: { id: true, count: true },
-        });
+        }));
 
         if (!favoriteFightItem || favoriteFightItem.count <= 0) {
           throw new LimitError(translate('favoriteLimit', user));
         }
 
         // Favorite
-        await prisma.fight.update({
+        await traced('fights.toggleFavorite.favorite', () => prisma.fight.update({
           where: { id: fight.id },
           data: {
             favoritedBy: {
@@ -372,10 +373,10 @@ export const Fights = {
             },
           },
           select: { id: true },
-        });
+        }));
 
         // Remove 1x favorite fight item
-        await prisma.inventoryItem.update({
+        await traced('fights.toggleFavorite.removeFavoriteFightItem', () => prisma.inventoryItem.update({
           where: {
             type_userId: {
               type: InventoryItemType.favoriteFight,
@@ -388,7 +389,7 @@ export const Fights = {
             },
           },
           select: { id: true },
-        });
+        }));
       }
 
       res.send({ success: true });

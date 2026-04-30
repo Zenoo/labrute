@@ -30,6 +30,7 @@ import { translate } from '../translate.js';
 import { checkLevelUpAchievements } from './checkLevelUpAchievements.js';
 import { getOpponents } from './getOpponents.js';
 import { removeChoiceFromDestiny } from './removeChoiceFromDestiny.js';
+import { traced } from '../trace.js';
 
 type Props = {
   prisma: PrismaClient,
@@ -78,12 +79,12 @@ export const resetBrute = async ({
   }
 
   // Get first bonus
-  const firstBonus = await prisma.destinyChoice.findFirst({
+  const firstBonus = await traced('resetBrute.findFirstBonus', () => prisma.destinyChoice.findFirst({
     where: {
       bruteId: brute.id,
       path: { equals: [] },
     },
-  });
+  }));
 
   if (!firstBonus) {
     throw new Error(translate('noFirstBonus', user));
@@ -91,13 +92,13 @@ export const resetBrute = async ({
 
   // Remove gold from user
   if (user && !free) {
-    await prisma.user.update({
+    await traced('resetBrute.updateUserGold', () => prisma.user.update({
       where: { id: user.id },
       data: {
         gold: { decrement: RESET_PRICE },
       },
       select: { id: true },
-    });
+    }));
 
     createUserLog(prisma, {
       type: UserLogType.GOLD_LOSS,
@@ -107,17 +108,17 @@ export const resetBrute = async ({
   }
 
   // Get base stats
-  let baseStats = await prisma.bruteStartingStats.findFirst({
+  let baseStats = await traced('resetBrute.findBaseStats', () => prisma.bruteStartingStats.findFirst({
     where: { bruteId: brute.id },
     omit: { id: true, bruteId: true },
-  });
+  }));
 
   if (!baseStats) {
     const newBaseStats = getRandomStartingStats();
     baseStats = newBaseStats;
 
     // Store starting stats
-    await prisma.bruteStartingStats.create({
+    await traced('resetBrute.createBaseStats', () => prisma.bruteStartingStats.create({
       data: {
         bruteId: brute.id,
         endurance: newBaseStats.endurance,
@@ -125,7 +126,7 @@ export const resetBrute = async ({
         agility: newBaseStats.agility,
         speed: newBaseStats.speed,
       },
-    });
+    }));
   }
 
   // Random stats
@@ -181,7 +182,7 @@ export const resetBrute = async ({
   }
 
   // Update the brute
-  const updatedBrute: ServerHookBrute = await prisma.brute.update({
+  const updatedBrute: ServerHookBrute = await traced('resetBrute.updateBrute', () => prisma.brute.update({
     where: { id: brute.id },
     data: {
       ...stats,
@@ -241,7 +242,7 @@ export const resetBrute = async ({
       },
       inventory: true,
     },
-  });
+  }));
 
   // Update achievements for the first bonus
   await checkLevelUpAchievements(prisma, updatedBrute, firstBonus);
@@ -250,7 +251,7 @@ export const resetBrute = async ({
   const opponents = await getOpponents(prisma, updatedBrute);
 
   // Save opponents
-  await prisma.brute.update({
+  await traced('resetBrute.updateBruteOpponents', () => prisma.brute.update({
     where: {
       id: updatedBrute.id,
     },
@@ -264,10 +265,10 @@ export const resetBrute = async ({
       opponentsGeneratedAt: new Date(),
     },
     select: { id: true },
-  });
+  }));
 
   // Get brutes that have this brute as opponent
-  const opponentOf = await prisma.brute.findMany({
+  const opponentOf = await traced('resetBrute.findBrutesWithThisBruteAsOpponent', () => prisma.brute.findMany({
     where: {
       opponents: {
         some: {
@@ -286,7 +287,7 @@ export const resetBrute = async ({
         },
       },
     },
-  });
+  }));
 
   // Replace this brute in their opponents
   for (const currentBrute of opponentOf) {
@@ -301,16 +302,16 @@ export const resetBrute = async ({
       level: currentBrute.level,
       deletedAt: null,
     };
-    const bruteIds = await prisma.brute.findMany({
+    const bruteIds = await traced('resetBrute.findBruteIds', () => prisma.brute.findMany({
       where: bruteSearch,
       select: { id: true },
-    }).then((brutes) => brutes.map((b) => b.id));
+    }).then((brutes) => brutes.map((b) => b.id)));
 
     let newOpponentId: string | null = null;
 
     if (bruteIds.length === 0) {
       // Search lower levels if no same level brutes
-      const lowerBruteIds = await prisma.brute.findMany({
+      const lowerBruteIds = await traced('resetBrute.findLowerBruteIds', () => prisma.brute.findMany({
         where: {
           ...bruteSearch,
           level: {
@@ -319,7 +320,7 @@ export const resetBrute = async ({
           },
         },
         select: { id: true },
-      }).then((brutes) => brutes.map((b) => b.id));
+      }).then((brutes) => brutes.map((b) => b.id)));
 
       if (lowerBruteIds.length > 0) {
         // Select a random lower level opponent
@@ -332,7 +333,7 @@ export const resetBrute = async ({
 
     if (newOpponentId) {
       // Replace the brute with the new opponent
-      await prisma.brute.update({
+      await traced('resetBrute.updateBruteWithNewOpponent', () => prisma.brute.update({
         where: { id: currentBrute.id },
         data: {
           opponents: {
@@ -345,10 +346,10 @@ export const resetBrute = async ({
           },
         },
         select: { id: true },
-      });
+      }));
     } else {
       // Remove the brute from the opponents if no opponent found
-      await prisma.brute.update({
+      await traced('resetBrute.removeBruteFromOpponents', () => prisma.brute.update({
         where: { id: currentBrute.id },
         data: {
           opponents: {
@@ -358,7 +359,7 @@ export const resetBrute = async ({
           },
         },
         select: { id: true },
-      });
+      }));
     }
   }
 

@@ -19,6 +19,7 @@ import { ServerState } from './ServerState.js';
 import { translate } from './translate.js';
 import { banUser } from './user/banUser.js';
 import { DISCORD } from '../context.js';
+import { traced } from './trace.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -68,13 +69,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     lastSeen: true,
   };
 
-  const user = await prisma.user.findFirst({
+  const user = await traced('auth.findUser', () => prisma.user.findFirst({
     where: {
       id,
       connexionToken: token,
     },
     select: toSelect,
-  });
+  }));
 
   if (!user) {
     throw new NotFoundError('User not found');
@@ -149,24 +150,24 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
   if (ip && !user.ips.includes(ip)) {
-    await prisma.user.update({
+    await traced('auth.updateUserIps', () => prisma.user.update({
       where: { id },
       data: {
         ips: {
           push: ip,
         },
       },
-    });
+    }));
   }
 
   // Update last seen
   if (!dayjs.utc(user.lastSeen).isSame(dayjs.utc(), 'day')) {
-    await prisma.user.update({
+    await traced('auth.updateUserLastSeen', () => prisma.user.update({
       where: { id },
       data: {
         lastSeen: new Date(),
       },
-    });
+    }));
   }
 
   return {

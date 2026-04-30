@@ -7,6 +7,7 @@ import { auth } from '../utils/auth.js';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
+import { traced } from '../utils/trace.js';
 
 export const Logs = {
   list: (prisma: PrismaClient) => async (
@@ -20,10 +21,10 @@ export const Logs = {
       }
 
       // Get brute id
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('logs.list.findBrute', () => prisma.brute.findFirst({
         where: { name: ilike(req.params.name), deletedAt: null },
         select: { id: true },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
@@ -32,7 +33,7 @@ export const Logs = {
       const now = new Date();
 
       // Get logs
-      const logs = await prisma.log.findMany({
+      const logs = await traced('logs.list.findLogs', () => prisma.log.findMany({
         where: {
           currentBruteId: brute.id,
           date: {
@@ -46,7 +47,7 @@ export const Logs = {
             select: { name: true },
           },
         },
-      });
+      }));
 
       res.status(200).send(logs);
     } catch (error) {
@@ -65,7 +66,7 @@ export const Logs = {
       }
 
       // Get followed brutes
-      const brutes = await prisma.brute.findMany({
+      const brutes = await traced('logs.getForUserFeed.findFollowedBrutes', () => prisma.brute.findMany({
         where: {
           followers: {
             some: {
@@ -80,12 +81,12 @@ export const Logs = {
           body: true,
           colors: true,
         },
-      });
+      }));
 
       const now = new Date();
 
       // Get logs
-      const logs = await prisma.log.findMany({
+      const logs = await traced('logs.getForUserFeed.findLogs', () => prisma.log.findMany({
         where: {
           date: {
             lte: now,
@@ -113,7 +114,7 @@ export const Logs = {
           },
           destinyChoice: true,
         },
-      });
+      }));
 
       res.status(200).send({ brutes, logs });
     } catch (error) {

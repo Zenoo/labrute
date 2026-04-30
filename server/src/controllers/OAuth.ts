@@ -28,6 +28,7 @@ import { translate } from '../utils/translate.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
 import { banUser } from '../utils/user/banUser.js';
 import { DISCORD } from '../context.js';
+import { traced } from '../utils/trace.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -105,7 +106,7 @@ export class OAuth {
       let user: UserWithBrutesBodyColor | null = null;
 
       try {
-        user = await this.#prisma.user.upsert({
+        user = await traced('oauth.token.upsertUser', () => this.#prisma.user.upsert({
           where: { id: etwinUser.id },
           update: {
             connexionToken: token.accessToken,
@@ -138,13 +139,13 @@ export class OAuth {
               where: { read: false },
             },
           },
-        });
+        }));
       } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
           switch (error.code) {
             case 'P2002': {
               // Upsert race condition, update the user
-              user = await this.#prisma.user.update({
+              user = await traced('oauth.token.updateUser', () => this.#prisma.user.update({
                 where: { id: etwinUser.id },
                 data: {
                   connexionToken: token.accessToken,
@@ -165,7 +166,7 @@ export class OAuth {
                     where: { read: false },
                   },
                 },
-              });
+              }));
               break;
             }
             default: {
@@ -181,14 +182,14 @@ export class OAuth {
 
       // Handle new fingerprints
       if (!user.fingerprints.includes(fingerprint)) {
-        await this.#prisma.user.update({
+        await traced('oauth.token.updateUserFingerprints', () => this.#prisma.user.update({
           where: { id: user.id },
           data: {
             fingerprints: {
               push: fingerprint,
             },
           },
-        });
+        }));
         user.fingerprints.push(fingerprint);
       }
 
@@ -196,13 +197,13 @@ export class OAuth {
       if (user.bannedAt) {
         // Revert deletion if the user logs in after deleting their account
         if (user.banReason === 'account_deleted') {
-          await this.#prisma.user.update({
+          await traced('oauth.token.revertUserBan', () => this.#prisma.user.update({
             where: { id: user.id },
             data: {
               bannedAt: null,
               banReason: null,
             },
-          });
+          }));
           user.bannedAt = null;
           user.banReason = null;
         } else {

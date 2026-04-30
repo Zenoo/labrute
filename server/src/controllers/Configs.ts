@@ -16,6 +16,7 @@ import type { Request, Response } from 'express';
 import { GLOBAL } from '../context.js';
 import { auth } from '../utils/auth.js';
 import { sendError } from '../utils/sendError.js';
+import { traced } from '../utils/trace.js';
 
 export const Configs = {
   list: (prisma: PrismaClient) => async (
@@ -26,13 +27,13 @@ export const Configs = {
       await auth(prisma, req, { admin: true });
 
       // Get configs
-      const configs = await prisma.config.findMany({
+      const configs = await traced('configs.list.findConfigs', () => prisma.config.findMany({
         where: {
           key: {
             not: 'CRYPTR_SECRET',
           },
         },
-      });
+      }));
 
       res.status(200).send(configs);
     } catch (error) {
@@ -53,9 +54,9 @@ export const Configs = {
       }
 
       // Get CRYPTR_SECRET
-      const cryptrSecret = await prisma.config.findFirst({
+      const cryptrSecret = await traced('configs.set.findCryptrSecret', () => prisma.config.findFirst({
         where: { key: 'CRYPTR_SECRET' },
-      });
+      }));
 
       if (key === 'CRYPTR_SECRET' && cryptrSecret) {
         throw new LimitError('CRYPTR_SECRET already exists');
@@ -69,14 +70,14 @@ export const Configs = {
       const encryptedValue = key === 'CRYPTR_SECRET' ? value : cryptr.encrypt(value);
 
       // Update config
-      const config = await prisma.config.upsert({
+      const config = await traced('configs.set.upsertConfig', () => prisma.config.upsert({
         where: { key },
         update: {
           value: encryptedValue,
           updatedAt: new Date(),
         },
         create: { key, value: encryptedValue },
-      });
+      }));
 
       // Re-init global context
       await GLOBAL.init();
@@ -100,9 +101,9 @@ export const Configs = {
       }
 
       // Get CRYPTR_SECRET
-      const cryptrSecret = await prisma.config.findFirst({
+      const cryptrSecret = await traced('configs.decrypt.findCryptrSecret', () => prisma.config.findFirst({
         where: { key: 'CRYPTR_SECRET' },
-      });
+      }));
 
       if (!cryptrSecret) {
         throw new MissingElementError('CRYPTR_SECRET is missing');
@@ -134,7 +135,7 @@ export const Configs = {
       }
 
       // Delete config
-      await prisma.config.delete({ where: { key } });
+      await traced('configs.delete.deleteConfig', () => prisma.config.delete({ where: { key } }));
 
       // Re-init global context
       await GLOBAL.init();

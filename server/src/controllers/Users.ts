@@ -42,6 +42,7 @@ import { banUser } from '../utils/user/banUser.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
 import { deleteUserBrutes } from '../utils/user/deleteUserBrutes.js';
 import { ilike } from '../utils/ilike.js';
+import { traced } from '../utils/trace.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
@@ -57,7 +58,7 @@ export const Users = {
 
       const isId = isUuid(req.params.identifier);
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.get.getUser', () => prisma.user.findFirst({
         where: {
           id: isId ? req.params.identifier : undefined,
           name: !isId ? ilike(req.params.identifier) : undefined,
@@ -78,7 +79,7 @@ export const Users = {
             },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound', authed));
@@ -104,7 +105,7 @@ export const Users = {
       }, [] as Pick<Achievement, 'count' | 'name'>[]);
 
       // Get other users sharing fingerprints
-      const otherUsersSharingFingerprints = await prisma.user.findMany({
+      const otherUsersSharingFingerprints = await traced('users.get.otherUsersSharingFingerprints', () => prisma.user.findMany({
         where: {
           fingerprints: {
             hasSome: user.fingerprints,
@@ -121,7 +122,7 @@ export const Users = {
           fingerprints: true,
           lastSeen: true,
         },
-      });
+      }));
 
       res.send({
         ...user,
@@ -148,14 +149,14 @@ export const Users = {
         const fingerprint = decryptFPEvent(req.body.eventId);
 
         if (!authResult.fingerprints.includes(fingerprint)) {
-          await prisma.user.update({
+          await traced('users.authenticate.updateUserFingerprints', () => prisma.user.update({
             where: { id: authResult.id },
             data: {
               fingerprints: {
                 push: fingerprint,
               },
             },
-          });
+          }));
           authResult.fingerprints.push(fingerprint);
         }
       } catch (_error) {
@@ -167,7 +168,7 @@ export const Users = {
         return;
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.authenticate.getUser', () => prisma.user.findFirst({
         where: { id: authResult.id },
         include: {
           brutes: {
@@ -186,7 +187,7 @@ export const Users = {
             where: { read: false },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new Error('User not found');
@@ -222,7 +223,7 @@ export const Users = {
     try {
       const user = await auth(prisma, req);
 
-      await prisma.user.update({
+      await traced('users.changeLanguage.updateUserLang', () => prisma.user.update({
         where: {
           id: user.id,
         },
@@ -230,7 +231,7 @@ export const Users = {
           lang: req.body.lang,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({ message: 'Language changed' });
     } catch (error) {
@@ -250,7 +251,7 @@ export const Users = {
         throw new Error(translate('invalidParameters', user));
       }
 
-      await prisma.user.update({
+      await traced('users.changeFightSpeed.updateUserFightSpeed', () => prisma.user.update({
         where: {
           id: user.id,
         },
@@ -258,7 +259,7 @@ export const Users = {
           fightSpeed: req.body.fightSpeed,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({ message: 'Fight speed changed' });
     } catch (error) {
@@ -278,7 +279,7 @@ export const Users = {
         throw new Error(translate('invalidParameters', user));
       }
 
-      await prisma.user.update({
+      await traced('users.toggleBackgroundMusic.updateUserBackgroundMusic', () => prisma.user.update({
         where: {
           id: user.id,
         },
@@ -286,7 +287,7 @@ export const Users = {
           backgroundMusic: req.body.backgroundMusic,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({ message: 'Background music changed' });
     } catch (error) {
@@ -306,36 +307,36 @@ export const Users = {
         throw new MissingElementError(translate('noIDProvided', authed));
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.adminUpdate.getUser', () => prisma.user.findFirst({
         where: {
           id,
         },
-      });
+      }));
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound', authed));
       }
 
       // Update the user
-      await prisma.user.update({
+      await traced('users.adminUpdate.updateUser', () => prisma.user.update({
         where: { id: user.id },
         data: {
           ...req.body.user,
         },
         select: { id: true },
-      });
+      }));
 
       // Update achievements
       for (const achievement of req.body.achievements) {
         if (achievement.count === 0) {
-          await prisma.achievement.deleteMany({
+          await traced('users.adminUpdate.deleteAchievement', () => prisma.achievement.deleteMany({
             where: {
               userId: user.id,
               name: achievement.name,
             },
-          });
+          }));
         } else {
-          const existingAchievement = await prisma.achievement.findFirst({
+          const existingAchievement = await traced('users.adminUpdate.getExistingAchievement', () => prisma.achievement.findFirst({
             where: {
               userId: user.id,
               name: achievement.name,
@@ -343,25 +344,25 @@ export const Users = {
             select: {
               id: true,
             },
-          });
+          }));
 
           if (existingAchievement) {
-            await prisma.achievement.update({
+            await traced('users.adminUpdate.updateAchievement', () => prisma.achievement.update({
               where: {
                 id: existingAchievement.id,
               },
               data: {
                 count: achievement.count,
               },
-            });
+            }));
           } else {
-            await prisma.achievement.create({
+            await traced('users.adminUpdate.createAchievement', () => prisma.achievement.create({
               data: {
                 userId: user.id,
                 name: achievement.name,
                 count: achievement.count,
               },
-            });
+            }));
           }
         }
       }
@@ -388,7 +389,7 @@ export const Users = {
         throw new ExpectedError('Invalid user ID');
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.getProfile.getUser', () => prisma.user.findFirst({
         where: {
           id: req.params.userId,
           bannedAt: null,
@@ -454,7 +455,7 @@ export const Users = {
             },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound'));
@@ -510,7 +511,7 @@ export const Users = {
         throw new MissingElementError('No user ID provided');
       }
 
-      const brutes = await prisma.brute.findMany({
+      const brutes = await traced('users.isDoneForToday.getBrutes', () => prisma.brute.findMany({
         where: {
           userId: req.params.userId,
           deletedAt: null,
@@ -522,7 +523,7 @@ export const Users = {
           skills: true,
           eventId: true,
         },
-      });
+      }));
 
       if (!brutes.length) {
         throw new NotFoundError('No brutes found');
@@ -545,12 +546,12 @@ export const Users = {
     try {
       const authed = await auth(prisma, req);
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.getDinoRpgRewards.getUser', () => prisma.user.findFirst({
         where: { id: authed.id },
         select: {
           dinorpgDone: true,
         },
-      });
+      }));
 
       if (!user) {
         throw new Error('User not found');
@@ -584,7 +585,7 @@ export const Users = {
       }
 
       // Update brutes who already fought today (+1 fight left)
-      await prisma.user.update({
+      await traced('users.getDinoRpgRewards.updateUser', () => prisma.user.update({
         where: { id: authed.id },
         data: {
           dinorpgDone: new Date(),
@@ -604,10 +605,10 @@ export const Users = {
             },
           },
         },
-      });
+      }));
 
       // Get brutes who didn't fight today
-      const brutes = await prisma.brute.findMany({
+      const brutes = await traced('users.getDinoRpgRewards.getBrutes', () => prisma.brute.findMany({
         where: {
           userId: authed.id,
           deletedAt: null,
@@ -623,7 +624,7 @@ export const Users = {
           fightsLeft: true,
           eventId: true,
         },
-      });
+      }));
 
       const modifiers = await ServerState.getModifiers(prisma);
 
@@ -632,7 +633,7 @@ export const Users = {
           { ...brute, skills: getTieredSkills(brute, modifiers) },
         ) + 1;
 
-        await prisma.brute.update({
+        await traced('users.getDinoRpgRewards.updateBrute', () => prisma.brute.update({
           where: {
             id: brute.id,
           },
@@ -640,7 +641,7 @@ export const Users = {
             fightsLeft,
             lastFight: new Date(),
           },
-        });
+        }));
       }
 
       res.send({
@@ -681,7 +682,7 @@ export const Users = {
         throw new ExpectedError(translate('invalidParameters', authed));
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.unban.getUser', () => prisma.user.findFirst({
         where: { id: req.params.userId },
         select: {
           bannedAt: true,
@@ -695,7 +696,7 @@ export const Users = {
             select: { id: true, name: true },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound', authed));
@@ -706,13 +707,13 @@ export const Users = {
       }
 
       // Unban user
-      await prisma.user.update({
+      await traced('users.unban.updateUser', () => prisma.user.update({
         where: { id: req.params.userId },
         data: {
           bannedAt: null,
           banReason: null,
         },
-      });
+      }));
 
       // IP unban
       await ServerState.removeBannedIps(prisma, user.ips);
@@ -730,24 +731,24 @@ export const Users = {
       // Restore all brutes
       for (const brute of user.brutes) {
         // Check if the name is available
-        const existingBrute = await prisma.brute.count({
+        const existingBrute = await traced('users.unban.getExistingBrute', () => prisma.brute.count({
           where: {
             name: brute.name,
             deletedAt: null,
           },
-        });
+        }));
 
         if (existingBrute) {
           // Rename brute with _unbanned suffix
-          await prisma.brute.update({
+          await traced('users.unban.updateBruteName', () => prisma.brute.update({
             where: { id: brute.id },
             data: {
               name: `${brute.name}_unbanned`,
             },
-          });
+          }));
 
           // Add 1x free name change
-          await prisma.inventoryItem.upsert({
+          await traced('users.unban.upsertInventoryItem', () => prisma.inventoryItem.upsert({
             where: {
               type_bruteId: {
                 type: InventoryItemType.nameChange,
@@ -764,17 +765,17 @@ export const Users = {
                 increment: 1,
               },
             },
-          });
+          }));
         }
 
         // Restore brute
-        await prisma.brute.update({
+        await traced('users.unban.updateBrute', () => prisma.brute.update({
           where: { id: brute.id },
           data: {
             deletedAt: null,
             deletionReason: null,
           },
-        });
+        }));
       }
 
       res.send({
@@ -791,7 +792,7 @@ export const Users = {
     try {
       await auth(prisma, req, { admin: true });
 
-      const users = await prisma.user.findMany({
+      const users = await traced('users.bannedList.getUsers', () => prisma.user.findMany({
         where: {
           bannedAt: { not: null },
         },
@@ -801,7 +802,7 @@ export const Users = {
           bannedAt: true,
           banReason: true,
         },
-      });
+      }));
 
       res.send(users);
     } catch (error) {
@@ -815,7 +816,7 @@ export const Users = {
     try {
       await auth(prisma, req, { admin: true });
 
-      const ips = await prisma.$queryRaw<UserMultipleAccountsListResponse>`
+      const ips = await traced('users.multipleAccountsList.getIps', () => prisma.$queryRaw<UserMultipleAccountsListResponse>`
         SELECT ip, array_agg(id) AS users
         FROM (
           SELECT unnest(ips) AS ip, id
@@ -824,7 +825,7 @@ export const Users = {
         )
         GROUP BY ip
         HAVING COUNT(id) > 1;
-      `;
+      `);
 
       res.send(ips);
     } catch (error) {
@@ -876,10 +877,10 @@ export const Users = {
         throw new ExpectedError(translate('invalidParameters', authed));
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.toggleFollow.getUser', () => prisma.user.findFirst({
         where: { id: authed.id },
         select: { following: { select: { id: true } } },
-      });
+      }));
 
       if (!user) {
         throw new Error(translate('userNotFound', user));
@@ -887,7 +888,7 @@ export const Users = {
 
       if (user.following.some((brute) => brute.id === req.params.bruteId)) {
         // Unfollow
-        await prisma.user.update({
+        await traced('users.toggleFollow.unfollow', () => prisma.user.update({
           where: { id: authed.id },
           data: {
             following: {
@@ -896,10 +897,10 @@ export const Users = {
               },
             },
           },
-        });
+        }));
       } else {
         // Follow
-        await prisma.user.update({
+        await traced('users.toggleFollow.follow', () => prisma.user.update({
           where: { id: authed.id },
           data: {
             following: {
@@ -908,7 +909,7 @@ export const Users = {
               },
             },
           },
-        });
+        }));
       }
 
       res.send({
@@ -936,7 +937,7 @@ export const Users = {
         throw new ExpectedError(translate('invalidParameters', user));
       }
 
-      await prisma.user.update({
+      await traced('users.updateSettings.updateUser', () => prisma.user.update({
         where: {
           id: user.id,
         },
@@ -947,7 +948,7 @@ export const Users = {
           displayOpponentDetails,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({ message: 'Settings updated' });
     } catch (error) {
@@ -978,7 +979,7 @@ export const Users = {
   ) => {
     try {
       const authed = await auth(prisma, req);
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.deleteAccount.getUser', () => prisma.user.findFirst({
         where: { id: authed.id },
         select: {
           id: true,
@@ -996,7 +997,7 @@ export const Users = {
             },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound', authed));
@@ -1010,13 +1011,13 @@ export const Users = {
       await deleteUserBrutes(prisma, user);
 
       // Delete account (soft delete)
-      await prisma.user.update({
+      await traced('users.deleteAccount.updateUser', () => prisma.user.update({
         where: { id: user.id },
         data: {
           bannedAt: new Date(),
           banReason: 'account_deleted',
         },
-      });
+      }));
 
       createUserLog(prisma, {
         type: UserLogType.DELETED,
@@ -1045,7 +1046,7 @@ export const Users = {
         throw new ExpectedError(translate('invalidParameters', authed));
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('users.transferBrute.getBrute', () => prisma.brute.findFirst({
         where: {
           id: bruteId,
           userId: authed.id,
@@ -1055,20 +1056,20 @@ export const Users = {
           id: true,
           name: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('users.transferBrute.getUser', () => prisma.user.findFirst({
         where: { id: authed.id },
         select: {
           transferedBrutesCount: true,
           fingerprints: true,
           createdAt: true,
         },
-      });
+      }));
 
       if (!user) {
         throw new NotFoundError(translate('userNotFound', authed));
@@ -1078,7 +1079,7 @@ export const Users = {
         throw new LimitError(translate('transferLimitReached', authed));
       }
 
-      const targetUser = await prisma.user.findFirst({
+      const targetUser = await traced('users.transferBrute.getTargetUser', () => prisma.user.findFirst({
         where: {
           id: targetUserId,
           bannedAt: null,
@@ -1097,7 +1098,7 @@ export const Users = {
             },
           },
         },
-      });
+      }));
 
       if (!targetUser) {
         throw new NotFoundError(translate('targetUserNotFound', authed));
@@ -1119,16 +1120,16 @@ export const Users = {
       }
 
       // Transfer brute
-      await prisma.brute.update({
+      await traced('users.transferBrute.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           userId: targetUser.id,
           favorite: false,
         },
-      });
+      }));
 
       // Transfer achievements related to the brute
-      await prisma.achievement.updateMany({
+      await traced('users.transferBrute.updateAchievements', () => prisma.achievement.updateMany({
         where: {
           userId: authed.id,
           bruteId: brute.id,
@@ -1136,10 +1137,10 @@ export const Users = {
         data: {
           userId: targetUser.id,
         },
-      });
+      }));
 
       // Transfer inventory items related to the brute
-      await prisma.inventoryItem.updateMany({
+      await traced('users.transferBrute.updateInventoryItems', () => prisma.inventoryItem.updateMany({
         where: {
           userId: authed.id,
           bruteId: brute.id,
@@ -1147,17 +1148,17 @@ export const Users = {
         data: {
           userId: targetUser.id,
         },
-      });
+      }));
 
       // Increment transfer count
-      await prisma.user.update({
+      await traced('users.transferBrute.incrementTransferCount', () => prisma.user.update({
         where: { id: authed.id },
         data: {
           transferedBrutesCount: {
             increment: 1,
           },
         },
-      });
+      }));
 
       createUserLog(prisma, {
         type: UserLogType.TRANSFER_BRUTE,
@@ -1180,11 +1181,11 @@ export const Users = {
     try {
       await auth(prisma, req, { admin: true });
 
-      const knownFingerprints = await prisma.knownFingerprint.findMany({
+      const knownFingerprints = await traced('users.knownFingerprintsList.getKnownFingerprints', () => prisma.knownFingerprint.findMany({
         orderBy: {
           createdAt: 'desc',
         },
-      });
+      }));
 
       res.send(knownFingerprints);
     } catch (error) {

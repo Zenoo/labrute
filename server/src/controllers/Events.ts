@@ -8,6 +8,7 @@ import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
+import { traced } from '../utils/trace.js';
 
 export const Events = {
   list: (prisma: PrismaClient) => async (
@@ -15,21 +16,22 @@ export const Events = {
     res: Response<EventListResponse>,
   ) => {
     try {
-      if (!req.query.page || Number.isNaN(+req.query.page)) {
+      const { page } = req.query;
+      if (!page || Number.isNaN(+page)) {
         throw new ExpectedError(translate('invalidParameters'));
       }
 
       // Get events
-      const events = await prisma.event.findMany({
+      const events = await traced('events.list.findEvents', () => prisma.event.findMany({
         orderBy: { date: 'desc' },
         take: 7,
-        skip: (+req.query.page - 1) * 7,
+        skip: (+page - 1) * 7,
         include: {
           winner: {
             select: { name: true },
           },
         },
-      });
+      }));
 
       res.status(200).send(events);
     } catch (error) {
@@ -48,17 +50,17 @@ export const Events = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('events.get.findBrute', () => prisma.brute.findFirst({
         where: { id: req.params.bruteId },
         select: { id: true, eventId: true },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound'));
       }
 
       // Get event
-      const event = await prisma.event.findFirst({
+      const event = await traced('events.get.findEvent', () => prisma.event.findFirst({
         where: { id },
         include: {
           winner: {
@@ -71,22 +73,23 @@ export const Events = {
             },
           },
         },
-      });
+      }));
 
       if (!event) {
         throw new NotFoundError(translate('eventNotFound'));
       }
 
       // Get brute count
-      const bruteCount = await prisma.brute.count({
+      const bruteCount = await traced('events.get.countBrutes', () => prisma.brute.count({
         where: { eventId: event.id },
-      });
+      }));
 
       // Get brute fights
-      const fights = (brute.eventId === event.id && event.tournament)
-        ? await prisma.fight.findMany({
+      const eventTournament = event.tournament;
+      const fights = (brute.eventId === event.id && eventTournament)
+        ? await traced('events.get.findFights', () => prisma.fight.findMany({
           where: {
-            tournamentId: event.tournament.id,
+            tournamentId: eventTournament.id,
             tournamentStep: {
               lt: event.maxRound - 2,
             },
@@ -107,13 +110,13 @@ export const Events = {
             brute1Id: true,
             brute2Id: true,
           },
-        })
+        }))
         : [];
 
       // Get last rounds
-      const lastRounds = event.tournament ? await prisma.fight.findMany({
+      const lastRounds = eventTournament ? await traced('events.get.findLastRounds', () => prisma.fight.findMany({
         where: {
-          tournamentId: event.tournament.id,
+          tournamentId: eventTournament.id,
           tournamentStep: {
             gte: event.maxRound - 2,
           },
@@ -130,7 +133,7 @@ export const Events = {
           brute1Id: true,
           brute2Id: true,
         },
-      }) : [];
+      })) : [];
 
       res.status(200).send({
         event,
@@ -148,7 +151,7 @@ export const Events = {
   ) => {
     try {
       // Get events
-      const events = await prisma.event.findMany({
+      const events = await traced('events.listCurrent.findEvents', () => prisma.event.findMany({
         where: { finishedAt: null },
         orderBy: { date: 'asc' },
         include: {
@@ -156,14 +159,14 @@ export const Events = {
             select: { rounds: true },
           },
         },
-      });
+      }));
 
       // Get brute count for each event
-      const bruteCount = await prisma.brute.groupBy({
+      const bruteCount = await traced('events.listCurrent.countBrutes', () => prisma.brute.groupBy({
         by: ['eventId'],
         where: { eventId: { in: events.map((event) => event.id) } },
         _count: { id: true },
-      });
+      }));
 
       res.status(200).send(events.map((event) => ({
         ...event,
@@ -185,7 +188,7 @@ export const Events = {
       }
 
       // Get event
-      const event = await prisma.event.findFirst({
+      const event = await traced('events.getRound.findEvent', () => prisma.event.findFirst({
         where: { id },
         include: {
           tournament: {
@@ -204,7 +207,7 @@ export const Events = {
             },
           },
         },
-      });
+      }));
 
       if (!event) {
         throw new NotFoundError(translate('eventNotFound'));

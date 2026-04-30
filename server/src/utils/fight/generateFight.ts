@@ -34,6 +34,7 @@ import {
 import { getFighters } from './getFighters.js';
 import { handleStats } from './handleStats.js';
 import { updateAchievements } from './updateAchievements.js';
+import { traced } from '../trace.js';
 
 export interface DetailedFighter {
   // Metadata
@@ -215,14 +216,14 @@ export const generateFight = async ({
     }
 
     if (brute1.skills[SkillName.backup]) {
-      const brute1Backups = await prisma.brute.findMany({
+      const brute1Backups = await traced('generateFight.findBrute1Backups', () => prisma.brute.findMany({
         where: {
           deletedAt: null,
           userId: brute1.userId,
           id: { not: brute1.id },
           level: { lt: brute1.level },
         },
-      });
+      }));
 
       if (brute1Backups.length) {
         team1Backups.push(getCalculatedBrute(randomItem(brute1Backups), modifiers));
@@ -230,14 +231,14 @@ export const generateFight = async ({
     }
 
     if (brute2 && brute2.skills[SkillName.backup]) {
-      const brute2Backups = await prisma.brute.findMany({
+      const brute2Backups = await traced('generateFight.findBrute2Backups', () => prisma.brute.findMany({
         where: {
           deletedAt: null,
           userId: brute2.userId,
           id: { not: brute2.id },
           level: { lt: brute2.level },
         },
-      });
+      }));
 
       if (brute2Backups.length) {
         team2Backups.push(getCalculatedBrute(randomItem(brute2Backups), modifiers));
@@ -428,7 +429,7 @@ export const generateFight = async ({
       .some((fighter) => fighter.type === 'boss' && fighter.hp > 0);
     if (bossFighter && !anyBossStillAlive) {
       const boss = bosses.find((b) => b.name === bossFighter.name);
-      const clan = await prisma.clan.findUnique({
+      const clan = await traced('generateFight.findClan', () => prisma.clan.findUnique({
         where: { id: clanId },
         select: {
           limit: true,
@@ -449,7 +450,7 @@ export const generateFight = async ({
             },
           },
         },
-      });
+      }));
 
       if (!boss) {
         throw new Error('Boss not found');
@@ -467,7 +468,7 @@ export const generateFight = async ({
       });
 
       // Get brutes that already have a BossTicket
-      const brutesWithTicket = await prisma.inventoryItem.findMany({
+      const brutesWithTicket = await traced('generateFight.findBrutesWithTicket', () => prisma.inventoryItem.findMany({
         where: {
           bruteId: { in: Array.from(bruteIds) },
           type: InventoryItemType.bossTicket,
@@ -475,10 +476,10 @@ export const generateFight = async ({
         select: {
           bruteId: true,
         },
-      });
+      }));
 
       // Add 1x BossTicket to those brutes
-      await prisma.inventoryItem.updateMany({
+      await traced('generateFight.updateBrutesWithTicket', () => prisma.inventoryItem.updateMany({
         where: {
           bruteId: { in: brutesWithTicket.map((brute) => brute.bruteId ?? '') },
           type: InventoryItemType.bossTicket,
@@ -486,23 +487,23 @@ export const generateFight = async ({
         data: {
           count: { increment: 1 },
         },
-      });
+      }));
 
       // Get brutes that don't have a BossTicket
       const brutesWithoutTicket = Array.from(bruteIds)
         .filter((bruteId) => !brutesWithTicket.find((brute) => brute.bruteId === bruteId));
 
       // Add 1x BossTicket to those brutes
-      await prisma.inventoryItem.createMany({
+      await traced('generateFight.createBrutesWithoutTicket', () => prisma.inventoryItem.createMany({
         data: brutesWithoutTicket.map((bruteId) => ({
           bruteId,
           type: InventoryItemType.bossTicket,
           count: 1,
         })),
-      });
+      }));
 
       // Update clan
-      await prisma.clan.update({
+      await traced('generateFight.updateClan', () => prisma.clan.update({
         where: { id: clanId },
         data: {
           // Set new boss
@@ -517,7 +518,7 @@ export const generateFight = async ({
             deleteMany: {},
           },
         },
-      });
+      }));
 
       // Give gold to users
       const userIds = new Set(clan.brutes.map((brute) => brute.userId || ''));
@@ -530,21 +531,21 @@ export const generateFight = async ({
 
       const goldGains = Math.floor((boss.reward * BOSS_GOLD_REWARD) / userIds.size);
 
-      await prisma.user.updateMany({
+      await traced('generateFight.updateUsersGold', () => prisma.user.updateMany({
         where: { id: { in: Array.from(userIds) } },
         data: {
           gold: { increment: goldGains },
         },
-      });
+      }));
 
       // Add log
-      await prisma.log.createMany({
+      await traced('generateFight.createBossDefeatLogs', () => prisma.log.createMany({
         data: Array.from(bruteIds).map((bruteId) => ({
           type: LogType.bossDefeat,
           gold: goldGains,
           currentBruteId: bruteId,
         })),
-      });
+      }));
 
       createManyUserLogs(prisma, Array.from(userIds).map((userId) => ({
         type: UserLogType.GOLD_WIN,
@@ -578,7 +579,7 @@ export const generateFight = async ({
 
       const damage = initialBossesHp - finalBossesHp;
 
-      await prisma.clan.update({
+      await traced('generateFight.updateClanDamage', () => prisma.clan.update({
         where: { id: clanId },
         data: {
           damageOnBoss: { increment: damage },
@@ -598,7 +599,7 @@ export const generateFight = async ({
             },
           },
         },
-      });
+      }));
     }
   }
 

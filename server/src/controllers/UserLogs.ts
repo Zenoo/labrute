@@ -8,6 +8,7 @@ import type { Request, Response } from 'express';
 import { auth } from '../utils/auth.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
+import { traced } from '../utils/trace.js';
 
 export const UserLogs = {
   list: (prisma: PrismaClient) => async (
@@ -25,7 +26,7 @@ export const UserLogs = {
       }
 
       // Get user logs
-      const logs = await prisma.userLog.findMany({
+      const logs = await traced('userLogs.list.findLogs', () => prisma.userLog.findMany({
         where: {
           userId: { in: req.body.userIds },
         },
@@ -40,7 +41,7 @@ export const UserLogs = {
             select: { name: true },
           },
         },
-      });
+      }));
 
       res.status(200).send(logs);
     } catch (error) {
