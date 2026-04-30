@@ -24,6 +24,9 @@ export class ServerContext {
   public constructor() {
     const adapter = new PrismaPg({
       connectionString: process.env.DATABASE_URL,
+      // Match Prisma ORM v6 defaults:
+      connectionTimeoutMillis: 5_000, // v6 connect_timeout was 5s
+      idleTimeoutMillis: 300_000, // v6 max_idle_connection_lifetime was 300s
     });
 
     if (DEBUG_QUERIES) {
