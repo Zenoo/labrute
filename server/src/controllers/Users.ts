@@ -1063,6 +1063,7 @@ export const Users = {
         select: {
           transferedBrutesCount: true,
           fingerprints: true,
+          createdAt: true,
         },
       });
 
@@ -1105,6 +1106,13 @@ export const Users = {
 
       if (targetUser.brutes.length >= targetUser.bruteLimit) {
         throw new LimitError(translate('targetUserBruteLimitReached', authed));
+      }
+
+      // Check if the user was created after the transfer method was implemented (2026-04-20)
+      if (dayjs.utc(user.createdAt).isAfter(dayjs.utc('2026-04-20'))) {
+        await banUser(prisma, authed.id, 'Transfer abuse');
+        await banUser(prisma, targetUser.id, 'Transfer abuse');
+        throw new ForbiddenError('Goodbye');
       }
 
       // Transfer brute
