@@ -134,5 +134,6 @@
   "outdatedVersion": "Vous utilisez une version obsolète du jeu. Veuillez actualiser la page pour obtenir la dernière version. Si vous continuez à voir ce message, veuillez vider votre cache et actualiser la page.",
   "transferLimitReached": "Vous avez atteint votre limite de transfert.",
   "targetUserBruteLimitReached": "L'utilisateur ciblé a atteint sa limite de brute. Il doit avoir un emplacement libre pour pouvoir recevoir une brute.",
-  "targetUserWithoutSharedFingerprint": "L'utilisateur cible n'a pas d'empreinte partagée. Vous devez vous connecter avec les deux comptes sur le même appareil au moins une fois pour pouvoir transférer une brute entre eux."
+  "targetUserWithoutSharedFingerprint": "L'utilisateur cible n'a pas d'empreinte partagée. Vous devez vous connecter avec les deux comptes sur le même appareil au moins une fois pour pouvoir transférer une brute entre eux.",
+  "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account."
 }
