@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.5](https://github.com/Zenoo/labrute/compare/labrute-v2.91.4...labrute-v2.91.5) (2026-05-01)
+
+
+### Bug Fixes
+
+* Restore core package.json ([1acedf5](https://github.com/Zenoo/labrute/commit/1acedf5a74969b9b7a1dad28736afd0645ed17eb))
+
 ## [2.91.4](https://github.com/Zenoo/labrute/compare/labrute-v2.91.3...labrute-v2.91.4) (2026-04-30)
 
 
