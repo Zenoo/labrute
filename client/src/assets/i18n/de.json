@@ -127,6 +127,7 @@
   "master": "Anführer",
   "ranking": "Rangliste",
   "ranking.desc": "Rang von {{name}}. Ein {{rank}} der Stufe {{level}} mit einer Gewinnquote von {{winrate}}.",
+  "rankingUpdatedDaily": "Die Rangliste wird einmal am Tag errechnet, nicht in Echtzeit",
   "rankings": "{{value}} Ranglisten",
   "victories": "Siege",
   "winrate": "Gewinnquote",
