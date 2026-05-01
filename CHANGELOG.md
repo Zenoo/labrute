@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.6](https://github.com/Zenoo/labrute/compare/labrute-v2.91.5...labrute-v2.91.6) (2026-05-01)
+
+
+### Bug Fixes
+
+* Optimize DB query perfs ([3d6460d](https://github.com/Zenoo/labrute/commit/3d6460dddd0696ef5588b385d748f2302d5b1a7c))
+* Silence rankings not ready message ([38bb0cf](https://github.com/Zenoo/labrute/commit/38bb0cf68a2781e14204f76967a87afd93941e09))
+
 ## [2.91.5](https://github.com/Zenoo/labrute/compare/labrute-v2.91.4...labrute-v2.91.5) (2026-05-01)
 
 
