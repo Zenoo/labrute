@@ -11,8 +11,8 @@ export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'i
   if (user.brutes.length > 0) {
     // Remove brutes from clan fighters
     const joinedBruteIds = Prisma.join(user.brutes.map((b) => Prisma.sql`${b.id}::uuid`));
-    await traced('deleteUserBrutes.removeClanWarAttackerFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" IN (${joinedBruteIds});`);
-    await traced('deleteUserBrutes.removeClanWarDefenderFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" IN (${joinedBruteIds});`);
+    await traced('deleteUserBrutes.removeClanWarAttackerFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" = ANY(ARRAY[${joinedBruteIds}]);`);
+    await traced('deleteUserBrutes.removeClanWarDefenderFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" = ANY(ARRAY[${joinedBruteIds}]);`);
   }
 
   for (const brute of user.brutes) {

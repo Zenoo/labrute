@@ -21,7 +21,7 @@ const tracer = trace.getTracer('labrute-queries');
  * });
  * ```
  */
-export const traced = async <T>(
+export const traced = <T>(
   spanName: string,
   callback: () => Promise<T>,
   attributes?: Record<string, string | number | boolean>,

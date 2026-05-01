@@ -83,9 +83,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.get('/api/brute/:name/get-opponents/:level', Brutes.getOpponents(prisma));
   app.delete('/api/brute/:name', Brutes.sacrifice(prisma));
   app.get('/api/brute/:name/ranking-data/:rank', Brutes.getForRank(prisma));
-  app.get('/api/brute/:name/ranking-data', Brutes.getForRank(prisma));
   app.get('/api/brute/:name/neighbors/:rank', Brutes.getNeighborsForRank(prisma));
-  app.get('/api/brute/:name/neighbors', Brutes.getNeighborsForRank(prisma));
   app.get('/api/brute/:name/ranking', Brutes.getRanking(prisma));
   app.get('/api/brute/:name/exists', Brutes.exists(prisma));
   app.patch('/api/brute/:name/rank-up', Brutes.rankUp(prisma));

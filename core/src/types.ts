@@ -515,10 +515,18 @@ export type BruteReportWithNames = BruteReport & {
 
 // Server return types
 export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
+export type BrutesGetForRankRequest = {
+  name: string;
+  rank: string;
+};
 export type BrutesGetForRankResponse = {
   topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
   total: number,
   bruteInTop: boolean,
+};
+export type BrutesGetNeighborsForRankRequest = {
+  name: string;
+  rank: string;
 };
 export type BrutesGetNeighborsForRankResponse = {
   nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],

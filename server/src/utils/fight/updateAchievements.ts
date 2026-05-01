@@ -1,5 +1,5 @@
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
-import { AchievementName, PrismaClient } from '@labrute/prisma';
+import { AchievementName, Prisma, PrismaClient } from '@labrute/prisma';
 import { traced } from '../trace.js';
 
 export const updateAchievements = async (
@@ -27,11 +27,12 @@ export const updateAchievements = async (
 
   try {
     if (bruteAchievementsTournamentRelated.length > 0) {
-      await traced('updateAchievements.updateTournamentAchievements', () => prisma.$executeRawUnsafe(/* sql */`
-        INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount" , date) VALUES
-        ${bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => `('${bruteId}', '${name}', '${count}' , NOW())`).join(', ')}
+      const tournamentValues = bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${name}::text, ${count}::int, NOW())`);
+      await traced('updateAchievements.updateTournamentAchievements', () => prisma.$executeRaw`
+        INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount", date) VALUES
+        ${Prisma.join(tournamentValues)}
         ON CONFLICT(achievement, "bruteId") DO UPDATE SET "achievementCount" = "TournamentAchievement"."achievementCount" + excluded."achievementCount";
-      `));
+      `);
     }
   } catch (error) {
     console.error(error);
@@ -39,16 +40,17 @@ export const updateAchievements = async (
 
   try {
     if (bruteAchievements.length > 0) {
-      await traced('updateAchievements.updateAchievements', () => prisma.$executeRawUnsafe(/* sql */`
+      const achievementValues = bruteAchievements.map(([bruteId, userId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${userId}::uuid, ${name}::text, ${count}::int)`);
+      await traced('updateAchievements.updateAchievements', () => prisma.$executeRaw`
         INSERT INTO "Achievement"("bruteId", "userId", name, count) VALUES
-        ${bruteAchievements.map(([bruteId, userId, name, count]) => `('${bruteId}', '${userId}', '${name}', ${count})`).join(', ')}
+        ${Prisma.join(achievementValues)}
         ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE
-        WHEN excluded.name = '${AchievementName.maxDamage}' THEN
+        WHEN excluded.name = ${AchievementName.maxDamage}::text THEN
           GREATEST("Achievement".count, excluded.count)
         ELSE
           "Achievement".count + excluded.count
         END;
-      `));
+      `);
     }
   } catch (error) {
     console.error(error);

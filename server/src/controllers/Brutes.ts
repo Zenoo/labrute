@@ -37,6 +37,8 @@ import {
   isUuid,
   pets,
   BruteGetForAdminRequest,
+  BrutesGetForRankRequest,
+  BrutesGetNeighborsForRankRequest,
 } from '@labrute/core';
 import {
   Brute,
@@ -1004,10 +1006,7 @@ export const Brutes = {
     }
   },
   getForRank: (prisma: PrismaClient) => async (
-    req: Request<{
-      name?: string
-      rank?: string
-    }, unknown, never>,
+    req: Request<BrutesGetForRankRequest, unknown, never>,
     res: Response<BrutesGetForRankResponse>,
   ) => {
     try {
@@ -1017,20 +1016,7 @@ export const Brutes = {
 
       let rank: number;
 
-      // Get brute rank if not provided
-      if (typeof req.params.rank === 'undefined') {
-        const brute = await traced('brutes.getForRank.findBrute', () => prisma.brute.findFirst({
-          where: { name: ilike(req.params.name), deletedAt: null },
-          select: { ranking: true, eventId: true },
-        }));
-
-        if (!brute) {
-          throw new NotFoundError('Brute not found');
-        }
-        rank = brute.eventId ? -1 : brute.ranking;
-      } else if (req.params.rank === 'event') {
-        rank = -1;
-      } else if (Number.isNaN(+req.params.rank)) {
+      if (Number.isNaN(+req.params.rank)) {
         throw new Error(translate('invalidParameters'));
       } else {
         rank = +req.params.rank;
@@ -1052,10 +1038,7 @@ export const Brutes = {
     }
   },
   getNeighborsForRank: (prisma: PrismaClient) => async (
-    req: Request<{
-      name?: string
-      rank?: string
-    }, unknown, never>,
+    req: Request<BrutesGetNeighborsForRankRequest, unknown, never>,
     res: Response<BrutesGetNeighborsForRankResponse>,
   ) => {
     try {
@@ -1065,20 +1048,7 @@ export const Brutes = {
 
       let rank: number;
 
-      // Get brute rank if not provided
-      if (typeof req.params.rank === 'undefined') {
-        const brute = await traced('brutes.getNeighborsForRank.findBrute', () => prisma.brute.findFirst({
-          where: { name: ilike(req.params.name), deletedAt: null },
-          select: { ranking: true, eventId: true },
-        }));
-
-        if (!brute) {
-          throw new NotFoundError('Brute not found');
-        }
-        rank = brute.eventId ? -1 : brute.ranking;
-      } else if (req.params.rank === 'event') {
-        rank = -1;
-      } else if (Number.isNaN(+req.params.rank)) {
+      if (Number.isNaN(+req.params.rank)) {
         throw new Error(translate('invalidParameters'));
       } else {
         rank = +req.params.rank;

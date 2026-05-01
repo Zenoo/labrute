@@ -24,12 +24,12 @@ const RankingView = () => {
   const { brute } = useBrute();
   const Server = useServer();
 
-  const ranking = useMemo(() => (typeof rank === 'undefined' ? brute?.eventId ? -1 : undefined : rank === 'event' ? -1 : +rank), [brute?.eventId, rank]);
+  const ranking = rank ? +rank : 0;
 
   const rankingProps = useMemo(() => ({
     name: bruteName || '',
-    rank: ranking,
-  }), [bruteName, ranking]);
+    rank: rank || '0',
+  }), [bruteName, rank]);
   const { data: rankingData } = useStateAsync(null, Server.Brute.getForRank, rankingProps);
   const [neighborsData, setNeighborsData] = useState<BrutesGetNeighborsForRankResponse | null>(
     null
@@ -92,12 +92,6 @@ const RankingView = () => {
     };
   }, [rankingData, neighborsData]);
 
-  const rankingSelected = useMemo(() => (typeof ranking !== 'undefined'
-    ? ranking
-    : (rankings && rankings.topBrutes.length
-      ? rankings.topBrutes[0]?.ranking
-      : undefined)), [ranking, rankings]);
-
   const bruteRow = (b: BrutesGetForRankResponse['topBrutes'][number], index: number) => (
     <TableRow
       key={b.id}
@@ -121,7 +115,7 @@ const RankingView = () => {
         </Box>
       </TableCell>
       <TableCell align="right">{t('level')} {b.level}</TableCell>
-      {rankingSelected === 0 && (
+      {ranking === 0 && (
         <TableCell align="right">{b.ascensions}</TableCell>
       )}
     </TableRow>
@@ -141,7 +135,7 @@ const RankingView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {
-            value: rankingSelected === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`),
+            value: ranking === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`),
           })}
         </Text>
       </Paper>
@@ -154,10 +148,10 @@ const RankingView = () => {
         >
           {currentEvent && (
             <Tooltip title={t('event')}>
-              <RouterLink to={`/${bruteName || ''}/ranking/event`}>
+              <RouterLink to={`/${bruteName || ''}/ranking/-1`}>
                 <StyledButton
-                  image={rankingSelected === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
-                  imageHover={rankingSelected === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
+                  image={ranking === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
+                  imageHover={ranking === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
                   shadow={false}
                   contrast={false}
                   sx={{
@@ -178,8 +172,8 @@ const RankingView = () => {
             <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`)}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>
                 <StyledButton
-                  image={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
-                  imageHover={rankingSelected === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
+                  image={ranking === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
+                  imageHover={ranking === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button_hover.webp'}
                   shadow={false}
                   contrast={false}
                   sx={{
@@ -225,7 +219,7 @@ const RankingView = () => {
                   <TableCell />
                   <TableCell>{t('brute')}</TableCell>
                   <TableCell align="right">{t('experience')}</TableCell>
-                  {rankingSelected === 0 && (
+                  {ranking === 0 && (
                     <TableCell align="right">{t('ascensions')}</TableCell>
                   )}
                 </TableRow>
@@ -256,7 +250,7 @@ const RankingView = () => {
                   <TableCell component="th" scope="row">
                     {t('total')}
                   </TableCell>
-                  <TableCell component="th" scope="row" colSpan={rankingSelected === 0 ? 3 : 2} align="right">
+                  <TableCell component="th" scope="row" colSpan={ranking === 0 ? 3 : 2} align="right">
                     {rankings.total}
                   </TableCell>
                 </TableRow>
