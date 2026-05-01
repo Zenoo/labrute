@@ -3,6 +3,7 @@ import {
   AchievementGetRankingsResponse,
   AchievementsGetResponse,
   BaseTitleRequirements,
+  ExpectedError,
   MissingElementError, RaretyOrder,
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
@@ -303,7 +304,7 @@ export const Achievements = {
       }
 
       // Rankings not ready yet, wait
-      throw new Error(translate('rankingsNotReady'));
+      throw new ExpectedError(translate('rankingsNotReady'));
     } catch (error) {
       sendError(res, error);
     }
