@@ -1,6 +1,7 @@
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
 import { AchievementName, Prisma, PrismaClient } from '@labrute/prisma';
 import { traced } from '../trace.js';
+import { DISCORD, LOGGER } from '../../context.js';
 
 export const updateAchievements = async (
   prisma: PrismaClient,
@@ -27,7 +28,7 @@ export const updateAchievements = async (
 
   try {
     if (bruteAchievementsTournamentRelated.length > 0) {
-      const tournamentValues = bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${name}::text, ${count}::int, NOW())`);
+      const tournamentValues = bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${name}::"AchievementName", ${count}::int, NOW())`);
       await traced('updateAchievements.updateTournamentAchievements', () => prisma.$executeRaw`
         INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount", date) VALUES
         ${Prisma.join(tournamentValues)}
@@ -35,17 +36,21 @@ export const updateAchievements = async (
       `);
     }
   } catch (error) {
-    console.error(error);
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+    LOGGER.log(`Error updating tournament achievements: ${error.message}`);
+    DISCORD().sendError(error);
   }
 
   try {
     if (bruteAchievements.length > 0) {
-      const achievementValues = bruteAchievements.map(([bruteId, userId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${userId}::uuid, ${name}::text, ${count}::int)`);
+      const achievementValues = bruteAchievements.map(([bruteId, userId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${userId}::uuid, ${name}::"AchievementName", ${count}::int)`);
       await traced('updateAchievements.updateAchievements', () => prisma.$executeRaw`
         INSERT INTO "Achievement"("bruteId", "userId", name, count) VALUES
         ${Prisma.join(achievementValues)}
         ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE
-        WHEN excluded.name = ${AchievementName.maxDamage}::text THEN
+        WHEN excluded.name = ${AchievementName.maxDamage}::"AchievementName" THEN
           GREATEST("Achievement".count, excluded.count)
         ELSE
           "Achievement".count + excluded.count
@@ -53,6 +58,10 @@ export const updateAchievements = async (
       `);
     }
   } catch (error) {
-    console.error(error);
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+    LOGGER.log(`Error updating achievements: ${error.message}`);
+    DISCORD().sendError(error);
   }
 };

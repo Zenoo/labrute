@@ -156,7 +156,7 @@ const CellSocials = ({
             )}
             <Grid item xs={6}>
               <Tooltip title={t('rankingUpdatedDaily')}>
-                <Link to={`/${brute.name}/ranking/${brute.ranking}`}>
+                <Link to={`/${brute.name}/ranking/${brute.eventId ? -1 : brute.ranking}`}>
                   <Text bold color="secondary" component="span">{t('ranking')}: </Text>
                   <Text bold component="span">
                     {ranking || 'NA'}

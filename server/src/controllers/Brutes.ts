@@ -1011,13 +1011,13 @@ export const Brutes = {
   ) => {
     try {
       if (!req.params.name) {
-        throw new Error('Missing name');
+        throw new ExpectedError('Missing name');
       }
 
       let rank: number;
 
       if (Number.isNaN(+req.params.rank)) {
-        throw new Error(translate('invalidParameters'));
+        throw new ExpectedError(translate('invalidParameters'));
       } else {
         rank = +req.params.rank;
       }
@@ -1043,13 +1043,13 @@ export const Brutes = {
   ) => {
     try {
       if (!req.params.name) {
-        throw new Error('Missing name');
+        throw new ExpectedError('Missing name');
       }
 
       let rank: number;
 
       if (Number.isNaN(+req.params.rank)) {
-        throw new Error(translate('invalidParameters'));
+        throw new ExpectedError(translate('invalidParameters'));
       } else {
         rank = +req.params.rank;
       }

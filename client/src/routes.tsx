@@ -88,7 +88,6 @@ const routes: RouteObject[] = [
           { path: 'fight/:fightId', element: <FightView /> },
           { path: 'tournament/global/:date', element: <GlobalTournamentView /> },
           { path: 'tournament/:date', element: <TournamentView /> },
-          { path: 'ranking', element: <RankingView /> },
           { path: 'ranking/:rank', element: <RankingView /> },
           { path: 'destiny', element: <DestinyView /> },
           { path: 'ascend', element: <AscendView /> },
