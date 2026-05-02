@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.7](https://github.com/Zenoo/labrute/compare/labrute-v2.91.6...labrute-v2.91.7) (2026-05-02)
+
+
+### Bug Fixes
+
+* Silence invalid parameters errors ([a046c0c](https://github.com/Zenoo/labrute/commit/a046c0cce2dbc964a3a4c309ca3374f2cd425253))
+
 ## [2.91.6](https://github.com/Zenoo/labrute/compare/labrute-v2.91.5...labrute-v2.91.6) (2026-05-01)
 
 
