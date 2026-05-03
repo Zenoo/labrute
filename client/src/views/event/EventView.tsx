@@ -38,7 +38,7 @@ const eventRules = {
 };
 
 export const EventView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('event');
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
@@ -268,6 +268,7 @@ export const EventView = () => {
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
+
           value: lostRound.winner
         })}
       </Text>

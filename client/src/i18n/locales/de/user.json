@@ -1,0 +1,18 @@
+{
+  "dinoRpgRewardsSuccess": "Glückwunsch! Deine Brutalos haben je einen zusätzlichen Kampf erhalten.",
+  "ban": "Bannen",
+  "banConfirm": "Bist du sicher, dass du diesen Nutzer bannen möchtest?",
+  "banSuccess": "Nutzer erfolgreich gebannt.",
+  "deleteAccount": "Konto löschen",
+  "deleteAccountConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? All deine Brutalos und Fortschritt gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.",
+  "accountDeleted": "Dein Konto wurde gelöscht",
+  "userProfile": "Profil von {{user}}",
+  "userProfile.desc": "Profil von {{user}}, mit all den Erfolgen und Brutalos dargestellt.",
+  "externalRewards": "Externe Belohnungen",
+  "favoriteFights": "Kampf-Favoriten",
+  "banReason.innapropriateName": "Unangemessener Name",
+  "banReason.innapropriateBruteName": "Unangemessener Name des Brutalos",
+  "banReason.multipleAccounts": "Mehrere Accounts",
+  "banReason.unrecognized_fingerprint": "Digitale Signatur nicht erkannt",
+  "banReason.headers_tampering": "Header-Manipulation festgestellt"
+}

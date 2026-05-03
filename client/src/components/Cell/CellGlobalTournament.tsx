@@ -279,6 +279,7 @@ const CellGlobalTournament = ({
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
+
           value: lostRound.winner
         })}
       </Text>

@@ -2,6 +2,8 @@ import { TFunction } from 'react-i18next';
 import { FightStep, Fighter, SkillById, StepType, WeaponById } from '@labrute/core';
 import { BossName, PetName } from '@labrute/prisma';
 
+const petNames = new Set(Object.values(PetName));
+
 const getFighterName = (
   fighters: Fighter[],
   fighterId: number,
@@ -16,7 +18,9 @@ const getFighterName = (
     return fighter.name;
   }
 
-  return t(fighter.name as PetName | BossName);
+  return petNames.has(fighter.name as PetName)
+    ? t(fighter.name as PetName)
+    : t(fighter.name as BossName);
 };
 
 const translateFightStep = (

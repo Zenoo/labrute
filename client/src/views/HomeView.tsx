@@ -28,7 +28,7 @@ import { catchError } from '../utils/catchError';
  * HomeView component
  */
 const HomeView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('home');
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
   const { authing, modifiers, setAuthing, updateData, user } = useAuth();
@@ -271,7 +271,7 @@ const HomeView = () => {
     : (
       <Page
         title={t('MyBrute')}
-        description={t('home.desc')}
+        description={t('description')}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}
@@ -306,7 +306,10 @@ const HomeView = () => {
                 onChange={changeName}
                 value={name}
               />
-              <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
+              <Tooltip title={fixBruteAppearance
+                ? t('unlockBruteAppearance')
+                : t('lockBruteAppearance')}
+              >
                 <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
@@ -383,13 +386,13 @@ const HomeView = () => {
           >
             {/* FIRST TEXT */}
             <Box sx={{ width: 300, mt: 2 }}>
-              <Text h5 bold typo="handwritten" color="secondary">{t('toBeABrute')}</Text>
-              <Text bold color="text.primary">{t('createBrute')}</Text>
+              <Text h5 bold typo="handwritten" color="secondary">{t('heroTitle')}</Text>
+              <Text bold color="text.primary">{t('heroBody')}</Text>
             </Box>
             {/* SECOND TEXT */}
             <Box sx={{ width: 300, mt: 4, ml: 2 }}>
-              <Text h5 bold typo="handwritten" color="secondary">{t('orNotToBe')}</Text>
-              <Text bold color="text.primary">{t('otherGames')}</Text>
+              <Text h5 bold typo="handwritten" color="secondary">{t('otherGamesTitle')}</Text>
+              <Text bold color="text.primary">{t('otherGamesBody')}</Text>
             </Box>
             {/* OTHER GAMES */}
             <Box sx={{ mt: 1, ml: 2 }}>

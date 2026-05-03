@@ -16,7 +16,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const HallView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('hall');
   const navigate = useNavigate();
   const { user, updateData } = useAuth();
   const Alert = useAlert();
@@ -137,7 +137,10 @@ const HallView = () => {
                     )}
                     <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
                   </Box>
-                  <Tooltip title={brute.favorite ? t('removeFromFavorites') : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES })}>
+                  <Tooltip title={brute.favorite
+                    ? t('removeFromFavorites')
+                    : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES })}
+                  >
                     <Stars
                       onClick={toggleFavorite(brute)}
                       fontSize="small"
@@ -211,7 +214,7 @@ const HallView = () => {
                 </Box>
               </Box>
               {/* Fights left */}
-              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft })}>
+              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft, ns: 'common' })}>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: 'center',

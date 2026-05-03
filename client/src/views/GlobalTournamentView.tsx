@@ -8,22 +8,22 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const GlobalTournamentView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('globalTournament');
   const { bruteName, date } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Page
-      title={`${t('globalTournamentOf')} ${dayjs.utc(date).format('DD/MM/YYYY')}`}
-      description={t('globalTournament.desc', {
+      title={`${t('of')} ${dayjs.utc(date).format('DD/MM/YYYY')}`}
+      description={t('desc', {
         brute: bruteName,
         date: dayjs.utc(date).format('DD/MM/YYYY'),
       })}
       headerUrl={`/${bruteName || ''}/cell`}
     >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('globalTournamentOf')} {dayjs.utc(date).format('DD/MM/YYYY')}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('of')} {dayjs.utc(date).format('DD/MM/YYYY')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container spacing={1}>

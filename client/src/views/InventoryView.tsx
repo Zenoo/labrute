@@ -23,7 +23,7 @@ const itemImage: Record<InventoryItemType, string> = {
 };
 
 export const InventoryView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('inventory');
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, owner } = useBrute();
@@ -58,11 +58,11 @@ export const InventoryView = () => {
       }
       case InventoryItemType.favoriteFight: {
         // Favorite fight
-        Alert.open('info', t('inventory.item.favoriteFight.desc'));
+        Alert.open('info', t('item.favoriteFight.desc'));
         break;
       }
       default: {
-        Alert.open('info', t('inventory.itemNotImplemented'));
+        Alert.open('info', t('itemNotImplemented'));
         break;
       }
     }
@@ -156,7 +156,7 @@ export const InventoryView = () => {
             </Grid>
             {!isMd && (
               <Grid item xs={12} md={2.4}>
-                <Text bold>{t('inventory.desc')}</Text>
+                <Text bold>{t('desc')}</Text>
                 <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
               </Grid>
             )}

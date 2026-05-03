@@ -70,14 +70,14 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
                     textDecoration: 'underline',
                     textDecorationColor: log.type === LogType.lose
                       ? theme.palette.error.main
-                      : theme.palette.success.main
-                    ,
+                      : theme.palette.success.main,
                   },
                 }}
               >
                 <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
                   {combatLogs.includes(log.type)
                     ? t(`log.fight.${log.template ?? '0'}`, {
+
                       winner: log.type === LogType.win ? log.currentBrute.name : log.brute,
                       loser: log.type === LogType.win ? log.brute : log.currentBrute.name,
                     })

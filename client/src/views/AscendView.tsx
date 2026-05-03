@@ -23,7 +23,7 @@ import { catchError } from '../utils/catchError';
  */
 const AscendView = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('ascend');
   const { brute } = useBrute();
   const navigate = useNavigate();
   const Confirm = useConfirm();
@@ -154,9 +154,9 @@ const AscendView = () => {
       return '';
     }
     if (selectedPerk === 'dog1' || selectedPerk === 'dog2' || selectedPerk === 'dog3') {
-      return t('youWillAscendWithDog', { one_or_a_second_pet_dog: t(getSelectedPerkLabel()) });
+      return t('youWillAscendWithDog', { ns: 'ascend', one_or_a_second_pet_dog: getSelectedPerkLabel() });
     }
-    return t('youWillAscendWith', { perkName: t(getSelectedPerkLabel()), perkType: getSelectedPerkTypeLabel() });
+    return t('youWillAscendWith', { ns: 'ascend', perkName: getSelectedPerkLabel(), perkType: getSelectedPerkTypeLabel() });
   }, [selectedPerk, selectedPerkType, t]);
 
   const ascend = useCallback(() => {

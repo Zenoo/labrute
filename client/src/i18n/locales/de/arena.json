@@ -1,0 +1,9 @@
+{
+  "title": "Arena",
+  "search": "Los!",
+  "search.atLeastThreeCharacters": "Bitte mindestens 3 Buchstaben eingeben.",
+  "search.noSelf": "Hör auf dich selbst zu hauen.",
+  "search.notFound": "Kein Brutalo mit diesem Namen gefunden.",
+  "noXP": "Dein Brutalo hat die maximale Stufe erreicht. Du kannst weiterhin kämpfen, aber du wirst keine EP mehr erhalten.",
+  "selectedOpponents": "Willkommen in der Arena! Hier ist eine Auswahl an Gegnern deiner Stufe. Such dir einen aus und prügel los!"
+}

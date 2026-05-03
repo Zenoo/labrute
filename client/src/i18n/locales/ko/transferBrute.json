@@ -1,0 +1,6 @@
+{
+  "bruteTransfer": "Brute transfer",
+  "transfer": "Transfer",
+  "bruteTransferred": "Brute transferred",
+  "confirmBruteTransfer": "Are you sure you want to transfer {{bruteName}}? You will lose access to this brute and all its progress. This action is irreversible."
+}

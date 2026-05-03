@@ -1,0 +1,12 @@
+{
+  "status": "Estado",
+  "pending": "Pendiente",
+  "accepted": "Aceptado",
+  "rejected": "Rechazado",
+  "reportedBy": "Reportado por",
+  "handledBy": "Manejado por",
+  "unknown": "Desconocido",
+  "reportAccepted": "Reporte aceptado",
+  "reportRejected": "Reporte rechazado",
+  "reportCancelled": "Reporte cancelado"
+}

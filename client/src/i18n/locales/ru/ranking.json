@@ -1,0 +1,6 @@
+{
+  "ranking.desc": "Звание {{name}}. {{rank}} {{level}}-о уровня с долей побед: {{winrate}}.",
+  "rankings": "{{value}} рейтингов",
+  "experience": "Опыт",
+  "total": "Всего"
+}

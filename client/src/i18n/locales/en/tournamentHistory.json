@@ -1,0 +1,9 @@
+{
+  "tournamentHistory": "Tournament history",
+  "tournamentHistory.desc": "Every tournament {{brute}} has ever participated in. That's a lot of fights!",
+  "result": "Result",
+  "tournament.result.finishingWith.1": "st",
+  "tournament.result.finishingWith.2": "nd",
+  "tournament.result.finishingWith.3": "rd",
+  "tournament.result.finishingWith.other": "th"
+}

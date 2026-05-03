@@ -18,7 +18,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 export const FollowingFeedView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('followingFeed');
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();
@@ -94,6 +94,7 @@ export const FollowingFeedView = () => {
                       <Link to={`/${log.currentBrute?.name}/cell`}>
                         <Text body2>
                           {t(`log.${log.type}`, {
+
                             brute: log.currentBrute?.name,
                             value: log.type === LogType.lvl ? t(`lvl_${log.level}`) : log.level,
                           })}

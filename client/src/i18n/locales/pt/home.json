@@ -1,0 +1,11 @@
+{
+  "description": "Crie o seu Bruto, personalize a aparência e lute contra outros Brutos na arena.",
+  "loginError": "Erro ao iniciar sessão",
+  "loginSuccess": "Login efetuado com sucesso",
+  "pleaseLogin": "Faça login antes de criar um Bruto",
+  "nameUnavailable": "Nome indisponível",
+  "heroTitle": "PARA SER UM BRUTO...",
+  "heroBody": "Insira um nome para criar o seu próprio Bruto. Poderá lutar contra outros Brutos na arena e recrutar novos alunos. Ganhe experiência e lute duro no ranking para se tornar... O BRUTO!",
+  "otherGamesTitle": "... OU NÃO SER",
+  "otherGamesBody": "Se toda essa violência implacável for demais para você, experimente os nossos outros jogos divertidos:"
+}

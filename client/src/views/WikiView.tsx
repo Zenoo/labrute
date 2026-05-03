@@ -22,12 +22,12 @@ const sacrificeExamples = [
 ];
 
 export const WikiView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('wiki');
 
   return (
     <Page
       title={`${t('wiki')} ${t('MyBrute')}`}
-      description={t('wiki.desc')}
+      description={t('desc')}
       headerUrl=""
     >
       <Paper sx={{
@@ -55,8 +55,8 @@ export const WikiView = () => {
               <KeyboardDoubleArrowUp sx={{ verticalAlign: 'middle', mr: 1 }} />
               {t('rankUp')}
             </FantasyButton>
-            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howToRankup')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.winDaily')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToRankup')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('winDaily')}</Text>
             {BruteRankings.slice(0, 3).map((rank) => (
               <Text body2 key={rank}>
                 <Box
@@ -70,43 +70,43 @@ export const WikiView = () => {
                   src={`/images/rankings/lvl_${rank - 1}.webp`}
                   sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
                 />
-                {t('wiki.wins', { count: getWinsNeededToRankUp({ ranking: rank, ascensions: 0 }) })}
+                {t('wins', { count: getWinsNeededToRankUp({ ranking: rank, ascensions: 0 }) })}
               </Text>
             ))}
-            <Text body2>{t('wiki.restartAfterRankup')}</Text>
-            <Text body2>{t('wiki.previousDestiny')}</Text>
+            <Text body2>{t('restartAfterRankup')}</Text>
+            <Text body2>{t('previousDestiny')}</Text>
             {/* TOURNAMENTS */}
             <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
               <EmojiEvents sx={{ verticalAlign: 'middle', mr: 1 }} />
               {t('tournaments')}
             </FantasyButton>
-            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howWork')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howWork')}</Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('dailyTournament')}</Text>
-            <Text body2>- {t('wiki.manualRegister')}</Text>
-            <Text body2>- {t('wiki.allowRankUp')}</Text>
-            <Text body2>- {t('wiki.xpPerWin', { count: DailyTournamentXpReward })}</Text>
+            <Text body2>- {t('manualRegister')}</Text>
+            <Text body2>- {t('allowRankUp')}</Text>
+            <Text body2>- {t('xpPerWin', { count: DailyTournamentXpReward })}</Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('globalTournament')}</Text>
-            <Text body2>- {t('wiki.autoRegister')}</Text>
-            <Text body2>- {t('wiki.activePreviousDay')}</Text>
-            <Text body2>- {t('wiki.xpPerWin', { count: GlobalTournamentXpReward })}</Text>
+            <Text body2>- {t('autoRegister')}</Text>
+            <Text body2>- {t('activePreviousDay')}</Text>
+            <Text body2>- {t('xpPerWin', { count: GlobalTournamentXpReward })}</Text>
             <Text body2 mt={1}>
-              {t('wiki.addedDelayedXP', {
+              {t('addedDelayedXP', {
                 daily: 3,
                 global: 4,
                 total: 3 * DailyTournamentXpReward + 4 * GlobalTournamentXpReward,
               })}
             </Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.unlimitedGlobalTourney')}</Text>
-            <Text body2>- {t('wiki.unregisteredOnly')}</Text>
-            <Text body2>- {t('wiki.noRewards')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('unlimitedGlobalTourney')}</Text>
+            <Text body2>- {t('unregisteredOnly')}</Text>
+            <Text body2>- {t('noRewards')}</Text>
             {/* CLANS */}
             <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
               <Groups sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('wiki.clans')}
+              {t('clans')}
             </FantasyButton>
-            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.increaseClanCapacity')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.defeatBoss')}</Text>
-            <Text body2>{t('wiki.bossExplanation')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('increaseClanCapacity')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('defeatBoss')}</Text>
+            <Text body2>{t('bossExplanation')}</Text>
             <Box
               component="img"
               display="block"
@@ -120,8 +120,8 @@ export const WikiView = () => {
               <Box component="img" src="/images/gold.png" sx={{ verticalAlign: 'middle', mr: 1 }} />
               {t('gold')}
             </FantasyButton>
-            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howToGetGold')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.sacrifice')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToGetGold')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('sacrifice')}</Text>
             <Box sx={{ columns: 2 }}>
               {sacrificeExamples.map(({ level, rank }) => (
                 <Text body2 key={`${level}-${rank}`}>
@@ -130,7 +130,7 @@ export const WikiView = () => {
                     src={`/images/rankings/lvl_${rank}.webp`}
                     sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
                   />
-                  {t('wiki.level', { count: level })} = {getBruteGoldValue({ level, ranking: rank, eventId: null })}
+                  {t('level', { count: level })} = {getBruteGoldValue({ level, ranking: rank, eventId: null })}
                   <Box
                     component="img"
                     src="/images/gold.png"
@@ -139,10 +139,10 @@ export const WikiView = () => {
                 </Text>
               ))}
             </Box>
-            <Text body2>{t('wiki.noSacrificeSameDay')}</Text>
-            <Text body2>{t('wiki.sameNameAfterSacrifice')}</Text>
+            <Text body2>{t('noSacrificeSameDay')}</Text>
+            <Text body2>{t('sameNameAfterSacrifice')}</Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">
-              • {t('wiki.winDailyTourney')} = {DailyTournamentGoldReward}
+              • {t('winDailyTourney')} = {DailyTournamentGoldReward}
               <Box
                 component="img"
                 src="/images/gold.png"
@@ -150,19 +150,19 @@ export const WikiView = () => {
               />
             </Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">
-              • {t('wiki.winGlobalTourney')} = {GlobalTournamentGoldReward}
+              • {t('winGlobalTourney')} = {GlobalTournamentGoldReward}
               <Box
                 component="img"
                 src="/images/gold.png"
                 sx={{ ml: 0.5, verticalAlign: 'middle' }}
               />
             </Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.beatClanBoss')}</Text>
-            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.howToUseGold')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.createNewBrutes')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('beatClanBoss')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToUseGold')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('createNewBrutes')}</Text>
             {[4, 5, 6].map((brutes) => (
               <Text body2 key={brutes}>
-                {t('wiki.count', { count: brutes })} = {getGoldNeededForNewBrute({ bruteLimit: brutes - 1, brutes: new Array(brutes - 1).fill({ id: '' }) as Pick<Brute, 'id'>[] })}
+                {t('count', { count: brutes })} = {getGoldNeededForNewBrute({ bruteLimit: brutes - 1, brutes: new Array(brutes - 1).fill({ id: '' }) as Pick<Brute, 'id'>[] })}
                 <Box
                   component="img"
                   src="/images/gold.png"
@@ -171,23 +171,23 @@ export const WikiView = () => {
               </Text>
             ))}
             <Text h6 upperCase typo="LaBrute" color="secondary">
-              • {t('wiki.resetBrute')} = {RESET_PRICE}
+              • {t('resetBrute')} = {RESET_PRICE}
               <Box
                 component="img"
                 src="/images/gold.png"
                 sx={{ ml: 0.5, verticalAlign: 'middle' }}
               />
             </Text>
-            <Text body2>{t('wiki.resetExample')}</Text>
-            <Text body2>{t('wiki.resetExample2')}</Text>
+            <Text body2>{t('resetExample')}</Text>
+            <Text body2>{t('resetExample2')}</Text>
             {/* PUPILS */}
             <FantasyButton color="success" sx={{ ml: 0, mt: 3 }}>
               <ChildCare sx={{ verticalAlign: 'middle', mr: 1 }} />
-              {t('wiki.pupils')}
+              {t('pupils')}
             </FantasyButton>
-            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('wiki.whatPupilBenefits')}</Text>
-            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('wiki.pupilBenefits')}</Text>
-            <Text body2>{t('wiki.pupilExplanation')}</Text>
+            <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('whatPupilBenefits')}</Text>
+            <Text h6 upperCase typo="LaBrute" color="secondary">• {t('pupilBenefits')}</Text>
+            <Text body2>{t('pupilExplanation')}</Text>
           </Grid>
         </Grid>
       </Paper>

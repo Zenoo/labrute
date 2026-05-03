@@ -1,0 +1,18 @@
+{
+  "cell.desc": "Zelle von {{name}}. Ein {{rank}} der Stufe {{level}} mit einer Gewinnquote von {{winrate}}.",
+  "sacrifice": "Opfern",
+  "sacrificeConfirm": "Bist du sicher, dass du diesen Brutalo für {{gold}} Gold opfern möchtest? Der Vorgang kann nicht rückgängig gemacht werden.",
+  "sacrificeSuccess": "Opferung erfolgreich: {{gold}} Gold erhalten",
+  "reset": "Zurücksetzen",
+  "resetConfirm": "Bist du sicher, dass du deinen Brutalo für {{gold}} Gold auf Stufe 1 zurücksetzen möchtest? Der Vorgang kann nicht rückgängig gemacht werden.",
+  "resetEventConfirm": "Bist du sicher, dass du deinen Brutalo auf Stufe 1 zurücksetzen möchtest? Du erhältst genügend Erfahrungspunkte, um auf die ursprüngliche Stufe zurückkehren zu können. Das wird {{gold}} Gold kosten. Der Vorgang kann nicht rückgängig gemacht werden.",
+  "resetSuccess": "Zurücksetzung erfolgreich",
+  "report": "melden",
+  "reportName": "Unangemessenen Namen melden",
+  "reportConfirm": "Sind Sie sicher, dass Sie den Namen des Brutalos {{brute}} als unangemessen melden möchten?",
+  "reportSuccess": "Erfolgreich gemeldet.",
+  "previousBrute": "Vorheriger Brutalo",
+  "nextBrute": "Nächster Brutalo",
+  "weaponsBonuses": "Im Kampf verfügbare Waffen und Boni",
+  "refLink": "Leite diese Web-Adresse an deine Freunde weiter oder poste sie in deinem Blog. Das wird dir die Möglichkeit bieten, Schüler zu rekrutieren und Erfahrung zu sammeln!"
+}

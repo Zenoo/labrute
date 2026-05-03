@@ -15,7 +15,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementsView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('achievement');
   const theme = useTheme();
   const { bruteName } = useParams();
   const { user } = useAuth();

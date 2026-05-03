@@ -1,0 +1,9 @@
+{
+  "title": "Arène",
+  "search": "GO !",
+  "search.atLeastThreeCharacters": "Tu dois saisir au moins 3 caractères.",
+  "search.noSelf": "Tu ne peux pas te défouler sur toi-même.",
+  "search.notFound": "Aucune brute ne correspond à ta recherche.",
+  "noXP": "Votre brute a atteint le niveau maximum. Vous pouvez toujours vous battre, mais vous ne gagnerez plus d'XP.",
+  "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaires à ta taille. Choisis-en un, et on commence le combat !"
+}

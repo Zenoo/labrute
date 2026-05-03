@@ -225,7 +225,7 @@ const CellMain = ({
               mt: 1,
             }}
           >
-            {t('sacrifice')}
+            {t('sacrifice', { ns: 'cell' })}
           </FantasyButton>
         )}
       {/* BRUTE RESET */}
@@ -237,7 +237,7 @@ const CellMain = ({
             mt: 2,
           }}
         >
-          {t('reset')}
+          {t('reset', { ns: 'cell' })}
         </FantasyButton>
       )}
     </Box>
