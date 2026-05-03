@@ -8,10 +8,12 @@ import {
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
+import dayjs from 'dayjs';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { traced } from '../utils/trace.js';
 import { translate } from '../utils/translate.js';
+import { LOGGER } from '../context.js';
 
 // In-memory cache for achievement rankings (calculated daily)
 let cachedRankingsByBrute: AchievementGetRankingsResponse | null = null;
@@ -103,6 +105,8 @@ export const increaseAchievement = async (
  * Calculate and cache achievement rankings (should be called daily)
  */
 export const calculateAchievementRankings = async (prisma: PrismaClient) => {
+  const now = dayjs.utc().valueOf();
+
   // Calculate rankings by brute
   const top3ByBrute: {
     name: AchievementName;
@@ -169,6 +173,8 @@ export const calculateAchievementRankings = async (prisma: PrismaClient) => {
     brute: null,
     count: Number(t.count),
   }));
+
+  LOGGER.log(`[Achievements] ${dayjs.utc().valueOf() - now}ms: Rankings calculated: ${cachedRankingsByBrute.length} by brute, ${cachedRankingsByUser.length} by user`);
 };
 
 export const Achievements = {

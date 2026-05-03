@@ -117,7 +117,12 @@ export const getFingerprintEvent = (
       throw new ExpectedError('Invalid fingerprint data');
     }
 
-    const fpData = readFP(request.body.data) as FingerPrint;
+    let fpData: FingerPrint;
+    try {
+      fpData = readFP(request.body.data) as FingerPrint;
+    } catch {
+      throw new ExpectedError('Failed to decode fingerprint data');
+    }
     let visitorId = fpData.visitorId ?? '';
 
     if (!visitorId) {
