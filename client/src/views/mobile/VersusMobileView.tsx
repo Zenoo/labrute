@@ -18,7 +18,7 @@ const VersusMobileView = ({
   opponent,
   startFight,
 }: VersusMobileViewProps) => {
-  const { t } = useTranslation(['versus']);
+  const { t } = useTranslation('versus');
   const { palette: { mode } } = useTheme();
 
   return (
@@ -28,7 +28,7 @@ const VersusMobileView = ({
       sx={{ textAlign: 'center' }}
     >
       <Paper sx={{ mb: 3 }}>
-        <Text h3 smallCaps bold color="text.primary">{t('dareChallenge', { ns: 'versus', value: opponent.name })}</Text>
+        <Text h3 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight' }}>
         <StyledButton
@@ -46,7 +46,7 @@ const VersusMobileView = ({
             width: 246,
           }}
         >
-          {t('startFight', { ns: 'versus' })}
+          {t('startFight')}
         </StyledButton>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={5}>
@@ -87,7 +87,7 @@ const VersusMobileView = ({
             width: 246,
           }}
         >
-          {t('startFight', { ns: 'versus' })}
+          {t('startFight')}
         </StyledButton>
       </Paper>
     </Page>

@@ -22,7 +22,7 @@ const sacrificeExamples = [
 ];
 
 export const WikiView = () => {
-  const { t } = useTranslation(['wiki']);
+  const { t } = useTranslation('wiki');
 
   return (
     <Page

@@ -9,7 +9,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const PatchNotesView = () => {
-  const { t } = useTranslation(['patchNotes']);
+  const { t } = useTranslation('patchNotes');
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
 

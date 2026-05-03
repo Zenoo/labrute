@@ -12,7 +12,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import { useServer } from '../hooks/useServer';
 
 const TournamentHistoryView = () => {
-  const { t } = useTranslation(['tournamentHistory']);
+  const { t } = useTranslation('tournamentHistory');
   const { bruteName } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));

@@ -17,7 +17,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const VersusView = () => {
-  const { t } = useTranslation(['versus']);
+  const { t } = useTranslation('versus');
   const { opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();
@@ -122,7 +122,7 @@ const VersusView = () => {
           textAlign: 'center',
         }}
       >
-        <Text h2 smallCaps bold color="text.primary">{t('dareChallenge', { ns: 'versus', value: opponent.name })}</Text>
+        <Text h2 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
         <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
           <Grid item xs={12} sm={4}>
             <Box width={100} height={270} mx="auto">
@@ -146,7 +146,7 @@ const VersusView = () => {
           </Grid>
         </Grid>
         <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>
-          <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight', { ns: 'versus' })}</Text>
+          <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
         </StyledButton>
       </BoxBg>
     </Page>

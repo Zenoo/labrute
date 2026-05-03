@@ -44,7 +44,7 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 const TournamentView = () => {
-  const { t } = useTranslation(['tournament']);
+  const { t } = useTranslation('tournament');
   const { bruteName, date } = useParams();
   const { user, authing } = useAuth();
   const navigate = useNavigate();
@@ -184,7 +184,6 @@ const TournamentView = () => {
       <Page
         title={`${t('tournamentOf')} ${dayjs.utc(tournament.date).format('DD MMMM YYYY')}`}
         description={t('tournamentOf.desc', {
-          ns: 'tournament',
           brute: bruteName,
           date: dayjs.utc(tournament.date).format('DD MMMM YYYY'),
         })}

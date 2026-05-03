@@ -16,7 +16,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const HallView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('hall');
   const navigate = useNavigate();
   const { user, updateData } = useAuth();
   const Alert = useAlert();
@@ -59,7 +59,7 @@ const HallView = () => {
   }, [Alert, Server.Brute, updateData, user]);
 
   return (
-    <Page title={`${t('hall', { ns: 'hall' })} ${t('MyBrute')}`} headerUrl="">
+    <Page title={`${t('hall')} ${t('MyBrute')}`} headerUrl="">
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -68,11 +68,11 @@ const HallView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall', { ns: 'hall' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall')}</Text>
         {!!fightsLeft && (
           <Text bold color="secondary">
             {fightsLeft > 1
-              ? t('youHaveXFightsLeft', { value: fightsLeft, ns: 'common' })
+              ? t('youHaveXFightsLeft', { value: fightsLeft })
               : t('youHaveOneFightLeft')}
           </Text>
         )}
@@ -138,8 +138,8 @@ const HallView = () => {
                     <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
                   </Box>
                   <Tooltip title={brute.favorite
-                    ? t('removeFromFavorites', { ns: 'hall' })
-                    : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES, ns: 'hall' })}
+                    ? t('removeFromFavorites')
+                    : t('chooseAsFavorite', { amount: MAX_FAVORITE_BRUTES })}
                   >
                     <Stars
                       onClick={toggleFavorite(brute)}

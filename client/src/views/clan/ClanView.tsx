@@ -29,7 +29,7 @@ type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
 const ClanView = () => {
-  const { t } = useTranslation(['clan']);
+  const { t } = useTranslation('clan');
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user, updateData, modifiers } = useAuth();

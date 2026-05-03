@@ -16,7 +16,7 @@ import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 
 const RankingView = () => {
-  const { t } = useTranslation(['ranking']);
+  const { t } = useTranslation('ranking');
   const { bruteName, rank } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -125,7 +125,6 @@ const RankingView = () => {
     <Page
       title={t('ranking')}
       description={t('ranking.desc', {
-        ns: 'ranking',
         name: brute.name,
         level: brute.level,
         rank: t(`lvl_${brute.ranking}`),
@@ -136,7 +135,6 @@ const RankingView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {
-            ns: 'ranking',
             value: ranking === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`),
           })}
         </Text>
@@ -220,7 +218,7 @@ const RankingView = () => {
                 <TableRow>
                   <TableCell />
                   <TableCell>{t('brute')}</TableCell>
-                  <TableCell align="right">{t('experience', { ns: 'ranking' })}</TableCell>
+                  <TableCell align="right">{t('experience')}</TableCell>
                   {ranking === 0 && (
                     <TableCell align="right">{t('ascensions')}</TableCell>
                   )}
@@ -250,7 +248,7 @@ const RankingView = () => {
                 {/* Total */}
                 <TableRow>
                   <TableCell component="th" scope="row">
-                    {t('total', { ns: 'ranking' })}
+                    {t('total')}
                   </TableCell>
                   <TableCell component="th" scope="row" colSpan={ranking === 0 ? 3 : 2} align="right">
                     {rankings.total}

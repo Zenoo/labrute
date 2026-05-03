@@ -16,7 +16,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanRankingView = () => {
-  const { t } = useTranslation(['clan']);
+  const { t } = useTranslation('clan');
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const theme = useTheme();

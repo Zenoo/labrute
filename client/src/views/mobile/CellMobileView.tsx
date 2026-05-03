@@ -41,7 +41,7 @@ const CellMobileView = ({
   confirmSacrifice,
   confirmReset,
 }: CellMobileViewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cell');
   const { brute, owner } = useBrute();
   const { user } = useAuth();
   const theme = useTheme();
@@ -51,7 +51,6 @@ const CellMobileView = ({
     <Page
       title={`${brute.name || ''} ${t('MyBrute')}`}
       description={t('cell.desc', {
-        ns: 'cell',
         name: brute.name,
         level: brute.level,
         rank: t(`lvl_${brute.ranking}`),
@@ -78,7 +77,7 @@ const CellMobileView = ({
             textAlign: 'center',
           }}
           >
-            <Tooltip title={t('refLink', { ns: 'cell' })}>
+            <Tooltip title={t('refLink')}>
               <Text bold center>{`${window.location.origin}?ref=${brute.name}`}</Text>
             </Tooltip>
             {(owner || !!brute.clanId) && (
@@ -103,7 +102,7 @@ const CellMobileView = ({
                   />
                 </Link>
               </Tooltip>
-              {t('weaponsBonuses', { ns: 'cell' })}
+              {t('weaponsBonuses')}
             </Text>
             <CellWeapons sx={{ width: 1 }} />
             {/* SKILLS */}
@@ -126,7 +125,7 @@ const CellMobileView = ({
             color={theme.palette.mode === 'dark' ? 'text.primary' : undefined}
             sx={{ cursor: 'pointer' }}
           >
-            {t('report', { ns: 'cell' })}
+            {t('report')}
           </Text>
           {user?.admin && (
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -206,7 +205,7 @@ const CellMobileView = ({
                 mt: 1,
               }}
             >
-              {t('sacrifice', { ns: 'cell' })}
+              {t('sacrifice')}
             </FantasyButton>
           </Box>
         )}
@@ -220,7 +219,7 @@ const CellMobileView = ({
               mt: 2,
             }}
           >
-            {t('reset', { ns: 'cell' })}
+            {t('reset')}
           </FantasyButton>
         </Box>
       )}

@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ReportAdminView = () => {
-  const { t } = useTranslation(['admin']);
+  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const Server = useServer();
 
@@ -57,7 +57,7 @@ const ReportAdminView = () => {
     Server.BruteReport.accept(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
-      Alert.open('success', t('reportAccepted', { ns: 'admin' }));
+      Alert.open('success', t('reportAccepted'));
     }).catch(catchError(Alert));
   }, [Alert, Server.BruteReport, t]);
 
@@ -66,7 +66,7 @@ const ReportAdminView = () => {
     Server.BruteReport.reject(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
-      Alert.open('success', t('reportRejected', { ns: 'admin' }));
+      Alert.open('success', t('reportRejected'));
     }).catch(catchError(Alert));
   }, [Alert, Server.BruteReport, t]);
 
@@ -75,7 +75,7 @@ const ReportAdminView = () => {
     Server.BruteReport.cancel(reportId).then(() => {
       setReports((r) => r.filter((report) => report.id !== reportId));
 
-      Alert.open('success', t('reportCancelled', { ns: 'admin' }));
+      Alert.open('success', t('reportCancelled'));
     }).catch(catchError(Alert));
   }, [Alert, Server.BruteReport, t]);
 
@@ -111,14 +111,14 @@ const ReportAdminView = () => {
               </Box>
             )}
             <FormControl>
-              <FormLabel>{t('status', { ns: 'admin' })}</FormLabel>
+              <FormLabel>{t('status')}</FormLabel>
               <RadioGroup
                 row
                 value={status}
                 onChange={changeStatus}
               >
                 {Object.keys(BruteReportStatus).map((key) => (
-                  <FormControlLabel key={key} value={key} control={<Radio />} label={t(key, { ns: 'admin' })} />
+                  <FormControlLabel key={key} value={key} control={<Radio />} label={t(key)} />
                 ))}
               </RadioGroup>
             </FormControl>
@@ -155,11 +155,11 @@ const ReportAdminView = () => {
                     secondary={(
                       <>
                         <Text body2 component="span" display="block">
-                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy', { ns: 'admin' })} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
+                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
                         </Text>
                         {status !== BruteReportStatus.pending && (
                           <Text body2 component="span" display="block">
-                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy', { ns: 'admin' })} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown', { ns: 'admin' })}</Link>
+                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
                           </Text>
                         )}
                       </>

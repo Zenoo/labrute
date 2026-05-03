@@ -28,7 +28,7 @@ import { catchError } from '../utils/catchError';
  * HomeView component
  */
 const HomeView = () => {
-  const { t } = useTranslation(['home']);
+  const { t } = useTranslation('home');
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
   const { authing, modifiers, setAuthing, updateData, user } = useAuth();
@@ -43,7 +43,7 @@ const HomeView = () => {
     const url = new URL(window.location.href);
     const error = url.searchParams.get('error');
     if (error) {
-      Alert.open('error', t('loginError', { ns: 'home' }));
+      Alert.open('error', t('loginError'));
     }
   }, [Alert, t]);
 
@@ -87,7 +87,7 @@ const HomeView = () => {
       // Save user data in cookies
       setCookie(USER_COOKIE, response.user.id, 7);
       setCookie(TOKEN_COOKIE, response.user.connexionToken, 7);
-      Alert.open('success', t('loginSuccess', { ns: 'home' }));
+      Alert.open('success', t('loginSuccess'));
 
       // Redirect to first brute if exists, else home, using navigate (no reload)
       if (loggedInUser.brutes.length) {
@@ -171,7 +171,7 @@ const HomeView = () => {
   const createBrute = useCallback(async () => {
     // Check if logged in
     if (!user) {
-      Alert.open('error', t('pleaseLogin', { ns: 'home' }));
+      Alert.open('error', t('pleaseLogin'));
       return;
     }
 
@@ -186,7 +186,7 @@ const HomeView = () => {
       const isNameAvailable = await Server.Brute.isNameAvailable(name);
 
       if (!isNameAvailable) {
-        Alert.open('error', t('nameUnavailable', { ns: 'home' }));
+        Alert.open('error', t('nameUnavailable'));
         return;
       }
 
@@ -271,7 +271,7 @@ const HomeView = () => {
     : (
       <Page
         title={t('MyBrute')}
-        description={t('description', { ns: 'home' })}
+        description={t('description')}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}
@@ -386,13 +386,13 @@ const HomeView = () => {
           >
             {/* FIRST TEXT */}
             <Box sx={{ width: 300, mt: 2 }}>
-              <Text h5 bold typo="handwritten" color="secondary">{t('heroTitle', { ns: 'home' })}</Text>
-              <Text bold color="text.primary">{t('heroBody', { ns: 'home' })}</Text>
+              <Text h5 bold typo="handwritten" color="secondary">{t('heroTitle')}</Text>
+              <Text bold color="text.primary">{t('heroBody')}</Text>
             </Box>
             {/* SECOND TEXT */}
             <Box sx={{ width: 300, mt: 4, ml: 2 }}>
-              <Text h5 bold typo="handwritten" color="secondary">{t('otherGamesTitle', { ns: 'home' })}</Text>
-              <Text bold color="text.primary">{t('otherGamesBody', { ns: 'home' })}</Text>
+              <Text h5 bold typo="handwritten" color="secondary">{t('otherGamesTitle')}</Text>
+              <Text bold color="text.primary">{t('otherGamesBody')}</Text>
             </Box>
             {/* OTHER GAMES */}
             <Box sx={{ mt: 1, ml: 2 }}>

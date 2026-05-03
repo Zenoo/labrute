@@ -15,7 +15,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementsView = () => {
-  const { t } = useTranslation(['common', 'achievement']);
+  const { t } = useTranslation('achievement');
   const theme = useTheme();
   const { bruteName } = useParams();
   const { user } = useAuth();
@@ -40,7 +40,7 @@ const AchievementsView = () => {
   return (
     <Page
       title={t('achievements')}
-      description={t('achievements.desc', { ns: 'achievement' })}
+      description={t('achievements.desc')}
       headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
     >
       <Paper sx={{ mx: 4 }}>

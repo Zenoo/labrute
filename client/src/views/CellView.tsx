@@ -36,7 +36,7 @@ import { catchError } from '../utils/catchError';
  * CellView component
  */
 const CellView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cell');
   const { bruteName } = useParams();
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
@@ -53,9 +53,9 @@ const CellView = () => {
   const confirmSacrifice = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('sacrifice', { ns: 'cell' }), t('sacrificeConfirm', { ns: 'cell', gold: getBruteGoldValue(brute) }), () => {
+    Confirm.open(t('sacrifice'), t('sacrificeConfirm', { gold: getBruteGoldValue(brute) }), () => {
       Server.Brute.sacrifice(brute.name).then(({ gold }) => {
-        Alert.open('success', t('sacrificeSuccess', { ns: 'cell', gold }));
+        Alert.open('success', t('sacrificeSuccess', { gold }));
         navigate('/');
 
         // Update user data
@@ -89,9 +89,9 @@ const CellView = () => {
   const confirmReset = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('reset', { ns: 'cell' }), t(brute.eventId ? 'resetEventConfirm' : 'resetConfirm', { ns: 'cell', gold: getResetCost(brute) }), () => {
+    Confirm.open(t('reset'), t(brute.eventId ? 'resetEventConfirm' : 'resetConfirm', { gold: getResetCost(brute) }), () => {
       Server.Brute.reset(brute.name).then((newBrute) => {
-        Alert.open('success', t('resetSuccess', { ns: 'cell' }));
+        Alert.open('success', t('resetSuccess'));
 
         // Update user data
         updateData((data) => (data ? ({
@@ -113,9 +113,9 @@ const CellView = () => {
   const confirmReport = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('reportName', { ns: 'cell' }), t('reportConfirm', { ns: 'cell', brute: brute.name }), () => {
+    Confirm.open(t('reportName'), t('reportConfirm', { brute: brute.name }), () => {
       Server.BruteReport.send(brute.name, BruteReportReason.name).then(() => {
-        Alert.open('success', t('reportSuccess', { ns: 'cell' }));
+        Alert.open('success', t('reportSuccess'));
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, Server.BruteReport, brute, t]);
@@ -178,7 +178,7 @@ const CellView = () => {
   }, [brute, navigate, owner, switchBrute]);
 
   const previousBruteArrow = owner && (
-    <Tooltip title={t('previousBrute', { ns: 'cell' })}>
+    <Tooltip title={t('previousBrute')}>
       <Fab
         size="small"
         onClick={() => switchBrute(-1)}
@@ -196,7 +196,7 @@ const CellView = () => {
     </Tooltip>
   );
   const nextBruteArrow = owner && (
-    <Tooltip title={t('nextBrute', { ns: 'cell' })}>
+    <Tooltip title={t('nextBrute')}>
       <Fab
         size="small"
         onClick={() => switchBrute(1)}
@@ -233,7 +233,6 @@ const CellView = () => {
       <Page
         title={`${brute.name} ${t('MyBrute')}`}
         description={t('cell.desc', {
-          ns: 'cell',
           name: brute.name,
           level: brute.level,
           rank: t(`lvl_${brute.ranking}`),
@@ -305,7 +304,7 @@ const CellView = () => {
                       </Link>
                     </Tooltip>
                   )}
-                  {t('weaponsBonuses', { ns: 'cell' })}
+                  {t('weaponsBonuses')}
                 </Text>
                 {/* WEAPONS */}
                 <CellWeapons />
@@ -330,7 +329,7 @@ const CellView = () => {
             }}
             >
               {/* REF LINK */}
-              <Tooltip title={t('refLink', { ns: 'cell' })}>
+              <Tooltip title={t('refLink')}>
                 <Paper sx={{
                   p: 1,
                   mr: 0,
@@ -392,7 +391,7 @@ const CellView = () => {
                   onClick={confirmReport}
                   sx={{ cursor: 'pointer', ml: 2 }}
                 >
-                  {t('report', { ns: 'cell' })}
+                  {t('report')}
                 </Text>
               )}
               {user?.admin && (

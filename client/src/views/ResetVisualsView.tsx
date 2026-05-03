@@ -17,7 +17,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const ResetVisualsView = () => {
-  const { t } = useTranslation(['resetVisuals']);
+  const { t } = useTranslation('resetVisuals');
   const Alert = useAlert();
   const navigate = useNavigate();
   const { brute, updateBrute, owner } = useBrute();

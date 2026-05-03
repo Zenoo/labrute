@@ -17,7 +17,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanWarFightView = () => {
-  const { t } = useTranslation(['clan']);
+  const { t } = useTranslation('clan');
   const { id, warId, fightId } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();

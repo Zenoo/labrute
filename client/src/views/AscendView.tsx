@@ -23,7 +23,7 @@ import { catchError } from '../utils/catchError';
  */
 const AscendView = () => {
   const theme = useTheme();
-  const { t } = useTranslation(['ascend']);
+  const { t } = useTranslation('ascend');
   const { brute } = useBrute();
   const navigate = useNavigate();
   const Confirm = useConfirm();
@@ -132,13 +132,13 @@ const AscendView = () => {
         return '';
       }
       if (selectedPerk === 'dog1') {
-        return t('ascendWith.firstDog', { ns: 'ascend' });
+        return t('ascendWith.firstDog');
       }
       if (selectedPerk === 'dog2') {
-        return t('ascendWith.secondDog', { ns: 'ascend' });
+        return t('ascendWith.secondDog');
       }
       if (selectedPerk === 'dog3') {
-        return t('ascendWith.thirdDog', { ns: 'ascend' });
+        return t('ascendWith.thirdDog');
       }
       return t(selectedPerk);
     };
@@ -147,7 +147,7 @@ const AscendView = () => {
       if (!selectedPerkType) {
         return '';
       }
-      return t(`perkType.${selectedPerkType}`, { ns: 'ascend' });
+      return t(`perkType.${selectedPerkType}`);
     };
 
     if (!selectedPerk || !selectedPerkType) {
@@ -167,7 +167,7 @@ const AscendView = () => {
       return;
     }
 
-    Confirm.open(t('ascendConfirmShort', { ns: 'ascend' }), `${t('ascendConfirm', { ns: 'ascend' })} ${getAscendWithLabel()}`, async () => {
+    Confirm.open(t('ascendConfirmShort'), `${t('ascendConfirm')} ${getAscendWithLabel()}`, async () => {
       try {
         await Server.Brute.ascend(brute.name, { [selectedPerkType]: selectedPerk });
         goToCell(brute.name)();
@@ -180,7 +180,7 @@ const AscendView = () => {
     getAscendWithLabel, goToCell, selectedPerk, selectedPerkType, t]);
 
   return brute && (
-    <Page title={t('ascension', { ns: 'ascend' })} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('ascension')} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -189,16 +189,16 @@ const AscendView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ascension', { ns: 'ascend' })}</Text>
-        <Text bold color="secondary">{t('youAreAboutToAscend', { ns: 'ascend' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ascension')}</Text>
+        <Text bold color="secondary">{t('youAreAboutToAscend')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Grid container>
           {isMd && (
             <>
               <Grid item xs={12} md={3.4}>
-                <Text bold fontSize="82%">{t('ascensionExplanationText', { ns: 'ascend' })}</Text>
-                <Text bold fontSize="85%">{t('rankingPrioritizeAscensions', { ns: 'ascend' })}</Text>
+                <Text bold fontSize="82%">{t('ascensionExplanationText')}</Text>
+                <Text bold fontSize="85%">{t('rankingPrioritizeAscensions')}</Text>
               </Grid>
               <Grid item xs={12} md={1} sx={{ height: 10 }} />
             </>
@@ -237,7 +237,7 @@ const AscendView = () => {
                 <Text bold>{getAscendWithLabel()}</Text>
               )}
               {(!selectedPerk || !selectedPerkType) && (
-                <Text bold>{t('youMustSelectToAscend', { ns: 'ascend' })}</Text>
+                <Text bold>{t('youMustSelectToAscend')}</Text>
               )}
             </Box>
             <Box sx={{ width: 315, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
@@ -248,8 +248,8 @@ const AscendView = () => {
           </Grid>
           {!isMd && (
             <Grid item xs={12} md={3.4}>
-              <Text bold fontSize="82%">{t('ascensionExplanationText', { ns: 'ascend' })}</Text>
-              <Text bold fontSize="85%">{t('rankingPrioritizeAscensions', { ns: 'ascend' })}</Text>
+              <Text bold fontSize="82%">{t('ascensionExplanationText')}</Text>
+              <Text bold fontSize="85%">{t('rankingPrioritizeAscensions')}</Text>
             </Grid>
           )}
         </Grid>

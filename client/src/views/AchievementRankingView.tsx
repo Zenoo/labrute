@@ -13,7 +13,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementRankingView = () => {
-  const { t } = useTranslation(['achievementRanking']);
+  const { t } = useTranslation('achievementRanking');
   const theme = useTheme();
   const Alert = useAlert();
   const Server = useServer();
@@ -49,12 +49,12 @@ const AchievementRankingView = () => {
 
   return (
     <Page
-      title={t('achievementRankings', { ns: 'achievementRanking' })}
-      description={t('achievementRankings.desc', { ns: 'achievementRanking' })}
+      title={t('achievementRankings')}
+      description={t('achievementRankings.desc')}
       headerUrl="/"
     >
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievementRankings', { ns: 'achievementRanking' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievementRankings')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <FormControlLabel
@@ -66,7 +66,7 @@ const AchievementRankingView = () => {
               }}
             />
           )}
-          label={t('byUser', { ns: 'achievementRanking' })}
+          label={t('byUser')}
         />
         {/* ACHIEVEMENTS */}
         {loading ? <Loader /> : (

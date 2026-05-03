@@ -18,7 +18,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 export const FollowingFeedView = () => {
-  const { t } = useTranslation(['followingFeed']);
+  const { t } = useTranslation('followingFeed');
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();
@@ -48,9 +48,9 @@ export const FollowingFeedView = () => {
   }, [user, Alert, page, Server.Log]);
 
   return (
-    <Page title={`${t('followingFeed', { ns: 'followingFeed' })} ${t('MyBrute')}`} headerUrl={`/user/${user?.id}`}>
+    <Page title={`${t('followingFeed')} ${t('MyBrute')}`} headerUrl={`/user/${user?.id}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('followingFeed', { ns: 'followingFeed' })}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('followingFeed')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {user && (

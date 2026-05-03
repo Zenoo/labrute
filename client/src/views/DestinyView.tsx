@@ -99,7 +99,7 @@ const styles: Record<string, SxProps> = {
 };
 
 const DestinyView = () => {
-  const { t } = useTranslation(['common', 'destiny']);
+  const { t } = useTranslation('destiny');
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const { palette: { mode } } = useTheme();
@@ -183,7 +183,6 @@ const DestinyView = () => {
     <Page
       title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`}
       description={t('destiny.desc', {
-        ns: 'destiny',
         name: brute.name,
         level: brute.level,
         rank: t(`lvl_${brute.ranking}`),
