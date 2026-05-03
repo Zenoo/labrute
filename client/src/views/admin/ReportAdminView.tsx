@@ -129,19 +129,19 @@ const ReportAdminView = () => {
                   key={report.id}
                   secondaryAction={status === BruteReportStatus.pending ? (
                     <>
-                      <Tooltip title={t('accept', { ns: 'common' })}>
+                      <Tooltip title={t('accept')}>
                         <IconButton onClick={acceptReport(report.id)}>
                           <Check />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title={t('reject', { ns: 'common' })}>
+                      <Tooltip title={t('reject')}>
                         <IconButton edge="end" onClick={rejectReport(report.id)}>
                           <Close />
                         </IconButton>
                       </Tooltip>
                     </>
                   ) : status === BruteReportStatus.accepted ? (
-                    <Tooltip title={t('cancel', { ns: 'common' })}>
+                    <Tooltip title={t('cancel')}>
                       <IconButton onClick={cancelReport(report.id)}>
                         <Close />
                       </IconButton>
@@ -175,7 +175,7 @@ const ReportAdminView = () => {
                   onClick={() => setPage((prev) => prev + 1)}
                   sx={{ mx: 'auto', mt: 3 }}
                 >
-                  {t('showMore', { ns: 'common' })}
+                  {t('showMore')}
                 </FantasyButton>
               </Box>
             )}

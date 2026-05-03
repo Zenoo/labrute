@@ -231,12 +231,12 @@ const CellView = () => {
     )
     : (
       <Page
-        title={`${brute.name} ${t('MyBrute', { ns: 'common' })}`}
+        title={`${brute.name} ${t('MyBrute')}`}
         description={t('cell.desc', {
           ns: 'cell',
           name: brute.name,
           level: brute.level,
-          rank: t(`lvl_${brute.ranking}`, { ns: 'common' }),
+          rank: t(`lvl_${brute.ranking}`),
           winrate: getBruteWinrate(brute),
         })}
         headerUrl={`/${brute.name}/cell`}
@@ -291,7 +291,7 @@ const CellView = () => {
                 <Text bold center sx={{ mb: 0.5 }}>
                   {/* INVENTORY */}
                   {owner && (
-                    <Tooltip title={t('inventory', { ns: 'common' })}>
+                    <Tooltip title={t('inventory')}>
                       <Link to={`/${brute.name}/inventory`}>
                         <Box
                           component="img"
@@ -356,7 +356,7 @@ const CellView = () => {
                   ml: 0.5,
                 }}
               >
-                <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })}>
+                <Tooltip title={t(`${ad.name}.desc`)}>
                   <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"
@@ -374,14 +374,14 @@ const CellView = () => {
                 <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
                   <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
                     <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    {t('tournaments', { ns: 'common' })}
+                    {t('tournaments')}
                   </FantasyButton>
                 </Box>
               )}
               <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
                 <FantasyButton color="primary" to={`/${brute.name}/event/history`} sx={{ m: 1 }}>
                   <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-                  {t('eventHistory', { ns: 'common' })}
+                  {t('eventHistory')}
                 </FantasyButton>
               </Box>
               {user && brute.userId !== user.id && (
@@ -397,7 +397,7 @@ const CellView = () => {
               )}
               {user?.admin && (
                 <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
-                  <Tooltip title={t('adminPanel', { ns: 'common' })}>
+                  <Tooltip title={t('adminPanel')}>
                     <IconButton
                       component={RouterLink}
                       to={`/admin-panel/brute/${brute.name}`}

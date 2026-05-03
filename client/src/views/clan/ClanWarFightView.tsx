@@ -72,7 +72,7 @@ const ClanWarFightView = () => {
   }
 
   return (id && fightId) ? (
-    <Page title={t('fight', { ns: 'common' })} headerUrl="..">
+    <Page title={t('fight')} headerUrl="..">
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{
@@ -83,9 +83,9 @@ const ClanWarFightView = () => {
         <Box display="flex">
           {/* ADVERTS */}
           <Box sx={{ width: 236, mt: 5 }}>
-            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames', { ns: 'common' })}</Text>
+            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames')}</Text>
             {ads.map((ad) => (
-              <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })} key={ad.name}>
+              <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
                 <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
                   <Box
                     component="img"
@@ -128,8 +128,8 @@ const ClanWarFightView = () => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('attackers', { ns: 'common' })}</TableCell>
-                    <TableCell align="right">{t('defenders', { ns: 'common' })}</TableCell>
+                    <TableCell>{t('attackers')}</TableCell>
+                    <TableCell align="right">{t('defenders')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

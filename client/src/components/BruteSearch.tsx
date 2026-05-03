@@ -18,7 +18,7 @@ export const BruteSearch = () => {
   const searchBrute = () => {
     if (!search) return;
     if (!isNameValid(search)) {
-      Alert.open('error', t('invalidName', { ns: 'common' }));
+      Alert.open('error', t('invalidName'));
       return;
     }
 
@@ -30,7 +30,7 @@ export const BruteSearch = () => {
     <OutlinedInput
       size="small"
       color="info"
-      placeholder={t('searchBrute', { ns: 'common' })}
+      placeholder={t('searchBrute')}
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       onKeyUp={(e) => e.key === 'Enter' && searchBrute()}
@@ -47,10 +47,10 @@ export const BruteSearch = () => {
         }
       }}
       endAdornment={(
-        <Tooltip title={t('searchBrute', { ns: 'common' })}>
+        <Tooltip title={t('searchBrute')}>
           <InputAdornment position="end">
             <IconButton
-              aria-label={t('searchBrute', { ns: 'common' })}
+              aria-label={t('searchBrute')}
               onClick={searchBrute}
               sx={{
                 color: theme.palette.topbar.contrast,

@@ -30,7 +30,7 @@ const BruteNotFoundView = () => {
           </Text>
           <FantasyButton color="secondary" to="/">
             <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('home', { ns: 'common' })}
+            {t('home')}
           </FantasyButton>
         </Box>
       </Paper>

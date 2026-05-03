@@ -96,9 +96,9 @@ export const BruteAdminView = () => {
   }, [Alert, Server.Brute, brute, item]);
 
   return (
-    <Page title={t('adminPanel', { ns: 'common' })} headerUrl="/">
+    <Page title={t('adminPanel')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel', { ns: 'common' })}</Text>
+        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         <Text bold h3 smallCaps color="secondary">Brute</Text>

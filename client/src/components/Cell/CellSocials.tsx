@@ -72,7 +72,7 @@ const CellSocials = ({
 
     if (brute.userId) {
       navigator.clipboard.writeText(brute.userId).then(() => {
-        Alert.open('success', t('userIdCopied', { ns: 'common' }));
+        Alert.open('success', t('userIdCopied'));
       }).catch(() => { });
     }
   };
@@ -83,7 +83,7 @@ const CellSocials = ({
 
     try {
       await Server.User.toggleFollow(brute.id);
-      Alert.open('success', isFollowing ? t('unfollowed', { ns: 'common' }) : t('followed', { ns: 'common' }));
+      Alert.open('success', isFollowing ? t('unfollowed') : t('followed'));
       updateData((prev) => (prev ? {
         ...prev,
         following: isFollowing
@@ -101,7 +101,7 @@ const CellSocials = ({
         <Grid item xs={smallScreen ? 12 : 6}>
           {/* No achievements for bots */}
           {brute.userId && (
-            <Tooltip title={t('achievements', { ns: 'common' })}>
+            <Tooltip title={t('achievements')}>
               <Link
                 to={`/${brute.name}/achievements`}
                 sx={{ mr: 1 }}
@@ -112,7 +112,7 @@ const CellSocials = ({
           )}
           {/* No destiny for bots */}
           {brute.userId && (
-            <Tooltip title={`${t('destinyOf', { ns: 'common' })} ${brute.name}`}>
+            <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
               <Link
                 to={`/${brute.name}/destiny`}
                 sx={{ mr: 1 }}
@@ -126,7 +126,7 @@ const CellSocials = ({
             {brute.user && (
               <>
                 {user?.moderator && (
-                  <Tooltip title={t('copyUserId', { ns: 'common' })}>
+                  <Tooltip title={t('copyUserId')}>
                     <IconButton size="small" onClick={copyUserId}>
                       <CopyAll color="primary" />
                     </IconButton>
@@ -150,14 +150,14 @@ const CellSocials = ({
           <Grid container>
             {!!brute.master && (
               <Grid item xs={6}>
-                <Text bold color="secondary" component="span">{t('master', { ns: 'common' })}: </Text>
+                <Text bold color="secondary" component="span">{t('master')}: </Text>
                 <Text bold component="span"><Link to={`/${brute.master.name}/cell`}>{brute.master.name}</Link></Text>
               </Grid>
             )}
             <Grid item xs={6}>
               <Tooltip title={t('rankingUpdatedDaily')}>
                 <Link to={`/${brute.name}/ranking/${brute.eventId ? -1 : brute.ranking}`}>
-                  <Text bold color="secondary" component="span">{t('ranking', { ns: 'common' })}: </Text>
+                  <Text bold color="secondary" component="span">{t('ranking')}: </Text>
                   <Text bold component="span">
                     {ranking || 'NA'}
                   </Text>
@@ -165,7 +165,7 @@ const CellSocials = ({
               </Tooltip>
             </Grid>
             <Grid item xs={6}>
-              <Text bold color="secondary" component="span">{t('winrate', { ns: 'common' })}: </Text>
+              <Text bold color="secondary" component="span">{t('winrate')}: </Text>
               <Tooltip title={t('wins-losses', { ns: 'common', wins: brute.victories, losses: brute.losses })}>
                 <Text bold component="span">
                   {getBruteWinrate(brute)}
@@ -182,7 +182,7 @@ const CellSocials = ({
             </Grid>
             {!!brute.pupilsCount && (
               <Grid item xs={6}>
-                <Text bold color="secondary" component="span">{t('pupils', { ns: 'common' })}: </Text>
+                <Text bold color="secondary" component="span">{t('pupils')}: </Text>
                 <Text bold component="span">{brute.pupilsCount}</Text>
               </Grid>
             )}
@@ -191,7 +191,7 @@ const CellSocials = ({
       </Grid>
       {/* FOLLOW BUTTON */}
       {user && brute.userId !== user.id && (
-        <Tooltip title={isFollowing ? t('unfollow', { ns: 'common' }) : t('follow', { ns: 'common' })}>
+        <Tooltip title={isFollowing ? t('unfollow') : t('follow')}>
           <IconButton
             sx={{
               position: 'absolute',

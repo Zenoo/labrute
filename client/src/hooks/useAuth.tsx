@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // For the open source version, event_id is not available, use visitorId (id)
     if (!fingerprint.data || !fingerprint.id || !fingerprint.eventId) {
-      Alert.open('error', t('fingerprintError', { ns: 'common' }));
+      Alert.open('error', t('fingerprintError'));
       deleteCookie(USER_COOKIE);
       deleteCookie(TOKEN_COOKIE);
       return;

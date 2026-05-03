@@ -56,13 +56,13 @@ const Page = ({
       {fingerprint.loading ? (
         <Paper sx={{ textAlign: 'center', mt: 4 }}>
           <Text>
-            {t('fingerprintLoading', { ns: 'common' })}
+            {t('fingerprintLoading')}
           </Text>
         </Paper>
       ) : fingerprint.error ? (
         <Paper sx={{ textAlign: 'center', mt: 4 }}>
           <Text color="error">
-            {t('fingerprintError', { ns: 'common' })}
+            {t('fingerprintError')}
           </Text>
         </Paper>
       ) : authing ? (
@@ -75,11 +75,11 @@ const Page = ({
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
-          {t('moreGames', { ns: 'common' })} :{' '}
+          {t('moreGames')} :{' '}
           {Object.entries(ads).map(([name, ad]) => (
             <Fragment key={name}>
-              <Tooltip title={t(`${name as AdName}.desc`, { ns: 'common' })}>
-                <Link href={ad.url} target="_blank">{t(name as AdName, { ns: 'common' })}</Link>
+              <Tooltip title={t(`${name as AdName}.desc`)}>
+                <Link href={ad.url} target="_blank">{t(name as AdName)}</Link>
               </Tooltip>
               {' '}
             </Fragment>
@@ -103,13 +103,13 @@ const Page = ({
         variant="filled"
         sx={{ mb: 0 }}
       >
-        <AlertTitle>{t('betaTitle', { ns: 'common' })}</AlertTitle>
-        {t('betaDescription', { ns: 'common' })}
+        <AlertTitle>{t('betaTitle')}</AlertTitle>
+        {t('betaDescription')}
         <Link href="https://discord.gg/ERc3svy" target="_blank" sx={{ ml: 0.5, textDecoration: 'underline' }}>
-          {t('discord', { ns: 'common' })}
+          {t('discord')}
         </Link>
         .<br />
-        {t('betaReset', { ns: 'common' })}
+        {t('betaReset')}
       </MuiAlert>
     </Box>
   );

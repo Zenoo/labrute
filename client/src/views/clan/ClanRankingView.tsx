@@ -141,8 +141,8 @@ const ClanRankingView = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell />
-                      <TableCell>{t('clan', { ns: 'common' })}</TableCell>
-                      <TableCell>{t('master', { ns: 'common' })}</TableCell>
+                      <TableCell>{t('clan')}</TableCell>
+                      <TableCell>{t('master')}</TableCell>
                       <TableCell>{t('members')}</TableCell>
                       <TableCell onClick={changeSort(ClanSort.elo)} sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
                         {t('elo')}
@@ -191,10 +191,10 @@ const ClanRankingView = () => {
                 </Table>
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
                   {page > 1 && (
-                    <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous', { ns: 'common' })}</FantasyButton>
+                    <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
                   )}
                   {clans?.length === 15 && (
-                    <FantasyButton color="primary" onClick={changePage(1)}>{t('next', { ns: 'common' })}</FantasyButton>
+                    <FantasyButton color="primary" onClick={changePage(1)}>{t('next')}</FantasyButton>
                   )}
                 </Box>
               </Grid>

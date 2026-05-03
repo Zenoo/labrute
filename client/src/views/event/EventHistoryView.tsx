@@ -41,9 +41,9 @@ export const EventHistoryView = () => {
   };
 
   return (
-    <Page title={`${t('eventHistory', { ns: 'common' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}`}>
+    <Page title={`${t('eventHistory')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}`}>
       <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('eventHistory', { ns: 'common' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('eventHistory')}</Text>
       </Paper>
       <Paper sx={{
         bgcolor: 'background.paperLight',
@@ -77,8 +77,8 @@ export const EventHistoryView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('date', { ns: 'common' })}</TableCell>
-                  <TableCell>{t('event', { ns: 'common' })}</TableCell>
+                  <TableCell>{t('date')}</TableCell>
+                  <TableCell>{t('event')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,10 +105,10 @@ export const EventHistoryView = () => {
             </Table>
             <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
               {page > 1 && (
-                <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous', { ns: 'common' })}</FantasyButton>
+                <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
               )}
               {events?.length === 15 && (
-                <FantasyButton color="primary" onClick={changePage(1)}>{t('next', { ns: 'common' })}</FantasyButton>
+                <FantasyButton color="primary" onClick={changePage(1)}>{t('next')}</FantasyButton>
               )}
             </Box>
           </Grid>

@@ -42,7 +42,7 @@ export const CurrentEventsView = () => {
   };
 
   return (
-    <Page title={`${t('currentEvents')} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}`}>
+    <Page title={`${t('currentEvents')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('currentEvents')}</Text>
       </Paper>
@@ -138,7 +138,7 @@ export const CurrentEventsView = () => {
         <Box sx={{ display: 'flex', mt: 1, justifyContent: 'center' }}>
           <FantasyButton color="secondary" to="../history" sx={{ m: 1 }}>
             <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-            {t('eventHistory', { ns: 'common' })}
+            {t('eventHistory')}
           </FantasyButton>
         </Box>
       </Paper>

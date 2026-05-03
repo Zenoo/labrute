@@ -121,7 +121,7 @@ const ClanThreadView = () => {
                 <Text bold smallCaps>{t('goBackToYourCell')}</Text>
               </Link>
               <Link to={`/${bruteName || ''}/clan/ranking`}>
-                <Text bold smallCaps>{t('ranking', { ns: 'common' })}</Text>
+                <Text bold smallCaps>{t('ranking')}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/${id}`}>
                 <Text bold smallCaps>{t('myClan')}</Text>
@@ -220,7 +220,7 @@ const ClanThreadView = () => {
               )}
               {page > 1 && (
                 <Link onClick={changePage(-1)} href="#">
-                  <Text>{t('previous', { ns: 'common' })}</Text>
+                  <Text>{t('previous')}</Text>
                 </Link>
               )}
               {!thread.locked && (
@@ -230,7 +230,7 @@ const ClanThreadView = () => {
               )}
               {page * 10 < thread.postCount && (
                 <Link onClick={changePage(1)} href="#">
-                  <Text>{t('next', { ns: 'common' })}</Text>
+                  <Text>{t('next')}</Text>
                 </Link>
               )}
               {page * 10 < thread.postCount && (

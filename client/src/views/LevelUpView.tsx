@@ -116,7 +116,7 @@ const LevelUpView = () => {
       {/* HP */}
       <Box>
         <BruteHP hp={brute.hp} />
-        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints', { ns: 'common' })}</Text>
+        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
       <CellStats value={brute.strengthValue} stat="strength" />
@@ -125,7 +125,7 @@ const LevelUpView = () => {
       {/* SPEED */}
       <CellStats value={brute.speedValue} stat="speed" />
       <Link to={`/${brute.name}/cell`}>
-        <Text bold>{t('backToCell', { ns: 'common' })}</Text>
+        <Text bold>{t('backToCell')}</Text>
       </Link>
     </>
 
@@ -161,7 +161,7 @@ const LevelUpView = () => {
   );
 
   return brute && (
-    <Page title={`${t('MyBrute', { ns: 'common' })}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
+    <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
       <MuiAlert severity="success" variant="filled">
         <Text h5>{t('newLevelFor')} {brute.name} !</Text>
       </MuiAlert>
@@ -266,15 +266,15 @@ const LevelUpView = () => {
                     {/* CHOICE HEADER */}
                     <Text caption>
                       {/* +3 Skill */}
-                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in', { ns: 'common' })}`}
+                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
                       {/* +2/+1 Skill */}
-                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in', { ns: 'common' })}`}
+                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
                       {/* New weapon */}
-                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon', { ns: 'common' })} :`)}
+                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon')} :`)}
                       {/* New skill */}
-                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill', { ns: 'common' })} :`)}
+                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill')} :`)}
                       {/* New pet */}
-                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet', { ns: 'common' })} :`)}
+                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet')} :`)}
                     </Text>
 
                     {/* CHOICE CONTENT */}
@@ -286,7 +286,7 @@ const LevelUpView = () => {
                           ? (brute.skills[destinyChoice.skill] ?? 0) + 1
                           : undefined}
                       >
-                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName, { ns: 'common' })}</Text>
+                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
                       </SkillTooltip>
                     ) : destinyChoice.type === 'weapon' ? (
                       <WeaponTooltip
@@ -295,7 +295,7 @@ const LevelUpView = () => {
                           ? (brute.weapons[destinyChoice.weapon] ?? 0) + 1
                           : undefined}
                       >
-                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName, { ns: 'common' })}</Text>
+                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
                       </WeaponTooltip>
                     ) : destinyChoice.type === 'pet' ? (
                       <PetTooltip
@@ -304,17 +304,17 @@ const LevelUpView = () => {
                           ? (brute.pets[destinyChoice.pet] ?? 0) + 1
                           : undefined}
                       >
-                        <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName, { ns: 'common' })}</Text>
+                        <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
                       </PetTooltip>
                     ) : !destinyChoice.stat2 ? (
                       <Text h6 bold smallCaps>
-                        {t(statName(destinyChoice.stat1 as BruteStat), { ns: 'common' })}
+                        {t(statName(destinyChoice.stat1 as BruteStat))}
                       </Text>
                     ) : (
                       <Text h6 bold smallCaps>
-                        {t(statName(destinyChoice.stat1 as BruteStat), { ns: 'common' })}
+                        {t(statName(destinyChoice.stat1 as BruteStat))}
                         {' / '}
-                        {t(statName(destinyChoice.stat2), { ns: 'common' })}
+                        {t(statName(destinyChoice.stat2))}
                       </Text>
                     ))}
                   </BoxBg>
@@ -338,7 +338,7 @@ const LevelUpView = () => {
                       ) : undefined}
                     >
                       {loading ? <Loader color="success" size="16px" /> : (
-                        <Text bold smallCaps color="success">{t('validate', { ns: 'common' })}</Text>
+                        <Text bold smallCaps color="success">{t('validate')}</Text>
                       )}
                     </StyledButton>
                   )}

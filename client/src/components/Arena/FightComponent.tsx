@@ -164,7 +164,7 @@ const FightComponent = ({
       setFavorite((prev) => {
         const newFav = !prev;
 
-        Alert.open('success', t(`fight.${newFav ? 'favoriteAdded' : 'favoriteRemoved'}`, { ns: 'common' }));
+        Alert.open('success', t(`fight.${newFav ? 'favoriteAdded' : 'favoriteRemoved'}`));
 
         return newFav;
       });
@@ -393,7 +393,7 @@ const FightComponent = ({
             }}
           >
             {/* Play/Pause */}
-            <Tooltip title={playing ? t('fight.pause', { ns: 'common' }) : t('fight.play', { ns: 'common' })}>
+            <Tooltip title={playing ? t('fight.pause') : t('fight.play')}>
               <IconButton onClick={toggleAnimation} size="small">
                 {playing ? <Pause /> : <PlayArrow />}
               </IconButton>
@@ -405,20 +405,20 @@ const FightComponent = ({
               </IconButton>
             </Tooltip>
             {/* SOUND */}
-            <Tooltip title={soundOn ? t('disableSound', { ns: 'common' }) : t('enableSound', { ns: 'common' })}>
+            <Tooltip title={soundOn ? t('disableSound') : t('enableSound')}>
               <IconButton onClick={toggleSound} size="small">
                 {soundOn ? <VolumeOff /> : <VolumeUp />}
               </IconButton>
             </Tooltip>
             {/* BACKGROUND MUSIC */}
-            <Tooltip title={backgroundMusicOn ? t('disableBackgroundMusic', { ns: 'common' }) : t('enableBackgroundMusic', { ns: 'common' })}>
+            <Tooltip title={backgroundMusicOn ? t('disableBackgroundMusic') : t('enableBackgroundMusic')}>
               <IconButton onClick={toggleBackgroundMusic} size="small">
                 {backgroundMusicOn ? <MusicOff /> : <MusicNote />}
               </IconButton>
             </Tooltip>
             {/* Favorite */}
             {user && (
-              <Tooltip title={isFavorite ? t('fight.unfavorite', { ns: 'common' }) : t('fight.favorite', { ns: 'common' })}>
+              <Tooltip title={isFavorite ? t('fight.unfavorite') : t('fight.favorite')}>
                 <IconButton onClick={toggleFavorite} size="small">
                   {isFavorite ? <FavoriteBorder /> : <Favorite />}
                 </IconButton>
@@ -438,7 +438,7 @@ const FightComponent = ({
               m: 0.5,
             }}
           >
-            <Tooltip title={t('fight.toggleLogs', { ns: 'common' })}>
+            <Tooltip title={t('fight.toggleLogs')}>
               <IconButton
                 onClick={toggleLogs}
                 size="small"

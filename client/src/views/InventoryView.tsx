@@ -69,7 +69,7 @@ export const InventoryView = () => {
   }, [brute, navigate, Alert, t]);
 
   return brute && (
-    <Page title={t('inventory', { ns: 'common' })} headerUrl={`/${brute.name}/cell`}>
+    <Page title={t('inventory')} headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -78,7 +78,7 @@ export const InventoryView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory', { ns: 'common' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {owner && (
@@ -93,7 +93,7 @@ export const InventoryView = () => {
               <BruteBodyAndStats brute={brute} isMd={isMd} />
               <Box sx={{ textAlign: 'center', mt: 1 }}>
                 <Link to={`/${brute.name}/cell`}>
-                  <Text bold>{t('backToCell', { ns: 'common' })}</Text>
+                  <Text bold>{t('backToCell')}</Text>
                 </Link>
                 {!isMd && (
                   <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
@@ -126,7 +126,7 @@ export const InventoryView = () => {
                       }}
                       >
                         <Text bold color="secondary">
-                          {t(`inventory.item.${item.type}`, { ns: 'common' })}
+                          {t(`inventory.item.${item.type}`)}
                           {item.count > 1 && (
                             <Text component="span" color="primary" italic>
                               {` x${item.count}`}

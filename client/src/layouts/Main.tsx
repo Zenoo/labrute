@@ -387,7 +387,7 @@ const Main = () => {
                 <ActionButton
                   to="/wiki"
                   Icon={Info}
-                  title={t('wiki', { ns: 'common' })}
+                  title={t('wiki')}
                 />
                 <ActionButton
                   to={`/user/${user.id}/feed`}
@@ -397,12 +397,12 @@ const Main = () => {
                 <ActionButton
                   to="/achievements/rankings"
                   Icon={MilitaryTech}
-                  title={t('ranking', { ns: 'common' })}
+                  title={t('ranking')}
                 />
                 <ActionButton
                   to="/patch-notes"
                   Icon={NewReleases}
-                  title={t('patchNotes', { ns: 'common' })}
+                  title={t('patchNotes')}
                 />
                 <ActionButton
                   onClick={colorMode.toggleColorMode}
@@ -423,7 +423,7 @@ const Main = () => {
                     to="/admin-panel"
                     Icon={AdminPanelSettings}
                     iconColor={theme.palette.success.main}
-                    title={t('adminPanel', { ns: 'common' })}
+                    title={t('adminPanel')}
                   />
                 )}
                 <ActionButton
@@ -542,7 +542,7 @@ const Main = () => {
                   <ListItemIcon>
                     <MusicNote />
                   </ListItemIcon>
-                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic', { ns: 'common' })} />
+                  <ListItemText id="switch-backgroundMusic" primary={t('enableBackgroundMusic')} />
                   <Switch
                     edge="end"
                     size="small"

@@ -39,7 +39,7 @@ const CellClan = ({
           width: 246,
         }}
       >
-        {brute.clan ? `${t('clan', { ns: 'common' })} ${brute.clan.name}` : t('joinAClan', { ns: 'common' })}
+        {brute.clan ? `${t('clan')} ${brute.clan.name}` : t('joinAClan')}
       </StyledButton>
     </Link>
   );

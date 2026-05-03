@@ -177,7 +177,7 @@ const HomeView = () => {
 
     // Check name validity
     if (!isNameValid(name)) {
-      Alert.open('error', t('invalidName', { ns: 'common' }));
+      Alert.open('error', t('invalidName'));
       return;
     }
 
@@ -270,7 +270,7 @@ const HomeView = () => {
     )
     : (
       <Page
-        title={t('MyBrute', { ns: 'common' })}
+        title={t('MyBrute')}
         description={t('description', { ns: 'home' })}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
@@ -293,7 +293,7 @@ const HomeView = () => {
               mt: 1.5,
             }}
             >
-              <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName', { ns: 'common' })}</Text>
+              <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
               <Box
                 component="img"
                 src="/images/creation/arrow.png"
@@ -307,8 +307,8 @@ const HomeView = () => {
                 value={name}
               />
               <Tooltip title={fixBruteAppearance
-                ? t('unlockBruteAppearance', { ns: 'common' })
-                : t('lockBruteAppearance', { ns: 'common' })}
+                ? t('unlockBruteAppearance')
+                : t('lockBruteAppearance')}
               >
                 <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
@@ -323,7 +323,7 @@ const HomeView = () => {
                 mt: -11.25,
               }}
               >
-                <Tooltip title={t('changeAppearance', { ns: 'common' })}>
+                <Tooltip title={t('changeAppearance')}>
                   <StyledButton
                     onClick={changeAppearance}
                     image="/images/creation/bodyType.svg"
@@ -335,7 +335,7 @@ const HomeView = () => {
                     }}
                   />
                 </Tooltip>
-                <Tooltip title={t('changeColors', { ns: 'common' })}>
+                <Tooltip title={t('changeColors')}>
                   <StyledButton
                     onClick={changeColors}
                     image="/images/creation/color.svg"
@@ -357,7 +357,7 @@ const HomeView = () => {
               />
               {/* VALIDATION */}
               <Box sx={{ textAlign: 'center' }}>
-                <StyledButton onClick={createBrute}>{t('validate', { ns: 'common' })}</StyledButton>
+                <StyledButton onClick={createBrute}>{t('validate')}</StyledButton>
               </Box>
 
               {(user || authing) ? (
@@ -374,7 +374,7 @@ const HomeView = () => {
                   onClick={login}
                   sx={{ mt: 2 }}
                 >
-                  {t('connect', { ns: 'common' })}
+                  {t('connect')}
                 </FantasyButton>
               )}
             </Box>
@@ -397,7 +397,7 @@ const HomeView = () => {
             {/* OTHER GAMES */}
             <Box sx={{ mt: 1, ml: 2 }}>
               {[leftAd, rightAd].map((ad) => (
-                <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })} key={ad.name}>
+                <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
                   <Link href={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
                     <Box
                       component="img"

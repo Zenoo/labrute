@@ -19,7 +19,7 @@ const getFighterName = (
   }
 
   return petNames.has(fighter.name as PetName)
-    ? t(fighter.name as PetName, { ns: 'common' })
+    ? t(fighter.name as PetName)
     : t(fighter.name as BossName);
 };
 
@@ -31,7 +31,7 @@ const translateFightStep = (
   switch (step.a) {
     case StepType.Saboteur:
       return t('fight.step.saboteur', {
-        weapon: t(WeaponById[step.w], { ns: 'common' }),
+        weapon: t(WeaponById[step.w]),
       });
     case StepType.Leave:
       return t('fight.step.leave', {
@@ -44,12 +44,12 @@ const translateFightStep = (
     case StepType.Trash:
       return t('fight.step.trash', {
         brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w], { ns: 'common' }),
+        name: t(WeaponById[step.w]),
       });
     case StepType.Steal:
       return t('fight.step.steal', {
         brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w], { ns: 'common' }),
+        name: t(WeaponById[step.w]),
         target: getFighterName(fighters, step.t, t),
       });
     case StepType.Trap:
@@ -81,7 +81,7 @@ const translateFightStep = (
       if (typeof step.w !== 'undefined') {
         text += t('fight.step.hitWith', {
           ...data,
-          weapon: t(WeaponById[step.w], { ns: 'common' }),
+          weapon: t(WeaponById[step.w]),
         });
       } else {
         text += t('fight.step.hit', data);
@@ -113,7 +113,7 @@ const translateFightStep = (
           brute: getFighterName(fighters, step.f, t),
           damage: step.d,
           target: getFighterName(fighters, step.t, t),
-          weapon: t(WeaponById[step.w], { ns: 'common' }),
+          weapon: t(WeaponById[step.w]),
         });
       }
       return '';
@@ -145,7 +145,7 @@ const translateFightStep = (
     case StepType.Equip:
       return t('fight.step.equip', {
         brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w], { ns: 'common' }),
+        name: t(WeaponById[step.w]),
       });
     case StepType.AttemptHit: {
       let text = t('fight.step.attemptHit', {
@@ -176,13 +176,13 @@ const translateFightStep = (
       return t('fight.step.sabotage', {
         fighter: getFighterName(fighters, step.f, t),
         opponent: getFighterName(fighters, step.t, t),
-        weapon: t(WeaponById[step.w], { ns: 'common' }),
+        weapon: t(WeaponById[step.w]),
       });
     case StepType.Disarm:
       return t('fight.step.disarm', {
         fighter: getFighterName(fighters, step.f, t),
         opponent: getFighterName(fighters, step.t, t),
-        weapon: t(WeaponById[step.w], { ns: 'common' }),
+        weapon: t(WeaponById[step.w]),
       });
     case StepType.Death:
       return t('fight.step.death', {
@@ -192,7 +192,7 @@ const translateFightStep = (
       return t('fight.step.throw', {
         fighter: getFighterName(fighters, step.f, t),
         opponent: getFighterName(fighters, step.t, t),
-        weapon: t(WeaponById[step.w], { ns: 'common' }),
+        weapon: t(WeaponById[step.w]),
       });
     case StepType.End:
       return t('fight.step.end', {
@@ -208,12 +208,12 @@ const translateFightStep = (
       return t('fight.step.skillExpire', {
         // TODO: only step.f on release
         brute: getFighterName(fighters, step.b || step.f || 1, t),
-        skill: t(SkillById[step.s], { ns: 'common' }),
+        skill: t(SkillById[step.s]),
       });
     case StepType.SkillActivate:
       return t('fight.step.skillActivate', {
         brute: getFighterName(fighters, step.b, t),
-        skill: t(SkillById[step.s], { ns: 'common' }),
+        skill: t(SkillById[step.s]),
       });
     case StepType.Spy:
       return t('fight.step.spy', {

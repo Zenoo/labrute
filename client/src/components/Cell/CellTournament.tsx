@@ -34,7 +34,7 @@ const CellTournament = ({
     if (!brute) return;
     try {
       await Server.Tournament.registerDaily(brute?.name || '');
-      Alert.open('success', t('bruteRegistered', { ns: 'common' }));
+      Alert.open('success', t('bruteRegistered'));
 
       updateBrute({
         ...brute,
@@ -67,7 +67,7 @@ const CellTournament = ({
             to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}
             sx={{ my: 1 }}
           >
-            {t('tournament', { ns: 'common' })}
+            {t('tournament')}
           </FantasyButton>
         </Box>
       )}
@@ -85,11 +85,11 @@ const CellTournament = ({
             }}
             {...rest}
           >
-            <Text bold h6>{t('tournamentOf', { ns: 'common' })} {tomorrow.format('DD MMMM YYYY')}</Text>
+            <Text bold h6>{t('tournamentOf')} {tomorrow.format('DD MMMM YYYY')}</Text>
             {(brute.registeredForTournament) ? (
-              <Text>{t('bruteRegistered', { ns: 'common' })}</Text>
+              <Text>{t('bruteRegistered')}</Text>
             ) : (
-              <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered', { ns: 'common' })}</Text>
+              <Text>{t(owner ? 'youCanRegisterYourBrute' : 'bruteNotRegistered')}</Text>
             )}
             {owner && !brute.registeredForTournament && (
               <StyledButton

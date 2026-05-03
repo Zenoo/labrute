@@ -114,7 +114,7 @@ const RankingView = () => {
           </Link>
         </Box>
       </TableCell>
-      <TableCell align="right">{t('level', { ns: 'common' })} {b.level}</TableCell>
+      <TableCell align="right">{t('level')} {b.level}</TableCell>
       {ranking === 0 && (
         <TableCell align="right">{b.ascensions}</TableCell>
       )}
@@ -123,12 +123,12 @@ const RankingView = () => {
 
   return rankings && brute && (
     <Page
-      title={t('ranking', { ns: 'common' })}
+      title={t('ranking')}
       description={t('ranking.desc', {
         ns: 'ranking',
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`, { ns: 'common' }),
+        rank: t(`lvl_${brute.ranking}`),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${bruteName || ''}/cell`}
@@ -137,7 +137,7 @@ const RankingView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('rankings', {
             ns: 'ranking',
-            value: ranking === -1 ? t('event', { ns: 'common' }) : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`, { ns: 'common' }),
+            value: ranking === -1 ? t('event') : t(`lvl_${(rankings.topBrutes.length ? rankings.topBrutes[0]?.ranking : ranking) as BruteRanking}`),
           })}
         </Text>
       </Paper>
@@ -149,7 +149,7 @@ const RankingView = () => {
         }}
         >
           {currentEvent && (
-            <Tooltip title={t('event', { ns: 'common' })}>
+            <Tooltip title={t('event')}>
               <RouterLink to={`/${bruteName || ''}/ranking/-1`}>
                 <StyledButton
                   image={ranking === -1 ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
@@ -171,7 +171,7 @@ const RankingView = () => {
             </Tooltip>
           )}
           {BruteRankings.map((bruteRanking) => (
-            <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`, { ns: 'common' })}>
+            <Tooltip key={bruteRanking} title={t(`lvl_${bruteRanking}`)}>
               <RouterLink to={`/${bruteName || ''}/ranking/${bruteRanking}`}>
                 <StyledButton
                   image={ranking === bruteRanking ? '/images/rankings/button_selected.webp' : '/images/rankings/button.webp'}
@@ -219,10 +219,10 @@ const RankingView = () => {
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell>{t('brute', { ns: 'common' })}</TableCell>
+                  <TableCell>{t('brute')}</TableCell>
                   <TableCell align="right">{t('experience', { ns: 'ranking' })}</TableCell>
                   {ranking === 0 && (
-                    <TableCell align="right">{t('ascensions', { ns: 'common' })}</TableCell>
+                    <TableCell align="right">{t('ascensions')}</TableCell>
                   )}
                 </TableRow>
               </TableHead>

@@ -276,10 +276,10 @@ export const EventView = () => {
   );
 
   return (
-    <Page title={`${t('event', { ns: 'common' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page title={`${t('event')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-          {t('event', { ns: 'common' })}
+          {t('event')}
         </Text>
       </Paper>
       <Paper sx={{
@@ -480,7 +480,7 @@ export const EventView = () => {
                           </Link>
                         </Tooltip>
                         <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { ns: 'common', day: i + 1 })}</Text>
-                        <Text bold color="text.disabled">{t('automaticallyQualified', { ns: 'common' })}</Text>
+                        <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
                       </Box>
                     );
                   }
@@ -639,7 +639,7 @@ export const EventView = () => {
                         <Text bold sx={{ flexBasis: '100%' }}>
                           {t('day', { ns: 'common', day: lastRoundsFirstStep })}
                           {' '}
-                          {t('quarterFinals', { ns: 'common' })}
+                          {t('quarterFinals')}
                         </Text>
                         {data.lastRounds
                           .filter((fight) => fight.tournamentStep === lastRoundsFirstStep)
@@ -673,7 +673,7 @@ export const EventView = () => {
                         <Text bold sx={{ flexBasis: '100%' }}>
                           {t('day', { ns: 'common', day: lastRoundsFirstStep + 1 })}
                           {' '}
-                          {t('semiFinals', { ns: 'common' })}
+                          {t('semiFinals')}
                         </Text>
                         {data.lastRounds
                           .filter((fight) => fight.tournamentStep === lastRoundsFirstStep + 1)
@@ -709,7 +709,7 @@ export const EventView = () => {
                         <Text bold sx={{ flexBasis: '100%' }}>
                           {t('day', { ns: 'common', day: lastRoundsFirstStep + 2 })}
                           {' '}
-                          {t('finals', { ns: 'common' })}
+                          {t('finals')}
                         </Text>
                         {renderFight(data.lastRounds[data.lastRounds.length - 1], true)}
                       </Box>

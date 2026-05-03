@@ -49,12 +49,12 @@ const CellMobileView = ({
 
   return brute && (
     <Page
-      title={`${brute.name || ''} ${t('MyBrute', { ns: 'common' })}`}
+      title={`${brute.name || ''} ${t('MyBrute')}`}
       description={t('cell.desc', {
         ns: 'cell',
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`, { ns: 'common' }),
+        rank: t(`lvl_${brute.ranking}`),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${brute.name}/cell`}
@@ -90,7 +90,7 @@ const CellMobileView = ({
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
             <Text bold center color={theme.palette.mode === 'dark' ? 'text.primary' : undefined} sx={{ mb: 0.5 }}>
-              <Tooltip title={t('inventory', { ns: 'common' })}>
+              <Tooltip title={t('inventory')}>
                 <Link to={`/${brute.name}/inventory`}>
                   <Box
                     component="img"
@@ -130,7 +130,7 @@ const CellMobileView = ({
           </Text>
           {user?.admin && (
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Tooltip title={t('adminPanel', { ns: 'common' })}>
+              <Tooltip title={t('adminPanel')}>
                 <IconButton
                   component={RouterLink}
                   to={`/admin-panel/brute/${brute.name}`}
@@ -147,7 +147,7 @@ const CellMobileView = ({
           {keys(brute.pets).length > 0 ? (
             <CellPets />
           ) : (
-            <Tooltip title={t(`${ad.name}.desc`, { ns: 'common' })}>
+            <Tooltip title={t(`${ad.name}.desc`)}>
               <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 'auto' }}>
                 <Box
                   component="img"
@@ -185,13 +185,13 @@ const CellMobileView = ({
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <FantasyButton to={`/${brute.name}/tournaments`} color="secondary" sx={{ m: 1 }}>
           <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('tournaments', { ns: 'common' })}
+          {t('tournaments')}
         </FantasyButton>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <FantasyButton to={`/${brute.name}/event/history`} color="primary" sx={{ m: 1 }}>
           <History sx={{ verticalAlign: 'middle', mr: 1 }} />
-          {t('eventHistory', { ns: 'common' })}
+          {t('eventHistory')}
         </FantasyButton>
       </Box>
       {/* BRUTE SACRIFICE */}

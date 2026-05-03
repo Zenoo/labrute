@@ -59,7 +59,7 @@ const HallView = () => {
   }, [Alert, Server.Brute, updateData, user]);
 
   return (
-    <Page title={`${t('hall', { ns: 'hall' })} ${t('MyBrute', { ns: 'common' })}`} headerUrl="">
+    <Page title={`${t('hall', { ns: 'hall' })} ${t('MyBrute')}`} headerUrl="">
       <Paper sx={{
         mx: 4,
         display: 'flex',
@@ -73,7 +73,7 @@ const HallView = () => {
           <Text bold color="secondary">
             {fightsLeft > 1
               ? t('youHaveXFightsLeft', { value: fightsLeft, ns: 'common' })
-              : t('youHaveOneFightLeft', { ns: 'common' })}
+              : t('youHaveOneFightLeft')}
           </Text>
         )}
       </Paper>
@@ -123,7 +123,7 @@ const HallView = () => {
                   <Box display="flex" alignItems="center">
                     {/* Registration status */}
                     {brute.registeredForTournament && (
-                      <Tooltip title={t('bruteRegistered', { ns: 'common' })}>
+                      <Tooltip title={t('bruteRegistered')}>
                         <Check
                           fontSize="small"
                           sx={{
@@ -155,7 +155,7 @@ const HallView = () => {
                   </Tooltip>
                 </Box>
                 <Text bold smallCaps color="text.primary">
-                  {t('level', { ns: 'common' })}
+                  {t('level')}
                   <Text component="span" bold color="secondary"> {brute.level}</Text>
                   {brute.eventId ? (
                     <Box

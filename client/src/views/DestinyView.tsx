@@ -126,19 +126,19 @@ const DestinyView = () => {
           {branch ? (
             <>
               {/* LEVEL */}
-              <Text h6 bold smallCaps>{t('level', { ns: 'common' })} {branch.level}</Text>
+              <Text h6 bold smallCaps>{t('level')} {branch.level}</Text>
               {/* CHOICE HEADER */}
               <Text caption>
                 {/* +3 Skill */}
-                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in', { ns: 'common' })}`}
+                {branch.type === 'stats' && !branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)} ${t('in')}`}
                 {/* +2/+1 Skill */}
-                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in', { ns: 'common' })}`}
+                {branch.type === 'stats' && branch.stat2 && `+${statValue(brute, branch.stat1, branch.stat1Value || 0)}/+${statValue(brute, branch.stat2, branch.stat2Value || 0)} ${t('in')}`}
                 {/* New weapon */}
-                {branch.type === 'weapon' && `${t('newWeapon', { ns: 'common' })} :`}
+                {branch.type === 'weapon' && `${t('newWeapon')} :`}
                 {/* New skill */}
-                {branch.type === 'skill' && `${t('newSkill', { ns: 'common' })} :`}
+                {branch.type === 'skill' && `${t('newSkill')} :`}
                 {/* New pet */}
-                {branch.type === 'pet' && `${t('newPet', { ns: 'common' })} :`}
+                {branch.type === 'pet' && `${t('newPet')} :`}
               </Text>
 
               {/* CHOICE CONTENT */}
@@ -147,21 +147,21 @@ const DestinyView = () => {
                 <SkillTooltip
                   skill={branch.skill && skills[branch.skill]}
                 >
-                  <Text h6 bold smallCaps>{t(branch.skill as SkillName, { ns: 'common' })}</Text>
+                  <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
                 </SkillTooltip>
               ) : branch.type === 'weapon' ? (
                 <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]}>
-                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName, { ns: 'common' })}</Text>
+                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
                 </WeaponTooltip>
               ) : branch.type === 'pet' ? (
-                <Text h6 bold smallCaps>{t(branch.pet as PetName, { ns: 'common' })}</Text>
+                <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
               ) : !branch.stat2 ? (
-                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat), { ns: 'common' })}</Text>
+                <Text h6 bold smallCaps>{t(statName(branch.stat1 as BruteStat))}</Text>
               ) : (
                 <Text h6 bold smallCaps>
-                  {t(statName(branch.stat1 as BruteStat), { ns: 'common' })}
+                  {t(statName(branch.stat1 as BruteStat))}
                   {' / '}
-                  {t(statName(branch.stat2), { ns: 'common' })}
+                  {t(statName(branch.stat2))}
                 </Text>
               ))}
             </>
@@ -181,12 +181,12 @@ const DestinyView = () => {
 
   return brute && (
     <Page
-      title={`${t('MyBrute', { ns: 'common' })}. ${t('destinyOf', { ns: 'common' })} ${brute.name || ''}`}
+      title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`}
       description={t('destiny.desc', {
         ns: 'destiny',
         name: brute.name,
         level: brute.level,
-        rank: t(`lvl_${brute.ranking}`, { ns: 'common' }),
+        rank: t(`lvl_${brute.ranking}`),
         winrate: getBruteWinrate(brute),
       })}
       headerUrl={`/${brute.name}/cell`}

@@ -55,7 +55,7 @@ const CellMain = ({
   const rankUp = useCallback(() => {
     if (!brute) return;
 
-    Confirm.open(t('rankUp', { ns: 'common' }), t('rankUpConfirm', { ns: 'common' }), async () => {
+    Confirm.open(t('rankUp'), t('rankUpConfirm'), async () => {
       try {
         await Server.Brute.rankUp(brute.name);
         // Reload page
@@ -96,9 +96,9 @@ const CellMain = ({
           <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
             <Box component="img" sx={{ width: 40, height: 40 }} src={`/images/rankings/lvl_${brute.ranking}.webp`} />
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-              <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`, { ns: 'common' })}</Text>
+              <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
               {brute.ascensions > 0 && (
-                <Tooltip title={t('ascensions', { ns: 'common' })}>
+                <Tooltip title={t('ascensions')}>
                   <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
                     <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
                     <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />
@@ -143,7 +143,7 @@ const CellMain = ({
       {/* Rank up */}
       {owner && brute.canRankUpSince && brute.ranking > 0 && (!dayjs.utc(brute.canRankUpSince).isSame(dayjs.utc(), 'day') || brute.currentTournamentStepWatched === 6) && (
         <FantasyButton color="warning" onClick={rankUp} sx={{ mb: 1 }}>
-          {t('rankUp', { ns: 'common' })}
+          {t('rankUp')}
         </FantasyButton>
       )}
       {/* Ascend */}
@@ -157,7 +157,7 @@ const CellMain = ({
           }}
         >
           <FantasyButton color="warning" sx={{ mb: 1 }}>
-            {t('ascend', { ns: 'common' })}
+            {t('ascend')}
           </FantasyButton>
         </Link>
       )}
@@ -167,7 +167,7 @@ const CellMain = ({
           onClick={login}
           sx={{ mt: 2 }}
         >
-          {t('connect', { ns: 'common' })}
+          {t('connect')}
         </FantasyButton>
       )}
       {owner && ((brute.xp < xpNeededForNextLevel
@@ -175,7 +175,7 @@ const CellMain = ({
         ? fightsLeft > 0
           ? (
             <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-              <Text bold sx={{ pl: 1 }}>{t('callToFight', { ns: 'common' })}</Text>
+              <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
               <Link to={`/${brute.name}/arena`}>
                 <StyledButton
                   sx={{
@@ -188,7 +188,7 @@ const CellMain = ({
                   contrast={false}
                 />
               </Link>
-              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { ns: 'common', value: fightsLeft }) : t('fightLeft', { ns: 'common' })}</Text>
+              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { ns: 'common', value: fightsLeft }) : t('fightLeft')}</Text>
             </Stack>
           )
           : (
@@ -199,7 +199,7 @@ const CellMain = ({
           )
         : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
           <FantasyButton color="success" to={`/${brute.name}/level-up`}>
-            {t('levelUp', { ns: 'common' })}
+            {t('levelUp')}
           </FantasyButton>
         )
           : null)}
@@ -225,7 +225,7 @@ const CellMain = ({
               mt: 1,
             }}
           >
-              {t('sacrifice', { ns: 'cell' })}
+            {t('sacrifice', { ns: 'cell' })}
           </FantasyButton>
         )}
       {/* BRUTE RESET */}

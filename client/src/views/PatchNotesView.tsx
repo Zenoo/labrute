@@ -20,7 +20,7 @@ const PatchNotesView = () => {
 
   return (
     <Page
-      title={`${t('MyBrute', { ns: 'common' })} - ${t('patchNotes', { ns: 'common' })}`}
+      title={`${t('MyBrute')} - ${t('patchNotes')}`}
       description={t('desc', { version: LAST_RELEASE.version })}
     >
       <Paper sx={{
@@ -31,7 +31,7 @@ const PatchNotesView = () => {
         flexWrap: 'wrap',
       }}
       >
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes', { ns: 'common' })}</Text>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes')}</Text>
       </Paper>
       {displayedReleases.map((release) => (
         <Paper key={release.version} sx={{ bgcolor: 'background.paperLight', my: 3 }}>
@@ -100,7 +100,7 @@ const PatchNotesView = () => {
           onClick={showMoreReleases}
           sx={{ mx: 'auto' }}
         >
-          {t('showMore', { ns: 'common' })}
+          {t('showMore')}
         </FantasyButton>
       )}
     </Page>

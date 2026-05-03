@@ -23,7 +23,7 @@ const VersusMobileView = ({
 
   return (
     <Page
-      title={`${brute.name} ${t('vs', { ns: 'common' })} ${opponent.name}`}
+      title={`${brute.name} ${t('vs')} ${opponent.name}`}
       headerUrl={`/${brute.name}/cell`}
       sx={{ textAlign: 'center' }}
     >
@@ -56,7 +56,7 @@ const VersusMobileView = ({
               />
             </Box>
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'common' })} {brute.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
           <Grid item xs={12} sm={2} alignSelf="center">
             <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/versus/vs.webp`} sx={{ width: 100, maxWidth: 1 }} />
@@ -69,7 +69,7 @@ const VersusMobileView = ({
               />
             </Box>
             <Text h3 smallCaps bold color="text.primary">{opponent.name}</Text>
-            <Text h5 upperCase bold color="secondary">{t('level', { ns: 'common' })} {opponent.level}</Text>
+            <Text h5 upperCase bold color="secondary">{t('level')} {opponent.level}</Text>
           </Grid>
         </Grid>
         <StyledButton

@@ -47,7 +47,7 @@ const NameChangeView = () => {
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {owner && (
           <Box sx={{ textAlign: 'center' }}>
-            <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName', { ns: 'common' })}</Text>
+            <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
             <Box
               component="img"
               src="/images/creation/arrow.png"
@@ -61,7 +61,7 @@ const NameChangeView = () => {
             />
             {/* VALIDATION */}
             <Box sx={{ textAlign: 'center' }}>
-              <FantasyButton color="success" onClick={changeName}>{t('validate', { ns: 'common' })}</FantasyButton>
+              <FantasyButton color="success" onClick={changeName}>{t('validate')}</FantasyButton>
             </Box>
           </Box>
         )}

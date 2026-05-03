@@ -44,7 +44,7 @@ const ClanForumView = () => {
                 <Text bold smallCaps>{t('goBackToYourCell')}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/ranking`}>
-                <Text bold smallCaps>{t('ranking', { ns: 'common' })}</Text>
+                <Text bold smallCaps>{t('ranking')}</Text>
               </Link>
               <Link to={`/${bruteName}/clan/${id}`}>
                 <Text bold smallCaps>{t('myClan')}</Text>

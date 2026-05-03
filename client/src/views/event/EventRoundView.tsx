@@ -59,7 +59,7 @@ export const EventRoundView = () => {
   }, [Alert, id, round, Server.Event]);
 
   return (
-    <Page title={`${t(`event.${event?.type}`)} | ${t('day', { ns: 'common', day: round })} ${t('MyBrute', { ns: 'common' })}`} headerUrl={`/${bruteName || ''}/event/${id}`}>
+    <Page title={`${t(`event.${event?.type}`)} | ${t('day', { ns: 'common', day: round })} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/event/${id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t(`event.${event?.type}`)}, {t('day', { ns: 'common', day: round })}</Text>
       </Paper>

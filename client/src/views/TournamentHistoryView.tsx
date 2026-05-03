@@ -54,8 +54,8 @@ const TournamentHistoryView = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell>{t('date', { ns: 'common' })}</TableCell>
-                  <TableCell align="right">{t('tournament', { ns: 'common' })}</TableCell>
+                  <TableCell>{t('date')}</TableCell>
+                  <TableCell align="right">{t('tournament')}</TableCell>
                   <TableCell align="right" sx={{ width: 10 }}>{t('result')}</TableCell>
                 </TableRow>
               </TableHead>
@@ -80,10 +80,10 @@ const TournamentHistoryView = () => {
                         <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${dayjs.utc(tournament.date).format('YYYY-MM-DD')}`}>
                           <Text bold>
                             {tournament.type === TournamentType.DAILY
-                              ? t('dailyTournament', { ns: 'common' })
+                              ? t('dailyTournament')
                               : (tournament.type === TournamentType.GLOBAL
                                 || tournament.type === TournamentType.UNLIMITED_GLOBAL)
-                                ? t('globalTournament', { ns: 'common' })
+                                ? t('globalTournament')
                                 : tournament.type}
                           </Text>
                         </Link>

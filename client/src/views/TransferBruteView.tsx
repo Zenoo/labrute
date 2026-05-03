@@ -33,7 +33,7 @@ export const TransferBruteView = () => {
       return;
     }
 
-    Confirm.open(t('transferBrute', { ns: 'common' }), t('confirmBruteTransfer', { ns: 'transferBrute', bruteName: user.brutes.find((b) => b.id === selectedBrute)?.name }), async () => {
+    Confirm.open(t('transferBrute'), t('confirmBruteTransfer', { ns: 'transferBrute', bruteName: user.brutes.find((b) => b.id === selectedBrute)?.name }), async () => {
       try {
         await Server.User.transferBrute({ bruteId: selectedBrute, targetUserId });
         Alert.open('success', t('bruteTransferred', { ns: 'transferBrute' }));
