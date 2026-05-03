@@ -14,6 +14,7 @@ import BruteHP from './BruteHP';
 import PetTooltip from './PetTooltip';
 import SkillTooltip from './SkillTooltip';
 import WeaponTooltip from './WeaponTooltip';
+import { TieredPerkColor } from '../../utils/StatColor';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
@@ -154,7 +155,7 @@ const BruteButton = ({
                   tier={tier}
                   key={weapon}
                 >
-                  <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
+                  <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: `drop-shadow(${tier > 1 ? 2 : 1}px 1px 1px ${TieredPerkColor[tier]})` }} />
                 </WeaponTooltip>
               ))}
             </Box>
@@ -173,7 +174,7 @@ const BruteButton = ({
                       width: 16,
                       mx: 0.25,
                       my: 0,
-                      filter: 'drop-shadow(1px 1px 1px black)'
+                      filter: `drop-shadow(1px 1px 1px ${TieredPerkColor[tier]})`,
                     }}
                   />
                 </SkillTooltip>
@@ -183,7 +184,7 @@ const BruteButton = ({
             <Box>
               {entries(brute.pets).map(([pet, tier]) => (
                 <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
-                  <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: 'drop-shadow(1px 1px 1px black)' }} />
+                  <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: `drop-shadow(1px 1px 1px ${TieredPerkColor[tier]})` }} />
                 </PetTooltip>
               ))}
             </Box>
