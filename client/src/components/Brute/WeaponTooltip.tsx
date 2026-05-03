@@ -7,6 +7,7 @@ import StatColor from '../../utils/StatColor';
 import { useAuth } from '../../hooks/useAuth';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
+import { displayTieredWeaponStat } from '../../utils/displayTieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -50,8 +51,6 @@ const WeaponTooltip = ({
 
     const label = stat === 'tempo' ? 'hitSpeed' : stat === 'toss' ? 'drawChance' : stat;
     const color = stat === 'tempo' || stat === 'toss' ? { opacity: 0.7 } : { color: StatColor[stat] };
-    const uniqueValue = !tieredWeapon
-      || tieredWeapon[stat].every((v) => v === tieredWeapon[stat]?.[0]);
 
     const formatter = tierFormatter ?? ((currentTier: number) => {
       // Those stats will always use a formatter
@@ -69,23 +68,17 @@ const WeaponTooltip = ({
         <Text {...textProps}>
           {t(label)}:
           {' '}
-          <Text component="span" bold sx={color} {...textProps}>
-            {uniqueValue ? formatter(tier) : (
-              <>
-                [
-                {tieredWeapon[stat].map((_, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Fragment key={index}>
-                    <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                      {formatter(index + 1)}
-                    </Box>
-                    {index < (tieredWeapon[stat]?.length ?? 0) - 1 ? '/' : ''}
-                  </Fragment>
-                ))}
-                ]
-              </>
-            )}{percent ? '%' : ''}
-          </Text>
+          <Text
+            component="span"
+            bold
+            sx={color}
+            {...textProps}
+            dangerouslySetInnerHTML={{
+              __html: tieredWeapon
+                ? `${displayTieredWeaponStat({ weapon: tieredWeapon, stat, tier, formatter })}${percent ? '%' : ''}`
+                : `${formatter(tier)}${percent ? '%' : ''}`,
+            }}
+          />
         </Text>
       );
     }
@@ -94,25 +87,16 @@ const WeaponTooltip = ({
     if (stat === 'tempo' || stat === 'toss' || stat === 'damage') return null;
 
     return (
-      <Text bold sx={{ color: StatColor[stat], textShadow }} {...textProps}>
-        {(tieredWeapon ? (tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) : BASE_FIGHTER_STATS[stat]) > 0 ? '+' : '-'}
-        {uniqueValue ? Math.abs(formatter(tier)) : (
-          <>
-            [
-            {tieredWeapon[stat].map((_, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={index}>
-                <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                  {Math.abs(formatter(index + 1))}
-                </Box>
-                {index < (tieredWeapon[stat]?.length ?? 0) - 1 ? '/' : ''}
-              </Fragment>
-            ))}
-            ]
-          </>
-        )}
-        {percent ? '%' : ''} {t(label)}
-      </Text>
+      <Text
+        bold
+        sx={{ color: StatColor[stat], textShadow }}
+        {...textProps}
+        dangerouslySetInnerHTML={{
+          __html: tieredWeapon
+            ? `${(tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) > 0 ? '+' : '-'}${displayTieredWeaponStat({ weapon: tieredWeapon, stat, tier, formatter: (v) => Math.abs(formatter(v)) })}${percent ? '%' : ''} ${t(label)}`
+            : `${BASE_FIGHTER_STATS[stat] > 0 ? '+' : '-'}${Math.abs(formatter(tier))}${percent ? '%' : ''} ${t(label)}`,
+        }}
+      />
     );
   };
 

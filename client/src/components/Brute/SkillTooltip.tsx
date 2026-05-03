@@ -1,4 +1,4 @@
-import { convertEnduranceToHP, entries, FightStat, getScaledStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import { entries, FightStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,19 +7,14 @@ import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
+import SkillIcon from '../SkillIcon';
+import { displaySkillTieredStat } from '../../utils/displayTieredStat';
 
 // Rename endurance to HP
 const statName = (stat: FightStat) => {
   if (stat === 'endurance') return 'HP';
 
   return stat;
-};
-
-// Convert endurance to HP
-const statValue = (stat: FightStat | null, value: number) => {
-  if (stat === 'endurance') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
-
-  return value;
 };
 
 export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
@@ -43,9 +38,9 @@ const SkillTooltip = ({
       {...rest}
       title={skill ? (
         <>
-          <Box
-            component="img"
-            src={`/images/skills/${skill.name}.svg`}
+          <SkillIcon
+            skill={skill.name}
+            tier={tier}
             sx={{ width: 68, float: 'left', marginRight: 1 }}
           />
           <Text bold h5>{t(skill.name)}</Text>
@@ -58,82 +53,43 @@ const SkillTooltip = ({
                   bold
                   subtitle2
                   sx={{ color: StatColor[stat], lineHeight: 1 }}
-                >
-                  {modifier.flat[0] < 0 ? '-' : '+'}
-                  {modifier.flat.every((v) => v === modifier.flat?.[0]) ? getScaledStat({
-                    chaos,
-                    skill: skill.name,
-                    type: 'flat',
-                    stat,
-                    value: Math.abs(statValue(stat, modifier.flat[0]))
-                  }) : (
-                    <>
-                      [
-                      {modifier.flat.map((val, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={index}>
-                          <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                            {getScaledStat({
-                              chaos,
-                              skill: skill.name,
-                              type: 'flat',
-                              stat,
-                              value: Math.abs(statValue(stat, val))
-                            })}
-                          </Box>
-                          {index < (modifier.flat?.length ?? 0) - 1 ? '/' : ''}
-                        </Fragment>
-                      ))}
-                      ]
-                    </>
-                  )}
-                  {' '}
-                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
-                  {modifier.details ? ` ${t(modifier.details)}` : ''}
-                </Text>
+                  dangerouslySetInnerHTML={{
+                    __html: `
+                    ${modifier.flat[0] < 0 ? '-' : '+'}${displaySkillTieredStat({
+                      chaos,
+                      skill: skill.name,
+                      type: 'flat',
+                      stat,
+                      values: modifier.flat,
+                      tier,
+                    })}
+                    ${modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
+                    ${(typeof modifier.weaponType !== 'undefined') ? ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})` : ''}
+                    ${modifier.details ? ` ${t(modifier.details)}` : ''}
+                  ` }}
+                />
               )}
               {!!modifier.percent && (
                 <Text
                   bold
                   subtitle2
                   sx={{ color: StatColor[stat], lineHeight: 1.2 }}
-                >
-                  {modifier.percent[0] < 0 ? '-' : '+'}
-                  {modifier.percent.every((v) => v === modifier.percent?.[0]) ? (getScaledStat({
-                    chaos,
-                    skill: skill.name,
-                    type: 'percent',
-                    stat,
-                    value: Math.abs(modifier.percent[0]),
-                    precision: 2
-                  }) * 100).toFixed(0) : (
-                    <>
-                      [
-                      {modifier.percent.map((val, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={index}>
-                          <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                            {(getScaledStat({
-                              chaos,
-                              skill: skill.name,
-                              type: 'percent',
-                              stat,
-                              value: Math.abs(val),
-                              precision: 2
-                            }) * 100).toFixed(0)}
-                          </Box>
-                          {index < (modifier.percent?.length ?? 0) - 1 ? '/' : ''}
-                        </Fragment>
-                      ))}
-                      ]
-                    </>
-                  )}
-                  {'% '}
-                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
-                  {modifier.details ? ` ${t(modifier.details)}` : ''}
-                </Text>
+                  dangerouslySetInnerHTML={{
+                    __html: `
+                      ${modifier.percent[0] < 0 ? '-' : '+'}${displaySkillTieredStat({
+                      chaos,
+                      skill: skill.name,
+                      type: 'percent',
+                      stat,
+                      values: modifier.percent,
+                      tier,
+                    })}%
+                      ${modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
+                      ${(typeof modifier.weaponType !== 'undefined') ? ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})` : ''}
+                      ${modifier.details ? ` ${t(modifier.details)}` : ''}
+                    `
+                  }}
+                />
               )}
             </Fragment>
           ))}

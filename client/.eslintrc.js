@@ -106,5 +106,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-continue': 'off',
     'no-await-in-loop': 'off',
+    "indent": 'off',
   },
 };

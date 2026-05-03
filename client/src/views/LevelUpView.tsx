@@ -19,9 +19,10 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import StatColor from '../utils/StatColor';
+import StatColor, { TieredPerkColor } from '../utils/StatColor';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import SkillIcon from '../components/SkillIcon';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
@@ -145,9 +146,9 @@ const LevelUpView = () => {
       <Box>
         {entries(brute.skills).map(([skill, tier]) => (
           <SkillTooltip skill={skills[skill]} tier={tier} key={skill}>
-            <Box
-              component="img"
-              src={`/images/skills/${skill}.svg`}
+            <SkillIcon
+              skill={skill}
+              tier={tier}
               sx={{
                 width: 16,
                 m: 0.25,
@@ -155,6 +156,14 @@ const LevelUpView = () => {
               }}
             />
           </SkillTooltip>
+        ))}
+      </Box>
+      {/* Pets */}
+      <Box>
+        {entries(brute.pets).map(([pet, tier]) => (
+          <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
+            <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
+          </PetTooltip>
         ))}
       </Box>
     </>

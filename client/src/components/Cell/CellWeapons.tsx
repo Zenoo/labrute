@@ -3,7 +3,7 @@ import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
-import { PerkColor } from '../../utils/StatColor';
+import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
 import WeaponTooltip from '../Brute/WeaponTooltip';
 
 const weaponSvgProps: Record<WeaponName, {
@@ -41,6 +41,28 @@ const weaponSvgProps: Record<WeaponName, {
   [WeaponName.broadsword]: { id: '_w2', height: '41.3', transform: 'matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)', width: '81.15', xlinkHref: '#sprite4' },
 };
 
+const getRotationAngle = (transform: string): number => {
+  // Parse matrix(a, b, c, d, e, f) to extract rotation angle
+  const match = transform.match(/matrix\(([^,]+),\s*([^,]+)/);
+  if (!match) return 0;
+  const a = parseFloat(match[1] ?? '1');
+  const b = parseFloat(match[2] ?? '0');
+  return Math.atan2(b, a);
+};
+
+const getRotatedShadow = (transform: string, color: string = 'rgba(0, 0, 0, .3)', blur: number = 0): string => {
+  const angle = getRotationAngle(transform);
+  const offsetX = 4;
+  const offsetY = 4;
+
+  // Counter-rotate the shadow offset by negative angle to maintain consistent direction relative to weapon
+  // CSS filters are applied in screen space AFTER transforms, so we need to pre-compensate
+  const rotatedX = offsetX * Math.cos(-angle) - offsetY * Math.sin(-angle);
+  const rotatedY = offsetX * Math.sin(-angle) + offsetY * Math.cos(-angle);
+
+  return `drop-shadow(${rotatedX.toFixed(2)}px ${rotatedY.toFixed(2)}px ${blur}rem ${color})`;
+};
+
 const CellWeapons = (
   {
     selectCallback,
@@ -75,12 +97,28 @@ const CellWeapons = (
     [brute, hoverSelectAscend]
   );
 
-  const getFilter = (weapon: WeaponName) => {
-    if (randomWeapon === weapon) return `drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
+  const getFilter = (weapon: WeaponName, tier?: number) => {
+    const { transform } = weaponSvgProps[weapon];
+    const baseShadow = getRotatedShadow(transform);
+    let filter = baseShadow;
+
+    if (randomWeapon === weapon) return `${filter} drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
+
+    // Add tier border if tier > 1
+    if (tier && tier > 1) {
+      const color = TieredPerkColor[tier] ?? '';
+      // Create a colored border effect using multiple drop-shadows in all directions
+      filter += ` drop-shadow(0 -1px 0 ${color}) drop-shadow(1px 0 0 ${color}) drop-shadow(0 1px 0 ${color}) drop-shadow(-1px 0 0 ${color}) drop-shadow(0.7px -0.7px 0 ${color}) drop-shadow(0.7px 0.7px 0 ${color}) drop-shadow(-0.7px 0.7px 0 ${color}) drop-shadow(-0.7px -0.7px 0 ${color})`;
+    }
+
+    // Add ascended glow if ascended (can stack with tier border)
     if (brute?.ascendedWeapons.includes(weapon)
       || selectedWeapon === weapon
-      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon])) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
-    return 'none';
+      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon])) {
+      filter += ` drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
+    }
+
+    return filter;
   };
 
   const onWeaponClick = (clicked: WeaponName | 'bare-hands' | null) => () => {
@@ -133,42 +171,70 @@ const CellWeapons = (
           </g>
         </defs>
         {/* WEAPONS */}
-        <g
-          transform="matrix(1.0, 0.0, 0.0, 1.0, 5.2, 2.5)"
-          style={{
-            WebkitFilter: 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))',
-            filter: 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))',
-          }}
-        >
+        <g transform="matrix(1.0, 0.0, 0.0, 1.0, 5.2, 2.5)">
           <use height="198.65" transform="matrix(1.0, 0.0, 0.0, 1.0, -3.8, 3.4)" width="303.95" xlinkHref="#shape2" />
-          <use height="30" onMouseEnter={hoverWeapon('bare-hands')} onMouseLeave={leaveWeapon} transform="matrix(0.25, 0, 0, 0.25, 2.2, 178)" width="30" xlinkHref="#bare-hands" />
-          {entries(brute.weapons).map(([weapon, tier]) => (
+          <g
+            transform="matrix(0.25, 0, 0, 0.25, 2.2, 178)"
+            style={{
+              WebkitFilter: 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))',
+              filter: 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))',
+            }}
+          >
             <use
-              key={weapon}
-              id={weaponSvgProps[weapon].id}
-              height={weaponSvgProps[weapon].height}
-              transform={weaponSvgProps[weapon].transform}
-              width={weaponSvgProps[weapon].width}
-              xlinkHref={weaponSvgProps[weapon].xlinkHref}
-              onMouseEnter={hoverWeapon(weapon, tier)}
+              height="30"
+              onMouseEnter={hoverWeapon('bare-hands')}
               onMouseLeave={leaveWeapon}
-              filter={getFilter(weapon)}
-              cursor="pointer"
+              width="30"
+              xlinkHref="#bare-hands"
             />
-          ))}
-          {unownedWeapons.map((weapon) => (weapon === randomWeapon ? null : (
-            <use
-              key={weapon}
-              id={weaponSvgProps[weapon].id}
-              height={weaponSvgProps[weapon].height}
-              transform={weaponSvgProps[weapon].transform}
-              width={weaponSvgProps[weapon].width}
-              xlinkHref={weaponSvgProps[weapon].xlinkHref}
-              onMouseEnter={hoverWeapon(weapon)}
-              onMouseLeave={leaveWeapon}
-              opacity="0.2"
-            />
-          )))}
+          </g>
+          {entries(brute.weapons).map(([weapon, tier]) => {
+            const filter = getFilter(weapon, tier);
+            return (
+              <g
+                key={weapon}
+                transform={weaponSvgProps[weapon].transform}
+                style={{
+                  WebkitFilter: filter,
+                  filter,
+                }}
+              >
+                <use
+                  id={weaponSvgProps[weapon].id}
+                  height={weaponSvgProps[weapon].height}
+                  width={weaponSvgProps[weapon].width}
+                  xlinkHref={weaponSvgProps[weapon].xlinkHref}
+                  onMouseEnter={hoverWeapon(weapon, tier)}
+                  onMouseLeave={leaveWeapon}
+                  cursor="pointer"
+                />
+              </g>
+            );
+          })}
+          {unownedWeapons.map((weapon) => {
+            if (weapon === randomWeapon) return null;
+            const filter = getRotatedShadow(weaponSvgProps[weapon].transform);
+            return (
+              <g
+                key={weapon}
+                transform={weaponSvgProps[weapon].transform}
+                style={{
+                  WebkitFilter: filter,
+                  filter,
+                }}
+              >
+                <use
+                  id={weaponSvgProps[weapon].id}
+                  height={weaponSvgProps[weapon].height}
+                  width={weaponSvgProps[weapon].width}
+                  xlinkHref={weaponSvgProps[weapon].xlinkHref}
+                  onMouseEnter={hoverWeapon(weapon)}
+                  onMouseLeave={leaveWeapon}
+                  opacity="0.2"
+                />
+              </g>
+            );
+          })}
         </g>
         <defs>
           <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">

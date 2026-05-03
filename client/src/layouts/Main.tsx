@@ -607,7 +607,17 @@ const Main = () => {
           '#root': {
             minHeight: '100%',
             background: `linear-gradient(180deg, ${theme.palette.background.light} 0%, ${theme.palette.background.default} 160px)`,
-          }
+          },
+          '.locked-tier': {
+            fontWeight: 'normal',
+            opacity: 0.3,
+          },
+          '.tier-wrapper': {
+            opacity: 0.3,
+          },
+          '.current-tier': {
+            fontWeight: 'bold',
+          },
         }}
         />
         <Outlet />

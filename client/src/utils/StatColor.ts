@@ -31,11 +31,10 @@ export const PerkColor = {
   Ascended: '#ff9400',
 } as const;
 
-export const TieredPerkColor: Record<number, string | null> = {
-  0: null,
-  1: 'black',
-  2: 'blue',
-  3: '#d50000',
+export const TieredPerkColor: Record<number, string> = {
+  1: '#cccc00',
+  2: '#ff9400',
+  3: '#e21c1c',
 };
 
 export default StatColor;

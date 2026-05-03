@@ -3,7 +3,7 @@ import { PetName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
-import { PerkColor } from '../../utils/StatColor';
+import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
 import PetTooltip from '../Brute/PetTooltip';
 
 const CellPets = ({
@@ -21,11 +21,24 @@ const CellPets = ({
   const [hoveredPet, setHoveredPet] = useState<PetName | null>(null);
   const [hoveredPetTier, setHoveredPetTier] = useState<number>();
 
-  const getFilter = (pet: PetName) => {
+  const getFilter = (pet: PetName, tier?: number) => {
+    const baseShadow = 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))';
+    let filter = baseShadow;
+
+    // Add tier border if tier > 1
+    if (tier && tier > 1) {
+      const color = TieredPerkColor[tier] ?? '';
+      filter += ` drop-shadow(0 -1px 0 ${color}) drop-shadow(1px 0 0 ${color}) drop-shadow(0 1px 0 ${color}) drop-shadow(-1px 0 0 ${color}) drop-shadow(0.7px -0.7px 0 ${color}) drop-shadow(0.7px 0.7px 0 ${color}) drop-shadow(-0.7px 0.7px 0 ${color}) drop-shadow(-0.7px -0.7px 0 ${color})`;
+    }
+
+    // Add ascended glow if ascended (can stack with tier border)
     if (brute?.ascendedPets.includes(pet)
       || selectedPet === pet
-      || (hoverSelectAscend && hoveredPet === pet)) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
-    return 'none';
+      || (hoverSelectAscend && hoveredPet === pet)) {
+      filter += ` drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
+    }
+
+    return filter;
   };
 
   const hoverPet = (pet: PetName, tier?: number) => () => {
@@ -57,19 +70,19 @@ const CellPets = ({
         <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="271.55px" xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, -24.0, 208.15)">
             {brute.pets[PetName.dog1] && (
-              <use onMouseEnter={hoverPet(PetName.dog1, brute.pets[PetName.dog1])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1) }} />
+              <use onMouseEnter={hoverPet(PetName.dog1, brute.pets[PetName.dog1])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1, brute.pets[PetName.dog1]) }} />
             )}
             {brute.pets[PetName.dog2] && !brute.pets[PetName.dog3] && (
-              <use onMouseEnter={hoverPet(PetName.dog2, brute.pets[PetName.dog2])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" style={{ filter: getFilter(PetName.dog2) }} />
+              <use onMouseEnter={hoverPet(PetName.dog2, brute.pets[PetName.dog2])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="41.8" id="1PC" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="56.45" xlinkHref="#pets-sprite2" style={{ filter: getFilter(PetName.dog2, brute.pets[PetName.dog2]) }} />
             )}
             {brute.pets[PetName.dog3] && (
-              <use onMouseEnter={hoverPet(PetName.dog3, brute.pets[PetName.dog3])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" style={{ filter: getFilter(PetName.dog3) }} />
+              <use onMouseEnter={hoverPet(PetName.dog3, brute.pets[PetName.dog3])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="39.85" transform="matrix(0.9778, 0.0, 0.0, 0.9778, 62.6111, -88.2389)" width="55.35" xlinkHref="#dog-x3" style={{ filter: getFilter(PetName.dog3, brute.pets[PetName.dog3]) }} />
             )}
             {brute.pets[PetName.panther] && (
-              <use onMouseEnter={hoverPet(PetName.panther, brute.pets[PetName.panther])} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" style={{ filter: getFilter(PetName.panther) }} />
+              <use onMouseEnter={hoverPet(PetName.panther, brute.pets[PetName.panther])} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" style={{ filter: getFilter(PetName.panther, brute.pets[PetName.panther]) }} />
             )}
             {brute.pets[PetName.bear] && (
-              <use onMouseEnter={hoverPet(PetName.bear, brute.pets[PetName.bear])} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" style={{ filter: getFilter(PetName.bear) }} />
+              <use onMouseEnter={hoverPet(PetName.bear, brute.pets[PetName.bear])} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" style={{ filter: getFilter(PetName.bear, brute.pets[PetName.bear]) }} />
             )}
           </g>
           <defs>

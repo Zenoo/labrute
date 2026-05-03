@@ -36,7 +36,8 @@
     "run:retrieveFirstBonus": "cd server && yarn run:retrieveFirstBonus",
     "run:fixErroredBonuses": "cd server && yarn run:fixErroredBonuses",
     "sitemap:generate": "npx ts-node ./scripts/genereateSitemap.ts",
-    "core:export": "npx ts-node ./scripts/generateCoreExports.ts"
+    "core:export": "npx ts-node ./scripts/generateCoreExports.ts",
+    "skills:generate": "npx ts-node ./scripts/generateSkillComponents.ts"
   },
   "devDependencies": {
     "@eternaltwin/cli": "^0.16.0",
