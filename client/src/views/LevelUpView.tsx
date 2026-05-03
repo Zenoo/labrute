@@ -230,12 +230,19 @@ const LevelUpView = () => {
           <Box sx={{ my: 1 }}>
             {choices && choices.map((destinyChoice, i) => {
               let maxedPerk = false;
+              let perkUpgrade = false;
               if (destinyChoice.type === 'skill' && destinyChoice.skill) {
-                maxedPerk = (brute.skills[destinyChoice.skill] ?? 0) >= 3;
+                const tier = brute.skills[destinyChoice.skill] ?? 0;
+                maxedPerk = tier >= 3;
+                perkUpgrade = tier > 0;
               } else if (destinyChoice.type === 'weapon' && destinyChoice.weapon) {
-                maxedPerk = (brute.weapons[destinyChoice.weapon] ?? 0) >= 3;
+                const tier = brute.weapons[destinyChoice.weapon] ?? 0;
+                maxedPerk = tier >= 3;
+                perkUpgrade = tier > 0;
               } else if (destinyChoice.type === 'pet' && destinyChoice.pet) {
-                maxedPerk = (brute.pets[destinyChoice.pet] ?? 0) >= 3;
+                const tier = brute.pets[destinyChoice.pet] ?? 0;
+                maxedPerk = tier >= 3;
+                perkUpgrade = tier > 0;
               }
 
               return (
@@ -269,12 +276,12 @@ const LevelUpView = () => {
                       {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
                       {/* +2/+1 Skill */}
                       {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
-                      {/* New weapon */}
-                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon')} :`)}
-                      {/* New skill */}
-                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill')} :`)}
-                      {/* New pet */}
-                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet')} :`)}
+                      {/* Weapon */}
+                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
+                      {/* Skill */}
+                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
+                      {/* Pet */}
+                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : `${t('newPet')} :`)}
                     </Text>
 
                     {/* CHOICE CONTENT */}
