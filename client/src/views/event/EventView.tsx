@@ -268,7 +268,7 @@ export const EventView = () => {
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          ns: 'common',
+
           value: lostRound.winner
         })}
       </Text>
@@ -337,7 +337,7 @@ export const EventView = () => {
                   >
                     <Badge
                       color="info"
-                      badgeContent={data.event.tournament ? t('day', { ns: 'common', day: data.event.tournament?.rounds }) : 0}
+                      badgeContent={data.event.tournament ? t('day', { day: data.event.tournament?.rounds }) : 0}
                       sx={{ width: 1 }}
                       anchorOrigin={{
                         vertical: 'bottom',
@@ -479,7 +479,7 @@ export const EventView = () => {
                             />
                           </Link>
                         </Tooltip>
-                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { ns: 'common', day: i + 1 })}</Text>
+                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: i + 1 })}</Text>
                         <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
                       </Box>
                     );
@@ -536,13 +536,13 @@ export const EventView = () => {
                               color="warning.main"
                               sx={{ width: 50 }}
                             >
-                              {t('day', { ns: 'common', day: fight.tournamentStep })}
+                              {t('day', { day: fight.tournamentStep })}
                             </Text>
                             <Text
                               bold
                               color="warning.main"
                             >
-                              {t('log.fight', { ns: 'common', value: opponent })}
+                              {t('log.fight', { value: opponent })}
                             </Text>
                           </Box>
                         </BruteTooltip>
@@ -592,7 +592,7 @@ export const EventView = () => {
                             color={won ? 'success.main' : 'error'}
                             sx={{ width: 50 }}
                           >
-                            {t('day', { ns: 'common', day: fight.tournamentStep })}
+                            {t('day', { day: fight.tournamentStep })}
                           </Text>
                           <Box
                             component="img"
@@ -604,8 +604,8 @@ export const EventView = () => {
                             color={won ? 'success.main' : 'error'}
                           >
                             {won
-                              ? t('log.win', { ns: 'common', value: opponent })
-                              : t('log.lose', { ns: 'common', value: opponent })}
+                              ? t('log.win', { value: opponent })
+                              : t('log.lose', { value: opponent })}
                           </Text>
                         </Link>
                       </BruteTooltip>
@@ -637,7 +637,7 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { ns: 'common', day: lastRoundsFirstStep })}
+                          {t('day', { day: lastRoundsFirstStep })}
                           {' '}
                           {t('quarterFinals')}
                         </Text>
@@ -671,7 +671,7 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { ns: 'common', day: lastRoundsFirstStep + 1 })}
+                          {t('day', { day: lastRoundsFirstStep + 1 })}
                           {' '}
                           {t('semiFinals')}
                         </Text>
@@ -707,7 +707,7 @@ export const EventView = () => {
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
-                          {t('day', { ns: 'common', day: lastRoundsFirstStep + 2 })}
+                          {t('day', { day: lastRoundsFirstStep + 2 })}
                           {' '}
                           {t('finals')}
                         </Text>

@@ -137,8 +137,8 @@ const SkillTooltip = ({
               )}
             </Fragment>
           ))}
-          {t(`${skill.name}.effect`, { ns: 'common', uses: skill.uses }) !== `${skill.name}.effect` && (
-            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { ns: 'common', uses: skill.uses })}</Text>
+          {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
+            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
           )}
           <Box sx={{
             display: 'flex',

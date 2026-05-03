@@ -166,14 +166,14 @@ const CellSocials = ({
             </Grid>
             <Grid item xs={6}>
               <Text bold color="secondary" component="span">{t('winrate')}: </Text>
-              <Tooltip title={t('wins-losses', { ns: 'common', wins: brute.victories, losses: brute.losses })}>
+              <Tooltip title={t('wins-losses', { wins: brute.victories, losses: brute.losses })}>
                 <Text bold component="span">
                   {getBruteWinrate(brute)}
                 </Text>
               </Tooltip>
             </Grid>
             <Grid item xs={6}>
-              <Tooltip title={t('created', { ns: 'common', date: dayjs.utc(brute.createdAt).format('LLL') })}>
+              <Tooltip title={t('created', { date: dayjs.utc(brute.createdAt).format('LLL') })}>
                 <Text bold component="span">
                   <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
                   {dayjs.utc(brute.createdAt).fromNow()}

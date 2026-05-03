@@ -94,7 +94,7 @@ export const FollowingFeedView = () => {
                       <Link to={`/${log.currentBrute?.name}/cell`}>
                         <Text body2>
                           {t(`log.${log.type}`, {
-                            ns: 'common',
+
                             brute: log.currentBrute?.name,
                             value: log.type === LogType.lvl ? t(`lvl_${log.level}`) : log.level,
                           })}

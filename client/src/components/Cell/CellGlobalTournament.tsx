@@ -279,7 +279,7 @@ const CellGlobalTournament = ({
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          ns: 'common',
+
           value: lostRound.winner
         })}
       </Text>
@@ -437,7 +437,7 @@ const CellGlobalTournament = ({
                       color="warning.main"
                       sx={{ ml: 2.5 }}
                     >
-                      {t('log.fight', { ns: 'common', value: opponent })}
+                      {t('log.fight', { value: opponent })}
                     </Text>
                   </Box>
                 </BruteTooltip>
@@ -488,8 +488,8 @@ const CellGlobalTournament = ({
                     color={won ? 'success.main' : 'error'}
                   >
                     {won
-                      ? t('log.win', { ns: 'common', value: opponent })
-                      : t('log.lose', { ns: 'common', value: opponent })}
+                      ? t('log.win', { value: opponent })
+                      : t('log.lose', { value: opponent })}
                   </Text>
                 </Link>
               </BruteTooltip>

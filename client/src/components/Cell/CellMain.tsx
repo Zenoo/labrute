@@ -84,8 +84,8 @@ const CellMain = ({
           severity="error"
           variant="filled"
         >
-          <AlertTitle>{t('taggedForDeletion', { ns: 'common', days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}</AlertTitle>
-          {t(`deletionReason.${brute.deletionReason}`, { ns: 'common', days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}
+          <AlertTitle>{t('taggedForDeletion', { days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}</AlertTitle>
+          {t(`deletionReason.${brute.deletionReason}`, { days: dayjs.utc(brute.willBeDeletedAt).diff(dayjs.utc(), 'days') })}
         </MuiAlert>
       )}
       <Box display="flex" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
@@ -116,7 +116,7 @@ const CellMain = ({
         && (
           <Tooltip title={t(
             brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
-            { ns: 'common', value: getWinsNeededToRankUp(brute) }
+            { value: getWinsNeededToRankUp(brute) }
           )}
           >
             <Box textAlign="center">
@@ -188,13 +188,13 @@ const CellMain = ({
                   contrast={false}
                 />
               </Link>
-              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { ns: 'common', value: fightsLeft }) : t('fightLeft')}</Text>
+              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
             </Stack>
           )
           : (
             <Box sx={{ textAlign: 'center' }}>
-              <Text bold color="error">{t('bruteIsResting', { ns: 'common', brute: brute.name })}</Text>
-              <Text color="error">{t('newFightsTomorrow', { ns: 'common', amount: getMaxFightsPerDay(brute) })}</Text>
+              <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
+              <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
             </Box>
           )
         : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (

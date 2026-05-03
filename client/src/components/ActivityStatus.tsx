@@ -18,7 +18,7 @@ export const ActivityStatus = ({
   const now = dayjs.utc();
 
   return (
-    <Tooltip title={t('lastSeen', { ns: 'common', date: lastSeen.fromNow() })}>
+    <Tooltip title={t('lastSeen', { date: lastSeen.fromNow() })}>
       <Circle
         color={lastSeen.diff(now, 'days') > -3 ? 'success' : lastSeen?.diff(now, 'days') > -7 ? 'warning' : 'error'}
         {...rest}

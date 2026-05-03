@@ -462,13 +462,13 @@ const FightComponent = ({
           <Link
             to={`/${brute1.name}/cell`}
           >
-            <Text component="span" bold color="secondary">{t('bruteCell', { ns: 'common', name: brute1.name })}</Text>
+            <Text component="span" bold color="secondary">{t('bruteCell', { name: brute1.name })}</Text>
           </Link>
           {brute2 && (
             <Link
               to={`/${brute2.name}/cell`}
             >
-              <Text component="span" bold color="secondary">{t('bruteCell', { ns: 'common', name: brute2.name })}</Text>
+              <Text component="span" bold color="secondary">{t('bruteCell', { name: brute2.name })}</Text>
             </Link>
           )}
         </Box>
