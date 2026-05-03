@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authing, setAuthing] = useState(false);
   const { setLanguage } = useLanguage();
   const Alert = useAlert();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const fingerprint = useFingerprint();
   const Server = useServer();
 

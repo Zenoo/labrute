@@ -11,7 +11,7 @@ import { useAuth } from '../hooks/useAuth';
  */
 export const ModeratorLayout = () => {
   const { user, authing } = useAuth();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const { palette: { mode } } = useTheme();
 
   const moderator = user?.moderator || user?.admin;

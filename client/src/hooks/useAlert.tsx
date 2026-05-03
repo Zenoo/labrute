@@ -31,7 +31,7 @@ interface AlertProviderProps {
 }
 
 export const AlertProvider = ({ children }: AlertProviderProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [alert, setAlert] = useState(false);
