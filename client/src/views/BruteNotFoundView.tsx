@@ -7,7 +7,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const BruteNotFoundView = () => {
-  const { t } = useTranslation(['bruteNotFound', 'common']);
+  const { t } = useTranslation(['bruteNotFound']);
 
   return (
     <Page

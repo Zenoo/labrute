@@ -38,7 +38,7 @@ const eventRules = {
 };
 
 export const EventView = () => {
-  const { t } = useTranslation(['event', 'common']);
+  const { t } = useTranslation(['event']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();

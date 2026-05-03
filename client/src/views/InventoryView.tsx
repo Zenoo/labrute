@@ -23,7 +23,7 @@ const itemImage: Record<InventoryItemType, string> = {
 };
 
 export const InventoryView = () => {
-  const { t } = useTranslation(['inventory', 'common']);
+  const { t } = useTranslation(['inventory']);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, owner } = useBrute();

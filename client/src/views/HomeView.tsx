@@ -28,7 +28,7 @@ import { catchError } from '../utils/catchError';
  * HomeView component
  */
 const HomeView = () => {
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation(['home']);
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
   const { authing, modifiers, setAuthing, updateData, user } = useAuth();

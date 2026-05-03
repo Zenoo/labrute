@@ -13,7 +13,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementRankingView = () => {
-  const { t } = useTranslation(['achievementRanking', 'common']);
+  const { t } = useTranslation(['achievementRanking']);
   const theme = useTheme();
   const Alert = useAlert();
   const Server = useServer();

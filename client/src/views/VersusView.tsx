@@ -17,7 +17,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const VersusView = () => {
-  const { t } = useTranslation(['versus', 'common']);
+  const { t } = useTranslation(['versus']);
   const { opponentName } = useParams();
   const navigate = useNavigate();
   const Alert = useAlert();

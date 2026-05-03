@@ -23,7 +23,7 @@ import { catchError } from '../utils/catchError';
  */
 const AscendView = () => {
   const theme = useTheme();
-  const { t } = useTranslation(['ascend', 'common']);
+  const { t } = useTranslation(['ascend']);
   const { brute } = useBrute();
   const navigate = useNavigate();
   const Confirm = useConfirm();

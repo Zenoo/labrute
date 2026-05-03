@@ -13,7 +13,7 @@ import FantasyButton from '../components/FantasyButton';
 import { useConfirm } from '../hooks/useConfirm';
 
 export const TransferBruteView = () => {
-  const { t } = useTranslation(['transferBrute', 'common']);
+  const { t } = useTranslation(['transferBrute']);
   const navigate = useNavigate();
   const Alert = useAlert();
   const Server = useServer();

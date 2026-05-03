@@ -25,7 +25,7 @@ type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> &
 };
 
 const UserView = () => {
-  const { t } = useTranslation(['user', 'common']);
+  const { t } = useTranslation(['user']);
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();

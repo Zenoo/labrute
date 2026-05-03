@@ -18,7 +18,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 export const FollowingFeedView = () => {
-  const { t } = useTranslation(['followingFeed', 'common']);
+  const { t } = useTranslation(['followingFeed']);
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();

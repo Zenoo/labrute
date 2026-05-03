@@ -7,7 +7,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const NotFoundView = () => {
-  const { t } = useTranslation(['notFound', 'common']);
+  const { t } = useTranslation(['notFound']);
 
   return (
     <Page

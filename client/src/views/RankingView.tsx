@@ -16,7 +16,7 @@ import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 
 const RankingView = () => {
-  const { t } = useTranslation(['ranking', 'common']);
+  const { t } = useTranslation(['ranking']);
   const { bruteName, rank } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));

@@ -33,7 +33,7 @@ const HomeMobileView = ({
   fixBruteAppearance,
   setFixBruteAppearance
 }: HomeMobileViewProps) => {
-  const { t } = useTranslation(['home', 'common']);
+  const { t } = useTranslation(['home']);
   const theme = useTheme();
   const isSx = useMediaQuery(theme.breakpoints.only('xs'));
 

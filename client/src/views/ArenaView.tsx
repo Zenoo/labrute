@@ -22,7 +22,7 @@ type CalculatedBruteGetOpponentsResponse = ReturnType<
 >[];
 
 const ArenaView = () => {
-  const { t } = useTranslation(['arena', 'common']);
+  const { t } = useTranslation(['arena']);
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();

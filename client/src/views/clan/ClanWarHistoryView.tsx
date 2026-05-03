@@ -14,7 +14,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const ClanWarHistoryView = () => {
-  const { t } = useTranslation(['clan', 'common']);
+  const { t } = useTranslation(['clan']);
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const Server = useServer();

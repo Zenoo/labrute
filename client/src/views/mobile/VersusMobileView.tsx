@@ -18,7 +18,7 @@ const VersusMobileView = ({
   opponent,
   startFight,
 }: VersusMobileViewProps) => {
-  const { t } = useTranslation(['versus', 'common']);
+  const { t } = useTranslation(['versus']);
   const { palette: { mode } } = useTheme();
 
   return (
