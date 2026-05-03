@@ -13,6 +13,7 @@ import Link from '../../components/Link';
 import Loader from '../../components/Loader';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
+import { getLSKeyEventRoundWatched, LS_KEY_PREFIX_EVENT_ROUND_WATCHED } from '../../utils/constants';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
@@ -61,7 +62,8 @@ export const EventView = () => {
         if (d.event.status !== EventStatus.finished) {
           // Clear local storage from other events
           Object.keys(localStorage).forEach((key) => {
-            if (key.startsWith('eventRoundWatched-') && key !== `eventRoundWatched-${id}`) {
+            const currentEventKey = getLSKeyEventRoundWatched(id);
+            if (key.startsWith(LS_KEY_PREFIX_EVENT_ROUND_WATCHED) && key !== currentEventKey) {
               localStorage.removeItem(key);
             }
           });

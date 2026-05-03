@@ -16,6 +16,7 @@ import { auth } from '../utils/auth.js';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
+import { traced } from '../utils/trace.js';
 
 export const Tournaments = {
   getDaily: (prisma: PrismaClient) => async (
@@ -28,7 +29,7 @@ export const Tournaments = {
       }
 
       // Get tournament
-      const tournament = await prisma.tournament.findFirst({
+      const tournament = await traced('tournaments.getDaily.findTournament', () => prisma.tournament.findFirst({
         where: {
           date: { equals: dayjs.utc(req.params.date, 'YYYY-MM-DD').toDate() },
           type: TournamentType.DAILY,
@@ -53,7 +54,7 @@ export const Tournaments = {
             },
           },
         },
-      });
+      }));
 
       if (!tournament) {
         throw new NotFoundError('Tournament not found');
@@ -73,7 +74,7 @@ export const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.registerDaily.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -84,7 +85,7 @@ export const Tournaments = {
           id: true,
           canRankUpSince: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
@@ -96,7 +97,7 @@ export const Tournaments = {
       }
 
       // Update brute tournament date
-      await prisma.brute.update({
+      await traced('tournaments.registerDaily.updateBrute', () => prisma.brute.update({
         where: {
           id: brute.id,
         },
@@ -105,7 +106,7 @@ export const Tournaments = {
           nextTournamentDate: dayjs.utc().startOf('day').add(1, 'day').toDate(),
         },
         select: { id: true },
-      });
+      }));
 
       res.send({ success: true });
     } catch (error) {
@@ -124,7 +125,7 @@ export const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.updateStepWatched.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -135,13 +136,13 @@ export const Tournaments = {
           currentTournamentDate: true,
           currentTournamentStepWatched: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
-      const tournament = await prisma.tournament.findFirst({
+      const tournament = await traced('tournaments.updateStepWatched.findTournament', () => prisma.tournament.findFirst({
         where: {
           type: TournamentType.DAILY,
           date: dayjs.utc().startOf('day').toDate(),
@@ -160,7 +161,7 @@ export const Tournaments = {
             },
           },
         },
-      });
+      }));
 
       if (!tournament) {
         throw new NotFoundError(translate('tournamentNotFound', user));
@@ -177,7 +178,7 @@ export const Tournaments = {
       if (!tournament.fights
         .find((fight) => fight.tournamentStep >= (steps[stepWatched + 1] || 63)
           && (fight?.brute1Id === brute.id || fight.brute2Id === brute.id))) {
-        await prisma.brute.update({
+        await traced('tournaments.updateStepWatched.updateBruteEliminated', () => prisma.brute.update({
           where: {
             id: brute.id,
           },
@@ -186,12 +187,12 @@ export const Tournaments = {
             currentTournamentStepWatched: 6,
           },
           select: { id: true },
-        });
+        }));
 
         newStepWatched = 6;
       } else if (!brute.currentTournamentDate || dayjs.utc(brute.currentTournamentDate).isBefore(dayjs.utc().startOf('day'))) {
         // First watch of the day
-        await prisma.brute.update({
+        await traced('tournaments.updateStepWatched.updateBruteFirstWatch', () => prisma.brute.update({
           where: {
             id: brute.id,
           },
@@ -200,12 +201,12 @@ export const Tournaments = {
             currentTournamentStepWatched: 1,
           },
           select: { id: true },
-        });
+        }));
 
         newStepWatched = 1;
       } else {
         // Update brute watched tournament step
-        await prisma.brute.update({
+        await traced('tournaments.updateStepWatched.updateBruteStep', () => prisma.brute.update({
           where: {
             id: brute.id,
           },
@@ -213,7 +214,7 @@ export const Tournaments = {
             currentTournamentStepWatched: { increment: 1 },
           },
           select: { id: true },
-        });
+        }));
       }
 
       newStepWatched = stepWatched + 1;
@@ -234,7 +235,7 @@ export const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.setDailyWatched.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -244,14 +245,14 @@ export const Tournaments = {
           id: true,
           currentTournamentDate: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Update brute tournament date
-      await prisma.brute.update({
+      await traced('tournaments.setDailyWatched.updateBrute', () => prisma.brute.update({
         where: {
           id: brute.id,
         },
@@ -260,7 +261,7 @@ export const Tournaments = {
           currentTournamentStepWatched: 6,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({ success: true });
     } catch (error) {
@@ -279,7 +280,7 @@ export const Tournaments = {
       const date = dayjs.utc(req.params.date, 'YYYY-MM-DD');
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.getGlobal.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -288,14 +289,14 @@ export const Tournaments = {
           id: true,
           name: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
       }
 
       // Get tournament
-      const tournament = await prisma.tournament.findFirst({
+      const tournament = await traced('tournaments.getGlobal.findTournament', () => prisma.tournament.findFirst({
         where: {
           date: { equals: date.toDate() },
           type: {
@@ -313,7 +314,7 @@ export const Tournaments = {
           rounds: true,
           type: true,
         },
-      });
+      }));
 
       if (!tournament) {
         res.send({
@@ -329,7 +330,7 @@ export const Tournaments = {
       const hour = now.hour();
 
       // Get brute fights (round 1 at 11h, round 2 at 12h, etc...)
-      const fights = await prisma.fight.findMany({
+      const fights = await traced('tournaments.getGlobal.findFights', () => prisma.fight.findMany({
         where: {
           tournamentId: tournament.id,
           tournamentStep: {
@@ -353,10 +354,10 @@ export const Tournaments = {
           brute1Id: true,
           brute2Id: true,
         },
-      });
+      }));
 
       // Get last rounds
-      const lastRounds = await prisma.fight.findMany({
+      const lastRounds = await traced('tournaments.getGlobal.findLastRounds', () => prisma.fight.findMany({
         where: {
           tournamentId: tournament.id,
           tournamentStep: {
@@ -377,7 +378,7 @@ export const Tournaments = {
           brute1Id: true,
           brute2Id: true,
         },
-      });
+      }));
 
       // Check if current time has reached the end of the tournament
       const tournamentEnded = !now.isSame(date, 'day')
@@ -386,7 +387,7 @@ export const Tournaments = {
       // Get next opponent if exists
       let nextFight;
       if (!tournamentEnded) {
-        nextFight = await prisma.fight.findFirst({
+        nextFight = await traced('tournaments.getGlobal.findNextFight', () => prisma.fight.findFirst({
           where: {
             tournamentId: tournament.id,
             tournamentStep: hour - GLOBAL_TOURNAMENT_START_HOUR + 2,
@@ -404,7 +405,7 @@ export const Tournaments = {
               select: { name: true },
             },
           },
-        });
+        }));
       }
 
       res.send({
@@ -430,7 +431,7 @@ export const Tournaments = {
       await auth(prisma, req, { admin: true });
 
       // Get tournament IDs
-      const tournaments = await prisma.tournament.findMany({
+      const tournaments = await traced('tournaments.deleteDaily.findTournaments', () => prisma.tournament.findMany({
         where: {
           type: TournamentType.DAILY,
           date: {
@@ -439,23 +440,23 @@ export const Tournaments = {
           },
         },
         select: { id: true },
-      });
+      }));
 
       const tournamentIds = tournaments.map((t) => t.id);
 
       // Delete all fights from daily tournaments
-      await prisma.fight.deleteMany({
+      await traced('tournaments.deleteDaily.deleteFights', () => prisma.fight.deleteMany({
         where: {
           tournamentId: { in: tournamentIds },
         },
-      });
+      }));
 
       // Delete all daily tournaments
-      await prisma.tournament.deleteMany({
+      await traced('tournaments.deleteDaily.deleteTournaments', () => prisma.tournament.deleteMany({
         where: {
           id: { in: tournamentIds },
         },
-      });
+      }));
 
       res.send({ success: true });
     } catch (error) {
@@ -467,7 +468,7 @@ export const Tournaments = {
       const user = await auth(prisma, req, { admin: true });
 
       // Get tournament IDs
-      const tournament = await prisma.tournament.findMany({
+      const tournament = await traced('tournaments.deleteGlobal.findTournaments', () => prisma.tournament.findMany({
         where: {
           type: {
             in: [TournamentType.GLOBAL, TournamentType.UNLIMITED_GLOBAL],
@@ -478,25 +479,25 @@ export const Tournaments = {
           },
         },
         select: { id: true },
-      });
+      }));
 
       if (!tournament.length) {
         throw new NotFoundError(translate('tournamentNotFound', user));
       }
 
       // Delete all fights from global tournament
-      await prisma.fight.deleteMany({
+      await traced('tournaments.deleteGlobal.deleteFights', () => prisma.fight.deleteMany({
         where: {
           tournamentId: { in: tournament.map((t) => t.id) },
         },
-      });
+      }));
 
       // Delete global tournament
-      await prisma.tournament.deleteMany({
+      await traced('tournaments.deleteGlobal.deleteTournaments', () => prisma.tournament.deleteMany({
         where: {
           id: { in: tournament.map((t) => t.id) },
         },
-      });
+      }));
 
       res.send({ success: true });
     } catch (error) {
@@ -512,20 +513,20 @@ export const Tournaments = {
         throw new ExpectedError('Invalid parameters');
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.getHistory.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
         },
         select: { id: true, name: true },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
       }
 
       // Get the last 100 tournaments for this brute
-      const tournaments = await prisma.tournament.findMany({
+      const tournaments = await traced('tournaments.getHistory.findTournaments', () => prisma.tournament.findMany({
         where: {
           date: { lt: new Date() },
           type: { not: TournamentType.BATTLE_ROYALE },
@@ -545,7 +546,7 @@ export const Tournaments = {
           type: true,
           rounds: true,
         },
-      });
+      }));
 
       // Initialize as last place
       const tournamentsWithPlace: (typeof tournaments[number] & {
@@ -556,7 +557,7 @@ export const Tournaments = {
       }));
 
       // Get the count of fights won for the brute for each tournament
-      const fightsWon = await prisma.fight.findMany({
+      const fightsWon = await traced('tournaments.getHistory.findFightsWon', () => prisma.fight.findMany({
         where: {
           tournamentId: {
             in: tournaments.map((t) => t.id),
@@ -572,7 +573,7 @@ export const Tournaments = {
           tournamentId: true,
           tournamentStep: true,
         },
-      });
+      }));
 
       // Update the place for each tournament
       tournamentsWithPlace.forEach((tournament) => {
@@ -625,7 +626,7 @@ export const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.updateGlobalRoundWatched.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -637,14 +638,14 @@ export const Tournaments = {
           globalTournamentWatchedDate: true,
           name: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get fight
-      const fight = await prisma.fight.findFirst({
+      const fight = await traced('tournaments.updateGlobalRoundWatched.findFight', () => prisma.fight.findFirst({
         where: {
           id: req.params.fight,
         },
@@ -652,7 +653,7 @@ export const Tournaments = {
           loser: true,
           tournamentStep: true,
         },
-      });
+      }));
 
       if (!fight) {
         throw new NotFoundError(translate('fightNotFound', user));
@@ -667,7 +668,7 @@ export const Tournaments = {
       }
 
       // Update brute watched tournament step
-      await prisma.brute.update({
+      await traced('tournaments.updateGlobalRoundWatched.updateBrute', () => prisma.brute.update({
         where: {
           id: brute.id,
         },
@@ -676,7 +677,7 @@ export const Tournaments = {
           globalTournamentWatchedDate: now.toDate(),
         },
         select: { id: true },
-      });
+      }));
 
       res.send({
         globalTournamentRoundWatched: roundWatched,
@@ -698,7 +699,7 @@ export const Tournaments = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('tournaments.skipWatchingGlobal.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -707,14 +708,14 @@ export const Tournaments = {
         select: {
           id: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Update brute watched tournament step
-      await prisma.brute.update({
+      await traced('tournaments.skipWatchingGlobal.updateBrute', () => prisma.brute.update({
         where: {
           id: brute.id,
         },
@@ -723,7 +724,7 @@ export const Tournaments = {
           globalTournamentWatchedDate: new Date(),
         },
         select: { id: true },
-      });
+      }));
 
       res.send({
         success: true,

@@ -1,15 +1,16 @@
-import { getPredictableHeaders, TOKEN_COOKIE, USER_COOKIE, Version } from '@labrute/core';
+import { CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders, LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version } from '@labrute/core';
+import { LS_KEY_CSRF_TOKEN } from './constants';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
 
 type HeadersType = {
   Accept: string;
-  'x-csrf-token': string;
+  [CSRF_HEADER]: string;
   Authorization: string;
   'Content-Type'?: string;
-  'x-fp'?: string;
-  'x-brute-version': string;
-  'x-brute-lang': string;
+  [FINGERPRINT_HEADER]?: string;
+  [VERSION_HEADER]: string;
+  [LANGUAGE_HEADER]: string;
 };
 
 export type ErrorType = {
@@ -18,35 +19,50 @@ export type ErrorType = {
   status?: number;
 };
 
-export const fetchCsrfToken = async () => new Promise<string>((resolve, reject) => {
-  fetch('/api/csrf', {
-    headers: {
-      Accept: 'application/json'
-    }
-  }).then((response) => {
-    response.json().then((json) => {
-      const { csrfToken } = (json as { csrfToken: string });
-      localStorage.setItem('csrfToken', csrfToken);
-      resolve(csrfToken);
-    }).catch((err) => {
-      reject(err);
-    });
-  }).catch((error) => {
-    reject(error);
-  });
-});
+// Prevent multiple concurrent CSRF token fetches
+let csrfFetchPromise: Promise<string> | null = null;
 
-const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}): Promise<ReturnType> => {
-  // Check if the CSRF token is present in the localStorage
-  // If not, fetch it from the server
-  if (!localStorage.getItem('csrfToken')) {
-    return new Promise((resolve, reject) => {
-      fetchCsrfToken().then(() => {
-        resolve(Fetch(url, data, method, additionalURLParams));
-      }).catch((error) => {
-        reject(error);
+export const fetchCsrfToken = async () => {
+  // If already fetching, return the existing promise
+  if (csrfFetchPromise) {
+    return csrfFetchPromise;
+  }
+
+  csrfFetchPromise = new Promise<string>((resolve, reject) => {
+    fetch('/api/csrf', {
+      headers: {
+        Accept: 'application/json'
+      },
+      credentials: 'include', // Important: allows cookies to be set/sent
+    }).then((response) => {
+      response.json().then((json: { csrfToken: string }) => {
+        const { csrfToken } = json;
+        // Store token in localStorage (cookie is httpOnly and used by server)
+        if (csrfToken) {
+          localStorage.setItem(LS_KEY_CSRF_TOKEN, csrfToken);
+        }
+        csrfFetchPromise = null; // Clear the promise so future calls can fetch again
+        resolve(csrfToken);
+      }).catch((err) => {
+        csrfFetchPromise = null;
+        reject(err);
       });
+    }).catch((error) => {
+      csrfFetchPromise = null;
+      reject(error);
     });
+  });
+
+  return csrfFetchPromise;
+};
+
+const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, isRetry = false): Promise<ReturnType> => {
+  // Get the CSRF token from localStorage, or fetch if it doesn't exist
+  let csrfToken: string | null = localStorage.getItem(LS_KEY_CSRF_TOKEN);
+
+  if (!csrfToken) {
+    // Fetch new token (server will set httpOnly cookie AND return token value)
+    csrfToken = await fetchCsrfToken();
   }
 
   let body: Blob | FormData | string | null = null;
@@ -65,12 +81,12 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
 
     const headers: HeadersType = {
       Accept: 'application/json',
-      'x-csrf-token': localStorage.getItem('csrfToken') || '',
+      [CSRF_HEADER]: csrfToken,
       Authorization: user ? `Basic ${btoa(`${user}:${token}`)}` : '',
-      'x-fp': getFingerprint() ?? '',
-      'x-brute-version': Version,
-      'x-brute-lang': document.documentElement.lang || 'en',
-      ...getPredictableHeaders(),
+      [FINGERPRINT_HEADER]: getFingerprint() ?? '',
+      [VERSION_HEADER]: Version,
+      [LANGUAGE_HEADER]: document.documentElement.lang || 'en',
+      ...getPredictableHeaders(csrfToken),
     };
 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
@@ -79,7 +95,8 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
     fetch(finalUrl, {
       headers,
       method,
-      body
+      body,
+      credentials: 'include', // Important: allows cookies to be set/sent
     })
       .then((response) => {
         const contentType = response.headers.get('content-type');
@@ -94,7 +111,19 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
             });
           } else {
             json.then((processedJson: ReturnType) => {
-              reject(processedJson);
+              // Check if this is a CSRF error and we haven't retried yet
+              if (!isRetry && response.status === 403 && typeof processedJson === 'object' && processedJson !== null && 'message' in processedJson && processedJson.message === 'Invalid CSRF token') {
+                // Clear the invalid CSRF token
+                localStorage.removeItem(LS_KEY_CSRF_TOKEN);
+                // Fetch a new token and retry the request
+                fetchCsrfToken().then(() => {
+                  Fetch<ReturnType>(url, data, method, additionalURLParams, true)
+                    .then(resolve)
+                    .catch(reject);
+                }).catch(reject);
+              } else {
+                reject(processedJson);
+              }
             }).catch((err) => {
               reject(err);
             });

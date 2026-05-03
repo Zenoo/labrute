@@ -9,6 +9,7 @@ import {
   SkillName,
   WeaponName,
 } from '@labrute/prisma';
+import { traced } from '../trace.js';
 
 export const removeChoiceFromDestiny = async (
   prisma: PrismaClient,
@@ -54,13 +55,13 @@ export const removeChoiceFromDestiny = async (
     originalDestinyChoiceType = 'originalPet';
   }
 
-  const allMatchingChoices = await prisma.destinyChoice.findMany({
+  const allMatchingChoices = await traced('removeChoiceFromDestiny.findAllMatchingChoices', () => prisma.destinyChoice.findMany({
     where: {
       bruteId: brute.id,
       type: destinyChoiceType,
       [destinyChoiceType]: destinyChoice,
     },
-  });
+  }));
 
   if (!allMatchingChoices.length) {
     throw new Error('No matching destiny choice found');
@@ -97,7 +98,7 @@ export const removeChoiceFromDestiny = async (
     secondStat = bruteStats[randomBetween(0, bruteStats.length - 1)];
   }
 
-  await prisma.destinyChoice.update({
+  await traced('removeChoiceFromDestiny.updateDestinyChoice', () => prisma.destinyChoice.update({
     where: { id: choiceToReplace.id },
     data: {
       ...choiceToReplace,
@@ -111,5 +112,5 @@ export const removeChoiceFromDestiny = async (
       stat2: statValue === 1 ? secondStat as BruteStat : null,
       stat2Value: statValue === 1 ? 1 : null,
     },
-  });
+  }));
 };

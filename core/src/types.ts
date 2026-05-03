@@ -1,4 +1,4 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
+import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
 import { WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
@@ -489,7 +489,11 @@ export type HookBrute = CalculatedBrute & {
   user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
   tournaments: Tournament[];
 };
-export type AdminPanelBrute = Brute & {
+export type BruteGetForAdminRequest = {
+  name: string;
+  includeDeleted?: string;
+};
+export type BruteGetForAdminResponse = Brute & {
   user: User | null;
 };
 
@@ -511,11 +515,22 @@ export type BruteReportWithNames = BruteReport & {
 
 // Server return types
 export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
+export type BrutesGetForRankRequest = {
+  name: string;
+  rank: string;
+};
 export type BrutesGetForRankResponse = {
   topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  total: number,
+  bruteInTop: boolean,
+};
+export type BrutesGetNeighborsForRankRequest = {
+  name: string;
+  rank: string;
+};
+export type BrutesGetNeighborsForRankResponse = {
   nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
   position: number,
-  total: number,
 };
 export type BrutesGetRankingResponse = {
   ranking: number,
@@ -671,8 +686,13 @@ export type ClanGetForAdminResponse = Clan & {
   brutes: Pick<Brute, 'id' | 'name'>[],
 };
 
+export type UserGetAdminRequest = {
+  identifier?: string;
+};
 export type UserGetAdminResponse = User & {
   achievements: Pick<Achievement, 'name' | 'count'>[],
+  brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
+  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen' | 'createdAt'>[],
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<
@@ -714,6 +734,14 @@ export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMus
 export type UserTransferBruteRequest = {
   bruteId: string;
   targetUserId: string;
+};
+export type KnownFingerprintListResponse = KnownFingerprint[];
+export type KnownFingerprintAddRequest = {
+  fingerprint: string;
+  description?: string;
+};
+export type KnownFingerprintRemoveRequest = {
+  fingerprint: string;
 };
 
 export type AchievementGetRankingsResponse = {

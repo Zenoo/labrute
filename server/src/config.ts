@@ -151,7 +151,7 @@ export const emptyConfig: Config = {
   isProduction: false,
   port: 50380,
   selfUrl: new URL('http://localhost:3000/'),
-  corsRegex: /.*/,
+  corsRegex: /^http:\/\/localhost(:\d+)?$/,
   cookieSecret: 'dev',
   csrfSecret: 'dev2',
   eternaltwin: {
@@ -221,7 +221,8 @@ export function readCorsRegex(envCorsRegex: string | undefined) {
       // fall through and return default
     }
   }
-  return /.*/;
+  // Default: only allow localhost (safer for development)
+  return /^http:\/\/localhost(:\d+)?$/;
 }
 
 export function readStringEnv<Default extends string | undefined>(
@@ -244,7 +245,7 @@ export async function readConfig(
   const isProduction = env.NODE_ENV === 'production';
   const port = readPort(env.PORT);
   const selfUrl = readSelfUrl(env.SELF_URL);
-  const corsRegex = readCorsRegex(env.CORS_REGEX);
+  let corsRegex = readCorsRegex(env.CORS_REGEX);
   const cookieSecret = readStringEnv(env.COOKIE_SECRET, emptyConfig.cookieSecret);
   const csrfSecret = readStringEnv(env.CSRF_SECRET, emptyConfig.csrfSecret);
   let fpAesSecret = readStringEnv(env.FP_AES_SECRET, emptyConfig.fpAesSecret);
@@ -328,6 +329,9 @@ export async function readConfig(
         break;
       case 'FP_AES_IV':
         fpAesIv = decryptedValue;
+        break;
+      case 'CORS_REGEX':
+        corsRegex = new RegExp(decryptedValue);
         break;
       default:
         break;

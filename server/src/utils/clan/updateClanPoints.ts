@@ -1,5 +1,6 @@
 import { getBruteGoldValueFromLevel, getBruteGoldValueFromRanking } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
+import { traced } from '../trace.js';
 
 export const updateClanPoints = async (
   prisma: PrismaClient,
@@ -18,7 +19,7 @@ export const updateClanPoints = async (
 
     if (previousPoints === newPoints) return;
 
-    await prisma.clan.update({
+    await traced('updateClanPoints.add.updateClan', () => prisma.clan.update({
       where: {
         id: clanId,
       },
@@ -27,12 +28,12 @@ export const updateClanPoints = async (
           increment: newPoints - previousPoints,
         },
       },
-    });
+    }));
   } else {
     const points = getBruteGoldValueFromLevel(brute.level)
       + getBruteGoldValueFromRanking(brute.ranking) * 2;
 
-    await prisma.clan.update({
+    await traced('updateClanPoints.remove.updateClan', () => prisma.clan.update({
       where: {
         id: clanId,
       },
@@ -41,6 +42,6 @@ export const updateClanPoints = async (
           decrement: points,
         },
       },
-    });
+    }));
   }
 };

@@ -35,7 +35,8 @@ import {
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { DISCORD, LOGGER } from './context.js';
-import { increaseAchievement } from './controllers/Achievements.js';
+import { calculateAchievementRankings, increaseAchievement } from './controllers/Achievements.js';
+import { calculateAllTop15Rankings } from './controllers/Brutes.js';
 import { ServerState } from './utils/ServerState.js';
 import { resetBrute } from './utils/brute/resetBrute.js';
 import { updateClanPoints } from './utils/clan/updateClanPoints.js';
@@ -301,6 +302,13 @@ const handleDailyTournaments = async (
     let roundBrutes = [...brutes];
     let winners: typeof registeredBrutes = [];
     let lastFight: Prisma.FightCreateInput | null = null;
+
+    const bruteIds = roundBrutes.map((b) => b.id);
+    const fullBrutes = await prisma.brute.findMany({
+      where: { id: { in: bruteIds } },
+    });
+    const bruteMap = new Map(fullBrutes.map((b) => [b.id, b]));
+
     while (roundBrutes.length > 1) {
       for (let i = 0; i < roundBrutes.length - 1; i += 2) {
         const roundBrute1 = roundBrutes[i];
@@ -309,12 +317,8 @@ const handleDailyTournaments = async (
         if (!roundBrute1 || !roundBrute2) {
           throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
         }
-        const brute1 = await prisma.brute.findUnique({
-          where: { id: roundBrute1.id },
-        });
-        const brute2 = await prisma.brute.findUnique({
-          where: { id: roundBrute2.id },
-        });
+        const brute1 = bruteMap.get(roundBrute1.id);
+        const brute2 = bruteMap.get(roundBrute2.id);
 
         if (!brute1 || !brute2) {
           throw new Error(`Brute not found: ${brute1?.id || brute2?.id}`);
@@ -1402,12 +1406,14 @@ const cleanup = async (prisma: PrismaClient) => {
 
     deleted = await prisma.$executeRaw`
         DELETE FROM "Fight"
-        WHERE id IN (SELECT id FROM "Fight"
+        WHERE ctid = ANY(ARRAY(
+          SELECT ctid FROM "Fight"
           WHERE "date" < ${thirtyDaysAgo}
           AND "tournamentId" IS NULL
           AND "clanWarId" IS NULL
           AND "favoriteCount" = 0
-          LIMIT 100000);
+          LIMIT 100000
+        ));
       `;
 
     if (deleted) {
@@ -1422,9 +1428,11 @@ const cleanup = async (prisma: PrismaClient) => {
 
     deleted = await prisma.$executeRaw`
         DELETE FROM "Brute"
-        WHERE id IN (SELECT id FROM "Brute"
+        WHERE ctid = ANY(ARRAY(
+          SELECT ctid FROM "Brute"
           WHERE "deletedAt" < ${thirtyDaysAgo}
-          LIMIT 1000);
+          LIMIT 1000
+        ));
       `;
 
     if (deleted) {
@@ -2270,6 +2278,14 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Check name duplicates
     await checkNameDuplicates(prisma);
     logMemory('After checking name duplicates');
+
+    // Calculate and cache top 15 brutes for all ranks
+    await calculateAllTop15Rankings(prisma);
+    logMemory('After calculating top 15 rankings');
+
+    // Calculate and cache achievement rankings
+    await calculateAchievementRankings(prisma);
+    logMemory('After calculating achievement rankings');
 
     // Clean up DB
     await cleanup(prisma);

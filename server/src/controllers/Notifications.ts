@@ -3,6 +3,7 @@ import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { auth } from '../utils/auth.js';
 import { sendError } from '../utils/sendError.js';
+import { traced } from '../utils/trace.js';
 
 export const Notifications = {
   list: (prisma: PrismaClient) => async (
@@ -13,13 +14,13 @@ export const Notifications = {
       const user = await auth(prisma, req);
 
       // Get notifications
-      const notifications = await prisma.notification.findMany({
+      const notifications = await traced('notifications.list.findNotifications', () => prisma.notification.findMany({
         where: {
           userId: user.id,
           read: false,
         },
         orderBy: { date: 'desc' },
-      });
+      }));
 
       res.status(200).send(notifications);
     } catch (error) {
@@ -33,10 +34,10 @@ export const Notifications = {
     try {
       const user = await auth(prisma, req);
 
-      await prisma.notification.update({
+      await traced('notifications.setRead.updateNotification', () => prisma.notification.update({
         where: { id: req.params.id, userId: user.id },
         data: { read: true },
-      });
+      }));
 
       res.status(200).send({
         success: true,
@@ -52,10 +53,10 @@ export const Notifications = {
     try {
       const user = await auth(prisma, req);
 
-      await prisma.notification.updateMany({
+      await traced('notifications.setAllRead.updateNotifications', () => prisma.notification.updateMany({
         where: { userId: user.id, read: false },
         data: { read: true },
-      });
+      }));
 
       res.status(200).send({
         success: true,

@@ -4,6 +4,7 @@ import {
   Brute, DestinyChoice, PetName, PrismaClient, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { increaseAchievement } from '../../controllers/Achievements.js';
+import { traced } from '../trace.js';
 
 export const checkLevelUpAchievements = async (
   prisma: PrismaClient,
@@ -45,18 +46,18 @@ export const checkLevelUpAchievements = async (
     .map((weapon) => weapon.name);
 
   // Max level
-  const currentMaxLevel = await prisma.achievement.findFirst({
+  const currentMaxLevel = await traced('brutes.checkLevelUpAchievements.findCurrentMaxLevel', () => prisma.achievement.findFirst({
     where: {
       bruteId: brute.id,
       name: AchievementName.maxLevel,
     },
     select: { id: true, count: true },
-  });
+  }));
 
   if (currentMaxLevel) {
     // Only increase if new level is higher
     if (brute.level > currentMaxLevel.count) {
-      await prisma.achievement.update({
+      await traced('brutes.checkLevelUpAchievements.updateMaxLevel', () => prisma.achievement.update({
         where: {
           id: currentMaxLevel.id,
         },
@@ -64,10 +65,10 @@ export const checkLevelUpAchievements = async (
           count: brute.level,
         },
         select: { id: true },
-      });
+      }));
     }
   } else {
-    await prisma.achievement.create({
+    await traced('brutes.checkLevelUpAchievements.createMaxLevel', () => prisma.achievement.create({
       data: {
         bruteId: brute.id,
         userId: brute.userId,
@@ -75,19 +76,19 @@ export const checkLevelUpAchievements = async (
         count: brute.level,
       },
       select: { id: true },
-    });
+    }));
   }
 
   // Dog
   if (destinyChoice.pet?.startsWith('dog')) {
-    const current = await prisma.achievement.findFirst({
+    const current = await traced('brutes.checkLevelUpAchievements.findCurrentDogAchievement', () => prisma.achievement.findFirst({
       where: {
         bruteId: brute.id,
         userId: brute.userId,
         name: AchievementName.dog,
       },
       select: { id: true, count: true },
-    });
+    }));
 
     // First dog
     if (destinyChoice.pet === PetName.dog1) {

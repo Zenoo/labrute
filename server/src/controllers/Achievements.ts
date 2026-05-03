@@ -3,12 +3,19 @@ import {
   AchievementGetRankingsResponse,
   AchievementsGetResponse,
   BaseTitleRequirements,
+  ExpectedError,
   MissingElementError, RaretyOrder,
 } from '@labrute/core';
 import { AchievementName, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
+import { traced } from '../utils/trace.js';
+import { translate } from '../utils/translate.js';
+
+// In-memory cache for achievement rankings (calculated daily)
+let cachedRankingsByBrute: AchievementGetRankingsResponse | null = null;
+let cachedRankingsByUser: AchievementGetRankingsResponse | null = null;
 
 export const increaseAchievement = async (
   prisma: PrismaClient,
@@ -16,14 +23,14 @@ export const increaseAchievement = async (
   bruteId: string | null,
   name: AchievementName,
 ) => {
-  const current = await prisma.achievement.findFirst({
+  const current = await traced('achievements.increaseAchievement.getCurrent', () => prisma.achievement.findFirst({
     where: {
       bruteId,
       userId,
       name,
     },
     select: { id: true, count: true },
-  });
+  }));
 
   if (current) {
     // Check if achievement is already maxed
@@ -34,7 +41,7 @@ export const increaseAchievement = async (
       return;
     }
 
-    await prisma.achievement.update({
+    await traced('achievements.increaseAchievement.updateAchievement', () => prisma.achievement.update({
       where: {
         id: current.id,
       },
@@ -42,9 +49,9 @@ export const increaseAchievement = async (
         count: Math.min(current.count + 1, maxCount || Infinity),
       },
       select: { id: true },
-    });
+    }));
   } else {
-    await prisma.achievement.create({
+    await traced('achievements.increaseAchievement.createAchievement', () => prisma.achievement.create({
       data: {
         bruteId,
         userId,
@@ -52,11 +59,11 @@ export const increaseAchievement = async (
         count: 1,
       },
       select: { id: true },
-    });
+    }));
 
     if (bruteId) {
       // Check if brute has unlocked all unlockable achievements
-      const count = await prisma.achievement.count({
+      const count = await traced('achievements.increaseAchievement.countAchievements', () => prisma.achievement.count({
         where: {
           bruteId,
           name: {
@@ -64,20 +71,20 @@ export const increaseAchievement = async (
             notIn: [AchievementName.beta, AchievementName.bug],
           },
         },
-      });
+      }));
 
       if (count >= Object.keys(AchievementData).length - 3) {
         // Check if brute has already unlocked the achievement
-        const existing = await prisma.achievement.findFirst({
+        const existing = await traced('achievements.increaseAchievement.getExistingAllAchievements', () => prisma.achievement.findFirst({
           where: {
             bruteId,
             name: AchievementName.allAchievements,
           },
           select: { id: true },
-        });
+        }));
 
         if (!existing) {
-          await prisma.achievement.create({
+          await traced('achievements.increaseAchievement.createAllAchievements', () => prisma.achievement.create({
             data: {
               bruteId,
               userId,
@@ -85,11 +92,83 @@ export const increaseAchievement = async (
               count: 1,
             },
             select: { id: true },
-          });
+          }));
         }
       }
     }
   }
+};
+
+/**
+ * Calculate and cache achievement rankings (should be called daily)
+ */
+export const calculateAchievementRankings = async (prisma: PrismaClient) => {
+  // Calculate rankings by brute
+  const top3ByBrute: {
+    name: AchievementName;
+    bruteId: string | null;
+    count: number;
+    bruteName: string | null;
+  }[] = await traced('achievements.calculateRankings.getTop3ByBrute', () => prisma.$queryRaw`
+    SELECT a.name, a."bruteId", a.count, a."bruteName"
+    FROM (
+      SELECT ach.name, ach."bruteId", ach.count, b.name AS "bruteName",
+        ROW_NUMBER() OVER (PARTITION BY ach.name ORDER BY ach.count DESC) AS row_number
+      FROM "Achievement" ach
+      INNER JOIN "Brute" b ON ach."bruteId" = b.id AND b."deletedAt" IS NULL
+    ) AS a
+    WHERE a.row_number <= 3
+  `);
+
+  cachedRankingsByBrute = top3ByBrute.filter((t) => t.bruteId).map((t) => ({
+    name: t.name,
+    user: null,
+    brute: {
+      name: t.bruteName || '',
+      id: t.bruteId || '',
+    },
+    count: t.count,
+  }));
+
+  // Calculate rankings by user
+  const top3ByUser: {
+    name: AchievementName;
+    userId: string | null;
+    count: number;
+    userName: string | null;
+  }[] = await traced('achievements.calculateRankings.getTop3ByUser', () => prisma.$queryRaw`
+    SELECT a.name, "userId", count, u.name as "userName"
+    FROM (
+        SELECT *,
+            ROW_NUMBER() OVER ( PARTITION BY name ORDER BY count DESC ) as rank
+        FROM (
+            SELECT name,
+                "userId",
+                CASE
+                    WHEN name = 'maxDamage' THEN MAX(count)
+                    WHEN name = 'maxLevel' THEN MAX(count)
+                    ELSE SUM(count)
+                END as count
+            FROM "Achievement"
+        WHERE "userId" IS NOT NULL
+            GROUP BY name, "userId"
+        )
+    ) AS a
+    LEFT JOIN "User" u ON "userId" = u.id
+    WHERE
+        rank <= 3
+    ORDER BY name ASC, rank ASC;
+  `);
+
+  cachedRankingsByUser = top3ByUser.filter((t) => t.userId).map((t) => ({
+    name: t.name,
+    user: {
+      name: t.userName || '',
+      id: t.userId || '',
+    },
+    brute: null,
+    count: Number(t.count),
+  }));
 };
 
 export const Achievements = {
@@ -101,7 +180,7 @@ export const Achievements = {
       if (!req.body.userId) throw new MissingElementError('Missing user id');
 
       // Get achievements
-      const achievements = await prisma.achievement.findMany({
+      const achievements = await traced('achievements.getForUser.getAchievements', () => prisma.achievement.findMany({
         where: {
           userId: req.body.userId,
         },
@@ -109,7 +188,7 @@ export const Achievements = {
           name: true,
           count: true,
         },
-      });
+      }));
 
       // Merge achievements with same name
       const mergedAchievements = achievements.reduce((acc, achievement) => {
@@ -154,7 +233,7 @@ export const Achievements = {
       if (!req.params.name) throw new MissingElementError('Missing brute name');
 
       // Get achievements
-      const achievements = await prisma.achievement.findMany({
+      const achievements = await traced('achievements.getForBrute.getAchievements', () => prisma.achievement.findMany({
         where: {
           brute: {
             deletedAt: null,
@@ -165,7 +244,7 @@ export const Achievements = {
           name: true,
           count: true,
         },
-      });
+      }));
 
       // Order by rarety then count
       achievements.sort((a, b) => {
@@ -200,86 +279,26 @@ export const Achievements = {
       sendError(res, error);
     }
   },
-  getRankings: (prisma: PrismaClient) => async (
+  getRankings: (
     req: Request,
     res: Response<AchievementGetRankingsResponse>,
   ) => {
     try {
       const byUser = req.query.byUser === 'true';
-      if (byUser) {
-        const top3: {
-          name: AchievementName;
-          userId: string | null;
-          count: number;
-          userName: string | null;
-        }[] = await prisma.$queryRaw`
-          SELECT a.name, "userId", count, u.name as "userName"
-          FROM (
-              SELECT *,
-                  ROW_NUMBER() OVER ( PARTITION BY name ORDER BY count DESC ) as rank
-              FROM (
-                  SELECT name,
-                      "userId",
-                      CASE
-                          WHEN name = 'maxDamage' THEN MAX(count)
-                          WHEN name = 'maxLevel' THEN MAX(count)
-                          ELSE SUM(count)
-                      END as count
-                  FROM "Achievement"
-              WHERE "userId" IS NOT NULL
-                  GROUP BY name, "userId"
-              )
-          ) AS a
-          LEFT JOIN "User" u ON "userId" = u.id
-          WHERE
-              rank <= 3
-          ORDER BY name ASC, rank ASC;
-        `;
 
-        res.status(200).send(top3.filter((t) => t.userId).map((t) => ({
-          name: t.name,
-          user: {
-            name: t.userName || '',
-            id: t.userId || '',
-          },
-          brute: null,
-          count: Number(t.count),
-        })));
+      // Use cached rankings if available
+      if (byUser && cachedRankingsByUser) {
+        res.status(200).send(cachedRankingsByUser);
         return;
       }
 
-      // Get top 3
-      const top3: {
-        name: AchievementName;
-        bruteId: string | null;
-        count: number;
-        bruteName: string | null;
-      }[] = await prisma.$queryRaw`
-        SELECT a.name, a."bruteId", a.count, b.name AS "bruteName"
-        FROM (
-          SELECT name, "bruteId", count,
-            ROW_NUMBER() OVER (PARTITION BY name ORDER BY count DESC) AS row_number
-          FROM "Achievement"
-          WHERE "bruteId" IN (
-              SELECT id
-              FROM "Brute"
-              WHERE "deletedAt" IS NULL
-            )
-        ) AS a
-        LEFT JOIN "Brute" b ON a."bruteId" = b.id
-        WHERE a.row_number <= 3
-        ORDER BY a.name, a.count DESC;
-      `;
+      if (!byUser && cachedRankingsByBrute) {
+        res.status(200).send(cachedRankingsByBrute);
+        return;
+      }
 
-      res.status(200).send(top3.filter((t) => t.bruteId).map((t) => ({
-        name: t.name,
-        user: null,
-        brute: {
-          name: t.bruteName || '',
-          id: t.bruteId || '',
-        },
-        count: t.count,
-      })));
+      // Rankings not ready yet, wait
+      throw new ExpectedError(translate('rankingsNotReady'));
     } catch (error) {
       sendError(res, error);
     }

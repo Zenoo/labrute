@@ -1,6 +1,15 @@
 import {
   checkPredictableHeaders,
-  ExpectedError, ForbiddenError, isUuid, NotFoundError,
+  ExpectedError,
+  FINGERPRINT_HEADER,
+  ForbiddenError,
+  FORWARDED_FOR_HEADER,
+  isUuid,
+  LANGUAGE_HEADER,
+  NotFoundError,
+  PREDICTABLE_HEADERS_PREFIX,
+  REAL_IP_HEADER,
+  VERSION_HEADER,
   Version,
 } from '@labrute/core';
 import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
@@ -10,17 +19,19 @@ import { ServerState } from './ServerState.js';
 import { translate } from './translate.js';
 import { banUser } from './user/banUser.js';
 import { DISCORD } from '../context.js';
+import { traced } from './trace.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
   moderator?: boolean;
   skipFingerprintCheck?: boolean;
 }) => {
-  if (request.headers['x-brute-version'] !== Version) {
-    throw new ForbiddenError(translate('outdatedVersion', { lang: request.headers['x-brute-lang']?.toString() as Lang || Lang.en }));
+  if (request.headers[VERSION_HEADER] !== Version) {
+    const lang = request.headers[LANGUAGE_HEADER];
+    throw new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
   }
 
-  const { headers: { authorization, 'x-fp': fingerprint } } = request;
+  const { authorization, [FINGERPRINT_HEADER]: fingerprint } = request.headers;
 
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');
@@ -58,13 +69,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     lastSeen: true,
   };
 
-  const user = await prisma.user.findFirst({
+  const user = await traced('auth.findUser', () => prisma.user.findFirst({
     where: {
       id,
       connexionToken: token,
     },
     select: toSelect,
-  });
+  }));
 
   if (!user) {
     throw new NotFoundError('User not found');
@@ -75,7 +86,11 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
   // Update user's IP
-  const ip = request.headers['x-forwarded-for']?.toString().split(', ')[0] || request.headers['x-real-ip']?.toString().split(', ')[0] || request.socket.remoteAddress;
+  const forwardedFor = request.headers[FORWARDED_FOR_HEADER];
+  const realIp = request.headers[REAL_IP_HEADER];
+  const ip = forwardedFor?.toString().split(', ')[0]
+    || realIp?.toString().split(', ')[0]
+    || request.socket.remoteAddress;
 
   if (ip) {
     // Check if the IP is banned
@@ -109,7 +124,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
     await banUser(prisma, user.id, 'unrecognized_fingerprint');
-    DISCORD().logObject({ userId: user.id, knowns: user.fingerprints, fingerprint }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
+    DISCORD().logObject({
+      userId: user.id,
+      knowns: user.fingerprints,
+      fingerprint,
+      endpoint: `${request.method} ${request.path}`,
+      url: request.url,
+    }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
     throw new ForbiddenError(translate('banReason.unrecognized_fingerprint', user));
   }
 
@@ -118,29 +139,35 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     checkPredictableHeaders(request.headers);
   } catch (_error) {
     await banUser(prisma, user.id, 'headers_tampering');
-    DISCORD().logObject(Object.fromEntries(Object.entries(request.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
+    DISCORD().logObject(
+      Object.fromEntries(
+        Object.entries(request.headers)
+          .filter(([k]) => k.startsWith(PREDICTABLE_HEADERS_PREFIX)),
+      ),
+      'Headers tampering detected',
+    ).catch(() => { /* ignore */ });
     throw new ForbiddenError(translate('banReason.headers_tampering', user));
   }
 
   if (ip && !user.ips.includes(ip)) {
-    await prisma.user.update({
+    await traced('auth.updateUserIps', () => prisma.user.update({
       where: { id },
       data: {
         ips: {
           push: ip,
         },
       },
-    });
+    }));
   }
 
   // Update last seen
   if (!dayjs.utc(user.lastSeen).isSame(dayjs.utc(), 'day')) {
-    await prisma.user.update({
+    await traced('auth.updateUserLastSeen', () => prisma.user.update({
       where: { id },
       data: {
         lastSeen: new Date(),
       },
-    });
+    }));
   }
 
   return {

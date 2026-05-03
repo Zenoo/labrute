@@ -2,6 +2,143 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.91.7](https://github.com/Zenoo/labrute/compare/labrute-v2.91.6...labrute-v2.91.7) (2026-05-02)
+
+
+### Bug Fixes
+
+* Silence invalid parameters errors ([a046c0c](https://github.com/Zenoo/labrute/commit/a046c0cce2dbc964a3a4c309ca3374f2cd425253))
+
+## [2.91.6](https://github.com/Zenoo/labrute/compare/labrute-v2.91.5...labrute-v2.91.6) (2026-05-01)
+
+
+### Bug Fixes
+
+* Optimize DB query perfs ([3d6460d](https://github.com/Zenoo/labrute/commit/3d6460dddd0696ef5588b385d748f2302d5b1a7c))
+* Silence rankings not ready message ([38bb0cf](https://github.com/Zenoo/labrute/commit/38bb0cf68a2781e14204f76967a87afd93941e09))
+
+## [2.91.5](https://github.com/Zenoo/labrute/compare/labrute-v2.91.4...labrute-v2.91.5) (2026-05-01)
+
+
+### Bug Fixes
+
+* Restore core package.json ([1acedf5](https://github.com/Zenoo/labrute/commit/1acedf5a74969b9b7a1dad28736afd0645ed17eb))
+
+## [2.91.4](https://github.com/Zenoo/labrute/compare/labrute-v2.91.3...labrute-v2.91.4) (2026-04-30)
+
+
+### Bug Fixes
+
+* Cache achievements ranking + brute cell ranking ([e5c6c7e](https://github.com/Zenoo/labrute/commit/e5c6c7ee2098e0ef26d647524c0eef81e67676ce))
+* Cache brute rankings ([946a74b](https://github.com/Zenoo/labrute/commit/946a74bdc4c1d096183b967a3c4995d924c6615c))
+
+## [2.91.3](https://github.com/Zenoo/labrute/compare/labrute-v2.91.2...labrute-v2.91.3) (2026-04-30)
+
+
+### Bug Fixes
+
+* Revert to Prisma V6 ([512f86a](https://github.com/Zenoo/labrute/commit/512f86aeff3b8827de8518d84306fb38bb77273a))
+
+## [2.91.2](https://github.com/Zenoo/labrute/compare/labrute-v2.91.1...labrute-v2.91.2) (2026-04-30)
+
+
+### Bug Fixes
+
+* update connection timeout settings to match Prisma ORM v6 defaults ([2c5f0de](https://github.com/Zenoo/labrute/commit/2c5f0de37dd9d2ebd6101a2d0d825c9ec263e210))
+
+## [2.91.1](https://github.com/Zenoo/labrute/compare/labrute-v2.91.0...labrute-v2.91.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* Don't ban users to abusing transfers ([609d2ff](https://github.com/Zenoo/labrute/commit/609d2ff3b7b8998dbc0c6de77287660860a1520d))
+
+## [2.91.0](https://github.com/Zenoo/labrute/compare/labrute-v2.90.1...labrute-v2.91.0) (2026-04-30)
+
+
+### Features
+
+* Prisma v7 + Query optimizations ([a979574](https://github.com/Zenoo/labrute/commit/a979574c3f7ca72d515748b00b3e7269a0097cba))
+
+
+### Bug Fixes
+
+* Display users creation date in admin panel ([b82d935](https://github.com/Zenoo/labrute/commit/b82d935be61f02e13edbb8e82c2d015e04989c90))
+
+## [2.90.1](https://github.com/Zenoo/labrute/compare/labrute-v2.90.0...labrute-v2.90.1) (2026-04-30)
+
+
+### Bug Fixes
+
+* Add case insensitive brute name index ([19d5f51](https://github.com/Zenoo/labrute/commit/19d5f51c2fa507f45a7f4e8fb865cc02a1536cae))
+
+## [2.90.0](https://github.com/Zenoo/labrute/compare/labrute-v2.89.10...labrute-v2.90.0) (2026-04-30)
+
+
+### Features
+
+* Name DB queries for debugging ([5c235ed](https://github.com/Zenoo/labrute/commit/5c235ed9064c68780f09539702808a93ffb4940e))
+
+## [2.89.10](https://github.com/Zenoo/labrute/compare/labrute-v2.89.9...labrute-v2.89.10) (2026-04-30)
+
+
+### Bug Fixes
+
+* Check for transfer abuse ([16f19fd](https://github.com/Zenoo/labrute/commit/16f19fdac9c6d5b260a2988c67704606edd0a3f1))
+* Prevent auth race conditions when fetching opponents ([3b86438](https://github.com/Zenoo/labrute/commit/3b864387a84b94ec405b2d1bdf46409c84137ec0))
+* Update clan points on user ban ([9a5a6af](https://github.com/Zenoo/labrute/commit/9a5a6afb261071a10376bb6e4fe8890ec761cb88))
+
+## [2.89.9](https://github.com/Zenoo/labrute/compare/labrute-v2.89.8...labrute-v2.89.9) (2026-04-30)
+
+
+### Bug Fixes
+
+* Log endpoint triggering unrecognized fingerprint ([2e7490f](https://github.com/Zenoo/labrute/commit/2e7490f73bafbcbdc96b469e1aa5559bb6500e81))
+
+## [2.89.8](https://github.com/Zenoo/labrute/compare/labrute-v2.89.7...labrute-v2.89.8) (2026-04-29)
+
+
+### Bug Fixes
+
+* Wait for auth before rendering ([880d5cf](https://github.com/Zenoo/labrute/commit/880d5cf9b643cbbec36f90e3fc651d7f714c4521))
+
+## [2.89.7](https://github.com/Zenoo/labrute/compare/labrute-v2.89.6...labrute-v2.89.7) (2026-04-28)
+
+
+### Bug Fixes
+
+* Add known fingerprints for common devices ([3076532](https://github.com/Zenoo/labrute/commit/30765326747beb909d6cb0cd177752730184cd69))
+
+## [2.89.6](https://github.com/Zenoo/labrute/compare/labrute-v2.89.5...labrute-v2.89.6) (2026-04-27)
+
+
+### Bug Fixes
+
+* Handle CSRF token errors and implement retry logic in Fetch function ([4e2e947](https://github.com/Zenoo/labrute/commit/4e2e9474f03a4d98453f8d42498c2bad1c2866b1))
+
+## [2.89.5](https://github.com/Zenoo/labrute/compare/labrute-v2.89.4...labrute-v2.89.5) (2026-04-27)
+
+
+### Bug Fixes
+
+* Improve headers handling ([06a37eb](https://github.com/Zenoo/labrute/commit/06a37ebc928aebdeff30ee8e43bef59b89696f77))
+* Restore csrf previous storage ([7b3750b](https://github.com/Zenoo/labrute/commit/7b3750b34279e3daeccadc83563d3d71b2fb4f97))
+
+## [2.89.4](https://github.com/Zenoo/labrute/compare/labrute-v2.89.3...labrute-v2.89.4) (2026-04-26)
+
+
+### Bug Fixes
+
+* Correct parameter usage for includeDeleted in brute query ([7788dd4](https://github.com/Zenoo/labrute/commit/7788dd45223e0859c2a33e2f15412ebdd13027c4))
+
+## [2.89.3](https://github.com/Zenoo/labrute/compare/labrute-v2.89.2...labrute-v2.89.3) (2026-04-26)
+
+
+### Bug Fixes
+
+* Headers stability across poorly synced devices + Headers wiggle room near the end of day ([368d0a3](https://github.com/Zenoo/labrute/commit/368d0a3ac34b7ccc2ae9756798c2faa9342d7ebe))
+* Improve brute/user admin panel ([65e0ad3](https://github.com/Zenoo/labrute/commit/65e0ad37f1e7c67bbd12b4b7e3105455f4c3a92b))
+
 ## [2.89.2](https://github.com/Zenoo/labrute/compare/labrute-v2.89.1...labrute-v2.89.2) (2026-04-24)
 
 

@@ -1,5 +1,15 @@
 // Get current domain
-const mainDomain = window.location.hostname.split('.').slice(-2).join('.');
+const getMainDomain = () => {
+  const { hostname } = window.location;
+
+  // Don't set domain for localhost or IP addresses
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+    return '';
+  }
+
+  // For actual domains, get the last 2 parts (e.g., eternaltwin.org)
+  return hostname.split('.').slice(-2).join('.');
+};
 
 export const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
@@ -9,9 +19,13 @@ export const getCookie = (name: string) => {
 };
 
 export const setCookie = (name: string, value: string, days: number) => {
-  document.cookie = `${name}=${value}; path=/; domain=${mainDomain}; max-age=${days * 24 * 60 * 60}`;
+  const mainDomain = getMainDomain();
+  const domainAttr = mainDomain ? `; domain=${mainDomain}` : '';
+  document.cookie = `${name}=${value}; path=/${domainAttr}; max-age=${days * 24 * 60 * 60}`;
 };
 
 export const deleteCookie = (name: string) => {
-  document.cookie = `${name}=; path=/; domain=${mainDomain}; max-age=0`;
+  const mainDomain = getMainDomain();
+  const domainAttr = mainDomain ? `; domain=${mainDomain}` : '';
+  document.cookie = `${name}=; path=/${domainAttr}; max-age=0`;
 };

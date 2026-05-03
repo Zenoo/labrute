@@ -65,6 +65,12 @@ const Page = ({
             {t('fingerprintError', { ns: 'common' })}
           </Text>
         </Paper>
+      ) : authing ? (
+        <Paper sx={{ textAlign: 'center', mt: 4 }}>
+          <Text>
+            {t('authing')}
+          </Text>
+        </Paper>
       ) : children}
       {/* FOOTER */}
       <Box sx={{ textAlign: 'center', mt: 2 }}>

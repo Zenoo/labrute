@@ -99,6 +99,11 @@ export type BannedIp = $Result.DefaultSelection<Prisma.$BannedIpPayload>
  */
 export type BannedFingerprint = $Result.DefaultSelection<Prisma.$BannedFingerprintPayload>
 /**
+ * Model KnownFingerprint
+ * 
+ */
+export type KnownFingerprint = $Result.DefaultSelection<Prisma.$KnownFingerprintPayload>
+/**
  * Model Clan
  * 
  */
@@ -956,6 +961,16 @@ export class PrismaClient<
   get bannedFingerprint(): Prisma.BannedFingerprintDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.knownFingerprint`: Exposes CRUD operations for the **KnownFingerprint** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KnownFingerprints
+    * const knownFingerprints = await prisma.knownFingerprint.findMany()
+    * ```
+    */
+  get knownFingerprint(): Prisma.KnownFingerprintDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
     * Example usage:
     * ```ts
@@ -1122,8 +1137,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.2
-   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+   * Prisma Client JS version: 6.19.3
+   * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
     client: string
@@ -1136,6 +1151,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -1521,6 +1537,7 @@ export namespace Prisma {
     BannedWord: 'BannedWord',
     BannedIp: 'BannedIp',
     BannedFingerprint: 'BannedFingerprint',
+    KnownFingerprint: 'KnownFingerprint',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
     ClanPost: 'ClanPost',
@@ -1550,7 +1567,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2812,6 +2829,80 @@ export namespace Prisma {
           }
         }
       }
+      KnownFingerprint: {
+        payload: Prisma.$KnownFingerprintPayload<ExtArgs>
+        fields: Prisma.KnownFingerprintFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KnownFingerprintFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KnownFingerprintFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          findFirst: {
+            args: Prisma.KnownFingerprintFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KnownFingerprintFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          findMany: {
+            args: Prisma.KnownFingerprintFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>[]
+          }
+          create: {
+            args: Prisma.KnownFingerprintCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          createMany: {
+            args: Prisma.KnownFingerprintCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KnownFingerprintCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>[]
+          }
+          delete: {
+            args: Prisma.KnownFingerprintDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          update: {
+            args: Prisma.KnownFingerprintUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          deleteMany: {
+            args: Prisma.KnownFingerprintDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KnownFingerprintUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.KnownFingerprintUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>[]
+          }
+          upsert: {
+            args: Prisma.KnownFingerprintUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KnownFingerprintPayload>
+          }
+          aggregate: {
+            args: Prisma.KnownFingerprintAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKnownFingerprint>
+          }
+          groupBy: {
+            args: Prisma.KnownFingerprintGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KnownFingerprintGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KnownFingerprintCountArgs<ExtArgs>
+            result: $Utils.Optional<KnownFingerprintCountAggregateOutputType> | number
+          }
+        }
+      }
       Clan: {
         payload: Prisma.$ClanPayload<ExtArgs>
         fields: Prisma.ClanFieldRefs
@@ -3739,6 +3830,7 @@ export namespace Prisma {
     bannedWord?: BannedWordOmit
     bannedIp?: BannedIpOmit
     bannedFingerprint?: BannedFingerprintOmit
+    knownFingerprint?: KnownFingerprintOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
     clanPost?: ClanPostOmit
@@ -3961,6 +4053,10 @@ export namespace Prisma {
     followers: number
     inClanWarAttackerFighters: number
     inClanWarDefenderFighters: number
+    asUpperNeighbourOf: number
+    asUpperUpperNeighbourOf: number
+    asLowerNeighbourOf: number
+    asLowerLowerNeighbourOf: number
     wonEvents: number
     userlogs: number
   }
@@ -3985,6 +4081,10 @@ export namespace Prisma {
     followers?: boolean | BruteCountOutputTypeCountFollowersArgs
     inClanWarAttackerFighters?: boolean | BruteCountOutputTypeCountInClanWarAttackerFightersArgs
     inClanWarDefenderFighters?: boolean | BruteCountOutputTypeCountInClanWarDefenderFightersArgs
+    asUpperNeighbourOf?: boolean | BruteCountOutputTypeCountAsUpperNeighbourOfArgs
+    asUpperUpperNeighbourOf?: boolean | BruteCountOutputTypeCountAsUpperUpperNeighbourOfArgs
+    asLowerNeighbourOf?: boolean | BruteCountOutputTypeCountAsLowerNeighbourOfArgs
+    asLowerLowerNeighbourOf?: boolean | BruteCountOutputTypeCountAsLowerLowerNeighbourOfArgs
     wonEvents?: boolean | BruteCountOutputTypeCountWonEventsArgs
     userlogs?: boolean | BruteCountOutputTypeCountUserlogsArgs
   }
@@ -4131,6 +4231,34 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountInClanWarDefenderFightersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ClanWarFightersWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountAsUpperNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountAsUpperUpperNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountAsLowerNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountAsLowerLowerNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteWhereInput
   }
 
   /**
@@ -7281,6 +7409,7 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    rankingPosition: number | null
     ascensions: number | null
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
@@ -7310,6 +7439,7 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    rankingPosition: number | null
     ascensions: number | null
     pupilsCount: number | null
     currentTournamentStepWatched: number | null
@@ -7345,6 +7475,13 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    rankingPosition: number | null
+    rankingPositionUpdatedAt: Date | null
+    rankingsUpperNeighbourId: string | null
+    rankingsUpperUpperNeighbourId: string | null
+    rankingsLowerNeighbourId: string | null
+    rankingsLowerLowerNeighbourId: string | null
+    rankingsNeighboursUpdatedAt: Date | null
     gender: $Enums.Gender | null
     userId: string | null
     body: string | null
@@ -7397,6 +7534,13 @@ export namespace Prisma {
     speedModifier: number | null
     speedValue: number | null
     ranking: number | null
+    rankingPosition: number | null
+    rankingPositionUpdatedAt: Date | null
+    rankingsUpperNeighbourId: string | null
+    rankingsUpperUpperNeighbourId: string | null
+    rankingsLowerNeighbourId: string | null
+    rankingsLowerLowerNeighbourId: string | null
+    rankingsNeighboursUpdatedAt: Date | null
     gender: $Enums.Gender | null
     userId: string | null
     body: string | null
@@ -7451,6 +7595,13 @@ export namespace Prisma {
     speedModifier: number
     speedValue: number
     ranking: number
+    rankingPosition: number
+    rankingPositionUpdatedAt: number
+    rankingsUpperNeighbourId: number
+    rankingsUpperUpperNeighbourId: number
+    rankingsLowerNeighbourId: number
+    rankingsLowerLowerNeighbourId: number
+    rankingsNeighboursUpdatedAt: number
     gender: number
     userId: number
     body: number
@@ -7505,6 +7656,7 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    rankingPosition?: true
     ascensions?: true
     pupilsCount?: true
     currentTournamentStepWatched?: true
@@ -7534,6 +7686,7 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    rankingPosition?: true
     ascensions?: true
     pupilsCount?: true
     currentTournamentStepWatched?: true
@@ -7569,6 +7722,13 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    rankingPosition?: true
+    rankingPositionUpdatedAt?: true
+    rankingsUpperNeighbourId?: true
+    rankingsUpperUpperNeighbourId?: true
+    rankingsLowerNeighbourId?: true
+    rankingsLowerLowerNeighbourId?: true
+    rankingsNeighboursUpdatedAt?: true
     gender?: true
     userId?: true
     body?: true
@@ -7621,6 +7781,13 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    rankingPosition?: true
+    rankingPositionUpdatedAt?: true
+    rankingsUpperNeighbourId?: true
+    rankingsUpperUpperNeighbourId?: true
+    rankingsLowerNeighbourId?: true
+    rankingsLowerLowerNeighbourId?: true
+    rankingsNeighboursUpdatedAt?: true
     gender?: true
     userId?: true
     body?: true
@@ -7675,6 +7842,13 @@ export namespace Prisma {
     speedModifier?: true
     speedValue?: true
     ranking?: true
+    rankingPosition?: true
+    rankingPositionUpdatedAt?: true
+    rankingsUpperNeighbourId?: true
+    rankingsUpperUpperNeighbourId?: true
+    rankingsLowerNeighbourId?: true
+    rankingsLowerLowerNeighbourId?: true
+    rankingsNeighboursUpdatedAt?: true
     gender?: true
     userId?: true
     body?: true
@@ -7822,6 +7996,13 @@ export namespace Prisma {
     speedModifier: number
     speedValue: number
     ranking: number
+    rankingPosition: number | null
+    rankingPositionUpdatedAt: Date | null
+    rankingsUpperNeighbourId: string | null
+    rankingsUpperUpperNeighbourId: string | null
+    rankingsLowerNeighbourId: string | null
+    rankingsLowerLowerNeighbourId: string | null
+    rankingsNeighboursUpdatedAt: Date | null
     gender: $Enums.Gender
     userId: string | null
     body: string
@@ -7901,6 +8082,13 @@ export namespace Prisma {
     speedModifier?: boolean
     speedValue?: boolean
     ranking?: boolean
+    rankingPosition?: boolean
+    rankingPositionUpdatedAt?: boolean
+    rankingsUpperNeighbourId?: boolean
+    rankingsUpperUpperNeighbourId?: boolean
+    rankingsLowerNeighbourId?: boolean
+    rankingsLowerLowerNeighbourId?: boolean
+    rankingsNeighboursUpdatedAt?: boolean
     gender?: boolean
     userId?: boolean
     body?: boolean
@@ -7934,6 +8122,10 @@ export namespace Prisma {
     tournamentWins?: boolean
     eventId?: boolean
     resets?: boolean
+    rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
+    rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
+    rankingsLowerNeighbour?: boolean | Brute$rankingsLowerNeighbourArgs<ExtArgs>
+    rankingsLowerLowerNeighbour?: boolean | Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     pupils?: boolean | Brute$pupilsArgs<ExtArgs>
@@ -7959,6 +8151,10 @@ export namespace Prisma {
     followers?: boolean | Brute$followersArgs<ExtArgs>
     inClanWarAttackerFighters?: boolean | Brute$inClanWarAttackerFightersArgs<ExtArgs>
     inClanWarDefenderFighters?: boolean | Brute$inClanWarDefenderFightersArgs<ExtArgs>
+    asUpperNeighbourOf?: boolean | Brute$asUpperNeighbourOfArgs<ExtArgs>
+    asUpperUpperNeighbourOf?: boolean | Brute$asUpperUpperNeighbourOfArgs<ExtArgs>
+    asLowerNeighbourOf?: boolean | Brute$asLowerNeighbourOfArgs<ExtArgs>
+    asLowerLowerNeighbourOf?: boolean | Brute$asLowerLowerNeighbourOfArgs<ExtArgs>
     event?: boolean | Brute$eventArgs<ExtArgs>
     wonEvents?: boolean | Brute$wonEventsArgs<ExtArgs>
     userlogs?: boolean | Brute$userlogsArgs<ExtArgs>
@@ -7990,6 +8186,13 @@ export namespace Prisma {
     speedModifier?: boolean
     speedValue?: boolean
     ranking?: boolean
+    rankingPosition?: boolean
+    rankingPositionUpdatedAt?: boolean
+    rankingsUpperNeighbourId?: boolean
+    rankingsUpperUpperNeighbourId?: boolean
+    rankingsLowerNeighbourId?: boolean
+    rankingsLowerLowerNeighbourId?: boolean
+    rankingsNeighboursUpdatedAt?: boolean
     gender?: boolean
     userId?: boolean
     body?: boolean
@@ -8023,6 +8226,10 @@ export namespace Prisma {
     tournamentWins?: boolean
     eventId?: boolean
     resets?: boolean
+    rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
+    rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
+    rankingsLowerNeighbour?: boolean | Brute$rankingsLowerNeighbourArgs<ExtArgs>
+    rankingsLowerLowerNeighbour?: boolean | Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     clan?: boolean | Brute$clanArgs<ExtArgs>
@@ -8055,6 +8262,13 @@ export namespace Prisma {
     speedModifier?: boolean
     speedValue?: boolean
     ranking?: boolean
+    rankingPosition?: boolean
+    rankingPositionUpdatedAt?: boolean
+    rankingsUpperNeighbourId?: boolean
+    rankingsUpperUpperNeighbourId?: boolean
+    rankingsLowerNeighbourId?: boolean
+    rankingsLowerLowerNeighbourId?: boolean
+    rankingsNeighboursUpdatedAt?: boolean
     gender?: boolean
     userId?: boolean
     body?: boolean
@@ -8088,6 +8302,10 @@ export namespace Prisma {
     tournamentWins?: boolean
     eventId?: boolean
     resets?: boolean
+    rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
+    rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
+    rankingsLowerNeighbour?: boolean | Brute$rankingsLowerNeighbourArgs<ExtArgs>
+    rankingsLowerLowerNeighbour?: boolean | Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     clan?: boolean | Brute$clanArgs<ExtArgs>
@@ -8120,6 +8338,13 @@ export namespace Prisma {
     speedModifier?: boolean
     speedValue?: boolean
     ranking?: boolean
+    rankingPosition?: boolean
+    rankingPositionUpdatedAt?: boolean
+    rankingsUpperNeighbourId?: boolean
+    rankingsUpperUpperNeighbourId?: boolean
+    rankingsLowerNeighbourId?: boolean
+    rankingsLowerLowerNeighbourId?: boolean
+    rankingsNeighboursUpdatedAt?: boolean
     gender?: boolean
     userId?: boolean
     body?: boolean
@@ -8155,8 +8380,12 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascensions" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "losses" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "rankingPosition" | "rankingPositionUpdatedAt" | "rankingsUpperNeighbourId" | "rankingsUpperUpperNeighbourId" | "rankingsLowerNeighbourId" | "rankingsLowerLowerNeighbourId" | "rankingsNeighboursUpdatedAt" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascensions" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "losses" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
+    rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
+    rankingsLowerNeighbour?: boolean | Brute$rankingsLowerNeighbourArgs<ExtArgs>
+    rankingsLowerLowerNeighbour?: boolean | Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     pupils?: boolean | Brute$pupilsArgs<ExtArgs>
@@ -8182,12 +8411,20 @@ export namespace Prisma {
     followers?: boolean | Brute$followersArgs<ExtArgs>
     inClanWarAttackerFighters?: boolean | Brute$inClanWarAttackerFightersArgs<ExtArgs>
     inClanWarDefenderFighters?: boolean | Brute$inClanWarDefenderFightersArgs<ExtArgs>
+    asUpperNeighbourOf?: boolean | Brute$asUpperNeighbourOfArgs<ExtArgs>
+    asUpperUpperNeighbourOf?: boolean | Brute$asUpperUpperNeighbourOfArgs<ExtArgs>
+    asLowerNeighbourOf?: boolean | Brute$asLowerNeighbourOfArgs<ExtArgs>
+    asLowerLowerNeighbourOf?: boolean | Brute$asLowerLowerNeighbourOfArgs<ExtArgs>
     event?: boolean | Brute$eventArgs<ExtArgs>
     wonEvents?: boolean | Brute$wonEventsArgs<ExtArgs>
     userlogs?: boolean | Brute$userlogsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BruteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
+    rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
+    rankingsLowerNeighbour?: boolean | Brute$rankingsLowerNeighbourArgs<ExtArgs>
+    rankingsLowerLowerNeighbour?: boolean | Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     clan?: boolean | Brute$clanArgs<ExtArgs>
@@ -8195,6 +8432,10 @@ export namespace Prisma {
     event?: boolean | Brute$eventArgs<ExtArgs>
   }
   export type BruteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
+    rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
+    rankingsLowerNeighbour?: boolean | Brute$rankingsLowerNeighbourArgs<ExtArgs>
+    rankingsLowerLowerNeighbour?: boolean | Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>
     user?: boolean | Brute$userArgs<ExtArgs>
     master?: boolean | Brute$masterArgs<ExtArgs>
     clan?: boolean | Brute$clanArgs<ExtArgs>
@@ -8205,6 +8446,10 @@ export namespace Prisma {
   export type $BrutePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Brute"
     objects: {
+      rankingsUpperNeighbour: Prisma.$BrutePayload<ExtArgs> | null
+      rankingsUpperUpperNeighbour: Prisma.$BrutePayload<ExtArgs> | null
+      rankingsLowerNeighbour: Prisma.$BrutePayload<ExtArgs> | null
+      rankingsLowerLowerNeighbour: Prisma.$BrutePayload<ExtArgs> | null
       user: Prisma.$UserPayload<ExtArgs> | null
       master: Prisma.$BrutePayload<ExtArgs> | null
       pupils: Prisma.$BrutePayload<ExtArgs>[]
@@ -8230,6 +8475,10 @@ export namespace Prisma {
       followers: Prisma.$UserPayload<ExtArgs>[]
       inClanWarAttackerFighters: Prisma.$ClanWarFightersPayload<ExtArgs>[]
       inClanWarDefenderFighters: Prisma.$ClanWarFightersPayload<ExtArgs>[]
+      asUpperNeighbourOf: Prisma.$BrutePayload<ExtArgs>[]
+      asUpperUpperNeighbourOf: Prisma.$BrutePayload<ExtArgs>[]
+      asLowerNeighbourOf: Prisma.$BrutePayload<ExtArgs>[]
+      asLowerLowerNeighbourOf: Prisma.$BrutePayload<ExtArgs>[]
       event: Prisma.$EventPayload<ExtArgs> | null
       wonEvents: Prisma.$EventPayload<ExtArgs>[]
       userlogs: Prisma.$UserLogPayload<ExtArgs>[]
@@ -8259,6 +8508,13 @@ export namespace Prisma {
       speedModifier: number
       speedValue: number
       ranking: number
+      rankingPosition: number | null
+      rankingPositionUpdatedAt: Date | null
+      rankingsUpperNeighbourId: string | null
+      rankingsUpperUpperNeighbourId: string | null
+      rankingsLowerNeighbourId: string | null
+      rankingsLowerLowerNeighbourId: string | null
+      rankingsNeighboursUpdatedAt: Date | null
       gender: $Enums.Gender
       userId: string | null
       body: string
@@ -8686,6 +8942,10 @@ export namespace Prisma {
    */
   export interface Prisma__BruteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    rankingsUpperNeighbour<T extends Brute$rankingsUpperNeighbourArgs<ExtArgs> = {}>(args?: Subset<T, Brute$rankingsUpperNeighbourArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    rankingsUpperUpperNeighbour<T extends Brute$rankingsUpperUpperNeighbourArgs<ExtArgs> = {}>(args?: Subset<T, Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    rankingsLowerNeighbour<T extends Brute$rankingsLowerNeighbourArgs<ExtArgs> = {}>(args?: Subset<T, Brute$rankingsLowerNeighbourArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    rankingsLowerLowerNeighbour<T extends Brute$rankingsLowerLowerNeighbourArgs<ExtArgs> = {}>(args?: Subset<T, Brute$rankingsLowerLowerNeighbourArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user<T extends Brute$userArgs<ExtArgs> = {}>(args?: Subset<T, Brute$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     master<T extends Brute$masterArgs<ExtArgs> = {}>(args?: Subset<T, Brute$masterArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     pupils<T extends Brute$pupilsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$pupilsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8711,6 +8971,10 @@ export namespace Prisma {
     followers<T extends Brute$followersArgs<ExtArgs> = {}>(args?: Subset<T, Brute$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inClanWarAttackerFighters<T extends Brute$inClanWarAttackerFightersArgs<ExtArgs> = {}>(args?: Subset<T, Brute$inClanWarAttackerFightersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inClanWarDefenderFighters<T extends Brute$inClanWarDefenderFightersArgs<ExtArgs> = {}>(args?: Subset<T, Brute$inClanWarDefenderFightersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanWarFightersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    asUpperNeighbourOf<T extends Brute$asUpperNeighbourOfArgs<ExtArgs> = {}>(args?: Subset<T, Brute$asUpperNeighbourOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    asUpperUpperNeighbourOf<T extends Brute$asUpperUpperNeighbourOfArgs<ExtArgs> = {}>(args?: Subset<T, Brute$asUpperUpperNeighbourOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    asLowerNeighbourOf<T extends Brute$asLowerNeighbourOfArgs<ExtArgs> = {}>(args?: Subset<T, Brute$asLowerNeighbourOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    asLowerLowerNeighbourOf<T extends Brute$asLowerLowerNeighbourOfArgs<ExtArgs> = {}>(args?: Subset<T, Brute$asLowerLowerNeighbourOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     event<T extends Brute$eventArgs<ExtArgs> = {}>(args?: Subset<T, Brute$eventArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     wonEvents<T extends Brute$wonEventsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$wonEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userlogs<T extends Brute$userlogsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$userlogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8767,6 +9031,13 @@ export namespace Prisma {
     readonly speedModifier: FieldRef<"Brute", 'Float'>
     readonly speedValue: FieldRef<"Brute", 'Int'>
     readonly ranking: FieldRef<"Brute", 'Int'>
+    readonly rankingPosition: FieldRef<"Brute", 'Int'>
+    readonly rankingPositionUpdatedAt: FieldRef<"Brute", 'DateTime'>
+    readonly rankingsUpperNeighbourId: FieldRef<"Brute", 'String'>
+    readonly rankingsUpperUpperNeighbourId: FieldRef<"Brute", 'String'>
+    readonly rankingsLowerNeighbourId: FieldRef<"Brute", 'String'>
+    readonly rankingsLowerLowerNeighbourId: FieldRef<"Brute", 'String'>
+    readonly rankingsNeighboursUpdatedAt: FieldRef<"Brute", 'DateTime'>
     readonly gender: FieldRef<"Brute", 'Gender'>
     readonly userId: FieldRef<"Brute", 'String'>
     readonly body: FieldRef<"Brute", 'String'>
@@ -9202,6 +9473,82 @@ export namespace Prisma {
      * Limit how many Brutes to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Brute.rankingsUpperNeighbour
+   */
+  export type Brute$rankingsUpperNeighbourArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+  }
+
+  /**
+   * Brute.rankingsUpperUpperNeighbour
+   */
+  export type Brute$rankingsUpperUpperNeighbourArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+  }
+
+  /**
+   * Brute.rankingsLowerNeighbour
+   */
+  export type Brute$rankingsLowerNeighbourArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+  }
+
+  /**
+   * Brute.rankingsLowerLowerNeighbour
+   */
+  export type Brute$rankingsLowerLowerNeighbourArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
   }
 
   /**
@@ -9772,6 +10119,102 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ClanWarFightersScalarFieldEnum | ClanWarFightersScalarFieldEnum[]
+  }
+
+  /**
+   * Brute.asUpperNeighbourOf
+   */
+  export type Brute$asUpperNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
+    cursor?: BruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
+  }
+
+  /**
+   * Brute.asUpperUpperNeighbourOf
+   */
+  export type Brute$asUpperUpperNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
+    cursor?: BruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
+  }
+
+  /**
+   * Brute.asLowerNeighbourOf
+   */
+  export type Brute$asLowerNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
+    cursor?: BruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
+  }
+
+  /**
+   * Brute.asLowerLowerNeighbourOf
+   */
+  export type Brute$asLowerLowerNeighbourOfArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Brute
+     */
+    select?: BruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Brute
+     */
+    omit?: BruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteInclude<ExtArgs> | null
+    where?: BruteWhereInput
+    orderBy?: BruteOrderByWithRelationInput | BruteOrderByWithRelationInput[]
+    cursor?: BruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteScalarFieldEnum | BruteScalarFieldEnum[]
   }
 
   /**
@@ -25574,6 +26017,984 @@ export namespace Prisma {
 
 
   /**
+   * Model KnownFingerprint
+   */
+
+  export type AggregateKnownFingerprint = {
+    _count: KnownFingerprintCountAggregateOutputType | null
+    _min: KnownFingerprintMinAggregateOutputType | null
+    _max: KnownFingerprintMaxAggregateOutputType | null
+  }
+
+  export type KnownFingerprintMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type KnownFingerprintMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type KnownFingerprintCountAggregateOutputType = {
+    id: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type KnownFingerprintMinAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type KnownFingerprintMaxAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type KnownFingerprintCountAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type KnownFingerprintAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KnownFingerprint to aggregate.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned KnownFingerprints
+    **/
+    _count?: true | KnownFingerprintCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KnownFingerprintMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KnownFingerprintMaxAggregateInputType
+  }
+
+  export type GetKnownFingerprintAggregateType<T extends KnownFingerprintAggregateArgs> = {
+        [P in keyof T & keyof AggregateKnownFingerprint]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKnownFingerprint[P]>
+      : GetScalarType<T[P], AggregateKnownFingerprint[P]>
+  }
+
+
+
+
+  export type KnownFingerprintGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KnownFingerprintWhereInput
+    orderBy?: KnownFingerprintOrderByWithAggregationInput | KnownFingerprintOrderByWithAggregationInput[]
+    by: KnownFingerprintScalarFieldEnum[] | KnownFingerprintScalarFieldEnum
+    having?: KnownFingerprintScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KnownFingerprintCountAggregateInputType | true
+    _min?: KnownFingerprintMinAggregateInputType
+    _max?: KnownFingerprintMaxAggregateInputType
+  }
+
+  export type KnownFingerprintGroupByOutputType = {
+    id: string
+    description: string | null
+    createdAt: Date
+    _count: KnownFingerprintCountAggregateOutputType | null
+    _min: KnownFingerprintMinAggregateOutputType | null
+    _max: KnownFingerprintMaxAggregateOutputType | null
+  }
+
+  type GetKnownFingerprintGroupByPayload<T extends KnownFingerprintGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KnownFingerprintGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KnownFingerprintGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KnownFingerprintGroupByOutputType[P]>
+            : GetScalarType<T[P], KnownFingerprintGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KnownFingerprintSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["knownFingerprint"]>
+
+  export type KnownFingerprintSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["knownFingerprint"]>
+
+  export type KnownFingerprintSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["knownFingerprint"]>
+
+  export type KnownFingerprintSelectScalar = {
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type KnownFingerprintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "createdAt", ExtArgs["result"]["knownFingerprint"]>
+
+  export type $KnownFingerprintPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "KnownFingerprint"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["knownFingerprint"]>
+    composites: {}
+  }
+
+  type KnownFingerprintGetPayload<S extends boolean | null | undefined | KnownFingerprintDefaultArgs> = $Result.GetResult<Prisma.$KnownFingerprintPayload, S>
+
+  type KnownFingerprintCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<KnownFingerprintFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: KnownFingerprintCountAggregateInputType | true
+    }
+
+  export interface KnownFingerprintDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['KnownFingerprint'], meta: { name: 'KnownFingerprint' } }
+    /**
+     * Find zero or one KnownFingerprint that matches the filter.
+     * @param {KnownFingerprintFindUniqueArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KnownFingerprintFindUniqueArgs>(args: SelectSubset<T, KnownFingerprintFindUniqueArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one KnownFingerprint that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {KnownFingerprintFindUniqueOrThrowArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KnownFingerprintFindUniqueOrThrowArgs>(args: SelectSubset<T, KnownFingerprintFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KnownFingerprint that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintFindFirstArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KnownFingerprintFindFirstArgs>(args?: SelectSubset<T, KnownFingerprintFindFirstArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KnownFingerprint that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintFindFirstOrThrowArgs} args - Arguments to find a KnownFingerprint
+     * @example
+     * // Get one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KnownFingerprintFindFirstOrThrowArgs>(args?: SelectSubset<T, KnownFingerprintFindFirstOrThrowArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more KnownFingerprints that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all KnownFingerprints
+     * const knownFingerprints = await prisma.knownFingerprint.findMany()
+     * 
+     * // Get first 10 KnownFingerprints
+     * const knownFingerprints = await prisma.knownFingerprint.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const knownFingerprintWithIdOnly = await prisma.knownFingerprint.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KnownFingerprintFindManyArgs>(args?: SelectSubset<T, KnownFingerprintFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a KnownFingerprint.
+     * @param {KnownFingerprintCreateArgs} args - Arguments to create a KnownFingerprint.
+     * @example
+     * // Create one KnownFingerprint
+     * const KnownFingerprint = await prisma.knownFingerprint.create({
+     *   data: {
+     *     // ... data to create a KnownFingerprint
+     *   }
+     * })
+     * 
+     */
+    create<T extends KnownFingerprintCreateArgs>(args: SelectSubset<T, KnownFingerprintCreateArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many KnownFingerprints.
+     * @param {KnownFingerprintCreateManyArgs} args - Arguments to create many KnownFingerprints.
+     * @example
+     * // Create many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KnownFingerprintCreateManyArgs>(args?: SelectSubset<T, KnownFingerprintCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many KnownFingerprints and returns the data saved in the database.
+     * @param {KnownFingerprintCreateManyAndReturnArgs} args - Arguments to create many KnownFingerprints.
+     * @example
+     * // Create many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many KnownFingerprints and only return the `id`
+     * const knownFingerprintWithIdOnly = await prisma.knownFingerprint.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KnownFingerprintCreateManyAndReturnArgs>(args?: SelectSubset<T, KnownFingerprintCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a KnownFingerprint.
+     * @param {KnownFingerprintDeleteArgs} args - Arguments to delete one KnownFingerprint.
+     * @example
+     * // Delete one KnownFingerprint
+     * const KnownFingerprint = await prisma.knownFingerprint.delete({
+     *   where: {
+     *     // ... filter to delete one KnownFingerprint
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KnownFingerprintDeleteArgs>(args: SelectSubset<T, KnownFingerprintDeleteArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one KnownFingerprint.
+     * @param {KnownFingerprintUpdateArgs} args - Arguments to update one KnownFingerprint.
+     * @example
+     * // Update one KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KnownFingerprintUpdateArgs>(args: SelectSubset<T, KnownFingerprintUpdateArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more KnownFingerprints.
+     * @param {KnownFingerprintDeleteManyArgs} args - Arguments to filter KnownFingerprints to delete.
+     * @example
+     * // Delete a few KnownFingerprints
+     * const { count } = await prisma.knownFingerprint.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KnownFingerprintDeleteManyArgs>(args?: SelectSubset<T, KnownFingerprintDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KnownFingerprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KnownFingerprintUpdateManyArgs>(args: SelectSubset<T, KnownFingerprintUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KnownFingerprints and returns the data updated in the database.
+     * @param {KnownFingerprintUpdateManyAndReturnArgs} args - Arguments to update many KnownFingerprints.
+     * @example
+     * // Update many KnownFingerprints
+     * const knownFingerprint = await prisma.knownFingerprint.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more KnownFingerprints and only return the `id`
+     * const knownFingerprintWithIdOnly = await prisma.knownFingerprint.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends KnownFingerprintUpdateManyAndReturnArgs>(args: SelectSubset<T, KnownFingerprintUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one KnownFingerprint.
+     * @param {KnownFingerprintUpsertArgs} args - Arguments to update or create a KnownFingerprint.
+     * @example
+     * // Update or create a KnownFingerprint
+     * const knownFingerprint = await prisma.knownFingerprint.upsert({
+     *   create: {
+     *     // ... data to create a KnownFingerprint
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the KnownFingerprint we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KnownFingerprintUpsertArgs>(args: SelectSubset<T, KnownFingerprintUpsertArgs<ExtArgs>>): Prisma__KnownFingerprintClient<$Result.GetResult<Prisma.$KnownFingerprintPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of KnownFingerprints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintCountArgs} args - Arguments to filter KnownFingerprints to count.
+     * @example
+     * // Count the number of KnownFingerprints
+     * const count = await prisma.knownFingerprint.count({
+     *   where: {
+     *     // ... the filter for the KnownFingerprints we want to count
+     *   }
+     * })
+    **/
+    count<T extends KnownFingerprintCountArgs>(
+      args?: Subset<T, KnownFingerprintCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KnownFingerprintCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a KnownFingerprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KnownFingerprintAggregateArgs>(args: Subset<T, KnownFingerprintAggregateArgs>): Prisma.PrismaPromise<GetKnownFingerprintAggregateType<T>>
+
+    /**
+     * Group by KnownFingerprint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KnownFingerprintGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KnownFingerprintGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KnownFingerprintGroupByArgs['orderBy'] }
+        : { orderBy?: KnownFingerprintGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KnownFingerprintGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKnownFingerprintGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the KnownFingerprint model
+   */
+  readonly fields: KnownFingerprintFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for KnownFingerprint.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KnownFingerprintClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the KnownFingerprint model
+   */
+  interface KnownFingerprintFieldRefs {
+    readonly id: FieldRef<"KnownFingerprint", 'String'>
+    readonly description: FieldRef<"KnownFingerprint", 'String'>
+    readonly createdAt: FieldRef<"KnownFingerprint", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * KnownFingerprint findUnique
+   */
+  export type KnownFingerprintFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findUniqueOrThrow
+   */
+  export type KnownFingerprintFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findFirst
+   */
+  export type KnownFingerprintFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KnownFingerprints.
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KnownFingerprints.
+     */
+    distinct?: KnownFingerprintScalarFieldEnum | KnownFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findFirstOrThrow
+   */
+  export type KnownFingerprintFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprint to fetch.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KnownFingerprints.
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KnownFingerprints.
+     */
+    distinct?: KnownFingerprintScalarFieldEnum | KnownFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint findMany
+   */
+  export type KnownFingerprintFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter, which KnownFingerprints to fetch.
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KnownFingerprints to fetch.
+     */
+    orderBy?: KnownFingerprintOrderByWithRelationInput | KnownFingerprintOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing KnownFingerprints.
+     */
+    cursor?: KnownFingerprintWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KnownFingerprints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KnownFingerprints.
+     */
+    skip?: number
+    distinct?: KnownFingerprintScalarFieldEnum | KnownFingerprintScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint create
+   */
+  export type KnownFingerprintCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data needed to create a KnownFingerprint.
+     */
+    data: XOR<KnownFingerprintCreateInput, KnownFingerprintUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint createMany
+   */
+  export type KnownFingerprintCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many KnownFingerprints.
+     */
+    data: KnownFingerprintCreateManyInput | KnownFingerprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KnownFingerprint createManyAndReturn
+   */
+  export type KnownFingerprintCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data used to create many KnownFingerprints.
+     */
+    data: KnownFingerprintCreateManyInput | KnownFingerprintCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KnownFingerprint update
+   */
+  export type KnownFingerprintUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data needed to update a KnownFingerprint.
+     */
+    data: XOR<KnownFingerprintUpdateInput, KnownFingerprintUncheckedUpdateInput>
+    /**
+     * Choose, which KnownFingerprint to update.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint updateMany
+   */
+  export type KnownFingerprintUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update KnownFingerprints.
+     */
+    data: XOR<KnownFingerprintUpdateManyMutationInput, KnownFingerprintUncheckedUpdateManyInput>
+    /**
+     * Filter which KnownFingerprints to update
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * Limit how many KnownFingerprints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * KnownFingerprint updateManyAndReturn
+   */
+  export type KnownFingerprintUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The data used to update KnownFingerprints.
+     */
+    data: XOR<KnownFingerprintUpdateManyMutationInput, KnownFingerprintUncheckedUpdateManyInput>
+    /**
+     * Filter which KnownFingerprints to update
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * Limit how many KnownFingerprints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * KnownFingerprint upsert
+   */
+  export type KnownFingerprintUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * The filter to search for the KnownFingerprint to update in case it exists.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    /**
+     * In case the KnownFingerprint found by the `where` argument doesn't exist, create a new KnownFingerprint with this data.
+     */
+    create: XOR<KnownFingerprintCreateInput, KnownFingerprintUncheckedCreateInput>
+    /**
+     * In case the KnownFingerprint was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KnownFingerprintUpdateInput, KnownFingerprintUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint delete
+   */
+  export type KnownFingerprintDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+    /**
+     * Filter which KnownFingerprint to delete.
+     */
+    where: KnownFingerprintWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * KnownFingerprint deleteMany
+   */
+  export type KnownFingerprintDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KnownFingerprints to delete
+     */
+    where?: KnownFingerprintWhereInput
+    /**
+     * Limit how many KnownFingerprints to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * KnownFingerprint without action
+   */
+  export type KnownFingerprintDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KnownFingerprint
+     */
+    select?: KnownFingerprintSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KnownFingerprint
+     */
+    omit?: KnownFingerprintOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model Clan
    */
 
@@ -38316,6 +39737,13 @@ export namespace Prisma {
     speedModifier: 'speedModifier',
     speedValue: 'speedValue',
     ranking: 'ranking',
+    rankingPosition: 'rankingPosition',
+    rankingPositionUpdatedAt: 'rankingPositionUpdatedAt',
+    rankingsUpperNeighbourId: 'rankingsUpperNeighbourId',
+    rankingsUpperUpperNeighbourId: 'rankingsUpperUpperNeighbourId',
+    rankingsLowerNeighbourId: 'rankingsLowerNeighbourId',
+    rankingsLowerLowerNeighbourId: 'rankingsLowerLowerNeighbourId',
+    rankingsNeighboursUpdatedAt: 'rankingsNeighboursUpdatedAt',
     gender: 'gender',
     userId: 'userId',
     body: 'body',
@@ -38524,6 +39952,15 @@ export namespace Prisma {
   };
 
   export type BannedFingerprintScalarFieldEnum = (typeof BannedFingerprintScalarFieldEnum)[keyof typeof BannedFingerprintScalarFieldEnum]
+
+
+  export const KnownFingerprintScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type KnownFingerprintScalarFieldEnum = (typeof KnownFingerprintScalarFieldEnum)[keyof typeof KnownFingerprintScalarFieldEnum]
 
 
   export const ClanScalarFieldEnum: {
@@ -39326,6 +40763,13 @@ export namespace Prisma {
     speedModifier?: FloatFilter<"Brute"> | number
     speedValue?: IntFilter<"Brute"> | number
     ranking?: IntFilter<"Brute"> | number
+    rankingPosition?: IntNullableFilter<"Brute"> | number | null
+    rankingPositionUpdatedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    rankingsUpperNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsUpperUpperNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsLowerNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsLowerLowerNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsNeighboursUpdatedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     gender?: EnumGenderFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableFilter<"Brute"> | string | null
     body?: StringFilter<"Brute"> | string
@@ -39359,6 +40803,10 @@ export namespace Prisma {
     tournamentWins?: IntFilter<"Brute"> | number
     eventId?: UuidNullableFilter<"Brute"> | string | null
     resets?: IntFilter<"Brute"> | number
+    rankingsUpperNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    rankingsUpperUpperNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    rankingsLowerNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    rankingsLowerLowerNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     master?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
@@ -39384,6 +40832,10 @@ export namespace Prisma {
     followers?: UserListRelationFilter
     inClanWarAttackerFighters?: ClanWarFightersListRelationFilter
     inClanWarDefenderFighters?: ClanWarFightersListRelationFilter
+    asUpperNeighbourOf?: BruteListRelationFilter
+    asUpperUpperNeighbourOf?: BruteListRelationFilter
+    asLowerNeighbourOf?: BruteListRelationFilter
+    asLowerLowerNeighbourOf?: BruteListRelationFilter
     event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
     wonEvents?: EventListRelationFilter
     userlogs?: UserLogListRelationFilter
@@ -39414,6 +40866,13 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrderInput | SortOrder
+    rankingPositionUpdatedAt?: SortOrderInput | SortOrder
+    rankingsUpperNeighbourId?: SortOrderInput | SortOrder
+    rankingsUpperUpperNeighbourId?: SortOrderInput | SortOrder
+    rankingsLowerNeighbourId?: SortOrderInput | SortOrder
+    rankingsLowerLowerNeighbourId?: SortOrderInput | SortOrder
+    rankingsNeighboursUpdatedAt?: SortOrderInput | SortOrder
     gender?: SortOrder
     userId?: SortOrderInput | SortOrder
     body?: SortOrder
@@ -39447,6 +40906,10 @@ export namespace Prisma {
     tournamentWins?: SortOrder
     eventId?: SortOrderInput | SortOrder
     resets?: SortOrder
+    rankingsUpperNeighbour?: BruteOrderByWithRelationInput
+    rankingsUpperUpperNeighbour?: BruteOrderByWithRelationInput
+    rankingsLowerNeighbour?: BruteOrderByWithRelationInput
+    rankingsLowerLowerNeighbour?: BruteOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     master?: BruteOrderByWithRelationInput
     pupils?: BruteOrderByRelationAggregateInput
@@ -39472,6 +40935,10 @@ export namespace Prisma {
     followers?: UserOrderByRelationAggregateInput
     inClanWarAttackerFighters?: ClanWarFightersOrderByRelationAggregateInput
     inClanWarDefenderFighters?: ClanWarFightersOrderByRelationAggregateInput
+    asUpperNeighbourOf?: BruteOrderByRelationAggregateInput
+    asUpperUpperNeighbourOf?: BruteOrderByRelationAggregateInput
+    asLowerNeighbourOf?: BruteOrderByRelationAggregateInput
+    asLowerLowerNeighbourOf?: BruteOrderByRelationAggregateInput
     event?: EventOrderByWithRelationInput
     wonEvents?: EventOrderByRelationAggregateInput
     userlogs?: UserLogOrderByRelationAggregateInput
@@ -39505,6 +40972,13 @@ export namespace Prisma {
     speedModifier?: FloatFilter<"Brute"> | number
     speedValue?: IntFilter<"Brute"> | number
     ranking?: IntFilter<"Brute"> | number
+    rankingPosition?: IntNullableFilter<"Brute"> | number | null
+    rankingPositionUpdatedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    rankingsUpperNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsUpperUpperNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsLowerNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsLowerLowerNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsNeighboursUpdatedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     gender?: EnumGenderFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableFilter<"Brute"> | string | null
     body?: StringFilter<"Brute"> | string
@@ -39538,6 +41012,10 @@ export namespace Prisma {
     tournamentWins?: IntFilter<"Brute"> | number
     eventId?: UuidNullableFilter<"Brute"> | string | null
     resets?: IntFilter<"Brute"> | number
+    rankingsUpperNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    rankingsUpperUpperNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    rankingsLowerNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    rankingsLowerLowerNeighbour?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     master?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
     pupils?: BruteListRelationFilter
@@ -39563,6 +41041,10 @@ export namespace Prisma {
     followers?: UserListRelationFilter
     inClanWarAttackerFighters?: ClanWarFightersListRelationFilter
     inClanWarDefenderFighters?: ClanWarFightersListRelationFilter
+    asUpperNeighbourOf?: BruteListRelationFilter
+    asUpperUpperNeighbourOf?: BruteListRelationFilter
+    asLowerNeighbourOf?: BruteListRelationFilter
+    asLowerLowerNeighbourOf?: BruteListRelationFilter
     event?: XOR<EventNullableScalarRelationFilter, EventWhereInput> | null
     wonEvents?: EventListRelationFilter
     userlogs?: UserLogListRelationFilter
@@ -39593,6 +41075,13 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrderInput | SortOrder
+    rankingPositionUpdatedAt?: SortOrderInput | SortOrder
+    rankingsUpperNeighbourId?: SortOrderInput | SortOrder
+    rankingsUpperUpperNeighbourId?: SortOrderInput | SortOrder
+    rankingsLowerNeighbourId?: SortOrderInput | SortOrder
+    rankingsLowerLowerNeighbourId?: SortOrderInput | SortOrder
+    rankingsNeighboursUpdatedAt?: SortOrderInput | SortOrder
     gender?: SortOrder
     userId?: SortOrderInput | SortOrder
     body?: SortOrder
@@ -39661,6 +41150,13 @@ export namespace Prisma {
     speedModifier?: FloatWithAggregatesFilter<"Brute"> | number
     speedValue?: IntWithAggregatesFilter<"Brute"> | number
     ranking?: IntWithAggregatesFilter<"Brute"> | number
+    rankingPosition?: IntNullableWithAggregatesFilter<"Brute"> | number | null
+    rankingPositionUpdatedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
+    rankingsUpperNeighbourId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
+    rankingsUpperUpperNeighbourId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
+    rankingsLowerNeighbourId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
+    rankingsLowerLowerNeighbourId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
+    rankingsNeighboursUpdatedAt?: DateTimeNullableWithAggregatesFilter<"Brute"> | Date | string | null
     gender?: EnumGenderWithAggregatesFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableWithAggregatesFilter<"Brute"> | string | null
     body?: StringWithAggregatesFilter<"Brute"> | string
@@ -40603,6 +42099,48 @@ export namespace Prisma {
     OR?: BannedFingerprintScalarWhereWithAggregatesInput[]
     NOT?: BannedFingerprintScalarWhereWithAggregatesInput | BannedFingerprintScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BannedFingerprint"> | string
+  }
+
+  export type KnownFingerprintWhereInput = {
+    AND?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    OR?: KnownFingerprintWhereInput[]
+    NOT?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    id?: StringFilter<"KnownFingerprint"> | string
+    description?: StringNullableFilter<"KnownFingerprint"> | string | null
+    createdAt?: DateTimeFilter<"KnownFingerprint"> | Date | string
+  }
+
+  export type KnownFingerprintOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KnownFingerprintWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    OR?: KnownFingerprintWhereInput[]
+    NOT?: KnownFingerprintWhereInput | KnownFingerprintWhereInput[]
+    description?: StringNullableFilter<"KnownFingerprint"> | string | null
+    createdAt?: DateTimeFilter<"KnownFingerprint"> | Date | string
+  }, "id">
+
+  export type KnownFingerprintOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: KnownFingerprintCountOrderByAggregateInput
+    _max?: KnownFingerprintMaxOrderByAggregateInput
+    _min?: KnownFingerprintMinOrderByAggregateInput
+  }
+
+  export type KnownFingerprintScalarWhereWithAggregatesInput = {
+    AND?: KnownFingerprintScalarWhereWithAggregatesInput | KnownFingerprintScalarWhereWithAggregatesInput[]
+    OR?: KnownFingerprintScalarWhereWithAggregatesInput[]
+    NOT?: KnownFingerprintScalarWhereWithAggregatesInput | KnownFingerprintScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"KnownFingerprint"> | string
+    description?: StringNullableWithAggregatesFilter<"KnownFingerprint"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"KnownFingerprint"> | Date | string
   }
 
   export type ClanWhereInput = {
@@ -41654,6 +43192,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -41682,6 +43223,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -41707,6 +43252,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -41737,6 +43286,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -41791,6 +43347,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -41820,6 +43380,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -41848,6 +43411,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -41873,6 +43440,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -41903,6 +43474,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -41957,6 +43535,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -41986,6 +43568,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -42046,6 +43635,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -42101,6 +43693,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -43051,6 +44650,48 @@ export namespace Prisma {
 
   export type BannedFingerprintUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KnownFingerprintCreateInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KnownFingerprintUncheckedCreateInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KnownFingerprintUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnownFingerprintUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnownFingerprintCreateManyInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KnownFingerprintUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KnownFingerprintUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClanCreateInput = {
@@ -44507,6 +46148,13 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrder
+    rankingPositionUpdatedAt?: SortOrder
+    rankingsUpperNeighbourId?: SortOrder
+    rankingsUpperUpperNeighbourId?: SortOrder
+    rankingsLowerNeighbourId?: SortOrder
+    rankingsLowerLowerNeighbourId?: SortOrder
+    rankingsNeighboursUpdatedAt?: SortOrder
     gender?: SortOrder
     userId?: SortOrder
     body?: SortOrder
@@ -44559,6 +46207,7 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrder
     ascensions?: SortOrder
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
@@ -44594,6 +46243,13 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrder
+    rankingPositionUpdatedAt?: SortOrder
+    rankingsUpperNeighbourId?: SortOrder
+    rankingsUpperUpperNeighbourId?: SortOrder
+    rankingsLowerNeighbourId?: SortOrder
+    rankingsLowerLowerNeighbourId?: SortOrder
+    rankingsNeighboursUpdatedAt?: SortOrder
     gender?: SortOrder
     userId?: SortOrder
     body?: SortOrder
@@ -44646,6 +46302,13 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrder
+    rankingPositionUpdatedAt?: SortOrder
+    rankingsUpperNeighbourId?: SortOrder
+    rankingsUpperUpperNeighbourId?: SortOrder
+    rankingsLowerNeighbourId?: SortOrder
+    rankingsLowerLowerNeighbourId?: SortOrder
+    rankingsNeighboursUpdatedAt?: SortOrder
     gender?: SortOrder
     userId?: SortOrder
     body?: SortOrder
@@ -44692,6 +46355,7 @@ export namespace Prisma {
     speedModifier?: SortOrder
     speedValue?: SortOrder
     ranking?: SortOrder
+    rankingPosition?: SortOrder
     ascensions?: SortOrder
     pupilsCount?: SortOrder
     currentTournamentStepWatched?: SortOrder
@@ -45417,6 +47081,24 @@ export namespace Prisma {
 
   export type BannedFingerprintMinOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type KnownFingerprintCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KnownFingerprintMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KnownFingerprintMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type EnumBossNameFilter<$PrismaModel = never> = {
@@ -46496,6 +48178,30 @@ export namespace Prisma {
     set: $Enums.PetName[]
   }
 
+  export type BruteCreateNestedOneWithoutAsUpperNeighbourOfInput = {
+    create?: XOR<BruteCreateWithoutAsUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsUpperNeighbourOfInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput = {
+    create?: XOR<BruteCreateWithoutAsUpperUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperUpperNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsUpperUpperNeighbourOfInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteCreateNestedOneWithoutAsLowerNeighbourOfInput = {
+    create?: XOR<BruteCreateWithoutAsLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsLowerNeighbourOfInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput = {
+    create?: XOR<BruteCreateWithoutAsLowerLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerLowerNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsLowerLowerNeighbourOfInput
+    connect?: BruteWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutBrutesInput = {
     create?: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: UserCreateOrConnectWithoutBrutesInput
@@ -46659,6 +48365,34 @@ export namespace Prisma {
     connect?: ClanWarFightersWhereUniqueInput | ClanWarFightersWhereUniqueInput[]
   }
 
+  export type BruteCreateNestedManyWithoutRankingsUpperNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperNeighbourInput> | BruteCreateWithoutRankingsUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput> | BruteCreateWithoutRankingsUpperUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperUpperNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteCreateNestedManyWithoutRankingsLowerNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerNeighbourInput> | BruteCreateWithoutRankingsLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput> | BruteCreateWithoutRankingsLowerLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerLowerNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
   export type EventCreateNestedOneWithoutBrutesInput = {
     create?: XOR<EventCreateWithoutBrutesInput, EventUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: EventCreateOrConnectWithoutBrutesInput
@@ -46818,6 +48552,34 @@ export namespace Prisma {
     connect?: ClanWarFightersWhereUniqueInput | ClanWarFightersWhereUniqueInput[]
   }
 
+  export type BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperNeighbourInput> | BruteCreateWithoutRankingsUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput> | BruteCreateWithoutRankingsUpperUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperUpperNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerNeighbourInput> | BruteCreateWithoutRankingsLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
+  export type BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput> | BruteCreateWithoutRankingsLowerLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerLowerNeighbourInputEnvelope
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+  }
+
   export type EventUncheckedCreateNestedManyWithoutWinnerInput = {
     create?: XOR<EventCreateWithoutWinnerInput, EventUncheckedCreateWithoutWinnerInput> | EventCreateWithoutWinnerInput[] | EventUncheckedCreateWithoutWinnerInput[]
     connectOrCreate?: EventCreateOrConnectWithoutWinnerInput | EventCreateOrConnectWithoutWinnerInput[]
@@ -46882,6 +48644,46 @@ export namespace Prisma {
   export type BruteUpdateascendedPetsInput = {
     set?: $Enums.PetName[]
     push?: $Enums.PetName | $Enums.PetName[]
+  }
+
+  export type BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput = {
+    create?: XOR<BruteCreateWithoutAsUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsUpperNeighbourOfInput
+    upsert?: BruteUpsertWithoutAsUpperNeighbourOfInput
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutAsUpperNeighbourOfInput, BruteUpdateWithoutAsUpperNeighbourOfInput>, BruteUncheckedUpdateWithoutAsUpperNeighbourOfInput>
+  }
+
+  export type BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput = {
+    create?: XOR<BruteCreateWithoutAsUpperUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperUpperNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsUpperUpperNeighbourOfInput
+    upsert?: BruteUpsertWithoutAsUpperUpperNeighbourOfInput
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutAsUpperUpperNeighbourOfInput, BruteUpdateWithoutAsUpperUpperNeighbourOfInput>, BruteUncheckedUpdateWithoutAsUpperUpperNeighbourOfInput>
+  }
+
+  export type BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput = {
+    create?: XOR<BruteCreateWithoutAsLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsLowerNeighbourOfInput
+    upsert?: BruteUpsertWithoutAsLowerNeighbourOfInput
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutAsLowerNeighbourOfInput, BruteUpdateWithoutAsLowerNeighbourOfInput>, BruteUncheckedUpdateWithoutAsLowerNeighbourOfInput>
+  }
+
+  export type BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput = {
+    create?: XOR<BruteCreateWithoutAsLowerLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerLowerNeighbourOfInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutAsLowerLowerNeighbourOfInput
+    upsert?: BruteUpsertWithoutAsLowerLowerNeighbourOfInput
+    disconnect?: BruteWhereInput | boolean
+    delete?: BruteWhereInput | boolean
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutAsLowerLowerNeighbourOfInput, BruteUpdateWithoutAsLowerLowerNeighbourOfInput>, BruteUncheckedUpdateWithoutAsLowerLowerNeighbourOfInput>
   }
 
   export type UserUpdateOneWithoutBrutesNestedInput = {
@@ -47204,6 +49006,62 @@ export namespace Prisma {
     deleteMany?: ClanWarFightersScalarWhereInput | ClanWarFightersScalarWhereInput[]
   }
 
+  export type BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperNeighbourInput> | BruteCreateWithoutRankingsUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsUpperNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsUpperNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsUpperNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsUpperNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsUpperNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput> | BruteCreateWithoutRankingsUpperUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperUpperNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsUpperUpperNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsUpperUpperNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerNeighbourInput> | BruteCreateWithoutRankingsLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsLowerNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsLowerNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsLowerNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsLowerNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsLowerNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput> | BruteCreateWithoutRankingsLowerLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerLowerNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsLowerLowerNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsLowerLowerNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
   export type EventUpdateOneWithoutBrutesNestedInput = {
     create?: XOR<EventCreateWithoutBrutesInput, EventUncheckedCreateWithoutBrutesInput>
     connectOrCreate?: EventCreateOrConnectWithoutBrutesInput
@@ -47520,6 +49378,62 @@ export namespace Prisma {
     update?: ClanWarFightersUpdateWithWhereUniqueWithoutDefendersInput | ClanWarFightersUpdateWithWhereUniqueWithoutDefendersInput[]
     updateMany?: ClanWarFightersUpdateManyWithWhereWithoutDefendersInput | ClanWarFightersUpdateManyWithWhereWithoutDefendersInput[]
     deleteMany?: ClanWarFightersScalarWhereInput | ClanWarFightersScalarWhereInput[]
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperNeighbourInput> | BruteCreateWithoutRankingsUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsUpperNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsUpperNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsUpperNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsUpperNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsUpperNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput> | BruteCreateWithoutRankingsUpperUpperNeighbourInput[] | BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput | BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput[]
+    createMany?: BruteCreateManyRankingsUpperUpperNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsUpperUpperNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsUpperUpperNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerNeighbourInput> | BruteCreateWithoutRankingsLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsLowerNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsLowerNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsLowerNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsLowerNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsLowerNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput = {
+    create?: XOR<BruteCreateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput> | BruteCreateWithoutRankingsLowerLowerNeighbourInput[] | BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput[]
+    connectOrCreate?: BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput | BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput[]
+    upsert?: BruteUpsertWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput | BruteUpsertWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput[]
+    createMany?: BruteCreateManyRankingsLowerLowerNeighbourInputEnvelope
+    set?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    disconnect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    delete?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    connect?: BruteWhereUniqueInput | BruteWhereUniqueInput[]
+    update?: BruteUpdateWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput | BruteUpdateWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput[]
+    updateMany?: BruteUpdateManyWithWhereWithoutRankingsLowerLowerNeighbourInput | BruteUpdateManyWithWhereWithoutRankingsLowerLowerNeighbourInput[]
+    deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
   export type EventUncheckedUpdateManyWithoutWinnerNestedInput = {
@@ -49591,6 +51505,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -49619,6 +51536,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -49643,6 +51564,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -49673,6 +51598,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -49726,6 +51658,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -49909,6 +51845,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -49937,6 +51876,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -49961,6 +51904,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -49991,6 +51938,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -50044,6 +51998,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -50189,6 +52147,13 @@ export namespace Prisma {
     speedModifier?: FloatFilter<"Brute"> | number
     speedValue?: IntFilter<"Brute"> | number
     ranking?: IntFilter<"Brute"> | number
+    rankingPosition?: IntNullableFilter<"Brute"> | number | null
+    rankingPositionUpdatedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
+    rankingsUpperNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsUpperUpperNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsLowerNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsLowerLowerNeighbourId?: UuidNullableFilter<"Brute"> | string | null
+    rankingsNeighboursUpdatedAt?: DateTimeNullableFilter<"Brute"> | Date | string | null
     gender?: EnumGenderFilter<"Brute"> | $Enums.Gender
     userId?: UuidNullableFilter<"Brute"> | string | null
     body?: StringFilter<"Brute"> | string
@@ -50558,6 +52523,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -50586,6 +52554,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -50611,6 +52583,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
   }
@@ -50640,6 +52616,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -50694,6 +52677,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
   }
 
@@ -50813,6 +52800,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -50841,6 +52831,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -50866,6 +52860,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
   }
@@ -50895,6 +52893,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -50949,7 +52954,775 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+  }
+
+  export type BruteCreateWithoutAsUpperNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutAsUpperNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutAsUpperNeighbourOfInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutAsUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperNeighbourOfInput>
+  }
+
+  export type BruteCreateWithoutAsUpperUpperNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutAsUpperUpperNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutAsUpperUpperNeighbourOfInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutAsUpperUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperUpperNeighbourOfInput>
+  }
+
+  export type BruteCreateWithoutAsLowerNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutAsLowerNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutAsLowerNeighbourOfInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutAsLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerNeighbourOfInput>
+  }
+
+  export type BruteCreateWithoutAsLowerLowerNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutAsLowerLowerNeighbourOfInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutAsLowerLowerNeighbourOfInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutAsLowerLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerLowerNeighbourOfInput>
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -51046,6 +53819,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -51074,6 +53850,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -51098,6 +53878,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -51128,6 +53912,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -51181,6 +53972,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -51215,6 +54010,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -51243,6 +54041,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
     clan?: ClanCreateNestedOneWithoutBrutesInput
@@ -51267,6 +54069,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -51297,6 +54103,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -51350,6 +54163,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -51635,6 +54452,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -51663,6 +54483,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -51687,6 +54511,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -51717,6 +54545,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -51770,6 +54605,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -51804,6 +54643,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -51832,6 +54674,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -51856,6 +54702,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -51886,6 +54736,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -51939,6 +54796,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -52370,6 +55231,790 @@ export namespace Prisma {
     create: XOR<ClanWarFightersCreateWithoutDefendersInput, ClanWarFightersUncheckedCreateWithoutDefendersInput>
   }
 
+  export type BruteCreateWithoutRankingsUpperNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutRankingsUpperNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutRankingsUpperNeighbourInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutRankingsUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperNeighbourInput>
+  }
+
+  export type BruteCreateManyRankingsUpperNeighbourInputEnvelope = {
+    data: BruteCreateManyRankingsUpperNeighbourInput | BruteCreateManyRankingsUpperNeighbourInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BruteCreateWithoutRankingsUpperUpperNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput>
+  }
+
+  export type BruteCreateManyRankingsUpperUpperNeighbourInputEnvelope = {
+    data: BruteCreateManyRankingsUpperUpperNeighbourInput | BruteCreateManyRankingsUpperUpperNeighbourInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BruteCreateWithoutRankingsLowerNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutRankingsLowerNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutRankingsLowerNeighbourInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutRankingsLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerNeighbourInput>
+  }
+
+  export type BruteCreateManyRankingsLowerNeighbourInputEnvelope = {
+    data: BruteCreateManyRankingsLowerNeighbourInput | BruteCreateManyRankingsLowerNeighbourInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BruteCreateWithoutRankingsLowerLowerNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput>
+  }
+
+  export type BruteCreateManyRankingsLowerLowerNeighbourInputEnvelope = {
+    data: BruteCreateManyRankingsLowerLowerNeighbourInput | BruteCreateManyRankingsLowerLowerNeighbourInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EventCreateWithoutBrutesInput = {
     id?: string
     date?: Date | string
@@ -52465,6 +56110,794 @@ export namespace Prisma {
   export type UserLogCreateManyBruteInputEnvelope = {
     data: UserLogCreateManyBruteInput | UserLogCreateManyBruteInput[]
     skipDuplicates?: boolean
+  }
+
+  export type BruteUpsertWithoutAsUpperNeighbourOfInput = {
+    update: XOR<BruteUpdateWithoutAsUpperNeighbourOfInput, BruteUncheckedUpdateWithoutAsUpperNeighbourOfInput>
+    create: XOR<BruteCreateWithoutAsUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperNeighbourOfInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutAsUpperNeighbourOfInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutAsUpperNeighbourOfInput, BruteUncheckedUpdateWithoutAsUpperNeighbourOfInput>
+  }
+
+  export type BruteUpdateWithoutAsUpperNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutAsUpperNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUpsertWithoutAsUpperUpperNeighbourOfInput = {
+    update: XOR<BruteUpdateWithoutAsUpperUpperNeighbourOfInput, BruteUncheckedUpdateWithoutAsUpperUpperNeighbourOfInput>
+    create: XOR<BruteCreateWithoutAsUpperUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperUpperNeighbourOfInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutAsUpperUpperNeighbourOfInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutAsUpperUpperNeighbourOfInput, BruteUncheckedUpdateWithoutAsUpperUpperNeighbourOfInput>
+  }
+
+  export type BruteUpdateWithoutAsUpperUpperNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutAsUpperUpperNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUpsertWithoutAsLowerNeighbourOfInput = {
+    update: XOR<BruteUpdateWithoutAsLowerNeighbourOfInput, BruteUncheckedUpdateWithoutAsLowerNeighbourOfInput>
+    create: XOR<BruteCreateWithoutAsLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerNeighbourOfInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutAsLowerNeighbourOfInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutAsLowerNeighbourOfInput, BruteUncheckedUpdateWithoutAsLowerNeighbourOfInput>
+  }
+
+  export type BruteUpdateWithoutAsLowerNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutAsLowerNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUpsertWithoutAsLowerLowerNeighbourOfInput = {
+    update: XOR<BruteUpdateWithoutAsLowerLowerNeighbourOfInput, BruteUncheckedUpdateWithoutAsLowerLowerNeighbourOfInput>
+    create: XOR<BruteCreateWithoutAsLowerLowerNeighbourOfInput, BruteUncheckedCreateWithoutAsLowerLowerNeighbourOfInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutAsLowerLowerNeighbourOfInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutAsLowerLowerNeighbourOfInput, BruteUncheckedUpdateWithoutAsLowerLowerNeighbourOfInput>
+  }
+
+  export type BruteUpdateWithoutAsLowerLowerNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutAsLowerLowerNeighbourOfInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutBrutesInput = {
@@ -52578,6 +57011,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -52606,6 +57042,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -52630,6 +57070,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -52660,6 +57104,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -52713,6 +57164,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -53335,6 +57790,70 @@ export namespace Prisma {
     data: XOR<ClanWarFightersUpdateManyMutationInput, ClanWarFightersUncheckedUpdateManyWithoutDefendersInput>
   }
 
+  export type BruteUpsertWithWhereUniqueWithoutRankingsUpperNeighbourInput = {
+    where: BruteWhereUniqueInput
+    update: XOR<BruteUpdateWithoutRankingsUpperNeighbourInput, BruteUncheckedUpdateWithoutRankingsUpperNeighbourInput>
+    create: XOR<BruteCreateWithoutRankingsUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperNeighbourInput>
+  }
+
+  export type BruteUpdateWithWhereUniqueWithoutRankingsUpperNeighbourInput = {
+    where: BruteWhereUniqueInput
+    data: XOR<BruteUpdateWithoutRankingsUpperNeighbourInput, BruteUncheckedUpdateWithoutRankingsUpperNeighbourInput>
+  }
+
+  export type BruteUpdateManyWithWhereWithoutRankingsUpperNeighbourInput = {
+    where: BruteScalarWhereInput
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourInput>
+  }
+
+  export type BruteUpsertWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput = {
+    where: BruteWhereUniqueInput
+    update: XOR<BruteUpdateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedUpdateWithoutRankingsUpperUpperNeighbourInput>
+    create: XOR<BruteCreateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput>
+  }
+
+  export type BruteUpdateWithWhereUniqueWithoutRankingsUpperUpperNeighbourInput = {
+    where: BruteWhereUniqueInput
+    data: XOR<BruteUpdateWithoutRankingsUpperUpperNeighbourInput, BruteUncheckedUpdateWithoutRankingsUpperUpperNeighbourInput>
+  }
+
+  export type BruteUpdateManyWithWhereWithoutRankingsUpperUpperNeighbourInput = {
+    where: BruteScalarWhereInput
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourInput>
+  }
+
+  export type BruteUpsertWithWhereUniqueWithoutRankingsLowerNeighbourInput = {
+    where: BruteWhereUniqueInput
+    update: XOR<BruteUpdateWithoutRankingsLowerNeighbourInput, BruteUncheckedUpdateWithoutRankingsLowerNeighbourInput>
+    create: XOR<BruteCreateWithoutRankingsLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerNeighbourInput>
+  }
+
+  export type BruteUpdateWithWhereUniqueWithoutRankingsLowerNeighbourInput = {
+    where: BruteWhereUniqueInput
+    data: XOR<BruteUpdateWithoutRankingsLowerNeighbourInput, BruteUncheckedUpdateWithoutRankingsLowerNeighbourInput>
+  }
+
+  export type BruteUpdateManyWithWhereWithoutRankingsLowerNeighbourInput = {
+    where: BruteScalarWhereInput
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourInput>
+  }
+
+  export type BruteUpsertWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput = {
+    where: BruteWhereUniqueInput
+    update: XOR<BruteUpdateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedUpdateWithoutRankingsLowerLowerNeighbourInput>
+    create: XOR<BruteCreateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput>
+  }
+
+  export type BruteUpdateWithWhereUniqueWithoutRankingsLowerLowerNeighbourInput = {
+    where: BruteWhereUniqueInput
+    data: XOR<BruteUpdateWithoutRankingsLowerLowerNeighbourInput, BruteUncheckedUpdateWithoutRankingsLowerLowerNeighbourInput>
+  }
+
+  export type BruteUpdateManyWithWhereWithoutRankingsLowerLowerNeighbourInput = {
+    where: BruteScalarWhereInput
+    data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourInput>
+  }
+
   export type EventUpsertWithoutBrutesInput = {
     update: XOR<EventUpdateWithoutBrutesInput, EventUncheckedUpdateWithoutBrutesInput>
     create: XOR<EventCreateWithoutBrutesInput, EventUncheckedCreateWithoutBrutesInput>
@@ -53444,6 +57963,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -53472,6 +57994,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -53496,6 +58022,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -53526,6 +58056,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -53579,6 +58116,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -53624,6 +58165,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -53652,6 +58196,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -53676,6 +58224,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -53706,6 +58258,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -53759,6 +58318,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -53788,6 +58351,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -53816,6 +58382,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -53840,6 +58410,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -53870,6 +58444,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -53923,6 +58504,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -53957,6 +58542,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -53985,6 +58573,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -54009,6 +58601,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -54039,6 +58635,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -54092,6 +58695,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -54302,6 +58909,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -54330,6 +58940,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -54354,6 +58968,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -54384,6 +59002,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -54437,6 +59062,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -54477,6 +59106,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -54505,6 +59137,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -54529,6 +59165,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -54559,6 +59199,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -54612,6 +59259,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -54745,6 +59396,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -54773,6 +59427,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -54797,6 +59455,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -54827,6 +59489,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -54880,6 +59549,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -55009,6 +59682,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -55037,6 +59713,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -55061,6 +59741,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -55091,6 +59775,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -55144,6 +59835,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -55269,6 +59964,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -55297,6 +59995,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -55321,6 +60023,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -55351,6 +60057,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -55404,6 +60117,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -55485,6 +60202,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -55513,6 +60233,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -55537,6 +60261,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -55567,6 +60295,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -55620,6 +60355,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -55665,6 +60404,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -55693,6 +60435,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -55717,6 +60463,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -55747,6 +60497,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -55800,6 +60557,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -55984,6 +60745,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -56012,6 +60776,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -56036,6 +60804,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -56066,6 +60838,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -56119,6 +60898,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -56164,6 +60947,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -56192,6 +60978,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -56216,6 +61006,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -56246,6 +61040,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -56299,6 +61100,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -56472,6 +61277,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -56500,6 +61308,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -56524,6 +61336,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -56554,6 +61370,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -56607,6 +61430,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -56652,6 +61479,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -56680,6 +61510,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -56704,6 +61538,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -56734,6 +61572,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -56787,6 +61632,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -56816,6 +61665,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -56844,6 +61696,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -56868,6 +61724,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -56898,6 +61758,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -56951,6 +61818,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -57065,6 +61936,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -57093,6 +61967,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -57117,6 +61995,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -57147,6 +62029,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -57200,6 +62089,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -57304,6 +62197,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -57332,6 +62228,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -57356,6 +62256,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -57386,6 +62290,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -57439,6 +62350,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -57622,6 +62537,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -57650,6 +62568,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -57674,6 +62596,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -57704,6 +62630,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -57757,6 +62690,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -57877,6 +62814,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -57905,6 +62845,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -57929,6 +62873,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -57959,6 +62907,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -58012,6 +62967,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -58046,6 +63005,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -58074,6 +63036,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -58098,6 +63064,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -58128,6 +63098,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -58181,6 +63158,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -58220,6 +63201,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -58248,6 +63232,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -58272,6 +63260,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -58302,6 +63294,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -58355,6 +63354,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -58587,6 +63590,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -58615,6 +63621,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -58639,6 +63649,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -58669,6 +63683,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -58722,6 +63743,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -58924,6 +63949,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -58952,6 +63980,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -58976,6 +64008,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -59006,6 +64042,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -59059,6 +64102,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -59177,6 +64224,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -59205,6 +64255,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -59229,6 +64283,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -59259,6 +64317,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -59312,6 +64377,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -59386,6 +64455,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -59414,6 +64486,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -59438,6 +64514,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -59468,6 +64548,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -59521,6 +64608,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -59601,6 +64692,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -59629,6 +64723,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -59653,6 +64751,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -59683,6 +64785,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -59736,6 +64845,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -59765,6 +64878,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -59793,6 +64909,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -59817,6 +64937,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -59847,6 +64971,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -59900,6 +65031,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -59988,6 +65123,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -60016,6 +65154,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -60040,6 +65182,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -60070,6 +65216,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -60123,6 +65276,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -60620,6 +65777,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -60648,6 +65808,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -60672,6 +65836,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -60702,6 +65870,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -60755,6 +65930,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -60789,6 +65968,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -60817,6 +65999,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -60841,6 +66027,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -60871,6 +66061,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -60924,6 +66121,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -61033,6 +66234,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -61061,6 +66265,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -61085,6 +66293,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
@@ -61115,6 +66327,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -61168,6 +66387,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -61282,6 +66505,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -61310,6 +66536,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -61334,6 +66564,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -61364,6 +66598,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -61417,6 +66658,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -61521,6 +66766,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -61549,6 +66797,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -61574,6 +66826,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
   }
@@ -61603,6 +66859,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -61656,6 +66919,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
@@ -61718,6 +66985,9 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -61746,6 +67016,10 @@ export namespace Prisma {
     favorite?: boolean
     tournamentWins?: number
     resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
     user?: UserCreateNestedOneWithoutBrutesInput
     master?: BruteCreateNestedOneWithoutPupilsInput
     pupils?: BruteCreateNestedManyWithoutMasterInput
@@ -61771,6 +67045,10 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     event?: EventCreateNestedOneWithoutBrutesInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
   }
@@ -61800,6 +67078,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -61854,6 +67139,10 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
   }
 
@@ -61943,6 +67232,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -61971,6 +67263,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -61996,6 +67292,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
   }
@@ -62025,6 +67325,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -62079,6 +67386,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
 
@@ -62251,6 +67562,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     body?: string
     colors?: string
@@ -62360,6 +67678,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -62388,6 +67709,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -62412,6 +67737,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -62442,6 +67771,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -62495,6 +67831,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -62524,6 +67864,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -62738,6 +68085,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -62766,6 +68116,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -62790,6 +68144,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -62820,6 +68178,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -62873,6 +68238,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -62902,6 +68271,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -63054,6 +68430,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -63215,6 +68598,270 @@ export namespace Prisma {
     damage: number
   }
 
+  export type BruteCreateManyRankingsUpperNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+  }
+
+  export type BruteCreateManyRankingsUpperUpperNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+  }
+
+  export type BruteCreateManyRankingsLowerNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+  }
+
+  export type BruteCreateManyRankingsLowerLowerNeighbourInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hp?: number
+    enduranceStat?: number
+    enduranceModifier?: number
+    enduranceValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+  }
+
   export type EventCreateManyWinnerInput = {
     id?: string
     date?: Date | string
@@ -63261,6 +68908,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -63289,6 +68939,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
     clan?: ClanUpdateOneWithoutBrutesNestedInput
@@ -63313,6 +68967,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -63343,6 +69001,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -63396,6 +69061,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -63425,6 +69094,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -63715,6 +69391,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -63743,6 +69422,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -63767,6 +69450,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -63797,6 +69484,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -63850,6 +69544,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -63879,6 +69577,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -63939,6 +69644,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -63967,6 +69675,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -63991,6 +69703,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -64021,6 +69737,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -64074,6 +69797,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -64103,6 +69830,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -64455,6 +70189,1014 @@ export namespace Prisma {
     day?: IntFieldUpdateOperationsInput | number
   }
 
+  export type BruteUpdateWithoutRankingsUpperNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutRankingsUpperNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteUpdateWithoutRankingsUpperUpperNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutRankingsUpperUpperNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteUpdateWithoutRankingsLowerNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutRankingsLowerNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BruteUpdateWithoutRankingsLowerLowerNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutRankingsLowerLowerNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
+    enduranceStat?: IntFieldUpdateOperationsInput | number
+    enduranceModifier?: FloatFieldUpdateOperationsInput | number
+    enduranceValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+  }
+
   export type EventUpdateWithoutWinnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64756,6 +71498,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -64784,6 +71529,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -64808,6 +71557,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -64838,6 +71591,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -64891,6 +71651,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -64920,6 +71684,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -65125,6 +71896,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -65184,6 +71962,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -65302,6 +72087,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -65330,6 +72118,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -65354,6 +72146,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -65384,6 +72180,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -65437,6 +72240,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -65466,6 +72273,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -65525,6 +72339,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -65553,6 +72370,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -65577,6 +72398,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -65607,6 +72432,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -65660,6 +72492,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -65689,6 +72525,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -66067,6 +72910,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -66095,6 +72941,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -66119,6 +72969,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -66149,6 +73003,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -66202,6 +73063,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -66231,6 +73096,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -66291,6 +73163,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -66319,6 +73194,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -66343,6 +73222,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
@@ -66373,6 +73256,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -66426,6 +73316,10 @@ export namespace Prisma {
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -66455,6 +73349,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -66515,6 +73416,13 @@ export namespace Prisma {
     speedModifier?: number
     speedValue?: number
     ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
     gender: $Enums.Gender
     userId?: string | null
     body?: string
@@ -66574,6 +73482,9 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     body?: StringFieldUpdateOperationsInput | string
     colors?: StringFieldUpdateOperationsInput | string
@@ -66602,6 +73513,10 @@ export namespace Prisma {
     favorite?: BoolFieldUpdateOperationsInput | boolean
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
     user?: UserUpdateOneWithoutBrutesNestedInput
     master?: BruteUpdateOneWithoutPupilsNestedInput
     pupils?: BruteUpdateManyWithoutMasterNestedInput
@@ -66627,6 +73542,10 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
   }
@@ -66656,6 +73575,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string
@@ -66709,6 +73635,10 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
   }
@@ -66738,6 +73668,13 @@ export namespace Prisma {
     speedModifier?: FloatFieldUpdateOperationsInput | number
     speedValue?: IntFieldUpdateOperationsInput | number
     ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     body?: StringFieldUpdateOperationsInput | string

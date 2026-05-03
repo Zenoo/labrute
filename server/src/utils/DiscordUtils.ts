@@ -269,7 +269,7 @@ ${error.stack}
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${this.#server}/favicon.png`,
-        url: `${this.#server}${brute.name}/ranking`,
+        url: `${this.#server}${brute.name}/ranking/${brute.ranking}`,
       })
       .setThumbnail(`${this.#server}/images/rankings/lvl_${brute.ranking}.webp`)
       .setTimestamp();
@@ -279,7 +279,7 @@ ${error.stack}
     });
   }
 
-  public sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number) {
+  public sendAscendNotification(brute: Pick<Brute, 'name' | 'ranking'>, ascensions: number) {
     if (!this.#rankUpClient) {
       return;
     }
@@ -291,7 +291,7 @@ ${error.stack}
       .setAuthor({
         name: 'LaBrute',
         iconURL: `${this.#server}/favicon.png`,
-        url: `${this.#server}${brute.name}/ranking`,
+        url: `${this.#server}${brute.name}/ranking/${brute.ranking}`,
       })
       .setThumbnail(`${this.#server}/images/ear.gif`)
       .setTimestamp();

@@ -1,6 +1,6 @@
 import {
   ARENA_OPPONENTS_COUNT,
-  AdminPanelBrute,
+  BruteGetForAdminResponse,
   BruteDeletionReason,
   BruteGetInventoryResponse,
   BruteRankings,
@@ -8,7 +8,7 @@ import {
   BruteUpdateEventRoundWatchedResponse,
   BrutesCreateResponse,
   BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse,
-  BrutesGetFightsLeftResponse, BrutesGetForRankResponse,
+  BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetNeighborsForRankResponse,
   BrutesGetForVersusResponse,
   BrutesGetLevelUpChoicesResponse,
   BrutesGetOpponentsResponse,
@@ -36,6 +36,9 @@ import {
   isNameValid,
   isUuid,
   pets,
+  BruteGetForAdminRequest,
+  BrutesGetForRankRequest,
+  BrutesGetNeighborsForRankRequest,
 } from '@labrute/core';
 import {
   Brute,
@@ -61,6 +64,109 @@ import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
+import { traced } from '../utils/trace.js';
+
+// In-memory cache for top 15 brutes per rank (calculated daily)
+type RankCache = {
+  brutes: Array<{
+    id: string;
+    name: string;
+    body: string;
+    colors: string;
+    gender: Gender;
+    ranking: number;
+    level: number;
+    ascensions: number;
+  }>;
+  total: number;
+  updatedAt: string; // YYYY-MM-DD
+};
+
+const rankCache: Map<number, RankCache> = new Map();
+
+/**
+ * Calculate and cache top 15 brutes and total count for a specific rank
+ */
+const getTop15AndTotalForRank = async (prisma: PrismaClient, rank: number) => {
+  const today = dayjs.utc().format('YYYY-MM-DD');
+
+  // Check if already calculated today
+  const cached = rankCache.get(rank);
+  if (cached && cached.updatedAt === today) {
+    return cached;
+  }
+
+  // rank -1 means event brutes
+  const rankOrEvent = rank === -1
+    ? { eventId: { not: null } }
+    : rank === BruteRankings[0]
+      // Hide event brutes from the first rank
+      ? { eventId: null, ranking: rank }
+      : { ranking: rank };
+
+  const whereClause = {
+    deletedAt: null,
+    userId: { not: null },
+    ...rankOrEvent,
+  };
+
+  // Get first 15 brutes of the same rank with the highest level and XP
+  const topBrutes = await traced('brutes.calculateTop15.findTopBrutes', () => prisma.brute.findMany({
+    where: whereClause,
+    orderBy: rank === 0
+      ? [
+        { ascensions: 'desc' },
+        { level: 'desc' },
+        { xp: 'desc' },
+      ]
+      : [
+        { level: 'desc' },
+        { xp: 'desc' },
+      ],
+    take: 15,
+    select: {
+      id: true,
+      name: true,
+      body: true,
+      colors: true,
+      gender: true,
+      ranking: true,
+      level: true,
+      ascensions: true,
+    },
+  }));
+
+  // Get total count
+  const total = await traced('brutes.calculateTop15.countTotal', () => prisma.brute.count({
+    where: whereClause,
+  }));
+
+  // Cache the results
+  const result = {
+    brutes: topBrutes,
+    total,
+    updatedAt: today,
+  };
+  rankCache.set(rank, result);
+
+  LOGGER.log(`Top 15 brutes and total (${total}) calculated for rank ${rank} on ${today}`);
+
+  return result;
+};
+
+// Calculate top 15 for all ranks (used in daily job)
+export const calculateAllTop15Rankings = async (prisma: PrismaClient) => {
+  LOGGER.log('Calculating top 15 brutes for all ranks...');
+
+  // Calculate for all standard ranks (0-11) and event brutes (-1)
+  const ranks = [-1, ...BruteRankings];
+
+  for (const rank of ranks) {
+    await getTop15AndTotalForRank(prisma, rank);
+  }
+
+  LOGGER.log('Top 15 brutes calculated for all ranks');
+};
 
 export const Brutes = {
   getForVersus: (prisma: PrismaClient) => async (
@@ -70,7 +176,7 @@ export const Brutes = {
     res: Response<BrutesGetForVersusResponse>,
   ) => {
     try {
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getForVersus.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -83,7 +189,7 @@ export const Brutes = {
           gender: true,
           level: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
@@ -101,7 +207,7 @@ export const Brutes = {
     res: Response<ServerHookBrute>,
   ) => {
     try {
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getForHook.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -139,7 +245,7 @@ export const Brutes = {
             },
           },
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
@@ -151,23 +257,21 @@ export const Brutes = {
     }
   },
   getForAdmin: (prisma: PrismaClient) => async (
-    req: Request<{
-      name: string
-    }>,
-    res: Response<AdminPanelBrute>,
+    req: Request<BruteGetForAdminRequest>,
+    res: Response<BruteGetForAdminResponse>,
   ) => {
     try {
       await auth(prisma, req, { admin: true });
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getForAdmin.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
-          deletedAt: null,
+          deletedAt: req.params.includeDeleted === 'true' ? undefined : null,
         },
         include: {
           user: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
@@ -182,12 +286,12 @@ export const Brutes = {
     try {
       await auth(prisma, req);
 
-      const count = await prisma.brute.count({
+      const count = await traced('brutes.isNameAvailable.countBrutes', () => prisma.brute.count({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
         },
-      });
+      }));
 
       res.status(200).send(count === 0);
     } catch (error) {
@@ -229,7 +333,7 @@ export const Brutes = {
       checkBody(authed, req.body.gender, req.body.body);
 
       // Check name for banned words
-      const banned: { count: bigint }[] = await prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${req.body.name.toLowerCase()} LIKE CONCAT('%', word, '%')`;
+      const banned: { count: bigint }[] = await traced('brutes.create.checkBannedWords', () => prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${req.body.name.toLowerCase()} LIKE CONCAT('%', word, '%')`);
 
       if (typeof banned?.[0]?.count !== 'bigint') {
         throw new Error('Error while checking banned words');
@@ -239,19 +343,19 @@ export const Brutes = {
       }
 
       // Check if name is available
-      const count = await prisma.brute.count({
+      const count = await traced('brutes.create.countBrutes', () => prisma.brute.count({
         where: {
           name: ilike(req.body.name),
           deletedAt: null,
         },
-      });
+      }));
 
       if (count > 0) {
         throw new LimitError(translate('nameAlreadyTaken', authed));
       }
 
       // Get user
-      const user = await prisma.user.findFirst({
+      const user = await traced('brutes.create.findUser', () => prisma.user.findFirst({
         where: { id: authed.id },
         select: {
           id: true,
@@ -262,7 +366,7 @@ export const Brutes = {
             select: { id: true, eventId: true },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new Error(translate('userNotFound', authed));
@@ -274,15 +378,16 @@ export const Brutes = {
       }
 
       // No creation for started events
-      if (req.body.eventId) {
-        if (!isUuid(req.body.eventId)) {
+      const { eventId } = req.body;
+      if (eventId) {
+        if (!isUuid(eventId)) {
           throw new ExpectedError(translate('invalidParameters', authed));
         }
 
-        const event = await prisma.event.findFirst({
-          where: { id: req.body.eventId },
+        const event = await traced('brutes.create.findEvent', () => prisma.event.findFirst({
+          where: { id: eventId },
           select: { status: true },
-        });
+        }));
 
         if (!event) {
           throw new NotFoundError(translate('eventNotFound', authed));
@@ -303,14 +408,14 @@ export const Brutes = {
           throw new LimitError(translate('bruteLimitReached', authed, { gold }));
         } else {
           // Remove XXX Gold and update brute limit
-          await prisma.user.update({
+          await traced('brutes.create.updateUser', () => prisma.user.update({
             where: { id: user.id },
             data: {
               gold: { decrement: gold },
               bruteLimit: { increment: 1 },
             },
             select: { id: true },
-          });
+          }));
           goldLost = gold;
           newLimit += 1;
 
@@ -322,21 +427,22 @@ export const Brutes = {
         }
       }
 
-      const master = req.body.master ? await prisma.brute.findFirst({
+      const masterName = req.body.master;
+      const master = masterName ? await traced('brutes.create.findMaster', () => prisma.brute.findFirst({
         where: {
-          name: req.body.master,
+          name: masterName,
           deletedAt: null,
           userId: {
             not: user.id,
           },
         },
         select: { id: true },
-      }) : undefined;
+      })) : undefined;
 
       const startingStats = getRandomStartingStats();
 
       // Create brute
-      const brute = await prisma.brute.create({
+      const brute = await traced('brutes.create.createBrute', () => prisma.brute.create({
         data: {
           name: req.body.name,
           ...getBruteToSave(createRandomBruteStats(startingStats)),
@@ -348,7 +454,7 @@ export const Brutes = {
           master: master ? { connect: { id: master.id } } : undefined,
           event: req.body.eventId ? { connect: { id: req.body.eventId } } : undefined,
         },
-      });
+      }));
 
       // User log
       createUserLog(prisma, {
@@ -358,7 +464,7 @@ export const Brutes = {
       });
 
       // Store starting stats
-      await prisma.bruteStartingStats.create({
+      await traced('brutes.create.createBruteStartingStats', () => prisma.bruteStartingStats.create({
         data: {
           bruteId: brute.id,
           endurance: startingStats.endurance,
@@ -367,7 +473,7 @@ export const Brutes = {
           speed: startingStats.speed,
         },
         select: { id: true },
-      });
+      }));
 
       // Get first bonus type
       const firstBonusType = brute.skills.length
@@ -377,7 +483,7 @@ export const Brutes = {
           : DestinyChoiceType.pet;
 
       // Store first bonus
-      const destinyChoice = await prisma.destinyChoice.create({
+      const destinyChoice = await traced('brutes.create.createDestinyChoice', () => prisma.destinyChoice.create({
         data: {
           type: firstBonusType,
           pet: firstBonusType === DestinyChoiceType.pet
@@ -389,25 +495,25 @@ export const Brutes = {
           bruteId: brute.id,
           path: [],
         },
-      });
+      }));
 
       // Update master's pupils count
       if (master) {
-        await prisma.brute.update({
+        await traced('brutes.create.updateMaster', () => prisma.brute.update({
           where: { id: master.id },
           data: { pupilsCount: { increment: 1 } },
           select: { id: true },
-        });
+        }));
 
         // Add log
-        await prisma.log.create({
+        await traced('brutes.create.createLog', () => prisma.log.create({
           data: {
             currentBrute: { connect: { id: master.id } },
             type: LogType.child,
             brute: brute.name,
           },
           select: { id: true },
-        });
+        }));
       }
 
       // Update achievements
@@ -426,7 +532,7 @@ export const Brutes = {
       const authed = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getLevelUpChoices.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -441,7 +547,7 @@ export const Brutes = {
           skills: true,
           weapons: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
@@ -455,39 +561,39 @@ export const Brutes = {
       const secondChoicePath = [...brute.destinyPath, DestinyChoiceSide.RIGHT];
 
       // Get destiny choices
-      let firstDestinyChoice = await prisma.destinyChoice.findFirst({
+      let firstDestinyChoice = await traced('brutes.getLevelUpChoices.findFirstDestinyChoice', () => prisma.destinyChoice.findFirst({
         where: {
           bruteId: brute.id,
           path: { equals: firstChoicePath },
         },
-      });
-      let secondDestinyChoice = await prisma.destinyChoice.findFirst({
+      }));
+      let secondDestinyChoice = await traced('brutes.getLevelUpChoices.findSecondDestinyChoice', () => prisma.destinyChoice.findFirst({
         where: {
           bruteId: brute.id,
           path: { equals: secondChoicePath },
         },
-      });
+      }));
 
       if (!firstDestinyChoice || !secondDestinyChoice) {
         const newChoices = getLevelUpChoices(brute);
 
         // Create destiny choices
-        const newFirstDestinyChoice = await prisma.destinyChoice.create({
+        const newFirstDestinyChoice = await traced('brutes.getLevelUpChoices.createFirstDestinyChoice', () => prisma.destinyChoice.create({
           data: {
             ...newChoices[0],
             path: firstChoicePath,
             brute: { connect: { id: brute.id } },
           },
-        });
+        }));
         firstDestinyChoice = newFirstDestinyChoice;
 
-        const newSecondDestinyChoice = await prisma.destinyChoice.create({
+        const newSecondDestinyChoice = await traced('brutes.getLevelUpChoices.createSecondDestinyChoice', () => prisma.destinyChoice.create({
           data: {
             ...newChoices[1],
             path: secondChoicePath,
             brute: { connect: { id: brute.id } },
           },
-        });
+        }));
         secondDestinyChoice = newSecondDestinyChoice;
       }
 
@@ -506,7 +612,7 @@ export const Brutes = {
       const authed = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.levelUp.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -539,18 +645,19 @@ export const Brutes = {
           fightsLeft: true,
           eventId: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
       // Check event max level
-      if (brute.eventId) {
-        const event = await prisma.event.findFirst({
-          where: { id: brute.eventId },
+      const { eventId } = brute;
+      if (eventId) {
+        const event = await traced('brutes.levelUp.findEvent', () => prisma.event.findFirst({
+          where: { id: eventId },
           select: { maxLevel: true },
-        });
+        }));
 
         if (!event) {
           throw new NotFoundError(translate('eventNotFound', authed));
@@ -569,12 +676,12 @@ export const Brutes = {
       }
 
       // Get destiny choice
-      const destinyChoice = await prisma.destinyChoice.findFirst({
+      const destinyChoice = await traced('brutes.levelUp.findDestinyChoice', () => prisma.destinyChoice.findFirst({
         where: {
           bruteId: brute.id,
           path: { equals: [...brute.destinyPath, req.body.choice] },
         },
-      });
+      }));
 
       if (!destinyChoice) {
         throw new NotFoundError(translate('destinyChoiceNotFound', authed));
@@ -602,12 +709,12 @@ export const Brutes = {
       };
 
       // Refetch brute XP
-      const freshBrute = await prisma.brute.findFirst({
+      const freshBrute = await traced('brutes.levelUp.findFreshBrute', () => prisma.brute.findFirst({
         where: {
           id: brute.id,
         },
         select: { xp: true },
-      });
+      }));
 
       if (!freshBrute) {
         throw new Error(translate('bruteNotFound', authed));
@@ -618,14 +725,14 @@ export const Brutes = {
       }
 
       // Update brute
-      const updatedBrute = await prisma.brute.update({
+      const updatedBrute = await traced('brutes.levelUp.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           ...updatedBruteData,
           destinyPath: { push: req.body.choice },
           xp: freshBrute.xp - xpNeeded,
         },
-      });
+      }));
 
       try {
         // Check level up achievements
@@ -638,7 +745,7 @@ export const Brutes = {
       const opponents = await getOpponents(prisma, updatedBrute);
 
       // Save opponents
-      await prisma.brute.update({
+      await traced('brutes.levelUp.updateOpponents', () => prisma.brute.update({
         where: {
           id: updatedBrute.id,
         },
@@ -652,10 +759,10 @@ export const Brutes = {
           opponentsGeneratedAt: new Date(),
         },
         select: { id: true },
-      });
+      }));
 
       // Add log
-      await prisma.log.create({
+      await traced('brutes.levelUp.createLog', () => prisma.log.create({
         data: {
           currentBrute: { connect: { id: updatedBrute.id } },
           type: LogType.up,
@@ -663,18 +770,19 @@ export const Brutes = {
           level: updatedBrute.level,
         },
         select: { id: true },
-      });
+      }));
 
-      if (updatedBrute.masterId) {
+      const { masterId } = updatedBrute;
+      if (masterId) {
         // Add log to master
-        await prisma.log.create({
+        await traced('brutes.levelUp.createMasterLog', () => prisma.log.create({
           data: {
-            currentBrute: { connect: { id: updatedBrute.masterId } },
+            currentBrute: { connect: { id: masterId } },
             type: LogType.childup,
             brute: updatedBrute.name,
           },
           select: { id: true },
-        });
+        }));
       }
 
       // Update clan points
@@ -695,7 +803,7 @@ export const Brutes = {
       const user = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getOpponents.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -736,7 +844,7 @@ export const Brutes = {
             },
           },
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
@@ -751,7 +859,7 @@ export const Brutes = {
         opponents = await getOpponents(prisma, brute);
 
         // Save opponents
-        await prisma.brute.update({
+        await traced('brutes.getOpponents.updateBrute', () => prisma.brute.update({
           where: {
             id: brute.id,
           },
@@ -765,7 +873,7 @@ export const Brutes = {
             opponentsGeneratedAt: new Date(),
           },
           select: { id: true },
-        });
+        }));
       }
 
       res.send(opponents);
@@ -778,7 +886,7 @@ export const Brutes = {
       const authed = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.sacrifice.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -794,7 +902,7 @@ export const Brutes = {
           ranking: true,
           eventId: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
@@ -806,11 +914,11 @@ export const Brutes = {
       }
 
       // Check if brute is master of a clan
-      const isClanMaster = await prisma.clan.count({
+      const isClanMaster = await traced('brutes.sacrifice.isClanMaster', () => prisma.clan.count({
         where: {
           masterId: brute.id,
         },
-      });
+      }));
 
       if (isClanMaster) {
         throw new ForbiddenError(translate('cannotSacrificeClanMaster', authed));
@@ -818,13 +926,13 @@ export const Brutes = {
 
       // Add Gold to user
       const gold = getBruteGoldValue(brute);
-      await prisma.user.update({
+      await traced('brutes.sacrifice.addGold', () => prisma.user.update({
         where: { id: authed.id },
         data: {
           gold: { increment: gold },
         },
         select: { id: true },
-      });
+      }));
 
       createUserLog(prisma, {
         type: UserLogType.GOLD_WIN,
@@ -833,26 +941,27 @@ export const Brutes = {
       });
 
       // Decrease master's pupils count
-      if (brute.masterId) {
-        await prisma.brute.update({
-          where: { id: brute.masterId },
+      const { masterId } = brute;
+      if (masterId) {
+        await traced('brutes.sacrifice.decreasePupilsCount', () => prisma.brute.update({
+          where: { id: masterId },
           data: {
             pupilsCount: { decrement: 1 },
           },
           select: { id: true },
-        });
+        }));
       }
 
       // Remove pupils master
-      await prisma.brute.updateMany({
+      await traced('brutes.sacrifice.removePupilsMaster', () => prisma.brute.updateMany({
         where: { masterId: brute.id },
         data: {
           masterId: null,
         },
-      });
+      }));
 
       // Set brute as deleted
-      await prisma.brute.update({
+      await traced('brutes.sacrifice.deleteBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           deletedAt: new Date(),
@@ -873,7 +982,7 @@ export const Brutes = {
           },
         },
         select: { id: true },
-      });
+      }));
 
       // User log
       createUserLog(prisma, {
@@ -897,63 +1006,69 @@ export const Brutes = {
     }
   },
   getForRank: (prisma: PrismaClient) => async (
-    req: Request<{
-      name?: string
-      rank?: string
-    }, unknown, never>,
+    req: Request<BrutesGetForRankRequest, unknown, never>,
     res: Response<BrutesGetForRankResponse>,
   ) => {
     try {
       if (!req.params.name) {
-        throw new Error('Missing name');
+        throw new ExpectedError('Missing name');
       }
 
       let rank: number;
 
-      // Get brute rank if not provided
-      if (typeof req.params.rank === 'undefined') {
-        const brute = await prisma.brute.findFirst({
-          where: { name: ilike(req.params.name), deletedAt: null },
-          select: { ranking: true },
-        });
-
-        if (!brute) {
-          throw new NotFoundError('Brute not found');
-        }
-        rank = brute.ranking;
+      if (Number.isNaN(+req.params.rank)) {
+        throw new ExpectedError(translate('invalidParameters'));
       } else {
-        if (Number.isNaN(+req.params.rank)) {
-          throw new Error(translate('invalidParameters'));
-        }
         rank = +req.params.rank;
       }
 
-      // rank -1 means event brutes
+      // Get top 15 and total from cache (calculated daily)
+      const { brutes: topBrutes, total } = await getTop15AndTotalForRank(prisma, rank);
+
+      // Check if brute is in the top 15
+      const bruteInTop = Boolean(topBrutes.find((b) => b.name === req.params.name));
+
+      res.send({
+        topBrutes,
+        total,
+        bruteInTop,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getNeighborsForRank: (prisma: PrismaClient) => async (
+    req: Request<BrutesGetNeighborsForRankRequest, unknown, never>,
+    res: Response<BrutesGetNeighborsForRankResponse>,
+  ) => {
+    try {
+      if (!req.params.name) {
+        throw new ExpectedError('Missing name');
+      }
+
+      let rank: number;
+
+      if (Number.isNaN(+req.params.rank)) {
+        throw new ExpectedError(translate('invalidParameters'));
+      } else {
+        rank = +req.params.rank;
+      }
+
+      // Get total brutes of the same rank
       const rankOrEvent = rank === -1
         ? { eventId: { not: null } }
         : rank === BruteRankings[0]
-          // Hide event brutes from the first rank
           ? { eventId: null, ranking: rank }
           : { ranking: rank };
 
-      // Get first 15 brutes of the same rank with the highest level and XP
-      const topBrutes = await prisma.brute.findMany({
+      // Find the brute
+      const brute = await traced('brutes.getNeighborsForRank.findCurrentBrute', () => prisma.brute.findFirst({
         where: {
+          name: ilike(req.params.name),
           deletedAt: null,
           userId: { not: null },
           ...rankOrEvent,
         },
-        orderBy: rank === 0
-          ? [
-            { ascensions: 'desc' },
-            { level: 'desc' },
-            { xp: 'desc' },
-          ]
-          : [
-            { level: 'desc' },
-            { xp: 'desc' },
-          ],
-        take: 15,
         select: {
           id: true,
           name: true,
@@ -963,190 +1078,154 @@ export const Brutes = {
           ranking: true,
           level: true,
           ascensions: true,
-        },
-      });
-
-      // Get total brutes of the same rank
-      const total = await prisma.brute.count({
-        where: {
-          deletedAt: null,
-          userId: { not: null },
-          ...rankOrEvent,
-        },
-      });
-
-      const result: BrutesGetForRankResponse = {
-        topBrutes,
-        nearbyBrutes: [],
-        position: 0,
-        total,
-      };
-
-      // If current brute is not in the list, get it
-      if (!topBrutes.find((b) => b.name === req.params.name)) {
-        const brute = await prisma.brute.findFirst({
-          where: {
-            name: ilike(req.params.name),
-            deletedAt: null,
-            userId: { not: null },
-            ...rankOrEvent,
-          },
-          select: {
-            id: true,
-            name: true,
-            body: true,
-            colors: true,
-            gender: true,
-            ranking: true,
-            level: true,
-            xp: true,
-            ascensions: true,
-          },
-        });
-
-        // Don't rank bot brutes
-        if (brute) {
-          // Find the brute position in the list
-          const position = await prisma.brute.count({
-            where: {
-              ...rankOrEvent,
-              deletedAt: null,
-              id: { not: brute.id },
-              userId: { not: null },
-              OR: [
-                { level: { gt: brute.level } },
-                { level: brute.level, xp: { gt: brute.xp } },
-              ],
-            },
-          });
-
-          // Find the brutes around the current brute
-          const nearbyHigherBrutes = await prisma.brute.findMany({
-            where: {
-              ...rankOrEvent,
-              deletedAt: null,
-              name: { not: brute.name },
-              userId: { not: null },
-              OR: [
-                { level: { gt: brute.level } },
-                { level: brute.level, xp: { gt: brute.xp } },
-              ],
-            },
-            orderBy: [
-              { level: 'asc' },
-              { xp: 'asc' },
-            ],
-            take: 2,
-            select: {
-              id: true,
-              name: true,
-              body: true,
-              colors: true,
-              gender: true,
-              ranking: true,
-              level: true,
-              ascensions: true,
-            },
-          });
-
-          const nearbyLowerBrutes = await prisma.brute.findMany({
-            where: {
-              ...rankOrEvent,
-              deletedAt: null,
-              name: { not: brute.name },
-              userId: { not: null },
-              OR: [
-                { level: { lt: brute.level } },
-                { level: brute.level, xp: { lte: brute.xp } },
-              ],
-            },
-            orderBy: [
-              { level: 'desc' },
-              { xp: 'desc' },
-            ],
-            take: 2,
-            select: {
-              id: true,
-              name: true,
-              body: true,
-              colors: true,
-              gender: true,
-              ranking: true,
-              level: true,
-              ascensions: true,
-            },
-          });
-
-          result.nearbyBrutes = [
-            ...nearbyHigherBrutes
-              .filter((b) => !topBrutes.find((t) => t.name === b.name))
-              .reverse(),
-            brute,
-            ...nearbyLowerBrutes,
-          ];
-          result.position = position + 1;
-        }
-      }
-
-      res.send(result);
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  getRanking: (prisma: PrismaClient) => async (
-    req: Request<{
-      name?: string
-    }, unknown, never>,
-    res: Response<BrutesGetRankingResponse>,
-  ) => {
-    try {
-      const { params: { name } } = req;
-
-      if (!name) {
-        throw new Error('Missing name');
-      }
-
-      // Get the brute
-      const brute = await prisma.brute.findFirst({
-        where: { name: ilike(name), deletedAt: null },
-        select: {
-          id: true,
-          ranking: true,
-          level: true,
           xp: true,
-          userId: true,
-          ascensions: true,
-          eventId: true,
+          rankingPosition: true,
+          rankingPositionUpdatedAt: true,
+          rankingsNeighboursUpdatedAt: true,
+          rankingsUpperUpperNeighbour: {
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+            },
+          },
+          rankingsUpperNeighbour: {
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+            },
+          },
+          rankingsLowerNeighbour: {
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+            },
+          },
+          rankingsLowerLowerNeighbour: {
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+            },
+          },
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
       }
 
-      // Don't rank bot brutes
-      if (!brute.userId) {
+      const today = dayjs.utc().startOf('day');
+      const neighboursAreFresh = Boolean(
+        brute.rankingsNeighboursUpdatedAt
+        && dayjs.utc(brute.rankingsNeighboursUpdatedAt).isSame(today, 'day'),
+      );
+      const positionIsFresh = Boolean(
+        brute.rankingPositionUpdatedAt
+        && dayjs.utc(brute.rankingPositionUpdatedAt).isSame(today, 'day'),
+      );
+
+      let position: number;
+
+      if (neighboursAreFresh) {
+        // Use cached neighbors - already fetched via include
+
+        const upperUpper = brute.rankingsUpperUpperNeighbour;
+        const upper = brute.rankingsUpperNeighbour;
+        const lower = brute.rankingsLowerNeighbour;
+        const lowerLower = brute.rankingsLowerLowerNeighbour;
+
+        const nearbyBrutes = [
+          ...(upperUpper ? [upperUpper] : []),
+          ...(upper ? [upper] : []),
+          {
+            id: brute.id,
+            name: brute.name,
+            body: brute.body,
+            colors: brute.colors,
+            gender: brute.gender,
+            ranking: brute.ranking,
+            level: brute.level,
+            ascensions: brute.ascensions,
+          },
+          ...(lower ? [lower] : []),
+          ...(lowerLower ? [lowerLower] : []),
+        ];
+        position = brute.rankingPosition || 0;
+
         res.send({
-          ranking: 0,
+          nearbyBrutes,
+          position,
         });
-        return;
       }
 
-      const rank = brute.ranking;
+      // Recalculate position only if stale
+      if (!positionIsFresh) {
+        position = await traced('brutes.getNeighborsForRank.countBrutePosition', () => prisma.brute.count({
+          where: {
+            ...rankOrEvent,
+            deletedAt: null,
+            id: { not: brute.id },
+            userId: { not: null },
+            OR: rank === 0
+              ? [
+                { ascensions: { gt: brute.ascensions } },
+                {
+                  AND: [
+                    { ascensions: { equals: brute.ascensions } },
+                    {
+                      OR: [
+                        { level: { gt: brute.level } },
+                        {
+                          level: brute.level,
+                          xp: { gt: brute.xp },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ]
+              : [
+                { level: { gt: brute.level } },
+                { level: brute.level, xp: { gt: brute.xp } },
+              ],
+          },
+        }));
 
-      const rankOrEvent = brute.eventId
-        ? { eventId: { not: null } }
-        : rank === BruteRankings[0]
-          // Hide event brutes from the first rank
-          ? { eventId: null, ranking: rank }
-          : { ranking: rank };
+        position += 1;
+      } else {
+        // Use cached position
+        position = brute.rankingPosition || 0;
+      }
 
-      // Find the brute position
-      const position = await prisma.brute.count({
+      // Calculate neighbors using slow method
+      const nearbyHigherBrutes = await traced('brutes.getNeighborsForRank.findNearbyHigherBrutes', () => prisma.brute.findMany({
         where: {
           ...rankOrEvent,
           deletedAt: null,
-          id: { not: brute.id },
+          name: { not: brute.name },
           userId: { not: null },
           OR: rank === 0
             ? [
@@ -1168,10 +1247,209 @@ export const Brutes = {
               { level: brute.level, xp: { gt: brute.xp } },
             ],
         },
-      });
+        orderBy: rank === 0
+          ? [
+            { ascensions: 'asc' },
+            { level: 'asc' },
+            { xp: 'asc' },
+          ]
+          : [
+            { level: 'asc' },
+            { xp: 'asc' },
+          ],
+        take: 2,
+        select: {
+          id: true,
+          name: true,
+          body: true,
+          colors: true,
+          gender: true,
+          ranking: true,
+          level: true,
+          ascensions: true,
+        },
+      }));
+
+      const nearbyLowerBrutes = await traced('brutes.getNeighborsForRank.findNearbyLowerBrutes', () => prisma.brute.findMany({
+        where: {
+          ...rankOrEvent,
+          deletedAt: null,
+          name: { not: brute.name },
+          userId: { not: null },
+          OR: rank === 0
+            ? [
+              { ascensions: { lt: brute.ascensions } },
+              {
+                AND: [
+                  { ascensions: { equals: brute.ascensions } },
+                  {
+                    OR: [
+                      { level: { lt: brute.level } },
+                      {
+                        level: brute.level,
+                        xp: { lte: brute.xp },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ]
+            : [
+              { level: { lt: brute.level } },
+              { level: brute.level, xp: { lte: brute.xp } },
+            ],
+        },
+        orderBy: rank === 0
+          ? [
+            { ascensions: 'desc' },
+            { level: 'desc' },
+            { xp: 'desc' },
+          ]
+          : [
+            { level: 'desc' },
+            { xp: 'desc' },
+          ],
+        take: 2,
+        select: {
+          id: true,
+          name: true,
+          body: true,
+          colors: true,
+          gender: true,
+          ranking: true,
+          level: true,
+          ascensions: true,
+        },
+      }));
+
+      const nearbyBrutes = [
+        ...nearbyHigherBrutes.reverse(),
+        {
+          id: brute.id,
+          name: brute.name,
+          body: brute.body,
+          colors: brute.colors,
+          gender: brute.gender,
+          ranking: brute.ranking,
+          level: brute.level,
+          ascensions: brute.ascensions,
+        },
+        ...nearbyLowerBrutes,
+      ];
 
       res.send({
-        ranking: position + 1,
+        nearbyBrutes,
+        position,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getRanking: (prisma: PrismaClient) => async (
+    req: Request<{
+      name?: string
+    }, unknown, never>,
+    res: Response<BrutesGetRankingResponse>,
+  ) => {
+    try {
+      const { params: { name } } = req;
+
+      if (!name) {
+        throw new Error('Missing name');
+      }
+
+      // Get the brute
+      const brute = await traced('brutes.getRanking.findBrute', () => prisma.brute.findFirst({
+        where: { name: ilike(name), deletedAt: null },
+        select: {
+          id: true,
+          ranking: true,
+          level: true,
+          xp: true,
+          userId: true,
+          ascensions: true,
+          eventId: true,
+          rankingPosition: true,
+          rankingPositionUpdatedAt: true,
+        },
+      }));
+
+      if (!brute) {
+        throw new NotFoundError('Brute not found');
+      }
+
+      // Don't rank bot brutes
+      if (!brute.userId) {
+        res.send({
+          ranking: 0,
+        });
+        return;
+      }
+
+      const today = dayjs.utc().startOf('day');
+      const needsRecalculation = !brute.rankingPositionUpdatedAt
+        || dayjs.utc(brute.rankingPositionUpdatedAt).isBefore(today);
+
+      let position: number;
+
+      if (needsRecalculation) {
+        // Calculate this brute's position
+        const rank = brute.ranking;
+
+        const rankOrEvent = brute.eventId
+          ? { eventId: { not: null } }
+          : rank === BruteRankings[0]
+            // Hide event brutes from the first rank
+            ? { eventId: null, ranking: rank }
+            : { ranking: rank };
+
+        // Count brutes ranked higher
+        const higherCount = await traced('brutes.getRanking.countBrutePosition', () => prisma.brute.count({
+          where: {
+            ...rankOrEvent,
+            deletedAt: null,
+            id: { not: brute.id },
+            userId: { not: null },
+            OR: rank === 0
+              ? [
+                { ascensions: { gt: brute.ascensions } },
+                {
+                  AND: [
+                    { ascensions: { equals: brute.ascensions } },
+                    {
+                      OR: [
+                        { level: { gt: brute.level } },
+                        { level: brute.level, xp: { gt: brute.xp } },
+                      ],
+                    },
+                  ],
+                },
+              ]
+              : [
+                { level: { gt: brute.level } },
+                { level: brute.level, xp: { gt: brute.xp } },
+              ],
+          },
+        }));
+
+        position = higherCount + 1;
+
+        // Cache the position
+        await traced('brutes.getRanking.updatePosition', () => prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            rankingPosition: position,
+            rankingPositionUpdatedAt: today.toDate(),
+          },
+          select: { id: true },
+        }));
+      } else {
+        // Use cached position
+        position = brute.rankingPosition || 0;
+      }
+
+      res.send({
+        ranking: position,
       });
     } catch (error) {
       sendError(res, error);
@@ -1188,10 +1466,10 @@ export const Brutes = {
         throw new Error('Missing name');
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.exists.findBrute', () => prisma.brute.findFirst({
         where: { name: ilike(name), deletedAt: null },
         select: { name: true },
-      });
+      }));
 
       if (!brute) {
         res.send({
@@ -1221,7 +1499,7 @@ export const Brutes = {
         throw new Error(translate('missingName', authed));
       }
 
-      const userBrute = await prisma.brute.findFirst({
+      const userBrute = await traced('brutes.rankUp.findUserBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(name),
           deletedAt: null,
@@ -1241,7 +1519,7 @@ export const Brutes = {
           ascendedSkills: true,
           ascendedPets: true,
         },
-      });
+      }));
 
       if (!userBrute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
@@ -1266,14 +1544,14 @@ export const Brutes = {
       await increaseAchievement(prisma, authed.id, brute.id, `rankUp${brute.ranking as 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0}`);
 
       // Add rank up log
-      await prisma.log.create({
+      await traced('brutes.rankUp.createLog', () => prisma.log.create({
         data: {
           currentBruteId: brute.id,
           type: LogType.lvl,
           level: brute.ranking,
         },
         select: { id: true },
-      });
+      }));
 
       // Update clan points
       if (userBrute.clanId) {
@@ -1336,7 +1614,7 @@ export const Brutes = {
         throw new Error('Wrong choice type');
       }
 
-      const userBrute = await prisma.brute.findFirst({
+      const userBrute = await traced('brutes.ascend.findUserBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(name),
           deletedAt: null,
@@ -1360,7 +1638,7 @@ export const Brutes = {
           ascendedPets: true,
           destinyChoices: true,
         },
-      });
+      }));
 
       if (!userBrute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
@@ -1408,14 +1686,14 @@ export const Brutes = {
       await increaseAchievement(prisma, authed.id, brute.id, 'ascend');
 
       // Add ascend log
-      await prisma.log.create({
+      await traced('brutes.ascend.createLog', () => prisma.log.create({
         data: {
           currentBruteId: brute.id,
           type: LogType.ascend,
           level: brute.ascensions,
         },
         select: { id: true },
-      });
+      }));
 
       // Update clan points
       if (userBrute.clanId) {
@@ -1445,9 +1723,9 @@ export const Brutes = {
         throw new MissingElementError('Missing name');
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getDestiny.findBrute', () => prisma.brute.findFirst({
         where: { name: ilike(name), deletedAt: null },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
@@ -1457,9 +1735,9 @@ export const Brutes = {
         throw new LimitError('Bot brutes have no destiny');
       }
 
-      const destinyChoices = await prisma.destinyChoice.findMany({
+      const destinyChoices = await traced('brutes.getDestiny.findDestinyChoices', () => prisma.destinyChoice.findMany({
         where: { bruteId: brute.id },
-      });
+      }));
 
       const destinyChoicesWithStringPath = destinyChoices.map((choice) => ({
         ...choice,
@@ -1534,7 +1812,7 @@ export const Brutes = {
         throw new MissingElementError('Missing name');
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getFightsLeft.findBrute', () => prisma.brute.findFirst({
         where: { name: ilike(name), deletedAt: null },
         select: {
           id: true,
@@ -1543,7 +1821,7 @@ export const Brutes = {
           skills: true,
           eventId: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError('Brute not found');
@@ -1574,25 +1852,25 @@ export const Brutes = {
         throw new Error(translate('missingName', user));
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.adminUpdate.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(name),
           deletedAt: null,
         },
-      });
+      }));
 
       if (!brute) {
         throw new Error(translate('bruteNotFound', user));
       }
 
       // Update the brute
-      await prisma.brute.update({
+      await traced('brutes.adminUpdate.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           ...req.body,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({
         success: true,
@@ -1614,7 +1892,7 @@ export const Brutes = {
         throw new MissingElementError(translate('noIDProvided', user));
       }
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.restore.findBrute', () => prisma.brute.findFirst({
         where: {
           id,
           deletedAt: {
@@ -1622,32 +1900,32 @@ export const Brutes = {
           },
         },
         select: { name: true, id: true },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFoundOrNotDeleted', user));
       }
 
       // Check if another brute has the same name
-      const brutesWithSameName = await prisma.brute.count({
+      const brutesWithSameName = await traced('brutes.restore.countBrutesWithSameName', () => prisma.brute.count({
         where: {
           name: ilike(brute.name),
           deletedAt: null,
         },
-      });
+      }));
 
       if (brutesWithSameName > 0) {
         throw new LimitError(translate('anotherBruteHasThisName', user));
       }
 
       // Restore the brute
-      await prisma.brute.update({
+      await traced('brutes.restore.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           deletedAt: null,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({
         success: true,
@@ -1669,7 +1947,7 @@ export const Brutes = {
         throw new Error(translate('missingName', authed));
       }
 
-      const user = await prisma.user.findFirst({
+      const user = await traced('brutes.toggleFavorite.findUser', () => prisma.user.findFirst({
         where: { id: authed.id },
         select: {
           id: true,
@@ -1682,7 +1960,7 @@ export const Brutes = {
             },
           },
         },
-      });
+      }));
 
       if (!user) {
         throw new Error(translate('userNotFound', authed));
@@ -1701,13 +1979,13 @@ export const Brutes = {
       }
 
       // Toggle favorite
-      await prisma.brute.update({
+      await traced('brutes.toggleFavorite.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           favorite: !brute.favorite,
         },
         select: { id: true },
-      });
+      }));
 
       res.send({
         success: true,
@@ -1724,7 +2002,7 @@ export const Brutes = {
       const authed = await auth(prisma, req);
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.reset.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -1737,7 +2015,7 @@ export const Brutes = {
             },
           },
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
@@ -1781,28 +2059,28 @@ export const Brutes = {
       const user = await auth(prisma, req);
 
       // Check if user owns the brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.resetVisuals.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
           userId: user.id,
         },
         select: { id: true, gender: true },
-      });
+      }));
 
       if (!brute) {
         throw new Error(translate('bruteNotFound', user));
       }
 
       // Check if brute can change visuals
-      const inventory = await prisma.inventoryItem.findUnique({
+      const inventory = await traced('brutes.resetVisuals.findInventory', () => prisma.inventoryItem.findUnique({
         where: {
           type_bruteId: {
             bruteId: brute.id,
             type: InventoryItemType.visualReset,
           },
         },
-      });
+      }));
 
       if (!inventory) {
         throw new ForbiddenError(translate('unauthorized', user));
@@ -1815,26 +2093,26 @@ export const Brutes = {
       checkBody(user, brute.gender, req.body.body);
 
       // Update the brute body and colors
-      await prisma.brute.update({
+      await traced('brutes.resetVisuals.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data: {
           body: req.body.body,
           colors: req.body.colors,
         },
-      });
+      }));
 
       // Update the brute inventory
       if (inventory.count === 1) {
-        await prisma.inventoryItem.delete({
+        await traced('brutes.resetVisuals.deleteInventoryItem', () => prisma.inventoryItem.delete({
           where: {
             type_bruteId: {
               bruteId: brute.id,
               type: InventoryItemType.visualReset,
             },
           },
-        });
+        }));
       } else {
-        await prisma.inventoryItem.update({
+        await traced('brutes.resetVisuals.updateInventoryItem', () => prisma.inventoryItem.update({
           where: {
             type_bruteId: {
               bruteId: brute.id,
@@ -1847,7 +2125,7 @@ export const Brutes = {
             },
           },
           select: { id: true },
-        });
+        }));
       }
 
       res.send({ success: true });
@@ -1870,7 +2148,7 @@ export const Brutes = {
       }
 
       // Check name for banned words
-      const banned: { count: bigint }[] = await prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${newName.toLowerCase()} LIKE CONCAT('%', word, '%')`;
+      const banned: { count: bigint }[] = await traced('brutes.changeName.checkBannedWords', () => prisma.$queryRaw`SELECT COUNT(*) FROM "BannedWord" WHERE ${newName.toLowerCase()} LIKE CONCAT('%', word, '%')`);
 
       if (typeof banned?.[0]?.count !== 'bigint') {
         throw new Error('Error while checking banned words');
@@ -1880,19 +2158,19 @@ export const Brutes = {
       }
 
       // Check if name is available
-      const count = await prisma.brute.count({
+      const count = await traced('brutes.changeName.checkNameAvailability', () => prisma.brute.count({
         where: {
           name: ilike(newName),
           deletedAt: null,
         },
-      });
+      }));
 
       if (count > 0) {
         throw new ForbiddenError(translate('nameAlreadyTaken', authed));
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.changeName.findBrute', () => prisma.brute.findFirst({
         where: {
           userId: authed.id,
           name: ilike(name),
@@ -1912,7 +2190,7 @@ export const Brutes = {
             },
           },
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
@@ -1938,10 +2216,10 @@ export const Brutes = {
       }
 
       // Update brute name
-      await prisma.brute.update({
+      await traced('brutes.changeName.updateBrute', () => prisma.brute.update({
         where: { id: brute.id },
         data,
-      });
+      }));
 
       // User log
       createUserLog(prisma, {
@@ -1953,11 +2231,11 @@ export const Brutes = {
 
       // Remove name change item
       if (nameChangeItem.count === 1) {
-        await prisma.inventoryItem.delete({
+        await traced('brutes.changeName.deleteInventoryItem', () => prisma.inventoryItem.delete({
           where: { id: nameChangeItem.id },
-        });
+        }));
       } else {
-        await prisma.inventoryItem.update({
+        await traced('brutes.changeName.updateInventoryItem', () => prisma.inventoryItem.update({
           where: { id: nameChangeItem.id },
           data: {
             count: {
@@ -1965,7 +2243,7 @@ export const Brutes = {
             },
           },
           select: { id: true },
-        });
+        }));
       }
 
       res.send({ success: true });
@@ -1980,7 +2258,7 @@ export const Brutes = {
     try {
       const authed = await auth(prisma, req);
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getInventory.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -1989,20 +2267,20 @@ export const Brutes = {
         select: {
           id: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', authed));
       }
 
-      const inventory = await prisma.inventoryItem.findMany({
+      const inventory = await traced('brutes.getInventory.findInventory', () => prisma.inventoryItem.findMany({
         where: {
           OR: [
             { bruteId: brute.id },
             { userId: authed.id },
           ],
         },
-      });
+      }));
 
       res.send(inventory);
     } catch (error) {
@@ -2016,19 +2294,19 @@ export const Brutes = {
     try {
       const user = await auth(prisma, req, { admin: true });
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.giveItem.findBrute', () => prisma.brute.findFirst({
         where: {
           id: req.body.id,
           deletedAt: null,
         },
         select: { id: true },
-      });
+      }));
 
       if (!brute) {
         throw new Error(translate('bruteNotFound', user));
       }
 
-      await prisma.inventoryItem.upsert({
+      await traced('brutes.giveItem.upsertInventoryItem', () => prisma.inventoryItem.upsert({
         where: {
           type_bruteId: {
             type: req.body.item,
@@ -2045,7 +2323,7 @@ export const Brutes = {
             increment: 1,
           },
         },
-      });
+      }));
 
       res.send({ success: true });
     } catch (error) {
@@ -2059,7 +2337,7 @@ export const Brutes = {
     try {
       const authed = await auth(prisma, req);
 
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.getClanIdAsMaster.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -2074,7 +2352,7 @@ export const Brutes = {
             },
           },
         },
-      });
+      }));
 
       if (!brute) {
         res.send({ id: null });
@@ -2100,7 +2378,7 @@ export const Brutes = {
       }
 
       // Get brute
-      const brute = await prisma.brute.findFirst({
+      const brute = await traced('brutes.updateEventRoundWatched.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
           deletedAt: null,
@@ -2113,14 +2391,14 @@ export const Brutes = {
           eventTournamentWatchedDate: true,
           name: true,
         },
-      });
+      }));
 
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
       // Get fight
-      const fight = await prisma.fight.findFirst({
+      const fight = await traced('brutes.updateEventRoundWatched.findFight', () => prisma.fight.findFirst({
         where: {
           id: req.params.fight,
         },
@@ -2128,7 +2406,7 @@ export const Brutes = {
           loser: true,
           tournamentStep: true,
         },
-      });
+      }));
 
       if (!fight) {
         throw new NotFoundError(translate('fightNotFound', user));
@@ -2143,7 +2421,7 @@ export const Brutes = {
       }
 
       // Update brute watched tournament step
-      await prisma.brute.update({
+      await traced('brutes.updateEventRoundWatched.updateBrute', () => prisma.brute.update({
         where: {
           id: brute.id,
         },
@@ -2152,7 +2430,7 @@ export const Brutes = {
           eventTournamentWatchedDate: now.toDate(),
         },
         select: { id: true },
-      });
+      }));
 
       res.send({
         eventTournamentRoundWatched: roundWatched,

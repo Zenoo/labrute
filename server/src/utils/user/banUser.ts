@@ -6,6 +6,7 @@ import { translate } from '../translate.js';
 import { AuthedUser } from '../auth.js';
 import { ServerState } from '../ServerState.js';
 import { deleteUserBrutes } from './deleteUserBrutes.js';
+import { traced } from '../trace.js';
 
 export const banUser = async (
   prisma: PrismaClient,
@@ -13,7 +14,7 @@ export const banUser = async (
   reason: string,
   authed?: AuthedUser,
 ) => {
-  const user = await prisma.user.findFirst({
+  const user = await traced('banUser.getUser', () => prisma.user.findFirst({
     where: { id: userId },
     select: {
       id: true,
@@ -25,13 +26,16 @@ export const banUser = async (
         },
         select: {
           id: true,
+          clanId: true,
+          level: true,
+          ranking: true,
           masterOfClan: {
             select: { id: true },
           },
         },
       },
     },
-  });
+  }));
 
   if (!user) {
     throw new NotFoundError(translate('userNotFound', authed));
@@ -45,13 +49,13 @@ export const banUser = async (
   await deleteUserBrutes(prisma, user);
 
   // Ban user
-  await prisma.user.update({
+  await traced('banUser.updateUser', () => prisma.user.update({
     where: { id: userId },
     data: {
       bannedAt: new Date(),
       banReason: reason,
     },
-  });
+  }));
 
   // User log
   createUserLog(prisma, {
@@ -59,7 +63,16 @@ export const banUser = async (
     userId,
   });
 
-  await ServerState.addBannedFingerprints(prisma, user.fingerprints);
+  // Filter out known fingerprints before banning
+  const fingerprintsToBan: string[] = [];
+  for (const fingerprint of user.fingerprints) {
+    const isKnown = await ServerState.isFingerprintKnown(prisma, fingerprint);
+    if (!isKnown) {
+      fingerprintsToBan.push(fingerprint);
+    }
+  }
+
+  await ServerState.addBannedFingerprints(prisma, fingerprintsToBan);
 
   if (authed) {
     LOGGER.log(`User ${userId} has been banned by ${authed.id}`);

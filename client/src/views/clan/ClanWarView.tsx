@@ -9,6 +9,7 @@ import Link from '../../components/Link';
 import Page from '../../components/Page';
 import StyledButton from '../../components/StyledButton';
 import Text from '../../components/Text';
+import { getLSKeyClanWar } from '../../utils/constants';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
 import { useServer } from '../../hooks/useServer';
@@ -23,7 +24,7 @@ export const ClanWarView = () => {
 
   const [war, setWar] = useState<ClanWarGetResponse | null>(null);
   const [brutes, setBrutes] = useState<ClanWarGetAvailableFightersResponse>([]);
-  const [dayWatched, setDayWatched] = useState(+(localStorage.getItem(`clanWar-${warId}`) ?? ''));
+  const [dayWatched, setDayWatched] = useState(+(localStorage.getItem(getLSKeyClanWar(warId)) ?? ''));
   const [selectedFighters, setSelectedFighters] = useState<string[]>([]);
   const [usedBrutes, setUsedBrutes] = useState<ClanWarGetAvailableFightersResponse>([]);
 
@@ -66,7 +67,7 @@ export const ClanWarView = () => {
   // Update day watched (localStorage)
   const updateDayWatched = (day: number) => () => {
     setDayWatched(day);
-    localStorage.setItem(`clanWar-${warId}`, day.toString());
+    localStorage.setItem(getLSKeyClanWar(warId), day.toString());
   };
 
   // Toggle fighter

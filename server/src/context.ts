@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaClient } from '@labrute/prisma';
 import { isMainThread } from 'node:worker_threads';
 import { Config, emptyConfig, loadConfig } from './config.js';

@@ -1,13 +1,15 @@
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
-import { AchievementName, PrismaClient } from '@labrute/prisma';
+import { AchievementName, Prisma, PrismaClient } from '@labrute/prisma';
+import { traced } from '../trace.js';
+import { DISCORD, LOGGER } from '../../context.js';
 
 export const updateAchievements = async (
   prisma: PrismaClient,
   store: AchievementsStore,
   isTournamentFight: boolean,
 ) => {
-  const bruteAchievements = [];
-  const bruteAchievementsTournamentRelated = [];
+  const bruteAchievements: [string, string, AchievementName, number][] = [];
+  const bruteAchievementsTournamentRelated: [string, AchievementName, number][] = [];
   for (const [bruteId, bruteStore] of Object.entries(store)) {
     // Disable achievements for event or bot brutes
     if (bruteStore.eventId || !bruteStore.userId) {
@@ -26,23 +28,29 @@ export const updateAchievements = async (
 
   try {
     if (bruteAchievementsTournamentRelated.length > 0) {
-      await prisma.$executeRawUnsafe(/* sql */`
-        INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount" , date) VALUES
-        ${bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => `('${bruteId}', '${name}', '${count}' , NOW())`).join(', ')}
+      const tournamentValues = bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${name}::"AchievementName", ${count}::int, NOW())`);
+      await traced('updateAchievements.updateTournamentAchievements', () => prisma.$executeRaw`
+        INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount", date) VALUES
+        ${Prisma.join(tournamentValues)}
         ON CONFLICT(achievement, "bruteId") DO UPDATE SET "achievementCount" = "TournamentAchievement"."achievementCount" + excluded."achievementCount";
       `);
     }
   } catch (error) {
-    console.error(error);
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+    LOGGER.log(`Error updating tournament achievements: ${error.message}`);
+    DISCORD().sendError(error);
   }
 
   try {
     if (bruteAchievements.length > 0) {
-      await prisma.$executeRawUnsafe(/* sql */`
+      const achievementValues = bruteAchievements.map(([bruteId, userId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${userId}::uuid, ${name}::"AchievementName", ${count}::int)`);
+      await traced('updateAchievements.updateAchievements', () => prisma.$executeRaw`
         INSERT INTO "Achievement"("bruteId", "userId", name, count) VALUES
-        ${bruteAchievements.map(([bruteId, userId, name, count]) => `('${bruteId}', '${userId}', '${name}', ${count})`).join(', ')}
+        ${Prisma.join(achievementValues)}
         ON CONFLICT(name, "bruteId") DO UPDATE SET count = CASE
-        WHEN excluded.name = '${AchievementName.maxDamage}' THEN
+        WHEN excluded.name = ${AchievementName.maxDamage}::"AchievementName" THEN
           GREATEST("Achievement".count, excluded.count)
         ELSE
           "Achievement".count + excluded.count
@@ -50,6 +58,10 @@ export const updateAchievements = async (
       `);
     }
   } catch (error) {
-    console.error(error);
+    if (!(error instanceof Error)) {
+      throw error;
+    }
+    LOGGER.log(`Error updating achievements: ${error.message}`);
+    DISCORD().sendError(error);
   }
 };

@@ -68,9 +68,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'no-nested-ternary': 'off',
-    "object-curly-newline": ["error", {
-        "ImportDeclaration": "never",
-    }],
+    "object-curly-newline": 'off',
     'import/order': 'off',
     "import/no-unresolved": "error",
     "jsx-a11y/anchor-is-valid": "off",

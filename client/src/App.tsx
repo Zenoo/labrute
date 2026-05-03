@@ -5,6 +5,7 @@ import React, { Suspense, useMemo, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { useRoutes } from 'react-router-dom';
 import Loader from './components/Loader';
+import { LS_KEY_THEME } from './utils/constants';
 import { AlertProvider } from './hooks/useAlert';
 import { useAnalytics } from './hooks/useAnalytics';
 import { AuthProvider } from './hooks/useAuth';
@@ -23,7 +24,7 @@ const App = () => {
   useAnalytics();
   const routing = useRoutes(routes);
   const [mode, setMode] = useState<'light' | 'dark'>(
-    (localStorage.getItem('mode') === 'dark') ? 'dark' : 'light'
+    (localStorage.getItem(LS_KEY_THEME) === 'dark') ? 'dark' : 'light'
   );
   const colorMode = useMemo(
     () => ({
@@ -31,7 +32,7 @@ const App = () => {
         setMode((prevMode) => {
           const newMode = prevMode === 'light' ? 'dark' : 'light';
 
-          localStorage.setItem('mode', newMode);
+          localStorage.setItem(LS_KEY_THEME, newMode);
 
           return newMode;
         });

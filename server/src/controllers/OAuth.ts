@@ -4,8 +4,15 @@ import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { GetAccessTokenError, RfcOauthClient } from '@eternaltwin/oauth-client-http/rfc-oauth-client';
 import {
   checkPredictableHeaders,
-  ExpectedError, ForbiddenError, OAuthTokenRequest,
-  UsersAuthenticateResponse, UserWithBrutesBodyColor, Version,
+  ExpectedError,
+  ForbiddenError,
+  FORWARDED_FOR_HEADER,
+  OAuthTokenRequest,
+  PREDICTABLE_HEADERS_PREFIX,
+  REAL_IP_HEADER,
+  UsersAuthenticateResponse,
+  UserWithBrutesBodyColor,
+  Version,
 } from '@labrute/core';
 import {
   InventoryItemType, Prisma, PrismaClient, UserLogType,
@@ -21,6 +28,7 @@ import { translate } from '../utils/translate.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
 import { banUser } from '../utils/user/banUser.js';
 import { DISCORD } from '../context.js';
+import { traced } from '../utils/trace.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -78,7 +86,11 @@ export class OAuth {
       trace.getActiveSpan()?.addEvent('getAuthSelf', { 'user.id': self.user.id });
 
       // Get user's IP
-      const ip = req.headers['x-forwarded-for']?.toString().split(', ')[0] || req.headers['x-real-ip']?.toString().split(', ')[0] || req.socket.remoteAddress;
+      const forwardedFor = req.headers[FORWARDED_FOR_HEADER];
+      const realIp = req.headers[REAL_IP_HEADER];
+      const ip = forwardedFor?.toString().split(', ')[0]
+        || realIp?.toString().split(', ')[0]
+        || req.socket.remoteAddress;
 
       if (ip) {
         // Check if the IP is banned
@@ -94,7 +106,7 @@ export class OAuth {
       let user: UserWithBrutesBodyColor | null = null;
 
       try {
-        user = await this.#prisma.user.upsert({
+        user = await traced('oauth.token.upsertUser', () => this.#prisma.user.upsert({
           where: { id: etwinUser.id },
           update: {
             connexionToken: token.accessToken,
@@ -127,13 +139,13 @@ export class OAuth {
               where: { read: false },
             },
           },
-        });
+        }));
       } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
           switch (error.code) {
             case 'P2002': {
               // Upsert race condition, update the user
-              user = await this.#prisma.user.update({
+              user = await traced('oauth.token.updateUser', () => this.#prisma.user.update({
                 where: { id: etwinUser.id },
                 data: {
                   connexionToken: token.accessToken,
@@ -154,7 +166,7 @@ export class OAuth {
                     where: { read: false },
                   },
                 },
-              });
+              }));
               break;
             }
             default: {
@@ -170,14 +182,14 @@ export class OAuth {
 
       // Handle new fingerprints
       if (!user.fingerprints.includes(fingerprint)) {
-        await this.#prisma.user.update({
+        await traced('oauth.token.updateUserFingerprints', () => this.#prisma.user.update({
           where: { id: user.id },
           data: {
             fingerprints: {
               push: fingerprint,
             },
           },
-        });
+        }));
         user.fingerprints.push(fingerprint);
       }
 
@@ -185,13 +197,13 @@ export class OAuth {
       if (user.bannedAt) {
         // Revert deletion if the user logs in after deleting their account
         if (user.banReason === 'account_deleted') {
-          await this.#prisma.user.update({
+          await traced('oauth.token.revertUserBan', () => this.#prisma.user.update({
             where: { id: user.id },
             data: {
               bannedAt: null,
               banReason: null,
             },
-          });
+          }));
           user.bannedAt = null;
           user.banReason = null;
         } else {
@@ -211,7 +223,13 @@ export class OAuth {
         checkPredictableHeaders(req.headers);
       } catch (_error) {
         await banUser(this.#prisma, user.id, 'headers_tampering');
-        DISCORD().logObject(Object.fromEntries(Object.entries(req.headers).filter(([k]) => k.startsWith('x-verif-x-'))), 'Headers tampering detected').catch(() => { /* ignore */ });
+        DISCORD().logObject(
+          Object.fromEntries(
+            Object.entries(req.headers)
+              .filter(([k]) => k.startsWith(PREDICTABLE_HEADERS_PREFIX)),
+          ),
+          'Headers tampering detected',
+        ).catch(() => { /* ignore */ });
         throw new ForbiddenError(translate('banReason.headers_tampering', user));
       }
 

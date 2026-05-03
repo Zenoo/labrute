@@ -5,11 +5,13 @@ import {
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { LOGGER } from '../context.js';
+import { traced } from './trace.js';
 
 let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
 let BANNED_FINGERPRINTS: string[] | null = null;
+let KNOWN_FINGERPRINTS: string[] | null = null;
 let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
 
@@ -22,27 +24,27 @@ const setReady = (ready: boolean) => {
 const isReady = () => SERVER_READY;
 
 const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) => {
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.setGlobalTournamentValid.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
-  });
+  }));
   if (!serverState) {
-    await prisma.serverState.create({
+    await traced('serverState.setGlobalTournamentValid.createServerState', () => prisma.serverState.create({
       data: { globalTournamentValid: valid },
       select: { id: true },
-    });
+    }));
   } else {
-    await prisma.serverState.update({
+    await traced('serverState.setGlobalTournamentValid.updateServerState', () => prisma.serverState.update({
       where: { id: serverState.id },
       data: { globalTournamentValid: valid },
       select: { id: true },
-    });
+    }));
   }
 };
 
 const isGlobalTournamentValid = async (prisma: PrismaClient) => {
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.isGlobalTournamentValid.getServerState', () => prisma.serverState.findFirst({
     select: { globalTournamentValid: true },
-  });
+  }));
 
   return serverState?.globalTournamentValid ?? false;
 };
@@ -52,11 +54,11 @@ const getModifiers = async (prisma: PrismaClient) => {
     return MODIFIERS;
   }
 
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.getModifiers.getServerState', () => prisma.serverState.findFirst({
     select: {
       activeModifiers: true,
     },
-  });
+  }));
 
   MODIFIERS = (serverState?.activeModifiers ?? [])
     .reduce<Modifiers>((acc, modifier) => {
@@ -72,40 +74,40 @@ const setModifiers = async (
   modifiers: Modifiers,
 ) => {
   const tomorrow = dayjs.utc().add(1, 'day').toDate();
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.setModifiers.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
-  });
+  }));
 
   const modifierList = keys(modifiers);
 
   if (!serverState) {
-    await prisma.serverState.create({
+    await traced('serverState.setModifiers.createServerState', () => prisma.serverState.create({
       data: {
         activeModifiers: modifierList,
         modifiersEndAt: tomorrow,
       },
       select: { id: true },
-    });
+    }));
   } else {
-    await prisma.serverState.update({
+    await traced('serverState.setModifiers.updateServerState', () => prisma.serverState.update({
       where: { id: serverState.id },
       data: {
         activeModifiers: modifierList,
         modifiersEndAt: tomorrow,
       },
       select: { id: true },
-    });
+    }));
   }
 
   MODIFIERS = modifiers;
 };
 
 const areModifiersExpired = async (prisma: PrismaClient) => {
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.areModifiersExpired.getServerState', () => prisma.serverState.findFirst({
     select: {
       modifiersEndAt: true,
     },
-  });
+  }));
 
   return !serverState?.modifiersEndAt || dayjs.utc(serverState.modifiersEndAt).isSameOrBefore(dayjs.utc(), 'day');
 };
@@ -115,9 +117,9 @@ const getBannedIps = async (prisma: PrismaClient) => {
     return BANNED_IPS;
   }
 
-  const bannedIps = await prisma.bannedIp.findMany({
+  const bannedIps = await traced('serverState.getBannedIps.getBannedIps', () => prisma.bannedIp.findMany({
     select: { id: true },
-  });
+  }));
 
   BANNED_IPS = bannedIps.map((ip) => ip.id);
 
@@ -128,9 +130,9 @@ const addBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   const bannedIps = await getBannedIps(prisma);
   const newIps = ips.filter((ip) => !bannedIps.includes(ip));
 
-  await prisma.bannedIp.createMany({
+  await traced('serverState.addBannedIps.createBannedIps', () => prisma.bannedIp.createMany({
     data: newIps.map((ip) => ({ id: ip })),
-  });
+  }));
 
   if (BANNED_IPS) BANNED_IPS.push(...newIps);
 };
@@ -144,11 +146,59 @@ const isIpBanned = async (prisma: PrismaClient, ip: string) => {
 const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   const bannedIps = await getBannedIps(prisma);
 
-  await prisma.bannedIp.deleteMany({
+  await traced('serverState.removeBannedIps.deleteBannedIps', () => prisma.bannedIp.deleteMany({
     where: { id: { in: ips } },
-  });
+  }));
 
   if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
+};
+
+const getKnownFingerprints = async (prisma: PrismaClient) => {
+  if (KNOWN_FINGERPRINTS) {
+    return KNOWN_FINGERPRINTS;
+  }
+
+  const knownFingerprints = await traced('serverState.getKnownFingerprints.getKnownFingerprints', () => prisma.knownFingerprint.findMany({
+    select: { id: true },
+  }));
+
+  KNOWN_FINGERPRINTS = knownFingerprints.map((fp) => fp.id);
+
+  return KNOWN_FINGERPRINTS;
+};
+
+const addKnownFingerprint = async (
+  prisma: PrismaClient,
+  fingerprint: string,
+  description?: string,
+) => {
+  const knownFingerprints = await getKnownFingerprints(prisma);
+
+  if (knownFingerprints.includes(fingerprint)) {
+    return;
+  }
+
+  await traced('serverState.addKnownFingerprint.createKnownFingerprint', () => prisma.knownFingerprint.create({
+    data: { id: fingerprint, description },
+  }));
+
+  if (KNOWN_FINGERPRINTS) KNOWN_FINGERPRINTS.push(fingerprint);
+};
+
+const isFingerprintKnown = async (prisma: PrismaClient, fingerprint: string) => {
+  const knownFingerprints = await getKnownFingerprints(prisma);
+
+  return knownFingerprints.includes(fingerprint);
+};
+
+const removeKnownFingerprint = async (prisma: PrismaClient, fingerprint: string) => {
+  await traced('serverState.removeKnownFingerprint.deleteKnownFingerprint', () => prisma.knownFingerprint.delete({
+    where: { id: fingerprint },
+  }));
+
+  if (KNOWN_FINGERPRINTS) {
+    KNOWN_FINGERPRINTS = KNOWN_FINGERPRINTS.filter((fp) => fp !== fingerprint);
+  }
 };
 
 const getBannedFingerprints = async (prisma: PrismaClient) => {
@@ -156,9 +206,9 @@ const getBannedFingerprints = async (prisma: PrismaClient) => {
     return BANNED_FINGERPRINTS;
   }
 
-  const bannedFingerprints = await prisma.bannedFingerprint.findMany({
+  const bannedFingerprints = await traced('serverState.getBannedFingerprints.getBannedFingerprints', () => prisma.bannedFingerprint.findMany({
     select: { id: true },
-  });
+  }));
 
   BANNED_FINGERPRINTS = bannedFingerprints.map((fp) => fp.id);
 
@@ -169,14 +219,20 @@ const addBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[
   const bannedFingerprints = await getBannedFingerprints(prisma);
   const newFingerprints = fingerprints.filter((fp) => !bannedFingerprints.includes(fp));
 
-  await prisma.bannedFingerprint.createMany({
+  await traced('serverState.addBannedFingerprints.createBannedFingerprints', () => prisma.bannedFingerprint.createMany({
     data: newFingerprints.map((fp) => ({ id: fp })),
-  });
+  }));
 
   if (BANNED_FINGERPRINTS) BANNED_FINGERPRINTS.push(...newFingerprints);
 };
 
 const isFingerprintBanned = async (prisma: PrismaClient, fingerprint: string) => {
+  const knownFingerprints = await getKnownFingerprints(prisma);
+
+  if (knownFingerprints.includes(fingerprint)) {
+    return false;
+  }
+
   const bannedFingerprints = await getBannedFingerprints(prisma);
 
   return bannedFingerprints.includes(fingerprint);
@@ -185,9 +241,9 @@ const isFingerprintBanned = async (prisma: PrismaClient, fingerprint: string) =>
 const removeBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[]) => {
   const bannedFingerprints = await getBannedFingerprints(prisma);
 
-  await prisma.bannedFingerprint.deleteMany({
+  await traced('serverState.removeBannedFingerprints.deleteBannedFingerprints', () => prisma.bannedFingerprint.deleteMany({
     where: { id: { in: fingerprints } },
-  });
+  }));
 
   if (BANNED_FINGERPRINTS) {
     BANNED_FINGERPRINTS = bannedFingerprints.filter((fp) => !fingerprints.includes(fp));
@@ -195,23 +251,23 @@ const removeBannedFingerprints = async (prisma: PrismaClient, fingerprints: stri
 };
 
 const setNextModifiers = async (prisma: PrismaClient, modifiers: Modifiers) => {
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.setNextModifiers.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
-  });
+  }));
 
   const modifierList = keys(modifiers);
 
   if (!serverState) {
-    await prisma.serverState.create({
+    await traced('serverState.setNextModifiers.createServerState', () => prisma.serverState.create({
       data: { nextModifiers: modifierList },
       select: { id: true },
-    });
+    }));
   } else {
-    await prisma.serverState.update({
+    await traced('serverState.setNextModifiers.updateServerState', () => prisma.serverState.update({
       where: { id: serverState.id },
       data: { nextModifiers: modifierList },
       select: { id: true },
-    });
+    }));
   }
 
   NEXT_MODIFIERS = modifiers;
@@ -222,11 +278,11 @@ const getNextModifiers = async (prisma: PrismaClient) => {
     return NEXT_MODIFIERS;
   }
 
-  const serverState = await prisma.serverState.findFirst({
+  const serverState = await traced('serverState.getNextModifiers.getServerState', () => prisma.serverState.findFirst({
     select: {
       nextModifiers: true,
     },
-  });
+  }));
 
   return (serverState?.nextModifiers ?? [])
     .reduce<Modifiers>((acc, modifier) => {
@@ -240,9 +296,9 @@ const getCurrentEvent = async (prisma: PrismaClient) => {
     return CURRENT_EVENT;
   }
 
-  const event = await prisma.event.findFirst({
+  const event = await traced('serverState.getCurrentEvent.getEvent', () => prisma.event.findFirst({
     where: { status: { not: EventStatus.finished } },
-  });
+  }));
 
   CURRENT_EVENT = event;
 
@@ -273,4 +329,8 @@ export const ServerState = {
   addBannedFingerprints,
   isFingerprintBanned,
   removeBannedFingerprints,
+  getKnownFingerprints,
+  addKnownFingerprint,
+  isFingerprintKnown,
+  removeKnownFingerprint,
 };

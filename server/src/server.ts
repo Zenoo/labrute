@@ -1,6 +1,6 @@
 import express = require('express');
 
-import { Version } from '@labrute/core';
+import { CSRF_COOKIE_NAME, CSRF_TOKEN_MAX_AGE, Version } from '@labrute/core';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -34,11 +34,12 @@ export function main(cx: ServerContext) {
     doubleCsrfProtection,
   } = doubleCsrf({
     getSecret: () => cx.config.csrfSecret,
-    cookieName: 'csrfToken',
+    cookieName: CSRF_COOKIE_NAME,
     cookieOptions: {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
+      maxAge: CSRF_TOKEN_MAX_AGE,
     },
     ignoredMethods: ['HEAD', 'OPTIONS'],
     // Disable CSRF for /api/user/:userId/done since it's used externally by other games

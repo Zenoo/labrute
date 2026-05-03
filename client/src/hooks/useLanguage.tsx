@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { getInitialLanguage } from '../i18n';
+import { LS_KEY_LANGUAGE } from '../utils/constants';
 import dayjs from 'dayjs';
 
 interface LanguageContextInterface {
@@ -48,7 +49,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     dayjs.locale(language);
 
     // Update language in localStorage
-    localStorage.setItem('language', language);
+    localStorage.setItem(LS_KEY_LANGUAGE, language);
   }, [i18n, language]);
 
   const methods = useMemo(() => ({

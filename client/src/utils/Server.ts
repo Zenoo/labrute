@@ -1,4 +1,4 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, AdminPanelBrute, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteUpdateEventRoundWatchedResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetForAdminResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest, ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse, EventListResponse, FightCreateResponse, FightGetResponse, GetFingerprintResponse, HookBrute, LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse, OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse, UserTransferBruteRequest, UserUpdateSettingsRequest } from '@labrute/core';
+import { AchievementGetRankingsResponse, AchievementsGetResponse, BruteGetForAdminRequest, BruteGetForAdminResponse, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankRequest, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetNeighborsForRankRequest, BrutesGetNeighborsForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteUpdateEventRoundWatchedResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanGetForAdminResponse, ClanGetResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanSort, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest, ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse, EventListResponse, FightCreateResponse, FightGetResponse, GetFingerprintResponse, HookBrute, KnownFingerprintAddRequest, KnownFingerprintListResponse, KnownFingerprintRemoveRequest, LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse, OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminRequest, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse, UserTransferBruteRequest, UserUpdateSettingsRequest } from '@labrute/core';
 import { Brute, BruteReportReason, BruteReportStatus, Clan, DestinyChoiceSide, Gender, InventoryItemType, Lang, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
 import Fetch from './Fetch';
 import { GetResult } from '@fingerprintjs/fingerprintjs';
@@ -13,7 +13,7 @@ const Server = {
   },
   User: {
     authenticate: (params: UsersAuthenticateRequest) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', params, 'POST'),
-    getForAdmin: (id: string) => Fetch<UserGetAdminResponse>(`/api/user/${id}/admin`),
+    getForAdmin: (params: UserGetAdminRequest) => Fetch<UserGetAdminResponse>(`/api/user/${params.identifier}/admin`),
     runDailyJob: () => Fetch<never>('/api/run-daily-job', {}, 'PATCH'),
     changeLanguage: (lang: Lang) => Fetch<never>('/api/user/change-language', { lang }, 'PUT'),
     changeFightSpeed: (fightSpeed: number) => Fetch<never>('/api/user/change-fight-speed', { fightSpeed }, 'PUT'),
@@ -25,6 +25,9 @@ const Server = {
     unban: (id: string) => Fetch<never>(`/api/user/${id}/unban`, {}, 'PATCH'),
     banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
     multipleAccounts: () => Fetch<UserMultipleAccountsListResponse>('/api/user/multiple-accounts'),
+    knownFingerprintsList: () => Fetch<KnownFingerprintListResponse>('/api/user/known-fingerprints'),
+    addKnownFingerprint: (data: KnownFingerprintAddRequest) => Fetch<{ success: boolean }>('/api/user/known-fingerprints', data, 'POST'),
+    removeKnownFingerprint: (data: KnownFingerprintRemoveRequest) => Fetch<{ success: boolean }>('/api/user/known-fingerprints', data, 'DELETE'),
     getNextModifiers: () => Fetch<UserGetNextModifiersResponse>('/api/user/next-modifiers'),
     setNextModifiers: (modifiers: Modifiers) => Fetch<never>('/api/user/next-modifiers', { modifiers }, 'PUT'),
     toggleFollow: (bruteId: string) => Fetch<never>(`/api/user/toggle-follow/${bruteId}`, {}, 'PATCH'),
@@ -35,7 +38,7 @@ const Server = {
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),
-    getForAdmin: (name: string) => Fetch<AdminPanelBrute>(`/api/brute/${name}/for-admin`),
+    getForAdmin: (params: BruteGetForAdminRequest) => Fetch<BruteGetForAdminResponse>(`/api/brute/${params.name}/for-admin/${params.includeDeleted ?? 'false'}`),
     getForVersus: (name: string) => Fetch<BrutesGetForVersusResponse>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     create: (
@@ -62,7 +65,8 @@ const Server = {
     ) => Fetch<Brute>(`/api/brute/${name}/level-up`, { choice }, 'PATCH'),
     getOpponents: (name: string, level: number) => Fetch<BrutesGetOpponentsResponse>(`/api/brute/${name}/get-opponents/${level}`),
     sacrifice: (name: string) => Fetch<{ gold: number }>(`/api/brute/${name}`, {}, 'DELETE'),
-    getForRank: ({ name, rank }: { name: string, rank?: number }) => Fetch<BrutesGetForRankResponse>(`/api/brute/${name}/ranking-data${typeof rank === 'undefined' ? '' : `/${rank}`}`),
+    getForRank: ({ name, rank }: BrutesGetForRankRequest) => Fetch<BrutesGetForRankResponse>(`/api/brute/${name}/ranking-data/${rank}`),
+    getNeighborsForRank: ({ name, rank }: BrutesGetNeighborsForRankRequest) => Fetch<BrutesGetNeighborsForRankResponse>(`/api/brute/${name}/neighbors${typeof rank === 'undefined' ? '' : `/${rank}`}`),
     getRanking: (name: string) => Fetch<BrutesGetRankingResponse>(`/api/brute/${name}/ranking`),
     exists: (name: string) => Fetch<BrutesExistsResponse>(`/api/brute/${name}/exists`),
     rankUp: (name: string) => Fetch<never>(`/api/brute/${name}/rank-up`, {}, 'PATCH'),

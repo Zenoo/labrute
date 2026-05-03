@@ -1,7 +1,7 @@
 import { UserGetAdminResponse } from '@labrute/core';
 import { AchievementName, Lang } from '@labrute/prisma';
 import { Block } from '@mui/icons-material';
-import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack, Tooltip } from '@mui/material';
+import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import FantasyButton from '../../components/FantasyButton';
@@ -12,6 +12,7 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
+import dayjs from 'dayjs';
 
 const UserAdminView = () => {
   const { t } = useTranslation();
@@ -19,19 +20,19 @@ const UserAdminView = () => {
   const { user: admin } = useAuth();
   const Server = useServer();
 
-  const [userId, setUserId] = React.useState('');
+  const [userIdOrName, setUserIdOrName] = React.useState('');
   const [user, setUser] = React.useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
   const [achievements, setAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
   const [initialAchievements, setInitialAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
 
-  // Change user id
-  const changeUserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(e.target.value);
+  // Change user id or name
+  const changeUserIdOrName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserIdOrName(e.target.value.trim());
   }, []);
 
   // Fetch user
   const updateUser = useCallback(() => {
-    Server.User.getForAdmin(userId).then((u) => {
+    Server.User.getForAdmin({ identifier: userIdOrName }).then((u) => {
       setUser({
         id: u.id,
         lang: u.lang,
@@ -53,23 +54,25 @@ const UserAdminView = () => {
         displayOpponentDetails: u.displayOpponentDetails,
         lastSeen: u.lastSeen,
         transferedBrutesCount: u.transferedBrutesCount,
+        brutes: u.brutes,
+        otherUsersSharingFingerprints: u.otherUsersSharingFingerprints,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference
       setInitialAchievements(u.achievements.map((a) => ({ ...a })));
     }).catch(catchError(Alert));
-  }, [Alert, Server.User, userId]);
+  }, [Alert, Server.User, userIdOrName]);
 
   // Trigger user fetch when userId changes (debounced for 1s)
   useEffect(() => {
-    if (!userId) return undefined;
+    if (!userIdOrName) return undefined;
 
     const timeout = setTimeout(() => {
       updateUser();
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [userId, updateUser]);
+  }, [userIdOrName, updateUser]);
 
   // Save user
   const saveUser = useCallback(() => {
@@ -107,19 +110,81 @@ const UserAdminView = () => {
           <Stack spacing={2}>
             <Text bold h3 smallCaps color="secondary">User</Text>
             <StyledInput
-              onChange={changeUserId}
-              value={userId}
+              onChange={changeUserIdOrName}
+              value={userIdOrName}
             />
             {user && (
               <>
                 <Text h2 smallCaps>
-                  {user.name}
+                  {user.name} ({user.id})
                   {user.bannedAt && (
                     <Tooltip title={user.banReason || ''}>
                       <Block color="error" sx={{ ml: 1 }} />
                     </Tooltip>
                   )}
                 </Text>
+                <TableContainer component={Paper}>
+                  <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Brutes</Text>
+                  <Table sx={{ minWidth: 650 }} size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="right">ID</TableCell>
+                        <TableCell align="right">Deleted At</TableCell>
+                        <TableCell align="right">Deletion Reason</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {user.brutes.map((brute) => (
+                        <TableRow
+                          key={brute.name}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {brute.name}
+                          </TableCell>
+                          <TableCell align="right">{brute.id}</TableCell>
+                          <TableCell align="right">{brute.deletedAt ? dayjs(brute.deletedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
+                          <TableCell align="right">{brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : ''}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TableContainer component={Paper}>
+                  <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing fingerprints ({user.otherUsersSharingFingerprints.length + 1})</Text>
+                  <Table sx={{ minWidth: 650 }} size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="right">ID</TableCell>
+                        <TableCell align="right">Fingerprints</TableCell>
+                        <TableCell align="right">Created At</TableCell>
+                        <TableCell align="right">Last seen</TableCell>
+                        <TableCell align="right">Banned At</TableCell>
+                        <TableCell align="right">Ban Reason</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {[user, ...user.otherUsersSharingFingerprints].map((otherUser) => (
+                        <TableRow
+                          key={otherUser.id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {otherUser.name}
+                          </TableCell>
+                          <TableCell align="right">{otherUser.id}</TableCell>
+                          <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
+                          <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                          <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                          <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
+                          <TableCell align="right">{otherUser.banReason ? t(`banReason.${otherUser.banReason}`) : ''}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <FormControl fullWidth>

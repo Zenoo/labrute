@@ -1,5 +1,6 @@
 import { ARENA_OPPONENTS_COUNT, ARENA_OPPONENTS_MAX_GAP } from '@labrute/core';
 import { Brute, PrismaClient } from '@labrute/prisma';
+import { traced } from '../trace.js';
 
 export const getOpponents = async (
   prisma: PrismaClient,
@@ -11,10 +12,10 @@ export const getOpponents = async (
     level: brute.level,
     deletedAt: null,
   };
-  const bruteIds = await prisma.brute.findMany({
+  const bruteIds = await traced('getOpponents.findBruteIds', () => prisma.brute.findMany({
     where: bruteSearch,
     select: { id: true },
-  }).then((brutes) => brutes.map((b) => b.id));
+  }).then((brutes) => brutes.map((b) => b.id)));
 
   const randomlySelectedBruteIds: string[] = [];
 
@@ -39,7 +40,7 @@ export const getOpponents = async (
 
   const opponents = [];
   for (const bruteId of randomlySelectedBruteIds) {
-    const opponent = await prisma.brute.findFirst({
+    const opponent = await traced('getOpponents.findOpponent', () => prisma.brute.findFirst({
       where: {
         ...bruteSearch,
         id: bruteId,
@@ -71,7 +72,7 @@ export const getOpponents = async (
         pets: true,
         eventId: true,
       },
-    });
+    }));
 
     if (opponent) {
       opponents.push(opponent);
@@ -88,10 +89,10 @@ export const getOpponents = async (
       },
       deletedAt: null,
     };
-    const additionalBruteIds = await prisma.brute.findMany({
+    const additionalBruteIds = await traced('getOpponents.findAdditionalBruteIds', () => prisma.brute.findMany({
       where: additionalBruteSearch,
       select: { id: true },
-    }).then((brutes) => brutes.map((b) => b.id));
+    }).then((brutes) => brutes.map((b) => b.id)));
 
     const additionalRandomlySelectedBruteIds: string[] = [];
 
@@ -116,12 +117,12 @@ export const getOpponents = async (
 
     const additionalOpponents: Brute[] = [];
     for (const bruteId of additionalRandomlySelectedBruteIds) {
-      const opponent = await prisma.brute.findFirst({
+      const opponent = await traced('getOpponents.findAdditionalOpponent', () => prisma.brute.findFirst({
         where: {
           ...additionalBruteSearch,
           id: bruteId,
         },
-      });
+      }));
 
       if (opponent) {
         additionalOpponents.push(opponent);

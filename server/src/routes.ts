@@ -49,7 +49,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   // User
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.patch('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
-  app.get('/api/user/:id/admin', Users.get(prisma));
+  app.get('/api/user/:identifier/admin', Users.get(prisma));
   app.put('/api/user/change-language', Users.changeLanguage(prisma));
   app.put('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
   app.put('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));
@@ -60,6 +60,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/user/:userId/unban', Users.unban(prisma));
   app.get('/api/user/banlist', Users.bannedList(prisma));
   app.get('/api/user/multiple-accounts', Users.multipleAccountsList(prisma));
+  app.get('/api/user/known-fingerprints', Users.knownFingerprintsList(prisma));
+  app.post('/api/user/known-fingerprints', Users.addKnownFingerprint(prisma));
+  app.delete('/api/user/known-fingerprints', Users.removeKnownFingerprint(prisma));
   app.get('/api/user/next-modifiers', Users.getNextModifiers(prisma));
   app.put('/api/user/next-modifiers', Users.setNextModifiers(prisma));
   app.patch('/api/user/toggle-follow/:bruteId', Users.toggleFollow(prisma));
@@ -71,7 +74,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
   app.get('/api/brute/:name/for-hook', Brutes.getForHook(prisma));
-  app.get('/api/brute/:name/for-admin', Brutes.getForAdmin(prisma));
+  app.get('/api/brute/:name/for-admin/:includeDeleted', Brutes.getForAdmin(prisma));
   app.get('/api/brute/:name/fights-left', Brutes.getFightsLeft(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
   app.put('/api/brute', Brutes.create(prisma));
@@ -80,7 +83,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.get('/api/brute/:name/get-opponents/:level', Brutes.getOpponents(prisma));
   app.delete('/api/brute/:name', Brutes.sacrifice(prisma));
   app.get('/api/brute/:name/ranking-data/:rank', Brutes.getForRank(prisma));
-  app.get('/api/brute/:name/ranking-data', Brutes.getForRank(prisma));
+  app.get('/api/brute/:name/neighbors/:rank', Brutes.getNeighborsForRank(prisma));
   app.get('/api/brute/:name/ranking', Brutes.getRanking(prisma));
   app.get('/api/brute/:name/exists', Brutes.exists(prisma));
   app.patch('/api/brute/:name/rank-up', Brutes.rankUp(prisma));
@@ -123,7 +126,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.post('/api/achievements', Achievements.getForUser(prisma));
   // app.get('/api/achievements/titles-as-csv', Achievements.generateTitlesCSV);
   app.get('/api/achievements/:name', Achievements.getForBrute(prisma));
-  app.get('/api/achievements/rankings/all', Achievements.getRankings(prisma));
+  app.get('/api/achievements/rankings/all', Achievements.getRankings);
 
   // BruteReport
   app.get('/api/report/list/:status/:page', BruteReports.list(prisma));
