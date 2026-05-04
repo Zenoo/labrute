@@ -609,7 +609,9 @@ export const SkillModifiers: Record<
     [FightStat.HIT_SPEED]: { percent: [-1, -1, -1] },
   },
   [SkillName.vampirism]: {},
-  [SkillName.chaining]: {},
+  [SkillName.chaining]: {
+    [FightStat.COMBO]: { percent: [0, 0.1, 0.2] },
+  },
   [SkillName.haste]: {
     [FightStat.CRITICAL_CHANCE]: { percent: [0.05, 0.1, 0.15] },
   },
@@ -631,6 +633,8 @@ export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, nu
   [SkillName.ironHead]: [0.4, 0.5, 0.6],
   [SkillName.chef]: [1.5, 2, 2.5],
   [SkillName.spy]: [0.2, 0.25, 0.3],
+  [SkillName.saboteur]: [100, 150, 200],
+  [SkillName.backup]: [2.8, 3.3, 3.8],
 };
 
 export const SkillDamageModifiers = Object.entries(SkillModifiers)

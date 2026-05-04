@@ -814,7 +814,7 @@ const drawWeapon = (
     fighter.sabotagedWeapon = null;
 
     // Increase own initiative
-    fighter.initiative += 1;
+    fighter.initiative += (fighter.sabotagedWeaponInitiativeMalus ?? 100) / 100;
 
     return true;
   }

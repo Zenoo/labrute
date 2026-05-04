@@ -618,6 +618,9 @@ const Main = () => {
           '.current-tier': {
             fontWeight: 'bold',
           },
+          '.no-break': {
+            whiteSpace: 'nowrap',
+          },
         }}
         />
         <Outlet />

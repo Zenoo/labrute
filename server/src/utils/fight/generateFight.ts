@@ -112,6 +112,7 @@ export interface DetailedFighter {
   // Pre fight sabotage
   saboteur: boolean;
   sabotagedWeapon: Tiered<Weapon> | null;
+  sabotagedWeaponInitiativeMalus?: number;
   // Status effects
   poisonedBy: number | null; // Fighter index
   trapped: boolean;

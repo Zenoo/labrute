@@ -89,11 +89,19 @@ const handleSkills = (
         case SkillName.ironHead:
           fighter[skill.name] = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
           break;
+        case SkillName.saboteur:
+          fighter.sabotagedWeaponInitiativeMalus = ExtraTieredSkillData[
+            SkillName.saboteur
+          ]?.[skill.tier - 1] ?? 0;
+          break;
         case SkillName.chef:
           // Nothing to do, the poison is applied in fightMethods
           break;
         case SkillName.spy:
           // Nothing to do, the damage reduction is applied in generateFight
+          break;
+        case SkillName.backup:
+          // Nothing to do, the intitiative is handled when creating the backup fighter
           break;
         default:
           throw new Error(`No extra handling defined for skill ${skill.name}`);
@@ -367,7 +375,9 @@ export const getFighters = ({
         type: 'brute' as const,
         master: backupMaster.id,
         arrivesAtInitiative: arrivesAt,
-        leavesAtInitiative: arrivesAt + 2.8,
+        leavesAtInitiative: arrivesAt + (ExtraTieredSkillData[SkillName.backup]?.[
+          backupMaster.skills[SkillName.backup] ?? 0
+        ] ?? 0),
         maxHp: backup.hp,
         hp: backup.hp,
         strength: backup.strengthValue,
