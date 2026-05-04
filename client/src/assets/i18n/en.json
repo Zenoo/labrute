@@ -322,7 +322,7 @@
   "firstStrike.desc": "Your opponents enter the arena slowly, but you prefer to get stuck in straight away! You're always the first to attack!",
   "resistant": "Resistant",
   "resistant.desc": "It takes your opponents endless blows to knock you out. It takes at least 5 blows before you feel anything",
-  "resistant.effect": "Opponent's blows can only decrease your health bar by 20%.",
+  "resistant.effect": "Opponent's blows can only decrease your health bar by {{stats}}%.",
   "counterAttack": "Counter Attack",
   "counterAttack.desc": "What's the best form of attack? Defense of course! You'll immediately strike back after blocking your opponent's blow.",
   "ironHead": "Iron Head",

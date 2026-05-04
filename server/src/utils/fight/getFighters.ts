@@ -85,7 +85,8 @@ const handleSkills = (
     if (ExtraTieredSkillData[skill.name]) {
       switch (skill.name) {
         case SkillName.determination:
-          fighter.determination = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
+        case SkillName.resistant:
+          fighter[skill.name] = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
           break;
         default:
           throw new Error(`No extra handling defined for skill ${skill.name}`);
@@ -111,9 +112,6 @@ const handleSkills = (
         break;
       case SkillName.ironHead:
         fighter.ironHead = true;
-        break;
-      case SkillName.resistant:
-        fighter.resistant = true;
         break;
       case SkillName.fastMetabolism:
         fighter.fastMetabolism = 0;
@@ -227,12 +225,12 @@ export const getFighters = ({
         evasion: 0,
         reach: 0,
         determination: 0,
+        resistant: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
         retryAttack: false,
         ironHead: false,
-        resistant: false,
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
@@ -299,12 +297,12 @@ export const getFighters = ({
           sabotage: 0,
           evasion: getPetScaledStat(chaos, brute, pet, 'evasion', 2),
           determination: 0,
+          resistant: 0,
           bodybuilder: false,
           survival: false,
           balletShoes: false,
           retryAttack: false,
           ironHead: false,
-          resistant: false,
           fastMetabolism: null,
           skills: {},
           weapons: {},
@@ -390,12 +388,12 @@ export const getFighters = ({
         evasion: 0,
         reach: 0,
         determination: 0,
+        resistant: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
         retryAttack: false,
         ironHead: false,
-        resistant: false,
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
@@ -456,12 +454,12 @@ export const getFighters = ({
         sabotage: 0,
         evasion: boss.evasion,
         determination: 0,
+        resistant: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
         retryAttack: false,
         ironHead: false,
-        resistant: false,
         fastMetabolism: null,
         skills: {},
         weapons: {},

@@ -90,7 +90,9 @@ export const displayExtraTieredSkillStat = ({
   }
 
   // Map percentages
-  const values = extraData.map((value) => (value < 1 ? (value * 100).toFixed(0) : value));
+  const values = extraData.map((value) => ((value > -1 && value < 1)
+    ? (value * 100).toFixed(0)
+    : value));
 
   return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${values.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${value}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
 };

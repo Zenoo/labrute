@@ -529,9 +529,12 @@ const registerHit = ({
       }
     }
 
-    // Max damage to 20% of opponent's health if `resistant`
-    if (opponent.skills[SkillName.resistant]) {
-      actualDamage[opponent.index] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+    // Max damage to % of opponent's health if `resistant`
+    if (opponent.resistant) {
+      actualDamage[opponent.index] = Math.min(
+        damage,
+        Math.floor(opponent.maxHp * opponent.resistant),
+      );
 
       if ((actualDamage[opponent.index] ?? damage) < damage) {
         // Add resist step

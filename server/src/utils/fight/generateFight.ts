@@ -83,6 +83,8 @@ export interface DetailedFighter {
   reach: number,
   // Chance of re-attacking on misses (evasion or block)
   determination: number;
+  // Max % max HP per hit
+  resistant: number;
   // Passives
   // Flag set if determination triggers
   retryAttack: boolean;
@@ -94,8 +96,6 @@ export interface DetailedFighter {
   balletShoes: boolean;
   // 30% chance of disarming when being hit
   ironHead: boolean;
-  // Max 20% max HP per hit
-  resistant: boolean;
   // Regen boost at 50% HP
   fastMetabolism: number | null;
   // Available skills
