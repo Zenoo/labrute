@@ -19,9 +19,10 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import StatColor from '../utils/StatColor';
+import StatColor, { TieredPerkColor } from '../utils/StatColor';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import SkillIcon from '../components/SkillIcon';
 
 // Rename endurance to HP
 const statName = (stat: BruteStat) => {
@@ -145,9 +146,9 @@ const LevelUpView = () => {
       <Box>
         {entries(brute.skills).map(([skill, tier]) => (
           <SkillTooltip skill={skills[skill]} tier={tier} key={skill}>
-            <Box
-              component="img"
-              src={`/images/skills/${skill}.svg`}
+            <SkillIcon
+              skill={skill}
+              tier={tier}
               sx={{
                 width: 16,
                 m: 0.25,
@@ -155,6 +156,14 @@ const LevelUpView = () => {
               }}
             />
           </SkillTooltip>
+        ))}
+      </Box>
+      {/* Pets */}
+      <Box>
+        {entries(brute.pets).map(([pet, tier]) => (
+          <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
+            <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
+          </PetTooltip>
         ))}
       </Box>
     </>
@@ -230,12 +239,19 @@ const LevelUpView = () => {
           <Box sx={{ my: 1 }}>
             {choices && choices.map((destinyChoice, i) => {
               let maxedPerk = false;
+              let perkUpgrade = false;
               if (destinyChoice.type === 'skill' && destinyChoice.skill) {
-                maxedPerk = (brute.skills[destinyChoice.skill] ?? 0) >= 3;
+                const tier = brute.skills[destinyChoice.skill] ?? 0;
+                maxedPerk = tier >= 3;
+                perkUpgrade = tier > 0;
               } else if (destinyChoice.type === 'weapon' && destinyChoice.weapon) {
-                maxedPerk = (brute.weapons[destinyChoice.weapon] ?? 0) >= 3;
+                const tier = brute.weapons[destinyChoice.weapon] ?? 0;
+                maxedPerk = tier >= 3;
+                perkUpgrade = tier > 0;
               } else if (destinyChoice.type === 'pet' && destinyChoice.pet) {
-                maxedPerk = (brute.pets[destinyChoice.pet] ?? 0) >= 3;
+                const tier = brute.pets[destinyChoice.pet] ?? 0;
+                maxedPerk = tier >= 3;
+                perkUpgrade = tier > 0;
               }
 
               return (
@@ -269,12 +285,12 @@ const LevelUpView = () => {
                       {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
                       {/* +2/+1 Skill */}
                       {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
-                      {/* New weapon */}
-                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : `${t('newWeapon')} :`)}
-                      {/* New skill */}
-                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : `${t('newSkill')} :`)}
-                      {/* New pet */}
-                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : `${t('newPet')} :`)}
+                      {/* Weapon */}
+                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
+                      {/* Skill */}
+                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
+                      {/* Pet */}
+                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : `${t('newPet')} :`)}
                     </Text>
 
                     {/* CHOICE CONTENT */}

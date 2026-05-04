@@ -14,6 +14,8 @@ import BruteHP from './BruteHP';
 import PetTooltip from './PetTooltip';
 import SkillTooltip from './SkillTooltip';
 import WeaponTooltip from './WeaponTooltip';
+import { TieredPerkColor } from '../../utils/StatColor';
+import SkillIcon from '../SkillIcon';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
@@ -154,7 +156,7 @@ const BruteButton = ({
                   tier={tier}
                   key={weapon}
                 >
-                  <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
+                  <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
                 </WeaponTooltip>
               ))}
             </Box>
@@ -166,14 +168,14 @@ const BruteButton = ({
                   tier={tier}
                   key={skill}
                 >
-                  <Box
-                    component="img"
-                    src={`/images/skills/${skill}.svg`}
+                  <SkillIcon
+                    skill={skill}
+                    tier={tier}
                     sx={{
                       width: 16,
                       mx: 0.25,
                       my: 0,
-                      filter: 'drop-shadow(1px 1px 1px black)'
+                      filter: 'drop-shadow(1px 1px 1px black)',
                     }}
                   />
                 </SkillTooltip>
@@ -183,7 +185,7 @@ const BruteButton = ({
             <Box>
               {entries(brute.pets).map(([pet, tier]) => (
                 <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
-                  <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: 'drop-shadow(1px 1px 1px black)' }} />
+                  <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
                 </PetTooltip>
               ))}
             </Box>

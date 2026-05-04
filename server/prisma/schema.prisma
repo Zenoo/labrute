@@ -163,6 +163,7 @@ enum SkillName {
   hypnosis
   flashFlood
   tamer
+  // TODO: Rename to bandage on release
   regeneration
   chef
   spy
@@ -582,6 +583,7 @@ enum AchievementName {
   doubleBoost
   tripleBoost
   quadrupleBoost
+  // TODO: Rename to bandage_potion on release
   regeneration_potion
   bear_tamer
   tripleDogs

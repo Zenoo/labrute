@@ -11,6 +11,7 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.BLOCK]: '#808080',
   [FightStat.ACCURACY]: agilityColor,
   [FightStat.DISARM]: '#ff70ff',
+  [FightStat.SABOTAGE]: '#ff4500',
   [FightStat.COMBO]: agilityColor,
   [FightStat.DEFLECT]: '#ff4500',
   [FightStat.ARMOR]: '#008080',
@@ -30,5 +31,11 @@ export const PerkColor = {
   Random: '#8686ff',
   Ascended: '#ff9400',
 } as const;
+
+export const TieredPerkColor: Record<number, string> = {
+  1: '#cccc00',
+  2: '#ff9400',
+  3: '#e21c1c',
+};
 
 export default StatColor;

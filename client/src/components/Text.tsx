@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { Typography, TypographyProps } from '@mui/material';
 
 export interface TextProps extends TypographyProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   typo?: string;
   h1?: boolean;
   h2?: boolean;

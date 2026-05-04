@@ -1,11 +1,11 @@
 import { skillList } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
-import { Box, Grid, PaperProps } from '@mui/material';
+import { Grid, PaperProps } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor } from '../../utils/StatColor';
 import SkillTooltip from '../Brute/SkillTooltip';
-import { TierStar } from '../Brute/TierStar';
+import SkillIcon from '../SkillIcon';
 
 const CellSkills = ({
   sx,
@@ -66,9 +66,9 @@ const CellSkills = ({
             onMouseLeave={() => setHoveredSkill(null)}
           >
             <SkillTooltip skill={skill} tier={brute.skills[skill.name]}>
-              <Box
-                component="img"
-                src={`/images/skills/${skill.name}.svg`}
+              <SkillIcon
+                skill={skill.name}
+                tier={brute.skills[skill.name]}
                 sx={{
                   boxShadow: 4,
                   filter: getFilter(skill.name),
@@ -77,22 +77,6 @@ const CellSkills = ({
                 }}
               />
             </SkillTooltip>
-            {(brute.skills[skill.name] ?? 0) > 1 && (
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  right: -4,
-                }}
-              >
-                {Array.from(
-                  { length: (brute.skills[skill.name] ?? 0) - 1 },
-                ).map((_, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <TierStar key={index} />
-                ))}
-              </Box>
-            )}
           </Grid>
         );
       })}

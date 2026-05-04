@@ -124,7 +124,9 @@ const ArenaView = () => {
     navigate, search, t]);
 
   // Go to versus page
-  const goToVersus = useCallback((opponentName: string) => async () => {
+  const goToVersus = useCallback((
+    opponent: CalculatedBruteGetOpponentsResponse[0]
+  ) => async () => {
     if (!user || !brute || loading) return;
 
     // Skip versus page
@@ -133,7 +135,7 @@ const ArenaView = () => {
 
       // Create the fight
       try {
-        const fight = await Server.Fight.create(brute.name, opponentName);
+        const fight = await Server.Fight.create(brute.name, opponent.name);
         navigate(`/${brute.name}/fight/${fight.id}`);
 
         // Update brute data
@@ -144,6 +146,7 @@ const ArenaView = () => {
             fightsLeft: fight.fightsLeft,
             xp: b.xp + fight.xpWon,
             victories: b.victories + fight.victories,
+            losses: b.losses + fight.losses,
             lastFight: new Date(),
           } : b)),
         }) : null));
@@ -153,6 +156,7 @@ const ArenaView = () => {
           fightsLeft: fight.fightsLeft,
           xp: data.xp + fight.xpWon,
           victories: data.victories + fight.victories,
+          losses: data.losses + fight.losses,
           lastFight: new Date(),
         }) : null));
       } catch (error) {
@@ -161,7 +165,9 @@ const ArenaView = () => {
         setLoading(false);
       }
     } else {
-      navigate(`/${bruteName || ''}/versus/${opponentName}`);
+      navigate(`/${bruteName || ''}/versus/${opponent.name}`, {
+        state: { opponent },
+      });
     }
   }, [Alert, Server.Fight, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
 
@@ -210,7 +216,7 @@ const ArenaView = () => {
                   <Grid item key={opponent.name} xs={12} sm={6}>
                     <BruteButton
                       brute={opponent}
-                      onClick={goToVersus(opponent.name)}
+                      onClick={goToVersus(opponent)}
                       displayDetails={user?.displayOpponentDetails}
                       shiftMargin
                       sx={{

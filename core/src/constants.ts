@@ -12,6 +12,7 @@ export const BRUTE_STARTING_POINTS = 11;
 export const PERKS_TOTAL_ODDS = WEAPONS_TOTAL_ODDS + PETS_TOTAL_ODDS + SKILLS_TOTAL_ODDS;
 
 export const NO_WEAPON_TOSS = 10;
+export const NO_SKILL_TOSS = 10;
 
 export const Animations = [
   'arrive', 'attack', 'block', 'death', 'drink', 'eat',

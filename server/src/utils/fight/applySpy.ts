@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
+  ExtraTieredSkillData,
   StepType, WeaponByName, WeaponType,
 } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
@@ -57,5 +58,8 @@ export const applySpy = (
 
     // Add own weapons to opponent damaged weapons
     opponent.damagedWeapons.push(...bruteWeaponsToSwap.map((weapon) => weapon.name));
+    opponent.damagedWeaponsPercent = ExtraTieredSkillData[SkillName.spy]?.[
+      (brute.skills[SkillName.spy]?.tier ?? 1) - 1
+    ];
   }
 };

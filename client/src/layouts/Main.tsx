@@ -607,7 +607,7 @@ const Main = () => {
           '#root': {
             minHeight: '100%',
             background: `linear-gradient(180deg, ${theme.palette.background.light} 0%, ${theme.palette.background.default} 160px)`,
-          }
+          },
         }}
         />
         <Outlet />

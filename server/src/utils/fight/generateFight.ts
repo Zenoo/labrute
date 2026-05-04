@@ -78,24 +78,24 @@ export interface DetailedFighter {
   accuracy: number,
   armor: number,
   disarm: number,
+  sabotage: number;
   evasion: number,
   reach: number,
+  // Chance of re-attacking on misses (evasion or block)
+  determination: number;
+  // Max % max HP per hit
+  resistant: number;
+  // Chance of disarming when being hit
+  ironHead: number;
   // Passives
-  // Destroys one enemy's weapon per hit
-  sabotage: boolean;
+  // Flag set if determination triggers
+  retryAttack: boolean;
   // tempo -25% for heavy weapons
   bodybuilder: boolean;
   // Survive with 1 HP on first death
   survival: boolean;
   // First hit of the fight is evaded
   balletShoes: boolean;
-  // 70% chance of re-attacking on misses (evasion or block)
-  determination: boolean;
-  retryAttack: boolean;
-  // 30% chance of disarming when being hit
-  ironHead: boolean;
-  // Max 20% max HP per hit
-  resistant: boolean;
   // Regen boost at 50% HP
   fastMetabolism: number | null;
   // Available skills
@@ -112,11 +112,13 @@ export interface DetailedFighter {
   // Pre fight sabotage
   saboteur: boolean;
   sabotagedWeapon: Tiered<Weapon> | null;
+  sabotagedWeaponInitiativeMalus?: number;
   // Status effects
   poisonedBy: number | null; // Fighter index
   trapped: boolean;
-  // Reduce some weapons damage by 25%
+  // Reduce some weapons damage
   damagedWeapons: WeaponName[],
+  damagedWeaponsPercent?: number;
   // Keep track of consecutive hits for stun status
   hitBy: Record<number, number>,
   stunned?: boolean,

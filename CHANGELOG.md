@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.92.0](https://github.com/Zenoo/labrute/compare/labrute-v2.91.7...labrute-v2.92.0) (2026-05-03)
+
+
+### Features
+
+* Display perk tiers everywhere ([640d0f0](https://github.com/Zenoo/labrute/commit/640d0f082b55fb7a26ece3e3495683a759e83239))
+
+
+### Bug Fixes
+
+* Colored perks in opponent details ([0db3875](https://github.com/Zenoo/labrute/commit/0db3875890536199e5ee5e8d2433de4bda28f6ab))
+* Perk upgrade title on level up ([52e0d8e](https://github.com/Zenoo/labrute/commit/52e0d8ee2c157c1e9c4c08273efc2107ab40a07d))
+* Tidy logs ([4cbf830](https://github.com/Zenoo/labrute/commit/4cbf8300b4707099a6ef920953aae49f881c39e2))
+
 ## [2.91.7](https://github.com/Zenoo/labrute/compare/labrute-v2.91.6...labrute-v2.91.7) (2026-05-02)
 
 
