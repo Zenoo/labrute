@@ -1782,8 +1782,8 @@ const attack = (
   if (damage && fighter.sabotage) {
     const opponentWeapons = keys(opponent.weapons);
 
-    // 90% chance to sabotage
-    if (opponentWeapons.length && Math.random() < 0.9) {
+    // Chance to sabotage
+    if (opponentWeapons.length && Math.random() < fighter.sabotage) {
       // Remove a random weapon
       const weapon = randomItem(opponentWeapons);
       delete opponent.weapons[weapon];

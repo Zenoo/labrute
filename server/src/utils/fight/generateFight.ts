@@ -78,11 +78,10 @@ export interface DetailedFighter {
   accuracy: number,
   armor: number,
   disarm: number,
+  sabotage: number;
   evasion: number,
   reach: number,
   // Passives
-  // Destroys one enemy's weapon per hit
-  sabotage: boolean;
   // tempo -25% for heavy weapons
   bodybuilder: boolean;
   // Survive with 1 HP on first death

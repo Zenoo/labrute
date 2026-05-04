@@ -168,6 +168,7 @@ export const FightStat = {
   BLOCK: 'block',
   ACCURACY: 'accuracy',
   DISARM: 'disarm',
+  SABOTAGE: 'sabotage',
   COMBO: 'combo',
   DEFLECT: 'deflect',
   ARMOR: 'armor',
@@ -536,7 +537,9 @@ export const SkillModifiers: Record<
   [SkillName.untouchable]: {
     [FightStat.EVASION]: { percent: [0.3, 0.4, 0.5] },
   },
-  [SkillName.sabotage]: {},
+  [SkillName.sabotage]: {
+    [FightStat.SABOTAGE]: { percent: [0.5, 0.75, 0.9] },
+  },
   [SkillName.shock]: {
     [FightStat.DISARM]: { percent: [0.5, 0.6, 0.7] },
   },

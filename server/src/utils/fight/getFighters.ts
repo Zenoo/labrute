@@ -88,9 +88,6 @@ const handleSkills = (
       case SkillName.saboteur:
         fighter.saboteur = true;
         break;
-      case SkillName.sabotage:
-        fighter.sabotage = true;
-        break;
       case SkillName.bodybuilder:
         fighter.bodybuilder = true;
         break;
@@ -217,9 +214,9 @@ export const getFighters = ({
         accuracy: 0,
         armor: 0,
         disarm: 0,
+        sabotage: 0,
         evasion: 0,
         reach: 0,
-        sabotage: false,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
@@ -290,8 +287,8 @@ export const getFighters = ({
           reach: 0,
           armor: 0,
           disarm: getPetScaledStat(chaos, brute, pet, 'disarm', 2),
+          sabotage: 0,
           evasion: getPetScaledStat(chaos, brute, pet, 'evasion', 2),
-          sabotage: false,
           bodybuilder: false,
           survival: false,
           balletShoes: false,
@@ -380,9 +377,9 @@ export const getFighters = ({
         accuracy: 0,
         armor: 0,
         disarm: 0,
+        sabotage: 0,
         evasion: 0,
         reach: 0,
-        sabotage: false,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
@@ -447,8 +444,8 @@ export const getFighters = ({
         reach: boss.reach,
         armor: 0,
         disarm: boss.disarm,
+        sabotage: 0,
         evasion: boss.evasion,
-        sabotage: false,
         bodybuilder: false,
         survival: false,
         balletShoes: false,

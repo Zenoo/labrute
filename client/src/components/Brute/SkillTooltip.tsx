@@ -10,9 +10,10 @@ import { FightModifier } from '@labrute/prisma';
 import SkillIcon from '../SkillIcon';
 import { displaySkillTieredStat } from '../../utils/displayTieredStat';
 
-// Rename endurance to HP
+// Rename endurance to HP + Describe sabotage
 const statName = (stat: FightStat) => {
   if (stat === 'endurance') return 'HP';
+  if (stat === 'sabotage') return 'sabotageStat';
 
   return stat;
 };
