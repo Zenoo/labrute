@@ -8,7 +8,7 @@ import Text from '../Text';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
 import SkillIcon from '../SkillIcon';
-import { displaySkillTieredStat } from '../../utils/displayTieredStat';
+import { displayExtraTieredSkillStat, displaySkillTieredStat } from '../../utils/displayTieredStat';
 
 // Rename endurance to HP + Describe sabotage
 const statName = (stat: FightStat) => {
@@ -29,7 +29,7 @@ const SkillTooltip = ({
   children,
   ...rest
 }: SkillTooltipProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { modifiers } = useAuth();
 
   const chaos = useMemo(() => !!modifiers[FightModifier.chaos], [modifiers]);
@@ -94,8 +94,8 @@ const SkillTooltip = ({
               )}
             </Fragment>
           ))}
-          {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
-            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
+          {i18n.exists(`${skill.name}.effect`) && (
+            <Text bold sx={{ fontSize: 12 }} color="error" dangerouslySetInnerHTML={{ __html: t(`${skill.name}.effect`, { uses: skill.uses, stats: displayExtraTieredSkillStat({ skill: skill.name, tier }) }) }} />
           )}
           {/* USAGE RATE */}
           {skill.toss && (

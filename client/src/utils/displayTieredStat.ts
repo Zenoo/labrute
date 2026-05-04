@@ -1,4 +1,4 @@
-import { convertEnduranceToHP, FightStat, getScaledStat, TieredNumberKeysOf, Weapon } from '@labrute/core';
+import { convertEnduranceToHP, ExtraTieredSkillData, FightStat, getScaledStat, TieredNumberKeysOf, Weapon } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 
 // Convert endurance to HP
@@ -68,4 +68,29 @@ export const displayTieredWeaponStat = ({
   }
 
   return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${tieredWeapon[stat].map((_, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${formatter(index + 1)}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
+};
+
+type DisplayExtraTieredSkillStatParams = {
+  skill: SkillName;
+  tier: number;
+};
+
+export const displayExtraTieredSkillStat = ({
+  skill,
+  tier,
+}: DisplayExtraTieredSkillStatParams) => {
+  const extraData = ExtraTieredSkillData[skill];
+
+  if (!extraData) {
+    return undefined;
+  }
+
+  if (extraData.every((v) => v === extraData[0])) {
+    return extraData[0];
+  }
+
+  // Map percentages
+  const values = extraData.map((value) => (value < 1 ? (value * 100).toFixed(0) : value));
+
+  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${values.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${value}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
 };

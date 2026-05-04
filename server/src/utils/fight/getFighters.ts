@@ -5,6 +5,7 @@ import {
   BruteRanking,
   CalculatedBrute,
   entries,
+  ExtraTieredSkillData,
   FightStat, getPetScaledStat,
   getScaledStat,
   keys,
@@ -80,6 +81,17 @@ const handleSkills = (
       }
     }
 
+    // Extra handling for specific skills
+    if (ExtraTieredSkillData[skill.name]) {
+      switch (skill.name) {
+        case SkillName.determination:
+          fighter.determination = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
+          break;
+        default:
+          throw new Error(`No extra handling defined for skill ${skill.name}`);
+      }
+    }
+
     // Passives
     switch (skill.name) {
       case SkillName.shield:
@@ -96,9 +108,6 @@ const handleSkills = (
         break;
       case SkillName.balletShoes:
         fighter.balletShoes = true;
-        break;
-      case SkillName.determination:
-        fighter.determination = true;
         break;
       case SkillName.ironHead:
         fighter.ironHead = true;
@@ -217,10 +226,10 @@ export const getFighters = ({
         sabotage: 0,
         evasion: 0,
         reach: 0,
+        determination: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
-        determination: false,
         retryAttack: false,
         ironHead: false,
         resistant: false,
@@ -289,10 +298,10 @@ export const getFighters = ({
           disarm: getPetScaledStat(chaos, brute, pet, 'disarm', 2),
           sabotage: 0,
           evasion: getPetScaledStat(chaos, brute, pet, 'evasion', 2),
+          determination: 0,
           bodybuilder: false,
           survival: false,
           balletShoes: false,
-          determination: false,
           retryAttack: false,
           ironHead: false,
           resistant: false,
@@ -380,10 +389,10 @@ export const getFighters = ({
         sabotage: 0,
         evasion: 0,
         reach: 0,
+        determination: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
-        determination: false,
         retryAttack: false,
         ironHead: false,
         resistant: false,
@@ -446,10 +455,10 @@ export const getFighters = ({
         disarm: boss.disarm,
         sabotage: 0,
         evasion: boss.evasion,
+        determination: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
-        determination: false,
         retryAttack: false,
         ironHead: false,
         resistant: false,

@@ -623,6 +623,10 @@ export const SkillModifiers: Record<
   },
 };
 
+export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, number]>> = {
+  [SkillName.determination]: [0.6, 0.7, 0.8],
+};
+
 export const SkillDamageModifiers = Object.entries(SkillModifiers)
   .filter(([_, modifiers]) => modifiers[FightStat.DAMAGE])
   .map(([skill, modifiers]) => ({

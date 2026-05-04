@@ -81,16 +81,17 @@ export interface DetailedFighter {
   sabotage: number;
   evasion: number,
   reach: number,
+  // Chance of re-attacking on misses (evasion or block)
+  determination: number;
   // Passives
+  // Flag set if determination triggers
+  retryAttack: boolean;
   // tempo -25% for heavy weapons
   bodybuilder: boolean;
   // Survive with 1 HP on first death
   survival: boolean;
   // First hit of the fight is evaded
   balletShoes: boolean;
-  // 70% chance of re-attacking on misses (evasion or block)
-  determination: boolean;
-  retryAttack: boolean;
   // 30% chance of disarming when being hit
   ironHead: boolean;
   // Max 20% max HP per hit

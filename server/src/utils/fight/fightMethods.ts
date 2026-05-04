@@ -1860,7 +1860,7 @@ const attack = (
     && !damage
     && fighter.determination
     && !fighter.hypnotized
-    && Math.random() < 0.7) {
+    && Math.random() < fighter.determination) {
     fighter.retryAttack = true;
   }
 
