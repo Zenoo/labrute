@@ -96,3 +96,18 @@ export const displayExtraTieredSkillStat = ({
 
   return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${values.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${value}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
 };
+
+type DisplayTieredSkillUsesParams = {
+  uses: number[] | undefined;
+  tier: number;
+};
+
+export const displayTieredSkillUses = ({ uses, tier }: DisplayTieredSkillUsesParams) => {
+  if (!uses) return undefined;
+
+  if (uses.every((v) => v === uses[0])) {
+    return uses[0];
+  }
+
+  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${uses.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${value}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
+};

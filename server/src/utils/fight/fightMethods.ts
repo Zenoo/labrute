@@ -3,6 +3,7 @@ import {
   AchievementsStore,
   ArriveStep,
   entries,
+  ExtraTieredSkillData,
   FightStat, HasteStep, HitStep, keys, LeaveStep,
   NO_SKILL_TOSS,
   NO_WEAPON_TOSS,
@@ -2497,8 +2498,12 @@ export const playFighterTurn = (
       throw new Error('No poisoner found');
     }
 
-    // Get poison damage (2% of max HP)
-    const poisonDamage = Math.ceil(fighter.maxHp / 50);
+    const poisonPercentage = ExtraTieredSkillData[SkillName.chef]?.[
+      (poisoner.skills[SkillName.chef]?.tier ?? 1) - 1
+    ] ?? 2;
+
+    // Get poison damage (% of max HP)
+    const poisonDamage = Math.ceil(fighter.maxHp * (poisonPercentage / 100));
 
     // Register the hit
     registerHit({

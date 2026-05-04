@@ -8,7 +8,7 @@ import Text from '../Text';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
 import SkillIcon from '../SkillIcon';
-import { displayExtraTieredSkillStat, displaySkillTieredStat } from '../../utils/displayTieredStat';
+import { displayExtraTieredSkillStat, displaySkillTieredStat, displayTieredSkillUses } from '../../utils/displayTieredStat';
 
 // Rename endurance to HP + Describe sabotage
 const statName = (stat: FightStat) => {
@@ -95,7 +95,7 @@ const SkillTooltip = ({
             </Fragment>
           ))}
           {i18n.exists(`${skill.name}.effect`) && (
-            <Text bold sx={{ fontSize: 12 }} color="error" dangerouslySetInnerHTML={{ __html: t(`${skill.name}.effect`, { uses: skill.uses, stats: displayExtraTieredSkillStat({ skill: skill.name, tier }) }) }} />
+            <Text bold sx={{ fontSize: 12 }} color="error" dangerouslySetInnerHTML={{ __html: t(`${skill.name}.effect`, { uses: displayTieredSkillUses({ uses: skill.uses, tier }), stats: displayExtraTieredSkillStat({ skill: skill.name, tier }) }) }} />
           )}
           {/* USAGE RATE */}
           {skill.toss && (

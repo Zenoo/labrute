@@ -89,6 +89,9 @@ const handleSkills = (
         case SkillName.ironHead:
           fighter[skill.name] = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
           break;
+        case SkillName.chef:
+          // Nothing to do, the poison is applied in fightMethods
+          break;
         default:
           throw new Error(`No extra handling defined for skill ${skill.name}`);
       }
