@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.92.1](https://github.com/Zenoo/labrute/compare/labrute-v2.92.0...labrute-v2.92.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* Display pet tiered stats like weapons and skills ([a69b2d3](https://github.com/Zenoo/labrute/commit/a69b2d3968238ab7c42f0ed6a85db917e2099a5b))
+* Display skill usage rate ([9c751c1](https://github.com/Zenoo/labrute/commit/9c751c158b3f794489f8f54d2b296161174d1bc3))
+* Nerf sabotage + increase based on tier ([18a6fec](https://github.com/Zenoo/labrute/commit/18a6fece3546316774139b12410fa983827d6654))
+* Rename regeneration to bandage + Scale bandage with tiers ([aad2d01](https://github.com/Zenoo/labrute/commit/aad2d01d3a54d48d49bb371ec34a8c765b467f39))
+* Scale backup + chaining with tiers ([334f274](https://github.com/Zenoo/labrute/commit/334f27428c11f7ab877d2556071ad56fccd0221c))
+* Scale chef with tiers ([67202ff](https://github.com/Zenoo/labrute/commit/67202ff3b51b2b49ca99e22ec74ea888c32009fc))
+* Scale determination with tiers ([210e69a](https://github.com/Zenoo/labrute/commit/210e69a76152d1575d426625665d9cf24118c360))
+* Scale iron head with tiers ([c1d8f8a](https://github.com/Zenoo/labrute/commit/c1d8f8a7eacf95a8fa613722a6e212165226f9b8))
+* Scale resistant with tiers ([cbae34d](https://github.com/Zenoo/labrute/commit/cbae34dc90e2ba5805e51f4fdf4c88bc75786388))
+* Scale spy with tiers ([3785a0f](https://github.com/Zenoo/labrute/commit/3785a0ff46a3f54ac20b49ac56cfebf21a5a625f))
+* Skill uses translation in every language ([602d111](https://github.com/Zenoo/labrute/commit/602d11160863c4b8cfa08c4db675bd41fc92401d))
+* Update all translations for new stats display ([7ddbd03](https://github.com/Zenoo/labrute/commit/7ddbd03de67ede30237782e5169dabca0a69603d))
+* use react-i18next Trans component to avoid setting dangerous HTML ([27950b3](https://github.com/Zenoo/labrute/commit/27950b3593e3ce0f8cbd923e7fa55704547a3e6b))
+
 ## [2.92.0](https://github.com/Zenoo/labrute/compare/labrute-v2.91.7...labrute-v2.92.0) (2026-05-03)
 
 
