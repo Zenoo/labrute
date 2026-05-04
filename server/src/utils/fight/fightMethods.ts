@@ -4,6 +4,7 @@ import {
   ArriveStep,
   entries,
   FightStat, HasteStep, HitStep, keys, LeaveStep,
+  NO_SKILL_TOSS,
   NO_WEAPON_TOSS,
   randomBetween, randomItem,
   Skill,
@@ -312,7 +313,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   if (!supers.length) return null;
 
-  const NO_SUPER_TOSS = fightData.modifiers[FightModifier.alwaysUseSupers] ? 0 : 10;
+  const NO_SUPER_TOSS = fightData.modifiers[FightModifier.alwaysUseSupers] ? 0 : NO_SKILL_TOSS;
   const randomSuper = randomBetween(
     0,
     supers.reduce((acc, skill) => acc + (skill.toss?.[skill.tier - 1] || 0), -1) + NO_SUPER_TOSS,

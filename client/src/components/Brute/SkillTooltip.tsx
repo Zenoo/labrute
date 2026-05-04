@@ -1,4 +1,4 @@
-import { entries, FightStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import { entries, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -95,6 +95,10 @@ const SkillTooltip = ({
           ))}
           {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
             <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
+          )}
+          {/* USAGE RATE */}
+          {skill.toss && (
+            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12, lineHeight: 1 }}>{t('usageRate')}: {Math.round(((skill.toss[tier - 1] ?? 0) / (NO_SKILL_TOSS + (skill.toss[tier - 1] ?? 0))) * 100)}%</Text>
           )}
           <Box sx={{
             display: 'flex',
