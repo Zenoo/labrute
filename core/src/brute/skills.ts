@@ -626,6 +626,7 @@ export const SkillModifiers: Record<
 export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, number]>> = {
   [SkillName.determination]: [0.6, 0.7, 0.8],
   [SkillName.resistant]: [0.25, 0.2, 0.17],
+  [SkillName.ironHead]: [0.4, 0.5, 0.6],
 };
 
 export const SkillDamageModifiers = Object.entries(SkillModifiers)

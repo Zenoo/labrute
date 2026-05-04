@@ -86,6 +86,7 @@ const handleSkills = (
       switch (skill.name) {
         case SkillName.determination:
         case SkillName.resistant:
+        case SkillName.ironHead:
           fighter[skill.name] = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
           break;
         default:
@@ -109,9 +110,6 @@ const handleSkills = (
         break;
       case SkillName.balletShoes:
         fighter.balletShoes = true;
-        break;
-      case SkillName.ironHead:
-        fighter.ironHead = true;
         break;
       case SkillName.fastMetabolism:
         fighter.fastMetabolism = 0;
@@ -226,11 +224,11 @@ export const getFighters = ({
         reach: 0,
         determination: 0,
         resistant: 0,
+        ironHead: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
         retryAttack: false,
-        ironHead: false,
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
@@ -298,11 +296,11 @@ export const getFighters = ({
           evasion: getPetScaledStat(chaos, brute, pet, 'evasion', 2),
           determination: 0,
           resistant: 0,
+          ironHead: 0,
           bodybuilder: false,
           survival: false,
           balletShoes: false,
           retryAttack: false,
-          ironHead: false,
           fastMetabolism: null,
           skills: {},
           weapons: {},
@@ -389,11 +387,11 @@ export const getFighters = ({
         reach: 0,
         determination: 0,
         resistant: 0,
+        ironHead: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
         retryAttack: false,
-        ironHead: false,
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
@@ -455,11 +453,11 @@ export const getFighters = ({
         evasion: boss.evasion,
         determination: 0,
         resistant: 0,
+        ironHead: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
         retryAttack: false,
-        ironHead: false,
         fastMetabolism: null,
         skills: {},
         weapons: {},

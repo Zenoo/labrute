@@ -85,6 +85,8 @@ export interface DetailedFighter {
   determination: number;
   // Max % max HP per hit
   resistant: number;
+  // Chance of disarming when being hit
+  ironHead: number;
   // Passives
   // Flag set if determination triggers
   retryAttack: boolean;
@@ -94,8 +96,6 @@ export interface DetailedFighter {
   survival: boolean;
   // First hit of the fight is evaded
   balletShoes: boolean;
-  // 30% chance of disarming when being hit
-  ironHead: boolean;
   // Regen boost at 50% HP
   fastMetabolism: number | null;
   // Available skills
