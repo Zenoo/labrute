@@ -593,7 +593,9 @@ export const SkillModifiers: Record<
   [SkillName.hypnosis]: {},
   [SkillName.flashFlood]: {},
   [SkillName.tamer]: {},
-  [SkillName.regeneration]: {},
+  [SkillName.regeneration]: {
+    [FightStat.ARMOR]: { percent: [0, 0.02, 0.05] },
+  },
   [SkillName.chef]: {},
   [SkillName.spy]: {},
   [SkillName.saboteur]: {},

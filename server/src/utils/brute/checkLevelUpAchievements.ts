@@ -261,14 +261,14 @@ export const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.quadrupleBoost);
   }
 
-  // Regeneration + Tragic Potion
-  const regenerationTragicPotionConditions = [
+  // Bandage + Tragic Potion
+  const bandageTragicPotionConditions = [
     SkillName.regeneration,
     SkillName.tragicPotion,
   ] as SkillName[];
   if (destinyChoice.skill
-    && regenerationTragicPotionConditions.includes(destinyChoice.skill)
-    && regenerationTragicPotionConditions.every((skill) => brute.skills.includes(skill))) {
+    && bandageTragicPotionConditions.includes(destinyChoice.skill)
+    && bandageTragicPotionConditions.every((skill) => brute.skills.includes(skill))) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.regeneration_potion);
   }
 
