@@ -115,8 +115,9 @@ export interface DetailedFighter {
   // Status effects
   poisonedBy: number | null; // Fighter index
   trapped: boolean;
-  // Reduce some weapons damage by 25%
+  // Reduce some weapons damage
   damagedWeapons: WeaponName[],
+  damagedWeaponsPercent?: number;
   // Keep track of consecutive hits for stun status
   hitBy: Record<number, number>,
   stunned?: boolean,

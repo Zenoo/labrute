@@ -92,6 +92,9 @@ const handleSkills = (
         case SkillName.chef:
           // Nothing to do, the poison is applied in fightMethods
           break;
+        case SkillName.spy:
+          // Nothing to do, the damage reduction is applied in generateFight
+          break;
         default:
           throw new Error(`No extra handling defined for skill ${skill.name}`);
       }
