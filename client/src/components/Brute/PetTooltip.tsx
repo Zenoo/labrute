@@ -8,7 +8,7 @@ import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 import { TierStar } from './TierStar';
-import { displayTieredPetStat } from '../../utils/displayTieredStat';
+import TieredStat from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -70,28 +70,29 @@ const PetTooltip = ({
         <Text {...textProps}>
           {t(label)}:
           {' '}
-          <Text
-            component="span"
-            bold
-            sx={{ color, textShadow }}
-            {...textProps}
-            dangerouslySetInnerHTML={{
-              __html: `${displayTieredPetStat({ pet: tieredPet, stat, tier, formatter })}${percent ? '%' : ''}`,
-            }}
-          />
+          <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
+            <TieredStat
+              values={tieredPet[stat]}
+              tier={tier}
+              formatter={(_, index) => formatter(index + 1)}
+              percent={percent}
+            />
+          </Text>
         </Text>
       );
     }
 
     return (
-      <Text
-        bold
-        sx={{ color, textShadow }}
-        {...textProps}
-        dangerouslySetInnerHTML={{
-          __html: `${(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}${displayTieredPetStat({ pet: tieredPet, stat, tier, formatter })}${percent ? '%' : ''} ${t(label)}`,
-        }}
-      />
+      <Text bold sx={{ color, textShadow }} {...textProps}>
+        {(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}
+        <TieredStat
+          values={tieredPet[stat]}
+          tier={tier}
+          formatter={(_, index) => formatter(index + 1)}
+          percent={percent}
+        />
+        {' '}{t(label)}
+      </Text>
     );
   };
 

@@ -1,5 +1,6 @@
 import { convertEnduranceToHP, ExtraTieredSkillData, FightStat, getScaledStat, Pet, TieredNumberKeysOf, Weapon } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
+import { TieredStatProps } from '../components/TieredStat';
 
 // Convert endurance to HP
 const statValue = (stat: FightStat | null, value: number) => {
@@ -130,4 +131,57 @@ export const displayTieredSkillUses = ({ uses, tier }: DisplayTieredSkillUsesPar
   if (!uses) return undefined;
 
   return displayTieredStatHTML(uses, tier, (value) => value);
+};
+
+// React component-friendly versions that return TieredStatProps
+
+export const getSkillTieredStatProps = ({
+  chaos,
+  skill,
+  type,
+  stat,
+  values,
+  tier,
+}: DisplayTieredStatParams): TieredStatProps<number> => {
+  const getValue = (value?: number) => (type === 'flat' ? getScaledStat({
+    chaos,
+    skill,
+    type,
+    stat,
+    value: Math.abs(statValue(stat, value ?? 0))
+  }) : (getScaledStat({
+    chaos,
+    skill,
+    type,
+    stat,
+    value: Math.abs(statValue(stat, value ?? 0)),
+    precision: 2
+  }) * 100).toFixed(0));
+
+  return {
+    values,
+    tier,
+    formatter: (value) => getValue(value),
+  };
+};
+
+export const getExtraTieredSkillStatProps = ({
+  skill,
+  tier,
+}: DisplayExtraTieredSkillStatParams) => {
+  const extraData = ExtraTieredSkillData[skill];
+
+  if (!extraData) {
+    return undefined;
+  }
+
+  // Map percentages
+  const values = extraData.map((value) => ((value > -1 && value < 1)
+    ? (value * 100).toFixed(0)
+    : value));
+
+  return {
+    values,
+    tier,
+  };
 };

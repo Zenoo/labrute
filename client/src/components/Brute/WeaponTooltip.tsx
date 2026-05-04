@@ -7,7 +7,7 @@ import StatColor from '../../utils/StatColor';
 import { useAuth } from '../../hooks/useAuth';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
-import { displayTieredWeaponStat } from '../../utils/displayTieredStat';
+import TieredStat from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -68,17 +68,16 @@ const WeaponTooltip = ({
         <Text {...textProps}>
           {t(label)}:
           {' '}
-          <Text
-            component="span"
-            bold
-            sx={color}
-            {...textProps}
-            dangerouslySetInnerHTML={{
-              __html: tieredWeapon
-                ? `${displayTieredWeaponStat({ weapon: tieredWeapon, stat, tier, formatter })}${percent ? '%' : ''}`
-                : `${formatter(tier)}${percent ? '%' : ''}`,
-            }}
-          />
+          <Text component="span" bold sx={color} {...textProps}>
+            {tieredWeapon ? (
+              <TieredStat
+                values={tieredWeapon[stat]}
+                tier={tier}
+                formatter={(_, index) => formatter(index + 1)}
+              />
+            ) : formatter(tier)}
+            {percent ? '%' : ''}
+          </Text>
         </Text>
       );
     }
@@ -87,16 +86,24 @@ const WeaponTooltip = ({
     if (stat === 'tempo' || stat === 'toss' || stat === 'damage') return null;
 
     return (
-      <Text
-        bold
-        sx={{ color: StatColor[stat], textShadow }}
-        {...textProps}
-        dangerouslySetInnerHTML={{
-          __html: tieredWeapon
-            ? `${(tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) > 0 ? '+' : '-'}${displayTieredWeaponStat({ weapon: tieredWeapon, stat, tier, formatter: (v) => Math.abs(formatter(v)) })}${percent ? '%' : ''} ${t(label)}`
-            : `${BASE_FIGHTER_STATS[stat] > 0 ? '+' : '-'}${Math.abs(formatter(tier))}${percent ? '%' : ''} ${t(label)}`,
-        }}
-      />
+      <Text bold sx={{ color: StatColor[stat], textShadow }} {...textProps}>
+        {tieredWeapon ? (
+          <>
+            {(tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) > 0 ? '+' : '-'}
+            <TieredStat
+              values={tieredWeapon[stat]}
+              tier={tier}
+              formatter={(_, index) => Math.abs(formatter(index + 1))}
+            />
+          </>
+        ) : (
+          <>
+            {BASE_FIGHTER_STATS[stat] > 0 ? '+' : '-'}
+            {Math.abs(formatter(tier))}
+          </>
+        )}
+        {percent ? '%' : ''}{' '}{t(label)}
+      </Text>
     );
   };
 

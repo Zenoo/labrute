@@ -1,14 +1,15 @@
-import { entries, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import { entries, ExtraTieredSkillData, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
 import SkillIcon from '../SkillIcon';
-import { displayExtraTieredSkillStat, displaySkillTieredStat, displayTieredSkillUses } from '../../utils/displayTieredStat';
+import TieredStat from '../TieredStat';
+import { getSkillTieredStatProps, getExtraTieredSkillStatProps } from '../../utils/displayTieredStat';
 
 // Rename endurance to HP + Describe sabotage
 const statName = (stat: FightStat) => {
@@ -50,13 +51,9 @@ const SkillTooltip = ({
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (
             <Fragment key={stat}>
               {!!modifier.flat && (
-                <Text
-                  bold
-                  subtitle2
-                  sx={{ color: StatColor[stat], lineHeight: 1 }}
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                    ${modifier.flat[0] < 0 ? '-' : '+'}${displaySkillTieredStat({
+                <Text bold subtitle2 sx={{ color: StatColor[stat], lineHeight: 1 }}>
+                  <TieredStat
+                    {...getSkillTieredStatProps({
                       chaos,
                       skill: skill.name,
                       type: 'flat',
@@ -64,38 +61,50 @@ const SkillTooltip = ({
                       values: modifier.flat,
                       tier,
                     })}
-                    ${modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
-                    ${(typeof modifier.weaponType !== 'undefined') ? ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})` : ''}
-                    ${modifier.details ? ` ${t(modifier.details)}` : ''}
-                  ` }}
-                />
+                    minus={modifier.flat[0] < 0}
+                    plus={modifier.flat[0] > 0}
+                  />
+                  {' '}
+                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
+                  {modifier.details && ` ${t(modifier.details)}`}
+                </Text>
               )}
               {!!modifier.percent && (
-                <Text
-                  bold
-                  subtitle2
-                  sx={{ color: StatColor[stat], lineHeight: 1.2 }}
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                      ${modifier.percent[0] < 0 ? '-' : '+'}${displaySkillTieredStat({
+                <Text bold subtitle2 sx={{ color: StatColor[stat], lineHeight: 1.2 }}>
+                  <TieredStat
+                    {...getSkillTieredStatProps({
                       chaos,
                       skill: skill.name,
                       type: 'percent',
                       stat,
                       values: modifier.percent,
                       tier,
-                    })}%
-                      ${modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
-                      ${(typeof modifier.weaponType !== 'undefined') ? ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})` : ''}
-                      ${modifier.details ? ` ${t(modifier.details)}` : ''}
-                    `
-                  }}
-                />
+                    })}
+                    minus={modifier.percent[0] < 0}
+                    plus={modifier.percent[0] > 0}
+                  />
+                  %
+                  {' '}
+                  {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
+                  {modifier.details && ` ${t(modifier.details)}`}
+                </Text>
               )}
             </Fragment>
           ))}
           {i18n.exists(`${skill.name}.effect`) && (
-            <Text bold sx={{ fontSize: 12 }} color="error" dangerouslySetInnerHTML={{ __html: t(`${skill.name}.effect`, { uses: displayTieredSkillUses({ uses: skill.uses, tier }), stats: displayExtraTieredSkillStat({ skill: skill.name, tier }) }) }} />
+            <Text bold sx={{ fontSize: 12 }} color="error">
+              <Trans
+                i18nKey={`${skill.name}.effect`}
+                components={{
+                  uses: skill.uses ? <TieredStat values={skill.uses} tier={tier} /> : <span />,
+                  stats: ExtraTieredSkillData[skill.name]
+                    ? <TieredStat {...getExtraTieredSkillStatProps({ skill: skill.name, tier })} />
+                    : <span />,
+                }}
+              />
+            </Text>
           )}
           {/* USAGE RATE */}
           {skill.toss && (
