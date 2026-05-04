@@ -1,4 +1,4 @@
-import { convertEnduranceToHP, ExtraTieredSkillData, FightStat, getScaledStat, TieredNumberKeysOf, Weapon } from '@labrute/core';
+import { convertEnduranceToHP, ExtraTieredSkillData, FightStat, getScaledStat, Pet, TieredNumberKeysOf, Weapon } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 
 // Convert endurance to HP
@@ -6,6 +6,25 @@ const statValue = (stat: FightStat | null, value: number) => {
   if (stat === 'endurance') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
 
   return value;
+};
+
+// Helper function to generate the tiered stat HTML structure
+const displayTieredStatHTML = <T>(
+  values: T[],
+  tier: number,
+  formatter: (value: T, index: number) => string | number
+): string | number | undefined => {
+  if (values.every((v) => v === values[0])) {
+    const firstValue = values[0];
+
+    if (typeof firstValue === 'undefined') {
+      return undefined;
+    }
+
+    return formatter(firstValue, 0);
+  }
+
+  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${values.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${formatter(value, index)}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
 };
 
 type DisplayTieredStatParams = {
@@ -40,11 +59,7 @@ export const displaySkillTieredStat = ({
     precision: 2
   }) * 100).toFixed(0));
 
-  if (values.every((v) => v === values[0])) {
-    return getValue(values[0]);
-  }
-
-  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${values.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${getValue(value)}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
+  return displayTieredStatHTML(values, tier, (value) => getValue(value));
 };
 
 type DisplayTieredWeaponStatParams = {
@@ -59,16 +74,29 @@ export const displayTieredWeaponStat = ({
   stat,
   tier,
   formatter,
-}: DisplayTieredWeaponStatParams) => {
-  const tieredWeapon = { ...weapon, tier };
-  const uniqueValue = tieredWeapon[stat].every((v) => v === tieredWeapon[stat]?.[0]);
+}: DisplayTieredWeaponStatParams) => displayTieredStatHTML(
+  weapon[stat],
+  tier,
+  (_, index) => formatter(index + 1)
+);
 
-  if (uniqueValue) {
-    return formatter(tier);
-  }
-
-  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${tieredWeapon[stat].map((_, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${formatter(index + 1)}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
+type DisplayTieredPetStatParams = {
+  pet: Pet;
+  stat: TieredNumberKeysOf<Pet>;
+  tier: number;
+  formatter: (currentTier: number) => number;
 };
+
+export const displayTieredPetStat = ({
+  pet,
+  stat,
+  tier,
+  formatter,
+}: DisplayTieredPetStatParams) => displayTieredStatHTML(
+  pet[stat],
+  tier,
+  (_, index) => formatter(index + 1)
+);
 
 type DisplayExtraTieredSkillStatParams = {
   skill: SkillName;
@@ -85,16 +113,12 @@ export const displayExtraTieredSkillStat = ({
     return undefined;
   }
 
-  if (extraData.every((v) => v === extraData[0])) {
-    return extraData[0];
-  }
-
   // Map percentages
   const values = extraData.map((value) => ((value > -1 && value < 1)
     ? (value * 100).toFixed(0)
     : value));
 
-  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${values.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${value}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
+  return displayTieredStatHTML(values, tier, (value) => value);
 };
 
 type DisplayTieredSkillUsesParams = {
@@ -105,9 +129,5 @@ type DisplayTieredSkillUsesParams = {
 export const displayTieredSkillUses = ({ uses, tier }: DisplayTieredSkillUsesParams) => {
   if (!uses) return undefined;
 
-  if (uses.every((v) => v === uses[0])) {
-    return uses[0];
-  }
-
-  return /* HTML */ `<span class="tiered-stat"><span class="tier-wrapper">[</span>${uses.map((value, index) => /* HTML */`<span class="${index === tier - 1 ? 'current-tier' : 'locked-tier'}">${value}</span>`).join('<span class="tier-wrapper">/</span>')}<span class="tier-wrapper">]</span></span>`;
+  return displayTieredStatHTML(uses, tier, (value) => value);
 };
