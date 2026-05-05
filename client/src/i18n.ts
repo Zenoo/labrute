@@ -160,6 +160,12 @@ i18n
       useSuspense: false, // Disable Suspense to avoid blocking state updates
     },
     saveMissing: true,
+    missingKeyHandler: (lngs, ns, key, fallbackValue) => {
+      console.error(
+        `Missing translation: [${lngs.join(', ')}] ${ns}:${key}`,
+        fallbackValue ? `(fallback: "${fallbackValue}")` : ''
+      );
+    },
   })
   .catch((err) => {
     console.error('Error loading language', err);

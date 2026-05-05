@@ -1,4 +1,5 @@
 {
+  "adminPanel": "Admin-Konsole",
   "status": "Status",
   "pending": "Ausstehend",
   "accepted": "Akzeptiert",

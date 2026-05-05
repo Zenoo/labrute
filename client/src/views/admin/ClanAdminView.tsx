@@ -17,7 +17,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const ClanAdminView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('admin');
   const { clanId } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();

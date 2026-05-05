@@ -11,7 +11,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const AdminView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const Server = useServer();
 

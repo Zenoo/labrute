@@ -39,7 +39,7 @@ const CellGlobalTournament = ({
   name,
   ...rest
 }: CellGlobalTournamentProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('tournament');
   const { brute, owner, updateBrute } = useBrute();
   const theme = useTheme();
   const Alert = useAlert();

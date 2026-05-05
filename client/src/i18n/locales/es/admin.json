@@ -1,4 +1,5 @@
 {
+  "adminPanel": "Panel de administración",
   "status": "Estado",
   "pending": "Pendiente",
   "accepted": "Aceptado",
