@@ -369,7 +369,7 @@
   "repulse.desc": "Des étoiles ninja se dirigent vers vous ? Aucun problème ! Canalisez le héros de film d'arts martiaux qui sommeille en vous et renvoyez les armes lancées comme des mouches.",
   "fastMetabolism": "Métabolisme Rapide",
   "fastMetabolism.desc": "Vos cellules fonctionnent à la vitesse de la lumière. Vous pouvez vous régénérer plus vite que votre adversaire ne peut vous infliger des dégâts... Enfin peut-être.",
-  "fastMetabolism.effect": "À 50% PV, votre brute peut régénérer jusqu'à 10 fois 5% PV s'il elle ne subit pas de dégâts.",
+  "fastMetabolism.effect": "À 50% PV, votre brute peut régénérer jusqu'à 10 fois 5% PV si elle ne subit pas de dégâts.",
   "fan": "Éventail",
   "keyboard": "Clavier",
   "knife": "Couteau",
