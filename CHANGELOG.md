@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.92.2](https://github.com/Zenoo/labrute/compare/labrute-v2.92.1...labrute-v2.92.2) (2026-05-05)
+
+
+### Bug Fixes
+
+* Prevent favorite brutes overflow + display loader on versus view ([f772a0e](https://github.com/Zenoo/labrute/commit/f772a0e504108752f81fd35784e7a4718cdbd979))
+* Wrong HP% for vitality ([c71a2c5](https://github.com/Zenoo/labrute/commit/c71a2c58dfe003d84ca64f07d04e0bcdfcd1499a))
+* Wrong translation for fast metabolism regeneration stat ([2866bdc](https://github.com/Zenoo/labrute/commit/2866bdcf5c681ff05248b2013d14bea1e3ef108f))
+
+## [2.92.1](https://github.com/Zenoo/labrute/compare/labrute-v2.92.0...labrute-v2.92.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* Display pet tiered stats like weapons and skills ([a69b2d3](https://github.com/Zenoo/labrute/commit/a69b2d3968238ab7c42f0ed6a85db917e2099a5b))
+* Display skill usage rate ([9c751c1](https://github.com/Zenoo/labrute/commit/9c751c158b3f794489f8f54d2b296161174d1bc3))
+* Nerf sabotage + increase based on tier ([18a6fec](https://github.com/Zenoo/labrute/commit/18a6fece3546316774139b12410fa983827d6654))
+* Rename regeneration to bandage + Scale bandage with tiers ([aad2d01](https://github.com/Zenoo/labrute/commit/aad2d01d3a54d48d49bb371ec34a8c765b467f39))
+* Scale backup + chaining with tiers ([334f274](https://github.com/Zenoo/labrute/commit/334f27428c11f7ab877d2556071ad56fccd0221c))
+* Scale chef with tiers ([67202ff](https://github.com/Zenoo/labrute/commit/67202ff3b51b2b49ca99e22ec74ea888c32009fc))
+* Scale determination with tiers ([210e69a](https://github.com/Zenoo/labrute/commit/210e69a76152d1575d426625665d9cf24118c360))
+* Scale iron head with tiers ([c1d8f8a](https://github.com/Zenoo/labrute/commit/c1d8f8a7eacf95a8fa613722a6e212165226f9b8))
+* Scale resistant with tiers ([cbae34d](https://github.com/Zenoo/labrute/commit/cbae34dc90e2ba5805e51f4fdf4c88bc75786388))
+* Scale spy with tiers ([3785a0f](https://github.com/Zenoo/labrute/commit/3785a0ff46a3f54ac20b49ac56cfebf21a5a625f))
+* Skill uses translation in every language ([602d111](https://github.com/Zenoo/labrute/commit/602d11160863c4b8cfa08c4db675bd41fc92401d))
+* Update all translations for new stats display ([7ddbd03](https://github.com/Zenoo/labrute/commit/7ddbd03de67ede30237782e5169dabca0a69603d))
+* use react-i18next Trans component to avoid setting dangerous HTML ([27950b3](https://github.com/Zenoo/labrute/commit/27950b3593e3ce0f8cbd923e7fa55704547a3e6b))
+
+## [2.92.0](https://github.com/Zenoo/labrute/compare/labrute-v2.91.7...labrute-v2.92.0) (2026-05-03)
+
+
+### Features
+
+* Display perk tiers everywhere ([640d0f0](https://github.com/Zenoo/labrute/commit/640d0f082b55fb7a26ece3e3495683a759e83239))
+
+
+### Bug Fixes
+
+* Colored perks in opponent details ([0db3875](https://github.com/Zenoo/labrute/commit/0db3875890536199e5ee5e8d2433de4bda28f6ab))
+* Perk upgrade title on level up ([52e0d8e](https://github.com/Zenoo/labrute/commit/52e0d8ee2c157c1e9c4c08273efc2107ab40a07d))
+* Tidy logs ([4cbf830](https://github.com/Zenoo/labrute/commit/4cbf8300b4707099a6ef920953aae49f881c39e2))
+
 ## [2.91.7](https://github.com/Zenoo/labrute/compare/labrute-v2.91.6...labrute-v2.91.7) (2026-05-02)
 
 

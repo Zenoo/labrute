@@ -3,5 +3,8 @@
   "reached": "a atteint le",
   "levelLower": "niveau",
   "chooseOneOfTheFollowingBonuses": "Choisissez l'un des avantages suivants",
-  "maxTierReached": "Niveau maximum atteint"
+  "maxTierReached": "Niveau maximum atteint",
+  "weaponUpgrade": "Amélioration d'arme",
+  "skillUpgrade": "Amélioration de compétence",
+  "petUpgrade": "Amélioration de familier"
 }

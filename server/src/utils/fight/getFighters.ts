@@ -5,6 +5,7 @@ import {
   BruteRanking,
   CalculatedBrute,
   entries,
+  ExtraTieredSkillData,
   FightStat, getPetScaledStat,
   getScaledStat,
   keys,
@@ -80,6 +81,33 @@ const handleSkills = (
       }
     }
 
+    // Extra handling for specific skills
+    if (ExtraTieredSkillData[skill.name]) {
+      switch (skill.name) {
+        case SkillName.determination:
+        case SkillName.resistant:
+        case SkillName.ironHead:
+          fighter[skill.name] = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
+          break;
+        case SkillName.saboteur:
+          fighter.sabotagedWeaponInitiativeMalus = ExtraTieredSkillData[
+            SkillName.saboteur
+          ]?.[skill.tier - 1] ?? 0;
+          break;
+        case SkillName.chef:
+          // Nothing to do, the poison is applied in fightMethods
+          break;
+        case SkillName.spy:
+          // Nothing to do, the damage reduction is applied in generateFight
+          break;
+        case SkillName.backup:
+          // Nothing to do, the intitiative is handled when creating the backup fighter
+          break;
+        default:
+          throw new Error(`No extra handling defined for skill ${skill.name}`);
+      }
+    }
+
     // Passives
     switch (skill.name) {
       case SkillName.shield:
@@ -87,9 +115,6 @@ const handleSkills = (
         break;
       case SkillName.saboteur:
         fighter.saboteur = true;
-        break;
-      case SkillName.sabotage:
-        fighter.sabotage = true;
         break;
       case SkillName.bodybuilder:
         fighter.bodybuilder = true;
@@ -99,15 +124,6 @@ const handleSkills = (
         break;
       case SkillName.balletShoes:
         fighter.balletShoes = true;
-        break;
-      case SkillName.determination:
-        fighter.determination = true;
-        break;
-      case SkillName.ironHead:
-        fighter.ironHead = true;
-        break;
-      case SkillName.resistant:
-        fighter.resistant = true;
         break;
       case SkillName.fastMetabolism:
         fighter.fastMetabolism = 0;
@@ -217,16 +233,16 @@ export const getFighters = ({
         accuracy: 0,
         armor: 0,
         disarm: 0,
+        sabotage: 0,
         evasion: 0,
         reach: 0,
-        sabotage: false,
+        determination: 0,
+        resistant: 0,
+        ironHead: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
-        determination: false,
         retryAttack: false,
-        ironHead: false,
-        resistant: false,
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
@@ -290,15 +306,15 @@ export const getFighters = ({
           reach: 0,
           armor: 0,
           disarm: getPetScaledStat(chaos, brute, pet, 'disarm', 2),
+          sabotage: 0,
           evasion: getPetScaledStat(chaos, brute, pet, 'evasion', 2),
-          sabotage: false,
+          determination: 0,
+          resistant: 0,
+          ironHead: 0,
           bodybuilder: false,
           survival: false,
           balletShoes: false,
-          determination: false,
           retryAttack: false,
-          ironHead: false,
-          resistant: false,
           fastMetabolism: null,
           skills: {},
           weapons: {},
@@ -359,7 +375,9 @@ export const getFighters = ({
         type: 'brute' as const,
         master: backupMaster.id,
         arrivesAtInitiative: arrivesAt,
-        leavesAtInitiative: arrivesAt + 2.8,
+        leavesAtInitiative: arrivesAt + (ExtraTieredSkillData[SkillName.backup]?.[
+          backupMaster.skills[SkillName.backup] ?? 0
+        ] ?? 0),
         maxHp: backup.hp,
         hp: backup.hp,
         strength: backup.strengthValue,
@@ -380,16 +398,16 @@ export const getFighters = ({
         accuracy: 0,
         armor: 0,
         disarm: 0,
+        sabotage: 0,
         evasion: 0,
         reach: 0,
-        sabotage: false,
+        determination: 0,
+        resistant: 0,
+        ironHead: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
-        determination: false,
         retryAttack: false,
-        ironHead: false,
-        resistant: false,
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
@@ -447,15 +465,15 @@ export const getFighters = ({
         reach: boss.reach,
         armor: 0,
         disarm: boss.disarm,
+        sabotage: 0,
         evasion: boss.evasion,
-        sabotage: false,
+        determination: 0,
+        resistant: 0,
+        ironHead: 0,
         bodybuilder: false,
         survival: false,
         balletShoes: false,
-        determination: false,
         retryAttack: false,
-        ironHead: false,
-        resistant: false,
         fastMetabolism: null,
         skills: {},
         weapons: {},

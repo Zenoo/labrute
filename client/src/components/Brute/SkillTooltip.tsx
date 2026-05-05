@@ -1,25 +1,23 @@
-import { convertEnduranceToHP, entries, FightStat, getScaledStat, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
+import { entries, ExtraTieredSkillData, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
 import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
+import SkillIcon from '../SkillIcon';
+import TieredStat from '../TieredStat';
+import { getSkillTieredStatProps, getExtraTieredSkillStatProps } from '../../utils/displayTieredStat';
 
-// Rename endurance to HP
+// Rename endurance to HP + Describe sabotage + Distinguish regen from bandage
 const statName = (stat: FightStat) => {
   if (stat === 'endurance') return 'HP';
+  if (stat === 'sabotage') return 'sabotageStat';
+  if (stat === 'regeneration') return 'regenerationStat';
 
   return stat;
-};
-
-// Convert endurance to HP
-const statValue = (stat: FightStat | null, value: number) => {
-  if (stat === 'endurance') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
-
-  return value;
 };
 
 export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
@@ -33,7 +31,7 @@ const SkillTooltip = ({
   children,
   ...rest
 }: SkillTooltipProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { modifiers } = useAuth();
 
   const chaos = useMemo(() => !!modifiers[FightModifier.chaos], [modifiers]);
@@ -43,9 +41,9 @@ const SkillTooltip = ({
       {...rest}
       title={skill ? (
         <>
-          <Box
-            component="img"
-            src={`/images/skills/${skill.name}.svg`}
+          <SkillIcon
+            skill={skill.name}
+            tier={tier}
             sx={{ width: 68, float: 'left', marginRight: 1 }}
           />
           <Text bold h5>{t(skill.name)}</Text>
@@ -54,91 +52,64 @@ const SkillTooltip = ({
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (
             <Fragment key={stat}>
               {!!modifier.flat && (
-                <Text
-                  bold
-                  subtitle2
-                  sx={{ color: StatColor[stat], lineHeight: 1 }}
-                >
-                  {modifier.flat[0] < 0 ? '-' : '+'}
-                  {modifier.flat.every((v) => v === modifier.flat?.[0]) ? getScaledStat({
-                    chaos,
-                    skill: skill.name,
-                    type: 'flat',
-                    stat,
-                    value: Math.abs(statValue(stat, modifier.flat[0]))
-                  }) : (
-                    <>
-                      [
-                      {modifier.flat.map((val, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={index}>
-                          <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                            {getScaledStat({
-                              chaos,
-                              skill: skill.name,
-                              type: 'flat',
-                              stat,
-                              value: Math.abs(statValue(stat, val))
-                            })}
-                          </Box>
-                          {index < (modifier.flat?.length ?? 0) - 1 ? '/' : ''}
-                        </Fragment>
-                      ))}
-                      ]
-                    </>
-                  )}
+                <Text bold subtitle2 sx={{ color: StatColor[stat], lineHeight: 1 }}>
+                  <TieredStat
+                    {...getSkillTieredStatProps({
+                      chaos,
+                      skill: skill.name,
+                      type: 'flat',
+                      stat,
+                      values: modifier.flat,
+                      tier,
+                    })}
+                    minus={modifier.flat[0] < 0}
+                    plus={modifier.flat[0] > 0}
+                  />
                   {' '}
                   {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                   {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
-                  {modifier.details ? ` ${t(modifier.details)}` : ''}
+                  {modifier.details && ` ${t(modifier.details)}`}
                 </Text>
               )}
               {!!modifier.percent && (
-                <Text
-                  bold
-                  subtitle2
-                  sx={{ color: StatColor[stat], lineHeight: 1.2 }}
-                >
-                  {modifier.percent[0] < 0 ? '-' : '+'}
-                  {modifier.percent.every((v) => v === modifier.percent?.[0]) ? (getScaledStat({
-                    chaos,
-                    skill: skill.name,
-                    type: 'percent',
-                    stat,
-                    value: Math.abs(modifier.percent[0]),
-                    precision: 2
-                  }) * 100).toFixed(0) : (
-                    <>
-                      [
-                      {modifier.percent.map((val, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={index}>
-                          <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                            {(getScaledStat({
-                              chaos,
-                              skill: skill.name,
-                              type: 'percent',
-                              stat,
-                              value: Math.abs(val),
-                              precision: 2
-                            }) * 100).toFixed(0)}
-                          </Box>
-                          {index < (modifier.percent?.length ?? 0) - 1 ? '/' : ''}
-                        </Fragment>
-                      ))}
-                      ]
-                    </>
-                  )}
-                  {'% '}
+                <Text bold subtitle2 sx={{ color: StatColor[stat], lineHeight: 1.2 }}>
+                  <TieredStat
+                    {...getSkillTieredStatProps({
+                      chaos,
+                      skill: skill.name,
+                      type: 'percent',
+                      stat,
+                      values: modifier.percent,
+                      tier,
+                    })}
+                    minus={modifier.percent[0] < 0}
+                    plus={modifier.percent[0] > 0}
+                  />
+                  %
+                  {' '}
                   {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                   {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
-                  {modifier.details ? ` ${t(modifier.details)}` : ''}
+                  {modifier.details && ` ${t(modifier.details)}`}
                 </Text>
               )}
             </Fragment>
           ))}
-          {t(`${skill.name}.effect`, { uses: skill.uses }) !== `${skill.name}.effect` && (
-            <Text bold sx={{ fontSize: 12 }} color="error">{t(`${skill.name}.effect`, { uses: skill.uses })}</Text>
+          {i18n.exists(`${skill.name}.effect`) && (
+            <Text bold sx={{ fontSize: 12 }} color="error">
+              <Trans
+                i18nKey={`${skill.name}.effect`}
+                components={{
+                  uses: skill.uses ? <TieredStat values={skill.uses} tier={tier} /> : <span />,
+                  stats: ExtraTieredSkillData[skill.name]
+                    ? <TieredStat {...getExtraTieredSkillStatProps({ skill: skill.name, tier })} />
+                    : <span />,
+                }}
+              />
+            </Text>
+          )}
+          {/* USAGE RATE */}
+          {skill.toss && (
+            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12, lineHeight: 1 }}>{t('usageRate')}: {Math.round(((skill.toss[tier - 1] ?? 0) / (NO_SKILL_TOSS + (skill.toss[tier - 1] ?? 0))) * 100)}%</Text>
           )}
           <Box sx={{
             display: 'flex',

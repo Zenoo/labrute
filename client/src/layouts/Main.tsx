@@ -187,15 +187,9 @@ const Main = () => {
           minWidth: 0,
           overflowX: 'auto',
           overflowY: 'hidden',
-          '&::-webkit-scrollbar-track': {
-            bgcolor: 'transparent',
-          },
+          scrollbarWidth: 'none', // Firefox
           '&::-webkit-scrollbar': {
-            width: '2px',
-            bgcolor: 'transparent',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            bgcolor: theme.palette.topbar.divider,
+            display: 'none', // Chrome, Safari, Edge
           },
         }}
         >
@@ -607,7 +601,7 @@ const Main = () => {
           '#root': {
             minHeight: '100%',
             background: `linear-gradient(180deg, ${theme.palette.background.light} 0%, ${theme.palette.background.default} 160px)`,
-          }
+          },
         }}
         />
         <Outlet />

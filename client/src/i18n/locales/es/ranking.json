@@ -2,5 +2,6 @@
   "ranking.desc": "Rango de {{name}}. Nivel {{level}} {{rank}} con un ratio de victoria de {{winrate}}.",
   "rankings": "{{value}} clasificaciones",
   "experience": "Experiencia",
-  "total": "Total"
+  "total": "Total",
+  "rankingUpdatedDaily": "El ranking se calcula una vez por día, no en tiempo real"
 }

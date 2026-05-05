@@ -168,6 +168,7 @@ export const FightStat = {
   BLOCK: 'block',
   ACCURACY: 'accuracy',
   DISARM: 'disarm',
+  SABOTAGE: 'sabotage',
   COMBO: 'combo',
   DEFLECT: 'deflect',
   ARMOR: 'armor',
@@ -536,7 +537,9 @@ export const SkillModifiers: Record<
   [SkillName.untouchable]: {
     [FightStat.EVASION]: { percent: [0.3, 0.4, 0.5] },
   },
-  [SkillName.sabotage]: {},
+  [SkillName.sabotage]: {
+    [FightStat.SABOTAGE]: { percent: [0.5, 0.75, 0.9] },
+  },
   [SkillName.shock]: {
     [FightStat.DISARM]: { percent: [0.5, 0.6, 0.7] },
   },
@@ -590,7 +593,9 @@ export const SkillModifiers: Record<
   [SkillName.hypnosis]: {},
   [SkillName.flashFlood]: {},
   [SkillName.tamer]: {},
-  [SkillName.regeneration]: {},
+  [SkillName.regeneration]: {
+    [FightStat.ARMOR]: { percent: [0, 0.02, 0.05] },
+  },
   [SkillName.chef]: {},
   [SkillName.spy]: {},
   [SkillName.saboteur]: {},
@@ -604,7 +609,9 @@ export const SkillModifiers: Record<
     [FightStat.HIT_SPEED]: { percent: [-1, -1, -1] },
   },
   [SkillName.vampirism]: {},
-  [SkillName.chaining]: {},
+  [SkillName.chaining]: {
+    [FightStat.COMBO]: { percent: [0, 0.1, 0.2] },
+  },
   [SkillName.haste]: {
     [FightStat.CRITICAL_CHANCE]: { percent: [0.05, 0.1, 0.15] },
   },
@@ -618,6 +625,16 @@ export const SkillModifiers: Record<
     [FightStat.HIT_SPEED]: { percent: [-0.5, -0.65, -0.8] },
     [FightStat.CRITICAL_CHANCE]: { percent: [-0.05, -0.1, -0.15] },
   },
+};
+
+export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, number]>> = {
+  [SkillName.determination]: [0.6, 0.7, 0.8],
+  [SkillName.resistant]: [0.25, 0.2, 0.17],
+  [SkillName.ironHead]: [0.4, 0.5, 0.6],
+  [SkillName.chef]: [1.5, 2, 2.5],
+  [SkillName.spy]: [0.2, 0.25, 0.3],
+  [SkillName.saboteur]: [100, 150, 200],
+  [SkillName.backup]: [2.8, 3.3, 3.8],
 };
 
 export const SkillDamageModifiers = Object.entries(SkillModifiers)

@@ -1,13 +1,14 @@
 import { PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, convertEnduranceToHP, getPetScaledStat } from '@labrute/core';
 import { Brute, FightModifier } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import StatColor from '../../utils/StatColor';
 import Text from '../Text';
 import { TierStar } from './TierStar';
+import TieredStat from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -49,71 +50,48 @@ const PetTooltip = ({
   const statLine = (
     stat: TieredNumberKeysOf<Pet>,
     percent: boolean,
-    precision?: number
+    precision?: number,
+    labelFirst?: boolean,
   ) => {
     if (!brute || !tieredPet?.[stat][0]) return null;
 
     const label = stat === 'hp' ? 'HP' : stat;
     const color = stat === 'hp' ? StatColor.endurance : StatColor[stat];
-    const uniqueValue = tieredPet[stat].every((v) => v === tieredPet[stat]?.[0]);
 
-    if (percent) {
+    const formatter = (currentTier: number) => Math.abs(Math.round(
+      getPetScaledStat(chaos, brute, {
+        ...tieredPet,
+        tier: currentTier,
+      }, stat, precision) * (percent ? 100 : 1),
+    ));
+
+    if (labelFirst) {
       return (
-        <Text bold sx={{ color }} {...textProps}>
-          {(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}
-          {uniqueValue ? Math.abs(Math.round(
-            getPetScaledStat(chaos, brute, tieredPet, stat, precision) * 100,
-          )) : (
-            <>
-              [
-              {tieredPet[stat].map((_, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <Fragment key={index}>
-                  {index > 0 && '/'}
-                  <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                    {Math.round(
-                      getPetScaledStat(chaos, brute, {
-                        ...tieredPet,
-                        tier: index + 1,
-                      }, stat, precision) * 100,
-                    )}
-                  </Box>
-                </Fragment>
-              ))}
-              ]
-            </>
-          )}
-          % {t(label)}
+        <Text {...textProps}>
+          {t(label)}:
+          {' '}
+          <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
+            <TieredStat
+              values={tieredPet[stat]}
+              tier={tier}
+              formatter={(_, index) => formatter(index + 1)}
+              percent={percent}
+            />
+          </Text>
         </Text>
       );
     }
 
     return (
-      <Text {...textProps}>
-        {t(label)}:
-        {' '}
-        <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
-          {uniqueValue ? (
-            getPetScaledStat(chaos, brute, tieredPet, stat, precision)
-          ) : (
-            <>
-              [
-              {tieredPet[stat].map((_, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <Fragment key={index}>
-                  <Box sx={{ fontWeight: index === tier - 1 ? 'bold' : 'normal' }} component="span">
-                    {getPetScaledStat(chaos, brute, {
-                      ...tieredPet,
-                      tier: index + 1,
-                    }, stat, precision)}
-                  </Box>
-                  {index < (tieredPet[stat]?.length ?? 0) - 1 ? '/' : ''}
-                </Fragment>
-              ))}
-              ]
-            </>
-          )}
-        </Text>
+      <Text bold sx={{ color, textShadow }} {...textProps}>
+        {(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}
+        <TieredStat
+          values={tieredPet[stat]}
+          tier={tier}
+          formatter={(_, index) => formatter(index + 1)}
+          percent={percent}
+        />
+        {' '}{t(label)}
       </Text>
     );
   };
@@ -151,12 +129,12 @@ const PetTooltip = ({
               {convertEnduranceToHP(brute, tieredPet.enduranceMalus)}
             </Text>
           </Text>
-          {statLine('initiative', false, 2)}
-          {statLine('strength', false)}
-          {statLine('agility', false)}
-          {statLine('speed', false)}
-          {statLine('hp', false)}
-          {statLine('damage', false)}
+          {statLine('initiative', false, 2, true)}
+          {statLine('strength', false, undefined, true)}
+          {statLine('agility', false, undefined, true)}
+          {statLine('speed', false, undefined, true)}
+          {statLine('hp', false, undefined, true)}
+          {statLine('damage', false, undefined, true)}
           {statLine('evasion', true, 2)}
           {statLine('accuracy', true, 2)}
           {statLine('disarm', true, 2)}

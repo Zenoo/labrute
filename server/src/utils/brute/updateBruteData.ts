@@ -61,7 +61,7 @@ export const updateBruteData = (
 
     const calculatedBrute = getCalculatedBrute(updatedBrute, {});
 
-    // Handle +2 fights for `regeneration`
+    // Handle +2 fights for `bandage`
     if (skillName === SkillName.regeneration && !brute.eventId) {
       updatedBrute.fightsLeft = getFightsLeft(calculatedBrute) + 2;
     }

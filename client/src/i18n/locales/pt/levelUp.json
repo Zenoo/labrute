@@ -3,5 +3,8 @@
   "reached": "alcançado",
   "levelLower": "nível",
   "chooseOneOfTheFollowingBonuses": "Escolha um dos seguintes bônus",
-  "maxTierReached": "Maximum tier reached"
+  "maxTierReached": "Maximum tier reached",
+  "weaponUpgrade": "Weapon upgrade",
+  "skillUpgrade": "Skill upgrade",
+  "petUpgrade": "Pet upgrade"
 }

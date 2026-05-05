@@ -257,7 +257,7 @@ export const AchievementData: Record<
   },
   regeneration_potion: {
     rarety: AchievementRarety.uncommon,
-    illustration: 'regeneration_potion.svg',
+    illustration: 'bandage_potion.svg',
     perBrute: 1,
   },
   bear_tamer: {

@@ -3,5 +3,8 @@
   "reached": "erreicht",
   "levelLower": "Stufe",
   "chooseOneOfTheFollowingBonuses": "Wähle aus den folgenden Boni",
-  "maxTierReached": "Maximale Aufwertung erreicht"
+  "maxTierReached": "Maximale Aufwertung erreicht",
+  "weaponUpgrade": "Waffenverbesserung",
+  "skillUpgrade": "Fähigkeitsverbesserung",
+  "petUpgrade": "Tierbegleiterverbesserung"
 }

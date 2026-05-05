@@ -3,7 +3,9 @@ import {
   AchievementsStore,
   ArriveStep,
   entries,
+  ExtraTieredSkillData,
   FightStat, HasteStep, HitStep, keys, LeaveStep,
+  NO_SKILL_TOSS,
   NO_WEAPON_TOSS,
   randomBetween, randomItem,
   Skill,
@@ -312,7 +314,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   if (!supers.length) return null;
 
-  const NO_SUPER_TOSS = fightData.modifiers[FightModifier.alwaysUseSupers] ? 0 : 10;
+  const NO_SUPER_TOSS = fightData.modifiers[FightModifier.alwaysUseSupers] ? 0 : NO_SKILL_TOSS;
   const randomSuper = randomBetween(
     0,
     supers.reduce((acc, skill) => acc + (skill.toss?.[skill.tier - 1] || 0), -1) + NO_SUPER_TOSS,
@@ -528,9 +530,12 @@ const registerHit = ({
       }
     }
 
-    // Max damage to 20% of opponent's health if `resistant`
-    if (opponent.skills[SkillName.resistant]) {
-      actualDamage[opponent.index] = Math.min(damage, Math.floor(opponent.maxHp * 0.2));
+    // Max damage to % of opponent's health if `resistant`
+    if (opponent.resistant) {
+      actualDamage[opponent.index] = Math.min(
+        damage,
+        Math.floor(opponent.maxHp * opponent.resistant),
+      );
 
       if ((actualDamage[opponent.index] ?? damage) < damage) {
         // Add resist step
@@ -809,7 +814,7 @@ const drawWeapon = (
     fighter.sabotagedWeapon = null;
 
     // Increase own initiative
-    fighter.initiative += 1;
+    fighter.initiative += (fighter.sabotagedWeaponInitiativeMalus ?? 100) / 100;
 
     return true;
   }
@@ -1643,8 +1648,8 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   // Only disarm if opponent has `ironHead`
   if (!opponent.ironHead) return false;
 
-  // 50% chance to disarm the attacker
-  return Math.random() < 0.5;
+  // Chance to disarm the attacker
+  return Math.random() < opponent.ironHead;
 };
 
 const reversal = (chaos: boolean, opponent: DetailedFighter, blocked: boolean) => {
@@ -1781,8 +1786,8 @@ const attack = (
   if (damage && fighter.sabotage) {
     const opponentWeapons = keys(opponent.weapons);
 
-    // 90% chance to sabotage
-    if (opponentWeapons.length && Math.random() < 0.9) {
+    // Chance to sabotage
+    if (opponentWeapons.length && Math.random() < fighter.sabotage) {
       // Remove a random weapon
       const weapon = randomItem(opponentWeapons);
       delete opponent.weapons[weapon];
@@ -1859,7 +1864,7 @@ const attack = (
     && !damage
     && fighter.determination
     && !fighter.hypnotized
-    && Math.random() < 0.7) {
+    && Math.random() < fighter.determination) {
     fighter.retryAttack = true;
   }
 
@@ -2493,8 +2498,12 @@ export const playFighterTurn = (
       throw new Error('No poisoner found');
     }
 
-    // Get poison damage (2% of max HP)
-    const poisonDamage = Math.ceil(fighter.maxHp / 50);
+    const poisonPercentage = ExtraTieredSkillData[SkillName.chef]?.[
+      (poisoner.skills[SkillName.chef]?.tier ?? 1) - 1
+    ] ?? 2;
+
+    // Get poison damage (% of max HP)
+    const poisonDamage = Math.ceil(fighter.maxHp * (poisonPercentage / 100));
 
     // Register the hit
     registerHit({

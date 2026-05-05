@@ -1,8 +1,8 @@
-import { getXPNeeded } from '@labrute/core';
+import { BrutesGetForVersusResponse, getXPNeeded } from '@labrute/core';
 import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import BoxBg from '../components/BoxBg';
 import BruteRender from '../components/Brute/Body/BruteRender';
 import Page from '../components/Page';
@@ -11,15 +11,16 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import useStateAsync from '../hooks/useStateAsync';
 import VersusMobileView from './mobile/VersusMobileView';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import Loader from '../components/Loader';
 
 const VersusView = () => {
   const { t } = useTranslation('versus');
   const { opponentName } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const Alert = useAlert();
   const { user, updateData, currentEvent } = useAuth();
   const { brute, updateBrute } = useBrute();
@@ -30,7 +31,26 @@ const VersusView = () => {
   // Prevent multi click
   const [fighting, setFighting] = React.useState(false);
 
-  const { data: opponent } = useStateAsync(null, Server.Brute.getForVersus, opponentName || '');
+  // Use passed opponent data from state if available, otherwise fetch
+  const passedOpponent = (location.state as Record<string, unknown>)?.opponent as
+    BrutesGetForVersusResponse | undefined;
+  const [opponent, setOpponent] = React.useState(passedOpponent ?? null);
+
+  // Fetch opponent data only if not passed via state
+  useEffect(() => {
+    if (!passedOpponent && opponentName) {
+      let isSubscribed = true;
+      Server.Brute.getForVersus(opponentName).then((data) => {
+        if (isSubscribed) {
+          setOpponent(data);
+        }
+      }).catch((error) => {
+        catchError(Alert, error);
+      });
+      return () => { isSubscribed = false; };
+    }
+    return undefined;
+  }, [Alert, Server.Brute, opponentName, passedOpponent]);
 
   const xpNeededForNextLevel = useMemo(() => brute
     && getXPNeeded(brute.level + 1), [brute]);
@@ -146,7 +166,9 @@ const VersusView = () => {
           </Grid>
         </Grid>
         <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>
-          <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
+          {fighting ? <Loader color="success" size="16px" /> : (
+            <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
+          )}
         </StyledButton>
       </BoxBg>
     </Page>

@@ -2,5 +2,6 @@
   "ranking.desc": "Звание {{name}}. {{rank}} {{level}}-о уровня с долей побед: {{winrate}}.",
   "rankings": "{{value}} рейтингов",
   "experience": "Опыт",
-  "total": "Всего"
+  "total": "Всего",
+  "rankingUpdatedDaily": "Рейтинг высчитывается раз в день, то есть не в реальном времени"
 }
