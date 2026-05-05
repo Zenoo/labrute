@@ -1,9 +1,9 @@
 {
-  "title": "Arena",
-  "search": "GO !",
-  "search.atLeastThreeCharacters": "Please enter at least 3 characters.",
-  "search.noSelf": "Stop hitting yourself.",
-  "search.notFound": "No Brute found with this name.",
-  "noXP": "Your brute reached the maximum level. You can still fight, but you won't gain any more XP.",
-  "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!"
+  "title": "Арена",
+  "search": "Вперёд!",
+  "search.atLeastThreeCharacters": "Пожалуйста, введите не менее 3 символа.",
+  "search.noSelf": "Самобичевание не поддерживается.",
+  "search.notFound": "Брутал с таким именем не найден.",
+  "noXP": "Ваш Брутал достиг максимальный уровень. Вы можете сражаться дальше, но не будете получать опыт.",
+  "selectedOpponents": "Добро пожаловать в арену! Вот выбор противников вашего уровня. Выбирайте, и начнем бой!"
 }
