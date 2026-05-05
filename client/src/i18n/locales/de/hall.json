@@ -1,5 +1,5 @@
 {
-  "hall": "Hall",
-  "chooseAsFavorite": "Choose as favorite (max {{amount}})",
-  "removeFromFavorites": "Remove from favorites"
+  "hall": "Halle",
+  "chooseAsFavorite": "Zum Favorit ernennen (maximal {{amount}})",
+  "removeFromFavorites": "Nicht mehr favorisieren"
 }
