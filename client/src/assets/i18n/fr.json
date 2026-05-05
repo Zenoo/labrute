@@ -433,6 +433,7 @@
   "accuracy": "Précision",
   "disarm": "Désarmement",
   "sabotageStat": "De chances de détruire une arme en réserve à chaque coup qui blesse",
+  "regenerationStat": "Regeneration",
   "combo": "Combo",
   "deflect": "Renvoi",
   "damage": "Dégâts",
