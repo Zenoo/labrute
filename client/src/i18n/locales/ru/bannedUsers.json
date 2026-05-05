@@ -1,5 +1,5 @@
 {
-  "unban": "Unban",
-  "unbanConfirm": "Are you sure you want to unban this user?",
-  "unbanSuccess": "User successfully unbanned."
+  "unban": "Разбанить",
+  "unbanConfirm": "Вы уверены, что хотите разбанить пользователя?",
+  "unbanSuccess": "Пользователь успешно разбанен."
 }
