@@ -1,9 +1,9 @@
 {
-  "title": "Arena",
+  "title": "Arène",
   "search": "GO !",
-  "search.atLeastThreeCharacters": "Please enter at least 3 characters.",
-  "search.noSelf": "Stop hitting yourself.",
-  "search.notFound": "No Brute found with this name.",
-  "noXP": "Your brute reached the maximum level. You can still fight, but you won't gain any more XP.",
-  "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!"
+  "search.atLeastThreeCharacters": "Tu dois saisir au moins 3 caractères.",
+  "search.noSelf": "Tu ne peux pas te défouler sur toi-même.",
+  "search.notFound": "Aucune brute ne correspond à ta recherche.",
+  "noXP": "Votre brute a atteint le niveau maximum. Vous pouvez toujours vous battre, mais vous ne gagnerez plus d'XP.",
+  "selectedOpponents": "Bienvenue dans l'arène ! J'ai sélectionné quelques adversaires à ta taille. Choisis-en un, et on commence le combat !"
 }
