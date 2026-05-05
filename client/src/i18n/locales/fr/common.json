@@ -551,5 +551,6 @@
   "sabotageStat": "De chances de détruire une arme en réserve à chaque coup qui blesse",
   "regenerationStat": "Régénération",
   "usageRate": "Taux d'utilisation",
-  "damage": "Dégâts"
+  "damage": "Dégâts",
+  "authing": "Authentification en cours..."
 }

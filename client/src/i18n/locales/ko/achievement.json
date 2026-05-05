@@ -230,6 +230,8 @@
   "beta.description": "Thank you for participating in MyBrute's beta!",
   "bug": "Bug Buster",
   "bug.description": "Report and help fix a bug.",
+  "ascend": "Ascend",
+  "ascend.description": "Ascend a brute.",
   "wins.title.1": "Scrapper",
   "wins.title.2": "Tough guy",
   "wins.title.3": "Bouncer",

@@ -158,12 +158,6 @@
   "tournament": "Tournament",
   "dailyTournament": "Daily tournament",
   "globalTournament": "Global tournament",
-  "tournamentOf": "Tournament of",
-  "setAsWatched": "Set as watched",
-  "round": "Round {{value}}",
-  "quarterFinals": "Quarter-finals",
-  "semiFinals": "Semi-finals",
-  "finals": "Finals",
   "transferBrute": "Transfer brute",
   "brutes": "브루트스",
   "vs": "vs",
@@ -556,5 +550,7 @@
   "rankingUpdatedDaily": "Ranking is calculated once per day, not in real-time",
   "sabotageStat": "Chance to destroy a weapon each time you land a blow",
   "regenerationStat": "Regeneration",
-  "usageRate": "Usage Rate"
+  "usageRate": "Usage Rate",
+  "damage": "Damage",
+  "authing": "Authenticating..."
 }

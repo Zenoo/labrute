@@ -1,4 +1,5 @@
 {
+  "desc": "Curious about {{value}}'s achievements? Come and take a look!",
   "wins": "Lutas vencidas",
   "wins.description": "Lutas vencidas.",
   "defeats": "Lutas perdidas",
@@ -229,6 +230,8 @@
   "beta.description": "Obrigado por participar da versão beta do MyBrute!",
   "bug": "Buscador de Bugs",
   "bug.description": "Reporte e ajude a corrigir um bug.",
+  "ascend": "Ascend",
+  "ascend.description": "Ascend a brute.",
   "wins.title.1": "Sucateiro",
   "wins.title.2": "Cara durão",
   "wins.title.3": "Segurança",
