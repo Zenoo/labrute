@@ -1,7 +1,7 @@
 {
-  "tournamentHistory": "Tournament history",
+  "tournamentHistory": "Histórico de torneios",
   "tournamentHistory.desc": "Every tournament {{brute}} has ever participated in. That's a lot of fights!",
-  "result": "Result",
+  "result": "Resultado",
   "tournament.result.finishingWith.1": "st",
   "tournament.result.finishingWith.2": "nd",
   "tournament.result.finishingWith.3": "rd",
