@@ -1,0 +1,5 @@
+{
+  "desc": "Ici vous pouvez voir tous les objets que vous avez accumulés. Utilisez-les judicieusement !",
+  "item.favoriteFight.desc": "Vous pouvez définir un combat comme votre favori sur la page de combat. Il ne sera pas supprimé après 30 jours.",
+  "itemNotImplemented": "Cet objet n'est pas encore implémenté."
+}

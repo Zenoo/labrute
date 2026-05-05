@@ -36,7 +36,7 @@ import { catchError } from '../utils/catchError';
  * CellView component
  */
 const CellView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cell');
   const { bruteName } = useParams();
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();

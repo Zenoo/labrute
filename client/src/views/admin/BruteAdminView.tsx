@@ -18,7 +18,7 @@ import { catchError } from '../../utils/catchError';
 import StyledInput from '../../components/StyledInput';
 
 export const BruteAdminView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('admin');
   const { bruteName: urlBruteName } = useParams();
   const Alert = useAlert();
   const Server = useServer();

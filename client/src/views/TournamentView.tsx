@@ -44,7 +44,7 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 const TournamentView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('tournament');
   const { bruteName, date } = useParams();
   const { user, authing } = useAuth();
   const navigate = useNavigate();

@@ -122,7 +122,7 @@ const WeaponTooltip = ({
               </Box>
             )}
             {/* NAME */}
-            <Text bold h5>{t(weapon ? weapon.name : 'bareHands')}</Text>
+            <Text bold h5>{weapon ? t(weapon.name) : t('bareHands')}</Text>
             {/* ILLUSTRATION */}
             {weapon && (
               <Box

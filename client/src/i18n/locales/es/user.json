@@ -1,0 +1,18 @@
+{
+  "dinoRpgRewardsSuccess": "¡Enhorabuena! Has ganado un combate extra para cada uno de tus brutos.",
+  "ban": "Banear",
+  "banConfirm": "¿Estás seguro de que quieres banear a este usuario?",
+  "banSuccess": "Usuario baneado con éxito.",
+  "deleteAccount": "Delete account",
+  "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
+  "accountDeleted": "Your account has been deleted",
+  "userProfile": "Perfil de {{user}}",
+  "userProfile.desc": "El perfil de {{user}} muestra todos sus logros y brutos.",
+  "externalRewards": "Recompensas externas",
+  "favoriteFights": "Combates favoritos",
+  "banReason.innapropriateName": "Nombre inapropiado",
+  "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
+  "banReason.multipleAccounts": "Múltiples cuentas",
+  "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
+  "banReason.headers_tampering": "Headers tampering detected"
+}

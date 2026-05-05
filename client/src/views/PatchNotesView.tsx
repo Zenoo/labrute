@@ -9,7 +9,7 @@ import Page from '../components/Page';
 import Text from '../components/Text';
 
 const PatchNotesView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('patchNotes');
 
   const [displayedReleases, setDisplayedReleases] = useState([LAST_RELEASE]);
 
@@ -21,7 +21,7 @@ const PatchNotesView = () => {
   return (
     <Page
       title={`${t('MyBrute')} - ${t('patchNotes')}`}
-      description={t('patchNotes.desc', { version: LAST_RELEASE.version })}
+      description={t('desc', { version: LAST_RELEASE.version })}
     >
       <Paper sx={{
         mx: 4,

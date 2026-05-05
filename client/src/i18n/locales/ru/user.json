@@ -1,0 +1,18 @@
+{
+  "dinoRpgRewardsSuccess": "Поздравляем! Каждый из ваших Бруталов получил дополнительную битву.",
+  "ban": "Забанить",
+  "banConfirm": "Вы уверены, что хотите забанить пользователя?",
+  "banSuccess": "Пользователь успешно забанен.",
+  "deleteAccount": "Удалить учётную запись",
+  "deleteAccountConfirm": "Вы уверены, что хотите удалить свою учетную запись? Все ваши Бруталы и прогресс будут утеряны. Это действие необратимо.",
+  "accountDeleted": "Ваша учетная запись была удалена",
+  "userProfile": "Профиль {{user}}",
+  "userProfile.desc": "Профиль {{user}}, где отображены все его достижения и Бруталы.",
+  "externalRewards": "Внешние вознаграждения",
+  "favoriteFights": "Избранные битвы",
+  "banReason.innapropriateName": "Неуместное имя",
+  "banReason.innapropriateBruteName": "Неуместное имя Брутала",
+  "banReason.multipleAccounts": "Несколько учётных записей",
+  "banReason.unrecognized_fingerprint": "Неопознанный цифровой отпечаток",
+  "banReason.headers_tampering": "Обнаружена манипуляция заголовков"
+}

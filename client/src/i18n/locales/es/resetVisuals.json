@@ -1,0 +1,6 @@
+{
+  "resetVisuals": "Reiniciar aspecto",
+  "resetVisualsDescription": "Puedes cambiar el aspecto de tu bruto aquí. Ten cuidado, esta acción no se puede deshacer.",
+  "resetVisualsConfirm": "¿Estás seguro de que quieres reiniciar el aspecto de tu bruto? Esta acción no se puede deshacer.",
+  "resetVisualsSuccess": "Aspecto reiniciado correctamente"
+}

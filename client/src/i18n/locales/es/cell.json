@@ -1,0 +1,18 @@
+{
+  "cell.desc": "Celda de {{name}}. Nivel {{level}} {{rank}} con un ratio de victoria de {{winrate}}.",
+  "sacrifice": "Sacrificar",
+  "sacrificeConfirm": "¿Estás seguro de que quieres sacrificar tu Bruto por {{gold}} Oro? Esta acción no se puede deshacer.",
+  "sacrificeSuccess": "Sacrificio exitoso, has conseguido {{gold}} Oro.",
+  "reset": "Reiniciar",
+  "resetConfirm": "¿Seguro que quieres reiniciar tu bruto al nivel 1? Te costará {{gold}} de oro y no puedes deshacer esta acción.",
+  "resetEventConfirm": "¿Estás seguro de que deseas reiniciar tu Bruto al nivel 1? Recibirás suficiente experiencia para volver a tu nivel actual. Esto te costará {{gold}} de oro. Esta acción no puede deshacerse.",
+  "resetSuccess": "Reiniciado con éxito",
+  "report": "reportar",
+  "reportName": "Reportar nombre inapropiado",
+  "reportConfirm": "¿Estás seguro de que quieres reportar el nombre {{brute}} como inapropiado?",
+  "reportSuccess": "Reporte enviado con éxito.",
+  "previousBrute": "Bruto anterior",
+  "nextBrute": "Siguiente Bruto",
+  "weaponsBonuses": "Armas y bonus disponibles en combate",
+  "refLink": "Pásale esta dirección a tus amigos o ponla en tu blog. ¡Esto te permitirá reclutar alumnos y ganar experiencia!"
+}

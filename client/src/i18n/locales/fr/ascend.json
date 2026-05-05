@@ -1,0 +1,17 @@
+{
+  "ascendWith.firstDog": "un Chien",
+  "ascendWith.secondDog": "un second Chien",
+  "ascendWith.thirdDog": "un troisième Chien",
+  "youWillAscendWithDog": "Vous vous élèverez avec {{one_or_a_second_pet_dog}}",
+  "youWillAscendWith": "Vous avez choisi de vous élever avec l'attribut suivant : {{perkName}} ({{perkType}}).",
+  "ascendConfirmShort": "Voulez-vous vraiment vous élever ?",
+  "ascendConfirm": "Votre brute retournera au niveau 1 et gardera son rang, les récompenses de ses ascensions précédentes ainsi que l'attribut sélectionné, qui sera remplacé par des statistiques partout dans sa destinée.",
+  "ascension": "Ascension",
+  "youAreAboutToAscend": "Vous êtes sur le point de vous élever",
+  "ascensionExplanationText": "L'Ascension vous permet de recommencer avec un attribut permanent supplémentaire. Vous reviendrez au niveau 1, mais conserverez votre rang, les récompenses de vos ascensions précédentes, ainsi que l'attribut que vous êtes sur le point de sélectionner.",
+  "rankingPrioritizeAscensions": "Le classement priorise le nombre d'ascensions par rapport au niveau et à l'expérience !",
+  "youMustSelectToAscend": "Vous devez sélectionner une arme, une compétence ou un familier pour vous élever.",
+  "perkType.weapon": "Arme",
+  "perkType.skill": "Compétence",
+  "perkType.pet": "Familier"
+}

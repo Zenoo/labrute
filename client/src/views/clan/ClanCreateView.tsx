@@ -12,7 +12,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 const ClanCreateView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('clan');
   const { bruteName } = useParams();
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));

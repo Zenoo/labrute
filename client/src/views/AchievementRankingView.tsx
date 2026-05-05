@@ -13,7 +13,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 const AchievementRankingView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('achievementRanking');
   const theme = useTheme();
   const Alert = useAlert();
   const Server = useServer();
@@ -99,7 +99,7 @@ const AchievementRankingView = () => {
                               src={`/images/achievements/${AchievementData[achievementName].illustration || ''}`}
                               sx={{ width: 20 }}
                             />
-                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievementName}`)}</Text>
+                            <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievement:${achievementName}`)}</Text>
                           </ListSubheader>
                         </AchievementTooltip>
                       )}

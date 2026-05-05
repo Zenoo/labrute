@@ -1,0 +1,9 @@
+{
+  "title": "Arena",
+  "search": "GO!",
+  "search.atLeastThreeCharacters": "Introduce al menos 3 caracteres.",
+  "search.noSelf": "Estás confuso, pero no puedes golpearte a ti mismo.",
+  "search.notFound": "No se ha encontrado ningún Bruto.",
+  "noXP": "Tu bruto ha alcanzado el nivel máximo. Puedes seguir combatiendo, pero no ganarás más XP.",
+  "selectedOpponents": "¡Bienvenido a la Arena! Aquí tienes una selección de adversarios de tu nivel. Elige uno y, ¡que empiece el combate!"
+}

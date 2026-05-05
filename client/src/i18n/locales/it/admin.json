@@ -1,0 +1,12 @@
+{
+  "status": "Status",
+  "pending": "Pending",
+  "accepted": "Accepted",
+  "rejected": "Rejected",
+  "reportedBy": "Reported by",
+  "handledBy": "Handled by",
+  "unknown": "Unknown",
+  "reportAccepted": "Report accepted",
+  "reportRejected": "Report rejected",
+  "reportCancelled": "Report cancelled"
+}

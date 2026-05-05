@@ -41,7 +41,7 @@ const CellMobileView = ({
   confirmSacrifice,
   confirmReset,
 }: CellMobileViewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cell');
   const { brute, owner } = useBrute();
   const { user } = useAuth();
   const theme = useTheme();

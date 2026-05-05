@@ -13,7 +13,7 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
 export const BannedUsersView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('bannedUsers');
   const Alert = useAlert();
   const { user: admin } = useAuth();
   const Confirm = useConfirm();

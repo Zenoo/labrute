@@ -13,7 +13,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const EventRoundView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('event');
   const { bruteName, id, round } = useParams();
   const Alert = useAlert();
   const theme = useTheme();

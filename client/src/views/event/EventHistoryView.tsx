@@ -15,7 +15,7 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const EventHistoryView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('event');
   const { bruteName } = useParams();
   const Alert = useAlert();
   const theme = useTheme();

@@ -1,0 +1,11 @@
+{
+  "description": "Erstelle deinen Brutalo, passe sein Aussehen an und kaempfe gegen andere Brutalos in der Arena.",
+  "loginError": "Fehler beim Einloggen",
+  "loginSuccess": "Erfolgreich eingeloggt",
+  "pleaseLogin": "Bitte vor Brutalo-Erstellung einloggen",
+  "nameUnavailable": "Name nicht verfügbar",
+  "heroTitle": "UM EIN BRUTALO ZU SEIN...",
+  "heroBody": "Gib einen Namen ein, um deinen eigenen Brutalo zu erschaffen. Kämpfe gegen andere Brutalos in der Arena und rekrutiere neue Schüler. Sammle Erfahrung, prügel dich durch die Ränge und werde... DER BRUTALO!",
+  "otherGamesTitle": "...ODER NICHT ZU SEIN",
+  "otherGamesBody": "Falls dir all die sinnlose Gewalt zuwider ist, kannst du auch unsere anderen spaßigen Spiele ausprobieren:"
+}

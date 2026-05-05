@@ -1,0 +1,9 @@
+{
+  "tournamentOf.desc": "Voir la participation de {{brute}} au tournoi du {{date}}.",
+  "tournamentOf": "Tournoi du",
+  "setAsWatched": "Marquer comme vu",
+  "round": "Tour {{value}}",
+  "quarterFinals": "Quart de finale",
+  "semiFinals": "Demi-finale",
+  "finals": "Finale"
+}

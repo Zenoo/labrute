@@ -39,7 +39,7 @@ const statValue = (brute: Pick<Brute, 'enduranceModifier'>, stat: BruteStat | nu
 };
 
 const LevelUpView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('levelUp');
   const { bruteName } = useParams();
   const { user, updateData, modifiers } = useAuth();
   const navigate = useNavigate();

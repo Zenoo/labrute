@@ -36,7 +36,7 @@
     "@pixi/filter-outline": "^4.2.0",
     "@pixi/sound": "^4.4.1",
     "dayjs": "^1.11.13",
-    "i18next": "^21.9.0",
+    "i18next": "26.0.7",
     "labrute-fla-parser": "^1.0.13",
     "labrute-static-fla-parser": "^1.0.6",
     "pixi-tweener": "^0.12.2",

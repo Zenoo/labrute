@@ -1,0 +1,13 @@
+{
+  "adminPanel": "Panneau d'administration",
+  "status": "Statut",
+  "pending": "En attente",
+  "accepted": "Accepté",
+  "rejected": "Refusé",
+  "reportedBy": "Signalé par",
+  "handledBy": "Traité par",
+  "unknown": "Inconnu",
+  "reportAccepted": "Signalement accepté",
+  "reportRejected": "Signalement refusé",
+  "reportCancelled": "Signalement annulé"
+}

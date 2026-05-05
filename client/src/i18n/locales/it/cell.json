@@ -1,0 +1,18 @@
+{
+  "cell.desc": "Cella di {{name}}. {{rank}} livello {{level}} con un tasso di vittoria del {{winrate}}.",
+  "sacrifice": "Sacrifice",
+  "sacrificeConfirm": "Are you sure you want to sacrifice your brute for {{gold}} Gold ? This action cannot be undone.",
+  "sacrificeSuccess": "Sacrifice success, you gained {{gold}} Gold",
+  "reset": "Reset",
+  "resetConfirm": "Are you sure you want to reset your brute to level 1 ? This will cost you {{gold}} Gold. This action cannot be undone.",
+  "resetEventConfirm": "Are you sure you want to reset your brute to level 1 ? You will get enough XP to get back to your current level. This will cost you {{gold}} Gold. This action cannot be undone.",
+  "resetSuccess": "Reset success",
+  "report": "report",
+  "reportName": "Report inappropriate name",
+  "reportConfirm": "Are you sure you want to report the brute name {{brute}} as inappropriate?",
+  "reportSuccess": "Report successfully sent.",
+  "previousBrute": "Previous Brute",
+  "nextBrute": "Next Brute",
+  "weaponsBonuses": "Armi e bonus disponibili in combattimento",
+  "refLink": "Dai questo indirizzo web ai tuoi amici o pubblicalo nel tuo blog. Ti permetterà di reclutare alunni e guadagnare esperienza."
+}

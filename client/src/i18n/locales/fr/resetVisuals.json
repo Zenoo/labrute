@@ -1,0 +1,6 @@
+{
+  "resetVisuals": "Changer d'apparence",
+  "resetVisualsDescription": "Vous pouvez changer l'apparence de votre brute ici. Attention, cette action ne peut pas être annulée.",
+  "resetVisualsConfirm": "Êtes-vous sûr de vouloir réinitialiser l'apparence de votre brute ? Cette action ne peut pas être annulée.",
+  "resetVisualsSuccess": "Apparence réinitialisée avec succès"
+}

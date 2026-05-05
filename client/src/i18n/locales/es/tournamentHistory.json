@@ -1,0 +1,9 @@
+{
+  "tournamentHistory": "Historial de torneos",
+  "tournamentHistory.desc": "Todos los torneos en los que ha participado {{brute}}. ¡Qué cantidad de combates!",
+  "result": "Resultado",
+  "tournament.result.finishingWith.1": "ro",
+  "tournament.result.finishingWith.2": "do",
+  "tournament.result.finishingWith.3": "er",
+  "tournament.result.finishingWith.other": "º"
+}

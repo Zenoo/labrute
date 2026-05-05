@@ -1,0 +1,11 @@
+{
+  "description": "Fight against other Brutes in the arena. Gain experience and fight tough in the ranking to become... THE BRUTE!",
+  "loginError": "Login error",
+  "loginSuccess": "Login success",
+  "pleaseLogin": "Please login before creating a Brute",
+  "nameUnavailable": "Name unavailable",
+  "heroTitle": "TO BE A BRUTE...",
+  "heroBody": "Insert a name to create your own Brute. You will be able to fight against other Brutes in the arena and recruit new pupils. Gain experience and fight tough in the ranking to become... THE BRUTE!",
+  "otherGamesTitle": "... OR NOT TO BE",
+  "otherGamesBody": "If all this unrelenting violence is too much for you, you can try our other funny games:"
+}

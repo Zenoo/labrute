@@ -15,7 +15,7 @@ import { catchError } from '../../utils/catchError';
 import dayjs from 'dayjs';
 
 const UserAdminView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user: admin } = useAuth();
   const Server = useServer();

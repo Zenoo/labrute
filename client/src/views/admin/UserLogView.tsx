@@ -82,7 +82,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
 };
 
 export const UserLogView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user } = useAuth();
   const { userId } = useParams();

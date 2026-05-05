@@ -1,0 +1,5 @@
+{
+  "desc": "Hier kannst du dir alle Gegenstände ansehen, die du gesammelt hast. Nutze sie weise!",
+  "item.favoriteFight.desc": "Du kannst einen Kampf zu den Favoriten auf der Kampfseite hinzufügen. Dieser wird nach 30 Tagen nicht gelöscht.",
+  "itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert."
+}

@@ -33,15 +33,15 @@ const HomeMobileView = ({
   fixBruteAppearance,
   setFixBruteAppearance
 }: HomeMobileViewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('home');
   const theme = useTheme();
   const isSx = useMediaQuery(theme.breakpoints.only('xs'));
 
   const adverts = (
     <Paper sx={{ mt: !isSx ? 4 : null }}>
       {/* SECOND TEXT */}
-      <Text h4 bold typo="handwritten" color="secondary">{t('orNotToBe')}</Text>
-      <Text bold color="text.primary">{t('otherGames')}</Text>
+      <Text h4 bold typo="handwritten" color="secondary">{t('otherGamesTitle')}</Text>
+      <Text bold color="text.primary">{t('otherGamesBody')}</Text>
       {/* OTHER GAMES */}
       <Grid container spacing={1}>
         {[leftAd, isSx ? rightAd : null].map((ad) => ad && (
@@ -62,13 +62,13 @@ const HomeMobileView = ({
   );
 
   return (
-    <Page title={t('MyBrute')} description={t('home.desc')}>
+    <Page title={t('MyBrute')} description={t('description')}>
       <Grid container spacing={1}>
         {/* FIRST TEXT */}
         <Grid item xs={12} sm={6}>
           <Paper sx={{ bgcolor: 'background.paperLight' }}>
-            <Text h4 bold typo="handwritten" color="secondary">{t('toBeABrute')}</Text>
-            <Text bold color="text.primary">{t('createBrute')}</Text>
+            <Text h4 bold typo="handwritten" color="secondary">{t('heroTitle')}</Text>
+            <Text bold color="text.primary">{t('heroBody')}</Text>
           </Paper>
           {!isSx && adverts}
         </Grid>
@@ -91,7 +91,10 @@ const HomeMobileView = ({
                 value={name}
                 sx={{ mx: 'auto' }}
               />
-              <Tooltip title={fixBruteAppearance ? t('unlockBruteAppearance') : t('lockBruteAppearance')}>
+              <Tooltip title={fixBruteAppearance
+                ? t('unlockBruteAppearance')
+                : t('lockBruteAppearance')}
+              >
                 <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>

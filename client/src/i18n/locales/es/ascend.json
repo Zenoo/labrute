@@ -1,0 +1,17 @@
+{
+  "ascendWith.firstDog": "un perro mascota",
+  "ascendWith.secondDog": "un segundo perro mascota",
+  "ascendWith.thirdDog": "un tercer perro mascota",
+  "youWillAscendWithDog": "Ascenderás con {{one_or_a_second_pet_dog}}",
+  "youWillAscendWith": "Has elegido ascender con la {{perkName}} {{perkType}}.",
+  "ascendConfirmShort": "¿Estás seguro de que quieres Ascender?",
+  "ascendConfirm": "Tu bruto volverá al nivel 1 y mantendrá su rango, las recompensas de Ascensiones anteriores y la habilidad que elegiste, la cual se remplazará por estadísticas en cualquier parte de tu destino.",
+  "ascension": "Ascensión",
+  "youAreAboutToAscend": "Estás a punto de ascender",
+  "ascensionExplanationText": "Ascender te permite empezar de nuevo con una ventaja adicional de forma permanente. Volverás al nivel 1 pero conservarás tu rango, las recompensas de ascensiones anteriores, y la ventaja que estás a punto de seleccionar.",
+  "rankingPrioritizeAscensions": "¡La clasificación prioriza la cantidad de Ascenciones sobre la experiencia y el nivel!",
+  "youMustSelectToAscend": "Dejes elegir un arma, habilidad o mascota para ascender.",
+  "perkType.weapon": "Arma",
+  "perkType.skill": "Habilidad",
+  "perkType.pet": "Mascota"
+}

@@ -7,7 +7,7 @@ import useStateAsync from '../hooks/useStateAsync';
 import { useServer } from '../hooks/useServer';
 
 const GeneratingView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('generating');
   const { palette: { mode } } = useTheme();
   const Server = useServer();
 

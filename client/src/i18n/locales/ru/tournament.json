@@ -1,0 +1,9 @@
+{
+  "tournamentOf.desc": "Посмотрите на участие {{brute}} в турнире {{date}}.",
+  "tournamentOf": "Турнир",
+  "setAsWatched": "Пометить просмотренным",
+  "round": "{{value}} раунд",
+  "quarterFinals": "Четвертьфинал",
+  "semiFinals": "Полуфинал",
+  "finals": "Финал"
+}

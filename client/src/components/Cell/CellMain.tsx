@@ -34,7 +34,7 @@ const CellMain = ({
   confirmReset,
   ...rest
 }: CellMainProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cell');
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();

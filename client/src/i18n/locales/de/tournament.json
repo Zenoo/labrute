@@ -1,0 +1,9 @@
+{
+  "tournamentOf.desc": "Teilnahme von {{brute}} am Täglichen Turnier vom {{date}} ansehen.",
+  "tournamentOf": "Wettkampf von",
+  "setAsWatched": "Als angesehen setzen",
+  "round": "Runde {{value}}",
+  "quarterFinals": "Viertelfinale",
+  "semiFinals": "Halbfinale",
+  "finals": "Finale"
+}

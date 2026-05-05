@@ -17,7 +17,7 @@ import { catchError } from '../utils/catchError';
 import Loader from '../components/Loader';
 
 const VersusView = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('versus');
   const { opponentName } = useParams();
   const navigate = useNavigate();
   const location = useLocation();

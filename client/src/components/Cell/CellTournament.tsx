@@ -21,7 +21,7 @@ const CellTournament = ({
   sx,
   ...rest
 }: CellTournamentProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('tournament');
   const Alert = useAlert();
   const { brute, owner, updateBrute } = useBrute();
   const { updateData } = useAuth();
