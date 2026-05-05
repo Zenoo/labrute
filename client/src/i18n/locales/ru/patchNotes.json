@@ -1,5 +1,5 @@
 {
-  "desc": "Stay up to date and see what's new in version {{version}} of MyBrute.",
-  "features": "Features",
-  "fixes": "Fixes"
+  "desc": "Оставайтесь в курсе и гляньте, что там новенького в версии {{version}} «Моего Брутала».",
+  "features": "Функции",
+  "fixes": "Правки"
 }
