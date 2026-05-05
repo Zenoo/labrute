@@ -1,5 +1,5 @@
 {
-  "desc": "Here you can see all the items you accumulated. Use them wisely!",
-  "item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
-  "itemNotImplemented": "This item is not implemented yet."
+  "desc": "Здесь вы видите все предметы, которые вы собрали. Пользуйтесь с умом!",
+  "item.favoriteFight.desc": "Вы можете добавить битву к избранным на странице битв. Она не будет удалена через 30 дней.",
+  "itemNotImplemented": "Этот предмет ещё не встроен."
 }
