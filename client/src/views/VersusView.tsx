@@ -14,6 +14,7 @@ import { useBrute } from '../hooks/useBrute';
 import VersusMobileView from './mobile/VersusMobileView';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import Loader from '../components/Loader';
 
 const VersusView = () => {
   const { t } = useTranslation();
@@ -165,7 +166,9 @@ const VersusView = () => {
           </Grid>
         </Grid>
         <StyledButton onClick={startFight} sx={{ ml: '39.8%' }}>
-          <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
+          {fighting ? <Loader color="success" size="16px" /> : (
+            <Text h5 typo="handwritten" upperCase bold color="secondary">{t('startFight')}</Text>
+          )}
         </StyledButton>
       </BoxBg>
     </Page>

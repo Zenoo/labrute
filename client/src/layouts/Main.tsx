@@ -187,15 +187,9 @@ const Main = () => {
           minWidth: 0,
           overflowX: 'auto',
           overflowY: 'hidden',
-          '&::-webkit-scrollbar-track': {
-            bgcolor: 'transparent',
-          },
+          scrollbarWidth: 'none', // Firefox
           '&::-webkit-scrollbar': {
-            width: '2px',
-            bgcolor: 'transparent',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            bgcolor: theme.palette.topbar.divider,
+            display: 'none', // Chrome, Safari, Edge
           },
         }}
         >
