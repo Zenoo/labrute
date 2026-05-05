@@ -1,11 +1,11 @@
 {
-  "description": "Create your Brute, customize its appearance, and fight other Brutes in the arena.",
-  "loginError": "Login error",
-  "loginSuccess": "Login success",
-  "pleaseLogin": "Please login before creating a Brute",
-  "nameUnavailable": "Name unavailable",
-  "heroTitle": "TO BE A BRUTE...",
-  "heroBody": "Insert a name to create your own Brute. You will be able to fight against other Brutes in the arena and recruit new pupils. Gain experience and fight tough in the ranking to become... THE BRUTE!",
-  "otherGamesTitle": "... OR NOT TO BE",
-  "otherGamesBody": "If all this unrelenting violence is too much for you, you can try our other funny games:"
+  "description": "Crée ta Brute, personnalise son apparence et affronte les autres dans l'arène.",
+  "loginError": "Erreur de connexion",
+  "loginSuccess": "Connexion réussie",
+  "pleaseLogin": "Veuillez vous connecter pour créer une brute",
+  "nameUnavailable": "Nom indisponible",
+  "heroTitle": "ÊTRE UNE BRUTE...",
+  "heroBody": "Pour créer ta Brute unique, il suffit de taper un nom. Tu pourras ensuite combattre les autres brutes dans l'arène et recruter des élèves ! Gagne de l'expérience et fais-toi une place dans le classement pour devenir... LA Brute !",
+  "otherGamesTitle": "... OU NE PAS L'ÊTRE",
+  "otherGamesBody": "Si toute cette violence sans pitié te tape sur le système, tu peux toujours essayer nos autres jeux rigolos ci-dessous : Jeux de réflexion, jeux de mots, aventure, gestion :"
 }
