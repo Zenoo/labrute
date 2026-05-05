@@ -1,9 +1,9 @@
 {
   "title": "Arena",
-  "search": "GO !",
-  "search.atLeastThreeCharacters": "Please enter at least 3 characters.",
-  "search.noSelf": "Stop hitting yourself.",
-  "search.notFound": "No Brute found with this name.",
-  "noXP": "Your brute reached the maximum level. You can still fight, but you won't gain any more XP.",
-  "selectedOpponents": "Welcome to the Arena! Here is a selection of opponents of your level. Choose one and let's start the fight!"
+  "search": "Los!",
+  "search.atLeastThreeCharacters": "Bitte mindestens 3 Buchstaben eingeben.",
+  "search.noSelf": "Hör auf dich selbst zu hauen.",
+  "search.notFound": "Kein Brutalo mit diesem Namen gefunden.",
+  "noXP": "Dein Brutalo hat die maximale Stufe erreicht. Du kannst weiterhin kämpfen, aber du wirst keine EP mehr erhalten.",
+  "selectedOpponents": "Willkommen in der Arena! Hier ist eine Auswahl an Gegnern deiner Stufe. Such dir einen aus und prügel los!"
 }
