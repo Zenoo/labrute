@@ -1,7 +1,7 @@
 {
-  "ranking.desc": "{{name}}'s ranking. A level {{level}} {{rank}} with a {{winrate}} winrate.",
-  "rankings": "{{value}} rankings",
-  "experience": "Experience",
+  "ranking.desc": "Rango de {{name}}. Nivel {{level}} {{rank}} con un ratio de victoria de {{winrate}}.",
+  "rankings": "{{value}} clasificaciones",
+  "experience": "Experiencia",
   "total": "Total",
-  "rankingUpdatedDaily": "Ranking is calculated once per day, not in real-time"
+  "rankingUpdatedDaily": "El ranking se calcula una vez por día, no en tiempo real"
 }
