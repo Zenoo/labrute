@@ -268,7 +268,6 @@ export const EventView = () => {
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-
           value: lostRound.winner
         })}
       </Text>

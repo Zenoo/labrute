@@ -214,7 +214,7 @@ const HallView = () => {
                 </Box>
               </Box>
               {/* Fights left */}
-              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft, ns: 'common' })}>
+              <Tooltip title={t('fightsLeft', { value: bruteFightsLeft })}>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: 'center',

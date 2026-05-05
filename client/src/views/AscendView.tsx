@@ -154,9 +154,9 @@ const AscendView = () => {
       return '';
     }
     if (selectedPerk === 'dog1' || selectedPerk === 'dog2' || selectedPerk === 'dog3') {
-      return t('youWillAscendWithDog', { ns: 'ascend', one_or_a_second_pet_dog: getSelectedPerkLabel() });
+      return t('youWillAscendWithDog', { one_or_a_second_pet_dog: getSelectedPerkLabel() });
     }
-    return t('youWillAscendWith', { ns: 'ascend', perkName: getSelectedPerkLabel(), perkType: getSelectedPerkTypeLabel() });
+    return t('youWillAscendWith', { perkName: getSelectedPerkLabel(), perkType: getSelectedPerkTypeLabel() });
   }, [selectedPerk, selectedPerkType, t]);
 
   const ascend = useCallback(() => {

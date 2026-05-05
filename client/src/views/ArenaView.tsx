@@ -22,7 +22,7 @@ type CalculatedBruteGetOpponentsResponse = ReturnType<
 >[];
 
 const ArenaView = () => {
-  const { t } = useTranslation(['arena']);
+  const { t } = useTranslation('arena');
   const { bruteName } = useParams();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -182,7 +182,7 @@ const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute), ns: 'common' }) : t('youHaveOneFightLeft')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
         {/* No XP won for event brutes at max level */}
