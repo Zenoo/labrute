@@ -1,13 +1,13 @@
 {
-  "adminPanel": "Admin panel",
-  "status": "Status",
-  "pending": "Pending",
-  "accepted": "Accepted",
-  "rejected": "Rejected",
-  "reportedBy": "Reported by",
-  "handledBy": "Handled by",
-  "unknown": "Unknown",
-  "reportAccepted": "Report accepted",
-  "reportRejected": "Report rejected",
-  "reportCancelled": "Report cancelled"
+  "adminPanel": "Panneau d'administration",
+  "status": "Statut",
+  "pending": "En attente",
+  "accepted": "Accepté",
+  "rejected": "Refusé",
+  "reportedBy": "Signalé par",
+  "handledBy": "Traité par",
+  "unknown": "Inconnu",
+  "reportAccepted": "Signalement accepté",
+  "reportRejected": "Signalement refusé",
+  "reportCancelled": "Signalement annulé"
 }
