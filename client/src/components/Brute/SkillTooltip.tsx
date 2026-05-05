@@ -11,10 +11,11 @@ import SkillIcon from '../SkillIcon';
 import TieredStat from '../TieredStat';
 import { getSkillTieredStatProps, getExtraTieredSkillStatProps } from '../../utils/displayTieredStat';
 
-// Rename endurance to HP + Describe sabotage
+// Rename endurance to HP + Describe sabotage + Distinguish regen from bandage
 const statName = (stat: FightStat) => {
   if (stat === 'endurance') return 'HP';
   if (stat === 'sabotage') return 'sabotageStat';
+  if (stat === 'regeneration') return 'regenerationStat';
 
   return stat;
 };
