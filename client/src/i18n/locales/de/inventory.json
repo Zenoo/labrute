@@ -1,5 +1,5 @@
 {
-  "desc": "Here you can see all the items you accumulated. Use them wisely!",
-  "item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
-  "itemNotImplemented": "This item is not implemented yet."
+  "desc": "Hier kannst du dir alle Gegenstände ansehen, die du gesammelt hast. Nutze sie weise!",
+  "item.favoriteFight.desc": "Du kannst einen Kampf zu den Favoriten auf der Kampfseite hinzufügen. Dieser wird nach 30 Tagen nicht gelöscht.",
+  "itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert."
 }
