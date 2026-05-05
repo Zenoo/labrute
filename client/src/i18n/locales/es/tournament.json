@@ -1,9 +1,9 @@
 {
-  "tournamentOf.desc": "View {{brute}}'s participation in the tournament of {{date}}.",
-  "tournamentOf": "Tournament of",
-  "setAsWatched": "Set as watched",
-  "round": "Round {{value}}",
-  "quarterFinals": "Quarter-finals",
-  "semiFinals": "Semi-finals",
-  "finals": "Finals"
+  "tournamentOf.desc": "Ver la participación de {{brute}} en el torneo de {{date}}.",
+  "tournamentOf": "Torneo de",
+  "setAsWatched": "Marcar como visto",
+  "round": "Ronda {{value}}",
+  "quarterFinals": "Cuartos de final",
+  "semiFinals": "Semifinales",
+  "finals": "Final"
 }
