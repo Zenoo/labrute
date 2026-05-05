@@ -1,5 +1,5 @@
 {
-  "desc": "Stay up to date and see what's new in version {{version}} of MyBrute.",
-  "features": "Features",
-  "fixes": "Fixes"
+  "desc": "Mantente al día y comprueba qué hay de nuevo en la versión {{version}} de ElBruto.",
+  "features": "Funcionalidades",
+  "fixes": "Correcciones"
 }
