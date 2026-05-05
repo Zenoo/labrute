@@ -1,0 +1,5 @@
+{
+  "desc": "Here you can see all the items you accumulated. Use them wisely!",
+  "item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
+  "itemNotImplemented": "This item is not implemented yet."
+}
