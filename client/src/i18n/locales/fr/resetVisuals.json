@@ -1,6 +1,6 @@
 {
-  "resetVisuals": "Reset appearance",
-  "resetVisualsDescription": "You can change your brute's appearance here. Be careful, this action cannot be undone.",
-  "resetVisualsConfirm": "Are you sure you want to reset your brute's appearance ? This action cannot be undone.",
-  "resetVisualsSuccess": "Appearance reset successful"
+  "resetVisuals": "Changer d'apparence",
+  "resetVisualsDescription": "Vous pouvez changer l'apparence de votre brute ici. Attention, cette action ne peut pas être annulée.",
+  "resetVisualsConfirm": "Êtes-vous sûr de vouloir réinitialiser l'apparence de votre brute ? Cette action ne peut pas être annulée.",
+  "resetVisualsSuccess": "Apparence réinitialisée avec succès"
 }
