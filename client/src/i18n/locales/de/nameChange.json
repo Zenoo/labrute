@@ -1,4 +1,4 @@
 {
-  "title": "Name change",
-  "confirm": "Are you sure you want to change your brute's name to {{name}}?"
+  "title": "Namensänderung",
+  "confirm": "Bist du sicher, dass du den Namen deines Brutalos auf {{name}} ändern möchtest?"
 }
