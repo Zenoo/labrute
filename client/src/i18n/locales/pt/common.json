@@ -181,7 +181,7 @@
   "modifier.bareHandsFirstHit.desc": "A true gentleman greets their enemy with their fists. You will not draw a weapon until you hit your opponent with your bare hands.",
   "modifier.chaos": "Controlled Chaos",
   "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
-  "modifier.doubleAgility": "",
+  "modifier.doubleAgility": "Low Gravity",
   "modifier.doubleAgility.desc": "You feel lighter than usual today. Your agility is doubled.",
   "modifier.drawEveryWeapon": "Endless supplies",
   "modifier.drawEveryWeapon.desc": "Your pullout game is extremely strong. You will always draw a weapon if one is available.",
@@ -551,5 +551,6 @@
   "sabotageStat": "Chance to destroy a weapon each time you land a blow",
   "regenerationStat": "Regeneration",
   "usageRate": "Usage Rate",
-  "damage": "Dano"
+  "damage": "Dano",
+  "authing": "Authenticating..."
 }
