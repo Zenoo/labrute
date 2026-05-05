@@ -1,6 +1,6 @@
 {
-  "resetVisuals": "Reset appearance",
-  "resetVisualsDescription": "You can change your brute's appearance here. Be careful, this action cannot be undone.",
-  "resetVisualsConfirm": "Are you sure you want to reset your brute's appearance ? This action cannot be undone.",
-  "resetVisualsSuccess": "Appearance reset successful"
+  "resetVisuals": "Aussehen zurücksetzen",
+  "resetVisualsDescription": "Hier kannst du das Aussehen von deinem Brutalo ändern. Aber Vorsicht, denn dies kann nicht rückgängig gemacht werden.",
+  "resetVisualsConfirm": "Bist du sicher, dass du das Aussehen deines Brutalos zurücksetzen möchtest? Dieser Vorgang kann nicht rückgängig gemacht werden.",
+  "resetVisualsSuccess": "Aussehen erfolgreich zurückgesetzt"
 }
