@@ -1,4 +1,5 @@
 {
+  "desc": "Curious about {{value}}'s achievements? Come and take a look!",
   "wins": "Combates ganados",
   "wins.description": "Combates ganados.",
   "defeats": "Combates perdidos",
@@ -229,6 +230,8 @@
   "beta.description": "¡Gracias por participar en la beta de ElBruto!",
   "bug": "Cazabichos",
   "bug.description": "Reporta y ayuda a solucionar un bug.",
+  "ascend": "Ascend",
+  "ascend.description": "Ascend a brute.",
   "wins.title.1": "Matón",
   "wins.title.2": "Tipo duro",
   "wins.title.3": "Segurata",
