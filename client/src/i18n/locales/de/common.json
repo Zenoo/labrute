@@ -1359,5 +1359,6 @@
   "rankingUpdatedDaily": "Die Rangliste wird einmal am Tag errechnet, nicht in Echtzeit",
   "sabotageStat": "Jeder Treffer hat eine Wahrscheinlichkeit, eine Waffe zu vernichten",
   "regenerationStat": "Regeneration",
-  "usageRate": "Benutzungsrate"
+  "usageRate": "Benutzungsrate",
+  "damage": "Schaden"
 }

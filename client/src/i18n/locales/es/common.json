@@ -1361,5 +1361,6 @@
   "rankingUpdatedDaily": "El ranking se calcula una vez por día, no en tiempo real",
   "sabotageStat": "De probabilidad de destruir un arma cada vez que conectas un golpe",
   "regenerationStat": "Regeneration",
-  "usageRate": "Tasa de uso"
+  "usageRate": "Tasa de uso",
+  "damage": "Daño"
 }

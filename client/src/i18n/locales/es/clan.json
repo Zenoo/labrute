@@ -92,7 +92,6 @@
   "setNewMaster": "Establecer nuevo maestro",
   "confirmSetNewMaster": "¿Seguro que quieres establecer a este miembro como el nuevo maestro del clan?",
   "clanMasterChanged": "El maestro del clan ha sido cambiado.",
-  "damage": "Daño",
   "deleted": "Eliminado",
   "title": "Título"
 }

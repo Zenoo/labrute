@@ -1356,5 +1356,6 @@
   "rankingUpdatedDaily": "Le classement est calculé une fois par jour et non en temps réel",
   "sabotageStat": "De chances de détruire une arme en réserve à chaque coup qui blesse",
   "regenerationStat": "Régénération",
-  "usageRate": "Taux d'utilisation"
+  "usageRate": "Taux d'utilisation",
+  "damage": "Dégâts"
 }

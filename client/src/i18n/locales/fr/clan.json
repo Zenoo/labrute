@@ -92,7 +92,6 @@
   "setNewMaster": "Définir un nouveau maître",
   "confirmSetNewMaster": "Voulez-vous vraiment définir ce membre comme nouveau maître du clan ?",
   "clanMasterChanged": "Le maître du clan a été changé.",
-  "damage": "Dégâts",
   "deleted": "Supprimé",
   "title": "Titre"
 }

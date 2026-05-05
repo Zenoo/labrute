@@ -159,6 +159,7 @@ i18n
     react: {
       useSuspense: false, // Disable Suspense to avoid blocking state updates
     },
+    saveMissing: true,
   })
   .catch((err) => {
     console.error('Error loading language', err);

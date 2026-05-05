@@ -92,7 +92,6 @@
   "setNewMaster": "Definir novo mestre",
   "confirmSetNewMaster": "Você realmente deseja definir este membro como o novo mestre do clã?",
   "clanMasterChanged": "O mestre do clã foi alterado.",
-  "damage": "Dano",
   "deleted": "Deleted",
   "title": "Título"
 }

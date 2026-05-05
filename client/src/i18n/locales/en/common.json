@@ -273,6 +273,8 @@
   "achievements.beta.description": "Thank you for participating in MyBrute's beta!",
   "achievements.bug": "Bug Buster",
   "achievements.bug.description": "Report and help fix a bug.",
+  "achievements.ascend": "Ascend",
+  "achievements.ascend.description": "Ascend a brute.",
   "ranking": "Ranking",
   "achievements": "Achievements",
   "titles": "Titles",
@@ -1357,5 +1359,6 @@
   "sabotageStat": "Chance to destroy a weapon each time you land a blow",
   "regenerationStat": "Regeneration",
   "usageRate": "Usage Rate",
+  "damage": "Damage",
   "authing": "Authenticating..."
 }
