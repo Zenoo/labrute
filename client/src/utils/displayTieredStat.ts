@@ -2,9 +2,9 @@ import { convertEnduranceToHP, ExtraTieredSkillData, FightStat, getScaledStat, P
 import { SkillName } from '@labrute/prisma';
 import { TieredStatProps } from '../components/TieredStat';
 
-// Convert endurance to HP
-const statValue = (stat: FightStat | null, value: number) => {
-  if (stat === 'endurance') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
+// Convert endurance to HP (only for flat values, not percentages)
+const statValue = (stat: FightStat | null, value: number, type: 'flat' | 'percent') => {
+  if (stat === 'endurance' && type === 'flat') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
 
   return value;
 };
@@ -50,13 +50,13 @@ export const displaySkillTieredStat = ({
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0))
+    value: Math.abs(statValue(stat, value ?? 0, type))
   }) : (getScaledStat({
     chaos,
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0)),
+    value: Math.abs(statValue(stat, value ?? 0, type)),
     precision: 2
   }) * 100).toFixed(0));
 
@@ -148,13 +148,13 @@ export const getSkillTieredStatProps = ({
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0))
+    value: Math.abs(statValue(stat, value ?? 0, type))
   }) : (getScaledStat({
     chaos,
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0)),
+    value: Math.abs(statValue(stat, value ?? 0, type)),
     precision: 2
   }) * 100).toFixed(0));
 
