@@ -1,9 +1,9 @@
 {
-  "clansRanking": "Clans ranking",
+  "clansRanking": "클랜의 순위",
   "clansRanking.desc": "Every clan, ranked by points or elo. You can also search for a clan by name.",
   "goBackToYourCell": "Go back to your cell",
-  "myClan": "My clan",
-  "forum": "Forum",
+  "myClan": "나의 클랜",
+  "forum": "포럼",
   "createAClan": "Create a clan",
   "points": "Points",
   "members": "Members",
