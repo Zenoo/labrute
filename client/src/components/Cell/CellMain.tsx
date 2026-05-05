@@ -34,7 +34,7 @@ const CellMain = ({
   confirmReset,
   ...rest
 }: CellMainProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('cell');
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
@@ -225,7 +225,7 @@ const CellMain = ({
               mt: 1,
             }}
           >
-            {t('sacrifice', { ns: 'cell' })}
+            {t('sacrifice')}
           </FantasyButton>
         )}
       {/* BRUTE RESET */}
@@ -237,7 +237,7 @@ const CellMain = ({
             mt: 2,
           }}
         >
-          {t('reset', { ns: 'cell' })}
+          {t('reset')}
         </FantasyButton>
       )}
     </Box>
