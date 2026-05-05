@@ -27,7 +27,7 @@ export const AchievementTooltip = ({
       title={(
         <>
           <Text bold h6>
-            {t(`achievements.${achievementName}`)}{achievement ? ` (${achievement.count})` : ''}
+            {t(`achievement:${achievementName}`)}{achievement ? ` (${achievement.count})` : ''}
           </Text>
           <Text
             sx={{
@@ -38,7 +38,7 @@ export const AchievementTooltip = ({
           >
             {t(AchievementData[achievementName].rarety)}
           </Text>
-          <Text sx={{ fontStyle: 'italic', color: 'achievements.common.main' }}>{t(`achievements.${achievementName}.description`)}</Text>
+          <Text sx={{ fontStyle: 'italic', color: 'achievements.common.main' }}>{t(`achievement:${achievementName}.description`)}</Text>
           {AchievementData[achievementName].onePerFight && (
             <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
               {t('maxPerFight')}:{' '}

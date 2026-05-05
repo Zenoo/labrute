@@ -246,7 +246,7 @@ const UserView = () => {
                                   src={`/images/achievements/${AchievementData[achievement.name].illustration || ''}`}
                                   sx={{ width: 20 }}
                                 />
-                                <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievements.${achievement.name}`)}</Text>
+                                <Text smallCaps bold color="secondary.contrastText" sx={{ ml: 1 }}>{t(`achievement:${achievement.name}`)}</Text>
                               </ListSubheader>
                             </AchievementTooltip>
                           )}
@@ -259,7 +259,7 @@ const UserView = () => {
                             }
 
                             return (
-                              <Tooltip key={titleCount} title={`${t(`achievements.${achievement.name}`)} x ${titleCount}`}>
+                              <Tooltip key={titleCount} title={`${t(`achievement:${achievement.name}`)} x ${titleCount}`}>
                                 <ListItem sx={{
                                   py: 0,
                                   '&:not(:last-child)': {
