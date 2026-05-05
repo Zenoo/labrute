@@ -1,10 +1,10 @@
 {
-  "newLevelFor": "New level for",
-  "reached": "reached",
-  "levelLower": "level",
-  "chooseOneOfTheFollowingBonuses": "Choose one of the following bonuses",
-  "maxTierReached": "Maximum tier reached",
-  "weaponUpgrade": "Weapon upgrade",
-  "skillUpgrade": "Skill upgrade",
-  "petUpgrade": "Pet upgrade"
+  "newLevelFor": "Niveau supplémentaire pour",
+  "reached": "a atteint le",
+  "levelLower": "niveau",
+  "chooseOneOfTheFollowingBonuses": "Choisissez l'un des avantages suivants",
+  "maxTierReached": "Niveau maximum atteint",
+  "weaponUpgrade": "Amélioration d'arme",
+  "skillUpgrade": "Amélioration de compétence",
+  "petUpgrade": "Amélioration de familier"
 }
