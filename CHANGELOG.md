@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.92.2](https://github.com/Zenoo/labrute/compare/labrute-v2.92.1...labrute-v2.92.2) (2026-05-05)
+
+
+### Bug Fixes
+
+* Prevent favorite brutes overflow + display loader on versus view ([f772a0e](https://github.com/Zenoo/labrute/commit/f772a0e504108752f81fd35784e7a4718cdbd979))
+* Wrong HP% for vitality ([c71a2c5](https://github.com/Zenoo/labrute/commit/c71a2c58dfe003d84ca64f07d04e0bcdfcd1499a))
+* Wrong translation for fast metabolism regeneration stat ([2866bdc](https://github.com/Zenoo/labrute/commit/2866bdcf5c681ff05248b2013d14bea1e3ef108f))
+
 ## [2.92.1](https://github.com/Zenoo/labrute/compare/labrute-v2.92.0...labrute-v2.92.1) (2026-05-04)
 
 
