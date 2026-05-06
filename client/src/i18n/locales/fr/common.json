@@ -402,7 +402,6 @@
   "resistant.effect": "Chaque coup reçu ne peut pas te faire perdre plus de <stats percent /> de ta barre.",
   "reversal": "Riposte",
   "sabotage.desc": "Certaines brutes font du vandalisme dans la rue, mais toi tu préfères vandaliser ton adversaire. Chaque coup peut détruire une de ses armes.",
-  "sabotage.effect": "90% de chances de détruire une arme en réserve à chaque coup qui blesse",
   "saboteur.desc": "Du marteau en mousse à l'épée en plastique, tu es le roi de l'imitation, tes adversaires n'y voient que du feu.",
   "saboteur.effect": "Sabote une arme de ton adversaire (initiative adverse <stats minus /> lorsqu'elle est utilisée)",
   "searchBrute": "Rechercher une brute",
