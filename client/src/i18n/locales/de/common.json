@@ -547,9 +547,9 @@
   "events": "Ereignisse",
   "outdatedVersion": "Du verwendest eine veraltete Version des Spiels. Bitte aktualisiere die Seite, um zur neuesten Version zu gelangen. Falls diese Nachricht weiterhin bestehen sollte, leere bitte deinen Browser-Cache und aktualisiere die Seite erneut.",
   "rankingUpdatedDaily": "Die Rangliste wird einmal am Tag errechnet, nicht in Echtzeit",
-  "sabotageStat": "Jeder Treffer hat eine Wahrscheinlichkeit, eine Waffe zu vernichten",
+  "sabotageStat": "Wahrscheinlichkeit, bei einem Treffer eine Waffe zu vernichten",
   "regenerationStat": "Regeneration",
   "usageRate": "Benutzungsrate",
   "damage": "Schaden",
-  "authing": "Authenticating..."
+  "authing": "Authentifizierung..."
 }
