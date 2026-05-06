@@ -402,7 +402,6 @@
   "resistant.effect": "Cada golpe de tus oponentes reduce tu vida como máximo un <stats percent />",
   "reversal": "Reversión",
   "sabotage.desc": "Algunos Brutos vandalizan las calles, pero tú prefieres vandalizar a tus adversarios. Cada golpe puede destruir una de sus armas.",
-  "sabotage.effect": "90% de probabilidad de destruir un arma cada vez que conectas un golpe",
   "saboteur.desc": "Desde pequeño ya les sacabas la lengua a tus amigos, hoy eres un verdadero carnicero.",
   "saboteur.effect": "Destruye un arma de tu oponente (también sufre iniciativa <stats minus />)",
   "searchBrute": "Buscar un bruto",
