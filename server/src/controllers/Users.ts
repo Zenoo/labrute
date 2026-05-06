@@ -35,7 +35,7 @@ import { createUserLog } from '../utils/createUserLog.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
-import { decryptFPEvent } from '../utils/fingerprint.js';
+import { assertFingerprintAllowed, decryptFPEvent } from '../utils/fingerprint.js';
 import { deleteUserBrutes } from '../utils/user/deleteUserBrutes.js';
 
 export const Users = {
@@ -111,6 +111,7 @@ export const Users = {
         }
 
         const fingerprint = decryptFPEvent(req.body.eventId);
+        await assertFingerprintAllowed(prisma, fingerprint, authResult);
 
         if (!authResult.fingerprints.includes(fingerprint)) {
           await prisma.user.update({

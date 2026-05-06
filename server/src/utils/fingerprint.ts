@@ -1,11 +1,14 @@
 import {
-  BASE64_ALPHABET, ExpectedError, FINGERPRINT_PRNG, GetFingerprintResponse, OBFUSCATED_ALPHABET,
+  BASE64_ALPHABET, ExpectedError, FINGERPRINT_PRNG, ForbiddenError, GetFingerprintResponse, OBFUSCATED_ALPHABET,
 } from '@labrute/core';
+import { PrismaClient, User } from '@labrute/prisma';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { TLSSocket } from 'tls';
 import { DISCORD, GLOBAL } from '../context.js';
+import { ServerState } from './ServerState.js';
 import { sendError } from './sendError.js';
+import { translate } from './translate.js';
 
 export const readFP = (input: string): Record<string, unknown> => {
   // Step 6: Reverse custom character mapping
@@ -61,6 +64,16 @@ export const decryptFPEvent = (encrypted: string) => {
   let decrypted = decipher.update(encrypted, 'base64', 'utf8');
   decrypted += decipher.final('utf8');
   return decrypted;
+};
+
+export const assertFingerprintAllowed = async (
+  prisma: PrismaClient,
+  fingerprint: string,
+  user?: Pick<User, 'lang'> | null,
+) => {
+  if (await ServerState.isFingerprintBanned(prisma, fingerprint)) {
+    throw new ForbiddenError(translate('fingerprintBanned', user));
+  }
 };
 
 type FingerPrint = {

@@ -18,7 +18,7 @@ import { createUserLog } from '../utils/createUserLog.js';
 import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
-import { decryptFPEvent } from '../utils/fingerprint.js';
+import { assertFingerprintAllowed, decryptFPEvent } from '../utils/fingerprint.js';
 import { banUser } from '../utils/user/banUser.js';
 import { DISCORD } from '../context.js';
 
@@ -168,19 +168,6 @@ export class OAuth {
 
       const fingerprint = decryptFPEvent(req.body.eventId);
 
-      // Handle new fingerprints
-      if (!user.fingerprints.includes(fingerprint)) {
-        await this.#prisma.user.update({
-          where: { id: user.id },
-          data: {
-            fingerprints: {
-              push: fingerprint,
-            },
-          },
-        });
-        user.fingerprints.push(fingerprint);
-      }
-
       // Check if user is banned
       if (user.bannedAt) {
         // Revert deletion if the user logs in after deleting their account
@@ -199,11 +186,19 @@ export class OAuth {
         }
       }
 
-      // Check if any of the user fingerprints are banned
-      for (const userFingerprint of user.fingerprints) {
-        if (await ServerState.isFingerprintBanned(this.#prisma, userFingerprint)) {
-          throw new ForbiddenError(translate('fingerprintBanned', user));
-        }
+      await assertFingerprintAllowed(this.#prisma, fingerprint, user);
+
+      // Handle new fingerprints
+      if (!user.fingerprints.includes(fingerprint)) {
+        await this.#prisma.user.update({
+          where: { id: user.id },
+          data: {
+            fingerprints: {
+              push: fingerprint,
+            },
+          },
+        });
+        user.fingerprints.push(fingerprint);
       }
 
       // Check expected headers

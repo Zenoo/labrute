@@ -10,6 +10,7 @@ import { ServerState } from './ServerState.js';
 import { translate } from './translate.js';
 import { banUser } from './user/banUser.js';
 import { DISCORD } from '../context.js';
+import { assertFingerprintAllowed } from './fingerprint.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -96,13 +97,6 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ForbiddenError(translate('unauthorized', user));
   }
 
-  // Check if any of the user fingerprints are banned
-  for (const userFingerprint of user.fingerprints) {
-    if (await ServerState.isFingerprintBanned(prisma, userFingerprint)) {
-      throw new ForbiddenError(translate('fingerprintBanned', user));
-    }
-  }
-
   // Check if the sent fingerprint is valid
   // (if the user doesn't have this fingerprint in database,
   // it means it was tampered with, as fingerprints can only
@@ -112,6 +106,8 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     DISCORD().logObject({ userId: user.id, knowns: user.fingerprints, fingerprint }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
     throw new ForbiddenError(translate('banReason.unrecognized_fingerprint', user));
   }
+
+  await assertFingerprintAllowed(prisma, fingerprint, user);
 
   // Check expected headers
   try {
