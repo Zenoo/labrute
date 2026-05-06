@@ -1,5 +1,5 @@
 {
-  "desc": "Curious about {{value}}'s achievements? Come and take a look!",
+  "desc": "Заинтересовались достижениями {{value}}? Айда глядеть!",
   "wins": "Победы",
   "wins.description": "Выигранные битвы.",
   "defeats": "Поражения",
@@ -230,8 +230,8 @@
   "beta.description": "Благодарим вас за участие в бета-тестировании игры «МойБрутал»!",
   "bug": "Багобой",
   "bug.description": "Сообщено багов, которые благодаря Вам были устранены.",
-  "ascend": "Ascend",
-  "ascend.description": "Ascend a brute.",
+  "ascend": "Возвыситься",
+  "ascend.description": "Возвышение Брутала.",
   "wins.title.1": "Забияка",
   "wins.title.2": "Крепыш",
   "wins.title.3": "Вышибала",
