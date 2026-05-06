@@ -402,7 +402,6 @@
   "resistant.effect": "Opponent's blows can only decrease your health bar by 20%.",
   "reversal": "Reversal",
   "sabotage.desc": "Some Brutes choose to vandalize the streets, but you prefer to vandalize your opponents! Each blow can destroy one of your opponent's weapons.",
-  "sabotage.effect": "90% chance to destroy a weapon each time you land a blow",
   "saboteur.desc": "From foam hammers to plastic swords, you're the fake weapon king! Your opponents won't notice until it's too late.",
   "saboteur.effect": "Destroy one of your opponent's weapon (opponent initiative -100 when used)",
   "searchBrute": "Search a Brute",
