@@ -1,7 +1,11 @@
-import { Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName } from '@labrute/prisma';
+import {
+  Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName
+} from '@labrute/prisma';
 import { SkillId } from './brute/skills';
 import { WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
+
+export { ClanPermission } from '@labrute/prisma';
 
 export interface AnimatedWeapon {
   name: WeaponName;
@@ -482,12 +486,14 @@ export type ServerHookBrute = Brute & {
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
   tournaments: Tournament[];
+  clanRole: Pick<ClanRole, 'permissions'> | null;
 };
 export type HookBrute = CalculatedBrute & {
   master: Pick<Brute, 'id' | 'name'> | null;
   clan: Pick<Clan, 'id' | 'name'> | null;
   user: Pick<User, 'id' | 'name' | 'lastSeen'> | null;
   tournaments: Tournament[];
+  clanRole: Pick<ClanRole, 'permissions'> | null;
 };
 export type BruteGetForAdminRequest = {
   name: string;
@@ -649,6 +655,7 @@ export type ClanGetResponse = Clan & {
   master: BruteForRender | null,
   brutes: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
+    clanRole: Pick<ClanRole, 'id' | 'name' | 'permissions'> | null,
   })[],
   joinRequests: (Brute & {
     user: Pick<User, 'lastSeen'> | null,
@@ -680,11 +687,26 @@ export type ClanGetThreadResponse = ClanThread & {
   posts: (ClanPost & {
     author: Brute | null,
   })[],
-  clan: Pick<Clan, 'masterId' | 'name'>,
+  clan: Pick<Clan, 'id' | 'masterId' | 'name'>,
 };
 export type ClanGetForAdminResponse = Clan & {
   brutes: Pick<Brute, 'id' | 'name'>[],
 };
+// Clan Roles Types
+export type ClanRoleWithMemberCount = ClanRole & {
+  memberCount: number;
+};
+
+export type ClanGetRolesResponse = ClanRoleWithMemberCount[];
+
+export type ClanCreateRoleRequest = Pick<ClanRole, 'name' | 'permissions'>;
+export type ClanCreateRoleResponse = Pick<ClanRole, 'id' | 'name' | 'permissions' | 'clanId'>;
+export type ClanUpdateRoleRequest = Partial<Pick<ClanRole, 'name' | 'permissions'>>;
+export type ClanUpdateRoleResponse = Pick<ClanRole, 'id' | 'name' | 'permissions' | 'clanId'>;
+
+export type ClanAssignRoleResponse = { success: boolean };
+export type ClanRemoveRoleResponse = { success: boolean };
+export type ClanDeleteRoleResponse = { success: boolean };
 
 export type UserGetAdminRequest = {
   identifier?: string;
@@ -784,7 +806,6 @@ export type LogGetForUserFeedResponse = {
 };
 
 export type ClanWarCreateResponse = Pick<ClanWar, 'id'>;
-export type ClanWarUpdateFightersResponse = Pick<Brute, 'id'>[];
 export type ClanWarGetResponse = ClanWar & {
   attacker: Pick<Clan, 'id' | 'name'>,
   defender: Pick<Clan, 'id' | 'name'>,

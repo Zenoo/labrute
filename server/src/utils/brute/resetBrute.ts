@@ -241,6 +241,11 @@ export const resetBrute = async ({
           date: dayjs.utc().startOf('day').toDate(),
         },
       },
+      clanRole: {
+        select: {
+          permissions: true,
+        },
+      },
       inventory: true,
     },
   }));

@@ -223,7 +223,8 @@ exports.Prisma.BruteScalarFieldEnum = {
   wantToJoinClanId: 'wantToJoinClanId',
   tournamentWins: 'tournamentWins',
   eventId: 'eventId',
-  resets: 'resets'
+  resets: 'resets',
+  clanRoleId: 'clanRoleId'
 };
 
 exports.Prisma.BruteStartingStatsScalarFieldEnum = {
@@ -462,6 +463,14 @@ exports.Prisma.ConfigScalarFieldEnum = {
   key: 'key',
   value: 'value',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClanRoleScalarFieldEnum = {
+  id: 'id',
+  clanId: 'clanId',
+  name: 'name',
+  permissions: 'permissions',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -820,6 +829,19 @@ exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
   error: 'error'
 };
 
+exports.ClanPermission = exports.$Enums.ClanPermission = {
+  canAcceptJoinRequests: 'canAcceptJoinRequests',
+  canRejectJoinRequests: 'canRejectJoinRequests',
+  canRemoveMembers: 'canRemoveMembers',
+  canSelectWarFighters: 'canSelectWarFighters',
+  canPinThreads: 'canPinThreads',
+  canUnpinThreads: 'canUnpinThreads',
+  canDeletePosts: 'canDeletePosts',
+  canDeleteThreads: 'canDeleteThreads',
+  canCreateRoles: 'canCreateRoles',
+  canChangeRoles: 'canChangeRoles'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserLog: 'UserLog',
@@ -849,7 +871,8 @@ exports.Prisma.ModelName = {
   Release: 'Release',
   Event: 'Event',
   Notification: 'Notification',
-  Config: 'Config'
+  Config: 'Config',
+  ClanRole: 'ClanRole'
 };
 
 /**

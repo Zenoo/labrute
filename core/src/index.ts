@@ -7,6 +7,7 @@ export * from './Titles';
 export * from './types';
 export * from './Version';
 export * from './brute/index';
+export * from './clan/index';
 export * from './errors/index';
 export * from './fight/index';
 export * from './utils/index';

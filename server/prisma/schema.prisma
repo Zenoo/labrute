@@ -316,6 +316,8 @@ model Brute {
   wonEvents                     Event[]                 @relation("EventBruteWinner")
   resets                        Int                     @default(0)
   userlogs                      UserLog[]
+  clanRole                      ClanRole?               @relation(fields: [clanRoleId], references: [id])
+  clanRoleId                    String?                 @db.Uuid
   // Note: Optimized partial indexes for ranking queries and GIN indexes are maintained
   // via manual migrations and are not defined in this schema to prevent Prisma from
   // trying to recreate them
@@ -336,6 +338,7 @@ model Brute {
   @@index([rankingsUpperUpperNeighbourId])
   @@index([rankingsLowerNeighbourId])
   @@index([rankingsLowerLowerNeighbourId])
+  @@index([clanRoleId])
 }
 
 model BruteStartingStats {
@@ -745,6 +748,19 @@ enum BossName {
   Cerberus
 }
 
+enum ClanPermission {
+  canAcceptJoinRequests
+  canRejectJoinRequests
+  canRemoveMembers
+  canSelectWarFighters
+  canPinThreads
+  canUnpinThreads
+  canDeletePosts
+  canDeleteThreads
+  canCreateRoles
+  canChangeRoles
+}
+
 model Clan {
   id                   String       @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name                 String       @db.VarChar(255)
@@ -764,6 +780,7 @@ model Clan {
   attacks              ClanWar[]    @relation("ClanWarAttacker")
   defenses             ClanWar[]    @relation("ClanWarDefender")
   wins                 ClanWar[]    @relation("ClanWarWinner")
+  roles                ClanRole[]
 
   @@unique([name, deletedAt])
   // Optimized indexes for clan list queries (sort columns first for better performance)
@@ -954,4 +971,20 @@ model Config {
   key       String   @id @unique @db.VarChar(255)
   value     String   @db.Text
   updatedAt DateTime @default(now()) @db.Timestamp()
+}
+
+// CLAN ROLES
+model ClanRole {
+  id          String           @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  clan        Clan             @relation(fields: [clanId], references: [id], onDelete: Cascade)
+  clanId      String           @db.Uuid
+  name        String           @db.VarChar(50)
+  // Permissions
+  permissions ClanPermission[] @default([])
+  brutes      Brute[]
+  createdAt   DateTime         @default(now()) @db.Timestamptz()
+
+  @@index([clanId])
+  @@index([id, clanId])
+  @@index([clanId, name])
 }

@@ -1235,6 +1235,7 @@ const deleteBrutes = async (prisma: PrismaClient) => {
         willBeDeletedAt: null,
         // Remove from clan
         clanId: null,
+        clanRoleId: null,
         // Delete join requests
         wantToJoinClanId: null,
       },

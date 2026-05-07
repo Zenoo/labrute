@@ -1,5 +1,9 @@
-import { Brute, FightModifier, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { CalculatedBrute, Modifiers, TieredPerks } from '../types';
+import {
+  Brute, FightModifier, PetName, SkillName, WeaponName
+} from '@labrute/prisma';
+import {
+  CalculatedBrute, Modifiers, TieredPerks
+} from '../types';
 import { getTempWeapon } from './getTempWeapon';
 import { getTempSkill } from './getTempSkill';
 import { entries } from '../utils';

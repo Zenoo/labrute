@@ -63,12 +63,9 @@ module.exports = {
       },
     ],
     "no-nested-ternary": "off",
-    "object-curly-newline": [
-      "error",
-      {
-        ImportDeclaration: "never",
-      },
-    ],
+    "object-curly-newline": ["error", {
+        "ImportDeclaration": { "multiline": true, "minProperties": 3 },
+    }],
     "import/order": "off",
     "import/no-unresolved": "error",
     "import/no-default-export": "error",
