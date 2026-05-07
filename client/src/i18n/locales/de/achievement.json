@@ -1,5 +1,5 @@
 {
-  "desc": "Curious about {{value}}'s achievements? Come and take a look!",
+  "desc": "Erfolge von {{value}} haben deine Neugier geweckt? Nichts wie hin!",
   "wins": "Gewonnene Kämpfe",
   "wins.description": "Gewonnene Kämpfe.",
   "defeats": "Verlorene Kämpfe",
@@ -230,8 +230,8 @@
   "beta.description": "Vielen Dank für die Teilnahme an der MeinBrutalo Beta!",
   "bug": "Bug-Zerquetscher",
   "bug.description": "Bug melden und beim Fixen helfen.",
-  "ascend": "Ascend",
-  "ascend.description": "Ascend a brute.",
+  "ascend": "Aufsteigen",
+  "ascend.description": "Steige einen Brutало auf.",
   "wins.title.1": "Raufbold",
   "wins.title.2": "Harter Kerl",
   "wins.title.3": "Türsteher",
