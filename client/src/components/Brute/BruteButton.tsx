@@ -1,4 +1,4 @@
-import { CalculatedBrute, entries, FightStat, pets, skills, weapons } from '@labrute/core';
+import { CalculatedBrute, FightStat } from '@labrute/core';
 import { User } from '@labrute/prisma';
 import { Box, Divider } from '@mui/material';
 import { BoxProps } from '@mui/system';
@@ -11,21 +11,19 @@ import StyledButton from '../StyledButton';
 import Text from '../Text';
 import BruteRender from './Body/BruteRender';
 import BruteHP from './BruteHP';
-import PetTooltip from './PetTooltip';
-import SkillTooltip from './SkillTooltip';
-import WeaponTooltip from './WeaponTooltip';
-import { TieredPerkColor } from '../../utils/StatColor';
-import SkillIcon from '../SkillIcon';
+import BruteSmallWeaponList from './BruteSmallWeaponList';
+import BruteSmallSkillList from './BruteSmallSkillList';
+import BruteSmallPetList from './BruteSmallPetList';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
-  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
+  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
   displayDetails?: false;
   owner?: Pick<User, 'lastSeen'>;
   shiftMargin?: boolean;
   selected?: boolean;
 } | {
-  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'level' | 'hp' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
+  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
   owner?: Pick<User, 'lastSeen'>;
@@ -119,7 +117,7 @@ const BruteButton = ({
           )}
         </Text>
         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-          <BruteHP hp={brute.hp} />
+          <BruteHP hp={brute.hpValue} />
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}
@@ -149,46 +147,11 @@ const BruteButton = ({
               }}
             />
             {/* Weapons */}
-            <Box pt={1}>
-              {entries(brute.weapons).map(([weapon, tier]) => (
-                <WeaponTooltip
-                  weapon={weapons[weapon]}
-                  tier={tier}
-                  key={weapon}
-                >
-                  <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
-                </WeaponTooltip>
-              ))}
-            </Box>
+            <BruteSmallWeaponList weapons={brute.weapons} pt={1} />
             {/* Skills */}
-            <Box>
-              {entries(brute.skills).map(([skill, tier]) => (
-                <SkillTooltip
-                  skill={skills[skill]}
-                  tier={tier}
-                  key={skill}
-                >
-                  <SkillIcon
-                    skill={skill}
-                    tier={tier}
-                    sx={{
-                      width: 16,
-                      mx: 0.25,
-                      my: 0,
-                      filter: 'drop-shadow(1px 1px 1px black)',
-                    }}
-                  />
-                </SkillTooltip>
-              ))}
-            </Box>
+            <BruteSmallSkillList skills={brute.skills} />
             {/* Pets */}
-            <Box>
-              {entries(brute.pets).map(([pet, tier]) => (
-                <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
-                  <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
-                </PetTooltip>
-              ))}
-            </Box>
+            <BruteSmallPetList pets={brute.pets} />
           </>
         )}
         <Box sx={{

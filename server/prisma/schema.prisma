@@ -198,10 +198,9 @@ model Brute {
   previousDestinyPath           DestinyChoiceSide[]     @default([])
   level                         Int                     @default(1)
   xp                            Int                     @default(0)
-  hp                            Int                     @default(0)
-  enduranceStat                 Int                     @default(0)
-  enduranceModifier             Float                   @default(1)
-  enduranceValue                Int                     @default(0)
+  hpStat                        Int                     @default(0)
+  hpModifier                    Float                   @default(1)
+  hpValue                       Int                     @default(0)
   strengthStat                  Int                     @default(0)
   strengthModifier              Float                   @default(1)
   strengthValue                 Int                     @default(0)
@@ -340,13 +339,13 @@ model Brute {
 }
 
 model BruteStartingStats {
-  id        String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  endurance Int    @default(2)
-  strength  Int    @default(3)
-  agility   Int    @default(3)
-  speed     Int    @default(3)
-  brute     Brute  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
-  bruteId   String @unique @db.Uuid
+  id       String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  hp       Int    @default(12)
+  strength Int    @default(3)
+  agility  Int    @default(3)
+  speed    Int    @default(3)
+  brute    Brute  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
+  bruteId  String @unique @db.Uuid
 
   @@index([bruteId])
 }
@@ -451,7 +450,7 @@ enum DestinyChoiceType {
 }
 
 enum BruteStat {
-  endurance
+  hp
   strength
   agility
   speed

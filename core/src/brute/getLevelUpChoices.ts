@@ -24,6 +24,11 @@ export const getLevelUpChoices = (
     stat1Value: 2,
   };
 
+  // Adapt for HP
+  if (secondChoice.stat1 === BruteStat.hp) {
+    secondChoice.stat1Value = (secondChoice.stat1Value ?? 2) * 6;
+  }
+
   // Less likely to get a perk the more high level the brute is
   if (brute.level >= 80 && randomBetween(0, brute.level) >= 80) {
     preventPerk = true;
@@ -50,14 +55,18 @@ export const getLevelUpChoices = (
       secondStat = bruteStats[randomBetween(0, bruteStats.length - 1)];
     }
 
+    // Adapt for HP
+    const firstStatValue = firstStat === BruteStat.hp ? 6 : 1;
+    const secondStatValue = secondStat === BruteStat.hp ? 6 : 1;
+
     // Swap +1/+1 with +2
     firstChoice = secondChoice;
     secondChoice = {
       type: 'stats',
       stat1: firstStat,
-      stat1Value: 1,
+      stat1Value: firstStatValue,
       stat2: secondStat,
-      stat2Value: 1,
+      stat2Value: secondStatValue,
     };
   } else {
     if (!perkType || !perkName) {

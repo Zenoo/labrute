@@ -8,9 +8,9 @@ import { traced } from '../trace.js';
 
 export const checkLevelUpAchievements = async (
   prisma: PrismaClient,
-  _brute: Pick<Brute, 'id' | 'level' | 'userId' | 'pets' | 'skills' | 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hp'>,
+  _brute: Pick<Brute, 'id' | 'level' | 'userId' | 'pets' | 'skills' | 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
   destinyChoice: Pick<DestinyChoice, 'pet' | 'skill' | 'weapon'>,
-  oldBrute?: Pick<Brute, 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hp'>,
+  oldBrute?: Pick<Brute, 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
 ) => {
   const { userId } = _brute;
 
@@ -587,10 +587,10 @@ export const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.strength50);
   }
 
-  if (brute.hp >= 600 && (oldBrute?.hp || 0) < 600) {
+  if (brute.hpValue >= 600 && (oldBrute?.hpValue || 0) < 600) {
     // HP 600
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.hp600);
-  } else if (brute.hp >= 300 && (oldBrute?.hp || 0) < 300) {
+  } else if (brute.hpValue >= 300 && (oldBrute?.hpValue || 0) < 300) {
     // HP 300
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.hp300);
   }

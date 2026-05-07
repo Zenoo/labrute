@@ -6,7 +6,7 @@ import {
   CalculatedBrute,
   entries,
   ExtraTieredSkillData,
-  FightStat, getPetScaledStat,
+  FightStat, getBruteHP, getPetScaledStat,
   getScaledStat,
   keys,
   Modifiers,
@@ -49,7 +49,7 @@ const handleSkills = (
       // Ignore some stats handled elsewhere
       if (stat === FightStat.DEXTERITY
         || stat === FightStat.DAMAGE
-        || stat === FightStat.ENDURANCE
+        || stat === FightStat.HP
         || stat === FightStat.STRENGTH
         || stat === FightStat.AGILITY
         || stat === FightStat.SPEED) continue;
@@ -166,18 +166,14 @@ export const getFighters = ({
     for (const brute of brutes) {
       const teamSide = teamIndex === 0 ? 'L' : 'R';
 
-      // Restore endurance lost by pets for clan fights, which do not have pets
+      // Restore HP lost by pets for clan fights, which do not have pets
       if (clanFight) {
         for (const petName of keys(brute.pets)) {
           const pet = pets[petName];
+          const petTier = brute.pets[petName] ?? 1;
 
-          brute.enduranceStat += getScaledStat({
-            chaos,
-            pet,
-            stat: FightStat.ENDURANCE,
-            value: pet.enduranceMalus,
-          });
-          brute.enduranceValue = Math.floor(brute.enduranceStat * brute.enduranceModifier);
+          brute.hpModifier /= 1 - (pet.hpMalus[petTier - 1] ?? 0);
+          brute.hpValue = getBruteHP(brute);
         }
       }
       // Skills
@@ -213,8 +209,8 @@ export const getFighters = ({
         rank: brute.ranking as BruteRanking,
         level: brute.level,
         type: 'brute',
-        maxHp: brute.hp,
-        hp: brute.hp,
+        maxHp: brute.hpValue,
+        hp: brute.hpValue,
         strength: brute.strengthValue,
         agility: brute.agilityValue,
         speed: brute.speedValue,
@@ -378,8 +374,8 @@ export const getFighters = ({
         leavesAtInitiative: arrivesAt + (ExtraTieredSkillData[SkillName.backup]?.[
           backupMaster.skills[SkillName.backup] ?? 0
         ] ?? 0),
-        maxHp: backup.hp,
-        hp: backup.hp,
+        maxHp: backup.hpValue,
+        hp: backup.hpValue,
         strength: backup.strengthValue,
         agility: backup.agilityValue,
         speed: backup.speedValue,

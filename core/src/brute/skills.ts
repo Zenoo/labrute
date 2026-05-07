@@ -180,7 +180,7 @@ export const FightStat = {
   STRENGTH: 'strength',
   AGILITY: 'agility',
   SPEED: 'speed',
-  ENDURANCE: 'endurance',
+  HP: 'hp',
   REGENERATION: 'regeneration',
 } as const;
 
@@ -500,10 +500,10 @@ export const SkillModifiers: Record<
     [FightStat.SPEED]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.vitality]: {
-    [FightStat.ENDURANCE]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
+    [FightStat.HP]: { flat: [18, 30, 42], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.immortality]: {
-    [FightStat.ENDURANCE]: { percent: [2.5, 3, 3.5] },
+    [FightStat.HP]: { percent: [2.5, 3, 3.5] },
     [FightStat.STRENGTH]: { percent: [-0.25, -0.25, -0.25] },
     [FightStat.AGILITY]: { percent: [-0.25, -0.25, -0.25] },
     [FightStat.SPEED]: { percent: [-0.25, -0.25, -0.25] },

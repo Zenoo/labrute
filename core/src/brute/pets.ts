@@ -3,7 +3,7 @@ import { PetName } from '@labrute/prisma';
 export interface Pet {
   name: PetName;
   odds: number;
-  enduranceMalus: number;
+  hpMalus: [number, number, number];
   initiative: [number, number, number];
   strength: [number, number, number];
   agility: [number, number, number];
@@ -22,7 +22,7 @@ export const pets: Record<PetName, Pet> = {
   [PetName.bear]: {
     name: PetName.bear,
     odds: 1,
-    enduranceMalus: 8,
+    hpMalus: [0.4, 0.4, 0.4],
     initiative: [3.6, 3.6, 3.6],
     strength: [40, 45, 50],
     agility: [2, 4, 6],
@@ -39,7 +39,7 @@ export const pets: Record<PetName, Pet> = {
   [PetName.panther]: {
     name: PetName.panther,
     odds: 1,
-    enduranceMalus: 6,
+    hpMalus: [0.25, 0.25, 0.25],
     initiative: [0.6, 0.6, 0.6],
     strength: [23, 28, 33],
     agility: [16, 20, 24],
@@ -56,7 +56,7 @@ export const pets: Record<PetName, Pet> = {
   [PetName.dog3]: {
     name: PetName.dog3,
     odds: 2,
-    enduranceMalus: 2,
+    hpMalus: [0.1, 0.1, 0.1],
     initiative: [0.1, 0.1, 0.1],
     strength: [6, 8, 10],
     agility: [5, 7, 9],
@@ -73,7 +73,7 @@ export const pets: Record<PetName, Pet> = {
   [PetName.dog2]: {
     name: PetName.dog2,
     odds: 8,
-    enduranceMalus: 2,
+    hpMalus: [0.1, 0.1, 0.1],
     initiative: [0.1, 0.1, 0.1],
     strength: [6, 8, 10],
     agility: [5, 7, 9],
@@ -90,7 +90,7 @@ export const pets: Record<PetName, Pet> = {
   [PetName.dog1]: {
     name: PetName.dog1,
     odds: 20,
-    enduranceMalus: 2,
+    hpMalus: [0.1, 0.1, 0.1],
     initiative: [0.1, 0.1, 0.1],
     strength: [6, 8, 10],
     agility: [5, 7, 9],

@@ -537,10 +537,10 @@ export type BrutesGetRankingResponse = {
 };
 export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
 export type BrutesGetOpponentsResponse = Pick<Brute,
-  'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' | 'hp' |
-  'enduranceStat' |
-  'enduranceModifier' |
-  'enduranceValue' |
+  'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' |
+  'hpStat' |
+  'hpModifier' |
+  'hpValue' |
   'strengthStat' |
   'strengthModifier' |
   'strengthValue' |
@@ -701,9 +701,9 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
     'name' |
     'gender' |
     'level' |
-    'enduranceStat' |
-    'enduranceModifier' |
-    'enduranceValue' |
+    'hpStat' |
+    'hpModifier' |
+    'hpValue' |
     'strengthStat' |
     'strengthModifier' |
     'strengthValue' |
@@ -713,7 +713,6 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
     'speedStat' |
     'speedModifier' |
     'speedValue' |
-    'hp' |
     'ranking' |
     'body' |
     'colors' |

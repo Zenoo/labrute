@@ -5,9 +5,10 @@ export const getRandomStartingStats = () => {
   // Starting budget
   let availablePoints = BRUTE_STARTING_POINTS;
 
-  // Enrudance (2 to 5)
-  const endurance = randomBetween(2, 5);
-  availablePoints -= endurance;
+  // HP (2 to 5) * 6
+  const hpPoints = randomBetween(2, 5);
+  const hp = hpPoints * 6;
+  availablePoints -= hpPoints;
 
   // Strength (2 to 5)
   const strength = Math.min(randomBetween(2, 5), availablePoints - 2 * 2);
@@ -21,7 +22,7 @@ export const getRandomStartingStats = () => {
   const speed = availablePoints;
 
   return {
-    endurance,
+    hp,
     strength,
     agility,
     speed,

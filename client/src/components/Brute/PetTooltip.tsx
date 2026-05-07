@@ -1,4 +1,4 @@
-import { PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, convertEnduranceToHP, getPetScaledStat } from '@labrute/core';
+import { PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, getPetScaledStat } from '@labrute/core';
 import { Brute, FightModifier } from '@labrute/prisma';
 import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
 import React, { useMemo } from 'react';
@@ -19,7 +19,7 @@ const textProps = {
 export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
   pet?: Pet | null;
   tier?: number;
-  brute?: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'enduranceModifier'>;
+  brute?: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
 }
 
 const PetTooltip = ({
@@ -55,8 +55,7 @@ const PetTooltip = ({
   ) => {
     if (!brute || !tieredPet?.[stat][0]) return null;
 
-    const label = stat === 'hp' ? 'HP' : stat;
-    const color = stat === 'hp' ? StatColor.endurance : StatColor[stat];
+    const color = stat === 'hpMalus' ? StatColor.hp : StatColor[stat];
 
     const formatter = (currentTier: number) => Math.abs(Math.round(
       getPetScaledStat(chaos, brute, {
@@ -68,7 +67,7 @@ const PetTooltip = ({
     if (labelFirst) {
       return (
         <Text {...textProps}>
-          {t(label)}:
+          {t(stat)}:
           {' '}
           <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
             <TieredStat
@@ -91,7 +90,7 @@ const PetTooltip = ({
           formatter={(_, index) => formatter(index + 1)}
           percent={percent}
         />
-        {' '}{t(label)}
+        {' '}{t(stat)}
       </Text>
     );
   };
@@ -121,14 +120,7 @@ const PetTooltip = ({
               {((tieredPet.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
             </Text>
           </Text>
-          {/* HP MALUS */}
-          <Text {...textProps}>
-            {t('hpMalus')}:
-            {' '}
-            <Text component="span" bold sx={{ color: StatColor.endurance, textShadow }} {...textProps}>
-              {convertEnduranceToHP(brute, tieredPet.enduranceMalus)}
-            </Text>
-          </Text>
+          {statLine('hpMalus', true, undefined, true)}
           {statLine('initiative', false, 2, true)}
           {statLine('strength', false, undefined, true)}
           {statLine('agility', false, undefined, true)}

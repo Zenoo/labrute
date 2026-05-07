@@ -5,6 +5,7 @@ import {
   applySkillModifiers,
   createRandomBruteStats,
   entries,
+  getBruteHP,
   getMaxFightsPerDay,
   getPetsList,
   getRandomStartingStats,
@@ -121,7 +122,7 @@ export const resetBrute = async ({
     await traced('resetBrute.createBaseStats', () => prisma.bruteStartingStats.create({
       data: {
         bruteId: brute.id,
-        endurance: newBaseStats.endurance,
+        hp: newBaseStats.hp,
         strength: newBaseStats.strength,
         agility: newBaseStats.agility,
         speed: newBaseStats.speed,
@@ -159,7 +160,7 @@ export const resetBrute = async ({
       : 1;
   }
 
-  // Take into account the endurance malus from ascended pets
+  // Take into account the HP malus from ascended pets
   const tieredAscendedPets: Partial<Record<PetName, number>> = {};
   for (const petName of brute.ascendedPets) {
     tieredAscendedPets[petName] = stats.pets[petName];
@@ -167,8 +168,8 @@ export const resetBrute = async ({
   for (const petName of keys(tieredAscendedPets)) {
     const petStats = pets[petName];
 
-    stats.enduranceStat -= petStats.enduranceMalus;
-    stats.enduranceValue = Math.floor(stats.enduranceStat * stats.enduranceModifier);
+    stats.hpModifier *= 1 - (petStats.hpMalus[(tieredAscendedPets[petName] ?? 1) - 1] ?? 0);
+    stats.hpValue = getBruteHP(stats);
   }
 
   // Apply ascended skill modifiers

@@ -180,7 +180,7 @@ const HallView = () => {
                   )}
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                  <BruteHP hp={brute.hp} />
+                  <BruteHP hp={brute.hpValue} />
                   <Box flexGrow={1} sx={{ ml: 0.5 }}>
                     <ArenaStat
                       stat={FightStat.STRENGTH}

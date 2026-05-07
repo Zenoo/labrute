@@ -171,10 +171,9 @@ exports.Prisma.BruteScalarFieldEnum = {
   previousDestinyPath: 'previousDestinyPath',
   level: 'level',
   xp: 'xp',
-  hp: 'hp',
-  enduranceStat: 'enduranceStat',
-  enduranceModifier: 'enduranceModifier',
-  enduranceValue: 'enduranceValue',
+  hpStat: 'hpStat',
+  hpModifier: 'hpModifier',
+  hpValue: 'hpValue',
   strengthStat: 'strengthStat',
   strengthModifier: 'strengthModifier',
   strengthValue: 'strengthValue',
@@ -229,7 +228,7 @@ exports.Prisma.BruteScalarFieldEnum = {
 
 exports.Prisma.BruteStartingStatsScalarFieldEnum = {
   id: 'id',
-  endurance: 'endurance',
+  hp: 'hp',
   strength: 'strength',
   agility: 'agility',
   speed: 'speed',
@@ -636,7 +635,7 @@ exports.DestinyChoiceType = exports.$Enums.DestinyChoiceType = {
 };
 
 exports.BruteStat = exports.$Enums.BruteStat = {
-  endurance: 'endurance',
+  hp: 'hp',
   strength: 'strength',
   agility: 'agility',
   speed: 'speed'

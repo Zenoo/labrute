@@ -1,7 +1,7 @@
 import { DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { BruteRankings } from '../constants';
 import { applySkillModifiers } from './applySkillModifiers';
-import { getHP } from './getHP';
+import { getBruteHP } from './getHP';
 import { getRandomBonus } from './getRandomBonus';
 import { getRandomStartingStats } from './getRandomStartingStats';
 import { pets } from './pets';
@@ -10,7 +10,7 @@ import { keys } from '../utils';
 import { TieredPerks } from '../types';
 
 export const createRandomBruteStats = (
-  baseStats?: { endurance: number, strength: number, agility: number, speed: number } | null,
+  baseStats?: { hp: number, strength: number, agility: number, speed: number } | null,
   perkType?: DestinyChoiceType,
   perkName?: string | null,
   stats?: Pick<DestinyChoice, 'stat1' | 'stat1Value' | 'stat2' | 'stat2Value'>,
@@ -18,10 +18,9 @@ export const createRandomBruteStats = (
   const brute = {
     level: 1,
     xp: 0,
-    hp: 0,
-    enduranceStat: 0,
-    enduranceModifier: 1,
-    enduranceValue: 0,
+    hpStat: 0,
+    hpModifier: 1,
+    hpValue: 0,
     strengthStat: 0,
     strengthModifier: 1,
     strengthValue: 0,
@@ -95,12 +94,12 @@ export const createRandomBruteStats = (
   // Starting stats
   const startingStats = baseStats || getRandomStartingStats();
 
-  brute.enduranceStat += startingStats.endurance;
+  brute.hpStat += startingStats.hp;
   brute.strengthStat += startingStats.strength;
   brute.agilityStat += startingStats.agility;
   brute.speedStat += startingStats.speed;
 
-  // Take into account the endurance malus from the pet
+  // Take into account the HP malus from the pet
   if (perk && perk.type === DestinyChoiceType.pet) {
     const pet = pets[perk.name as PetName];
 
@@ -108,14 +107,13 @@ export const createRandomBruteStats = (
       throw new Error('Pet not found');
     }
 
-    // Can go into negatives
-    brute.enduranceStat -= pet.enduranceMalus;
+    const petTier = brute.pets[pet.name] ?? 1;
+
+    brute.hpModifier *= 1 - (pet.hpMalus[petTier - 1] ?? 0);
   }
 
   // Final stat values
-  brute.enduranceValue = Math.floor(
-    brute.enduranceStat * brute.enduranceModifier,
-  );
+  brute.hpValue = getBruteHP(brute);
   brute.strengthValue = Math.floor(
     brute.strengthStat * brute.strengthModifier,
   );
@@ -125,9 +123,6 @@ export const createRandomBruteStats = (
   brute.speedValue = Math.floor(
     brute.speedStat * brute.speedModifier,
   );
-
-  // Final HP
-  brute.hp = getHP(1, brute.enduranceValue);
 
   return brute;
 };

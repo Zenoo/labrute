@@ -1,13 +1,6 @@
-import { convertEnduranceToHP, ExtraTieredSkillData, FightStat, getScaledStat, Pet, TieredNumberKeysOf, Weapon } from '@labrute/core';
+import { ExtraTieredSkillData, FightStat, getScaledStat, Pet, TieredNumberKeysOf, Weapon } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import { TieredStatProps } from '../components/TieredStat';
-
-// Convert endurance to HP (only for flat values, not percentages)
-const statValue = (stat: FightStat | null, value: number, type: 'flat' | 'percent') => {
-  if (stat === 'endurance' && type === 'flat') return convertEnduranceToHP({ enduranceModifier: 1 }, value);
-
-  return value;
-};
 
 // Helper function to generate the tiered stat HTML structure
 const displayTieredStatHTML = <T>(
@@ -50,13 +43,13 @@ export const displaySkillTieredStat = ({
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0, type))
+    value: Math.abs(value ?? 0)
   }) : (getScaledStat({
     chaos,
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0, type)),
+    value: Math.abs(value ?? 0),
     precision: 2
   }) * 100).toFixed(0));
 
@@ -148,13 +141,13 @@ export const getSkillTieredStatProps = ({
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0, type))
+    value: Math.abs(value ?? 0)
   }) : (getScaledStat({
     chaos,
     skill,
     type,
     stat,
-    value: Math.abs(statValue(stat, value ?? 0, type)),
+    value: Math.abs(value ?? 0),
     precision: 2
   }) * 100).toFixed(0));
 

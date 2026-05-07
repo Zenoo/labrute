@@ -107,12 +107,12 @@ const petStatToBruteStat = {
   strength: 'strengthValue',
   agility: 'agilityValue',
   speed: 'speedValue',
-  hp: 'hp',
+  hp: 'hpValue',
 } as const;
 
 export const getPetScaledStat = (
   chaos: boolean,
-  brute: Pick<Brute, 'hp' | 'strengthValue' | 'agilityValue' | 'speedValue'>,
+  brute: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>,
   pet: Tiered<Pet>,
   stat: TieredNumberKeysOf<Pet>,
   precision = 0

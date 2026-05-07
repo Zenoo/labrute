@@ -14,6 +14,8 @@
     "db:migrate:manual": "prisma migrate dev --create-only",
     "db:sync:dev": "prisma migrate dev && cp ../prisma/package.reference.json ../prisma/package.json",
     "db:sync:prod": "prisma migrate deploy && yarn db:seed && yarn run:fixErroredBonuses && yarn run:retrieveFirstBonus",
+    "db:resolve:applied": "prisma migrate resolve --applied",
+    "db:resolve:rolled-back": "prisma migrate resolve --rolled-back",
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --skip-generate",
     "studio": "prisma studio",

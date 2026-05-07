@@ -1,8 +1,9 @@
 import { Brute, SkillName } from '@labrute/prisma';
 import { FightStat, SkillModifiers } from './skills';
 import { TieredPerks } from '../types';
+import { getBruteHP } from './getHP';
 
-type BruteStats = Pick<TieredPerks, 'skills'> & Pick<Brute, 'enduranceStat' | 'enduranceModifier' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
+type BruteStats = Pick<TieredPerks, 'skills'> & Pick<Brute, 'level' | 'hpStat' | 'hpModifier' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
 
 export const applySkillModifiers = (
   brute: BruteStats,
@@ -13,8 +14,8 @@ export const applySkillModifiers = (
   Object.entries(SkillModifiers[skillName]).forEach(([unsafeStat, modifier]) => {
     const stat = unsafeStat as FightStat;
 
-    // Ignore every stat but endurance, strength, agility, and speed
-    if (stat !== FightStat.ENDURANCE
+    // Ignore every stat but hp, strength, agility, and speed
+    if (stat !== FightStat.HP
       && stat !== FightStat.STRENGTH
       && stat !== FightStat.AGILITY
       && stat !== FightStat.SPEED) {
@@ -40,7 +41,9 @@ export const applySkillModifiers = (
     }
 
     // Update value
-    if (stat !== FightStat.ENDURANCE) {
+    if (stat === FightStat.HP) {
+      brute[`${stat}Value`] = getBruteHP(brute);
+    } else {
       brute[`${stat}Value`] = Math.floor(brute[`${stat}Stat`] * brute[`${stat}Modifier`]);
     }
   });

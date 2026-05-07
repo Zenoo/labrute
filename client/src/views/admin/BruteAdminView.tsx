@@ -167,12 +167,12 @@ export const BruteAdminView = () => {
               </Grid>
               <Grid item xs={6} sm={3}>
                 <TextField
-                  label="HP"
-                  value={brute.hp}
+                  label="HP stat"
+                  value={brute.hpStat}
                   onChange={(event) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      hp: +event.target.value,
+                      hpStat: +event.target.value,
                     }) : null));
                   }}
                   fullWidth
@@ -180,12 +180,12 @@ export const BruteAdminView = () => {
               </Grid>
               <Grid item xs={6} sm={3}>
                 <TextField
-                  label="Endurance stat"
-                  value={brute.enduranceStat}
+                  label="HP modifier"
+                  value={brute.hpModifier}
                   onChange={(event) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      enduranceStat: +event.target.value,
+                      hpModifier: +event.target.value,
                     }) : null));
                   }}
                   fullWidth
@@ -193,25 +193,12 @@ export const BruteAdminView = () => {
               </Grid>
               <Grid item xs={6} sm={3}>
                 <TextField
-                  label="Endurance modifier"
-                  value={brute.enduranceModifier}
+                  label="HP value"
+                  value={brute.hpValue}
                   onChange={(event) => {
                     setBrute((b) => (b ? ({
                       ...b,
-                      enduranceModifier: +event.target.value,
-                    }) : null));
-                  }}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={6} sm={3}>
-                <TextField
-                  label="Endurance value"
-                  value={brute.enduranceValue}
-                  onChange={(event) => {
-                    setBrute((b) => (b ? ({
-                      ...b,
-                      enduranceValue: +event.target.value,
+                      hpValue: +event.target.value,
                     }) : null));
                   }}
                   fullWidth

@@ -20,7 +20,7 @@ const StatColor: Record<FightStat, string> = {
   [FightStat.STRENGTH]: 'red',
   [FightStat.AGILITY]: agilityColor,
   [FightStat.SPEED]: speedColor,
-  [FightStat.ENDURANCE]: '#17a717',
+  [FightStat.HP]: '#17a717',
   [FightStat.DAMAGE]: 'red',
   [FightStat.CRITICAL_CHANCE]: 'red',
   [FightStat.CRITICAL_DAMAGE]: 'red',

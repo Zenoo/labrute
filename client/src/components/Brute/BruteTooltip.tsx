@@ -12,11 +12,10 @@ interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
     Brute,
     'id' |
     'name' |
-    'hp' |
     'level' |
-    'enduranceStat' |
-    'enduranceModifier' |
-    'enduranceValue' |
+    'hpStat' |
+    'hpModifier' |
+    'hpValue' |
     'strengthStat' |
     'strengthModifier' |
     'strengthValue' |
@@ -52,7 +51,7 @@ const BruteTooltip = ({
 
   const hp = fighter
     ? fighter.hp
-    : brute ? brute.hp : 0;
+    : brute ? brute.hpValue : 0;
   const strength = fighter
     ? fighter.strength
     : brute ? brute.strengthValue : 0;

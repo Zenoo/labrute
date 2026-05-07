@@ -1,22 +1,21 @@
 import {
-  applySkillModifiers, getBruteToSave, getCalculatedBrute, getFightsLeft, getHP, LevelUpChoice,
+  applySkillModifiers, getBruteHP, getBruteToSave, getCalculatedBrute, getFightsLeft, LevelUpChoice,
   pets,
 } from '@labrute/core';
 import {
-  Brute, BruteStat, DestinyChoice, PetName, SkillName, WeaponName,
+  Brute, BruteStat, DestinyChoice, SkillName, WeaponName,
 } from '@labrute/prisma';
 
-type BruteData = Pick<Brute, 'id' | 'level' | 'skills' | 'enduranceStat' | 'strengthStat'
-  | 'agilityStat' | 'speedStat' | 'enduranceModifier' | 'strengthModifier'
-  | 'agilityModifier' | 'speedModifier' | 'strengthValue' | 'agilityValue'
-  | 'enduranceValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'hp' | 'fightsLeft' | 'lastFight' | 'eventId'>;
+type BruteData = Pick<Brute, 'id' | 'level' | 'skills' | 'hpStat' | 'strengthStat'
+  | 'agilityStat' | 'speedStat' | 'hpModifier' | 'strengthModifier' | 'agilityModifier'
+  | 'speedModifier' | 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue' | 'xp' | 'pets' | 'weapons' | 'fightsLeft' | 'lastFight' | 'eventId'>;
 
 const updateStat = (brute: BruteData, stat: BruteStat, value: number) => {
   switch (stat) {
-    case 'endurance':
+    case 'hp':
       return {
         ...brute,
-        enduranceStat: brute.enduranceStat + value,
+        hpStat: brute.hpStat + value,
       };
     case 'strength':
       return {
@@ -84,13 +83,16 @@ export const updateBruteData = (
       throw new Error('Pet not found');
     }
 
-    updatedBrute.pets.push(destinyChoice.pet as PetName);
+    updatedBrute.pets.push(pet.name);
 
-    // Take into account the endurance malus from the pet
-    if (updatedBrute.pets.filter((p) => p === destinyChoice.pet).length === 1) {
-      // Only apply the malus if it's the first time we get this pet
-      updatedBrute.enduranceStat -= pet.enduranceMalus;
+    // Take into account the HP malus from the pet
+    const petTier = updatedBrute.pets.filter((p) => p === pet.name).length;
+
+    // Remove previous tier modifier if applicable
+    if (petTier > 1) {
+      updatedBrute.hpModifier /= 1 - (pet.hpMalus[petTier - 2] ?? 0);
     }
+    updatedBrute.hpStat *= 1 - (pet.hpMalus[petTier - 1] ?? 0);
   } else if (destinyChoice.stat1 && !destinyChoice.stat2) {
     // +X stat
     const stat = destinyChoice.stat1;
@@ -116,9 +118,7 @@ export const updateBruteData = (
   }
 
   // Final stat values
-  updatedBrute.enduranceValue = Math.floor(
-    updatedBrute.enduranceStat * updatedBrute.enduranceModifier,
-  );
+  updatedBrute.hpValue = getBruteHP(updatedBrute);
   updatedBrute.strengthValue = Math.floor(
     updatedBrute.strengthStat * updatedBrute.strengthModifier,
   );
@@ -128,9 +128,6 @@ export const updateBruteData = (
   updatedBrute.speedValue = Math.floor(
     updatedBrute.speedStat * updatedBrute.speedModifier,
   );
-
-  // Final HP
-  updatedBrute.hp = getHP(updatedBrute.level, updatedBrute.enduranceValue);
 
   return updatedBrute;
 };

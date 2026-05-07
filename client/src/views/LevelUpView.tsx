@@ -1,5 +1,5 @@
-import { BrutesGetLevelUpChoicesResponse, convertEnduranceToHP, entries, getCalculatedBrute, getXPNeeded, pets, skills, weapons } from '@labrute/core';
-import { Brute, BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { BrutesGetLevelUpChoicesResponse, getCalculatedBrute, getXPNeeded, pets, skills, weapons } from '@labrute/core';
+import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
 import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,24 +19,12 @@ import Text from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import StatColor, { TieredPerkColor } from '../utils/StatColor';
+import StatColor from '../utils/StatColor';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
-import SkillIcon from '../components/SkillIcon';
-
-// Rename endurance to HP
-const statName = (stat: BruteStat) => {
-  if (stat === 'endurance') return 'HP';
-
-  return stat;
-};
-
-// Convert endurance to HP
-const statValue = (brute: Pick<Brute, 'enduranceModifier'>, stat: BruteStat | null, value: number) => {
-  if (stat === 'endurance') return convertEnduranceToHP(brute, value);
-
-  return value;
-};
+import BruteSmallWeaponList from '../components/Brute/BruteSmallWeaponList';
+import BruteSmallSkillList from '../components/Brute/BruteSmallSkillList';
+import BruteSmallPetList from '../components/Brute/BruteSmallPetList';
 
 const LevelUpView = () => {
   const { t } = useTranslation('levelUp');
@@ -116,8 +104,8 @@ const LevelUpView = () => {
     <>
       {/* HP */}
       <Box>
-        <BruteHP hp={brute.hp} />
-        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.endurance }}>{t('healthPoints')}</Text>
+        <BruteHP hp={brute.hpValue} />
+        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.hp }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
       <CellStats value={brute.strengthValue} stat="strength" />
@@ -135,37 +123,11 @@ const LevelUpView = () => {
   const weaponsAndSkills = brute && (
     <>
       {/* Weapons */}
-      <Box>
-        {entries(brute.weapons).map(([weapon, tier]) => (
-          <WeaponTooltip weapon={weapons[weapon]} tier={tier} key={weapon}>
-            <Box component="img" src={`/images/game/resources/misc/weapons/${weapon}.png`} sx={{ filter: 'drop-shadow(1px 1px 1px black)' }} />
-          </WeaponTooltip>
-        ))}
-      </Box>
+      <BruteSmallWeaponList weapons={brute.weapons} />
       {/* Skills */}
-      <Box>
-        {entries(brute.skills).map(([skill, tier]) => (
-          <SkillTooltip skill={skills[skill]} tier={tier} key={skill}>
-            <SkillIcon
-              skill={skill}
-              tier={tier}
-              sx={{
-                width: 16,
-                m: 0.25,
-                filter: 'drop-shadow(1px 1px 1px black)'
-              }}
-            />
-          </SkillTooltip>
-        ))}
-      </Box>
+      <BruteSmallSkillList skills={brute.skills} />
       {/* Pets */}
-      <Box>
-        {entries(brute.pets).map(([pet, tier]) => (
-          <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
-            <Box component="img" src={`/images/pets/${pet.replace(/\d/g, '')}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
-          </PetTooltip>
-        ))}
-      </Box>
+      <BruteSmallPetList pets={brute.pets} />
     </>
   );
 
@@ -282,9 +244,9 @@ const LevelUpView = () => {
                     {/* CHOICE HEADER */}
                     <Text caption>
                       {/* +3 Skill */}
-                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)} ${t('in')}`}
+                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value} ${t('in')}`}
                       {/* +2/+1 Skill */}
-                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${statValue(brute, destinyChoice.stat1, destinyChoice.stat1Value || 0)}/+${statValue(brute, destinyChoice.stat2, destinyChoice.stat2Value || 0)} ${t('in')}`}
+                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
                       {/* Weapon */}
                       {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
                       {/* Skill */}
@@ -324,13 +286,13 @@ const LevelUpView = () => {
                       </PetTooltip>
                     ) : !destinyChoice.stat2 ? (
                       <Text h6 bold smallCaps>
-                        {t(statName(destinyChoice.stat1 as BruteStat))}
+                        {t(destinyChoice.stat1 as BruteStat)}
                       </Text>
                     ) : (
                       <Text h6 bold smallCaps>
-                        {t(statName(destinyChoice.stat1 as BruteStat))}
+                        {t(destinyChoice.stat1 as BruteStat)}
                         {' / '}
-                        {t(statName(destinyChoice.stat2))}
+                        {t(destinyChoice.stat2)}
                       </Text>
                     ))}
                   </BoxBg>

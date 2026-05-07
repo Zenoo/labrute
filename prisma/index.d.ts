@@ -358,7 +358,7 @@ export type DestinyChoiceType = (typeof DestinyChoiceType)[keyof typeof DestinyC
 
 
 export const BruteStat: {
-  endurance: 'endurance',
+  hp: 'hp',
   strength: 'strength',
   agility: 'agility',
   speed: 'speed'
@@ -7395,10 +7395,9 @@ export namespace Prisma {
   export type BruteAvgAggregateOutputType = {
     level: number | null
     xp: number | null
-    hp: number | null
-    enduranceStat: number | null
-    enduranceModifier: number | null
-    enduranceValue: number | null
+    hpStat: number | null
+    hpModifier: number | null
+    hpValue: number | null
     strengthStat: number | null
     strengthModifier: number | null
     strengthValue: number | null
@@ -7425,10 +7424,9 @@ export namespace Prisma {
   export type BruteSumAggregateOutputType = {
     level: number | null
     xp: number | null
-    hp: number | null
-    enduranceStat: number | null
-    enduranceModifier: number | null
-    enduranceValue: number | null
+    hpStat: number | null
+    hpModifier: number | null
+    hpValue: number | null
     strengthStat: number | null
     strengthModifier: number | null
     strengthValue: number | null
@@ -7461,10 +7459,9 @@ export namespace Prisma {
     deletionReason: string | null
     level: number | null
     xp: number | null
-    hp: number | null
-    enduranceStat: number | null
-    enduranceModifier: number | null
-    enduranceValue: number | null
+    hpStat: number | null
+    hpModifier: number | null
+    hpValue: number | null
     strengthStat: number | null
     strengthModifier: number | null
     strengthValue: number | null
@@ -7520,10 +7517,9 @@ export namespace Prisma {
     deletionReason: string | null
     level: number | null
     xp: number | null
-    hp: number | null
-    enduranceStat: number | null
-    enduranceModifier: number | null
-    enduranceValue: number | null
+    hpStat: number | null
+    hpModifier: number | null
+    hpValue: number | null
     strengthStat: number | null
     strengthModifier: number | null
     strengthValue: number | null
@@ -7581,10 +7577,9 @@ export namespace Prisma {
     previousDestinyPath: number
     level: number
     xp: number
-    hp: number
-    enduranceStat: number
-    enduranceModifier: number
-    enduranceValue: number
+    hpStat: number
+    hpModifier: number
+    hpValue: number
     strengthStat: number
     strengthModifier: number
     strengthValue: number
@@ -7642,10 +7637,9 @@ export namespace Prisma {
   export type BruteAvgAggregateInputType = {
     level?: true
     xp?: true
-    hp?: true
-    enduranceStat?: true
-    enduranceModifier?: true
-    enduranceValue?: true
+    hpStat?: true
+    hpModifier?: true
+    hpValue?: true
     strengthStat?: true
     strengthModifier?: true
     strengthValue?: true
@@ -7672,10 +7666,9 @@ export namespace Prisma {
   export type BruteSumAggregateInputType = {
     level?: true
     xp?: true
-    hp?: true
-    enduranceStat?: true
-    enduranceModifier?: true
-    enduranceValue?: true
+    hpStat?: true
+    hpModifier?: true
+    hpValue?: true
     strengthStat?: true
     strengthModifier?: true
     strengthValue?: true
@@ -7708,10 +7701,9 @@ export namespace Prisma {
     deletionReason?: true
     level?: true
     xp?: true
-    hp?: true
-    enduranceStat?: true
-    enduranceModifier?: true
-    enduranceValue?: true
+    hpStat?: true
+    hpModifier?: true
+    hpValue?: true
     strengthStat?: true
     strengthModifier?: true
     strengthValue?: true
@@ -7767,10 +7759,9 @@ export namespace Prisma {
     deletionReason?: true
     level?: true
     xp?: true
-    hp?: true
-    enduranceStat?: true
-    enduranceModifier?: true
-    enduranceValue?: true
+    hpStat?: true
+    hpModifier?: true
+    hpValue?: true
     strengthStat?: true
     strengthModifier?: true
     strengthValue?: true
@@ -7828,10 +7819,9 @@ export namespace Prisma {
     previousDestinyPath?: true
     level?: true
     xp?: true
-    hp?: true
-    enduranceStat?: true
-    enduranceModifier?: true
-    enduranceValue?: true
+    hpStat?: true
+    hpModifier?: true
+    hpValue?: true
     strengthStat?: true
     strengthModifier?: true
     strengthValue?: true
@@ -7982,10 +7972,9 @@ export namespace Prisma {
     previousDestinyPath: $Enums.DestinyChoiceSide[]
     level: number
     xp: number
-    hp: number
-    enduranceStat: number
-    enduranceModifier: number
-    enduranceValue: number
+    hpStat: number
+    hpModifier: number
+    hpValue: number
     strengthStat: number
     strengthModifier: number
     strengthValue: number
@@ -8068,10 +8057,9 @@ export namespace Prisma {
     previousDestinyPath?: boolean
     level?: boolean
     xp?: boolean
-    hp?: boolean
-    enduranceStat?: boolean
-    enduranceModifier?: boolean
-    enduranceValue?: boolean
+    hpStat?: boolean
+    hpModifier?: boolean
+    hpValue?: boolean
     strengthStat?: boolean
     strengthModifier?: boolean
     strengthValue?: boolean
@@ -8172,10 +8160,9 @@ export namespace Prisma {
     previousDestinyPath?: boolean
     level?: boolean
     xp?: boolean
-    hp?: boolean
-    enduranceStat?: boolean
-    enduranceModifier?: boolean
-    enduranceValue?: boolean
+    hpStat?: boolean
+    hpModifier?: boolean
+    hpValue?: boolean
     strengthStat?: boolean
     strengthModifier?: boolean
     strengthValue?: boolean
@@ -8248,10 +8235,9 @@ export namespace Prisma {
     previousDestinyPath?: boolean
     level?: boolean
     xp?: boolean
-    hp?: boolean
-    enduranceStat?: boolean
-    enduranceModifier?: boolean
-    enduranceValue?: boolean
+    hpStat?: boolean
+    hpModifier?: boolean
+    hpValue?: boolean
     strengthStat?: boolean
     strengthModifier?: boolean
     strengthValue?: boolean
@@ -8324,10 +8310,9 @@ export namespace Prisma {
     previousDestinyPath?: boolean
     level?: boolean
     xp?: boolean
-    hp?: boolean
-    enduranceStat?: boolean
-    enduranceModifier?: boolean
-    enduranceValue?: boolean
+    hpStat?: boolean
+    hpModifier?: boolean
+    hpValue?: boolean
     strengthStat?: boolean
     strengthModifier?: boolean
     strengthValue?: boolean
@@ -8380,7 +8365,7 @@ export namespace Prisma {
     resets?: boolean
   }
 
-  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hp" | "enduranceStat" | "enduranceModifier" | "enduranceValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "rankingPosition" | "rankingPositionUpdatedAt" | "rankingsUpperNeighbourId" | "rankingsUpperUpperNeighbourId" | "rankingsLowerNeighbourId" | "rankingsLowerLowerNeighbourId" | "rankingsNeighboursUpdatedAt" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascensions" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "losses" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
+  export type BruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "deletedAt" | "createdAt" | "willBeDeletedAt" | "deletionReason" | "destinyPath" | "previousDestinyPath" | "level" | "xp" | "hpStat" | "hpModifier" | "hpValue" | "strengthStat" | "strengthModifier" | "strengthValue" | "agilityStat" | "agilityModifier" | "agilityValue" | "speedStat" | "speedModifier" | "speedValue" | "ranking" | "rankingPosition" | "rankingPositionUpdatedAt" | "rankingsUpperNeighbourId" | "rankingsUpperUpperNeighbourId" | "rankingsLowerNeighbourId" | "rankingsLowerLowerNeighbourId" | "rankingsNeighboursUpdatedAt" | "gender" | "userId" | "body" | "colors" | "weapons" | "skills" | "pets" | "ascensions" | "ascendedWeapons" | "ascendedSkills" | "ascendedPets" | "masterId" | "pupilsCount" | "clanId" | "registeredForTournament" | "nextTournamentDate" | "currentTournamentDate" | "currentTournamentStepWatched" | "globalTournamentWatchedDate" | "globalTournamentRoundWatched" | "eventTournamentWatchedDate" | "eventTournamentRoundWatched" | "lastFight" | "fightsLeft" | "victories" | "losses" | "opponentsGeneratedAt" | "canRankUpSince" | "favorite" | "wantToJoinClanId" | "tournamentWins" | "eventId" | "resets", ExtArgs["result"]["brute"]>
   export type BruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rankingsUpperNeighbour?: boolean | Brute$rankingsUpperNeighbourArgs<ExtArgs>
     rankingsUpperUpperNeighbour?: boolean | Brute$rankingsUpperUpperNeighbourArgs<ExtArgs>
@@ -8494,10 +8479,9 @@ export namespace Prisma {
       previousDestinyPath: $Enums.DestinyChoiceSide[]
       level: number
       xp: number
-      hp: number
-      enduranceStat: number
-      enduranceModifier: number
-      enduranceValue: number
+      hpStat: number
+      hpModifier: number
+      hpValue: number
       strengthStat: number
       strengthModifier: number
       strengthValue: number
@@ -9017,10 +9001,9 @@ export namespace Prisma {
     readonly previousDestinyPath: FieldRef<"Brute", 'DestinyChoiceSide[]'>
     readonly level: FieldRef<"Brute", 'Int'>
     readonly xp: FieldRef<"Brute", 'Int'>
-    readonly hp: FieldRef<"Brute", 'Int'>
-    readonly enduranceStat: FieldRef<"Brute", 'Int'>
-    readonly enduranceModifier: FieldRef<"Brute", 'Float'>
-    readonly enduranceValue: FieldRef<"Brute", 'Int'>
+    readonly hpStat: FieldRef<"Brute", 'Int'>
+    readonly hpModifier: FieldRef<"Brute", 'Float'>
+    readonly hpValue: FieldRef<"Brute", 'Int'>
     readonly strengthStat: FieldRef<"Brute", 'Int'>
     readonly strengthModifier: FieldRef<"Brute", 'Float'>
     readonly strengthValue: FieldRef<"Brute", 'Int'>
@@ -10316,14 +10299,14 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsAvgAggregateOutputType = {
-    endurance: number | null
+    hp: number | null
     strength: number | null
     agility: number | null
     speed: number | null
   }
 
   export type BruteStartingStatsSumAggregateOutputType = {
-    endurance: number | null
+    hp: number | null
     strength: number | null
     agility: number | null
     speed: number | null
@@ -10331,7 +10314,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsMinAggregateOutputType = {
     id: string | null
-    endurance: number | null
+    hp: number | null
     strength: number | null
     agility: number | null
     speed: number | null
@@ -10340,7 +10323,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsMaxAggregateOutputType = {
     id: string | null
-    endurance: number | null
+    hp: number | null
     strength: number | null
     agility: number | null
     speed: number | null
@@ -10349,7 +10332,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsCountAggregateOutputType = {
     id: number
-    endurance: number
+    hp: number
     strength: number
     agility: number
     speed: number
@@ -10359,14 +10342,14 @@ export namespace Prisma {
 
 
   export type BruteStartingStatsAvgAggregateInputType = {
-    endurance?: true
+    hp?: true
     strength?: true
     agility?: true
     speed?: true
   }
 
   export type BruteStartingStatsSumAggregateInputType = {
-    endurance?: true
+    hp?: true
     strength?: true
     agility?: true
     speed?: true
@@ -10374,7 +10357,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsMinAggregateInputType = {
     id?: true
-    endurance?: true
+    hp?: true
     strength?: true
     agility?: true
     speed?: true
@@ -10383,7 +10366,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsMaxAggregateInputType = {
     id?: true
-    endurance?: true
+    hp?: true
     strength?: true
     agility?: true
     speed?: true
@@ -10392,7 +10375,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsCountAggregateInputType = {
     id?: true
-    endurance?: true
+    hp?: true
     strength?: true
     agility?: true
     speed?: true
@@ -10488,7 +10471,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsGroupByOutputType = {
     id: string
-    endurance: number
+    hp: number
     strength: number
     agility: number
     speed: number
@@ -10516,7 +10499,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    endurance?: boolean
+    hp?: boolean
     strength?: boolean
     agility?: boolean
     speed?: boolean
@@ -10526,7 +10509,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    endurance?: boolean
+    hp?: boolean
     strength?: boolean
     agility?: boolean
     speed?: boolean
@@ -10536,7 +10519,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    endurance?: boolean
+    hp?: boolean
     strength?: boolean
     agility?: boolean
     speed?: boolean
@@ -10546,14 +10529,14 @@ export namespace Prisma {
 
   export type BruteStartingStatsSelectScalar = {
     id?: boolean
-    endurance?: boolean
+    hp?: boolean
     strength?: boolean
     agility?: boolean
     speed?: boolean
     bruteId?: boolean
   }
 
-  export type BruteStartingStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "endurance" | "strength" | "agility" | "speed" | "bruteId", ExtArgs["result"]["bruteStartingStats"]>
+  export type BruteStartingStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hp" | "strength" | "agility" | "speed" | "bruteId", ExtArgs["result"]["bruteStartingStats"]>
   export type BruteStartingStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brute?: boolean | BruteDefaultArgs<ExtArgs>
   }
@@ -10571,7 +10554,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      endurance: number
+      hp: number
       strength: number
       agility: number
       speed: number
@@ -11001,7 +10984,7 @@ export namespace Prisma {
    */
   interface BruteStartingStatsFieldRefs {
     readonly id: FieldRef<"BruteStartingStats", 'String'>
-    readonly endurance: FieldRef<"BruteStartingStats", 'Int'>
+    readonly hp: FieldRef<"BruteStartingStats", 'Int'>
     readonly strength: FieldRef<"BruteStartingStats", 'Int'>
     readonly agility: FieldRef<"BruteStartingStats", 'Int'>
     readonly speed: FieldRef<"BruteStartingStats", 'Int'>
@@ -39723,10 +39706,9 @@ export namespace Prisma {
     previousDestinyPath: 'previousDestinyPath',
     level: 'level',
     xp: 'xp',
-    hp: 'hp',
-    enduranceStat: 'enduranceStat',
-    enduranceModifier: 'enduranceModifier',
-    enduranceValue: 'enduranceValue',
+    hpStat: 'hpStat',
+    hpModifier: 'hpModifier',
+    hpValue: 'hpValue',
     strengthStat: 'strengthStat',
     strengthModifier: 'strengthModifier',
     strengthValue: 'strengthValue',
@@ -39784,7 +39766,7 @@ export namespace Prisma {
 
   export const BruteStartingStatsScalarFieldEnum: {
     id: 'id',
-    endurance: 'endurance',
+    hp: 'hp',
     strength: 'strength',
     agility: 'agility',
     speed: 'speed',
@@ -40749,10 +40731,9 @@ export namespace Prisma {
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntFilter<"Brute"> | number
     xp?: IntFilter<"Brute"> | number
-    hp?: IntFilter<"Brute"> | number
-    enduranceStat?: IntFilter<"Brute"> | number
-    enduranceModifier?: FloatFilter<"Brute"> | number
-    enduranceValue?: IntFilter<"Brute"> | number
+    hpStat?: IntFilter<"Brute"> | number
+    hpModifier?: FloatFilter<"Brute"> | number
+    hpValue?: IntFilter<"Brute"> | number
     strengthStat?: IntFilter<"Brute"> | number
     strengthModifier?: FloatFilter<"Brute"> | number
     strengthValue?: IntFilter<"Brute"> | number
@@ -40852,10 +40833,9 @@ export namespace Prisma {
     previousDestinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -40958,10 +40938,9 @@ export namespace Prisma {
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntFilter<"Brute"> | number
     xp?: IntFilter<"Brute"> | number
-    hp?: IntFilter<"Brute"> | number
-    enduranceStat?: IntFilter<"Brute"> | number
-    enduranceModifier?: FloatFilter<"Brute"> | number
-    enduranceValue?: IntFilter<"Brute"> | number
+    hpStat?: IntFilter<"Brute"> | number
+    hpModifier?: FloatFilter<"Brute"> | number
+    hpValue?: IntFilter<"Brute"> | number
     strengthStat?: IntFilter<"Brute"> | number
     strengthModifier?: FloatFilter<"Brute"> | number
     strengthValue?: IntFilter<"Brute"> | number
@@ -41061,10 +41040,9 @@ export namespace Prisma {
     previousDestinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -41136,10 +41114,9 @@ export namespace Prisma {
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntWithAggregatesFilter<"Brute"> | number
     xp?: IntWithAggregatesFilter<"Brute"> | number
-    hp?: IntWithAggregatesFilter<"Brute"> | number
-    enduranceStat?: IntWithAggregatesFilter<"Brute"> | number
-    enduranceModifier?: FloatWithAggregatesFilter<"Brute"> | number
-    enduranceValue?: IntWithAggregatesFilter<"Brute"> | number
+    hpStat?: IntWithAggregatesFilter<"Brute"> | number
+    hpModifier?: FloatWithAggregatesFilter<"Brute"> | number
+    hpValue?: IntWithAggregatesFilter<"Brute"> | number
     strengthStat?: IntWithAggregatesFilter<"Brute"> | number
     strengthModifier?: FloatWithAggregatesFilter<"Brute"> | number
     strengthValue?: IntWithAggregatesFilter<"Brute"> | number
@@ -41197,7 +41174,7 @@ export namespace Prisma {
     OR?: BruteStartingStatsWhereInput[]
     NOT?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
     id?: UuidFilter<"BruteStartingStats"> | string
-    endurance?: IntFilter<"BruteStartingStats"> | number
+    hp?: IntFilter<"BruteStartingStats"> | number
     strength?: IntFilter<"BruteStartingStats"> | number
     agility?: IntFilter<"BruteStartingStats"> | number
     speed?: IntFilter<"BruteStartingStats"> | number
@@ -41207,7 +41184,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsOrderByWithRelationInput = {
     id?: SortOrder
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -41221,7 +41198,7 @@ export namespace Prisma {
     AND?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
     OR?: BruteStartingStatsWhereInput[]
     NOT?: BruteStartingStatsWhereInput | BruteStartingStatsWhereInput[]
-    endurance?: IntFilter<"BruteStartingStats"> | number
+    hp?: IntFilter<"BruteStartingStats"> | number
     strength?: IntFilter<"BruteStartingStats"> | number
     agility?: IntFilter<"BruteStartingStats"> | number
     speed?: IntFilter<"BruteStartingStats"> | number
@@ -41230,7 +41207,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsOrderByWithAggregationInput = {
     id?: SortOrder
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -41247,7 +41224,7 @@ export namespace Prisma {
     OR?: BruteStartingStatsScalarWhereWithAggregatesInput[]
     NOT?: BruteStartingStatsScalarWhereWithAggregatesInput | BruteStartingStatsScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"BruteStartingStats"> | string
-    endurance?: IntWithAggregatesFilter<"BruteStartingStats"> | number
+    hp?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     strength?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     agility?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     speed?: IntWithAggregatesFilter<"BruteStartingStats"> | number
@@ -43178,10 +43155,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -43272,10 +43248,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -43366,10 +43341,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -43460,10 +43434,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -43554,10 +43527,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -43621,10 +43593,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -43679,10 +43650,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -43737,7 +43707,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsCreateInput = {
     id?: string
-    endurance?: number
+    hp?: number
     strength?: number
     agility?: number
     speed?: number
@@ -43746,7 +43716,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUncheckedCreateInput = {
     id?: string
-    endurance?: number
+    hp?: number
     strength?: number
     agility?: number
     speed?: number
@@ -43755,7 +43725,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    endurance?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
@@ -43764,7 +43734,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    endurance?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
@@ -43773,7 +43743,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsCreateManyInput = {
     id?: string
-    endurance?: number
+    hp?: number
     strength?: number
     agility?: number
     speed?: number
@@ -43782,7 +43752,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    endurance?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
@@ -43790,7 +43760,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    endurance?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
@@ -46134,10 +46104,9 @@ export namespace Prisma {
     previousDestinyPath?: SortOrder
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -46193,10 +46162,9 @@ export namespace Prisma {
   export type BruteAvgOrderByAggregateInput = {
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -46229,10 +46197,9 @@ export namespace Prisma {
     deletionReason?: SortOrder
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -46288,10 +46255,9 @@ export namespace Prisma {
     deletionReason?: SortOrder
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -46341,10 +46307,9 @@ export namespace Prisma {
   export type BruteSumOrderByAggregateInput = {
     level?: SortOrder
     xp?: SortOrder
-    hp?: SortOrder
-    enduranceStat?: SortOrder
-    enduranceModifier?: SortOrder
-    enduranceValue?: SortOrder
+    hpStat?: SortOrder
+    hpModifier?: SortOrder
+    hpValue?: SortOrder
     strengthStat?: SortOrder
     strengthModifier?: SortOrder
     strengthValue?: SortOrder
@@ -46401,7 +46366,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsCountOrderByAggregateInput = {
     id?: SortOrder
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -46409,7 +46374,7 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsAvgOrderByAggregateInput = {
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -46417,7 +46382,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsMaxOrderByAggregateInput = {
     id?: SortOrder
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -46426,7 +46391,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsMinOrderByAggregateInput = {
     id?: SortOrder
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -46434,7 +46399,7 @@ export namespace Prisma {
   }
 
   export type BruteStartingStatsSumOrderByAggregateInput = {
-    endurance?: SortOrder
+    hp?: SortOrder
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
@@ -51491,10 +51456,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -51584,10 +51548,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -51831,10 +51794,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -51924,10 +51886,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -52133,10 +52094,9 @@ export namespace Prisma {
     previousDestinyPath?: EnumDestinyChoiceSideNullableListFilter<"Brute">
     level?: IntFilter<"Brute"> | number
     xp?: IntFilter<"Brute"> | number
-    hp?: IntFilter<"Brute"> | number
-    enduranceStat?: IntFilter<"Brute"> | number
-    enduranceModifier?: FloatFilter<"Brute"> | number
-    enduranceValue?: IntFilter<"Brute"> | number
+    hpStat?: IntFilter<"Brute"> | number
+    hpModifier?: FloatFilter<"Brute"> | number
+    hpValue?: IntFilter<"Brute"> | number
     strengthStat?: IntFilter<"Brute"> | number
     strengthModifier?: FloatFilter<"Brute"> | number
     strengthValue?: IntFilter<"Brute"> | number
@@ -52509,10 +52469,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -52602,10 +52561,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -52786,10 +52744,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -52879,10 +52836,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -52972,10 +52928,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53065,10 +53020,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53163,10 +53117,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53256,10 +53209,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53354,10 +53306,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53447,10 +53398,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53545,10 +53495,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53638,10 +53587,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53805,10 +53753,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53898,10 +53845,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -53996,10 +53942,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -54089,10 +54034,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -54438,10 +54382,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -54531,10 +54474,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -54629,10 +54571,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -54722,10 +54663,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55083,7 +55023,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsCreateWithoutBruteInput = {
     id?: string
-    endurance?: number
+    hp?: number
     strength?: number
     agility?: number
     speed?: number
@@ -55091,7 +55031,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUncheckedCreateWithoutBruteInput = {
     id?: string
-    endurance?: number
+    hp?: number
     strength?: number
     agility?: number
     speed?: number
@@ -55242,10 +55182,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55335,10 +55274,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55438,10 +55376,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55531,10 +55468,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55634,10 +55570,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55727,10 +55662,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55830,10 +55764,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -55923,10 +55856,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -56134,10 +56066,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56227,10 +56158,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56331,10 +56261,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56424,10 +56353,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56528,10 +56456,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56621,10 +56548,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56725,10 +56651,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56818,10 +56743,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -56997,10 +56921,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -57090,10 +57013,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -57667,7 +57589,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUpdateWithoutBruteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    endurance?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
@@ -57675,7 +57597,7 @@ export namespace Prisma {
 
   export type BruteStartingStatsUncheckedUpdateWithoutBruteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    endurance?: IntFieldUpdateOperationsInput | number
+    hp?: IntFieldUpdateOperationsInput | number
     strength?: IntFieldUpdateOperationsInput | number
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
@@ -57949,10 +57871,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -58042,10 +57963,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -58151,10 +58071,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -58244,10 +58163,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -58337,10 +58255,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -58430,10 +58347,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -58528,10 +58444,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -58621,10 +58536,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -58895,10 +58809,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -58988,10 +58901,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -59092,10 +59004,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -59185,10 +59096,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -59382,10 +59292,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -59475,10 +59384,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -59668,10 +59576,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -59761,10 +59668,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -59950,10 +59856,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -60043,10 +59948,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -60188,10 +60092,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -60281,10 +60184,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -60390,10 +60292,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -60483,10 +60384,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -60731,10 +60631,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -60824,10 +60723,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -60933,10 +60831,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -61026,10 +60923,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -61263,10 +61159,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -61356,10 +61251,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -61465,10 +61359,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -61558,10 +61451,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -61651,10 +61543,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -61744,10 +61635,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -61922,10 +61812,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -62015,10 +61904,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -62183,10 +62071,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -62276,10 +62163,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -62523,10 +62409,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -62616,10 +62501,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -62800,10 +62684,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -62893,10 +62776,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -62991,10 +62873,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -63084,10 +62965,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -63187,10 +63067,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -63280,10 +63159,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -63576,10 +63454,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -63669,10 +63546,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -63935,10 +63811,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -64028,10 +63903,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -64210,10 +64084,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -64303,10 +64176,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -64441,10 +64313,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -64534,10 +64405,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -64678,10 +64548,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -64771,10 +64640,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -64864,10 +64732,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -64957,10 +64824,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -65109,10 +64975,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -65202,10 +65067,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -65763,10 +65627,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -65856,10 +65719,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -65954,10 +65816,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -66047,10 +65908,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -66220,10 +66080,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -66313,10 +66172,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -66491,10 +66349,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -66584,10 +66441,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -66752,10 +66608,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -66845,10 +66700,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -66971,10 +66825,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -67064,10 +66917,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -67218,10 +67070,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -67311,10 +67162,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -67548,10 +67398,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -67664,10 +67513,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -67757,10 +67605,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -67850,10 +67697,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -68071,10 +67917,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -68164,10 +68009,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -68257,10 +68101,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -68416,10 +68259,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -68609,10 +68451,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -68675,10 +68516,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -68741,10 +68581,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -68807,10 +68646,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -68894,10 +68732,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -68987,10 +68824,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69080,10 +68916,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69377,10 +69212,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69470,10 +69304,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69563,10 +69396,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69630,10 +69462,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69723,10 +69554,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -69816,10 +69646,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70200,10 +70029,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70293,10 +70121,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70386,10 +70213,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70452,10 +70278,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70545,10 +70370,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70638,10 +70462,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70704,10 +70527,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70797,10 +70619,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70890,10 +70711,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -70956,10 +70776,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -71049,10 +70868,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -71142,10 +70960,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -71484,10 +71301,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -71577,10 +71393,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -71670,10 +71485,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -71882,10 +71696,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -71948,10 +71761,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -72073,10 +71885,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72166,10 +71977,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72259,10 +72069,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72325,10 +72134,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72418,10 +72226,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72511,10 +72318,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72896,10 +72702,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -72989,10 +72794,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73082,10 +72886,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73149,10 +72952,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73242,10 +73044,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73335,10 +73136,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73402,10 +73202,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: number
     xp?: number
-    hp?: number
-    enduranceStat?: number
-    enduranceModifier?: number
-    enduranceValue?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
     strengthStat?: number
     strengthModifier?: number
     strengthValue?: number
@@ -73468,10 +73267,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73561,10 +73359,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number
@@ -73654,10 +73451,9 @@ export namespace Prisma {
     previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
-    hp?: IntFieldUpdateOperationsInput | number
-    enduranceStat?: IntFieldUpdateOperationsInput | number
-    enduranceModifier?: FloatFieldUpdateOperationsInput | number
-    enduranceValue?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
     strengthStat?: IntFieldUpdateOperationsInput | number
     strengthModifier?: FloatFieldUpdateOperationsInput | number
     strengthValue?: IntFieldUpdateOperationsInput | number

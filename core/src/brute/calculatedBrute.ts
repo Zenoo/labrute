@@ -5,7 +5,7 @@ import { getTempSkill } from './getTempSkill';
 import { entries } from '../utils';
 import { FightStat, SkillModifiers } from './skills';
 import { getScaledStat } from './scaledStat';
-import { getHP } from './getHP';
+import { getBruteHP } from './getHP';
 import { applySkillModifiers } from './applySkillModifiers';
 
 export const getTieredSkills = (brute: Pick<Brute, 'id' | 'skills'>, modifiers: Modifiers) => {
@@ -65,7 +65,7 @@ export const getTieredPets = (brute: Pick<Brute, 'pets'>) => {
  * It includes all the recalculated stats
  * There is no need to do any recalculation after using this function
  */
-export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'skills' | 'pets' | 'enduranceStat' | 'enduranceModifier' | 'enduranceValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue' | 'level' | 'hp'>>(
+export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'skills' | 'pets' | 'hpStat' | 'hpModifier' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue' | 'level'>>(
   brute: T,
   modifiers: Modifiers
 ) => {
@@ -119,53 +119,10 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
 
   const skillsList = modifiers[FightModifier.chaos] ? entries(calculatedBrute.skills) : [];
 
-  // HP
-  if (modifiers[FightModifier.chaos]) {
-    for (const [skillName, tier] of skillsList) {
-      const modifier = SkillModifiers[skillName].endurance;
-
-      if (!modifier) {
-        continue;
-      }
-
-      // Flat modifier
-      if (modifier?.flat) {
-        calculatedBrute.enduranceStat -= modifier.flat[tier - 1] ?? 0;
-        calculatedBrute.enduranceStat += getScaledStat({
-          chaos: true,
-          skill: skillName,
-          type: 'flat',
-          stat: 'endurance',
-          value: modifier.flat[tier - 1] ?? 0,
-        });
-      }
-
-      // Percent modifier
-      if (modifier?.percent) {
-        calculatedBrute.enduranceModifier /= 1 + (modifier.percent[tier - 1] ?? 0);
-        calculatedBrute.enduranceModifier *= 1 + getScaledStat({
-          chaos: true,
-          skill: skillName,
-          type: 'percent',
-          stat: 'endurance',
-          value: modifier.percent[tier - 1] ?? 0,
-          precision: 2,
-        });
-      }
-    }
-
-    calculatedBrute.enduranceValue = Math.floor(
-      calculatedBrute.enduranceStat * calculatedBrute.enduranceModifier,
-    );
-
-    calculatedBrute.hp = getHP(
-      calculatedBrute.level,
-      calculatedBrute.enduranceValue,
-    );
-  }
-
-  // Strength, Agility, Speed
-  for (const stat of [FightStat.STRENGTH, FightStat.AGILITY, FightStat.SPEED] as const) {
+  // HP, Strength, Agility, Speed
+  for (const stat of [
+    FightStat.HP, FightStat.STRENGTH, FightStat.AGILITY, FightStat.SPEED
+  ] as const) {
     if (modifiers[FightModifier.chaos]) {
       for (const [skillName, tier] of skillsList) {
         const modifier = SkillModifiers[skillName][stat];
@@ -200,7 +157,11 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
         }
       }
 
-      calculatedBrute[`${stat}Value`] = Math.floor(calculatedBrute[`${stat}Stat`] * calculatedBrute[`${stat}Modifier`]);
+      if (stat === FightStat.HP) {
+        calculatedBrute[`${stat}Value`] = getBruteHP(calculatedBrute);
+      } else {
+        calculatedBrute[`${stat}Value`] = Math.floor(calculatedBrute[`${stat}Stat`] * calculatedBrute[`${stat}Modifier`]);
+      }
     }
 
     if (stat === FightStat.AGILITY && modifiers[FightModifier.doubleAgility]) {
