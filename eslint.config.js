@@ -2,7 +2,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default [
   {
     ignores: [
       '**/node_modules/**',
@@ -13,9 +13,6 @@ export default tseslint.config(
       '**/*.js',
       '**/*.d.ts',
       'Procfile',
-      '.eslintrc.cjs',
-      '.eslintrc.js',
-      'client/.eslintrc.js',
     ],
   },
   {
@@ -58,4 +55,4 @@ export default tseslint.config(
       'import/no-default-export': 'off',
     },
   }
-);
+];

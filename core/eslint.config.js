@@ -3,13 +3,12 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import importPlugin from 'eslint-plugin-import';
 
-export default tseslint.config(
+export default [
   {
     ignores: [
       '**/node_modules/**',
       '**/lib/**',
       '**/*.d.ts',
-      '.eslintrc.js',
     ],
   },
   {
@@ -116,4 +115,4 @@ export default tseslint.config(
       'no-param-reassign': 'off',
     },
   }
-);
+];
