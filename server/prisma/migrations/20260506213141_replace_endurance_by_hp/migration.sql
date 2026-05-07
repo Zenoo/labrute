@@ -39,6 +39,16 @@ ALTER TABLE "Brute" ADD COLUMN "hpModifier" DOUBLE PRECISION,
 ADD COLUMN "hpStat" INTEGER,
 ADD COLUMN "hpValue" INTEGER;
 
+-- Apply pet HP maluses
+UPDATE "Brute" SET "enduranceModifier" = "enduranceModifier" * 0.9
+WHERE "pets" && ARRAY['dog1', 'dog2', 'dog3']::"PetName"[];
+
+UPDATE "Brute" SET "enduranceModifier" = "enduranceModifier" * 0.75
+WHERE "pets" && ARRAY['panther']::"PetName"[];
+
+UPDATE "Brute" SET "enduranceModifier" = "enduranceModifier" * 0.6
+WHERE "pets" && ARRAY['bear']::"PetName"[];
+
 -- Migrate data: hp = 50 + stat * modifier + level * 2
 UPDATE "Brute" SET
   "hpStat" = COALESCE("enduranceStat", 0) * 6,
