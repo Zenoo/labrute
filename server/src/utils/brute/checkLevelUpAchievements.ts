@@ -10,7 +10,7 @@ export const checkLevelUpAchievements = async (
   prisma: PrismaClient,
   _brute: Pick<Brute, 'id' | 'level' | 'userId' | 'pets' | 'skills' | 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
   destinyChoice: Pick<DestinyChoice, 'pet' | 'skill' | 'weapon'>,
-  oldBrute?: Pick<Brute, 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
+  oldBrute?: Pick<Brute, 'weapons' | 'pets' | 'skills' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
 ) => {
   const { userId } = _brute;
 
@@ -77,6 +77,17 @@ export const checkLevelUpAchievements = async (
       },
       select: { id: true },
     }));
+  }
+
+  // Ignore upgrades
+  if (destinyChoice.pet && oldBrute?.pets.includes(destinyChoice.pet)) {
+    return;
+  }
+  if (destinyChoice.skill && oldBrute?.skills.includes(destinyChoice.skill)) {
+    return;
+  }
+  if (destinyChoice.weapon && oldBrute?.weapons.includes(destinyChoice.weapon)) {
+    return;
   }
 
   // Dog
