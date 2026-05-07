@@ -1,12 +1,10 @@
 import { Brute } from '@labrute/prisma';
 
-export const getHP = (level: number, hpStat: number, hpModifier: number) => Math.floor(
+export const getBruteHP = (brute: Pick<Brute, 'level' | 'hpStat' | 'hpModifier'>) => Math.floor(
   50
-  + hpStat * hpModifier
-  + level * 2,
+  + brute.hpStat * brute.hpModifier
+  + brute.level * 2,
 );
-
-export const getBruteHP = (brute: Pick<Brute, 'level' | 'hpStat' | 'hpModifier'>) => getHP(brute.level, brute.hpStat, brute.hpModifier);
 
 export const readableHPFormula = (
   level: string | number,

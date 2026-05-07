@@ -252,7 +252,15 @@ const LevelUpView = () => {
                       {/* Skill */}
                       {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
                       {/* Pet */}
-                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : `${t('newPet')} :`)}
+                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : t('newPet'))}
+                      {/* Display pet HP malus */}
+                      {destinyChoice.pet
+                        && !brute.pets[destinyChoice.pet]
+                        && pets[destinyChoice.pet] && (
+                          <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
+                            {' '}(-{pets[destinyChoice.pet].hpMalus[0] * 100}% {t('hp')})
+                          </Box>
+                        )}
                     </Text>
 
                     {/* CHOICE CONTENT */}
