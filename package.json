@@ -2,9 +2,10 @@
   "name": "labrute",
   "version": "2.92.2",
   "private": true,
+  "type": "module",
   "engines": {
     "npm": ">=8.1.2",
-    "node": ">=17.0.0"
+    "node": ">=18.18.0"
   },
   "scripts": {
     "clean": "rimraf \"client/build\" \"core/lib\" \"server/lib\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
@@ -42,13 +43,16 @@
     "skills:generate": "npx ts-node ./scripts/generateSkillComponents.ts"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@eternaltwin/cli": "^0.16.0",
     "@types/node": "^18.11.15",
     "audiosprite": "^0.7.2",
     "concurrently": "^7.6.0",
+    "eslint": "^9",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "typescript-eslint": "^8.59.2"
   },
   "workspaces": {
     "packages": [
