@@ -372,7 +372,7 @@ export const getFighters = ({
         master: backupMaster.id,
         arrivesAtInitiative: arrivesAt,
         leavesAtInitiative: arrivesAt + (ExtraTieredSkillData[SkillName.backup]?.[
-          backupMaster.skills[SkillName.backup] ?? 0
+          (backupMaster.skills[SkillName.backup] ?? 0) - 1
         ] ?? 0),
         maxHp: backup.hpValue,
         hp: backup.hpValue,
