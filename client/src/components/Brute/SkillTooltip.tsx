@@ -22,11 +22,13 @@ const statName = (stat: FightStat) => {
 export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
   skill?: Skill | null;
   tier?: number;
+  ascended?: boolean;
 }
 
 const SkillTooltip = ({
   skill,
   tier = 1,
+  ascended = false,
   children,
   ...rest
 }: SkillTooltipProps) => {
@@ -45,7 +47,10 @@ const SkillTooltip = ({
             tier={tier}
             sx={{ width: 68, float: 'left', marginRight: 1 }}
           />
-          <Text bold h5>{t(skill.name)}</Text>
+          <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+            <Text bold h5>{t(skill.name)}</Text>
+            {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
+          </Box>
           <Divider />
           <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (

@@ -102,7 +102,12 @@ const CellWeapons = (
     const baseShadow = getRotatedShadow(transform);
     let filter = baseShadow;
 
-    if (randomWeapon === weapon) return `${filter} drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
+    if (randomWeapon === weapon) {
+      // Add smaller border for random weapon
+      const color = PerkColor.Random;
+      filter += ` drop-shadow(0 -0.5px 0 ${color}) drop-shadow(0.5px 0 0 ${color}) drop-shadow(0 0.5px 0 ${color}) drop-shadow(-0.5px 0 0 ${color}) drop-shadow(0.35px -0.35px 0 ${color}) drop-shadow(0.35px 0.35px 0 ${color}) drop-shadow(-0.35px 0.35px 0 ${color}) drop-shadow(-0.35px -0.35px 0 ${color})`;
+      return filter;
+    }
 
     // Add tier border if tier > 1
     if (tier && tier > 1) {
@@ -111,14 +116,19 @@ const CellWeapons = (
       filter += ` drop-shadow(0 -1px 0 ${color}) drop-shadow(1px 0 0 ${color}) drop-shadow(0 1px 0 ${color}) drop-shadow(-1px 0 0 ${color}) drop-shadow(0.7px -0.7px 0 ${color}) drop-shadow(0.7px 0.7px 0 ${color}) drop-shadow(-0.7px 0.7px 0 ${color}) drop-shadow(-0.7px -0.7px 0 ${color})`;
     }
 
-    // Add ascended glow if ascended (can stack with tier border)
-    if (brute?.ascendedWeapons.includes(weapon)
-      || selectedWeapon === weapon
-      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon])) {
-      filter += ` drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
+    // Add electric glow for ascended weapons
+    if (isAscended(weapon)) {
+      const color = PerkColor.Ascended;
+      filter += ` drop-shadow(0 0 3px ${color}) drop-shadow(0 0 6px ${color})`;
     }
 
     return filter;
+  };
+
+  const isAscended = (weapon: WeaponName) => {
+    return brute?.ascendedWeapons.includes(weapon)
+      || selectedWeapon === weapon
+      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon]);
   };
 
   const onWeaponClick = (clicked: WeaponName | 'bare-hands' | null) => () => {

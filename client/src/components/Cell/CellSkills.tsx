@@ -1,6 +1,6 @@
 import { skillList } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
-import { Grid, PaperProps } from '@mui/material';
+import { Grid, PaperProps, useTheme } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor } from '../../utils/StatColor';
@@ -19,6 +19,7 @@ const CellSkills = ({
   selectedSkill?: SkillName | null,
 }) => {
   const { brute } = useBrute();
+  const theme = useTheme();
 
   const [hoveredSkill, setHoveredSkill] = useState<SkillName | null>(null);
 
@@ -28,11 +29,18 @@ const CellSkills = ({
   );
 
   const getFilter = (skill: SkillName) => {
-    if (randomSkill === skill) return `drop-shadow(0 0 0.5rem ${PerkColor.Random})`;
+    let filter = '';
+
+    if (randomSkill === skill) {
+      filter += ` drop-shadow(0 2px 0 ${PerkColor.Random}) drop-shadow(2px 0 0 ${PerkColor.Random}) drop-shadow(0 -2px 0 ${PerkColor.Random}) drop-shadow(-2px 0 0 ${PerkColor.Random})`;
+    }
     if (brute?.ascendedSkills.includes(skill)
       || selectedSkill === skill
-      || (hoverSelectAscend && hoveredSkill === skill && brute?.skills[skill])) return `drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
-    return 'none';
+      || (hoverSelectAscend && hoveredSkill === skill && brute?.skills[skill])) {
+      filter += ` drop-shadow(0 2px 0 ${PerkColor.Ascended}) drop-shadow(2px 0 0 ${PerkColor.Ascended}) drop-shadow(0 -2px 0 ${PerkColor.Ascended}) drop-shadow(-2px 0 0 ${PerkColor.Ascended})`;
+    }
+
+    return `${filter} drop-shadow(0px 2px 2px ${theme.palette.border.outer})`;
   };
 
   const onSkillClick = (clicked: SkillName) => () => {
@@ -65,12 +73,11 @@ const CellSkills = ({
             onMouseEnter={() => setHoveredSkill(skill.name)}
             onMouseLeave={() => setHoveredSkill(null)}
           >
-            <SkillTooltip skill={skill} tier={brute.skills[skill.name]}>
+            <SkillTooltip skill={skill} tier={brute.skills[skill.name]} ascended={brute.ascendedSkills.includes(skill.name)}>
               <SkillIcon
                 skill={skill.name}
                 tier={brute.skills[skill.name]}
                 sx={{
-                  boxShadow: 4,
                   filter: getFilter(skill.name),
                   cursor: (hoverSelectAscend && hasSkill) ? 'pointer' : 'default',
                   transition: 'filter 0.3s',

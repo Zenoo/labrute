@@ -35,7 +35,7 @@ const CellPets = ({
     if (brute?.ascendedPets.includes(pet)
       || selectedPet === pet
       || (hoverSelectAscend && hoveredPet === pet)) {
-      filter += ` drop-shadow(0 0 0.5rem ${PerkColor.Ascended})`;
+      filter += ` drop-shadow(0 0 3px ${PerkColor.Ascended}) drop-shadow(0 0 6px ${PerkColor.Ascended})`;
     }
 
     return filter;
