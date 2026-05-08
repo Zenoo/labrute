@@ -77,7 +77,7 @@ const TournamentHistoryView = () => {
                         {tournamentDate.format('DD/MM/YYYY')}
                       </TableCell>
                       <TableCell align="right">
-                        <Link to={`/${bruteName || ''}/tournament/${tournament.type === TournamentType.GLOBAL ? 'global/' : ''}${dayjs.utc(tournament.date).format('YYYY-MM-DD')}`}>
+                        <Link to={`/${bruteName || ''}/tournament/${(tournament.type === TournamentType.GLOBAL || tournament.type === TournamentType.UNLIMITED_GLOBAL) ? 'global/' : ''}${dayjs.utc(tournament.date).format('YYYY-MM-DD')}`}>
                           <Text bold>
                             {tournament.type === TournamentType.DAILY
                               ? t('dailyTournament')
