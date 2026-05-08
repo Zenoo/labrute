@@ -494,6 +494,7 @@ export default class FighterHolder {
     app: PIXI.Application,
     fighter: Fighter,
     speed: MutableRefObject<number>,
+    scale = 1,
   ) {
     this.type = fighter.type;
     this.name = fighter.name;
@@ -503,6 +504,9 @@ export default class FighterHolder {
     this.#colors = readColorString(fighter.gender || Gender.male, fighter.colors || '0'.repeat(32));
     this.#parts = readBodyString(fighter.body || '0'.repeat(11));
     this.speed = speed;
+
+    // Apply custom scale
+    this.#scale = scale;
 
     // Get animation type
     if (this.type === 'brute') {
@@ -575,17 +579,17 @@ export default class FighterHolder {
     shadowSprite.width = this.baseWidth;
     shadowSprite.height = (this.baseHeight * 30) / this.baseWidth;
 
-    // Brute shadow
     if (fighterModelType === 'brute') {
+      // Brute shadow
       shadowSprite.position.set(0, -0.02 * this.baseHeight);
-      shadowSprite.scale.set(0.72, 0.7);
-    // Bear shadow
+      shadowSprite.scale.set(0.72 * this.#scale, 0.7 * this.#scale);
     } else if (fighterModelType === 'bear') {
-      shadowSprite.scale.set(1.3, 1.1);
-    // Dog shadow
+      // Bear shadow
+      shadowSprite.scale.set(1.3 * this.#scale, 1.1 * this.#scale);
     } else {
+      // Dog shadow
       shadowSprite.position.set(-0.2 * this.baseHeight, 0);
-      shadowSprite.scale.set(0.7, 0.5);
+      shadowSprite.scale.set(0.7 * this.#scale, 0.5 * this.#scale);
     }
 
     // Blur shadow depending on it's size
@@ -1119,6 +1123,9 @@ export default class FighterHolder {
 
           framePartContainer.mask = maskSprite;
         }
+
+        // Apply zIndex
+        framePartContainer.zIndex = frameParts.length - i;
 
         // Apply visibility
         framePartContainer.visible = true;
