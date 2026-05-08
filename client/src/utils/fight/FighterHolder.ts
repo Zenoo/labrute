@@ -471,9 +471,11 @@ export default class FighterHolder {
 
   #frame = 0;
 
+  #previousFrame = -1;
+
   #timer = 0;
 
-  animationSpeed = 1;
+  #baseAnimationSpeed = 1;
 
   svgs: PIXI.Sprite[] = [];
 
@@ -712,40 +714,48 @@ export default class FighterHolder {
         this.#usedSvgs = {};
         this.#displayFrame(this.#animationContainer, this.#animationSymbol);
 
-        // :start event
-        if (this.#frame === 0) {
-          this.#triggerEvents(`${this.animation}:start`);
-        }
+        const currentFrame = Math.floor(this.#frame);
+        const frameChanged = currentFrame !== this.#previousFrame;
 
-        // :trashed event
-        if (this.animation === 'trash' && this.#frame === 3) {
-          this.#triggerEvents(`${this.animation}:trashed`);
-        }
+        // Only trigger events when we've moved to a new frame
+        if (frameChanged) {
+          // :start event
+          if (currentFrame === 0) {
+            this.#triggerEvents(`${this.animation}:start`);
+          }
 
-        // :hand-raised event (win animation is faster for female)
-        if (this.animation === 'win'
-          && this.#frame === (this.#animationType === Gender.male ? 52 : 27)) {
-          this.#triggerEvents(`${this.animation}:hand-raised`);
-        }
+          // :trashed event
+          if (this.animation === 'trash' && currentFrame === 3) {
+            this.#triggerEvents(`${this.animation}:trashed`);
+          }
 
-        // :hit event
-        if (this.animation === 'fist' && this.#frame === 2) {
-          this.#triggerEvents(`${this.animation}:hit`);
-        } else if (this.animation === 'estoc' && this.#frame === 4) {
-          this.#triggerEvents(`${this.animation}:hit`);
-        } else if (this.animation === 'slash' && this.#frame === 5) {
-          this.#triggerEvents(`${this.animation}:hit`);
-        } else if (this.animation === 'whip' && this.#frame === 4) {
-          this.#triggerEvents(`${this.animation}:hit`);
-        } else if (this.animation === 'attack' && this.#animationType === 'dog' && this.#frame === 2) {
-          this.#triggerEvents(`${this.animation}:hit`);
-        } else if (this.animation === 'attack' && this.#animationType === 'bear' && this.#frame === 4) {
-          this.#triggerEvents(`${this.animation}:hit`);
-        }
+          // :hand-raised event (win animation is faster for female)
+          if (this.animation === 'win'
+            && currentFrame === (this.#animationType === Gender.male ? 52 : 27)) {
+            this.#triggerEvents(`${this.animation}:hand-raised`);
+          }
 
-        // :drop event
-        if (this.animation === 'death' && this.#frame === LOOP_START[this.#animationType].death) {
-          this.#triggerEvents(`${this.animation}:drop`);
+          // :hit event
+          if (this.animation === 'fist' && currentFrame === 2) {
+            this.#triggerEvents(`${this.animation}:hit`);
+          } else if (this.animation === 'estoc' && currentFrame === 4) {
+            this.#triggerEvents(`${this.animation}:hit`);
+          } else if (this.animation === 'slash' && currentFrame === 5) {
+            this.#triggerEvents(`${this.animation}:hit`);
+          } else if (this.animation === 'whip' && currentFrame === 4) {
+            this.#triggerEvents(`${this.animation}:hit`);
+          } else if (this.animation === 'attack' && this.#animationType === 'dog' && currentFrame === 2) {
+            this.#triggerEvents(`${this.animation}:hit`);
+          } else if (this.animation === 'attack' && this.#animationType === 'bear' && currentFrame === 4) {
+            this.#triggerEvents(`${this.animation}:hit`);
+          }
+
+          // :drop event
+          if (this.animation === 'death' && currentFrame === LOOP_START[this.#animationType].death) {
+            this.#triggerEvents(`${this.animation}:drop`);
+          }
+
+          this.#previousFrame = currentFrame;
         }
 
         this.#frame += this.animationSpeed;
@@ -758,6 +768,15 @@ export default class FighterHolder {
         }
       }
     });
+  }
+
+  // Getter and setter for animationSpeed that accounts for scale
+  get animationSpeed(): number {
+    return this.#baseAnimationSpeed / this.#scale;
+  }
+
+  set animationSpeed(value: number) {
+    this.#baseAnimationSpeed = value;
   }
 
   #triggerEvents = (event: string) => {
@@ -822,6 +841,7 @@ export default class FighterHolder {
 
     // Reset frame
     this.#frame = frame;
+    this.#previousFrame = -1;
     this.#frameCount = this.#animationSymbol?.frames?.length ?? 0;
     this.#timer = 0;
     this.#playing = true;
@@ -1031,7 +1051,7 @@ export default class FighterHolder {
         frameToLoad = 16;
       } else if (ANIMATION_SYMBOL_NAMES[this.#animationType].includes(symbol.name)) {
         // If the symbol is an animation, load the current frame
-        frameToLoad = this.#frame;
+        frameToLoad = Math.floor(this.#frame);
       } else {
         // Else load the first frame
         frameToLoad = 0;
