@@ -111,11 +111,11 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
       if (renderers.length < MAX_RENDERERS) {
         const renderer = new Renderer({
           backgroundAlpha: 0,
-          width: 250,
-          height: 320,
+          width: 800,
+          height: 1000,
           antialias: true,
           autoDensity: true,
-          resolution: window.devicePixelRatio * 2,
+          resolution: 1,
         });
 
         freeRenderer = { renderer, busy: false };
@@ -135,8 +135,9 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     // Mark renderer as busy
     freeRenderer.busy = true;
 
-    // Render
-    const display = new BruteDisplay(request.gender, colors, body, 'left', 1);
+    // Render with higher scale for better quality
+    const renderScale = 3; // Adjust this for quality vs file size (textures loaded at this scale)
+    const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale);
 
     display.onLoad(() => {
       if (!freeRenderer) {
@@ -144,13 +145,10 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         return;
       }
 
-      // Set size
-      display.container.width = Math.abs(display.container.width);
-      display.container.height = Math.abs(display.container.height);
-
       const content = (freeRenderer.renderer.plugins.extract as Extract).image(
         display.container,
-        'image/webp'
+        'image/png',
+        1
       );
 
       // Destroy display

@@ -199,18 +199,20 @@ const setupFight: (
   // First team bust
   const brute1BustImg = await createBustImage(brute1, renderer);
 
-  const team1Bust = new PIXI.Sprite(new Texture(new BaseTexture(brute1BustImg)));
+  const team1BustBase = new BaseTexture(brute1BustImg);
+  team1BustBase.scaleMode = PIXI.SCALE_MODES.LINEAR;
+  const team1Bust = new PIXI.Sprite(new Texture(team1BustBase));
   team1Bust.x = 52;
   team1Bust.y = 35;
   team1Bust.zIndex = 102;
-  team1Bust.scale.y = 0.45;
-  team1Bust.scale.x = -0.45;
+  team1Bust.scale.y = 0.15;
+  team1Bust.scale.x = -0.15;
   app.stage?.addChild(team1Bust);
 
   // Clip bust to fit in the header
   const team1BustMask = new PIXI.Graphics();
   team1BustMask.beginFill(0xFFFFFF);
-  team1BustMask.drawRect(0, 0, 100, 88);
+  team1BustMask.drawRect(0, 0, 300, 264);
   team1BustMask.endFill();
   team1Bust.addChild(team1BustMask);
   team1Bust.mask = team1BustMask;
@@ -299,18 +301,20 @@ const setupFight: (
     // Second team bust
     brute2BustImg = await createBustImage(brute2, renderer);
 
-    team2Bust = new PIXI.Sprite(new Texture(new BaseTexture(brute2BustImg)));
+    const team2BustBase = new BaseTexture(brute2BustImg);
+    team2BustBase.scaleMode = PIXI.SCALE_MODES.LINEAR;
+    team2Bust = new PIXI.Sprite(new Texture(team2BustBase));
     team2Bust.x = 450;
     team2Bust.y = 35;
     team2Bust.zIndex = 102;
-    team2Bust.scale.y = 0.45;
-    team2Bust.scale.x = 0.45;
+    team2Bust.scale.y = 0.15;
+    team2Bust.scale.x = 0.15;
     app.stage?.addChild(team2Bust);
 
     // Clip bust to fit in the header
     const team2BustMask = new PIXI.Graphics();
     team2BustMask.beginFill(0xFFFFFF);
-    team2BustMask.drawRect(0, 0, 100, 88);
+    team2BustMask.drawRect(0, 0, 300, 264);
     team2BustMask.endFill();
     team2Bust.addChild(team2BustMask);
     team2Bust.mask = team2BustMask;
