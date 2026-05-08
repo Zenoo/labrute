@@ -78,9 +78,11 @@ export interface DetailedFighter {
   accuracy: number,
   armor: number,
   disarm: number,
+  weaponGrip: number;
   sabotage: number;
   evasion: number,
   reach: number,
+  size: number;
   // Chance of re-attacking on misses (evasion or block)
   determination: number;
   // Max % max HP per hit
@@ -392,6 +394,10 @@ export const generateFight = async ({
       }, [] as SkillId[]),
       shield: fighter.shield,
     };
+
+    if (fighter.size !== 1) {
+      object.size = fighter.size;
+    }
 
     if (fighter.eventId) {
       object.eventId = fighter.eventId;

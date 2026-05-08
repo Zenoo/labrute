@@ -177,6 +177,9 @@ enum SkillName {
   treat
   repulse
   fastMetabolism
+  mimic
+  stickyHands
+  deity
 }
 
 enum PetName {

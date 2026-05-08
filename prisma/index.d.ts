@@ -294,7 +294,10 @@ export const SkillName: {
   haste: 'haste',
   treat: 'treat',
   repulse: 'repulse',
-  fastMetabolism: 'fastMetabolism'
+  fastMetabolism: 'fastMetabolism',
+  mimic: 'mimic',
+  stickyHands: 'stickyHands',
+  deity: 'deity'
 };
 
 export type SkillName = (typeof SkillName)[keyof typeof SkillName]

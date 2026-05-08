@@ -446,6 +446,7 @@ const setupFight: (
             app,
             fighter,
             speed,
+            fighter.size
           ),
         };
 

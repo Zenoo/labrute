@@ -80,5 +80,10 @@ export const getLevelUpChoices = (
     };
   }
 
+  // Randomize order of choices
+  if (Math.random() < 0.5) {
+    [firstChoice, secondChoice] = [secondChoice, firstChoice];
+  }
+
   return [firstChoice, secondChoice];
 };

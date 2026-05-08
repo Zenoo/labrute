@@ -760,6 +760,14 @@ const drawWeapon = (
     && !drawEveryWeapon
     && randomBetween(0, keys(fighter.weapons).length * 2) === 0) return false;
 
+  // Prevent drawing a new weapon if fighter has grip
+  if (fighter.activeWeapon && fighter.weaponGrip) {
+    const preventedDraw = fighter.weaponGrip * 100 >= randomBetween(1, 100);
+    if (preventedDraw) {
+      return false;
+    }
+  }
+
   // Draw a weapon
   const possibleWeapon = randomlyDrawWeapon(fightData, fighter.weapons, forceDraw);
 
@@ -1638,7 +1646,18 @@ const disarm = (
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  return getFighterStat(chaos, fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
+  const shouldDisarm = getFighterStat(chaos, fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
+
+  // If the opponent has grip, they have a chance to prevent the disarm
+  if (shouldDisarm && opponent.weaponGrip) {
+    const preventedDisarm = opponent.weaponGrip * 100 >= randomBetween(1, 100);
+
+    if (preventedDisarm) {
+      return false;
+    }
+  }
+
+  return shouldDisarm;
 };
 
 const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
@@ -1648,8 +1667,19 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   // Only disarm if opponent has `ironHead`
   if (!opponent.ironHead) return false;
 
+  const shouldDisarm = Math.random() < opponent.ironHead;
+
+  // If the attacker has grip, they have a chance to prevent the disarm
+  if (shouldDisarm && fighter.weaponGrip) {
+    const preventedDisarm = fighter.weaponGrip * 100 >= randomBetween(1, 100);
+
+    if (preventedDisarm) {
+      return false;
+    }
+  }
+
   // Chance to disarm the attacker
-  return Math.random() < opponent.ironHead;
+  return shouldDisarm;
 };
 
 const reversal = (chaos: boolean, opponent: DetailedFighter, blocked: boolean) => {
@@ -1664,6 +1694,9 @@ const reversal = (chaos: boolean, opponent: DetailedFighter, blocked: boolean) =
   if (blocked && opponent.skills[SkillName.counterAttack]) {
     reversalStat += SkillModifiers[SkillName.counterAttack][FightStat.REVERSAL]
       ?.percent?.[(opponent.skills[SkillName.counterAttack]?.tier ?? 1) - 1] ?? 0;
+  } else {
+    // Limit reversal stat to 90%
+    reversalStat = Math.min(reversalStat, 0.9);
   }
 
   return random < reversalStat;

@@ -52,6 +52,9 @@ export enum SkillId {
   treat,
   repulse,
   fastMetabolism,
+  mimic,
+  stickyHands,
+  deity
 }
 
 export const SkillByName: Record<SkillName, SkillId> = {
@@ -105,6 +108,9 @@ export const SkillByName: Record<SkillName, SkillId> = {
   [SkillName.treat]: SkillId.treat,
   [SkillName.repulse]: SkillId.repulse,
   [SkillName.fastMetabolism]: SkillId.fastMetabolism,
+  [SkillName.mimic]: SkillId.mimic,
+  [SkillName.stickyHands]: SkillId.stickyHands,
+  [SkillName.deity]: SkillId.deity,
 };
 
 export const SkillById: Record<SkillId, SkillName> = {
@@ -158,6 +164,9 @@ export const SkillById: Record<SkillId, SkillName> = {
   [SkillId.treat]: SkillName.treat,
   [SkillId.repulse]: SkillName.repulse,
   [SkillId.fastMetabolism]: SkillName.fastMetabolism,
+  [SkillId.mimic]: SkillName.mimic,
+  [SkillId.stickyHands]: SkillName.stickyHands,
+  [SkillId.deity]: SkillName.deity,
 };
 
 export const FightStat = {
@@ -182,6 +191,8 @@ export const FightStat = {
   SPEED: 'speed',
   HP: 'hp',
   REGENERATION: 'regeneration',
+  WEAPON_GRIP: 'weaponGrip',
+  SIZE: 'size',
 } as const;
 
 export type FightStat = typeof FightStat[keyof typeof FightStat];
@@ -472,6 +483,21 @@ export const skills: Record<SkillName, Skill> = {
     odds: 5,
     type: 'passive',
   },
+  [SkillName.mimic]: {
+    name: 'mimic',
+    odds: 5,
+    type: 'passive',
+  },
+  [SkillName.stickyHands]: {
+    name: 'stickyHands',
+    odds: 5,
+    type: 'passive',
+  },
+  [SkillName.deity]: {
+    name: 'deity',
+    odds: 2,
+    type: 'passive',
+  },
 };
 
 export const skillList = Object.values(skills);
@@ -625,6 +651,21 @@ export const SkillModifiers: Record<
     [FightStat.HIT_SPEED]: { percent: [-0.5, -0.65, -0.8] },
     [FightStat.CRITICAL_CHANCE]: { percent: [-0.05, -0.1, -0.15] },
   },
+  [SkillName.mimic]: {},
+  [SkillName.stickyHands]: {
+    [FightStat.WEAPON_GRIP]: { percent: [0.5, 0.6, 0.7] },
+  },
+  [SkillName.deity]: {
+    [FightStat.SIZE]: { percent: [0.5, 0.5, 0.5] },
+    [FightStat.HP]: { percent: [1, 1.25, 1.5] },
+    [FightStat.STRENGTH]: { percent: [1, 1.25, 1.5] },
+    [FightStat.REVERSAL]: { percent: [0.4, 0.5, 0.6] },
+    [FightStat.AGILITY]: { percent: [-1, -1, -1] },
+    [FightStat.SPEED]: { percent: [-1, -1, -1] },
+    [FightStat.DEXTERITY]: { percent: [-1, -1, -1] },
+    [FightStat.EVASION]: { percent: [-1, -1, -1] },
+    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
+  },
 };
 
 export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, number]>> = {
@@ -635,6 +676,7 @@ export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, nu
   [SkillName.spy]: [0.2, 0.25, 0.3],
   [SkillName.saboteur]: [100, 150, 200],
   [SkillName.backup]: [2.8, 3.3, 3.8],
+  [SkillName.mimic]: [1, 2, 3],
 };
 
 export const SkillDamageModifiers = Object.entries(SkillModifiers)

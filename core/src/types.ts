@@ -50,6 +50,7 @@ export interface Fighter {
   master?: string;
   maxHp: number;
   hp: number,
+  size?: number;
   weapons: WeaponId[];
   skills: SkillId[];
   shield: boolean;
