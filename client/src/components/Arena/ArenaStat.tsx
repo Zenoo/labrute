@@ -1,8 +1,10 @@
-import { Box, BoxProps, Tooltip, useTheme } from '@mui/material';
+import {
+  Box, BoxProps, Tooltip, useTheme
+} from '@mui/material';
 import React from 'react';
-import Text from '../Text';
+import { Text } from '../Text';
 import { FightStat } from '@labrute/core';
-import StatColor from '../../utils/StatColor';
+import { StatColor } from '../../utils/StatColor';
 
 interface ArenaStatProps extends BoxProps {
   stat: FightStat;
@@ -10,7 +12,7 @@ interface ArenaStatProps extends BoxProps {
   hideSkillText?: boolean;
 }
 
-const ArenaStat = ({
+export const ArenaStat = ({
   stat,
   value,
   hideSkillText,
@@ -59,5 +61,3 @@ const ArenaStat = ({
     </Box>
   );
 };
-
-export default ArenaStat;

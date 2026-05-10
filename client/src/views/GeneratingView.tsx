@@ -1,12 +1,14 @@
-import { Box, Grid, Paper, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, useTheme
+} from '@mui/material';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import useStateAsync from '../hooks/useStateAsync';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
+import { useStateAsync } from '../hooks/useStateAsync';
 import { useServer } from '../hooks/useServer';
 
-const GeneratingView = () => {
+export const GeneratingView = () => {
   const { t } = useTranslation('generating');
   const { palette: { mode } } = useTheme();
   const Server = useServer();
@@ -63,5 +65,3 @@ const GeneratingView = () => {
     </Page>
   );
 };
-
-export default GeneratingView;

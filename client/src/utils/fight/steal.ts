@@ -1,15 +1,15 @@
-/* eslint-disable no-void */
-import { FIGHTER_HEIGHT, StealStep, WeaponById } from '@labrute/core';
+
+import {
+  FIGHTER_HEIGHT, StealStep, WeaponById
+} from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Easing } from 'pixi-tweener';
-import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { airbornMove } from './utils/updateShadow';
 
-const steal = async (
-  app: Application,
+export const steal = async (
   fighters: AnimationFighter[],
   step: StealStep,
   speed: React.MutableRefObject<number>,
@@ -132,5 +132,3 @@ const steal = async (
   // Set brute animation to normal
   brute.animation.setAnimation('idle');
 };
-
-export default steal;

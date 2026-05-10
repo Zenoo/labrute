@@ -1,20 +1,22 @@
-import { ClanGetThreadResponse, ClanPermission, hasPermission } from '@labrute/core';
+import {
+  ClanGetThreadResponse, ClanPermission, hasPermission
+} from '@labrute/core';
 import { Box, Paper } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { BruteRender } from '../../components/Brute/Body/BruteRender';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useConfirm } from '../../hooks/useConfirm';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import { useBrute } from '../../hooks/useBrute';
 
-const ClanThreadView = () => {
+export const ClanThreadView = () => {
   const { t } = useTranslation('clan');
   const { bruteName, id, tid } = useParams();
   const Alert = useAlert();
@@ -249,5 +251,3 @@ const ClanThreadView = () => {
     </Page>
   );
 };
-
-export default ClanThreadView;

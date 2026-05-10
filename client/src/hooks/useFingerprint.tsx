@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import FingerprintJS, { GetResult } from '@fingerprintjs/fingerprintjs';
 import { LS_KEY_FINGERPRINT_LOG } from '../utils/constants';
-import Server from '../utils/Server';
+import { Server } from '../utils/Server';
 import { setFingerprint } from '../utils/fingerprint';
 import { useCsrf } from './useCsrf';
 

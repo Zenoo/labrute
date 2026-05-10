@@ -1,17 +1,24 @@
-import { Fighter, GLOBAL_TOURNAMENT_START_HOUR, isWinner, TournamentsGetGlobalFight, TournamentsGetGlobalResponse } from '@labrute/core';
+import {
+  Fighter, GLOBAL_TOURNAMENT_START_HOUR, isWinner,
+  TournamentsGetGlobalFight, TournamentsGetGlobalResponse
+} from '@labrute/core';
 import { Gender, TournamentType } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
-import { Badge, Box, Paper, PaperProps, useTheme } from '@mui/material';
+import {
+  Badge, Box, Paper, PaperProps, useTheme
+} from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';
-import BruteRender from '../Brute/Body/BruteRender';
-import BruteTooltip from '../Brute/BruteTooltip';
-import Link from '../Link';
-import Text from '../Text';
+import { BruteRender } from '../Brute/Body/BruteRender';
+import { BruteTooltip } from '../Brute/BruteTooltip';
+import { Link } from '../Link';
+import { Text } from '../Text';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
@@ -33,7 +40,7 @@ interface CellGlobalTournamentProps extends PaperProps {
   name?: string;
 }
 
-const CellGlobalTournament = ({
+export const CellGlobalTournament = ({
   sx,
   date,
   name,
@@ -370,7 +377,6 @@ const CellGlobalTournament = ({
 
               return (
                 <Box
-                  // eslint-disable-next-line react/no-array-index-key
                   key={i}
                   sx={{
                     display: 'flex',
@@ -647,5 +653,3 @@ const CellGlobalTournament = ({
     </Badge>
   ) : null;
 };
-
-export default CellGlobalTournament;

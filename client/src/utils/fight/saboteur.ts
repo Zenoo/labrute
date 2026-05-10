@@ -1,13 +1,13 @@
-/* eslint-disable no-void */
+
 import { randomBetween, SaboteurStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import stagger from './stagger';
-import itemDrop from './itemDrop';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { stagger } from './stagger';
+import { itemDrop } from './itemDrop';
 
-const saboteur = async (
+export const saboteur = async (
   app: Application,
   fighters: AnimationFighter[],
   step: SaboteurStep,
@@ -74,5 +74,3 @@ const saboteur = async (
   // Wait for stagger
   await staggerVfx;
 };
-
-export default saboteur;

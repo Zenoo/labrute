@@ -1,13 +1,15 @@
 import { getRandomBody, getRandomColors } from '@labrute/core';
-import { Box, Paper, Tooltip } from '@mui/material';
+import {
+  Box, Paper, Tooltip
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { FantasyButton } from '../components/FantasyButton';
+import { Page } from '../components/Page';
+import { StyledButton } from '../components/StyledButton';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
@@ -16,7 +18,7 @@ import { useRenderer } from '../hooks/useRenderer';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
-const ResetVisualsView = () => {
+export const ResetVisualsView = () => {
   const { t } = useTranslation('resetVisuals');
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -165,5 +167,3 @@ const ResetVisualsView = () => {
     </Page>
   );
 };
-
-export default ResetVisualsView;

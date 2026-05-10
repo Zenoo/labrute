@@ -1,10 +1,40 @@
-import { AchievementGetRankingsResponse, AchievementsGetResponse, BruteGetForAdminRequest, BruteGetForAdminResponse, BruteGetInventoryResponse, BruteReportsListResponse, BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse, BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankRequest, BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse, BrutesGetNeighborsForRankRequest, BrutesGetNeighborsForRankResponse, BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteUpdateEventRoundWatchedResponse, ClanAssignRoleResponse, ClanChallengeBossResponse, ClanCreateResponse, ClanCreateRoleResponse, ClanDeleteRoleResponse, ClanGetForAdminResponse, ClanGetResponse, ClanGetRolesResponse, ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanRemoveRoleResponse, ClanSort, ClanUpdateRoleResponse, ClanWarGetAvailableFightersResponse, ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse, ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest, ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse, EventListResponse, FightCreateResponse, FightGetResponse, GetFingerprintResponse, HookBrute, KnownFingerprintAddRequest, KnownFingerprintListResponse, KnownFingerprintRemoveRequest, LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse, OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse, TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminRequest, UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse, UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse, UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse, UserTransferBruteRequest, UserUpdateSettingsRequest } from '@labrute/core';
-import { Brute, BruteReportReason, BruteReportStatus, Clan, DestinyChoiceSide, Gender, InventoryItemType, Lang, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
-import Fetch from './Fetch';
+import {
+  AchievementGetRankingsResponse, AchievementsGetResponse,
+  BruteGetForAdminRequest, BruteGetForAdminResponse,
+  BruteGetInventoryResponse, BruteReportsListResponse,
+  BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse,
+  BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankRequest,
+  BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse,
+  BrutesGetNeighborsForRankRequest, BrutesGetNeighborsForRankResponse,
+  BrutesGetOpponentsResponse, BrutesGetRankingResponse, BruteUpdateEventRoundWatchedResponse,
+  ClanAssignRoleResponse, ClanChallengeBossResponse,
+  ClanCreateResponse, ClanCreateRoleResponse, ClanDeleteRoleResponse,
+  ClanGetForAdminResponse, ClanGetResponse, ClanGetRolesResponse,
+  ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanRemoveRoleResponse,
+  ClanSort, ClanUpdateRoleResponse, ClanWarGetAvailableFightersResponse,
+  ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse,
+  ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest,
+  ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse,
+  EventListResponse, FightCreateResponse, FightGetResponse, GetFingerprintResponse, HookBrute,
+  KnownFingerprintAddRequest, KnownFingerprintListResponse, KnownFingerprintRemoveRequest,
+  LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse,
+  OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse,
+  TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse,
+  TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminRequest,
+  UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
+  UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
+  UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse,
+  UserTransferBruteRequest, UserUpdateSettingsRequest
+} from '@labrute/core';
+import {
+  Brute, BruteReportReason, BruteReportStatus, Clan,
+  DestinyChoiceSide, Gender, InventoryItemType, Lang, PetName, Prisma, SkillName, WeaponName
+} from '@labrute/prisma';
+import { Fetch } from './Fetch';
 import { GetResult } from '@fingerprintjs/fingerprintjs';
 import { formatFP } from './fingerprint';
 
-const Server = {
+export const Server = {
   isReady: () => Fetch<ServerReadyResponse>('/api/is-ready'),
   csrf: () => Fetch<{ csrfToken: string }>('/api/csrf'),
   fpe: (data: GetResult) => Fetch<GetFingerprintResponse>('/api/fpe', { data: formatFP(data) }, 'POST'),
@@ -218,5 +248,3 @@ const Server = {
     list: (params: UserLogsListRequest) => Fetch<UserLogsListResponse>('/api/user-log/list', params, 'POST'),
   },
 };
-
-export default Server;

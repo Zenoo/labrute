@@ -1,8 +1,14 @@
-import { BruteBodyPart, readBodyString, readColorString } from '@labrute/core';
+import {
+  BruteBodyPart, readBodyString, readColorString
+} from '@labrute/core';
 import { Gender } from '@labrute/prisma';
-import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol460, Symbol752 } from 'labrute-static-fla-parser';
+import {
+  FramePart, Symbol as LaBruteSymbol, Svg, Symbol460, Symbol752
+} from 'labrute-static-fla-parser';
 import * as PIXI from 'pixi.js';
-import { Filter, Matrix, Texture } from 'pixi.js';
+import {
+  Filter, Matrix, Texture
+} from 'pixi.js';
 
 const FEMALE_SYMBOL = Symbol752;
 const MALE_SYMBOL = Symbol460;
@@ -46,7 +52,7 @@ type Colors = {
   col4b: string;
 };
 
-export default class BruteDisplay {
+export class BruteDisplay {
   // Setup data
   gender: 'male' | 'female';
 

@@ -1,10 +1,10 @@
 import { DisarmStep } from '@labrute/core';
 import { Application, AnimatedSprite } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import itemDrop from './itemDrop';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { itemDrop } from './itemDrop';
 
-const disarm = (
+export const disarm = (
   app: Application,
   fighters: AnimationFighter[],
   step: DisarmStep,
@@ -62,5 +62,3 @@ const disarm = (
     item: step.w,
   });
 };
-
-export default disarm;

@@ -56,7 +56,7 @@ const staggerObject = async (
   }, { x: object.x + knockBack * 0.2 });
 };
 
-const stagger = async (
+export const stagger = async (
   fighter: AnimationFighter,
   speed: React.MutableRefObject<number>,
   unsignedKnockBack: number = 0,
@@ -81,9 +81,6 @@ const stagger = async (
 
   if (fighter.bust && fighter.HUDFocused) {
     // Reposition bust because it can move in case of unawaited multiple staggers (flashflood)
-    // eslint-disable-next-line no-param-reassign
     fighter.bust.x = fighter.team === 'L' ? 52 : 450;
   }
 };
-
-export default stagger;

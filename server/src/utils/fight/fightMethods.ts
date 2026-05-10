@@ -4,15 +4,13 @@ import {
   ArriveStep,
   entries,
   ExtraTieredSkillData,
-  FightStat, HasteStep, HitStep, keys, LeaveStep,
+  FightStat, FightWeapon, HasteStep, HitStep, keys, LeaveStep,
   NO_SKILL_TOSS,
   NO_WEAPON_TOSS,
-  randomBetween, randomItem,
-  Skill,
+  randomBetween, randomItem, Skill,
   SkillActivateStep,
-  SkillByName, SkillModifiers, StepType, Tiered, TreatStep, updateAchievement, Weapon,
-  WeaponByName,
-  WeaponType,
+  SkillByName, SkillModifiers, StepType, Tiered, TreatStep, updateAchievement, WeaponByName,
+  WeaponType
 } from '@labrute/core';
 import {
   FightModifier, PetName, SkillName, WeaponName,
@@ -203,13 +201,21 @@ const getRandomOpponent = ({
 
 export const saboteur = (fightData: DetailedFight, achievements: AchievementsStore) => {
   fightData.fighters.filter((fighter) => fighter.type === 'brute' && !fighter.master).forEach((fighter) => {
-    if (fighter.saboteur) {
+    const saboteurSkill = fighter.skills[SkillName.saboteur];
+    if (saboteurSkill) {
       const opponent = getRandomOpponent({ fightData, fighter, bruteAndBossOnly: true });
-      const opponentWeapons = entries(opponent?.weapons ?? {});
+      const opponentWeapons = Object.values(opponent?.weapons ?? {});
       if (opponent && opponentWeapons.length > 0) {
         const sabotagedWeapon = randomItem(opponentWeapons);
-        const [, tieredWeapon] = sabotagedWeapon;
-        opponent.sabotagedWeapon = tieredWeapon;
+
+        const weapon = opponent.weapons[sabotagedWeapon.name];
+        if (!weapon) {
+          throw new Error('Weapon not found');
+        }
+        weapon.sabotaged = ExtraTieredSkillData[
+          SkillName.saboteur
+        ]?.[saboteurSkill.tier - 1] ?? 0;
+
         updateAchievement(achievements, 'saboteur', 1, fighter.id);
       }
     }
@@ -333,7 +339,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
 export const randomlyDrawWeapon = (
   fightData: DetailedFight,
-  fighterWeapons: Partial<Record<WeaponName, Tiered<Weapon>>>,
+  fighterWeapons: Partial<Record<WeaponName, FightWeapon>>,
   forceDraw?: boolean,
 ) => {
   const weapons = entries(fighterWeapons);
@@ -486,7 +492,7 @@ const registerHit = ({
   criticalHit?: boolean;
   thrown?: boolean;
   source?: 'hammer' | 'flashFlood' | 'poison' | 'bomb' | 'vampirism' | 'haste';
-  flashFloodWeapon?: Weapon;
+  flashFloodWeapon?: FightWeapon;
 }) => {
   const bombDamageRangeOnPets: Record<PetName, [number, number]> = {
     [PetName.dog1]: [90, 150],
@@ -786,7 +792,6 @@ const drawWeapon = (
     fightData.steps.push({
       a: StepType.Trash,
       b: fighter.index,
-      w: WeaponByName[fighter.activeWeapon.name],
     });
 
     // Remove weapon from fighter
@@ -809,7 +814,7 @@ const drawWeapon = (
   });
 
   // Check if weapon was sabotaged
-  if (fighter.sabotagedWeapon?.name === possibleWeapon.name) {
+  if (possibleWeapon.sabotaged) {
     // Add saboteur step
     fightData.steps.push({
       a: StepType.Saboteur,
@@ -819,10 +824,9 @@ const drawWeapon = (
 
     // Remove weapon from fighter
     fighter.activeWeapon = null;
-    fighter.sabotagedWeapon = null;
 
     // Increase own initiative
-    fighter.initiative += (fighter.sabotagedWeaponInitiativeMalus ?? 100) / 100;
+    fighter.initiative += (possibleWeapon.sabotaged ?? 100) / 100;
 
     return true;
   }
@@ -866,6 +870,11 @@ const activateSuper = (
         throw new Error('No weapon to steal');
       }
 
+      // Can't steal if fighter has the same weapon (weapon unicity)
+      if (fighter.activeWeapon?.name === opponent.activeWeapon.name || fighter.weapons[opponent.activeWeapon.name]) {
+        return false;
+      }
+
       // 20% chance to steal if fighter already has a weapon
       if (fighter.activeWeapon && randomBetween(1, 5) !== 1) {
         return false;
@@ -877,7 +886,6 @@ const activateSuper = (
         fightData.steps.push({
           a: StepType.Trash,
           b: fighter.index,
-          w: WeaponByName[fighter.activeWeapon.name],
         });
 
         fighter.activeWeapon = null;
@@ -1019,7 +1027,6 @@ const activateSuper = (
           fightData.steps.push({
             a: StepType.Trash,
             b: fighter.index,
-            w: WeaponByName[fighter.activeWeapon.name],
           });
 
           fighter.activeWeapon = null;

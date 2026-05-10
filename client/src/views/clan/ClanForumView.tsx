@@ -1,17 +1,21 @@
 import { ClanGetThreadsResponse } from '@labrute/core';
-import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import {
+  Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+} from '@mui/material';
 import dayjs from 'dayjs';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {
+  Fragment, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const ClanForumView = () => {
+export const ClanForumView = () => {
   const { t } = useTranslation('clan');
   const { bruteName, id } = useParams();
   const Alert = useAlert();
@@ -135,5 +139,3 @@ const ClanForumView = () => {
     </Page>
   );
 };
-
-export default ClanForumView;

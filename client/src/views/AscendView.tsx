@@ -1,18 +1,24 @@
-import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import {
+  Box, Grid, Paper, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import CellPets from '../components/Cell/CellPets';
-import CellSkills from '../components/Cell/CellSkills';
-import CellWeapons from '../components/Cell/CellWeapons';
+import { CellPets } from '../components/Cell/CellPets';
+import { CellSkills } from '../components/Cell/CellSkills';
+import { CellWeapons } from '../components/Cell/CellWeapons';
 import { useNavigate } from 'react-router-dom';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import Link from '../components/Link';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
+import { Link } from '../components/Link';
 import { useBrute } from '../hooks/useBrute';
-import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
-import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
-import FantasyButton from '../components/FantasyButton';
-import { PetName, SkillName, WeaponName } from '@labrute/prisma';
+import { BruteLevelAndXP } from '../components/Brute/BruteLevelAndXP';
+import { BruteBodyAndStats } from '../components/Brute/BruteBodyAndStats';
+import { FantasyButton } from '../components/FantasyButton';
+import {
+  PetName, SkillName, WeaponName
+} from '@labrute/prisma';
 import { useConfirm } from '../hooks/useConfirm';
 import { useAlert } from '../hooks/useAlert';
 import { useServer } from '../hooks/useServer';
@@ -21,7 +27,7 @@ import { catchError } from '../utils/catchError';
 /**
  * AscendView component
  */
-const AscendView = () => {
+export const AscendView = () => {
   const theme = useTheme();
   const { t } = useTranslation('ascend');
   const { brute } = useBrute();
@@ -257,5 +263,3 @@ const AscendView = () => {
     </Page>
   );
 };
-
-export default AscendView;

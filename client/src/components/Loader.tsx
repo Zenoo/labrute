@@ -1,11 +1,13 @@
-import { Box, CircularProgress, CircularProgressProps } from '@mui/material';
+import {
+  Box, CircularProgress, CircularProgressProps
+} from '@mui/material';
 import React from 'react';
 
 interface LoaderProps extends CircularProgressProps {
   height?: number | string;
 }
 
-const Loader = ({
+export const Loader = ({
   height,
   ...props
 }: LoaderProps) => (
@@ -19,5 +21,3 @@ const Loader = ({
     <CircularProgress {...props} />
   </Box>
 );
-
-export default Loader;

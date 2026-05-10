@@ -1,7 +1,7 @@
 import { weapons } from '@labrute/core';
 import { AnimationFighter } from './findFighter';
 
-const getHitDistance = (
+export const getHitDistance = (
   fighter: AnimationFighter,
   target: AnimationFighter,
   isCountered: boolean = false,
@@ -33,5 +33,3 @@ const getHitDistance = (
   }
   return distance;
 };
-
-export default getHitDistance;

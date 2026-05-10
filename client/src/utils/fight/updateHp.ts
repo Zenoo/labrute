@@ -1,8 +1,8 @@
-/* eslint-disable no-param-reassign */
+
 import { Tweener } from 'pixi-tweener';
 import { AnimationFighter } from './utils/findFighter';
 
-const updateHp = (
+export const updateHp = (
   fighters: AnimationFighter[],
   fighter: AnimationFighter,
   hp: number,
@@ -80,5 +80,3 @@ const updateHp = (
     });
   }
 };
-
-export default updateHp;

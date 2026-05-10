@@ -1,8 +1,8 @@
 import { Brute, Clan } from '@labrute/prisma';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Link, { LinkProps } from '../Link';
-import StyledButton from '../StyledButton';
+import { LinkProps, Link } from '../Link';
+import { StyledButton } from '../StyledButton';
 
 export interface CellClanProps extends LinkProps {
   brute: Pick<Brute, 'name'> & {
@@ -10,7 +10,7 @@ export interface CellClanProps extends LinkProps {
   };
 }
 
-const CellClan = ({
+export const CellClan = ({
   brute,
   sx,
   ...rest
@@ -44,5 +44,3 @@ const CellClan = ({
     </Link>
   );
 };
-
-export default CellClan;

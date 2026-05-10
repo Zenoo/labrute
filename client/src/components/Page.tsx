@@ -1,13 +1,17 @@
 import { Version } from '@labrute/core';
-import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Paper, Tooltip } from '@mui/material';
-import React, { Fragment, useEffect, useRef } from 'react';
+import {
+  AlertTitle, Box, BoxProps, Alert as MuiAlert, Paper, Tooltip
+} from '@mui/material';
+import React, {
+  Fragment, useEffect, useRef
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
-import ads, { AdName } from '../utils/ads';
-import Header from './Header';
-import Link from './Link';
+import { AdName, ads } from '../utils/ads';
+import { Header } from './Header';
+import { Link } from './Link';
 import { SEO } from './SEO';
-import Text from './Text';
+import { Text } from './Text';
 import { useFingerprint } from '../hooks/useFingerprint';
 
 interface Props extends BoxProps {
@@ -18,7 +22,7 @@ interface Props extends BoxProps {
   sx?: BoxProps['sx'];
 }
 
-const Page = ({
+export const Page = ({
   title,
   description,
   headerUrl,
@@ -114,5 +118,3 @@ const Page = ({
     </Box>
   );
 };
-
-export default Page;

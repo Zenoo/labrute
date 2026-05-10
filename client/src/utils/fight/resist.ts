@@ -1,9 +1,9 @@
 import { ResistStep } from '@labrute/core';
 import { Application, AnimatedSprite } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const resist = (
+export const resist = (
   fighters: AnimationFighter[],
   step: ResistStep,
 ) => {
@@ -52,8 +52,5 @@ export const playResistAnimation = (
   // Play resist
   resistSprite.play();
 
-  // eslint-disable-next-line no-param-reassign
   brute.resist = false;
 };
-
-export default resist;

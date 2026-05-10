@@ -11,7 +11,7 @@ interface BruteRenderProps extends BoxProps {
   y?: number;
 }
 
-const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
+export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
   brute,
   looking = 'right',
   x = 0,
@@ -135,5 +135,3 @@ const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
     />
   );
 });
-
-export default BruteRender;

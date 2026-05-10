@@ -1,4 +1,6 @@
-import { Box, BoxProps, useTheme } from '@mui/material';
+import {
+  Box, BoxProps, useTheme
+} from '@mui/material';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -93,4 +95,4 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
 
 StyledButton.displayName = 'StyledButton';
 
-export default StyledButton;
+export { StyledButton };

@@ -1,14 +1,16 @@
-/* eslint-disable no-void */
-import { TrashStep, WeaponById, weapons } from '@labrute/core';
+
+import {
+  TrashStep, WeaponByName, weapons
+} from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import itemDrop from './itemDrop';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { itemDrop } from './itemDrop';
 
-const trash = async (
+export const trash = async (
   app: Application,
   fighters: AnimationFighter[],
   step: TrashStep,
@@ -28,29 +30,35 @@ const trash = async (
     throw new Error('Brute not found');
   }
 
+  const weaponName = brute.animation.weapon;
+  if (!weaponName) {
+    throw new Error('Brute has no weapon equipped');
+  }
+
   const animationEnded = brute.animation.waitForEvent('trash:end');
 
   // Listen for `trash:trashed` event
   brute.animation.once('trash:trashed', () => {
     // Infer weapon weight from it's damage
-    const weaponWeight = weapons[WeaponById[step.w]].damage[0];
+    const weaponWeight = weapons[weaponName].damage[0];
 
     // Lighter weapons are more likely to be trashed over head
     const throwBackward = Math.random() > Math.max(0.1, Math.min(0.9, weaponWeight / 40));
 
-    // Over head trash
     if (throwBackward) {
+      // Over head trash
       itemDrop({
         app,
         fighter: brute,
         speed,
-        item: step.w,
+        item: WeaponByName[weaponName],
         initialVelocity: { r: 17 + Math.random() * 8 },
       });
-      // Ground trash
     } else {
+      // Ground trash
+
       // Create trashed weapon sprite
-      const trashedWeapon = new Sprite(spritesheet.textures[`${WeaponById[step.w]}.png`]);
+      const trashedWeapon = new Sprite(spritesheet.textures[`${weaponName}.png`]);
       trashedWeapon.filters = [new DropShadowFilter({ alpha: 0, quality: 1 })];
       trashedWeapon.zIndex = 1;
 
@@ -115,5 +123,3 @@ const trash = async (
   // Set animation to `idle`
   brute.animation.setAnimation('idle');
 };
-
-export default trash;

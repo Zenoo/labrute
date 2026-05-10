@@ -6,16 +6,16 @@ import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
-import Loader from '../../components/Loader';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { BruteRender } from '../../components/Brute/Body/BruteRender';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Link } from '../../components/Link';
+import { Loader } from '../../components/Loader';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
-import StyledInput from '../../components/StyledInput';
+import { StyledInput } from '../../components/StyledInput';
 
 export const BruteAdminView = () => {
   const { t } = useTranslation('admin');

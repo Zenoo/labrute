@@ -1,12 +1,12 @@
-/* eslint-disable no-void */
+
 import { TrapStep } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const trap = async (
+export const trap = async (
   app: Application,
   fighters: AnimationFighter[],
   step: TrapStep,
@@ -107,5 +107,3 @@ const trap = async (
   target.animation.setAnimation('trapped');
   target.trapped = true;
 };
-
-export default trap;

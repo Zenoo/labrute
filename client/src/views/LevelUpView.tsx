@@ -1,32 +1,40 @@
-import { BrutesGetLevelUpChoicesResponse, getCalculatedBrute, getXPNeeded, pets, skills, weapons } from '@labrute/core';
-import { BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import {
+  BrutesGetLevelUpChoicesResponse, getCalculatedBrute, getXPNeeded, pets, skills, weapons
+} from '@labrute/core';
+import {
+  BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName
+} from '@labrute/prisma';
+import {
+  Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BoxBg from '../components/BoxBg';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import BruteHP from '../components/Brute/BruteHP';
-import PetTooltip from '../components/Brute/PetTooltip';
-import SkillTooltip from '../components/Brute/SkillTooltip';
-import WeaponTooltip from '../components/Brute/WeaponTooltip';
-import CellStats from '../components/Cell/CellStats';
-import Link from '../components/Link';
-import Loader from '../components/Loader';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
+import { BoxBg } from '../components/BoxBg';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { BruteHP } from '../components/Brute/BruteHP';
+import { PetTooltip } from '../components/Brute/PetTooltip';
+import { SkillTooltip } from '../components/Brute/SkillTooltip';
+import { WeaponTooltip } from '../components/Brute/WeaponTooltip';
+import { CellStats } from '../components/Cell/CellStats';
+import { Link } from '../components/Link';
+import { Loader } from '../components/Loader';
+import { Page } from '../components/Page';
+import { StyledButton } from '../components/StyledButton';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import StatColor from '../utils/StatColor';
+import { StatColor } from '../utils/StatColor';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
-import BruteSmallWeaponList from '../components/Brute/BruteSmallWeaponList';
-import BruteSmallSkillList from '../components/Brute/BruteSmallSkillList';
-import BruteSmallPetList from '../components/Brute/BruteSmallPetList';
+import { BruteSmallWeaponList } from '../components/Brute/BruteSmallWeaponList';
+import { BruteSmallSkillList } from '../components/Brute/BruteSmallSkillList';
+import { BruteSmallPetList } from '../components/Brute/BruteSmallPetList';
 
-const LevelUpView = () => {
+export const LevelUpView = () => {
   const { t } = useTranslation('levelUp');
   const { bruteName } = useParams();
   const { user, updateData, modifiers } = useAuth();
@@ -337,5 +345,3 @@ const LevelUpView = () => {
     </Page>
   );
 };
-
-export default LevelUpView;

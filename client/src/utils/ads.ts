@@ -14,7 +14,7 @@ interface AdProps {
   illustrations: Record<Lang, string[]>;
 }
 
-const ads: Record<AdName, AdProps> = {
+export const ads: Record<AdName, AdProps> = {
   myHordes: {
     url: 'https://myhordes.eu/jx/public/welcome',
     illustrations: {
@@ -104,8 +104,6 @@ const ads: Record<AdName, AdProps> = {
     },
   },
 };
-
-export default ads;
 
 const getAd = (adName: AdName, language: Lang) => {
   const ad = ads[adName];

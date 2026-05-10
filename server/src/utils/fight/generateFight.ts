@@ -7,15 +7,17 @@ import {
   CLAN_SIZE_LIMIT,
   CalculatedBrute,
   FightStep,
+  FightWeapon,
   Fighter, ForbiddenError, Modifiers, Skill, SkillByName,
   SkillId,
-  StepType, Tiered, Weapon, WeaponByName,
+  StepType, Tiered, WeaponByName,
+  WeaponId,
   bossBackground, bosses,
   fightBackgrounds,
   getCalculatedBrute,
   randomItem,
   tournamentBackground,
-  weightedRandom,
+  weightedRandom
 } from '@labrute/core';
 import {
   Gender, InventoryItemType, LogType, Prisma, PrismaClient,
@@ -35,6 +37,7 @@ import { getFighters } from './getFighters.js';
 import { handleStats } from './handleStats.js';
 import { updateAchievements } from './updateAchievements.js';
 import { traced } from '../trace.js';
+
 
 export interface DetailedFighter {
   // Metadata
@@ -103,28 +106,21 @@ export interface DetailedFighter {
   // Available skills
   skills: Partial<Record<SkillName, Tiered<Skill>>>;
   // Available weapons
-  weapons: Partial<Record<WeaponName, Tiered<Weapon>>>;
+  weapons: Partial<Record<WeaponName, FightWeapon>>;
   // Shield state
   shield: boolean;
   // Active skills
   activeSkills: Tiered<Skill>[];
   // Active weapon
-  activeWeapon: Tiered<Weapon> | null;
+  activeWeapon: FightWeapon | null;
   keepWeaponChance: number;
-  // Pre fight sabotage
-  saboteur: boolean;
-  sabotagedWeapon: Tiered<Weapon> | null;
-  sabotagedWeaponInitiativeMalus?: number;
   // Status effects
   poisonedBy: number | null; // Fighter index
   trapped: boolean;
-  // Reduce some weapons damage
-  damagedWeapons: WeaponName[],
-  damagedWeaponsPercent?: number;
   // Keep track of consecutive hits for stun status
-  hitBy: Record<number, number>,
-  stunned?: boolean,
-  hypnotized?: boolean,
+  hitBy: Record<number, number>;
+  stunned?: boolean;
+  hypnotized?: boolean;
   // Bare hand hit (for the fight modifier)
   bareHandHit?: boolean;
   // Damage immunity
@@ -387,11 +383,22 @@ export const generateFight = async ({
       master: fighter.master,
       maxHp: fighter.maxHp,
       hp: fighter.hp,
-      weapons: Object.keys(fighter.weapons).map((weapon) => WeaponByName[weapon as WeaponName]),
-      skills: Object.values(fighter.skills).reduce((acc, skill) => {
-        acc = acc.concat(Array(skill.tier).fill(SkillByName[skill.name]));
+      weapons: Object.values(fighter.weapons).reduce<Partial<Record<WeaponId, number>>>((acc, weapon) => {
+        const weaponId = WeaponByName[weapon.name];
+        if (!weaponId) {
+          return acc;
+        }
+        acc[weaponId] = weapon.tier;
         return acc;
-      }, [] as SkillId[]),
+      }, {}),
+      skills: Object.values(fighter.skills).reduce<Partial<Record<SkillId, number>>>((acc, skill) => {
+        const skillId = SkillByName[skill.name];
+        if (!skillId) {
+          return acc;
+        }
+        acc[skillId] = skill.tier;
+        return acc;
+      }, {}),
       shield: fighter.shield,
     };
 

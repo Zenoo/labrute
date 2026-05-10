@@ -6,14 +6,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ActivityStatus } from '../ActivityStatus';
-import ArenaStat from '../Arena/ArenaStat';
-import StyledButton from '../StyledButton';
-import Text from '../Text';
-import BruteRender from './Body/BruteRender';
-import BruteHP from './BruteHP';
-import BruteSmallWeaponList from './BruteSmallWeaponList';
-import BruteSmallSkillList from './BruteSmallSkillList';
-import BruteSmallPetList from './BruteSmallPetList';
+import { ArenaStat } from '../Arena/ArenaStat';
+import { StyledButton } from '../StyledButton';
+import { Text } from '../Text';
+import { BruteRender } from './Body/BruteRender';
+import { BruteHP } from './BruteHP';
+import { BruteSmallWeaponList } from './BruteSmallWeaponList';
+import { BruteSmallSkillList } from './BruteSmallSkillList';
+import { BruteSmallPetList } from './BruteSmallPetList';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
@@ -31,7 +31,7 @@ type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   selected?: boolean;
 });
 
-const BruteButton = ({
+export const BruteButton = ({
   brute,
   link,
   displayDetails,
@@ -177,5 +177,3 @@ const BruteButton = ({
     </StyledButton>
   );
 };
-
-export default BruteButton;

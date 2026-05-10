@@ -1,4 +1,6 @@
-import { randomItem, SkillId, weapons, WeaponType } from '@labrute/core';
+import {
+  randomItem, SkillId, weapons, WeaponType
+} from '@labrute/core';
 import { AnimationFighter } from './findFighter';
 
 // Y positions
@@ -63,8 +65,8 @@ const getRandomPosition = (
 
   // Loop throught fighters Y
   for (let i = 1; i < sortedPositions.length; i++) {
-    const gap = sortedPositions[i]! - sortedPositions[i - 1]!;
-    const gapPosition = { start: sortedPositions[i - 1]!, end: sortedPositions[i]! };
+    const gap = (sortedPositions[i] ?? 0) - (sortedPositions[i - 1] ?? 0);
+    const gapPosition = { start: sortedPositions[i - 1] ?? 0, end: sortedPositions[i] ?? 0 };
     // Add to lerge enough gap list
     if (gap > comfortYMargin * 2) comfortableGapPositions.push(gapPosition);
     // Update largest gap
@@ -129,16 +131,16 @@ const getRandomPosition = (
     if (possibleWeapon.types.includes(WeaponType.THROWN)) randomXPositionFactor -= 0.5;
     // Confidence boost if heavy weapon and bodybuilder
     if (possibleWeapon.types.includes(WeaponType.HEAVY)
-      && fighter.skills.some((skillId) => skillId === SkillId.bodybuilder)) {
+      && fighter.skills[SkillId.bodybuilder]) {
       randomXPositionFactor += 0.15;
     }
     // Confidence boost if sharp weapon and weaponMaster
     if (possibleWeapon.types.includes(WeaponType.SHARP)
-      && fighter.skills.some((skillId) => skillId === SkillId.weaponsMaster)) {
+      && fighter.skills[SkillId.weaponsMaster]) {
       randomXPositionFactor += 0.15;
     }
     // Confidence boost if unarmed and martialArts
-  } else if (fighter.skills.some((skillId) => skillId === SkillId.martialArts)) {
+  } else if (fighter.skills[SkillId.martialArts]) {
     randomXPositionFactor += 0.25;
   }
 
@@ -157,8 +159,8 @@ const getRandomPosition = (
   };
 
   // Apply position modifier for each fighter's skill
-  fighter.skills.forEach((skillId) => {
-    randomXPositionFactor += skillPositionModifiers[skillId] ?? 0;
+  Object.keys(fighter.skills).forEach((skillId) => {
+    randomXPositionFactor += skillPositionModifiers[+skillId as SkillId] ?? 0;
   });
 
   // Clamp position to 0 - 1

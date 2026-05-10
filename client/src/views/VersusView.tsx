@@ -1,22 +1,28 @@
 import { BrutesGetForVersusResponse, getXPNeeded } from '@labrute/core';
-import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import {
+  Box, Grid, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useMemo
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate, useParams } from 'react-router';
-import BoxBg from '../components/BoxBg';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
+import {
+  useLocation, useNavigate, useParams
+} from 'react-router';
+import { BoxBg } from '../components/BoxBg';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { Page } from '../components/Page';
+import { StyledButton } from '../components/StyledButton';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import VersusMobileView from './mobile/VersusMobileView';
+import { VersusMobileView } from './mobile/VersusMobileView';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
-import Loader from '../components/Loader';
+import { Loader } from '../components/Loader';
 
-const VersusView = () => {
+export const VersusView = () => {
   const { t } = useTranslation('versus');
   const { opponentName } = useParams();
   const navigate = useNavigate();
@@ -174,5 +180,3 @@ const VersusView = () => {
     </Page>
   );
 };
-
-export default VersusView;

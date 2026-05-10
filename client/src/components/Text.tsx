@@ -87,4 +87,4 @@ const Text = forwardRef<HTMLElement, TextProps>(({
 
 Text.displayName = 'Text';
 
-export default Text;
+export { Text };

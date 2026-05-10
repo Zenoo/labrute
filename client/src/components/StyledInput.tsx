@@ -1,10 +1,12 @@
-import { Box, TextField, TextFieldProps, useTheme } from '@mui/material';
+import {
+  Box, TextField, TextFieldProps, useTheme
+} from '@mui/material';
 import React from 'react';
 
 /**
  * StyledButton component
  */
-const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
+export const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
   const { palette: { mode } } = useTheme();
 
   return (
@@ -52,5 +54,3 @@ const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
     </Box>
   );
 };
-
-export default StyledInput;

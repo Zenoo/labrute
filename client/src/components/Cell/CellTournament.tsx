@@ -1,14 +1,16 @@
 import { Lang } from '@labrute/prisma';
-import { Box, Paper, PaperProps } from '@mui/material';
+import {
+  Box, Paper, PaperProps
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import FantasyButton from '../FantasyButton';
-import StyledButton from '../StyledButton';
-import Text from '../Text';
+import { FantasyButton } from '../FantasyButton';
+import { StyledButton } from '../StyledButton';
+import { Text } from '../Text';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
@@ -16,7 +18,7 @@ export interface CellTournamentProps extends PaperProps {
   language: Lang;
 }
 
-const CellTournament = ({
+export const CellTournament = ({
   language,
   sx,
   ...rest
@@ -112,4 +114,3 @@ const CellTournament = ({
   );
 };
 
-export default CellTournament;

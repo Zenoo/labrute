@@ -1,27 +1,42 @@
-import { getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest } from '@labrute/core';
+import {
+  getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest
+} from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { Add, AdminPanelSettings, DarkMode, Event, Info, LightMode, Logout, Menu, MilitaryTech, MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi } from '@mui/icons-material';
-import { Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Alert as MuiAlert, Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import {
+  Add, AdminPanelSettings, DarkMode, Event,
+  Info, LightMode, Logout, Menu, MilitaryTech,
+  MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi
+} from '@mui/icons-material';
+import {
+  Badge, Box, Button, Divider, Drawer, GlobalStyles,
+  IconButton, List, ListItem, ListItemIcon,
+  ListItemText, ListSubheader, Alert as MuiAlert,
+  Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useContext, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet, Link as RouterLink, useNavigate } from 'react-router-dom';
-import ActionButton from '../components/ActionButton';
-import BruteRender from '../components/Brute/Body/BruteRender';
+import {
+  Outlet, Link as RouterLink, useNavigate
+} from 'react-router-dom';
+import { ActionButton } from '../components/ActionButton';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
 import { BruteSearch } from '../components/BruteSearch';
-import Link from '../components/Link';
-import Text from '../components/Text';
+import { Link } from '../components/Link';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { useLanguage } from '../hooks/useLanguage';
 import { ColorModeContext } from '../theme/ColorModeContext';
-import dark from '../theme/dark';
-import Fetch from '../utils/Fetch';
+import { dark } from '../theme/dark';
+import { Fetch } from '../utils/Fetch';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
-const Main = () => {
+export const Main = () => {
   const theme = useTheme();
   const { authing, user, signout, updateData, currentEvent } = useAuth();
   const Alert = useAlert();
@@ -609,5 +624,3 @@ const Main = () => {
     </>
   );
 };
-
-export default Main;

@@ -1,13 +1,15 @@
-import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, useMediaQuery, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import CellGlobalTournament from '../components/Cell/CellGlobalTournament';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { CellGlobalTournament } from '../components/Cell/CellGlobalTournament';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 
-const GlobalTournamentView = () => {
+export const GlobalTournamentView = () => {
   const { t } = useTranslation('globalTournament');
   const { bruteName, date } = useParams();
   const theme = useTheme();
@@ -41,5 +43,3 @@ const GlobalTournamentView = () => {
     </Page>
   );
 };
-
-export default GlobalTournamentView;

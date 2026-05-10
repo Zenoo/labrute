@@ -1,13 +1,18 @@
-import { BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, getWeaponScaledStat, NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, TieredNumberKeysOf, Weapon, WeaponTypeColor } from '@labrute/core';
-import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
+import {
+  BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, getWeaponScaledStat,
+  NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, TieredNumberKeysOf, Weapon, WeaponTypeColor
+} from '@labrute/core';
+import {
+  Box, Tooltip, TooltipProps, useTheme
+} from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Text from '../Text';
-import StatColor from '../../utils/StatColor';
+import { Text } from '../Text';
+import { StatColor } from '../../utils/StatColor';
 import { useAuth } from '../../hooks/useAuth';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
-import TieredStat from '../TieredStat';
+import { TieredStat } from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -21,7 +26,7 @@ export interface WeaponTooltipProps extends Omit<TooltipProps, 'title'> {
   tier?: number;
 }
 
-const WeaponTooltip = ({
+export const WeaponTooltip = ({
   weapon,
   tier = 1,
   bareHands,
@@ -116,7 +121,6 @@ const WeaponTooltip = ({
             {tier > 1 && (
               <Box>
                 {Array.from({ length: tier - 1 }).map((_, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
                   <TierStar key={index} />
                 ))}
               </Box>
@@ -210,5 +214,3 @@ const WeaponTooltip = ({
     </Tooltip>
   );
 };
-
-export default WeaponTooltip;

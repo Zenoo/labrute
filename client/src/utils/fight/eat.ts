@@ -1,14 +1,14 @@
-/* eslint-disable no-void */
+
 import { EatStep, randomBetween } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import updateHp from './updateHp';
+import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const eat = async (
+export const eat = async (
   app: Application,
   fighters: AnimationFighter[],
   step: EatStep,
@@ -50,5 +50,3 @@ const eat = async (
   // Heal brute
   updateHp(fighters, brute, step.h, speed, isClanWar);
 };
-
-export default eat;

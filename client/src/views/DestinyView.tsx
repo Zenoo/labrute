@@ -1,18 +1,24 @@
-import { DestinyBranch, skills, weapons } from '@labrute/core';
-import { BruteStat, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import {
+  DestinyBranch, skills, weapons
+} from '@labrute/core';
+import {
+  BruteStat, PetName, SkillName, WeaponName
+} from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
-import { Box, Paper, SxProps, useTheme } from '@mui/material';
+import {
+  Box, Paper, SxProps, useTheme
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
-import BoxBg from '../components/BoxBg';
-import SkillTooltip from '../components/Brute/SkillTooltip';
-import WeaponTooltip from '../components/Brute/WeaponTooltip';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { BoxBg } from '../components/BoxBg';
+import { SkillTooltip } from '../components/Brute/SkillTooltip';
+import { WeaponTooltip } from '../components/Brute/WeaponTooltip';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
-import useStateAsync from '../hooks/useStateAsync';
+import { useStateAsync } from '../hooks/useStateAsync';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 
@@ -84,7 +90,7 @@ const styles: Record<string, SxProps> = {
   },
 };
 
-const DestinyView = () => {
+export const DestinyView = () => {
   const { t } = useTranslation('destiny');
   const { bruteName } = useParams();
   const { brute } = useBrute();
@@ -205,5 +211,3 @@ const DestinyView = () => {
     </Page>
   );
 };
-
-export default DestinyView;

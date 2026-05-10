@@ -1,20 +1,24 @@
 import { keys, pad } from '@labrute/core';
-import { Box, BoxProps, Link, Paper, Tooltip, useTheme } from '@mui/material';
+import {
+  Box, BoxProps, Link, Paper, Tooltip, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { LS_KEY_MARQUEE_PAUSED } from '../utils/constants';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
-import Text from './Text';
+import { Text } from './Text';
 
 export interface HeaderProps extends BoxProps {
   url?: string;
 }
 
-const Header = ({
+export const Header = ({
   url,
   ...rest
 }: HeaderProps) => {
@@ -131,5 +135,3 @@ const Header = ({
     </Box>
   );
 };
-
-export default Header;

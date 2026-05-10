@@ -3,7 +3,7 @@ import { FightStat } from '@labrute/core';
 const agilityColor = '#8686ff';
 const speedColor = '#eb9800';
 
-const StatColor: Record<FightStat, string> = {
+export const StatColor: Record<FightStat, string> = {
   [FightStat.REVERSAL]: '#8fbc8f',
   [FightStat.COUNTER]: '#8a4520',
   [FightStat.EVASION]: agilityColor,
@@ -39,5 +39,3 @@ export const TieredPerkColor: Record<number, string> = {
   2: '#ff9400',
   3: '#e21c1c',
 };
-
-export default StatColor;

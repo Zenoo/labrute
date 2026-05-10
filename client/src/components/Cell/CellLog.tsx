@@ -1,11 +1,15 @@
-import { InventoryItemType, Log, LogType } from '@labrute/prisma';
-import { Box, Paper, PaperProps, Tooltip, useTheme } from '@mui/material';
+import {
+  InventoryItemType, Log, LogType
+} from '@labrute/prisma';
+import {
+  Box, Paper, PaperProps, Tooltip, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Link from '../Link';
+import { Link } from '../Link';
 import { LogImage } from '../LogImage';
-import Text from '../Text';
+import { Text } from '../Text';
 
 export interface CellLogProps extends PaperProps {
   log: Log & {
@@ -17,7 +21,7 @@ const negativeLogs: LogType[] = [LogType.lose, LogType.tournament, LogType.bossF
 const combatLogs: LogType[] = [LogType.lose, LogType.win, LogType.bossFight];
 const childLogs: LogType[] = [LogType.child, LogType.childup];
 
-const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
+export const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -118,5 +122,3 @@ const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
     </Paper>
   );
 };
-
-export default CellLog;

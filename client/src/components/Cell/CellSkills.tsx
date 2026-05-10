@@ -1,13 +1,15 @@
 import { skillList } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
-import { Grid, PaperProps, useTheme } from '@mui/material';
+import {
+  Grid, PaperProps, useTheme
+} from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor } from '../../utils/StatColor';
-import SkillTooltip from '../Brute/SkillTooltip';
-import SkillIcon from '../SkillIcon';
+import { SkillTooltip } from '../Brute/SkillTooltip';
+import { SkillIcon } from '../SkillIcon';
 
-const CellSkills = ({
+export const CellSkills = ({
   sx,
   selectCallback,
   hoverSelectAscend = false,
@@ -73,7 +75,11 @@ const CellSkills = ({
             onMouseEnter={() => setHoveredSkill(skill.name)}
             onMouseLeave={() => setHoveredSkill(null)}
           >
-            <SkillTooltip skill={skill} tier={brute.skills[skill.name]} ascended={brute.ascendedSkills.includes(skill.name)}>
+            <SkillTooltip
+              skill={skill}
+              tier={brute.skills[skill.name]}
+              ascended={brute.ascendedSkills.includes(skill.name)}
+            >
               <SkillIcon
                 skill={skill.name}
                 tier={brute.skills[skill.name]}
@@ -90,5 +96,3 @@ const CellSkills = ({
     </Grid>
   );
 };
-
-export default CellSkills;

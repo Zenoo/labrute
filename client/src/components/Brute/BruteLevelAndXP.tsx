@@ -1,9 +1,11 @@
 import { getXPNeeded } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
-import { Box, BoxProps, Tooltip } from '@mui/material';
+import {
+  Box, BoxProps, Tooltip
+} from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Text, { TextProps } from '../Text';
+import { TextProps, Text } from '../Text';
 import { useNavigate } from 'react-router-dom';
 
 interface BruteLevelAndXPProps extends BoxProps {
@@ -11,7 +13,7 @@ interface BruteLevelAndXPProps extends BoxProps {
   textProps?: Omit<TextProps, 'children'>;
 }
 
-const BruteLevelAndXP = ({
+export const BruteLevelAndXP = ({
   brute,
   textProps = {},
   ...rest
@@ -58,5 +60,3 @@ const BruteLevelAndXP = ({
     </Box>
   );
 };
-
-export default BruteLevelAndXP;

@@ -1,5 +1,5 @@
 import { Application, Text } from 'pixi.js';
-import insideXBounds from './insideXBounds';
+import { insideXBounds } from './insideXBounds';
 import { AnimationFighter } from './findFighter';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';

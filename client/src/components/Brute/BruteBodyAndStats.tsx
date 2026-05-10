@@ -1,12 +1,14 @@
 import { CalculatedBrute, readableHPFormula } from '@labrute/core';
-import { Box, BoxProps, Divider, Stack, Tooltip } from '@mui/material';
+import {
+  Box, BoxProps, Divider, Stack, Tooltip
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import StatColor from '../../utils/StatColor';
-import CellStats from '../Cell/CellStats';
-import Text from '../Text';
-import BruteRender from './Body/BruteRender';
-import BruteHP from './BruteHP';
+import { StatColor } from '../../utils/StatColor';
+import { CellStats } from '../Cell/CellStats';
+import { Text } from '../Text';
+import { BruteRender } from './Body/BruteRender';
+import { BruteHP } from './BruteHP';
 
 interface BruteBodyAndStatsProps extends BoxProps {
   brute: CalculatedBrute;
@@ -14,7 +16,7 @@ interface BruteBodyAndStatsProps extends BoxProps {
   centered?: boolean;
 }
 
-const BruteBodyAndStats = ({
+export const BruteBodyAndStats = ({
   brute,
   isMd,
   centered = false,
@@ -61,5 +63,3 @@ const BruteBodyAndStats = ({
     </Box>
   );
 };
-
-export default BruteBodyAndStats;

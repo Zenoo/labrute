@@ -1,6 +1,8 @@
 // @ts-check
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import { importX } from 'eslint-plugin-import-x';
+import tsParser from '@typescript-eslint/parser';
 
 export default [
   {
@@ -15,21 +17,20 @@ export default [
       'Procfile',
     ],
   },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
   {
     files: ['**/*.ts', '**/*.tsx'],
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-    ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
+      parser: tsParser,
     },
     rules: {
+      // TypeScript rules
+      'no-undef': 'off', // TypeScript handles this
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -43,16 +44,49 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
+      'no-use-before-define': 'off',
+      '@typescript-eslint/no-use-before-define': ['error'],
+      '@typescript-eslint/no-shadow': ['error'],
       '@typescript-eslint/no-var-requires': 'off',
-      'linebreak-style': 'off',
+      "@typescript-eslint/no-non-null-assertion": "error",
+
+      // General rules
       'eol-last': 'off',
-      'no-nested-ternary': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'import/prefer-default-export': 'off',
       camelcase: 'off',
       'no-plusplus': 'off',
       'no-continue': 'off',
-      'import/no-default-export': 'off',
+
+      // Import rules
+      'import-x/order': 'off',
+      'import-x/no-unresolved': 'error',
+      'import-x/no-default-export': 'error',
+      'import-x/prefer-default-export': 'off',
+      'import-x/no-named-as-default-member': 'off',
+
+      // Style rules
+      'linebreak-style': 'off',
+      'no-nested-ternary': 'off',
+      'object-curly-newline': [
+        'error',
+        {
+          ImportDeclaration: { multiline: true, minProperties: 3 },
+        },
+      ],
+      'max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreComments: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+        },
+      ],
+      'prefer-promise-reject-errors': 'off',
+      'comma-dangle': 'off',
+      'no-restricted-syntax': 'off',
+      'no-param-reassign': 'off',
+      indent: 'off',
     },
   }
 ];

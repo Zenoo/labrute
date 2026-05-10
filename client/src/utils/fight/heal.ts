@@ -1,15 +1,15 @@
-/* eslint-disable no-void */
+
 import { HealStep } from '@labrute/core';
 import { Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import updateHp from './updateHp';
+import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import insideXBounds from './utils/insideXBounds';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { insideXBounds } from './utils/insideXBounds';
 
-const heal = async (
+export const heal = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HealStep,
@@ -71,5 +71,3 @@ const heal = async (
   // Set animation to `idle`
   brute.animation.setAnimation('idle');
 };
-
-export default heal;

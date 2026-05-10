@@ -4,13 +4,13 @@ import { Application } from 'pixi.js';
 import { GlowFilter } from '@pixi/filter-glow';
 import { Easing } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';
 import { jumpBack } from './evade';
 import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
 
-const skillExpire = async (
+export const skillExpire = async (
   app: Application,
   fighters: AnimationFighter[],
   step: SkillExpireStep,
@@ -116,5 +116,3 @@ const skillExpire = async (
     await jumpBack(fighter, speed, 110, 0.33);
   }
 };
-
-export default skillExpire;

@@ -1,14 +1,12 @@
-/* eslint-disable no-void */
+
 import { MoveStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application } from 'pixi.js';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import repositionFighters from './utils/repositionFighters';
-import getHitDistance from './utils/getHitDistance';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { repositionFighters } from './utils/repositionFighters';
+import { getHitDistance } from './utils/getHitDistance';
 
-const moveTo = async (
-  app: Application,
+export const moveTo = async (
   fighters: AnimationFighter[],
   step: MoveStep,
   speed: React.MutableRefObject<number>,
@@ -25,7 +23,7 @@ const moveTo = async (
   // Filter the only moveTo case outside of neutral (melee repositioning)
   if (!step.r) {
     // Reposition mispositionned other fighters before moveTo
-    await repositionFighters(app, fighters.filter((f) => f.id !== fighter.id), speed);
+    await repositionFighters(fighters.filter((f) => f.id !== fighter.id), speed);
   }
 
   // Set animation to `run`
@@ -67,5 +65,3 @@ const moveTo = async (
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
 };
-
-export default moveTo;

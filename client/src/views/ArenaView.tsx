@@ -1,16 +1,22 @@
-import { BrutesGetOpponentsResponse, getCalculatedBrute, getFightsLeft, getXPNeeded } from '@labrute/core';
-import { Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  BrutesGetOpponentsResponse, getCalculatedBrute, getFightsLeft, getXPNeeded
+} from '@labrute/core';
+import {
+  Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useMemo, useRef, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BruteBodyAndStats from '../components/Brute/BruteBodyAndStats';
-import BruteButton from '../components/Brute/BruteButton';
-import BruteLevelAndXP from '../components/Brute/BruteLevelAndXP';
-import Link from '../components/Link';
-import Loader from '../components/Loader';
-import Page from '../components/Page';
-import StyledInput from '../components/StyledInput';
-import Text from '../components/Text';
+import { BruteBodyAndStats } from '../components/Brute/BruteBodyAndStats';
+import { BruteButton } from '../components/Brute/BruteButton';
+import { BruteLevelAndXP } from '../components/Brute/BruteLevelAndXP';
+import { Link } from '../components/Link';
+import { Loader } from '../components/Loader';
+import { Page } from '../components/Page';
+import { StyledInput } from '../components/StyledInput';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
@@ -21,7 +27,7 @@ type CalculatedBruteGetOpponentsResponse = ReturnType<
   typeof getCalculatedBrute<BrutesGetOpponentsResponse[0]>
 >[];
 
-const ArenaView = () => {
+export const ArenaView = () => {
   const { t } = useTranslation('arena');
   const { bruteName } = useParams();
   const Alert = useAlert();
@@ -249,5 +255,3 @@ const ArenaView = () => {
     </Page>
   );
 };
-
-export default ArenaView;

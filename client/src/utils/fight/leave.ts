@@ -1,12 +1,10 @@
-/* eslint-disable no-void */
+
 import { LeaveStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const leave = async (
-  app: Application,
+export const leave = async (
   fighters: AnimationFighter[],
   step: LeaveStep,
   speed: React.MutableRefObject<number>,
@@ -39,5 +37,3 @@ const leave = async (
   // Await if it is not a pet leaving
   if (fighter.type !== 'pet') await moveFighter;
 };
-
-export default leave;

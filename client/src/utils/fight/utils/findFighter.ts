@@ -1,6 +1,6 @@
 import { Fighter } from '@labrute/core';
 import * as PIXI from 'pixi.js';
-import FighterHolder from '../FighterHolder';
+import { FighterHolder } from '../FighterHolder';
 
 export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   type: 'brute' | 'pet' | 'boss';
@@ -19,7 +19,7 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   resist?: boolean;
 }
 
-const findFighter = (
+export const findFighter = (
   fighters: AnimationFighter[],
   stepFighter?: number,
 ) => (typeof stepFighter === 'undefined' ? undefined : fighters.find((f) => f.index === stepFighter));
@@ -32,5 +32,3 @@ export const findHUDFocusedFighter = (
   const animationFighter = fighters.find((f) => f.HUDFocused && f.team === team);
   return fightFighters.find((f) => f.id === animationFighter?.id);
 };
-
-export default findFighter;

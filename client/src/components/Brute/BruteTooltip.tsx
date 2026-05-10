@@ -1,11 +1,15 @@
-import { FightStat, Fighter, SkillById, skillMap, skills } from '@labrute/core';
+import {
+  FightStat, Fighter, SkillById, SkillId, entries, skills
+} from '@labrute/core';
 import { Brute } from '@labrute/prisma';
-import { Box, SxProps, Tooltip, TooltipProps } from '@mui/material';
+import {
+  Box, SxProps, Tooltip, TooltipProps
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ArenaStat from '../Arena/ArenaStat';
-import Text from '../Text';
-import BruteHP from './BruteHP';
+import { ArenaStat } from '../Arena/ArenaStat';
+import { Text } from '../Text';
+import { BruteHP } from './BruteHP';
 
 interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
   brute?: Pick<
@@ -35,7 +39,7 @@ interface BruteTooltipProps extends Omit<TooltipProps, 'title'> {
   tooltipSx?: SxProps;
 }
 
-const BruteTooltip = ({
+export const BruteTooltip = ({
   brute,
   fighter,
   displaySkills,
@@ -125,11 +129,11 @@ const BruteTooltip = ({
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type === 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
+                {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type === 'super').map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {[...skillMap(fighter.skills.filter((s) => skills[SkillById[s]].type !== 'super'))].map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
+                {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type !== 'super').map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
               </Text>
             </>
           )}
@@ -140,5 +144,3 @@ const BruteTooltip = ({
     </Tooltip>
   );
 };
-
-export default BruteTooltip;

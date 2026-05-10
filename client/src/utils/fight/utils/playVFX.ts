@@ -2,7 +2,7 @@
 import { randomBetween } from '@labrute/core';
 import { Application, AnimatedSprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
-import getHitDistance from './getHitDistance';
+import { getHitDistance } from './getHitDistance';
 
 const playDustEffect = (
   app: Application,
@@ -92,7 +92,7 @@ const playHitEffect = (
     || distance < hitDistance * 0.9) {
     // Set position to target head
     hitVfx.position.set(targetHead.x, targetHead.y);
-  // Else set position to contact point
+    // Else set position to contact point
   } else {
     hitVfx.position.set(targetHead.x, fighterHead.y);
   }

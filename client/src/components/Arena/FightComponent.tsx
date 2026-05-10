@@ -1,21 +1,30 @@
-import { Fighter, FightGetResponse, FightStep, StepType } from '@labrute/core';
-import { FastForward, FastRewind, Favorite, FavoriteBorder, MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp } from '@mui/icons-material';
-import { Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Fighter, FightGetResponse, FightStep, StepType
+} from '@labrute/core';
+import {
+  FastForward, FastRewind, Favorite, FavoriteBorder,
+  MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp
+} from '@mui/icons-material';
+import {
+  Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
 import { sound } from '@pixi/sound';
 import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useRef, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { LS_KEY_FIGHT_BACKGROUND_MUSIC, LS_KEY_FIGHT_SPEED } from '../../utils/constants';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useRenderer } from '../../hooks/useRenderer';
-import setupFight from '../../utils/fight/setupFight';
-import translateFightStep from '../../utils/translateFightStep';
-import BruteTooltip from '../Brute/BruteTooltip';
-import Link from '../Link';
-import Text from '../Text';
-import sfx from './sfx';
+import { setupFight } from '../../utils/fight/setupFight';
+import { translateFightStep } from '../../utils/translateFightStep';
+import { BruteTooltip } from '../Brute/BruteTooltip';
+import { Link } from '../Link';
+import { Text } from '../Text';
+import { sfx } from './sfx';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
@@ -109,7 +118,7 @@ export interface FightComponentProps {
   fight: FightGetResponse | null;
 }
 
-const FightComponent = ({
+export const FightComponent = ({
   fight,
 }: FightComponentProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -375,7 +384,7 @@ const FightComponent = ({
             >
               {fightSteps?.filter((step) => ![StepType.Move, StepType.MoveBack].includes(step.a))
                 .map((step, i) => (
-                  // eslint-disable-next-line react/no-array-index-key
+
                   <Text key={i}>{translateFightStep(fighters || [], step, t)}</Text>
                 ))}
             </Box>
@@ -476,5 +485,3 @@ const FightComponent = ({
     </>
   ) : null;
 };
-
-export default FightComponent;

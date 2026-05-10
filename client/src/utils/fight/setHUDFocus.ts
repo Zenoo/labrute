@@ -1,12 +1,12 @@
-/* eslint-disable no-param-reassign */
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import updateHp from './updateHp';
-import updateWeapons from './updateWeapons';
+
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { updateHp } from './updateHp';
+import { updateWeapons } from './updateWeapons';
 import { Application, Texture } from 'pixi.js';
-import createBustImage from './utils/createBustImage';
+import { createBustImage } from './utils/createBustImage';
 import { RendererContextInterface } from '../../hooks/useRenderer';
 
-const setHUDFocus = async (
+export const setHUDFocus = async (
   app: Application,
   renderer: RendererContextInterface,
   fighters: AnimationFighter[],
@@ -47,5 +47,3 @@ const setHUDFocus = async (
 
   updateWeapons(app, fighter);
 };
-
-export default setHUDFocus;

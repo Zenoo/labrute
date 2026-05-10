@@ -1,20 +1,26 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClanGetThreadResponse } from '@labrute/core';
-import { Box, Paper, useTheme } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Box, Paper, useTheme
+} from '@mui/material';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate, useParams } from 'react-router';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import StyledInput from '../../components/StyledInput';
-import Text from '../../components/Text';
+import {
+  useLocation, useNavigate, useParams
+} from 'react-router';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { StyledInput } from '../../components/StyledInput';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const ClanPostView = () => {
+export const ClanPostView = () => {
   const { t } = useTranslation('clan');
   const location = useLocation();
   const { bruteName, id, tid } = useParams();
@@ -179,5 +185,3 @@ const ClanPostView = () => {
     </Page>
   );
 };
-
-export default ClanPostView;

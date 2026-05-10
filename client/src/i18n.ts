@@ -1,4 +1,4 @@
-import i18n, { BackendModule } from 'i18next';
+import i18next, { BackendModule } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
@@ -141,7 +141,7 @@ const languageBackend: BackendModule = {
 
 const initialLanguage = getInitialLanguage();
 
-i18n
+i18next
   .use(languageBackend)
   .use(initReactI18next)
   .init({
@@ -166,10 +166,10 @@ i18n
 
 // Prefetch all namespaces during idle time for instant navigation
 const prefetchNamespaces = () => {
-  const language = i18n.language as Lang;
+  const language = i18next.language as Lang;
 
   // Load all namespaces except those already loaded
-  const namespacesToLoad = namespaces.filter((ns) => !i18n.hasResourceBundle(language, ns));
+  const namespacesToLoad = namespaces.filter((ns) => !i18next.hasResourceBundle(language, ns));
 
   if (namespacesToLoad.length === 0) return;
 
@@ -180,7 +180,7 @@ const prefetchNamespaces = () => {
     if (!ns) return;
 
     // Load namespace in the background
-    i18n.loadNamespaces(ns).then(() => {
+    i18next.loadNamespaces(ns).then(() => {
       // Use requestIdleCallback for the next one, or setTimeout as fallback
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => loadNext(index + 1), { timeout: 2000 });
@@ -215,4 +215,4 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export default i18n;
+export { i18next };

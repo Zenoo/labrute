@@ -1,4 +1,4 @@
-const defaultTypography = {
+export const defaultTypography = {
   fontFamily: 'arial,sans-serif',
   fontSize: 11.5,
   h1: {
@@ -51,5 +51,3 @@ const defaultTypography = {
     fontSize: 11,
   },
 };
-
-export default defaultTypography;

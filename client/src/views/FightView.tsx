@@ -1,20 +1,24 @@
 import { FightGetResponse } from '@labrute/core';
-import { Box, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Box, Link, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import FightComponent from '../components/Arena/FightComponent';
-import BoxBg from '../components/BoxBg';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { FightComponent } from '../components/Arena/FightComponent';
+import { BoxBg } from '../components/BoxBg';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useLanguage } from '../hooks/useLanguage';
 import { getRandomAd } from '../utils/ads';
-import FightMobileView from './mobile/FightMobileView';
+import { FightMobileView } from './mobile/FightMobileView';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
-const FightView = () => {
+export const FightView = () => {
   const { t } = useTranslation();
   const { bruteName, fightId } = useParams();
   const Alert = useAlert();
@@ -98,5 +102,3 @@ const FightView = () => {
     </Page>
   ) : null;
 };
-
-export default FightView;

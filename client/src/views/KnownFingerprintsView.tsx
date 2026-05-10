@@ -6,8 +6,8 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useState } from 'react';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';

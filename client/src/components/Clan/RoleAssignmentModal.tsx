@@ -1,10 +1,12 @@
-import { Backdrop, Box, Checkbox, FormControl, InputLabel, MenuItem, Modal, Paper, Select } from '@mui/material';
+import {
+  Backdrop, Box, Checkbox, FormControl, InputLabel, MenuItem, Modal, Paper, Select
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../FantasyButton';
-import Text from '../Text';
+import { FantasyButton } from '../FantasyButton';
+import { Text } from '../Text';
 import { useAlert } from '../../hooks/useAlert';
-import Server from '../../utils/Server';
+import { Server } from '../../utils/Server';
 import { catchError } from '../../utils/catchError';
 
 type Member = {
@@ -26,7 +28,7 @@ type RoleAssignmentModalProps = {
   onAssigned: () => void;
 };
 
-const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
+export const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
   open,
   onClose,
   clanId,
@@ -139,5 +141,3 @@ const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
     </Modal>
   );
 };
-
-export default RoleAssignmentModal;

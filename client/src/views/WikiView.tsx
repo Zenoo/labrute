@@ -2,9 +2,9 @@ import { BruteRankings, DailyTournamentGoldReward, DailyTournamentXpReward, getB
 import { Box, Grid, Paper } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { FantasyButton } from '../components/FantasyButton';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { ChildCare, EmojiEvents, Groups, KeyboardDoubleArrowUp } from '@mui/icons-material';
 import { Brute } from '@labrute/prisma';
 

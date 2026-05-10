@@ -1,21 +1,24 @@
 import { ClanListResponse, ClanSort } from '@labrute/core';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, Table, TableBody, TableCell,
+  TableHead, TableRow, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
-import Loader from '../../components/Loader';
-import Page from '../../components/Page';
-import StyledInput from '../../components/StyledInput';
-import Text from '../../components/Text';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Link } from '../../components/Link';
+import { Loader } from '../../components/Loader';
+import { Page } from '../../components/Page';
+import { StyledInput } from '../../components/StyledInput';
+import { Text } from '../../components/Text';
 import { useBrute } from '../../hooks/useBrute';
 import { useAlert } from '../../hooks/useAlert';
 import { ErrorType } from '../../utils/Fetch';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const ClanRankingView = () => {
+export const ClanRankingView = () => {
   const { t } = useTranslation('clan');
   const { bruteName } = useParams();
   const { brute } = useBrute();
@@ -210,5 +213,3 @@ const ClanRankingView = () => {
     </Page>
   );
 };
-
-export default ClanRankingView;

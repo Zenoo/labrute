@@ -1,8 +1,8 @@
-/* eslint-disable no-void */
+
 import { EvadeStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { getRealKnockBack } from './utils/knockBack';
 import { airbornMove } from './utils/updateShadow';
 
@@ -73,7 +73,7 @@ export const jumpBack = async (
   fighter.animation.setAnimation('idle');
 };
 
-const evade = async (
+export const evade = async (
   fighters: AnimationFighter[],
   step: EvadeStep,
   speed: React.MutableRefObject<number>,
@@ -85,5 +85,3 @@ const evade = async (
   // Jump back
   await jumpBack(fighter, speed);
 };
-
-export default evade;

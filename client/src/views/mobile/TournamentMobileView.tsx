@@ -1,16 +1,22 @@
-import { CalculatedBrute, Fighter, isWinner, TournamentsGetDailyResponse } from '@labrute/core';
+import {
+  CalculatedBrute, Fighter, isWinner, TournamentsGetDailyResponse
+} from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
-import { Box, Paper, useTheme } from '@mui/material';
+import {
+  Box, Paper, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import BruteTooltip from '../../components/Brute/BruteTooltip';
-import FantasyButton from '../../components/FantasyButton';
-import Page from '../../components/Page';
-import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../../components/StyledButton';
-import Text from '../../components/Text';
+import { BruteRender } from '../../components/Brute/Body/BruteRender';
+import { BruteTooltip } from '../../components/Brute/BruteTooltip';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Page } from '../../components/Page';
+import {
+  StyledButtonHeight, StyledButtonWidth, StyledButton
+} from '../../components/StyledButton';
+import { Text } from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 
 const rounds: [number, number][] = [
@@ -48,7 +54,7 @@ interface Props {
   setWatched: () => void,
 }
 
-const TournamentMobileView = ({
+export const TournamentMobileView = ({
   bruteName,
   tournament,
   winnerFight,
@@ -298,5 +304,3 @@ const TournamentMobileView = ({
     </Page>
   );
 };
-
-export default TournamentMobileView;

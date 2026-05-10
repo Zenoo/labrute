@@ -1,13 +1,20 @@
-import { Backdrop, Box, Chip, IconButton, Modal, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
-import { Delete, Edit, PersonAdd } from '@mui/icons-material';
+import {
+  Backdrop, Box, Chip, IconButton, Modal, Paper,
+  Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+} from '@mui/material';
+import {
+  Delete, Edit, PersonAdd
+} from '@mui/icons-material';
 import { ClanGetRolesResponse, hasPermission } from '@labrute/core';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../FantasyButton';
-import Text from '../Text';
+import { FantasyButton } from '../FantasyButton';
+import { Text } from '../Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useConfirm } from '../../hooks/useConfirm';
-import Server from '../../utils/Server';
+import { Server } from '../../utils/Server';
 import { catchError } from '../../utils/catchError';
 import { Clan, ClanPermission } from '@labrute/prisma';
 import { useBrute } from '../../hooks/useBrute';
@@ -23,7 +30,7 @@ type RoleListViewProps = {
   onAssignRole: (role: Role) => void;
 };
 
-const RoleListView: React.FC<RoleListViewProps> = ({
+export const RoleListView: React.FC<RoleListViewProps> = ({
   clan,
   open,
   onClose,
@@ -198,5 +205,3 @@ const RoleListView: React.FC<RoleListViewProps> = ({
     </Modal>
   );
 };
-
-export default RoleListView;

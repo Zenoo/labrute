@@ -169,8 +169,8 @@ export const getDamage = (
   }
 
   // Reduce damage if fighter uses a damaged weapon
-  if (fighter.activeWeapon && fighter.damagedWeapons.includes(fighter.activeWeapon.name)) {
-    damage = Math.floor(damage * (1 - (fighter.damagedWeaponsPercent ?? 0)));
+  if (fighter.activeWeapon?.damaged) {
+    damage = Math.floor(damage * (1 - (fighter.activeWeapon.damaged ?? 0)));
   }
 
   // Critical hit

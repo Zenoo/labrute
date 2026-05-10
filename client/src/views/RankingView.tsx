@@ -1,21 +1,28 @@
-import { BruteRanking, BruteRankings, BrutesGetForRankResponse, BrutesGetNeighborsForRankResponse } from '@labrute/core';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  BruteRanking, BruteRankings, BrutesGetForRankResponse, BrutesGetNeighborsForRankResponse
+} from '@labrute/core';
+import {
+  Box, Grid, Paper, Table, TableBody, TableCell,
+  TableHead, TableRow, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import Link from '../components/Link';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
-import useStateAsync from '../hooks/useStateAsync';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { Link } from '../components/Link';
+import { Page } from '../components/Page';
+import { StyledButton } from '../components/StyledButton';
+import { Text } from '../components/Text';
+import { useStateAsync } from '../hooks/useStateAsync';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 
-const RankingView = () => {
+export const RankingView = () => {
   const { t } = useTranslation('ranking');
   const { bruteName, rank } = useParams();
   const theme = useTheme();
@@ -270,5 +277,3 @@ const RankingView = () => {
     </Page>
   );
 };
-
-export default RankingView;

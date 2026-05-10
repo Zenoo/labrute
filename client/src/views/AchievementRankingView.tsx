@@ -1,18 +1,21 @@
 import { AchievementData, AchievementGetRankingsResponse } from '@labrute/core';
 import { AchievementName } from '@labrute/prisma';
-import { Box, Checkbox, FormControlLabel, Grid, List, ListItem, ListItemText, ListSubheader, Paper, useTheme } from '@mui/material';
+import {
+  Box, Checkbox, FormControlLabel, Grid, List,
+  ListItem, ListItemText, ListSubheader, Paper, useTheme
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AchievementTooltip } from '../components/AchievementTooltip';
-import Link from '../components/Link';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { Link } from '../components/Link';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
-import Loader from '../components/Loader';
+import { Loader } from '../components/Loader';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
-const AchievementRankingView = () => {
+export const AchievementRankingView = () => {
   const { t } = useTranslation('achievementRanking');
   const theme = useTheme();
   const Alert = useAlert();
@@ -138,5 +141,3 @@ const AchievementRankingView = () => {
     </Page>
   );
 };
-
-export default AchievementRankingView;

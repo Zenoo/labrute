@@ -1,12 +1,12 @@
-/* eslint-disable no-void */
+
 import { EquipStep, WeaponById } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Application } from 'pixi.js';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import updateWeapons from './updateWeapons';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { updateWeapons } from './updateWeapons';
 
-const equip = async (
+export const equip = async (
   app: Application,
   fighters: AnimationFighter[],
   step: EquipStep,
@@ -35,5 +35,3 @@ const equip = async (
   // Set animation to `idle`
   brute.animation.setAnimation('idle');
 };
-
-export default equip;

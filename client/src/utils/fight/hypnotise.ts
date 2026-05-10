@@ -1,14 +1,16 @@
-/* eslint-disable no-void */
+
 import { HypnotiseStep } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { sound } from '@pixi/sound';
 import { GlowFilter } from '@pixi/filter-glow';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application, Sprite, RenderTexture, Graphics, filters, Container } from 'pixi.js';
+import {
+  Application, Sprite, RenderTexture, Graphics, filters, Container
+} from 'pixi.js';
 import { getMultipleRandomPosition } from './utils/fightPositions';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const hypnotise = async (
+export const hypnotise = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HypnotiseStep,
@@ -62,7 +64,7 @@ const hypnotise = async (
   invertFilter.hue(-146, false);
 
   // If stage has no filter array, create one
-  // eslint-disable-next-line no-param-reassign
+
   if (!app.stage.filters) app.stage.filters = [];
   // Add filter to stage
   app.stage.filters.push(hypnosisFilter);
@@ -218,7 +220,6 @@ const hypnotise = async (
     }
 
     if (!fighter.animation.container.filters) {
-      // eslint-disable-next-line no-param-reassign
       fighter.animation.container.filters = [];
     }
 
@@ -249,7 +250,11 @@ const hypnotise = async (
   const animationsDone = [];
   for (const pet of pets) {
     // Get random position
-    const { x, y } = newPositions.shift()!;
+    const position = newPositions.shift();
+    if (!position) {
+      throw new Error('No position found for pet');
+    }
+    const { x, y } = position;
 
     // Set pet animation to `run`
     pet.animation.setAnimation('run');
@@ -284,5 +289,3 @@ const hypnotise = async (
   // Set animation to idle
   brute.animation.setAnimation('idle');
 };
-
-export default hypnotise;

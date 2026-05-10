@@ -1,10 +1,14 @@
-import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
+import {
+  CssBaseline, StyledEngineProvider, ThemeProvider
+} from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React, { Suspense, useMemo, useState } from 'react';
+import React, {
+  Suspense, useMemo, useState
+} from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { useRoutes } from 'react-router-dom';
-import Loader from './components/Loader';
+import { Loader } from './components/Loader';
 import { LS_KEY_THEME } from './utils/constants';
 import { AlertProvider } from './hooks/useAlert';
 import { useAnalytics } from './hooks/useAnalytics';
@@ -13,14 +17,14 @@ import { BruteProvider } from './hooks/useBrute';
 import { ConfirmProvider } from './hooks/useConfirm';
 import { CsrfProvider } from './hooks/useCsrf';
 import { RendererProvider } from './hooks/useRenderer';
-import routes from './routes';
+import { routes } from './routes';
 import { ColorModeContext } from './theme/ColorModeContext';
-import dark from './theme/dark';
-import light from './theme/light';
+import { dark } from './theme/dark';
+import { light } from './theme/light';
 import { FingerprintProvider } from './hooks/useFingerprint';
 import { ServerProvider } from './hooks/useServer';
 
-const App = () => {
+export const App = () => {
   useAnalytics();
   const routing = useRoutes(routes);
   const [mode, setMode] = useState<'light' | 'dark'>(
@@ -79,5 +83,3 @@ const App = () => {
     </LocalizationProvider>
   );
 };
-
-export default App;

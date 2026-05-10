@@ -1,7 +1,6 @@
-/* eslint-disable no-void */
+
 import { StepType } from '@labrute/core';
-import { Application } from 'pixi.js';
-import moveBack from '../moveBack';
+import { moveBack } from '../moveBack';
 import { AnimationFighter } from './findFighter';
 
 // StepTypes implying being ranged
@@ -16,8 +15,7 @@ const rangedSteps = [
 // Return if stepType implies the fighters should be afar
 export const isRangedStep = (stepType: StepType) => rangedSteps.includes(stepType);
 
-const repositionFighters = async (
-  app: Application,
+export const repositionFighters = async (
   fighters: AnimationFighter[],
   speed: React.MutableRefObject<number>,
 ) => {
@@ -32,7 +30,6 @@ const repositionFighters = async (
       || (fighter.animation.container.x < 275 && fighter.team === 'R')) {
       // Move back to the right half of the map
       await moveBack(
-        app,
         fighters,
         { a: StepType.MoveBack, f: fighter.index },
         speed,
@@ -40,5 +37,3 @@ const repositionFighters = async (
     }
   }
 };
-
-export default repositionFighters;

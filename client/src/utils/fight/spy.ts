@@ -1,10 +1,12 @@
-/* eslint-disable no-void */
-import { SpyStep, WeaponId, randomBetween } from '@labrute/core';
+
+import {
+  SpyStep, WeaponId, randomBetween
+} from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const spy = async (
+export const spy = async (
   fighters: AnimationFighter[],
   step: SpyStep,
   speed: React.MutableRefObject<number>,
@@ -27,16 +29,16 @@ const spy = async (
 
   // Give brute weapons to opponent
   for (const weaponToSwap of step.s) {
-    const index = brute.weapons.findIndex((weapon) => weapon === weaponToSwap);
-    if (index === -1) {
+    const weapon = brute.weapons[weaponToSwap]
+    if (!weapon) {
       throw new Error('Weapon not found');
     }
 
     // Remove weapon from brute
-    brute.weapons.splice(index, 1);
+    delete brute.weapons[weaponToSwap];
 
     const illustrationIndex = brute.teamWeaponsIllustrations
-      .findIndex((weapon) => (+weapon.name as WeaponId) === weaponToSwap);
+      .findIndex((w) => (+w.name as WeaponId) === weaponToSwap);
 
     if (illustrationIndex === -1) {
       throw new Error('Weapon illustration not found');
@@ -50,22 +52,22 @@ const spy = async (
     }
 
     // Add weapon to opponent
-    opponent.weapons.push(weaponToSwap);
+    opponent.weapons[weaponToSwap] = weapon;
     opponent.teamWeaponsIllustrations.push(weaponIllustration);
   }
 
   // Give opponent weapons to brute
   for (const weaponToSwap of step.r) {
-    const index = opponent.weapons.findIndex((weapon) => weapon === weaponToSwap);
-    if (index === -1) {
+    const weapon = opponent.weapons[weaponToSwap]
+    if (!weapon) {
       throw new Error('Weapon not found');
     }
 
     // Remove weapon from opponent
-    opponent.weapons.splice(index, 1);
+    delete opponent.weapons[weaponToSwap];
 
     const illustrationIndex = opponent.teamWeaponsIllustrations
-      .findIndex((weapon) => (+weapon.name as WeaponId) === weaponToSwap);
+      .findIndex((w) => (+w.name as WeaponId) === weaponToSwap);
 
     if (illustrationIndex === -1) {
       throw new Error('Weapon illustration not found');
@@ -79,13 +81,11 @@ const spy = async (
     }
 
     // Add weapon to brute
-    brute.weapons.push(weaponToSwap);
+    brute.weapons[weaponToSwap] = weapon;
     brute.teamWeaponsIllustrations.push(weaponIllustration);
   }
 
   // Sort weapons
-  brute.weapons.sort((a, b) => a - b);
-  opponent.weapons.sort((a, b) => a - b);
   brute.teamWeaponsIllustrations.sort((a, b) => +a.name - +b.name);
   opponent.teamWeaponsIllustrations.sort((a, b) => +a.name - +b.name);
 
@@ -142,5 +142,3 @@ const spy = async (
   // Wait for animations to complete
   await Promise.all(animations);
 };
-
-export default spy;

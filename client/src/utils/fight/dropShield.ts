@@ -1,10 +1,10 @@
 import { DropShieldStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import itemDrop from './itemDrop';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { itemDrop } from './itemDrop';
 
-const dropShield = (
+export const dropShield = (
   app: Application,
   fighters: AnimationFighter[],
   step: DropShieldStep,
@@ -39,5 +39,3 @@ const dropShield = (
     initialVelocity,
   });
 };
-
-export default dropShield;

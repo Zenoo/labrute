@@ -1,5 +1,7 @@
 import { TFunction } from 'react-i18next';
-import { FightStep, Fighter, SkillById, StepType, WeaponById } from '@labrute/core';
+import {
+  FightStep, Fighter, SkillById, StepType, WeaponById
+} from '@labrute/core';
 import { BossName, PetName } from '@labrute/prisma';
 
 const getFighterName = (
@@ -19,7 +21,7 @@ const getFighterName = (
   return t(fighter.name as PetName | BossName);
 };
 
-const translateFightStep = (
+export const translateFightStep = (
   fighters: Fighter[],
   step: FightStep,
   t: TFunction
@@ -39,8 +41,7 @@ const translateFightStep = (
       });
     case StepType.Trash:
       return t('fight.step.trash', {
-        brute: getFighterName(fighters, step.b, t),
-        name: t(WeaponById[step.w]),
+        brute: getFighterName(fighters, step.b, t)
       });
     case StepType.Steal:
       return t('fight.step.steal', {
@@ -248,5 +249,3 @@ const translateFightStep = (
       return '';
   }
 };
-
-export default translateFightStep;

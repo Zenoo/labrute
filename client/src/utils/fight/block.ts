@@ -1,13 +1,13 @@
-/* eslint-disable no-void */
+
 import { BlockStep, randomBetween } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { knockBack } from './utils/knockBack';
 import { playDustEffect } from './utils/playVFX';
 
-const block = async (
+export const block = async (
   app: Application,
   fighters: AnimationFighter[],
   step: BlockStep,
@@ -42,5 +42,3 @@ const block = async (
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
 };
-
-export default block;

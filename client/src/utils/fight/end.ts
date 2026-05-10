@@ -1,10 +1,10 @@
 import { EndStep } from '@labrute/core';
 
 import { Application } from 'pixi.js';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';
 
-const end = (
+export const end = (
   app: Application,
   fighters: AnimationFighter[],
   step: EndStep,
@@ -24,5 +24,3 @@ const end = (
     fighter.animation.setAnimation('win');
   });
 };
-
-export default end;

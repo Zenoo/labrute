@@ -3,9 +3,9 @@ import { OutlineFilter } from '@pixi/filter-outline';
 import { Tweener } from 'pixi-tweener';
 import { Application, Text } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
-import insideXBounds from './insideXBounds';
+import { insideXBounds } from './insideXBounds';
 
-const displayDamage = ({
+export const displayDamage = ({
   app,
   target,
   damage,
@@ -54,5 +54,3 @@ const displayDamage = ({
     damageText.destroy();
   }).catch(console.error);
 };
-
-export default displayDamage;

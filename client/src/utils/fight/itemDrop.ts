@@ -1,12 +1,16 @@
-import { WeaponById, WeaponId, weapons } from '@labrute/core';
-import { Application, Sprite, Container, filters } from 'pixi.js';
+import {
+  WeaponById, WeaponId, weapons
+} from '@labrute/core';
+import {
+  Application, Sprite, Container, filters
+} from 'pixi.js';
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
 import { AnimationFighter } from './utils/findFighter';
 import { Easing, Tweener } from 'pixi-tweener';
 
 // Light and realistic item bouncing module
-const itemDrop = ({
+export const itemDrop = ({
   app,
   fighter,
   speed,
@@ -290,5 +294,3 @@ const itemDrop = ({
   // Add update to ticker
   app.ticker.add(update);
 };
-
-export default itemDrop;

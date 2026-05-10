@@ -5,7 +5,7 @@ export interface BoxBgProps extends BoxProps {
   src: string;
 }
 
-const BoxBg = ({
+export const BoxBg = ({
   src,
   children,
   sx,
@@ -22,5 +22,3 @@ const BoxBg = ({
     {children}
   </Box>
 );
-
-export default BoxBg;

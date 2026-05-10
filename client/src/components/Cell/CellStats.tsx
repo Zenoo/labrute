@@ -1,8 +1,10 @@
-import { Box, BoxProps, Tooltip } from '@mui/material';
+import {
+  Box, BoxProps, Tooltip
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Text from '../Text';
-import StatColor from '../../utils/StatColor';
+import { Text } from '../Text';
+import { StatColor } from '../../utils/StatColor';
 
 const excesses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -11,7 +13,7 @@ interface CellStatsProps extends BoxProps {
   stat: 'strength' | 'agility' | 'speed';
 }
 
-const CellStats = ({
+export const CellStats = ({
   value,
   stat,
 }: CellStatsProps) => {
@@ -54,5 +56,3 @@ const CellStats = ({
     </Box>
   );
 };
-
-export default CellStats;

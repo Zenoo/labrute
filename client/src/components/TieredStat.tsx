@@ -11,7 +11,7 @@ export interface TieredStatProps<T> {
   percent?: boolean | string;
 }
 
-const TieredStat = <T extends string | number>({
+export const TieredStat = <T extends string | number>({
   values,
   tier,
   formatter,
@@ -51,7 +51,6 @@ const TieredStat = <T extends string | number>({
       {prefix}
       <Box component="span" sx={{ opacity: 0.3 }}>[</Box>
       {values.map((value, index) => (
-        // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
           {index > 0 && <Box component="span" sx={{ opacity: 0.3 }}>/</Box>}
           <Box
@@ -70,5 +69,3 @@ const TieredStat = <T extends string | number>({
     </Box>
   );
 };
-
-export default TieredStat;

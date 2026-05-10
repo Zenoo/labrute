@@ -1,14 +1,18 @@
-import { entries, ExtraTieredSkillData, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers } from '@labrute/core';
-import { Box, Divider, Tooltip, TooltipProps } from '@mui/material';
+import {
+  entries, ExtraTieredSkillData, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers
+} from '@labrute/core';
+import {
+  Box, Divider, Tooltip, TooltipProps
+} from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
-import StatColor from '../../utils/StatColor';
-import Text from '../Text';
+import { StatColor } from '../../utils/StatColor';
+import { Text } from '../Text';
 import { TierStar } from './TierStar';
 import { FightModifier } from '@labrute/prisma';
-import SkillIcon from '../SkillIcon';
-import TieredStat from '../TieredStat';
+import { SkillIcon } from '../SkillIcon';
+import { TieredStat } from '../TieredStat';
 import { getSkillTieredStatProps, getExtraTieredSkillStatProps } from '../../utils/displayTieredStat';
 
 // Describe sabotage + Distinguish regen from bandage
@@ -25,7 +29,7 @@ export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
   ascended?: boolean;
 }
 
-const SkillTooltip = ({
+export const SkillTooltip = ({
   skill,
   tier = 1,
   ascended = false,
@@ -125,7 +129,7 @@ const SkillTooltip = ({
             {tier > 1 && (
               <Box>
                 {Array.from({ length: tier - 1 }).map((_, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
+
                   <TierStar key={index} />
                 ))}
               </Box>
@@ -142,5 +146,3 @@ const SkillTooltip = ({
     </Tooltip>
   );
 };
-
-export default SkillTooltip;

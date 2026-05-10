@@ -1,12 +1,14 @@
-import { AttemptHitStep, WeaponById, weapons } from '@labrute/core';
+import {
+  AttemptHitStep, WeaponById, weapons
+} from '@labrute/core';
 
 import { BevelFilter } from '@pixi/filter-bevel';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import getHitDistance from './utils/getHitDistance';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { getHitDistance } from './utils/getHitDistance';
 
-const attemptHit = async (
+export const attemptHit = async (
   app: Application,
   fighters: AnimationFighter[],
   step: AttemptHitStep,
@@ -126,5 +128,3 @@ const attemptHit = async (
     }).catch(console.error);
   }
 };
-
-export default attemptHit;

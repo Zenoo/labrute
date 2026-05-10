@@ -1,15 +1,15 @@
-/* eslint-disable no-param-reassign */
+
 import { WeaponById, WeaponId } from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
 
-const updateWeapons = (
+export const updateWeapons = (
   app: Application,
   brute: AnimationFighter,
   weapon?: WeaponId,
-  action?: 'add' | 'remove',
+  action?: 'remove',
 ) => {
   if (!app.loader) {
     return;
@@ -29,30 +29,20 @@ const updateWeapons = (
     brute.teamWeaponsIllustrations.length = 0;
   }
 
-  // Add new weapon
-  if (action === 'add') {
+  // Remove weapon
+  if (action === 'remove') {
     if (typeof weapon === 'undefined') {
       throw new Error('Weapon not found');
     }
 
-    brute.weapons.push(weapon);
-  } else if (action === 'remove') {
-    if (typeof weapon === 'undefined') {
-      throw new Error('Weapon not found');
-    }
-
-    // Remove only one weapon
-    const index = brute.weapons.findIndex((w) => w === weapon);
-    if (index !== -1) {
-      brute.weapons.splice(index, 1);
-    }
+    delete brute.weapons[weapon];
   }
 
   // Only affect the HUD for the focused brutes
   if (brute.HUDFocused) {
     // Generate new list
-    brute.weapons.forEach((w, index) => {
-      const texture = spritesheet.textures[`weapons/${WeaponById[w]}.png`];
+    Object.keys(brute.weapons).forEach((w, index) => {
+      const texture = spritesheet.textures[`weapons/${WeaponById[+w as WeaponId]}.png`];
 
       if (!texture) {
         throw new Error('Texture not found');
@@ -75,5 +65,3 @@ const updateWeapons = (
     });
   }
 };
-
-export default updateWeapons;

@@ -1,6 +1,6 @@
 import { ThemeOptions, createTheme } from '@mui/material/styles';
 import { FontStyle } from '@mui/material/styles/createTypography';
-import typography from './typography';
+import { defaultTypography as typography } from './typography';
 
 interface TypeTransition {
   time: string;

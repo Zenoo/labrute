@@ -1,9 +1,9 @@
 import { UserMultipleAccountsListResponse } from '@labrute/core';
 import { List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';

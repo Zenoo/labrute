@@ -1,12 +1,14 @@
 import { Fighter, FightGetResponse } from '@labrute/core';
-import { Box, Grid, Link, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import {
+  Box, Grid, Link, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FightComponent from '../../components/Arena/FightComponent';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { FightComponent } from '../../components/Arena/FightComponent';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { AdResult } from '../../utils/ads';
-import BruteTooltip from '../../components/Brute/BruteTooltip';
+import { BruteTooltip } from '../../components/Brute/BruteTooltip';
 
 export interface FightMobileViewProps {
   pageTitle?: string;
@@ -17,7 +19,7 @@ export interface FightMobileViewProps {
   defenders?: Fighter[];
 }
 
-const FightMobileView = ({
+export const FightMobileView = ({
   pageTitle,
   headerUrl,
   ads,
@@ -115,5 +117,3 @@ const FightMobileView = ({
     </Page>
   );
 };
-
-export default FightMobileView;

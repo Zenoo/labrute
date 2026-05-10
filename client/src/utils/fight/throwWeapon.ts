@@ -1,12 +1,14 @@
-/* eslint-disable no-void */
-import { ThrowStep, WeaponById, weapons } from '@labrute/core';
+
+import {
+  ThrowStep, WeaponById, weapons
+} from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { knockBack } from './utils/knockBack';
 
-const throwWeapon = async (
+export const throwWeapon = async (
   app: Application,
   fighters: AnimationFighter[],
   step: ThrowStep,
@@ -117,5 +119,3 @@ const throwWeapon = async (
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
 };
-
-export default throwWeapon;

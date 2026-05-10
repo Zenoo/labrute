@@ -2,9 +2,9 @@
 import { RegenerationStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import updateHp from './updateHp';
+import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
 export const regenerate = async (
   app: Application,

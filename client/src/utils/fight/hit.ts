@@ -1,18 +1,20 @@
-/* eslint-disable no-void */
-import { HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween } from '@labrute/core';
+
+import {
+  HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween
+} from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 
 import { Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
-import displayDamage from './utils/displayDamage';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import stagger from './stagger';
-import updateHp from './updateHp';
+import { displayDamage } from './utils/displayDamage';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { stagger } from './stagger';
+import { updateHp } from './updateHp';
 import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 
-const hit = async (
+export const hit = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HitStep,
@@ -100,14 +102,14 @@ const hit = async (
     // 0 - 50 % knockBack from 0 - 20% lost hp
     if (step.d > target.maxHp * 0.2) {
       knockBack = maxKnockBack * 0.5 * (1 + (step.d - target.maxHp * 0.2) / (target.maxHp * 0.8));
-    // 50 - 100 % knockBack from 20 - 100% lost hp
+      // 50 - 100 % knockBack from 20 - 100% lost hp
     } else {
       knockBack = maxKnockBack * 0.5 * (step.d / (target.maxHp * 0.2));
     }
     // 2 minimum knockBack
     if (knockBack < 1) knockBack = 2;
     if (knockBack > maxKnockBack) knockBack = maxKnockBack;
-  // Else if stun and own side hit
+    // Else if stun and own side hit
   } else if (step.s) {
     // Counter stun knockback
     knockBack = 65;
@@ -145,5 +147,3 @@ const hit = async (
     target.animation.setAnimation('idle');
   }
 };
-
-export default hit;

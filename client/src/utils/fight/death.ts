@@ -1,11 +1,11 @@
-/* eslint-disable no-void */
+
 import { DeathStep } from '@labrute/core';
 
 import { Easing, Tweener } from 'pixi-tweener';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import getFighterType from './utils/getFighterType';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { getFighterType } from './utils/getFighterType';
 
-const death = (
+export const death = (
   fighters: AnimationFighter[],
   step: DeathStep,
   speed: React.MutableRefObject<number>,
@@ -56,5 +56,3 @@ const death = (
     }
   }).catch(console.error);
 };
-
-export default death;

@@ -43,4 +43,4 @@ const SkillIcon = React.forwardRef<HTMLDivElement, SkillIconProps>(
 
 SkillIcon.displayName = 'SkillIcon';
 
-export default SkillIcon;
+export { SkillIcon };

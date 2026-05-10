@@ -1,20 +1,24 @@
 import { UserGetAdminResponse } from '@labrute/core';
 import { AchievementName, Lang } from '@labrute/prisma';
 import { Block } from '@mui/icons-material';
-import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
+import {
+  Checkbox, FormControl, FormControlLabel, Grid,
+  InputLabel, MenuItem, Paper, Select, Stack, Table,
+  TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip
+} from '@mui/material';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../../components/FantasyButton';
-import Page from '../../components/Page';
-import StyledInput from '../../components/StyledInput';
-import Text from '../../components/Text';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Page } from '../../components/Page';
+import { StyledInput } from '../../components/StyledInput';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import dayjs from 'dayjs';
 
-const UserAdminView = () => {
+export const UserAdminView = () => {
   const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user: admin } = useAuth();
@@ -347,5 +351,3 @@ const UserAdminView = () => {
     </Page>
   );
 };
-
-export default UserAdminView;

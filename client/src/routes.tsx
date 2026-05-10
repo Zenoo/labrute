@@ -1,48 +1,48 @@
 import React from 'react';
 import { Navigate, RouteObject } from 'react-router';
-import ProvideBrute from './components/Brute/ProvideBrute';
-import Main from './layouts/Main';
-import AchievementRankingView from './views/AchievementRankingView';
-import AchievementsView from './views/AchievementsView';
-import AdminView from './views/admin/AdminView';
-import ArenaView from './views/ArenaView';
-import AscendView from './views/AscendView';
+import { ProvideBrute } from './components/Brute/ProvideBrute';
+import { Main } from './layouts/Main';
+import { AchievementRankingView } from './views/AchievementRankingView';
+import { AchievementsView } from './views/AchievementsView';
+import { AdminView } from './views/admin/AdminView';
+import { ArenaView } from './views/ArenaView';
+import { AscendView } from './views/AscendView';
 import { BannedUsersView } from './views/BannedUsersView';
-import BruteNotFoundView from './views/BruteNotFoundView';
-import CellView from './views/CellView';
-import ClanCreateView from './views/clan/ClanCreateView';
-import ClanForumView from './views/clan/ClanForumView';
-import ClanPostView from './views/clan/ClanPostView';
-import ClanRankingView from './views/clan/ClanRankingView';
-import ClanThreadView from './views/clan/ClanThreadView';
-import ClanView from './views/clan/ClanView';
-import ClanWarFightView from './views/clan/ClanWarFightView';
+import { BruteNotFoundView } from './views/BruteNotFoundView';
+import { CellView } from './views/CellView';
+import { ClanCreateView } from './views/clan/ClanCreateView';
+import { ClanForumView } from './views/clan/ClanForumView';
+import { ClanPostView } from './views/clan/ClanPostView';
+import { ClanRankingView } from './views/clan/ClanRankingView';
+import { ClanThreadView } from './views/clan/ClanThreadView';
+import { ClanView } from './views/clan/ClanView';
+import { ClanWarFightView } from './views/clan/ClanWarFightView';
 import { ClanWarHistoryView } from './views/clan/ClanWarHistoryView';
 import { ClanWarView } from './views/clan/ClanWarView';
-import DestinyView from './views/DestinyView';
+import { DestinyView } from './views/DestinyView';
 import { EventHistoryView } from './views/event/EventHistoryView';
 import { EventView } from './views/event/EventView';
-import FightView from './views/FightView';
+import { FightView } from './views/FightView';
 import { FollowingFeedView } from './views/FollowingFeedView';
-import GeneratingView from './views/GeneratingView';
-import GlobalTournamentView from './views/GlobalTournamentView';
-import HallView from './views/HallView';
-import HomeView from './views/HomeView';
+import { GeneratingView } from './views/GeneratingView';
+import { GlobalTournamentView } from './views/GlobalTournamentView';
+import { HallView } from './views/HallView';
+import { HomeView } from './views/HomeView';
 import { InventoryView } from './views/InventoryView';
 import { KnownFingerprintsView } from './views/KnownFingerprintsView';
-import LevelUpView from './views/LevelUpView';
+import { LevelUpView } from './views/LevelUpView';
 import { MultipleAccountsView } from './views/admin/MultipleAccountsView';
-import NameChangeView from './views/NameChangeView';
-import NotFoundView from './views/NotFoundView';
-import PatchNotesView from './views/PatchNotesView';
-import RankingView from './views/RankingView';
-import ReportAdminView from './views/admin/ReportAdminView';
-import ResetVisualsView from './views/ResetVisualsView';
-import TournamentHistoryView from './views/TournamentHistoryView';
-import TournamentView from './views/TournamentView';
-import UserAdminView from './views/admin/UserAdminView';
-import UserView from './views/UserView';
-import VersusView from './views/VersusView';
+import { NameChangeView } from './views/NameChangeView';
+import { NotFoundView } from './views/NotFoundView';
+import { PatchNotesView } from './views/PatchNotesView';
+import { RankingView } from './views/RankingView';
+import { ReportAdminView } from './views/admin/ReportAdminView';
+import { ResetVisualsView } from './views/ResetVisualsView';
+import { TournamentHistoryView } from './views/TournamentHistoryView';
+import { TournamentView } from './views/TournamentView';
+import { UserAdminView } from './views/admin/UserAdminView';
+import { UserView } from './views/UserView';
+import { VersusView } from './views/VersusView';
 import { WikiView } from './views/WikiView';
 import { ConfigAdminView } from './views/admin/ConfigAdminView';
 import { AdminLayout } from './layouts/AdminLayout';
@@ -54,7 +54,7 @@ import { EventRoundView } from './views/event/EventRoundView';
 import { UserLogView } from './views/admin/UserLogView';
 import { TransferBruteView } from './views/TransferBruteView';
 
-const routes: RouteObject[] = [
+export const routes: RouteObject[] = [
   {
     path: '/',
     element: <Main />,
@@ -171,5 +171,3 @@ const routes: RouteObject[] = [
     ],
   },
 ];
-
-export default routes;

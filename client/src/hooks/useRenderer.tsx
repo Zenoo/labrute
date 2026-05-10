@@ -1,7 +1,9 @@
 import { Brute } from '@labrute/prisma';
 import { Extract, Renderer } from 'pixi.js';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import BruteDisplay from '../utils/BruteDisplay';
+import React, {
+  useCallback, useContext, useEffect, useMemo, useRef, useState
+} from 'react';
+import { BruteDisplay } from '../utils/BruteDisplay';
 
 const MAX_RENDERERS = 3;
 

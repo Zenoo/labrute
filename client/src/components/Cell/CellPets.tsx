@@ -4,9 +4,9 @@ import { Box, BoxProps } from '@mui/material';
 import React, { useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
-import PetTooltip from '../Brute/PetTooltip';
+import { PetTooltip } from '../Brute/PetTooltip';
 
-const CellPets = ({
+export const CellPets = ({
   sx,
   selectCallback,
   hoverSelectAscend = false,
@@ -201,5 +201,3 @@ const CellPets = ({
     </PetTooltip>
   ) : null);
 };
-
-export default CellPets;

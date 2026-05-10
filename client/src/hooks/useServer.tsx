@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useRef, useMemo } from 'react';
-import Server from '../utils/Server';
+import { Server } from '../utils/Server';
 import { useFingerprint } from './useFingerprint';
 
 export type ServerContextType = PromisifyFunctions<typeof Server> & { loading: boolean };

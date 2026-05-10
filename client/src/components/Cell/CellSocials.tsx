@@ -1,7 +1,13 @@
-import { AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, Today } from '@mui/icons-material';
-import { Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip } from '@mui/material';
+import {
+  AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, Today
+} from '@mui/icons-material';
+import {
+  Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip
+} from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAlert } from '../../hooks/useAlert';
@@ -9,8 +15,8 @@ import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
 import { ActivityStatus } from '../ActivityStatus';
-import Link from '../Link';
-import Text from '../Text';
+import { Link } from '../Link';
+import { Text } from '../Text';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
@@ -18,7 +24,7 @@ export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
 }
 
-const CellSocials = ({
+export const CellSocials = ({
   smallScreen,
   sx,
   ...rest
@@ -208,5 +214,3 @@ const CellSocials = ({
     </Paper>
   );
 };
-
-export default CellSocials;

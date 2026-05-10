@@ -1,10 +1,38 @@
-import { Animation, bosses, Fighter, FIGHTER_HEIGHT, FIGHTER_WIDTH, readBodyString, readColorString, SkillById } from '@labrute/core';
-import { BossName, Gender, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import {
+  Animation, bosses, Fighter, FIGHTER_HEIGHT,
+  FIGHTER_WIDTH, readBodyString, readColorString, SkillId
+} from '@labrute/core';
+import {
+  BossName, Gender, PetName, WeaponName
+} from '@labrute/prisma';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 import dayjs from 'dayjs';
-import { FramePart, Symbol as LaBruteSymbol, Svg, Symbol475, Symbol476, Symbol478, Symbol479, Symbol488, Symbol489, Symbol490, Symbol491, Symbol493, Symbol494, Symbol495, Symbol496, Symbol497, Symbol498, Symbol503, Symbol505, Symbol506, Symbol507, Symbol508, Symbol509, Symbol510, Symbol513, Symbol516, Symbol517, Symbol541, Symbol542, Symbol543, Symbol544, Symbol545, Symbol546, Symbol846, Symbol847, Symbol848, Symbol849, Symbol851, Symbol854, Symbol855, Symbol856, Symbol857, Symbol858, Symbol859, Symbol860, Symbol861, Symbol863, Symbol864, Symbol865, Symbol866, Symbol867, Symbol868, Symbol869, Symbol870, Symbol871, Symbol875, Symbol876, Symbol877, Symbol878, Symbol879, Symbol880, Symbol894, Symbol903, Symbol904, Symbol905, Symbol906, Symbol907, Symbol910, Symbol911, Symbol912, Symbol913, Symbol935, Symbol936, Symbol937, Symbol938, Symbol939, Symbol940, Symbol941, Symbol942, Symbol943, Symbol944 } from 'labrute-fla-parser';
+import {
+  FramePart, Symbol as LaBruteSymbol, Svg, Symbol475,
+  Symbol476, Symbol478, Symbol479, Symbol488, Symbol489,
+  Symbol490, Symbol491, Symbol493, Symbol494, Symbol495,
+  Symbol496, Symbol497, Symbol498, Symbol503, Symbol505,
+  Symbol506, Symbol507, Symbol508, Symbol509,
+  Symbol510, Symbol513, Symbol516, Symbol517,
+  Symbol541, Symbol542, Symbol543, Symbol544,
+  Symbol545, Symbol546, Symbol846, Symbol847,
+  Symbol848, Symbol849, Symbol851, Symbol854,
+  Symbol855, Symbol856, Symbol857, Symbol858,
+  Symbol859, Symbol860, Symbol861, Symbol863,
+  Symbol864, Symbol865, Symbol866, Symbol867,
+  Symbol868, Symbol869, Symbol870, Symbol871,
+  Symbol875, Symbol876, Symbol877, Symbol878,
+  Symbol879, Symbol880, Symbol894, Symbol903,
+  Symbol904, Symbol905, Symbol906, Symbol907,
+  Symbol910, Symbol911, Symbol912, Symbol913,
+  Symbol935, Symbol936, Symbol937, Symbol938,
+  Symbol939, Symbol940, Symbol941, Symbol942,
+  Symbol943, Symbol944
+} from 'labrute-fla-parser';
 import * as PIXI from 'pixi.js';
-import { Filter, Matrix, Texture } from 'pixi.js';
+import {
+  Filter, Matrix, Texture
+} from 'pixi.js';
 import { MutableRefObject } from 'react';
 
 const ANIMATIONS: Record<
@@ -429,7 +457,7 @@ void main(void){
 }
 `;
 
-export default class FighterHolder {
+export class FighterHolder {
   // Setup data
   readonly type: Fighter['type'];
 
@@ -441,7 +469,7 @@ export default class FighterHolder {
 
   readonly #parts: Record<string, number>;
 
-  readonly skills: SkillName[];
+  readonly skills: Partial<Record<SkillId, number>>;
 
   // Those can change mid-fight
   animation: Animation = 'arrive';
@@ -502,7 +530,7 @@ export default class FighterHolder {
     this.name = fighter.name;
     this.shield = fighter.shield;
     this.weapon = null;
-    this.skills = fighter.skills.map((s) => SkillById[s]);
+    this.skills = fighter.skills;
     this.#colors = readColorString(fighter.gender || Gender.male, fighter.colors || '0'.repeat(32));
     this.#parts = readBodyString(fighter.body || '0'.repeat(11));
     this.speed = speed;
@@ -813,7 +841,7 @@ export default class FighterHolder {
 
   setAnimation(animation: Animation, frame = 0) {
     // Handle idle differently for monks
-    if (animation === 'idle' && this.skills.includes('monk')) {
+    if (animation === 'idle' && this.skills[SkillId.monk]) {
       this.animation = 'monk';
     } else if (animation === 'win' && this.type !== 'brute') {
       // Skip win animation for pets and bosses
@@ -1025,9 +1053,9 @@ export default class FighterHolder {
 
       // Check if symbol has an offset
       if (symbol.offset) {
-        // eslint-disable-next-line no-param-reassign
+
         symbolContainer.x = this.#scale * SCALE * (symbol.offset.x ?? 0);
-        // eslint-disable-next-line no-param-reassign
+
         symbolContainer.y = this.#scale * SCALE * (symbol.offset.y ?? 0);
       }
 

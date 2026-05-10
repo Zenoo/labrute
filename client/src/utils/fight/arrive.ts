@@ -1,18 +1,18 @@
-/* eslint-disable no-void */
+
 import { ArriveStep, WeaponById } from '@labrute/core';
 import { Easing } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { BossName } from '@labrute/prisma';
 
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { shakeStage } from './utils/stageAnimations';
 import { sound } from '@pixi/sound';
 import { getRandomPosition } from './utils/fightPositions';
-import updateWeapons from './updateWeapons';
+import { updateWeapons } from './updateWeapons';
 import { playDustEffect } from './utils/playVFX';
 import { updateShadow, airbornMove } from './utils/updateShadow';
 
-const arrive = async (
+export const arrive = async (
   app: Application,
   fighters: AnimationFighter[],
   step: ArriveStep,
@@ -99,5 +99,3 @@ const arrive = async (
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
 };
-
-export default arrive;

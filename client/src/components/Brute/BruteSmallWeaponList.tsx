@@ -2,14 +2,14 @@ import { entries, weapons } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import { TieredPerkColor } from '../../utils/StatColor';
-import WeaponTooltip from './WeaponTooltip';
+import { WeaponTooltip } from './WeaponTooltip';
 import { WeaponName } from '@labrute/prisma';
 
 interface BruteSmallWeaponListProps extends BoxProps {
   weapons: Partial<Record<WeaponName, number>>;
 }
 
-const BruteSmallWeaponList = ({
+export const BruteSmallWeaponList = ({
   weapons: bruteWeapons,
   sx,
   ...rest
@@ -26,5 +26,3 @@ const BruteSmallWeaponList = ({
     ))}
   </Box>
 );
-
-export default BruteSmallWeaponList;

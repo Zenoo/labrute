@@ -4,11 +4,11 @@ import { Box, Alert as MuiAlert, Paper, Table, TableBody, TableCell, TableHead, 
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import StyledButton from '../../components/StyledButton';
-import Text from '../../components/Text';
+import { BruteRender } from '../../components/Brute/Body/BruteRender';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { StyledButton } from '../../components/StyledButton';
+import { Text } from '../../components/Text';
 import { getLSKeyClanWar } from '../../utils/constants';
 import { useAlert } from '../../hooks/useAlert';
 import { useBrute } from '../../hooks/useBrute';

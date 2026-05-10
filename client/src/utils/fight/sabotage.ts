@@ -1,11 +1,11 @@
 import { SabotageStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import updateWeapons from './updateWeapons';
-import itemDrop from './itemDrop';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { updateWeapons } from './updateWeapons';
+import { itemDrop } from './itemDrop';
 
-const sabotage = (
+export const sabotage = (
   app: Application,
   fighters: AnimationFighter[],
   step: SabotageStep,
@@ -42,5 +42,3 @@ const sabotage = (
   // Update weapon list
   updateWeapons(app, target, step.w, 'remove');
 };
-
-export default sabotage;

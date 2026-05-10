@@ -24,7 +24,7 @@ const initial = defaultTheme({
   border,
 });
 
-export default createTheme({
+export const dark = createTheme({
   ...initial,
   palette: {
     ...initial.palette,

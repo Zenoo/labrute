@@ -1,10 +1,14 @@
-import { entries, weaponList, weapons } from '@labrute/core';
+import {
+  entries, weaponList, weapons
+} from '@labrute/core';
 import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback, useMemo, useState
+} from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
-import WeaponTooltip from '../Brute/WeaponTooltip';
+import { WeaponTooltip } from '../Brute/WeaponTooltip';
 
 const weaponSvgProps: Record<WeaponName, {
   id: string;
@@ -63,7 +67,7 @@ const getRotatedShadow = (transform: string, color: string = 'rgba(0, 0, 0, .3)'
   return `drop-shadow(${rotatedX.toFixed(2)}px ${rotatedY.toFixed(2)}px ${blur}rem ${color})`;
 };
 
-const CellWeapons = (
+export const CellWeapons = (
   {
     selectCallback,
     hoverSelectAscend = false,
@@ -97,6 +101,12 @@ const CellWeapons = (
     [brute, hoverSelectAscend]
   );
 
+  const isAscended = (weapon: WeaponName) => {
+    return brute?.ascendedWeapons.includes(weapon)
+      || selectedWeapon === weapon
+      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon]);
+  };
+
   const getFilter = (weapon: WeaponName, tier?: number) => {
     const { transform } = weaponSvgProps[weapon];
     const baseShadow = getRotatedShadow(transform);
@@ -123,12 +133,6 @@ const CellWeapons = (
     }
 
     return filter;
-  };
-
-  const isAscended = (weapon: WeaponName) => {
-    return brute?.ascendedWeapons.includes(weapon)
-      || selectedWeapon === weapon
-      || (hoverSelectAscend && hoveredWeapon === weapon && brute?.weapons[weapon]);
   };
 
   const onWeaponClick = (clicked: WeaponName | 'bare-hands' | null) => () => {
@@ -994,5 +998,3 @@ const CellWeapons = (
     </WeaponTooltip>
   );
 };
-
-export default CellWeapons;

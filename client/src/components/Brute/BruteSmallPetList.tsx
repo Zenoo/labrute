@@ -2,14 +2,14 @@ import { entries, pets } from '@labrute/core';
 import { Box, BoxProps } from '@mui/material';
 import React from 'react';
 import { TieredPerkColor } from '../../utils/StatColor';
-import PetTooltip from './PetTooltip';
+import { PetTooltip } from './PetTooltip';
 import { PetName } from '@labrute/prisma';
 
 interface BruteSmallPetListProps extends BoxProps {
   pets: Partial<Record<PetName, number>>;
 }
 
-const BruteSmallPetList = ({ pets: brutePets, sx, ...rest }: BruteSmallPetListProps) => (
+export const BruteSmallPetList = ({ pets: brutePets, sx, ...rest }: BruteSmallPetListProps) => (
   <Box sx={sx} {...rest}>
     {entries(brutePets).map(([pet, tier]) => (
       <PetTooltip pet={pets[pet]} tier={tier} key={pet}>
@@ -18,5 +18,3 @@ const BruteSmallPetList = ({ pets: brutePets, sx, ...rest }: BruteSmallPetListPr
     ))}
   </Box>
 );
-
-export default BruteSmallPetList;

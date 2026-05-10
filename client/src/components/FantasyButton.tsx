@@ -1,5 +1,7 @@
 import { adjustColor } from '@labrute/core';
-import { Box, BoxProps, useTheme } from '@mui/material';
+import {
+  Box, BoxProps, useTheme
+} from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -100,4 +102,4 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
 
 FantasyButton.displayName = 'FantasyButton';
 
-export default FantasyButton;
+export { FantasyButton };

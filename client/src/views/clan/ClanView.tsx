@@ -1,22 +1,35 @@
-import { BruteRanking, BrutesGetClanIdAsMasterResponse, CalculatedBrute, ClanGetResponse, ClanGetRolesResponse, ClanPermission, bosses, getCalculatedBrute, getFightsLeft, hasPermission } from '@labrute/core';
-import { BossName, ClanWarStatus, ClanWarType } from '@labrute/prisma';
-import { HighlightOff, History, PlayCircleOutline, Policy } from '@mui/icons-material';
-import { Box, Button, ButtonGroup, Checkbox, FormControlLabel, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
+import {
+  BruteRanking, BrutesGetClanIdAsMasterResponse,
+  CalculatedBrute, ClanGetResponse, ClanGetRolesResponse,
+  ClanPermission, bosses, getCalculatedBrute, getFightsLeft, hasPermission
+} from '@labrute/core';
+import {
+  BossName, ClanWarStatus, ClanWarType
+} from '@labrute/prisma';
+import {
+  HighlightOff, History, PlayCircleOutline, Policy
+} from '@mui/icons-material';
+import {
+  Box, Button, ButtonGroup, Checkbox, FormControlLabel,
+  IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { ActivityStatus } from '../../components/ActivityStatus';
-import BruteRender from '../../components/Brute/Body/BruteRender';
-import RoleAssignmentModal from '../../components/Clan/RoleAssignmentModal';
-import RoleListView from '../../components/Clan/RoleListView';
-import RoleManagementModal from '../../components/Clan/RoleManagementModal';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import StyledButton from '../../components/StyledButton';
-import Text from '../../components/Text';
+import { BruteRender } from '../../components/Brute/Body/BruteRender';
+import { RoleAssignmentModal } from '../../components/Clan/RoleAssignmentModal';
+import { RoleListView } from '../../components/Clan/RoleListView';
+import { RoleManagementModal } from '../../components/Clan/RoleManagementModal';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { StyledButton } from '../../components/StyledButton';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
@@ -31,7 +44,7 @@ type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'
 
 enum SortOption { Default = 'default', Level = 'level', Rank = 'ranking', Victories = 'victories', Damage = 'damage' }
 
-const ClanView = () => {
+export const ClanView = () => {
   const { t } = useTranslation('clan');
   const { bruteName, id } = useParams();
   const Alert = useAlert();
@@ -1077,5 +1090,3 @@ const ClanView = () => {
     </Page>
   );
 };
-
-export default ClanView;

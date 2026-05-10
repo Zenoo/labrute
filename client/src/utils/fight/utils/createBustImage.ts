@@ -2,7 +2,7 @@ import { RendererContextInterface } from '../../../hooks/useRenderer';
 import { Fighter } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 
-async function createBustImage(
+export async function createBustImage(
   brute: Omit<Fighter, 'shield'>,
   renderer: RendererContextInterface,
 ): Promise<HTMLImageElement | null> {
@@ -26,5 +26,3 @@ async function createBustImage(
     });
   });
 }
-
-export default createBustImage;

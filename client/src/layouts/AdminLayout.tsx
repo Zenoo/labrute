@@ -2,8 +2,8 @@ import { Box, Grid, Paper, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
 
 /**

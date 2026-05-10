@@ -1,21 +1,25 @@
-import { Fighter, isWinner, TournamentsGetDailyResponse } from '@labrute/core';
+import {
+  Fighter, isWinner, TournamentsGetDailyResponse
+} from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
-import { Box, Paper, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Paper, useMediaQuery, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import BruteTooltip from '../components/Brute/BruteTooltip';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import StyledButton, { StyledButtonHeight, StyledButtonWidth } from '../components/StyledButton';
-import Text from '../components/Text';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { BruteTooltip } from '../components/Brute/BruteTooltip';
+import { FantasyButton } from '../components/FantasyButton';
+import { Page } from '../components/Page';
+import { StyledButtonHeight, StyledButtonWidth, StyledButton } from '../components/StyledButton';
+import { Text } from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import useStateAsync from '../hooks/useStateAsync';
-import TournamentMobileView from './mobile/TournamentMobileView';
+import { useStateAsync } from '../hooks/useStateAsync';
+import { TournamentMobileView } from './mobile/TournamentMobileView';
 import { useServer } from '../hooks/useServer';
 
 const scale = (base: number, round: number) => ((round === 0 || round === 10)
@@ -43,7 +47,7 @@ const fighterToBrute = (fighter: Fighter) => ({
   colors: fighter.colors || '0'.repeat(32),
 });
 
-const TournamentView = () => {
+export const TournamentView = () => {
   const { t } = useTranslation('tournament');
   const { bruteName, date } = useParams();
   const { user, authing } = useAuth();
@@ -215,7 +219,6 @@ const TournamentView = () => {
               if (!shouldDisplay) {
                 return (
                   <Box
-                    // eslint-disable-next-line react/no-array-index-key
                     key={index}
                     sx={{
                       display: 'flex',
@@ -246,7 +249,6 @@ const TournamentView = () => {
 
               return shouldDisplay && (
                 <Box
-                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   sx={{
                     display: 'flex',
@@ -450,5 +452,3 @@ const TournamentView = () => {
       </Page>
     ));
 };
-
-export default TournamentView;

@@ -1,7 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import {
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+} from '@mui/material';
+import React, {
+  useCallback, useContext, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import StyledInput from '../components/StyledInput';
+import { StyledInput } from '../components/StyledInput';
 
 interface ConfirmContextInterface {
   open: (

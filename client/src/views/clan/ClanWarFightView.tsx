@@ -1,22 +1,26 @@
 import { Fighter, FightGetResponse } from '@labrute/core';
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Box, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { useAlert } from '../../hooks/useAlert';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getRandomAd } from '../../utils/ads';
-import FightMobileView from '../mobile/FightMobileView';
-import Page from '../../components/Page';
-import BoxBg from '../../components/BoxBg';
-import Text from '../../components/Text';
-import FightComponent from '../../components/Arena/FightComponent';
-import BruteTooltip from '../../components/Brute/BruteTooltip';
-import Link from '../../components/Link';
+import { FightMobileView } from '../mobile/FightMobileView';
+import { Page } from '../../components/Page';
+import { BoxBg } from '../../components/BoxBg';
+import { Text } from '../../components/Text';
+import { FightComponent } from '../../components/Arena/FightComponent';
+import { BruteTooltip } from '../../components/Brute/BruteTooltip';
+import { Link } from '../../components/Link';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const ClanWarFightView = () => {
+export const ClanWarFightView = () => {
   const { t } = useTranslation();
   const { id, warId, fightId } = useParams();
   const Alert = useAlert();
@@ -166,5 +170,3 @@ const ClanWarFightView = () => {
     </Page>
   ) : null;
 };
-
-export default ClanWarFightView;

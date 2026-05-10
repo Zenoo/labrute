@@ -30,4 +30,4 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<LinkProps>>(({
 
 Link.displayName = 'Link';
 
-export default Link;
+export { Link };

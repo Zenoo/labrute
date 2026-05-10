@@ -1,6 +1,8 @@
-/* eslint-disable no-void */
-/* eslint-disable no-param-reassign */
-import { Fighter, FightStep, isLoser, isWinner, StepType } from '@labrute/core';
+
+
+import {
+  Fighter, FightStep, isLoser, isWinner, StepType
+} from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
 import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
@@ -11,50 +13,53 @@ import dayjs from 'dayjs';
 import { TFunction } from 'react-i18next';
 import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
-import { AnimatedSprite, BaseTexture, Texture } from 'pixi.js';
+import {
+  AnimatedSprite, BaseTexture, Texture
+} from 'pixi.js';
 import { RendererContextInterface } from '../../hooks/useRenderer';
-import arrive from './arrive';
-import attemptHit from './attemptHit';
-import block from './block';
-import bomb from './bomb';
-import death from './death';
-import disarm from './disarm';
-import dropShield from './dropShield';
-import eat from './eat';
-import end from './end';
-import equip from './equip';
-import evade from './evade';
-import FighterHolder from './FighterHolder';
-import flashFlood from './flashFlood';
-import hammer from './hammer';
+import { arrive } from './arrive';
+import { attemptHit } from './attemptHit';
+import { block } from './block';
+import { bomb } from './bomb';
+import { death } from './death';
+import { disarm } from './disarm';
+import { dropShield } from './dropShield';
+import { eat } from './eat';
+import { end } from './end';
+import { equip } from './equip';
+import { evade } from './evade';
+import { FighterHolder } from './FighterHolder';
+import { flashFlood } from './flashFlood';
+import { hammer } from './hammer';
 import { haste } from './haste';
-import heal from './heal';
-import hit from './hit';
-import hypnotise from './hypnotise';
-import leave from './leave';
-import moveBack from './moveBack';
-import moveTo from './moveTo';
+import { heal } from './heal';
+import { hit } from './hit';
+import { hypnotise } from './hypnotise';
+import { leave } from './leave';
+import { moveBack } from './moveBack';
+import { moveTo } from './moveTo';
 import { regenerate } from './regenerate';
-import resist from './resist';
-import sabotage from './sabotage';
-import saboteur from './saboteur';
-import setHUDFocus from './setHUDFocus';
-import skillActivate from './skillActivate';
-import skillExpire from './skillExpire';
-import spy from './spy';
-import steal from './steal';
-import survive from './survive';
-import throwWeapon from './throwWeapon';
-import trap from './trap';
-import trash from './trash';
+import { resist } from './resist';
+import { sabotage } from './sabotage';
+import { saboteur } from './saboteur';
+import { setHUDFocus } from './setHUDFocus';
+import { skillActivate } from './skillActivate';
+import { skillExpire } from './skillExpire';
+import { spy } from './spy';
+import { steal } from './steal';
+import { survive } from './survive';
+import { throwWeapon } from './throwWeapon';
+import { trap } from './trap';
+import { trash } from './trash';
 import { treat } from './treat';
-import updateWeapons from './updateWeapons';
-import createBustImage from './utils/createBustImage';
+import { updateWeapons } from './updateWeapons';
+import { createBustImage } from './utils/createBustImage';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
-import repositionFighters, { isRangedStep } from './utils/repositionFighters';
+import { isRangedStep, repositionFighters } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
+import { getFighters } from './utils/getFighters';
 
-const setupFight: (
+export const setupFight: (
   theme: Theme,
   fight: Fight,
   app: PIXI.Application,
@@ -88,7 +93,7 @@ const setupFight: (
         throw new Error('Misc spritesheet not found');
       }
 
-      const fightFighters = JSON.parse(fight.fighters) as Fighter[];
+      const fightFighters = getFighters(fight.fighters);
 
       const brute1 = fightFighters.find((fighter) => !fighter.master
         && fighter.team === 'L');
@@ -247,14 +252,19 @@ const setupFight: (
           new PIXI.Point(0, 65),
         ]);
         team2Header.on('mouseover', () => {
-          toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2, true);
+          toggleTooltip(
+            findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
+            true,
+          );
         });
         team2Header.on('mouseout', () => {
           toggleTooltip(brute2, false);
         });
         team2Header.on('tap', (e: PIXI.InteractionEvent) => {
           e.stopPropagation();
-          toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2, true);
+          toggleTooltip(
+            findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
+            true);
         });
 
         app.stage?.addChild(team2Header);
@@ -457,11 +467,10 @@ const setupFight: (
         // Add to stage
         app.stage?.addChild(animationFighter.animation.container);
 
-        // Remove duplicate weapons (from higher tier weapons)
-        animationFighter.weapons = Array.from(new Set(fighter.weapons));
-
         // Update brute weapons
         updateWeapons(app, animationFighter);
+
+        // TODO: Update brute skills
 
         return animationFighter;
       });
@@ -490,7 +499,7 @@ const setupFight: (
         }
 
         // Reposition mispositionned fighters during neutral
-        if (isRangedStep(step.a)) await repositionFighters(app, fighters, speed);
+        if (isRangedStep(step.a)) await repositionFighters(fighters, speed);
 
         // Display step's brute in HUD
         if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
@@ -507,11 +516,11 @@ const setupFight: (
 
         switch (step.a) {
           case StepType.Move: {
-            await moveTo(app, fighters, step, speed);
+            await moveTo(fighters, step, speed);
             break;
           }
           case StepType.MoveBack: {
-            await moveBack(app, fighters, step, speed);
+            await moveBack(fighters, step, speed);
             break;
           }
           case StepType.Arrive: {
@@ -519,7 +528,7 @@ const setupFight: (
             break;
           }
           case StepType.Leave: {
-            await leave(app, fighters, step, speed);
+            await leave(fighters, step, speed);
             break;
           }
           case StepType.AttemptHit: {
@@ -556,7 +565,7 @@ const setupFight: (
             break;
           }
           case StepType.Steal: {
-            await steal(app, fighters, step, speed);
+            await steal(fighters, step, speed);
             break;
           }
           case StepType.Throw: {
@@ -576,7 +585,7 @@ const setupFight: (
             break;
           }
           case StepType.Survive: {
-            survive(app, fight, fighters, step, speed);
+            survive(fight, fighters, step, speed);
             break;
           }
           case StepType.Trap: {
@@ -749,5 +758,3 @@ const setupFight: (
         }, 10000);
       }
     };
-
-export default setupFight;

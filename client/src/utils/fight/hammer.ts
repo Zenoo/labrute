@@ -1,20 +1,22 @@
-/* eslint-disable no-void */
+
 import { HitStep, randomBetween } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import displayDamage from './utils/displayDamage';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import stagger from './stagger';
-import updateHp from './updateHp';
+import { displayDamage } from './utils/displayDamage';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { stagger } from './stagger';
+import { updateHp } from './updateHp';
 import { untrap } from './untrap';
 import { getRealKnockBack } from './utils/knockBack';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
-import { updateShadow, airbornMove, tweenShadow } from './utils/updateShadow';
+import {
+  updateShadow, airbornMove, tweenShadow
+} from './utils/updateShadow';
 
-const hammer = async (
+export const hammer = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HitStep,
@@ -281,5 +283,3 @@ const hammer = async (
     target.animation.setAnimation(target.stunned ? 'death' : 'idle');
   }).catch(console.error);
 };
-
-export default hammer;

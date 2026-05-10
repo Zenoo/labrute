@@ -1,9 +1,11 @@
 import { AchievementData } from '@labrute/core';
 import { Achievement, AchievementName } from '@labrute/prisma';
-import { Tooltip, TooltipProps, useTheme } from '@mui/material';
+import {
+  Tooltip, TooltipProps, useTheme
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Text from './Text';
+import { Text } from './Text';
 
 export interface AchievementTooltipProps extends Omit<TooltipProps, 'title'> {
   achievement?: Pick<Achievement, 'name' | 'count'>;

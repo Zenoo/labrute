@@ -1,17 +1,19 @@
-import { Box, Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Button, Grid, Paper, useMediaQuery, useTheme
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
-import Page from '../../components/Page';
-import StyledInput from '../../components/StyledInput';
-import Text from '../../components/Text';
+import { Page } from '../../components/Page';
+import { StyledInput } from '../../components/StyledInput';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const ClanCreateView = () => {
+export const ClanCreateView = () => {
   const { t } = useTranslation('clan');
   const { bruteName } = useParams();
   const theme = useTheme();
@@ -94,5 +96,3 @@ const ClanCreateView = () => {
     </Page>
   );
 };
-
-export default ClanCreateView;

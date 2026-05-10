@@ -1,6 +1,10 @@
-import { BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded } from '@labrute/core';
+import {
+  BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded
+} from '@labrute/core';
 import { Lang } from '@labrute/prisma';
-import { AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip } from '@mui/material';
+import {
+  AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,15 +12,15 @@ import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
-import Fetch from '../../utils/Fetch';
-import BruteBodyAndStats from '../Brute/BruteBodyAndStats';
-import BruteLevelAndXP from '../Brute/BruteLevelAndXP';
-import FantasyButton from '../FantasyButton';
-import Link from '../Link';
-import StyledButton from '../StyledButton';
-import Text from '../Text';
-import CellGlobalTournament from './CellGlobalTournament';
-import CellTournament from './CellTournament';
+import { Fetch } from '../../utils/Fetch';
+import { BruteBodyAndStats } from '../Brute/BruteBodyAndStats';
+import { BruteLevelAndXP } from '../Brute/BruteLevelAndXP';
+import { FantasyButton } from '../FantasyButton';
+import { Link } from '../Link';
+import { StyledButton } from '../StyledButton';
+import { Text } from '../Text';
+import { CellGlobalTournament } from './CellGlobalTournament';
+import { CellTournament } from './CellTournament';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
@@ -27,7 +31,7 @@ export interface CellMainProps extends BoxProps {
   confirmReset?: () => void;
 }
 
-const CellMain = ({
+export const CellMain = ({
   language,
   smallScreen,
   confirmSacrifice,
@@ -123,7 +127,7 @@ const CellMain = ({
               <Box component="img" src={`/images/${brute && brute.ranking === 0 ? 'ascend' : 'ranking'}.png`} alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
               {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
                 <Box
-                  // eslint-disable-next-line react/no-array-index-key
+
                   key={i}
                   sx={{
                     height: 20,
@@ -243,5 +247,3 @@ const CellMain = ({
     </Box>
   );
 };
-
-export default CellMain;

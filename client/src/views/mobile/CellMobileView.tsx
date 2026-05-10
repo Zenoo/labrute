@@ -1,23 +1,25 @@
 import { Lang, Log } from '@labrute/prisma';
 import { History, Policy } from '@mui/icons-material';
-import { Box, Grid, IconButton, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Grid, IconButton, Paper, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
-import CellClan from '../../components/Cell/CellClan';
-import CellGlobalTournament from '../../components/Cell/CellGlobalTournament';
-import CellLog from '../../components/Cell/CellLog';
-import CellMain from '../../components/Cell/CellMain';
-import CellPets from '../../components/Cell/CellPets';
-import CellSkills from '../../components/Cell/CellSkills';
-import CellSocials from '../../components/Cell/CellSocials';
-import CellTournament from '../../components/Cell/CellTournament';
-import CellWeapons from '../../components/Cell/CellWeapons';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { CellClan } from '../../components/Cell/CellClan';
+import { CellGlobalTournament } from '../../components/Cell/CellGlobalTournament';
+import { CellLog } from '../../components/Cell/CellLog';
+import { CellMain } from '../../components/Cell/CellMain';
+import { CellPets } from '../../components/Cell/CellPets';
+import { CellSkills } from '../../components/Cell/CellSkills';
+import { CellSocials } from '../../components/Cell/CellSocials';
+import { CellTournament } from '../../components/Cell/CellTournament';
+import { CellWeapons } from '../../components/Cell/CellWeapons';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
@@ -33,7 +35,7 @@ export interface CellMobileViewProps {
   confirmReset: () => void;
 }
 
-const CellMobileView = ({
+export const CellMobileView = ({
   ad,
   logs,
   language,
@@ -226,5 +228,3 @@ const CellMobileView = ({
     </Page>
   );
 };
-
-export default CellMobileView;

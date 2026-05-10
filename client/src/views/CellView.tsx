@@ -3,31 +3,35 @@ import { BruteReportReason } from '@labrute/prisma';
 import { History, Policy } from '@mui/icons-material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { Box, Fab, IconButton, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import {
+  Box, Fab, IconButton, Paper, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useMemo
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-import BoxBg from '../components/BoxBg';
-import CellClan from '../components/Cell/CellClan';
-import CellLog from '../components/Cell/CellLog';
-import CellMain from '../components/Cell/CellMain';
-import CellPets from '../components/Cell/CellPets';
-import CellSkills from '../components/Cell/CellSkills';
-import CellSocials from '../components/Cell/CellSocials';
-import CellWeapons from '../components/Cell/CellWeapons';
-import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { BoxBg } from '../components/BoxBg';
+import { CellClan } from '../components/Cell/CellClan';
+import { CellLog } from '../components/Cell/CellLog';
+import { CellMain } from '../components/Cell/CellMain';
+import { CellPets } from '../components/Cell/CellPets';
+import { CellSkills } from '../components/Cell/CellSkills';
+import { CellSocials } from '../components/Cell/CellSocials';
+import { CellWeapons } from '../components/Cell/CellWeapons';
+import { FantasyButton } from '../components/FantasyButton';
+import { Link } from '../components/Link';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { useConfirm } from '../hooks/useConfirm';
 import { useLanguage } from '../hooks/useLanguage';
-import useStateAsync from '../hooks/useStateAsync';
+import { useStateAsync } from '../hooks/useStateAsync';
 import { getRandomAd } from '../utils/ads';
-import CellMobileView from './mobile/CellMobileView';
+import { CellMobileView } from './mobile/CellMobileView';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
@@ -35,7 +39,7 @@ import { catchError } from '../utils/catchError';
 /**
  * CellView component
  */
-const CellView = () => {
+export const CellView = () => {
   const { t } = useTranslation('cell');
   const { bruteName } = useParams();
   const smallScreen = useMediaQuery('(max-width: 938px)');
@@ -414,5 +418,3 @@ const CellView = () => {
       </Page>
     ));
 };
-
-export default CellView;

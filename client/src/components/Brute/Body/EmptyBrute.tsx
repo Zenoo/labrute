@@ -1,7 +1,9 @@
-import { Box, BoxProps, useTheme } from '@mui/material';
+import {
+  Box, BoxProps, useTheme
+} from '@mui/material';
 import React from 'react';
 
-const EmptyBrute = ({ sx, ...props }: BoxProps) => {
+export const EmptyBrute = ({ sx, ...props }: BoxProps) => {
   const { palette: { mode } } = useTheme();
 
   return (
@@ -18,5 +20,3 @@ const EmptyBrute = ({ sx, ...props }: BoxProps) => {
     />
   );
 };
-
-export default EmptyBrute;

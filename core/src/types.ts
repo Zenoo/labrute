@@ -2,7 +2,7 @@ import {
   Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
-import { WeaponAnimation, WeaponId } from './brute/weapons';
+import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
 import { BruteRanking } from './constants';
 
 export { ClanPermission } from '@labrute/prisma';
@@ -51,8 +51,8 @@ export interface Fighter {
   maxHp: number;
   hp: number,
   size?: number;
-  weapons: WeaponId[];
-  skills: SkillId[];
+  weapons: Partial<Record<WeaponId, number>>;
+  skills: Partial<Record<SkillId, number>>;
   shield: boolean;
   eventId?: string;
 }
@@ -126,8 +126,6 @@ export interface TrashStep {
   a: StepType.Trash;
   /** Brute ID */
   b: number;
-  /** Weapon ID */
-  w: WeaponId;
 }
 
 export interface StealStep {
@@ -882,6 +880,12 @@ export type UserLogsListResponse = (UserLog & {
 export type GetFingerprintResponse = {
   eventId: string;
   visitorId: string;
+};
+
+/** Here, sabotaged contains the initiative malus. damaged contains the damage malus. */
+export type FightWeapon = Tiered<Weapon> & {
+  sabotaged?: number;
+  damaged?: number;
 };
 
 export type Tiered<T> = T & {

@@ -1,4 +1,7 @@
-import { CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders, LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version } from '@labrute/core';
+import {
+  CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders,
+  LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version
+} from '@labrute/core';
 import { LS_KEY_CSRF_TOKEN } from './constants';
 import { getCookie } from './cookies';
 import { getFingerprint } from './fingerprint';
@@ -56,7 +59,7 @@ export const fetchCsrfToken = async () => {
   return csrfFetchPromise;
 };
 
-const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, isRetry = false): Promise<ReturnType> => {
+export const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additionalURLParams = {}, isRetry = false): Promise<ReturnType> => {
   // Get the CSRF token from localStorage, or fetch if it doesn't exist
   let csrfToken: string | null = localStorage.getItem(LS_KEY_CSRF_TOKEN);
 
@@ -150,5 +153,3 @@ const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', additio
       });
   });
 };
-
-export default Fetch;

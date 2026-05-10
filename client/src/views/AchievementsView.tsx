@@ -1,12 +1,16 @@
-import { AchievementData, AchievementsGetResponse, TitleRequirements, formatLargeNumber } from '@labrute/core';
+import {
+  AchievementData, AchievementsGetResponse, TitleRequirements, formatLargeNumber
+} from '@labrute/core';
 import { QuestionMark } from '@mui/icons-material';
-import { Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
+import {
+  Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { FantasyButton } from '../components/FantasyButton';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { AchievementTooltip } from '../components/AchievementTooltip';
@@ -14,7 +18,7 @@ import { AchievementHeader } from '../components/AchievementHeader';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
-const AchievementsView = () => {
+export const AchievementsView = () => {
   const { t } = useTranslation('achievement');
   const theme = useTheme();
   const { bruteName } = useParams();
@@ -202,5 +206,3 @@ const AchievementsView = () => {
     </Page>
   );
 };
-
-export default AchievementsView;

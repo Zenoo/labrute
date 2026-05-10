@@ -1,9 +1,9 @@
-/* eslint-disable no-param-reassign */
 import {
   ExtraTieredSkillData,
+  FightWeapon,
   StepType, WeaponByName, WeaponType,
 } from '@labrute/core';
-import { SkillName } from '@labrute/prisma';
+import { SkillName, WeaponName } from '@labrute/prisma';
 import { shuffle } from '../shuffle.js';
 import { DetailedFight, DetailedFighter } from './generateFight.js';
 
@@ -12,54 +12,76 @@ export const applySpy = (
   brute: DetailedFighter,
   opponent: DetailedFighter,
 ) => {
-  if (brute.skills[SkillName.spy]) {
-    let swappableOpponentWeapons = Object.values(opponent.weapons);
+  if (!brute.skills[SkillName.spy]) return;
 
-    // If opponent has weaponMaster, can't swap it's sharp weapons
-    if (opponent.skills[SkillName.weaponsMaster]) {
-      swappableOpponentWeapons = swappableOpponentWeapons.filter(
-        (w) => !w.types.includes(WeaponType.SHARP),
-      );
+  const opponentWeaponNames = Object.keys(opponent.weapons) as WeaponName[];
+  const bruteWeaponNames = Object.keys(brute.weapons) as WeaponName[];
+
+  // Build all valid swap pairs in a single pass
+  const swapPairs: { bruteWeapon: FightWeapon; opponentWeapon: FightWeapon }[] = [];
+  const processedNames = new Set<WeaponName>();
+
+  // First pass: shared weapons (both fighters have the same weapon type)
+  for (const name of bruteWeaponNames) {
+    const opponentWeapon = opponent.weapons[name];
+    if (opponentWeapon) {
+      // Skip if protected by weaponsMaster
+      if (opponent.skills[SkillName.weaponsMaster] &&
+        opponentWeapon.types.includes(WeaponType.SHARP)) {
+        continue;
+      }
+
+      swapPairs.push({
+        bruteWeapon: brute.weapons[name] as FightWeapon,
+        opponentWeapon
+      });
+      processedNames.add(name);
     }
+  }
 
-    const opponentWeaponsCount = swappableOpponentWeapons.length;
-    const bruteWeapons = Object.values(brute.weapons);
-    const bruteWeaponsCount = bruteWeapons.length;
-    const weaponsToSwap = Math.min(opponentWeaponsCount, bruteWeaponsCount);
+  // Second pass: unique weapon combinations
+  const uniqueBruteNames = bruteWeaponNames.filter(name => !processedNames.has(name));
+  const uniqueOpponentNames = opponentWeaponNames.filter(name => {
+    if (processedNames.has(name)) return false;
+    const weapon = opponent.weapons[name];
+    // Filter out protected weapons
+    return !(opponent.skills[SkillName.weaponsMaster] && weapon?.types.includes(WeaponType.SHARP));
+  });
 
-    if (weaponsToSwap === 0) {
-      return;
-    }
-
-    // Only swap the amount of weapons the spy has (maxed at opponent's swappable weapons count)
-    const opponentWeaponsToSwap = shuffle(swappableOpponentWeapons)
-      .slice(0, weaponsToSwap);
-    const bruteWeaponsToSwap = shuffle(bruteWeapons)
-      .slice(0, weaponsToSwap);
-
-    fightData.steps.push({
-      a: StepType.Spy,
-      b: brute.index,
-      t: opponent.index,
-      s: bruteWeaponsToSwap.map((weapon) => WeaponByName[weapon.name]),
-      r: opponentWeaponsToSwap.map((weapon) => WeaponByName[weapon.name]),
+  const uniquePairCount = Math.min(uniqueBruteNames.length, uniqueOpponentNames.length);
+  for (let i = 0; i < uniquePairCount; i++) {
+    swapPairs.push({
+      bruteWeapon: brute.weapons[uniqueBruteNames[i] as WeaponName] as FightWeapon,
+      opponentWeapon: opponent.weapons[uniqueOpponentNames[i] as WeaponName] as FightWeapon
     });
+  }
 
-    // Swap weapons
-    for (const weaponToSwap of bruteWeaponsToSwap) {
-      delete brute.weapons[weaponToSwap.name];
-      opponent.weapons[weaponToSwap.name] = weaponToSwap;
-    }
+  if (swapPairs.length === 0) return;
 
-    for (const weaponToSwap of opponentWeaponsToSwap) {
-      delete opponent.weapons[weaponToSwap.name];
-      brute.weapons[weaponToSwap.name] = weaponToSwap;
-    }
+  // Single shuffle operation
+  const shuffledPairs = shuffle(swapPairs);
+  const maxSwaps = Math.min(bruteWeaponNames.length, opponentWeaponNames.length);
+  const pairsToSwap = shuffledPairs.slice(0, maxSwaps);
 
-    // Add own weapons to opponent damaged weapons
-    opponent.damagedWeapons.push(...bruteWeaponsToSwap.map((weapon) => weapon.name));
-    opponent.damagedWeaponsPercent = ExtraTieredSkillData[SkillName.spy]?.[
+  // Record the swap
+  fightData.steps.push({
+    a: StepType.Spy,
+    b: brute.index,
+    t: opponent.index,
+    s: pairsToSwap.map(p => WeaponByName[p.bruteWeapon.name]),
+    r: pairsToSwap.map(p => WeaponByName[p.opponentWeapon.name]),
+  });
+
+  // Execute swaps
+  for (const { bruteWeapon, opponentWeapon } of pairsToSwap) {
+    bruteWeapon.damaged = ExtraTieredSkillData[SkillName.spy]?.[
       (brute.skills[SkillName.spy]?.tier ?? 1) - 1
     ];
+
+    delete brute.weapons[bruteWeapon.name];
+    delete opponent.weapons[opponentWeapon.name];
+
+    opponent.weapons[bruteWeapon.name] = bruteWeapon;
+    brute.weapons[opponentWeapon.name] = opponentWeapon;
   }
 };

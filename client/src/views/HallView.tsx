@@ -1,21 +1,27 @@
-import { CalculatedBrute, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft } from '@labrute/core';
-import { Check, CrisisAlert, Stars } from '@mui/icons-material';
-import { Box, Paper, Tooltip, useTheme } from '@mui/material';
+import {
+  CalculatedBrute, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft
+} from '@labrute/core';
+import {
+  Check, CrisisAlert, Stars
+} from '@mui/icons-material';
+import {
+  Box, Paper, Tooltip, useTheme
+} from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import ArenaStat from '../components/Arena/ArenaStat';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import BruteHP from '../components/Brute/BruteHP';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import Text from '../components/Text';
+import { ArenaStat } from '../components/Arena/ArenaStat';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { BruteHP } from '../components/Brute/BruteHP';
+import { Page } from '../components/Page';
+import { StyledButton } from '../components/StyledButton';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
-const HallView = () => {
+export const HallView = () => {
   const { t } = useTranslation('hall');
   const navigate = useNavigate();
   const { user, updateData } = useAuth();
@@ -226,7 +232,6 @@ const HallView = () => {
                 >
                   {new Array(bruteFightsLeft).fill(0).map((_, i) => (
                     <CrisisAlert
-                      // eslint-disable-next-line react/no-array-index-key
                       key={i}
                       fontSize="small"
                       sx={{
@@ -247,5 +252,3 @@ const HallView = () => {
     </Page>
   );
 };
-
-export default HallView;

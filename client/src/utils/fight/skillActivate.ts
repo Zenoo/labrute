@@ -1,17 +1,21 @@
-/* eslint-disable no-void */
-import { SkillActivateStep, SkillById, SkillId } from '@labrute/core';
-import { AnimatedSprite, Application, Sprite } from 'pixi.js';
+
+import {
+  SkillActivateStep, SkillById, SkillId
+} from '@labrute/core';
+import {
+  AnimatedSprite, Application, Sprite
+} from 'pixi.js';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import stagger from './stagger';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import repositionFighters from './utils/repositionFighters';
+import { stagger } from './stagger';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { repositionFighters } from './utils/repositionFighters';
 import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
 
-const skillActivate = async (
+export const skillActivate = async (
   app: Application,
   fighters: AnimationFighter[],
   step: SkillActivateStep,
@@ -34,7 +38,7 @@ const skillActivate = async (
   // Filter the only activation case outside of neutral (wake up cry)
   if (step.s !== SkillId.cryOfTheDamned || !brute.stunned) {
     // Reposition mispositionned fighters before skillActivate
-    await repositionFighters(app, fighters, speed);
+    await repositionFighters(fighters, speed);
   }
 
   // Play skill SFX
@@ -236,5 +240,3 @@ const skillActivate = async (
     brute.animation.container.zIndex = 1000;
   }
 };
-
-export default skillActivate;

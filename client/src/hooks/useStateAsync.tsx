@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 
 /* GETTER PARAMS MUST BE MEMOIZED */
-const useStateAsync = <State, Params>(
+export const useStateAsync = <State, Params>(
   initialState: State,
   getter: (params: Params) => Promise<State>,
   getterParams: Params,
@@ -43,5 +45,3 @@ const useStateAsync = <State, Params>(
     set: setState,
   };
 };
-
-export default useStateAsync;

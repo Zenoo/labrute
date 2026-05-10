@@ -7,11 +7,11 @@ import { Easing, Tweener } from 'pixi-tweener';
 import { MotionBlurFilter } from '@pixi/filter-motion-blur';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 
-import displayDamage from './utils/displayDamage';
+import { displayDamage } from './utils/displayDamage';
 import { getRandomPosition } from './utils/fightPositions';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import stagger from './stagger';
-import updateHp from './updateHp';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { stagger } from './stagger';
+import { updateHp } from './updateHp';
 import { untrap } from './untrap';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';

@@ -1,20 +1,24 @@
-/* eslint-disable no-void */
-import { HitStep, WeaponById, randomBetween } from '@labrute/core';
+
+import {
+  HitStep, WeaponById, randomBetween
+} from '@labrute/core';
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application, Sprite, Container, Graphics, AnimatedSprite } from 'pixi.js';
+import {
+  Application, Sprite, Container, Graphics, AnimatedSprite
+} from 'pixi.js';
 
-import displayDamage from './utils/displayDamage';
-import findFighter, { AnimationFighter } from './utils/findFighter';
-import stagger from './stagger';
-import updateHp from './updateHp';
-import updateWeapons from './updateWeapons';
+import { displayDamage } from './utils/displayDamage';
+import { AnimationFighter, findFighter } from './utils/findFighter';
+import { stagger } from './stagger';
+import { updateHp } from './updateHp';
+import { updateWeapons } from './updateWeapons';
 import { WeaponName } from '@labrute/prisma';
 import { untrap } from './untrap';
-import itemDrop from './itemDrop';
+import { itemDrop } from './itemDrop';
 import { playResistAnimation } from './resist';
 
-const flashFlood = async (
+export const flashFlood = async (
   app: Application,
   fighters: AnimationFighter[],
   step: HitStep,
@@ -64,7 +68,7 @@ const flashFlood = async (
     fighter.animation.shield = false;
     thrownItem = new Sprite(miscSpritesheet.textures['shield.png']);
 
-  // Weapon throw
+    // Weapon throw
   } else {
     const weapon = typeof step.w !== 'undefined' ? WeaponById[step.w] : WeaponName.lance;
     // Update current weapon
@@ -117,7 +121,7 @@ const flashFlood = async (
   // Remove Shield
   if (step.s) {
     fighter.animation.shield = false;
-  // Remove Weapon
+    // Remove Weapon
   } else {
     fighter.animation.weapon = null;
     if (!startedWithAWeapon) {
@@ -229,5 +233,3 @@ const flashFlood = async (
   // Wait 0.3s
   await new Promise((resolve) => { setTimeout(resolve, 300 / speed.current); });
 };
-
-export default flashFlood;

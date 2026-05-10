@@ -1,13 +1,11 @@
-/* eslint-disable no-void */
+
 import { MoveBackStep } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
-import { Application } from 'pixi.js';
 
 import { getRandomPosition } from './utils/fightPositions';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 
-const moveBack = async (
-  app: Application,
+export const moveBack = async (
   fighters: AnimationFighter[],
   step: MoveBackStep,
   speed: React.MutableRefObject<number>,
@@ -52,5 +50,3 @@ const moveBack = async (
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');
 };
-
-export default moveBack;

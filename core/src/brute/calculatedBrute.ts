@@ -16,17 +16,13 @@ export const getTieredSkills = (brute: Pick<Brute, 'id' | 'skills'>, modifiers: 
   const tieredSkills: TieredPerks['skills'] = {};
 
   for (const skill of brute.skills) {
-    tieredSkills[skill] = tieredSkills[skill]
-      ? tieredSkills[skill] + 1
-      : 1;
+    tieredSkills[skill] = (tieredSkills[skill] ?? 0) + 1;
   }
 
   const randomSkill = getTempSkill(brute, modifiers);
 
   if (randomSkill) {
-    tieredSkills[randomSkill] = tieredSkills[randomSkill]
-      ? tieredSkills[randomSkill] + 1
-      : 1;
+    tieredSkills[randomSkill] = (tieredSkills[randomSkill] ?? 0) + 1;
   }
 
   return tieredSkills;
@@ -36,17 +32,13 @@ export const getTieredWeapons = (brute: Pick<Brute, 'id' | 'weapons'>, modifiers
   const tieredWeapons: TieredPerks['weapons'] = {};
 
   for (const weapon of brute.weapons) {
-    tieredWeapons[weapon] = tieredWeapons[weapon]
-      ? tieredWeapons[weapon] + 1
-      : 1;
+    tieredWeapons[weapon] = (tieredWeapons[weapon] ?? 0) + 1;
   }
 
   const randomWeapon = getTempWeapon(brute, modifiers);
 
   if (randomWeapon) {
-    tieredWeapons[randomWeapon] = tieredWeapons[randomWeapon]
-      ? tieredWeapons[randomWeapon] + 1
-      : 1;
+    tieredWeapons[randomWeapon] = (tieredWeapons[randomWeapon] ?? 0) + 1;
   }
 
   return tieredWeapons;
@@ -56,9 +48,7 @@ export const getTieredPets = (brute: Pick<Brute, 'pets'>) => {
   const tieredPets: TieredPerks['pets'] = {};
 
   for (const pet of brute.pets) {
-    tieredPets[pet] = tieredPets[pet]
-      ? tieredPets[pet] + 1
-      : 1;
+    tieredPets[pet] = (tieredPets[pet] ?? 0) + 1;
   }
 
   return tieredPets;
@@ -82,33 +72,25 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
 
   // Weapons
   for (const weapon of brute.weapons) {
-    calculatedBrute.weapons[weapon] = calculatedBrute.weapons[weapon]
-      ? calculatedBrute.weapons[weapon] + 1
-      : 1;
+    calculatedBrute.weapons[weapon] = (calculatedBrute.weapons[weapon] ?? 0) + 1;
   }
 
   const randomWeapon = getTempWeapon(brute, modifiers);
 
   if (randomWeapon) {
-    calculatedBrute.weapons[randomWeapon] = calculatedBrute.weapons[randomWeapon]
-      ? calculatedBrute.weapons[randomWeapon] + 1
-      : 1;
+    calculatedBrute.weapons[randomWeapon] = (calculatedBrute.weapons[randomWeapon] ?? 0) + 1;
     calculatedBrute.randomWeapon = randomWeapon;
   }
 
   // Skills
   for (const skill of brute.skills) {
-    calculatedBrute.skills[skill] = calculatedBrute.skills[skill]
-      ? calculatedBrute.skills[skill] + 1
-      : 1;
+    calculatedBrute.skills[skill] = (calculatedBrute.skills[skill] ?? 0) + 1;
   }
 
   const randomSkill = getTempSkill(brute, modifiers);
 
   if (randomSkill) {
-    calculatedBrute.skills[randomSkill] = calculatedBrute.skills[randomSkill]
-      ? calculatedBrute.skills[randomSkill] + 1
-      : 1;
+    calculatedBrute.skills[randomSkill] = (calculatedBrute.skills[randomSkill] ?? 0) + 1;
     calculatedBrute.randomSkill = randomSkill;
 
     applySkillModifiers(calculatedBrute, randomSkill);
@@ -116,9 +98,7 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
 
   // Pets
   for (const pet of brute.pets) {
-    calculatedBrute.pets[pet] = calculatedBrute.pets[pet]
-      ? calculatedBrute.pets[pet] + 1
-      : 1;
+    calculatedBrute.pets[pet] = (calculatedBrute.pets[pet] ?? 0) + 1;
   }
 
   const skillsList = modifiers[FightModifier.chaos] ? entries(calculatedBrute.skills) : [];

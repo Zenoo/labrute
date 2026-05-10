@@ -1,16 +1,20 @@
 import { FightModifier } from '@labrute/prisma';
-import { Box, Divider, MenuItem, Alert as MuiAlert, Paper, Select, Stack, TextField } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import {
+  Box, Divider, MenuItem, Alert as MuiAlert, Paper, Select, Stack, TextField
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../../components/FantasyButton';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { keys, Modifiers } from '@labrute/core';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const AdminView = () => {
+export const AdminView = () => {
   const { t } = useTranslation('admin');
   const Alert = useAlert();
   const Server = useServer();
@@ -133,5 +137,3 @@ const AdminView = () => {
     </Page>
   );
 };
-
-export default AdminView;

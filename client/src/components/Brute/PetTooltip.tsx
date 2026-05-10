@@ -1,14 +1,18 @@
-import { PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, getPetScaledStat } from '@labrute/core';
+import {
+  PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, getPetScaledStat
+} from '@labrute/core';
 import { Brute, FightModifier } from '@labrute/prisma';
-import { Box, Tooltip, TooltipProps, useTheme } from '@mui/material';
+import {
+  Box, Tooltip, TooltipProps, useTheme
+} from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
-import StatColor from '../../utils/StatColor';
-import Text from '../Text';
+import { StatColor } from '../../utils/StatColor';
+import { Text } from '../Text';
 import { TierStar } from './TierStar';
-import TieredStat from '../TieredStat';
+import { TieredStat } from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
 const textProps = {
@@ -22,7 +26,7 @@ export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
   brute?: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
 }
 
-const PetTooltip = ({
+export const PetTooltip = ({
   pet,
   brute: specificBrute,
   tier = 1,
@@ -103,7 +107,6 @@ const PetTooltip = ({
           {tier > 1 && (
             <Box>
               {Array.from({ length: tier - 1 }).map((_, index) => (
-                // eslint-disable-next-line react/no-array-index-key
                 <TierStar key={index} />
               ))}
             </Box>
@@ -147,5 +150,3 @@ const PetTooltip = ({
     </Tooltip>
   );
 };
-
-export default PetTooltip;

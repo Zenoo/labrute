@@ -1,25 +1,31 @@
-import { getCalculatedBrute, getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE } from '@labrute/core';
+import {
+  getCalculatedBrute, getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE
+} from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Lock, LockOpen } from '@mui/icons-material';
-import { Box, IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Box, IconButton, Link, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import BoxBg from '../components/BoxBg';
-import BruteRender from '../components/Brute/Body/BruteRender';
-import EmptyBrute from '../components/Brute/Body/EmptyBrute';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import StyledButton from '../components/StyledButton';
-import StyledInput from '../components/StyledInput';
-import Text from '../components/Text';
+import { BoxBg } from '../components/BoxBg';
+import { BruteRender } from '../components/Brute/Body/BruteRender';
+import { EmptyBrute } from '../components/Brute/Body/EmptyBrute';
+import { FantasyButton } from '../components/FantasyButton';
+import { Page } from '../components/Page';
+import { StyledButton } from '../components/StyledButton';
+import { StyledInput } from '../components/StyledInput';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { LoggedInUser, useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { getRandomAd } from '../utils/ads';
 import { setCookie } from '../utils/cookies';
-import Fetch from '../utils/Fetch';
-import HomeMobileView from './mobile/HomeMobileView';
+import { Fetch } from '../utils/Fetch';
+import { HomeMobileView } from './mobile/HomeMobileView';
 import { useServer } from '../hooks/useServer';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { catchError } from '../utils/catchError';
@@ -27,7 +33,7 @@ import { catchError } from '../utils/catchError';
 /**
  * HomeView component
  */
-const HomeView = () => {
+export const HomeView = () => {
   const { t } = useTranslation('home');
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
@@ -413,5 +419,3 @@ const HomeView = () => {
       </Page>
     );
 };
-
-export default HomeView;

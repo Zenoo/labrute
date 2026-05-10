@@ -1,17 +1,19 @@
 import { TournamentType } from '@labrute/prisma';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import Link from '../components/Link';
-import Loader from '../components/Loader';
-import Page from '../components/Page';
-import Text from '../components/Text';
-import useStateAsync from '../hooks/useStateAsync';
+import { Link } from '../components/Link';
+import { Loader } from '../components/Loader';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
+import { useStateAsync } from '../hooks/useStateAsync';
 import { useServer } from '../hooks/useServer';
 
-const TournamentHistoryView = () => {
+export const TournamentHistoryView = () => {
   const { t } = useTranslation('tournamentHistory');
   const { bruteName } = useParams();
   const theme = useTheme();
@@ -117,5 +119,3 @@ const TournamentHistoryView = () => {
     </Page>
   );
 };
-
-export default TournamentHistoryView;

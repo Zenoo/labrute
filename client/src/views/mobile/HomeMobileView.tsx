@@ -1,10 +1,12 @@
-import { Box, Grid, IconButton, Link, Paper, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Grid, IconButton, Link, Paper, Tooltip, useMediaQuery, useTheme
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Page from '../../components/Page';
-import StyledButton from '../../components/StyledButton';
-import StyledInput from '../../components/StyledInput';
-import Text from '../../components/Text';
+import { Page } from '../../components/Page';
+import { StyledButton } from '../../components/StyledButton';
+import { StyledInput } from '../../components/StyledInput';
+import { Text } from '../../components/Text';
 import { AdResult } from '../../utils/ads';
 import { LockOpen, Lock } from '@mui/icons-material';
 
@@ -21,7 +23,7 @@ export interface HomeMobileViewProps {
   setFixBruteAppearance: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const HomeMobileView = ({
+export const HomeMobileView = ({
   changeName,
   name,
   changeAppearance,
@@ -147,5 +149,3 @@ const HomeMobileView = ({
     </Page>
   );
 };
-
-export default HomeMobileView;

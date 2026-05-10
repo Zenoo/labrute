@@ -8,7 +8,7 @@ import { useServer } from '../../hooks/useServer';
 /**
  * ProvideBrute component
  */
-const ProvideBrute = () => {
+export const ProvideBrute = () => {
   const { bruteName } = useParams();
   const { updateBrute } = useBrute();
   const { modifiers } = useAuth();
@@ -36,5 +36,3 @@ const ProvideBrute = () => {
     <Outlet />
   );
 };
-
-export default ProvideBrute;

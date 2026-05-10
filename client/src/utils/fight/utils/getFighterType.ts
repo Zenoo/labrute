@@ -1,7 +1,7 @@
 import { Fighter, bosses } from '@labrute/core';
 import { AnimationFighter } from './findFighter';
 
-const getFighterType = (
+export const getFighterType = (
   fighter: AnimationFighter | Fighter,
 ) => {
   let type: 'brute' | 'dog' | 'bear' | 'panther' = 'brute';
@@ -14,5 +14,3 @@ const getFighterType = (
 
   return type;
 };
-
-export default getFighterType;

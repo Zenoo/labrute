@@ -3,7 +3,9 @@ import 'dayjs/locale/es';
 import 'dayjs/locale/fr';
 import 'dayjs/locale/pt';
 import 'dayjs/locale/ru';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useContext, useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';

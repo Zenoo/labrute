@@ -1,19 +1,30 @@
-import { AchievementData, BanReason, Fighter, TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft } from '@labrute/core';
-import { Check, ManageSearch, QuestionMark } from '@mui/icons-material';
-import { Box, Grid, IconButton, List, ListItem, ListItemText, ListSubheader, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme } from '@mui/material';
+import {
+  AchievementData, BanReason, Fighter,
+  TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft
+} from '@labrute/core';
+import {
+  Check, ManageSearch, QuestionMark
+} from '@mui/icons-material';
+import {
+  Box, Grid, IconButton, List, ListItem,
+  ListItemText, ListSubheader, MenuItem, Paper,
+  Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { AchievementHeader } from '../components/AchievementHeader';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { ActivityStatus } from '../components/ActivityStatus';
-import BruteButton from '../components/Brute/BruteButton';
-import FantasyButton from '../components/FantasyButton';
-import Link from '../components/Link';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { BruteButton } from '../components/Brute/BruteButton';
+import { FantasyButton } from '../components/FantasyButton';
+import { Link } from '../components/Link';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
@@ -24,7 +35,7 @@ type CalculatedUserGetProfileResponse = Omit<UserGetProfileResponse, 'brutes'> &
   brutes: ReturnType<typeof getCalculatedBrute<UserGetProfileResponse['brutes'][0]>>[];
 };
 
-const UserView = () => {
+export const UserView = () => {
   const { t } = useTranslation('user');
   const theme = useTheme();
   const { userId } = useParams();
@@ -410,5 +421,3 @@ const UserView = () => {
     </Page>
   );
 };
-
-export default UserView;

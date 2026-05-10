@@ -2,11 +2,11 @@ import { Home } from '@mui/icons-material';
 import { Box, Paper } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../components/FantasyButton';
-import Page from '../components/Page';
-import Text from '../components/Text';
+import { FantasyButton } from '../components/FantasyButton';
+import { Page } from '../components/Page';
+import { Text } from '../components/Text';
 
-const NotFoundView = () => {
+export const NotFoundView = () => {
   const { t } = useTranslation('notFound');
 
   return (
@@ -37,5 +37,3 @@ const NotFoundView = () => {
     </Page>
   );
 };
-
-export default NotFoundView;

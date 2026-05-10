@@ -1,7 +1,9 @@
-import { Badge, Box, BoxProps, SvgIconTypeMap, useTheme } from '@mui/material';
+import {
+  Badge, Box, BoxProps, SvgIconTypeMap, useTheme
+} from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Text from './Text';
+import { Text } from './Text';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 
 interface ActionButtonProps extends BoxProps {
@@ -73,4 +75,4 @@ const ActionButton = React.forwardRef<HTMLDivElement, ActionButtonProps>(({
 
 ActionButton.displayName = 'ActionButton';
 
-export default ActionButton;
+export { ActionButton };

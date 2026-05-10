@@ -1,20 +1,23 @@
 import { BruteReportWithNames } from '@labrute/core';
 import { BruteReportStatus } from '@labrute/prisma';
 import { Check, Close } from '@mui/icons-material';
-import { Box, FormControl, FormControlLabel, FormLabel, IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip } from '@mui/material';
+import {
+  Box, FormControl, FormControlLabel, FormLabel,
+  IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import FantasyButton from '../../components/FantasyButton';
-import Link from '../../components/Link';
-import Page from '../../components/Page';
-import Text from '../../components/Text';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Link } from '../../components/Link';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const ReportAdminView = () => {
+export const ReportAdminView = () => {
   const { t } = useTranslation('admin');
   const Alert = useAlert();
   const Server = useServer();
@@ -187,5 +190,3 @@ const ReportAdminView = () => {
     </Page>
   );
 };
-
-export default ReportAdminView;

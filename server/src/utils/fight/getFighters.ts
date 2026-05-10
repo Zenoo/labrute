@@ -91,9 +91,7 @@ const handleSkills = (
           fighter[skill.name] = ExtraTieredSkillData[skill.name]?.[skill.tier - 1] ?? 0;
           break;
         case SkillName.saboteur:
-          fighter.sabotagedWeaponInitiativeMalus = ExtraTieredSkillData[
-            SkillName.saboteur
-          ]?.[skill.tier - 1] ?? 0;
+          // Nothing to do, the sabotage is applied in fightMethods
           break;
         case SkillName.chef:
           // Nothing to do, the poison is applied in fightMethods
@@ -116,9 +114,6 @@ const handleSkills = (
     switch (skill.name) {
       case SkillName.shield:
         fighter.shield = true;
-        break;
-      case SkillName.saboteur:
-        fighter.saboteur = true;
         break;
       case SkillName.bodybuilder:
         fighter.bodybuilder = true;
@@ -252,11 +247,8 @@ export const getFighters = ({
         activeSkills: [],
         activeWeapon: null,
         keepWeaponChance: 0,
-        saboteur: false,
-        sabotagedWeapon: null,
         poisonedBy: null,
         trapped: false,
-        damagedWeapons: [],
         hitBy: {},
       };
 
@@ -326,11 +318,8 @@ export const getFighters = ({
           activeSkills: [],
           activeWeapon: null,
           keepWeaponChance: 0,
-          saboteur: false,
-          sabotagedWeapon: null,
           poisonedBy: null,
           trapped: false,
-          damagedWeapons: [],
           hitBy: {},
         });
       }
@@ -421,11 +410,8 @@ export const getFighters = ({
         activeSkills: [],
         activeWeapon: null,
         keepWeaponChance: 0,
-        saboteur: false,
-        sabotagedWeapon: null,
         poisonedBy: null,
         trapped: false,
-        damagedWeapons: [],
         hitBy: {},
       };
 
@@ -489,11 +475,8 @@ export const getFighters = ({
         activeSkills: [],
         activeWeapon: null,
         keepWeaponChance: 0,
-        saboteur: false,
-        sabotagedWeapon: null,
         poisonedBy: null,
         trapped: false,
-        damagedWeapons: [],
         hitBy: {},
       });
     }

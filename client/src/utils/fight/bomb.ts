@@ -1,13 +1,15 @@
-/* eslint-disable no-void */
+
 import { BombStep, randomBetween } from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
-import { AnimatedSprite, Application, filters } from 'pixi.js';
+import {
+  AnimatedSprite, Application, filters
+} from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import stagger from './stagger';
-import updateHp from './updateHp';
-import displayDamage from './utils/displayDamage';
-import findFighter, { AnimationFighter } from './utils/findFighter';
+import { stagger } from './stagger';
+import { updateHp } from './updateHp';
+import { displayDamage } from './utils/displayDamage';
+import { AnimationFighter, findFighter } from './utils/findFighter';
 import { shakeStage } from './utils/stageAnimations';
 import { untrap } from './untrap';
 import { playResistAnimation } from './resist';
@@ -22,7 +24,7 @@ const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   return targetDamage;
 };
 
-const bomb = async (
+export const bomb = async (
   app: Application,
   fighters: AnimationFighter[],
   step: BombStep,
@@ -194,5 +196,3 @@ const bomb = async (
   // Wait for staggers to complete
   await Promise.all(staggers);
 };
-
-export default bomb;
