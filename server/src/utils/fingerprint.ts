@@ -1,5 +1,5 @@
 import {
-  BASE64_ALPHABET, ExpectedError, FINGERPRINT_PRNG, GetFingerprintResponse, OBFUSCATED_ALPHABET,
+  BASE64_ALPHABET, FINGERPRINT_PRNG, ForbiddenError, GetFingerprintResponse, OBFUSCATED_ALPHABET
 } from '@labrute/core';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
@@ -37,7 +37,7 @@ export const readFP = (input: string): Record<string, unknown> => {
   decoded = Array.from(decoded).map((ch, i) => {
     const prng = FINGERPRINT_PRNG(seed, i);
     const xor = prng % 256;
-    // eslint-disable-next-line no-bitwise
+
     return String.fromCharCode(ch.charCodeAt(0) ^ xor);
   }).join('');
 
@@ -114,20 +114,20 @@ export const getFingerprintEvent = (
 ) => {
   try {
     if (typeof request.body.data !== 'string') {
-      throw new ExpectedError('Invalid fingerprint data');
+      throw new ForbiddenError('Invalid fingerprint data');
     }
 
     let fpData: FingerPrint;
     try {
       fpData = readFP(request.body.data) as FingerPrint;
     } catch {
-      throw new ExpectedError('Failed to decode fingerprint data');
+      throw new ForbiddenError('Failed to decode fingerprint data');
     }
     let visitorId = fpData.visitorId ?? '';
 
     if (!visitorId) {
       DISCORD().logObject(fpData, 'Fingerprint missing visitorId').catch(() => { /* ignore */ });
-      throw new ExpectedError('Fingerprint missing visitorId');
+      throw new ForbiddenError('Fingerprint missing visitorId');
     }
 
     // Collect TLS handshake info

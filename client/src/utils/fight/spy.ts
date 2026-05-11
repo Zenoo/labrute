@@ -28,9 +28,11 @@ export const spy = async (
   void sound.play('sfx', { sprite: 'spy' });
 
   // Give brute weapons to opponent
+  const newOpponentWeapons: Partial<Record<WeaponId, number>> = {};
+
   for (const weaponToSwap of step.s) {
-    const weapon = brute.weapons[weaponToSwap]
-    if (!weapon) {
+    const tier = brute.weapons[weaponToSwap]
+    if (!tier) {
       throw new Error('Weapon not found');
     }
 
@@ -52,7 +54,7 @@ export const spy = async (
     }
 
     // Add weapon to opponent
-    opponent.weapons[weaponToSwap] = weapon;
+    newOpponentWeapons[weaponToSwap] = tier;
     opponent.teamWeaponsIllustrations.push(weaponIllustration);
   }
 
@@ -84,6 +86,11 @@ export const spy = async (
     brute.weapons[weaponToSwap] = weapon;
     brute.teamWeaponsIllustrations.push(weaponIllustration);
   }
+
+  // Add opponent's new weapons to his list
+  Object.entries(newOpponentWeapons).forEach(([w, tier]) => {
+    opponent.weapons[+w as WeaponId] = tier;
+  });
 
   // Sort weapons
   brute.teamWeaponsIllustrations.sort((a, b) => +a.name - +b.name);

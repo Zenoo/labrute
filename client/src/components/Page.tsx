@@ -13,6 +13,7 @@ import { Link } from './Link';
 import { SEO } from './SEO';
 import { Text } from './Text';
 import { useFingerprint } from '../hooks/useFingerprint';
+import { isError } from '../utils/catchError';
 
 interface Props extends BoxProps {
   title: string,
@@ -66,7 +67,7 @@ export const Page = ({
       ) : fingerprint.error ? (
         <Paper sx={{ textAlign: 'center', mt: 4 }}>
           <Text color="error">
-            {t('fingerprintError')}
+            {isError(fingerprint.error, 403) ? t('fingerprintError') : t('unableToConnect')}
           </Text>
         </Paper>
       ) : authing ? (

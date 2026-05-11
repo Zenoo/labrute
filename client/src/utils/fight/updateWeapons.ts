@@ -1,9 +1,12 @@
 
-import { WeaponById, WeaponId } from '@labrute/core';
+import {
+  entries, WeaponById, WeaponId
+} from '@labrute/core';
 import { OutlineFilter } from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
+import { TieredPerkColor } from '../StatColor';
 
 export const updateWeapons = (
   app: Application,
@@ -41,7 +44,7 @@ export const updateWeapons = (
   // Only affect the HUD for the focused brutes
   if (brute.HUDFocused) {
     // Generate new list
-    Object.keys(brute.weapons).forEach((w, index) => {
+    entries(brute.weapons).forEach(([w, tier], index) => {
       const texture = spritesheet.textures[`weapons/${WeaponById[+w as WeaponId]}.png`];
 
       if (!texture) {
@@ -59,7 +62,12 @@ export const updateWeapons = (
         sprite.x = 480 - ((index % 9) * 20 + 60);
       }
       sprite.y = Math.floor(index / 9) * 20 + 40;
-      sprite.filters = [new OutlineFilter()];
+      sprite.filters = [];
+
+      if (tier > 1) {
+        sprite.filters.push(new OutlineFilter(undefined, parseInt(TieredPerkColor[tier]?.slice(1) ?? '0', 16)));
+      }
+      sprite.filters.push(new OutlineFilter());
       app.stage.addChild(sprite);
       brute.teamWeaponsIllustrations.push(sprite);
     });

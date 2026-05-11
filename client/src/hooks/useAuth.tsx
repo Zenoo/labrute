@@ -1,6 +1,11 @@
-import { CalculatedBrute, getCalculatedBrute, Modifiers, refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version } from '@labrute/core';
+import {
+  CalculatedBrute, getCalculatedBrute, Modifiers,
+  refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version
+} from '@labrute/core';
 import { Event } from '@labrute/prisma';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback, useContext, useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { deleteCookie } from '../utils/cookies';
 import { useAlert } from './useAlert';
@@ -8,6 +13,7 @@ import { useLanguage } from './useLanguage';
 import { useFingerprint } from './useFingerprint';
 import { setFingerprint } from '../utils/fingerprint';
 import { useServer } from './useServer';
+import { isError } from '../utils/catchError';
 
 export type LoggedInUser = Omit<UserWithBrutesBodyColor, 'brutes'> & {
   brutes: CalculatedBrute[];
@@ -79,7 +85,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // For the open source version, event_id is not available, use visitorId (id)
     if (!fingerprint.data || !fingerprint.id || !fingerprint.eventId) {
-      Alert.open('error', t('fingerprintError'));
+      if (isError(fingerprint.error, 403)) {
+        Alert.open('error', t('fingerprintError'));
+      }
       deleteCookie(USER_COOKIE);
       deleteCookie(TOKEN_COOKIE);
       return;
@@ -121,8 +129,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       deleteCookie(TOKEN_COOKIE);
       setAuthing(false);
     });
-  }, [Alert, Server.User, authing,
-    fingerprint.data, fingerprint.eventId, fingerprint.id, setLanguage, t, user]);
+  }, [Alert, Server.User, authing, fingerprint, setLanguage, t, user]);
 
   const signout = useCallback(() => {
     deleteCookie(USER_COOKIE);

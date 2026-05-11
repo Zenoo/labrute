@@ -35,3 +35,10 @@ export function catchError(Alert: AlertContextInterface, error?: unknown) {
   catchErrorHandler(Alert, error);
   return undefined;
 }
+
+export const isError = (error: unknown, code: number): boolean => {
+  if (typeof error === 'object' && error !== null && 'status' in error) {
+    return error.status === code;
+  }
+  return false;
+};

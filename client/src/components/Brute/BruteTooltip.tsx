@@ -129,11 +129,11 @@ export const BruteTooltip = ({
             <>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
-                {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type === 'super').map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
+                {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type === 'super').map(([s, tier]) => (tier > 1 ? `${t(SkillById[+s as SkillId])} (${tier})` : t(SkillById[+s as SkillId]))).join(', ')}
               </Text>
               <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
-                {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type !== 'super').map(([s, tier]) => (tier > 1 ? `${t(s)} (${tier})` : t(s))).join(', ')}
+                {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type !== 'super').map(([s, tier]) => (tier > 1 ? `${t(SkillById[+s as SkillId])} (${tier})` : t(SkillById[+s as SkillId]))).join(', ')}
               </Text>
             </>
           )}
