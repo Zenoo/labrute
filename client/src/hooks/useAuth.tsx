@@ -25,6 +25,8 @@ type AuthContextInterface = {
   currentEvent: Event | null,
   authing: boolean,
   setAuthing: (authing: boolean) => void,
+  setModifiers: (modifiers: Modifiers) => void,
+  setCurrentEvent: (event: Event | null) => void,
   signin: () => void,
   signout: () => void,
   updateData: (data: React.SetStateAction<LoggedInUser | null>) => void,
@@ -37,6 +39,12 @@ const AuthContext = React.createContext<AuthContextInterface>({
   authing: false,
   setAuthing: () => {
     console.error('AuthContext.setAuthing() not implemented');
+  },
+  setModifiers: () => {
+    console.error('AuthContext.setModifiers() not implemented');
+  },
+  setCurrentEvent: () => {
+    console.error('AuthContext.setCurrentEvent() not implemented');
   },
   signin: () => {
     console.error('AuthContext.signin() not implemented');
@@ -147,6 +155,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     currentEvent,
     authing,
     setAuthing,
+    setModifiers,
+    setCurrentEvent,
     signin,
     signout,
     updateData

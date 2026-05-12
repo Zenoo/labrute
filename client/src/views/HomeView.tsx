@@ -1,5 +1,7 @@
 import {
-  getCalculatedBrute, getRandomBody, getRandomColors, isNameValid, TOKEN_COOKIE, USER_COOKIE
+  getCalculatedBrute, getRandomBody, getRandomColors,
+  isNameValid, refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE,
+  Version
 } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Lock, LockOpen } from '@mui/icons-material';
@@ -37,7 +39,15 @@ export const HomeView = () => {
   const { t } = useTranslation('home');
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
-  const { authing, modifiers, setAuthing, updateData, user } = useAuth();
+  const {
+    authing,
+    modifiers,
+    setAuthing,
+    setModifiers,
+    setCurrentEvent,
+    updateData,
+    user
+  } = useAuth();
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const { palette: { mode } } = useTheme();
@@ -75,6 +85,15 @@ export const HomeView = () => {
       code,
       eventId: fingerprint.eventId
     }).then((response) => {
+      setModifiers(response.modifiers);
+      refreshChaosSeeds(response.modifiers);
+      setCurrentEvent(response.currentEvent);
+
+      // Compare version
+      if (response.version !== Version) {
+        Alert.open('warning', t('outdatedVersion'));
+      }
+
       if (!response.user) {
         throw new Error('No user returned from OAuth token endpoint');
       }
@@ -118,7 +137,7 @@ export const HomeView = () => {
       setAuthing(false);
     });
   }, [Alert, Server.OAuth, authing, fingerprint.eventId,
-    setAuthing, setLanguage, t, updateData, user, navigate]);
+    setAuthing, setLanguage, t, updateData, user, navigate, setModifiers, setCurrentEvent]);
 
   // Randomized left ad
   const leftAd = useMemo(() => getRandomAd(language), [language]);
