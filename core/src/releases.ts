@@ -7,23 +7,54 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.88.0',
-  date: '2026-04-20',
+  version: '2.93.0',
+  date: '2026-05-14',
   features: [
-    'User fingerprinting: A fingerprint is now generated for each user, and is required to access and play the game. This should help prevent bots from ruining the game for everyone else. If you are having issues with the fingerprinting, please open an issue on Discord.',
-    'You can now delete your account by clicking on the button on your profile. (Can only be done a day after creating the account)',
-    'You can now transfer a single brute from an account to another. You need to have logged in to both accounts on the same device for it to work.',
-    'We are moving along the plan to disallow multiple accounts for a single user with all those changes. Very soon, users with multiple accounts will be banned on sight. To prevent that, please transfer the brutes you want to keep to a single account, and delete the other accounts. If you have been banned by mistake, please open an issue on Discord.',
+    'Determination / Sabotage / Resistant / Iron Head / Chef / Bandage / Spy / Backup skills now scale with their tiers',
+    'The endurance stat is now completely gone from the game, and replaced by HP everywhere. This should make it easier for new players to understand the game, and make the stats more consistent overall.',
+    'You can now create and customize clan roles, and assign them to your clan members. Clan roles can have different permissions, such as managing the clan, managing wars, etc.',
+    'Brutes have gotten a much needed visual rework, with higher resolution display, and a smoother look, much closer to the original game.',
+    'Three new skills have been added: `Mimic`, `Sticky Hands` and `Deity`. Go experiment with them and let me know what you think!',
+    'Skills are now displayed in fights'
   ],
   fixes: [
-    'Many fixes related to tiered perks',
-    'Prevent infinite fights with high deflection chances and low damage',
-    'Chaos day now only happens the first day of the month',
-    'Report button hidden for your own brutes'
+    'The project is now licensed under the Polyform NC 1.0.0 license, which means that you can\'t use the code for commercial purposes. This is to prevent companies and crypto bros from taking the code and making a profit out of it without giving anything back to the community.',
+    'A lot of fingerprinting related fixes',
+    'Clan points are now correctly updated when a member gets banned',
+    'Rankings are now calculated each day',
+    'Tons of optimizations, the app should run faster now',
+    'Perks now show up as upgrades instead of new perks when leveling up',
+    'Perks are now colored depending on their tier pretty much everywhere',
+    'Skills usage rate can now be seen in the skill tooltip',
+    'Regeneration skill renamed to Bandage',
+    'Stats scaling with tiers are better displayed in the weapons/skills/pets tooltips',
+    'Pets HP malus is now displayed on level up',
+    'Perk upgrades are now ignored for achievements (Ex: Having Knife T3 only counts as having a knife once)',
+    'Unlimited global tournaments are now accessible from the tournament history page',
+    'Finally fixed the pets misplaced limbs !',
+    'Perk unlock limitations now only apply for the first time you unlock the perk, meaning that T2 and T3 will be easier to achieve. For example, Even if you have 3 boosters, getting one of those T2 won\'t be nearly impossible anymore',
+    'You can now see the brutes XP in the Hall and on user pages'
   ],
+  attachments: ['high-res-brute.png', 'skills-in-fights.png'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.88.0',
+    date: '2026-04-20',
+    features: [
+      'User fingerprinting: A fingerprint is now generated for each user, and is required to access and play the game. This should help prevent bots from ruining the game for everyone else. If you are having issues with the fingerprinting, please open an issue on Discord.',
+      'You can now delete your account by clicking on the button on your profile. (Can only be done a day after creating the account)',
+      'You can now transfer a single brute from an account to another. You need to have logged in to both accounts on the same device for it to work.',
+      'We are moving along the plan to disallow multiple accounts for a single user with all those changes. Very soon, users with multiple accounts will be banned on sight. To prevent that, please transfer the brutes you want to keep to a single account, and delete the other accounts. If you have been banned by mistake, please open an issue on Discord.',
+    ],
+    fixes: [
+      'Many fixes related to tiered perks',
+      'Prevent infinite fights with high deflection chances and low damage',
+      'Chaos day now only happens the first day of the month',
+      'Report button hidden for your own brutes'
+    ],
+  },
   {
     version: '2.83.10',
     date: '2025-11-19',
