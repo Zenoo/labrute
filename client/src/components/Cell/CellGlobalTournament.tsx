@@ -213,6 +213,7 @@ export const CellGlobalTournament = ({
               brute={fighterToBrute(fighter1)}
               looking="right"
               y={-3}
+              small
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
               && isWinner(fighter2, fight)
@@ -250,6 +251,7 @@ export const CellGlobalTournament = ({
               brute={fighterToBrute(fighter2)}
               looking="left"
               y={-3}
+              small
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
               && isWinner(fighter1, fight)

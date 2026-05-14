@@ -5,6 +5,7 @@ import { Gender } from '@labrute/prisma';
 import {
   FramePart, Symbol as LaBruteSymbol, Svg, Symbol460, Symbol752
 } from 'labrute-static-fla-parser';
+import { OutlineFilter } from '@pixi/filter-outline';
 import * as PIXI from 'pixi.js';
 import {
   Filter, Matrix, Texture
@@ -135,6 +136,11 @@ export class BruteDisplay {
     if (this.#looking === 'right') {
       this.container.scale.x = -1;
     }
+
+    // Apply black outline and subtle outer glow for Flash-era look
+    this.container.filters = [
+      new OutlineFilter(2, 0x000000),
+    ];
 
     // Display frame
     this.#usedSvgs = {};

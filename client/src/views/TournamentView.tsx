@@ -14,7 +14,9 @@ import { BruteRender } from '../components/Brute/Body/BruteRender';
 import { BruteTooltip } from '../components/Brute/BruteTooltip';
 import { FantasyButton } from '../components/FantasyButton';
 import { Page } from '../components/Page';
-import { StyledButtonHeight, StyledButtonWidth, StyledButton } from '../components/StyledButton';
+import {
+  StyledButtonHeight, StyledButtonWidth, StyledButton
+} from '../components/StyledButton';
 import { Text } from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
@@ -306,7 +308,7 @@ export const TournamentView = () => {
                             mr: 1,
                           }}
                           >
-                            {brute1 && <BruteRender brute={fighterToBrute(brute1)} />}
+                            {brute1 && <BruteRender brute={fighterToBrute(brute1)} small />}
                             {/* Lost indicator */}
                             {shouldResultDisplay
                               && isWinner(brute2, fight)
@@ -360,6 +362,7 @@ export const TournamentView = () => {
                               <BruteRender
                                 brute={fighterToBrute(brute2)}
                                 looking="left"
+                                small
                               />
                               {/* Lost indicator */}
                               {shouldResultDisplay

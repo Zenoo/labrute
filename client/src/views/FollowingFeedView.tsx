@@ -1,6 +1,10 @@
-import { LogGetForUserFeedResponse, skills, weapons } from '@labrute/core';
+import {
+  LogGetForUserFeedResponse, skills, weapons
+} from '@labrute/core';
 import { LogType } from '@labrute/prisma';
-import { Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip } from '@mui/material';
+import {
+  Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -67,14 +71,13 @@ export const FollowingFeedView = () => {
                   <Link
                     sx={{
                       width: 25,
-                      height: 25,
                       cursor: 'pointer',
-                      overflow: 'hidden',
                     }}
                     to={`/${b.name}/cell`}
                   >
                     <BruteRender
                       brute={b}
+                      small
                     />
                   </Link>
                 </Tooltip>

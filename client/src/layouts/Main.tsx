@@ -231,6 +231,7 @@ export const Main = () => {
                 >
                   <BruteRender
                     brute={b}
+                    small
                   />
                 </Link>
               </Badge>

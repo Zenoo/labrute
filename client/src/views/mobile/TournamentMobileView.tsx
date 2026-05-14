@@ -157,6 +157,7 @@ export const TournamentMobileView = ({
                                   colors: brute1.colors ?? ''
                                 }
                               }
+                                small
                               />
                             )}
                             {/* Lost indicator */}
@@ -213,6 +214,7 @@ export const TournamentMobileView = ({
                             <BruteRender
                               brute={fighterToBrute(brute2)}
                               looking="left"
+                              small
                             />
                             {/* Lost indicator */}
                             {shouldResultDisplay

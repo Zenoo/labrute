@@ -1,6 +1,8 @@
 import { BruteForRender } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
-import { Box, BoxProps } from '@mui/material';
+import {
+  Box, BoxProps, useTheme
+} from '@mui/material';
 import React, { forwardRef, useEffect } from 'react';
 import { useRenderer } from '../../../hooks/useRenderer';
 
@@ -9,6 +11,7 @@ interface BruteRenderProps extends BoxProps {
   looking?: 'left' | 'right';
   x?: number;
   y?: number;
+  small?: boolean;
 }
 
 export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
@@ -16,10 +19,12 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
   looking = 'right',
   x = 0,
   y = 0,
+  small,
   sx,
   ...rest
 }, ref) => {
   const renderer = useRenderer();
+  const theme = useTheme();
 
   const [src, setSrc] = React.useState<string | undefined>(undefined);
 
@@ -130,6 +135,7 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
         objectFit: 'cover',
         objectPosition: 'top center',
         ...sx,
+        filter: `drop-shadow(0 0 ${small ? 2 : 4}px ${theme.palette.divider}) ${(sx && 'filter' in sx) ? sx.filter ?? '' : ''}`,
       }}
       {...rest}
     />

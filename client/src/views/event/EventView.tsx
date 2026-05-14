@@ -1,9 +1,18 @@
-import { EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration, Fighter, formatLargeNumber, isWinner } from '@labrute/core';
-import { EventStatus, EventType, Gender } from '@labrute/prisma';
+import {
+  EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration,
+  Fighter, formatLargeNumber, isWinner
+} from '@labrute/core';
+import {
+  EventStatus, EventType, Gender
+} from '@labrute/prisma';
 import { Close, Groups } from '@mui/icons-material';
-import { Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme } from '@mui/material';
+import {
+  Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme
+} from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { BruteRender } from '../../components/Brute/Body/BruteRender';
@@ -195,6 +204,7 @@ export const EventView = () => {
               brute={fighterToBrute(fighter1)}
               looking="right"
               y={-3}
+              small
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
               && isWinner(fighter2, fight)
@@ -232,6 +242,7 @@ export const EventView = () => {
               brute={fighterToBrute(fighter2)}
               looking="left"
               y={-3}
+              small
             />
             {(!ownFight || watchingRound > fight.tournamentStep)
               && isWinner(fighter1, fight)
@@ -385,7 +396,7 @@ export const EventView = () => {
                   if (brute?.eventId !== data.event.id) {
                     return (
                       <Box
-                        // eslint-disable-next-line react/no-array-index-key
+
                         key={i}
                         sx={{
                           display: 'flex',
@@ -423,7 +434,7 @@ export const EventView = () => {
                     if (lost) {
                       return (
                         <Box
-                          // eslint-disable-next-line react/no-array-index-key
+
                           key={i}
                           sx={{
                             display: 'flex',
@@ -454,7 +465,7 @@ export const EventView = () => {
 
                     return (
                       <Box
-                        // eslint-disable-next-line react/no-array-index-key
+
                         key={i}
                         sx={{
                           display: 'flex',
@@ -737,7 +748,7 @@ export const EventView = () => {
               }}
             >
               {Array.from({ length: eventRules[data.event.type] }).map((_, i) => (
-                // eslint-disable-next-line react/no-array-index-key
+
                 <ListItem disablePadding key={i}>
                   <ListItemButton>
                     <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {

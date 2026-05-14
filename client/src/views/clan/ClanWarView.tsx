@@ -1,6 +1,10 @@
-import { ClanWarGetAvailableFightersResponse, ClanWarGetResponse, isWinner } from '@labrute/core';
+import {
+  ClanWarGetAvailableFightersResponse, ClanWarGetResponse, isWinner
+} from '@labrute/core';
 import { ClanWarStatus } from '@labrute/prisma';
-import { Box, Alert as MuiAlert, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Box, Alert as MuiAlert, Paper, Table, TableBody, TableCell, TableHead, TableRow
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';

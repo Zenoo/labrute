@@ -114,7 +114,7 @@ export const RankingView = () => {
         }}
         >
           <Box width={24} height={1}>
-            <BruteRender brute={b} y={-5} />
+            <BruteRender brute={b} y={-5} small />
           </Box>
           <Link to={`/${b.name}/cell`} sx={{ ml: 1 }}>
             <Text bold>{b.name}</Text>

@@ -1011,6 +1011,7 @@ export const ClanView = () => {
                           <Box width={40} height={45} mx={1}>
                             <BruteRender
                               brute={requester}
+                              small
                             />
                           </Box>
                           <Link to={`/${requester.name}/cell`}>

@@ -77,7 +77,6 @@ export const BruteButton = ({
         display: 'inline-block',
         textAlign: 'left',
         position: 'relative',
-        overflow: 'hidden',
       }}
       >
         <Box sx={{
@@ -156,22 +155,28 @@ export const BruteButton = ({
         )}
         <Box sx={{
           position: 'absolute',
-          top: 0,
-          left: 115,
-          width: 70,
-          height: 86,
+          top: -50,
+          height: 136,
+          width: '150%',
           overflow: 'hidden',
         }}
         >
-          <BruteRender
-            brute={brute}
-            looking="left"
-            sx={{
-              filter: selected
-                ? 'drop-shadow(0 0 2px rgb(255, 0, 255))'
-                : undefined,
-            }}
-          />
+          <Box sx={{
+            position: 'relative',
+            top: 40,
+            left: 105,
+            width: 70,
+          }}>
+            <BruteRender
+              brute={brute}
+              looking="left"
+              sx={{
+                filter: selected
+                  ? 'drop-shadow(0 0 2px rgb(255, 0, 255))'
+                  : undefined,
+              }}
+            />
+          </Box>
         </Box>
       </Box>
     </StyledButton>
