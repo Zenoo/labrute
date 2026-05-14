@@ -1,10 +1,16 @@
-import { Brute, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import {
+  Brute, DestinyChoiceType, PetName, SkillName, WeaponName
+} from '@labrute/prisma';
 import { keys, randomBetween } from '../utils';
 import { weightedRandom } from '../utils/weightedRandom';
-import { petList, pets } from './pets';
+import { petList } from './pets';
 import { skillList, skills } from './skills';
-import { MAX_LIMITED_WEAPONS, limitedWeapons, weaponList } from './weapons';
-import { getTieredPets, getTieredSkills, getTieredWeapons } from './calculatedBrute';
+import {
+  MAX_LIMITED_WEAPONS, limitedWeapons, weaponList
+} from './weapons';
+import {
+  getTieredPets, getTieredSkills, getTieredWeapons
+} from './calculatedBrute';
 
 const preventSomeBonuses = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
@@ -34,23 +40,50 @@ const preventSomeBonuses = (
           || !brutePets[PetName.dog2]
           || !!brutePets[PetName.dog3];
         break;
-      case 'panther':
-        // Allow for both panther and bear at a 1/1000 chance
-        preventPerk = (brutePets[PetName.panther] ?? 0) >= pets[PetName.panther].hp.length
-          || (randomBetween(1, 1000) > 1 ? !!brutePets[PetName.bear] : false);
+      case 'panther': {
+        const tier = brutePets[PetName.panther] ?? 0;
+        // Highest tier reached
+        if (tier >= 3) {
+          preventPerk = true;
+          break;
+        }
+
+        if (tier === 0) {
+          // Allow for both panther and bear at a 1/1000 chance
+          if (brutePets[PetName.bear] && randomBetween(1, 1000) <= 1) {
+            preventPerk = true;
+            break;
+          }
+        }
+
         break;
-      case 'bear':
-        // Allow for both panther and bear at a 1/1000 chance
-        preventPerk = (brutePets[PetName.bear] ?? 0) >= pets[PetName.bear].hp.length
-          || (randomBetween(1, 1000) > 1 ? !!brutePets[PetName.panther] : false);
+      }
+      case 'bear': {
+        const tier = brutePets[PetName.bear] ?? 0;
+        // Highest tier reached
+        if (tier >= 3) {
+          preventPerk = true;
+          break;
+        }
+
+        if (tier === 0) {
+          // Allow for both panther and bear at a 1/1000 chance
+          if (brutePets[PetName.panther] && randomBetween(1, 1000) <= 1) {
+            preventPerk = true;
+            break;
+          }
+        }
+
         break;
+      }
       default:
         break;
     }
   } else if (perkType === 'skill') {
     const bruteSkills = getTieredSkills({ ...brute, id: '' }, {});
     const selectedSkill = skills[perkName as SkillName];
-    const hasMaxSkill = (bruteSkills[perkName as SkillName] ?? 0) >= 3;
+    const tier = bruteSkills[perkName as SkillName] ?? 0;
+    const hasMaxSkill = tier >= 3;
     if (hasMaxSkill) {
       preventPerk = true;
     } else if (selectedSkill?.type === 'booster') {
@@ -60,33 +93,36 @@ const preventSomeBonuses = (
         (skill) => boosters.find((booster) => booster.name === skill),
       );
 
-      switch (gottenBoosters.length) {
-        case 0:
-          preventPerk = false;
-          break;
-        case 1:
-          // 5% chance of getting a second booster
-          preventPerk = randomBetween(1, 100) < 95;
-          break;
-        case 2:
-          // 2% chance of getting a third booster
-          preventPerk = randomBetween(1, 100) < 98;
-          break;
-        case 3:
-          // 0.1% chance of getting a fourth booster
-          preventPerk = randomBetween(1, 1000) < 999;
-          break;
-        case 4:
-          // 0.1% chance of getting a fifth booster
-          preventPerk = randomBetween(1, 1000) < 999;
-          break;
-        case 5:
-          // 0.1% chance of getting a sixth booster
-          preventPerk = randomBetween(1, 1000) < 999;
-          break;
-        default:
-          preventPerk = false;
-          break;
+      // Only decrease booster chances for T1 unlocks. T2 and T3 will unlock as normal
+      if (tier === 0) {
+        switch (gottenBoosters.length) {
+          case 0:
+            preventPerk = false;
+            break;
+          case 1:
+            // 5% chance of getting a second booster
+            preventPerk = randomBetween(1, 100) < 95;
+            break;
+          case 2:
+            // 2% chance of getting a third booster
+            preventPerk = randomBetween(1, 100) < 98;
+            break;
+          case 3:
+            // 0.1% chance of getting a fourth booster
+            preventPerk = randomBetween(1, 1000) < 999;
+            break;
+          case 4:
+            // 0.1% chance of getting a fifth booster
+            preventPerk = randomBetween(1, 1000) < 999;
+            break;
+          case 5:
+            // 0.1% chance of getting a sixth booster
+            preventPerk = randomBetween(1, 1000) < 999;
+            break;
+          default:
+            preventPerk = false;
+            break;
+        }
       }
     } else {
       preventPerk = false;
