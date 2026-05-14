@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.93.0](https://github.com/Zenoo/labrute/compare/labrute-v2.92.2...labrute-v2.93.0) (2026-05-14)
+
+
+### Features
+
+* ClanRoles ([#1202](https://github.com/Zenoo/labrute/issues/1202)) ([2d38b58](https://github.com/Zenoo/labrute/commit/2d38b580f8c109f92164b79538eff0684c608e57))
+* Completely remove the endurance notion from the game ([4389d49](https://github.com/Zenoo/labrute/commit/4389d49417d6fd3959c9f28ad7a527e4cb59329f))
+* Display skills in fights + Mimic as a super ([7d9a049](https://github.com/Zenoo/labrute/commit/7d9a049cb18f4560e80805e08e9f7de06b1488ac))
+* New skills: Mimic, Sticky Hands, Deity (still missing icons) ([d2dc993](https://github.com/Zenoo/labrute/commit/d2dc99357fcf7fcace75510b53faa32761b21e09))
+
+
+### Bug Fixes
+
+* [#198](https://github.com/Zenoo/labrute/issues/198) Split the translation files to improve loading times ([#1268](https://github.com/Zenoo/labrute/issues/1268)) ([d8756da](https://github.com/Zenoo/labrute/commit/d8756dacf8ac170daf9e0e2f41426b55e8a2ce52))
+* Add XP bar to profile + hall ([45bf73e](https://github.com/Zenoo/labrute/commit/45bf73e2860543060e226a5df79811b1a0b4687a))
+* Allow fighter size scaling + fix misplaced pet limbs ([2e25eae](https://github.com/Zenoo/labrute/commit/2e25eae9ffdbf7496205e7a9c4bdeace8f5bd596))
+* Backup not working at tier 3 ([85fa6b8](https://github.com/Zenoo/labrute/commit/85fa6b89472fce2ad657df08f68b28f48c07ceec))
+* Brute renders with border & shadow ([37f622e](https://github.com/Zenoo/labrute/commit/37f622e34a23fa4fd269fa47202a1813ed07aa0d))
+* Deity icon ([1811de1](https://github.com/Zenoo/labrute/commit/1811de193d0934b124faaa619c1d80c5e4340766))
+* Display pet malus on level up ([62beef5](https://github.com/Zenoo/labrute/commit/62beef54d5981ad6a112094e98357f05b8166b1e))
+* Don't decrease perk unlock chance for T2/T3 ([b021117](https://github.com/Zenoo/labrute/commit/b021117f4b5d68547c0fc7a9d19c066a038a7b7f))
+* Error message when server isn't available + Spy visual bug ([b61cee3](https://github.com/Zenoo/labrute/commit/b61cee3fcfbf0bd95088d437309af128d5028286))
+* Handle random/ascended perks display better ([06333df](https://github.com/Zenoo/labrute/commit/06333df8f157397dc5e2ea0359832609108e2ec8))
+* High res brutes ([43d6f7f](https://github.com/Zenoo/labrute/commit/43d6f7fac88456689163acfd18d71644b9eee4e4))
+* Ignore perk upgrades when checking for achievements ([436c195](https://github.com/Zenoo/labrute/commit/436c195901f623b090e7109e761919f7d7d2e9d3))
+* Migrate core package to ESM ([743e7a0](https://github.com/Zenoo/labrute/commit/743e7a0fb94fa444e77c080340f1e48655f952dc))
+* Missing modifiers on oauth ([c10f45c](https://github.com/Zenoo/labrute/commit/c10f45c54e5736728b652ecfa8aafdaf8d68e121))
+* Release notes ([f137551](https://github.com/Zenoo/labrute/commit/f1375510539577800d2259dcd3c050775a77e901))
+* Remove unused translation ([0df4a31](https://github.com/Zenoo/labrute/commit/0df4a3138d2e0f14ae363789a1cfae28119b7828))
+* Rework weapons/skills handling in fights ([eb4aed5](https://github.com/Zenoo/labrute/commit/eb4aed52aaeb349d9e7652051cbd24b7e1783add))
+* Scale fighter speed based on size ([2d636b6](https://github.com/Zenoo/labrute/commit/2d636b64ce5b200ca6b5c2795c1449b73977efee))
+* Unlimited global tournament unaccessible in history ([93ae867](https://github.com/Zenoo/labrute/commit/93ae8674e853264a01eb6a1e1519cc45a4db70ad))
+* Update brute HP based on pet malus when migrating ([f042021](https://github.com/Zenoo/labrute/commit/f04202129923a6148596a0bc4879bb6f78dbd294))
+* Update crowdin config ([2a0b0d6](https://github.com/Zenoo/labrute/commit/2a0b0d6d19242b71a26cb583257b91c460b5e869))
+* Update crowdin config ([869bc66](https://github.com/Zenoo/labrute/commit/869bc660cd0b145cb3fafc46d5fb3e63191f1544))
+* Update crowdin config ([4b3c2d6](https://github.com/Zenoo/labrute/commit/4b3c2d67b3bdd879356f38a04a9ea67445da246c))
+* Update eslint ([6d4eca4](https://github.com/Zenoo/labrute/commit/6d4eca492b32be5412c34f727cc36ae8dd0812c8))
+* Update eslint to v10 ([a08c8ba](https://github.com/Zenoo/labrute/commit/a08c8ba401fd3ac7fae5b10f37e4259fb22e3574))
+* Use SVG filters for cell performance ([5509ad6](https://github.com/Zenoo/labrute/commit/5509ad66ddcbda521a130eba8ab887907f62e29c))
+* Warn madmen ([b08c874](https://github.com/Zenoo/labrute/commit/b08c874186cd5ec19a6109a069d90a8f9117aae0))
+
 ## [2.92.2](https://github.com/Zenoo/labrute/compare/labrute-v2.92.1...labrute-v2.92.2) (2026-05-05)
 
 
