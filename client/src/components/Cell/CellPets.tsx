@@ -3,8 +3,8 @@ import { PetName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, { useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
-import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
 import { PetTooltip } from '../Brute/PetTooltip';
+import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
 
 export const CellPets = ({
   sx,
@@ -22,23 +22,21 @@ export const CellPets = ({
   const [hoveredPetTier, setHoveredPetTier] = useState<number>();
 
   const getFilter = (pet: PetName, tier?: number) => {
-    const baseShadow = 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))';
-    let filter = baseShadow;
+    const filters = ['url(#pet-border)'];
 
     // Add tier border if tier > 1
     if (tier && tier > 1) {
-      const color = TieredPerkColor[tier] ?? '';
-      filter += ` drop-shadow(0 -1px 0 ${color}) drop-shadow(1px 0 0 ${color}) drop-shadow(0 1px 0 ${color}) drop-shadow(-1px 0 0 ${color}) drop-shadow(0.7px -0.7px 0 ${color}) drop-shadow(0.7px 0.7px 0 ${color}) drop-shadow(-0.7px 0.7px 0 ${color}) drop-shadow(-0.7px -0.7px 0 ${color})`;
+      filters.push(`url(#tier-${tier}-border)`);
     }
 
     // Add ascended glow if ascended (can stack with tier border)
     if (brute?.ascendedPets.includes(pet)
       || selectedPet === pet
       || (hoverSelectAscend && hoveredPet === pet)) {
-      filter += ` drop-shadow(0 0 3px ${PerkColor.Ascended}) drop-shadow(0 0 6px ${PerkColor.Ascended})`;
+      filters.push('url(#ascended-glow)');
     }
 
-    return filter;
+    return filters.join(' ');
   };
 
   const hoverPet = (pet: PetName, tier?: number) => () => {
@@ -67,8 +65,8 @@ export const CellPets = ({
       open={hoveredPet !== null}
     >
       <Box sx={{ textAlign: 'center', ...sx }} {...rest}>
-        <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="201.15px" width="271.55px" xmlns="http://www.w3.org/2000/svg">
-          <g transform="matrix(1.0, 0.0, 0.0, 1.0, -24.0, 208.15)">
+        <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="210px" width="290px" xmlns="http://www.w3.org/2000/svg">
+          <g transform="matrix(1.0, 0.0, 0.0, 1.0, -24.0, 218.15)">
             {brute.pets[PetName.dog1] && (
               <use onMouseEnter={hoverPet(PetName.dog1, brute.pets[PetName.dog1])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 33.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1, brute.pets[PetName.dog1]) }} />
             )}
@@ -86,6 +84,49 @@ export const CellPets = ({
             )}
           </g>
           <defs>
+            {/* Black border for all pets */}
+            <filter id="pet-border" x="-20%" y="-20%" width="140%" height="140%">
+              <feMorphology operator="dilate" radius="1.5" in="SourceAlpha" result="expanded" />
+              <feFlood floodColor="#000" result="black" />
+              <feComposite in="black" in2="expanded" operator="in" result="border" />
+              <feMerge>
+                <feMergeNode in="border" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            {/* Tier 2 border (orange) */}
+            <filter id="tier-2-border" x="-20%" y="-20%" width="140%" height="140%">
+              <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="expanded" />
+              <feFlood floodColor={TieredPerkColor[2]} result="color" />
+              <feComposite in="color" in2="expanded" operator="in" result="border" />
+              <feMerge>
+                <feMergeNode in="border" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            {/* Tier 3 border (red) */}
+            <filter id="tier-3-border" x="-20%" y="-20%" width="140%" height="140%">
+              <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="expanded" />
+              <feFlood floodColor={TieredPerkColor[3]} result="color" />
+              <feComposite in="color" in2="expanded" operator="in" result="border" />
+              <feMerge>
+                <feMergeNode in="border" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            {/* Ascended glow (orange) */}
+            <filter id="ascended-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur1" />
+              <feFlood floodColor={PerkColor.Ascended} result="color" />
+              <feComposite in="color" in2="blur1" operator="in" result="glow1" />
+              <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur2" />
+              <feComposite in="color" in2="blur2" operator="in" result="glow2" />
+              <feMerge>
+                <feMergeNode in="glow2" />
+                <feMergeNode in="glow1" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
             <g id="pets-sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, -27.2, 59.2)">
               <use height="9.75" transform="matrix(1.0, 0.0, 0.0, 1.0, 27.2, 34.4)" width="67.45" xlinkHref="#pets-shape0" />
               <use height="103.25" transform="matrix(1.0, 0.0, 0.0, 1.0, 27.7, -59.2)" width="72.0" xlinkHref="#pets-sprite1" />

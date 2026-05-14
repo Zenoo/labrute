@@ -54,17 +54,17 @@ const getRotationAngle = (transform: string): number => {
   return Math.atan2(b, a);
 };
 
-const getRotatedShadow = (transform: string, color: string = 'rgba(0, 0, 0, .3)', blur: number = 0): string => {
+const getRotatedShadow = (transform: string): string => {
   const angle = getRotationAngle(transform);
   const offsetX = 4;
   const offsetY = 4;
 
-  // Counter-rotate the shadow offset by negative angle to maintain consistent direction relative to weapon
+  // Counter-rotate the shadow offset by negative angle to maintain consistent direction relative to screen
   // CSS filters are applied in screen space AFTER transforms, so we need to pre-compensate
   const rotatedX = offsetX * Math.cos(-angle) - offsetY * Math.sin(-angle);
   const rotatedY = offsetX * Math.sin(-angle) + offsetY * Math.cos(-angle);
 
-  return `drop-shadow(${rotatedX.toFixed(2)}px ${rotatedY.toFixed(2)}px ${blur}rem ${color})`;
+  return `drop-shadow(${rotatedX.toFixed(2)}px ${rotatedY.toFixed(2)}px 0 rgba(0, 0, 0, 0.3))`;
 };
 
 export const CellWeapons = (
@@ -110,29 +110,25 @@ export const CellWeapons = (
   const getFilter = (weapon: WeaponName, tier?: number) => {
     const { transform } = weaponSvgProps[weapon];
     const baseShadow = getRotatedShadow(transform);
-    let filter = baseShadow;
+    const filters = ['url(#weapon-border)', baseShadow];
 
     if (randomWeapon === weapon) {
       // Add smaller border for random weapon
-      const color = PerkColor.Random;
-      filter += ` drop-shadow(0 -0.5px 0 ${color}) drop-shadow(0.5px 0 0 ${color}) drop-shadow(0 0.5px 0 ${color}) drop-shadow(-0.5px 0 0 ${color}) drop-shadow(0.35px -0.35px 0 ${color}) drop-shadow(0.35px 0.35px 0 ${color}) drop-shadow(-0.35px 0.35px 0 ${color}) drop-shadow(-0.35px -0.35px 0 ${color})`;
-      return filter;
+      filters.push('url(#random-weapon-border)');
+      return filters.join(' ');
     }
 
     // Add tier border if tier > 1
     if (tier && tier > 1) {
-      const color = TieredPerkColor[tier] ?? '';
-      // Create a colored border effect using multiple drop-shadows in all directions
-      filter += ` drop-shadow(0 -1px 0 ${color}) drop-shadow(1px 0 0 ${color}) drop-shadow(0 1px 0 ${color}) drop-shadow(-1px 0 0 ${color}) drop-shadow(0.7px -0.7px 0 ${color}) drop-shadow(0.7px 0.7px 0 ${color}) drop-shadow(-0.7px 0.7px 0 ${color}) drop-shadow(-0.7px -0.7px 0 ${color})`;
+      filters.push(`url(#weapon-tier-${tier}-border)`);
     }
 
     // Add electric glow for ascended weapons
     if (isAscended(weapon)) {
-      const color = PerkColor.Ascended;
-      filter += ` drop-shadow(0 0 3px ${color}) drop-shadow(0 0 6px ${color})`;
+      filters.push('url(#weapon-ascended-glow)');
     }
 
-    return filter;
+    return filters.join(' ');
   };
 
   const onWeaponClick = (clicked: WeaponName | 'bare-hands' | null) => () => {
@@ -171,6 +167,59 @@ export const CellWeapons = (
           <path d="M211.35 3.85 L248.35 3.4 256.45 4.35 Q263.45 5.55 275.2 6.35 M236.3 32.15 L242.2 32.55 245.8 32.3 250.25 31.75 M188.95 28.35 Q192.2 26.2 204.8 24.2 215.65 22.45 220.65 22.45 L246.55 24.35 270.55 26.25 280.4 25.85 Q290.8 25.4 296.75 25.4 M246.45 97.65 L257.85 97.65 263.45 98.65 269.25 99.35 275.45 98.75 281.3 98.1 283.65 98.35 286.2 98.95 M240.95 74.4 L255.1 74.0 261.8 74.65 266.5 75.25 275.95 74.4 286.6 73.55 289.3 74.2 292.1 74.85 M260.0 53.25 L280.05 53.4 Q290.55 53.5 295.05 53.25 M135.25 108.65 L152.5 106.35 Q165.7 104.05 172.85 100.7 178.6 98.05 179.95 97.65 184.15 96.4 191.7 96.4 L195.8 96.5 Q200.45 96.85 203.75 98.1 M88.75 74.0 L127.2 73.55 Q136.25 73.55 149.65 75.25 L152.5 75.6 171.4 76.95 197.6 75.25 226.15 73.55 M97.2 50.75 L119.8 49.45 Q130.9 49.45 143.05 51.15 L152.5 52.2 171.2 52.85 185.2 52.1 198.7 51.6 M209.65 65.55 L220.25 65.0 249.0 63.4 M58.75 17.35 L81.2 15.75 102.9 14.8 Q106.25 14.8 132.4 19.9 158.5 24.95 160.85 24.95 166.65 24.95 176.3 22.25 192.15 17.85 202.9 15.65 M215.6 139.95 L229.9 138.25 241.55 137.4 Q245.75 137.4 249.85 138.7 253.95 139.95 257.85 139.95 L264.6 139.1 272.25 138.25 M207.15 110.35 L215.3 107.75 227.0 106.95 Q234.2 107.25 255.1 106.55 L261.8 106.8 272.25 107.4 M162.3 112.45 Q163.2 115.1 170.4 117.55 179.0 120.5 190.85 120.5 195.3 120.5 203.9 118.55 211.75 116.8 216.45 115.0 221.05 113.25 228.7 112.65 L246.45 111.2 M196.55 102.6 L194.7 102.6 Q189.7 102.55 181.55 106.1 173.45 109.55 173.45 111.5 173.45 112.35 177.45 113.2 L185.0 114.0 Q193.7 114.0 199.05 112.1 M164.0 143.3 Q176.0 140.35 176.7 140.35 L176.7 139.5 170.95 139.75 163.6 139.95 M79.45 202.05 Q89.75 198.85 107.8 197.6 122.95 196.6 151.3 196.6 L163.8 197.4 182.0 195.45 198.7 193.2 M193.6 157.25 Q209.15 153.9 222.55 153.9 227.25 153.9 242.5 156.4 L259.55 158.95 278.15 159.05 299.3 158.95 M195.7 188.55 L207.15 187.7 Q216.4 187.3 222.75 187.3 L229.65 187.55 240.55 188.1 M92.15 145.0 L111.95 142.95 125.75 142.05 Q132.85 142.05 142.75 145.65 147.65 147.45 152.5 148.35 L162.3 149.25 Q171.5 149.25 201.65 143.75 M248.55 192.75 L265.9 192.75 M285.05 192.75 L290.45 192.5 Q293.85 192.0 300.15 192.75 M240.75 181.2 L271.3 178.95 291.75 180.4 299.55 180.3 M287.45 152.6 L291.1 152.4 296.35 152.2 M276.05 120.05 Q283.65 119.65 297.6 119.65 M92.15 19.45 L86.65 19.45 82.3 20.3 77.35 21.15 77.15 21.2 76.95 22.0 Q76.95 22.95 81.6 24.1 86.75 25.4 92.55 25.4 L99.65 24.55 104.85 23.25 104.85 22.0 101.9 21.45 95.95 21.15 M-0.85 53.7 L23.0 52.85 48.4 55.4 Q71.15 57.9 81.35 57.9 L100.7 56.5 Q113.35 55.4 117.95 56.65 M-3.8 10.15 L-3.8 9.3 Q18.0 6.7 57.9 5.9 77.4 5.5 113.9 5.5 139.5 5.5 146.7 5.65 166.9 6.15 178.8 8.05 M91.3 30.9 Q79.55 31.0 68.85 28.65 57.9 26.25 43.7 26.25 L18.6 27.5 M-2.55 80.75 L-3.0 80.75 -3.0 79.9 -0.85 79.9 7.4 82.0 19.0 82.85 43.05 82.05 72.25 80.75 M0.0 104.0 L24.4 105.3 63.8 106.55 79.1 106.8 Q95.25 106.9 103.15 106.1 L122.8 103.45 Q133.4 101.9 138.85 101.9 L143.05 102.15 148.35 102.75 M-1.25 127.7 L4.8 127.3 Q12.15 126.85 21.6 126.85 M52.0 180.1 L48.05 179.5 45.0 179.25 Q37.7 179.25 32.45 181.05 30.05 181.9 24.8 184.75 20.5 187.15 16.85 187.85 11.45 188.85 3.35 187.7 M12.65 196.15 L16.9 196.15 Q29.05 200.2 37.2 201.25 M73.55 184.3 L63.4 184.3 42.5 186.35 Q34.25 187.7 34.25 190.25 34.25 192.2 43.95 193.6 L63.35 194.9 Q73.75 194.9 75.65 194.7 80.25 194.2 87.9 191.5 L88.75 190.65 Q79.95 190.0 56.2 190.65 M64.25 179.25 L70.85 178.65 80.95 178.0 Q88.5 178.0 93.55 179.45 95.9 180.15 101.3 182.65 111.25 187.3 128.05 187.3 L147.0 186.35 189.8 183.45 M54.1 119.65 L83.55 119.25 Q102.6 118.8 111.6 118.8 M139.5 157.7 L152.5 157.05 160.65 156.85" fill="none" stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.5" strokeWidth="0.5" />
         </g>
         <defs>
+          {/* Black border for all weapons */}
+          <filter id="weapon-border" x="-20%" y="-20%" width="140%" height="140%">
+            <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="expanded" />
+            <feFlood floodColor="#000" result="black" />
+            <feComposite in="black" in2="expanded" operator="in" result="border" />
+            <feMerge>
+              <feMergeNode in="border" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Random weapon border (smaller, blue) */}
+          <filter id="random-weapon-border" x="-20%" y="-20%" width="140%" height="140%">
+            <feMorphology operator="dilate" radius="0.5" in="SourceAlpha" result="expanded" />
+            <feFlood floodColor={PerkColor.Random} result="color" />
+            <feComposite in="color" in2="expanded" operator="in" result="border" />
+            <feMerge>
+              <feMergeNode in="border" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Tier 2 border (orange) */}
+          <filter id="weapon-tier-2-border" x="-20%" y="-20%" width="140%" height="140%">
+            <feMorphology operator="dilate" radius="1.5" in="SourceAlpha" result="expanded" />
+            <feFlood floodColor={TieredPerkColor[2]} result="color" />
+            <feComposite in="color" in2="expanded" operator="in" result="border" />
+            <feMerge>
+              <feMergeNode in="border" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Tier 3 border (red) */}
+          <filter id="weapon-tier-3-border" x="-20%" y="-20%" width="140%" height="140%">
+            <feMorphology operator="dilate" radius="1.5" in="SourceAlpha" result="expanded" />
+            <feFlood floodColor={TieredPerkColor[3]} result="color" />
+            <feComposite in="color" in2="expanded" operator="in" result="border" />
+            <feMerge>
+              <feMergeNode in="border" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Ascended glow (orange) */}
+          <filter id="weapon-ascended-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur1" />
+            <feFlood floodColor={PerkColor.Ascended} result="color" />
+            <feComposite in="color" in2="blur1" operator="in" result="glow1" />
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur2" />
+            <feComposite in="color" in2="blur2" operator="in" result="glow2" />
+            <feMerge>
+              <feMergeNode in="glow2" />
+              <feMergeNode in="glow1" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
           <g id="sprite0" transform="matrix(1.0, 0.0, 0.0, 1.0, 155.45, 104.95)">
             <use height="209.9" transform="matrix(1.0, 0.0, 0.0, 1.0, -155.45, -104.95)" width="310.9" xlinkHref="#shape0" />
           </g>
@@ -189,10 +238,7 @@ export const CellWeapons = (
           <use height="198.65" transform="matrix(1.0, 0.0, 0.0, 1.0, -3.8, 3.4)" width="303.95" xlinkHref="#shape2" />
           <g
             transform="matrix(0.25, 0, 0, 0.25, 2.2, 178)"
-            style={{
-              WebkitFilter: 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))',
-              filter: 'drop-shadow( 4px 4px 0 rgba(0, 0, 0, .3))',
-            }}
+            style={{ filter: 'drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.3))' }}
           >
             <use
               height="30"
@@ -208,10 +254,7 @@ export const CellWeapons = (
               <g
                 key={weapon}
                 transform={weaponSvgProps[weapon].transform}
-                style={{
-                  WebkitFilter: filter,
-                  filter,
-                }}
+                style={{ filter }}
               >
                 <use
                   id={weaponSvgProps[weapon].id}
@@ -227,15 +270,11 @@ export const CellWeapons = (
           })}
           {unownedWeapons.map((weapon) => {
             if (weapon === randomWeapon) return null;
-            const filter = getRotatedShadow(weaponSvgProps[weapon].transform);
             return (
               <g
                 key={weapon}
                 transform={weaponSvgProps[weapon].transform}
-                style={{
-                  WebkitFilter: filter,
-                  filter,
-                }}
+                style={{ filter: getFilter(weapon, 0) }}
               >
                 <use
                   id={weaponSvgProps[weapon].id}
@@ -244,7 +283,7 @@ export const CellWeapons = (
                   xlinkHref={weaponSvgProps[weapon].xlinkHref}
                   onMouseEnter={hoverWeapon(weapon)}
                   onMouseLeave={leaveWeapon}
-                  opacity="0.2"
+                  opacity="0.1"
                 />
               </g>
             );
@@ -879,6 +918,7 @@ export const CellWeapons = (
           <g
             transform="translate(59.381756,87.045097)"
             id="bare-hands"
+            style={{ filter: 'url(#weapon-border)' }}
           >
             <g
               id="use8"
