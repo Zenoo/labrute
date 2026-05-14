@@ -821,6 +821,7 @@ export const Brutes = {
           opponents: {
             select: {
               id: true,
+              xp: true,
               name: true,
               ranking: true,
               level: true,

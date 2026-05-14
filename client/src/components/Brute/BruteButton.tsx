@@ -1,8 +1,12 @@
-import { CalculatedBrute, FightStat } from '@labrute/core';
+import {
+  CalculatedBrute, FightStat, getXPNeeded
+} from '@labrute/core';
 import { User } from '@labrute/prisma';
-import { Box, Divider } from '@mui/material';
+import {
+  Box, Divider, Tooltip
+} from '@mui/material';
 import { BoxProps } from '@mui/system';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ActivityStatus } from '../ActivityStatus';
@@ -16,16 +20,18 @@ import { BruteSmallSkillList } from './BruteSmallSkillList';
 import { BruteSmallPetList } from './BruteSmallPetList';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
-  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
+  brute: Pick<CalculatedBrute, 'id' | 'xp' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
   link?: string;
   displayDetails?: false;
+  xp?: boolean;
   owner?: Pick<User, 'lastSeen'>;
   shiftMargin?: boolean;
   selected?: boolean;
 } | {
-  brute: Pick<CalculatedBrute, 'id' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
+  brute: Pick<CalculatedBrute, 'id' | 'xp' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'weapons' | 'pets' | 'eventId'>;
   link?: string;
   displayDetails: true;
+  xp?: boolean;
   owner?: Pick<User, 'lastSeen'>;
   shiftMargin?: boolean;
   selected?: boolean;
@@ -38,11 +44,18 @@ export const BruteButton = ({
   owner,
   shiftMargin = false,
   selected = false,
+  xp = false,
   sx,
   ...rest
 }: BruteButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute.level]);
+  const limitedXP = useMemo(() => Math.min(
+    brute.xp,
+    xpNeededForNextLevel,
+  ), [brute.xp, xpNeededForNextLevel]);
 
   const goTo = () => {
     if (!link) return;
@@ -116,7 +129,29 @@ export const BruteButton = ({
           )}
         </Text>
         <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-          <BruteHP hp={brute.hpValue} />
+          <Box sx={{
+            display: 'flex',
+            height: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 0.5,
+          }}>
+            {/* LEVEL BAR */}
+            {xp && (
+              <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
+                <Box sx={{ bgcolor: 'divider', p: '2px', width: 40 }}>
+                  <Box sx={{
+                    bgcolor: 'level',
+                    height: 3,
+                    width: Math.max(0, limitedXP) / xpNeededForNextLevel,
+                  }}
+                  />
+                </Box>
+              </Tooltip>
+            )}
+            <BruteHP hp={brute.hpValue} />
+          </Box>
           <Box flexGrow={1} sx={{ ml: 0.5 }}>
             <ArenaStat
               stat={FightStat.STRENGTH}
@@ -156,15 +191,16 @@ export const BruteButton = ({
         <Box sx={{
           position: 'absolute',
           top: -50,
+          left: 100,
           height: 136,
-          width: '150%',
+          width: 150,
           overflow: 'hidden',
         }}
         >
           <Box sx={{
             position: 'relative',
             top: 40,
-            left: 105,
+            left: 15,
             width: 70,
           }}>
             <BruteRender

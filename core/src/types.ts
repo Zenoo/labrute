@@ -560,7 +560,7 @@ export type BrutesGetRankingResponse = {
 };
 export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
 export type BrutesGetOpponentsResponse = Pick<Brute,
-  'id' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' |
+  'id' | 'xp' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' |
   'hpStat' |
   'hpModifier' |
   'hpValue' |
@@ -737,6 +737,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   brutes: Pick<
     Brute,
     'id' |
+    'xp' |
     'name' |
     'gender' |
     'level' |

@@ -404,6 +404,7 @@ export const Users = {
           brutes: {
             select: {
               id: true,
+              xp: true,
               name: true,
               gender: true,
               level: true,

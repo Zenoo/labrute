@@ -1,5 +1,6 @@
 import {
-  CalculatedBrute, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft
+  CalculatedBrute, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft,
+  getXPNeeded
 } from '@labrute/core';
 import {
   Check, CrisisAlert, Stars
@@ -93,6 +94,11 @@ export const HallView = () => {
       >
         {user && user.brutes.map((brute) => {
           const bruteFightsLeft = getFightsLeft(brute);
+          const xpNeededForNextLevel = getXPNeeded(brute.level + 1);
+          const limitedXP = Math.min(
+            brute.xp,
+            xpNeededForNextLevel,
+          );
 
           return (
             <StyledButton
@@ -185,7 +191,27 @@ export const HallView = () => {
                   )}
                 </Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
-                  <BruteHP hp={brute.hpValue} />
+                  <Box sx={{
+                    display: 'flex',
+                    height: 1,
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 0.5,
+                  }}>
+                    {/* LEVEL BAR */}
+                    <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
+                      <Box sx={{ bgcolor: 'divider', p: '2px', width: 40 }}>
+                        <Box sx={{
+                          bgcolor: 'level',
+                          height: 3,
+                          width: Math.max(0, limitedXP) / xpNeededForNextLevel,
+                        }}
+                        />
+                      </Box>
+                    </Tooltip>
+                    <BruteHP hp={brute.hpValue} />
+                  </Box>
                   <Box flexGrow={1} sx={{ ml: 0.5 }}>
                     <ArenaStat
                       stat={FightStat.STRENGTH}
@@ -207,6 +233,7 @@ export const HallView = () => {
                 <Box sx={{
                   position: 'absolute',
                   top: -44,
+                  left: 100,
                   height: 136,
                   width: '150%',
                   overflow: 'hidden',
@@ -215,7 +242,7 @@ export const HallView = () => {
                   <Box sx={{
                     position: 'relative',
                     top: 40,
-                    left: 105,
+                    left: 15,
                     width: 70,
                   }}>
                     <BruteRender

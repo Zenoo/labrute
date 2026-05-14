@@ -47,6 +47,7 @@ export const getOpponents = async (
       },
       select: {
         id: true,
+        xp: true,
         name: true,
         ranking: true,
         gender: true,
