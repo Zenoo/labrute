@@ -69,7 +69,7 @@ export const updateSkills = (
   if (!app.loader) {
     return;
   }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+  const spritesheet = app.loader.resources['/images/game/skills.json']?.spritesheet;
 
   if (!spritesheet) {
     throw new Error('Skills spritesheet not found');

@@ -231,7 +231,8 @@ export const FightComponent = ({
 
     app.loader
       .add('/images/game/thrown-weapons.json')
-      .add('/images/game/misc.json');
+      .add('/images/game/misc.json')
+      .add('/images/game/skills.json');
 
     // Add background music, no sprites
     sound.add('background', '/sfx/background.mp3');
