@@ -27,7 +27,7 @@ export enum LogLevel {
 /**
  * Log record written by loggers
  */
-export interface LogRecord {
+export type LogRecord = {
   level: LogLevel,
   message: string,
   time: Date,
@@ -57,7 +57,7 @@ export function formatLogRecord(record: Readonly<LogRecord>, shortTime: boolean)
  * This is not intended to be used directly: pass it to a `Logger` constructor
  * for a more convenient interface.
  */
-export interface LogHandler {
+export type LogHandler = {
   /**
    * Emit a log record.
    */

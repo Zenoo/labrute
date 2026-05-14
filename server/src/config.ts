@@ -7,7 +7,7 @@ import Cryptr from 'cryptr';
  *
  * The Eternaltwin client is used for authentication and logs.
  */
-export interface EternaltwinConfig {
+export type EternaltwinConfig = {
   /**
    * Absolute URL to the Eternaltwin root.
    */
@@ -50,7 +50,7 @@ export interface EternaltwinConfig {
  *
  * The discord client is used for logs and notifcations.
  */
-export interface DiscordConfig {
+export type DiscordConfig = {
   /**
    * Discord webhook id
    */
@@ -65,7 +65,7 @@ export interface DiscordConfig {
 /**
  * Server configuration
  */
-export interface Config {
+export type Config = {
   /**
    * Boolean indicating if the server should run in production mode.
    */

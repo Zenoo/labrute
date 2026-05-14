@@ -28,7 +28,7 @@ export type BruteRanking = typeof BruteRankings[number];
 
 export const GLOBAL_TOURNAMENT_START_HOUR = 6;
 
-export interface Perk {
+export type Perk = {
   name: 'pet' | 'skill' | 'weapon';
   odds: number;
 }

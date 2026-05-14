@@ -3,13 +3,13 @@ import { Lang } from '@labrute/prisma';
 
 export type AdName = 'myHordes' | 'eMush' | 'dinorpg' | 'neoparc' | 'eternalfest' | 'eternalKingdom' | 'directquiz' | 'ePopotamo';
 
-export interface AdResult {
+export type AdResult = {
   name: AdName;
   illustration: string;
   url: string;
 }
 
-interface AdProps {
+type AdProps = {
   url: string;
   illustrations: Record<Lang, string[]>;
 }

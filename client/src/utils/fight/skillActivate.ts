@@ -14,6 +14,64 @@ import { AnimationFighter, findFighter } from './utils/findFighter';
 import { repositionFighters } from './utils/repositionFighters';
 import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
+import { updateSkills } from './updateSkills';
+
+
+export const skillUse = (
+  app: Application,
+  brute: AnimationFighter,
+  skillId: SkillId,
+  speed: React.MutableRefObject<number>,
+) => {
+  const skillSprite = brute.teamSkillsIllustrations.find(
+    (illustration) => illustration.name === skillId.toString()
+  );
+  if (!skillSprite) {
+    console.error('Skill sprite not found for skill', skillId);
+    return;
+  }
+
+  // Create a 3x copy of the skill sprite
+  const skillCopy = new Sprite(skillSprite.texture);
+  skillCopy.scale.x = skillSprite.scale.x * 3;
+  skillCopy.scale.y = skillSprite.scale.y * 3;
+  skillCopy.filters = skillSprite.filters;
+  skillCopy.zIndex = 1000;
+
+  // Center it on the original skill sprite
+  const originalWidth = skillSprite.width;
+  const originalHeight = skillSprite.height;
+  const copyWidth = originalWidth * 3;
+  const copyHeight = originalHeight * 3;
+
+  skillCopy.x = skillSprite.x - (copyWidth - originalWidth) / 2;
+  skillCopy.y = skillSprite.y - (copyHeight - originalHeight) / 2;
+
+  // Add to stage
+  app.stage.addChild(skillCopy);
+
+  // Animate: float up and fade out
+  Tweener.add({
+    target: skillCopy,
+    duration: 3 / speed.current,
+    ease: Easing.easeOutQuad,
+  }, {
+    y: skillCopy.y - 30,
+    alpha: 0,
+  }).then(() => {
+    // Remove the copy after animation
+    skillCopy.destroy();
+  }).catch(console.error);
+
+  // Remove one use
+  if (brute.skills[skillId]?.uses) {
+    brute.skills[skillId].uses -= 1;
+
+    if (brute.skills[skillId].uses === 0) {
+      updateSkills(app, brute, skillId, 'remove');
+    }
+  }
+};
 
 export const skillActivate = async (
   app: Application,
@@ -45,6 +103,8 @@ export const skillActivate = async (
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute].includes(step.s)) {
     void sound.play('sfx', { sprite: `${SkillById[step.s]}` });
   }
+
+  skillUse(app, brute, step.s, speed);
 
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute, SkillId.hammer].includes(step.s)) {
     const animationEnded = brute.animation.waitForEvent('strengthen:end');

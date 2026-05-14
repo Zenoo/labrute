@@ -1,5 +1,7 @@
 
-import { EatStep, randomBetween } from '@labrute/core';
+import {
+  EatStep, randomBetween, SkillId
+} from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 
@@ -7,6 +9,7 @@ import { sound } from '@pixi/sound';
 import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { skillUse } from './skillActivate';
 
 export const eat = async (
   app: Application,
@@ -41,6 +44,8 @@ export const eat = async (
   }).catch(console.error);
   // Play eat SFX
   void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
+
+  skillUse(app, brute, SkillId.tamer, speed);
 
   displayHeal(app, brute, step.h, speed);
 

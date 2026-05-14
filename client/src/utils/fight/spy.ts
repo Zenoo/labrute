@@ -5,6 +5,9 @@ import {
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import {
+  WEAPONS_PER_ROW, WEAPON_SIZE, WEAPON_SPACING
+} from './utils/fightPositions';
 
 export const spy = async (
   fighters: AnimationFighter[],
@@ -109,9 +112,9 @@ export const spy = async (
           // Get target position
           const targetPosition = {
             x: fighter.team === 'R'
-              ? (i % 9) * 20 + 60
-              : 480 - ((i % 9) * 20 + 60),
-            y: Math.floor(i / 9) * 20 + 40,
+              ? (i % WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 60
+              : 480 - ((i % WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 60),
+            y: Math.floor(i / WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 40,
           };
 
           // Move weapon horizontally

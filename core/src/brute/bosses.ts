@@ -1,7 +1,7 @@
 import { BossName, PetName } from '@labrute/prisma';
 import { pets } from './pets';
 
-export interface Boss {
+export type Boss = {
   name: BossName;
   base: PetName;
   scale: number;

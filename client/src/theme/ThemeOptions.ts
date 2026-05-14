@@ -2,42 +2,42 @@ import { ThemeOptions, createTheme } from '@mui/material/styles';
 import { FontStyle } from '@mui/material/styles/createTypography';
 import { defaultTypography as typography } from './typography';
 
-interface TypeTransition {
+type TypeTransition = {
   time: string;
 }
 
-interface TypeScrollbar {
+type TypeScrollbar = {
   main: string;
   hover: string;
 }
 
-interface TypeBorder {
+type TypeBorder = {
   shadow: string;
   outer: string;
   main: string;
   inner: string;
 }
 
-interface TypeHover {
+type TypeHover = {
   main: string;
   hover: string;
 }
 
-interface TypeButton {
+type TypeButton = {
   shadow: TypeHover
 }
 
-interface TypeLog {
+type TypeLog = {
   main: string;
   light: string;
 }
 
-interface TypeLogs {
+type TypeLogs = {
   success: TypeLog
   error: TypeLog
 }
 
-interface TypeTopbar {
+type TypeTopbar = {
   background: string;
   backgroundLight: string;
   divider: string;

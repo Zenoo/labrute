@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+
 import {
   AchievementsStore,
   ArriveStep,
@@ -241,7 +241,10 @@ export const orderFighters = (fightData: DetailedFight) => {
 
 const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) => {
   let supers = Object.values(fighter.skills).filter(
-    (skill) => skill.uses?.[skill.tier - 1],
+    // Skill has uses left
+    (skill) => skill.uses?.[skill.tier - 1]
+      // Mimic gets triggered after opponent skills, so ignore it here
+      && skill.name !== SkillName.mimic,
   );
 
   if (!supers.length) return null;
@@ -834,6 +837,92 @@ const drawWeapon = (
   return false;
 };
 
+const mimicSkill = (
+  fightData: DetailedFight,
+  fighter: DetailedFighter,
+  skillToMimic: Tiered<Skill>,
+) => {
+  // Opponents with mimic
+  const opponents = getOpponents({ fightData, fighter }).filter((f) => f.skills[SkillName.mimic]);
+
+  if (!opponents.length) {
+    return;
+  }
+
+  const mimickingOpponents: DetailedFighter[] = [];
+
+  for (const opponent of opponents) {
+    // Trapped or stunned opponents can't mimic
+    if (opponent.trapped || opponent.stunned) {
+      continue;
+    }
+
+    // Skill specific mimic conditions
+    switch (skillToMimic.name) {
+      case SkillName.flashFlood: {
+        // Ignore flashflood if less than 3 weapons
+        if (keys(opponent.weapons).length + (opponent.activeWeapon ? 1 : 0) < 3) {
+          continue;
+        }
+        break;
+      }
+      case SkillName.tamer: {
+        // Ignore tamer if no pets (dead or alive)
+        if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === opponent.team).length === 0) {
+          continue;
+        }
+        break;
+      }
+      case SkillName.treat: {
+        // Ignore treat if no alive pets
+        if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === opponent.team && f.hp > 0).length === 0) {
+          continue;
+        }
+        break;
+      }
+    }
+
+    mimickingOpponents.push(opponent);
+  }
+
+  fightData.steps.push({
+    a: StepType.Mimic,
+    f: mimickingOpponents.map((o) => o.index),
+    s: SkillByName[skillToMimic.name],
+    t: skillToMimic.tier
+  });
+
+  // Add mimicked skill
+  for (const opponent of mimickingOpponents) {
+    const existingSkill = opponent.skills[skillToMimic.name];
+    if (existingSkill) {
+      // Add one use to existing skill if already has it (but keep the same tier and odds)
+      existingSkill.uses = (existingSkill.uses
+        ?.map((use) => use + 1) ?? [0, 0, 0]) as [number, number, number];
+    } else {
+      // Add skill to opponent with 1 use, same tier and odds as the mimicked skill
+      opponent.skills[skillToMimic.name] = {
+        name: skillToMimic.name,
+        tier: skillToMimic.tier,
+        odds: skillToMimic.odds,
+        type: skillToMimic.type,
+        uses: [1, 1, 1],
+      };
+    }
+
+    // Spend one use of mimic
+    const skill = opponent.skills[SkillName.mimic];
+    if (skill && skill.uses) {
+      skill.uses[skill.tier - 1] = (skill.uses[skill.tier - 1] ?? 0) - 1;
+
+      // Remove mimic if no uses left
+      if ((skill.uses[skill.tier - 1] ?? 0) <= 0) {
+        delete opponent.skills[SkillName.mimic];
+      }
+    }
+  }
+};
+
 const activateSuper = (
   chaos: boolean,
   fightData: DetailedFight,
@@ -871,7 +960,8 @@ const activateSuper = (
       }
 
       // Can't steal if fighter has the same weapon (weapon unicity)
-      if (fighter.activeWeapon?.name === opponent.activeWeapon.name || fighter.weapons[opponent.activeWeapon.name]) {
+      if ((fighter.activeWeapon?.name === opponent.activeWeapon.name)
+        || fighter.weapons[opponent.activeWeapon.name]) {
         return false;
       }
 
@@ -1501,6 +1591,9 @@ const activateSuper = (
 
   // Update stats
   updateStats(stats, fighter.id, 'skillsUsed', 1);
+
+  // Opponents can mimic skill
+  mimicSkill(fightData, fighter, skill);
 
   // Remove skill if no uses left
   if (!skill.uses?.[skill.tier - 1]) {

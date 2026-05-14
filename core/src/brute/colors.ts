@@ -1,4 +1,4 @@
-interface ColorsType {
+type ColorsType = {
   male: {
     skin: string[];
     hair: string[];

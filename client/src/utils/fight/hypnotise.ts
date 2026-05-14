@@ -1,5 +1,5 @@
 
-import { HypnotiseStep } from '@labrute/core';
+import { HypnotiseStep, SkillId } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { sound } from '@pixi/sound';
 import { GlowFilter } from '@pixi/filter-glow';
@@ -9,6 +9,7 @@ import {
 } from 'pixi.js';
 import { getMultipleRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { skillUse } from './skillActivate';
 
 export const hypnotise = async (
   app: Application,
@@ -46,6 +47,8 @@ export const hypnotise = async (
 
   // Play hypnosis SFX
   void sound.play('sfx', { sprite: 'hypnosis' });
+
+  skillUse(app, brute, SkillId.hypnosis, speed);
 
   // Container for the spiral graphics
   const spiralContainer = new Container();

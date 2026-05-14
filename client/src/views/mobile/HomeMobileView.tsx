@@ -10,7 +10,7 @@ import { Text } from '../../components/Text';
 import { AdResult } from '../../utils/ads';
 import { LockOpen, Lock } from '@mui/icons-material';
 
-export interface HomeMobileViewProps {
+export type HomeMobileViewProps = {
   changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   changeAppearance: () => void;

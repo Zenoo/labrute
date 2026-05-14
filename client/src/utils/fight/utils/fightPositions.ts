@@ -188,3 +188,10 @@ export {
   getRandomPosition,
   getMultipleRandomPosition,
 };
+
+export const WEAPON_SIZE = 12;
+export const SKILL_SIZE = 12;
+export const WEAPON_SPACING = 4;
+export const SKILL_SPACING = 4;
+export const WEAPONS_PER_ROW = 11;
+export const SKILLS_PER_ROW = 11;

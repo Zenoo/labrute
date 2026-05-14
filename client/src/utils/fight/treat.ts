@@ -1,5 +1,7 @@
-/* eslint-disable no-void */
-import { randomBetween, TreatStep } from '@labrute/core';
+
+import {
+  randomBetween, SkillId, TreatStep
+} from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 import { sound } from '@pixi/sound';
 import { displayHeal } from './utils/displayHeal';
@@ -7,6 +9,7 @@ import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';
 import { insideXBounds } from './utils/insideXBounds';
 import { Tweener } from 'pixi-tweener';
+import { skillUse } from './skillActivate';
 
 export const treat = async (
   app: Application,
@@ -39,6 +42,8 @@ export const treat = async (
   brute.animation.setAnimation('eat');
   // Play eat SFX
   void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
+
+  skillUse(app, brute, SkillId.treat, speed);
 
   displayHeal(app, pet, step.h, speed);
 

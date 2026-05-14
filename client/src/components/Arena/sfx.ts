@@ -1,13 +1,13 @@
 import sfxJson from '../../assets/sfx.json';
 
 // Interface definition for data
-interface SoundSprite {
+type SoundSprite = {
   start: number;
   end: number;
   loop: boolean;
 }
 
-interface AudioSpriteData {
+type AudioSpriteData = {
   resources: string[];
   spritemap: {
     [key: string]: SoundSprite;

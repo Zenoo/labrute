@@ -111,7 +111,7 @@ export const WeaponTypeColor: Record<WeaponType, string> = {
 export const WeaponAnimations = ['fist', 'slash', 'estoc', 'whip'] as const;
 export type WeaponAnimation = typeof WeaponAnimations[number];
 
-export interface Weapon {
+export type Weapon = {
   name: WeaponName;
   odds: number;
   types: WeaponType[];

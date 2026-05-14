@@ -1,5 +1,5 @@
 
-import { HealStep } from '@labrute/core';
+import { HealStep, SkillId } from '@labrute/core';
 import { Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 
@@ -8,6 +8,7 @@ import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { insideXBounds } from './utils/insideXBounds';
+import { skillUse } from './skillActivate';
 
 export const heal = async (
   app: Application,
@@ -36,6 +37,8 @@ export const heal = async (
   brute.animation.setAnimation('drink');
   // Play heal SFX
   void sound.play('sfx', { sprite: 'tragicPotion' });
+
+  skillUse(app, brute, SkillId.tragicPotion, speed);
 
   displayHeal(app, brute, step.h, speed);
 

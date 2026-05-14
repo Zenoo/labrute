@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { LS_KEY_CSRF_TOKEN } from '../utils/constants';
 import { fetchCsrfToken } from '../utils/Fetch';
 
-interface CsrfContextInterface {
+type CsrfContextInterface = {
   csrfToken: string | null,
 }
 
@@ -14,7 +14,7 @@ export function useCsrf(): CsrfContextInterface {
   return useContext(CsrfContext);
 }
 
-interface CsrfProviderProps {
+type CsrfProviderProps = {
   children: React.ReactNode;
 }
 

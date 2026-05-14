@@ -1,6 +1,6 @@
 
 import {
-  FIGHTER_HEIGHT, StealStep, WeaponById
+  FIGHTER_HEIGHT, SkillId, StealStep, WeaponById
 } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
@@ -8,8 +8,11 @@ import { Easing } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { airbornMove } from './utils/updateShadow';
+import { skillUse } from './skillActivate';
+import { Application } from 'pixi.js';
 
 export const steal = async (
+  app: Application,
   fighters: AnimationFighter[],
   step: StealStep,
   speed: React.MutableRefObject<number>,
@@ -71,6 +74,8 @@ export const steal = async (
   brute.animation.setAnimation('steal');
   // Play steal SFX
   void sound.play('sfx', { sprite: 'thief' });
+
+  skillUse(app, brute, SkillId.thief, speed);
 
   const animationEnded = target.animation.waitForEvent('stolen:end');
 

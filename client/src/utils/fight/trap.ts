@@ -1,10 +1,11 @@
 
-import { TrapStep } from '@labrute/core';
+import { SkillId, TrapStep } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { skillUse } from './skillActivate';
 
 export const trap = async (
   app: Application,
@@ -34,6 +35,8 @@ export const trap = async (
   brute.animation.setAnimation('launch');
   // Play trap SFX
   void sound.play('sfx', { sprite: 'net' });
+
+  skillUse(app, brute, SkillId.net, speed);
 
   // Create net sprite
   const net = new Sprite(spritesheet.textures['thrown-net.png']);

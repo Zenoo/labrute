@@ -1,9 +1,13 @@
-import { Alert, AlertColor, Button, Snackbar } from '@mui/material';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import {
+  Alert, AlertColor, Button, Snackbar
+} from '@mui/material';
+import React, {
+  useCallback, useContext, useMemo, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-export interface AlertContextInterface {
+export type AlertContextInterface = {
   open: (
     severity: AlertColor,
     message: string,
@@ -26,7 +30,7 @@ export const useAlert = () => {
   return context;
 };
 
-interface AlertProviderProps {
+type AlertProviderProps = {
   children: React.ReactNode;
 }
 

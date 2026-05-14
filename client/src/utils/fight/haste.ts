@@ -1,6 +1,10 @@
-/* eslint-disable no-void */
-import { HasteStep, randomBetween } from '@labrute/core';
-import { Application, Sprite, Texture, BaseTexture, BufferResource, Filter, Extract } from 'pixi.js';
+
+import {
+  HasteStep, randomBetween, SkillId
+} from '@labrute/core';
+import {
+  Application, Sprite, Texture, BaseTexture, BufferResource, Filter, Extract
+} from 'pixi.js';
 
 import { sound } from '@pixi/sound';
 import { Easing, Tweener } from 'pixi-tweener';
@@ -15,6 +19,7 @@ import { updateHp } from './updateHp';
 import { untrap } from './untrap';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
+import { skillUse } from './skillActivate';
 
 export const haste = async (
   app: Application,
@@ -43,6 +48,8 @@ export const haste = async (
   }
   // Play skill SFX
   void sound.play('sfx', { sprite: 'haste' });
+
+  skillUse(app, brute, SkillId.haste, speed);
 
   const windUpEnded = brute.animation.waitForEvent('strengthen:end');
 

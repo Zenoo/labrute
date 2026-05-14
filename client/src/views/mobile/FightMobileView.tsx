@@ -10,7 +10,7 @@ import { Text } from '../../components/Text';
 import { AdResult } from '../../utils/ads';
 import { BruteTooltip } from '../../components/Brute/BruteTooltip';
 
-export interface FightMobileViewProps {
+export type FightMobileViewProps = {
   pageTitle?: string;
   headerUrl?: string;
   ads: AdResult[];

@@ -1,4 +1,3 @@
-/* eslint-disable no-void */
 import { RegenerationStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 

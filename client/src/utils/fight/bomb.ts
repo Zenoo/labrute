@@ -1,5 +1,7 @@
 
-import { BombStep, randomBetween } from '@labrute/core';
+import {
+  BombStep, randomBetween, SkillId
+} from '@labrute/core';
 import { Easing, Tweener } from 'pixi-tweener';
 import {
   AnimatedSprite, Application, filters
@@ -13,6 +15,7 @@ import { AnimationFighter, findFighter } from './utils/findFighter';
 import { shakeStage } from './utils/stageAnimations';
 import { untrap } from './untrap';
 import { playResistAnimation } from './resist';
+import { skillUse } from './skillActivate';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -49,6 +52,8 @@ export const bomb = async (
   fighter.animation.setAnimation('launch');
   // Play launch SFX
   void sound.play('sfx', { sprite: 'net' });
+
+  skillUse(app, fighter, SkillId.bomb, speed);
 
   // Create bomb sprite
   const bombSprite = new AnimatedSprite(spritesheet.animations.bomb || []);

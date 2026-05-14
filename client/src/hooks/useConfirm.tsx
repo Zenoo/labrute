@@ -7,7 +7,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { StyledInput } from '../components/StyledInput';
 
-interface ConfirmContextInterface {
+type ConfirmContextInterface = {
   open: (
     title: string,
     content: string,
@@ -31,11 +31,11 @@ export const useConfirm = () => {
   return context;
 };
 
-interface ConfirmProviderProps {
+type ConfirmProviderProps = {
   children: React.ReactNode;
 }
 
-interface ConfirmParams {
+type ConfirmParams = {
   title: string;
   content: string;
   onAccept?: (input?: string) => void;

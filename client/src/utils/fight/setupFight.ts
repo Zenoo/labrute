@@ -1,7 +1,7 @@
 
 
 import {
-  Fighter, FightStep, isLoser, isWinner, StepType
+  Fighter, FightStep, isLoser, isWinner, SkillById, SkillId, skills, StepType
 } from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
@@ -53,11 +53,13 @@ import { trap } from './trap';
 import { trash } from './trash';
 import { treat } from './treat';
 import { updateWeapons } from './updateWeapons';
+import { updateSkills } from './updateSkills';
 import { createBustImage } from './utils/createBustImage';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import { isRangedStep, repositionFighters } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import { getFighters } from './utils/getFighters';
+import { mimic } from './mimic';
 
 export const setupFight: (
   theme: Theme,
@@ -223,6 +225,7 @@ export const setupFight: (
       team1Bust.mask = team1BustMask;
 
       const team1Weapons: PIXI.Sprite[] = [];
+      const team1Skills: PIXI.Sprite[] = [];
 
       let team2Header: PIXI.Sprite | null = null;
       let team2Text: PIXI.Text | null = null;
@@ -231,6 +234,7 @@ export const setupFight: (
       let brute2BustImg: HTMLImageElement | null = null;
       let team2Bust: PIXI.Sprite | null = null;
       const team2Weapons: PIXI.Sprite[] = [];
+      const team2Skills: PIXI.Sprite[] = [];
 
       if (brute2) {
         // Second team header
@@ -451,7 +455,24 @@ export const setupFight: (
                 ? team2Text
                 : undefined) ?? undefined,
           teamWeaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
+          teamSkillsIllustrations: fighter.team === brute1.team ? team1Skills : team2Skills,
           HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
+          skills: Object.fromEntries(Object.entries(fighter.skills).map(([skillId, tier]) => {
+            let skillUses = skills[SkillById[+skillId as SkillId]].uses?.[tier - 1] ?? 0;
+
+            // Add one fierceBrute every 30 strength
+            if (+skillId === SkillId.fierceBrute) {
+              skillUses += Math.floor(fighter.strength / 30);
+            }
+
+            return [
+              skillId,
+              {
+                tier,
+                uses: skillUses,
+              },
+            ];
+          })),
           animation: new FighterHolder(
             app,
             fighter,
@@ -470,7 +491,8 @@ export const setupFight: (
         // Update brute weapons
         updateWeapons(app, animationFighter);
 
-        // TODO: Update brute skills
+        // Update brute skills
+        updateSkills(app, animationFighter);
 
         return animationFighter;
       });
@@ -506,7 +528,7 @@ export const setupFight: (
           void setHUDFocus(app, renderer, fighters, step.b, speed, isClanWar);
         }
         // Display step's fighter in HUD
-        if ('f' in step && Object.hasOwn(step, 'f')) {
+        if ('f' in step && Object.hasOwn(step, 'f') && typeof step.f === 'number') {
           void setHUDFocus(app, renderer, fighters, step.f, speed, isClanWar);
         }
         // Display step's target in HUD
@@ -565,7 +587,7 @@ export const setupFight: (
             break;
           }
           case StepType.Steal: {
-            await steal(fighters, step, speed);
+            await steal(app, fighters, step, speed);
             break;
           }
           case StepType.Throw: {
@@ -654,6 +676,10 @@ export const setupFight: (
           }
           case StepType.Counter: {
             // Do nothing for now
+            break;
+          }
+          case StepType.Mimic: {
+            await mimic(app, fighters, step, speed);
             break;
           }
           default:

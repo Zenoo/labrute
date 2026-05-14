@@ -9,7 +9,7 @@ import { Page } from '../../components/Page';
 import { StyledButton } from '../../components/StyledButton';
 import { Text } from '../../components/Text';
 
-export interface VersusMobileViewProps {
+export type VersusMobileViewProps = {
   brute: CalculatedBrute;
   opponent: BrutesGetForVersusResponse;
   startFight: () => void;

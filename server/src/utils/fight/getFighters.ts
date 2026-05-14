@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
   BARE_HANDS_DAMAGE,
   BASE_FIGHTER_STATS,
@@ -11,14 +10,12 @@ import {
   keys,
   Modifiers,
   pets,
-  randomBetween,
-  randomItem,
-  Skill,
+  randomBetween, Skill,
   SkillModifiers,
   skills,
   Tiered,
   Weapon,
-  weapons,
+  weapons
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
@@ -27,7 +24,7 @@ import {
 } from '@labrute/prisma';
 import { DetailedFighter } from './generateFight.js';
 
-interface Team {
+type Team = {
   brutes: CalculatedBrute[];
   backups: CalculatedBrute[];
   bosses: (Boss & {
@@ -101,9 +98,6 @@ const handleSkills = (
           break;
         case SkillName.backup:
           // Nothing to do, the intitiative is handled when creating the backup fighter
-          break;
-        case SkillName.mimic:
-          // Nothing to do, the mimic skill is handled after creating all fighters to be able to copy skills from all fighters
           break;
         default:
           throw new Error(`No extra handling defined for skill ${skill.name}`);
@@ -479,44 +473,6 @@ export const getFighters = ({
         trapped: false,
         hitBy: {},
       });
-    }
-  });
-
-  // Handle mimic skill after creating all fighters to be able to copy skills from all fighters, including backups and bosses
-  fighters.forEach((fighter) => {
-    const mimicSkill = fighter.skills[SkillName.mimic];
-    if (!mimicSkill) return;
-
-    // Get all skills from all ennemies
-    const possibleSkills: Tiered<Skill>[] = [];
-    fighters.forEach((otherFighter) => {
-      if (otherFighter.team === fighter.team) {
-        return;
-      }
-
-      Object.values(otherFighter.skills).forEach((skill) => {
-        if (!skill.uses) return;
-
-        possibleSkills.push(skill);
-      });
-    });
-
-    // Select a random skill from the possible skills
-    if (possibleSkills.length > 0) {
-      const randomSkill = randomItem(possibleSkills);
-
-      const existingSkill = fighter.skills[randomSkill.name];
-      if (!existingSkill) {
-        fighter.skills[randomSkill.name] = {
-          ...structuredClone(randomSkill),
-          uses: ExtraTieredSkillData[SkillName.mimic],
-        };
-      } else {
-        // If the fighter already has the skill, just add uses
-        existingSkill.uses = (existingSkill.uses?.map(
-          (use, index) => use + (ExtraTieredSkillData[SkillName.mimic]?.[index] ?? 0),
-        ) as [number, number, number] | undefined) ?? existingSkill.uses;
-      }
     }
   });
 

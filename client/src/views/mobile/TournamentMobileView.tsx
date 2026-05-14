@@ -41,7 +41,7 @@ const fighterToBrute = (fighter: Fighter) => ({
   colors: fighter.colors || '0'.repeat(32),
 });
 
-interface Props {
+type Props = {
   bruteName?: string,
   tournament: TournamentsGetDailyResponse,
   winnerFight?: TournamentsGetDailyResponse['fights'][number],

@@ -36,7 +36,7 @@ function formatEmbedTitle(title: string) {
   return shortTitle + ELLIPSIS;
 }
 
-export interface DiscordClient {
+export type DiscordClient = {
   sendError(error: Error, res?: Response): void;
   sendRankUpNotification(brute: Pick<Brute, 'name' | 'level' | 'ranking'>): void;
   sendAscendNotification(brute: Pick<Brute, 'name'>, ascensions: number): void;
@@ -83,7 +83,7 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   },
 };
 
-export interface NetworkDiscordClientOptions {
+export type NetworkDiscordClientOptions = {
   notificationWebhookId?: string,
   notificationWebhookToken?: string,
   logWebhookId?: string,

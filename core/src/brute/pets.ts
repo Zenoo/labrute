@@ -1,6 +1,6 @@
 import { PetName } from '@labrute/prisma';
 
-export interface Pet {
+export type Pet = {
   name: PetName;
   odds: number;
   hpMalus: [number, number, number];

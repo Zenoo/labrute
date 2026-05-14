@@ -15,7 +15,7 @@ type RenderCallback = (content: string) => void;
 
 type OnRenderMethod = (id: string, callback: RenderCallback) => void;
 
-export interface RendererContextInterface {
+export type RendererContextInterface = {
   render: RenderMethod;
   onRender: OnRenderMethod;
   resetCache: (id: string) => void;
@@ -37,7 +37,7 @@ export function useRenderer(): RendererContextInterface {
   return useContext(RendererContext);
 }
 
-interface RendererProviderProps {
+type RendererProviderProps = {
   children: React.ReactNode;
 }
 

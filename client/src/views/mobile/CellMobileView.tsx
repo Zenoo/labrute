@@ -26,7 +26,7 @@ import { AdResult } from '../../utils/ads';
 import { getBruteWinrate } from '../../utils/getBruteWinrate';
 import { keys } from '@labrute/core';
 
-export interface CellMobileViewProps {
+export type CellMobileViewProps = {
   ad: AdResult;
   logs: (Log & { currentBrute: { name: string } })[];
   language: Lang;

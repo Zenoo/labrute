@@ -275,7 +275,7 @@
   "deity.desc": "Unlimited power. Limited jogging capacity.",
   "mimic": "Mimic",
   "mimic.desc": "That's a nice skill you have there. Be a shame if someone learned it instantly.",
-  "mimic.effect": "You gain <stats /> use(s) of a random skill from one of your opponents.",
+  "mimic.effect": "Action x<uses /> You copy an opponent's used skill.",
   "felineAgility.desc": "You don't even have a ball of string to play with, but you can always thump an opponent.",
   "felineAgility.effect": "",
   "fierceBrute.desc": "Now you're a real brute. You are more powerful and violent than ever during fights.",

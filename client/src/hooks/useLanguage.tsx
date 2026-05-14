@@ -13,7 +13,7 @@ import { getInitialLanguage } from '../i18n';
 import { LS_KEY_LANGUAGE } from '../utils/constants';
 import dayjs from 'dayjs';
 
-interface LanguageContextInterface {
+type LanguageContextInterface = {
   language: Lang;
   setLanguage: (lang: Lang) => void;
 }
@@ -30,7 +30,7 @@ export const useLanguage = () => {
   return context;
 };
 
-interface LanguageProviderProps {
+type LanguageProviderProps = {
   children: React.ReactNode;
 }
 

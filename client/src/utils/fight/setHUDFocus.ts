@@ -5,6 +5,7 @@ import { updateWeapons } from './updateWeapons';
 import { Application, Texture } from 'pixi.js';
 import { createBustImage } from './utils/createBustImage';
 import { RendererContextInterface } from '../../hooks/useRenderer';
+import { updateSkills } from './updateSkills';
 
 export const setHUDFocus = async (
   app: Application,
@@ -46,4 +47,5 @@ export const setHUDFocus = async (
   }
 
   updateWeapons(app, fighter);
+  updateSkills(app, fighter);
 };

@@ -2,7 +2,7 @@ import { HookBrute } from '@labrute/core';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useAuth } from './useAuth';
 
-interface BruteContextInterface {
+type BruteContextInterface = {
   brute: HookBrute | null,
   owner: boolean,
   updateBrute: (data: React.SetStateAction<HookBrute | null>) => void,
@@ -20,7 +20,7 @@ export function useBrute(): BruteContextInterface {
   return useContext(BruteContext);
 }
 
-interface BruteProviderProps {
+type BruteProviderProps = {
   children: React.ReactNode;
 }
 

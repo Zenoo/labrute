@@ -1,13 +1,19 @@
 import {
-  Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason, BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters, Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender, InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName, Tournament, User, UserLog, WeaponName
+  Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason,
+  BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
+  Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender,
+  InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName,
+  Tournament, User, UserLog, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills';
-import { Weapon, WeaponAnimation, WeaponId } from './brute/weapons';
+import {
+  Weapon, WeaponAnimation, WeaponId
+} from './brute/weapons';
 import { BruteRanking } from './constants';
 
 export { ClanPermission } from '@labrute/prisma';
 
-export interface AnimatedWeapon {
+export type AnimatedWeapon = {
   name: WeaponName;
   animation: WeaponAnimation;
 }
@@ -24,7 +30,7 @@ export type SuperName =
   | 'flashFlood'
   | 'tamer';
 
-export interface Stat {
+export type Stat = {
   stat: number;
   modifier: number;
   value: number;
@@ -33,7 +39,7 @@ export interface Stat {
 export type BruteBodyPart = 'p1' | 'p1a' | 'p1b' | 'p2' | 'p3' | 'p4' | 'p5' | 'p6' | 'p7' | 'p7b' | 'p8';
 export type BruteColor = 'col0' | 'col0a' | 'col0c' | 'col1' | 'col1a' | 'col1b' | 'col1c' | 'col1d' | 'col2' | 'col2a' | 'col2b' | 'col3' | 'col3b' | 'col4' | 'col4a' | 'col4b';
 
-export interface Fighter {
+export type Fighter = {
   id: string;
   index: number
   team: 'L' | 'R';
@@ -94,9 +100,10 @@ export enum StepType {
   Treat,
   DropShield,
   Regeneration,
+  Mimic,
 }
 
-export interface SaboteurStep {
+export type SaboteurStep = {
   /** Action */
   a: StepType.Saboteur;
   /** Brute ID */
@@ -105,14 +112,14 @@ export interface SaboteurStep {
   w: WeaponId;
 }
 
-export interface LeaveStep {
+export type LeaveStep = {
   /** Action */
   a: StepType.Leave;
   /** Fighter ID */
   f: number;
 }
 
-export interface ArriveStep {
+export type ArriveStep = {
   /** Action */
   a: StepType.Arrive;
   /** Fighter ID */
@@ -121,14 +128,14 @@ export interface ArriveStep {
   w?: WeaponId;
 }
 
-export interface TrashStep {
+export type TrashStep = {
   /** Action */
   a: StepType.Trash;
   /** Brute ID */
   b: number;
 }
 
-export interface StealStep {
+export type StealStep = {
   /** Action */
   a: StepType.Steal;
   /** Brute ID */
@@ -139,7 +146,7 @@ export interface StealStep {
   t: number;
 }
 
-export interface TrapStep {
+export type TrapStep = {
   /** Action */
   a: StepType.Trap;
   /** Brute ID */
@@ -148,7 +155,7 @@ export interface TrapStep {
   t: number;
 }
 
-export interface HealStep {
+export type HealStep = {
   /** Action */
   a: StepType.Heal;
   /** Brute ID */
@@ -159,21 +166,21 @@ export interface HealStep {
   c?: 1 | 0;
 }
 
-export interface ResistStep {
+export type ResistStep = {
   /** Action */
   a: StepType.Resist;
   /** Brute ID */
   b: number;
 }
 
-export interface SurviveStep {
+export type SurviveStep = {
   /** Action */
   a: StepType.Survive;
   /** Brute ID */
   b: number;
 }
 
-export interface HitStep {
+export type HitStep = {
   /** Action */
   a: StepType.Hit | StepType.FlashFlood | StepType.Hammer | StepType.Poison;
   /** Fighter ID */
@@ -190,7 +197,7 @@ export interface HitStep {
   c?: 1 | 0;
 }
 
-export interface BombStep {
+export type BombStep = {
   /** Action */
   a: StepType.Bomb;
   /** Fighter ID */
@@ -201,7 +208,7 @@ export interface BombStep {
   d: Record<string, number | undefined>;
 }
 
-export interface HypnotiseStep {
+export type HypnotiseStep = {
   /** Action */
   a: StepType.Hypnotise;
   /** Brute ID */
@@ -212,7 +219,7 @@ export interface HypnotiseStep {
   p: number[];
 }
 
-export interface MoveStep {
+export type MoveStep = {
   /** Action */
   a: StepType.Move;
   /** Fighter ID */
@@ -227,7 +234,7 @@ export interface MoveStep {
   r?: 1 | 0;
 }
 
-export interface EatStep {
+export type EatStep = {
   /** Action */
   a: StepType.Eat;
   /** Brute ID */
@@ -238,14 +245,14 @@ export interface EatStep {
   h: number;
 }
 
-export interface MoveBackStep {
+export type MoveBackStep = {
   /** Action */
   a: StepType.MoveBack;
   /** Fighter ID */
   f: number;
 }
 
-export interface EquipStep {
+export type EquipStep = {
   /** Action */
   a: StepType.Equip;
   /** Brute ID */
@@ -254,7 +261,7 @@ export interface EquipStep {
   w: WeaponId;
 }
 
-export interface AttemptHitStep {
+export type AttemptHitStep = {
   /** Action */
   a: StepType.AttemptHit;
   /** Fighter ID */
@@ -269,21 +276,21 @@ export interface AttemptHitStep {
   b?: 1 | 0;
 }
 
-export interface BlockStep {
+export type BlockStep = {
   /** Action */
   a: StepType.Block;
   /** Fighter ID */
   f: number;
 }
 
-export interface EvadeStep {
+export type EvadeStep = {
   /** Action */
   a: StepType.Evade;
   /** Fighter ID */
   f: number;
 }
 
-export interface SabotageStep {
+export type SabotageStep = {
   /** Action */
   a: StepType.Sabotage;
   /** Fighter ID */
@@ -294,7 +301,7 @@ export interface SabotageStep {
   w: WeaponId;
 }
 
-export interface DisarmStep {
+export type DisarmStep = {
   /** Action */
   a: StepType.Disarm;
   /** Fighter ID */
@@ -305,14 +312,14 @@ export interface DisarmStep {
   w: WeaponId;
 }
 
-export interface DeathStep {
+export type DeathStep = {
   /** Action */
   a: StepType.Death;
   /** Fighter ID */
   f: number;
 }
 
-export interface ThrowStep {
+export type ThrowStep = {
   /** Action */
   a: StepType.Throw;
   /** Fighter ID */
@@ -327,7 +334,7 @@ export interface ThrowStep {
   r?: 1 | 0;
 }
 
-export interface EndStep {
+export type EndStep = {
   /** Action */
   a: StepType.End;
   /** Winner ID */
@@ -336,7 +343,7 @@ export interface EndStep {
   l: number;
 }
 
-export interface CounterStep {
+export type CounterStep = {
   /** Action */
   a: StepType.Counter;
   /** Fighter ID */
@@ -345,7 +352,7 @@ export interface CounterStep {
   t: number;
 }
 
-export interface SkillActivateStep {
+export type SkillActivateStep = {
   /** Action */
   a: StepType.SkillActivate;
   /** Brute ID */
@@ -356,7 +363,7 @@ export interface SkillActivateStep {
   p?: number[];
 }
 
-export interface SkillExpireStep {
+export type SkillExpireStep = {
   /** Action */
   a: StepType.SkillExpire;
   /** Brute ID */
@@ -371,7 +378,7 @@ export interface SkillExpireStep {
   s: SkillId;
 }
 
-export interface SpyStep {
+export type SpyStep = {
   /** Action */
   a: StepType.Spy;
   /** Brute ID */
@@ -384,7 +391,7 @@ export interface SpyStep {
   r: WeaponId[];
 }
 
-export interface VampirismStep {
+export type VampirismStep = {
   /** Action */
   a: StepType.Vampirism;
   /** Brute ID */
@@ -397,7 +404,7 @@ export interface VampirismStep {
   h: number;
 }
 
-export interface HasteStep {
+export type HasteStep = {
   /** Action */
   a: StepType.Haste;
   /** Brute ID */
@@ -410,7 +417,7 @@ export interface HasteStep {
   c?: 1 | 0;
 }
 
-export interface TreatStep {
+export type TreatStep = {
   /** Action */
   a: StepType.Treat;
   /** Brute ID */
@@ -423,14 +430,14 @@ export interface TreatStep {
   c?: 1 | 0;
 }
 
-export interface DropShieldStep {
+export type DropShieldStep = {
   /** Action */
   a: StepType.DropShield;
   /** Fighter ID */
   b: number;
 }
 
-export interface RegenerationStep {
+export type RegenerationStep = {
   /** Action */
   a: StepType.Regeneration;
   /** Fighter ID */
@@ -441,13 +448,24 @@ export interface RegenerationStep {
   d?: 1 | 0;
 }
 
+export type MimicStep = {
+  /** Action */
+  a: StepType.Mimic;
+  /** Fighters ID */
+  f: number[];
+  /** Skill ID */
+  s: SkillId;
+  /** Skill tier */
+  t: number;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
-  | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep;
+  | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep | MimicStep;
 
 export type AnimationModel =
   | 'bear'

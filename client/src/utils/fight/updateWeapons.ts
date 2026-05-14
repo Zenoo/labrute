@@ -7,6 +7,9 @@ import * as PIXI from 'pixi.js';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
 import { TieredPerkColor } from '../StatColor';
+import {
+  WEAPON_SIZE, WEAPON_SPACING, WEAPONS_PER_ROW
+} from './utils/fightPositions';
 
 export const updateWeapons = (
   app: Application,
@@ -55,13 +58,16 @@ export const updateWeapons = (
 
       const sprite = new Sprite(texture);
       sprite.name = w.toString();
+      sprite.zIndex = 99;
+      sprite.width = WEAPON_SIZE;
+      sprite.height = WEAPON_SIZE;
 
       if (brute.team === 'L') {
-        sprite.x = (index % 9) * 20 + 60;
+        sprite.x = (index % WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 60;
       } else {
-        sprite.x = 480 - ((index % 9) * 20 + 60);
+        sprite.x = 480 - ((index % WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 60);
       }
-      sprite.y = Math.floor(index / 9) * 20 + 40;
+      sprite.y = Math.floor(index / WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 40;
       sprite.filters = [];
 
       if (tier > 1) {

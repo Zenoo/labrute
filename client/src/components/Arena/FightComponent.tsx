@@ -114,7 +114,7 @@ const sounds = [
   'vampirism'
 ];
 
-export interface FightComponentProps {
+export type FightComponentProps = {
   fight: FightGetResponse | null;
 }
 

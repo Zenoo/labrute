@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
   AchievementsStore,
   BOSS_GOLD_REWARD,
@@ -39,7 +38,7 @@ import { updateAchievements } from './updateAchievements.js';
 import { traced } from '../trace.js';
 
 
-export interface DetailedFighter {
+export type DetailedFighter = {
   // Metadata
   id: string;
   eventId?: string;
@@ -127,7 +126,7 @@ export interface DetailedFighter {
   immune?: boolean;
 }
 
-export interface DetailedFight {
+export type DetailedFight = {
   modifiers: Modifiers;
   fighters: DetailedFighter[];
   initialFighters: DetailedFighter[];
@@ -383,22 +382,24 @@ export const generateFight = async ({
       master: fighter.master,
       maxHp: fighter.maxHp,
       hp: fighter.hp,
-      weapons: Object.values(fighter.weapons).reduce<Partial<Record<WeaponId, number>>>((acc, weapon) => {
-        const weaponId = WeaponByName[weapon.name];
-        if (!weaponId) {
+      weapons: Object.values(fighter.weapons)
+        .reduce<Partial<Record<WeaponId, number>>>((acc, weapon) => {
+          const weaponId = WeaponByName[weapon.name];
+          if (!weaponId) {
+            return acc;
+          }
+          acc[weaponId] = weapon.tier;
           return acc;
-        }
-        acc[weaponId] = weapon.tier;
-        return acc;
-      }, {}),
-      skills: Object.values(fighter.skills).reduce<Partial<Record<SkillId, number>>>((acc, skill) => {
-        const skillId = SkillByName[skill.name];
-        if (!skillId) {
+        }, {}),
+      skills: Object.values(fighter.skills)
+        .reduce<Partial<Record<SkillId, number>>>((acc, skill) => {
+          const skillId = SkillByName[skill.name];
+          if (!skillId) {
+            return acc;
+          }
+          acc[skillId] = skill.tier;
           return acc;
-        }
-        acc[skillId] = skill.tier;
-        return acc;
-      }, {}),
+        }, {}),
       shield: fighter.shield,
     };
 

@@ -1,5 +1,5 @@
-/* eslint-disable no-void */
-import { VampirismStep } from '@labrute/core';
+
+import { SkillId, VampirismStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
 import { Easing } from 'pixi-tweener';
@@ -13,6 +13,7 @@ import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 import { airbornMove } from './utils/updateShadow';
+import { skillUse } from './skillActivate';
 
 export const vampirism = async (
   app: Application,
@@ -61,6 +62,8 @@ export const vampirism = async (
 
   // Play steal SFX
   void sound.play('sfx', { sprite: 'vampirism' });
+
+  skillUse(app, brute, SkillId.vampirism, speed);
 
   // Wake up target
   target.stunned = false;

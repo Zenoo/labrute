@@ -1,12 +1,13 @@
-import { Fighter } from '@labrute/core';
+import { Fighter, SkillId } from '@labrute/core';
 import * as PIXI from 'pixi.js';
 import { FighterHolder } from '../FighterHolder';
 
-export interface AnimationFighter extends Omit<Fighter, 'shield'> {
+export interface AnimationFighter extends Omit<Fighter, 'shield' | 'skills'> {
   type: 'brute' | 'pet' | 'boss';
   hpBar?: PIXI.Graphics;
   hpBarPhantom?: PIXI.Graphics;
   teamWeaponsIllustrations: PIXI.Sprite[];
+  teamSkillsIllustrations: PIXI.Sprite[];
   HUDFocused: boolean;
   animation: FighterHolder;
   bustImage: HTMLImageElement | null;
@@ -17,6 +18,10 @@ export interface AnimationFighter extends Omit<Fighter, 'shield'> {
   stunned?: boolean;
   fierceBrute?: boolean;
   resist?: boolean;
+  skills: Partial<Record<SkillId, {
+    tier: number;
+    uses?: number;
+  }>>;
 }
 
 export const findFighter = (

@@ -197,11 +197,16 @@ export const FightStat = {
 
 export type FightStat = typeof FightStat[keyof typeof FightStat];
 
-export interface Skill {
+export type Skill = {
+  /** The name of the skill */
   name: SkillName;
+  /** The odds of unlocking the skill */
   odds: number;
+  /** The type of the skill */
   type: SkillType;
+  /** The chance of using the skill, per tier */
   toss?: [number, number, number];
+  /** The number of uses of the skill, per tier */
   uses?: [number, number, number];
 }
 export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
@@ -486,7 +491,8 @@ export const skills: Record<SkillName, Skill> = {
   [SkillName.mimic]: {
     name: 'mimic',
     odds: 5,
-    type: 'passive',
+    type: 'super',
+    uses: [1, 2, 3],
   },
   [SkillName.stickyHands]: {
     name: 'stickyHands',
@@ -504,7 +510,7 @@ export const skillList = Object.values(skills);
 
 export const SKILLS_TOTAL_ODDS = skillList.reduce((acc, skill) => acc + skill.odds, 0);
 
-export interface SkillModifier {
+export type SkillModifier = {
   flat?: [number, number, number];
   percent?: [number, number, number];
   weaponType?: WeaponType | null;
@@ -676,7 +682,6 @@ export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, nu
   [SkillName.spy]: [0.2, 0.25, 0.3],
   [SkillName.saboteur]: [100, 150, 200],
   [SkillName.backup]: [2.8, 3.3, 3.8],
-  [SkillName.mimic]: [1, 2, 3],
 };
 
 export const SkillDamageModifiers = Object.entries(SkillModifiers)

@@ -1,9 +1,10 @@
 import { RendererContextInterface } from '../../../hooks/useRenderer';
 import { Fighter } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
+import { AnimationFighter } from './findFighter';
 
 export async function createBustImage(
-  brute: Omit<Fighter, 'shield'>,
+  brute: AnimationFighter | Fighter,
   renderer: RendererContextInterface,
 ): Promise<HTMLImageElement | null> {
   return new Promise<HTMLImageElement | null>((resolve) => {
