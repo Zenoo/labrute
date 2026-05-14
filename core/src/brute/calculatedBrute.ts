@@ -3,14 +3,14 @@ import {
 } from '@labrute/prisma';
 import {
   CalculatedBrute, Modifiers, TieredPerks
-} from '../types';
-import { getTempWeapon } from './getTempWeapon';
-import { getTempSkill } from './getTempSkill';
-import { entries } from '../utils';
-import { FightStat, SkillModifiers } from './skills';
-import { getScaledStat } from './scaledStat';
-import { getBruteHP } from './getHP';
-import { applySkillModifiers } from './applySkillModifiers';
+} from '../types.js';
+import { getTempWeapon } from './getTempWeapon.js';
+import { getTempSkill } from './getTempSkill.js';
+import { entries } from '../utils/index.js';
+import { FightStat, SkillModifiers } from './skills.js';
+import { getScaledStat } from './scaledStat.js';
+import { getBruteHP } from './getHP.js';
+import { applySkillModifiers } from './applySkillModifiers.js';
 
 export const getTieredSkills = (brute: Pick<Brute, 'id' | 'skills'>, modifiers: Modifiers) => {
   const tieredSkills: TieredPerks['skills'] = {};

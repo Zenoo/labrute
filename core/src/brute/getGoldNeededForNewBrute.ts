@@ -1,5 +1,5 @@
 import { Brute, User } from '@labrute/prisma';
-import { NEW_BRUTE_BASE_COST } from '../constants';
+import { NEW_BRUTE_BASE_COST } from '../constants.js';
 
 // Base cost + 1/3 of the base cost for each brute after the 3rd one
 export const getGoldNeededForNewBrute = (

@@ -1,16 +1,16 @@
 import {
   Brute, DestinyChoiceType, PetName, SkillName, WeaponName
 } from '@labrute/prisma';
-import { keys, randomBetween } from '../utils';
-import { weightedRandom } from '../utils/weightedRandom';
-import { petList } from './pets';
-import { skillList, skills } from './skills';
+import { keys, randomBetween } from '../utils/index.js';
+import { weightedRandom } from '../utils/weightedRandom.js';
+import { petList } from './pets.js';
+import { skillList, skills } from './skills.js';
 import {
   MAX_LIMITED_WEAPONS, limitedWeapons, weaponList
-} from './weapons';
+} from './weapons.js';
 import {
   getTieredPets, getTieredSkills, getTieredWeapons
-} from './calculatedBrute';
+} from './calculatedBrute.js';
 
 const preventSomeBonuses = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,

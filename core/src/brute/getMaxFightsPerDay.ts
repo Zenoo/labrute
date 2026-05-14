@@ -1,6 +1,6 @@
 import { SkillName } from '@labrute/prisma';
-import { EventFightsPerDay, FIGHTS_PER_DAY } from '../constants';
-import { CalculatedBrute } from '../types';
+import { EventFightsPerDay, FIGHTS_PER_DAY } from '../constants.js';
+import { CalculatedBrute } from '../types.js';
 
 export const getMaxFightsPerDay = (
   brute: Pick<CalculatedBrute, 'id' | 'skills' | 'eventId'>,

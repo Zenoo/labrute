@@ -1,7 +1,7 @@
 /* eslint-disable max-len, no-bitwise */
 
-import { CSRF_HEADER, PREDICTABLE_HEADERS_PREFIX } from '../constants';
-import { randomBetween, seedToRandom } from './random';
+import { CSRF_HEADER, PREDICTABLE_HEADERS_PREFIX } from '../constants.js';
+import { randomBetween, seedToRandom } from './random.js';
 
 // Base seed for predictable headers
 const HEADER_SEED_BASE = 'labrute-header-verification';

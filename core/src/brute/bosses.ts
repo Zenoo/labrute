@@ -1,5 +1,5 @@
 import { BossName, PetName } from '@labrute/prisma';
-import { pets } from './pets';
+import { pets } from './pets.js';
 
 export type Boss = {
   name: BossName;

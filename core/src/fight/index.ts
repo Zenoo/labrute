@@ -1,2 +1,2 @@
-export * from './backgrounds';
-export * from './getWinner';
+export * from './backgrounds.js';
+export * from './getWinner.js';

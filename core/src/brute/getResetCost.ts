@@ -1,5 +1,5 @@
 import { Brute } from '@labrute/prisma';
-import { EventFreeResets, RESET_PRICE } from '../constants';
+import { EventFreeResets, RESET_PRICE } from '../constants.js';
 
 export const getResetCost = (brute: Pick<Brute, 'eventId' | 'resets'>) => {
   if (!brute.eventId) {

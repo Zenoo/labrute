@@ -1,13 +1,13 @@
 import { DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { BruteRankings } from '../constants';
-import { applySkillModifiers } from './applySkillModifiers';
-import { getBruteHP } from './getHP';
-import { getRandomBonus } from './getRandomBonus';
-import { getRandomStartingStats } from './getRandomStartingStats';
-import { pets } from './pets';
-import { getBruteToSave } from './calculatedBrute';
-import { keys } from '../utils';
-import { TieredPerks } from '../types';
+import { BruteRankings } from '../constants.js';
+import { applySkillModifiers } from './applySkillModifiers.js';
+import { getBruteHP } from './getHP.js';
+import { getRandomBonus } from './getRandomBonus.js';
+import { getRandomStartingStats } from './getRandomStartingStats.js';
+import { pets } from './pets.js';
+import { getBruteToSave } from './calculatedBrute.js';
+import { keys } from '../utils/index.js';
+import { TieredPerks } from '../types.js';
 
 export const createRandomBruteStats = (
   baseStats?: { hp: number, strength: number, agility: number, speed: number } | null,

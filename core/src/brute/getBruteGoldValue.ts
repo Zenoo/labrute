@@ -1,5 +1,5 @@
 import { Brute } from '@labrute/prisma';
-import { BruteRankings, NEW_BRUTE_BASE_COST } from '../constants';
+import { BruteRankings, NEW_BRUTE_BASE_COST } from '../constants.js';
 
 export const getBruteGoldValueFromLevel = (level: number) => {
   if (level < 10) return 0;

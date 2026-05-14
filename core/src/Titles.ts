@@ -1,5 +1,5 @@
 import { AchievementName } from '@labrute/prisma';
-import { AchievementData, AchievementRarety } from './Achievements';
+import { AchievementData, AchievementRarety } from './Achievements.js';
 
 export const BaseTitleRequirements = {
   massive: [5000, 10000, 25000, 50000, 100000],

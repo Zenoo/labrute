@@ -3,8 +3,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
-    "moduleResolution": "bundler"
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
   },
   "references": [
     { "path": "../prisma" }

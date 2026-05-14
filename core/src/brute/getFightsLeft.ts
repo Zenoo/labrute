@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import { getMaxFightsPerDay } from './getMaxFightsPerDay';
-import { CalculatedBrute } from '../types';
+import { getMaxFightsPerDay } from './getMaxFightsPerDay.js';
+import { CalculatedBrute } from '../types.js';
 
 export const getFightsLeft = (
   brute: Pick<CalculatedBrute, 'id' | 'lastFight' | 'fightsLeft' | 'skills' | 'eventId'>,

@@ -1,5 +1,5 @@
 import { Brute } from '@labrute/prisma';
-import { BruteRankings } from '../constants';
+import { BruteRankings } from '../constants.js';
 
 export const getWinsNeededToRankUp = (
   brute: Pick<Brute, 'ranking' | 'ascensions'>

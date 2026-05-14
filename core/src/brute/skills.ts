@@ -1,5 +1,5 @@
 import { SkillName } from '@labrute/prisma';
-import { WeaponType } from './weapons';
+import { WeaponType } from './weapons.js';
 
 export enum SkillId {
   herculeanStrength,

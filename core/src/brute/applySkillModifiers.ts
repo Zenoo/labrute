@@ -1,7 +1,7 @@
 import { Brute, SkillName } from '@labrute/prisma';
-import { FightStat, SkillModifiers } from './skills';
-import { TieredPerks } from '../types';
-import { getBruteHP } from './getHP';
+import { FightStat, SkillModifiers } from './skills.js';
+import { TieredPerks } from '../types.js';
+import { getBruteHP } from './getHP.js';
 
 type BruteStats = Pick<TieredPerks, 'skills'> & Pick<Brute, 'level' | 'hpStat' | 'hpModifier' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue'>;
 

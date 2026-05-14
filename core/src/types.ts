@@ -5,11 +5,11 @@ import {
   InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName,
   Tournament, User, UserLog, WeaponName
 } from '@labrute/prisma';
-import { SkillId } from './brute/skills';
+import { SkillId } from './brute/skills.js';
 import {
   Weapon, WeaponAnimation, WeaponId
-} from './brute/weapons';
-import { BruteRanking } from './constants';
+} from './brute/weapons.js';
+import { BruteRanking } from './constants.js';
 
 export { ClanPermission } from '@labrute/prisma';
 

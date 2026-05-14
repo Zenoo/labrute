@@ -1,9 +1,9 @@
 import { Brute, PetName, SkillName } from '@labrute/prisma';
-import { CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed } from './chaos';
-import { Pet } from './pets';
-import { FightStat } from './skills';
-import { Weapon } from './weapons';
-import { Tiered } from '../types';
+import { CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed } from './chaos.js';
+import { Pet } from './pets.js';
+import { FightStat } from './skills.js';
+import { Weapon } from './weapons.js';
+import { Tiered } from '../types.js';
 
 const scalingByPet = {
   [PetName.bear]: {

@@ -1,7 +1,7 @@
 import { FightModifier, Lang, PetName } from '@labrute/prisma';
-import { PETS_TOTAL_ODDS } from './brute/pets';
-import { SKILLS_TOTAL_ODDS } from './brute/skills';
-import { WEAPONS_TOTAL_ODDS, WeaponAnimations } from './brute/weapons';
+import { PETS_TOTAL_ODDS } from './brute/pets.js';
+import { SKILLS_TOTAL_ODDS } from './brute/skills.js';
+import { WEAPONS_TOTAL_ODDS, WeaponAnimations } from './brute/weapons.js';
 
 export const FIGHTS_PER_DAY = 6;
 

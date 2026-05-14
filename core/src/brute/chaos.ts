@@ -1,10 +1,10 @@
 import { FightModifier, SkillName } from '@labrute/prisma';
-import { Modifiers } from '../types';
-import { Pet, petList } from './pets';
-import { FightStat, skillList } from './skills';
-import { Weapon, weaponList } from './weapons';
+import { Modifiers } from '../types.js';
+import { Pet, petList } from './pets.js';
+import { FightStat, skillList } from './skills.js';
+import { Weapon, weaponList } from './weapons.js';
 import dayjs from 'dayjs';
-import { seedToRandom } from '../utils';
+import { seedToRandom } from '../utils/index.js';
 
 export const CHAOS_SEEDS = new Map<string, number>();
 
