@@ -885,6 +885,10 @@ const mimicSkill = (
     mimickingOpponents.push(opponent);
   }
 
+  if (!mimickingOpponents.length) {
+    return;
+  }
+
   fightData.steps.push({
     a: StepType.Mimic,
     f: mimickingOpponents.map((o) => o.index),
