@@ -123,6 +123,8 @@ const preventSomeBonuses = (
             preventPerk = false;
             break;
         }
+      } else {
+        preventPerk = false;
       }
     } else {
       preventPerk = false;
