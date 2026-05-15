@@ -237,6 +237,16 @@ export const skills: Record<SkillName, Skill> = {
     odds: 0.14,
     type: 'booster',
   },
+  [SkillName.reconnaissance]: {
+    name: 'reconnaissance',
+    odds: 1,
+    type: 'booster',
+  },
+  [SkillName.deity]: {
+    name: 'deity',
+    odds: 2,
+    type: 'booster',
+  },
   [SkillName.weaponsMaster]: {
     name: 'weaponsMaster',
     odds: 10,
@@ -331,11 +341,6 @@ export const skills: Record<SkillName, Skill> = {
     name: 'resistant',
     odds: 3,
     type: 'passive',
-  },
-  [SkillName.reconnaissance]: {
-    name: 'reconnaissance',
-    odds: 1,
-    type: 'booster',
   },
   [SkillName.counterAttack]: {
     name: 'counterAttack',
@@ -499,11 +504,6 @@ export const skills: Record<SkillName, Skill> = {
     odds: 5,
     type: 'passive',
   },
-  [SkillName.deity]: {
-    name: 'deity',
-    odds: 2,
-    type: 'passive',
-  },
 };
 
 export const skillList = Object.values(skills);
@@ -535,10 +535,26 @@ export const SkillModifiers: Record<
     [FightStat.HP]: { flat: [18, 30, 42], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.immortality]: {
-    [FightStat.HP]: { percent: [2.5, 3, 3.5] },
-    [FightStat.STRENGTH]: { percent: [-0.25, -0.25, -0.25] },
-    [FightStat.AGILITY]: { percent: [-0.25, -0.25, -0.25] },
-    [FightStat.SPEED]: { percent: [-0.25, -0.25, -0.25] },
+    [FightStat.HP]: { percent: [2, 2.5, 3] },
+    [FightStat.STRENGTH]: { percent: [-0.2, -0.2, -0.2] },
+    [FightStat.AGILITY]: { percent: [-0.2, -0.2, -0.2] },
+    [FightStat.SPEED]: { percent: [-0.2, -0.2, -0.2] },
+  },
+  [SkillName.reconnaissance]: {
+    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
+    [FightStat.SPEED]: { flat: [5, 10, 15], percent: [1.5, 2, 2.5] },
+    [FightStat.CRITICAL_DAMAGE]: { percent: [0.5, 0.6, 0.7] },
+  },
+  [SkillName.deity]: {
+    [FightStat.SIZE]: { percent: [0.5, 0.5, 0.5] },
+    [FightStat.HP]: { percent: [0.6, 0.8, 1] },
+    [FightStat.STRENGTH]: { percent: [1, 1.25, 1.5] },
+    [FightStat.REVERSAL]: { percent: [0.4, 0.5, 0.6] },
+    [FightStat.AGILITY]: { percent: [-0.99, -0.99, -0.99] },
+    [FightStat.SPEED]: { percent: [-0.99, -0.99, -0.99] },
+    [FightStat.DEXTERITY]: { percent: [-0.99, -0.99, -0.99] },
+    [FightStat.EVASION]: { percent: [-0.99, -0.99, -0.99] },
+    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
   },
   [SkillName.weaponsMaster]: {
     [FightStat.DAMAGE]: { percent: [0.5, 0.75, 1], weaponType: WeaponType.SHARP },
@@ -603,11 +619,6 @@ export const SkillModifiers: Record<
     [FightStat.INITIATIVE]: { flat: [200, 300, 400] },
   },
   [SkillName.resistant]: {},
-  [SkillName.reconnaissance]: {
-    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
-    [FightStat.SPEED]: { flat: [5, 10, 15], percent: [1.5, 2, 2.5] },
-    [FightStat.CRITICAL_DAMAGE]: { percent: [0.5, 0.6, 0.7] },
-  },
   [SkillName.counterAttack]: {
     [FightStat.BLOCK]: { percent: [0.1, 0.15, 0.2] },
     [FightStat.REVERSAL]: { percent: [0.9, 0.95, 0.99], details: 'afterBlock' },
@@ -660,17 +671,6 @@ export const SkillModifiers: Record<
   [SkillName.mimic]: {},
   [SkillName.stickyHands]: {
     [FightStat.WEAPON_GRIP]: { percent: [0.5, 0.6, 0.7] },
-  },
-  [SkillName.deity]: {
-    [FightStat.SIZE]: { percent: [0.5, 0.5, 0.5] },
-    [FightStat.HP]: { percent: [1, 1.25, 1.5] },
-    [FightStat.STRENGTH]: { percent: [1, 1.25, 1.5] },
-    [FightStat.REVERSAL]: { percent: [0.4, 0.5, 0.6] },
-    [FightStat.AGILITY]: { percent: [-1, -1, -1] },
-    [FightStat.SPEED]: { percent: [-1, -1, -1] },
-    [FightStat.DEXTERITY]: { percent: [-1, -1, -1] },
-    [FightStat.EVASION]: { percent: [-1, -1, -1] },
-    [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
   },
 };
 
