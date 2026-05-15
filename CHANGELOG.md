@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.93.3](https://github.com/Zenoo/labrute/compare/labrute-v2.93.2...labrute-v2.93.3) (2026-05-15)
+
+
+### Bug Fixes
+
+* Deity as a booster + Nerf Deity + Immortality ([c53fbce](https://github.com/Zenoo/labrute/commit/c53fbce0588e2c03b5169b72a0cf0e7502f51550))
+* Don't add a mimic step if no opponent actually mimicked ([95a497e](https://github.com/Zenoo/labrute/commit/95a497e60e19b08cafaa37e88daec12e10982793))
+* Skills modifiers are additive + Revert HP modifiers nerf ([82d0aa5](https://github.com/Zenoo/labrute/commit/82d0aa59711413f5aa127c115f3323b654beb5cd))
+* Use PNGs for in-fight skill icons (SVG causes issues with TexturePacker) ([1609e2b](https://github.com/Zenoo/labrute/commit/1609e2b1fad5f534f24395eb4d457ffe536ecc0e))
+
 ## [2.93.2](https://github.com/Zenoo/labrute/compare/labrute-v2.93.1...labrute-v2.93.2) (2026-05-15)
 
 
