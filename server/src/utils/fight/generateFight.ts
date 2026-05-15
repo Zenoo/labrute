@@ -385,18 +385,12 @@ export const generateFight = async ({
       weapons: Object.values(fighter.weapons)
         .reduce<Partial<Record<WeaponId, number>>>((acc, weapon) => {
           const weaponId = WeaponByName[weapon.name];
-          if (!weaponId) {
-            return acc;
-          }
           acc[weaponId] = weapon.tier;
           return acc;
         }, {}),
       skills: Object.values(fighter.skills)
         .reduce<Partial<Record<SkillId, number>>>((acc, skill) => {
           const skillId = SkillByName[skill.name];
-          if (!skillId) {
-            return acc;
-          }
           acc[skillId] = skill.tier;
           return acc;
         }, {}),

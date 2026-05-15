@@ -36,7 +36,7 @@ export const spy = async (
   for (const weaponToSwap of step.s) {
     const tier = brute.weapons[weaponToSwap]
     if (!tier) {
-      throw new Error('Weapon not found');
+      throw new Error(`Weapon not found: ${weaponToSwap}`);
     }
 
     // Remove weapon from brute
@@ -65,7 +65,7 @@ export const spy = async (
   for (const weaponToSwap of step.r) {
     const weapon = opponent.weapons[weaponToSwap]
     if (!weapon) {
-      throw new Error('Weapon not found');
+      throw new Error(`Weapon not found: ${weaponToSwap}`);
     }
 
     // Remove weapon from opponent
