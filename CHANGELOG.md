@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.93.2](https://github.com/Zenoo/labrute/compare/labrute-v2.93.1...labrute-v2.93.2) (2026-05-15)
+
+
+### Bug Fixes
+
+* Delete temp scripts ([64458a9](https://github.com/Zenoo/labrute/commit/64458a9c2bf1159932f4fc517a6a1954f86ee309))
+* Revert wrong translations ([61a7092](https://github.com/Zenoo/labrute/commit/61a7092bc4bbb3566c2bf4b06b234dd7e613ed2f))
+
 ## [2.93.1](https://github.com/Zenoo/labrute/compare/labrute-v2.93.0...labrute-v2.93.1) (2026-05-14)
 
 
