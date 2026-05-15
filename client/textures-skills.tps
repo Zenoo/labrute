@@ -173,159 +173,165 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">public/images/skills/tier-1/armor.svg</key>
-            <key type="filename">public/images/skills/tier-1/backup.svg</key>
-            <key type="filename">public/images/skills/tier-1/balletShoes.svg</key>
-            <key type="filename">public/images/skills/tier-1/bodybuilder.svg</key>
-            <key type="filename">public/images/skills/tier-1/bomb.svg</key>
-            <key type="filename">public/images/skills/tier-1/chaining.svg</key>
-            <key type="filename">public/images/skills/tier-1/chef.svg</key>
-            <key type="filename">public/images/skills/tier-1/counterAttack.svg</key>
-            <key type="filename">public/images/skills/tier-1/cryOfTheDamned.svg</key>
-            <key type="filename">public/images/skills/tier-1/deity.svg</key>
-            <key type="filename">public/images/skills/tier-1/determination.svg</key>
-            <key type="filename">public/images/skills/tier-1/fastMetabolism.svg</key>
-            <key type="filename">public/images/skills/tier-1/felineAgility.svg</key>
-            <key type="filename">public/images/skills/tier-1/fierceBrute.svg</key>
-            <key type="filename">public/images/skills/tier-1/firstStrike.svg</key>
-            <key type="filename">public/images/skills/tier-1/fistsOfFury.svg</key>
-            <key type="filename">public/images/skills/tier-1/flashFlood.svg</key>
-            <key type="filename">public/images/skills/tier-1/hammer.svg</key>
-            <key type="filename">public/images/skills/tier-1/haste.svg</key>
-            <key type="filename">public/images/skills/tier-1/herculeanStrength.svg</key>
-            <key type="filename">public/images/skills/tier-1/hideaway.svg</key>
-            <key type="filename">public/images/skills/tier-1/hostility.svg</key>
-            <key type="filename">public/images/skills/tier-1/hypnosis.svg</key>
-            <key type="filename">public/images/skills/tier-1/immortality.svg</key>
-            <key type="filename">public/images/skills/tier-1/ironHead.svg</key>
-            <key type="filename">public/images/skills/tier-1/leadSkeleton.svg</key>
-            <key type="filename">public/images/skills/tier-1/lightningBolt.svg</key>
-            <key type="filename">public/images/skills/tier-1/martialArts.svg</key>
-            <key type="filename">public/images/skills/tier-1/monk.svg</key>
-            <key type="filename">public/images/skills/tier-1/net.svg</key>
-            <key type="filename">public/images/skills/tier-1/reconnaissance.svg</key>
-            <key type="filename">public/images/skills/tier-1/regeneration.svg</key>
-            <key type="filename">public/images/skills/tier-1/relentless.svg</key>
-            <key type="filename">public/images/skills/tier-1/repulse.svg</key>
-            <key type="filename">public/images/skills/tier-1/resistant.svg</key>
-            <key type="filename">public/images/skills/tier-1/sabotage.svg</key>
-            <key type="filename">public/images/skills/tier-1/saboteur.svg</key>
-            <key type="filename">public/images/skills/tier-1/shield.svg</key>
-            <key type="filename">public/images/skills/tier-1/shock.svg</key>
-            <key type="filename">public/images/skills/tier-1/sixthSense.svg</key>
-            <key type="filename">public/images/skills/tier-1/spy.svg</key>
-            <key type="filename">public/images/skills/tier-1/survival.svg</key>
-            <key type="filename">public/images/skills/tier-1/tamer.svg</key>
-            <key type="filename">public/images/skills/tier-1/thief.svg</key>
-            <key type="filename">public/images/skills/tier-1/toughenedSkin.svg</key>
-            <key type="filename">public/images/skills/tier-1/tragicPotion.svg</key>
-            <key type="filename">public/images/skills/tier-1/treat.svg</key>
-            <key type="filename">public/images/skills/tier-1/untouchable.svg</key>
-            <key type="filename">public/images/skills/tier-1/vampirism.svg</key>
-            <key type="filename">public/images/skills/tier-1/vitality.svg</key>
-            <key type="filename">public/images/skills/tier-1/weaponsMaster.svg</key>
-            <key type="filename">public/images/skills/tier-2/armor.svg</key>
-            <key type="filename">public/images/skills/tier-2/backup.svg</key>
-            <key type="filename">public/images/skills/tier-2/balletShoes.svg</key>
-            <key type="filename">public/images/skills/tier-2/bodybuilder.svg</key>
-            <key type="filename">public/images/skills/tier-2/bomb.svg</key>
-            <key type="filename">public/images/skills/tier-2/chaining.svg</key>
-            <key type="filename">public/images/skills/tier-2/chef.svg</key>
-            <key type="filename">public/images/skills/tier-2/counterAttack.svg</key>
-            <key type="filename">public/images/skills/tier-2/cryOfTheDamned.svg</key>
-            <key type="filename">public/images/skills/tier-2/deity.svg</key>
-            <key type="filename">public/images/skills/tier-2/determination.svg</key>
-            <key type="filename">public/images/skills/tier-2/fastMetabolism.svg</key>
-            <key type="filename">public/images/skills/tier-2/felineAgility.svg</key>
-            <key type="filename">public/images/skills/tier-2/fierceBrute.svg</key>
-            <key type="filename">public/images/skills/tier-2/firstStrike.svg</key>
-            <key type="filename">public/images/skills/tier-2/fistsOfFury.svg</key>
-            <key type="filename">public/images/skills/tier-2/flashFlood.svg</key>
-            <key type="filename">public/images/skills/tier-2/hammer.svg</key>
-            <key type="filename">public/images/skills/tier-2/haste.svg</key>
-            <key type="filename">public/images/skills/tier-2/herculeanStrength.svg</key>
-            <key type="filename">public/images/skills/tier-2/hideaway.svg</key>
-            <key type="filename">public/images/skills/tier-2/hostility.svg</key>
-            <key type="filename">public/images/skills/tier-2/hypnosis.svg</key>
-            <key type="filename">public/images/skills/tier-2/immortality.svg</key>
-            <key type="filename">public/images/skills/tier-2/ironHead.svg</key>
-            <key type="filename">public/images/skills/tier-2/leadSkeleton.svg</key>
-            <key type="filename">public/images/skills/tier-2/lightningBolt.svg</key>
-            <key type="filename">public/images/skills/tier-2/martialArts.svg</key>
-            <key type="filename">public/images/skills/tier-2/monk.svg</key>
-            <key type="filename">public/images/skills/tier-2/net.svg</key>
-            <key type="filename">public/images/skills/tier-2/reconnaissance.svg</key>
-            <key type="filename">public/images/skills/tier-2/regeneration.svg</key>
-            <key type="filename">public/images/skills/tier-2/relentless.svg</key>
-            <key type="filename">public/images/skills/tier-2/repulse.svg</key>
-            <key type="filename">public/images/skills/tier-2/resistant.svg</key>
-            <key type="filename">public/images/skills/tier-2/sabotage.svg</key>
-            <key type="filename">public/images/skills/tier-2/saboteur.svg</key>
-            <key type="filename">public/images/skills/tier-2/shield.svg</key>
-            <key type="filename">public/images/skills/tier-2/shock.svg</key>
-            <key type="filename">public/images/skills/tier-2/sixthSense.svg</key>
-            <key type="filename">public/images/skills/tier-2/spy.svg</key>
-            <key type="filename">public/images/skills/tier-2/survival.svg</key>
-            <key type="filename">public/images/skills/tier-2/tamer.svg</key>
-            <key type="filename">public/images/skills/tier-2/thief.svg</key>
-            <key type="filename">public/images/skills/tier-2/toughenedSkin.svg</key>
-            <key type="filename">public/images/skills/tier-2/tragicPotion.svg</key>
-            <key type="filename">public/images/skills/tier-2/treat.svg</key>
-            <key type="filename">public/images/skills/tier-2/untouchable.svg</key>
-            <key type="filename">public/images/skills/tier-2/vampirism.svg</key>
-            <key type="filename">public/images/skills/tier-2/vitality.svg</key>
-            <key type="filename">public/images/skills/tier-2/weaponsMaster.svg</key>
-            <key type="filename">public/images/skills/tier-3/armor.svg</key>
-            <key type="filename">public/images/skills/tier-3/backup.svg</key>
-            <key type="filename">public/images/skills/tier-3/balletShoes.svg</key>
-            <key type="filename">public/images/skills/tier-3/bodybuilder.svg</key>
-            <key type="filename">public/images/skills/tier-3/bomb.svg</key>
-            <key type="filename">public/images/skills/tier-3/chaining.svg</key>
-            <key type="filename">public/images/skills/tier-3/chef.svg</key>
-            <key type="filename">public/images/skills/tier-3/counterAttack.svg</key>
-            <key type="filename">public/images/skills/tier-3/cryOfTheDamned.svg</key>
-            <key type="filename">public/images/skills/tier-3/deity.svg</key>
-            <key type="filename">public/images/skills/tier-3/determination.svg</key>
-            <key type="filename">public/images/skills/tier-3/fastMetabolism.svg</key>
-            <key type="filename">public/images/skills/tier-3/felineAgility.svg</key>
-            <key type="filename">public/images/skills/tier-3/fierceBrute.svg</key>
-            <key type="filename">public/images/skills/tier-3/firstStrike.svg</key>
-            <key type="filename">public/images/skills/tier-3/fistsOfFury.svg</key>
-            <key type="filename">public/images/skills/tier-3/flashFlood.svg</key>
-            <key type="filename">public/images/skills/tier-3/hammer.svg</key>
-            <key type="filename">public/images/skills/tier-3/haste.svg</key>
-            <key type="filename">public/images/skills/tier-3/herculeanStrength.svg</key>
-            <key type="filename">public/images/skills/tier-3/hideaway.svg</key>
-            <key type="filename">public/images/skills/tier-3/hostility.svg</key>
-            <key type="filename">public/images/skills/tier-3/hypnosis.svg</key>
-            <key type="filename">public/images/skills/tier-3/immortality.svg</key>
-            <key type="filename">public/images/skills/tier-3/ironHead.svg</key>
-            <key type="filename">public/images/skills/tier-3/leadSkeleton.svg</key>
-            <key type="filename">public/images/skills/tier-3/lightningBolt.svg</key>
-            <key type="filename">public/images/skills/tier-3/martialArts.svg</key>
-            <key type="filename">public/images/skills/tier-3/monk.svg</key>
-            <key type="filename">public/images/skills/tier-3/net.svg</key>
-            <key type="filename">public/images/skills/tier-3/reconnaissance.svg</key>
-            <key type="filename">public/images/skills/tier-3/regeneration.svg</key>
-            <key type="filename">public/images/skills/tier-3/relentless.svg</key>
-            <key type="filename">public/images/skills/tier-3/repulse.svg</key>
-            <key type="filename">public/images/skills/tier-3/resistant.svg</key>
-            <key type="filename">public/images/skills/tier-3/sabotage.svg</key>
-            <key type="filename">public/images/skills/tier-3/saboteur.svg</key>
-            <key type="filename">public/images/skills/tier-3/shield.svg</key>
-            <key type="filename">public/images/skills/tier-3/shock.svg</key>
-            <key type="filename">public/images/skills/tier-3/sixthSense.svg</key>
-            <key type="filename">public/images/skills/tier-3/spy.svg</key>
-            <key type="filename">public/images/skills/tier-3/survival.svg</key>
-            <key type="filename">public/images/skills/tier-3/tamer.svg</key>
-            <key type="filename">public/images/skills/tier-3/thief.svg</key>
-            <key type="filename">public/images/skills/tier-3/toughenedSkin.svg</key>
-            <key type="filename">public/images/skills/tier-3/tragicPotion.svg</key>
-            <key type="filename">public/images/skills/tier-3/treat.svg</key>
-            <key type="filename">public/images/skills/tier-3/untouchable.svg</key>
-            <key type="filename">public/images/skills/tier-3/vampirism.svg</key>
-            <key type="filename">public/images/skills/tier-3/vitality.svg</key>
-            <key type="filename">public/images/skills/tier-3/weaponsMaster.svg</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/armor.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/backup.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/balletShoes.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/bodybuilder.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/bomb.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/chaining.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/chef.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/counterAttack.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/cryOfTheDamned.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/deity.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/determination.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/fastMetabolism.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/felineAgility.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/fierceBrute.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/firstStrike.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/fistsOfFury.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/flashFlood.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/hammer.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/haste.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/herculeanStrength.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/hideaway.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/hostility.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/hypnosis.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/immortality.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/ironHead.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/leadSkeleton.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/lightningBolt.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/martialArts.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/mimic.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/monk.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/net.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/reconnaissance.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/regeneration.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/relentless.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/repulse.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/resistant.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/sabotage.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/saboteur.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/shield.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/shock.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/sixthSense.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/spy.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/stickyHands.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/survival.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/tamer.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/thief.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/toughenedSkin.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/tragicPotion.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/treat.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/untouchable.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/vampirism.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/vitality.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/weaponsMaster.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/armor.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/backup.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/balletShoes.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/bodybuilder.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/bomb.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/chaining.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/chef.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/counterAttack.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/cryOfTheDamned.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/deity.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/determination.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/fastMetabolism.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/felineAgility.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/fierceBrute.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/firstStrike.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/fistsOfFury.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/flashFlood.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/hammer.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/haste.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/herculeanStrength.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/hideaway.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/hostility.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/hypnosis.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/immortality.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/ironHead.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/leadSkeleton.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/lightningBolt.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/martialArts.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/mimic.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/monk.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/net.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/reconnaissance.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/regeneration.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/relentless.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/repulse.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/resistant.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/sabotage.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/saboteur.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/shield.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/shock.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/sixthSense.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/spy.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/stickyHands.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/survival.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/tamer.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/thief.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/toughenedSkin.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/tragicPotion.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/treat.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/untouchable.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/vampirism.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/vitality.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/weaponsMaster.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/armor.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/backup.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/balletShoes.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/bodybuilder.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/bomb.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/chaining.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/chef.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/counterAttack.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/cryOfTheDamned.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/deity.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/determination.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/fastMetabolism.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/felineAgility.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/fierceBrute.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/firstStrike.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/fistsOfFury.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/flashFlood.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/hammer.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/haste.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/herculeanStrength.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/hideaway.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/hostility.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/hypnosis.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/immortality.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/ironHead.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/leadSkeleton.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/lightningBolt.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/martialArts.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/mimic.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/monk.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/net.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/reconnaissance.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/regeneration.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/relentless.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/repulse.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/resistant.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/sabotage.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/saboteur.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/shield.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/shock.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/sixthSense.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/spy.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/stickyHands.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/survival.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/tamer.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/thief.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/toughenedSkin.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/tragicPotion.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/treat.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/untouchable.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/vampirism.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/vitality.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/weaponsMaster.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0,0</point_f>
@@ -337,26 +343,6 @@
                 <rect>9,9,17,17</rect>
                 <key>scale9Paddings</key>
                 <rect>9,9,17,17</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">public/images/skills/tier-1/mimic.svg</key>
-            <key type="filename">public/images/skills/tier-1/stickyHands.svg</key>
-            <key type="filename">public/images/skills/tier-2/mimic.svg</key>
-            <key type="filename">public/images/skills/tier-2/stickyHands.svg</key>
-            <key type="filename">public/images/skills/tier-3/mimic.svg</key>
-            <key type="filename">public/images/skills/tier-3/stickyHands.svg</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0,0</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,8,15,15</rect>
-                <key>scale9Paddings</key>
-                <rect>8,8,15,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -367,7 +353,7 @@
             <struct type="SpriteSheet">
                 <key>files</key>
                 <array>
-                    <filename>public/images/skills</filename>
+                    <filename>public/images/game/resources/skills</filename>
                 </array>
             </struct>
         </map>
@@ -376,7 +362,9 @@
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array/>
+        <array>
+            <string>pixijs-multipack-2023-05-25</string>
+        </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>

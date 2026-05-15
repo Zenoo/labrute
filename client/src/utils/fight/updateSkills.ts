@@ -124,15 +124,16 @@ export const updateSkills = (
       .forEach(([s, currentSkill], index) => {
         const skillName = SkillById[+s as SkillId];
 
-        const texture = spritesheet.textures[`tier-${currentSkill.tier}/${skillName}.svg`];
+        const texture = spritesheet.textures[`tier-${currentSkill.tier}/${skillName}.png`];
 
         if (!texture) {
-          throw new Error(`Skill texture not found: tier-${currentSkill.tier}/${skillName}.svg`);
+          throw new Error(`Skill texture not found: tier-${currentSkill.tier}/${skillName}.png`);
         }
 
         texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
 
         const sprite = new Sprite(texture);
+
         sprite.name = s.toString();
         sprite.zIndex = 99;
         sprite.width = SKILL_SIZE;
