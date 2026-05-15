@@ -535,10 +535,10 @@ export const SkillModifiers: Record<
     [FightStat.HP]: { flat: [18, 30, 42], percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.immortality]: {
-    [FightStat.HP]: { percent: [2, 2.5, 3] },
-    [FightStat.STRENGTH]: { percent: [-0.2, -0.2, -0.2] },
-    [FightStat.AGILITY]: { percent: [-0.2, -0.2, -0.2] },
-    [FightStat.SPEED]: { percent: [-0.2, -0.2, -0.2] },
+    [FightStat.HP]: { percent: [2.5, 3, 3.5] },
+    [FightStat.STRENGTH]: { percent: [-0.25, -0.25, -0.25] },
+    [FightStat.AGILITY]: { percent: [-0.25, -0.25, -0.25] },
+    [FightStat.SPEED]: { percent: [-0.25, -0.25, -0.25] },
   },
   [SkillName.reconnaissance]: {
     [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
@@ -547,13 +547,13 @@ export const SkillModifiers: Record<
   },
   [SkillName.deity]: {
     [FightStat.SIZE]: { percent: [0.5, 0.5, 0.5] },
-    [FightStat.HP]: { percent: [0.6, 0.8, 1] },
+    [FightStat.HP]: { percent: [1, 1.25, 1.5] },
     [FightStat.STRENGTH]: { percent: [1, 1.25, 1.5] },
     [FightStat.REVERSAL]: { percent: [0.4, 0.5, 0.6] },
-    [FightStat.AGILITY]: { percent: [-0.99, -0.99, -0.99] },
-    [FightStat.SPEED]: { percent: [-0.99, -0.99, -0.99] },
-    [FightStat.DEXTERITY]: { percent: [-0.99, -0.99, -0.99] },
-    [FightStat.EVASION]: { percent: [-0.99, -0.99, -0.99] },
+    [FightStat.AGILITY]: { percent: [-1, -1, -1] },
+    [FightStat.SPEED]: { percent: [-1, -1, -1] },
+    [FightStat.DEXTERITY]: { percent: [-1, -1, -1] },
+    [FightStat.EVASION]: { percent: [-1, -1, -1] },
     [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
   },
   [SkillName.weaponsMaster]: {

@@ -1,4 +1,6 @@
-import { DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName } from '@labrute/prisma';
+import {
+  DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName
+} from '@labrute/prisma';
 import { BruteRankings } from '../constants.js';
 import { applySkillModifiers } from './applySkillModifiers.js';
 import { getBruteHP } from './getHP.js';
@@ -109,7 +111,7 @@ export const createRandomBruteStats = (
 
     const petTier = brute.pets[pet.name] ?? 1;
 
-    brute.hpModifier *= 1 - (pet.hpMalus[petTier - 1] ?? 0);
+    brute.hpModifier -= pet.hpMalus[petTier - 1] ?? 0;
   }
 
   // Final stat values

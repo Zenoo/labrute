@@ -129,8 +129,8 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
 
         // Percent modifier
         if (modifier?.percent) {
-          calculatedBrute[`${stat}Modifier`] /= 1 + (modifier.percent[tier - 1] ?? 0);
-          calculatedBrute[`${stat}Modifier`] *= 1 + getScaledStat({
+          calculatedBrute[`${stat}Modifier`] -= modifier.percent[tier - 1] ?? 0;
+          calculatedBrute[`${stat}Modifier`] += getScaledStat({
             chaos: true,
             skill: skillName,
             type: 'percent',

@@ -35,9 +35,9 @@ export const applySkillModifiers = (
     if (modifier.percent) {
       // Remove previous tier modifier if applicable
       if (skillTier > 1 && removePreviousTier) {
-        brute[`${stat}Modifier`] /= 1 + (modifier.percent[skillTier - 2] ?? 0);
+        brute[`${stat}Modifier`] -= modifier.percent[skillTier - 2] ?? 0;
       }
-      brute[`${stat}Modifier`] *= 1 + (modifier.percent[skillTier - 1] ?? 0);
+      brute[`${stat}Modifier`] += modifier.percent[skillTier - 1] ?? 0;
     }
 
     // Update value

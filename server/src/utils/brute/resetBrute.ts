@@ -168,7 +168,7 @@ export const resetBrute = async ({
   for (const petName of keys(tieredAscendedPets)) {
     const petStats = pets[petName];
 
-    stats.hpModifier *= 1 - (petStats.hpMalus[(tieredAscendedPets[petName] ?? 1) - 1] ?? 0);
+    stats.hpModifier -= petStats.hpMalus[(tieredAscendedPets[petName] ?? 1) - 1] ?? 0;
     stats.hpValue = getBruteHP(stats);
   }
 

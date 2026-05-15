@@ -165,7 +165,7 @@ export const getFighters = ({
           const pet = pets[petName];
           const petTier = brute.pets[petName] ?? 1;
 
-          brute.hpModifier /= 1 - (pet.hpMalus[petTier - 1] ?? 0);
+          brute.hpModifier += pet.hpMalus[petTier - 1] ?? 0;
           brute.hpValue = getBruteHP(brute);
         }
       }

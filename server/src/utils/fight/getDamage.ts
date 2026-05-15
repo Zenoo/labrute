@@ -71,7 +71,7 @@ export const getDamage = (
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= 1 + getScaledStat({
+      skillsMultiplier += getScaledStat({
         chaos,
         skill: modifier.skill,
         type: 'percent',
@@ -128,7 +128,7 @@ export const getDamage = (
       }
     } else {
       // Global damage modifier
-      skillsMultiplier *= 1 + getScaledStat({
+      skillsMultiplier += getScaledStat({
         chaos,
         skill: modifier.skill,
         type: 'percent',

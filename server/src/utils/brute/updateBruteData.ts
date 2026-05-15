@@ -90,9 +90,9 @@ export const updateBruteData = (
 
     // Remove previous tier modifier if applicable
     if (petTier > 1) {
-      updatedBrute.hpModifier /= 1 - (pet.hpMalus[petTier - 2] ?? 0);
+      updatedBrute.hpModifier += pet.hpMalus[petTier - 2] ?? 0;
     }
-    updatedBrute.hpModifier *= 1 - (pet.hpMalus[petTier - 1] ?? 0);
+    updatedBrute.hpModifier -= pet.hpMalus[petTier - 1] ?? 0;
   } else if (destinyChoice.stat1 && !destinyChoice.stat2) {
     // +X stat
     const stat = destinyChoice.stat1;
