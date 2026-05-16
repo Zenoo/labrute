@@ -84,6 +84,9 @@ export const Fights = {
       if (!req.body.brute1 || !req.body.brute2) {
         throw new MissingElementError(translate('missingParameters', user));
       }
+      if (typeof req.body.brute1 !== 'string' || typeof req.body.brute2 !== 'string') {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
 
       // Get brutes
       const baseBrute1 = await traced('fights.create.findBrute1', () => prisma.brute.findFirst({

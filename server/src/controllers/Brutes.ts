@@ -331,6 +331,10 @@ export const Brutes = {
         throw new ExpectedError(translate('invalidParameters', authed));
       }
 
+      if (req.body.master !== null && typeof req.body.master !== 'string') {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
       // Check colors validity
       checkColors(authed, req.body.gender, req.body.colors);
 

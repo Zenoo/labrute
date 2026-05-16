@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { ServerReadyResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
-import type { Express, Request, Response } from 'express';
+import type {
+  Express, Request, Response
+} from 'express';
 import { Config } from './config.js';
 import { Achievements } from './controllers/Achievements.js';
 import { BruteReports } from './controllers/BruteReports.js';
