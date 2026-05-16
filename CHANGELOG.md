@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.93.4](https://github.com/Zenoo/labrute/compare/labrute-v2.93.3...labrute-v2.93.4) (2026-05-16)
+
+
+### Bug Fixes
+
+* Flawed logic for unlocking pets at a higher tier ([7a22e02](https://github.com/Zenoo/labrute/commit/7a22e024f01235105dfef74ce5ecf5b2c4e0697c))
+* Missing clan role translations ([298aeaf](https://github.com/Zenoo/labrute/commit/298aeaf8a28bb85d5eec2d6086b7009a2270502a))
+* Missing logic in T2/3 perk unlocks ([894d86b](https://github.com/Zenoo/labrute/commit/894d86bcf6fcf84f8216aa1e9bfe1d8ea6fe392f))
+* Sanitize some API inputs ([7124331](https://github.com/Zenoo/labrute/commit/7124331030f72b0f937d34c9d6bce352373d7b43))
+* Update opponent on versus view from state ([773ec4c](https://github.com/Zenoo/labrute/commit/773ec4ce2c3b737b8eeddeb814bff3637275feb0))
+
 ## [2.93.3](https://github.com/Zenoo/labrute/compare/labrute-v2.93.2...labrute-v2.93.3) (2026-05-15)
 
 
