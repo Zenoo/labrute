@@ -228,7 +228,7 @@ export const ArenaView = () => {
                       sx={{
                         width: 185,
                         height: 1,
-                        m: '0 auto',
+                        mx: 'auto',
                       }}
                     />
                   </Grid>

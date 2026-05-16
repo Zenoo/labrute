@@ -237,6 +237,7 @@ export const HallView = () => {
                   height: 136,
                   width: '150%',
                   overflow: 'hidden',
+                  pointerEvents: 'none',
                 }}
                 >
                   <Box sx={{
