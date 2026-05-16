@@ -36,7 +36,7 @@ export const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
   members,
   onAssigned,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('clan');
   const Alert = useAlert();
 
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);

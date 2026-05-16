@@ -26,7 +26,7 @@ export const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
   role = null,
   onRoleCreated,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('clan');
   const Alert = useAlert();
 
   const [roleName, setRoleName] = useState('');

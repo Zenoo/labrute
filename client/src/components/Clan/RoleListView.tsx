@@ -38,7 +38,7 @@ export const RoleListView: React.FC<RoleListViewProps> = ({
   onEditRole,
   onAssignRole,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('clan');
   const Alert = useAlert();
   const Confirm = useConfirm();
   const { brute } = useBrute();
