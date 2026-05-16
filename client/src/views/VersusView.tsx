@@ -55,6 +55,10 @@ export const VersusView = () => {
       });
       return () => { isSubscribed = false; };
     }
+
+    if (passedOpponent) {
+      setOpponent(passedOpponent);
+    }
     return undefined;
   }, [Alert, Server.Brute, opponentName, passedOpponent]);
 
