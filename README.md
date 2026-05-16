@@ -21,7 +21,7 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 - Fork this project
 
-- Make sure your NodeJS and yarn versions are up to date
+- Make sure your NodeJS and pnpm versions are up to date
 
 - If you are using Windows, make sure to use [Git Bash](https://gitforwindows.org/) as your terminal
 
@@ -31,11 +31,11 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 - Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage. (An example is provided in the [eternaltwin.local.toml.sample](eternaltwin.local.toml.sample) file)
 
-- Install dependencies: `yarn install` (This should also setup your database from the `schema.prisma` file and the migrations)
+- Install dependencies: `pnpm i` (This should also setup your database from the `schema.prisma` file and the migrations)
 
-- Make sure to initialize your etwin database by running `yarn eternaltwin db sync`
+- Make sure to initialize your etwin database by running `pnpm eternaltwin db sync`
 
-- Start the server, client and etwin local server with `yarn dev`
+- Start the server, client and etwin local server with `pnpm dev`
 
 - **Important**: Disable your adblocker for the local development environment, as it may block fingerprint requests
 
@@ -45,23 +45,23 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 ### How to sync your database with your new Prisma schema
 
-- Run `yarn db:sync:dev`
+- Run `pnpm db:sync:dev`
 
 ### How to seed your database
 
 - Edit `server/src/seed.ts`
 
-- Run `yarn db:seed`
+- Run `pnpm db:seed`
 
 ## Deployment
 
 - Set the environment variables
 
-- Install dependencies: `npm ci` (This should also compile and built everything needed)
+- Install dependencies: `pnpm ci` (This should also compile and built everything needed)
 
-- Sync your database with `yarn db:sync:prod`
+- Sync your database with `pnpm db:sync:prod`
 
-- Start the server with `yarn start`
+- Start the server with `pnpm start`
 
 - Deploy the frontend using a static server of your choice like [Nginx](https://www.nginx.com/)
 
@@ -69,17 +69,17 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 ## Editing `core`
 
-- Make sure to run `yarn core:export` after creating/deleting files in the `core` package, as it will update the indexes accordingly
+- Make sure to run `pnpm core:export` after creating/deleting files in the `core` package, as it will update the indexes accordingly
 
 ## Generate the sound spritesheet after editing a sound using audiosprite
 
 - Requirements: install ffmpeg on your Pc, node v18 minimum
 
-- Run the script : `yarn sfx:generate` if you use git bash and `yarn sfx:wsl:generate` if you use WSL
+- Run the script : `pnpm sfx:generate` if you use git bash and `pnpm sfx:wsl:generate` if you use WSL
 
 ## Sitemap
 
-- After editing any of the main Google accessible pages, run `yarn sitemap:generate` to update the sitemap
+- After editing any of the main Google accessible pages, run `pnpm sitemap:generate` to update the sitemap
 
 ## File Structure
 

@@ -4,17 +4,17 @@ set -eux
 
 if [ "${NODE_ENV:-dev}" = "production" ]; then
   # Compile Typescript
-  yarn run compile
+  pnpm compile
 
   # Build client
-  yarn run build:client
+  pnpm build:client
 else
   # Generate schema types + Sync DB
-  yarn run db:sync:dev
+  pnpm db:sync:dev
 
   # Compile Typescript
-  yarn run compile
+  pnpm compile
 
   # Seed DB
-  yarn run db:seed
+  pnpm db:seed
 fi

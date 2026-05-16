@@ -131,5 +131,8 @@ export const getOpponents = async (
     opponents.push(...additionalOpponents);
   }
 
+  // Order by name asc
+  opponents.sort((a, b) => a.name.localeCompare(b.name));
+
   return opponents;
 };

@@ -1,0 +1,13 @@
+packages:
+  - "client"
+  - "core"
+  - "prisma"
+  - "server"
+allowBuilds:
+  "@prisma/client": true
+  "@prisma/engines": true
+  core-js: true
+  core-js-pure: true
+  prisma: true
+  protobufjs: true
+  unrs-resolver: true

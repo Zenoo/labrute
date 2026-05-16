@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "sourceMap": true,
+    "module": "NodeNext",
+    "sourceMap": true
   }
 }

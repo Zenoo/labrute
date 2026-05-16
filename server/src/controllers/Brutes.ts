@@ -850,6 +850,9 @@ export const Brutes = {
               pets: true,
               eventId: true,
             },
+            orderBy: {
+              name: 'asc',
+            }
           },
         },
       }));
