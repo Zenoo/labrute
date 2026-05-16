@@ -54,6 +54,11 @@ export const LevelUpView = () => {
   useEffect(() => {
     let isSubscribed = true;
     if (bruteName && brute) {
+      if (brute.xp < getXPNeeded(brute.level + 1)) {
+        navigate(`/${bruteName}/cell`);
+        return () => { isSubscribed = false; };
+      }
+
       Server.Brute.getLevelUpChoices(bruteName).then((data) => {
         if (isSubscribed) {
           // Check if the brute has enough XP
@@ -210,19 +215,21 @@ export const LevelUpView = () => {
             {choices && choices.map((destinyChoice, i) => {
               let maxedPerk = false;
               let perkUpgrade = false;
+              let tier = 0;
               if (destinyChoice.type === 'skill' && destinyChoice.skill) {
-                const tier = brute.skills[destinyChoice.skill] ?? 0;
+                tier = brute.skills[destinyChoice.skill] ?? 0;
                 maxedPerk = tier >= 3;
                 perkUpgrade = tier > 0;
               } else if (destinyChoice.type === 'weapon' && destinyChoice.weapon) {
-                const tier = brute.weapons[destinyChoice.weapon] ?? 0;
+                tier = brute.weapons[destinyChoice.weapon] ?? 0;
                 maxedPerk = tier >= 3;
                 perkUpgrade = tier > 0;
               } else if (destinyChoice.type === 'pet' && destinyChoice.pet) {
-                const tier = brute.pets[destinyChoice.pet] ?? 0;
+                tier = brute.pets[destinyChoice.pet] ?? 0;
                 maxedPerk = tier >= 3;
                 perkUpgrade = tier > 0;
               }
+              tier++; // Increment tier to match display (1-3 instead of 0-2)
 
               return (
                 <Box
@@ -250,67 +257,64 @@ export const LevelUpView = () => {
                     }}
                   >
                     {/* CHOICE HEADER */}
-                    <Text caption>
-                      {/* +3 Skill */}
-                      {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value} ${t('in')}`}
-                      {/* +2/+1 Skill */}
-                      {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
-                      {/* Weapon */}
-                      {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
-                      {/* Skill */}
-                      {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
-                      {/* Pet */}
-                      {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : t('newPet'))}
-                      {/* Display pet HP malus */}
-                      {destinyChoice.pet
-                        && !brute.pets[destinyChoice.pet]
-                        && pets[destinyChoice.pet] && (
-                          <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
-                            {' '}(-{pets[destinyChoice.pet].hpMalus[0] * 100}% {t('hp')})
-                          </Box>
-                        )}
-                    </Text>
+                    {!loading && (
+                      <><Text caption>
+                        {/* +3 Skill */}
+                        {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value} ${t('in')}`}
+                        {/* +2/+1 Skill */}
+                        {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
+                        {/* Weapon */}
+                        {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
+                        {/* Skill */}
+                        {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
+                        {/* Pet */}
+                        {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : t('newPet'))}
+                        {/* Display pet HP malus */}
+                        {destinyChoice.pet
+                          && !brute.pets[destinyChoice.pet]
+                          && pets[destinyChoice.pet] && (
+                            <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
+                              {' '}(-{pets[destinyChoice.pet].hpMalus[0] * 100}% {t('hp')})
+                            </Box>
+                          )}
+                      </Text>
 
-                    {/* CHOICE CONTENT */}
-                    {/* Single value */}
-                    {(destinyChoice.type === 'skill' ? (
-                      <SkillTooltip
-                        skill={destinyChoice.skill && skills[destinyChoice.skill]}
-                        tier={destinyChoice.skill
-                          ? (brute.skills[destinyChoice.skill] ?? 0) + 1
-                          : undefined}
-                      >
-                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
-                      </SkillTooltip>
-                    ) : destinyChoice.type === 'weapon' ? (
-                      <WeaponTooltip
-                        weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}
-                        tier={destinyChoice.weapon
-                          ? (brute.weapons[destinyChoice.weapon] ?? 0) + 1
-                          : undefined}
-                      >
-                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
-                      </WeaponTooltip>
-                    ) : destinyChoice.type === 'pet' ? (
-                      <PetTooltip
-                        pet={destinyChoice.pet && pets[destinyChoice.pet]}
-                        tier={destinyChoice.pet
-                          ? (brute.pets[destinyChoice.pet] ?? 0) + 1
-                          : undefined}
-                      >
-                        <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
-                      </PetTooltip>
-                    ) : !destinyChoice.stat2 ? (
-                      <Text h6 bold smallCaps>
-                        {t(destinyChoice.stat1 as BruteStat)}
-                      </Text>
-                    ) : (
-                      <Text h6 bold smallCaps>
-                        {t(destinyChoice.stat1 as BruteStat)}
-                        {' / '}
-                        {t(destinyChoice.stat2)}
-                      </Text>
-                    ))}
+                        {/* CHOICE CONTENT */}
+                        {/* Single value */}
+                        {(destinyChoice.type === 'skill' ? (
+                          <SkillTooltip
+                            skill={destinyChoice.skill && skills[destinyChoice.skill]}
+                            tier={tier}
+                          >
+                            <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                          </SkillTooltip>
+                        ) : destinyChoice.type === 'weapon' ? (
+                          <WeaponTooltip
+                            weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}
+                            tier={tier}
+                          >
+                            <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                          </WeaponTooltip>
+                        ) : destinyChoice.type === 'pet' ? (
+                          <PetTooltip
+                            pet={destinyChoice.pet && pets[destinyChoice.pet]}
+                            tier={tier}
+                          >
+                            <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
+                          </PetTooltip>
+                        ) : !destinyChoice.stat2 ? (
+                          <Text h6 bold smallCaps>
+                            {t(destinyChoice.stat1 as BruteStat)}
+                          </Text>
+                        ) : (
+                          <Text h6 bold smallCaps>
+                            {t(destinyChoice.stat1 as BruteStat)}
+                            {' / '}
+                            {t(destinyChoice.stat2)}
+                          </Text>
+                        ))}
+                      </>
+                    )}
                   </BoxBg>
                   {/* VALIDATE */}
                   {!maxedPerk && (

@@ -22,32 +22,26 @@ const preventSomeBonuses = (
   // Check if the perk should be prevented
   if (perkType === 'pet') {
     const brutePets = getTieredPets(brute);
-    const dogsUnlocked = (brutePets[PetName.dog1] ?? 0)
-      + (brutePets[PetName.dog2] ?? 0)
-      + (brutePets[PetName.dog3] ?? 0);
-    const dogTier = dogsUnlocked <= 3 ? 1 : dogsUnlocked - 2;
-    const higherDogTierLocked = dogsUnlocked < 3 || dogTier >= 3;
+    const tier = brutePets[perkName as PetName] ?? 0;
+
+    // Highest tier reached
+    if (tier >= 3) {
+      preventPerk = true;
+      return preventPerk;
+    }
+
     switch (perkName) {
       case 'dog1':
-        preventPerk = !!brutePets[PetName.dog1] && higherDogTierLocked;
+        // No prevention for dog1, as it's the base for the other dogs
         break;
       case 'dog2':
-        preventPerk = !brutePets[PetName.dog1]
-          || !!brutePets[PetName.dog2];
+        preventPerk = !brutePets[PetName.dog1];
         break;
       case 'dog3':
         preventPerk = !brutePets[PetName.dog1]
-          || !brutePets[PetName.dog2]
-          || !!brutePets[PetName.dog3];
+          || !brutePets[PetName.dog2];
         break;
       case 'panther': {
-        const tier = brutePets[PetName.panther] ?? 0;
-        // Highest tier reached
-        if (tier >= 3) {
-          preventPerk = true;
-          break;
-        }
-
         if (tier === 0) {
           // Allow for both panther and bear at a 1/1000 chance
           if (brutePets[PetName.bear] && randomBetween(1, 1000) <= 1) {
@@ -59,13 +53,6 @@ const preventSomeBonuses = (
         break;
       }
       case 'bear': {
-        const tier = brutePets[PetName.bear] ?? 0;
-        // Highest tier reached
-        if (tier >= 3) {
-          preventPerk = true;
-          break;
-        }
-
         if (tier === 0) {
           // Allow for both panther and bear at a 1/1000 chance
           if (brutePets[PetName.panther] && randomBetween(1, 1000) <= 1) {
