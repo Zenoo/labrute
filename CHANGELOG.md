@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.0](https://github.com/Zenoo/labrute/compare/labrute-v2.93.4...labrute-v2.94.0) (2026-05-17)
+
+
+### Features
+
+* Customization token to unlock brute colors ([c871416](https://github.com/Zenoo/labrute/commit/c871416b669cbea8d9bba78cb9dcac3791d22ffd))
+
+
+### Bug Fixes
+
+* Arena selection bug ([4aea590](https://github.com/Zenoo/labrute/commit/4aea5904adf2d1d6a7b3e8924d8dece1f4eb2ca7))
+* Deploy from Github ([c21f461](https://github.com/Zenoo/labrute/commit/c21f4619b6cbf63b925afc4ca5b51a3cd4268ce0))
+* Error while leaving a clan with a role ([89de806](https://github.com/Zenoo/labrute/commit/89de8063f23d4eb9be8853fb5f606a89a5cd45b9))
+* Migrate from yarn to pnpm ([131481b](https://github.com/Zenoo/labrute/commit/131481b6361fb33f89f5edd10efb1232b96c27ed))
+* Missing translation ([065fcf5](https://github.com/Zenoo/labrute/commit/065fcf5d9c0112dcf942675d67d69900bb919dbc))
+* remove postinstall script ([c2d50eb](https://github.com/Zenoo/labrute/commit/c2d50eb9dfdcefcfa24e4360569774dc8e1440e1))
+* Remove postinstall script ([58e9e32](https://github.com/Zenoo/labrute/commit/58e9e32338d1bab1c1fe62c5740ce10a7a28cf41))
+* Update skills display after updating weapons in fights ([c5a8448](https://github.com/Zenoo/labrute/commit/c5a8448ec119c17aeb7447f8c80daa5ce1d94e52))
+
 ## [2.93.4](https://github.com/Zenoo/labrute/compare/labrute-v2.93.3...labrute-v2.93.4) (2026-05-16)
 
 
