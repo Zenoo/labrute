@@ -317,7 +317,9 @@ export const ClanView = () => {
         updateData((data) => (data ? ({
           ...data,
           brutes: data.brutes.map((b) => (b.name === brute.name ? {
-            ...b, clanId: null,
+            ...b,
+            clanId: null,
+            clanRoleId: null,
           } : b)),
         }) : null));
 

@@ -852,21 +852,21 @@ export const Clans = {
           },
         }));
       } else {
-        const removeRole = brute.clanRoleId ? {
-          roles: {
-            updateMany: {
-              where: { id: brute.clanRoleId ?? '' },
-              data: { brutes: { disconnect: { id: brute.id } } },
-            },
-          },
-        } : undefined;
 
-        // Update clan
+        // Remove brute clan role
+        if (brute.clanRoleId) {
+          await traced('clans.leave.removeClanRole', () => prisma.brute.update({
+            where: { id: brute.id },
+            data: { clanRoleId: null },
+            select: { id: true },
+          }));
+        }
+
+        // Remove brute from clan
         await traced('clans.leave.updateClan', () => prisma.clan.update({
           where: { id },
           data: {
             brutes: { disconnect: { id: brute.id } },
-            ...removeRole,
           },
           select: { id: true },
         }));
