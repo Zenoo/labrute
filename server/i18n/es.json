@@ -137,5 +137,5 @@
   "targetUserWithoutSharedFingerprint": "El usuario de destino no tiene una huella digital compartida. Necesitas iniciar sesión con ambas cuentas en el mismo dispositivo al menos una vez para poder transferir un bruto entre las cuentas.",
   "userCreatedAfterTransferImplementation": "Esta función no está disponible para cuentas creadas después del 20 de abril de 2026. Solo se implementó para los usuarios anteriores con múltiples cuentas para poder transferir su bruto a una única cuenta.",
   "rankingsNotReady": "Los rankings no están listos todavía. Por favor, inténtalo de nuevo más tarde.",
-  "colorAlreadyUnlocked": "This color is already unlocked for this body part"
+  "colorAlreadyUnlocked": "Este color ya ha sido desbloqueado para esta parte del cuerpo"
 }
