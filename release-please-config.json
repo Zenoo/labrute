@@ -1,8 +1,4 @@
 {
-  "packages": {
-    ".": {
-      "release-type": "node",
-      "package-name": "labrute",
       "extra-files": [
         "core/src/Version.ts",
         {
@@ -30,7 +26,11 @@
           "path": "server/package.json",
           "jsonpath": "$.version"
         }
-      ]
+      ],
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "labrute"
     }
   }
 }
