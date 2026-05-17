@@ -125,5 +125,6 @@
   "loading": "Loading...",
   "noMembersAvailable": "No members available to assign this role",
   "selectMembers": "Select Members",
-  "rolesAssigned": "Role assigned to {{count}} member(s) successfully"
+  "rolesAssigned": "Role assigned to {{count}} member(s) successfully",
+  "permissions": "Permissions"
 }
