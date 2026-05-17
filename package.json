@@ -25,7 +25,6 @@
     "db:resolve:rolled-back": "pnpm --filter server db:resolve:rolled-back",
     "db:seed": "pnpm --filter server db:seed",
     "db:reset": "pnpm --filter server db:reset",
-    "postinstall": "bash ./scripts/postInstall.sh",
     "studio": "pnpm --filter server studio",
     "add:client": "pnpm --filter client add",
     "add:server": "pnpm --filter server add",
