@@ -53,6 +53,7 @@ import { CurrentEventsView } from './views/event/CurrentEventsView';
 import { EventRoundView } from './views/event/EventRoundView';
 import { UserLogView } from './views/admin/UserLogView';
 import { TransferBruteView } from './views/TransferBruteView';
+import { UnlockColorView } from './views/UnlockColorView';
 
 export const routes: RouteObject[] = [
   {
@@ -94,6 +95,7 @@ export const routes: RouteObject[] = [
           { path: 'tournaments', element: <TournamentHistoryView /> },
           { path: 'achievements', element: <AchievementsView /> },
           { path: 'reset-visuals', element: <ResetVisualsView /> },
+          { path: 'unlock-color', element: <UnlockColorView /> },
           { path: 'change-name', element: <NameChangeView /> },
           {
             path: 'clan',

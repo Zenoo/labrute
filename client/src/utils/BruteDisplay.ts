@@ -1,5 +1,5 @@
 import {
-  BruteBodyPart, readBodyString, readColorString
+  BruteBodyPart, BruteColor, readBodyString, readColorString
 } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import {
@@ -74,6 +74,8 @@ export class BruteDisplay {
 
   #scale: number;
 
+  #highlightTint?: BruteColor;
+
   #onLoad: (() => void) | undefined;
 
   constructor(
@@ -82,12 +84,14 @@ export class BruteDisplay {
     parts: string,
     looking: 'left' | 'right' = 'left',
     scale = 1,
+    highlightTint?: BruteColor
   ) {
-    this.#colors = readColorString(gender, colors);
+    this.#colors = readColorString(colors);
     this.#parts = readBodyString(parts);
     this.#looking = looking;
     this.gender = gender;
     this.#scale = scale;
+    this.#highlightTint = highlightTint;
     this.container = new PIXI.Container();
     this.container.sortableChildren = true;
 
@@ -319,12 +323,21 @@ export class BruteDisplay {
 
       // Apply color
       if (colorIdx) {
-        const color = this.#colors[colorIdx.substring(1) as keyof Colors];
+        const colorName = colorIdx.substring(1) as BruteColor;
+        const color = this.#colors[colorName];
         if (!color) {
           throw new Error(`Color ${colorIdx} not found`);
         }
 
         sprite.tint = parseInt(color.replace('#', ''), 16);
+
+        if (this.#highlightTint === colorName) {
+          // Apply highlight effect
+          sprite.filters = [
+            ...(sprite.filters ?? []),
+            new OutlineFilter(4, 0xFFFFFF)
+          ];
+        }
       }
 
       // Add to current container

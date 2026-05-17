@@ -53,11 +53,23 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 - Run `pnpm db:seed`
 
+### pnpm troubleshooting
+
+If you encounter issues running pnpm scripts, change your config with the following commands:
+
+```bash
+# This will allow setting env variables in the scripts section of package.json, which is required for some scripts to work properly
+pnpm config set shellEmulator true
+# This will set the script shell to git bash, which prevents issues with the default cmd.exe on windows
+# Adapt the path to your git bash executable if it's different
+pnpm config set scriptShell "C:\\Program Files\\git\\bin\\bash.exe"
+```
+
 ## Deployment
 
 - Set the environment variables
 
-- Install dependencies: `pnpm ci` (This should also compile and built everything needed)
+- Install dependencies: `pnpm install --frozen-lockfile` (This should also compile and built everything needed)
 
 - Sync your database with `pnpm db:sync:prod`
 

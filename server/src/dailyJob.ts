@@ -451,10 +451,27 @@ const handleDailyTournaments = async (
         winnerGains[1] += DailyTournamentGoldReward;
       }
 
-      // Add 1 tournament win to winner brute
+      // Add 1 tournament win to winner brute + 1 customization token
       await prisma.brute.update({
         where: { id: winnerBrute.id },
-        data: { tournamentWins: winnerBrute.tournamentWins + 1 },
+        data: {
+          tournamentWins: winnerBrute.tournamentWins + 1,
+          inventory: {
+            upsert: {
+              where: {
+                type_bruteId: {
+                  type: InventoryItemType.customizationToken,
+                  bruteId: winnerBrute.id
+                }
+              },
+              update: { count: { increment: 1 } },
+              create: {
+                type: InventoryItemType.customizationToken,
+                count: 1
+              },
+            }
+          }
+        },
         select: { id: true },
       });
 

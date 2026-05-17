@@ -95,6 +95,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/brute/:name/favorite', Brutes.toggleFavorite(prisma));
   app.patch('/api/brute/:name/reset', Brutes.reset(prisma));
   app.patch('/api/brute/:name/reset-visuals', Brutes.resetVisuals(prisma));
+  app.patch('/api/brute/:name/unlock-color', Brutes.unlockColor(prisma));
   app.patch('/api/brute/:name/change-name/:newName', Brutes.changeName(prisma));
   app.get('/api/brute/:name/inventory', Brutes.getInventory(prisma));
   app.put('/api/brute/item', Brutes.giveItem(prisma));

@@ -1,7 +1,11 @@
 import { BruteGetInventoryResponse } from '@labrute/core';
 import { InventoryItemType } from '@labrute/prisma';
-import { Box, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import {
+  Box, Grid, Paper, useMediaQuery, useTheme
+} from '@mui/material';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { BruteBodyAndStats } from '../components/Brute/BruteBodyAndStats';
@@ -20,6 +24,7 @@ const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.bossTicket]: '/images/inventory/bossTicket.webp',
   [InventoryItemType.nameChange]: '/images/inventory/nameChange.webp',
   [InventoryItemType.favoriteFight]: '/images/inventory/favoriteFight.webp',
+  [InventoryItemType.customizationToken]: '/images/inventory/favoriteFight.webp',
 };
 
 export const InventoryView = () => {
@@ -49,6 +54,11 @@ export const InventoryView = () => {
       case InventoryItemType.visualReset: {
         // Reset visuals
         navigate(`/${brute.name}/reset-visuals`);
+        break;
+      }
+      case InventoryItemType.customizationToken: {
+        // Unlock color
+        navigate(`/${brute.name}/unlock-color`);
         break;
       }
       case InventoryItemType.nameChange: {
@@ -126,7 +136,7 @@ export const InventoryView = () => {
                       }}
                       >
                         <Text bold color="secondary">
-                          {t(`inventory.item.${item.type}`)}
+                          {t(`item.${item.type}`)}
                           {item.count > 1 && (
                             <Text component="span" color="primary" italic>
                               {` x${item.count}`}

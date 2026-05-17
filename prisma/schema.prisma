@@ -258,7 +258,7 @@ model Brute {
   // col4: Shirt
   // col4a: Shoes accent ?
   // col4b: ??
-  colors                        String                  @default("00000000000000000000000000000000") @db.VarChar(32)
+  colors                        String                  @default("000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000") @db.VarChar(96)
   weapons                       WeaponName[]            @default([])
   skills                        SkillName[]             @default([])
   pets                          PetName[]               @default([])
@@ -321,6 +321,7 @@ model Brute {
   userlogs                      UserLog[]
   clanRole                      ClanRole?               @relation(fields: [clanRoleId], references: [id])
   clanRoleId                    String?                 @db.Uuid
+  unlockedColors                UnlockedColors[]
   // Note: Optimized partial indexes for ranking queries and GIN indexes are maintained
   // via manual migrations and are not defined in this schema to prevent Prisma from
   // trying to recreate them
@@ -354,6 +355,15 @@ model BruteStartingStats {
   bruteId  String @unique @db.Uuid
 
   @@index([bruteId])
+}
+
+model UnlockedColors {
+  brute    Brute    @relation(fields: [bruteId], references: [id], onDelete: Cascade)
+  bruteId  String   @db.Uuid
+  bodyPart String   @db.VarChar(5)
+  colors   String[] @default([])
+
+  @@id([bruteId, bodyPart])
 }
 
 // FIGHTS
@@ -893,6 +903,7 @@ enum InventoryItemType {
   bossTicket
   nameChange
   favoriteFight
+  customizationToken
 }
 
 model InventoryItem {

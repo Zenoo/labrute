@@ -1,4 +1,4 @@
-import { BruteForRender } from '@labrute/core';
+import { BruteColor, BruteForRender } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import {
   Box, BoxProps, useTheme
@@ -12,6 +12,8 @@ interface BruteRenderProps extends BoxProps {
   x?: number;
   y?: number;
   small?: boolean;
+  skipCache?: boolean;
+  highlightColorName?: BruteColor;
 }
 
 export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
@@ -20,6 +22,8 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
   x = 0,
   y = 0,
   small,
+  skipCache,
+  highlightColorName,
   sx,
   ...rest
 }, ref) => {
@@ -35,8 +39,15 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
       setSrc(content);
     });
 
-    renderer.render(brute);
-  }, [brute, renderer]);
+    renderer.render({
+      id: brute.id,
+      body: brute.body,
+      colors: brute.colors,
+      gender: brute.gender,
+      skipCache,
+      highlightColorName,
+    });
+  }, [brute, renderer, skipCache, highlightColorName]);
 
   if (!brute) return null;
 

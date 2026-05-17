@@ -40,6 +40,7 @@ export const namespaces = [
   'tournament',
   'tournamentHistory',
   'transferBrute',
+  'unlockColor',
   'user',
   'versus',
   'wiki',

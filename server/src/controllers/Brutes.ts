@@ -39,6 +39,14 @@ import {
   BruteGetForAdminRequest,
   BrutesGetForRankRequest,
   BrutesGetNeighborsForRankRequest,
+  ParamsWithBruteName,
+  BruteUnlockColorRequest,
+  BruteResetVisualsRequest,
+  isHexColor,
+  colorableBodyParts,
+  readColorString,
+  generateColorString,
+  BruteUnlockColorResponse,
 } from '@labrute/core';
 import {
   Brute,
@@ -336,7 +344,10 @@ export const Brutes = {
       }
 
       // Check colors validity
-      checkColors(authed, req.body.gender, req.body.colors);
+      checkColors(authed, {
+        gender: req.body.gender,
+        unlockedColors: [],
+      }, req.body.colors);
 
       // Check body validity
       checkBody(authed, req.body.gender, req.body.body);
@@ -1585,9 +1596,7 @@ export const Brutes = {
     }
   },
   ascend: (prisma: PrismaClient) => async (
-    req: Request<{
-      name: string,
-    }, unknown, {
+    req: Request<ParamsWithBruteName, unknown, {
       data: {
         weapon?: WeaponName,
         skill?: SkillName,
@@ -1852,7 +1861,7 @@ export const Brutes = {
     }
   },
   adminUpdate: (prisma: PrismaClient) => async (
-    req: Request<{ name: string }, unknown, Prisma.BruteUncheckedUpdateInput>,
+    req: Request<ParamsWithBruteName, unknown, Prisma.BruteUncheckedUpdateInput>,
     res: Response,
   ) => {
     try {
@@ -1947,7 +1956,7 @@ export const Brutes = {
     }
   },
   toggleFavorite: (prisma: PrismaClient) => async (
-    req: Request<{ name: string }>,
+    req: Request<ParamsWithBruteName>,
     res: Response,
   ) => {
     try {
@@ -2007,7 +2016,7 @@ export const Brutes = {
     }
   },
   reset: (prisma: PrismaClient) => async (
-    req: Request<{ name: string }>,
+    req: Request<ParamsWithBruteName>,
     res: Response<Brute>,
   ) => {
     try {
@@ -2059,12 +2068,7 @@ export const Brutes = {
     }
   },
   resetVisuals: (prisma: PrismaClient) => async (
-    req: Request<{
-      name: string,
-    }, unknown, {
-      body: string,
-      colors: string,
-    }>,
+    req: Request<ParamsWithBruteName, unknown, BruteResetVisualsRequest>,
     res: Response,
   ) => {
     try {
@@ -2077,7 +2081,16 @@ export const Brutes = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, gender: true },
+        select: {
+          id: true,
+          gender: true,
+          unlockedColors: {
+            select: {
+              bodyPart: true,
+              colors: true,
+            }
+          }
+        },
       }));
 
       if (!brute) {
@@ -2099,7 +2112,7 @@ export const Brutes = {
       }
 
       // Check colors validity
-      checkColors(user, brute.gender, req.body.colors);
+      checkColors(user, brute, req.body.colors);
 
       // Check body validity
       checkBody(user, brute.gender, req.body.body);
@@ -2141,6 +2154,128 @@ export const Brutes = {
       }
 
       res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  unlockColor: (prisma: PrismaClient) => async (
+    req: Request<ParamsWithBruteName, unknown, BruteUnlockColorRequest>,
+    res: Response<BruteUnlockColorResponse>,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      if (!isHexColor(req.body.color)) {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
+      if (!colorableBodyParts.includes(req.body.bodyPart)) {
+        throw new ExpectedError(translate('invalidParameters', user));
+      }
+
+      // Check if user owns the brute
+      const brute = await traced('brutes.unlockColor.findBrute', () => prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.name),
+          deletedAt: null,
+          userId: user.id,
+        },
+        select: {
+          id: true,
+          gender: true,
+          colors: true,
+          unlockedColors: { select: { bodyPart: true, colors: true } }
+        },
+      }));
+
+      if (!brute) {
+        throw new ExpectedError(translate('bruteNotFound', user));
+      }
+
+      // Check if brute can unlock colors
+      const inventory = await traced('brutes.unlockColor.findInventory', () => prisma.inventoryItem.findUnique({
+        where: {
+          type_bruteId: {
+            bruteId: brute.id,
+            type: InventoryItemType.customizationToken,
+          },
+        },
+      }));
+
+      if (!inventory?.count) {
+        throw new ForbiddenError(translate('unauthorized', user));
+      }
+
+      // Check if color is already unlocked
+      const alreadyUnlocked = brute.unlockedColors.some((uc) => uc.bodyPart === req.body.bodyPart
+        && uc.colors.includes(req.body.color));
+
+      if (alreadyUnlocked) {
+        throw new ExpectedError(translate('colorAlreadyUnlocked', user));
+      }
+
+      // Unlock the color for the brute
+      await traced('brutes.unlockColor', () => prisma.unlockedColors.upsert({
+        where: {
+          bruteId_bodyPart: {
+            bruteId: brute.id,
+            bodyPart: req.body.bodyPart,
+          },
+        },
+        update: {
+          colors: {
+            push: req.body.color,
+          },
+        },
+        create: {
+          bruteId: brute.id,
+          bodyPart: req.body.bodyPart,
+          colors: [req.body.color],
+        },
+        select: { colors: true },
+      }));
+
+      // Update the brute colors
+      const newColorString = generateColorString({
+        ...readColorString(brute.colors),
+        [req.body.bodyPart]: req.body.color,
+      });
+
+      await traced('brutes.unlockColor.updateBrute', () => prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          colors: newColorString,
+        },
+      }));
+
+      // Update the brute inventory
+      if (inventory.count === 1) {
+        await traced('brutes.unlockColor.deleteInventoryItem', () => prisma.inventoryItem.delete({
+          where: {
+            type_bruteId: {
+              bruteId: brute.id,
+              type: InventoryItemType.customizationToken,
+            },
+          },
+        }));
+      } else {
+        await traced('brutes.unlockColor.updateInventoryItem', () => prisma.inventoryItem.update({
+          where: {
+            type_bruteId: {
+              bruteId: brute.id,
+              type: InventoryItemType.customizationToken,
+            },
+          },
+          data: {
+            count: {
+              decrement: 1,
+            },
+          },
+          select: { id: true },
+        }));
+      }
+
+      res.send({ colors: newColorString });
     } catch (error) {
       sendError(res, error);
     }

@@ -236,6 +236,12 @@ exports.Prisma.BruteStartingStatsScalarFieldEnum = {
   bruteId: 'bruteId'
 };
 
+exports.Prisma.UnlockedColorsScalarFieldEnum = {
+  bruteId: 'bruteId',
+  bodyPart: 'bodyPart',
+  colors: 'colors'
+};
+
 exports.Prisma.FightScalarFieldEnum = {
   id: 'id',
   date: 'date',
@@ -812,7 +818,8 @@ exports.InventoryItemType = exports.$Enums.InventoryItemType = {
   visualReset: 'visualReset',
   bossTicket: 'bossTicket',
   nameChange: 'nameChange',
-  favoriteFight: 'favoriteFight'
+  favoriteFight: 'favoriteFight',
+  customizationToken: 'customizationToken'
 };
 
 exports.EventType = exports.$Enums.EventType = {
@@ -850,6 +857,7 @@ exports.Prisma.ModelName = {
   UserLog: 'UserLog',
   Brute: 'Brute',
   BruteStartingStats: 'BruteStartingStats',
+  UnlockedColors: 'UnlockedColors',
   Fight: 'Fight',
   Log: 'Log',
   DestinyChoice: 'DestinyChoice',

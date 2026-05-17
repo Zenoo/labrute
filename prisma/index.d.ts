@@ -34,6 +34,11 @@ export type Brute = $Result.DefaultSelection<Prisma.$BrutePayload>
  */
 export type BruteStartingStats = $Result.DefaultSelection<Prisma.$BruteStartingStatsPayload>
 /**
+ * Model UnlockedColors
+ * 
+ */
+export type UnlockedColors = $Result.DefaultSelection<Prisma.$UnlockedColorsPayload>
+/**
  * Model Fight
  * 
  */
@@ -571,7 +576,8 @@ export const InventoryItemType: {
   visualReset: 'visualReset',
   bossTicket: 'bossTicket',
   nameChange: 'nameChange',
-  favoriteFight: 'favoriteFight'
+  favoriteFight: 'favoriteFight',
+  customizationToken: 'customizationToken'
 };
 
 export type InventoryItemType = (typeof InventoryItemType)[keyof typeof InventoryItemType]
@@ -857,6 +863,16 @@ export class PrismaClient<
     * ```
     */
   get bruteStartingStats(): Prisma.BruteStartingStatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.unlockedColors`: Exposes CRUD operations for the **UnlockedColors** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UnlockedColors
+    * const unlockedColors = await prisma.unlockedColors.findMany()
+    * ```
+    */
+  get unlockedColors(): Prisma.UnlockedColorsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.fight`: Exposes CRUD operations for the **Fight** model.
@@ -1562,6 +1578,7 @@ export namespace Prisma {
     UserLog: 'UserLog',
     Brute: 'Brute',
     BruteStartingStats: 'BruteStartingStats',
+    UnlockedColors: 'UnlockedColors',
     Fight: 'Fight',
     Log: 'Log',
     DestinyChoice: 'DestinyChoice',
@@ -1606,7 +1623,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1903,6 +1920,80 @@ export namespace Prisma {
           count: {
             args: Prisma.BruteStartingStatsCountArgs<ExtArgs>
             result: $Utils.Optional<BruteStartingStatsCountAggregateOutputType> | number
+          }
+        }
+      }
+      UnlockedColors: {
+        payload: Prisma.$UnlockedColorsPayload<ExtArgs>
+        fields: Prisma.UnlockedColorsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UnlockedColorsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UnlockedColorsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>
+          }
+          findFirst: {
+            args: Prisma.UnlockedColorsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UnlockedColorsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>
+          }
+          findMany: {
+            args: Prisma.UnlockedColorsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>[]
+          }
+          create: {
+            args: Prisma.UnlockedColorsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>
+          }
+          createMany: {
+            args: Prisma.UnlockedColorsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UnlockedColorsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>[]
+          }
+          delete: {
+            args: Prisma.UnlockedColorsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>
+          }
+          update: {
+            args: Prisma.UnlockedColorsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>
+          }
+          deleteMany: {
+            args: Prisma.UnlockedColorsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UnlockedColorsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UnlockedColorsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>[]
+          }
+          upsert: {
+            args: Prisma.UnlockedColorsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnlockedColorsPayload>
+          }
+          aggregate: {
+            args: Prisma.UnlockedColorsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUnlockedColors>
+          }
+          groupBy: {
+            args: Prisma.UnlockedColorsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UnlockedColorsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UnlockedColorsCountArgs<ExtArgs>
+            result: $Utils.Optional<UnlockedColorsCountAggregateOutputType> | number
           }
         }
       }
@@ -3930,6 +4021,7 @@ export namespace Prisma {
     userLog?: UserLogOmit
     brute?: BruteOmit
     bruteStartingStats?: BruteStartingStatsOmit
+    unlockedColors?: UnlockedColorsOmit
     fight?: FightOmit
     log?: LogOmit
     destinyChoice?: DestinyChoiceOmit
@@ -4173,6 +4265,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf: number
     wonEvents: number
     userlogs: number
+    unlockedColors: number
   }
 
   export type BruteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4201,6 +4294,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: boolean | BruteCountOutputTypeCountAsLowerLowerNeighbourOfArgs
     wonEvents?: boolean | BruteCountOutputTypeCountWonEventsArgs
     userlogs?: boolean | BruteCountOutputTypeCountUserlogsArgs
+    unlockedColors?: boolean | BruteCountOutputTypeCountUnlockedColorsArgs
   }
 
   // Custom InputTypes
@@ -4387,6 +4481,13 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountUserlogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserLogWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountUnlockedColorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnlockedColorsWhereInput
   }
 
 
@@ -8309,6 +8410,7 @@ export namespace Prisma {
     wonEvents?: boolean | Brute$wonEventsArgs<ExtArgs>
     userlogs?: boolean | Brute$userlogsArgs<ExtArgs>
     clanRole?: boolean | Brute$clanRoleArgs<ExtArgs>
+    unlockedColors?: boolean | Brute$unlockedColorsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -8572,6 +8674,7 @@ export namespace Prisma {
     wonEvents?: boolean | Brute$wonEventsArgs<ExtArgs>
     userlogs?: boolean | Brute$userlogsArgs<ExtArgs>
     clanRole?: boolean | Brute$clanRoleArgs<ExtArgs>
+    unlockedColors?: boolean | Brute$unlockedColorsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BruteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8639,6 +8742,7 @@ export namespace Prisma {
       wonEvents: Prisma.$EventPayload<ExtArgs>[]
       userlogs: Prisma.$UserLogPayload<ExtArgs>[]
       clanRole: Prisma.$ClanRolePayload<ExtArgs> | null
+      unlockedColors: Prisma.$UnlockedColorsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9136,6 +9240,7 @@ export namespace Prisma {
     wonEvents<T extends Brute$wonEventsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$wonEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userlogs<T extends Brute$userlogsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$userlogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clanRole<T extends Brute$clanRoleArgs<ExtArgs> = {}>(args?: Subset<T, Brute$clanRoleArgs<ExtArgs>>): Prisma__ClanRoleClient<$Result.GetResult<Prisma.$ClanRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    unlockedColors<T extends Brute$unlockedColorsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$unlockedColorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10462,6 +10567,30 @@ export namespace Prisma {
   }
 
   /**
+   * Brute.unlockedColors
+   */
+  export type Brute$unlockedColorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    where?: UnlockedColorsWhereInput
+    orderBy?: UnlockedColorsOrderByWithRelationInput | UnlockedColorsOrderByWithRelationInput[]
+    cursor?: UnlockedColorsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UnlockedColorsScalarFieldEnum | UnlockedColorsScalarFieldEnum[]
+  }
+
+  /**
    * Brute without action
    */
   export type BruteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11603,6 +11732,1043 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BruteStartingStatsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UnlockedColors
+   */
+
+  export type AggregateUnlockedColors = {
+    _count: UnlockedColorsCountAggregateOutputType | null
+    _min: UnlockedColorsMinAggregateOutputType | null
+    _max: UnlockedColorsMaxAggregateOutputType | null
+  }
+
+  export type UnlockedColorsMinAggregateOutputType = {
+    bruteId: string | null
+    bodyPart: string | null
+  }
+
+  export type UnlockedColorsMaxAggregateOutputType = {
+    bruteId: string | null
+    bodyPart: string | null
+  }
+
+  export type UnlockedColorsCountAggregateOutputType = {
+    bruteId: number
+    bodyPart: number
+    colors: number
+    _all: number
+  }
+
+
+  export type UnlockedColorsMinAggregateInputType = {
+    bruteId?: true
+    bodyPart?: true
+  }
+
+  export type UnlockedColorsMaxAggregateInputType = {
+    bruteId?: true
+    bodyPart?: true
+  }
+
+  export type UnlockedColorsCountAggregateInputType = {
+    bruteId?: true
+    bodyPart?: true
+    colors?: true
+    _all?: true
+  }
+
+  export type UnlockedColorsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UnlockedColors to aggregate.
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnlockedColors to fetch.
+     */
+    orderBy?: UnlockedColorsOrderByWithRelationInput | UnlockedColorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UnlockedColorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnlockedColors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnlockedColors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UnlockedColors
+    **/
+    _count?: true | UnlockedColorsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UnlockedColorsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UnlockedColorsMaxAggregateInputType
+  }
+
+  export type GetUnlockedColorsAggregateType<T extends UnlockedColorsAggregateArgs> = {
+        [P in keyof T & keyof AggregateUnlockedColors]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUnlockedColors[P]>
+      : GetScalarType<T[P], AggregateUnlockedColors[P]>
+  }
+
+
+
+
+  export type UnlockedColorsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnlockedColorsWhereInput
+    orderBy?: UnlockedColorsOrderByWithAggregationInput | UnlockedColorsOrderByWithAggregationInput[]
+    by: UnlockedColorsScalarFieldEnum[] | UnlockedColorsScalarFieldEnum
+    having?: UnlockedColorsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UnlockedColorsCountAggregateInputType | true
+    _min?: UnlockedColorsMinAggregateInputType
+    _max?: UnlockedColorsMaxAggregateInputType
+  }
+
+  export type UnlockedColorsGroupByOutputType = {
+    bruteId: string
+    bodyPart: string
+    colors: string[]
+    _count: UnlockedColorsCountAggregateOutputType | null
+    _min: UnlockedColorsMinAggregateOutputType | null
+    _max: UnlockedColorsMaxAggregateOutputType | null
+  }
+
+  type GetUnlockedColorsGroupByPayload<T extends UnlockedColorsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UnlockedColorsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UnlockedColorsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UnlockedColorsGroupByOutputType[P]>
+            : GetScalarType<T[P], UnlockedColorsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UnlockedColorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    bruteId?: boolean
+    bodyPart?: boolean
+    colors?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["unlockedColors"]>
+
+  export type UnlockedColorsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    bruteId?: boolean
+    bodyPart?: boolean
+    colors?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["unlockedColors"]>
+
+  export type UnlockedColorsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    bruteId?: boolean
+    bodyPart?: boolean
+    colors?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["unlockedColors"]>
+
+  export type UnlockedColorsSelectScalar = {
+    bruteId?: boolean
+    bodyPart?: boolean
+    colors?: boolean
+  }
+
+  export type UnlockedColorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"bruteId" | "bodyPart" | "colors", ExtArgs["result"]["unlockedColors"]>
+  export type UnlockedColorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type UnlockedColorsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type UnlockedColorsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+
+  export type $UnlockedColorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UnlockedColors"
+    objects: {
+      brute: Prisma.$BrutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      bruteId: string
+      bodyPart: string
+      colors: string[]
+    }, ExtArgs["result"]["unlockedColors"]>
+    composites: {}
+  }
+
+  type UnlockedColorsGetPayload<S extends boolean | null | undefined | UnlockedColorsDefaultArgs> = $Result.GetResult<Prisma.$UnlockedColorsPayload, S>
+
+  type UnlockedColorsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UnlockedColorsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: UnlockedColorsCountAggregateInputType | true
+    }
+
+  export interface UnlockedColorsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UnlockedColors'], meta: { name: 'UnlockedColors' } }
+    /**
+     * Find zero or one UnlockedColors that matches the filter.
+     * @param {UnlockedColorsFindUniqueArgs} args - Arguments to find a UnlockedColors
+     * @example
+     * // Get one UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UnlockedColorsFindUniqueArgs>(args: SelectSubset<T, UnlockedColorsFindUniqueArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UnlockedColors that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UnlockedColorsFindUniqueOrThrowArgs} args - Arguments to find a UnlockedColors
+     * @example
+     * // Get one UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UnlockedColorsFindUniqueOrThrowArgs>(args: SelectSubset<T, UnlockedColorsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UnlockedColors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsFindFirstArgs} args - Arguments to find a UnlockedColors
+     * @example
+     * // Get one UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UnlockedColorsFindFirstArgs>(args?: SelectSubset<T, UnlockedColorsFindFirstArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UnlockedColors that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsFindFirstOrThrowArgs} args - Arguments to find a UnlockedColors
+     * @example
+     * // Get one UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UnlockedColorsFindFirstOrThrowArgs>(args?: SelectSubset<T, UnlockedColorsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UnlockedColors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.findMany()
+     * 
+     * // Get first 10 UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.findMany({ take: 10 })
+     * 
+     * // Only select the `bruteId`
+     * const unlockedColorsWithBruteIdOnly = await prisma.unlockedColors.findMany({ select: { bruteId: true } })
+     * 
+     */
+    findMany<T extends UnlockedColorsFindManyArgs>(args?: SelectSubset<T, UnlockedColorsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UnlockedColors.
+     * @param {UnlockedColorsCreateArgs} args - Arguments to create a UnlockedColors.
+     * @example
+     * // Create one UnlockedColors
+     * const UnlockedColors = await prisma.unlockedColors.create({
+     *   data: {
+     *     // ... data to create a UnlockedColors
+     *   }
+     * })
+     * 
+     */
+    create<T extends UnlockedColorsCreateArgs>(args: SelectSubset<T, UnlockedColorsCreateArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UnlockedColors.
+     * @param {UnlockedColorsCreateManyArgs} args - Arguments to create many UnlockedColors.
+     * @example
+     * // Create many UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UnlockedColorsCreateManyArgs>(args?: SelectSubset<T, UnlockedColorsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UnlockedColors and returns the data saved in the database.
+     * @param {UnlockedColorsCreateManyAndReturnArgs} args - Arguments to create many UnlockedColors.
+     * @example
+     * // Create many UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UnlockedColors and only return the `bruteId`
+     * const unlockedColorsWithBruteIdOnly = await prisma.unlockedColors.createManyAndReturn({
+     *   select: { bruteId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UnlockedColorsCreateManyAndReturnArgs>(args?: SelectSubset<T, UnlockedColorsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UnlockedColors.
+     * @param {UnlockedColorsDeleteArgs} args - Arguments to delete one UnlockedColors.
+     * @example
+     * // Delete one UnlockedColors
+     * const UnlockedColors = await prisma.unlockedColors.delete({
+     *   where: {
+     *     // ... filter to delete one UnlockedColors
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UnlockedColorsDeleteArgs>(args: SelectSubset<T, UnlockedColorsDeleteArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UnlockedColors.
+     * @param {UnlockedColorsUpdateArgs} args - Arguments to update one UnlockedColors.
+     * @example
+     * // Update one UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UnlockedColorsUpdateArgs>(args: SelectSubset<T, UnlockedColorsUpdateArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UnlockedColors.
+     * @param {UnlockedColorsDeleteManyArgs} args - Arguments to filter UnlockedColors to delete.
+     * @example
+     * // Delete a few UnlockedColors
+     * const { count } = await prisma.unlockedColors.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UnlockedColorsDeleteManyArgs>(args?: SelectSubset<T, UnlockedColorsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UnlockedColors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UnlockedColorsUpdateManyArgs>(args: SelectSubset<T, UnlockedColorsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UnlockedColors and returns the data updated in the database.
+     * @param {UnlockedColorsUpdateManyAndReturnArgs} args - Arguments to update many UnlockedColors.
+     * @example
+     * // Update many UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UnlockedColors and only return the `bruteId`
+     * const unlockedColorsWithBruteIdOnly = await prisma.unlockedColors.updateManyAndReturn({
+     *   select: { bruteId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UnlockedColorsUpdateManyAndReturnArgs>(args: SelectSubset<T, UnlockedColorsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UnlockedColors.
+     * @param {UnlockedColorsUpsertArgs} args - Arguments to update or create a UnlockedColors.
+     * @example
+     * // Update or create a UnlockedColors
+     * const unlockedColors = await prisma.unlockedColors.upsert({
+     *   create: {
+     *     // ... data to create a UnlockedColors
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UnlockedColors we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UnlockedColorsUpsertArgs>(args: SelectSubset<T, UnlockedColorsUpsertArgs<ExtArgs>>): Prisma__UnlockedColorsClient<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UnlockedColors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsCountArgs} args - Arguments to filter UnlockedColors to count.
+     * @example
+     * // Count the number of UnlockedColors
+     * const count = await prisma.unlockedColors.count({
+     *   where: {
+     *     // ... the filter for the UnlockedColors we want to count
+     *   }
+     * })
+    **/
+    count<T extends UnlockedColorsCountArgs>(
+      args?: Subset<T, UnlockedColorsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UnlockedColorsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UnlockedColors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UnlockedColorsAggregateArgs>(args: Subset<T, UnlockedColorsAggregateArgs>): Prisma.PrismaPromise<GetUnlockedColorsAggregateType<T>>
+
+    /**
+     * Group by UnlockedColors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnlockedColorsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UnlockedColorsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UnlockedColorsGroupByArgs['orderBy'] }
+        : { orderBy?: UnlockedColorsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UnlockedColorsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUnlockedColorsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UnlockedColors model
+   */
+  readonly fields: UnlockedColorsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UnlockedColors.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UnlockedColorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UnlockedColors model
+   */
+  interface UnlockedColorsFieldRefs {
+    readonly bruteId: FieldRef<"UnlockedColors", 'String'>
+    readonly bodyPart: FieldRef<"UnlockedColors", 'String'>
+    readonly colors: FieldRef<"UnlockedColors", 'String[]'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UnlockedColors findUnique
+   */
+  export type UnlockedColorsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * Filter, which UnlockedColors to fetch.
+     */
+    where: UnlockedColorsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors findUniqueOrThrow
+   */
+  export type UnlockedColorsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * Filter, which UnlockedColors to fetch.
+     */
+    where: UnlockedColorsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors findFirst
+   */
+  export type UnlockedColorsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * Filter, which UnlockedColors to fetch.
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnlockedColors to fetch.
+     */
+    orderBy?: UnlockedColorsOrderByWithRelationInput | UnlockedColorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UnlockedColors.
+     */
+    cursor?: UnlockedColorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnlockedColors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnlockedColors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UnlockedColors.
+     */
+    distinct?: UnlockedColorsScalarFieldEnum | UnlockedColorsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors findFirstOrThrow
+   */
+  export type UnlockedColorsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * Filter, which UnlockedColors to fetch.
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnlockedColors to fetch.
+     */
+    orderBy?: UnlockedColorsOrderByWithRelationInput | UnlockedColorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UnlockedColors.
+     */
+    cursor?: UnlockedColorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnlockedColors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnlockedColors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UnlockedColors.
+     */
+    distinct?: UnlockedColorsScalarFieldEnum | UnlockedColorsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors findMany
+   */
+  export type UnlockedColorsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * Filter, which UnlockedColors to fetch.
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnlockedColors to fetch.
+     */
+    orderBy?: UnlockedColorsOrderByWithRelationInput | UnlockedColorsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UnlockedColors.
+     */
+    cursor?: UnlockedColorsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnlockedColors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnlockedColors.
+     */
+    skip?: number
+    distinct?: UnlockedColorsScalarFieldEnum | UnlockedColorsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors create
+   */
+  export type UnlockedColorsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UnlockedColors.
+     */
+    data: XOR<UnlockedColorsCreateInput, UnlockedColorsUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors createMany
+   */
+  export type UnlockedColorsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UnlockedColors.
+     */
+    data: UnlockedColorsCreateManyInput | UnlockedColorsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UnlockedColors createManyAndReturn
+   */
+  export type UnlockedColorsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * The data used to create many UnlockedColors.
+     */
+    data: UnlockedColorsCreateManyInput | UnlockedColorsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UnlockedColors update
+   */
+  export type UnlockedColorsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UnlockedColors.
+     */
+    data: XOR<UnlockedColorsUpdateInput, UnlockedColorsUncheckedUpdateInput>
+    /**
+     * Choose, which UnlockedColors to update.
+     */
+    where: UnlockedColorsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors updateMany
+   */
+  export type UnlockedColorsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UnlockedColors.
+     */
+    data: XOR<UnlockedColorsUpdateManyMutationInput, UnlockedColorsUncheckedUpdateManyInput>
+    /**
+     * Filter which UnlockedColors to update
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * Limit how many UnlockedColors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnlockedColors updateManyAndReturn
+   */
+  export type UnlockedColorsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * The data used to update UnlockedColors.
+     */
+    data: XOR<UnlockedColorsUpdateManyMutationInput, UnlockedColorsUncheckedUpdateManyInput>
+    /**
+     * Filter which UnlockedColors to update
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * Limit how many UnlockedColors to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UnlockedColors upsert
+   */
+  export type UnlockedColorsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UnlockedColors to update in case it exists.
+     */
+    where: UnlockedColorsWhereUniqueInput
+    /**
+     * In case the UnlockedColors found by the `where` argument doesn't exist, create a new UnlockedColors with this data.
+     */
+    create: XOR<UnlockedColorsCreateInput, UnlockedColorsUncheckedCreateInput>
+    /**
+     * In case the UnlockedColors was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UnlockedColorsUpdateInput, UnlockedColorsUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors delete
+   */
+  export type UnlockedColorsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
+    /**
+     * Filter which UnlockedColors to delete.
+     */
+    where: UnlockedColorsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UnlockedColors deleteMany
+   */
+  export type UnlockedColorsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UnlockedColors to delete
+     */
+    where?: UnlockedColorsWhereInput
+    /**
+     * Limit how many UnlockedColors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnlockedColors without action
+   */
+  export type UnlockedColorsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnlockedColors
+     */
+    select?: UnlockedColorsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnlockedColors
+     */
+    omit?: UnlockedColorsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnlockedColorsInclude<ExtArgs> | null
   }
 
 
@@ -41092,6 +42258,15 @@ export namespace Prisma {
   export type BruteStartingStatsScalarFieldEnum = (typeof BruteStartingStatsScalarFieldEnum)[keyof typeof BruteStartingStatsScalarFieldEnum]
 
 
+  export const UnlockedColorsScalarFieldEnum: {
+    bruteId: 'bruteId',
+    bodyPart: 'bodyPart',
+    colors: 'colors'
+  };
+
+  export type UnlockedColorsScalarFieldEnum = (typeof UnlockedColorsScalarFieldEnum)[keyof typeof UnlockedColorsScalarFieldEnum]
+
+
   export const FightScalarFieldEnum: {
     id: 'id',
     date: 'date',
@@ -42163,6 +43338,7 @@ export namespace Prisma {
     wonEvents?: EventListRelationFilter
     userlogs?: UserLogListRelationFilter
     clanRole?: XOR<ClanRoleNullableScalarRelationFilter, ClanRoleWhereInput> | null
+    unlockedColors?: UnlockedColorsListRelationFilter
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -42267,6 +43443,7 @@ export namespace Prisma {
     wonEvents?: EventOrderByRelationAggregateInput
     userlogs?: UserLogOrderByRelationAggregateInput
     clanRole?: ClanRoleOrderByWithRelationInput
+    unlockedColors?: UnlockedColorsOrderByRelationAggregateInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -42374,6 +43551,7 @@ export namespace Prisma {
     wonEvents?: EventListRelationFilter
     userlogs?: UserLogListRelationFilter
     clanRole?: XOR<ClanRoleNullableScalarRelationFilter, ClanRoleWhereInput> | null
+    unlockedColors?: UnlockedColorsListRelationFilter
   }, "id" | "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -42578,6 +43756,52 @@ export namespace Prisma {
     agility?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     speed?: IntWithAggregatesFilter<"BruteStartingStats"> | number
     bruteId?: UuidWithAggregatesFilter<"BruteStartingStats"> | string
+  }
+
+  export type UnlockedColorsWhereInput = {
+    AND?: UnlockedColorsWhereInput | UnlockedColorsWhereInput[]
+    OR?: UnlockedColorsWhereInput[]
+    NOT?: UnlockedColorsWhereInput | UnlockedColorsWhereInput[]
+    bruteId?: UuidFilter<"UnlockedColors"> | string
+    bodyPart?: StringFilter<"UnlockedColors"> | string
+    colors?: StringNullableListFilter<"UnlockedColors">
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }
+
+  export type UnlockedColorsOrderByWithRelationInput = {
+    bruteId?: SortOrder
+    bodyPart?: SortOrder
+    colors?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+  }
+
+  export type UnlockedColorsWhereUniqueInput = Prisma.AtLeast<{
+    bruteId_bodyPart?: UnlockedColorsBruteIdBodyPartCompoundUniqueInput
+    AND?: UnlockedColorsWhereInput | UnlockedColorsWhereInput[]
+    OR?: UnlockedColorsWhereInput[]
+    NOT?: UnlockedColorsWhereInput | UnlockedColorsWhereInput[]
+    bruteId?: UuidFilter<"UnlockedColors"> | string
+    bodyPart?: StringFilter<"UnlockedColors"> | string
+    colors?: StringNullableListFilter<"UnlockedColors">
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }, "bruteId_bodyPart">
+
+  export type UnlockedColorsOrderByWithAggregationInput = {
+    bruteId?: SortOrder
+    bodyPart?: SortOrder
+    colors?: SortOrder
+    _count?: UnlockedColorsCountOrderByAggregateInput
+    _max?: UnlockedColorsMaxOrderByAggregateInput
+    _min?: UnlockedColorsMinOrderByAggregateInput
+  }
+
+  export type UnlockedColorsScalarWhereWithAggregatesInput = {
+    AND?: UnlockedColorsScalarWhereWithAggregatesInput | UnlockedColorsScalarWhereWithAggregatesInput[]
+    OR?: UnlockedColorsScalarWhereWithAggregatesInput[]
+    NOT?: UnlockedColorsScalarWhereWithAggregatesInput | UnlockedColorsScalarWhereWithAggregatesInput[]
+    bruteId?: UuidWithAggregatesFilter<"UnlockedColors"> | string
+    bodyPart?: StringWithAggregatesFilter<"UnlockedColors"> | string
+    colors?: StringNullableListFilter<"UnlockedColors">
   }
 
   export type FightWhereInput = {
@@ -44646,6 +45870,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -44740,6 +45965,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
@@ -44834,6 +46060,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -44928,6 +46155,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -45181,6 +46409,47 @@ export namespace Prisma {
     agility?: IntFieldUpdateOperationsInput | number
     speed?: IntFieldUpdateOperationsInput | number
     bruteId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UnlockedColorsCreateInput = {
+    bodyPart: string
+    colors?: UnlockedColorsCreatecolorsInput | string[]
+    brute: BruteCreateNestedOneWithoutUnlockedColorsInput
+  }
+
+  export type UnlockedColorsUncheckedCreateInput = {
+    bruteId: string
+    bodyPart: string
+    colors?: UnlockedColorsCreatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsUpdateInput = {
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
+    brute?: BruteUpdateOneRequiredWithoutUnlockedColorsNestedInput
+  }
+
+  export type UnlockedColorsUncheckedUpdateInput = {
+    bruteId?: StringFieldUpdateOperationsInput | string
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsCreateManyInput = {
+    bruteId: string
+    bodyPart: string
+    colors?: UnlockedColorsCreatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsUpdateManyMutationInput = {
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsUncheckedUpdateManyInput = {
+    bruteId?: StringFieldUpdateOperationsInput | string
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
   }
 
   export type FightCreateInput = {
@@ -47533,6 +48802,12 @@ export namespace Prisma {
     isNot?: ClanRoleWhereInput | null
   }
 
+  export type UnlockedColorsListRelationFilter = {
+    every?: UnlockedColorsWhereInput
+    some?: UnlockedColorsWhereInput
+    none?: UnlockedColorsWhereInput
+  }
+
   export type LogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -47574,6 +48849,10 @@ export namespace Prisma {
   }
 
   export type EventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UnlockedColorsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47890,6 +49169,27 @@ export namespace Prisma {
     strength?: SortOrder
     agility?: SortOrder
     speed?: SortOrder
+  }
+
+  export type UnlockedColorsBruteIdBodyPartCompoundUniqueInput = {
+    bruteId: string
+    bodyPart: string
+  }
+
+  export type UnlockedColorsCountOrderByAggregateInput = {
+    bruteId?: SortOrder
+    bodyPart?: SortOrder
+    colors?: SortOrder
+  }
+
+  export type UnlockedColorsMaxOrderByAggregateInput = {
+    bruteId?: SortOrder
+    bodyPart?: SortOrder
+  }
+
+  export type UnlockedColorsMinOrderByAggregateInput = {
+    bruteId?: SortOrder
+    bodyPart?: SortOrder
   }
 
   export type EnumFightModifierNullableListFilter<$PrismaModel = never> = {
@@ -49911,6 +51211,13 @@ export namespace Prisma {
     connect?: ClanRoleWhereUniqueInput
   }
 
+  export type UnlockedColorsCreateNestedManyWithoutBruteInput = {
+    create?: XOR<UnlockedColorsCreateWithoutBruteInput, UnlockedColorsUncheckedCreateWithoutBruteInput> | UnlockedColorsCreateWithoutBruteInput[] | UnlockedColorsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: UnlockedColorsCreateOrConnectWithoutBruteInput | UnlockedColorsCreateOrConnectWithoutBruteInput[]
+    createMany?: UnlockedColorsCreateManyBruteInputEnvelope
+    connect?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutMasterInput = {
     create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
@@ -50090,6 +51397,13 @@ export namespace Prisma {
     connectOrCreate?: UserLogCreateOrConnectWithoutBruteInput | UserLogCreateOrConnectWithoutBruteInput[]
     createMany?: UserLogCreateManyBruteInputEnvelope
     connect?: UserLogWhereUniqueInput | UserLogWhereUniqueInput[]
+  }
+
+  export type UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput = {
+    create?: XOR<UnlockedColorsCreateWithoutBruteInput, UnlockedColorsUncheckedCreateWithoutBruteInput> | UnlockedColorsCreateWithoutBruteInput[] | UnlockedColorsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: UnlockedColorsCreateOrConnectWithoutBruteInput | UnlockedColorsCreateOrConnectWithoutBruteInput[]
+    createMany?: UnlockedColorsCreateManyBruteInputEnvelope
+    connect?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
   }
 
   export type BruteUpdatedestinyPathInput = {
@@ -50608,6 +51922,20 @@ export namespace Prisma {
     update?: XOR<XOR<ClanRoleUpdateToOneWithWhereWithoutBrutesInput, ClanRoleUpdateWithoutBrutesInput>, ClanRoleUncheckedUpdateWithoutBrutesInput>
   }
 
+  export type UnlockedColorsUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<UnlockedColorsCreateWithoutBruteInput, UnlockedColorsUncheckedCreateWithoutBruteInput> | UnlockedColorsCreateWithoutBruteInput[] | UnlockedColorsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: UnlockedColorsCreateOrConnectWithoutBruteInput | UnlockedColorsCreateOrConnectWithoutBruteInput[]
+    upsert?: UnlockedColorsUpsertWithWhereUniqueWithoutBruteInput | UnlockedColorsUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: UnlockedColorsCreateManyBruteInputEnvelope
+    set?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    disconnect?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    delete?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    connect?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    update?: UnlockedColorsUpdateWithWhereUniqueWithoutBruteInput | UnlockedColorsUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: UnlockedColorsUpdateManyWithWhereWithoutBruteInput | UnlockedColorsUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: UnlockedColorsScalarWhereInput | UnlockedColorsScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutMasterNestedInput = {
     create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
@@ -50972,6 +52300,20 @@ export namespace Prisma {
     deleteMany?: UserLogScalarWhereInput | UserLogScalarWhereInput[]
   }
 
+  export type UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<UnlockedColorsCreateWithoutBruteInput, UnlockedColorsUncheckedCreateWithoutBruteInput> | UnlockedColorsCreateWithoutBruteInput[] | UnlockedColorsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: UnlockedColorsCreateOrConnectWithoutBruteInput | UnlockedColorsCreateOrConnectWithoutBruteInput[]
+    upsert?: UnlockedColorsUpsertWithWhereUniqueWithoutBruteInput | UnlockedColorsUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: UnlockedColorsCreateManyBruteInputEnvelope
+    set?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    disconnect?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    delete?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    connect?: UnlockedColorsWhereUniqueInput | UnlockedColorsWhereUniqueInput[]
+    update?: UnlockedColorsUpdateWithWhereUniqueWithoutBruteInput | UnlockedColorsUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: UnlockedColorsUpdateManyWithWhereWithoutBruteInput | UnlockedColorsUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: UnlockedColorsScalarWhereInput | UnlockedColorsScalarWhereInput[]
+  }
+
   export type BruteCreateNestedOneWithoutStartingStatsInput = {
     create?: XOR<BruteCreateWithoutStartingStatsInput, BruteUncheckedCreateWithoutStartingStatsInput>
     connectOrCreate?: BruteCreateOrConnectWithoutStartingStatsInput
@@ -50984,6 +52326,29 @@ export namespace Prisma {
     upsert?: BruteUpsertWithoutStartingStatsInput
     connect?: BruteWhereUniqueInput
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutStartingStatsInput, BruteUpdateWithoutStartingStatsInput>, BruteUncheckedUpdateWithoutStartingStatsInput>
+  }
+
+  export type UnlockedColorsCreatecolorsInput = {
+    set: string[]
+  }
+
+  export type BruteCreateNestedOneWithoutUnlockedColorsInput = {
+    create?: XOR<BruteCreateWithoutUnlockedColorsInput, BruteUncheckedCreateWithoutUnlockedColorsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutUnlockedColorsInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type UnlockedColorsUpdatecolorsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BruteUpdateOneRequiredWithoutUnlockedColorsNestedInput = {
+    create?: XOR<BruteCreateWithoutUnlockedColorsInput, BruteUncheckedCreateWithoutUnlockedColorsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutUnlockedColorsInput
+    upsert?: BruteUpsertWithoutUnlockedColorsInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutUnlockedColorsInput, BruteUpdateWithoutUnlockedColorsInput>, BruteUncheckedUpdateWithoutUnlockedColorsInput>
   }
 
   export type FightCreatemodifiersInput = {
@@ -53186,6 +54551,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -53279,6 +54645,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -53526,6 +54893,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFollowersInput = {
@@ -53619,6 +54987,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFollowersInput = {
@@ -54204,6 +55573,7 @@ export namespace Prisma {
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserlogsInput = {
@@ -54297,6 +55667,7 @@ export namespace Prisma {
     asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserlogsInput = {
@@ -54481,6 +55852,7 @@ export namespace Prisma {
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserlogsInput = {
@@ -54574,6 +55946,7 @@ export namespace Prisma {
     asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutAsUpperNeighbourOfInput = {
@@ -54667,6 +56040,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAsUpperNeighbourOfInput = {
@@ -54760,6 +56134,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAsUpperNeighbourOfInput = {
@@ -54858,6 +56233,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAsUpperUpperNeighbourOfInput = {
@@ -54951,6 +56327,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAsUpperUpperNeighbourOfInput = {
@@ -55049,6 +56426,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAsLowerNeighbourOfInput = {
@@ -55142,6 +56520,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAsLowerNeighbourOfInput = {
@@ -55240,6 +56619,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAsLowerLowerNeighbourOfInput = {
@@ -55333,6 +56713,7 @@ export namespace Prisma {
     asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAsLowerLowerNeighbourOfInput = {
@@ -55500,6 +56881,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -55593,6 +56975,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -55691,6 +57074,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -55784,6 +57168,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -56135,6 +57520,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -56228,6 +57614,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -56326,6 +57713,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -56419,6 +57807,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -56943,6 +58332,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutRankingsUpperNeighbourInput = {
@@ -57036,6 +58426,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutRankingsUpperNeighbourInput = {
@@ -57139,6 +58530,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutRankingsUpperUpperNeighbourInput = {
@@ -57232,6 +58624,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutRankingsUpperUpperNeighbourInput = {
@@ -57335,6 +58728,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutRankingsLowerNeighbourInput = {
@@ -57428,6 +58822,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutRankingsLowerNeighbourInput = {
@@ -57531,6 +58926,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutRankingsLowerLowerNeighbourInput = {
@@ -57624,6 +59020,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutRankingsLowerLowerNeighbourInput = {
@@ -57754,6 +59151,26 @@ export namespace Prisma {
     create: XOR<ClanRoleCreateWithoutBrutesInput, ClanRoleUncheckedCreateWithoutBrutesInput>
   }
 
+  export type UnlockedColorsCreateWithoutBruteInput = {
+    bodyPart: string
+    colors?: UnlockedColorsCreatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsUncheckedCreateWithoutBruteInput = {
+    bodyPart: string
+    colors?: UnlockedColorsCreatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsCreateOrConnectWithoutBruteInput = {
+    where: UnlockedColorsWhereUniqueInput
+    create: XOR<UnlockedColorsCreateWithoutBruteInput, UnlockedColorsUncheckedCreateWithoutBruteInput>
+  }
+
+  export type UnlockedColorsCreateManyBruteInputEnvelope = {
+    data: UnlockedColorsCreateManyBruteInput | UnlockedColorsCreateManyBruteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BruteUpsertWithoutAsUpperNeighbourOfInput = {
     update: XOR<BruteUpdateWithoutAsUpperNeighbourOfInput, BruteUncheckedUpdateWithoutAsUpperNeighbourOfInput>
     create: XOR<BruteCreateWithoutAsUpperNeighbourOfInput, BruteUncheckedCreateWithoutAsUpperNeighbourOfInput>
@@ -57856,6 +59273,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAsUpperNeighbourOfInput = {
@@ -57949,6 +59367,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutAsUpperUpperNeighbourOfInput = {
@@ -58053,6 +59472,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAsUpperUpperNeighbourOfInput = {
@@ -58146,6 +59566,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutAsLowerNeighbourOfInput = {
@@ -58250,6 +59671,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAsLowerNeighbourOfInput = {
@@ -58343,6 +59765,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutAsLowerLowerNeighbourOfInput = {
@@ -58447,6 +59870,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAsLowerLowerNeighbourOfInput = {
@@ -58540,6 +59964,7 @@ export namespace Prisma {
     asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutBrutesInput = {
@@ -58719,6 +60144,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -58812,6 +60238,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -59613,6 +61040,31 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UnlockedColorsUpsertWithWhereUniqueWithoutBruteInput = {
+    where: UnlockedColorsWhereUniqueInput
+    update: XOR<UnlockedColorsUpdateWithoutBruteInput, UnlockedColorsUncheckedUpdateWithoutBruteInput>
+    create: XOR<UnlockedColorsCreateWithoutBruteInput, UnlockedColorsUncheckedCreateWithoutBruteInput>
+  }
+
+  export type UnlockedColorsUpdateWithWhereUniqueWithoutBruteInput = {
+    where: UnlockedColorsWhereUniqueInput
+    data: XOR<UnlockedColorsUpdateWithoutBruteInput, UnlockedColorsUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type UnlockedColorsUpdateManyWithWhereWithoutBruteInput = {
+    where: UnlockedColorsScalarWhereInput
+    data: XOR<UnlockedColorsUpdateManyMutationInput, UnlockedColorsUncheckedUpdateManyWithoutBruteInput>
+  }
+
+  export type UnlockedColorsScalarWhereInput = {
+    AND?: UnlockedColorsScalarWhereInput | UnlockedColorsScalarWhereInput[]
+    OR?: UnlockedColorsScalarWhereInput[]
+    NOT?: UnlockedColorsScalarWhereInput | UnlockedColorsScalarWhereInput[]
+    bruteId?: UuidFilter<"UnlockedColors"> | string
+    bodyPart?: StringFilter<"UnlockedColors"> | string
+    colors?: StringNullableListFilter<"UnlockedColors">
+  }
+
   export type BruteCreateWithoutStartingStatsInput = {
     id?: string
     name: string
@@ -59704,6 +61156,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutStartingStatsInput = {
@@ -59797,6 +61250,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutStartingStatsInput = {
@@ -59906,6 +61360,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutStartingStatsInput = {
@@ -59989,6 +61444,399 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteCreateWithoutUnlockedColorsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    rankingsUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperNeighbourOfInput
+    rankingsUpperUpperNeighbour?: BruteCreateNestedOneWithoutAsUpperUpperNeighbourOfInput
+    rankingsLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerNeighbourOfInput
+    rankingsLowerLowerNeighbour?: BruteCreateNestedOneWithoutAsLowerLowerNeighbourOfInput
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+    clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+  }
+
+  export type BruteUncheckedCreateWithoutUnlockedColorsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    rankingPosition?: number | null
+    rankingPositionUpdatedAt?: Date | string | null
+    rankingsUpperNeighbourId?: string | null
+    rankingsUpperUpperNeighbourId?: string | null
+    rankingsLowerNeighbourId?: string | null
+    rankingsLowerLowerNeighbourId?: string | null
+    rankingsNeighboursUpdatedAt?: Date | string | null
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    clanRoleId?: string | null
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    asUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperNeighbourInput
+    asUpperUpperNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsUpperUpperNeighbourInput
+    asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
+    asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutUnlockedColorsInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutUnlockedColorsInput, BruteUncheckedCreateWithoutUnlockedColorsInput>
+  }
+
+  export type BruteUpsertWithoutUnlockedColorsInput = {
+    update: XOR<BruteUpdateWithoutUnlockedColorsInput, BruteUncheckedUpdateWithoutUnlockedColorsInput>
+    create: XOR<BruteCreateWithoutUnlockedColorsInput, BruteUncheckedCreateWithoutUnlockedColorsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutUnlockedColorsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutUnlockedColorsInput, BruteUncheckedUpdateWithoutUnlockedColorsInput>
+  }
+
+  export type BruteUpdateWithoutUnlockedColorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    rankingsUpperNeighbour?: BruteUpdateOneWithoutAsUpperNeighbourOfNestedInput
+    rankingsUpperUpperNeighbour?: BruteUpdateOneWithoutAsUpperUpperNeighbourOfNestedInput
+    rankingsLowerNeighbour?: BruteUpdateOneWithoutAsLowerNeighbourOfNestedInput
+    rankingsLowerLowerNeighbour?: BruteUpdateOneWithoutAsLowerLowerNeighbourOfNestedInput
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    asUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperNeighbourNestedInput
+    asUpperUpperNeighbourOf?: BruteUpdateManyWithoutRankingsUpperUpperNeighbourNestedInput
+    asLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerNeighbourNestedInput
+    asLowerLowerNeighbourOf?: BruteUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+    clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutUnlockedColorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    rankingPosition?: NullableIntFieldUpdateOperationsInput | number | null
+    rankingPositionUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rankingsUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsUpperUpperNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsLowerLowerNeighbourId?: NullableStringFieldUpdateOperationsInput | string | null
+    rankingsNeighboursUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    clanRoleId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
@@ -60092,6 +61940,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -60185,6 +62034,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -60283,6 +62133,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -60376,6 +62227,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -60650,6 +62502,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -60743,6 +62596,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -60847,6 +62701,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -60940,6 +62795,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -61137,6 +62993,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -61230,6 +63087,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -61423,6 +63281,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -61516,6 +63375,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -61705,6 +63565,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -61798,6 +63659,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -61943,6 +63805,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -62036,6 +63899,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutDestinyChoiceInput = {
@@ -62145,6 +64009,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -62238,6 +64103,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -62486,6 +64352,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentAchievementsInput = {
@@ -62579,6 +64446,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentAchievementsInput = {
@@ -62688,6 +64556,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentAchievementsInput = {
@@ -62781,6 +64650,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutTournamentGoldsInput = {
@@ -63018,6 +64888,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentXpsInput = {
@@ -63111,6 +64982,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentXpsInput = {
@@ -63220,6 +65092,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentXpsInput = {
@@ -63313,6 +65186,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -63406,6 +65280,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -63499,6 +65374,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -63677,6 +65553,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -63770,6 +65647,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -63938,6 +65816,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -64031,6 +65910,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -64278,6 +66158,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -64371,6 +66252,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -64555,6 +66437,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
@@ -64648,6 +66531,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterOfClanInput = {
@@ -64746,6 +66630,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -64839,6 +66724,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -64942,6 +66828,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
@@ -65035,6 +66922,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWantToJoinClanInput = {
@@ -65357,6 +67245,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
@@ -65450,6 +67339,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutClanInput = {
@@ -65745,6 +67635,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutThreadsInput = {
@@ -65838,6 +67729,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutThreadsInput = {
@@ -66022,6 +67914,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutThreadsInput = {
@@ -66115,6 +68008,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutThreadInput = {
@@ -66253,6 +68147,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanPostsInput = {
@@ -66346,6 +68241,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanPostsInput = {
@@ -66490,6 +68386,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanPostsInput = {
@@ -66583,6 +68480,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutDamageOnBossesInput = {
@@ -66676,6 +68574,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDamageOnBossesInput = {
@@ -66769,6 +68668,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDamageOnBossesInput = {
@@ -66923,6 +68823,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDamageOnBossesInput = {
@@ -67016,6 +68917,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type ClanUpsertWithoutBossDamagesInput = {
@@ -67591,6 +69493,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInClanWarAttackerFightersInput = {
@@ -67684,6 +69587,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInClanWarAttackerFightersInput = {
@@ -67782,6 +69686,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInClanWarDefenderFightersInput = {
@@ -67875,6 +69780,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInClanWarDefenderFightersInput = {
@@ -68048,6 +69954,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInventoryInput = {
@@ -68141,6 +70048,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInventoryInput = {
@@ -68319,6 +70227,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInventoryInput = {
@@ -68412,6 +70321,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutInventoryInput = {
@@ -68580,6 +70490,7 @@ export namespace Prisma {
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutEventInput = {
@@ -68673,6 +70584,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutEventInput = {
@@ -68799,6 +70711,7 @@ export namespace Prisma {
     event?: EventCreateNestedOneWithoutBrutesInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWonEventsInput = {
@@ -68892,6 +70805,7 @@ export namespace Prisma {
     asLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerNeighbourInput
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWonEventsInput = {
@@ -69046,6 +70960,7 @@ export namespace Prisma {
     event?: EventUpdateOneWithoutBrutesNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWonEventsInput = {
@@ -69139,6 +71054,7 @@ export namespace Prisma {
     asLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourNestedInput
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -69421,6 +71337,7 @@ export namespace Prisma {
     event?: EventCreateNestedOneWithoutBrutesInput
     wonEvents?: EventCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanRoleInput = {
@@ -69514,6 +71431,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedCreateNestedManyWithoutRankingsLowerLowerNeighbourInput
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanRoleInput = {
@@ -69800,6 +71718,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -69893,6 +71812,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -70207,6 +72127,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFollowersInput = {
@@ -70300,6 +72221,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutFollowersInput = {
@@ -70939,6 +72861,11 @@ export namespace Prisma {
     targetUserId?: string | null
   }
 
+  export type UnlockedColorsCreateManyBruteInput = {
+    bodyPart: string
+    colors?: UnlockedColorsCreatecolorsInput | string[]
+  }
+
   export type BruteUpdateWithoutMasterInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -71030,6 +72957,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -71123,6 +73051,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -71513,6 +73442,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -71606,6 +73536,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -71766,6 +73697,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -71859,6 +73791,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -72336,6 +74269,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutRankingsUpperNeighbourInput = {
@@ -72429,6 +74363,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutRankingsUpperNeighbourInput = {
@@ -72588,6 +74523,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutRankingsUpperUpperNeighbourInput = {
@@ -72681,6 +74617,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutRankingsUpperUpperNeighbourInput = {
@@ -72840,6 +74777,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutRankingsLowerNeighbourInput = {
@@ -72933,6 +74871,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutRankingsLowerNeighbourInput = {
@@ -73092,6 +75031,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutRankingsLowerLowerNeighbourInput = {
@@ -73185,6 +75125,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourInput = {
@@ -73318,6 +75259,21 @@ export namespace Prisma {
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
     targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UnlockedColorsUpdateWithoutBruteInput = {
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsUncheckedUpdateWithoutBruteInput = {
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
+  }
+
+  export type UnlockedColorsUncheckedUpdateManyWithoutBruteInput = {
+    bodyPart?: StringFieldUpdateOperationsInput | string
+    colors?: UnlockedColorsUpdatecolorsInput | string[]
   }
 
   export type LogCreateManyFightInput = {
@@ -73620,6 +75576,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -73713,6 +75670,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -74216,6 +76174,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -74309,6 +76268,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -74468,6 +76428,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
@@ -74561,6 +76522,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
@@ -75062,6 +77024,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInClanWarAttackerFightersInput = {
@@ -75155,6 +77118,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutInClanWarAttackerFightersInput = {
@@ -75315,6 +77279,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInClanWarDefenderFightersInput = {
@@ -75408,6 +77373,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutInClanWarDefenderFightersInput = {
@@ -75634,6 +77600,7 @@ export namespace Prisma {
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutEventInput = {
@@ -75727,6 +77694,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutEventInput = {
@@ -75952,6 +77920,7 @@ export namespace Prisma {
     event?: EventUpdateOneWithoutBrutesNestedInput
     wonEvents?: EventUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanRoleInput = {
@@ -76045,6 +78014,7 @@ export namespace Prisma {
     asLowerLowerNeighbourOf?: BruteUncheckedUpdateManyWithoutRankingsLowerLowerNeighbourNestedInput
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanRoleInput = {

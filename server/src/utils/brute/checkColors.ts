@@ -1,75 +1,102 @@
-import { ExpectedError, colors } from '@labrute/core';
-import { Gender, User } from '@labrute/prisma';
+import {
+  BruteColor, ExpectedError, colors
+} from '@labrute/core';
+import {
+  Brute, UnlockedColors, User
+} from '@labrute/prisma';
 import { translate } from '../translate.js';
 import { LOGGER } from '../../context.js';
 
-const isValid = (value: number, array: string[]) => value >= 0 && value < array.length;
+const isValid = (
+  value: string | undefined,
+  brute: Pick<Brute, 'gender'> & {
+    unlockedColors: Pick<UnlockedColors, 'bodyPart' | 'colors'>[];
+  },
+  colorName: BruteColor
+) => {
+  if (typeof value !== 'string') return false;
 
-const isValidWithSpecials = (
-  value: number,
-  array: string[],
-) => value >= 0 && (value < array.length || (value < 100 && value > (99 - colors.special.length)));
+  let allowedColors: string[] = [];
+
+  switch (colorName) {
+    case 'col0':
+    case 'col0a':
+    case 'col0c':
+      allowedColors = colors[brute.gender].skin;
+      break;
+    case 'col1':
+    case 'col1a':
+    case 'col1b':
+    case 'col1c':
+    case 'col1d':
+      allowedColors = colors[brute.gender].hair;
+      break;
+    case 'col2':
+    case 'col2a':
+    case 'col2b':
+    case 'col3':
+    case 'col3b':
+    case 'col4':
+    case 'col4a':
+    case 'col4b':
+      allowedColors = colors[brute.gender].clothing;
+      break;
+    default:
+      break;
+  }
+
+  // Add unlocked colors for the specific body part
+  const unlockedForPart = brute.unlockedColors.find(uc => uc.bodyPart === colorName);
+  if (unlockedForPart) {
+    allowedColors = allowedColors.concat(unlockedForPart.colors);
+  }
+
+  return allowedColors.includes(value);
+};
 
 export const checkColors = (
   user: Pick<User, 'id' | 'lang'>,
-  gender: Gender,
-  colorString: string,
-  includeSpecials = false,
+  brute: Pick<Brute, 'gender'> & {
+    unlockedColors: Pick<UnlockedColors, 'bodyPart' | 'colors'>[];
+  },
+  colorString: string
 ) => {
-  // Split colors every 2 characters
-  const inputs = {
-    col0: +colorString.slice(0, 2),
-    col0a: +colorString.slice(2, 4),
-    col0c: +colorString.slice(4, 6),
-    col1: +colorString.slice(6, 8),
-    col1a: +colorString.slice(8, 10),
-    col1b: +colorString.slice(10, 12),
-    col1c: +colorString.slice(12, 14),
-    col1d: +colorString.slice(14, 16),
-    col2: +colorString.slice(16, 18),
-    col2a: +colorString.slice(18, 20),
-    col2b: +colorString.slice(20, 22),
-    col3: +colorString.slice(22, 24),
-    col3b: +colorString.slice(24, 26),
-    col4: +colorString.slice(26, 28),
-    col4a: +colorString.slice(28, 30),
-    col4b: +colorString.slice(30, 32),
-  };
+  // Split colors every 6 characters
+  const [col0, col0a, col0c, col1, col1a, col1b, col1c, col1d,
+    col2, col2a, col2b, col3, col3b, col4, col4a, col4b] = colorString.match(/.{1,6}/g)?.map(s => `#${s}`) ?? [];
 
-  const check = includeSpecials ? isValidWithSpecials : isValid;
-
-  if (!check(inputs.col0, colors[gender].skin)
-    || !check(inputs.col0a, colors[gender].skin)
-    || !check(inputs.col0c, colors[gender].skin)
-    || !check(inputs.col1, colors[gender].hair)
-    || !check(inputs.col1a, colors[gender].hair)
-    || !check(inputs.col1b, colors[gender].hair)
-    || !check(inputs.col1c, colors[gender].hair)
-    || !check(inputs.col1d, colors[gender].hair)
-    || !check(inputs.col3, colors[gender].clothing)
-    || !check(inputs.col2, colors[gender].clothing)
-    || !check(inputs.col2b, colors[gender].clothing)
-    || !check(inputs.col3b, colors[gender].clothing)
-    || !check(inputs.col2a, colors[gender].clothing)
-    || !check(inputs.col4, colors[gender].clothing)
-    || !check(inputs.col4a, colors[gender].clothing)
-    || !check(inputs.col4b, colors[gender].clothing)
+  if (!isValid(col0, brute, 'col0')
+    || !isValid(col0a, brute, 'col0a')
+    || !isValid(col0c, brute, 'col0c')
+    || !isValid(col1, brute, 'col1')
+    || !isValid(col1a, brute, 'col1a')
+    || !isValid(col1b, brute, 'col1b')
+    || !isValid(col1c, brute, 'col1c')
+    || !isValid(col1d, brute, 'col1d')
+    || !isValid(col3, brute, 'col3')
+    || !isValid(col2, brute, 'col2')
+    || !isValid(col2b, brute, 'col2b')
+    || !isValid(col3b, brute, 'col3b')
+    || !isValid(col2a, brute, 'col2a')
+    || !isValid(col4, brute, 'col4')
+    || !isValid(col4a, brute, 'col4a')
+    || !isValid(col4b, brute, 'col4b')
   ) {
     LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }
 
   // col0, col0a, col0c must be the same
-  if (inputs.col0 !== inputs.col0a || inputs.col0 !== inputs.col0c) {
+  if (col0 !== col0a || col0 !== col0c) {
     LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }
 
   // col1, col1a, col1b, col1c, col1d must be the same
-  if (inputs.col1 !== inputs.col1a
-    || inputs.col1 !== inputs.col1b
-    || inputs.col1 !== inputs.col1c
-    || inputs.col1 !== inputs.col1d) {
+  if (col1 !== col1a
+    || col1 !== col1b
+    || col1 !== col1c
+    || col1 !== col1d) {
     LOGGER.log(`User ${user.id} tried to create a brute with invalid colors or body.`);
     throw new ExpectedError(translate('invalidCreation', user));
   }

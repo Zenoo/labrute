@@ -4,10 +4,16 @@ import React, {
   useCallback, useContext, useEffect, useMemo, useRef, useState
 } from 'react';
 import { BruteDisplay } from '../utils/BruteDisplay';
+import { BruteColor } from '@labrute/core';
 
 const MAX_RENDERERS = 3;
 
-type BruteData = Pick<Brute, 'id' | 'gender' | 'body' | 'colors'>;
+type Options = {
+  skipCache?: boolean;
+  highlightColorName?: BruteColor;
+}
+
+type BruteData = Pick<Brute, 'id' | 'gender' | 'body' | 'colors'> & Options;
 
 type RenderMethod = (brute: BruteData) => void;
 
@@ -88,7 +94,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     }
 
     const cached = cache.find((c) => c.id === request.id);
-    if (cached) {
+    if (cached && !request.skipCache) {
       // Remove from queue
       setQueue((prev) => prev.slice(1));
 
@@ -139,7 +145,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
     // Render with higher scale for better quality
     const renderScale = 3; // Adjust this for quality vs file size (textures loaded at this scale)
-    const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale);
+    const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale, request.highlightColorName);
 
     display.onLoad(() => {
       if (!freeRenderer) {

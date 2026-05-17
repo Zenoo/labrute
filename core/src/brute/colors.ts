@@ -1,3 +1,5 @@
+import { BruteColor } from "../index.js";
+
 type ColorsType = {
   male: {
     skin: string[];
@@ -104,3 +106,5 @@ export const colors: ColorsType = {
     '#000000',
   ],
 };
+
+export const colorableBodyParts: BruteColor[] = ['col0', 'col0a', 'col0c', 'col1', 'col1a', 'col1b', 'col1c', 'col1d', 'col2', 'col2a', 'col2b', 'col3', 'col3b', 'col4', 'col4a', 'col4b'];

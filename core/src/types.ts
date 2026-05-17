@@ -537,6 +537,9 @@ export type BruteReportWithNames = BruteReport & {
 };
 
 // Server return types
+export type ParamsWithBruteName = {
+  name: string;
+};
 export type BruteForRender = Pick<Brute, 'id' | 'gender' | 'name' | 'body' | 'colors'>;
 export type BrutesGetForRankRequest = {
   name: string;
@@ -652,6 +655,17 @@ export type BruteReportsSendRequest = {
 };
 export type BruteGetInventoryResponse = InventoryItem[];
 export type BruteUpdateEventRoundWatchedResponse = Pick<Brute, 'eventTournamentRoundWatched' | 'eventTournamentWatchedDate'>;
+export type BruteResetVisualsRequest = {
+  body: string;
+  colors: string;
+};
+export type BruteUnlockColorRequest = {
+  bodyPart: BruteColor;
+  color: string;
+}
+export type BruteUnlockColorResponse = {
+  colors: string;
+};
 
 export type TournamentHistoryResponse = (Pick<
   Tournament,
