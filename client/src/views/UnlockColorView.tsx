@@ -41,7 +41,7 @@ export const UnlockColorView = () => {
     if (!color) return brute.colors;
 
     return generateColorString({
-      ...readColorString(brute.colors),
+      ...readColorString(brute.gender, brute.colors),
       [colorName]: color,
     });
   }, [brute, color, colorName]);
@@ -50,7 +50,7 @@ export const UnlockColorView = () => {
   useEffect(() => {
     if (!brute) return;
 
-    const defaultColors = readColorString(brute.colors);
+    const defaultColors = readColorString(brute.gender, brute.colors);
     setColor(defaultColors[colorName]);
   }, [brute, colorName]);
 

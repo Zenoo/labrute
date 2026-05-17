@@ -1,5 +1,7 @@
+import { Gender } from '@labrute/prisma';
 import { BruteBodyPart, BruteColor } from '../types.js';
 import { colorableBodyParts } from './colors.js';
+import { OLD_readColorString } from './oldParsers.js';
 
 export const readBodyString = (bodyString: string): Record<BruteBodyPart, number> => ({
   p1: parseInt(bodyString[0] || '0', 16),
@@ -30,8 +32,14 @@ export const generateBodyString = (body: Record<BruteBodyPart, number>): string 
 ].join('');
 
 export const readColorString = (
+  gender: Gender,
   colorsString: string
 ): Record<BruteColor, string> => {
+  // TODO: Remove this on release
+  if (colorsString.length === 32) {
+    return OLD_readColorString(gender, colorsString);
+  }
+
   const result = colorsString
     .match(/.{1,6}/g)
     ?.reduce((acc, color, index) => {

@@ -86,7 +86,7 @@ export class BruteDisplay {
     scale = 1,
     highlightTint?: BruteColor
   ) {
-    this.#colors = readColorString(colors);
+    this.#colors = readColorString(gender, colors);
     this.#parts = readBodyString(parts);
     this.#looking = looking;
     this.gender = gender;

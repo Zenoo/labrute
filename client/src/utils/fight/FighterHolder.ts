@@ -531,7 +531,7 @@ export class FighterHolder {
     this.shield = fighter.shield;
     this.weapon = null;
     this.skills = fighter.skills;
-    this.#colors = readColorString(fighter.colors || '0'.repeat(96));
+    this.#colors = readColorString(fighter.gender ?? Gender.male, fighter.colors || '0'.repeat(96));
     this.#parts = readBodyString(fighter.body || '0'.repeat(11));
     this.speed = speed;
 

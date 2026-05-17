@@ -2237,7 +2237,7 @@ export const Brutes = {
 
       // Update the brute colors
       const newColorString = generateColorString({
-        ...readColorString(brute.colors),
+        ...readColorString(brute.gender, brute.colors),
         [req.body.bodyPart]: req.body.color,
       });
 
