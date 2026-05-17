@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.1](https://github.com/Zenoo/labrute/compare/labrute-v2.94.0...labrute-v2.94.1) (2026-05-17)
+
+
+### Bug Fixes
+
+* Change deploy CI condition ([e6ae91f](https://github.com/Zenoo/labrute/commit/e6ae91f7488389bef67c2f3458c6a6d122fd83c6))
+
 ## [2.94.0](https://github.com/Zenoo/labrute/compare/labrute-v2.93.4...labrute-v2.94.0) (2026-05-17)
 
 
