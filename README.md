@@ -31,7 +31,13 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 - Optional: Create an `eternaltwin.local.toml` config file for Eternaltwin. You don't need it to start LaBrute, but it may be useful for more advanced usage. (An example is provided in the [eternaltwin.local.toml.sample](eternaltwin.local.toml.sample) file)
 
-- Install dependencies: `pnpm i` (This should also setup your database from the `schema.prisma` file and the migrations)
+- Install dependencies: `pnpm i`
+
+- Generate the DB schema: `pnpm db:sync:dev`
+
+- Compile the sources: `pnpm compile`
+
+- Seed your database (optional, but useful for development): `pnpm db:seed`
 
 - Make sure to initialize your etwin database by running `pnpm eternaltwin db sync`
 
@@ -69,7 +75,9 @@ pnpm config set scriptShell "C:\\Program Files\\git\\bin\\bash.exe"
 
 - Set the environment variables
 
-- Install dependencies: `pnpm install --frozen-lockfile` (This should also compile and built everything needed)
+- Install dependencies: `pnpm install --frozen-lockfile`
+
+- Compile sources: `pnpm build`
 
 - Sync your database with `pnpm db:sync:prod`
 
