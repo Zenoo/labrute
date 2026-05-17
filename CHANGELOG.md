@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.5](https://github.com/Zenoo/labrute/compare/labrute-v2.94.4...labrute-v2.94.5) (2026-05-17)
+
+
+### Bug Fixes
+
+* Typo ([debb97c](https://github.com/Zenoo/labrute/commit/debb97c4604fcfb13402d28b8d6c857606235c30))
+
 ## [2.94.4](https://github.com/Zenoo/labrute/compare/labrute-v2.94.3...labrute-v2.94.4) (2026-05-17)
 
 
