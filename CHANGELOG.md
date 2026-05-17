@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.4](https://github.com/Zenoo/labrute/compare/labrute-v2.94.3...labrute-v2.94.4) (2026-05-17)
+
+
+### Bug Fixes
+
+* Add backwards compatibility to read the old colors string format ([affff95](https://github.com/Zenoo/labrute/commit/affff957bc2738bfc4a13e1079b279335c4ddda2))
+
 ## [2.94.3](https://github.com/Zenoo/labrute/compare/labrute-v2.94.2...labrute-v2.94.3) (2026-05-17)
 
 

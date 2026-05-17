@@ -1,6 +1,6 @@
 {
   "name": "@labrute/server",
-  "version": "2.94.3",
+  "version": "2.94.4",
   "private": true,
   "exports": "./src/server.js",
   "engines": {
