@@ -2,7 +2,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2022",
-    "module": "esnext",
+    "module": "nodenext",
     "declaration": true,
     "sourceMap": true,
     "composite": true,
