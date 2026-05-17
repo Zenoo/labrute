@@ -125,5 +125,6 @@
   "loading": "Wird geladen...",
   "noMembersAvailable": "Keine Mitglieder verfügbar, um diese Rolle zuzuweisen",
   "selectMembers": "Mitglieder auswählen",
-  "rolesAssigned": "Rolle wurde erfolgreich {{count}} Mitglied(ern) zugewiesen"
+  "rolesAssigned": "Rolle wurde erfolgreich {{count}} Mitglied(ern) zugewiesen",
+  "permissions": "Permissions"
 }
