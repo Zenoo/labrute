@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.2](https://github.com/Zenoo/labrute/compare/labrute-v2.94.1...labrute-v2.94.2) (2026-05-17)
+
+
+### Bug Fixes
+
+* release-please config ([4915ee8](https://github.com/Zenoo/labrute/commit/4915ee89c232d78a1809aa1dad8b47b2ccafa5a0))
+* release-please config ([08c0f2a](https://github.com/Zenoo/labrute/commit/08c0f2a5535788a5836b0025e75374fd9382ceee))
+* release-please config ([4a25306](https://github.com/Zenoo/labrute/commit/4a25306cc66e3f3e593aa1a4405883f409dba89d))
+* release-please config ([6d93c98](https://github.com/Zenoo/labrute/commit/6d93c98a5c54e13873d9aaab7332ad84d4e1c61a))
+* Use PAT to release to allow running workflows from other workflows ([4b42f95](https://github.com/Zenoo/labrute/commit/4b42f956b04f6530a55be16ee60f49ebab0e82c2))
+
 ## [2.94.1](https://github.com/Zenoo/labrute/compare/labrute-v2.94.0...labrute-v2.94.1) (2026-05-17)
 
 
