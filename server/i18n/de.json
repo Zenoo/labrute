@@ -137,5 +137,5 @@
   "targetUserWithoutSharedFingerprint": "Der Zielnutzer hat keine übereinstimmende digitale Signatur. Du musst dich in beide Konten wenigstens ein Mal auf dem gleichen Gerät anmelden, um einen Brutalo zwischen diesen übertragen zu können.",
   "userCreatedAfterTransferImplementation": "Diese Funktion ist nicht verfügbar für Konten, die nach dem 20. April 2026 erstellt wurden. Es wurde lediglich für Benutzer implementiert, die ehemalig mehrere Konten hatten, damit sie ihre Brutalos auf ein einzelnes Konto übertragen zu können.",
   "rankingsNotReady": "Die Rangliste ist noch nicht fertig. Bitte versuche es später erneut.",
-  "colorAlreadyUnlocked": "This color is already unlocked for this body part"
+  "colorAlreadyUnlocked": "Diese Farbe ist für diesen Körperteil bereits freigeschaltet"
 }

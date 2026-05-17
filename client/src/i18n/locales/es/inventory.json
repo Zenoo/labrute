@@ -1,9 +1,9 @@
 {
   "desc": "Aquí puedes ver todos los objetos conseguidos. ¡Úsalos sabiamente!",
-  "item.visualReset": "Visual reset",
-  "item.bossTicket": "Boss ticket",
-  "item.favoriteFight": "Favorite fight",
+  "item.visualReset": "Reinicio visual",
+  "item.bossTicket": "Ticket de jefe",
+  "item.favoriteFight": "Combate favorito",
   "item.favoriteFight.desc": "Puedes marca un combate como favorita en la página del combate. Esto hará que no se elimine pasados 30 días.",
-  "item.customizationToken": "Customization token",
+  "item.customizationToken": "Ficha de personalización",
   "itemNotImplemented": "Este objeto aún no se ha implementado."
 }

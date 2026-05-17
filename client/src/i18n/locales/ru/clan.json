@@ -126,5 +126,5 @@
   "noMembersAvailable": "Нет членов клана, чтобы присвоить эту роль",
   "selectMembers": "Выбор членов клана",
   "rolesAssigned": "Роль успешно присвоена {{count}} члену/членам клана",
-  "permissions": "Permissions"
+  "permissions": "Полномочия"
 }

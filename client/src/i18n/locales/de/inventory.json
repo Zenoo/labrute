@@ -1,9 +1,9 @@
 {
   "desc": "Hier kannst du dir alle Gegenstände ansehen, die du gesammelt hast. Nutze sie weise!",
-  "item.visualReset": "Visual reset",
-  "item.bossTicket": "Boss ticket",
-  "item.favoriteFight": "Favorite fight",
+  "item.visualReset": "Aussehen zurücksetzen",
+  "item.bossTicket": "Gutschein des Endgegners",
+  "item.favoriteFight": "Kampf-Favorit",
   "item.favoriteFight.desc": "Du kannst einen Kampf zu den Favoriten auf der Kampfseite hinzufügen. Dieser wird nach 30 Tagen nicht gelöscht.",
-  "item.customizationToken": "Customization token",
+  "item.customizationToken": "Anpassungsmarke",
   "itemNotImplemented": "Dieser Gegenstand ist noch nicht implementiert."
 }
