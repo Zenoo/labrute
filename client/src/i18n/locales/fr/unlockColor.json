@@ -1,0 +1,22 @@
+{
+  "unlockColor": "Débloquer une couleur",
+  "unlockColorConfirm": "Êtes-vous sûr de vouloir débloquer cette couleur ?",
+  "unlockColorSuccess": "Couleur débloquée avec succès",
+  "unlockColorDescription": "Débloquez une nouvelle couleur pour votre brute. Vous pouvez choisir la partie du corps et la couleur que vous voulez débloquer. (Toutes les couleurs ne sont pas utilisées pour chaque brute. Les parties affectées par la couleur choisie seront surlignées dans l'aperçu de la brute.)",
+  "bodyPart.col0": "Peau",
+  "bodyPart.col0a": "Visage",
+  "bodyPart.col0c": "Oreille",
+  "bodyPart.col1": "Cheveux",
+  "bodyPart.col1a": "Dos des cheveux",
+  "bodyPart.col1b": "Dos des cheveux 2",
+  "bodyPart.col1c": "Cheveux avant",
+  "bodyPart.col1d": "Sourcils",
+  "bodyPart.col2": "Secondaire",
+  "bodyPart.col2a": "Accentuation 3",
+  "bodyPart.col2b": "Accentuation 1",
+  "bodyPart.col3": "Primaire (comprend les yeux)",
+  "bodyPart.col3b": "Accentuation 2",
+  "bodyPart.col4": "T-shirt",
+  "bodyPart.col4a": "Accentuation des chaussures ? (pas sûr)",
+  "bodyPart.col4b": "Inconnu (si vous le trouvez, faites-le moi savoir)"
+}
