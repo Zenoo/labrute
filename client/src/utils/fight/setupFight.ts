@@ -53,7 +53,6 @@ import { trap } from './trap';
 import { trash } from './trash';
 import { treat } from './treat';
 import { updateWeapons } from './updateWeapons';
-import { updateSkills } from './updateSkills';
 import { createBustImage } from './utils/createBustImage';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import { isRangedStep, repositionFighters } from './utils/repositionFighters';
@@ -490,9 +489,6 @@ export const setupFight: (
 
         // Update brute weapons
         updateWeapons(app, animationFighter);
-
-        // Update brute skills
-        updateSkills(app, animationFighter);
 
         return animationFighter;
       });

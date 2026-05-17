@@ -10,6 +10,7 @@ import { TieredPerkColor } from '../StatColor';
 import {
   WEAPON_SIZE, WEAPON_SPACING, WEAPONS_PER_ROW
 } from './utils/fightPositions';
+import { updateSkills } from './updateSkills';
 
 export const updateWeapons = (
   app: Application,
@@ -78,4 +79,7 @@ export const updateWeapons = (
       brute.teamWeaponsIllustrations.push(sprite);
     });
   }
+
+  // Always update skills as well since they are displayed in the same area and can be affected by weapon changes
+  updateSkills(app, brute);
 };
