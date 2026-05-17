@@ -125,5 +125,6 @@
   "loading": "Chargement...",
   "noMembersAvailable": "Aucun membre disponible pour assigner ce rôle",
   "selectMembers": "Sélectionner des membres",
-  "rolesAssigned": "Rôle assigné à {{count}} membre(s) avec succès"
+  "rolesAssigned": "Rôle assigné à {{count}} membre(s) avec succès",
+  "permissions": "Permissions"
 }
