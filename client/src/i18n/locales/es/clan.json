@@ -94,7 +94,7 @@
   "clanMasterChanged": "El maestro del clan ha sido cambiado.",
   "deleted": "Eliminado",
   "title": "Título",
-  "manageRoles": "Manage Roles",
+  "manageRoles": "Gestionar Roles",
   "roleName": "Role Name",
   "createNewRole": "Create New Role",
   "editRole": "Edit Role",
@@ -126,5 +126,5 @@
   "noMembersAvailable": "No members available to assign this role",
   "selectMembers": "Select Members",
   "rolesAssigned": "Role assigned to {{count}} member(s) successfully",
-  "permissions": "Permissions"
+  "permissions": "Permisos"
 }
