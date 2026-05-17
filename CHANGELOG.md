@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.3](https://github.com/Zenoo/labrute/compare/labrute-v2.94.2...labrute-v2.94.3) (2026-05-17)
+
+
+### Bug Fixes
+
+* release-please config ([eeee255](https://github.com/Zenoo/labrute/commit/eeee255e324469b238b4587e0551eb281020400b))
+* release-please config ([16d75cc](https://github.com/Zenoo/labrute/commit/16d75cc8c09f3c604da557194a603651fa8812ee))
+
 ## [2.94.2](https://github.com/Zenoo/labrute/compare/labrute-v2.94.1...labrute-v2.94.2) (2026-05-17)
 
 
