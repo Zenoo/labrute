@@ -1,6 +1,6 @@
 {
   "name": "@labrute/core",
-  "version": "2.94.6",
+  "version": "2.94.7",
   "type": "module",
   "main": "lib/index.js",
   "scripts": {
