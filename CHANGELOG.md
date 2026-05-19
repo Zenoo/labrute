@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.6](https://github.com/Zenoo/labrute/compare/labrute-v2.94.5...labrute-v2.94.6) (2026-05-19)
+
+
+### Bug Fixes
+
+* Ban multiple accounts daily ([e5d16d9](https://github.com/Zenoo/labrute/commit/e5d16d9cd100379e621baa8f471d34b641a5e056))
+
 ## [2.94.5](https://github.com/Zenoo/labrute/compare/labrute-v2.94.4...labrute-v2.94.5) (2026-05-17)
 
 
