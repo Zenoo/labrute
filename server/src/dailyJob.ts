@@ -43,6 +43,7 @@ import { updateClanPoints } from './utils/clan/updateClanPoints.js';
 import { generateFight } from './utils/fight/generateFight.js';
 import { logMemory } from './utils/memory.js';
 import { shuffle } from './utils/shuffle.js';
+import { banUser } from './utils/user/banUser.js';
 
 const GENERATE_TOURNAMENTS_IN_DEV = false;
 
@@ -2200,6 +2201,53 @@ const handleEventTournament = async (
   LOGGER.log(`Round ${round} of event ${lastEvent.id} completed`);
 };
 
+const banMultipleAccounts = async (prisma: PrismaClient) => {
+  // Get users created within the last 7 days with shared fingerprints and not yet banned
+  const users = await prisma.user.findMany({
+    where: {
+      createdAt: {
+        gte: dayjs.utc().subtract(7, 'day').toDate(),
+      },
+      bannedAt: null,
+    },
+    select: {
+      id: true,
+      fingerprints: true,
+    },
+  });
+
+  const fingerprintMap: Record<string, string[]> = {};
+
+  // Group user ids by fingerprint
+  for (const user of users) {
+    for (const fingerprint of user.fingerprints) {
+      if (!fingerprint) {
+        continue;
+      }
+      if (!fingerprintMap[fingerprint]) {
+        fingerprintMap[fingerprint] = [];
+      }
+      fingerprintMap[fingerprint].push(user.id);
+    }
+  }
+
+  let bannedCount = 0;
+
+  // Ban users with shared fingerprints (more than 3)
+  for (const userIds of Object.values(fingerprintMap)) {
+    if (userIds.length > 3) {
+      for (const userId of userIds) {
+        await banUser(prisma, userId, 'multipleAccounts');
+      }
+      bannedCount += userIds.length;
+    }
+  }
+
+  if (bannedCount) {
+    LOGGER.log(`Banned ${bannedCount} users for multiple accounts`);
+  }
+};
+
 export const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     logMemory('START');
@@ -2304,6 +2352,10 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Calculate and cache achievement rankings
     await calculateAchievementRankings(prisma);
     logMemory('After calculating achievement rankings');
+
+    // Ban multiple accounts
+    await banMultipleAccounts(prisma);
+    logMemory('After banning multiple accounts');
 
     // Clean up DB
     await cleanup(prisma);

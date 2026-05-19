@@ -53,6 +53,8 @@ model User {
   notifications          Notification[]
   reportsHandled         BruteReport[]    @relation("BruteReportHandler")
   logs                   UserLog[]
+
+  @@index([createdAt])
 }
 
 enum UserLogType {
