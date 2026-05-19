@@ -124,12 +124,25 @@ export const Users = {
           lastSeen: true,
           createdAt: true,
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
       }));
+
+      // Ignore known fingerprints
+      const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
+
+      const filteredOtherUsersSharingFingerprints = otherUsersSharingFingerprints
+        .map((otherUser) => ({
+          ...otherUser,
+          fingerprints: otherUser.fingerprints.filter((fp) => !knownFingerprints.includes(fp)),
+        }))
+        .filter((otherUser) => otherUser.fingerprints.length > 0);
 
       res.send({
         ...user,
         achievements: mergedAchievements,
-        otherUsersSharingFingerprints,
+        otherUsersSharingFingerprints: filteredOtherUsersSharingFingerprints,
       });
     } catch (error) {
       sendError(res, error);
