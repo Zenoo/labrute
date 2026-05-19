@@ -788,6 +788,9 @@ export type UserTransferBruteRequest = {
   bruteId: string;
   targetUserId: string;
 };
+export type UserDeleteAccountRequest = {
+  id?: string;
+};
 export type KnownFingerprintListResponse = KnownFingerprint[];
 export type KnownFingerprintAddRequest = {
   fingerprint: string;

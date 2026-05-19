@@ -22,7 +22,8 @@ import {
   LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse,
   OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse,
   TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse,
-  TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserGetAdminRequest,
+  TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserDeleteAccountRequest,
+  UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
   UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse,
@@ -65,7 +66,7 @@ export const Server = {
     toggleFollow: (bruteId: string) => Fetch<never>(`/api/user/toggle-follow/${bruteId}`, {}, 'PATCH'),
     updateSettings: (settings: UserUpdateSettingsRequest) => Fetch<never>('/api/user/settings', settings, 'PUT'),
     disconnect: () => Fetch<never>('/api/user/disconnect', {}, 'PATCH'),
-    deleteAccount: () => Fetch<never>('/api/user', {}, 'DELETE'),
+    deleteAccount: (params?: UserDeleteAccountRequest) => Fetch<never>('/api/user', params, 'DELETE'),
     transferBrute: (data: UserTransferBruteRequest) => Fetch<never>('/api/user/transfer-brute', data, 'PATCH'),
   },
   Brute: {

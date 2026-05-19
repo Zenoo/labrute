@@ -1,6 +1,8 @@
 import { UserLogsListResponse } from '@labrute/core';
 import { UserLogType } from '@labrute/prisma';
-import { Autocomplete, Chip, Paper, Stack, TextField } from '@mui/material';
+import {
+  Autocomplete, Chip, Paper, Stack, TextField
+} from '@mui/material';
 import { Box } from '@mui/system';
 import dayjs from 'dayjs';
 import React, { useEffect } from 'react';

@@ -15,6 +15,7 @@ interface FantasyButtonProps extends BoxProps {
   disabled?: boolean;
   to?: string;
   size?: 'normal' | 'large';
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 /**
@@ -27,6 +28,7 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
   sx,
   to,
   size = 'normal',
+  onClick,
   ...rest
 }: FantasyButtonProps, ref) => {
   const theme = useTheme();
@@ -36,8 +38,14 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
   const colorDark = adjustColor(COLOR, -30);
   const colorDarker = adjustColor(COLOR, -60);
 
-  const handleClick = () => {
-    if (!disabled && to) {
+  const handleClick = (e: React.MouseEvent) => {
+    if (disabled) return;
+
+    if (onClick) {
+      onClick(e);
+    }
+
+    if (to) {
       navigate(to);
     }
   };

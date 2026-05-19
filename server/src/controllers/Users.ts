@@ -10,6 +10,7 @@ import {
   NotFoundError,
   RaretyOrder,
   UserBannedListResponse,
+  UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserMultipleAccountsListResponse,
@@ -975,13 +976,24 @@ export const Users = {
     }
   },
   deleteAccount: (prisma: PrismaClient) => async (
-    req: Request,
+    req: Request<never, unknown, UserDeleteAccountRequest>,
     res: Response,
   ) => {
     try {
       const authed = await auth(prisma, req);
+
+      if (req.body.id && !authed.admin) {
+        throw new ForbiddenError(translate('unauthorized', authed));
+      }
+
+      if (req.body.id && !isUuid(req.body.id)) {
+        throw new ExpectedError(translate('invalidParameters', authed));
+      }
+
+      const userId = req.body.id || authed.id;
+
       const user = await traced('users.deleteAccount.getUser', () => prisma.user.findFirst({
-        where: { id: authed.id },
+        where: { id: userId },
         select: {
           id: true,
           createdAt: true,

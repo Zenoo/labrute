@@ -1,12 +1,15 @@
-import { UserGetAdminResponse } from '@labrute/core';
+import { BanReason, UserGetAdminResponse } from '@labrute/core';
 import { AchievementName, Lang } from '@labrute/prisma';
 import { Block } from '@mui/icons-material';
 import {
+  Box,
   Checkbox, FormControl, FormControlLabel, Grid,
   InputLabel, MenuItem, Paper, Select, Stack, Table,
   TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip
 } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
 import { Page } from '../../components/Page';
@@ -17,17 +20,20 @@ import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import dayjs from 'dayjs';
+import { useConfirm } from '../../hooks/useConfirm';
 
 export const UserAdminView = () => {
   const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user: admin } = useAuth();
   const Server = useServer();
+  const Confirm = useConfirm();
 
-  const [userIdOrName, setUserIdOrName] = React.useState('');
-  const [user, setUser] = React.useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
-  const [achievements, setAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
-  const [initialAchievements, setInitialAchievements] = React.useState<UserGetAdminResponse['achievements']>([]);
+  const [userIdOrName, setUserIdOrName] = useState('');
+  const [user, setUser] = useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
+  const [achievements, setAchievements] = useState<UserGetAdminResponse['achievements']>([]);
+  const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['achievements']>([]);
+  const [banReason, setBanReason] = useState('');
 
   // Change user id or name
   const changeUserIdOrName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,6 +110,41 @@ export const UserAdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, Server.User, achievements, initialAchievements, user]);
 
+  // Unban user
+  const unban = () => {
+    if (!user) return;
+
+    Server.User.unban(user.id).then(() => {
+      Alert.open('success', 'User unbanned');
+      updateUser();
+    }).catch(catchError(Alert));
+  };
+  // Ban user
+  const banUser = () => {
+    if (!user || !banReason) return;
+
+    Confirm.open(t('user:ban'), t('user:banConfirm'), () => {
+      Server.User.ban(user.id, banReason).then(() => {
+        Alert.open('success', t('user:banSuccess'));
+        updateUser();
+      }).catch(catchError(Alert));
+    });
+  };
+
+  // Delete account
+  const deleteAccount = () => {
+    if (!user) return;
+    if (user.id !== admin?.id) return;
+
+    Confirm.open(t('user:deleteAccount'), t('user:deleteAccountConfirm'), () => {
+      Server.User.deleteAccount({ id: user.id }).then(() => {
+        Alert.open('success', t('user:accountDeleted'));
+        updateUser();
+      }).catch(catchError(Alert));
+    });
+  };
+
+
   return (
     <Page title={t('adminPanel')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
@@ -127,6 +168,29 @@ export const UserAdminView = () => {
                     </Tooltip>
                   )}
                 </Text>
+                <FantasyButton color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</FantasyButton>
+                <FantasyButton color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</FantasyButton>
+                {!user.bannedAt && (
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Select
+                      variant="standard"
+                      value={banReason}
+                      onChange={(e) => setBanReason(e.target.value)}
+                      sx={{ m: 1 }}
+                    >
+                      {Object.values(BanReason).map((reason) => (
+                        <MenuItem key={reason} value={reason}>{t(`user:banReason.${reason}`)}</MenuItem>
+                      ))}
+                    </Select>
+                    <FantasyButton
+                      onClick={banUser}
+                      color="error"
+                      sx={{ m: 1 }}
+                    >
+                      {t('ban')}
+                    </FantasyButton>
+                  </Box>
+                )}
                 <TableContainer component={Paper}>
                   <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Brutes</Text>
                   <Table sx={{ minWidth: 650 }} size="small">

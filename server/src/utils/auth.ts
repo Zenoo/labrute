@@ -12,7 +12,9 @@ import {
   VERSION_HEADER,
   Version,
 } from '@labrute/core';
-import { Lang, Prisma, PrismaClient } from '@labrute/prisma';
+import {
+  Lang, Prisma, PrismaClient
+} from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request } from 'express';
 import { ServerState } from './ServerState.js';
@@ -174,6 +176,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     id: user.id,
     lang: user.lang,
     fingerprints: user.fingerprints,
+    admin: user.admin,
   };
 };
 
