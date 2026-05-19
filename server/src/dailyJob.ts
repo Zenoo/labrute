@@ -2237,7 +2237,11 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   for (const userIds of Object.values(fingerprintMap)) {
     if (userIds.length > 3) {
       for (const userId of userIds) {
-        await banUser(prisma, userId, 'multipleAccounts');
+        try {
+          await banUser(prisma, userId, 'multipleAccounts');
+        } catch {
+          // It's possible that some of these users have already been banned by another fingerprint, so we can ignore errors here
+        }
       }
       bannedCount += userIds.length;
     }

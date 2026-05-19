@@ -1,4 +1,4 @@
-import { NotFoundError, LimitError } from '@labrute/core';
+import { NotFoundError, ExpectedError } from '@labrute/core';
 import { PrismaClient, UserLogType } from '@labrute/prisma';
 import { LOGGER } from '../../context.js';
 import { createUserLog } from '../createUserLog.js';
@@ -42,7 +42,7 @@ export const banUser = async (
   }
 
   if (user.bannedAt) {
-    throw new LimitError(translate('userAlreadyBanned', authed));
+    throw new ExpectedError(translate('userAlreadyBanned', authed));
   }
 
   // Delete all brutes
