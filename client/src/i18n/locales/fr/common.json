@@ -502,7 +502,7 @@
   "fight.step.saboteur": "{{weapon}} était saboté !",
   "fight.step.leave": "{{name}} a pris la fuite !",
   "fight.step.arrive": "{{name}} est arrivé !",
-  "fight.step.trash": "{{brute}} a jeté {{name}}.",
+  "fight.step.trash": "{{brute}} threw its weapon.",
   "fight.step.steal": "{{brute}} a volé {{name}} de {{target}}.",
   "fight.step.trap": "{{brute}} a jeté un filet sur {{target}}.",
   "fight.step.heal": "{{brute}} s'est soigné de {{amount}} PV.",
