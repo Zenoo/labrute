@@ -2217,6 +2217,7 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   });
 
   const fingerprintMap: Record<string, string[]> = {};
+  const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
 
   // Group user ids by fingerprint
   for (const user of users) {
@@ -2224,6 +2225,12 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
       if (!fingerprint) {
         continue;
       }
+
+      // Ignore known fingerprints
+      if (knownFingerprints.includes(fingerprint)) {
+        continue;
+      }
+
       if (!fingerprintMap[fingerprint]) {
         fingerprintMap[fingerprint] = [];
       }
