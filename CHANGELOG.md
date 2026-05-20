@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.9](https://github.com/Zenoo/labrute/compare/labrute-v2.94.8...labrute-v2.94.9) (2026-05-20)
+
+
+### Bug Fixes
+
+* Filter known fingerprints in admin view ([b6943a0](https://github.com/Zenoo/labrute/commit/b6943a0000e3c7151e336605ea3886dd50f0aa57))
+
 ## [2.94.8](https://github.com/Zenoo/labrute/compare/labrute-v2.94.7...labrute-v2.94.8) (2026-05-19)
 
 
