@@ -3,7 +3,9 @@ import { ExpressInstrumentation, ExpressLayerType } from '@opentelemetry/instrum
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { NodeSDK } from '@opentelemetry/sdk-node';
-import { AlwaysOnSampler, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node';
+import {
+  AlwaysOnSampler, BatchSpanProcessor, SimpleSpanProcessor
+} from '@opentelemetry/sdk-trace-node';
 import { SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_DEPLOYMENT_ENVIRONMENT } from '@opentelemetry/semantic-conventions';
 import { PrismaInstrumentation } from '@prisma/instrumentation';
 import { Buffer } from 'buffer';
