@@ -2213,44 +2213,56 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
     select: {
       id: true,
       fingerprints: true,
+      ips: true,
     },
   });
 
-  const fingerprintMap: Record<string, string[]> = {};
   const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
+  const usersToBan = new Set<string>();
 
-  // Group user ids by fingerprint
-  for (const user of users) {
-    for (const fingerprint of user.fingerprints) {
-      if (!fingerprint) {
+  // As per FingerprintJS recommendation: fingerprinting should not be relied upon as a single 
+  // method of identification. It should be combined with other identifiers (IP addresses, etc).
+  // We require MULTIPLE signals to detect duplicate accounts:
+  // 1. Same fingerprint + same IP address
+  // 2. Multiple shared fingerprints between users (not just one)
+
+  // Check for users sharing both fingerprint AND IP address
+  for (const user1 of users) {
+    for (const user2 of users) {
+      if (user1.id === user2.id) continue;
+
+      // Check if they share at least one fingerprint (excluding known ones)
+      const sharedFingerprints = user1.fingerprints.filter(
+        (fp) => !knownFingerprints.includes(fp) && user2.fingerprints.includes(fp)
+      );
+
+      if (sharedFingerprints.length === 0) {
         continue;
       }
 
-      // Ignore known fingerprints
-      if (knownFingerprints.includes(fingerprint)) {
-        continue;
-      }
+      // Check if they also share an IP address
+      const sharedIps = user1.ips.filter((ip) => user2.ips.includes(ip));
 
-      if (!fingerprintMap[fingerprint]) {
-        fingerprintMap[fingerprint] = [];
+      // Check if they share multiple fingerprints
+      const multipleSharedFingerprints = sharedFingerprints.length > 1;
+
+      // Ban if they share BOTH fingerprint + IP, OR multiple fingerprints
+      if (sharedIps.length > 0 || multipleSharedFingerprints) {
+        usersToBan.add(user1.id);
+        usersToBan.add(user2.id);
       }
-      fingerprintMap[fingerprint].push(user.id);
     }
   }
 
   let bannedCount = 0;
 
-  // Ban users with shared fingerprints (more than 3)
-  for (const userIds of Object.values(fingerprintMap)) {
-    if (userIds.length > 3) {
-      for (const userId of userIds) {
-        try {
-          await banUser(prisma, userId, 'multipleAccounts');
-        } catch {
-          // It's possible that some of these users have already been banned by another fingerprint, so we can ignore errors here
-        }
-      }
-      bannedCount += userIds.length;
+  // Ban detected users (without banning fingerprints, as they may be shared with legitimate users)
+  for (const userId of usersToBan) {
+    try {
+      await banUser(prisma, userId, 'multipleAccounts');
+      bannedCount++;
+    } catch {
+      // It's possible that some of these users have already been banned, so we can ignore errors here
     }
   }
 

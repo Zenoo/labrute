@@ -222,7 +222,8 @@ export class OAuth {
       try {
         checkPredictableHeaders(req.headers);
       } catch (_error) {
-        await banUser(this.#prisma, user.id, 'headers_tampering');
+        // Ban fingerprints for tampering attempts
+        await banUser(this.#prisma, user.id, 'headers_tampering', undefined, { banFingerprints: true });
         DISCORD().logObject(
           Object.fromEntries(
             Object.entries(req.headers)

@@ -125,7 +125,8 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // it means it was tampered with, as fingerprints can only
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
-    await banUser(prisma, user.id, 'unrecognized_fingerprint');
+    // Ban fingerprints for tampering/cheating attempts
+    await banUser(prisma, user.id, 'unrecognized_fingerprint', undefined, { banFingerprints: true });
     DISCORD().logObject({
       userId: user.id,
       knowns: user.fingerprints,
@@ -140,7 +141,8 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   try {
     checkPredictableHeaders(request.headers);
   } catch (_error) {
-    await banUser(prisma, user.id, 'headers_tampering');
+    // Ban fingerprints for tampering attempts
+    await banUser(prisma, user.id, 'headers_tampering', undefined, { banFingerprints: true });
     DISCORD().logObject(
       Object.fromEntries(
         Object.entries(request.headers)

@@ -13,6 +13,7 @@ export const banUser = async (
   userId: string,
   reason: string,
   authed?: AuthedUser,
+  options?: { banFingerprints?: boolean },
 ) => {
   const user = await traced('banUser.getUser', () => prisma.user.findFirst({
     where: { id: userId },
@@ -63,16 +64,22 @@ export const banUser = async (
     userId,
   });
 
-  // Filter out known fingerprints before banning
-  const fingerprintsToBan: string[] = [];
-  for (const fingerprint of user.fingerprints) {
-    const isKnown = await ServerState.isFingerprintKnown(prisma, fingerprint);
-    if (!isKnown) {
-      fingerprintsToBan.push(fingerprint);
+  // Only ban fingerprints if explicitly requested (e.g., manual admin ban for abuse)
+  // Do NOT ban fingerprints for automatic multiple account detection, as fingerprints
+  // can be shared between legitimate users (e.g., iPhones of the same model)
+  // Per FingerprintJS: "FP-ing cannot be relied upon as a single method of identification"
+  if (options?.banFingerprints) {
+    // Filter out known fingerprints before banning
+    const fingerprintsToBan: string[] = [];
+    for (const fingerprint of user.fingerprints) {
+      const isKnown = await ServerState.isFingerprintKnown(prisma, fingerprint);
+      if (!isKnown) {
+        fingerprintsToBan.push(fingerprint);
+      }
     }
-  }
 
-  await ServerState.addBannedFingerprints(prisma, fingerprintsToBan);
+    await ServerState.addBannedFingerprints(prisma, fingerprintsToBan);
+  }
 
   if (authed) {
     LOGGER.log(`User ${userId} has been banned by ${authed.id}`);

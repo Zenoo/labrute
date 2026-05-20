@@ -677,7 +677,8 @@ export const Users = {
         throw new ExpectedError(translate('invalidParameters', authed));
       }
 
-      await banUser(prisma, req.params.userId, req.body.reason, authed);
+      // Manual admin bans should ban fingerprints to prevent this specific abuser from returning
+      await banUser(prisma, req.params.userId, req.body.reason, authed, { banFingerprints: true });
 
       res.send({
         success: true,
