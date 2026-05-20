@@ -2219,7 +2219,6 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   });
 
   const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
-  const usersToBan = new Set<string>();
 
   // As per FingerprintJS recommendation: fingerprinting should not be relied upon as a single
   // method of identification. It should be combined with other identifiers (IP addresses,
@@ -2229,38 +2228,78 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   // 2. Same fingerprint + same browser ID (HttpOnly cookie set by server)
   // 3. Multiple shared fingerprints between users (not just one)
 
-  // Check for users sharing multiple signals
-  for (const user1 of users) {
-    for (const user2 of users) {
-      if (user1.id === user2.id) continue;
+  // Group users by fingerprint+IP combination
+  const fingerprintIpGroups: Record<string, string[]> = {};
+  // Group users by fingerprint+browserID combination
+  const fingerprintBrowserGroups: Record<string, string[]> = {};
+  // Track users with multiple shared fingerprints
+  const multiFingerprint: Record<string, Set<string>> = {};
 
-      // Check if they share at least one fingerprint (excluding known ones)
-      const sharedFingerprints = user1.fingerprints.filter(
-        (fp) => !knownFingerprints.includes(fp) && user2.fingerprints.includes(fp)
-      );
+  for (const user of users) {
+    for (const fingerprint of user.fingerprints) {
+      if (knownFingerprints.includes(fingerprint)) continue;
 
-      if (sharedFingerprints.length === 0) {
-        continue;
+      // Track fingerprint + IP combinations
+      for (const ip of user.ips) {
+        const key = `${fingerprint}:${ip}`;
+        if (!fingerprintIpGroups[key]) {
+          fingerprintIpGroups[key] = [];
+        }
+        if (!fingerprintIpGroups[key].includes(user.id)) {
+          fingerprintIpGroups[key].push(user.id);
+        }
       }
 
-      // Check if they also share an IP address
-      const sharedIps = user1.ips.filter((ip) => user2.ips.includes(ip));
+      // Track fingerprint + browser ID combinations
+      for (const browserId of user.browserIds) {
+        const key = `${fingerprint}:${browserId}`;
+        if (!fingerprintBrowserGroups[key]) {
+          fingerprintBrowserGroups[key] = [];
+        }
+        if (!fingerprintBrowserGroups[key].includes(user.id)) {
+          fingerprintBrowserGroups[key].push(user.id);
+        }
+      }
 
-      // Check if they share a browser ID (strong signal - same physical browser)
-      const sharedBrowserIds = user1.browserIds.filter((bid) => user2.browserIds.includes(bid));
+      // Track fingerprints per user for multi-fingerprint detection
+      if (!multiFingerprint[user.id]) {
+        multiFingerprint[user.id] = new Set();
+      }
+      multiFingerprint[user.id]?.add(fingerprint);
+    }
+  }
 
-      // Check if they share multiple fingerprints
-      const multipleSharedFingerprints = sharedFingerprints.length > 1;
+  const usersToBan = new Set<string>();
 
-      // Ban if they share:
-      // - Fingerprint + IP (same person, same location)
-      // - Fingerprint + Browser ID (same person, same browser)
-      // - Multiple fingerprints (same person, different devices)
-      const hasFingerprintAndIp = sharedFingerprints.length > 0 && sharedIps.length > 0;
-      const hasFingerprintAndBrowserId = sharedFingerprints.length > 0
-        && sharedBrowserIds.length > 0;
+  // Ban groups with more than 3 users sharing fingerprint + IP
+  for (const userIds of Object.values(fingerprintIpGroups)) {
+    if (userIds.length > 3) {
+      userIds.forEach((id) => usersToBan.add(id));
+    }
+  }
 
-      if (hasFingerprintAndIp || hasFingerprintAndBrowserId || multipleSharedFingerprints) {
+  // Ban groups with more than 3 users sharing fingerprint + browser ID
+  for (const userIds of Object.values(fingerprintBrowserGroups)) {
+    if (userIds.length > 3) {
+      userIds.forEach((id) => usersToBan.add(id));
+    }
+  }
+
+  // Check for users sharing multiple fingerprints (strong signal - different devices)
+  for (const user1 of users) {
+    for (const user2 of users) {
+      if (user1.id === user2.id) continue; // self-comparison
+
+      const fingerprints1 = multiFingerprint[user1.id];
+      const fingerprints2 = multiFingerprint[user2.id];
+
+      if (!fingerprints1 || !fingerprints2) continue;
+
+      // Count shared fingerprints
+      const sharedCount = Array.from(fingerprints1).filter((fp) => fingerprints2.has(fp)).length;
+
+      // Multiple shared fingerprints is very strong evidence
+      if (sharedCount > 1) {
         usersToBan.add(user1.id);
         usersToBan.add(user2.id);
       }
