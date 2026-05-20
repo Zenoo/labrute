@@ -4986,6 +4986,7 @@ export namespace Prisma {
     dinorpgDone: number
     ips: number
     fingerprints: number
+    browserIds: number
     createdAt: number
     bannedAt: number
     banReason: number
@@ -5067,6 +5068,7 @@ export namespace Prisma {
     dinorpgDone?: true
     ips?: true
     fingerprints?: true
+    browserIds?: true
     createdAt?: true
     bannedAt?: true
     banReason?: true
@@ -5177,6 +5179,7 @@ export namespace Prisma {
     dinorpgDone: Date | null
     ips: string[]
     fingerprints: string[]
+    browserIds: string[]
     createdAt: Date
     bannedAt: Date | null
     banReason: string | null
@@ -5219,6 +5222,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    browserIds?: boolean
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
@@ -5253,6 +5257,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    browserIds?: boolean
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
@@ -5276,6 +5281,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    browserIds?: boolean
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
@@ -5299,6 +5305,7 @@ export namespace Prisma {
     dinorpgDone?: boolean
     ips?: boolean
     fingerprints?: boolean
+    browserIds?: boolean
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
@@ -5308,7 +5315,7 @@ export namespace Prisma {
     lastSeen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "lastSeen", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "lastSeen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -5353,6 +5360,7 @@ export namespace Prisma {
       dinorpgDone: Date | null
       ips: string[]
       fingerprints: string[]
+      browserIds: string[]
       createdAt: Date
       bannedAt: Date | null
       banReason: string | null
@@ -5806,6 +5814,7 @@ export namespace Prisma {
     readonly dinorpgDone: FieldRef<"User", 'DateTime'>
     readonly ips: FieldRef<"User", 'String[]'>
     readonly fingerprints: FieldRef<"User", 'String[]'>
+    readonly browserIds: FieldRef<"User", 'String[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
@@ -42142,6 +42151,7 @@ export namespace Prisma {
     dinorpgDone: 'dinorpgDone',
     ips: 'ips',
     fingerprints: 'fingerprints',
+    browserIds: 'browserIds',
     createdAt: 'createdAt',
     bannedAt: 'bannedAt',
     banReason: 'banReason',
@@ -43016,6 +43026,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    browserIds?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
@@ -43049,6 +43060,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrderInput | SortOrder
     ips?: SortOrder
     fingerprints?: SortOrder
+    browserIds?: SortOrder
     createdAt?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
@@ -43085,6 +43097,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    browserIds?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
@@ -43118,6 +43131,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrderInput | SortOrder
     ips?: SortOrder
     fingerprints?: SortOrder
+    browserIds?: SortOrder
     createdAt?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
@@ -43149,6 +43163,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    browserIds?: StringNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -45516,6 +45531,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -45549,6 +45565,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -45582,6 +45599,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45615,6 +45633,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45648,6 +45667,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -45671,6 +45691,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45694,6 +45715,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48361,6 +48383,7 @@ export namespace Prisma {
     dinorpgDone?: SortOrder
     ips?: SortOrder
     fingerprints?: SortOrder
+    browserIds?: SortOrder
     createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
@@ -50446,6 +50469,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type UserCreatebrowserIdsInput = {
+    set: string[]
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -50610,6 +50637,11 @@ export namespace Prisma {
   }
 
   export type UserUpdatefingerprintsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdatebrowserIdsInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -55427,6 +55459,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -55459,6 +55492,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -55700,6 +55734,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55732,6 +55767,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -56735,6 +56771,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -56767,6 +56804,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -58148,6 +58186,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -58180,6 +58219,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -59992,6 +60032,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60024,6 +60065,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60815,6 +60857,7 @@ export namespace Prisma {
     dinorpgDone?: DateTimeNullableFilter<"User"> | Date | string | null
     ips?: StringNullableListFilter<"User">
     fingerprints?: StringNullableListFilter<"User">
+    browserIds?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
@@ -62308,6 +62351,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -62340,6 +62384,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -64667,6 +64712,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -64699,6 +64745,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -64747,6 +64794,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64779,6 +64827,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65396,6 +65445,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -65428,6 +65478,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -65675,6 +65726,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65707,6 +65759,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65932,6 +65985,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -65964,6 +66018,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -66001,6 +66056,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -66033,6 +66089,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -66296,6 +66353,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66328,6 +66386,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70070,6 +70129,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -70102,6 +70162,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -70349,6 +70410,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70381,6 +70443,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71071,6 +71134,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -71103,6 +71167,7 @@ export namespace Prisma {
     dinorpgDone?: Date | string | null
     ips?: UserCreateipsInput | string[]
     fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
@@ -71151,6 +71216,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71183,6 +71249,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74065,6 +74132,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74097,6 +74165,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -74129,6 +74198,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75342,6 +75412,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75374,6 +75445,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75406,6 +75478,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75812,6 +75885,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75844,6 +75918,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75876,6 +75951,7 @@ export namespace Prisma {
     dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ips?: UserUpdateipsInput | string[]
     fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null

@@ -60,12 +60,14 @@ export const UserAdminView = () => {
         banReason: u.banReason,
         ips: u.ips,
         fingerprints: u.fingerprints,
+        browserIds: u.browserIds,
         displayVersusPage: u.displayVersusPage,
         displayOpponentDetails: u.displayOpponentDetails,
         lastSeen: u.lastSeen,
         transferedBrutesCount: u.transferedBrutesCount,
         brutes: u.brutes,
         otherUsersSharingFingerprints: u.otherUsersSharingFingerprints,
+        otherUsersSharingBrowserIds: u.otherUsersSharingBrowserIds,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference
@@ -244,6 +246,40 @@ export const UserAdminView = () => {
                           </TableCell>
                           <TableCell align="right">{otherUser.id}</TableCell>
                           <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
+                          <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                          <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                          <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
+                          <TableCell align="right">{otherUser.banReason ? t(`banReason.${otherUser.banReason}`) : ''}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TableContainer component={Paper} sx={{ mb: 2 }}>
+                  <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing browser IDs ({user.otherUsersSharingBrowserIds.length + 1})</Text>
+                  <Table sx={{ minWidth: 650 }} size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell align="right">ID</TableCell>
+                        <TableCell align="right">Browser IDs</TableCell>
+                        <TableCell align="right">Created At</TableCell>
+                        <TableCell align="right">Last seen</TableCell>
+                        <TableCell align="right">Banned At</TableCell>
+                        <TableCell align="right">Ban Reason</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {[user, ...user.otherUsersSharingBrowserIds].map((otherUser) => (
+                        <TableRow
+                          key={otherUser.id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {otherUser.name}
+                          </TableCell>
+                          <TableCell align="right">{otherUser.id}</TableCell>
+                          <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.browserIds.map((b) => (user.browserIds.includes(b) ? `<b>${b}</b>` : b)).join('<br>') }} />
                           <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>

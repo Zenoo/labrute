@@ -2214,19 +2214,22 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
       id: true,
       fingerprints: true,
       ips: true,
+      browserIds: true,
     },
   });
 
   const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
   const usersToBan = new Set<string>();
 
-  // As per FingerprintJS recommendation: fingerprinting should not be relied upon as a single 
-  // method of identification. It should be combined with other identifiers (IP addresses, etc).
+  // As per FingerprintJS recommendation: fingerprinting should not be relied upon as a single
+  // method of identification. It should be combined with other identifiers (IP addresses,
+  // cookie-stored browser IDs, etc).
   // We require MULTIPLE signals to detect duplicate accounts:
   // 1. Same fingerprint + same IP address
-  // 2. Multiple shared fingerprints between users (not just one)
+  // 2. Same fingerprint + same browser ID (HttpOnly cookie set by server)
+  // 3. Multiple shared fingerprints between users (not just one)
 
-  // Check for users sharing both fingerprint AND IP address
+  // Check for users sharing multiple signals
   for (const user1 of users) {
     for (const user2 of users) {
       if (user1.id === user2.id) continue;
@@ -2243,11 +2246,21 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
       // Check if they also share an IP address
       const sharedIps = user1.ips.filter((ip) => user2.ips.includes(ip));
 
+      // Check if they share a browser ID (strong signal - same physical browser)
+      const sharedBrowserIds = user1.browserIds.filter((bid) => user2.browserIds.includes(bid));
+
       // Check if they share multiple fingerprints
       const multipleSharedFingerprints = sharedFingerprints.length > 1;
 
-      // Ban if they share BOTH fingerprint + IP, OR multiple fingerprints
-      if (sharedIps.length > 0 || multipleSharedFingerprints) {
+      // Ban if they share:
+      // - Fingerprint + IP (same person, same location)
+      // - Fingerprint + Browser ID (same person, same browser)
+      // - Multiple fingerprints (same person, different devices)
+      const hasFingerprintAndIp = sharedFingerprints.length > 0 && sharedIps.length > 0;
+      const hasFingerprintAndBrowserId = sharedFingerprints.length > 0
+        && sharedBrowserIds.length > 0;
+
+      if (hasFingerprintAndIp || hasFingerprintAndBrowserId || multipleSharedFingerprints) {
         usersToBan.add(user1.id);
         usersToBan.add(user2.id);
       }

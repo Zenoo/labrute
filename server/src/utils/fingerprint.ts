@@ -134,7 +134,25 @@ export const getFingerprintEvent = (
     visitorId = appendTlsToVisitorId(visitorId, request);
 
     const encryptedVisitorId = encryptFPEvent(visitorId);
-    response.send({ eventId: encryptedVisitorId, visitorId });
+
+    // Generate or retrieve browser ID from cookie
+    let browserId = request.cookies?.browserId as string | undefined;
+    if (!browserId) {
+      browserId = crypto.randomUUID();
+      // Set as HttpOnly cookie (persistent, not editable by client)
+      response.cookie('browserId', browserId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 10 * 365 * 24 * 60 * 60 * 1000, // 10 years - persistent browser identifier
+        path: '/',
+      });
+    }
+
+    response.send({
+      eventId: encryptedVisitorId,
+      visitorId,
+    });
 
     // TODO: look at the fingerprint to detect bots and ban the print
   } catch (error) {

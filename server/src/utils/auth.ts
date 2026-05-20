@@ -33,7 +33,10 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
   }
 
-  const { authorization, [FINGERPRINT_HEADER]: fingerprint } = request.headers;
+  const {
+    authorization,
+    [FINGERPRINT_HEADER]: fingerprint,
+  } = request.headers;
 
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');
@@ -68,6 +71,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     banReason: true,
     ips: true,
     fingerprints: true,
+    browserIds: true,
     lastSeen: true,
   };
 
@@ -159,6 +163,19 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
       data: {
         ips: {
           push: ip,
+        },
+      },
+    }));
+  }
+
+  // Store browser ID from cookie if present
+  const browserId = request.cookies?.browserId as string | undefined;
+  if (browserId && !user.browserIds.includes(browserId)) {
+    await traced('auth.updateUserBrowserIds', () => prisma.user.update({
+      where: { id },
+      data: {
+        browserIds: {
+          push: browserId,
         },
       },
     }));

@@ -139,10 +139,35 @@ export const Users = {
         }))
         .filter((otherUser) => user.fingerprints.some((fp) => otherUser.fingerprints.includes(fp)));
 
+      // Get other users sharing browser IDs
+      const otherUsersSharingBrowserIds = await traced('users.get.otherUsersSharingBrowserIds', () => prisma.user.findMany({
+        where: {
+          browserIds: {
+            hasSome: user.browserIds,
+          },
+          id: {
+            not: user.id,
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          bannedAt: true,
+          banReason: true,
+          browserIds: true,
+          lastSeen: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }));
+
       res.send({
         ...user,
         achievements: mergedAchievements,
         otherUsersSharingFingerprints: filteredOtherUsersSharingFingerprints,
+        otherUsersSharingBrowserIds,
       });
     } catch (error) {
       sendError(res, error);
