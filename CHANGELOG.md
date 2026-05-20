@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.10](https://github.com/Zenoo/labrute/compare/labrute-v2.94.9...labrute-v2.94.10) (2026-05-20)
+
+
+### Bug Fixes
+
+* Test PR ([eced669](https://github.com/Zenoo/labrute/commit/eced669390c5bf5778df854c486257ad76e5eefb))
+* Wrong condition for admin account deletion ([4e2551a](https://github.com/Zenoo/labrute/commit/4e2551a8b50a570d7fb3fd4fefeba1fd45231ec1))
+
 ## [2.94.9](https://github.com/Zenoo/labrute/compare/labrute-v2.94.8...labrute-v2.94.9) (2026-05-20)
 
 
