@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.0](https://github.com/Zenoo/labrute/compare/labrute-v2.94.10...labrute-v2.95.0) (2026-05-20)
+
+
+### Features
+
+* Use browser IDs to detect multiple accounts ([c0f3a51](https://github.com/Zenoo/labrute/commit/c0f3a51e5b6e0fb7dbad3a29ab86481bf28bd42a))
+
+
+### Bug Fixes
+
+* Use IPs in daily multiple accounts checker ([96d2579](https://github.com/Zenoo/labrute/commit/96d257922d95a16171ad83850180c8d7a54bfcd9))
+
 ## [2.94.10](https://github.com/Zenoo/labrute/compare/labrute-v2.94.9...labrute-v2.94.10) (2026-05-20)
 
 
