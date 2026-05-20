@@ -137,7 +137,7 @@ export const Users = {
           ...otherUser,
           fingerprints: otherUser.fingerprints.filter((fp) => !knownFingerprints.includes(fp)),
         }))
-        .filter((otherUser) => otherUser.fingerprints.length > 0);
+        .filter((otherUser) => user.fingerprints.some((fp) => otherUser.fingerprints.includes(fp)));
 
       res.send({
         ...user,
