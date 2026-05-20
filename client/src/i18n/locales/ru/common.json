@@ -502,7 +502,7 @@
   "fight.step.saboteur": "{{weapon}} подвергается саботажу!",
   "fight.step.leave": "{{name}} сматывается!",
   "fight.step.arrive": "{{name}} прибывает на поле боя!",
-  "fight.step.trash": "{{brute}} метает {{name}}.",
+  "fight.step.trash": "{{brute}} метает своё оружие.",
   "fight.step.steal": "{{brute}} выхватывает {{name}} из рук {{target}}.",
   "fight.step.trap": "{{brute}} набрасывает сеть на {{target}}.",
   "fight.step.heal": "{{brute}} восстанавливает {{amount}} ОЗ.",
