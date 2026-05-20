@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.94.8](https://github.com/Zenoo/labrute/compare/labrute-v2.94.7...labrute-v2.94.8) (2026-05-19)
+
+
+### Bug Fixes
+
+* Buttons to ban/delete/unban users in admin view ([474d840](https://github.com/Zenoo/labrute/commit/474d840d9eafb723e47c914afd2357a24cc60a9d))
+* Don't ban known fingerprints ([6b8b75d](https://github.com/Zenoo/labrute/commit/6b8b75dfab7513015debf1b77b66616fe409f44f))
+* Ignore known fingerprints in user admin view ([de62429](https://github.com/Zenoo/labrute/commit/de624293a4b1dcb388d60321a2c912ba4751d0ce))
+* Wrong fight step translation ([5a3c2fa](https://github.com/Zenoo/labrute/commit/5a3c2faa1cc2a6161021d230e84c761a6c1a36ba))
+
 ## [2.94.7](https://github.com/Zenoo/labrute/compare/labrute-v2.94.6...labrute-v2.94.7) (2026-05-19)
 
 
