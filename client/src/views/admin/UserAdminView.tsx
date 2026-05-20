@@ -134,7 +134,7 @@ export const UserAdminView = () => {
   // Delete account
   const deleteAccount = () => {
     if (!user) return;
-    if (user.id !== admin?.id) return;
+    if (user.id === admin?.id) return;
 
     Confirm.open(t('user:deleteAccount'), t('user:deleteAccountConfirm'), () => {
       Server.User.deleteAccount({ id: user.id }).then(() => {
