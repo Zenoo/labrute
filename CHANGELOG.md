@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.1](https://github.com/Zenoo/labrute/compare/labrute-v2.95.0...labrute-v2.95.1) (2026-05-20)
+
+
+### Bug Fixes
+
+* Allow a few users with strong multiple account signals ([99dc644](https://github.com/Zenoo/labrute/commit/99dc6445f953ca3ba264f260a3e1ff0cfc5d2b34))
+
 ## [2.95.0](https://github.com/Zenoo/labrute/compare/labrute-v2.94.10...labrute-v2.95.0) (2026-05-20)
 
 
