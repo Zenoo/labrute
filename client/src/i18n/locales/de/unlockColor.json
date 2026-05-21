@@ -18,5 +18,6 @@
   "bodyPart.col3b": "Zierelement 2",
   "bodyPart.col4": "Oberteil",
   "bodyPart.col4a": "Schuhmarkierungen? (nicht sicher)",
-  "bodyPart.col4b": "Unbekannt (falls du es herausfindest, sag bescheid)"
+  "bodyPart.col4b": "Unbekannt (falls du es herausfindest, sag bescheid)",
+  "color": "Color (hex)"
 }
