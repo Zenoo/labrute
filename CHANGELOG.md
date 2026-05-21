@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.3](https://github.com/Zenoo/labrute/compare/labrute-v2.95.2...labrute-v2.95.3) (2026-05-21)
+
+
+### Bug Fixes
+
+* Give customization tokens to brutes depending on their ranks ([06e7ce0](https://github.com/Zenoo/labrute/commit/06e7ce0116f1e29d16bc2a5ef124ba0eed788045))
+* List duplicate names when searching for them in admin views ([33fa7cd](https://github.com/Zenoo/labrute/commit/33fa7cd9fd735f46cb4ce890dd43b7ce8939caed))
+* Wrong tempo calculation for negative speed values ([5b11201](https://github.com/Zenoo/labrute/commit/5b1120110234beba7e81fe84080cab0a9b89dbbf))
+
 ## [2.95.2](https://github.com/Zenoo/labrute/compare/labrute-v2.95.1...labrute-v2.95.2) (2026-05-21)
 
 
