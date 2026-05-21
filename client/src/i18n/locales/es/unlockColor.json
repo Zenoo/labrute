@@ -18,5 +18,6 @@
   "bodyPart.col3b": "Resaltado 2",
   "bodyPart.col4": "Camisa",
   "bodyPart.col4a": "Resalte de Zapatos? (no estoy seguro)",
-  "bodyPart.col4b": "Desconocido (si lo encuentras, házmelo saber)"
+  "bodyPart.col4b": "Desconocido (si lo encuentras, házmelo saber)",
+  "color": "Color (hex)"
 }
