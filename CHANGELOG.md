@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.5](https://github.com/Zenoo/labrute/compare/labrute-v2.95.4...labrute-v2.95.5) (2026-05-21)
+
+
+### Bug Fixes
+
+* Improve daily brute ranking index ([54f11c4](https://github.com/Zenoo/labrute/commit/54f11c4caeb6131ad77e2371074512b7a9689354))
+
 ## [2.95.4](https://github.com/Zenoo/labrute/compare/labrute-v2.95.3...labrute-v2.95.4) (2026-05-21)
 
 
