@@ -1581,6 +1581,25 @@ export const Brutes = {
         await updateClanPoints(prisma, userBrute.clanId, 'add', brute, userBrute);
       }
 
+      // Add 1x Customization token
+      await traced('brutes.rankUp.addCustomizationToken', () => prisma.inventoryItem.upsert({
+        where: {
+          type_bruteId: {
+            bruteId: brute.id,
+            type: InventoryItemType.customizationToken,
+          },
+        },
+        create: {
+          bruteId: brute.id,
+          type: InventoryItemType.customizationToken,
+          count: 1,
+        },
+        update: {
+          count: { increment: 1 },
+        },
+        select: { id: true },
+      }));
+
       // Send notification
       DISCORD().sendRankUpNotification({
         name: brute.name,
