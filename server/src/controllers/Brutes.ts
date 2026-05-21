@@ -50,6 +50,7 @@ import {
 } from '@labrute/core';
 import {
   Brute,
+  DailyBruteRanking,
   DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
   InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
   User,
@@ -1133,55 +1134,6 @@ export const Brutes = {
           xp: true,
           rankingPosition: true,
           rankingPositionUpdatedAt: true,
-          rankingsNeighboursUpdatedAt: true,
-          rankingsUpperUpperNeighbour: {
-            select: {
-              id: true,
-              name: true,
-              body: true,
-              colors: true,
-              gender: true,
-              ranking: true,
-              level: true,
-              ascensions: true,
-            },
-          },
-          rankingsUpperNeighbour: {
-            select: {
-              id: true,
-              name: true,
-              body: true,
-              colors: true,
-              gender: true,
-              ranking: true,
-              level: true,
-              ascensions: true,
-            },
-          },
-          rankingsLowerNeighbour: {
-            select: {
-              id: true,
-              name: true,
-              body: true,
-              colors: true,
-              gender: true,
-              ranking: true,
-              level: true,
-              ascensions: true,
-            },
-          },
-          rankingsLowerLowerNeighbour: {
-            select: {
-              id: true,
-              name: true,
-              body: true,
-              colors: true,
-              gender: true,
-              ranking: true,
-              level: true,
-              ascensions: true,
-            },
-          },
         },
       }));
 
@@ -1190,10 +1142,7 @@ export const Brutes = {
       }
 
       const today = dayjs.utc().startOf('day');
-      const neighboursAreFresh = Boolean(
-        brute.rankingsNeighboursUpdatedAt
-        && dayjs.utc(brute.rankingsNeighboursUpdatedAt).isSame(today, 'day'),
-      );
+
       const positionIsFresh = Boolean(
         brute.rankingPositionUpdatedAt
         && dayjs.utc(brute.rankingPositionUpdatedAt).isSame(today, 'day'),
@@ -1201,40 +1150,9 @@ export const Brutes = {
 
       let position: number;
 
-      if (neighboursAreFresh) {
-        // Use cached neighbors - already fetched via include
-
-        const upperUpper = brute.rankingsUpperUpperNeighbour;
-        const upper = brute.rankingsUpperNeighbour;
-        const lower = brute.rankingsLowerNeighbour;
-        const lowerLower = brute.rankingsLowerLowerNeighbour;
-
-        const nearbyBrutes = [
-          ...(upperUpper ? [upperUpper] : []),
-          ...(upper ? [upper] : []),
-          {
-            id: brute.id,
-            name: brute.name,
-            body: brute.body,
-            colors: brute.colors,
-            gender: brute.gender,
-            ranking: brute.ranking,
-            level: brute.level,
-            ascensions: brute.ascensions,
-          },
-          ...(lower ? [lower] : []),
-          ...(lowerLower ? [lowerLower] : []),
-        ];
-        position = brute.rankingPosition || 0;
-
-        res.send({
-          nearbyBrutes,
-          position,
-        });
-      }
-
       // Recalculate position only if stale
       if (!positionIsFresh) {
+        // Order by stats, then by name in case of ties, to have a deterministic position
         position = await traced('brutes.getNeighborsForRank.countBrutePosition', () => prisma.brute.count({
           where: {
             ...rankOrEvent,
@@ -1254,6 +1172,11 @@ export const Brutes = {
                           level: brute.level,
                           xp: { gt: brute.xp },
                         },
+                        {
+                          level: brute.level,
+                          xp: brute.xp,
+                          name: { lt: brute.name },
+                        },
                       ],
                     },
                   ],
@@ -1262,6 +1185,7 @@ export const Brutes = {
               : [
                 { level: { gt: brute.level } },
                 { level: brute.level, xp: { gt: brute.xp } },
+                { level: brute.level, xp: brute.xp, name: { lt: brute.name } },
               ],
           },
         }));
@@ -1269,129 +1193,262 @@ export const Brutes = {
         position += 1;
       } else {
         // Use cached position
-        position = brute.rankingPosition || 0;
+        position = brute.rankingPosition ?? 0;
       }
 
-      // Calculate neighbors using slow method
-      const nearbyHigherBrutes = await traced('brutes.getNeighborsForRank.findNearbyHigherBrutes', () => prisma.brute.findMany({
+      // Get neighbors from cache
+
+      // Neighbor position order is important as they require higher/lower brute data to be able to calculate their ranks
+      const neighborPositions = [position - 1, position - 2, position + 1, position + 2]
+        .filter((p) => p > 0); // Remove invalid positions
+
+      const cachedNeighbors = await traced('brutes.getNeighborsForRank.findNeighbors', () => prisma.dailyBruteRanking.findMany({
         where: {
-          ...rankOrEvent,
-          deletedAt: null,
-          name: { not: brute.name },
-          userId: { not: null },
-          OR: rank === 0
-            ? [
-              { ascensions: { gt: brute.ascensions } },
-              {
-                AND: [
-                  { ascensions: { equals: brute.ascensions } },
-                  {
-                    OR: [
-                      { level: { gt: brute.level } },
-                      { level: brute.level, xp: { gt: brute.xp } },
-                    ],
-                  },
-                ],
-              },
-            ]
-            : [
-              { level: { gt: brute.level } },
-              { level: brute.level, xp: { gt: brute.xp } },
-            ],
+          date: today.toDate(),
+          rank,
+          position: {
+            in: neighborPositions,
+          },
         },
-        orderBy: rank === 0
-          ? [
-            { ascensions: 'asc' },
-            { level: 'asc' },
-            { xp: 'asc' },
-          ]
-          : [
-            { level: 'asc' },
-            { xp: 'asc' },
-          ],
-        take: 2,
-        select: {
-          id: true,
-          name: true,
-          body: true,
-          colors: true,
-          gender: true,
-          ranking: true,
-          level: true,
-          ascensions: true,
+        include: {
+          brute: {
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+              xp: true,
+            }
+          }
         },
       }));
 
-      const nearbyLowerBrutes = await traced('brutes.getNeighborsForRank.findNearbyLowerBrutes', () => prisma.brute.findMany({
-        where: {
-          ...rankOrEvent,
-          deletedAt: null,
-          name: { not: brute.name },
-          userId: { not: null },
-          OR: rank === 0
-            ? [
-              { ascensions: { lt: brute.ascensions } },
-              {
-                AND: [
-                  { ascensions: { equals: brute.ascensions } },
+      const finalBrutes: (Pick<DailyBruteRanking, 'position'> & {
+        brute: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions' | 'xp'>;
+      })[] = [
+          { position, brute }
+        ];
+
+      for (const neighborPosition of neighborPositions) {
+        const neighbor = cachedNeighbors.find((n) => n.position === neighborPosition);
+
+        if (neighbor) {
+          if (!finalBrutes.find((n) => n.position === neighborPosition)) {
+            finalBrutes.push({
+              position: neighbor.position,
+              brute: neighbor.brute,
+            });
+          }
+          continue;
+        }
+
+        // Calculate missing neighbor position
+        if (neighborPosition < position) {
+          // Higher neighbor
+
+          const nextNeighbor = finalBrutes.find((n) => n.position === neighborPosition + 1);
+
+          if (!nextNeighbor) {
+            throw new Error('Next neighbor not found, this should not happen');
+          }
+
+          // Order by stats and name in case of ties, to have a deterministic position
+          const neighborBrute = await traced('brutes.getNeighborsForRank.findHigherNeighbor', () => prisma.brute.findFirst({
+            where: {
+              ...rankOrEvent,
+              deletedAt: null,
+              name: { not: nextNeighbor.brute.name },
+              userId: { not: null },
+              OR: rank === 0
+                ? [
+                  { ascensions: { gt: nextNeighbor.brute.ascensions } },
                   {
-                    OR: [
-                      { level: { lt: brute.level } },
+                    AND: [
+                      { ascensions: { equals: nextNeighbor.brute.ascensions } },
                       {
-                        level: brute.level,
-                        xp: { lte: brute.xp },
+                        OR: [
+                          { level: { gt: nextNeighbor.brute.level } },
+                          {
+                            level: nextNeighbor.brute.level,
+                            xp: { gt: nextNeighbor.brute.xp },
+                          },
+                          {
+                            level: nextNeighbor.brute.level,
+                            xp: nextNeighbor.brute.xp,
+                            name: { lt: nextNeighbor.brute.name },
+                          },
+                        ],
                       },
                     ],
                   },
+                ]
+                : [
+                  { level: { gt: nextNeighbor.brute.level } },
+                  {
+                    level: nextNeighbor.brute.level,
+                    xp: { gt: nextNeighbor.brute.xp },
+                  },
+                  {
+                    level: nextNeighbor.brute.level,
+                    xp: nextNeighbor.brute.xp,
+                    name: { lt: nextNeighbor.brute.name },
+                  },
                 ],
+            },
+            orderBy: rank === 0
+              ? [
+                { ascensions: 'asc' },
+                { level: 'asc' },
+                { xp: 'asc' },
+                { name: 'asc' },
+              ]
+              : [
+                { level: 'asc' },
+                { xp: 'asc' },
+                { name: 'asc' },
+              ],
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+              xp: true,
+            },
+          }));
+
+          if (neighborBrute) {
+            finalBrutes.push({
+              position: neighborPosition,
+              brute: neighborBrute,
+            });
+
+            // Save to cache
+            await traced('brutes.getNeighborsForRank.cacheHigherNeighbor', () => prisma.dailyBruteRanking.create({
+              data: {
+                date: today.toDate(),
+                rank,
+                position: neighborPosition,
+                brute: { connect: { id: neighborBrute.id } },
               },
-            ]
-            : [
-              { level: { lt: brute.level } },
-              { level: brute.level, xp: { lte: brute.xp } },
-            ],
-        },
-        orderBy: rank === 0
-          ? [
-            { ascensions: 'desc' },
-            { level: 'desc' },
-            { xp: 'desc' },
-          ]
-          : [
-            { level: 'desc' },
-            { xp: 'desc' },
-          ],
-        take: 2,
-        select: {
-          id: true,
-          name: true,
-          body: true,
-          colors: true,
-          gender: true,
-          ranking: true,
-          level: true,
-          ascensions: true,
-        },
-      }));
+              select: { position: true },
+            }));
+          }
+        } else {
+          // Lower neighbor
+
+          const previousNeighbor = finalBrutes.find((n) => n.position === neighborPosition - 1);
+
+          if (!previousNeighbor) {
+            throw new Error('Previous neighbor not found, this should not happen');
+          }
+
+          // Order by stats and name in case of ties, to have a deterministic position
+          const neighborBrute = await traced('brutes.getNeighborsForRank.findLowerNeighbor', () => prisma.brute.findFirst({
+            where: {
+              ...rankOrEvent,
+              deletedAt: null,
+              name: { not: previousNeighbor.brute.name },
+              userId: { not: null },
+              OR: rank === 0
+                ? [
+                  { ascensions: { lt: previousNeighbor.brute.ascensions } },
+                  {
+                    AND: [
+                      { ascensions: { equals: previousNeighbor.brute.ascensions } },
+                      {
+                        OR: [
+                          { level: { lt: previousNeighbor.brute.level } },
+                          {
+                            level: previousNeighbor.brute.level,
+                            xp: { lt: previousNeighbor.brute.xp },
+                          },
+                          {
+                            level: previousNeighbor.brute.level,
+                            xp: previousNeighbor.brute.xp,
+                            name: { gt: previousNeighbor.brute.name },
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ]
+                : [
+                  { level: { lt: previousNeighbor.brute.level } },
+                  {
+                    level: previousNeighbor.brute.level,
+                    xp: { lt: previousNeighbor.brute.xp },
+                  },
+                  {
+                    level: previousNeighbor.brute.level,
+                    xp: previousNeighbor.brute.xp,
+                    name: { gt: previousNeighbor.brute.name },
+                  },
+                ],
+            },
+            orderBy: rank === 0
+              ? [
+                { ascensions: 'desc' },
+                { level: 'desc' },
+                { xp: 'desc' },
+                { name: 'desc' },
+              ]
+              : [
+                { level: 'desc' },
+                { xp: 'desc' },
+                { name: 'desc' },
+              ],
+            select: {
+              id: true,
+              name: true,
+              body: true,
+              colors: true,
+              gender: true,
+              ranking: true,
+              level: true,
+              ascensions: true,
+              xp: true,
+            },
+          }));
+
+          if (neighborBrute) {
+            finalBrutes.push({
+              position: neighborPosition,
+              brute: neighborBrute,
+            });
+
+            // Save to cache
+            await traced('brutes.getNeighborsForRank.cacheLowerNeighbor', () => prisma.dailyBruteRanking.create({
+              data: {
+                date: today.toDate(),
+                rank,
+                position: neighborPosition,
+                brute: { connect: { id: neighborBrute.id } },
+              },
+              select: { position: true },
+            }));
+          }
+        }
+      }
 
       const nearbyBrutes = [
-        ...nearbyHigherBrutes.reverse(),
-        {
-          id: brute.id,
-          name: brute.name,
-          body: brute.body,
-          colors: brute.colors,
-          gender: brute.gender,
-          ranking: brute.ranking,
-          level: brute.level,
-          ascensions: brute.ascensions,
-        },
-        ...nearbyLowerBrutes,
+        finalBrutes.find((n) => n.position === position - 2)?.brute,
+        finalBrutes.find((n) => n.position === position - 1)?.brute,
+        brute,
+        finalBrutes.find((n) => n.position === position + 1)?.brute,
+        finalBrutes.find((n) => n.position === position + 2)?.brute,
       ];
 
       res.send({
-        nearbyBrutes,
-        position,
+        nearbyBrutes: nearbyBrutes.filter((b): b is NonNullable<typeof b> => Boolean(b)),
+        position
       });
     } catch (error) {
       sendError(res, error);
@@ -1415,6 +1472,7 @@ export const Brutes = {
         where: { name: ilike(name), deletedAt: null },
         select: {
           id: true,
+          name: true,
           ranking: true,
           level: true,
           xp: true,
@@ -1455,7 +1513,7 @@ export const Brutes = {
             ? { eventId: null, ranking: rank }
             : { ranking: rank };
 
-        // Count brutes ranked higher
+        // Count brutes ranked higher (order by stats, then by name for ties)
         const higherCount = await traced('brutes.getRanking.countBrutePosition', () => prisma.brute.count({
           where: {
             ...rankOrEvent,
@@ -1472,6 +1530,7 @@ export const Brutes = {
                       OR: [
                         { level: { gt: brute.level } },
                         { level: brute.level, xp: { gt: brute.xp } },
+                        { level: brute.level, xp: brute.xp, name: { lt: brute.name } },
                       ],
                     },
                   ],
@@ -1480,6 +1539,7 @@ export const Brutes = {
               : [
                 { level: { gt: brute.level } },
                 { level: brute.level, xp: { gt: brute.xp } },
+                { level: brute.level, xp: brute.xp, name: { lt: brute.name } },
               ],
           },
         }));

@@ -187,11 +187,6 @@ exports.Prisma.BruteScalarFieldEnum = {
   ranking: 'ranking',
   rankingPosition: 'rankingPosition',
   rankingPositionUpdatedAt: 'rankingPositionUpdatedAt',
-  rankingsUpperNeighbourId: 'rankingsUpperNeighbourId',
-  rankingsUpperUpperNeighbourId: 'rankingsUpperUpperNeighbourId',
-  rankingsLowerNeighbourId: 'rankingsLowerNeighbourId',
-  rankingsLowerLowerNeighbourId: 'rankingsLowerLowerNeighbourId',
-  rankingsNeighboursUpdatedAt: 'rankingsNeighboursUpdatedAt',
   gender: 'gender',
   userId: 'userId',
   body: 'body',
@@ -226,6 +221,13 @@ exports.Prisma.BruteScalarFieldEnum = {
   eventId: 'eventId',
   resets: 'resets',
   clanRoleId: 'clanRoleId'
+};
+
+exports.Prisma.DailyBruteRankingScalarFieldEnum = {
+  date: 'date',
+  rank: 'rank',
+  bruteId: 'bruteId',
+  position: 'position'
 };
 
 exports.Prisma.BruteStartingStatsScalarFieldEnum = {
@@ -857,6 +859,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   UserLog: 'UserLog',
   Brute: 'Brute',
+  DailyBruteRanking: 'DailyBruteRanking',
   BruteStartingStats: 'BruteStartingStats',
   UnlockedColors: 'UnlockedColors',
   Fight: 'Fight',

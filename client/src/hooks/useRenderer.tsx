@@ -162,8 +162,8 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
       // Destroy display
       display.destroy();
 
-      // Don't cache id 0
-      if (request.id) {
+      // Don't cache id 0 or requests with skipCache
+      if (request.id && !request.skipCache) {
         setCache((prev) => [...prev, { id: request.id, content: content.src }]);
       }
 

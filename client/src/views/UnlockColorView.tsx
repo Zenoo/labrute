@@ -3,10 +3,12 @@ import {
 } from '@labrute/core';
 import {
   Box, Grid, MenuItem, Paper, Select,
+  SelectChangeEvent,
   TextField
 } from '@mui/material';
 import React, {
-  useEffect, useMemo, useState
+  useCallback,
+  useEffect, useRef, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -36,34 +38,71 @@ export const UnlockColorView = () => {
   const [color, setColor] = useState<string | null>(null);
   const [colorInput, setColorInput] = useState<string>('');
   const [colorName, setColorName] = useState<BruteColor>('col0');
+  const [colorChanged, setColorChanged] = useState(false);
+  const [bruteColors, setBruteColors] = useState<string | null>(null);
+  const isInitialMount = useRef(true);
 
-  const bruteColors = useMemo(() => {
-    if (!brute) return null;
+  const updateBruteColors = useCallback((c: string, name: BruteColor) => {
+    if (!brute) return;
 
-    if (!color) return brute.colors;
-
-    return generateColorString({
+    setBruteColors(generateColorString({
       ...readColorString(brute.gender, brute.colors),
-      [colorName]: color,
-    });
-  }, [brute, color, colorName]);
+      [name]: c,
+    }));
+  }, [brute]);
 
   // Set default color on brute load
   useEffect(() => {
     if (!brute) return;
 
-    const defaultColors = readColorString(brute.gender, brute.colors);
-    setColor(defaultColors[colorName]);
-    setColorInput(defaultColors[colorName]);
-  }, [brute, colorName]);
+    // Set color on initial mount
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      const defaultColors = readColorString(brute.gender, brute.colors);
+
+      const c = defaultColors[colorName];
+      setColor(c);
+      setColorInput(c);
+      updateBruteColors(c, colorName);
+    }
+  }, [brute, colorName, updateBruteColors]);
+
+  const changeColor = (c: string) => {
+    setColor(c);
+    setColorInput(c);
+    setColorChanged(true);
+    updateBruteColors(c, colorName);
+  }
 
   const changeColorInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setColorInput(e.target.value);
+    const c = e.target.value;
+    setColorInput(c);
 
-    if (!isHexColor(e.target.value)) {
+    if (!isHexColor(c) || c.length !== 7) {
       return;
     }
-    setColor(e.target.value);
+    setColor(c);
+    setColorChanged(true);
+    updateBruteColors(c, colorName);
+  };
+
+  const changeBodyPart = (e: SelectChangeEvent) => {
+    if (!brute) return;
+    if (!color) return;
+
+    const part = e.target.value as BruteColor;
+    setColorName(part);
+
+    // Only update color if user never changed it
+    let c = color;
+    if (!colorChanged) {
+      const defaultColors = readColorString(brute.gender, brute.colors);
+      c = defaultColors[part];
+      setColor(c);
+      setColorInput(c);
+    }
+
+    updateBruteColors(c, part);
   };
 
   // Unlock color
@@ -124,20 +163,22 @@ export const UnlockColorView = () => {
                   width: 70,
                 }}
                 >
-                  <BruteRender
-                    brute={{
-                      ...brute,
-                      colors: bruteColors ?? brute.colors,
-                    }}
-                    skipCache
-                    highlightColorName={colorName}
-                  />
+                  {bruteColors && (
+                    <BruteRender
+                      brute={{
+                        ...brute,
+                        colors: bruteColors,
+                      }}
+                      skipCache
+                      highlightColorName={colorName}
+                    />
+                  )}
                 </Box>
               </Grid>
               <Grid item xs={8} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Select
                   value={colorName}
-                  onChange={(e) => setColorName(e.target.value as BruteColor)}
+                  onChange={changeBodyPart}
                   fullWidth
                 >
                   {colorableBodyParts.map((part) => (
@@ -151,7 +192,7 @@ export const UnlockColorView = () => {
                   onChange={changeColorInput}
                   fullWidth
                 />
-                <HexColorPicker color={color} onChangeEnd={setColor} />
+                <HexColorPicker color={color} onChangeEnd={changeColor} />
               </Grid>
             </Grid>
             {/* VALIDATION */}
