@@ -133,7 +133,7 @@ const handleSkills = (
   });
 };
 
-const getTempo = (speed: number) => 0.10 + (20 / (10 + (speed * 1.5))) * 0.90;
+const getTempo = (speed: number) => 0.10 + (20 / Math.max(1, 10 + (speed * 1.5))) * 0.90;
 
 type GetFightersParams = {
   team1: Team,
