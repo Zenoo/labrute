@@ -30,9 +30,10 @@ export const UserAdminView = () => {
   const Confirm = useConfirm();
 
   const [userIdOrName, setUserIdOrName] = useState('');
-  const [user, setUser] = useState<Omit<UserGetAdminResponse, 'achievements'> | null>(null);
-  const [achievements, setAchievements] = useState<UserGetAdminResponse['achievements']>([]);
-  const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['achievements']>([]);
+  const [duplicates, setDuplicates] = useState<UserGetAdminResponse['duplicates']>([]);
+  const [user, setUser] = useState<Omit<UserGetAdminResponse['user'], 'achievements'> | null>(null);
+  const [achievements, setAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
+  const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [banReason, setBanReason] = useState('');
 
   // Change user id or name
@@ -42,7 +43,8 @@ export const UserAdminView = () => {
 
   // Fetch user
   const updateUser = useCallback(() => {
-    Server.User.getForAdmin({ identifier: userIdOrName }).then((u) => {
+    Server.User.getForAdmin({ identifier: userIdOrName }).then(({ user: u, duplicates: d }) => {
+      setDuplicates(d);
       setUser({
         id: u.id,
         lang: u.lang,
@@ -160,6 +162,18 @@ export const UserAdminView = () => {
               onChange={changeUserIdOrName}
               value={userIdOrName}
             />
+            {duplicates.length > 0 && (
+              <Box sx={{ bgcolor: 'warning.main', color: 'warning.contrastText', p: 2, borderRadius: 1, mb: 2 }}>
+                <Text bold>Duplicates:</Text>
+                {duplicates.map((dup) => (
+                  <Box key={dup.id} sx={{ border: '1px solid', borderColor: 'warning.dark', borderRadius: 1, p: 1, mt: 1 }}>
+                    <Text>
+                      {dup.name} ({dup.id}) - {dup.bannedAt ? `Banned at ${dayjs.utc(dup.bannedAt).format('YYYY-MM-DD HH:mm:ss')}, reason: ${dup.banReason}` : 'Not banned'}
+                    </Text>
+                  </Box>
+                ))}
+              </Box>
+            )}
             {user && (
               <>
                 <Text h2 smallCaps>

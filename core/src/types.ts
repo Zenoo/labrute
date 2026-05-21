@@ -516,8 +516,13 @@ export type BruteGetForAdminRequest = {
   name: string;
   includeDeleted?: string;
 };
-export type BruteGetForAdminResponse = Brute & {
-  user: User | null;
+export type BruteGetForAdminResponse = {
+  duplicates: (Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'> & {
+    user: Pick<User, 'id' | 'name'> | null;
+  })[],
+  brute: Brute & {
+    user: User | null;
+  }
 };
 
 // Brute report
@@ -742,11 +747,14 @@ export type ClanDeleteRoleResponse = { success: boolean };
 export type UserGetAdminRequest = {
   identifier?: string;
 };
-export type UserGetAdminResponse = User & {
-  achievements: Pick<Achievement, 'name' | 'count'>[],
-  brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
-  otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen' | 'createdAt'>[],
-  otherUsersSharingBrowserIds: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'browserIds' | 'lastSeen' | 'createdAt'>[],
+export type UserGetAdminResponse = {
+  duplicates: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[],
+  user: User & {
+    achievements: Pick<Achievement, 'name' | 'count'>[],
+    brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
+    otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen' | 'createdAt'>[],
+    otherUsersSharingBrowserIds: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'browserIds' | 'lastSeen' | 'createdAt'>[],
+  },
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<

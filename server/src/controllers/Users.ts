@@ -163,11 +163,27 @@ export const Users = {
         },
       }));
 
+      // List other users with the same identifier (name)
+      const duplicates = isId ? [] : await traced('users.get.findDuplicates', () => prisma.user.findMany({
+        where: {
+          name: ilike(req.params.identifier),
+        },
+        select: {
+          id: true,
+          name: true,
+          bannedAt: true,
+          banReason: true,
+        },
+      }));
+
       res.send({
-        ...user,
-        achievements: mergedAchievements,
-        otherUsersSharingFingerprints: filteredOtherUsersSharingFingerprints,
-        otherUsersSharingBrowserIds,
+        duplicates,
+        user: {
+          ...user,
+          achievements: mergedAchievements,
+          otherUsersSharingFingerprints: filteredOtherUsersSharingFingerprints,
+          otherUsersSharingBrowserIds,
+        },
       });
     } catch (error) {
       sendError(res, error);

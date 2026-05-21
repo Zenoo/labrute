@@ -52,6 +52,7 @@ import {
   Brute,
   DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
   InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
+  User,
   UserLogType,
   WeaponName,
 } from '@labrute/prisma';
@@ -290,7 +291,34 @@ export const Brutes = {
         throw new NotFoundError('Brute not found');
       }
 
-      res.send(brute);
+      const duplicates: (Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'> & {
+        user: Pick<User, 'id' | 'name'> | null;
+      })[] = [];
+
+      if (req.params.includeDeleted === 'true') {
+        duplicates.push(...await traced('brutes.getForAdmin.findDuplicates', () => prisma.brute.findMany({
+          where: {
+            name: ilike(req.params.name),
+          },
+          select: {
+            id: true,
+            name: true,
+            deletedAt: true,
+            deletionReason: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        })));
+      }
+
+      res.send({
+        brute,
+        duplicates,
+      });
     } catch (error) {
       sendError(res, error);
     }

@@ -1,9 +1,17 @@
-import { BruteGetForAdminResponse, entries, getTieredPets, getTieredSkills, getTieredWeapons } from '@labrute/core';
-import { DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName } from '@labrute/prisma';
-import { Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@mui/material';
+import {
+  BruteGetForAdminResponse, entries, getTieredPets, getTieredSkills, getTieredWeapons
+} from '@labrute/core';
+import {
+  DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName
+} from '@labrute/prisma';
+import {
+  Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField
+} from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { BruteRender } from '../../components/Brute/Body/BruteRender';
@@ -25,7 +33,8 @@ export const BruteAdminView = () => {
 
   const [bruteName, setBruteName] = useState(urlBruteName ?? '');
   const [includeDeleted, setIncludeDeleted] = useState(false);
-  const [brute, setBrute] = useState<BruteGetForAdminResponse | null>(null);
+  const [duplicates, setDuplicates] = useState<BruteGetForAdminResponse['duplicates']>([]);
+  const [brute, setBrute] = useState<BruteGetForAdminResponse['brute'] | null>(null);
   const [bruteSkills, setBruteSkills] = useState<string[]>([]);
   const [bruteWeapons, setBruteWeapons] = useState<string[]>([]);
   const [brutePets, setBrutePets] = useState<string[]>([]);
@@ -40,7 +49,8 @@ export const BruteAdminView = () => {
     Server.Brute.getForAdmin({
       name: bruteName,
       includeDeleted: includeDeleted ? 'true' : 'false',
-    }).then((b) => {
+    }).then(({ duplicates: dups, brute: b }) => {
+      setDuplicates(dups);
       setBrute(b);
       setBruteSkills(entries(getTieredSkills(b, {})).map(([skillName, tier]) => `${skillName}:${tier}`));
       setBruteWeapons(entries(getTieredWeapons(b, {})).map(([weaponName, tier]) => `${weaponName}:${tier}`));
@@ -115,6 +125,20 @@ export const BruteAdminView = () => {
           )}
           label="Include deleted"
         />
+        {duplicates.length > 0 && (
+          <Box sx={{ bgcolor: 'warning.main', color: 'warning.contrastText', p: 2, borderRadius: 1, mb: 2 }}>
+            <Text bold>Duplicates:</Text>
+            {duplicates.map((dup) => (
+              <Box key={dup.id} sx={{ border: '1px solid', borderColor: 'warning.dark', borderRadius: 1, p: 1, mt: 1 }}>
+                <Text>
+                  {dup.name} ({dup.id}) - {dup.deletedAt ? `Deleted at ${dayjs.utc(dup.deletedAt).format('YYYY-MM-DD HH:mm:ss')}, reason: ${dup.deletionReason}` : 'Not deleted'}
+                  {' '}
+                  ({dup.user?.name} {dup.user?.id})
+                </Text>
+              </Box>
+            ))}
+          </Box>
+        )}
         {brute ? (
           <>
             <Text h2 smallCaps>
