@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.4](https://github.com/Zenoo/labrute/compare/labrute-v2.95.3...labrute-v2.95.4) (2026-05-21)
+
+
+### Bug Fixes
+
+* Ignore current results in admin duplicate items ([8dd3391](https://github.com/Zenoo/labrute/commit/8dd3391d69c7db2d72fdbcfc64217e61a6627ba8))
+* Order by name for ranking ties + Store brute rankings daily outside of brute scope + fix sync bugs in unlock view ([2bded68](https://github.com/Zenoo/labrute/commit/2bded686bea3441c7cf1babfe326af9e342d496b))
+
 ## [2.95.3](https://github.com/Zenoo/labrute/compare/labrute-v2.95.2...labrute-v2.95.3) (2026-05-21)
 
 
