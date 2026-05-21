@@ -2234,6 +2234,8 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   const fingerprintBrowserGroups: Record<string, string[]> = {};
   // Track users with multiple shared fingerprints
   const multiFingerprint: Record<string, Set<string>> = {};
+  // Group users by shared multiple fingerprints
+  const multipleSharedFingerprintsGroups: Record<string, string[]> = {};
 
   for (const user of users) {
     for (const fingerprint of user.fingerprints) {
@@ -2285,24 +2287,39 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
     }
   }
 
-  // Check for users sharing multiple fingerprints (strong signal - different devices)
   for (const user1 of users) {
     for (const user2 of users) {
-      if (user1.id === user2.id) continue; // self-comparison
+      if (user1.id === user2.id) continue;
 
       const fingerprints1 = multiFingerprint[user1.id];
       const fingerprints2 = multiFingerprint[user2.id];
 
       if (!fingerprints1 || !fingerprints2) continue;
 
-      // Count shared fingerprints
-      const sharedCount = Array.from(fingerprints1).filter((fp) => fingerprints2.has(fp)).length;
+      // Get shared fingerprints
+      const sharedFingerprints = Array.from(fingerprints1).filter((fp) => fingerprints2.has(fp));
 
-      // Multiple shared fingerprints is very strong evidence
-      if (sharedCount > 1) {
-        usersToBan.add(user1.id);
-        usersToBan.add(user2.id);
+      // Multiple shared fingerprints is strong evidence
+      if (sharedFingerprints.length > 1) {
+        // Create a unique key for this fingerprint combination
+        const key = sharedFingerprints.sort().join(':');
+        if (!multipleSharedFingerprintsGroups[key]) {
+          multipleSharedFingerprintsGroups[key] = [];
+        }
+        if (!multipleSharedFingerprintsGroups[key].includes(user1.id)) {
+          multipleSharedFingerprintsGroups[key].push(user1.id);
+        }
+        if (!multipleSharedFingerprintsGroups[key].includes(user2.id)) {
+          multipleSharedFingerprintsGroups[key].push(user2.id);
+        }
       }
+    }
+  }
+
+  // Ban groups with more than 3 users sharing multiple fingerprints
+  for (const userIds of Object.values(multipleSharedFingerprintsGroups)) {
+    if (userIds.length > 3) {
+      userIds.forEach((id) => usersToBan.add(id));
     }
   }
 
