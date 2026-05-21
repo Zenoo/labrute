@@ -299,6 +299,7 @@ export const Brutes = {
         duplicates.push(...await traced('brutes.getForAdmin.findDuplicates', () => prisma.brute.findMany({
           where: {
             name: ilike(req.params.name),
+            id: { not: brute.id },
           },
           select: {
             id: true,

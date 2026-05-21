@@ -167,6 +167,7 @@ export const Users = {
       const duplicates = isId ? [] : await traced('users.get.findDuplicates', () => prisma.user.findMany({
         where: {
           name: ilike(req.params.identifier),
+          id: { not: user.id },
         },
         select: {
           id: true,
