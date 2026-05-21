@@ -344,7 +344,7 @@ model DailyBruteRanking {
   position Int
 
   @@id([rank, position])
-  @@index([date, position])
+  @@index([date, rank, position])
 }
 
 model BruteStartingStats {
