@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.2](https://github.com/Zenoo/labrute/compare/labrute-v2.95.1...labrute-v2.95.2) (2026-05-21)
+
+
+### Bug Fixes
+
+* Add color input to color unlocker ([7361c85](https://github.com/Zenoo/labrute/commit/7361c85970f8af29ee70edbebaff3a67d9b8b244))
+* Award customization tokens after rank up instead of after tournament wins ([1bc46ee](https://github.com/Zenoo/labrute/commit/1bc46eebc83ad8f79beada2abe60799dab840ae0))
+* Require 3 accounts with multiple shared fingerprints before banning ([4a9c4ab](https://github.com/Zenoo/labrute/commit/4a9c4ab1b2d762ce6c81c4a568f32a2400c2410b))
+
 ## [2.95.1](https://github.com/Zenoo/labrute/compare/labrute-v2.95.0...labrute-v2.95.1) (2026-05-20)
 
 
