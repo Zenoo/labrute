@@ -1,8 +1,9 @@
 import {
-  BruteColor, colorableBodyParts, generateColorString, readColorString
+  BruteColor, colorableBodyParts, generateColorString, isHexColor, readColorString
 } from '@labrute/core';
 import {
-  Box, Grid, MenuItem, Paper, Select
+  Box, Grid, MenuItem, Paper, Select,
+  TextField
 } from '@mui/material';
 import React, {
   useEffect, useMemo, useState
@@ -33,6 +34,7 @@ export const UnlockColorView = () => {
   const Server = useServer();
 
   const [color, setColor] = useState<string | null>(null);
+  const [colorInput, setColorInput] = useState<string>('');
   const [colorName, setColorName] = useState<BruteColor>('col0');
 
   const bruteColors = useMemo(() => {
@@ -52,7 +54,17 @@ export const UnlockColorView = () => {
 
     const defaultColors = readColorString(brute.gender, brute.colors);
     setColor(defaultColors[colorName]);
+    setColorInput(defaultColors[colorName]);
   }, [brute, colorName]);
+
+  const changeColorInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setColorInput(e.target.value);
+
+    if (!isHexColor(e.target.value)) {
+      return;
+    }
+    setColor(e.target.value);
+  };
 
   // Unlock color
   const unlockColor = () => {
@@ -127,12 +139,18 @@ export const UnlockColorView = () => {
                   value={colorName}
                   onChange={(e) => setColorName(e.target.value as BruteColor)}
                   fullWidth
-                  sx={{ mb: 2 }}
                 >
                   {colorableBodyParts.map((part) => (
                     <MenuItem key={part} value={part}>{t(`bodyPart.${part}`)}</MenuItem>
                   ))}
                 </Select>
+                <TextField
+                  sx={{ my: 2 }}
+                  label={t('color')}
+                  value={colorInput}
+                  onChange={changeColorInput}
+                  fullWidth
+                />
                 <HexColorPicker color={color} onChangeEnd={setColor} />
               </Grid>
             </Grid>
