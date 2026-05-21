@@ -1331,8 +1331,18 @@ export const Brutes = {
             });
 
             // Save to cache
-            await traced('brutes.getNeighborsForRank.cacheHigherNeighbor', () => prisma.dailyBruteRanking.create({
-              data: {
+            await traced('brutes.getNeighborsForRank.cacheHigherNeighbor', () => prisma.dailyBruteRanking.upsert({
+              where: {
+                rank_position: {
+                  rank,
+                  position: neighborPosition,
+                },
+              },
+              update: {
+                date: today.toDate(),
+                brute: { connect: { id: neighborBrute.id } },
+              },
+              create: {
                 date: today.toDate(),
                 rank,
                 position: neighborPosition,
@@ -1425,8 +1435,18 @@ export const Brutes = {
             });
 
             // Save to cache
-            await traced('brutes.getNeighborsForRank.cacheLowerNeighbor', () => prisma.dailyBruteRanking.create({
-              data: {
+            await traced('brutes.getNeighborsForRank.cacheLowerNeighbor', () => prisma.dailyBruteRanking.upsert({
+              where: {
+                rank_position: {
+                  rank,
+                  position: neighborPosition,
+                },
+              },
+              update: {
+                date: today.toDate(),
+                brute: { connect: { id: neighborBrute.id } },
+              },
+              create: {
                 date: today.toDate(),
                 rank,
                 position: neighborPosition,
