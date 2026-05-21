@@ -18,5 +18,6 @@
   "bodyPart.col3b": "Accent 2",
   "bodyPart.col4": "Shirt",
   "bodyPart.col4a": "Shoes accent ? (not sure)",
-  "bodyPart.col4b": "Unknown (if you find out, let me know)"
+  "bodyPart.col4b": "Unknown (if you find out, let me know)",
+  "color": "Color (hex)"
 }
