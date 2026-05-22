@@ -259,9 +259,9 @@ export const LevelUpView = () => {
                     {/* CHOICE HEADER */}
                     {!loading && (
                       <><Text caption>
-                        {/* +3 Skill */}
+                        {/* +3 Stat */}
                         {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value} ${t('in')}`}
-                        {/* +2/+1 Skill */}
+                        {/* +2/+1 Stat */}
                         {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
                         {/* Weapon */}
                         {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}

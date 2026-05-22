@@ -1,5 +1,5 @@
 import {
-  DestinyBranch, skills, weapons
+  DestinyBranch, pets, skills, weapons
 } from '@labrute/core';
 import {
   BruteStat, PetName, SkillName, WeaponName
@@ -21,6 +21,7 @@ import { useBrute } from '../hooks/useBrute';
 import { useStateAsync } from '../hooks/useStateAsync';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
+import { PetTooltip } from '../components/Brute/PetTooltip';
 
 const styles: Record<string, SxProps> = {
   ul: {
@@ -100,76 +101,141 @@ export const DestinyView = () => {
   // Destiny choices
   const { data: tree } = useStateAsync(null, Server.Brute.getDestiny, bruteName || '');
 
-  const renderBranch = (branch: DestinyBranch | null) => (brute ? (
-    <Box
-      key={branch?.path}
-      component="li"
-      sx={styles.li}
-    >
-      <Box component="aside" sx={styles.aside}>
-        <BoxBg
-          src={`/images${mode === 'dark' ? '/dark' : ''}/level-up/box${branch?.current ? '-current' : ''}.png`}
-          sx={{
-            pt: 3.5,
-            height: 129,
-            width: 255,
-          }}
-        >
-          {branch ? (
-            <>
-              {/* LEVEL */}
-              <Text h6 bold smallCaps>{t('level')} {branch.level}</Text>
-              {/* CHOICE HEADER */}
-              <Text caption>
-                {/* +3 Skill */}
-                {branch.type === 'stats' && !branch.stat2 && `+${branch.stat1Value} ${t('in')}`}
-                {/* +2/+1 Skill */}
-                {branch.type === 'stats' && branch.stat2 && `+${branch.stat1Value}/+${branch.stat2Value} ${t('in')}`}
-                {/* New weapon */}
-                {branch.type === 'weapon' && `${t('newWeapon')} :`}
-                {/* New skill */}
-                {branch.type === 'skill' && `${t('newSkill')} :`}
-                {/* New pet */}
-                {branch.type === 'pet' && `${t('newPet')} :`}
-              </Text>
+  const getStartingBrutePerks = () => {
+    if (!brute) return { skills: {}, weapons: {}, pets: {} };
 
-              {/* CHOICE CONTENT */}
-              {/* Single value */}
-              {(branch.type === 'skill' ? (
-                <SkillTooltip
-                  skill={branch.skill && skills[branch.skill]}
-                >
-                  <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
-                </SkillTooltip>
-              ) : branch.type === 'weapon' ? (
-                <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]}>
-                  <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
-                </WeaponTooltip>
-              ) : branch.type === 'pet' ? (
-                <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
-              ) : !branch.stat2 ? (
-                <Text h6 bold smallCaps>{t(branch.stat1 as BruteStat)}</Text>
-              ) : (
-                <Text h6 bold smallCaps>
-                  {t(branch.stat1 as BruteStat)}
-                  {' / '}
-                  {t(branch.stat2)}
+    const skillPerks: Partial<Record<SkillName, number>> = {};
+    const weaponPerks: Partial<Record<WeaponName, number>> = {};
+    const petPerks: Partial<Record<PetName, number>> = {};
+
+    for (const s of brute.ascendedSkills) {
+      skillPerks[s] = (skillPerks[s] ?? 0) + 1;
+    }
+    for (const w of brute.ascendedWeapons) {
+      weaponPerks[w] = (weaponPerks[w] ?? 0) + 1;
+    }
+    for (const p of brute.ascendedPets) {
+      petPerks[p] = (petPerks[p] ?? 0) + 1;
+    }
+
+    return { skills: skillPerks, weapons: weaponPerks, pets: petPerks };
+  };
+
+  const renderBranch = (branch: DestinyBranch | null, currentBrute: Pick<NonNullable<typeof brute>, 'skills' | 'weapons' | 'pets'>) => {
+    if (!brute) return null;
+
+    let perkUpgrade = false;
+    let tier = 0;
+
+    if (branch?.type === 'skill' && branch.skill) {
+      tier = currentBrute.skills[branch.skill] ?? 0;
+      perkUpgrade = tier > 0;
+      if (!currentBrute.skills[branch.skill]) {
+        currentBrute.skills[branch.skill] = 1;
+      } else {
+        currentBrute.skills[branch.skill] = tier + 1;
+      }
+    } else if (branch?.type === 'weapon' && branch.weapon) {
+      tier = currentBrute.weapons[branch.weapon] ?? 0;
+      perkUpgrade = tier > 0;
+      if (!currentBrute.weapons[branch.weapon]) {
+        currentBrute.weapons[branch.weapon] = 1;
+      } else {
+        currentBrute.weapons[branch.weapon] = tier + 1;
+      }
+    } else if (branch?.type === 'pet' && branch.pet) {
+      tier = currentBrute.pets[branch.pet] ?? 0;
+      perkUpgrade = tier > 0;
+      if (!currentBrute.pets[branch.pet]) {
+        currentBrute.pets[branch.pet] = 1;
+      } else {
+        currentBrute.pets[branch.pet] = tier + 1;
+      }
+    }
+
+    return (
+      <Box
+        key={branch?.path}
+        component="li"
+        sx={styles.li}
+      >
+        <Box component="aside" sx={styles.aside}>
+          <BoxBg
+            src={`/images${mode === 'dark' ? '/dark' : ''}/level-up/box${branch?.current ? '-current' : ''}.png`}
+            sx={{
+              pt: 3.5,
+              height: 129,
+              width: 255,
+            }}
+          >
+            {branch ? (
+              <>
+                {/* LEVEL */}
+                <Text h6 bold smallCaps>{t('level')} {branch.level}</Text>
+                {/* CHOICE HEADER */}
+                <Text caption>
+                  {/* +3 Stat */}
+                  {branch.type === 'stats' && !branch.stat2 && `+${branch.stat1Value} ${t('in')}`}
+                  {/* +2/+1 Stat */}
+                  {branch.type === 'stats' && branch.stat2 && `+${branch.stat1Value}/+${branch.stat2Value} ${t('in')}`}
+                  {/* Weapon */}
+                  {branch.type === 'weapon' && (perkUpgrade ? `${t('levelUp:weaponUpgrade')} :` : `${t('newWeapon')} :`)}
+                  {/* Skill */}
+                  {branch.type === 'skill' && (perkUpgrade ? `${t('levelUp:skillUpgrade')} :` : `${t('newSkill')} :`)}
+                  {/* Pet */}
+                  {branch.type === 'pet' && (perkUpgrade ? `${t('levelUp:petUpgrade')} :` : `${t('newPet')} :`)}
+                  {/* Display pet HP malus */}
+                  {branch.pet && tier === 1 && (
+                    <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
+                      {' '}(-{pets[branch.pet].hpMalus[0] * 100}% {t('hp')})
+                    </Box>
+                  )}
                 </Text>
-              ))}
-            </>
-          ) : (
-            <QuestionMark sx={{ pt: 2, fontSize: '50px' }} />
-          )}
-        </BoxBg>
-      </Box>
-      {branch && (
-        <Box component="ul" sx={styles.ul}>
-          {renderBranch(branch.LEFT)}
-          {renderBranch(branch.RIGHT)}
+
+                {/* CHOICE CONTENT */}
+                {/* Single value */}
+                {(branch.type === 'skill' ? (
+                  <SkillTooltip
+                    skill={branch.skill && skills[branch.skill]}
+                    tier={tier + 1}
+                  >
+                    <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
+                  </SkillTooltip>
+                ) : branch.type === 'weapon' ? (
+                  <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]} tier={tier + 1}>
+                    <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
+                  </WeaponTooltip>
+                ) : branch.type === 'pet' ? (
+                  <PetTooltip
+                    pet={branch.pet && pets[branch.pet]}
+                    tier={tier + 1}
+                  >
+                    <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
+                  </PetTooltip>
+                ) : !branch.stat2 ? (
+                  <Text h6 bold smallCaps>{t(branch.stat1 as BruteStat)}</Text>
+                ) : (
+                  <Text h6 bold smallCaps>
+                    {t(branch.stat1 as BruteStat)}
+                    {' / '}
+                    {t(branch.stat2)}
+                  </Text>
+                ))}
+              </>
+            ) : (
+              <QuestionMark sx={{ pt: 2, fontSize: '50px' }} />
+            )}
+          </BoxBg>
         </Box>
-      )}
-    </Box>
-  ) : null);
+        {branch && (
+          <Box component="ul" sx={styles.ul}>
+            {renderBranch(branch.LEFT, currentBrute)}
+            {renderBranch(branch.RIGHT, currentBrute)}
+          </Box>
+        )}
+      </Box>
+    );
+  };
 
   return brute && (
     <Page
@@ -202,7 +268,7 @@ export const DestinyView = () => {
                   width: 'max-content',
                 }}
               >
-                {tree && renderBranch(tree)}
+                {tree && renderBranch(tree, getStartingBrutePerks())}
               </Box>
             </TransformComponent>
           </TransformWrapper>
