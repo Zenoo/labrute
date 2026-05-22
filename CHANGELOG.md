@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.7](https://github.com/Zenoo/labrute/compare/labrute-v2.95.6...labrute-v2.95.7) (2026-05-22)
+
+
+### Bug Fixes
+
+* Update destiny view with tiers precisions ([051d8de](https://github.com/Zenoo/labrute/commit/051d8de8309cccc2874900fbe49a188d2bc7f544))
+
 ## [2.95.6](https://github.com/Zenoo/labrute/compare/labrute-v2.95.5...labrute-v2.95.6) (2026-05-21)
 
 
