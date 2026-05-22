@@ -27,7 +27,7 @@ import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
 import { banUser } from '../utils/user/banUser.js';
-import { DISCORD } from '../context.js';
+import { DISCORD, LOGGER } from '../context.js';
 import { traced } from '../utils/trace.js';
 
 export class OAuth {
@@ -214,6 +214,7 @@ export class OAuth {
       // Check if any of the user fingerprints are banned
       for (const userFingerprint of user.fingerprints) {
         if (await ServerState.isFingerprintBanned(this.#prisma, userFingerprint)) {
+          LOGGER.log(`User ${user.name} (${user.id}) attempted to log in with a banned fingerprint (${userFingerprint})`);
           throw new ForbiddenError(translate('fingerprintBanned', user));
         }
       }
