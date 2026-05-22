@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.8](https://github.com/Zenoo/labrute/compare/labrute-v2.95.7...labrute-v2.95.8) (2026-05-22)
+
+
+### Bug Fixes
+
+* Log banned fingerprint on oauth ([8332164](https://github.com/Zenoo/labrute/commit/8332164c9b8742fe2f010991d0d7ecde477424a9))
+
 ## [2.95.7](https://github.com/Zenoo/labrute/compare/labrute-v2.95.6...labrute-v2.95.7) (2026-05-22)
 
 
