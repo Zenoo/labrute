@@ -1,6 +1,7 @@
-import express = require('express');
-
-import { CSRF_COOKIE_NAME, CSRF_TOKEN_MAX_AGE, Version } from '@labrute/core';
+import express from 'express';
+import {
+  CSRF_COOKIE_NAME, CSRF_TOKEN_MAX_AGE, Version
+} from '@labrute/core';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -12,6 +13,7 @@ import './i18n.js';
 import { initRoutes } from './routes.js';
 import { lockMiddleware } from './utils/middlewares/locks.js';
 import { readyCheck } from './utils/middlewares/readyCheck.js';
+import { ServerState } from './utils/ServerState.js';
 
 export function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);
@@ -79,6 +81,9 @@ export function main(cx: ServerContext) {
   app.use(readyCheck);
 
   app.listen(port, () => {
+    // Update server state to hold traffic
+    ServerState.setReady(false);
+
     cx.logger.info(`Server listening on port ${port}`);
 
     // Trigger daily job
