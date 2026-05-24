@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.9](https://github.com/Zenoo/labrute/compare/labrute-v2.95.8...labrute-v2.95.9) (2026-05-24)
+
+
+### Bug Fixes
+
+* Clone destony view current brute object to prevent mutating the same one for different branches ([21777ec](https://github.com/Zenoo/labrute/commit/21777ecb984fedcf05dc456a8a336bbbf7205903))
+* Display ascended icon in weapon tooltips ([5c93738](https://github.com/Zenoo/labrute/commit/5c93738133b7b9922df910a537e8eeca50d0bf7f))
+* Optimize brute ranking calculation ([bf102c3](https://github.com/Zenoo/labrute/commit/bf102c3b733f7213ddc69ee7a51cccae2aa3aa7d))
+* Target last seen users instead of last created for bans ([cc32468](https://github.com/Zenoo/labrute/commit/cc32468f8773a1cb9f7e2d2c86e5ae0cbbe214af))
+
 ## [2.95.8](https://github.com/Zenoo/labrute/compare/labrute-v2.95.7...labrute-v2.95.8) (2026-05-22)
 
 
