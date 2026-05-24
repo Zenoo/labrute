@@ -23,7 +23,7 @@ const statName = (stat: FightStat) => {
   return stat;
 };
 
-export interface SkillTooltipProps extends Omit<TooltipProps, 'title'> {
+export type SkillTooltipProps = Omit<TooltipProps, 'title'> & {
   skill?: Skill | null;
   tier?: number;
   ascended?: boolean;

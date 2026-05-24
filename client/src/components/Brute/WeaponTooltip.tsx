@@ -20,16 +20,18 @@ const textProps = {
   lineHeight: 1.2,
 } as const;
 
-export interface WeaponTooltipProps extends Omit<TooltipProps, 'title'> {
+export type WeaponTooltipProps = Omit<TooltipProps, 'title'> & {
   weapon?: Weapon | null;
   bareHands?: boolean;
   tier?: number;
+  ascended?: boolean;
 }
 
 export const WeaponTooltip = ({
   weapon,
   tier = 1,
   bareHands,
+  ascended = false,
   children,
   ...rest
 }: WeaponTooltipProps) => {
@@ -126,7 +128,10 @@ export const WeaponTooltip = ({
               </Box>
             )}
             {/* NAME */}
-            <Text bold h5>{weapon ? t(weapon.name) : t('bareHands')}</Text>
+            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+              <Text bold h5>{weapon ? t(weapon.name) : t('bareHands')}</Text>
+              {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
+            </Box>
             {/* ILLUSTRATION */}
             {weapon && (
               <Box
