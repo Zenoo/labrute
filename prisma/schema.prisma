@@ -55,7 +55,7 @@ model User {
   reportsHandled         BruteReport[]    @relation("BruteReportHandler")
   logs                   UserLog[]
 
-  @@index([createdAt])
+  @@index([lastSeen])
 }
 
 enum UserLogType {

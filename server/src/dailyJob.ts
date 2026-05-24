@@ -2187,10 +2187,10 @@ const handleEventTournament = async (
 };
 
 const banMultipleAccounts = async (prisma: PrismaClient) => {
-  // Get users created within the last 7 days with shared fingerprints and not yet banned
+  // Get users who logged in within the last 7 days
   const users = await prisma.user.findMany({
     where: {
-      createdAt: {
+      lastSeen: {
         gte: dayjs.utc().subtract(7, 'day').toDate(),
       },
       bannedAt: null,
