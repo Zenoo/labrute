@@ -2253,117 +2253,77 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
       fingerprints: true,
       ips: true,
       browserIds: true,
+      createdAt: true,
     },
   });
 
   const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
 
-  // As per FingerprintJS recommendation: fingerprinting should not be relied upon as a single
-  // method of identification. It should be combined with other identifiers (IP addresses,
-  // cookie-stored browser IDs, etc).
-  // We require MULTIPLE signals to detect duplicate accounts:
-  // 1. Same fingerprint + same IP address
-  // 2. Same fingerprint + same browser ID (HttpOnly cookie set by server)
-  // 3. Multiple shared fingerprints between users (not just one)
-
-  // Group users by fingerprint+IP combination
-  const fingerprintIpGroups: Record<string, string[]> = {};
-  // Group users by fingerprint+browserID combination
-  const fingerprintBrowserGroups: Record<string, string[]> = {};
-  // Track users with multiple shared fingerprints
-  const multiFingerprint: Record<string, Set<string>> = {};
-  // Group users by shared multiple fingerprints
-  const multipleSharedFingerprintsGroups: Record<string, string[]> = {};
-
-  for (const user of users) {
-    for (const fingerprint of user.fingerprints) {
-      if (knownFingerprints.includes(fingerprint)) continue;
-
-      // Track fingerprint + IP combinations
-      for (const ip of user.ips) {
-        const key = `${fingerprint}:${ip}`;
-        if (!fingerprintIpGroups[key]) {
-          fingerprintIpGroups[key] = [];
-        }
-        if (!fingerprintIpGroups[key].includes(user.id)) {
-          fingerprintIpGroups[key].push(user.id);
-        }
-      }
-
-      // Track fingerprint + browser ID combinations
-      for (const browserId of user.browserIds) {
-        const key = `${fingerprint}:${browserId}`;
-        if (!fingerprintBrowserGroups[key]) {
-          fingerprintBrowserGroups[key] = [];
-        }
-        if (!fingerprintBrowserGroups[key].includes(user.id)) {
-          fingerprintBrowserGroups[key].push(user.id);
-        }
-      }
-
-      // Track fingerprints per user for multi-fingerprint detection
-      if (!multiFingerprint[user.id]) {
-        multiFingerprint[user.id] = new Set();
-      }
-      multiFingerprint[user.id]?.add(fingerprint);
-    }
-  }
+  // TWO-TIER SIGNAL APPROACH:
+  //
+  // Tier 1 (STRONG): Same browser ID shared by multiple accounts
+  //   - Browser ID is server-set cookie, should be unique per browser session
+  //   - Threshold: >3 users (same browser session = very suspicious)
+  //   - Catches: Multi-accounting from the same browser
+  //
+  // Tier 2 (WEAK): Fingerprint + IP match (without browser ID evidence)
+  //   - Threshold: >30 users (very high to avoid false positives)
+  //   - Allows: schools, public wifi
+  //   - Catches: Extreme abuse cases only
 
   const usersToBan = new Set<string>();
 
-  // Ban groups with more than 3 users sharing fingerprint + IP
-  for (const userIds of Object.values(fingerprintIpGroups)) {
-    if (userIds.length > 3) {
-      userIds.forEach((id) => usersToBan.add(id));
+  // Track signal combinations
+  const browserIdGroups: Record<string, string[]> = {};
+  const fingerprintIpGroups: Record<string, string[]> = {};
+
+  for (const user of users) {
+    // Tier 1: Group by browser ID
+    for (const browserId of user.browserIds) {
+      if (!browserIdGroups[browserId]) {
+        browserIdGroups[browserId] = [];
+      }
+      if (!browserIdGroups[browserId].includes(user.id)) {
+        browserIdGroups[browserId].push(user.id);
+      }
     }
-  }
 
-  // Ban groups with more than 3 users sharing fingerprint + browser ID
-  for (const userIds of Object.values(fingerprintBrowserGroups)) {
-    if (userIds.length > 3) {
-      userIds.forEach((id) => usersToBan.add(id));
-    }
-  }
+    // Tier 2: Group by fingerprint + IP
+    for (const fingerprint of user.fingerprints) {
+      if (knownFingerprints.includes(fingerprint)) continue;
 
-  for (const user1 of users) {
-    for (const user2 of users) {
-      if (user1.id === user2.id) continue;
-
-      const fingerprints1 = multiFingerprint[user1.id];
-      const fingerprints2 = multiFingerprint[user2.id];
-
-      if (!fingerprints1 || !fingerprints2) continue;
-
-      // Get shared fingerprints
-      const sharedFingerprints = Array.from(fingerprints1).filter((fp) => fingerprints2.has(fp));
-
-      // Multiple shared fingerprints is strong evidence
-      if (sharedFingerprints.length > 1) {
-        // Create a unique key for this fingerprint combination
-        const key = sharedFingerprints.sort().join(':');
-        if (!multipleSharedFingerprintsGroups[key]) {
-          multipleSharedFingerprintsGroups[key] = [];
+      for (const ip of user.ips) {
+        const fpIpKey = `${fingerprint}:${ip}`;
+        if (!fingerprintIpGroups[fpIpKey]) {
+          fingerprintIpGroups[fpIpKey] = [];
         }
-        if (!multipleSharedFingerprintsGroups[key].includes(user1.id)) {
-          multipleSharedFingerprintsGroups[key].push(user1.id);
-        }
-        if (!multipleSharedFingerprintsGroups[key].includes(user2.id)) {
-          multipleSharedFingerprintsGroups[key].push(user2.id);
+        if (!fingerprintIpGroups[fpIpKey].includes(user.id)) {
+          fingerprintIpGroups[fpIpKey].push(user.id);
         }
       }
     }
   }
 
-  // Ban groups with more than 3 users sharing multiple fingerprints
-  for (const userIds of Object.values(multipleSharedFingerprintsGroups)) {
+  // Tier 1: Same browser ID (STRONG - same browser session)
+  // Ban if >3 users share the same browser ID
+  for (const userIds of Object.values(browserIdGroups)) {
     if (userIds.length > 3) {
+      userIds.forEach((id) => usersToBan.add(id));
+    }
+  }
+
+  // Tier 2: Fingerprint + IP (WEAK - public spaces)
+  // Very high threshold to avoid false positives in schools/malls/families
+  // Ban only if >30 users share fingerprint and IP
+  for (const userIds of Object.values(fingerprintIpGroups)) {
+    if (userIds.length > 30) {
       userIds.forEach((id) => usersToBan.add(id));
     }
   }
 
   let bannedCount = 0;
 
-  // Ban detected users (without banning fingerprints, as they may be shared with legitimate users)
+  // Ban detected users
   for (const userId of usersToBan) {
     try {
       await banUser(prisma, userId, 'multipleAccounts');
