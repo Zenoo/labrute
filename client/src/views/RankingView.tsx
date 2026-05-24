@@ -50,7 +50,8 @@ export const RankingView = () => {
     }
 
     // Only fetch neighbors when viewing the brute's own rank
-    if (ranking !== brute.ranking || (ranking === -1 && brute.eventId === null)) {
+    if ((ranking !== -1 && ranking !== brute.ranking)
+      || (ranking === -1 && brute.eventId === null)) {
       setNeighborsData(null);
       return undefined;
     }

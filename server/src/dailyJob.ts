@@ -1404,7 +1404,7 @@ const handleReleases = async (prisma: PrismaClient) => {
     const notifCount = await prisma.$executeRaw`
       INSERT INTO "Notification" ("userId", "message", "link", "severity")
       SELECT id, 'newPatchNotesAvailable', '/patch-notes', 'warning'
-      FROM "User";
+      FROM "User" WHERE "bannedAt" IS NULL;
     `;
 
     LOGGER.log(`Sent ${notifCount} release notifications`);
