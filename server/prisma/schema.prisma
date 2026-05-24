@@ -218,9 +218,6 @@ model Brute {
   speedValue                   Int                     @default(0)
   // The actual brute displayed rank (ie: Padawan, etc ...)
   ranking                      Int                     @default(11)
-  // The brute ranking position (1 for the top ranked brute, etc ...).
-  rankingPosition              Int?
-  rankingPositionUpdatedAt     DateTime?               @db.Date
   gender                       Gender
   user                         User?                   @relation(fields: [userId], references: [id])
   userId                       String?                 @db.Uuid
@@ -314,7 +311,7 @@ model Brute {
   clanRole                     ClanRole?               @relation(fields: [clanRoleId], references: [id])
   clanRoleId                   String?                 @db.Uuid
   unlockedColors               UnlockedColors[]
-  dailyBruteRankings           DailyBruteRanking[]
+  bruteRanking                 BruteRanking?
   // Note: Optimized partial indexes for ranking queries and GIN indexes are maintained
   // via manual migrations and are not defined in this schema to prevent Prisma from
   // trying to recreate them
@@ -330,21 +327,7 @@ model Brute {
   @@index([clanId])
   @@index([wantToJoinClanId])
   @@index([eventId])
-  @@index([rankingPosition])
   @@index([clanRoleId])
-}
-
-// This model is used to store the daily ranking of brutes for the leaderboard.
-// It gets generated whenever requested and not already stored for today
-model DailyBruteRanking {
-  date     DateTime @db.Date
-  rank     Int
-  brute    Brute    @relation(fields: [bruteId], references: [id])
-  bruteId  String   @db.Uuid
-  position Int
-
-  @@id([rank, position])
-  @@index([date, rank, position])
 }
 
 model BruteStartingStats {
@@ -550,6 +533,16 @@ model TournamentXp {
   @@index([bruteId])
 }
 
+model BruteRanking {
+  bruteId  String @db.Uuid
+  brute    Brute  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
+  ranking  Int // The rank (0-11, or -1 for events)
+  position Int // Position within that rank
+
+  @@unique([bruteId])
+  @@index([ranking, position])
+}
+
 // ACHIEVEMENTS
 enum AchievementName {
   // Fights
@@ -729,11 +722,12 @@ model BruteReport {
 
 // SERVER STATE
 model ServerState {
-  id                    String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  globalTournamentValid Boolean         @default(true)
-  activeModifiers       FightModifier[] @default([])
-  modifiersEndAt        DateTime?       @db.Date
-  nextModifiers         FightModifier[] @default([])
+  id                     String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  globalTournamentValid  Boolean         @default(true)
+  activeModifiers        FightModifier[] @default([])
+  modifiersEndAt         DateTime?       @db.Date
+  nextModifiers          FightModifier[] @default([])
+  bruteRankingsUpdatedAt DateTime?       @db.Date
 }
 
 model BannedWord {

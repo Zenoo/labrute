@@ -5,9 +5,7 @@ import {
   Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip
 } from '@mui/material';
 import dayjs from 'dayjs';
-import React, {
-  useEffect, useMemo, useState
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAlert } from '../../hooks/useAlert';
@@ -19,6 +17,7 @@ import { Link } from '../Link';
 import { Text } from '../Text';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
+import { getCachedRanking, setCachedRanking } from '../../utils/cache';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -35,41 +34,28 @@ export const CellSocials = ({
   const Alert = useAlert();
   const Server = useServer();
 
-  const [fetchedRanking, setFetchedRanking] = useState<number | null>(null);
-
-  // Check if ranking is cached and fresh (updated today)
-  const isRankingFresh = useMemo(() => Boolean(
-    brute?.rankingPositionUpdatedAt
-    && dayjs.utc(brute.rankingPositionUpdatedAt).isSame(dayjs.utc(), 'day')
-  ), [brute?.rankingPositionUpdatedAt]);
-
-  // Determine which ranking to display
-  const ranking = useMemo(() => {
-    if (isRankingFresh && brute?.rankingPosition) {
-      return brute.rankingPosition;
-    }
-    return fetchedRanking ?? undefined;
-  }, [isRankingFresh, brute?.rankingPosition, fetchedRanking]);
+  const [ranking, setRanking] = useState<number | null>(null);
 
   // Fetch ranking if not fresh
   useEffect(() => {
-    if (!brute?.name || isRankingFresh) {
+    if (!brute?.name) {
+      return;
+    }
+
+    if (getCachedRanking(brute.name) !== null) {
+      setRanking(getCachedRanking(brute.name));
       return;
     }
 
     Server.Brute.getRanking(brute.name)
       .then((data) => {
-        setFetchedRanking(data.ranking);
+        setRanking(data.ranking);
 
-        // Update brute's ranking position and updatedAt in local state to avoid refetching during the same day
-        updateData((prev) => (prev ? {
-          ...prev,
-          rankingPosition: data.ranking,
-          rankingPositionUpdatedAt: new Date().toISOString(),
-        } : null));
+        // Cache ranking in client for the day
+        setCachedRanking(brute.name, data.ranking);
       })
       .catch((error) => catchError(Alert, error));
-  }, [brute?.name, isRankingFresh, Server.Brute, Alert, updateData]);
+  }, [brute?.name, Server.Brute, Alert, updateData, ranking]);
 
   const isFollowing = user?.following.some((following) => following.id === brute?.id);
 

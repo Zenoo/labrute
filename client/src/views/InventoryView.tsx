@@ -22,9 +22,9 @@ import { catchError } from '../utils/catchError';
 const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',
   [InventoryItemType.bossTicket]: '/images/inventory/bossTicket.webp',
-  [InventoryItemType.nameChange]: '/images/inventory/nameChange.webp',
+  [InventoryItemType.nameChange]: '/images/inventory/nameChange.png',
   [InventoryItemType.favoriteFight]: '/images/inventory/favoriteFight.webp',
-  [InventoryItemType.customizationToken]: '/images/inventory/favoriteFight.webp',
+  [InventoryItemType.customizationToken]: '/images/inventory/customizationToken.png',
 };
 
 export const InventoryView = () => {

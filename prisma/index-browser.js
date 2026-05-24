@@ -185,8 +185,6 @@ exports.Prisma.BruteScalarFieldEnum = {
   speedModifier: 'speedModifier',
   speedValue: 'speedValue',
   ranking: 'ranking',
-  rankingPosition: 'rankingPosition',
-  rankingPositionUpdatedAt: 'rankingPositionUpdatedAt',
   gender: 'gender',
   userId: 'userId',
   body: 'body',
@@ -221,13 +219,6 @@ exports.Prisma.BruteScalarFieldEnum = {
   eventId: 'eventId',
   resets: 'resets',
   clanRoleId: 'clanRoleId'
-};
-
-exports.Prisma.DailyBruteRankingScalarFieldEnum = {
-  date: 'date',
-  rank: 'rank',
-  bruteId: 'bruteId',
-  position: 'position'
 };
 
 exports.Prisma.BruteStartingStatsScalarFieldEnum = {
@@ -325,6 +316,12 @@ exports.Prisma.TournamentXpScalarFieldEnum = {
   xp: 'xp'
 };
 
+exports.Prisma.BruteRankingScalarFieldEnum = {
+  bruteId: 'bruteId',
+  ranking: 'ranking',
+  position: 'position'
+};
+
 exports.Prisma.AchievementScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -350,7 +347,8 @@ exports.Prisma.ServerStateScalarFieldEnum = {
   globalTournamentValid: 'globalTournamentValid',
   activeModifiers: 'activeModifiers',
   modifiersEndAt: 'modifiersEndAt',
-  nextModifiers: 'nextModifiers'
+  nextModifiers: 'nextModifiers',
+  bruteRankingsUpdatedAt: 'bruteRankingsUpdatedAt'
 };
 
 exports.Prisma.BannedWordScalarFieldEnum = {
@@ -859,7 +857,6 @@ exports.Prisma.ModelName = {
   User: 'User',
   UserLog: 'UserLog',
   Brute: 'Brute',
-  DailyBruteRanking: 'DailyBruteRanking',
   BruteStartingStats: 'BruteStartingStats',
   UnlockedColors: 'UnlockedColors',
   Fight: 'Fight',
@@ -869,6 +866,7 @@ exports.Prisma.ModelName = {
   TournamentAchievement: 'TournamentAchievement',
   TournamentGold: 'TournamentGold',
   TournamentXp: 'TournamentXp',
+  BruteRanking: 'BruteRanking',
   Achievement: 'Achievement',
   BruteReport: 'BruteReport',
   ServerState: 'ServerState',

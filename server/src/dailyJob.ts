@@ -36,7 +36,7 @@ import {
 import dayjs from 'dayjs';
 import { DISCORD, LOGGER } from './context.js';
 import { calculateAchievementRankings, increaseAchievement } from './controllers/Achievements.js';
-import { calculateAllTop15Rankings } from './controllers/Brutes.js';
+import { cacheAllTop15Rankings } from './controllers/Brutes.js';
 import { ServerState } from './utils/ServerState.js';
 import { resetBrute } from './utils/brute/resetBrute.js';
 import { updateClanPoints } from './utils/clan/updateClanPoints.js';
@@ -1276,6 +1276,59 @@ const deleteBrutes = async (prisma: PrismaClient) => {
   LOGGER.log(`Deleted ${brutes.length} brutes tagged for deletion`);
 };
 
+const calculateDailyBruteRankings = async (prisma: PrismaClient) => {
+  // Check if rankings were already calculated today
+  const state = await prisma.serverState.findFirst({
+    select: { id: true, bruteRankingsUpdatedAt: true },
+  });
+
+  if (state?.bruteRankingsUpdatedAt && dayjs(state.bruteRankingsUpdatedAt).isSame(dayjs.utc(), 'day')) {
+    return;
+  }
+
+  // Calculate rankings for each rank separately
+  for (let rank = -1; rank <= 11; rank++) {
+    // -1 = event brutes, 0-11 = regular ranks
+    const rankStart = dayjs.utc().valueOf();
+
+    // Delete existing rankings for this rank
+    await prisma.$executeRaw`
+      DELETE FROM "BruteRanking"
+      WHERE ranking = ${rank};
+    `;
+
+    // Insert new rankings in a single batch operation (much faster than UPDATE)
+    await prisma.$executeRaw`
+      INSERT INTO "BruteRanking" ("bruteId", ranking, position)
+      SELECT
+        b.id AS "bruteId",
+        ${rank} AS ranking,
+        ROW_NUMBER() OVER (
+          ORDER BY
+            b.ascensions DESC,
+            b.level DESC,
+            b.xp DESC,
+            b.name ASC
+        ) AS position
+      FROM "Brute" b
+      WHERE b."deletedAt" IS NULL
+        AND b."userId" IS NOT NULL
+        AND (
+          ${rank} = -1 AND b."eventId" IS NOT NULL OR
+          ${rank} >= 0 AND b."eventId" IS NULL AND b.ranking = ${rank}
+        );
+    `;
+
+    LOGGER.log(`${dayjs.utc().valueOf() - rankStart}ms to calculate daily brute rankings for rank ${rank}`);
+  }
+
+  // Update the last daily ranking update timestamp
+  await prisma.serverState.update({
+    where: { id: state?.id },
+    data: { bruteRankingsUpdatedAt: new Date() },
+  });
+};
+
 // Handle modifiers
 const handleModifiers = async (prisma: PrismaClient) => {
   // Check if current modifiers expired
@@ -2399,6 +2452,9 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     await deleteBrutes(prisma);
     logMemory('After deleting brutes');
 
+    // Calculate and cache daily brute rankings
+    await calculateDailyBruteRankings(prisma);
+
     // Update server state to release traffic
     ServerState.setReady(true);
 
@@ -2422,8 +2478,8 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     await checkNameDuplicates(prisma);
     logMemory('After checking name duplicates');
 
-    // Calculate and cache top 15 brutes for all ranks
-    await calculateAllTop15Rankings(prisma);
+    // Memory-cache top 15 brutes for all ranks
+    await cacheAllTop15Rankings(prisma);
     logMemory('After calculating top 15 rankings');
 
     // Calculate and cache achievement rankings
