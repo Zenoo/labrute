@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.10](https://github.com/Zenoo/labrute/compare/labrute-v2.95.9...labrute-v2.95.10) (2026-05-24)
+
+
+### Bug Fixes
+
+* Add a way to transfer clan ownership via the admin panel ([fdb8def](https://github.com/Zenoo/labrute/commit/fdb8defc7b7b87c7e0457ace9d7d93ac802344b9))
+* Change multiple accounts ban conditions ([f27163d](https://github.com/Zenoo/labrute/commit/f27163dfc31346725f91e7502353611c883f2adf))
+* Display nearby ranked brutes for event brutes ([c66019c](https://github.com/Zenoo/labrute/commit/c66019cf103f43ab62f4fc93bc2c206ed9cf4ec0))
+* Hold traffic earlier on deployment to prevent race conditions ([abfd7c5](https://github.com/Zenoo/labrute/commit/abfd7c556b48aacdf58059ac74e8bed47ab9cadb))
+
 ## [2.95.9](https://github.com/Zenoo/labrute/compare/labrute-v2.95.8...labrute-v2.95.9) (2026-05-24)
 
 
