@@ -1,9 +1,13 @@
 import { ClanGetForAdminResponse } from '@labrute/core';
 import { BossName, Clan } from '@labrute/prisma';
-import { Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@mui/material';
+import {
+  Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField
+} from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -24,6 +28,7 @@ export const ClanAdminView = () => {
   const Server = useServer();
 
   const [clan, setClan] = useState<ClanGetForAdminResponse | null>(null);
+  const [newMasterId, setNewMasterId] = useState<string>('');
 
   // Fetch clan on page load
   useEffect(() => {
@@ -46,6 +51,16 @@ export const ClanAdminView = () => {
       Alert.open('success', 'Clan saved');
     }).catch(catchError(Alert));
   }, [Alert, Server.Clan, clan, clanId]);
+
+  // Transfer ownership
+  const transferOwnership = useCallback(() => {
+    if (!clanId || !newMasterId) return;
+
+    Server.Clan.transferOwnership({ id: clanId, brute: newMasterId }).then(() => {
+      Alert.open('success', 'Ownership transferred');
+      setNewMasterId('');
+    }).catch(catchError(Alert));
+  }, [Alert, Server.Clan, clanId, newMasterId]);
 
   return (
     <Page title={t('adminPanel')} headerUrl="/">
@@ -201,6 +216,20 @@ export const ClanAdminView = () => {
               </Grid>
             </Grid>
             <FantasyButton color="success" onClick={saveClan}>Save</FantasyButton>
+            <Text h3 smallCaps sx={{ mt: 4 }}>Transfer ownership</Text>
+            <Grid container spacing={1} sx={{ mt: 2, mb: 4 }}>
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  label="New master"
+                  value={newMasterId}
+                  onChange={(event) => setNewMasterId(event.target.value)}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <FantasyButton color="success" onClick={transferOwnership}>Transfer</FantasyButton>
+              </Grid>
+            </Grid>
           </>
         ) : (
           <Loader />

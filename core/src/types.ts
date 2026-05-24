@@ -728,18 +728,20 @@ export type ClanGetThreadResponse = ClanThread & {
 export type ClanGetForAdminResponse = Clan & {
   brutes: Pick<Brute, 'id' | 'name'>[],
 };
+export type ClanTransferOwnershipRequest = {
+  brute: string;
+  id: string;
+};
+
 // Clan Roles Types
 export type ClanRoleWithMemberCount = ClanRole & {
   memberCount: number;
 };
-
 export type ClanGetRolesResponse = ClanRoleWithMemberCount[];
-
 export type ClanCreateRoleRequest = Pick<ClanRole, 'name' | 'permissions'>;
 export type ClanCreateRoleResponse = Pick<ClanRole, 'id' | 'name' | 'permissions' | 'clanId'>;
 export type ClanUpdateRoleRequest = Partial<Pick<ClanRole, 'name' | 'permissions'>>;
 export type ClanUpdateRoleResponse = Pick<ClanRole, 'id' | 'name' | 'permissions' | 'clanId'>;
-
 export type ClanAssignRoleResponse = { success: boolean };
 export type ClanRemoveRoleResponse = { success: boolean };
 export type ClanDeleteRoleResponse = { success: boolean };

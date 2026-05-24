@@ -13,7 +13,8 @@ import {
   ClanCreateResponse, ClanCreateRoleResponse, ClanDeleteRoleResponse,
   ClanGetForAdminResponse, ClanGetResponse, ClanGetRolesResponse,
   ClanGetThreadResponse, ClanGetThreadsResponse, ClanListResponse, ClanRemoveRoleResponse,
-  ClanSort, ClanUpdateRoleResponse, ClanWarGetAvailableFightersResponse,
+  ClanSort, ClanTransferOwnershipRequest, ClanUpdateRoleResponse,
+  ClanWarGetAvailableFightersResponse,
   ClanWarGetHistoryResponse, ClanWarGetResponse, ClanWarGetUsedFightersResponse,
   ConfigsDecryptRequest, ConfigsDecryptResponse, ConfigsListResponse, ConfigsSetRequest,
   ConfigsSetResponse, EventGetResponse, EventGetRoundResponse, EventListCurrentResponse,
@@ -205,6 +206,7 @@ export const Server = {
     deleteRole: (id: string, roleId: string) => Fetch<ClanDeleteRoleResponse>(`/api/clan/${id}/roles/${roleId}`, {}, 'DELETE'),
     assignRoles: (id: string, roleId: string, bruteIds: string[]) => Fetch<ClanAssignRoleResponse>(`/api/clan/${id}/roles/${roleId}/assign-members`, { bruteIds }, 'POST'),
     removeRole: (id: string, bruteId: string, roleId: string) => Fetch<ClanRemoveRoleResponse>(`/api/clan/${id}/members/${bruteId}/roles/${roleId}`, {}, 'DELETE'),
+    transferOwnership: (params: ClanTransferOwnershipRequest) => Fetch<never>(`/api/clan/${params.id}/transfer-ownership/${params.brute}`, {}, 'PATCH'),
   },
   ClanWar: {
     declareFriendlyWar: (bruteId: string, clan: string, opponent: string) => Fetch<ClanWarGetResponse>('/api/clan/war/friendly', {

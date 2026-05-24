@@ -20,6 +20,7 @@ import {
   ClanCreateRoleRequest,
   ClanUpdateRoleRequest,
   hasPermission,
+  ClanTransferOwnershipRequest,
 } from '@labrute/core';
 import {
   BossName,
@@ -2308,6 +2309,66 @@ export const Clans = {
       });
 
       res.status(200).send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  transferOwnership: (prisma: PrismaClient) => async (
+    req: Request<ClanTransferOwnershipRequest>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      if (!isUuid(req.params.brute) || !isUuid(req.params.id)) {
+        throw new MissingElementError(translate('missingParameters', user));
+      }
+
+      const { brute: bruteId, id: clanId } = req.params;
+
+      const brute = await traced('clans.transferOwnership.findBrute', () => prisma.brute.findFirst({
+        where: {
+          id: bruteId,
+          deletedAt: null,
+        },
+        select: { id: true, clanId: true },
+      }));
+
+      if (!brute) {
+        throw new NotFoundError(translate('bruteNotFound', user));
+      }
+
+      // Disallow if the brute is in a clan
+      if (brute.clanId) {
+        throw new ExpectedError(translate('bruteInClan', user));
+      }
+
+      const clan = await traced('clans.transferOwnership.findClan', () => prisma.clan.findFirst({
+        where: {
+          id: clanId,
+          deletedAt: null,
+        },
+        select: { id: true, masterId: true },
+      }));
+
+      if (!clan) {
+        throw new NotFoundError(translate('clanNotFound', user));
+      }
+
+      // Add brute to clan and make it master
+      await traced('clans.transferOwnership.updateBrute', () => prisma.brute.update({
+        where: { id: bruteId },
+        data: { clanId, clanRoleId: null },
+        select: { id: true },
+      }));
+
+      await traced('clans.transferOwnership.updateClan', () => prisma.clan.update({
+        where: { id: clanId },
+        data: { masterId: bruteId },
+        select: { id: true },
+      }));
+
+      res.status(200).send({ message: 'ok' });
     } catch (error) {
       sendError(res, error);
     }
