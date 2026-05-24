@@ -121,8 +121,11 @@ export const DestinyView = () => {
     return { skills: skillPerks, weapons: weaponPerks, pets: petPerks };
   };
 
-  const renderBranch = (branch: DestinyBranch | null, currentBrute: Pick<NonNullable<typeof brute>, 'skills' | 'weapons' | 'pets'>) => {
+  const renderBranch = (branch: DestinyBranch | null, _currentBrute: Pick<NonNullable<typeof brute>, 'skills' | 'weapons' | 'pets'>) => {
     if (!brute) return null;
+
+    // Create a new brute object with updated perks for the current branch, to prevent mutating the original brute's perks when rendering different branches
+    const currentBrute = structuredClone(_currentBrute);
 
     let perkUpgrade = false;
     let tier = 0;

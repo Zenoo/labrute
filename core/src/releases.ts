@@ -7,38 +7,57 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.93.0',
-  date: '2026-05-14',
+  version: '2.95.9',
+  date: '2026-05-24',
   features: [
-    'Determination / Sabotage / Resistant / Iron Head / Chef / Bandage / Spy / Backup skills now scale with their tiers',
-    'The endurance stat is now completely gone from the game, and replaced by HP everywhere. This should make it easier for new players to understand the game, and make the stats more consistent overall.',
-    'You can now create and customize clan roles, and assign them to your clan members. Clan roles can have different permissions, such as managing the clan, managing wars, etc.',
-    'Brutes have gotten a much needed visual rework, with higher resolution display, and a smoother look, much closer to the original game.',
-    'Three new skills have been added: `Mimic`, `Sticky Hands` and `Deity`. Go experiment with them and let me know what you think!',
-    'Skills are now displayed in fights'
+    'A new item called Customization Token has been added to the inventory. It can be used to unlock new colors for your brute in the customization page. Every brute gets one per rank up.',
+    'Skill modifiers (+XX% Stat) are now additive instead of multiplicative. +50% +50% now equals +100% instead of +125%.',
   ],
   fixes: [
-    'The project is now licensed under the Polyform NC 1.0.0 license, which means that you can\'t use the code for commercial purposes. This is to prevent companies and crypto bros from taking the code and making a profit out of it without giving anything back to the community.',
-    'A lot of fingerprinting related fixes',
-    'Clan points are now correctly updated when a member gets banned',
-    'Rankings are now calculated each day',
-    'Tons of optimizations, the app should run faster now',
-    'Perks now show up as upgrades instead of new perks when leveling up',
-    'Perks are now colored depending on their tier pretty much everywhere',
-    'Skills usage rate can now be seen in the skill tooltip',
-    'Regeneration skill renamed to Bandage',
-    'Stats scaling with tiers are better displayed in the weapons/skills/pets tooltips',
-    'Pets HP malus is now displayed on level up',
-    'Perk upgrades are now ignored for achievements (Ex: Having Knife T3 only counts as having a knife once)',
-    'Unlimited global tournaments are now accessible from the tournament history page',
-    'Finally fixed the pets misplaced limbs !',
-    'Perk unlock limitations now only apply for the first time you unlock the perk, meaning that T2 and T3 will be easier to achieve. For example, Even if you have 3 boosters, getting one of those T2 won\'t be nearly impossible anymore',
-    'You can now see the brutes XP in the Hall and on user pages'
+    'Skills displayed as correct tier in fights',
+    'Most of the wrong translations should be fixed',
+    'The new high res brutes prevented people from selecting the correct opponent in the arena, not anymore',
+    'The skills row in fights gets now bumped up when you have no weapons left to preserve space',
+    'Multiple account players are now banned automatically daily',
+    'Negative speeds are now handled correctly, instead of giving near infinite speed',
+    'Brutes with equal level and XP are now ranked by their name, instead of randomly',
+    'Perk unlocks/upgrades are now correctly displayed in the destiny view'
   ],
-  attachments: ['high-res-brute.png', 'skills-in-fights.png'],
+  attachments: ['customizationToken.png', 'unlockColor.png'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.93.0',
+    date: '2026-05-14',
+    features: [
+      'Determination / Sabotage / Resistant / Iron Head / Chef / Bandage / Spy / Backup skills now scale with their tiers',
+      'The endurance stat is now completely gone from the game, and replaced by HP everywhere. This should make it easier for new players to understand the game, and make the stats more consistent overall.',
+      'You can now create and customize clan roles, and assign them to your clan members. Clan roles can have different permissions, such as managing the clan, managing wars, etc.',
+      'Brutes have gotten a much needed visual rework, with higher resolution display, and a smoother look, much closer to the original game.',
+      'Three new skills have been added: `Mimic`, `Sticky Hands` and `Deity`. Go experiment with them and let me know what you think!',
+      'Skills are now displayed in fights'
+    ],
+    fixes: [
+      'The project is now licensed under the Polyform NC 1.0.0 license, which means that you can\'t use the code for commercial purposes. This is to prevent companies and crypto bros from taking the code and making a profit out of it without giving anything back to the community.',
+      'A lot of fingerprinting related fixes',
+      'Clan points are now correctly updated when a member gets banned',
+      'Rankings are now calculated each day',
+      'Tons of optimizations, the app should run faster now',
+      'Perks now show up as upgrades instead of new perks when leveling up',
+      'Perks are now colored depending on their tier pretty much everywhere',
+      'Skills usage rate can now be seen in the skill tooltip',
+      'Regeneration skill renamed to Bandage',
+      'Stats scaling with tiers are better displayed in the weapons/skills/pets tooltips',
+      'Pets HP malus is now displayed on level up',
+      'Perk upgrades are now ignored for achievements (Ex: Having Knife T3 only counts as having a knife once)',
+      'Unlimited global tournaments are now accessible from the tournament history page',
+      'Finally fixed the pets misplaced limbs !',
+      'Perk unlock limitations now only apply for the first time you unlock the perk, meaning that T2 and T3 will be easier to achieve. For example, Even if you have 3 boosters, getting one of those T2 won\'t be nearly impossible anymore',
+      'You can now see the brutes XP in the Hall and on user pages'
+    ],
+    attachments: ['high-res-brute.png', 'skills-in-fights.png'],
+  },
   {
     version: '2.88.0',
     date: '2026-04-20',
