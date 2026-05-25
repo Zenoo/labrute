@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.12](https://github.com/Zenoo/labrute/compare/labrute-v2.95.11...labrute-v2.95.12) (2026-05-25)
+
+
+### Bug Fixes
+
+* Missing boss icon ([680eb49](https://github.com/Zenoo/labrute/commit/680eb49304afc9733e5ac483e40a6c5ccaa3698a))
+
 ## [2.95.11](https://github.com/Zenoo/labrute/compare/labrute-v2.95.10...labrute-v2.95.11) (2026-05-25)
 
 
