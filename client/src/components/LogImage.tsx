@@ -29,6 +29,7 @@ export const LogImage = ({
             : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
       sx={{
         filter: `drop-shadow(3px 3px ${negativeLogs.includes(log.type) ? theme.palette.error.main : theme.palette.success.main})`,
+        maxWidth: 40,
         ...sx,
       }}
       {...rest}

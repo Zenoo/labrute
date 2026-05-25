@@ -45,7 +45,15 @@ import { logMemory } from './utils/memory.js';
 import { shuffle } from './utils/shuffle.js';
 import { banUser } from './utils/user/banUser.js';
 
-const GENERATE_TOURNAMENTS_IN_DEV = false;
+const IN_DEV = {
+  GENERATE_TOURNAMENTS: false,
+  HANDLE_CLAN_WARS: false,
+  CALCULATE_RANKINGS: false,
+};
+
+const shouldGenerateTournaments = () => process.env.NODE_ENV === 'production' || IN_DEV.GENERATE_TOURNAMENTS;
+const shouldHandleClanWars = () => process.env.NODE_ENV === 'production' || IN_DEV.HANDLE_CLAN_WARS;
+const shouldCalculateRankings = () => process.env.NODE_ENV === 'production' || IN_DEV.CALCULATE_RANKINGS;
 
 const triggerGC = () => {
   if (global.gc) {
@@ -2352,7 +2360,7 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Refresh chaos seeds
     refreshChaosSeeds(modifiers);
 
-    if (process.env.NODE_ENV === 'production' || GENERATE_TOURNAMENTS_IN_DEV) {
+    if (shouldGenerateTournaments()) {
       // Update server state to hold traffic
       ServerState.setReady(false);
 
@@ -2397,8 +2405,10 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     }
 
     // Handle clan wars
-    await handleClanWars(prisma, modifiers);
-    logMemory('After clan wars');
+    if (shouldHandleClanWars()) {
+      await handleClanWars(prisma, modifiers);
+      logMemory('After clan wars');
+    }
 
     // Handle events
     await handleEventFinish(prisma);
@@ -2412,7 +2422,9 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     logMemory('After deleting brutes');
 
     // Calculate and cache daily brute rankings
-    await calculateDailyBruteRankings(prisma);
+    if (shouldCalculateRankings()) {
+      await calculateDailyBruteRankings(prisma);
+    }
 
     // Update server state to release traffic
     ServerState.setReady(true);
