@@ -1286,16 +1286,15 @@ const calculateDailyBruteRankings = async (prisma: PrismaClient) => {
     return;
   }
 
+  // Delete existing rankings
+  await prisma.$executeRaw`
+    DELETE FROM "BruteRanking";
+  `;
+
   // Calculate rankings for each rank separately
   for (let rank = -1; rank <= 11; rank++) {
     // -1 = event brutes, 0-11 = regular ranks
     const rankStart = dayjs.utc().valueOf();
-
-    // Delete existing rankings for this rank
-    await prisma.$executeRaw`
-      DELETE FROM "BruteRanking"
-      WHERE ranking = ${rank};
-    `;
 
     // Insert new rankings in a single batch operation (much faster than UPDATE)
     await prisma.$executeRaw`
