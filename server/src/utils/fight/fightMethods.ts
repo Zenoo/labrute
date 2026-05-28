@@ -910,6 +910,7 @@ const mimicSkill = (
         tier: skillToMimic.tier,
         odds: skillToMimic.odds,
         type: skillToMimic.type,
+        toss: skillToMimic.toss,
         uses: [1, 1, 1],
       };
     }
