@@ -116,7 +116,7 @@
   "banReason.multipleAccounts": "Несколько учётных записей",
   "banReason.unrecognized_fingerprint": "Неопознанный цифровой отпечаток",
   "banReason.headers_tampering": "Обнаружена манипуляция заголовков",
-  "banReason.apiAbuse": "API abuse detected",
+  "banReason.apiAbuse": "Обнаружено злоупотребление API",
   "fingerprintBanned": "Этот отпечаток забанен",
   "ipBanned": "Ваш IP-адрес забанен",
   "fightNotFound": "Битва не найдена",
