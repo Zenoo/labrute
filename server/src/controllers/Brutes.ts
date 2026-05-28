@@ -47,6 +47,7 @@ import {
   readColorString,
   generateColorString,
   BruteUnlockColorResponse,
+  InvalidAPIUseError,
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
@@ -353,15 +354,15 @@ export const Brutes = {
       }
 
       if (typeof req.body.colors !== 'string' || typeof req.body.body !== 'string') {
-        throw new MissingElementError('Invalid body or colors');
+        throw new InvalidAPIUseError(authed, translate('invalidBodyOrColors', authed));
       }
 
       if (req.body.gender !== Gender.male && req.body.gender !== Gender.female) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       if (req.body.master !== null && typeof req.body.master !== 'string') {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       // Check colors validity
@@ -422,7 +423,7 @@ export const Brutes = {
       const { eventId } = req.body;
       if (eventId) {
         if (!isUuid(eventId)) {
-          throw new ExpectedError(translate('invalidParameters', authed));
+          throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
         }
 
         const event = await traced('brutes.create.findEvent', () => prisma.event.findFirst({
@@ -1375,21 +1376,21 @@ export const Brutes = {
       const authed = await auth(prisma, req);
 
       if (!req.body?.data) {
-        throw new ExpectedError(translate('missingParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
       const { data: { weapon, skill, pet } } = req.body;
 
       if (!name) {
-        throw new Error(translate('missingName', authed));
+        throw new InvalidAPIUseError(authed, translate('missingName', authed));
       }
 
       if (!weapon && !skill && !pet) {
-        throw new Error(translate('missingChoice', authed));
+        throw new InvalidAPIUseError(authed, translate('missingChoice', authed));
       }
 
       if ((weapon && skill) || (weapon && pet) || (skill && pet)) {
-        throw new Error(translate('multipleChoices', authed));
+        throw new InvalidAPIUseError(authed, translate('multipleChoices', authed));
       }
 
       const isWeapon = Object.values(WeaponName).includes(weapon as WeaponName);
@@ -1674,7 +1675,7 @@ export const Brutes = {
       const user = await auth(prisma, req, { admin: true });
 
       if (!id) {
-        throw new MissingElementError(translate('noIDProvided', user));
+        throw new InvalidAPIUseError(user, translate('noIDProvided', user));
       }
 
       const brute = await traced('brutes.restore.findBrute', () => prisma.brute.findFirst({
@@ -1930,11 +1931,11 @@ export const Brutes = {
       const user = await auth(prisma, req);
 
       if (!isHexColor(req.body.color)) {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       if (!colorableBodyParts.includes(req.body.bodyPart)) {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       // Check if user owns the brute
@@ -2285,7 +2286,7 @@ export const Brutes = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get brute

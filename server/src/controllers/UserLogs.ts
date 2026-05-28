@@ -1,7 +1,7 @@
 import {
-  ExpectedError, isUuid,
+  InvalidAPIUseError, isUuid,
   UserLogsListRequest,
-  UserLogsListResponse,
+  UserLogsListResponse
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -22,7 +22,7 @@ export const UserLogs = {
         || !Array.isArray(req.body.userIds)
         || req.body.userIds.some((id) => !isUuid(id))
         || Number.isNaN(req.body.page)) {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       // Get user logs

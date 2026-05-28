@@ -1,10 +1,7 @@
 import {
   BruteDeletionReason,
-  BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest,
-  ExpectedError,
-  LimitError,
-  MissingElementError,
-  NotFoundError,
+  BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest, InvalidAPIUseError,
+  LimitError, NotFoundError
 } from '@labrute/core';
 import {
   BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
@@ -74,11 +71,11 @@ export const BruteReports = {
       const { name, reason } = req.params;
 
       if (!name || !reason) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       if (!BruteReportReason[reason]) {
-        throw new ExpectedError(translate('invalidReason', user));
+        throw new InvalidAPIUseError(user, translate('invalidReason', user));
       }
 
       // Get brute
@@ -419,7 +416,7 @@ export const BruteReports = {
       const { word } = req.params;
 
       if (!word) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Delete banned words containing this word

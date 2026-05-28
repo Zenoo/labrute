@@ -1,5 +1,6 @@
 import {
   ExpectedError, ForbiddenError, GLOBAL_TOURNAMENT_START_HOUR,
+  InvalidAPIUseError,
   NotFoundError,
   TournamentHistoryResponse, TournamentsGetDailyResponse, TournamentsGetGlobalResponse,
   TournamentsUpdateStepWatchedResponse,
@@ -70,7 +71,7 @@ export const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get brute
@@ -121,7 +122,7 @@ export const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get brute
@@ -231,7 +232,7 @@ export const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get brute
@@ -623,7 +624,7 @@ export const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get brute
@@ -696,7 +697,7 @@ export const Tournaments = {
       const user = await auth(prisma, req);
 
       if (!req.params.name) {
-        throw new Error(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get brute

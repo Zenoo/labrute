@@ -8,9 +8,7 @@ import {
   LimitError,
   MissingElementError,
 } from '@labrute/core';
-import {
-  PrismaClient,
-} from '@labrute/prisma';
+import { PrismaClient, } from '@labrute/prisma';
 import Cryptr from 'cryptr';
 import type { Request, Response } from 'express';
 import { GLOBAL } from '../context.js';

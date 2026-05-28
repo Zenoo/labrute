@@ -8,6 +8,6 @@ export * from './types.js';
 export * from './Version.js';
 export * from './brute/index.js';
 export * from './clan/index.js';
-export * from './errors/index.js';
+export * from './errors.js';
 export * from './fight/index.js';
 export * from './utils/index.js';

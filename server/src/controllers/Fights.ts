@@ -1,6 +1,6 @@
 import {
   ExpectedError, FightCreateResponse, FightGetResponse, FightLogTemplateCount,
-  GLOBAL_TOURNAMENT_START_HOUR, LimitError, MissingElementError, NotFoundError,
+  GLOBAL_TOURNAMENT_START_HOUR, InvalidAPIUseError, LimitError, MissingElementError, NotFoundError,
   canLevelUp, getCalculatedBrute, getFightsLeft,
   getXPNeeded,
   isUuid,
@@ -82,10 +82,10 @@ export const Fights = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute1 || !req.body.brute2) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
       if (typeof req.body.brute1 !== 'string' || typeof req.body.brute2 !== 'string') {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       // Get brutes
@@ -299,7 +299,7 @@ export const Fights = {
       const user = await auth(prisma, req);
 
       if (!req.params.id) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Get fight

@@ -21,6 +21,7 @@ import {
   ClanUpdateRoleRequest,
   hasPermission,
   ClanTransferOwnershipRequest,
+  InvalidAPIUseError,
 } from '@labrute/core';
 import {
   BossName,
@@ -118,7 +119,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.brute || !req.body.name) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const brute = await traced('clans.create.findBrute', () => prisma.brute.findFirst({
@@ -353,7 +354,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -422,7 +423,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -480,7 +481,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -580,7 +581,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -652,7 +653,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -797,7 +798,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -951,7 +952,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const brute = await traced('clans.getThreads.findBrute', () => prisma.brute.findFirst({
@@ -1023,11 +1024,11 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       if (!req.body.title || !req.body.content) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id } = req.params;
@@ -1079,11 +1080,11 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       if (!req.body.title || !req.body.content || !req.body.postId) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id, threadId } = req.params;
@@ -1158,11 +1159,11 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       if (!req.body.content) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id } = req.params;
@@ -1232,7 +1233,7 @@ export const Clans = {
         || !isUuid(req.params.id)
         || !req.params.threadId
         || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       const { id, threadId } = req.params;
@@ -1310,11 +1311,11 @@ export const Clans = {
         || !isUuid(req.params.id)
         || !req.params.threadId
         || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       if (!req.query.page || +req.query.page < 1) {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       const { id, threadId } = req.params;
@@ -1374,11 +1375,11 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (typeof req.params.brute !== 'string') {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       const baseBrute = await traced('clans.challengeBoss.findBaseBrute', () => prisma.brute.findFirst({
@@ -1523,7 +1524,7 @@ export const Clans = {
         || !isUuid(req.params.id)
         || !req.params.threadId
         || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       const { id, threadId } = req.params;
@@ -1603,7 +1604,7 @@ export const Clans = {
         || !isUuid(req.params.id)
         || !req.params.threadId
         || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       const { id, threadId } = req.params;
@@ -1682,8 +1683,8 @@ export const Clans = {
       if (!req.params.id
         || !isUuid(req.params.id)
         || !req.params.threadId
-        || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingId', user));
+        || !isUuid(req.params.threadId)) {
+        throw new InvalidAPIUseError(user, translate('missingId', user));
       }
 
       const { id, threadId } = req.params;
@@ -1768,7 +1769,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -1838,7 +1839,7 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
@@ -1963,18 +1964,18 @@ export const Clans = {
       const user = await auth(prisma, req);
 
       if (!req.params.id || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingClanId', user));
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
       }
 
       const { id } = req.params;
       const { name, permissions } = req.body;
 
       if (!name || typeof name !== 'string') {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       if (name.length > 50) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const clan = await prisma.clan.findFirst({
@@ -2043,7 +2044,7 @@ export const Clans = {
         || !isUuid(req.params.id)
         || !req.params.roleId
         || !isUuid(req.params.roleId)) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id, roleId } = req.params;
@@ -2084,13 +2085,13 @@ export const Clans = {
       }
 
       if (req.body.name && typeof req.body.name !== 'string') {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
       if (typeof req.body.name === 'string' && req.body.name.length > 50) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
       if (req.body.permissions && !Array.isArray(req.body.permissions)) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Update the role
@@ -2124,7 +2125,7 @@ export const Clans = {
         || !isUuid(req.params.id)
         || !req.params.roleId
         || !isUuid(req.params.roleId)) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id, roleId } = req.params;
@@ -2173,7 +2174,7 @@ export const Clans = {
       if (!req.params.id
         || !isUuid(req.params.id) || !req.params.roleId || !isUuid(req.params.roleId)
         || !req.body.bruteIds || !Array.isArray(req.body.bruteIds)) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id, roleId } = req.params;
@@ -2259,7 +2260,7 @@ export const Clans = {
         || !isUuid(req.params.bruteId)
         || !req.params.roleId
         || !isUuid(req.params.roleId)) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { id, bruteId, roleId } = req.params;
@@ -2321,7 +2322,7 @@ export const Clans = {
       const user = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.brute) || !isUuid(req.params.id)) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const { brute: bruteId, id: clanId } = req.params;

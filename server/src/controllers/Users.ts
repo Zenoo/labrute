@@ -1,6 +1,7 @@
 import {
   AchievementData, BruteDeletionReason, ExpectedError,
   ForbiddenError,
+  InvalidAPIUseError,
   KnownFingerprintAddRequest,
   KnownFingerprintListResponse,
   KnownFingerprintRemoveRequest,
@@ -54,7 +55,7 @@ export const Users = {
       const authed = await auth(prisma, req, { admin: true });
 
       if (!req.params.identifier) {
-        throw new ExpectedError(translate('missingParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
       const isId = isUuid(req.params.identifier);
@@ -305,7 +306,7 @@ export const Users = {
       const { fightSpeed } = req.body;
 
       if (![1, 2].includes(fightSpeed)) {
-        throw new Error(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       await traced('users.changeFightSpeed.updateUserFightSpeed', () => prisma.user.update({
@@ -333,7 +334,7 @@ export const Users = {
       const { backgroundMusic } = req.body;
 
       if (typeof backgroundMusic !== 'boolean') {
-        throw new Error(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       await traced('users.toggleBackgroundMusic.updateUserBackgroundMusic', () => prisma.user.update({
@@ -716,7 +717,7 @@ export const Users = {
       const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.userId) || !req.body.reason) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       // Manual admin bans should ban fingerprints to prevent this specific abuser from returning
@@ -737,7 +738,7 @@ export const Users = {
       const authed = await auth(prisma, req, { admin: true });
 
       if (!isUuid(req.params.userId)) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       const user = await traced('users.unban.getUser', () => prisma.user.findFirst({
@@ -912,7 +913,7 @@ export const Users = {
       const { modifiers } = req.body;
 
       if (!modifiers || !Array.isArray(modifiers)) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       await ServerState.setNextModifiers(prisma, modifiers);
@@ -932,7 +933,7 @@ export const Users = {
       const authed = await auth(prisma, req);
 
       if (!isUuid(req.params.bruteId)) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       const user = await traced('users.toggleFollow.getUser', () => prisma.user.findFirst({
@@ -992,7 +993,7 @@ export const Users = {
       } = req.body;
 
       if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean' || typeof displayOpponentDetails !== 'boolean') {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       await traced('users.updateSettings.updateUser', () => prisma.user.update({
@@ -1043,7 +1044,7 @@ export const Users = {
       }
 
       if (req.body.id && !isUuid(req.body.id)) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       const userId = req.body.id || authed.id;
@@ -1108,11 +1109,11 @@ export const Users = {
       const { bruteId, targetUserId } = req.body;
 
       if (!isUuid(bruteId) || !isUuid(targetUserId)) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       if (targetUserId === authed.id) {
-        throw new ExpectedError(translate('invalidParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       const brute = await traced('users.transferBrute.getBrute', () => prisma.brute.findFirst({
@@ -1267,7 +1268,7 @@ export const Users = {
       const authed = await auth(prisma, req, { admin: true });
 
       if (!req.body.fingerprint) {
-        throw new ExpectedError(translate('missingParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
       await ServerState.addKnownFingerprint(
@@ -1289,7 +1290,7 @@ export const Users = {
       const authed = await auth(prisma, req, { admin: true });
 
       if (!req.body.fingerprint) {
-        throw new ExpectedError(translate('missingParameters', authed));
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
       await ServerState.removeKnownFingerprint(prisma, req.body.fingerprint);

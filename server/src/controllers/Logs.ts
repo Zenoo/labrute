@@ -1,5 +1,5 @@
 import {
-  ExpectedError, LogGetForUserFeedResponse, LogListResponse, NotFoundError,
+  InvalidAPIUseError, LogGetForUserFeedResponse, LogListResponse, NotFoundError
 } from '@labrute/core';
 import { LogType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -62,7 +62,7 @@ export const Logs = {
       const user = await auth(prisma, req);
 
       if (!req.params.page) {
-        throw new ExpectedError(translate('invalidParameters', user));
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
       // Get followed brutes

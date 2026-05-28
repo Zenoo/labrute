@@ -4,6 +4,7 @@ import {
   FightGetResponse,
   ForbiddenError,
   hasPermission,
+  InvalidAPIUseError,
   isUuid,
   LimitError,
   MissingElementError,
@@ -118,7 +119,7 @@ export const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.clan || !req.body.war) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const clan = await traced('clanWars.getAvailableFighters.findClan', () => prisma.clan.findFirst({
@@ -288,7 +289,7 @@ export const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.clan || !req.body.war || !req.body.fighter || !req.body.add) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       const clan = await traced('clanWars.toggleFighter.findClan', () => prisma.clan.findFirst({
@@ -442,7 +443,7 @@ export const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute || !req.body.clan || !req.body.opponent) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Check clan and opponent equality
@@ -534,7 +535,7 @@ export const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute || !req.body.clan || !req.body.war) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Check if the user owns the brute
@@ -592,7 +593,7 @@ export const ClanWars = {
       const user = await auth(prisma, req);
 
       if (!req.body.brute || !req.body.clan || !req.body.war) {
-        throw new MissingElementError(translate('missingParameters', user));
+        throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
       // Check if the user owns the brute

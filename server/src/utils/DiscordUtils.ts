@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import {
   keys, Modifiers, pad, Release,
 } from '@labrute/core';
@@ -45,6 +45,7 @@ export type DiscordClient = {
   sendMessage(message: string): Promise<void>;
   updateKnownIssues(issues: string[]): Promise<void>;
   logObject(obj: unknown, message?: string): Promise<void>;
+  invalidAPIUse(res: Response, userId?: string): void;
 }
 
 export const NOOP_DISCORD_CLIENT: DiscordClient = {
@@ -80,6 +81,10 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
     // eslint-disable-next-line no-console
     console.log(message || 'Logged object:', JSON.stringify(obj, null, 2));
     return Promise.resolve();
+  },
+  invalidAPIUse(res: Response, userId?: string) {
+    // eslint-disable-next-line no-console
+    console.log(`User (${userId ?? 'unknown'}) made an invalid API call`, res.req.method, res.req.url);
   },
 };
 
@@ -236,8 +241,8 @@ ${error.stack}
         embed.addFields({
           name: 'Params',
           value: `\`\`\`json
-  ${JSON.stringify(res.req.params)}
-  \`\`\``.substring(0, 1024),
+  ${JSON.stringify(res.req.params).substring(0, 1000)}
+  \`\`\``,
         });
       }
 
@@ -246,8 +251,8 @@ ${error.stack}
         embed.addFields({
           name: 'Body',
           value: `\`\`\`json
-  ${JSON.stringify(res.req.body)}
-  \`\`\``.substring(0, 1024),
+  ${JSON.stringify(res.req.body).substring(0, 1000)}
+  \`\`\``,
         });
       }
     }
@@ -436,5 +441,45 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
       // No message exists, create new one
       await this.#knownIssuesClient.send({ embeds: [embed] });
     }
+  }
+
+  public async invalidAPIUse(res: Response, userId: string) {
+    if (!this.#logClient) {
+      return;
+    }
+
+    const embed = new EmbedBuilder()
+      .setColor(0xff0000)
+      .setTitle('Invalid API use')
+      .setDescription(`User (${userId}) made an invalid API call`)
+      .setTimestamp();
+
+    // Request method and URL
+    embed.addFields(
+      { name: 'Method', value: res.req.method, inline: true },
+      { name: 'URL', value: res.req.url, inline: true },
+    );
+
+    // Request params
+    if (Object.keys(res.req.params as object).length) {
+      embed.addFields({
+        name: 'Params',
+        value: `\`\`\`json
+${JSON.stringify(res.req.params).substring(0, 1000)}
+\`\`\``,
+      });
+    }
+
+    // Request body
+    if (Object.keys(res.req.body as object).length) {
+      embed.addFields({
+        name: 'Body',
+        value: `\`\`\`json
+${JSON.stringify(res.req.body).substring(0, 1000)}
+\`\`\``,
+      });
+    }
+
+    await this.#logClient.send({ embeds: [embed] });
   }
 }
