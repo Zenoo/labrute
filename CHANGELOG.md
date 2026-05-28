@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.15](https://github.com/Zenoo/labrute/compare/labrute-v2.95.14...labrute-v2.95.15) (2026-05-28)
+
+
+### Bug Fixes
+
+* Add API abuse ban reason ([179aae6](https://github.com/Zenoo/labrute/commit/179aae63607e8bcb74bc5e1411cc237ad6adc9d1))
+* Log API misuses ([cbda288](https://github.com/Zenoo/labrute/commit/cbda2881aecc51fd306f895659ea290980bff0f1))
+* Sanitize event route params ([b6981f9](https://github.com/Zenoo/labrute/commit/b6981f991e69479d3b653a9ce2e8c583d6a03154))
+
 ## [2.95.14](https://github.com/Zenoo/labrute/compare/labrute-v2.95.13...labrute-v2.95.14) (2026-05-28)
 
 
