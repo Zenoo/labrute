@@ -14,5 +14,6 @@
   "banReason.innapropriateBruteName": "Unangemessener Name des Brutalos",
   "banReason.multipleAccounts": "Mehrere Accounts",
   "banReason.unrecognized_fingerprint": "Digitale Signatur nicht erkannt",
-  "banReason.headers_tampering": "Header-Manipulation festgestellt"
+  "banReason.headers_tampering": "Header-Manipulation festgestellt",
+  "banReason.apiAbuse": "API abuse detected"
 }
