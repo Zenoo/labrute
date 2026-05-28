@@ -14,5 +14,6 @@
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
   "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
-  "banReason.headers_tampering": "Headers tampering detected"
+  "banReason.headers_tampering": "Headers tampering detected",
+  "banReason.apiAbuse": "API abuse detected"
 }
