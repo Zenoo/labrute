@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.14](https://github.com/Zenoo/labrute/compare/labrute-v2.95.13...labrute-v2.95.14) (2026-05-28)
+
+
+### Bug Fixes
+
+* Mimicked skill not triggering if not owned previously ([6e67f1d](https://github.com/Zenoo/labrute/commit/6e67f1d47d400bdf82bdca5ac3a524172708c8dc))
+* Update pnpm ([51adaff](https://github.com/Zenoo/labrute/commit/51adaff387f8307dbc35eeb770dfcc756d0bdf07))
+* Wrong place for unlimited global tournament in history ([7c11218](https://github.com/Zenoo/labrute/commit/7c11218a02dc75fb6c7e1a028a448244d9f35821))
+
 ## [2.95.13](https://github.com/Zenoo/labrute/compare/labrute-v2.95.12...labrute-v2.95.13) (2026-05-25)
 
 
