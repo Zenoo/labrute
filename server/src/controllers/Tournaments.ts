@@ -584,13 +584,14 @@ export const Tournaments = {
         const firstFight = fights[0];
         if (firstFight) {
           // Take bye into account for global tournaments
-          const fightsWithBye = tournament.type === TournamentType.GLOBAL
+          const fightsWithBye = (tournament.type === TournamentType.GLOBAL
+            || tournament.type === TournamentType.UNLIMITED_GLOBAL)
             ? firstFight.tournamentStep !== 1
               ? fights.length + 1
               : fights.length
             : fights.length;
 
-          // eslint-disable-next-line no-param-reassign, no-underscore-dangle
+
           tournament.place = 2 ** (tournament.rounds - fightsWithBye);
         }
       });
