@@ -1,4 +1,6 @@
-import { FightModifier, Lang, PetName } from '@labrute/prisma';
+import {
+  FightModifier, Lang, PetName
+} from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets.js';
 import { SKILLS_TOTAL_ODDS } from './brute/skills.js';
 import { WEAPONS_TOTAL_ODDS, WeaponAnimations } from './brute/weapons.js';
@@ -120,6 +122,7 @@ export enum BanReason {
   INNAPROPRIATE_NAME = 'innapropriateName',
   INNAPROPRIATE_BRUTE_NAME = 'innapropriateBruteName',
   MULTIPLE_ACCOUNTS = 'multipleAccounts',
+  API_ABUSE = 'apiAbuse',
 }
 
 export const FightLogTemplateCount = 48;
