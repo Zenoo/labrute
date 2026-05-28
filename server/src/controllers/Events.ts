@@ -45,7 +45,7 @@ export const Events = {
     try {
       const { id } = req.params;
 
-      if (!isUuid(id)) {
+      if (!isUuid(id) || !isUuid(req.params.bruteId)) {
         throw new ExpectedError(translate('invalidParameters'));
       }
 
