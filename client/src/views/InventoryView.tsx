@@ -23,7 +23,7 @@ const itemImage: Record<InventoryItemType, string> = {
   [InventoryItemType.visualReset]: '/images/inventory/color-reset.svg',
   [InventoryItemType.bossTicket]: '/images/inventory/bossTicket.webp',
   [InventoryItemType.nameChange]: '/images/inventory/nameChange.png',
-  [InventoryItemType.favoriteFight]: '/images/inventory/favoriteFight.webp',
+  [InventoryItemType.favoriteFight]: '/images/inventory/favoriteFight.png',
   [InventoryItemType.customizationToken]: '/images/inventory/customizationToken.png',
 };
 
