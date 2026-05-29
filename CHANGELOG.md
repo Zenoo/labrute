@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.17](https://github.com/Zenoo/labrute/compare/labrute-v2.95.16...labrute-v2.95.17) (2026-05-29)
+
+
+### Bug Fixes
+
+* Admin brute deletion + search by id ([edf3a09](https://github.com/Zenoo/labrute/commit/edf3a0915c793940f9524c73ece7da1653e3c826))
+* New favorite fights icon ([9205332](https://github.com/Zenoo/labrute/commit/92053320ef792806917dd8411453c5befcaed688))
+
 ## [2.95.16](https://github.com/Zenoo/labrute/compare/labrute-v2.95.15...labrute-v2.95.16) (2026-05-28)
 
 
