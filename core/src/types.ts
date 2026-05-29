@@ -513,7 +513,7 @@ export type HookBrute = CalculatedBrute & {
   clanRole: Pick<ClanRole, 'permissions'> | null;
 };
 export type BruteGetForAdminRequest = {
-  name: string;
+  identifier: string;
   includeDeleted?: string;
 };
 export type BruteGetForAdminResponse = {
@@ -670,6 +670,9 @@ export type BruteUnlockColorRequest = {
 }
 export type BruteUnlockColorResponse = {
   colors: string;
+};
+export type BruteDeleteRequest = {
+  id: string;
 };
 
 export type TournamentHistoryResponse = (Pick<

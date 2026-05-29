@@ -1,21 +1,26 @@
 import { BruteDeletionReason } from '@labrute/core';
 import {
-  Brute, Clan, Prisma, PrismaClient, User,
+  Brute, Clan, Prisma, PrismaClient
 } from '@labrute/prisma';
 import { updateClanPoints } from '../clan/updateClanPoints.js';
 import { traced } from '../trace.js';
 
-export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'id'> & {
-  brutes: (Pick<Brute, 'id' | 'clanId' | 'level' | 'ranking'> & { masterOfClan: Pick<Clan, 'id'> | null })[];
-}) => {
-  if (user.brutes.length > 0) {
+export const deleteBrutes = async (
+  prisma: PrismaClient,
+  brutes: (Pick<Brute, 'id' | 'clanId' | 'level' | 'ranking'> & { masterOfClan: Pick<Clan, 'id'> | null })[],
+  /** If not set to null, will default to BANNED_USER */
+  _reason?: BruteDeletionReason | null,
+) => {
+  const reason = typeof _reason === 'undefined' ? BruteDeletionReason.BANNED_USER : _reason ?? undefined;
+
+  if (brutes.length > 0) {
     // Remove brutes from clan fighters
-    const joinedBruteIds = Prisma.join(user.brutes.map((b) => Prisma.sql`${b.id}::uuid`));
+    const joinedBruteIds = Prisma.join(brutes.map((b) => Prisma.sql`${b.id}::uuid`));
     await traced('deleteUserBrutes.removeClanWarAttackerFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" = ANY(ARRAY[${joinedBruteIds}]);`);
     await traced('deleteUserBrutes.removeClanWarDefenderFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" = ANY(ARRAY[${joinedBruteIds}]);`);
   }
 
-  for (const brute of user.brutes) {
+  for (const brute of brutes) {
     // Update clan points
     if (brute.clanId) {
       await updateClanPoints(prisma, brute.clanId, 'remove', brute);
@@ -25,7 +30,7 @@ export const deleteUserBrutes = async (prisma: PrismaClient, user: Pick<User, 'i
       where: { id: brute.id, deletedAt: null },
       data: {
         deletedAt: new Date(),
-        deletionReason: BruteDeletionReason.BANNED_USER,
+        deletionReason: reason,
         // Remove from followed
         followers: {
           set: [],

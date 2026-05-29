@@ -1,6 +1,6 @@
 import { FightModifier } from '@labrute/prisma';
 import {
-  Box, Divider, MenuItem, Alert as MuiAlert, Paper, Select, Stack, TextField
+  Divider, MenuItem, Alert as MuiAlert, Paper, Select, Stack
 } from '@mui/material';
 import React, {
   useCallback, useEffect, useState
@@ -19,14 +19,8 @@ export const AdminView = () => {
   const Alert = useAlert();
   const Server = useServer();
 
-  const [bruteId, setBruteId] = useState('');
   const [globalTournamentValid, setGlobalTournamentValid] = useState(true);
   const [nextModifiers, setNextModifiers] = useState<FightModifier[]>([]);
-
-  // Change bruteId
-  const changeBruteId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setBruteId(e.target.value);
-  }, []);
 
   // Delete daily tournaments
   const deleteDailyTournaments = useCallback(() => {
@@ -73,15 +67,6 @@ export const AdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, Server.User, nextModifiers]);
 
-  // Restore brute
-  const restoreBrute = useCallback(() => {
-    if (!bruteId) return;
-
-    Server.Brute.restore(bruteId).then(() => {
-      Alert.open('success', 'Brute restored');
-    }).catch(catchError(Alert));
-  }, [Alert, Server.Brute, bruteId]);
-
   return (
     <Page title={t('adminPanel')} headerUrl="/">
       {!globalTournamentValid && (
@@ -121,16 +106,6 @@ export const AdminView = () => {
             ))}
           </Select>
           <FantasyButton color="success" onClick={saveNextModifiers}>Save</FantasyButton>
-          <Divider />
-          <Text bold h3 smallCaps color="secondary">Restore brute with ID</Text>
-          <Box sx={{ display: 'flex' }}>
-            <TextField
-              onChange={changeBruteId}
-              value={bruteId}
-              sx={{ mr: 2 }}
-            />
-            <FantasyButton color="success" onClick={restoreBrute}>Restore</FantasyButton>
-          </Box>
         </Stack>
 
       </Paper>

@@ -1,5 +1,6 @@
 import {
   AchievementGetRankingsResponse, AchievementsGetResponse,
+  BruteDeleteRequest,
   BruteGetForAdminRequest, BruteGetForAdminResponse,
   BruteGetInventoryResponse, BruteReportsListResponse,
   BrutesCreateResponse, BrutesExistsResponse, BrutesGetClanIdAsMasterResponse,
@@ -72,7 +73,7 @@ export const Server = {
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),
-    getForAdmin: (params: BruteGetForAdminRequest) => Fetch<BruteGetForAdminResponse>(`/api/brute/${params.name}/for-admin/${params.includeDeleted ?? 'false'}`),
+    getForAdmin: (params: BruteGetForAdminRequest) => Fetch<BruteGetForAdminResponse>(`/api/brute/${params.identifier}/for-admin/${params.includeDeleted ?? 'false'}`),
     getForVersus: (name: string) => Fetch<BrutesGetForVersusResponse>(`/api/brute/${name}/for-versus`),
     isNameAvailable: (name: string) => Fetch<boolean>(`/api/brute/${name}/available`),
     create: (
@@ -118,6 +119,7 @@ export const Server = {
     giveItem: (id: string, item: InventoryItemType) => Fetch<never>('/api/brute/item', { id, item }, 'PUT'),
     getClanIdAsMaster: (name: string) => Fetch<BrutesGetClanIdAsMasterResponse>(`/api/brute/${name}/master-clan-id`),
     updateEventRoundWatched: (name: string, fight: string) => Fetch<BruteUpdateEventRoundWatchedResponse>(`/api/brute/${name}/update-event-round-watched/${fight}`, {}, 'PUT'),
+    delete: (data: BruteDeleteRequest) => Fetch<never>(`/api/brute/id/${data.id}`, {}, 'DELETE'),
   },
   Log: {
     list: (brute: string) => Fetch<LogListResponse>(`/api/log/list/${brute}`),

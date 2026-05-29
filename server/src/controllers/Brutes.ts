@@ -48,6 +48,7 @@ import {
   generateColorString,
   BruteUnlockColorResponse,
   InvalidAPIUseError,
+  BruteDeleteRequest,
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
@@ -74,6 +75,7 @@ import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
 import { traced } from '../utils/trace.js';
+import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
 
 // In-memory cache for top 15 brutes per rank (calculated daily)
 type RankCache = {
@@ -268,11 +270,18 @@ export const Brutes = {
     res: Response<BruteGetForAdminResponse>,
   ) => {
     try {
-      await auth(prisma, req, { admin: true });
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.params.identifier) {
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
+      }
+
+      const isId = isUuid(req.params.identifier);
 
       const brute = await traced('brutes.getForAdmin.findBrute', () => prisma.brute.findFirst({
         where: {
-          name: ilike(req.params.name),
+          id: isId ? req.params.identifier : undefined,
+          name: !isId ? ilike(req.params.identifier) : undefined,
           deletedAt: req.params.includeDeleted === 'true' ? undefined : null,
         },
         include: {
@@ -288,10 +297,10 @@ export const Brutes = {
         user: Pick<User, 'id' | 'name'> | null;
       })[] = [];
 
-      if (req.params.includeDeleted === 'true') {
+      if (req.params.includeDeleted === 'true' && !isId) {
         duplicates.push(...await traced('brutes.getForAdmin.findDuplicates', () => prisma.brute.findMany({
           where: {
-            name: ilike(req.params.name),
+            name: ilike(req.params.identifier),
             id: { not: brute.id },
           },
           select: {
@@ -2352,4 +2361,45 @@ export const Brutes = {
       sendError(res, error);
     }
   },
+  delete: (prisma: PrismaClient) => async (
+    req: Request<BruteDeleteRequest>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      if (!isUuid(req.params.id)) {
+        throw new InvalidAPIUseError(user, translate('invalidParameters', user));
+      }
+
+      // Get brute
+      const brute = await traced('brutes.delete.findBrute', () => prisma.brute.findFirst({
+        where: {
+          id: req.params.id,
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          clanId: true,
+          level: true,
+          ranking: true,
+          masterOfClan: {
+            select: {
+              id: true,
+            },
+          }
+        },
+      }));
+
+      if (!brute) {
+        throw new NotFoundError(translate('bruteNotFound', user));
+      }
+
+      await deleteBrutes(prisma, [brute], null);
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  }
 };

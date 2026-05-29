@@ -31,7 +31,7 @@ export const BruteAdminView = () => {
   const Alert = useAlert();
   const Server = useServer();
 
-  const [bruteName, setBruteName] = useState(urlBruteName ?? '');
+  const [bruteIdentifier, setBruteIdentifier] = useState(urlBruteName ?? '');
   const [includeDeleted, setIncludeDeleted] = useState(false);
   const [duplicates, setDuplicates] = useState<BruteGetForAdminResponse['duplicates']>([]);
   const [brute, setBrute] = useState<BruteGetForAdminResponse['brute'] | null>(null);
@@ -40,14 +40,14 @@ export const BruteAdminView = () => {
   const [brutePets, setBrutePets] = useState<string[]>([]);
   const [item, setItem] = useState<InventoryItemType | ''>('');
 
-  // Update brute name when url changes
+  // Update brute identifier when url changes
   useEffect(() => {
-    setBruteName(urlBruteName ?? '');
+    setBruteIdentifier(urlBruteName ?? '');
   }, [urlBruteName]);
 
   const updateBrute = useCallback(() => {
     Server.Brute.getForAdmin({
-      name: bruteName,
+      identifier: bruteIdentifier,
       includeDeleted: includeDeleted ? 'true' : 'false',
     }).then(({ duplicates: dups, brute: b }) => {
       setDuplicates(dups);
@@ -55,35 +55,38 @@ export const BruteAdminView = () => {
       setBruteSkills(entries(getTieredSkills(b, {})).map(([skillName, tier]) => `${skillName}:${tier}`));
       setBruteWeapons(entries(getTieredWeapons(b, {})).map(([weaponName, tier]) => `${weaponName}:${tier}`));
       setBrutePets(entries(getTieredPets(b)).map(([petName, tier]) => `${petName}:${tier}`));
-    }).catch(catchError(Alert));
-  }, [Alert, Server.Brute, bruteName, includeDeleted]);
+    }).catch((error) => {
+      setBrute(null);
+      catchError(Alert, error);
+    });
+  }, [Alert, Server.Brute, bruteIdentifier, includeDeleted]);
 
-  // Fetch brute on brute name change or includeDeleted change
+  // Fetch brute on brute identifier change or includeDeleted change
   useEffect(() => {
-    if (!bruteName) return undefined;
+    if (!bruteIdentifier) return undefined;
 
     const timeout = setTimeout(() => {
       updateBrute();
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [Alert, Server.Brute, bruteName, includeDeleted, updateBrute]);
+  }, [Alert, Server.Brute, bruteIdentifier, includeDeleted, updateBrute]);
 
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setBruteName(e.target.value.trim());
+    setBruteIdentifier(e.target.value.trim());
   }, []);
 
   // Save brute
   const saveBrute = useCallback(() => {
     if (!brute) return;
-    if (!bruteName) return;
+    if (!bruteIdentifier) return;
 
     const bruteData = {
       ...brute,
       user: undefined,
     };
 
-    Server.Brute.adminUpdate(bruteName, {
+    Server.Brute.adminUpdate(bruteIdentifier, {
       ...bruteData,
       destinyPath: {
         set: brute.destinyPath,
@@ -94,7 +97,7 @@ export const BruteAdminView = () => {
     }).then(() => {
       Alert.open('success', 'Brute saved');
     }).catch(catchError(Alert));
-  }, [Alert, Server.Brute, brute, bruteName]);
+  }, [Alert, Server.Brute, brute, bruteIdentifier]);
 
   // Give item
   const giveItem = useCallback(() => {
@@ -105,6 +108,27 @@ export const BruteAdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, Server.Brute, brute, item]);
 
+  // Delete brute
+  const deleteBrute = useCallback(() => {
+    if (!brute) return;
+
+    Server.Brute.delete({ id: brute.id }).then(() => {
+      Alert.open('success', 'Brute deleted');
+      setIncludeDeleted(true);
+      updateBrute();
+    }).catch(catchError(Alert));
+  }, [Alert, Server.Brute, brute, updateBrute]);
+
+  // Restore brute
+  const restoreBrute = useCallback(() => {
+    if (!brute) return;
+
+    Server.Brute.restore(brute.id).then(() => {
+      Alert.open('success', 'Brute restored');
+      updateBrute();
+    }).catch(catchError(Alert));
+  }, [Alert, Server.Brute, brute, updateBrute]);
+
   return (
     <Page title={t('adminPanel')} headerUrl="/">
       <Paper sx={{ mx: 4 }}>
@@ -114,7 +138,7 @@ export const BruteAdminView = () => {
         <Text bold h3 smallCaps color="secondary">Brute</Text>
         <StyledInput
           onChange={changeBruteName}
-          value={bruteName}
+          value={bruteIdentifier}
         />
         <FormControlLabel
           control={(
@@ -751,6 +775,11 @@ export const BruteAdminView = () => {
               </Grid>
             </Grid>
             <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
+            {!brute.deletedAt ? (
+              <FantasyButton color="error" onClick={deleteBrute}>Delete</FantasyButton>
+            ) : (
+              <FantasyButton color="warning" onClick={restoreBrute}>Restore</FantasyButton>
+            )}
             <Select
               variant="filled"
               value={item}

@@ -5,7 +5,7 @@ import { createUserLog } from '../createUserLog.js';
 import { translate } from '../translate.js';
 import { AuthedUser } from '../auth.js';
 import { ServerState } from '../ServerState.js';
-import { deleteUserBrutes } from './deleteUserBrutes.js';
+import { deleteBrutes } from './deleteUserBrutes.js';
 import { traced } from '../trace.js';
 
 export const banUser = async (
@@ -47,7 +47,7 @@ export const banUser = async (
   }
 
   // Delete all brutes
-  await deleteUserBrutes(prisma, user);
+  await deleteBrutes(prisma, user.brutes);
 
   // Ban user
   await traced('banUser.updateUser', () => prisma.user.update({

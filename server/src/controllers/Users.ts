@@ -42,7 +42,7 @@ import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
-import { deleteUserBrutes } from '../utils/user/deleteUserBrutes.js';
+import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
 import { ilike } from '../utils/ilike.js';
 import { traced } from '../utils/trace.js';
 
@@ -1078,7 +1078,7 @@ export const Users = {
         throw new ForbiddenError(translate('cannotDeleteSameDay', authed));
       }
 
-      await deleteUserBrutes(prisma, user);
+      await deleteBrutes(prisma, user.brutes);
 
       // Delete account (soft delete)
       await traced('users.deleteAccount.updateUser', () => prisma.user.update({

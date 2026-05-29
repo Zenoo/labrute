@@ -75,7 +75,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
   app.get('/api/brute/:name/for-hook', Brutes.getForHook(prisma));
-  app.get('/api/brute/:name/for-admin/:includeDeleted', Brutes.getForAdmin(prisma));
+  app.get('/api/brute/:identifier/for-admin/:includeDeleted', Brutes.getForAdmin(prisma));
   app.get('/api/brute/:name/fights-left', Brutes.getFightsLeft(prisma));
   app.get('/api/brute/:name/available', Brutes.isNameAvailable(prisma));
   app.put('/api/brute', Brutes.create(prisma));
@@ -101,6 +101,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.put('/api/brute/item', Brutes.giveItem(prisma));
   app.get('/api/brute/:name/master-clan-id', Brutes.getClanIdAsMaster(prisma));
   app.put('/api/brute/:name/update-event-round-watched/:fight', Brutes.updateEventRoundWatched(prisma));
+  app.delete('/api/brute/id/:id', Brutes.delete(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));
