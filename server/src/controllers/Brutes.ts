@@ -1710,7 +1710,33 @@ export const Brutes = {
       }));
 
       if (brutesWithSameName > 0) {
-        throw new LimitError(translate('anotherBruteHasThisName', user));
+        // Rename brute with _restored suffix
+        await traced('users.restore.updateBruteName', () => prisma.brute.update({
+          where: { id: brute.id },
+          data: {
+            name: `${brute.name}_restored`,
+          },
+        }));
+
+        // Add 1x free name change
+        await traced('users.restore.upsertInventoryItem', () => prisma.inventoryItem.upsert({
+          where: {
+            type_bruteId: {
+              type: InventoryItemType.nameChange,
+              bruteId: brute.id,
+            },
+          },
+          create: {
+            type: InventoryItemType.nameChange,
+            count: 1,
+            bruteId: brute.id,
+          },
+          update: {
+            count: {
+              increment: 1,
+            },
+          },
+        }));
       }
 
       // Restore the brute
