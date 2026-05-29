@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.95.18](https://github.com/Zenoo/labrute/compare/labrute-v2.95.17...labrute-v2.95.18) (2026-05-29)
+
+
+### Bug Fixes
+
+* Allow brute restoration with rename on conflict ([da81d8a](https://github.com/Zenoo/labrute/commit/da81d8aa986cdcbfbab0e6adb1d69bf41f738c9a))
+
 ## [2.95.17](https://github.com/Zenoo/labrute/compare/labrute-v2.95.16...labrute-v2.95.17) (2026-05-29)
 
 
