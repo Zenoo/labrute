@@ -14,5 +14,6 @@
   "banReason.innapropriateBruteName": "Nom de brute inapproprié",
   "banReason.multipleAccounts": "Comptes multiples",
   "banReason.unrecognized_fingerprint": "Empreinte digitale non reconnue",
-  "banReason.headers_tampering": "En-têtes altérés détectés"
+  "banReason.headers_tampering": "En-têtes altérés détectés",
+  "banReason.apiAbuse": "Abus d'API détecté"
 }

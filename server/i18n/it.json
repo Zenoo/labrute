@@ -116,6 +116,7 @@
   "banReason.multipleAccounts": "Account multipli",
   "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
   "banReason.headers_tampering": "Headers tampering detected",
+  "banReason.apiAbuse": "API abuse detected",
   "fingerprintBanned": "This fingerprint is banned",
   "ipBanned": "Il tuo IP è bannato",
   "fightNotFound": "Combattimento non trovato",
