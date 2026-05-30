@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.96.0](https://github.com/Zenoo/labrute/compare/labrute-v2.95.18...labrute-v2.96.0) (2026-05-30)
+
+
+### Features
+
+* Store validated shared browsers to avoid them being banned ([eca73a3](https://github.com/Zenoo/labrute/commit/eca73a3ee9f4c6debddc044310cb50cf2bd8ce28))
+
+
+### Bug Fixes
+
+* New visual reset icon ([f1b60ec](https://github.com/Zenoo/labrute/commit/f1b60ec49a6d372db8a1c7e62010fc0b808a8682))
+
 ## [2.95.18](https://github.com/Zenoo/labrute/compare/labrute-v2.95.17...labrute-v2.95.18) (2026-05-29)
 
 
