@@ -21,15 +21,18 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import dayjs from 'dayjs';
 import { useConfirm } from '../../hooks/useConfirm';
+import { useParams } from 'react-router';
+import { Link } from '../../components/Link';
 
 export const UserAdminView = () => {
   const { t } = useTranslation('admin');
+  const { id: urlUserId } = useParams();
   const Alert = useAlert();
   const { user: admin } = useAuth();
   const Server = useServer();
   const Confirm = useConfirm();
 
-  const [userIdOrName, setUserIdOrName] = useState('');
+  const [userIdOrName, setUserIdOrName] = useState(urlUserId ?? '');
   const [duplicates, setDuplicates] = useState<UserGetAdminResponse['duplicates']>([]);
   const [user, setUser] = useState<Omit<UserGetAdminResponse['user'], 'achievements'> | null>(null);
   const [achievements, setAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
@@ -70,6 +73,7 @@ export const UserAdminView = () => {
         brutes: u.brutes,
         otherUsersSharingFingerprints: u.otherUsersSharingFingerprints,
         otherUsersSharingBrowserIds: u.otherUsersSharingBrowserIds,
+        sharedBrowserId: u.sharedBrowserId,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference
@@ -87,6 +91,13 @@ export const UserAdminView = () => {
 
     return () => clearTimeout(timeout);
   }, [userIdOrName, updateUser]);
+
+  // Trigger user fetch when urlUserId changes
+  useEffect(() => {
+    if (urlUserId) {
+      setUserIdOrName(urlUserId);
+    }
+  }, [urlUserId]);
 
   // Save user
   const saveUser = useCallback(() => {
@@ -168,7 +179,11 @@ export const UserAdminView = () => {
                 {duplicates.map((dup) => (
                   <Box key={dup.id} sx={{ border: '1px solid', borderColor: 'warning.dark', borderRadius: 1, p: 1, mt: 1 }}>
                     <Text>
-                      {dup.name} ({dup.id}) - {dup.bannedAt ? `Banned at ${dayjs.utc(dup.bannedAt).format('YYYY-MM-DD HH:mm:ss')}, reason: ${dup.banReason}` : 'Not banned'}
+                      {dup.name} (
+                      <Link to={`/admin-panel/user/${dup.id}`}>
+                        {dup.id}
+                      </Link>
+                      ){dup.bannedAt ? ` - Banned at ${dayjs.utc(dup.bannedAt).format('YYYY-MM-DD HH:mm:ss')}, reason: ${dup.banReason}` : ''}
                     </Text>
                   </Box>
                 ))}
@@ -227,7 +242,7 @@ export const UserAdminView = () => {
                           <TableCell component="th" scope="row">
                             {brute.name}
                           </TableCell>
-                          <TableCell align="right">{brute.id}</TableCell>
+                          <TableCell align="right"><Link to={`/admin-panel/brute/${brute.id}`}>{brute.id}</Link></TableCell>
                           <TableCell align="right">{brute.deletedAt ? dayjs(brute.deletedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
                           <TableCell align="right">{brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : ''}</TableCell>
                         </TableRow>
@@ -258,7 +273,7 @@ export const UserAdminView = () => {
                           <TableCell component="th" scope="row">
                             {otherUser.name}
                           </TableCell>
-                          <TableCell align="right">{otherUser.id}</TableCell>
+                          <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
                           <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
                           <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
@@ -292,7 +307,7 @@ export const UserAdminView = () => {
                           <TableCell component="th" scope="row">
                             {otherUser.name}
                           </TableCell>
-                          <TableCell align="right">{otherUser.id}</TableCell>
+                          <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
                           <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.browserIds.map((b) => (user.browserIds.includes(b) ? `<b>${b}</b>` : b)).join('<br>') }} />
                           <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>

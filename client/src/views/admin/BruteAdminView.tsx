@@ -155,9 +155,11 @@ export const BruteAdminView = () => {
             {duplicates.map((dup) => (
               <Box key={dup.id} sx={{ border: '1px solid', borderColor: 'warning.dark', borderRadius: 1, p: 1, mt: 1 }}>
                 <Text>
-                  {dup.name} ({dup.id}) - {dup.deletedAt ? `Deleted at ${dayjs.utc(dup.deletedAt).format('YYYY-MM-DD HH:mm:ss')}, reason: ${dup.deletionReason}` : 'Not deleted'}
+                  {dup.name} (
+                  <Link to={`/admin-panel/brute/${dup.id}`}>{dup.id}</Link>
+                  ){dup.deletedAt ? ` - Deleted at ${dayjs.utc(dup.deletedAt).format('YYYY-MM-DD HH:mm:ss')}, reason: ${dup.deletionReason}` : ''}
                   {' '}
-                  ({dup.user?.name} {dup.user?.id})
+                  ({dup.user?.name} <Link to={`/admin-panel/user/${dup.user?.id}`}>{dup.user?.id}</Link>)
                 </Text>
               </Box>
             ))}
@@ -168,7 +170,7 @@ export const BruteAdminView = () => {
             <Text h2 smallCaps>
               <Link to={`/${brute.name}/cell`}>{brute.name}</Link> ({brute.id})
               {' '}
-              ({brute.user?.name} {brute.user?.id})
+              ({brute.user?.name} <Link to={`/admin-panel/user/${brute.user?.id}`}>{brute.user?.id}</Link>)
             </Text>
             <Box width={100}>
               <BruteRender brute={brute} />

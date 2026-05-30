@@ -54,9 +54,13 @@ model User {
   notifications          Notification[]
   reportsHandled         BruteReport[]    @relation("BruteReportHandler")
   logs                   UserLog[]
+  // Users sharing the same browser (big families) (manually updated)
+  sharedBrowser          SharedBrowser?   @relation(fields: [sharedBrowserId], references: [id])
+  sharedBrowserId        String?          @db.VarChar(255)
 
   @@index([lastSeen])
   @@index([bannedAt])
+  @@index([sharedBrowserId])
 }
 
 enum UserLogType {
@@ -750,6 +754,13 @@ model KnownFingerprint {
   id          String   @id @db.VarChar(255)
   description String?  @db.VarChar(500)
   createdAt   DateTime @default(now()) @db.Timestamp()
+}
+
+model SharedBrowser {
+  id          String   @id @db.VarChar(255)
+  description String?  @db.VarChar(500)
+  createdAt   DateTime @default(now()) @db.Timestamp()
+  users       User[]
 }
 
 enum BossName {

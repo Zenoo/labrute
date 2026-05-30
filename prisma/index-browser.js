@@ -142,7 +142,8 @@ exports.Prisma.UserScalarFieldEnum = {
   displayVersusPage: 'displayVersusPage',
   displayOpponentDetails: 'displayOpponentDetails',
   transferedBrutesCount: 'transferedBrutesCount',
-  lastSeen: 'lastSeen'
+  lastSeen: 'lastSeen',
+  sharedBrowserId: 'sharedBrowserId'
 };
 
 exports.Prisma.RelationLoadStrategy = {
@@ -365,6 +366,12 @@ exports.Prisma.BannedFingerprintScalarFieldEnum = {
 };
 
 exports.Prisma.KnownFingerprintScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SharedBrowserScalarFieldEnum = {
   id: 'id',
   description: 'description',
   createdAt: 'createdAt'
@@ -874,6 +881,7 @@ exports.Prisma.ModelName = {
   BannedIp: 'BannedIp',
   BannedFingerprint: 'BannedFingerprint',
   KnownFingerprint: 'KnownFingerprint',
+  SharedBrowser: 'SharedBrowser',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',

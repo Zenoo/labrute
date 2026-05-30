@@ -83,7 +83,7 @@ export const AdminView = () => {
             <FantasyButton color="error" onClick={deleteDailyTournaments}>DELETE DAILY TOURNAMENTS</FantasyButton>
             <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
             <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>
-            <FantasyButton color="secondary" to="/admin-panel/user">USER ADMIN</FantasyButton>
+            <FantasyButton color="secondary" to="/admin-panel/user/">USER ADMIN</FantasyButton>
             <FantasyButton color="secondary" to="/admin-panel/brute/">BRUTE ADMIN</FantasyButton>
             <FantasyButton color="primary" to="/admin-panel/report">REPORTS</FantasyButton>
             <FantasyButton color="error" to="/admin-panel/banned-users">BANLIST</FantasyButton>
@@ -91,6 +91,7 @@ export const AdminView = () => {
             <FantasyButton color="warning" to="/admin-panel/multiple-accounts">MULTIS</FantasyButton>
             <FantasyButton color="error" to="/admin-panel/config">CONFIG</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/user/logs/">USER LOGS</FantasyButton>
+            <FantasyButton color="warning" to="/admin-panel/shared-browser">SHARED BROWSER</FantasyButton>
           </Stack>
           <Divider />
           <Text bold h3 smallCaps color="secondary">Next modifiers</Text>

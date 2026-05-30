@@ -71,6 +71,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/user/disconnect', Users.disconnect(prisma));
   app.delete('/api/user', Users.deleteAccount(prisma));
   app.patch('/api/user/transfer-brute', Users.transferBrute(prisma));
+  app.get('/api/user/shared-browser/:id', Users.getSharedBrowser(prisma));
+  app.patch('/api/user/shared-browser', Users.editSharedBrowser(prisma));
+  app.delete('/api/user/shared-browser/:id', Users.deleteSharedBrowser(prisma));
 
   // Brute
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));

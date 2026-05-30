@@ -1,6 +1,7 @@
 import {
-  AchievementData, BruteDeletionReason, ExpectedError,
+  AchievementData, BruteDeletionReason, EditSharedBrowserRequest, ExpectedError,
   ForbiddenError,
+  GetSharedBrowserResponse,
   InvalidAPIUseError,
   KnownFingerprintAddRequest,
   KnownFingerprintListResponse,
@@ -1294,6 +1295,92 @@ export const Users = {
       }
 
       await ServerState.removeKnownFingerprint(prisma, req.body.fingerprint);
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getSharedBrowser: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response<GetSharedBrowserResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!isUuid(req.params.id)) {
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
+      }
+
+      const sharedBrowser = await prisma.sharedBrowser.findFirst({
+        where: {
+          id: req.params.id,
+        },
+        include: {
+          users: {
+            select: { id: true, name: true },
+          },
+        },
+      });
+
+      if (!sharedBrowser) {
+        throw new NotFoundError(translate('sharedBrowserNotFound', authed));
+      }
+
+      res.send(sharedBrowser);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  editSharedBrowser: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, EditSharedBrowserRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!isUuid(req.body.id) || !req.body.users.every((userId) => isUuid(userId))) {
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
+      }
+
+      await prisma.sharedBrowser.upsert({
+        where: { id: req.body.id },
+        create: {
+          id: req.body.id,
+          description: req.body.description,
+          users: {
+            connect: req.body.users.map((userId) => ({ id: userId })),
+          },
+        },
+        update: {
+          users: {
+            set: req.body.users.map((userId) => ({ id: userId })),
+          },
+          description: req.body.description,
+        },
+      });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  deleteSharedBrowser: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!isUuid(req.params.id)) {
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
+      }
+
+      await prisma.sharedBrowser.delete({
+        where: {
+          id: req.params.id,
+        },
+      });
 
       res.send({ success: true });
     } catch (error) {

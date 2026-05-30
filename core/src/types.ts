@@ -2,7 +2,7 @@ import {
   Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason,
   BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender,
-  InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SkillName,
+  InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SharedBrowser, SkillName,
   Tournament, User, UserLog, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
@@ -673,6 +673,15 @@ export type BruteUnlockColorResponse = {
 };
 export type BruteDeleteRequest = {
   id: string;
+};
+
+export type GetSharedBrowserResponse = SharedBrowser & {
+  users: Pick<User, 'id' | 'name'>[],
+}
+export type EditSharedBrowserRequest = {
+  id: string;
+  users: string[];
+  description?: string;
 };
 
 export type TournamentHistoryResponse = (Pick<

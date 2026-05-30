@@ -114,6 +114,11 @@ export type BannedFingerprint = $Result.DefaultSelection<Prisma.$BannedFingerpri
  */
 export type KnownFingerprint = $Result.DefaultSelection<Prisma.$KnownFingerprintPayload>
 /**
+ * Model SharedBrowser
+ * 
+ */
+export type SharedBrowser = $Result.DefaultSelection<Prisma.$SharedBrowserPayload>
+/**
  * Model Clan
  * 
  */
@@ -1030,6 +1035,16 @@ export class PrismaClient<
   get knownFingerprint(): Prisma.KnownFingerprintDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.sharedBrowser`: Exposes CRUD operations for the **SharedBrowser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SharedBrowsers
+    * const sharedBrowsers = await prisma.sharedBrowser.findMany()
+    * ```
+    */
+  get sharedBrowser(): Prisma.SharedBrowserDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
     * Example usage:
     * ```ts
@@ -1609,6 +1624,7 @@ export namespace Prisma {
     BannedIp: 'BannedIp',
     BannedFingerprint: 'BannedFingerprint',
     KnownFingerprint: 'KnownFingerprint',
+    SharedBrowser: 'SharedBrowser',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
     ClanPost: 'ClanPost',
@@ -1639,7 +1655,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3123,6 +3139,80 @@ export namespace Prisma {
           }
         }
       }
+      SharedBrowser: {
+        payload: Prisma.$SharedBrowserPayload<ExtArgs>
+        fields: Prisma.SharedBrowserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SharedBrowserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SharedBrowserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>
+          }
+          findFirst: {
+            args: Prisma.SharedBrowserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SharedBrowserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>
+          }
+          findMany: {
+            args: Prisma.SharedBrowserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>[]
+          }
+          create: {
+            args: Prisma.SharedBrowserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>
+          }
+          createMany: {
+            args: Prisma.SharedBrowserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SharedBrowserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>[]
+          }
+          delete: {
+            args: Prisma.SharedBrowserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>
+          }
+          update: {
+            args: Prisma.SharedBrowserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>
+          }
+          deleteMany: {
+            args: Prisma.SharedBrowserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SharedBrowserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SharedBrowserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>[]
+          }
+          upsert: {
+            args: Prisma.SharedBrowserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserPayload>
+          }
+          aggregate: {
+            args: Prisma.SharedBrowserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSharedBrowser>
+          }
+          groupBy: {
+            args: Prisma.SharedBrowserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SharedBrowserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SharedBrowserCountArgs<ExtArgs>
+            result: $Utils.Optional<SharedBrowserCountAggregateOutputType> | number
+          }
+        }
+      }
       Clan: {
         payload: Prisma.$ClanPayload<ExtArgs>
         fields: Prisma.ClanFieldRefs
@@ -4127,6 +4217,7 @@ export namespace Prisma {
     bannedIp?: BannedIpOmit
     bannedFingerprint?: BannedFingerprintOmit
     knownFingerprint?: KnownFingerprintOmit
+    sharedBrowser?: SharedBrowserOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
     clanPost?: ClanPostOmit
@@ -4689,6 +4780,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SharedBrowserCountOutputType
+   */
+
+  export type SharedBrowserCountOutputType = {
+    users: number
+  }
+
+  export type SharedBrowserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | SharedBrowserCountOutputTypeCountUsersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SharedBrowserCountOutputType without action
+   */
+  export type SharedBrowserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserCountOutputType
+     */
+    select?: SharedBrowserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SharedBrowserCountOutputType without action
+   */
+  export type SharedBrowserCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+
+  /**
    * Count Type ClanCountOutputType
    */
 
@@ -5004,6 +5126,7 @@ export namespace Prisma {
     displayOpponentDetails: boolean | null
     transferedBrutesCount: number | null
     lastSeen: Date | null
+    sharedBrowserId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -5025,6 +5148,7 @@ export namespace Prisma {
     displayOpponentDetails: boolean | null
     transferedBrutesCount: number | null
     lastSeen: Date | null
+    sharedBrowserId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -5049,6 +5173,7 @@ export namespace Prisma {
     displayOpponentDetails: number
     transferedBrutesCount: number
     lastSeen: number
+    sharedBrowserId: number
     _all: number
   }
 
@@ -5086,6 +5211,7 @@ export namespace Prisma {
     displayOpponentDetails?: true
     transferedBrutesCount?: true
     lastSeen?: true
+    sharedBrowserId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -5107,6 +5233,7 @@ export namespace Prisma {
     displayOpponentDetails?: true
     transferedBrutesCount?: true
     lastSeen?: true
+    sharedBrowserId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -5131,6 +5258,7 @@ export namespace Prisma {
     displayOpponentDetails?: true
     transferedBrutesCount?: true
     lastSeen?: true
+    sharedBrowserId?: true
     _all?: true
   }
 
@@ -5242,6 +5370,7 @@ export namespace Prisma {
     displayOpponentDetails: boolean
     transferedBrutesCount: number
     lastSeen: Date
+    sharedBrowserId: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -5285,6 +5414,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     lastSeen?: boolean
+    sharedBrowserId?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -5295,6 +5425,7 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     reportsHandled?: boolean | User$reportsHandledArgs<ExtArgs>
     logs?: boolean | User$logsArgs<ExtArgs>
+    sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5320,6 +5451,8 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     lastSeen?: boolean
+    sharedBrowserId?: boolean
+    sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5344,6 +5477,8 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     lastSeen?: boolean
+    sharedBrowserId?: boolean
+    sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -5368,9 +5503,10 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     lastSeen?: boolean
+    sharedBrowserId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "lastSeen", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -5382,10 +5518,15 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     reportsHandled?: boolean | User$reportsHandledArgs<ExtArgs>
     logs?: boolean | User$logsArgs<ExtArgs>
+    sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -5400,6 +5541,7 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       reportsHandled: Prisma.$BruteReportPayload<ExtArgs>[]
       logs: Prisma.$UserLogPayload<ExtArgs>[]
+      sharedBrowser: Prisma.$SharedBrowserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5423,6 +5565,7 @@ export namespace Prisma {
       displayOpponentDetails: boolean
       transferedBrutesCount: number
       lastSeen: Date
+      sharedBrowserId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5827,6 +5970,7 @@ export namespace Prisma {
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reportsHandled<T extends User$reportsHandledArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsHandledArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     logs<T extends User$logsArgs<ExtArgs> = {}>(args?: Subset<T, User$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sharedBrowser<T extends User$sharedBrowserArgs<ExtArgs> = {}>(args?: Subset<T, User$sharedBrowserArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5877,6 +6021,7 @@ export namespace Prisma {
     readonly displayOpponentDetails: FieldRef<"User", 'Boolean'>
     readonly transferedBrutesCount: FieldRef<"User", 'Int'>
     readonly lastSeen: FieldRef<"User", 'DateTime'>
+    readonly sharedBrowserId: FieldRef<"User", 'String'>
   }
     
 
@@ -6132,6 +6277,10 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6203,6 +6352,10 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6511,6 +6664,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserLogScalarFieldEnum | UserLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.sharedBrowser
+   */
+  export type User$sharedBrowserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    where?: SharedBrowserWhereInput
   }
 
   /**
@@ -29202,6 +29374,1059 @@ export namespace Prisma {
 
 
   /**
+   * Model SharedBrowser
+   */
+
+  export type AggregateSharedBrowser = {
+    _count: SharedBrowserCountAggregateOutputType | null
+    _min: SharedBrowserMinAggregateOutputType | null
+    _max: SharedBrowserMaxAggregateOutputType | null
+  }
+
+  export type SharedBrowserMinAggregateOutputType = {
+    id: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type SharedBrowserMaxAggregateOutputType = {
+    id: string | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type SharedBrowserCountAggregateOutputType = {
+    id: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SharedBrowserMinAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type SharedBrowserMaxAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type SharedBrowserCountAggregateInputType = {
+    id?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SharedBrowserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SharedBrowser to aggregate.
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowsers to fetch.
+     */
+    orderBy?: SharedBrowserOrderByWithRelationInput | SharedBrowserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SharedBrowserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SharedBrowsers
+    **/
+    _count?: true | SharedBrowserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SharedBrowserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SharedBrowserMaxAggregateInputType
+  }
+
+  export type GetSharedBrowserAggregateType<T extends SharedBrowserAggregateArgs> = {
+        [P in keyof T & keyof AggregateSharedBrowser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSharedBrowser[P]>
+      : GetScalarType<T[P], AggregateSharedBrowser[P]>
+  }
+
+
+
+
+  export type SharedBrowserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedBrowserWhereInput
+    orderBy?: SharedBrowserOrderByWithAggregationInput | SharedBrowserOrderByWithAggregationInput[]
+    by: SharedBrowserScalarFieldEnum[] | SharedBrowserScalarFieldEnum
+    having?: SharedBrowserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SharedBrowserCountAggregateInputType | true
+    _min?: SharedBrowserMinAggregateInputType
+    _max?: SharedBrowserMaxAggregateInputType
+  }
+
+  export type SharedBrowserGroupByOutputType = {
+    id: string
+    description: string | null
+    createdAt: Date
+    _count: SharedBrowserCountAggregateOutputType | null
+    _min: SharedBrowserMinAggregateOutputType | null
+    _max: SharedBrowserMaxAggregateOutputType | null
+  }
+
+  type GetSharedBrowserGroupByPayload<T extends SharedBrowserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SharedBrowserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SharedBrowserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SharedBrowserGroupByOutputType[P]>
+            : GetScalarType<T[P], SharedBrowserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SharedBrowserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+    users?: boolean | SharedBrowser$usersArgs<ExtArgs>
+    _count?: boolean | SharedBrowserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sharedBrowser"]>
+
+  export type SharedBrowserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["sharedBrowser"]>
+
+  export type SharedBrowserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["sharedBrowser"]>
+
+  export type SharedBrowserSelectScalar = {
+    id?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type SharedBrowserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "createdAt", ExtArgs["result"]["sharedBrowser"]>
+  export type SharedBrowserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | SharedBrowser$usersArgs<ExtArgs>
+    _count?: boolean | SharedBrowserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SharedBrowserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SharedBrowserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SharedBrowserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SharedBrowser"
+    objects: {
+      users: Prisma.$UserPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      description: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["sharedBrowser"]>
+    composites: {}
+  }
+
+  type SharedBrowserGetPayload<S extends boolean | null | undefined | SharedBrowserDefaultArgs> = $Result.GetResult<Prisma.$SharedBrowserPayload, S>
+
+  type SharedBrowserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SharedBrowserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: SharedBrowserCountAggregateInputType | true
+    }
+
+  export interface SharedBrowserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SharedBrowser'], meta: { name: 'SharedBrowser' } }
+    /**
+     * Find zero or one SharedBrowser that matches the filter.
+     * @param {SharedBrowserFindUniqueArgs} args - Arguments to find a SharedBrowser
+     * @example
+     * // Get one SharedBrowser
+     * const sharedBrowser = await prisma.sharedBrowser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SharedBrowserFindUniqueArgs>(args: SelectSubset<T, SharedBrowserFindUniqueArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SharedBrowser that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SharedBrowserFindUniqueOrThrowArgs} args - Arguments to find a SharedBrowser
+     * @example
+     * // Get one SharedBrowser
+     * const sharedBrowser = await prisma.sharedBrowser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SharedBrowserFindUniqueOrThrowArgs>(args: SelectSubset<T, SharedBrowserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SharedBrowser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserFindFirstArgs} args - Arguments to find a SharedBrowser
+     * @example
+     * // Get one SharedBrowser
+     * const sharedBrowser = await prisma.sharedBrowser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SharedBrowserFindFirstArgs>(args?: SelectSubset<T, SharedBrowserFindFirstArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SharedBrowser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserFindFirstOrThrowArgs} args - Arguments to find a SharedBrowser
+     * @example
+     * // Get one SharedBrowser
+     * const sharedBrowser = await prisma.sharedBrowser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SharedBrowserFindFirstOrThrowArgs>(args?: SelectSubset<T, SharedBrowserFindFirstOrThrowArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SharedBrowsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SharedBrowsers
+     * const sharedBrowsers = await prisma.sharedBrowser.findMany()
+     * 
+     * // Get first 10 SharedBrowsers
+     * const sharedBrowsers = await prisma.sharedBrowser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sharedBrowserWithIdOnly = await prisma.sharedBrowser.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SharedBrowserFindManyArgs>(args?: SelectSubset<T, SharedBrowserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SharedBrowser.
+     * @param {SharedBrowserCreateArgs} args - Arguments to create a SharedBrowser.
+     * @example
+     * // Create one SharedBrowser
+     * const SharedBrowser = await prisma.sharedBrowser.create({
+     *   data: {
+     *     // ... data to create a SharedBrowser
+     *   }
+     * })
+     * 
+     */
+    create<T extends SharedBrowserCreateArgs>(args: SelectSubset<T, SharedBrowserCreateArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SharedBrowsers.
+     * @param {SharedBrowserCreateManyArgs} args - Arguments to create many SharedBrowsers.
+     * @example
+     * // Create many SharedBrowsers
+     * const sharedBrowser = await prisma.sharedBrowser.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SharedBrowserCreateManyArgs>(args?: SelectSubset<T, SharedBrowserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SharedBrowsers and returns the data saved in the database.
+     * @param {SharedBrowserCreateManyAndReturnArgs} args - Arguments to create many SharedBrowsers.
+     * @example
+     * // Create many SharedBrowsers
+     * const sharedBrowser = await prisma.sharedBrowser.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SharedBrowsers and only return the `id`
+     * const sharedBrowserWithIdOnly = await prisma.sharedBrowser.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SharedBrowserCreateManyAndReturnArgs>(args?: SelectSubset<T, SharedBrowserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SharedBrowser.
+     * @param {SharedBrowserDeleteArgs} args - Arguments to delete one SharedBrowser.
+     * @example
+     * // Delete one SharedBrowser
+     * const SharedBrowser = await prisma.sharedBrowser.delete({
+     *   where: {
+     *     // ... filter to delete one SharedBrowser
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SharedBrowserDeleteArgs>(args: SelectSubset<T, SharedBrowserDeleteArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SharedBrowser.
+     * @param {SharedBrowserUpdateArgs} args - Arguments to update one SharedBrowser.
+     * @example
+     * // Update one SharedBrowser
+     * const sharedBrowser = await prisma.sharedBrowser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SharedBrowserUpdateArgs>(args: SelectSubset<T, SharedBrowserUpdateArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SharedBrowsers.
+     * @param {SharedBrowserDeleteManyArgs} args - Arguments to filter SharedBrowsers to delete.
+     * @example
+     * // Delete a few SharedBrowsers
+     * const { count } = await prisma.sharedBrowser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SharedBrowserDeleteManyArgs>(args?: SelectSubset<T, SharedBrowserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SharedBrowsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SharedBrowsers
+     * const sharedBrowser = await prisma.sharedBrowser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SharedBrowserUpdateManyArgs>(args: SelectSubset<T, SharedBrowserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SharedBrowsers and returns the data updated in the database.
+     * @param {SharedBrowserUpdateManyAndReturnArgs} args - Arguments to update many SharedBrowsers.
+     * @example
+     * // Update many SharedBrowsers
+     * const sharedBrowser = await prisma.sharedBrowser.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SharedBrowsers and only return the `id`
+     * const sharedBrowserWithIdOnly = await prisma.sharedBrowser.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SharedBrowserUpdateManyAndReturnArgs>(args: SelectSubset<T, SharedBrowserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SharedBrowser.
+     * @param {SharedBrowserUpsertArgs} args - Arguments to update or create a SharedBrowser.
+     * @example
+     * // Update or create a SharedBrowser
+     * const sharedBrowser = await prisma.sharedBrowser.upsert({
+     *   create: {
+     *     // ... data to create a SharedBrowser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SharedBrowser we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SharedBrowserUpsertArgs>(args: SelectSubset<T, SharedBrowserUpsertArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SharedBrowsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserCountArgs} args - Arguments to filter SharedBrowsers to count.
+     * @example
+     * // Count the number of SharedBrowsers
+     * const count = await prisma.sharedBrowser.count({
+     *   where: {
+     *     // ... the filter for the SharedBrowsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SharedBrowserCountArgs>(
+      args?: Subset<T, SharedBrowserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SharedBrowserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SharedBrowser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SharedBrowserAggregateArgs>(args: Subset<T, SharedBrowserAggregateArgs>): Prisma.PrismaPromise<GetSharedBrowserAggregateType<T>>
+
+    /**
+     * Group by SharedBrowser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SharedBrowserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SharedBrowserGroupByArgs['orderBy'] }
+        : { orderBy?: SharedBrowserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SharedBrowserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSharedBrowserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SharedBrowser model
+   */
+  readonly fields: SharedBrowserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SharedBrowser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SharedBrowserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends SharedBrowser$usersArgs<ExtArgs> = {}>(args?: Subset<T, SharedBrowser$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SharedBrowser model
+   */
+  interface SharedBrowserFieldRefs {
+    readonly id: FieldRef<"SharedBrowser", 'String'>
+    readonly description: FieldRef<"SharedBrowser", 'String'>
+    readonly createdAt: FieldRef<"SharedBrowser", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SharedBrowser findUnique
+   */
+  export type SharedBrowserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowser to fetch.
+     */
+    where: SharedBrowserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser findUniqueOrThrow
+   */
+  export type SharedBrowserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowser to fetch.
+     */
+    where: SharedBrowserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser findFirst
+   */
+  export type SharedBrowserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowser to fetch.
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowsers to fetch.
+     */
+    orderBy?: SharedBrowserOrderByWithRelationInput | SharedBrowserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SharedBrowsers.
+     */
+    cursor?: SharedBrowserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SharedBrowsers.
+     */
+    distinct?: SharedBrowserScalarFieldEnum | SharedBrowserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser findFirstOrThrow
+   */
+  export type SharedBrowserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowser to fetch.
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowsers to fetch.
+     */
+    orderBy?: SharedBrowserOrderByWithRelationInput | SharedBrowserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SharedBrowsers.
+     */
+    cursor?: SharedBrowserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SharedBrowsers.
+     */
+    distinct?: SharedBrowserScalarFieldEnum | SharedBrowserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser findMany
+   */
+  export type SharedBrowserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowsers to fetch.
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowsers to fetch.
+     */
+    orderBy?: SharedBrowserOrderByWithRelationInput | SharedBrowserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SharedBrowsers.
+     */
+    cursor?: SharedBrowserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowsers.
+     */
+    skip?: number
+    distinct?: SharedBrowserScalarFieldEnum | SharedBrowserScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser create
+   */
+  export type SharedBrowserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SharedBrowser.
+     */
+    data: XOR<SharedBrowserCreateInput, SharedBrowserUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser createMany
+   */
+  export type SharedBrowserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SharedBrowsers.
+     */
+    data: SharedBrowserCreateManyInput | SharedBrowserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SharedBrowser createManyAndReturn
+   */
+  export type SharedBrowserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * The data used to create many SharedBrowsers.
+     */
+    data: SharedBrowserCreateManyInput | SharedBrowserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SharedBrowser update
+   */
+  export type SharedBrowserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SharedBrowser.
+     */
+    data: XOR<SharedBrowserUpdateInput, SharedBrowserUncheckedUpdateInput>
+    /**
+     * Choose, which SharedBrowser to update.
+     */
+    where: SharedBrowserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser updateMany
+   */
+  export type SharedBrowserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SharedBrowsers.
+     */
+    data: XOR<SharedBrowserUpdateManyMutationInput, SharedBrowserUncheckedUpdateManyInput>
+    /**
+     * Filter which SharedBrowsers to update
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * Limit how many SharedBrowsers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedBrowser updateManyAndReturn
+   */
+  export type SharedBrowserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * The data used to update SharedBrowsers.
+     */
+    data: XOR<SharedBrowserUpdateManyMutationInput, SharedBrowserUncheckedUpdateManyInput>
+    /**
+     * Filter which SharedBrowsers to update
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * Limit how many SharedBrowsers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedBrowser upsert
+   */
+  export type SharedBrowserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SharedBrowser to update in case it exists.
+     */
+    where: SharedBrowserWhereUniqueInput
+    /**
+     * In case the SharedBrowser found by the `where` argument doesn't exist, create a new SharedBrowser with this data.
+     */
+    create: XOR<SharedBrowserCreateInput, SharedBrowserUncheckedCreateInput>
+    /**
+     * In case the SharedBrowser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SharedBrowserUpdateInput, SharedBrowserUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser delete
+   */
+  export type SharedBrowserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+    /**
+     * Filter which SharedBrowser to delete.
+     */
+    where: SharedBrowserWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowser deleteMany
+   */
+  export type SharedBrowserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SharedBrowsers to delete
+     */
+    where?: SharedBrowserWhereInput
+    /**
+     * Limit how many SharedBrowsers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedBrowser.users
+   */
+  export type SharedBrowser$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * SharedBrowser without action
+   */
+  export type SharedBrowserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowser
+     */
+    select?: SharedBrowserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowser
+     */
+    omit?: SharedBrowserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Clan
    */
 
@@ -43013,7 +44238,8 @@ export namespace Prisma {
     displayVersusPage: 'displayVersusPage',
     displayOpponentDetails: 'displayOpponentDetails',
     transferedBrutesCount: 'transferedBrutesCount',
-    lastSeen: 'lastSeen'
+    lastSeen: 'lastSeen',
+    sharedBrowserId: 'sharedBrowserId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -43302,6 +44528,15 @@ export namespace Prisma {
   };
 
   export type KnownFingerprintScalarFieldEnum = (typeof KnownFingerprintScalarFieldEnum)[keyof typeof KnownFingerprintScalarFieldEnum]
+
+
+  export const SharedBrowserScalarFieldEnum: {
+    id: 'id',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type SharedBrowserScalarFieldEnum = (typeof SharedBrowserScalarFieldEnum)[keyof typeof SharedBrowserScalarFieldEnum]
 
 
   export const ClanScalarFieldEnum: {
@@ -43892,6 +45127,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
     lastSeen?: DateTimeFilter<"User"> | Date | string
+    sharedBrowserId?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -43902,6 +45138,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     reportsHandled?: BruteReportListRelationFilter
     logs?: UserLogListRelationFilter
+    sharedBrowser?: XOR<SharedBrowserNullableScalarRelationFilter, SharedBrowserWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -43926,6 +45163,7 @@ export namespace Prisma {
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
+    sharedBrowserId?: SortOrderInput | SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -43936,6 +45174,7 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     reportsHandled?: BruteReportOrderByRelationAggregateInput
     logs?: UserLogOrderByRelationAggregateInput
+    sharedBrowser?: SharedBrowserOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -43963,6 +45202,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
     lastSeen?: DateTimeFilter<"User"> | Date | string
+    sharedBrowserId?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -43973,6 +45213,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     reportsHandled?: BruteReportListRelationFilter
     logs?: UserLogListRelationFilter
+    sharedBrowser?: XOR<SharedBrowserNullableScalarRelationFilter, SharedBrowserWhereInput> | null
   }, "id" | "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -43997,6 +45238,7 @@ export namespace Prisma {
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
+    sharedBrowserId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -44029,6 +45271,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolWithAggregatesFilter<"User"> | boolean
     transferedBrutesCount?: IntWithAggregatesFilter<"User"> | number
     lastSeen?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    sharedBrowserId?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type UserLogWhereInput = {
@@ -45562,6 +46805,51 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"KnownFingerprint"> | Date | string
   }
 
+  export type SharedBrowserWhereInput = {
+    AND?: SharedBrowserWhereInput | SharedBrowserWhereInput[]
+    OR?: SharedBrowserWhereInput[]
+    NOT?: SharedBrowserWhereInput | SharedBrowserWhereInput[]
+    id?: StringFilter<"SharedBrowser"> | string
+    description?: StringNullableFilter<"SharedBrowser"> | string | null
+    createdAt?: DateTimeFilter<"SharedBrowser"> | Date | string
+    users?: UserListRelationFilter
+  }
+
+  export type SharedBrowserOrderByWithRelationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    users?: UserOrderByRelationAggregateInput
+  }
+
+  export type SharedBrowserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SharedBrowserWhereInput | SharedBrowserWhereInput[]
+    OR?: SharedBrowserWhereInput[]
+    NOT?: SharedBrowserWhereInput | SharedBrowserWhereInput[]
+    description?: StringNullableFilter<"SharedBrowser"> | string | null
+    createdAt?: DateTimeFilter<"SharedBrowser"> | Date | string
+    users?: UserListRelationFilter
+  }, "id">
+
+  export type SharedBrowserOrderByWithAggregationInput = {
+    id?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SharedBrowserCountOrderByAggregateInput
+    _max?: SharedBrowserMaxOrderByAggregateInput
+    _min?: SharedBrowserMinOrderByAggregateInput
+  }
+
+  export type SharedBrowserScalarWhereWithAggregatesInput = {
+    AND?: SharedBrowserScalarWhereWithAggregatesInput | SharedBrowserScalarWhereWithAggregatesInput[]
+    OR?: SharedBrowserScalarWhereWithAggregatesInput[]
+    NOT?: SharedBrowserScalarWhereWithAggregatesInput | SharedBrowserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SharedBrowser"> | string
+    description?: StringNullableWithAggregatesFilter<"SharedBrowser"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"SharedBrowser"> | Date | string
+  }
+
   export type ClanWhereInput = {
     AND?: ClanWhereInput | ClanWhereInput[]
     OR?: ClanWhereInput[]
@@ -46403,6 +47691,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -46427,6 +47716,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -46471,6 +47761,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -46495,6 +47786,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -46529,6 +47821,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -46577,6 +47870,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserLogCreateInput = {
@@ -48216,6 +49510,52 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SharedBrowserCreateInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+    users?: UserCreateNestedManyWithoutSharedBrowserInput
+  }
+
+  export type SharedBrowserUncheckedCreateInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutSharedBrowserInput
+  }
+
+  export type SharedBrowserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutSharedBrowserNestedInput
+  }
+
+  export type SharedBrowserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutSharedBrowserNestedInput
+  }
+
+  export type SharedBrowserCreateManyInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SharedBrowserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedBrowserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ClanCreateInput = {
     id?: string
     name: string
@@ -49177,6 +50517,11 @@ export namespace Prisma {
     none?: UserLogWhereInput
   }
 
+  export type SharedBrowserNullableScalarRelationFilter = {
+    is?: SharedBrowserWhereInput | null
+    isNot?: SharedBrowserWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -49236,6 +50581,7 @@ export namespace Prisma {
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
+    sharedBrowserId?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -49264,6 +50610,7 @@ export namespace Prisma {
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
+    sharedBrowserId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -49285,6 +50632,7 @@ export namespace Prisma {
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     lastSeen?: SortOrder
+    sharedBrowserId?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -50734,6 +52082,24 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type SharedBrowserCountOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SharedBrowserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SharedBrowserMinOrderByAggregateInput = {
+    id?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type EnumBossNameFilter<$PrismaModel = never> = {
     equals?: $Enums.BossName | EnumBossNameFieldRefInput<$PrismaModel>
     in?: $Enums.BossName[] | ListEnumBossNameFieldRefInput<$PrismaModel>
@@ -51398,6 +52764,12 @@ export namespace Prisma {
     connect?: UserLogWhereUniqueInput | UserLogWhereUniqueInput[]
   }
 
+  export type SharedBrowserCreateNestedOneWithoutUsersInput = {
+    create?: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: SharedBrowserCreateOrConnectWithoutUsersInput
+    connect?: SharedBrowserWhereUniqueInput
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -51647,6 +53019,16 @@ export namespace Prisma {
     update?: UserLogUpdateWithWhereUniqueWithoutUserInput | UserLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserLogUpdateManyWithWhereWithoutUserInput | UserLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserLogScalarWhereInput | UserLogScalarWhereInput[]
+  }
+
+  export type SharedBrowserUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: SharedBrowserCreateOrConnectWithoutUsersInput
+    upsert?: SharedBrowserUpsertWithoutUsersInput
+    disconnect?: SharedBrowserWhereInput | boolean
+    delete?: SharedBrowserWhereInput | boolean
+    connect?: SharedBrowserWhereUniqueInput
+    update?: XOR<XOR<SharedBrowserUpdateToOneWithWhereWithoutUsersInput, SharedBrowserUpdateWithoutUsersInput>, SharedBrowserUncheckedUpdateWithoutUsersInput>
   }
 
   export type BruteUncheckedUpdateManyWithoutUserNestedInput = {
@@ -53615,6 +54997,48 @@ export namespace Prisma {
   export type ServerStateUpdatenextModifiersInput = {
     set?: $Enums.FightModifier[]
     push?: $Enums.FightModifier | $Enums.FightModifier[]
+  }
+
+  export type UserCreateNestedManyWithoutSharedBrowserInput = {
+    create?: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput> | UserCreateWithoutSharedBrowserInput[] | UserUncheckedCreateWithoutSharedBrowserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserInput | UserCreateOrConnectWithoutSharedBrowserInput[]
+    createMany?: UserCreateManySharedBrowserInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutSharedBrowserInput = {
+    create?: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput> | UserCreateWithoutSharedBrowserInput[] | UserUncheckedCreateWithoutSharedBrowserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserInput | UserCreateOrConnectWithoutSharedBrowserInput[]
+    createMany?: UserCreateManySharedBrowserInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUpdateManyWithoutSharedBrowserNestedInput = {
+    create?: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput> | UserCreateWithoutSharedBrowserInput[] | UserUncheckedCreateWithoutSharedBrowserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserInput | UserCreateOrConnectWithoutSharedBrowserInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutSharedBrowserInput | UserUpsertWithWhereUniqueWithoutSharedBrowserInput[]
+    createMany?: UserCreateManySharedBrowserInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutSharedBrowserInput | UserUpdateWithWhereUniqueWithoutSharedBrowserInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutSharedBrowserInput | UserUpdateManyWithWhereWithoutSharedBrowserInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutSharedBrowserNestedInput = {
+    create?: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput> | UserCreateWithoutSharedBrowserInput[] | UserUncheckedCreateWithoutSharedBrowserInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserInput | UserCreateOrConnectWithoutSharedBrowserInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutSharedBrowserInput | UserUpsertWithWhereUniqueWithoutSharedBrowserInput[]
+    createMany?: UserCreateManySharedBrowserInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutSharedBrowserInput | UserUpdateWithWhereUniqueWithoutSharedBrowserInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutSharedBrowserInput | UserUpdateManyWithWhereWithoutSharedBrowserInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutMasterOfClanInput = {
@@ -55751,6 +57175,23 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SharedBrowserCreateWithoutUsersInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SharedBrowserUncheckedCreateWithoutUsersInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type SharedBrowserCreateOrConnectWithoutUsersInput = {
+    where: SharedBrowserWhereUniqueInput
+    create: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
+  }
+
   export type BruteUpsertWithWhereUniqueWithoutUserInput = {
     where: BruteWhereUniqueInput
     update: XOR<BruteUpdateWithoutUserInput, BruteUncheckedUpdateWithoutUserInput>
@@ -56070,6 +57511,29 @@ export namespace Prisma {
     targetUserId?: UuidNullableFilter<"UserLog"> | string | null
   }
 
+  export type SharedBrowserUpsertWithoutUsersInput = {
+    update: XOR<SharedBrowserUpdateWithoutUsersInput, SharedBrowserUncheckedUpdateWithoutUsersInput>
+    create: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
+    where?: SharedBrowserWhereInput
+  }
+
+  export type SharedBrowserUpdateToOneWithWhereWithoutUsersInput = {
+    where?: SharedBrowserWhereInput
+    data: XOR<SharedBrowserUpdateWithoutUsersInput, SharedBrowserUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type SharedBrowserUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedBrowserUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutLogsInput = {
     id: string
     lang?: $Enums.Lang
@@ -56101,6 +57565,7 @@ export namespace Prisma {
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutLogsInput = {
@@ -56125,6 +57590,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -56356,6 +57822,7 @@ export namespace Prisma {
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLogsInput = {
@@ -56380,6 +57847,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -56601,6 +58069,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutBrutesInput = {
@@ -56625,6 +58094,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -57936,6 +59406,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -57960,6 +59431,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -58209,6 +59681,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBrutesInput = {
@@ -58233,6 +59706,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -59005,6 +60479,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
     lastSeen?: DateTimeFilter<"User"> | Date | string
+    sharedBrowserId?: StringNullableFilter<"User"> | string | null
   }
 
   export type ClanWarFightersUpsertWithWhereUniqueWithoutAttackersInput = {
@@ -60345,6 +61820,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteFightsInput = {
@@ -60369,6 +61845,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -62526,6 +64003,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutTournamentGoldsInput = {
@@ -62550,6 +64028,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -62608,6 +64087,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTournamentGoldsInput = {
@@ -62632,6 +64112,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -63551,6 +65032,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAchievementsInput = {
@@ -63575,6 +65057,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -63812,6 +65295,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAchievementsInput = {
@@ -63836,6 +65320,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -64051,6 +65536,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutReportsInput = {
@@ -64075,6 +65561,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -64122,6 +65609,7 @@ export namespace Prisma {
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutReportsHandledInput = {
@@ -64146,6 +65634,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -64399,6 +65888,7 @@ export namespace Prisma {
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsHandledInput = {
@@ -64423,6 +65913,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -64432,6 +65923,100 @@ export namespace Prisma {
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSharedBrowserInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    lastSeen?: Date | string
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    logs?: UserLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSharedBrowserInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    lastSeen?: Date | string
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSharedBrowserInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput>
+  }
+
+  export type UserCreateManySharedBrowserInputEnvelope = {
+    data: UserCreateManySharedBrowserInput | UserCreateManySharedBrowserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutSharedBrowserInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutSharedBrowserInput, UserUncheckedUpdateWithoutSharedBrowserInput>
+    create: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutSharedBrowserInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutSharedBrowserInput, UserUncheckedUpdateWithoutSharedBrowserInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutSharedBrowserInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutSharedBrowserInput>
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
@@ -67915,6 +69500,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutInventoryInput = {
@@ -67939,6 +69525,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -68176,6 +69763,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryInput = {
@@ -68200,6 +69788,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -68840,6 +70429,7 @@ export namespace Prisma {
     following?: BruteCreateNestedManyWithoutFollowersInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -68864,6 +70454,7 @@ export namespace Prisma {
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     lastSeen?: Date | string
+    sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -68922,6 +70513,7 @@ export namespace Prisma {
     following?: BruteUpdateManyWithoutFollowersNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -68946,6 +70538,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -71405,6 +72998,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -71429,6 +73023,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -71462,6 +73057,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ClanWarFightersUpdateWithoutAttackersInput = {
@@ -71669,6 +73265,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteFightsInput = {
@@ -71693,6 +73290,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -71726,6 +73324,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogCreateManyDestinyChoiceInput = {
@@ -72115,6 +73714,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsInput = {
@@ -72139,6 +73739,7 @@ export namespace Prisma {
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -72151,6 +73752,123 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserCreateManySharedBrowserInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    lastSeen?: Date | string
+  }
+
+  export type UserUpdateWithoutSharedBrowserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSharedBrowserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutSharedBrowserInput = {
     id?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string

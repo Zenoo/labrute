@@ -7,6 +7,7 @@ import {
   DailyModifierSpawnChance,
   DailyTournamentGoldReward,
   DailyTournamentXpReward,
+  entries,
   EventPauseDuration,
   Fighter,
   getCalculatedBrute,
@@ -2266,6 +2267,15 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
 
   const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
 
+  const sharedBrowsers = await prisma.sharedBrowser.findMany({
+    select: {
+      id: true,
+      users: {
+        select: { id: true },
+      }
+    },
+  });
+
   // TWO-TIER SIGNAL APPROACH:
   //
   // Tier 1 (STRONG): Same browser ID shared by multiple accounts
@@ -2313,9 +2323,19 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
 
   // Tier 1: Same browser ID (STRONG - same browser session)
   // Ban if >3 users share the same browser ID
-  for (const userIds of Object.values(browserIdGroups)) {
+  for (const [browserId, userIds] of entries(browserIdGroups)) {
     if (userIds.length > 3) {
-      userIds.forEach((id) => usersToBan.add(id));
+      for (const userId of userIds) {
+        // Check if the shared browser is verified (families)
+        const sharedBrowserUsers = sharedBrowsers.find((sb) => sb.id === browserId)?.users ?? [];
+        const isAllowed = sharedBrowserUsers.findIndex((u) => u.id === userId) !== -1;
+
+        if (isAllowed) {
+          continue;
+        }
+
+        usersToBan.add(userId)
+      }
     }
   }
 

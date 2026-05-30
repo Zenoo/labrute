@@ -3,7 +3,7 @@ import {
   TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft
 } from '@labrute/core';
 import {
-  Check, ManageSearch, QuestionMark
+  Check, ManageSearch, Policy, QuestionMark
 } from '@mui/icons-material';
 import {
   Box, Grid, IconButton, List, ListItem,
@@ -115,16 +115,27 @@ export const UserView = () => {
               <ActivityStatus user={user} sx={{ verticalAlign: 'middle', mr: 1 }} />
               {t('userProfile', { user: user.name })}
               {authedUser?.admin && (
-                <Tooltip title="User logs">
-                  <IconButton
-                    color="warning"
-                    component={RouterLink}
-                    to={`/admin-panel/user/logs/${user.id}`}
-                    sx={{ ml: 1 }}
-                  >
-                    <ManageSearch />
-                  </IconButton>
-                </Tooltip>
+                <>
+                  <Tooltip title="User logs">
+                    <IconButton
+                      color="warning"
+                      component={RouterLink}
+                      to={`/admin-panel/user/logs/${user.id}`}
+                      sx={{ ml: 1 }}
+                    >
+                      <ManageSearch />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="User admin">
+                    <IconButton
+                      color="error"
+                      component={RouterLink}
+                      to={`/admin-panel/user/${user.id}`}
+                    >
+                      <Policy />
+                    </IconButton>
+                  </Tooltip>
+                </>
               )}
             </Text>
           </Paper>

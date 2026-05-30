@@ -54,6 +54,7 @@ import { EventRoundView } from './views/event/EventRoundView';
 import { UserLogView } from './views/admin/UserLogView';
 import { TransferBruteView } from './views/TransferBruteView';
 import { UnlockColorView } from './views/UnlockColorView';
+import { SharedBrowserView } from './views/admin/SharedBrowserView';
 
 export const routes: RouteObject[] = [
   {
@@ -150,7 +151,7 @@ export const routes: RouteObject[] = [
         element: <AdminLayout />,
         children: [
           { path: '', element: <AdminView /> },
-          { path: 'user', element: <UserAdminView /> },
+          { path: 'user/:id?', element: <UserAdminView /> },
           { path: 'report', element: <ReportAdminView /> },
           { path: 'config', element: <ConfigAdminView /> },
           { path: 'banned-users', element: <BannedUsersView /> },
@@ -159,6 +160,7 @@ export const routes: RouteObject[] = [
           { path: 'brute/:bruteName?', element: <BruteAdminView /> },
           { path: 'clan/:clanId', element: <ClanAdminView /> },
           { path: 'user/logs/:userId?', element: <UserLogView /> },
+          { path: 'shared-browser', element: <SharedBrowserView /> },
         ],
       },
       {
