@@ -55,6 +55,7 @@ import { UserLogView } from './views/admin/UserLogView';
 import { TransferBruteView } from './views/TransferBruteView';
 import { UnlockColorView } from './views/UnlockColorView';
 import { SharedBrowserView } from './views/admin/SharedBrowserView';
+import { FingerprintAdminView } from './views/admin/FingerprintAdminView';
 
 export const routes: RouteObject[] = [
   {
@@ -161,6 +162,7 @@ export const routes: RouteObject[] = [
           { path: 'clan/:clanId', element: <ClanAdminView /> },
           { path: 'user/logs/:userId?', element: <UserLogView /> },
           { path: 'shared-browser', element: <SharedBrowserView /> },
+          { path: 'fingerprint', element: <FingerprintAdminView /> },
         ],
       },
       {

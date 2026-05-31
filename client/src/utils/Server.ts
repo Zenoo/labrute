@@ -26,7 +26,8 @@ import {
   LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse,
   OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse,
   TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse,
-  TournementsUpdateGlobalRoundWatchedResponse, UserBannedListResponse, UserDeleteAccountRequest,
+  TournementsUpdateGlobalRoundWatchedResponse, UnbanFingerprintRequest, UserBannedListResponse,
+  UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
@@ -75,6 +76,7 @@ export const Server = {
     getSharedBrowser: (id: string) => Fetch<GetSharedBrowserResponse>(`/api/user/shared-browser/${id}`),
     editSharedBrowser: (data: EditSharedBrowserRequest) => Fetch<never>('/api/user/shared-browser', data, 'PATCH'),
     deleteSharedBrowser: (id: string) => Fetch<never>(`/api/user/shared-browser/${id}`, {}, 'DELETE'),
+    unbanFingerprint: (data: UnbanFingerprintRequest) => Fetch<never>('/api/user/fingerprint/unban', data, 'PATCH'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),

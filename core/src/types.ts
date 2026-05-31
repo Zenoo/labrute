@@ -647,6 +647,9 @@ export type UsersAuthenticateResponse = {
   currentEvent: Event | null,
   version: string,
 };
+export type UnbanFingerprintRequest = {
+  fingerprint: string;
+};
 
 export type BruteReportsListRequest = {
   status: BruteReportStatus,

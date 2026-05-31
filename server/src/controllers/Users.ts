@@ -11,6 +11,7 @@ import {
   Modifiers,
   NotFoundError,
   RaretyOrder,
+  UnbanFingerprintRequest,
   UserBannedListResponse,
   UserDeleteAccountRequest,
   UserGetAdminRequest,
@@ -1381,6 +1382,24 @@ export const Users = {
           id: req.params.id,
         },
       });
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  unbanFingerprint: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, UnbanFingerprintRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.body.fingerprint) {
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
+      }
+
+      await ServerState.removeBannedFingerprints(prisma, [req.body.fingerprint]);
 
       res.send({ success: true });
     } catch (error) {
