@@ -116,6 +116,7 @@
   "banReason.unrecognized_fingerprint": "Huella digital no reconocida",
   "banReason.headers_tampering": "Alteración de cabeceras detectada",
   "banReason.apiAbuse": "API abuse detected",
+  "banReason.automation": "Automation detected",
   "fingerprintBanned": "Esta huella digital está suspendida",
   "ipBanned": "Tu IP está baneada",
   "fightNotFound": "Pelea no encontrada",
