@@ -168,9 +168,22 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     }));
   }
 
-  // Store browser ID from cookie if present
   const browserId = request.cookies?.browserId as string | undefined;
-  if (browserId && !user.browserIds.includes(browserId)) {
+
+  // Ban users without browser ID (most likely scripts/bots)
+  if (!browserId) {
+    await banUser(prisma, user.id, 'automation', undefined, { banFingerprints: true });
+    DISCORD().logObject({
+      userId: user.id,
+      fingerprint,
+      endpoint: `${request.method} ${request.path}`,
+      url: request.url,
+    }, 'No browser ID detected').catch(() => { /* ignore */ });
+    throw new ForbiddenError(translate('banReason.automation', user));
+  }
+
+  // Store browser ID from cookie
+  if (!user.browserIds.includes(browserId)) {
     await traced('auth.updateUserBrowserIds', () => prisma.user.update({
       where: { id },
       data: {

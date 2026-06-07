@@ -116,6 +116,7 @@
   "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
   "banReason.headers_tampering": "Headers tampering detected",
   "banReason.apiAbuse": "API abuse detected",
+  "banReason.automation": "Automation detected",
   "fingerprintBanned": "This fingerprint is banned",
   "ipBanned": "Your IP is banned",
   "fightNotFound": "Fight not found",
