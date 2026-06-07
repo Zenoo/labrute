@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.96.2](https://github.com/Zenoo/labrute/compare/labrute-v2.96.1...labrute-v2.96.2) (2026-06-07)
+
+
+### Bug Fixes
+
+* Ban obvious bots ([791c339](https://github.com/Zenoo/labrute/commit/791c339240d7edef3e71c54838e5ed3abee3518d))
+* react-router vuln ([4e9652e](https://github.com/Zenoo/labrute/commit/4e9652e0fd4e2110f20dabc21b3fe50f6b253f93))
+
 ## [2.96.1](https://github.com/Zenoo/labrute/compare/labrute-v2.96.0...labrute-v2.96.1) (2026-05-31)
 
 
