@@ -116,7 +116,7 @@
   "banReason.unrecognized_fingerprint": "Empreinte digitale non reconnue",
   "banReason.headers_tampering": "En-têtes altérés détectés",
   "banReason.apiAbuse": "Abus d'API détecté",
-  "banReason.automation": "Automation detected",
+  "banReason.automation": "Automatisation détectée",
   "fingerprintBanned": "Cette empreinte digitale est bannie",
   "ipBanned": "Votre adresse IP est bannie",
   "fightNotFound": "Combat introuvable",
