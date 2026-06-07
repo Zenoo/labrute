@@ -15,5 +15,6 @@
   "banReason.multipleAccounts": "Несколько учётных записей",
   "banReason.unrecognized_fingerprint": "Неопознанный цифровой отпечаток",
   "banReason.headers_tampering": "Обнаружена манипуляция заголовков",
-  "banReason.apiAbuse": "Обнаружено злоупотребление API"
+  "banReason.apiAbuse": "Обнаружено злоупотребление API",
+  "banReason.automation": "Automation detected"
 }
