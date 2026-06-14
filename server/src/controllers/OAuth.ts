@@ -224,7 +224,7 @@ export class OAuth {
         if (await ServerState.isBrowserBanned(this.#prisma, userBrowserId)) {
           LOGGER.log(`User ${user.name} (${user.id}) attempted to log in with a banned browser ID (${userBrowserId})`);
 
-          await banUser(this.#prisma, user.id, 'banned', user);
+          await banUser(this.#prisma, user.id, 'banned');
 
           throw new ForbiddenError(translate('banned', user));
         }
