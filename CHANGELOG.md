@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.96.5](https://github.com/Zenoo/labrute/compare/labrute-v2.96.4...labrute-v2.96.5) (2026-06-14)
+
+
+### Bug Fixes
+
+* Take perk upgrade into account when checking for achievements ([e0205f9](https://github.com/Zenoo/labrute/commit/e0205f941913f97c072b0b9985c6c0f27c9bfffb))
+
 ## [2.96.4](https://github.com/Zenoo/labrute/compare/labrute-v2.96.3...labrute-v2.96.4) (2026-06-14)
 
 
