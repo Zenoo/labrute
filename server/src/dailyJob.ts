@@ -1504,6 +1504,26 @@ const cleanup = async (prisma: PrismaClient) => {
       LOGGER.log(`${dayjs.utc().valueOf() - now}ms to delete ${deleted} brutes older than 30 days`);
     }
   }
+
+  // Delete bannedAt users older than 40 days
+  const fortyDaysAgo = dayjs.utc().subtract(40, 'day').toDate();
+  deleted = null;
+  while (deleted !== 0) {
+    now = dayjs.utc().valueOf();
+
+    deleted = await prisma.$executeRaw`
+        DELETE FROM "User"
+        WHERE ctid = ANY(ARRAY(
+          SELECT ctid FROM "User"
+          WHERE "bannedAt" < ${fortyDaysAgo}
+          LIMIT 1000
+        ));
+      `;
+
+    if (deleted) {
+      LOGGER.log(`${dayjs.utc().valueOf() - now}ms to delete ${deleted} users banned older than 40 days`);
+    }
+  }
 };
 
 const handleClanWars = async (

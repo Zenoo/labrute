@@ -79,10 +79,10 @@ enum UserLogType {
 model UserLog {
   id           String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date         DateTime    @default(now()) @db.Timestamp()
-  user         User        @relation(fields: [userId], references: [id])
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       String      @db.Uuid
   type         UserLogType
-  brute        Brute?      @relation(fields: [bruteId], references: [id])
+  brute        Brute?      @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId      String?     @db.Uuid
   gold         Int?
   oldName      String?
@@ -224,7 +224,7 @@ model Brute {
   // The actual brute displayed rank (ie: Padawan, etc ...)
   ranking                      Int                     @default(11)
   gender                       Gender
-  user                         User?                   @relation(fields: [userId], references: [id])
+  user                         User?                   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                       String?                 @db.Uuid
   // body: Hex string [p1 p1a p1b p2 p3 p4 p5 p6 p7 p7b p8]
   // p1: Armor variation [0-1]
@@ -521,7 +521,7 @@ model TournamentAchievement {
 model TournamentGold {
   id     String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   date   DateTime @db.Date
-  user   User     @relation(fields: [userId], references: [id])
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String   @db.Uuid
   gold   Int
 
@@ -682,9 +682,9 @@ model Achievement {
   id      String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name    AchievementName
   count   Int             @default(0)
-  brute   Brute?          @relation(fields: [bruteId], references: [id])
+  brute   Brute?          @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId String?         @db.Uuid
-  user    User?           @relation(fields: [userId], references: [id])
+  user    User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  String?         @db.Uuid
 
   @@unique([name, bruteId])
@@ -707,7 +707,7 @@ enum BruteReportReason {
 
 model BruteReport {
   id        String            @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  brute     Brute?            @relation(fields: [bruteId], references: [id])
+  brute     Brute?            @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId   String?           @db.Uuid
   bruteName String            @default("") @db.VarChar(255)
   users     User[]
@@ -715,7 +715,7 @@ model BruteReport {
   count     Int               @default(1)
   date      DateTime          @default(now()) @db.Timestamp()
   status    BruteReportStatus @default(pending)
-  handler   User?             @relation(name: "BruteReportHandler", fields: [handlerId], references: [id])
+  handler   User?             @relation(name: "BruteReportHandler", fields: [handlerId], references: [id], onDelete: SetNull)
   handlerId String?           @db.Uuid
   handledAt DateTime?         @db.Timestamptz()
 
@@ -925,7 +925,7 @@ model InventoryItem {
   bruteId String?           @db.Uuid
   brute   Brute?            @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   userId  String?           @db.Uuid
-  user    User?             @relation(fields: [userId], references: [id])
+  user    User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([type, bruteId])
   @@unique([type, userId])
@@ -980,7 +980,7 @@ enum NotificationSeverity {
 
 model Notification {
   id       String               @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  user     User                 @relation(fields: [userId], references: [id])
+  user     User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String               @db.Uuid
   message  String               @db.Text
   severity NotificationSeverity @default(info)

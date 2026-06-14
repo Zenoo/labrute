@@ -127,6 +127,8 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // Check if any of the user browser IDs are banned
   for (const userBrowserId of user.browserIds) {
     if (await ServerState.isBrowserBanned(prisma, userBrowserId)) {
+      await banUser(prisma, user.id, 'banned', user);
+
       throw new ForbiddenError(translate('banned', user));
     }
   }
@@ -137,7 +139,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
     // Ban fingerprints for tampering/cheating attempts
-    await banUser(prisma, user.id, 'unrecognized_fingerprint', undefined, { banFingerprints: true });
+    await banUser(prisma, user.id, 'unrecognized_fingerprint', user, { banFingerprints: true });
     DISCORD().logObject({
       userId: user.id,
       knowns: user.fingerprints,
@@ -153,7 +155,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     checkPredictableHeaders(request.headers);
   } catch (_error) {
     // Ban fingerprints for tampering attempts
-    await banUser(prisma, user.id, 'headers_tampering', undefined, { banFingerprints: true });
+    await banUser(prisma, user.id, 'headers_tampering', user, { banFingerprints: true });
     DISCORD().logObject(
       Object.fromEntries(
         Object.entries(request.headers)
