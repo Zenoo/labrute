@@ -118,7 +118,7 @@
   "banReason.apiAbuse": "API-Missbrauch festgestellt",
   "banReason.automation": "Automatisierung festgestellt",
   "fingerprintBanned": "Diese Signatur ist gebannt",
-  "banned": "You have been banned",
+  "banned": "Du wurdest gebannt",
   "ipBanned": "Deine IP ist gebannt",
   "fightNotFound": "Kampf nicht gefunden",
   "favoriteLimit": "Du hast die Höchstanzahl an Favorit-Kämpfen erreicht",
