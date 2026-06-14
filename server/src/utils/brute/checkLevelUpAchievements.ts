@@ -1,4 +1,6 @@
-import { skillList, weaponList, WeaponType } from '@labrute/core';
+import {
+  getTieredPets, getTieredSkills, getTieredWeapons, skillList, weaponList, WeaponType
+} from '@labrute/core';
 import {
   AchievementName,
   Brute, DestinyChoice, PetName, PrismaClient, SkillName, WeaponName,
@@ -10,7 +12,7 @@ export const checkLevelUpAchievements = async (
   prisma: PrismaClient,
   _brute: Pick<Brute, 'id' | 'level' | 'userId' | 'pets' | 'skills' | 'weapons' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
   destinyChoice: Pick<DestinyChoice, 'pet' | 'skill' | 'weapon'>,
-  oldBrute?: Pick<Brute, 'weapons' | 'pets' | 'skills' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
+  _oldBrute?: Pick<Brute, 'id' | 'weapons' | 'pets' | 'skills' | 'agilityValue' | 'speedValue' | 'strengthValue' | 'hpValue'>,
 ) => {
   const { userId } = _brute;
 
@@ -18,9 +20,19 @@ export const checkLevelUpAchievements = async (
     return;
   }
 
+  const oldBrute = _oldBrute ? {
+    ..._oldBrute,
+    skills: getTieredSkills(_oldBrute, {}),
+    weapons: getTieredWeapons(_oldBrute, {}),
+    pets: getTieredPets(_oldBrute),
+  } : undefined;
+
   const brute = {
     ..._brute,
     userId,
+    skills: getTieredSkills(_brute, {}),
+    weapons: getTieredWeapons(_brute, {}),
+    pets: getTieredPets(_brute),
   };
 
   const fastWeapons = weaponList
@@ -80,13 +92,13 @@ export const checkLevelUpAchievements = async (
   }
 
   // Ignore upgrades
-  if (destinyChoice.pet && oldBrute?.pets.includes(destinyChoice.pet)) {
+  if (destinyChoice.pet && oldBrute?.pets[destinyChoice.pet]) {
     return;
   }
-  if (destinyChoice.skill && oldBrute?.skills.includes(destinyChoice.skill)) {
+  if (destinyChoice.skill && oldBrute?.skills[destinyChoice.skill]) {
     return;
   }
-  if (destinyChoice.weapon && oldBrute?.weapons.includes(destinyChoice.weapon)) {
+  if (destinyChoice.weapon && oldBrute?.weapons[destinyChoice.weapon]) {
     return;
   }
 
@@ -131,7 +143,7 @@ export const checkLevelUpAchievements = async (
   const pantherBearConditions = [PetName.panther, PetName.bear] as PetName[];
   if (destinyChoice.pet
     && pantherBearConditions.includes(destinyChoice.pet)
-    && pantherBearConditions.every((pet) => brute.pets.includes(pet))) {
+    && pantherBearConditions.every((pet) => brute.pets[pet])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.panther_bear);
   }
 
@@ -139,7 +151,7 @@ export const checkLevelUpAchievements = async (
   const felAg_fistsOfFConditions = [SkillName.felineAgility, SkillName.fistsOfFury] as SkillName[];
   if (destinyChoice.skill
     && felAg_fistsOfFConditions.includes(destinyChoice.skill)
-    && felAg_fistsOfFConditions.every((skill) => brute.skills.includes(skill))) {
+    && felAg_fistsOfFConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.felAg_fistsOfF);
   }
 
@@ -152,7 +164,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && felAg_fistsOfF_untouch_relentlessConditions.includes(destinyChoice.skill)
-    && felAg_fistsOfF_untouch_relentlessConditions.every((skill) => brute.skills.includes(skill))) {
+    && felAg_fistsOfF_untouch_relentlessConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(
       prisma,
       brute.userId,
@@ -169,7 +181,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && vitArmToughConditions.includes(destinyChoice.skill)
-    && vitArmToughConditions.every((skill) => brute.skills.includes(skill))) {
+    && vitArmToughConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.vita_armor_toughened);
   }
 
@@ -181,7 +193,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && hercHamFierceConditions.includes(destinyChoice.skill)
-    && hercHamFierceConditions.every((skill) => brute.skills.includes(skill))) {
+    && hercHamFierceConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(
       prisma,
       brute.userId,
@@ -202,7 +214,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && balletShoesSurvivalConditions.includes(destinyChoice.skill)
-    && balletShoesSurvivalConditions.every((skill) => brute.skills.includes(skill))) {
+    && balletShoesSurvivalConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.balletShoes_survival);
   }
 
@@ -213,7 +225,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && cryOfTheDamnedHypnosisConditions.includes(destinyChoice.skill)
-    && cryOfTheDamnedHypnosisConditions.every((skill) => brute.skills.includes(skill))) {
+    && cryOfTheDamnedHypnosisConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(
       prisma,
       brute.userId,
@@ -229,7 +241,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && shieldCounterAttackConditions.includes(destinyChoice.skill)
-    && shieldCounterAttackConditions.every((skill) => brute.skills.includes(skill))) {
+    && shieldCounterAttackConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.shield_counterAttack);
   }
 
@@ -240,7 +252,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && reconnaissanceMonkConditions.includes(destinyChoice.skill)
-    && reconnaissanceMonkConditions.every((skill) => brute.skills.includes(skill))) {
+    && reconnaissanceMonkConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.reconnaissance_monk);
   }
 
@@ -250,25 +262,26 @@ export const checkLevelUpAchievements = async (
   }
 
   const boosts = skillList.filter((skill) => skill.type === 'booster').map((skill) => skill.name);
+  const ownedBoosts = boosts.filter((boost) => brute.skills[boost]);
 
   // Double boost
   if (destinyChoice.skill
     && boosts.includes(destinyChoice.skill)
-    && brute.skills.filter((skill) => boosts.includes(skill)).length === 2) {
+    && ownedBoosts.length === 2) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.doubleBoost);
   }
 
   // Triple boost
   if (destinyChoice.skill
     && boosts.includes(destinyChoice.skill)
-    && brute.skills.filter((skill) => boosts.includes(skill)).length === 3) {
+    && ownedBoosts.length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.tripleBoost);
   }
 
   // Quadruple boost
   if (destinyChoice.skill
     && boosts.includes(destinyChoice.skill)
-    && brute.skills.filter((skill) => boosts.includes(skill)).length === 4) {
+    && ownedBoosts.length === 4) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.quadrupleBoost);
   }
 
@@ -279,14 +292,14 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && bandageTragicPotionConditions.includes(destinyChoice.skill)
-    && bandageTragicPotionConditions.every((skill) => brute.skills.includes(skill))) {
+    && bandageTragicPotionConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.regeneration_potion);
   }
 
   // Bear + Tamer
   if ((destinyChoice.pet === PetName.bear || destinyChoice.skill === SkillName.tamer)
-    && brute.skills.includes(SkillName.tamer)
-    && brute.pets.includes(PetName.bear)) {
+    && brute.skills[SkillName.tamer]
+    && brute.pets[PetName.bear]) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.bear_tamer);
   }
 
@@ -295,28 +308,31 @@ export const checkLevelUpAchievements = async (
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.tripleDogs);
   }
 
+  const oldBruteWeaponsCount = oldBrute ? Object.keys(oldBrute.weapons).length : 0;
+  const bruteWeaponsCount = Object.keys(brute.weapons).length;
+
   // Five weapons
-  if (oldBrute?.weapons.length === 4 && brute.weapons.length === 5) {
+  if (oldBruteWeaponsCount === 4 && bruteWeaponsCount === 5) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.fiveWeapons);
   }
 
   // Ten weapons
-  if (oldBrute?.weapons.length === 9 && brute.weapons.length === 10) {
+  if (oldBruteWeaponsCount === 9 && bruteWeaponsCount === 10) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.tenWeapons);
   }
 
   // Fifteen weapons
-  if (oldBrute?.weapons.length === 14 && brute.weapons.length === 15) {
+  if (oldBruteWeaponsCount === 14 && bruteWeaponsCount === 15) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.fifteenWeapons);
   }
 
   // Twenty weapons
-  if (oldBrute?.weapons.length === 19 && brute.weapons.length === 20) {
+  if (oldBruteWeaponsCount === 19 && bruteWeaponsCount === 20) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.twentyWeapons);
   }
 
   // Twenty-three weapons
-  if (oldBrute?.weapons.length === 22 && brute.weapons.length === 23) {
+  if (oldBruteWeaponsCount === 22 && bruteWeaponsCount === 23) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.twentyThreeWeapons);
   }
 
@@ -324,9 +340,9 @@ export const checkLevelUpAchievements = async (
   if ((destinyChoice.skill === SkillName.monk
     || destinyChoice.skill === SkillName.sixthSense
     || destinyChoice.weapon === WeaponName.whip)
-    && brute.skills.includes(SkillName.monk)
-    && brute.skills.includes(SkillName.sixthSense)
-    && brute.weapons.includes(WeaponName.whip)) {
+    && brute.skills[SkillName.monk]
+    && brute.skills[SkillName.sixthSense]
+    && brute.weapons[WeaponName.whip]) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.monk_sixthSense_whip);
   }
 
@@ -335,10 +351,10 @@ export const checkLevelUpAchievements = async (
     || destinyChoice.skill === SkillName.bodybuilder
     || (destinyChoice.weapon && (sharpWeapons.includes(destinyChoice.weapon)
       || heavyWeapons.includes(destinyChoice.weapon))))
-    && brute.skills.includes(SkillName.weaponsMaster)
-    && brute.skills.includes(SkillName.bodybuilder)
-    && brute.weapons.some((weapon) => sharpWeapons.includes(weapon))
-    && brute.weapons.some((weapon) => heavyWeapons.includes(weapon))
+    && brute.skills[SkillName.weaponsMaster]
+    && brute.skills[SkillName.bodybuilder]
+    && sharpWeapons.some((weapon) => brute.weapons[weapon])
+    && heavyWeapons.some((weapon) => brute.weapons[weapon])
   ) {
     await increaseAchievement(
       prisma,
@@ -355,8 +371,8 @@ export const checkLevelUpAchievements = async (
 
   if ((destinyChoice.skill === SkillName.hostility
     || (destinyChoice.weapon && counterWeapons.includes(destinyChoice.weapon)))
-    && brute.skills.includes(SkillName.hostility)
-    && brute.weapons.some((weapon) => counterWeapons.includes(weapon))
+    && brute.skills[SkillName.hostility]
+    && counterWeapons.some((weapon) => brute.weapons[weapon])
   ) {
     await increaseAchievement(
       prisma,
@@ -369,8 +385,8 @@ export const checkLevelUpAchievements = async (
   // Flash flood + 12 weapons
   if ((destinyChoice.skill === SkillName.flashFlood
     || destinyChoice.weapon)
-    && brute.skills.includes(SkillName.flashFlood)
-    && brute.weapons.length === 12) {
+    && brute.skills[SkillName.flashFlood]
+    && bruteWeaponsCount === 12) {
     await increaseAchievement(
       prisma,
       brute.userId,
@@ -386,7 +402,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && lightningBoltFirstStrikeConditions.includes(destinyChoice.skill)
-    && lightningBoltFirstStrikeConditions.every((skill) => brute.skills.includes(skill))) {
+    && lightningBoltFirstStrikeConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(
       prisma,
       brute.userId,
@@ -422,7 +438,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && tragicPotionChefConditions.includes(destinyChoice.skill)
-    && tragicPotionChefConditions.every((skill) => brute.skills.includes(skill))) {
+    && tragicPotionChefConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.potion_chef);
   }
 
@@ -433,7 +449,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && tamerNetConditions.includes(destinyChoice.skill)
-    && tamerNetConditions.every((skill) => brute.skills.includes(skill))) {
+    && tamerNetConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.tamer_net);
   }
 
@@ -444,7 +460,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && untouchableBalletShoesConditions.includes(destinyChoice.skill)
-    && untouchableBalletShoesConditions.every((skill) => brute.skills.includes(skill))) {
+    && untouchableBalletShoesConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(
       prisma,
       brute.userId,
@@ -460,7 +476,7 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && survivalResistantConditions.includes(destinyChoice.skill)
-    && survivalResistantConditions.every((skill) => brute.skills.includes(skill))) {
+    && survivalResistantConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.survival_resistant);
   }
 
@@ -471,106 +487,106 @@ export const checkLevelUpAchievements = async (
   ] as SkillName[];
   if (destinyChoice.skill
     && hideawaySpyConditions.includes(destinyChoice.skill)
-    && hideawaySpyConditions.every((skill) => brute.skills.includes(skill))) {
+    && hideawaySpyConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.hideaway_spy);
   }
 
   // Axe + Hideaway
   if ((destinyChoice.weapon === WeaponName.axe || destinyChoice.skill === SkillName.hideaway)
-    && brute.weapons.includes(WeaponName.axe)
-    && brute.skills.includes(SkillName.hideaway)) {
+    && brute.weapons[WeaponName.axe]
+    && brute.skills[SkillName.hideaway]) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.thor);
   }
 
   // Repulse + 2 deflecting weapons
   if ((destinyChoice.skill === SkillName.repulse
     || (destinyChoice.weapon && deflectingWeapons.includes(destinyChoice.weapon)))
-    && brute.skills.includes(SkillName.repulse)
-    && brute.weapons.filter((weapon) => deflectingWeapons.includes(weapon)).length >= 2) {
+    && brute.skills[SkillName.repulse]
+    && deflectingWeapons.filter((weapon) => brute.weapons[weapon]).length >= 2) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.deflector);
   }
 
   // 3 Fast weapons
   if (destinyChoice.weapon
     && fastWeapons.includes(destinyChoice.weapon)
-    && brute.weapons.filter((weapon) => fastWeapons.includes(weapon)).length === 3) {
+    && fastWeapons.filter((weapon) => brute.weapons[weapon]).length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.weaponsFast3);
   }
 
   // 3 Sharp weapons
   if (destinyChoice.weapon
     && sharpWeapons.includes(destinyChoice.weapon)
-    && brute.weapons.filter((weapon) => sharpWeapons.includes(weapon)).length === 3) {
+    && sharpWeapons.filter((weapon) => brute.weapons[weapon]).length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.weaponsSharp3);
   }
 
   // 3 Heavy weapons
   if (destinyChoice.weapon
     && heavyWeapons.includes(destinyChoice.weapon)
-    && brute.weapons.filter((weapon) => heavyWeapons.includes(weapon)).length === 3) {
+    && heavyWeapons.filter((weapon) => brute.weapons[weapon]).length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.weaponsHeavy3);
   }
 
   // 3 Long weapons
   if (destinyChoice.weapon
     && longWeapons.includes(destinyChoice.weapon)
-    && brute.weapons.filter((weapon) => longWeapons.includes(weapon)).length === 3) {
+    && longWeapons.filter((weapon) => brute.weapons[weapon]).length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.weaponsLong3);
   }
 
   // 3 Thrown weapons
   if (destinyChoice.weapon
     && thrownWeapons.includes(destinyChoice.weapon)
-    && brute.weapons.filter((weapon) => thrownWeapons.includes(weapon)).length === 3) {
+    && thrownWeapons.filter((weapon) => brute.weapons[weapon]).length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.weaponsThrown3);
   }
 
   // 3 Blunt weapons
   if (destinyChoice.weapon
     && bluntWeapons.includes(destinyChoice.weapon)
-    && brute.weapons.filter((weapon) => bluntWeapons.includes(weapon)).length === 3) {
+    && bluntWeapons.filter((weapon) => brute.weapons[weapon]).length === 3) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.weaponsBlunt3);
   }
 
   // All fast weapons
   if (destinyChoice.weapon
     && fastWeapons.includes(destinyChoice.weapon)
-    && fastWeapons.every((weapon) => brute.weapons.includes(weapon))) {
+    && fastWeapons.every((weapon) => brute.weapons[weapon])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.allFastWeapons);
   }
 
   // All sharp weapons
   if (destinyChoice.weapon
     && sharpWeapons.includes(destinyChoice.weapon)
-    && sharpWeapons.every((weapon) => brute.weapons.includes(weapon))) {
+    && sharpWeapons.every((weapon) => brute.weapons[weapon])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.allSharpWeapons);
   }
 
   // All heavy weapons
   if (destinyChoice.weapon
     && heavyWeapons.includes(destinyChoice.weapon)
-    && heavyWeapons.every((weapon) => brute.weapons.includes(weapon))) {
+    && heavyWeapons.every((weapon) => brute.weapons[weapon])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.allHeavyWeapons);
   }
 
   // All long weapons
   if (destinyChoice.weapon
     && longWeapons.includes(destinyChoice.weapon)
-    && longWeapons.every((weapon) => brute.weapons.includes(weapon))) {
+    && longWeapons.every((weapon) => brute.weapons[weapon])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.allLongWeapons);
   }
 
   // All thrown weapons
   if (destinyChoice.weapon
     && thrownWeapons.includes(destinyChoice.weapon)
-    && thrownWeapons.every((weapon) => brute.weapons.includes(weapon))) {
+    && thrownWeapons.every((weapon) => brute.weapons[weapon])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.allThrownWeapons);
   }
 
   // All blunt weapons
   if (destinyChoice.weapon
     && bluntWeapons.includes(destinyChoice.weapon)
-    && bluntWeapons.every((weapon) => brute.weapons.includes(weapon))) {
+    && bluntWeapons.every((weapon) => brute.weapons[weapon])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.allBluntWeapons);
   }
 
