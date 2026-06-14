@@ -377,6 +377,10 @@ exports.Prisma.SharedBrowserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BannedBrowserScalarFieldEnum = {
+  id: 'id'
+};
+
 exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -882,6 +886,7 @@ exports.Prisma.ModelName = {
   BannedFingerprint: 'BannedFingerprint',
   KnownFingerprint: 'KnownFingerprint',
   SharedBrowser: 'SharedBrowser',
+  BannedBrowser: 'BannedBrowser',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',

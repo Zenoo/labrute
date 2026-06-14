@@ -763,6 +763,10 @@ model SharedBrowser {
   users       User[]
 }
 
+model BannedBrowser {
+  id String @id @db.VarChar(255)
+}
+
 enum BossName {
   GoldClaw
   EmberFang

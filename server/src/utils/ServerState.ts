@@ -11,6 +11,7 @@ let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
 let BANNED_FINGERPRINTS: string[] | null = null;
+let BANNED_BROWSERS: string[] | null = null;
 let KNOWN_FINGERPRINTS: string[] | null = null;
 let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
@@ -250,6 +251,49 @@ const removeBannedFingerprints = async (prisma: PrismaClient, fingerprints: stri
   }
 };
 
+const getBannedBrowsers = async (prisma: PrismaClient) => {
+  if (BANNED_BROWSERS) {
+    return BANNED_BROWSERS;
+  }
+
+  const bannedBrowsers = await traced('serverState.getBannedBrowsers.getBannedBrowsers', () => prisma.bannedBrowser.findMany({
+    select: { id: true },
+  }));
+
+  BANNED_BROWSERS = bannedBrowsers.map((browser) => browser.id);
+
+  return BANNED_BROWSERS;
+};
+
+const addBannedBrowsers = async (prisma: PrismaClient, browsers: string[]) => {
+  const bannedBrowsers = await getBannedBrowsers(prisma);
+  const newBrowsers = browsers.filter((browser) => !bannedBrowsers.includes(browser));
+
+  await traced('serverState.addBannedBrowsers.createBannedBrowsers', () => prisma.bannedBrowser.createMany({
+    data: newBrowsers.map((browser) => ({ id: browser })),
+  }));
+
+  if (BANNED_BROWSERS) BANNED_BROWSERS.push(...newBrowsers);
+};
+
+const isBrowserBanned = async (prisma: PrismaClient, browser: string) => {
+  const bannedBrowsers = await getBannedBrowsers(prisma);
+
+  return bannedBrowsers.includes(browser);
+};
+
+const removeBannedBrowsers = async (prisma: PrismaClient, browsers: string[]) => {
+  const bannedBrowsers = await getBannedBrowsers(prisma);
+
+  await traced('serverState.removeBannedBrowsers.deleteBannedBrowsers', () => prisma.bannedBrowser.deleteMany({
+    where: { id: { in: browsers } },
+  }));
+
+  if (BANNED_BROWSERS) {
+    BANNED_BROWSERS = bannedBrowsers.filter((browser) => !browsers.includes(browser));
+  }
+};
+
 const setNextModifiers = async (prisma: PrismaClient, modifiers: Modifiers) => {
   const serverState = await traced('serverState.setNextModifiers.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
@@ -333,4 +377,8 @@ export const ServerState = {
   addKnownFingerprint,
   isFingerprintKnown,
   removeKnownFingerprint,
+  getBannedBrowsers,
+  addBannedBrowsers,
+  isBrowserBanned,
+  removeBannedBrowsers,
 };

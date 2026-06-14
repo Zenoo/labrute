@@ -1,5 +1,7 @@
 import {
   AchievementGetRankingsResponse, AchievementsGetResponse,
+  BanBrowserRequest,
+  BanFingerprintRequest,
   BruteDeleteRequest,
   BruteGetForAdminRequest, BruteGetForAdminResponse,
   BruteGetInventoryResponse, BruteReportsListResponse,
@@ -26,7 +28,8 @@ import {
   LogGetForUserFeedResponse, LogListResponse, Modifiers, NotificationListResponse,
   OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse,
   TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse,
-  TournementsUpdateGlobalRoundWatchedResponse, UnbanFingerprintRequest, UserBannedListResponse,
+  TournementsUpdateGlobalRoundWatchedResponse, UnbanBrowserRequest,
+  UnbanFingerprintRequest, UserBannedListResponse,
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
@@ -77,6 +80,9 @@ export const Server = {
     editSharedBrowser: (data: EditSharedBrowserRequest) => Fetch<never>('/api/user/shared-browser', data, 'PATCH'),
     deleteSharedBrowser: (id: string) => Fetch<never>(`/api/user/shared-browser/${id}`, {}, 'DELETE'),
     unbanFingerprint: (data: UnbanFingerprintRequest) => Fetch<never>('/api/user/fingerprint/unban', data, 'PATCH'),
+    banFingerprint: (data: BanFingerprintRequest) => Fetch<never>('/api/user/fingerprint/ban', data, 'PATCH'),
+    unbanBrowser: (data: UnbanBrowserRequest) => Fetch<never>('/api/user/browser/unban', data, 'PATCH'),
+    banBrowser: (data: BanBrowserRequest) => Fetch<never>('/api/user/browser/ban', data, 'PATCH'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),

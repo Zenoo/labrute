@@ -1,4 +1,6 @@
-import { Box, Grid, Paper, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, useTheme
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router';
@@ -10,13 +12,13 @@ import { useAuth } from '../hooks/useAuth';
  * Component that restricts access to admin users
  */
 export const AdminLayout = () => {
-  const { user, authing } = useAuth();
+  const { user } = useAuth();
   const { t } = useTranslation();
   const { palette: { mode } } = useTheme();
 
   return user?.admin ? (
     <Outlet />
-  ) : authing ? null : (
+  ) : (
     <Page title={t('MyBrute')} headerUrl="/">
       <Paper sx={{
         mx: 4,

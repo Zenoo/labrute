@@ -1,5 +1,6 @@
 import {
-  AchievementData, BruteDeletionReason, EditSharedBrowserRequest, ExpectedError,
+  AchievementData, BanBrowserRequest, BanFingerprintRequest,
+  BruteDeletionReason, EditSharedBrowserRequest, ExpectedError,
   ForbiddenError,
   GetSharedBrowserResponse,
   InvalidAPIUseError,
@@ -11,6 +12,7 @@ import {
   Modifiers,
   NotFoundError,
   RaretyOrder,
+  UnbanBrowserRequest,
   UnbanFingerprintRequest,
   UserBannedListResponse,
   UserDeleteAccountRequest,
@@ -749,6 +751,7 @@ export const Users = {
           bannedAt: true,
           ips: true,
           fingerprints: true,
+          browserIds: true,
           brutes: {
             where: {
               deletedAt: { not: null },
@@ -788,6 +791,9 @@ export const Users = {
         }
       }
       await ServerState.removeBannedFingerprints(prisma, fingerprintsToUnban);
+
+      // Browser unban
+      await ServerState.removeBannedBrowsers(prisma, user.browserIds);
 
       // Restore all brutes
       for (const brute of user.brutes) {
@@ -1406,4 +1412,58 @@ export const Users = {
       sendError(res, error);
     }
   },
+  banFingerprint: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, BanFingerprintRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.body.fingerprint) {
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
+      }
+
+      await ServerState.addBannedFingerprints(prisma, [req.body.fingerprint]);
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  unbanBrowser: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, UnbanBrowserRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.body.browserId) {
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
+      }
+
+      await ServerState.removeBannedBrowsers(prisma, [req.body.browserId]);
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  banBrowser: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, BanBrowserRequest>,
+    res: Response<{ success: boolean }>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req, { admin: true });
+
+      if (!req.body.browserId) {
+        throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
+      }
+
+      await ServerState.addBannedBrowsers(prisma, [req.body.browserId]);
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  }
 };

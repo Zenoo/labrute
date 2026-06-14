@@ -11,33 +11,33 @@ import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-export const FingerprintAdminView = () => {
+export const BrowserIdAdminView = () => {
   const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();
 
-  const [fingerprint, setFingerprint] = React.useState('');
+  const [browserId, setBrowserId] = React.useState('');
 
-  const unbanFingerprint = useCallback(() => {
-    if (!fingerprint) return;
+  const unbanBrowser = useCallback(() => {
+    if (!browserId) return;
 
-    Server.User.unbanFingerprint({ fingerprint })
+    Server.User.unbanBrowser({ browserId })
       .then(() => {
-        Alert.open('success', 'Fingerprint unbanned successfully');
+        Alert.open('success', 'Browser unbanned successfully');
       })
       .catch(catchError(Alert));
-  }, [Alert, Server.User, fingerprint]);
+  }, [Alert, Server.User, browserId]);
 
-  const banFingerprint = useCallback(() => {
-    if (!fingerprint) return;
+  const banBrowser = useCallback(() => {
+    if (!browserId) return;
 
-    Server.User.banFingerprint({ fingerprint })
+    Server.User.banBrowser({ browserId })
       .then(() => {
-        Alert.open('success', 'Fingerprint banned successfully');
+        Alert.open('success', 'Browser banned successfully');
       })
       .catch(catchError(Alert));
-  }, [Alert, Server.User, fingerprint]);
+  }, [Alert, Server.User, browserId]);
 
   return (
     <Page title={t('adminPanel')} headerUrl="/">
@@ -48,15 +48,15 @@ export const FingerprintAdminView = () => {
         {user && (
           <Stack spacing={2}>
             <TextField
-              label="Fingerprint"
-              value={fingerprint}
-              onChange={(e) => setFingerprint(e.target.value)}
+              label="Browser ID"
+              value={browserId}
+              onChange={(e) => setBrowserId(e.target.value)}
             />
-            <FantasyButton color="success" onClick={unbanFingerprint}>
-              Unban fingerprint
+            <FantasyButton color="success" onClick={unbanBrowser}>
+              Unban browser
             </FantasyButton>
-            <FantasyButton color="error" onClick={banFingerprint}>
-              Ban fingerprint
+            <FantasyButton color="error" onClick={banBrowser}>
+              Ban browser
             </FantasyButton>
           </Stack>
         )}

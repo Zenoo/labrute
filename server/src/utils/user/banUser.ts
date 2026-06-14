@@ -21,6 +21,7 @@ export const banUser = async (
       id: true,
       bannedAt: true,
       fingerprints: true,
+      browserIds: true,
       brutes: {
         where: {
           deletedAt: null,
@@ -80,6 +81,9 @@ export const banUser = async (
 
     await ServerState.addBannedFingerprints(prisma, fingerprintsToBan);
   }
+
+  // Ban browser IDs
+  await ServerState.addBannedBrowsers(prisma, user.browserIds);
 
   if (authed) {
     LOGGER.log(`User ${userId} has been banned by ${authed.id}`);

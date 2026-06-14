@@ -650,6 +650,15 @@ export type UsersAuthenticateResponse = {
 export type UnbanFingerprintRequest = {
   fingerprint: string;
 };
+export type BanFingerprintRequest = {
+  fingerprint: string;
+};
+export type BanBrowserRequest = {
+  browserId: string;
+};
+export type UnbanBrowserRequest = {
+  browserId: string;
+};
 
 export type BruteReportsListRequest = {
   status: BruteReportStatus,

@@ -49,6 +49,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
 
   // User
   app.patch('/api/user/fingerprint/unban', Users.unbanFingerprint(prisma));
+  app.patch('/api/user/fingerprint/ban', Users.banFingerprint(prisma));
+  app.patch('/api/user/browser/unban', Users.unbanBrowser(prisma));
+  app.patch('/api/user/browser/ban', Users.banBrowser(prisma));
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.patch('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
   app.get('/api/user/:identifier/admin', Users.get(prisma));

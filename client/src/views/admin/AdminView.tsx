@@ -93,6 +93,7 @@ export const AdminView = () => {
             <FantasyButton color="warning" to="/admin-panel/user/logs/">USER LOGS</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/shared-browser">SHARED BROWSER</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/fingerprint">FINGERPRINTS</FantasyButton>
+            <FantasyButton color="warning" to="/admin-panel/browser-id">BROWSER IDS</FantasyButton>
           </Stack>
           <Divider />
           <Text bold h3 smallCaps color="secondary">Next modifiers</Text>

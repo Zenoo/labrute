@@ -219,6 +219,14 @@ export class OAuth {
         }
       }
 
+      // Check if any of the user browser IDs are banned
+      for (const userBrowserId of user.browserIds) {
+        if (await ServerState.isBrowserBanned(this.#prisma, userBrowserId)) {
+          LOGGER.log(`User ${user.name} (${user.id}) attempted to log in with a banned browser ID (${userBrowserId})`);
+          throw new ForbiddenError(translate('banned', user));
+        }
+      }
+
       // Check expected headers
       try {
         checkPredictableHeaders(req.headers);

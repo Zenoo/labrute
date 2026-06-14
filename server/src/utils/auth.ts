@@ -124,6 +124,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     }
   }
 
+  // Check if any of the user browser IDs are banned
+  for (const userBrowserId of user.browserIds) {
+    if (await ServerState.isBrowserBanned(prisma, userBrowserId)) {
+      throw new ForbiddenError(translate('banned', user));
+    }
+  }
+
   // Check if the sent fingerprint is valid
   // (if the user doesn't have this fingerprint in database,
   // it means it was tampered with, as fingerprints can only
