@@ -118,6 +118,7 @@
   "banReason.apiAbuse": "Обнаружено злоупотребление API",
   "banReason.automation": "Обнаружена автоматизация",
   "fingerprintBanned": "Этот отпечаток забанен",
+  "banned": "You have been banned",
   "ipBanned": "Ваш IP-адрес забанен",
   "fightNotFound": "Битва не найдена",
   "favoriteLimit": "Вы достигли максимальное количество избранных битв",
