@@ -16,5 +16,5 @@
   "banReason.unrecognized_fingerprint": "Неопознанный цифровой отпечаток",
   "banReason.headers_tampering": "Обнаружена манипуляция заголовков",
   "banReason.apiAbuse": "Обнаружено злоупотребление API",
-  "banReason.automation": "Automation detected"
+  "banReason.automation": "Обнаружена автоматизация"
 }

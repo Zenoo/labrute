@@ -118,6 +118,7 @@
   "banReason.apiAbuse": "API abuse detected",
   "banReason.automation": "Automation detected",
   "fingerprintBanned": "Esta huella digital está suspendida",
+  "banned": "You have been banned",
   "ipBanned": "Tu IP está baneada",
   "fightNotFound": "Pelea no encontrada",
   "favoriteLimit": "Has alcanzado tu límite de peleas favoritas",
