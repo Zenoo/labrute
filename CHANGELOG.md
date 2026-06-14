@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.96.3](https://github.com/Zenoo/labrute/compare/labrute-v2.96.2...labrute-v2.96.3) (2026-06-14)
+
+
+### Bug Fixes
+
+* Ban browsers + add ways to ban fingerprints/browsers from the admin panel ([5adfbb1](https://github.com/Zenoo/labrute/commit/5adfbb16d0dc3dcee3bab3959eacff8df4cee54d))
+
 ## [2.96.2](https://github.com/Zenoo/labrute/compare/labrute-v2.96.1...labrute-v2.96.2) (2026-06-07)
 
 
