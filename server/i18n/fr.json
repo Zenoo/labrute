@@ -118,7 +118,7 @@
   "banReason.apiAbuse": "Abus d'API détecté",
   "banReason.automation": "Automatisation détectée",
   "fingerprintBanned": "Cette empreinte digitale est bannie",
-  "banned": "You have been banned",
+  "banned": "Vous avez été banni",
   "ipBanned": "Votre adresse IP est bannie",
   "fightNotFound": "Combat introuvable",
   "favoriteLimit": "Vous avez atteint votre limite de combats favoris",
