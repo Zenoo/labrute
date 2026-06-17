@@ -16,5 +16,6 @@
   "banReason.unrecognized_fingerprint": "Empreinte digitale non reconnue",
   "banReason.headers_tampering": "En-têtes altérés détectés",
   "banReason.apiAbuse": "Abus d'API détecté",
-  "banReason.automation": "Automatisation détectée"
+  "banReason.automation": "Automatisation détectée",
+  "banReason.unwelcomeBehavior": "Unwelcome behavior"
 }
