@@ -17,5 +17,5 @@
   "banReason.headers_tampering": "En-têtes altérés détectés",
   "banReason.apiAbuse": "Abus d'API détecté",
   "banReason.automation": "Automatisation détectée",
-  "banReason.unwelcomeBehavior": "Unwelcome behavior"
+  "banReason.unwelcomeBehavior": "Comportement indésirable"
 }
