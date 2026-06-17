@@ -24,6 +24,8 @@ import {
   UsersAdminUpdateRequest,
   UsersAuthenticateRequest,
   UsersAuthenticateResponse,
+  UsersBanRequest,
+  UsersUnbanRequest,
   Version,
   getFightsLeft,
   getTieredSkills,
@@ -714,18 +716,24 @@ export const Users = {
     }
   },
   ban: (prisma: PrismaClient) => async (
-    req: Request<{ userId: string }, unknown, { reason: string }>,
+    req: Request<never, unknown, UsersBanRequest>,
     res: Response,
   ) => {
     try {
       const authed = await auth(prisma, req, { admin: true });
 
-      if (!isUuid(req.params.userId) || !req.body.reason) {
+      if (!isUuid(req.body.userId) || !req.body.reason) {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       // Manual admin bans should ban fingerprints to prevent this specific abuser from returning
-      await banUser(prisma, req.params.userId, req.body.reason, authed, { banFingerprints: true });
+      await banUser(
+        prisma,
+        req.body.userId,
+        req.body.reason,
+        authed,
+        { banFingerprints: req.body.banFingerprints ?? true }
+      );
 
       res.send({
         success: true,
@@ -735,18 +743,18 @@ export const Users = {
     }
   },
   unban: (prisma: PrismaClient) => async (
-    req: Request<{ userId: string }>,
+    req: Request<never, unknown, UsersUnbanRequest>,
     res: Response,
   ) => {
     try {
       const authed = await auth(prisma, req, { admin: true });
 
-      if (!isUuid(req.params.userId)) {
+      if (!isUuid(req.body.userId)) {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       const user = await traced('users.unban.getUser', () => prisma.user.findFirst({
-        where: { id: req.params.userId },
+        where: { id: req.body.userId },
         select: {
           bannedAt: true,
           ips: true,
@@ -772,7 +780,7 @@ export const Users = {
 
       // Unban user
       await traced('users.unban.updateUser', () => prisma.user.update({
-        where: { id: req.params.userId },
+        where: { id: req.body.userId },
         data: {
           bannedAt: null,
           banReason: null,

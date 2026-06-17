@@ -61,8 +61,8 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.put('/api/user/:id/admin-update', Users.adminUpdate(prisma));
   app.get('/api/user/:userId/profile', Users.getProfile(prisma));
   app.get('/api/user/:userId/done', Users.isDoneForToday(prisma));
-  app.patch('/api/user/:userId/ban', Users.ban(prisma));
-  app.patch('/api/user/:userId/unban', Users.unban(prisma));
+  app.patch('/api/user/ban', Users.ban(prisma));
+  app.patch('/api/user/unban', Users.unban(prisma));
   app.get('/api/user/banlist', Users.bannedList(prisma));
   app.get('/api/user/multiple-accounts', Users.multipleAccountsList(prisma));
   app.get('/api/user/known-fingerprints', Users.knownFingerprintsList(prisma));

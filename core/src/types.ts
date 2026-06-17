@@ -659,6 +659,14 @@ export type BanBrowserRequest = {
 export type UnbanBrowserRequest = {
   browserId: string;
 };
+export type UsersBanRequest = {
+  userId: string;
+  reason: string;
+  banFingerprints?: boolean;
+}
+export type UsersUnbanRequest = {
+  userId: string;
+}
 
 export type BruteReportsListRequest = {
   status: BruteReportStatus,

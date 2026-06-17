@@ -1,6 +1,8 @@
 import { UserBannedListResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
-import { IconButton, List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
+import {
+  IconButton, List, ListItem, ListItemText, Paper, Stack
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +35,7 @@ export const BannedUsersView = () => {
   // Unban user
   const unbanUser = useCallback((id: string) => () => {
     Confirm.open(t('unban'), t('unbanConfirm'), () => {
-      Server.User.unban(id).then(() => {
+      Server.User.unban({ userId: id }).then(() => {
         Alert.open('success', t('unbanSuccess'));
       }).catch(catchError(Alert));
     });

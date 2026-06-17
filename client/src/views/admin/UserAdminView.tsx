@@ -38,6 +38,7 @@ export const UserAdminView = () => {
   const [achievements, setAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [banReason, setBanReason] = useState('');
+  const [includeFingerprints, setIncludeFingerprints] = useState(true);
 
   // Change user id or name
   const changeUserIdOrName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,7 +130,7 @@ export const UserAdminView = () => {
   const unban = () => {
     if (!user) return;
 
-    Server.User.unban(user.id).then(() => {
+    Server.User.unban({ userId: user.id }).then(() => {
       Alert.open('success', 'User unbanned');
       updateUser();
     }).catch(catchError(Alert));
@@ -139,10 +140,11 @@ export const UserAdminView = () => {
     if (!user || !banReason) return;
 
     Confirm.open(t('user:ban'), t('user:banConfirm'), () => {
-      Server.User.ban(user.id, banReason).then(() => {
-        Alert.open('success', t('user:banSuccess'));
-        updateUser();
-      }).catch(catchError(Alert));
+      Server.User.ban({ userId: user.id, reason: banReason, banFingerprints: includeFingerprints })
+        .then(() => {
+          Alert.open('success', t('user:banSuccess'));
+          updateUser();
+        }).catch(catchError(Alert));
     });
   };
 
@@ -201,6 +203,17 @@ export const UserAdminView = () => {
                 </Text>
                 <FantasyButton color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</FantasyButton>
                 <FantasyButton color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</FantasyButton>
+                <FormControlLabel
+                  control={(
+                    <Checkbox
+                      checked={includeFingerprints}
+                      onChange={(event) => {
+                        setIncludeFingerprints(event.target.checked);
+                      }}
+                    />
+                  )}
+                  label="Ban fingerprints"
+                />
                 {!user.bannedAt && (
                   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Select

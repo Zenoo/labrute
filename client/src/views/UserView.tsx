@@ -82,7 +82,7 @@ export const UserView = () => {
     if (!user || !banReason) return;
 
     Confirm.open(t('ban'), t('banConfirm'), () => {
-      Server.User.ban(user.id, banReason).then(() => {
+      Server.User.ban({ userId: user.id, reason: banReason }).then(() => {
         Alert.open('success', t('banSuccess'));
       }).catch(catchError(Alert));
     });

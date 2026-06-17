@@ -35,6 +35,8 @@ import {
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
   UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse,
+  UsersBanRequest,
+  UsersUnbanRequest,
   UserTransferBruteRequest, UserUpdateSettingsRequest
 } from '@labrute/core';
 import {
@@ -62,8 +64,8 @@ export const Server = {
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'PUT'),
     getProfile: (id: string) => Fetch<UserGetProfileResponse>(`/api/user/${id}/profile`),
     getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward', {}, 'PATCH'),
-    ban: (id: string, reason: string) => Fetch<never>(`/api/user/${id}/ban`, { reason }, 'PATCH'),
-    unban: (id: string) => Fetch<never>(`/api/user/${id}/unban`, {}, 'PATCH'),
+    ban: (data: UsersBanRequest) => Fetch<never>(`/api/user/ban`, data, 'PATCH'),
+    unban: (data: UsersUnbanRequest) => Fetch<never>(`/api/user/unban`, data, 'PATCH'),
     banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
     multipleAccounts: () => Fetch<UserMultipleAccountsListResponse>('/api/user/multiple-accounts'),
     knownFingerprintsList: () => Fetch<KnownFingerprintListResponse>('/api/user/known-fingerprints'),
