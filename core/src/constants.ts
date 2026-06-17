@@ -123,6 +123,7 @@ export enum BanReason {
   INNAPROPRIATE_BRUTE_NAME = 'innapropriateBruteName',
   MULTIPLE_ACCOUNTS = 'multipleAccounts',
   API_ABUSE = 'apiAbuse',
+  UNWELCOME_BEHAVIOR = 'unwelcomeBehavior',
 }
 
 export const FightLogTemplateCount = 48;
