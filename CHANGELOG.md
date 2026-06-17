@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.96.8](https://github.com/Zenoo/labrute/compare/labrute-v2.96.7...labrute-v2.96.8) (2026-06-17)
+
+
+### Bug Fixes
+
+* Allow skipping fingerprints ban when banning a user from the admin panel ([6e81d36](https://github.com/Zenoo/labrute/commit/6e81d36d0b9d300b8aac632057168c0031c21ef3))
+
 ## [2.96.7](https://github.com/Zenoo/labrute/compare/labrute-v2.96.6...labrute-v2.96.7) (2026-06-17)
 
 
