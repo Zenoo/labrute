@@ -16,5 +16,6 @@
   "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
   "banReason.headers_tampering": "Headers tampering detected",
   "banReason.apiAbuse": "API abuse detected",
-  "banReason.automation": "Automation detected"
+  "banReason.automation": "Automation detected",
+  "banReason.unwelcomeBehavior": "Unwelcome behavior"
 }
