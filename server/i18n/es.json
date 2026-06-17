@@ -117,6 +117,7 @@
   "banReason.headers_tampering": "Alteración de cabeceras detectada",
   "banReason.apiAbuse": "API abuse detected",
   "banReason.automation": "Automation detected",
+  "banReason.unwelcomeBehavior": "Unwelcome behavior",
   "fingerprintBanned": "Esta huella digital está suspendida",
   "banned": "You have been banned",
   "ipBanned": "Tu IP está baneada",

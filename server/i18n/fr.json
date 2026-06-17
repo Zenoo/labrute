@@ -117,6 +117,7 @@
   "banReason.headers_tampering": "En-têtes altérés détectés",
   "banReason.apiAbuse": "Abus d'API détecté",
   "banReason.automation": "Automatisation détectée",
+  "banReason.unwelcomeBehavior": "Comportement indésirable",
   "fingerprintBanned": "Cette empreinte digitale est bannie",
   "banned": "Vous avez été banni",
   "ipBanned": "Votre adresse IP est bannie",
