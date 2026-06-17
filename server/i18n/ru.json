@@ -117,7 +117,7 @@
   "banReason.headers_tampering": "Обнаружена манипуляция заголовков",
   "banReason.apiAbuse": "Обнаружено злоупотребление API",
   "banReason.automation": "Обнаружена автоматизация",
-  "banReason.unwelcomeBehavior": "Unwelcome behavior",
+  "banReason.unwelcomeBehavior": "Неподобающее поведение",
   "fingerprintBanned": "Этот отпечаток забанен",
   "banned": "Ваша учетная запись заблокирована",
   "ipBanned": "Ваш IP-адрес забанен",
