@@ -94,6 +94,7 @@ export const AdminView = () => {
             <FantasyButton color="warning" to="/admin-panel/shared-browser">SHARED BROWSER</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/fingerprint">FINGERPRINTS</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/browser-id">BROWSER IDS</FantasyButton>
+            <FantasyButton color="warning" to="/admin-panel/banned-words">BANNED WORDS</FantasyButton>
           </Stack>
           <Divider />
           <Text bold h3 smallCaps color="secondary">Next modifiers</Text>

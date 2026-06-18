@@ -57,6 +57,7 @@ import { UnlockColorView } from './views/UnlockColorView';
 import { SharedBrowserView } from './views/admin/SharedBrowserView';
 import { FingerprintAdminView } from './views/admin/FingerprintAdminView';
 import { BrowserIdAdminView } from './views/admin/BrowserIdAdminView';
+import { BannedWordsAdminView } from './views/admin/BannedWordsAdminView';
 
 export const routes: RouteObject[] = [
   {
@@ -165,6 +166,7 @@ export const routes: RouteObject[] = [
           { path: 'shared-browser', element: <SharedBrowserView /> },
           { path: 'fingerprint', element: <FingerprintAdminView /> },
           { path: 'browser-id', element: <BrowserIdAdminView /> },
+          { path: 'banned-words', element: <BannedWordsAdminView /> }
         ],
       },
       {

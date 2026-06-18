@@ -49,6 +49,9 @@ import {
   BruteUnlockColorResponse,
   InvalidAPIUseError,
   BruteDeleteRequest,
+  BrutesListBannedWordsResponse,
+  BrutesRemoveBannedWordRequest,
+  BrutesAddBannedWordRequest,
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
@@ -2422,6 +2425,80 @@ export const Brutes = {
       }
 
       await deleteBrutes(prisma, [brute], null);
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  listBannedWords: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response<BrutesListBannedWordsResponse>,
+  ) => {
+    try {
+      await auth(prisma, req, { admin: true });
+
+      const bannedWords = await traced('brutes.listBannedWords.findBannedWords', () => prisma.bannedWord.findMany({
+        select: {
+          id: true,
+          word: true,
+        },
+      }));
+
+      res.send(bannedWords);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  removeBannedWord: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, BrutesRemoveBannedWordRequest>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      if (!req.body.id) {
+        throw new InvalidAPIUseError(user, 'Missing word');
+      }
+
+      await traced('brutes.removeBannedWord.deleteBannedWord', () => prisma.bannedWord.deleteMany({
+        where: {
+          id: req.body.id,
+        },
+      }));
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  addBannedWord: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, BrutesAddBannedWordRequest>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      if (!req.body.word) {
+        throw new InvalidAPIUseError(user, 'Missing word');
+      }
+
+
+      // Delete banned words containing this word
+      await traced('brutes.addBannedWord.deleteBannedWords', () => prisma.bannedWord.deleteMany({
+        where: {
+          word: {
+            contains: req.body.word,
+            mode: 'insensitive',
+          },
+        },
+      }));
+
+      await traced('brutes.addBannedWord.createBannedWord', () => prisma.bannedWord.create({
+        data: {
+          word: req.body.word,
+        },
+      }));
 
       res.send({ success: true });
     } catch (error) {

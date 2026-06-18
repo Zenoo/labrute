@@ -1,5 +1,5 @@
 import {
-  Achievement, AchievementName, BossDamage, Brute, BruteReport, BruteReportReason,
+  Achievement, AchievementName, BannedWord, BossDamage, Brute, BruteReport, BruteReportReason,
   BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender,
   InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SharedBrowser, SkillName,
@@ -622,6 +622,13 @@ export type BrutesCreateResponse = {
 };
 export type BrutesGetLevelUpChoicesResponse = {
   choices: [DestinyChoice, DestinyChoice],
+};
+export type BrutesListBannedWordsResponse = Pick<BannedWord, 'id' | 'word'>[];
+export type BrutesRemoveBannedWordRequest = {
+  id: string;
+};
+export type BrutesAddBannedWordRequest = {
+  word: string;
 };
 
 export type ServerReadyResponse = {

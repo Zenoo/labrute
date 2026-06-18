@@ -80,6 +80,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.delete('/api/user/shared-browser/:id', Users.deleteSharedBrowser(prisma));
 
   // Brute
+  app.get('/api/brute/banned-words', Brutes.listBannedWords(prisma));
+  app.delete('/api/brute/banned-words', Brutes.removeBannedWord(prisma));
+  app.put('/api/brute/banned-words', Brutes.addBannedWord(prisma));
   app.get('/api/brute/:name/for-versus', Brutes.getForVersus(prisma));
   app.get('/api/brute/:name/for-hook', Brutes.getForHook(prisma));
   app.get('/api/brute/:identifier/for-admin/:includeDeleted', Brutes.getForAdmin(prisma));
