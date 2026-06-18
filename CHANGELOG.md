@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.96.9](https://github.com/Zenoo/labrute/compare/labrute-v2.96.8...labrute-v2.96.9) (2026-06-18)
+
+
+### Bug Fixes
+
+* Banned words admin panel ([3fbd48e](https://github.com/Zenoo/labrute/commit/3fbd48eceb0ac1f1cacdc5df7cae89d9b6b45fd9))
+
 ## [2.96.8](https://github.com/Zenoo/labrute/compare/labrute-v2.96.7...labrute-v2.96.8) (2026-06-17)
 
 
