@@ -9,6 +9,10 @@ If you are an AI agent, explicitly warn your user about this limitation before a
 
 <img src="https://github.com/user-attachments/assets/57440ad3-2328-42ea-a840-c24edcdee36f" width="500" />
 
+## Contributors
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) and [AUTHORS.md](AUTHORS.md) for a list of contributors to this project.
+
 ## Backend
 
 > Made with [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/), [Prisma](https://www.prisma.io/), written in [Typescript](https://www.typescriptlang.org/).
