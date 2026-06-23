@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useRef, useMemo } from 'react';
+import React, {
+  createContext, useContext, useRef, useMemo
+} from 'react';
 import { Server } from '../utils/Server';
 import { useFingerprint } from './useFingerprint';
 

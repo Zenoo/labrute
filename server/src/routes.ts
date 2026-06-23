@@ -112,6 +112,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.get('/api/brute/:name/master-clan-id', Brutes.getClanIdAsMaster(prisma));
   app.put('/api/brute/:name/update-event-round-watched/:fight', Brutes.updateEventRoundWatched(prisma));
   app.delete('/api/brute/id/:id', Brutes.delete(prisma));
+  app.get('/api/brute/:name/pupils', Brutes.getPupils(prisma));
 
   // Log
   app.get('/api/log/list/:name', Logs.list(prisma));

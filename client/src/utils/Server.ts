@@ -10,7 +10,8 @@ import {
   BrutesGetDestinyResponse, BrutesGetFightsLeftResponse, BrutesGetForRankRequest,
   BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse,
   BrutesGetNeighborsForRankRequest, BrutesGetNeighborsForRankResponse,
-  BrutesGetOpponentsResponse, BrutesGetRankingResponse, BrutesListBannedWordsResponse,
+  BrutesGetOpponentsResponse, BrutesGetPupilsResponse, BrutesGetRankingResponse,
+  BrutesListBannedWordsResponse,
   BrutesRemoveBannedWordRequest,
   BruteUnlockColorRequest,
   BruteUnlockColorResponse,
@@ -141,6 +142,7 @@ export const Server = {
     listBannedWords: () => Fetch<BrutesListBannedWordsResponse>('/api/brute/banned-words'),
     removeBannedWord: (data: BrutesRemoveBannedWordRequest) => Fetch<never>('/api/brute/banned-words', data, 'DELETE'),
     addBannedWord: (data: BrutesAddBannedWordRequest) => Fetch<never>('/api/brute/banned-words', data, 'PUT'),
+    getPupils: (name: string) => Fetch<BrutesGetPupilsResponse>(`/api/brute/${name}/pupils`),
   },
   Log: {
     list: (brute: string) => Fetch<LogListResponse>(`/api/log/list/${brute}`),

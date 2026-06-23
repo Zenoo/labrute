@@ -630,6 +630,7 @@ export type BrutesRemoveBannedWordRequest = {
 export type BrutesAddBannedWordRequest = {
   word: string;
 };
+export type BrutesGetPupilsResponse = BruteForRender[];
 
 export type ServerReadyResponse = {
   ready: boolean,

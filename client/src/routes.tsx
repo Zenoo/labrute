@@ -58,6 +58,7 @@ import { SharedBrowserView } from './views/admin/SharedBrowserView';
 import { FingerprintAdminView } from './views/admin/FingerprintAdminView';
 import { BrowserIdAdminView } from './views/admin/BrowserIdAdminView';
 import { BannedWordsAdminView } from './views/admin/BannedWordsAdminView';
+import { DojoView } from './views/DojoView';
 
 export const routes: RouteObject[] = [
   {
@@ -101,6 +102,7 @@ export const routes: RouteObject[] = [
           { path: 'reset-visuals', element: <ResetVisualsView /> },
           { path: 'unlock-color', element: <UnlockColorView /> },
           { path: 'change-name', element: <NameChangeView /> },
+          { path: 'dojo', element: <DojoView /> },
           {
             path: 'clan',
             children: [

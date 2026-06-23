@@ -174,8 +174,10 @@ export const CellSocials = ({
             </Grid>
             {!!brute.pupilsCount && (
               <Grid item xs={6}>
-                <Text bold color="secondary" component="span">{t('pupils')}: </Text>
-                <Text bold component="span">{brute.pupilsCount}</Text>
+                <Link to={`/${brute.name}/dojo`}>
+                  <Text bold color="secondary" component="span">{t('pupils')}: </Text>
+                  <Text bold component="span">{brute.pupilsCount}</Text>
+                </Link>
               </Grid>
             )}
           </Grid>

@@ -1,0 +1,20 @@
+{"frames": {
+
+"background.jpg":
+{
+	"frame": {"x":1,"y":1,"w":505,"h":295},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":505,"h":295},
+	"sourceSize": {"w":505,"h":295}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "dojo.png",
+	"format": "RGBA8888",
+	"size": {"w":507,"h":297},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:7578ae1d57c59404a3c9f7ef544fde71:708e7fa8947f509409de0c870851242b:9d3173ac93dd98e15300512168fafc12$"
+}
+}

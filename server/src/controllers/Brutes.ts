@@ -52,6 +52,7 @@ import {
   BrutesListBannedWordsResponse,
   BrutesRemoveBannedWordRequest,
   BrutesAddBannedWordRequest,
+  BrutesGetPupilsResponse,
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
@@ -2501,6 +2502,48 @@ export const Brutes = {
       }));
 
       res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getPupils: (prisma: PrismaClient) => async (
+    req: Request<ParamsWithBruteName>,
+    res: Response<BrutesGetPupilsResponse>,
+  ) => {
+    try {
+      const authed = await auth(prisma, req);
+
+      const brute = await traced('brutes.getPupils.findBrute', () => prisma.brute.findFirst({
+        where: {
+          name: ilike(req.params.name),
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          pupils: {
+            select: {
+              id: true,
+              name: true,
+              gender: true,
+              body: true,
+              colors: true,
+            },
+            orderBy: [
+              { ascensions: 'desc' },
+              { ranking: 'asc' },
+              { level: 'desc' },
+              { xp: 'desc' },
+              { name: 'asc' },
+            ]
+          },
+        }
+      }));
+
+      if (!brute) {
+        throw new NotFoundError(translate('bruteNotFound', authed));
+      }
+
+      res.send(brute.pupils);
     } catch (error) {
       sendError(res, error);
     }
