@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "Un peu comme une bombe à eau, mais en plus méchant !",
   "bomb.effect": "Action x<uses /> Entre 15 et 25 dégâts sur tous les adversaires.",
-  "bruteCell": "Cellule de {{name}}",
+  "bruteCell": "<name />'s cell",
   "bruteIsResting": "{{brute}} se repose.",
   "bruteNotRegistered": "Brute non inscrite.",
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons !",
@@ -560,5 +560,6 @@
   "regenerationStat": "Régénération",
   "usageRate": "Taux d'utilisation",
   "damage": "Dégâts",
-  "authing": "Authentification en cours..."
+  "authing": "Authentification en cours...",
+  "dojoRank": "Dojo rank {{rank}}"
 }
