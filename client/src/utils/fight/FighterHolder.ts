@@ -513,6 +513,10 @@ export class FighterHolder {
 
   #usedSvgs: Record<string, number> = {};
 
+  #tickerHandler: ((delta?: number) => void) | null = null;
+
+  #appTicker: PIXI.Ticker | null = null;
+
   readonly loaded: boolean = false;
 
   // Events
@@ -709,7 +713,8 @@ export class FighterHolder {
     this.loaded = true;
 
     // Play animation (loop on frames with PIXI ticker)
-    app.ticker?.add(() => {
+    this.#appTicker = app.ticker ?? null;
+    this.#tickerHandler = () => {
       if (this.container.destroyed) return;
 
       // Update zIndex if not airborn
@@ -724,7 +729,7 @@ export class FighterHolder {
 
       const tickRate = 1000 / (30 * this.speed.current);
 
-      this.#timer += app.ticker.elapsedMS;
+      this.#timer += (this.#appTicker?.elapsedMS) ?? 0;
       if (this.#timer === 0 || this.#timer >= tickRate) {
         this.#timer %= tickRate;
 
@@ -795,7 +800,11 @@ export class FighterHolder {
           this.#triggerEvents(`${this.animation}:${this.#frame < 0 ? 'start' : 'end'}`);
         }
       }
-    });
+    };
+
+    if (this.#appTicker) {
+      this.#appTicker.add(this.#tickerHandler);
+    }
   }
 
   // Getter and setter for animationSpeed that accounts for scale
@@ -1237,6 +1246,27 @@ export class FighterHolder {
 
   destroy = () => {
     this.pause();
-    this.container.destroy();
+
+    // Remove ticker handler to avoid leaked callbacks
+    if (this.#appTicker && this.#tickerHandler) {
+      try {
+        this.#appTicker.remove(this.#tickerHandler);
+      } catch (e) {
+        console.error('Error removing ticker handler', e);
+      }
+      this.#tickerHandler = null;
+      this.#appTicker = null;
+    }
+
+    // Destroy container and its children, but DO NOT destroy shared textures
+    // (textures created via Texture.from are cached and may be shared).
+    try {
+      this.container.destroy({ children: true, texture: false, baseTexture: false });
+    } catch (e) {
+      console.error('Error destroying container', e);
+    }
+
+    // Clear svg sprite references to allow GC; do not destroy their textures here.
+    this.svgs = [];
   };
 }

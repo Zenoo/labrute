@@ -2,19 +2,78 @@
 
 "background.jpg":
 {
-	"frame": {"x":1,"y":1,"w":505,"h":295},
+	"frame": {"x":1,"y":138,"w":505,"h":295},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":505,"h":295},
 	"sourceSize": {"w":505,"h":295}
+},
+"beam-left.png":
+{
+	"frame": {"x":1,"y":22,"w":114,"h":207},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":0,"w":114,"h":207},
+	"sourceSize": {"w":505,"h":295}
+},
+"beam-right.png":
+{
+	"frame": {"x":210,"y":22,"w":114,"h":222},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":375,"y":0,"w":114,"h":222},
+	"sourceSize": {"w":505,"h":295}
+},
+"temple-1.png":
+{
+	"frame": {"x":1,"y":1,"w":103,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":312,"y":61,"w":103,"h":19},
+	"sourceSize": {"w":505,"h":295}
+},
+"temple-2.png":
+{
+	"frame": {"x":106,"y":1,"w":106,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":115,"y":57,"w":106,"h":19},
+	"sourceSize": {"w":505,"h":295}
+},
+"temple-3.png":
+{
+	"frame": {"x":214,"y":1,"w":106,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":289,"y":28,"w":106,"h":19},
+	"sourceSize": {"w":505,"h":295}
+},
+"temple-4.png":
+{
+	"frame": {"x":322,"y":1,"w":107,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":132,"y":23,"w":107,"h":19},
+	"sourceSize": {"w":505,"h":295}
+},
+"tent.png":
+{
+	"frame": {"x":431,"y":1,"w":58,"h":19},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":161,"w":58,"h":19},
+	"sourceSize": {"w":505,"h":295}
 }},
+"animations": {
+	"temple": ["temple-1.png","temple-2.png","temple-3.png","temple-4.png"]
+},
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.1",
 	"image": "dojo.png",
 	"format": "RGBA8888",
-	"size": {"w":507,"h":297},
+	"size": {"w":507,"h":434},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:7578ae1d57c59404a3c9f7ef544fde71:708e7fa8947f509409de0c870851242b:9d3173ac93dd98e15300512168fafc12$"
+	"smartupdate": "$TexturePacker:SmartUpdate:94312bc204fe616506737d465f600d93:295cf3467145e989bc47463f12a15489:9d3173ac93dd98e15300512168fafc12$"
 }
 }

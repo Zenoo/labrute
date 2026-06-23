@@ -174,6 +174,13 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">public/images/game/resources/dojo/background.jpg</key>
+            <key type="filename">public/images/game/resources/dojo/beam-left.png</key>
+            <key type="filename">public/images/game/resources/dojo/beam-right.png</key>
+            <key type="filename">public/images/game/resources/dojo/temple-1.png</key>
+            <key type="filename">public/images/game/resources/dojo/temple-2.png</key>
+            <key type="filename">public/images/game/resources/dojo/temple-3.png</key>
+            <key type="filename">public/images/game/resources/dojo/temple-4.png</key>
+            <key type="filename">public/images/game/resources/dojo/tent.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0,0</point_f>
