@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "Quasi eine Wasserbombe, nur viel fieser.",
   "bomb.effect": "Aktion x<uses />: Zwischen 15 und 25 Schaden allen Gegnern.",
-  "bruteCell": "Zur Zelle von {{name}}",
+  "bruteCell": "<name />'s cell",
   "bruteIsResting": "{{brute}} ruht sich gerade aus.",
   "bruteNotRegistered": "Brutalo nicht angemeldet.",
   "callToFight": "Wenn du dich an jemandem austoben möchtest, kannst du das hier tun! In der Arena gibt's reichlich Brutalos, die nur darauf warten Prügel auszutauschen!",
@@ -560,5 +560,6 @@
   "regenerationStat": "Regeneration",
   "usageRate": "Benutzungsrate",
   "damage": "Schaden",
-  "authing": "Authentifizierung..."
+  "authing": "Authentifizierung...",
+  "dojoRank": "Dojo rank {{rank}}"
 }
