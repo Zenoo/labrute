@@ -1,5 +1,5 @@
 import {
-  BrutesGetPupilsResponse, Fighter, randomBetween
+  BrutesGetPupilsResponse, DOJO_UNLOCKS, Fighter, randomBetween
 } from '@labrute/core';
 import {
   Box,
@@ -111,49 +111,49 @@ export const DojoView = () => {
       // Dojo structures
 
       // Right beam
-      if (pupils.length > 4) {
+      if (pupils.length > DOJO_UNLOCKS[0] - 1) {
         const rightBeam = new Sprite(spritesheet.textures[`beam-right.png`]);
         rightBeam.zIndex = 200;
         app.stage.addChild(rightBeam);
       }
 
       // Left beam
-      if (pupils.length > 9) {
+      if (pupils.length > DOJO_UNLOCKS[1] - 1) {
         const leftBeam = new Sprite(spritesheet.textures[`beam-left.png`]);
         leftBeam.zIndex = 200;
         app.stage.addChild(leftBeam);
       }
 
       // Temple 1
-      if (pupils.length > 14) {
+      if (pupils.length > DOJO_UNLOCKS[2] - 1) {
         const temple1 = new Sprite(spritesheet.textures[`temple-1.png`]);
         temple1.zIndex = 10;
         app.stage.addChild(temple1);
       }
 
       // Temple 2
-      if (pupils.length > 19) {
+      if (pupils.length > DOJO_UNLOCKS[3] - 1) {
         const temple2 = new Sprite(spritesheet.textures[`temple-2.png`]);
         temple2.zIndex = 10;
         app.stage.addChild(temple2);
       }
 
       // Temple 3
-      if (pupils.length > 24) {
+      if (pupils.length > DOJO_UNLOCKS[4] - 1) {
         const temple3 = new Sprite(spritesheet.textures[`temple-3.png`]);
         temple3.zIndex = 5;
         app.stage.addChild(temple3);
       }
 
       // Temple 4
-      if (pupils.length > 29) {
+      if (pupils.length > DOJO_UNLOCKS[5] - 1) {
         const temple4 = new Sprite(spritesheet.textures[`temple-4.png`]);
         temple4.zIndex = 5;
         app.stage.addChild(temple4);
       }
 
       // Tent
-      if (pupils.length > 49) {
+      if (pupils.length > DOJO_UNLOCKS[6] - 1) {
         const tent = new Sprite(spritesheet.textures[`tent.png`]);
         tent.zIndex = 220;
         app.stage.addChild(tent);

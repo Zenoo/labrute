@@ -471,6 +471,7 @@ export const Users = {
               name: true,
               gender: true,
               level: true,
+              pupilsCount: true,
               hpStat: true,
               hpModifier: true,
               hpValue: true,

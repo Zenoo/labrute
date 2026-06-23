@@ -89,6 +89,10 @@ export const CLAN_SIZE_LIMIT = 50;
 export const BOSS_XP_REWARD = 500;
 export const BOSS_GOLD_REWARD = 500;
 
+export const DOJO_UNLOCKS = [
+  5, 10, 15, 20, 25, 30, 50
+] as const;
+
 export enum BruteDeletionReason {
   DUPLICATE_NAME = 'DUPLICATE_NAME',
   INNAPROPRIATE_NAME = 'INNAPROPRIATE_NAME',

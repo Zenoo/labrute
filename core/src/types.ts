@@ -49,6 +49,7 @@ export type Fighter = {
   colors?: string;
   rank: BruteRanking;
   level: number;
+  pupilsCount?: number;
   strength: number,
   agility: number,
   speed: number,
@@ -551,7 +552,7 @@ export type BrutesGetForRankRequest = {
   rank: string;
 };
 export type BrutesGetForRankResponse = {
-  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  topBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'pupilsCount' | 'ascensions'>[],
   total: number,
   bruteInTop: boolean,
 };
@@ -560,7 +561,7 @@ export type BrutesGetNeighborsForRankRequest = {
   rank: string;
 };
 export type BrutesGetNeighborsForRankResponse = {
-  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'ascensions'>[],
+  nearbyBrutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'pupilsCount' | 'ascensions'>[],
   position: number,
 };
 export type BrutesGetRankingResponse = {
@@ -568,7 +569,7 @@ export type BrutesGetRankingResponse = {
 };
 export type BrutesGetForVersusResponse = Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'level'>;
 export type BrutesGetOpponentsResponse = Pick<Brute,
-  'id' | 'xp' | 'name' | 'ranking' | 'gender' | 'level' | 'deletedAt' |
+  'id' | 'xp' | 'name' | 'ranking' | 'gender' | 'level' | 'pupilsCount' | 'deletedAt' |
   'hpStat' |
   'hpModifier' |
   'hpValue' |
@@ -806,6 +807,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
     'name' |
     'gender' |
     'level' |
+    'pupilsCount' |
     'hpStat' |
     'hpModifier' |
     'hpValue' |
@@ -854,7 +856,7 @@ export type KnownFingerprintRemoveRequest = {
 export type AchievementGetRankingsResponse = {
   name: AchievementName,
   user: Pick<User, 'name' | 'id'> | null,
-  brute: Pick<Brute, 'name' | 'id'> | null,
+  brute: Pick<Brute, 'name' | 'pupilsCount' | 'id'> | null,
   count: number,
 }[];
 

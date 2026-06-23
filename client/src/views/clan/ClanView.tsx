@@ -36,6 +36,7 @@ import { useBrute } from '../../hooks/useBrute';
 import { useConfirm } from '../../hooks/useConfirm';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
+import { BruteName } from '../../components/Brute/BruteName';
 
 type CalculatedClanGetResponse = Omit<ClanGetResponse, 'brutes' | 'joinRequests'> & {
   brutes: ReturnType<typeof getCalculatedBrute<ClanGetResponse['brutes'][number]>>[];
@@ -932,7 +933,9 @@ export const ClanView = () => {
                         />
                       </Tooltip>
                     )}
-                    <Text bold color="secondary" sx={{ display: 'inline' }}>{clanBrute.name}</Text>
+                    <Text bold color="secondary" sx={{ display: 'inline' }}>
+                      <BruteName brute={clanBrute} />
+                    </Text>
                   </Box>
                 </Box>
                 <Text bold smallCaps color="text.primary">

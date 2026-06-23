@@ -18,6 +18,7 @@ import { BruteHP } from './BruteHP';
 import { BruteSmallWeaponList } from './BruteSmallWeaponList';
 import { BruteSmallSkillList } from './BruteSmallSkillList';
 import { BruteSmallPetList } from './BruteSmallPetList';
+import { BruteName } from './BruteName';
 
 type BruteButtonProps = Omit<BoxProps, 'ref'> & ({
   brute: Pick<CalculatedBrute, 'id' | 'xp' | 'gender' | 'name' | 'speedValue' | 'agilityValue' | 'strengthValue' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'agilityStat' | 'agilityModifier' | 'speedStat' | 'speedModifier' | 'hpStat' | 'hpModifier' | 'level' | 'ranking' | 'body' | 'colors' | 'skills' | 'eventId'>;
@@ -99,7 +100,9 @@ export const BruteButton = ({
         }}
         >
           <Box display="flex" alignItems="center">
-            <Text bold color="secondary" sx={{ display: 'inline' }}>{brute.name}</Text>
+            <Text bold color="secondary" sx={{ display: 'inline' }}>
+              <BruteName brute={brute} />
+            </Text>
           </Box>
         </Box>
         <Text bold smallCaps color="text.primary">

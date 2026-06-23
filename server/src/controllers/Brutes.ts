@@ -83,16 +83,7 @@ import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
 
 // In-memory cache for top 15 brutes per rank (calculated daily)
 type RankCache = {
-  brutes: Array<{
-    id: string;
-    name: string;
-    body: string;
-    colors: string;
-    gender: Gender;
-    ranking: number;
-    level: number;
-    ascensions: number;
-  }>;
+  brutes: Pick<Brute, 'id' | 'name' | 'body' | 'colors' | 'gender' | 'ranking' | 'level' | 'pupilsCount' | 'ascensions'>[];
   total: number;
   updatedAt: string; // YYYY-MM-DD
 };
@@ -139,6 +130,7 @@ const getTop15AndTotalForRank = async (prisma: PrismaClient, rank: number) => {
           gender: true,
           ranking: true,
           level: true,
+          pupilsCount: true,
           ascensions: true,
         },
       },
@@ -875,6 +867,7 @@ export const Brutes = {
               name: true,
               ranking: true,
               level: true,
+              pupilsCount: true,
               gender: true,
               hpStat: true,
               hpModifier: true,
@@ -1135,6 +1128,7 @@ export const Brutes = {
               gender: true,
               ranking: true,
               level: true,
+              pupilsCount: true,
               ascensions: true,
               xp: true,
             },
@@ -1170,6 +1164,7 @@ export const Brutes = {
               gender: true,
               ranking: true,
               level: true,
+              pupilsCount: true,
               ascensions: true,
               xp: true,
             },
@@ -2511,8 +2506,6 @@ export const Brutes = {
     res: Response<BrutesGetPupilsResponse>,
   ) => {
     try {
-      const authed = await auth(prisma, req);
-
       const brute = await traced('brutes.getPupils.findBrute', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.params.name),
@@ -2540,7 +2533,7 @@ export const Brutes = {
       }));
 
       if (!brute) {
-        throw new NotFoundError(translate('bruteNotFound', authed));
+        throw new NotFoundError(translate('bruteNotFound'));
       }
 
       res.send(brute.pupils);

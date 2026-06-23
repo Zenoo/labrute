@@ -201,6 +201,7 @@ export const getFighters = ({
         body: brute.body,
         rank: brute.ranking as BruteRanking,
         level: brute.level,
+        pupilsCount: brute.pupilsCount,
         type: 'brute',
         maxHp: brute.hpValue,
         hp: brute.hpValue,

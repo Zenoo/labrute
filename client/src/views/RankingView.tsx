@@ -21,6 +21,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
 import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
+import { BruteName } from '../components/Brute/BruteName';
 
 export const RankingView = () => {
   const { t } = useTranslation('ranking');
@@ -118,7 +119,9 @@ export const RankingView = () => {
             <BruteRender brute={b} y={-5} small />
           </Box>
           <Link to={`/${b.name}/cell`} sx={{ ml: 1 }}>
-            <Text bold>{b.name}</Text>
+            <Text bold>
+              <BruteName brute={b} />
+            </Text>
           </Link>
         </Box>
       </TableCell>

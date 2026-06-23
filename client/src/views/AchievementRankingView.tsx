@@ -14,6 +14,7 @@ import { useAlert } from '../hooks/useAlert';
 import { Loader } from '../components/Loader';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import { BruteName } from '../components/Brute/BruteName';
 
 export const AchievementRankingView = () => {
   const { t } = useTranslation('achievementRanking');
@@ -123,7 +124,9 @@ export const AchievementRankingView = () => {
                             sx={{ my: 0 }}
                             primary={(
                               <Link to={ranked.user ? `/user/${ranked.user.id}` : `/${ranked.brute?.name}/cell`}>
-                                <span>{ranked.user?.name || ranked.brute?.name}</span>
+                                {ranked.brute
+                                  ? <BruteName brute={ranked.brute} />
+                                  : <span>{ranked.user?.name}</span>}
                                 <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{ranked.count})</Box>
                               </Link>
                             )}

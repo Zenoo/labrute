@@ -18,6 +18,7 @@ import { Text } from '../Text';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import { getCachedRanking, setCachedRanking } from '../../utils/cache';
+import { DojoRankIcon } from '../Brute/DojoRankIcon';
 
 export interface CellSocialsProps extends PaperProps {
   smallScreen?: boolean;
@@ -177,6 +178,7 @@ export const CellSocials = ({
                 <Link to={`/${brute.name}/dojo`}>
                   <Text bold color="secondary" component="span">{t('pupils')}: </Text>
                   <Text bold component="span">{brute.pupilsCount}</Text>
+                  <DojoRankIcon pupilsCount={brute.pupilsCount} sx={{ ml: 0.5 }} />
                 </Link>
               </Grid>
             )}

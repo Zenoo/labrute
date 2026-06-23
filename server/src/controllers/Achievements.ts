@@ -113,10 +113,11 @@ export const calculateAchievementRankings = async (prisma: PrismaClient) => {
     bruteId: string | null;
     count: number;
     bruteName: string | null;
+    pupilsCount: number | null;
   }[] = await traced('achievements.calculateRankings.getTop3ByBrute', () => prisma.$queryRaw`
-    SELECT a.name, a."bruteId", a.count, a."bruteName"
+    SELECT a.name, a."bruteId", a.count, a."bruteName", a."pupilsCount"
     FROM (
-      SELECT ach.name, ach."bruteId", ach.count, b.name AS "bruteName",
+      SELECT ach.name, ach."bruteId", ach.count, b.name AS "bruteName", b."pupilsCount",
         ROW_NUMBER() OVER (PARTITION BY ach.name ORDER BY ach.count DESC) AS row_number
       FROM "Achievement" ach
       INNER JOIN "Brute" b ON ach."bruteId" = b.id AND b."deletedAt" IS NULL
@@ -128,8 +129,9 @@ export const calculateAchievementRankings = async (prisma: PrismaClient) => {
     name: t.name,
     user: null,
     brute: {
-      name: t.bruteName || '',
-      id: t.bruteId || '',
+      name: t.bruteName ?? '',
+      id: t.bruteId ?? '',
+      pupilsCount: t.pupilsCount ?? 0,
     },
     count: t.count,
   }));

@@ -50,6 +50,7 @@ export type DetailedFighter = {
   colors?: string;
   rank: BruteRanking;
   level: number;
+  pupilsCount?: number;
   type: 'brute' | 'pet' | 'boss';
   // Follower/Backup variables
   master?: string;
@@ -375,6 +376,7 @@ export const generateFight = async ({
       colors: fighter.colors,
       rank: fighter.rank,
       level: fighter.level,
+      pupilsCount: fighter.pupilsCount,
       agility: fighter.agility,
       strength: fighter.strength,
       speed: fighter.speed,

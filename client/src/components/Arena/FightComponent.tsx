@@ -14,7 +14,7 @@ import * as PIXI from 'pixi.js';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState
 } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { LS_KEY_FIGHT_BACKGROUND_MUSIC, LS_KEY_FIGHT_SPEED } from '../../utils/constants';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
@@ -27,6 +27,7 @@ import { Text } from '../Text';
 import { sfx } from './sfx';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
+import { BruteName } from '../Brute/BruteName';
 
 const sounds = [
   'arrive',
@@ -472,13 +473,27 @@ export const FightComponent = ({
           <Link
             to={`/${brute1.name}/cell`}
           >
-            <Text component="span" bold color="secondary">{t('bruteCell', { name: brute1.name })}</Text>
+            <Text component="span" bold color="secondary">
+              <Trans
+                i18nKey="bruteCell"
+                components={{
+                  name: <BruteName brute={brute1} />
+                }}
+              />
+            </Text>
           </Link>
           {brute2 && (
             <Link
               to={`/${brute2.name}/cell`}
             >
-              <Text component="span" bold color="secondary">{t('bruteCell', { name: brute2.name })}</Text>
+              <Text component="span" bold color="secondary">
+                <Trans
+                  i18nKey="bruteCell"
+                  components={{
+                    name: <BruteName brute={brute2} />
+                  }}
+                />
+              </Text>
             </Link>
           )}
         </Box>
