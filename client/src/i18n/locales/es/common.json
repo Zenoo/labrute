@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "Es como un globito de agua, pero con más mala idea.",
   "bomb.effect": "Acción x<uses /> Inflige entre 15 y 25 de daño a todos tus oponentes.",
-  "bruteCell": "Celda de {{name}}",
+  "bruteCell": "<name />'s cell",
   "bruteIsResting": "{{brute}} está descansando.",
   "bruteNotRegistered": "Inscripción no registrada.",
   "callToFight": "Si tienes ganas de descargar tu energía sobre alguien, ¡hazlo aquí! Hay muchos Brutos en la arena deseando intercambiar puñetazos...",
@@ -560,5 +560,6 @@
   "regenerationStat": "Regeneración",
   "usageRate": "Tasa de uso",
   "damage": "Daño",
-  "authing": "Autenticando..."
+  "authing": "Autenticando...",
+  "dojoRank": "Dojo rank {{rank}}"
 }
