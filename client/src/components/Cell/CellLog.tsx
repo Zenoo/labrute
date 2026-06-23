@@ -6,10 +6,11 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link } from '../Link';
 import { LogImage } from '../LogImage';
 import { Text } from '../Text';
+import { BruteName } from '../Brute/BruteName';
 
 export interface CellLogProps extends PaperProps {
   log: Log & {
@@ -65,7 +66,13 @@ export const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
       >
         {combatLogs.includes(log.type) || childLogs.includes(log.type)
           ? (
-            <Tooltip title={combatLogs.includes(log.type) ? t('seeFight') : t('bruteCell', { name: log.brute })}>
+            <Tooltip title={combatLogs.includes(log.type) ? t('seeFight') : (
+              <Trans
+                i18nKey="bruteCell"
+                components={{
+                  name: <BruteName brute={{ name: log.brute ?? '' }} />
+                }}
+              />)}>
               <Link
                 to={combatLogs.includes(log.type) ? `/${log.currentBrute.name}/fight/${log.fightId || 0}` : `/${log.brute}/cell`}
                 sx={{
