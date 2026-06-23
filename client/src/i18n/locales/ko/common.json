@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "A bit like a water bomb, but far more deadly!",
   "bomb.effect": "Action x<uses /> Between 15 and 25 damage inflicted on all your opponents.",
-  "bruteCell": "{{name}}'s cell",
+  "bruteCell": "<name />'s cell",
   "bruteIsResting": "{{brute}} is resting.",
   "bruteNotRegistered": "Brute not registered.",
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
@@ -560,5 +560,6 @@
   "regenerationStat": "Regeneration",
   "usageRate": "Usage Rate",
   "damage": "Damage",
-  "authing": "Authenticating..."
+  "authing": "Authenticating...",
+  "dojoRank": "Dojo rank {{rank}}"
 }
