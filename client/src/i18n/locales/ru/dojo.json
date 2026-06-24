@@ -1,5 +1,5 @@
 {
-  "dojo": "{{name}}'s Dojo",
-  "pupils": "{{name}}'s Pupils",
-  "recruit": "Recruit new pupils to build your dojo and increase your popularity. Give this link to other people:"
+  "dojo": "Додзё {{name}}",
+  "pupils": "Ученики {{name}}",
+  "recruit": "Вербуйте новых учеников, чтобы обустраивать ваш додзё и увеличивать популярность. Пересылайте эту ссылку другим:"
 }
