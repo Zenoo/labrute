@@ -4,6 +4,9 @@ Thank you to the following contributors:
 
 - **Charles Samborski, [@demurgos](https://github.com/demurgos)**: Repo refactoring, telemetry
 - **Youri, [@YouriDK](https://github.com/YouriDK)**: Various features and bug fixes (clans, sounds, etc.)
+- **shoTgun**: Icons
+- **Lokapi**: Icons
+- **Awnteq**: Icons
 - **[@Ambryal](https://github.com/Ambryal)**: Various fixes. Game engine visual improvements
 - **Adrien Boitelle, [@Adrriii](https://github.com/Adrriii)**: Various features and bug fixes (ascensions)
 - **Myke, [@MykeBjelke](https://github.com/MykeBjelke)**: Spanish translations
