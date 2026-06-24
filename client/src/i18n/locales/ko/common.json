@@ -297,7 +297,7 @@
   "follow": "Follow",
   "followed": "Followed",
   "hammer.desc": "A catching technique which consist of jumping into the air with your opponent, and then falling on top of them.",
-  "hammer.effect": "Action x<uses /> Your Brute inflicts heavy damage depending on the strength of your opponent.",
+  "hammer.effect": "Action x<uses /> Your Brute inflicts heavy damage depending on the strength of your opponent. Drops your shield if you have one.",
   "haste.desc": "Have you always dreamed of moving as fast as a ninja? That's good, it's time!",
   "haste.effect": "Action x<uses /> Your brute will rush through your opponent, dealing additional damage that scales with your speed.",
   "heavy": "heavy",
