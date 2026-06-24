@@ -297,7 +297,7 @@
   "follow": "Seguir",
   "followed": "Seguido",
   "hammer.desc": "Una técnica de agarre que consiste en levantar por los aires a tu oponente y luego aplastarlo.",
-  "hammer.effect": "Acción x<uses /> Tu bruto inflige un gran daño dependiendo de la fuerza del oponente.",
+  "hammer.effect": "Action x<uses /> Your Brute inflicts heavy damage depending on the strength of your opponent. Drops your shield if you have one.",
   "haste.desc": "¿Siempre has soñado con moverte tan rápido como un ninja? ¡Es el momento!",
   "haste.effect": "Acción x<uses /> Tu Bruto arrollará a su oponente, infligiendo daño adicional que aumenta con tu velocidad.",
   "heavy": "pesado",
