@@ -1,9 +1,9 @@
 {
   "title": "Пользовательское Соглашение",
   "description": "Играя в эту игру, вы соглашаетесь с нижеследующими условиями. Пожалуйста, прочитайте их внимательно.",
-  "multipleAccounts": "Допускается только одна учетная запись на пользователя. Создание нескольких учетных записей приведет к окончательной блокировке всех учетных записей.",
-  "bots": "Using bots or any automated means to play the game is strictly prohibited. Any player found to be using bots will have all related accounts permanently banned.",
-  "bugAbuse": "Exploiting bugs or glitches in the game for personal gain is not allowed. If you discover a bug, please report it to the developers. Abusing bugs will result in account suspension or banning.",
+  "multipleAccounts": "Допускается только одна учётная запись на пользователя. Создание нескольких учётных записей приведет к окончательной блокировке всех учётных записей.",
+  "bots": "Использование ботов или других средств автоматизации для игры строго запрещается. У любого игрока, у которого установится использование ботов, будут окончательно блокированы все причастные учётные записи.",
+  "bugAbuse": "Злоупотребление багами или другими ошибками в игре для личной выгоды запрещается. Если вы обнаружили ошибку, пожалуйста, сообщите о ней разработчикам. Использование ошибок приведёт к приостановлению или блокировке учётной записи.",
   "accept": "Принять",
-  "termsAccepted": "You have accepted the terms of service. Thank you for playing responsibly."
+  "termsAccepted": "Вы приняли условия соглашения. Спасибо за ваше ответственное отношение к игре."
 }
