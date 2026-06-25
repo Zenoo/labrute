@@ -13,6 +13,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useConfirm } from '../hooks/useConfirm';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import { Link } from '../components/Link';
 
 export const BannedUsersView = () => {
   const { t } = useTranslation('bannedUsers');
@@ -61,7 +62,11 @@ export const BannedUsersView = () => {
                   )}
                 >
                   <ListItemText
-                    primary={`${bannedUser.name} (${bannedUser.id})`}
+                    primary={(
+                      <Link to={`/admin-panel/user/${bannedUser.id}`}>
+                        {`${bannedUser.name} (${bannedUser.id})`}
+                      </Link>
+                    )}
                     secondary={`${dayjs.utc(bannedUser.bannedAt).format('DD/MM/YYYY')}, reason: ${bannedUser.banReason}`}
                   />
                 </ListItem>

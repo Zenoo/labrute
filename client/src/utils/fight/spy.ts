@@ -3,11 +3,11 @@ import {
   SpyStep, WeaponId, randomBetween
 } from '@labrute/core';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import {
   WEAPONS_PER_ROW, WEAPON_SIZE, WEAPON_SPACING
 } from './utils/fightPositions';
+import { tween } from './utils/tween';
 
 export const spy = async (
   fighters: AnimationFighter[],
@@ -118,30 +118,24 @@ export const spy = async (
           };
 
           // Move weapon horizontally
-          animations.push(Tweener.add({
-            target: weapon,
+          animations.push(tween(weapon, {
             duration: duration / speed.current,
-            ease: Easing.linear,
-          }, {
+            ease: 'none',
             x: targetPosition.x,
           }));
 
           // Move weapon vertically
           animations.push(new Promise((resolve) => {
             // First arc
-            Tweener.add({
-              target: weapon,
+            tween(weapon, {
               duration: (duration / 2) / speed.current,
-              ease: Easing.easeOutCirc,
-            }, {
+              ease: 'circ.out',
               y: targetPosition.y + randomBetween(-100, 100),
             }).then(() => {
               // Second arc
-              Tweener.add({
-                target: weapon,
+              tween(weapon, {
                 duration: (duration / 2) / speed.current,
-                ease: Easing.easeInCirc,
-              }, {
+                ease: 'circ.in',
                 y: targetPosition.y,
               }).then(resolve).catch(console.error);
             }).catch(console.error);

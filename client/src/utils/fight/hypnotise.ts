@@ -3,13 +3,13 @@ import { HypnotiseStep, SkillId } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { sound } from '@pixi/sound';
 import { GlowFilter } from '@pixi/filter-glow';
-import { Easing, Tweener } from 'pixi-tweener';
 import {
   Application, Sprite, RenderTexture, Graphics, filters, Container
 } from 'pixi.js';
 import { getMultipleRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 export const hypnotise = async (
   app: Application,
@@ -149,20 +149,16 @@ export const hypnotise = async (
   app.ticker.add(update);
 
   // Fade in spiral
-  await Tweener.add({
-    target: spiralContainer,
+  await tween(spiralContainer, {
     duration: 0.05 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     alpha: 1,
   });
 
   // Fade out inverted container
-  await Tweener.add({
-    target: invertedContainer,
+  await tween(invertedContainer, {
     duration: 1 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     alpha: 0,
   }).then(() => {
     // Remove from stage
@@ -170,11 +166,9 @@ export const hypnotise = async (
   });
 
   // Fade out spiral container to 0.3
-  await Tweener.add({
-    target: spiralContainer,
+  await tween(spiralContainer, {
     duration: 1.2 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     alpha: 0.3,
   });
 
@@ -202,11 +196,9 @@ export const hypnotise = async (
   app.ticker.add(flash);
 
   // Fade out spiral container
-  void Tweener.add({
-    target: spiralContainer,
+  tween(spiralContainer, {
     duration: 0.5 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     alpha: 0,
   }).then(() => {
     // End spiral animation
@@ -264,11 +256,11 @@ export const hypnotise = async (
 
     // Move pet to other team
     animationsDone.push(
-      Tweener.add({
-        target: pet.animation.container,
+      tween(pet.animation.container, {
         duration: 0.5 / speed.current,
-        ease: Easing.linear,
-      }, { x, y }).then(() => {
+        ease: 'none',
+        x, y
+      }).then(() => {
         pet.animation.container.scale.x *= -1;
 
         // Set pet animation to `idle`

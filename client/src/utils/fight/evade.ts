@@ -1,10 +1,10 @@
 
 import { EvadeStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { getRealKnockBack } from './utils/knockBack';
 import { airbornMove } from './utils/updateShadow';
+import { Easing, tween } from './utils/tween';
 
 export const jumpBack = async (
   fighter: AnimationFighter,
@@ -26,14 +26,15 @@ export const jumpBack = async (
   const initialX = fighter.animation.container.x;
   const jumpHeight = Math.min(80, fighter.animation.baseHeight * 0.5);
 
-  const upAnimations = [];
+  const upAnimations: Promise<unknown>[] = [];
 
   // Add horizontal tweener
-  upAnimations.push(Tweener.add({
-    target: fighter.animation.container,
+  upAnimations.push(tween(fighter.animation.container, {
     duration: (duration * 0.5) / speed.current,
-    ease: Easing.linear,
-  }, { x: initialX + setBack * 0.5 }));
+    ease: 'none',
+    x: initialX + setBack * 0.5,
+  })
+  );
 
   // Add a vertical tweener handling shadow
   upAnimations.push(airbornMove({
@@ -46,14 +47,14 @@ export const jumpBack = async (
 
   await Promise.all(upAnimations);
 
-  const downAnimations = [];
+  const downAnimations: Promise<unknown>[] = [];
 
   // Add horizontal tween
-  downAnimations.push(Tweener.add({
-    target: fighter.animation.container,
+  downAnimations.push(tween(fighter.animation.container, {
     duration: (duration * 0.5) / speed.current,
-    ease: Easing.linear,
-  }, { x: initialX + setBack }));
+    ease: 'none',
+    x: initialX + setBack,
+  }));
 
   // Add a vertical tweener handling shadow
   downAnimations.push(airbornMove({

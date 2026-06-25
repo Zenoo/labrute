@@ -3,10 +3,10 @@ import {
   ThrowStep, WeaponById, weapons
 } from '@labrute/core';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { knockBack } from './utils/knockBack';
+import { tween } from './utils/tween';
 
 export const throwWeapon = async (
   app: Application,
@@ -103,11 +103,9 @@ export const throwWeapon = async (
   void sound.play('sfx', { sprite: 'net' });
 
   // Move thrown weapon
-  await Tweener.add({
-    target: thrownWeapon,
+  await tween(thrownWeapon, {
     duration: 0.25 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     x: end.x,
     y: end.y,
   });

@@ -1,9 +1,8 @@
 
 import { DeathStep } from '@labrute/core';
-
-import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { getFighterType } from './utils/getFighterType';
+import { tween } from './utils/tween';
 
 export const death = (
   fighters: AnimationFighter[],
@@ -26,19 +25,20 @@ export const death = (
   // Fade out shadow
   const deathShadowAlpha = getFighterType(fighter) === 'brute' ? 0.8 : 0;
   const fadeOutDuration = getFighterType(fighter) === 'brute' ? 1 : 0.4;
-  void Tweener.add({
-    target: fighter.animation.shadow,
+  tween(fighter.animation.shadow, {
+    alpha: deathShadowAlpha,
     duration: fadeOutDuration / speed.current,
-    ease: Easing.linear,
-  }, { alpha: deathShadowAlpha });
+    ease: 'none',
+  });
 
   // If brute, also decrease shadow size
   if (getFighterType(fighter) === 'brute') {
-    void Tweener.add({
-      target: fighter.animation.shadow.scale,
+    tween(fighter.animation.shadow.scale, {
+      x: 0.65,
+      y: 0.7,
       duration: fadeOutDuration / speed.current,
-      ease: Easing.linear,
-    }, { x: 0.65, y: 0.7 });
+      ease: 'none',
+    });
   }
 
   // Wait for animation to end
@@ -46,13 +46,11 @@ export const death = (
     // Decrease opacity in clan wars
     if (isClanWar) {
       // Decrease opacity
-      Tweener.add({
-        target: fighter.animation.container,
-        duration: 0.5 / speed.current,
-        ease: Easing.linear,
-      }, {
+      tween(fighter.animation.container, {
         alpha: 0,
-      }).catch(console.error);
+        duration: 0.5 / speed.current,
+        ease: 'none',
+      });
     }
   }).catch(console.error);
 };

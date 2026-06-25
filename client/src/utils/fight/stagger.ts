@@ -1,7 +1,7 @@
-import { Easing, Tweener } from 'pixi-tweener';
 import { Container, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
 import { getRealKnockBack } from './utils/knockBack';
+import { tween } from './utils/tween';
 
 const staggerObject = async (
   object: Container | Sprite,
@@ -13,47 +13,47 @@ const staggerObject = async (
   knockBack: number = 0,
   duration: number = 0.5,
 ) => {
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.1) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.1 + (team === 'L' ? -8 : 8) });
+    ease: 'none',
+    x: object.x + knockBack * 0.1 + (team === 'L' ? -8 : 8)
+  });
 
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.1) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.1 + (team === 'L' ? 4 : -4) });
+    ease: 'none',
+    x: object.x + knockBack * 0.1 + (team === 'L' ? 4 : -4)
+  });
 
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.1) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.1 + (team === 'L' ? -4 : 4) });
+    ease: 'none',
+    x: object.x + knockBack * 0.1 + (team === 'L' ? -4 : 4)
+  });
 
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.1) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.1 + (team === 'L' ? 4 : -4) });
+    ease: 'none',
+    x: object.x + knockBack * 0.1 + (team === 'L' ? 4 : -4)
+  });
 
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.2) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.2 + (team === 'L' ? -4 : 4) });
+    ease: 'none',
+    x: object.x + knockBack * 0.2 + (team === 'L' ? -4 : 4)
+  });
 
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.2) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.2 + (team === 'L' ? 8 : -8) });
+    ease: 'none',
+    x: object.x + knockBack * 0.2 + (team === 'L' ? 8 : -8)
+  });
 
-  await Tweener.add({
-    target: object,
+  await tween(object, {
     duration: (duration * 0.2) / speed.current,
-    ease: Easing.linear
-  }, { x: object.x + knockBack * 0.2 });
+    ease: 'none',
+    x: object.x + knockBack * 0.2
+  });
 };
 
 export const stagger = async (

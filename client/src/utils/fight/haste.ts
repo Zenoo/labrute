@@ -5,12 +5,9 @@ import {
 import {
   Application, Sprite, Texture, BaseTexture, BufferResource, Filter, Extract
 } from 'pixi.js';
-
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { MotionBlurFilter } from '@pixi/filter-motion-blur';
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
-
 import { displayDamage } from './utils/displayDamage';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
@@ -20,6 +17,7 @@ import { untrap } from './untrap';
 import { playDustEffect, playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 export const haste = async (
   app: Application,
@@ -76,14 +74,13 @@ export const haste = async (
   playDustEffect(app, brute, speed);
 
   // Move brute to target position
-  await Tweener.add({
-    target: brute.animation.container,
-    duration: 0.2 / speed.current,
-    ease: Easing.linear,
-  }, {
-    x: target.animation.container.x,
-    y: target.animation.container.y,
-  });
+  await tween(brute.animation.container,
+    {
+      duration: 0.2 / speed.current,
+      ease: 'none',
+      x: target.animation.container.x,
+      y: target.animation.container.y,
+    });
 
   // Remove haste filters
   brute.animation.container.filters = brute.animation.container.filters.filter(
@@ -179,11 +176,9 @@ export const haste = async (
   brute.animation.shadow.visible = true;
 
   // Ghost fade out
-  void Tweener.add({
-    target: ghost,
+  tween(ghost, {
     duration: 1.2 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     alpha: 0,
   }).then(() => {
     // Remove from stage
@@ -233,11 +228,9 @@ export const haste = async (
   const targetY = target.animation.container.y;
 
   // Move brute to target position
-  await Tweener.add({
-    target: brute.animation.container,
+  await tween(brute.animation.container, {
     duration: 0.10 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     x: targetX,
     y: targetY,
   });
@@ -257,11 +250,9 @@ export const haste = async (
   brute.animation.container.y = y;
 
   // Move brute to position
-  await Tweener.add({
-    target: brute.animation.container,
+  await tween(brute.animation.container, {
     duration: 0.5 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     x,
     y,
   });

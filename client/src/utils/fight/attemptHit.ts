@@ -3,10 +3,10 @@ import {
 } from '@labrute/core';
 
 import { BevelFilter } from '@pixi/filter-bevel';
-import { Easing, Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { getHitDistance } from './utils/getHitDistance';
+import { tween } from './utils/tween';
 
 export const attemptHit = async (
   app: Application,
@@ -57,12 +57,10 @@ export const attemptHit = async (
     ? hitRangeXPosition > fighter.animation.container.x
     : hitRangeXPosition < fighter.animation.container.x
   ) {
-    await Tweener.add({
-      target: fighter.animation.container,
-      duration: 0.1 / speed.current,
-      ease: Easing.linear
-    }, {
+    await tween(fighter.animation.container, {
       x: hitRangeXPosition,
+      duration: 0.1 / speed.current,
+      ease: 'none',
     });
   }
 
@@ -100,11 +98,9 @@ export const attemptHit = async (
     app.stage.addChild(trashedShield);
 
     // Animate the fall
-    Tweener.add({
-      target: trashedShield,
+    tween(trashedShield, {
       duration: 0.3 / speed.current,
-      ease: Easing.linear,
-    }, {
+      ease: 'none',
       x: target.team === 'L'
         ? trashedShield.x - 20
         : trashedShield.x + 20,
@@ -114,11 +110,9 @@ export const attemptHit = async (
       // Wait a bit
       setTimeout(() => {
         // Decrease opacity
-        Tweener.add({
-          target: trashedShield,
+        tween(trashedShield, {
           duration: 0.5 / speed.current,
-          ease: Easing.linear,
-        }, {
+          ease: 'none',
           alpha: 0,
         }).then(() => {
           // Remove from stage

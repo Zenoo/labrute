@@ -7,7 +7,7 @@ import {
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
 import { AnimationFighter } from './utils/findFighter';
-import { Easing, Tweener } from 'pixi-tweener';
+import { tween } from './utils/tween';
 
 // Light and realistic item bouncing module
 export const itemDrop = ({
@@ -229,21 +229,17 @@ export const itemDrop = ({
         itemContainer.zIndex = 1;
         shadowContainer.zIndex = 1;
         // Fade out the shadow
-        Tweener.add({
-          target: shadowContainer,
+        tween(shadowContainer, {
           duration: 0.35 / speed.current,
-          ease: Easing.linear,
-        }, {
+          ease: 'none',
           alpha: 0,
         }).then(() => {
           // Wait a bit
           setTimeout(() => {
             // Fade out the item
-            Tweener.add({
-              target: itemContainer,
+            tween(itemContainer, {
               duration: 1.2 / speed.current,
-              ease: Easing.linear,
-            }, {
+              ease: 'none',
               alpha: 0,
             }).then(() => {
               // Remove update from ticker

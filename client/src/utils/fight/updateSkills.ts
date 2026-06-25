@@ -3,11 +3,11 @@ import {
 } from '@labrute/core';
 import * as PIXI from 'pixi.js';
 import { Application, Sprite } from 'pixi.js';
-import { Easing, Tweener } from 'pixi-tweener';
 import {
   SKILL_SIZE, SKILL_SPACING, SKILLS_PER_ROW, WEAPON_SIZE, WEAPON_SPACING, WEAPONS_PER_ROW
 } from './utils/fightPositions';
 import { AnimationFighter } from './utils/findFighter';
+import { Easing, tween } from './utils/tween';
 
 const addSkill = (
   app: Application,
@@ -42,11 +42,9 @@ const addSkill = (
   app.stage.addChild(skillCopy);
 
   // Animate: scale down to normal size and fade in
-  Tweener.add({
-    target: skillCopy,
+  tween(skillCopy, {
     duration: 2 / speed.current,
     ease: Easing.easeOutQuad,
-  }, {
     width: skillSprite.width,
     height: skillSprite.height,
     x: skillSprite.x,

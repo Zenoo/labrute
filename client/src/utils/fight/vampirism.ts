@@ -2,7 +2,6 @@
 import { SkillId, VampirismStep } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
-import { Easing } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
@@ -42,7 +41,7 @@ export const vampirism = async (
     fighter: brute,
     speed,
     duration: 0.25,
-    ease: Easing.linear,
+    ease: 'none',
     endPosition: {
       x: target.team === 'R'
         ? target.animation.container.x + target.animation.baseWidth / 2
@@ -105,7 +104,7 @@ export const vampirism = async (
     fighter: brute,
     speed,
     duration: 0.25,
-    ease: Easing.linear,
+    ease: 'none',
     endPosition: {
       x,
       y,

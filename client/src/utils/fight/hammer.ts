@@ -1,9 +1,7 @@
 
 import { HitStep, randomBetween } from '@labrute/core';
 import { Application } from 'pixi.js';
-
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { displayDamage } from './utils/displayDamage';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { stagger } from './stagger';
@@ -15,6 +13,8 @@ import { playResistAnimation } from './resist';
 import {
   updateShadow, airbornMove, tweenShadow
 } from './utils/updateShadow';
+import { gsap } from 'gsap';
+import { tween } from './utils/tween';
 
 export const hammer = async (
   app: Application,
@@ -48,12 +48,13 @@ export const hammer = async (
   const knockBack = getRealKnockBack(target, 30);
 
   // Push both
-  const pushAnimations = [fighter, target].map((f) => Tweener.add({
-    target: f.animation.container,
-    duration: 0.16 / speed.current,
-    ease: Easing.linear
-  }, {
-    x: f.animation.container.x + knockBack,
+  const pushAnimations = [fighter, target].map((f) => new Promise((resolve) => {
+    gsap.to(f.animation.container, {
+      duration: 0.16 / speed.current,
+      ease: 'none',
+      x: f.animation.container.x + knockBack,
+      onComplete: resolve,
+    });
   }));
 
   // Dust cloud
@@ -86,7 +87,7 @@ export const hammer = async (
     fighter: f,
     duration: jumpDuration,
     speed,
-    ease: Easing.linear,
+    ease: 'none',
     endPosition: { y: topY },
   }));
 
@@ -114,85 +115,21 @@ export const hammer = async (
 
   jumpAnimations.push(
     // First spin
-    Tweener.add(
-      {
-        target: fighter.animation.container,
-        duration: jumpDuration / (6 * speed.current),
-        ease: Easing.linear,
-      },
-      {
-        x: target.animation.container.x,
-      }
-    )
-      .then(() => {
-        changeSide();
-        return Tweener.add(
-          {
-            target: fighter.animation.container,
-            duration: jumpDuration / (6 * speed.current),
-            ease: Easing.linear,
-          },
-          {
-            x: target.animation.container.x + bruteDistance * direction,
-          }
-        );
-      })
+    (async () => {
+      await tween(fighter.animation.container, { x: target.animation.container.x, duration: jumpDuration / (6 * speed.current), ease: 'none' });
+      changeSide();
+      await tween(fighter.animation.container, { x: target.animation.container.x + bruteDistance * direction, duration: jumpDuration / (6 * speed.current), ease: 'none' });
       // Second spin
-      .then(() => {
-        // Set fighter animation to `grab`
-        fighter.animation.setAnimation('grab');
-
-        // Set target animation to `grabbed`
-        target.animation.setAnimation('grabbed');
-
-        return Tweener.add(
-          {
-            target: fighter.animation.container,
-            duration: jumpDuration / (6 * speed.current),
-            ease: Easing.linear,
-          },
-          {
-            x: target.animation.container.x,
-          }
-        );
-      })
-      .then(() => {
-        changeSide();
-        return Tweener.add(
-          {
-            target: fighter.animation.container,
-            duration: jumpDuration / (6 * speed.current),
-            ease: Easing.linear,
-          },
-          {
-            x: target.animation.container.x - bruteDistance * direction,
-          }
-        );
-      })
+      fighter.animation.setAnimation('grab');
+      target.animation.setAnimation('grabbed');
+      await tween(fighter.animation.container, { x: target.animation.container.x, duration: jumpDuration / (6 * speed.current), ease: 'none' });
+      changeSide();
+      await tween(fighter.animation.container, { x: target.animation.container.x - bruteDistance * direction, duration: jumpDuration / (6 * speed.current), ease: 'none' });
       // Third spin
-      .then(() => Tweener.add(
-        {
-          target: fighter.animation.container,
-          duration: jumpDuration / (6 * speed.current),
-          ease: Easing.linear,
-        },
-        {
-          x: target.animation.container.x,
-        }
-      ))
-      .then(() => {
-        changeSide();
-        return Tweener.add(
-          {
-            target: fighter.animation.container,
-            duration: jumpDuration / (6 * speed.current),
-            ease: Easing.linear,
-          },
-          {
-            x: target.animation.container.x + bruteDistance * direction,
-          }
-        );
-      })
+      await tween(fighter.animation.container, { x: target.animation.container.x, duration: jumpDuration / (6 * speed.current), ease: 'none' });
+      changeSide();
+      await tween(fighter.animation.container, { x: target.animation.container.x + bruteDistance * direction, duration: jumpDuration / (6 * speed.current), ease: 'none' });
+    })()
   );
 
   // Wait for jump animations to finish
@@ -207,12 +144,10 @@ export const hammer = async (
   target.animation.container.y -= target.animation.baseHeight;
 
   // Drop both
-  const dropAnimations = [fighter, target].map((f) => Tweener.add({
-    target: f.animation.container,
-    duration: (jumpDuration * 0.38) / speed.current,
-    ease: Easing.linear
-  }, {
+  const dropAnimations = [fighter, target].map((f) => tween(f.animation.container, {
     y: start.y - f.animation.baseHeight,
+    duration: (jumpDuration * 0.38) / speed.current,
+    ease: 'none',
   }));
 
   // Special shadow handling as fighters are y inverted
@@ -224,7 +159,7 @@ export const hammer = async (
     fighter,
     speed,
     duration: jumpDuration * 0.38,
-    ease: Easing.linear,
+    ease: 'none',
     endAltitude: -fighter.animation.baseHeight,
   }));
 
@@ -233,7 +168,7 @@ export const hammer = async (
     fighter: target,
     speed,
     duration: jumpDuration * 0.38,
-    ease: Easing.linear,
+    ease: 'none',
     endAltitude: -target.animation.baseHeight,
   }));
 

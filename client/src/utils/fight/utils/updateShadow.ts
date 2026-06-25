@@ -1,6 +1,5 @@
-/* eslint-disable no-param-reassign */
-import { Tweener } from 'pixi-tweener';
 import { AnimationFighter } from './findFighter';
+import { tween } from './tween';
 
 const getFadeFactor = (
   fighter: AnimationFighter,
@@ -8,7 +7,7 @@ const getFadeFactor = (
 ) => Math.max(0.2, Math.min(
   1,
   (100 * (fighter.animation.baseWidth / 50) - altitude)
-       / (100 * (fighter.animation.baseWidth / 50))
+  / (100 * (fighter.animation.baseWidth / 50))
 ));
 
 const updateShadow = (
@@ -35,32 +34,30 @@ const tweenShadow = async ({
   fighter: AnimationFighter;
   speed: React.MutableRefObject<number>,
   duration: number,
-  ease: (t: number) => number,
+  ease: gsap.EaseString | gsap.EaseFunction,
   endAltitude: number,
 }) => {
   const targetFadeFactor = getFadeFactor(fighter, endAltitude);
 
-  const shadowAnimations = [];
+  const shadowAnimations: Promise<unknown>[] = [];
 
   // Tweener for y and alpha
-  shadowAnimations.push(Tweener.add({
-    target: fighter.animation.shadow,
+  shadowAnimations.push(tween(fighter.animation.shadow, {
     duration: duration / speed.current,
     ease,
-  }, {
     y: endAltitude,
     alpha: targetFadeFactor,
-  }));
+  })
+  );
 
   // Tweener for scale
-  shadowAnimations.push(Tweener.add({
-    target: fighter.animation.shadow.scale,
+  shadowAnimations.push(tween(fighter.animation.shadow.scale, {
     duration: duration / speed.current,
     ease,
-  }, {
     x: 0.5 + targetFadeFactor * 0.5,
     y: 0.5 + targetFadeFactor * 0.5,
-  }));
+  })
+  );
 
   // Wait for the animations
   await Promise.all(shadowAnimations);
@@ -76,17 +73,17 @@ const airbornMove = async ({
   fighter: AnimationFighter;
   speed: React.MutableRefObject<number>,
   duration: number,
-  ease: (t: number) => number,
+  ease: gsap.EaseString | gsap.EaseFunction,
   endPosition: { y: number, x?: number, zIndex?: number },
 }) => {
   const animations = [];
 
   // Add movement tweener
-  animations.push(Tweener.add({
-    target: fighter.animation.container,
+  animations.push(tween(fighter.animation.container, {
     duration: duration / speed.current,
     ease,
-  }, endPosition));
+    ...endPosition,
+  }));
 
   // Add a tweener for the shadow
   animations.push(tweenShadow({

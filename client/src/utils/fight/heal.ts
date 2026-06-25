@@ -1,14 +1,13 @@
 
 import { HealStep, SkillId } from '@labrute/core';
-import { Tweener } from 'pixi-tweener';
 import { Application, Sprite } from 'pixi.js';
-
 import { sound } from '@pixi/sound';
 import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { insideXBounds } from './utils/insideXBounds';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 export const heal = async (
   app: Application,
@@ -53,11 +52,10 @@ export const heal = async (
     cureIcon.zIndex = 1000;
     app.stage.addChild(cureIcon);
 
-    Tweener.add({
-      target: cureIcon,
+    tween(cureIcon, {
       duration: 2 / speed.current,
-    }, {
       y: cureIcon.y - 100,
+      ease: 'none',
       alpha: 0,
     }).then(() => {
       // Remove icon

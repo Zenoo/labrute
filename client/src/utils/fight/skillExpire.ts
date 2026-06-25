@@ -2,13 +2,13 @@ import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
 import { GlowFilter } from '@pixi/filter-glow';
-import { Easing } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';
 import { jumpBack } from './evade';
 import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
+import { Easing } from './utils/tween';
 
 export const skillExpire = async (
   app: Application,

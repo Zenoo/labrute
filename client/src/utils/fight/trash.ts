@@ -6,9 +6,9 @@ import { Application, Sprite } from 'pixi.js';
 
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { itemDrop } from './itemDrop';
+import { tween } from './utils/tween';
 
 export const trash = async (
   app: Application,
@@ -80,11 +80,9 @@ export const trash = async (
       app.stage.addChild(trashedWeapon);
 
       // Animate the fall
-      Tweener.add({
-        target: trashedWeapon,
+      tween(trashedWeapon, {
         duration: 0.3 / speed.current,
-        ease: Easing.linear,
-      }, {
+        ease: 'none',
         x: brute.team === 'L'
           ? trashedWeapon.x - 20
           : trashedWeapon.x + 20,
@@ -94,11 +92,9 @@ export const trash = async (
         // Wait a bit
         setTimeout(() => {
           // Decrease opacity
-          Tweener.add({
-            target: trashedWeapon,
+          tween(trashedWeapon, {
             duration: 0.5 / speed.current,
-            ease: Easing.linear,
-          }, {
+            ease: 'none',
             alpha: 0,
           }).then(() => {
             // Remove from stage

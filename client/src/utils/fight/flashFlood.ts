@@ -3,11 +3,9 @@ import {
   HitStep, WeaponById, randomBetween
 } from '@labrute/core';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import {
   Application, Sprite, Container, Graphics, AnimatedSprite
 } from 'pixi.js';
-
 import { displayDamage } from './utils/displayDamage';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { stagger } from './stagger';
@@ -17,6 +15,7 @@ import { WeaponName } from '@labrute/prisma';
 import { untrap } from './untrap';
 import { itemDrop } from './itemDrop';
 import { playResistAnimation } from './resist';
+import { tween } from './utils/tween';
 
 export const flashFlood = async (
   app: Application,
@@ -156,11 +155,9 @@ export const flashFlood = async (
   }
 
   // Move thrown item
-  Tweener.add({
-    target: thrownItem,
+  tween(thrownItem, {
     duration: 0.1 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     x: end.x,
     y: end.y,
   }).then(() => {
@@ -220,11 +217,9 @@ export const flashFlood = async (
       // Wait for 1s
       await new Promise((resolve) => { setTimeout(resolve, 1000 / speed.current); });
       // Fade out item
-      await Tweener.add({
-        target: flashFloodContainer,
+      await tween(flashFloodContainer, {
         duration: 1.5 / speed.current,
-        ease: Easing.linear,
-      }, {
+        ease: 'none',
         alpha: 0
       }).then(() => { flashFloodContainer.destroy(); });
     }).catch(console.error);

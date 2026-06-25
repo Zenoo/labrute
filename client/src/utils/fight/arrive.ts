@@ -1,6 +1,5 @@
 
 import { ArriveStep, WeaponById } from '@labrute/core';
-import { Easing } from 'pixi-tweener';
 import { Application } from 'pixi.js';
 import { BossName } from '@labrute/prisma';
 
@@ -71,7 +70,7 @@ export const arrive = async (
     fighter,
     speed,
     duration: 0.5,
-    ease: Easing.linear,
+    ease: 'none',
     endPosition: { x, y, zIndex: y },
   });
 

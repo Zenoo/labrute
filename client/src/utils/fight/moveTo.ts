@@ -1,10 +1,10 @@
 
 import { MoveStep } from '@labrute/core';
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { repositionFighters } from './utils/repositionFighters';
 import { getHitDistance } from './utils/getHitDistance';
+import { tween } from './utils/tween';
 
 export const moveTo = async (
   fighters: AnimationFighter[],
@@ -53,11 +53,9 @@ export const moveTo = async (
   const duration = Math.max(0.16, travelDistance / 430);
 
   // Move fighter to the position
-  await Tweener.add({
-    target: fighter.animation.container,
+  await tween(fighter.animation.container, {
     duration: duration / speed.current,
-    ease: Easing.linear
-  }, {
+    ease: 'none',
     x: targetX,
     y: targetY,
   });

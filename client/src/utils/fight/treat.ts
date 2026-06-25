@@ -8,8 +8,8 @@ import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';
 import { insideXBounds } from './utils/insideXBounds';
-import { Tweener } from 'pixi-tweener';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 export const treat = async (
   app: Application,
@@ -58,11 +58,10 @@ export const treat = async (
     cureIcon.zIndex = 1000;
     app.stage.addChild(cureIcon);
 
-    Tweener.add({
-      target: cureIcon,
+    tween(cureIcon, {
       duration: 2 / speed.current,
-    }, {
       y: cureIcon.y - 100,
+      ease: 'none',
       alpha: 0,
     }).then(() => {
       // Remove icon

@@ -2,14 +2,13 @@
 import {
   EatStep, randomBetween, SkillId
 } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
 import { Application } from 'pixi.js';
-
 import { sound } from '@pixi/sound';
 import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 export const eat = async (
   app: Application,
@@ -34,14 +33,13 @@ export const eat = async (
   brute.animation.setAnimation('eat');
 
   // Resize pet to 0 in 0.5s
-  Tweener.add({
-    target: pet.animation.container,
+  tween(pet.animation.container, {
     duration: 0.5 / speed.current,
-    ease: Easing.linear
-  }, {
+    ease: 'none',
     height: 0,
     width: 0,
-  }).catch(console.error);
+  });
+
   // Play eat SFX
   void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 

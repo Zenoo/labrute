@@ -2,7 +2,7 @@ import { Application, Text } from 'pixi.js';
 import { insideXBounds } from './insideXBounds';
 import { AnimationFighter } from './findFighter';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { Tweener } from 'pixi-tweener';
+import { tween } from './tween';
 
 export const displayHeal = (
   app: Application,
@@ -21,10 +21,9 @@ export const displayHeal = (
   healText.filters = [new OutlineFilter()];
   app.stage.addChild(healText);
 
-  Tweener.add({
-    target: healText,
+  tween(healText, {
     duration: 2 / speed.current,
-  }, {
+    ease: 'none',
     y: healText.y - 100,
     alpha: 0,
   }).then(() => {

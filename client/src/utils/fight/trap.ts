@@ -3,9 +3,9 @@ import { SkillId, TrapStep } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 export const trap = async (
   app: Application,
@@ -68,30 +68,24 @@ export const trap = async (
   const animations = [];
 
   // Move net horizontally
-  animations.push(Tweener.add({
-    target: net,
+  animations.push(tween(net, {
     duration: 0.5 / speed.current,
-    ease: Easing.linear,
-  }, {
+    ease: 'none',
     x: targetPosition.x,
   }));
 
   // Move net vertically
   animations.push(new Promise((resolve) => {
     // Move up
-    Tweener.add({
-      target: net,
+    tween(net, {
       duration: 0.25 / speed.current,
-      ease: Easing.easeOutCirc,
-    }, {
+      ease: 'circ.out',
       y: targetPosition.y - 120,
     }).then(() => {
       // Move down
-      Tweener.add({
-        target: net,
+      tween(net, {
         duration: 0.25 / speed.current,
-        ease: Easing.easeInCirc,
-      }, {
+        ease: 'circ.in',
         y: targetPosition.y,
       }).then(resolve).catch(console.error);
     }).catch(console.error);

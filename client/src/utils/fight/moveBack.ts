@@ -1,9 +1,9 @@
 
 import { MoveBackStep } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
 
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { tween } from './utils/tween';
 
 export const moveBack = async (
   fighters: AnimationFighter[],
@@ -38,11 +38,12 @@ export const moveBack = async (
   const duration = Math.max(0.15, travelDistance / 480);
 
   // Move fighter to the position
-  await Tweener.add({
-    target: fighter.animation.container,
+  await tween(fighter.animation.container, {
     duration: duration / speed.current,
-    ease: Easing.linear
-  }, { x, y });
+    ease: 'none',
+    x,
+    y
+  });
 
   // Invert fighter if needed
   if (invertFighter) fighter.animation.container.scale.x *= -1;

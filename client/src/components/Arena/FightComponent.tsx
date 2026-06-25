@@ -9,7 +9,6 @@ import {
   Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme
 } from '@mui/material';
 import { sound } from '@pixi/sound';
-import { Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState
@@ -270,7 +269,6 @@ export const FightComponent = ({
     ));
 
     return () => {
-      Tweener.dispose();
       app.destroy(true, true);
 
       // Stop all sounds

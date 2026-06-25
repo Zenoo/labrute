@@ -4,12 +4,12 @@ import {
 } from '@labrute/core';
 
 import { sound } from '@pixi/sound';
-import { Easing } from 'pixi-tweener';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { airbornMove } from './utils/updateShadow';
 import { skillUse } from './skillActivate';
 import { Application } from 'pixi.js';
+import { Easing } from './utils/tween';
 
 export const steal = async (
   app: Application,
@@ -59,7 +59,7 @@ export const steal = async (
     fighter: brute,
     speed,
     duration: 0.15,
-    ease: Easing.linear,
+    ease: 'none',
     endPosition: {
       x: end.x,
       y: end.y,
@@ -120,7 +120,7 @@ export const steal = async (
     fighter: brute,
     speed,
     duration: 0.15,
-    ease: Easing.linear,
+    ease: 'none',
     endPosition: {
       x,
       y,

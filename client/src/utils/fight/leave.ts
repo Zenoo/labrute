@@ -1,8 +1,8 @@
 
 import { LeaveStep } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
 
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { tween } from './utils/tween';
 
 export const leave = async (
   fighters: AnimationFighter[],
@@ -24,15 +24,14 @@ export const leave = async (
   fighter.animation.container.scale.x *= -1;
 
   // Move fighter to the position
-  const moveFighter = Tweener.add({
-    target: fighter.animation.container,
+  const moveFighter = tween(fighter.animation.container, {
     duration: 0.5 / speed.current,
-    ease: Easing.linear
-  }, { x: fighter.team === 'L' ? -100 : 600 })
-    .then(() => {
-      // Then remove fighter
-      fighter.animation.destroy();
-    });
+    ease: 'none',
+    x: fighter.team === 'L' ? -100 : 600
+  }).then(() => {
+    // Then remove fighter
+    fighter.animation.destroy();
+  });
 
   // Await if it is not a pet leaving
   if (fighter.type !== 'pet') await moveFighter;

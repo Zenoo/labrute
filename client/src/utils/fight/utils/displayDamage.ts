@@ -1,9 +1,9 @@
 import { BossName } from '@labrute/prisma';
 import { OutlineFilter } from '@pixi/filter-outline';
-import { Tweener } from 'pixi-tweener';
 import { Application, Text } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import { insideXBounds } from './insideXBounds';
+import { tween } from './tween';
 
 export const displayDamage = ({
   app,
@@ -43,10 +43,9 @@ export const displayDamage = ({
 
   app.stage.addChild(damageText);
 
-  Tweener.add({
-    target: damageText,
+  tween(damageText, {
     duration: 2 / speed.current,
-  }, {
+    ease: 'none',
     y: damageText.y - 100,
     alpha: 0,
   }).then(() => {

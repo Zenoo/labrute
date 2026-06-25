@@ -2,11 +2,9 @@
 import {
   BombStep, randomBetween, SkillId
 } from '@labrute/core';
-import { Easing, Tweener } from 'pixi-tweener';
 import {
   AnimatedSprite, Application, filters
 } from 'pixi.js';
-
 import { sound } from '@pixi/sound';
 import { stagger } from './stagger';
 import { updateHp } from './updateHp';
@@ -16,6 +14,7 @@ import { shakeStage } from './utils/stageAnimations';
 import { untrap } from './untrap';
 import { playResistAnimation } from './resist';
 import { skillUse } from './skillActivate';
+import { tween } from './utils/tween';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -80,33 +79,27 @@ export const bomb = async (
   // Play bomb
   bombSprite.play();
 
-  const animations = [];
+  const animations: Promise<unknown>[] = [];
 
   // Move bomb horizontally
-  animations.push(Tweener.add({
-    target: bombSprite,
+  animations.push(tween(bombSprite, {
     duration: 0.5 / speed.current,
-    ease: Easing.linear,
-  }, {
     x: targetPosition.x,
+    ease: 'none',
   }));
 
   // Move bomb vertically
   animations.push(new Promise((resolve) => {
     // Move up
-    Tweener.add({
-      target: bombSprite,
+    tween(bombSprite, {
       duration: 0.25 / speed.current,
-      ease: Easing.easeOutCirc,
-    }, {
+      ease: 'circ.out',
       y: targetPosition.y - 100,
     }).then(() => {
       // Move down
-      Tweener.add({
-        target: bombSprite,
+      tween(bombSprite, {
         duration: 0.25 / speed.current,
-        ease: Easing.easeInCirc,
-      }, {
+        ease: 'circ.in',
         y: targetPosition.y,
       }).then(resolve).catch(console.error);
     }).catch(console.error);

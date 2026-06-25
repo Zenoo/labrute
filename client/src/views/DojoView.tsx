@@ -19,7 +19,6 @@ import { Link } from '../components/Link';
 import {
   Application, Graphics, InteractionEvent, Sprite, utils, RenderTexture, Container
 } from 'pixi.js';
-import { Tweener } from 'pixi-tweener';
 import { AnimationFighter } from '../utils/fight/utils/findFighter';
 import { FighterHolder } from '../utils/fight/FighterHolder';
 import { updateShadow } from '../utils/fight/utils/updateShadow';
@@ -256,9 +255,6 @@ export const DojoView = () => {
         app.stage.addChild(animationFighter.animation.container);
       }
 
-      // Initialize tweener
-      Tweener.init(app.ticker);
-
       // Add remaining pupils one by one to avoid blocking the main thread / causing renderer crashes.
       const remainingPupils = pupils.slice(10);
 
@@ -370,7 +366,6 @@ export const DojoView = () => {
     });
 
     return () => {
-      Tweener.dispose();
       if (rafId) {
         cancelAnimationFrame(rafId);
       }

@@ -1,6 +1,6 @@
 
-import { Tweener } from 'pixi-tweener';
 import { AnimationFighter } from './utils/findFighter';
+import { tween } from './utils/tween';
 
 export const updateHp = (
   fighters: AnimationFighter[],
@@ -69,11 +69,10 @@ export const updateHp = (
   if (fix) {
     hpBarPhantom.width = newWidth;
   } else {
-    Tweener.add({
-      target: hpBarPhantom,
+    tween(hpBarPhantom, {
       duration: 0.25 / speed.current,
       delay: 0.25 / speed.current,
-    }, {
+      ease: 'none',
       width: newWidth,
     }).catch((error) => {
       console.error(error);

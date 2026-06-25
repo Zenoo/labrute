@@ -11,7 +11,6 @@ import { OutlineFilter } from '@pixi/filter-outline';
 import { sound } from '@pixi/sound';
 import dayjs from 'dayjs';
 import { TFunction } from 'react-i18next';
-import { Easing, Tweener } from 'pixi-tweener';
 import * as PIXI from 'pixi.js';
 import {
   AnimatedSprite, BaseTexture, Texture
@@ -59,6 +58,7 @@ import { isRangedStep, repositionFighters } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import { getFighters } from './utils/getFighters';
 import { mimic } from './mimic';
+import { tween } from './utils/tween';
 
 export const setupFight: (
   theme: Theme,
@@ -500,11 +500,6 @@ export const setupFight: (
         });
       }
 
-      // Initialize tweener
-      if (app.stage) {
-        Tweener.init(app.ticker);
-      }
-
       const isClanWar = !!fight.clanWarId;
 
       // Loop on steps
@@ -730,13 +725,11 @@ export const setupFight: (
       app.stage?.addChild(winMessage);
 
       // Animate win message
-      Tweener.add({
-        target: winMessage,
+      tween(winMessage, {
         duration: 2 / speed.current,
-        ease: Easing.bounce,
-      }, {
         height: 30,
-      }).catch(console.error);
+        ease: 'bounce',
+      });
 
       // Make 50 petals fall on the winner
       for (let i = 0; i < 50; i++) {
@@ -761,11 +754,9 @@ export const setupFight: (
         app.stage.addChild(petal);
 
         // Animate petal
-        Tweener.add({
-          target: petal,
+        tween(petal, {
           duration: (2 + Math.random() * 4) / speed.current,
-          ease: Easing.linear,
-        }, {
+          ease: 'none',
           y: app.screen.height - 10 - Math.random() * 100,
         }).then(() => {
           // Stop animation

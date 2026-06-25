@@ -8,13 +8,13 @@ import {
 import { AdjustmentFilter } from '@pixi/filter-adjustment';
 
 import { sound } from '@pixi/sound';
-import { Easing, Tweener } from 'pixi-tweener';
 import { stagger } from './stagger';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { repositionFighters } from './utils/repositionFighters';
 import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
 import { updateSkills } from './updateSkills';
+import { Easing, tween } from './utils/tween';
 
 
 export const skillUse = (
@@ -51,11 +51,9 @@ export const skillUse = (
   app.stage.addChild(skillCopy);
 
   // Animate: float up and fade out
-  Tweener.add({
-    target: skillCopy,
+  tween(skillCopy, {
     duration: 3 / speed.current,
     ease: Easing.easeOutQuad,
-  }, {
     y: skillCopy.y - 30,
     alpha: 0,
   }).then(() => {
@@ -229,20 +227,16 @@ export const skillActivate = async (
         cry.play();
 
         // Fade in cry
-        Tweener.add({
-          target: cry,
+        tween(cry, {
           duration: 0.25 / speed.current,
-          ease: Easing.linear,
-        }, {
+          ease: 'none',
           alpha: 1,
         }).catch(console.error);
 
         // Move cry horizontally
-        Tweener.add({
-          target: cry,
+        tween(cry, {
           duration: 1 / speed.current,
-          ease: Easing.linear,
-        }, {
+          ease: 'none',
           x: brute.team === 'L' ? cry.x + 100 : cry.x - 100,
         }).then(() => {
           // Destroy cry

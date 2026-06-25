@@ -1,5 +1,5 @@
 import { AnimationFighter } from './findFighter';
-import { Easing, Tweener } from 'pixi-tweener';
+import { tween } from './tween';
 
 // Sign a knockback relative to a fighter and clamp it so it stays in the stage
 const getRealKnockBack = (
@@ -27,11 +27,9 @@ const knockBack = async (
 ) => {
   const knockBackDistance = getRealKnockBack(fighter, unsignedKnockBack);
   // Move fighter
-  await Tweener.add({
-    target: fighter.animation.container,
+  await tween(fighter.animation.container, {
     duration: duration / speed.current,
-    ease: Easing.linear
-  }, {
+    ease: 'none',
     x: fighter.animation.container.x + knockBackDistance,
   });
 };
