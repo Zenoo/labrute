@@ -1,19 +1,17 @@
-/* eslint-disable no-void */
 import { randomBetween } from '@labrute/core';
 import { Application, AnimatedSprite } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import { getHitDistance } from './getHitDistance';
+import { Spritesheets } from './spritesheet';
 
 const playDustEffect = (
   app: Application,
+  spritesheets: Spritesheets,
   fighter: AnimationFighter,
   speed: React.MutableRefObject<number>,
   offset: number = 0,
 ) => {
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   // Create dust sprite
   const dustSprite = new AnimatedSprite(spritesheet.animations.dust || []);
@@ -39,15 +37,13 @@ const playDustEffect = (
 
 const playHitEffect = (
   app: Application,
+  spritesheets: Spritesheets,
   fighter: AnimationFighter,
   target: AnimationFighter,
   speed: React.MutableRefObject<number>,
   VFX?: string,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+  const spritesheet = spritesheets.misc;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');

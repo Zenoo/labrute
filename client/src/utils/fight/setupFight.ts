@@ -59,6 +59,7 @@ import { vampirism } from './vampirism';
 import { getFighters } from './utils/getFighters';
 import { mimic } from './mimic';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const setupFight: (
   theme: Theme,
@@ -68,7 +69,8 @@ export const setupFight: (
   t: TFunction,
   toggleTooltip: (brute: Fighter, forceValue?: boolean) => void,
   renderer: RendererContextInterface,
-) => PIXI.Loader.OnCompleteSignal = (
+  spritesheets: Spritesheets
+) => void = async (
   theme,
   fight,
   app,
@@ -76,68 +78,171 @@ export const setupFight: (
   t,
   toggleTooltip,
   renderer,
-) => async (
-  loader,
-  resources,
+  spritesheets
 ) => {
-      if (!loader) {
-        return;
-      }
+    // Spritesheet
+    const miscSheet = spritesheets.misc;
 
-      // Spritesheet
-      const miscSheet = resources['/images/game/misc.json']?.spritesheet;
+    // AnimationFighters
+    let fighters: AnimationFighter[] = [];
 
-      // AnimationFighters
-      let fighters: AnimationFighter[] = [];
+    if (!miscSheet) {
+      throw new Error('Misc spritesheet not found');
+    }
 
-      if (!miscSheet) {
-        throw new Error('Misc spritesheet not found');
-      }
+    const fightFighters = getFighters(fight.fighters);
 
-      const fightFighters = getFighters(fight.fighters);
+    const brute1 = fightFighters.find((fighter) => !fighter.master
+      && fighter.team === 'L');
+    const brute2 = fightFighters.find((fighter) => !fighter.master
+      && fighter.team === 'R');
+    const boss = fightFighters.find((fighter) => fighter.type === 'boss');
 
-      const brute1 = fightFighters.find((fighter) => !fighter.master
-        && fighter.team === 'L');
-      const brute2 = fightFighters.find((fighter) => !fighter.master
-        && fighter.team === 'R');
-      const boss = fightFighters.find((fighter) => fighter.type === 'boss');
+    if (!brute1) {
+      throw new Error('Brute not found');
+    }
 
-      if (!brute1) {
-        throw new Error('Brute not found');
-      }
+    // TODO: Remove this on release, as background extensions were changed
+    const fightBackground = `${fight.background.split('.')[0]}.jpg`;
 
-      // TODO: Remove this on release, as background extensions were changed
-      const fightBackground = `${fight.background.split('.')[0]}.jpg`;
+    // Add background
+    const background = new PIXI.Sprite(miscSheet.textures[`background/${fightBackground}`]);
+    background.zIndex = -1;
 
-      // Add background
-      const background = new PIXI.Sprite(miscSheet.textures[`background/${fightBackground}`]);
-      background.zIndex = -1;
+    // Fill screen
+    background.width = app.screen.width;
+    background.height = app.screen.height;
 
-      // Fill screen
-      background.width = app.screen.width;
-      background.height = app.screen.height;
+    app.stage?.addChild(background);
 
-      app.stage?.addChild(background);
+    // Add 2px border
+    const border = new PIXI.Graphics();
+    border.lineStyle(2, PIXI.utils.string2hex(theme.palette.secondary.main));
+    border.drawRect(0, 0, app.screen.width, app.screen.height);
+    border.zIndex = 102;
+    app.stage?.addChild(border);
 
-      // Add 2px border
-      const border = new PIXI.Graphics();
-      border.lineStyle(2, PIXI.utils.string2hex(theme.palette.secondary.main));
-      border.drawRect(0, 0, app.screen.width, app.screen.height);
-      border.zIndex = 102;
-      app.stage?.addChild(border);
+    // Add headers
 
-      // Add headers
+    // First brute header
+    const team1Header = new PIXI.Sprite(miscSheet.textures['header.png']);
+    team1Header.filters = [new OutlineFilter()];
+    team1Header.x = 4;
+    team1Header.y = 10;
+    team1Header.zIndex = 101;
 
-      // First brute header
-      const team1Header = new PIXI.Sprite(miscSheet.textures['header.png']);
-      team1Header.filters = [new OutlineFilter()];
-      team1Header.x = 4;
-      team1Header.y = 10;
-      team1Header.zIndex = 101;
+    // Add tooltip on hover
+    team1Header.interactive = true;
+    team1Header.hitArea = new PIXI.Polygon([
+      new PIXI.Point(0, 10),
+      new PIXI.Point(240, 10),
+      new PIXI.Point(240, 20),
+      new PIXI.Point(50, 20),
+      new PIXI.Point(50, 65),
+      new PIXI.Point(0, 65),
+    ]);
+    team1Header.addListener('mouseover', () => {
+      toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1, true);
+    });
+    team1Header.addListener('mouseout', () => {
+      toggleTooltip(brute1, false);
+    });
+    team1Header.on('tap', (e) => {
+      e.stopPropagation();
+      toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1, true);
+    });
+    app.stage?.addChild(team1Header);
+
+    // First team name
+    const team1Text = new PIXI.Text(brute1.name.toLocaleUpperCase(), {
+      fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
+    });
+    team1Text.filters = [new OutlineFilter()];
+    team1Text.anchor.set(0, 1);
+    team1Text.x = 4;
+    team1Text.y = 23;
+    team1Text.zIndex = 102;
+    app.stage?.addChild(team1Text);
+
+    // First team HP bar
+    const team1HpBar = new PIXI.Graphics();
+    team1HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+    team1HpBar.drawRoundedRect(0, 0, 236, 9, 4);
+    team1HpBar.filters = [new GlowFilter({
+      distance: 6,
+      innerStrength: 2,
+      outerStrength: 0,
+      color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
+    })];
+    team1HpBar.x = 7;
+    team1HpBar.y = 21;
+    team1HpBar.zIndex = 103;
+    team1HpBar.name = `${brute1.name}.hp`;
+    app.stage?.addChild(team1HpBar);
+
+    // First team phantom HP bar
+    const team1PhantomHpBar = new PIXI.Graphics();
+    team1PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+    team1PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
+    team1PhantomHpBar.x = 7;
+    team1PhantomHpBar.y = 21;
+    team1PhantomHpBar.zIndex = 102;
+    team1HpBar.name = `${brute1.name}.hp-phantom`;
+    app.stage?.addChild(team1PhantomHpBar);
+
+    // Reset tooltip on tap anywhere
+    if (app.stage) {
+      app.stage.interactive = true;
+    }
+    app.stage?.on('tap', () => {
+      toggleTooltip(brute1, false);
+    });
+
+    // First team bust
+    const brute1BustImg = await createBustImage(brute1, renderer);
+
+    const team1BustBase = new BaseTexture(brute1BustImg);
+    team1BustBase.scaleMode = PIXI.SCALE_MODES.LINEAR;
+    const team1Bust = new PIXI.Sprite(new Texture(team1BustBase));
+    team1Bust.x = 52;
+    team1Bust.y = 35;
+    team1Bust.zIndex = 102;
+    team1Bust.scale.y = 0.15;
+    team1Bust.scale.x = -0.15;
+    app.stage?.addChild(team1Bust);
+
+    // Clip bust to fit in the header
+    const team1BustMask = new PIXI.Graphics();
+    team1BustMask.beginFill(0xFFFFFF);
+    team1BustMask.drawRect(0, 0, 300, 264);
+    team1BustMask.endFill();
+    team1Bust.addChild(team1BustMask);
+    team1Bust.mask = team1BustMask;
+
+    const team1Weapons: PIXI.Sprite[] = [];
+    const team1Skills: PIXI.Sprite[] = [];
+
+    let team2Header: PIXI.Sprite | null = null;
+    let team2Text: PIXI.Text | null = null;
+    let team2HpBar: PIXI.Graphics | null = null;
+    let team2PhantomHpBar: PIXI.Graphics | null = null;
+    let brute2BustImg: HTMLImageElement | null = null;
+    let team2Bust: PIXI.Sprite | null = null;
+    const team2Weapons: PIXI.Sprite[] = [];
+    const team2Skills: PIXI.Sprite[] = [];
+
+    if (brute2) {
+      // Second team header
+      team2Header = new PIXI.Sprite(miscSheet.textures['header.png']);
+      team2Header.filters = [new OutlineFilter()];
+      team2Header.scale.x = -1;
+      team2Header.x = app.screen.width - 4;
+      team2Header.y = 10;
+      team2Header.zIndex = 101;
 
       // Add tooltip on hover
-      team1Header.interactive = true;
-      team1Header.hitArea = new PIXI.Polygon([
+      team2Header.interactive = true;
+      team2Header.hitArea = new PIXI.Polygon([
         new PIXI.Point(0, 10),
         new PIXI.Point(240, 10),
         new PIXI.Point(240, 20),
@@ -145,629 +250,520 @@ export const setupFight: (
         new PIXI.Point(50, 65),
         new PIXI.Point(0, 65),
       ]);
-      team1Header.addListener('mouseover', () => {
-        toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1, true);
+      team2Header.on('mouseover', () => {
+        toggleTooltip(
+          findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
+          true,
+        );
       });
-      team1Header.addListener('mouseout', () => {
-        toggleTooltip(brute1, false);
+      team2Header.on('mouseout', () => {
+        toggleTooltip(brute2, false);
       });
-      team1Header.on('tap', (e: PIXI.InteractionEvent) => {
+      team2Header.on('tap', (e) => {
         e.stopPropagation();
-        toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1, true);
+        toggleTooltip(
+          findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
+          true);
       });
-      app.stage?.addChild(team1Header);
 
-      // First team name
-      const team1Text = new PIXI.Text(brute1.name.toLocaleUpperCase(), {
-        fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
+      app.stage?.addChild(team2Header);
+
+      // Second team name
+      team2Text = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
+        fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
       });
-      team1Text.filters = [new OutlineFilter()];
-      team1Text.anchor.set(0, 1);
-      team1Text.x = 4;
-      team1Text.y = 23;
-      team1Text.zIndex = 102;
-      app.stage?.addChild(team1Text);
+      team2Text.filters = [new OutlineFilter()];
+      team2Text.anchor.set(1, 1);
+      team2Text.x = app.screen.width - 4;
+      team2Text.y = 23;
+      team2Text.zIndex = 102;
+      app.stage?.addChild(team2Text);
 
-      // First team HP bar
-      const team1HpBar = new PIXI.Graphics();
-      team1HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
-      team1HpBar.drawRoundedRect(0, 0, 236, 9, 4);
-      team1HpBar.filters = [new GlowFilter({
+      // Second team HP bar
+      team2HpBar = new PIXI.Graphics();
+      team2HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+      team2HpBar.drawRoundedRect(0, 0, 236, 9, 4);
+      team2HpBar.filters = [new GlowFilter({
         distance: 6,
         innerStrength: 2,
         outerStrength: 0,
         color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
       })];
-      team1HpBar.x = 7;
-      team1HpBar.y = 21;
-      team1HpBar.zIndex = 103;
-      team1HpBar.name = `${brute1.name}.hp`;
-      app.stage?.addChild(team1HpBar);
+      team2HpBar.scale.x = -1;
+      team2HpBar.x = app.screen.width - 7;
+      team2HpBar.y = 21;
+      team2HpBar.zIndex = 103;
+      team2HpBar.name = `${brute2.name}.hp`;
+      app.stage?.addChild(team2HpBar);
 
-      // First team phantom HP bar
-      const team1PhantomHpBar = new PIXI.Graphics();
-      team1PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
-      team1PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
-      team1PhantomHpBar.x = 7;
-      team1PhantomHpBar.y = 21;
-      team1PhantomHpBar.zIndex = 102;
-      team1HpBar.name = `${brute1.name}.hp-phantom`;
-      app.stage?.addChild(team1PhantomHpBar);
+      // Second team phantom HP bar
+      team2PhantomHpBar = new PIXI.Graphics();
+      team2PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+      team2PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
+      team2PhantomHpBar.scale.x = -1;
+      team2PhantomHpBar.x = app.screen.width - 7;
+      team2PhantomHpBar.y = 21;
+      team2PhantomHpBar.zIndex = 102;
+      team2PhantomHpBar.name = `${brute2.name}.hp-phantom`;
+      app.stage?.addChild(team2PhantomHpBar);
 
-      // Reset tooltip on tap anywhere
-      if (app.stage) {
-        app.stage.interactive = true;
-      }
-      app.stage?.on('tap', () => {
-        toggleTooltip(brute1, false);
-      });
+      // Second team bust
+      brute2BustImg = await createBustImage(brute2, renderer);
 
-      // First team bust
-      const brute1BustImg = await createBustImage(brute1, renderer);
-
-      const team1BustBase = new BaseTexture(brute1BustImg);
-      team1BustBase.scaleMode = PIXI.SCALE_MODES.LINEAR;
-      const team1Bust = new PIXI.Sprite(new Texture(team1BustBase));
-      team1Bust.x = 52;
-      team1Bust.y = 35;
-      team1Bust.zIndex = 102;
-      team1Bust.scale.y = 0.15;
-      team1Bust.scale.x = -0.15;
-      app.stage?.addChild(team1Bust);
+      const team2BustBase = new BaseTexture(brute2BustImg);
+      team2BustBase.scaleMode = PIXI.SCALE_MODES.LINEAR;
+      team2Bust = new PIXI.Sprite(new Texture(team2BustBase));
+      team2Bust.x = 450;
+      team2Bust.y = 35;
+      team2Bust.zIndex = 102;
+      team2Bust.scale.y = 0.15;
+      team2Bust.scale.x = 0.15;
+      app.stage?.addChild(team2Bust);
 
       // Clip bust to fit in the header
-      const team1BustMask = new PIXI.Graphics();
-      team1BustMask.beginFill(0xFFFFFF);
-      team1BustMask.drawRect(0, 0, 300, 264);
-      team1BustMask.endFill();
-      team1Bust.addChild(team1BustMask);
-      team1Bust.mask = team1BustMask;
+      const team2BustMask = new PIXI.Graphics();
+      team2BustMask.beginFill(0xFFFFFF);
+      team2BustMask.drawRect(0, 0, 300, 264);
+      team2BustMask.endFill();
+      team2Bust.addChild(team2BustMask);
+      team2Bust.mask = team2BustMask;
+    }
 
-      const team1Weapons: PIXI.Sprite[] = [];
-      const team1Skills: PIXI.Sprite[] = [];
+    let bossHeader: PIXI.Sprite | null = null;
+    let bossHpBar: PIXI.Graphics | null = null;
+    let bossPhantomHpBar: PIXI.Graphics | null = null;
+    if (boss) {
+      // Boss header
+      bossHeader = new PIXI.Sprite(miscSheet.textures['header.png']);
+      bossHeader.filters = [new OutlineFilter()];
+      bossHeader.scale.x = -1;
+      bossHeader.x = app.screen.width - 4;
+      bossHeader.y = 10;
+      bossHeader.zIndex = 101;
 
-      let team2Header: PIXI.Sprite | null = null;
-      let team2Text: PIXI.Text | null = null;
-      let team2HpBar: PIXI.Graphics | null = null;
-      let team2PhantomHpBar: PIXI.Graphics | null = null;
-      let brute2BustImg: HTMLImageElement | null = null;
-      let team2Bust: PIXI.Sprite | null = null;
-      const team2Weapons: PIXI.Sprite[] = [];
-      const team2Skills: PIXI.Sprite[] = [];
+      app.stage?.addChild(bossHeader);
 
-      if (brute2) {
-        // Second team header
-        team2Header = new PIXI.Sprite(miscSheet.textures['header.png']);
-        team2Header.filters = [new OutlineFilter()];
-        team2Header.scale.x = -1;
-        team2Header.x = app.screen.width - 4;
-        team2Header.y = 10;
-        team2Header.zIndex = 101;
+      // Boss name
+      const displayedBossName = (
+        // Normal day Display
+        !dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day') ? boss.name
+          // April Fools Display
+          : boss.name === BossName.EmberFang ? 'EmberFool'
+            : boss.name === BossName.GoldClaw ? 'GoldClown'
+              : boss.name
+      );
 
-        // Add tooltip on hover
-        team2Header.interactive = true;
-        team2Header.hitArea = new PIXI.Polygon([
-          new PIXI.Point(0, 10),
-          new PIXI.Point(240, 10),
-          new PIXI.Point(240, 20),
-          new PIXI.Point(50, 20),
-          new PIXI.Point(50, 65),
-          new PIXI.Point(0, 65),
-        ]);
-        team2Header.on('mouseover', () => {
-          toggleTooltip(
-            findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
-            true,
-          );
-        });
-        team2Header.on('mouseout', () => {
-          toggleTooltip(brute2, false);
-        });
-        team2Header.on('tap', (e: PIXI.InteractionEvent) => {
-          e.stopPropagation();
-          toggleTooltip(
-            findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
-            true);
-        });
+      const bossName = new PIXI.Text(displayedBossName.toLocaleUpperCase(), {
+        fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
+      });
+      bossName.filters = [new OutlineFilter()];
+      bossName.anchor.set(1, 1);
+      bossName.x = app.screen.width - 4;
+      bossName.y = 23;
+      bossName.zIndex = 102;
+      app.stage?.addChild(bossName);
 
-        app.stage?.addChild(team2Header);
+      // Boss HP bar
+      bossHpBar = new PIXI.Graphics();
+      bossHpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
+      bossHpBar.drawRoundedRect(0, 0, (boss.hp / boss.maxHp) * 236, 9, 4);
+      bossHpBar.filters = [new GlowFilter({
+        distance: 6,
+        innerStrength: 2,
+        outerStrength: 0,
+        color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
+      })];
+      bossHpBar.scale.x = -1;
+      bossHpBar.x = app.screen.width - 7;
+      bossHpBar.y = 21;
+      bossHpBar.zIndex = 103;
+      bossHpBar.name = `${boss.name}.hp`;
+      app.stage?.addChild(bossHpBar);
 
-        // Second team name
-        team2Text = new PIXI.Text(brute2.name.toLocaleUpperCase(), {
-          fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
-        });
-        team2Text.filters = [new OutlineFilter()];
-        team2Text.anchor.set(1, 1);
-        team2Text.x = app.screen.width - 4;
-        team2Text.y = 23;
-        team2Text.zIndex = 102;
-        app.stage?.addChild(team2Text);
+      // Boss phantom HP bar
+      bossPhantomHpBar = new PIXI.Graphics();
+      bossPhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
+      bossPhantomHpBar.drawRoundedRect(0, 0, (boss.hp / boss.maxHp) * 236, 9, 4);
+      bossPhantomHpBar.scale.x = -1;
+      bossPhantomHpBar.x = app.screen.width - 7;
+      bossPhantomHpBar.y = 21;
+      bossPhantomHpBar.zIndex = 102;
+      bossPhantomHpBar.name = `${boss.name}.hp-phantom`;
+      app.stage?.addChild(bossPhantomHpBar);
+    }
 
-        // Second team HP bar
-        team2HpBar = new PIXI.Graphics();
-        team2HpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
-        team2HpBar.drawRoundedRect(0, 0, 236, 9, 4);
-        team2HpBar.filters = [new GlowFilter({
-          distance: 6,
-          innerStrength: 2,
-          outerStrength: 0,
-          color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
-        })];
-        team2HpBar.scale.x = -1;
-        team2HpBar.x = app.screen.width - 7;
-        team2HpBar.y = 21;
-        team2HpBar.zIndex = 103;
-        team2HpBar.name = `${brute2.name}.hp`;
-        app.stage?.addChild(team2HpBar);
+    // Set stage as sortable
+    if (app.stage) {
+      app.stage.sortableChildren = true;
+    }
 
-        // Second team phantom HP bar
-        team2PhantomHpBar = new PIXI.Graphics();
-        team2PhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
-        team2PhantomHpBar.drawRoundedRect(0, 0, 236, 9, 4);
-        team2PhantomHpBar.scale.x = -1;
-        team2PhantomHpBar.x = app.screen.width - 7;
-        team2PhantomHpBar.y = 21;
-        team2PhantomHpBar.zIndex = 102;
-        team2PhantomHpBar.name = `${brute2.name}.hp-phantom`;
-        app.stage?.addChild(team2PhantomHpBar);
+    // Set background music
+    await sound.play('background', { loop: true });
 
-        // Second team bust
-        brute2BustImg = await createBustImage(brute2, renderer);
-
-        const team2BustBase = new BaseTexture(brute2BustImg);
-        team2BustBase.scaleMode = PIXI.SCALE_MODES.LINEAR;
-        team2Bust = new PIXI.Sprite(new Texture(team2BustBase));
-        team2Bust.x = 450;
-        team2Bust.y = 35;
-        team2Bust.zIndex = 102;
-        team2Bust.scale.y = 0.15;
-        team2Bust.scale.x = 0.15;
-        app.stage?.addChild(team2Bust);
-
-        // Clip bust to fit in the header
-        const team2BustMask = new PIXI.Graphics();
-        team2BustMask.beginFill(0xFFFFFF);
-        team2BustMask.drawRect(0, 0, 300, 264);
-        team2BustMask.endFill();
-        team2Bust.addChild(team2BustMask);
-        team2Bust.mask = team2BustMask;
+    // Get fighters animations
+    fighters = fightFighters.map((fighter) => {
+      // Necessary since .team was added later
+      // TODO: Remove on release
+      if (!fighter.team) {
+        fighter.team = (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
       }
 
-      let bossHeader: PIXI.Sprite | null = null;
-      let bossHpBar: PIXI.Graphics | null = null;
-      let bossPhantomHpBar: PIXI.Graphics | null = null;
-      if (boss) {
-        // Boss header
-        bossHeader = new PIXI.Sprite(miscSheet.textures['header.png']);
-        bossHeader.filters = [new OutlineFilter()];
-        bossHeader.scale.x = -1;
-        bossHeader.x = app.screen.width - 4;
-        bossHeader.y = 10;
-        bossHeader.zIndex = 101;
-
-        app.stage?.addChild(bossHeader);
-
-        // Boss name
-        const displayedBossName = (
-          // Normal day Display
-          !dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day') ? boss.name
-            // April Fools Display
-            : boss.name === BossName.EmberFang ? 'EmberFool'
-              : boss.name === BossName.GoldClaw ? 'GoldClown'
-                : boss.name
-        );
-
-        const bossName = new PIXI.Text(displayedBossName.toLocaleUpperCase(), {
-          fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
-        });
-        bossName.filters = [new OutlineFilter()];
-        bossName.anchor.set(1, 1);
-        bossName.x = app.screen.width - 4;
-        bossName.y = 23;
-        bossName.zIndex = 102;
-        app.stage?.addChild(bossName);
-
-        // Boss HP bar
-        bossHpBar = new PIXI.Graphics();
-        bossHpBar.beginFill(PIXI.utils.string2hex(theme.palette.hpBar.main));
-        bossHpBar.drawRoundedRect(0, 0, (boss.hp / boss.maxHp) * 236, 9, 4);
-        bossHpBar.filters = [new GlowFilter({
-          distance: 6,
-          innerStrength: 2,
-          outerStrength: 0,
-          color: PIXI.utils.string2hex(theme.palette.hpBar.dark),
-        })];
-        bossHpBar.scale.x = -1;
-        bossHpBar.x = app.screen.width - 7;
-        bossHpBar.y = 21;
-        bossHpBar.zIndex = 103;
-        bossHpBar.name = `${boss.name}.hp`;
-        app.stage?.addChild(bossHpBar);
-
-        // Boss phantom HP bar
-        bossPhantomHpBar = new PIXI.Graphics();
-        bossPhantomHpBar.beginFill(PIXI.utils.string2hex(theme.palette.error.main));
-        bossPhantomHpBar.drawRoundedRect(0, 0, (boss.hp / boss.maxHp) * 236, 9, 4);
-        bossPhantomHpBar.scale.x = -1;
-        bossPhantomHpBar.x = app.screen.width - 7;
-        bossPhantomHpBar.y = 21;
-        bossPhantomHpBar.zIndex = 102;
-        bossPhantomHpBar.name = `${boss.name}.hp-phantom`;
-        app.stage?.addChild(bossPhantomHpBar);
-      }
-
-      // Set stage as sortable
-      if (app.stage) {
-        app.stage.sortableChildren = true;
-      }
-
-      // Set background music
-      await sound.play('background', { loop: true });
-
-      // Get fighters animations
-      fighters = fightFighters.map((fighter) => {
-        // Necessary since .team was added later
-        // TODO: Remove on release
-        if (!fighter.team) {
-          fighter.team = (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
-        }
-
-        const animationFighter: AnimationFighter = {
-          ...fighter,
-          hpBar: (fighter.master
-            ? undefined
-            : fighter.team === brute1.team
-              ? team1HpBar
-              : fighter.team === brute2?.team
-                ? team2HpBar
-                : fighter.id === boss?.id
-                  ? bossHpBar
-                  : undefined) ?? undefined,
-          hpBarPhantom: (fighter.master
-            ? undefined
-            : fighter.team === brute1.team
-              ? team1PhantomHpBar
-              : fighter.team === brute2?.team
-                ? team2PhantomHpBar
-                : fighter.id === boss?.id
-                  ? bossPhantomHpBar
-                  : undefined) ?? undefined,
-          bustImage: (fighter.type === 'pet'
-            ? null
-            : fighter.id === brute1.id
-              ? brute1BustImg
-              : fighter.id === brute2?.id
-                ? brute2BustImg
-                : null) ?? null,
-          bust: (fighter.type === 'pet'
-            ? undefined
-            : fighter.team === brute1.team
-              ? team1Bust
-              : fighter.team === brute2?.team
-                ? team2Bust
+      const animationFighter: AnimationFighter = {
+        ...fighter,
+        hpBar: (fighter.master
+          ? undefined
+          : fighter.team === brute1.team
+            ? team1HpBar
+            : fighter.team === brute2?.team
+              ? team2HpBar
+              : fighter.id === boss?.id
+                ? bossHpBar
                 : undefined) ?? undefined,
-          text: (fighter.type === 'pet'
-            ? undefined
-            : fighter.team === brute1.team
-              ? team1Text
-              : fighter.team === brute2?.team
-                ? team2Text
+        hpBarPhantom: (fighter.master
+          ? undefined
+          : fighter.team === brute1.team
+            ? team1PhantomHpBar
+            : fighter.team === brute2?.team
+              ? team2PhantomHpBar
+              : fighter.id === boss?.id
+                ? bossPhantomHpBar
                 : undefined) ?? undefined,
-          teamWeaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
-          teamSkillsIllustrations: fighter.team === brute1.team ? team1Skills : team2Skills,
-          HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
-          skills: Object.fromEntries(Object.entries(fighter.skills).map(([skillId, tier]) => {
-            let skillUses = skills[SkillById[+skillId as SkillId]].uses?.[tier - 1] ?? 0;
+        bustImage: (fighter.type === 'pet'
+          ? null
+          : fighter.id === brute1.id
+            ? brute1BustImg
+            : fighter.id === brute2?.id
+              ? brute2BustImg
+              : null) ?? null,
+        bust: (fighter.type === 'pet'
+          ? undefined
+          : fighter.team === brute1.team
+            ? team1Bust
+            : fighter.team === brute2?.team
+              ? team2Bust
+              : undefined) ?? undefined,
+        text: (fighter.type === 'pet'
+          ? undefined
+          : fighter.team === brute1.team
+            ? team1Text
+            : fighter.team === brute2?.team
+              ? team2Text
+              : undefined) ?? undefined,
+        teamWeaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
+        teamSkillsIllustrations: fighter.team === brute1.team ? team1Skills : team2Skills,
+        HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
+        skills: Object.fromEntries(Object.entries(fighter.skills).map(([skillId, tier]) => {
+          let skillUses = skills[SkillById[+skillId as SkillId]].uses?.[tier - 1] ?? 0;
 
-            // Add one fierceBrute every 30 strength
-            if (+skillId === SkillId.fierceBrute) {
-              skillUses += Math.floor(fighter.strength / 30);
-            }
+          // Add one fierceBrute every 30 strength
+          if (+skillId === SkillId.fierceBrute) {
+            skillUses += Math.floor(fighter.strength / 30);
+          }
 
-            return [
-              skillId,
-              {
-                tier,
-                uses: skillUses,
-              },
-            ];
-          })),
-          animation: new FighterHolder(
-            app,
-            fighter,
-            speed,
-            fighter.size
-          ),
-        };
+          return [
+            skillId,
+            {
+              tier,
+              uses: skillUses,
+            },
+          ];
+        })),
+        animation: new FighterHolder(
+          app,
+          fighter,
+          speed,
+          fighter.size
+        ),
+      };
 
-        // Set position
-        animationFighter.animation.container.x = fighter.team === 'L' ? -100 : 600;
-        animationFighter.animation.container.y = 150;
+      // Set position
+      animationFighter.animation.container.x = fighter.team === 'L' ? -100 : 600;
+      animationFighter.animation.container.y = 150;
 
-        // Add to stage
-        app.stage?.addChild(animationFighter.animation.container);
+      // Add to stage
+      app.stage?.addChild(animationFighter.animation.container);
 
-        // Update brute weapons
-        updateWeapons(app, animationFighter);
+      // Update brute weapons
+      updateWeapons(app, spritesheets, animationFighter);
 
-        return animationFighter;
+      return animationFighter;
+    });
+
+    // Wait for all fighters to be loaded
+    while (fighters.some((fighter) => !fighter.animation.loaded)) {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 100);
       });
+    }
 
-      // Wait for all fighters to be loaded
-      while (fighters.some((fighter) => !fighter.animation.loaded)) {
-        await new Promise((resolve) => {
-          setTimeout(resolve, 100);
-        });
+    const isClanWar = !!fight.clanWarId;
+
+    // Loop on steps
+    const steps = JSON.parse(fight.steps) as FightStep[];
+    for (let i = 0; i < steps.length; i++) {
+      const { [i]: step } = steps;
+
+      if (!step) {
+        throw new Error('Step not found');
       }
 
-      const isClanWar = !!fight.clanWarId;
+      // Reposition mispositionned fighters during neutral
+      if (isRangedStep(step.a)) await repositionFighters(fighters, speed);
 
-      // Loop on steps
-      const steps = JSON.parse(fight.steps) as FightStep[];
-      for (let i = 0; i < steps.length; i++) {
-        const { [i]: step } = steps;
-
-        if (!step) {
-          throw new Error('Step not found');
-        }
-
-        // Reposition mispositionned fighters during neutral
-        if (isRangedStep(step.a)) await repositionFighters(fighters, speed);
-
-        // Display step's brute in HUD
-        if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
-          void setHUDFocus(app, renderer, fighters, step.b, speed, isClanWar);
-        }
-        // Display step's fighter in HUD
-        if ('f' in step && Object.hasOwn(step, 'f') && typeof step.f === 'number') {
-          void setHUDFocus(app, renderer, fighters, step.f, speed, isClanWar);
-        }
-        // Display step's target in HUD
-        if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise) {
-          void setHUDFocus(app, renderer, fighters, step.t, speed, isClanWar);
-        }
-
-        switch (step.a) {
-          case StepType.Move: {
-            await moveTo(fighters, step, speed);
-            break;
-          }
-          case StepType.MoveBack: {
-            await moveBack(fighters, step, speed);
-            break;
-          }
-          case StepType.Arrive: {
-            await arrive(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Leave: {
-            await leave(fighters, step, speed);
-            break;
-          }
-          case StepType.AttemptHit: {
-            await attemptHit(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Hit:
-          case StepType.Poison: {
-            await hit(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.FlashFlood: {
-            await flashFlood(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Hammer: {
-            await hammer(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Death: {
-            death(fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Evade: {
-            await evade(fighters, step, speed);
-            break;
-          }
-          case StepType.Saboteur: {
-            await saboteur(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Disarm: {
-            disarm(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Steal: {
-            await steal(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Throw: {
-            await throwWeapon(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Trash: {
-            await trash(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Eat: {
-            await eat(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Heal: {
-            await heal(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Survive: {
-            survive(fight, fighters, step, speed);
-            break;
-          }
-          case StepType.Trap: {
-            await trap(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Block: {
-            await block(app, fighters, step, speed);
-            break;
-          }
-          case StepType.SkillActivate: {
-            await skillActivate(app, fighters, step, speed);
-            break;
-          }
-          case StepType.SkillExpire: {
-            await skillExpire(app, fighters, step, speed);
-            break;
-          }
-          case StepType.End: {
-            end(app, fighters, step);
-            break;
-          }
-          case StepType.Hypnotise: {
-            await hypnotise(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Equip: {
-            await equip(app, fighters, step);
-            break;
-          }
-          case StepType.Sabotage: {
-            sabotage(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Resist: {
-            resist(fighters, step);
-            break;
-          }
-          case StepType.Bomb: {
-            await bomb(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Spy: {
-            await spy(fighters, step, speed);
-            break;
-          }
-          case StepType.Vampirism: {
-            await vampirism(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Haste: {
-            await haste(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Treat: {
-            await treat(app, fighters, step, speed);
-            break;
-          }
-          case StepType.DropShield: {
-            dropShield(app, fighters, step, speed);
-            break;
-          }
-          case StepType.Regeneration: {
-            await regenerate(app, fighters, step, speed, isClanWar);
-            break;
-          }
-          case StepType.Counter: {
-            // Do nothing for now
-            break;
-          }
-          case StepType.Mimic: {
-            await mimic(app, fighters, step, speed);
-            break;
-          }
-          default:
-            console.error('Unknown step', step);
-            break;
-        }
+      // Display step's brute in HUD
+      if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
+        void setHUDFocus(app, spritesheets, renderer, fighters, step.b, speed, isClanWar);
+      }
+      // Display step's fighter in HUD
+      if ('f' in step && Object.hasOwn(step, 'f') && typeof step.f === 'number') {
+        void setHUDFocus(app, spritesheets, renderer, fighters, step.f, speed, isClanWar);
+      }
+      // Display step's target in HUD
+      if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise) {
+        void setHUDFocus(app, spritesheets, renderer, fighters, step.t, speed, isClanWar);
       }
 
-      void sound.play('sfx', { sprite: 'win' });
-
-      // Get winner fighter
-      const winner = fighters.find((fighter) => !fighter.master && isWinner(fighter, fight));
-
-      // Get loser fighter
-      const loser = fighters.find((fighter) => !fighter.master && isLoser(fighter, fight));
-
-      // Display dead icon animation on the UI
-      const deadIcon = new AnimatedSprite(miscSheet.animations.dead || []);
-      deadIcon.filters = [new OutlineFilter()];
-      deadIcon.loop = false;
-      deadIcon.animationSpeed = 0.5;
-      deadIcon.zIndex = 1000;
-      if (loser?.team === 'R') {
-        deadIcon.scale.x = -1;
-        if (team2Header) {
-          deadIcon.x = team2Header.x + 32;
-          deadIcon.y = team2Header.y - 13;
-        } else if (bossHeader) {
-          deadIcon.x = bossHeader.x + 32;
-          deadIcon.y = bossHeader.y - 13;
+      switch (step.a) {
+        case StepType.Move: {
+          await moveTo(fighters, step, speed);
+          break;
         }
-      } else {
-        deadIcon.x = team1Header.x - 32;
-        deadIcon.y = team1Header.y - 13;
+        case StepType.MoveBack: {
+          await moveBack(fighters, step, speed);
+          break;
+        }
+        case StepType.Arrive: {
+          await arrive(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Leave: {
+          await leave(fighters, step, speed);
+          break;
+        }
+        case StepType.AttemptHit: {
+          await attemptHit(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Hit:
+        case StepType.Poison: {
+          await hit(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.FlashFlood: {
+          await flashFlood(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Hammer: {
+          await hammer(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Death: {
+          death(fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Evade: {
+          await evade(fighters, step, speed);
+          break;
+        }
+        case StepType.Saboteur: {
+          await saboteur(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Disarm: {
+          disarm(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Steal: {
+          await steal(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Throw: {
+          await throwWeapon(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Trash: {
+          await trash(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Eat: {
+          await eat(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Heal: {
+          await heal(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Survive: {
+          survive(fight, fighters, step, speed);
+          break;
+        }
+        case StepType.Trap: {
+          await trap(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Block: {
+          await block(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.SkillActivate: {
+          await skillActivate(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.SkillExpire: {
+          await skillExpire(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.End: {
+          end(app, spritesheets, fighters, step);
+          break;
+        }
+        case StepType.Hypnotise: {
+          await hypnotise(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Equip: {
+          await equip(app, spritesheets, fighters, step);
+          break;
+        }
+        case StepType.Sabotage: {
+          sabotage(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Resist: {
+          resist(fighters, step);
+          break;
+        }
+        case StepType.Bomb: {
+          await bomb(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Spy: {
+          await spy(fighters, step, speed);
+          break;
+        }
+        case StepType.Vampirism: {
+          await vampirism(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Haste: {
+          await haste(app, spritesheets, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Treat: {
+          await treat(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.DropShield: {
+          dropShield(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Regeneration: {
+          await regenerate(app, fighters, step, speed, isClanWar);
+          break;
+        }
+        case StepType.Counter: {
+          // Do nothing for now
+          break;
+        }
+        case StepType.Mimic: {
+          await mimic(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        default:
+          console.error('Unknown step', step);
+          break;
       }
-      app.stage?.addChild(deadIcon);
-      deadIcon.play();
+    }
 
-      // Display win message at the bottom
-      const winMessage = new PIXI.Text(t('fight.wonTheFight', { brute: fight.winner }).toLocaleUpperCase(), {
-        fontFamily: 'GameFont',
-        fontSize: 20,
-        fill: 0xffffff,
-        align: 'center',
-      });
-      winMessage.filters = [new OutlineFilter()];
-      winMessage.x = app.screen.width / 2;
-      winMessage.y = app.screen.height - 20;
-      winMessage.anchor.set(0.5, 0.5);
-      winMessage.height = 0;
-      winMessage.zIndex = 900;
-      app.stage?.addChild(winMessage);
+    void sound.play('sfx', { sprite: 'win' });
 
-      // Animate win message
-      tween(winMessage, {
-        duration: 2 / speed.current,
-        height: 30,
-        ease: 'bounce',
-      });
+    // Get winner fighter
+    const winner = fighters.find((fighter) => !fighter.master && isWinner(fighter, fight));
 
-      // Make 50 petals fall on the winner
-      for (let i = 0; i < 50; i++) {
-        const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals || []);
-        petal.filters = [new ColorOverlayFilter(
-          // Random color
-          Math.random() * 0xffffff,
-          0.5,
-        )];
+    // Get loser fighter
+    const loser = fighters.find((fighter) => !fighter.master && isLoser(fighter, fight));
 
-        // Random horizontal position around the winner
-        petal.x = (winner?.animation.container.x || 0) - 75 + Math.random() * 150;
-        petal.y = 0;
-        petal.width = 10;
-        petal.height = 10;
-
-        // Random animation speed
-        petal.animationSpeed = 0.1 + Math.random() * 0.5;
-
-        petal.zIndex = 0;
-        petal.play();
-        app.stage.addChild(petal);
-
-        // Animate petal
-        tween(petal, {
-          duration: (2 + Math.random() * 4) / speed.current,
-          ease: 'none',
-          y: app.screen.height - 10 - Math.random() * 100,
-        }).then(() => {
-          // Stop animation
-          petal.stop();
-        }).catch(console.error);
-
-        // Freeze app after 10 seconds to save GPU
-        setTimeout(() => {
-          if (app?.ticker) {
-            app.ticker.stop();
-          }
-        }, 10000);
+    // Display dead icon animation on the UI
+    const deadIcon = new AnimatedSprite(miscSheet.animations.dead || []);
+    deadIcon.filters = [new OutlineFilter()];
+    deadIcon.loop = false;
+    deadIcon.animationSpeed = 0.5;
+    deadIcon.zIndex = 1000;
+    if (loser?.team === 'R') {
+      deadIcon.scale.x = -1;
+      if (team2Header) {
+        deadIcon.x = team2Header.x + 32;
+        deadIcon.y = team2Header.y - 13;
+      } else if (bossHeader) {
+        deadIcon.x = bossHeader.x + 32;
+        deadIcon.y = bossHeader.y - 13;
       }
-    };
+    } else {
+      deadIcon.x = team1Header.x - 32;
+      deadIcon.y = team1Header.y - 13;
+    }
+    app.stage?.addChild(deadIcon);
+    deadIcon.play();
+
+    // Display win message at the bottom
+    const winMessage = new PIXI.Text(t('fight.wonTheFight', { brute: fight.winner }).toLocaleUpperCase(), {
+      fontFamily: 'GameFont',
+      fontSize: 20,
+      fill: 0xffffff,
+      align: 'center',
+    });
+    winMessage.filters = [new OutlineFilter()];
+    winMessage.x = app.screen.width / 2;
+    winMessage.y = app.screen.height - 20;
+    winMessage.anchor.set(0.5, 0.5);
+    winMessage.height = 0;
+    winMessage.zIndex = 900;
+    app.stage?.addChild(winMessage);
+
+    // Animate win message
+    tween(winMessage, {
+      duration: 2 / speed.current,
+      height: 30,
+      ease: 'bounce',
+    });
+
+    // Make 50 petals fall on the winner
+    for (let i = 0; i < 50; i++) {
+      const petal = new PIXI.AnimatedSprite(miscSheet.animations.petals || []);
+      petal.filters = [new ColorOverlayFilter(
+        // Random color
+        Math.random() * 0xffffff,
+        0.5,
+      )];
+
+      // Random horizontal position around the winner
+      petal.x = (winner?.animation.container.x || 0) - 75 + Math.random() * 150;
+      petal.y = 0;
+      petal.width = 10;
+      petal.height = 10;
+
+      // Random animation speed
+      petal.animationSpeed = 0.1 + Math.random() * 0.5;
+
+      petal.zIndex = 0;
+      petal.play();
+      app.stage.addChild(petal);
+
+      // Animate petal
+      tween(petal, {
+        duration: (2 + Math.random() * 4) / speed.current,
+        ease: 'none',
+        y: app.screen.height - 10 - Math.random() * 100,
+      }).then(() => {
+        // Stop animation
+        petal.stop();
+      }).catch(console.error);
+
+      // Freeze app after 10 seconds to save GPU
+      setTimeout(() => {
+        if (app?.ticker) {
+          app.ticker.stop();
+        }
+      }, 10000);
+    }
+  };

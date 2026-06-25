@@ -15,10 +15,12 @@ import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
 import { updateSkills } from './updateSkills';
 import { Easing, tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 
 export const skillUse = (
   app: Application,
+  spritesheets: Spritesheets,
   brute: AnimationFighter,
   skillId: SkillId,
   speed: React.MutableRefObject<number>,
@@ -66,25 +68,19 @@ export const skillUse = (
     brute.skills[skillId].uses -= 1;
 
     if (brute.skills[skillId].uses === 0) {
-      updateSkills(app, brute, skillId, 'remove');
+      updateSkills(app, spritesheets, brute, skillId, 'remove');
     }
   }
 };
 
 export const skillActivate = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SkillActivateStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -102,7 +98,7 @@ export const skillActivate = async (
     void sound.play('sfx', { sprite: `${SkillById[step.s]}` });
   }
 
-  skillUse(app, brute, step.s, speed);
+  skillUse(app, spritesheets, brute, step.s, speed);
 
   if ([SkillId.cryOfTheDamned, SkillId.fierceBrute, SkillId.hammer].includes(step.s)) {
     const animationEnded = brute.animation.waitForEvent('strengthen:end');
@@ -276,7 +272,7 @@ export const skillActivate = async (
     // Start airborn phase
     brute.animation.setAirborn(true);
     // Dust cloud on takeof
-    playDustEffect(app, brute, speed);
+    playDustEffect(app, spritesheets, brute, speed);
     // Move brute to upper middle
     await airbornMove({
       fighter: brute,

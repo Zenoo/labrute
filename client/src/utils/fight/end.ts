@@ -3,9 +3,11 @@ import { EndStep } from '@labrute/core';
 import { Application } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';
+import { Spritesheets } from './utils/spritesheet';
 
 export const end = (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: EndStep,
 ) => {
@@ -19,7 +21,7 @@ export const end = (
 
   team.forEach((fighter) => {
     // Untrap fighter
-    untrap(app, fighter);
+    untrap(app, spritesheets, fighter);
     // Set animation to `win`
     fighter.animation.setAnimation('win');
   });

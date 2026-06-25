@@ -10,17 +10,16 @@ import { getRandomPosition } from './utils/fightPositions';
 import { updateWeapons } from './updateWeapons';
 import { playDustEffect } from './utils/playVFX';
 import { updateShadow, airbornMove } from './utils/updateShadow';
+import { Spritesheets } from './utils/spritesheet';
 
 export const arrive = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: ArriveStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
+  const spritesheet = spritesheets.misc;
 
   if (!spritesheet) {
     throw new Error('Spritesheet not found');
@@ -35,7 +34,7 @@ export const arrive = async (
   // Equip weapon if needed
   if (typeof step.w !== 'undefined') {
     // Update available weapons
-    updateWeapons(app, fighter, step.w, 'remove');
+    updateWeapons(app, spritesheets, fighter, step.w, 'remove');
 
     // Update active weapon
     fighter.animation.weapon = WeaponById[step.w];
@@ -90,7 +89,7 @@ export const arrive = async (
   fighter.animation.play();
 
   // Dust cloud at arrival
-  playDustEffect(app, fighter, speed);
+  playDustEffect(app, spritesheets, fighter, speed);
 
   // Wait for animation to end
   await Promise.all(animations);

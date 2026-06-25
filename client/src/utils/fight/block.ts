@@ -6,17 +6,15 @@ import { sound } from '@pixi/sound';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { knockBack } from './utils/knockBack';
 import { playDustEffect } from './utils/playVFX';
+import { Spritesheets } from './utils/spritesheet';
 
 export const block = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: BlockStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');
@@ -31,7 +29,7 @@ export const block = async (
   animationsEnded.push(knockBack(fighter, speed, 9, 0.25));
 
   // Dust cloud from the knockBack slowdown
-  playDustEffect(app, fighter, speed, 14);
+  playDustEffect(app, spritesheets, fighter, speed, 14);
 
   // Play block SFX
   void sound.play('sfx', { sprite: `block${randomBetween(1, 4)}` });

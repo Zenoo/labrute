@@ -5,9 +5,11 @@ import { sound } from '@pixi/sound';
 import { Application } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { updateWeapons } from './updateWeapons';
+import { Spritesheets } from './utils/spritesheet';
 
 export const equip = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: EquipStep,
 ) => {
@@ -22,7 +24,7 @@ export const equip = async (
   brute.animation.setAnimation('equip');
 
   // Update available weapons
-  updateWeapons(app, brute, step.w, 'remove');
+  updateWeapons(app, spritesheets, brute, step.w, 'remove');
 
   // Update active weapon
   brute.animation.weapon = WeaponById[step.w];

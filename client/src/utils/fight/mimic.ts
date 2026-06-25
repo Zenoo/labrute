@@ -5,22 +5,15 @@ import { Application } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
 import { updateSkills } from './updateSkills';
+import { Spritesheets } from './utils/spritesheet';
 
 export const mimic = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: MimicStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
-
   const opponents = step.f.map((fighterId) => {
     const fighter = findFighter(fighters, fighterId);
     if (!fighter) {
@@ -51,9 +44,9 @@ export const mimic = async (
         // Keep hand raised
         opponent.animation.animationSpeed = 0;
 
-        skillUse(app, opponent, SkillId.mimic, speed);
+        skillUse(app, spritesheets, opponent, SkillId.mimic, speed);
 
-        updateSkills(app, opponent, step.s, 'add', step.t, speed);
+        updateSkills(app, spritesheets, opponent, step.s, 'add', step.t, speed);
 
         // Set animation speed to fast reverse
         opponent.animation.animationSpeed = -animationSpeed * 2;

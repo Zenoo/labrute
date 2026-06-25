@@ -2,16 +2,14 @@ import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
 import { BevelFilter } from '@pixi/filter-bevel';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const untrap = (
   app: Application,
+  spritesheets: Spritesheets,
   fighter: AnimationFighter,
 ) => {
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   if (fighter.trapped) {
 

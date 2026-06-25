@@ -6,22 +6,15 @@ import { sound } from '@pixi/sound';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { stagger } from './stagger';
 import { itemDrop } from './itemDrop';
+import { Spritesheets } from './utils/spritesheet';
 
 export const saboteur = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SaboteurStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
-
   const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
@@ -63,6 +56,7 @@ export const saboteur = async (
   // Drop saboteur weapon
   itemDrop({
     app,
+    spritesheets,
     fighter: brute,
     speed,
     item: step.w,

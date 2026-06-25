@@ -17,7 +17,9 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 import { Link } from '../components/Link';
 import {
-  Application, Graphics, InteractionEvent, Sprite, utils, RenderTexture, Container
+  Application, Graphics, Sprite, utils, RenderTexture, Container,
+  Spritesheet,
+  Assets
 } from 'pixi.js';
 import { AnimationFighter } from '../utils/fight/utils/findFighter';
 import { FighterHolder } from '../utils/fight/FighterHolder';
@@ -50,43 +52,29 @@ export const DojoView = () => {
 
   // Renderer setup
   useEffect(() => {
-    if (!container.current || !pupils || !brute) {
-      return undefined;
-    }
+    const setup = async () => {
+      if (!container.current || !pupils || !brute) {
+        return undefined;
+      }
 
-    const app = new Application({
-      backgroundColor: 0xfbf7c0,
-      width: 505,
-      height: 295,
-      resolution: window.devicePixelRatio,
-    });
-    appRef.current = app;
-    container.current.appendChild(app.view);
+      const app = new Application({
+        backgroundColor: 0xfbf7c0,
+        width: 505,
+        height: 295,
+        resolution: window.devicePixelRatio,
+      });
+      appRef.current = app;
+      container.current.appendChild(app.view as HTMLCanvasElement);
 
-    app.ticker.speed = 0.5;
+      app.ticker.speed = 0.5;
 
-    app.loader
-      .add('/images/game/dojo.json');
+      const spritesheet = await Assets.load('/images/game/dojo.json') as Spritesheet
 
-    app.loader.onLoad.add(() => {
       utils.clearTextureCache();
-    });
 
-    let rafId: number | null = null;
+      let rafId: number | null = null;
 
-    // Load dojo scene
-    app.loader.load((loader, resources) => {
-      if (!loader) {
-        return;
-      }
-
-      // Spritesheet
-      const spritesheet = resources['/images/game/dojo.json']?.spritesheet;
-
-      if (!spritesheet) {
-        console.error('Failed to load dojo spritesheet');
-        return;
-      }
+      // Load dojo scene
 
       app.stage.sortableChildren = true;
 
@@ -235,13 +223,17 @@ export const DojoView = () => {
         animationFighter.animation.container.interactive = true;
         animationFighter.animation.container.on('mouseover', () => {
           setTooltipName(currentBrute.name);
-          app.renderer.view.style.cursor = 'pointer';
+          if (app.renderer.view.style) {
+            app.renderer.view.style.cursor = 'pointer';
+          }
         });
         animationFighter.animation.container.on('mouseout', () => {
           setTooltipName(null);
-          app.renderer.view.style.cursor = 'default';
+          if (app.renderer.view.style) {
+            app.renderer.view.style.cursor = 'default';
+          }
         });
-        animationFighter.animation.container.on('tap', (e: InteractionEvent) => {
+        animationFighter.animation.container.on('tap', (e) => {
           e.stopPropagation();
           setTooltipName(currentBrute.name);
         });
@@ -363,14 +355,18 @@ export const DojoView = () => {
       };
 
       rafId = requestAnimationFrame(addPupil);
-    });
 
-    return () => {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-      app.destroy(true, true);
+
+      return () => {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+        }
+        app.destroy(true, true);
+      };
     };
+    setup().catch((err) => {
+      console.error('Error setting up dojo view', err);
+    });
   }, [t, theme, pupils, brute, navigate]);
 
   return brute && (

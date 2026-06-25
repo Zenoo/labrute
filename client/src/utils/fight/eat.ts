@@ -9,9 +9,11 @@ import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const eat = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: EatStep,
   speed: React.MutableRefObject<number>,
@@ -43,7 +45,7 @@ export const eat = async (
   // Play eat SFX
   void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 
-  skillUse(app, brute, SkillId.tamer, speed);
+  skillUse(app, spritesheets, brute, SkillId.tamer, speed);
 
   displayHeal(app, brute, step.h, speed);
 

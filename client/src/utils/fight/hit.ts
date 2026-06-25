@@ -13,9 +13,11 @@ import { updateHp } from './updateHp';
 import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
+import { Spritesheets } from './utils/spritesheet';
 
 export const hit = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HitStep,
   speed: React.MutableRefObject<number>,
@@ -46,7 +48,7 @@ export const hit = async (
   target.stunned = false;
 
   // Untrap target
-  untrap(app, target);
+  untrap(app, spritesheets, target);
 
   // Set animation to the correct hit animation
   target.animation.setAnimation(animation);
@@ -72,7 +74,7 @@ export const hit = async (
   }
 
   if (step.a !== StepType.Poison) {
-    playHitEffect(app, fighter, target, speed);
+    playHitEffect(app, spritesheets, fighter, target, speed);
   }
 
   // Add poison filter if damage is poison
@@ -88,7 +90,7 @@ export const hit = async (
   displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
   // Play the resist animation now
-  playResistAnimation(app, target, speed);
+  playResistAnimation(app, spritesheets, target, speed);
 
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);

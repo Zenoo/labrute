@@ -9,9 +9,11 @@ import { jumpBack } from './evade';
 import { playDustEffect } from './utils/playVFX';
 import { airbornMove } from './utils/updateShadow';
 import { Easing } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const skillExpire = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SkillExpireStep,
   speed: React.MutableRefObject<number>,
@@ -29,7 +31,7 @@ export const skillExpire = async (
   // Handle self untrap / wake up
   if (step.s === SkillId.net || step.s === SkillId.chaining) {
     // Untrap target
-    untrap(app, fighter);
+    untrap(app, spritesheets, fighter);
     // Wake up
     fighter.stunned = false;
 
@@ -96,7 +98,7 @@ export const skillExpire = async (
     fighter.animation.setAirborn(false);
 
     // Dust cloud on landing
-    playDustEffect(app, fighter, speed);
+    playDustEffect(app, spritesheets, fighter, speed);
 
     const animationEnded = fighter.animation.waitForEvent('arrive:end');
 

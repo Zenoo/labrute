@@ -11,21 +11,16 @@ import {
   WEAPON_SIZE, WEAPON_SPACING, WEAPONS_PER_ROW
 } from './utils/fightPositions';
 import { updateSkills } from './updateSkills';
+import { Spritesheets } from './utils/spritesheet';
 
 export const updateWeapons = (
   app: Application,
+  spritesheets: Spritesheets,
   brute: AnimationFighter,
   weapon?: WeaponId,
   action?: 'remove',
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   // Only affect the HUD for the focused brutes
   if (brute.HUDFocused) {
@@ -81,5 +76,5 @@ export const updateWeapons = (
   }
 
   // Always update skills as well since they are displayed in the same area and can be affected by weapon changes
-  updateSkills(app, brute);
+  updateSkills(app, spritesheets, brute);
 };

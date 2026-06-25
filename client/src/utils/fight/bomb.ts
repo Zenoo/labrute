@@ -15,6 +15,7 @@ import { untrap } from './untrap';
 import { playResistAnimation } from './resist';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -28,19 +29,13 @@ const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
 
 export const bomb = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: BombStep,
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
@@ -52,7 +47,7 @@ export const bomb = async (
   // Play launch SFX
   void sound.play('sfx', { sprite: 'net' });
 
-  skillUse(app, fighter, SkillId.bomb, speed);
+  skillUse(app, spritesheets, fighter, SkillId.bomb, speed);
 
   // Create bomb sprite
   const bombSprite = new AnimatedSprite(spritesheet.animations.bomb || []);
@@ -160,7 +155,7 @@ export const bomb = async (
     target.stunned = false;
 
     // Untrap target
-    untrap(app, target);
+    untrap(app, spritesheets, target);
 
     // Get damage
     const damage = getBombDamage(step.d, target);
@@ -176,7 +171,7 @@ export const bomb = async (
     displayDamage({ app, target, damage, speed });
 
     // Play the resist animation now
-    playResistAnimation(app, target, speed);
+    playResistAnimation(app, spritesheets, target, speed);
 
     // Update HP bar
     updateHp(fighters, target, -damage, speed, isClanWar);

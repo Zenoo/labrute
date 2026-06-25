@@ -7,21 +7,16 @@ import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { getHitDistance } from './utils/getHitDistance';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const attemptHit = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: AttemptHitStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {

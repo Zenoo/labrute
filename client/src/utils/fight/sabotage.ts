@@ -4,9 +4,11 @@ import { Application } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { updateWeapons } from './updateWeapons';
 import { itemDrop } from './itemDrop';
+import { Spritesheets } from './utils/spritesheet';
 
 export const sabotage = (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SabotageStep,
   speed: React.MutableRefObject<number>,
@@ -31,6 +33,7 @@ export const sabotage = (
   // Drop broken weapon
   itemDrop({
     app,
+    spritesheets,
     fighter: target,
     speed,
     item: step.w,
@@ -40,5 +43,5 @@ export const sabotage = (
   });
 
   // Update weapon list
-  updateWeapons(app, target, step.w, 'remove');
+  updateWeapons(app, spritesheets, target, step.w, 'remove');
 };

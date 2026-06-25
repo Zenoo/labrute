@@ -13,9 +13,11 @@ import { playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 import { airbornMove } from './utils/updateShadow';
 import { skillUse } from './skillActivate';
+import { Spritesheets } from './utils/spritesheet';
 
 export const vampirism = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: VampirismStep,
   speed: React.MutableRefObject<number>,
@@ -62,13 +64,13 @@ export const vampirism = async (
   // Play steal SFX
   void sound.play('sfx', { sprite: 'vampirism' });
 
-  skillUse(app, brute, SkillId.vampirism, speed);
+  skillUse(app, spritesheets, brute, SkillId.vampirism, speed);
 
   // Wake up target
   target.stunned = false;
 
   // Untrap target
-  untrap(app, target);
+  untrap(app, spritesheets, target);
 
   // Set target animation to `stolen`
   if (target.type === 'brute') {
@@ -76,13 +78,13 @@ export const vampirism = async (
   }
 
   // Blood vfx
-  playHitEffect(app, brute, target, speed, 'blood');
+  playHitEffect(app, spritesheets, brute, target, speed, 'blood');
 
   displayHeal(app, brute, step.h, speed);
   displayDamage({ app, target, damage: step.d, speed });
 
   // Play the resist animation now
-  playResistAnimation(app, target, speed);
+  playResistAnimation(app, spritesheets, target, speed);
 
   // Update HP bar
   updateHp(fighters, brute, step.h, speed, isClanWar);

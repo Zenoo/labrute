@@ -16,23 +16,18 @@ import { untrap } from './untrap';
 import { itemDrop } from './itemDrop';
 import { playResistAnimation } from './resist';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const flashFlood = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HitStep,
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const weaponSpritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
-  const miscSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!weaponSpritesheet || !miscSpritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const weaponSpritesheet = spritesheets.thrownWeapons;
+  const miscSpritesheet = spritesheets.misc;
 
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
@@ -124,7 +119,7 @@ export const flashFlood = async (
   } else {
     fighter.animation.weapon = null;
     if (!startedWithAWeapon) {
-      updateWeapons(app, fighter, step.w, 'remove');
+      updateWeapons(app, spritesheets, fighter, step.w, 'remove');
     }
   }
 
@@ -165,7 +160,7 @@ export const flashFlood = async (
     target.stunned = false;
 
     // Untrap target
-    untrap(app, target);
+    untrap(app, spritesheets, target);
 
     // Get hit animation (random for male brute)
     const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
@@ -180,7 +175,7 @@ export const flashFlood = async (
       displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
       // Play the resist animation now
-      playResistAnimation(app, target, speed);
+      playResistAnimation(app, spritesheets, target, speed);
 
       // Update HP bar
       updateHp(fighters, target, -step.d, speed, isClanWar);
@@ -192,6 +187,7 @@ export const flashFlood = async (
       // Drop shield (rebounds on target head)
       itemDrop({
         app,
+        spritesheets,
         fighter: target,
         speed,
         item: 'shield',

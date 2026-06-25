@@ -12,15 +12,6 @@ export const regenerate = async (
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
-
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
     throw new Error('Fighter not found');

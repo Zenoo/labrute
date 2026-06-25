@@ -9,7 +9,9 @@ import {
   Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme
 } from '@mui/material';
 import { sound } from '@pixi/sound';
-import * as PIXI from 'pixi.js';
+import {
+  Application, Assets, Spritesheet, utils
+} from 'pixi.js';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState
 } from 'react';
@@ -18,7 +20,6 @@ import { LS_KEY_FIGHT_BACKGROUND_MUSIC, LS_KEY_FIGHT_SPEED } from '../../utils/c
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useRenderer } from '../../hooks/useRenderer';
-import { setupFight } from '../../utils/fight/setupFight';
 import { translateFightStep } from '../../utils/translateFightStep';
 import { BruteTooltip } from '../Brute/BruteTooltip';
 import { Link } from '../Link';
@@ -27,6 +28,8 @@ import { sfx } from './sfx';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import { BruteName } from '../Brute/BruteName';
+import { setupFight } from '../../utils/fight/setupFight';
+import { Spritesheets } from '../../utils/fight/utils/spritesheet';
 
 const sounds = [
   'arrive',
@@ -135,7 +138,7 @@ export const FightComponent = ({
     : undefined), [fight]);
 
   // Fight status
-  const appRef = useRef<PIXI.Application | null>(null);
+  const appRef = useRef<Application | null>(null);
   const [playing, setPlaying] = useState(true);
 
   // Fight speed
@@ -214,66 +217,76 @@ export const FightComponent = ({
 
   // Renderer setup
   useEffect(() => {
-    if (!ref.current || !fight) {
-      return undefined;
-    }
+    const setup = async () => {
+      if (!ref.current || !fight) {
+        return undefined;
+      }
 
-    const app = new PIXI.Application({
-      backgroundColor: 0xfbf7c0,
-      width: 500,
-      height: 300,
-      resolution: window.devicePixelRatio,
-    });
-    appRef.current = app;
-    ref.current.appendChild(app.view);
+      const app = new Application({
+        backgroundColor: 0xfbf7c0,
+        width: 500,
+        height: 300,
+        resolution: window.devicePixelRatio,
+      });
+      appRef.current = app;
+      ref.current.appendChild(app.view as HTMLCanvasElement);
 
-    app.ticker.speed = 0.5;
+      app.ticker.speed = 0.5;
 
-    app.loader
-      .add('/images/game/thrown-weapons.json')
-      .add('/images/game/misc.json')
-      .add('/images/game/skills.json');
-
-    // Add background music, no sprites
-    sound.add('background', '/sfx/background.mp3');
-
-    // build sounds from sprites
-    const spritesNew: { [key: string]: { start: number; end: number; loop: boolean } } = {};
-    sounds.forEach((soundName) => {
-      spritesNew[soundName] = {
-        start: sfx.spritemap[soundName]?.start ?? 0,
-        end: sfx.spritemap[soundName]?.end ?? 0,
-        loop: sfx.spritemap[soundName]?.loop ?? false
+      const spritesheets: Spritesheets = {
+        thrownWeapons: await Assets.load('/images/game/thrown-weapons.json') as Spritesheet,
+        misc: await Assets.load('/images/game/misc.json') as Spritesheet,
+        skills: await Assets.load('/images/game/skills.json') as Spritesheet,
       };
-    });
 
-    sound.add('sfx', { url: sfx.resources[0], sprites: spritesNew, preload: true });
+      if (!spritesheets.thrownWeapons || !spritesheets.misc || !spritesheets.skills) {
+        console.warn(spritesheets);
+        throw new Error('Spritesheets not found');
+      }
 
-    // Mute all sounds
-    sound.volumeAll = 0;
-    // Background music
-    sound.volume('background', backgroundMusicRef.current ? 1 : 0);
+      // Add background music, no sprites
+      sound.add('background', '/sfx/background.mp3');
 
-    app.loader.onLoad.add(() => {
-      PIXI.utils.clearTextureCache();
-    });
+      // build sounds from sprites
+      const spritesNew: { [key: string]: { start: number; end: number; loop: boolean } } = {};
+      sounds.forEach((soundName) => {
+        spritesNew[soundName] = {
+          start: sfx.spritemap[soundName]?.start ?? 0,
+          end: sfx.spritemap[soundName]?.end ?? 0,
+          loop: sfx.spritemap[soundName]?.loop ?? false
+        };
+      });
 
-    app.loader.load(setupFight(
-      theme,
-      fight,
-      app,
-      speedRef,
-      t,
-      toggleTooltip,
-      renderer,
-    ));
+      sound.add('sfx', { url: sfx.resources[0], sprites: spritesNew, preload: true });
 
-    return () => {
-      app.destroy(true, true);
+      // Mute all sounds
+      sound.volumeAll = 0;
+      // Background music
+      sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
-      // Stop all sounds
-      sound.stopAll();
+      utils.clearTextureCache();
+
+      setupFight(
+        theme,
+        fight,
+        app,
+        speedRef,
+        t,
+        toggleTooltip,
+        renderer,
+        spritesheets,
+      );
+
+      return () => {
+        app.destroy(true, true);
+
+        // Stop all sounds
+        sound.stopAll();
+      };
     };
+    setup().catch((error) => {
+      console.error('Error setting up fight:', error);
+    });
   }, [fight, toggleTooltip, t, theme, renderer]);
 
   // Play/pause

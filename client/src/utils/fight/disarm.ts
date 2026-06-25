@@ -3,22 +3,16 @@ import { Application, AnimatedSprite } from 'pixi.js';
 
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { itemDrop } from './itemDrop';
+import { Spritesheets } from './utils/spritesheet';
 
 export const disarm = (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: DisarmStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-
-  const waveSpritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!waveSpritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const waveSpritesheet = spritesheets.misc;
 
   const target = findFighter(fighters, step.t);
   if (!target) {
@@ -57,6 +51,7 @@ export const disarm = (
   // Drop item
   itemDrop({
     app,
+    spritesheets,
     fighter: target,
     speed,
     item: step.w,

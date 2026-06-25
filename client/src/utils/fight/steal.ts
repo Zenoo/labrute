@@ -10,9 +10,11 @@ import { airbornMove } from './utils/updateShadow';
 import { skillUse } from './skillActivate';
 import { Application } from 'pixi.js';
 import { Easing } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const steal = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: StealStep,
   speed: React.MutableRefObject<number>,
@@ -75,7 +77,7 @@ export const steal = async (
   // Play steal SFX
   void sound.play('sfx', { sprite: 'thief' });
 
-  skillUse(app, brute, SkillId.thief, speed);
+  skillUse(app, spritesheets, brute, SkillId.thief, speed);
 
   const animationEnded = target.animation.waitForEvent('stolen:end');
 

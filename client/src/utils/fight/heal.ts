@@ -8,22 +8,17 @@ import { AnimationFighter, findFighter } from './utils/findFighter';
 import { insideXBounds } from './utils/insideXBounds';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const heal = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HealStep,
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -37,7 +32,7 @@ export const heal = async (
   // Play heal SFX
   void sound.play('sfx', { sprite: 'tragicPotion' });
 
-  skillUse(app, brute, SkillId.tragicPotion, speed);
+  skillUse(app, spritesheets, brute, SkillId.tragicPotion, speed);
 
   displayHeal(app, brute, step.h, speed);
 

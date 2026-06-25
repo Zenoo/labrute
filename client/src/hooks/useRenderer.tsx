@@ -1,5 +1,5 @@
 import { Brute } from '@labrute/prisma';
-import { Extract, Renderer } from 'pixi.js';
+import { Renderer } from 'pixi.js';
 import React, {
   useCallback, useContext, useEffect, useMemo, useRef, useState
 } from 'react';
@@ -147,13 +147,13 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     const renderScale = 3; // Adjust this for quality vs file size (textures loaded at this scale)
     const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale, request.highlightColorName);
 
-    display.onLoad(() => {
+    display.onLoad(async () => {
       if (!freeRenderer) {
         isProcessingRef.current = false;
         return;
       }
 
-      const content = (freeRenderer.renderer.plugins.extract as Extract).image(
+      const content = await freeRenderer.renderer.extract.image(
         display.container,
         'image/png',
         1

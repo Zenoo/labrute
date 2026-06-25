@@ -6,9 +6,11 @@ import { Application, Texture } from 'pixi.js';
 import { createBustImage } from './utils/createBustImage';
 import { RendererContextInterface } from '../../hooks/useRenderer';
 import { updateSkills } from './updateSkills';
+import { Spritesheets } from './utils/spritesheet';
 
 export const setHUDFocus = async (
   app: Application,
+  spritesheets: Spritesheets,
   renderer: RendererContextInterface,
   fighters: AnimationFighter[],
   fighterIndex: number | undefined,
@@ -46,6 +48,6 @@ export const setHUDFocus = async (
     updateHp(fighters, fighter, fighter.hp, speed, false, true);
   }
 
-  updateWeapons(app, fighter);
-  updateSkills(app, fighter);
+  updateWeapons(app, spritesheets, fighter);
+  updateSkills(app, spritesheets, fighter);
 };

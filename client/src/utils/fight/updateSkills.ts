@@ -8,6 +8,7 @@ import {
 } from './utils/fightPositions';
 import { AnimationFighter } from './utils/findFighter';
 import { Easing, tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 const addSkill = (
   app: Application,
@@ -58,20 +59,14 @@ const addSkill = (
 
 export const updateSkills = (
   app: Application,
+  spritesheets: Spritesheets,
   brute: AnimationFighter,
   skillId?: SkillId,
   action?: 'remove' | 'add',
   skillTier?: number,
   speed?: React.MutableRefObject<number>
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/skills.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Skills spritesheet not found');
-  }
+  const spritesheet = spritesheets.skills;
 
   // Only affect the HUD for the focused brutes
   if (brute.HUDFocused) {

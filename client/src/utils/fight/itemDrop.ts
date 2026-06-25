@@ -8,10 +8,12 @@ import { DropShadowFilter } from '@pixi/filter-drop-shadow';
 
 import { AnimationFighter } from './utils/findFighter';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 // Light and realistic item bouncing module
 export const itemDrop = ({
   app,
+  spritesheets,
   fighter,
   speed,
   item,
@@ -21,6 +23,7 @@ export const itemDrop = ({
   saboteur,
 }: {
   app: Application;
+  spritesheets: Spritesheets,
   fighter: AnimationFighter;
   speed: React.MutableRefObject<number>,
   item: WeaponId | 'shield';
@@ -29,18 +32,9 @@ export const itemDrop = ({
   broken?: boolean;
   saboteur?: boolean;
 }) => {
-  if (!app.loader) {
-    return;
-  }
-  const itemSpriteSheet = app.loader.resources[
-    item === 'shield' || broken || saboteur
-      ? '/images/game/misc.json'
-      : '/images/game/thrown-weapons.json'
-  ]?.spritesheet;
-
-  if (!itemSpriteSheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const itemSpriteSheet = item === 'shield' || broken || saboteur
+    ? spritesheets.misc
+    : spritesheets.thrownWeapons;
 
   // Shield / weapon / broken-weapon / saboteur-weapon texture
   const itemTexture = itemSpriteSheet.textures[

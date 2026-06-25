@@ -10,22 +10,15 @@ import { getMultipleRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const hypnotise = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HypnotiseStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
-
   const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
@@ -48,7 +41,7 @@ export const hypnotise = async (
   // Play hypnosis SFX
   void sound.play('sfx', { sprite: 'hypnosis' });
 
-  skillUse(app, brute, SkillId.hypnosis, speed);
+  skillUse(app, spritesheets, brute, SkillId.hypnosis, speed);
 
   // Container for the spiral graphics
   const spiralContainer = new Container();

@@ -2,6 +2,7 @@ import { ResistStep } from '@labrute/core';
 import { Application, AnimatedSprite } from 'pixi.js';
 
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { Spritesheets } from './utils/spritesheet';
 
 export const resist = (
   fighters: AnimationFighter[],
@@ -16,17 +17,14 @@ export const resist = (
 
 export const playResistAnimation = (
   app: Application,
+  spritesheets: Spritesheets,
   brute: AnimationFighter,
   speed: React.MutableRefObject<number>,
 ) => {
   // Abort if brute doesn't resist
   if (!brute.resist) return;
 
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   // Create resist sprite
   const resistSprite = new AnimatedSprite(spritesheet.animations.resist || []);

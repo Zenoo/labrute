@@ -3,7 +3,7 @@ import {
   HasteStep, randomBetween, SkillId
 } from '@labrute/core';
 import {
-  Application, Sprite, Texture, BaseTexture, BufferResource, Filter, Extract
+  Application, Sprite, Texture, BaseTexture, BufferResource, Filter
 } from 'pixi.js';
 import { sound } from '@pixi/sound';
 import { MotionBlurFilter } from '@pixi/filter-motion-blur';
@@ -18,23 +18,16 @@ import { playDustEffect, playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const haste = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HasteStep,
   speed: React.MutableRefObject<number>,
   isClanWar: boolean,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
-
   const brute = findFighter(fighters, step.b);
   if (!brute) {
     throw new Error('Brute not found');
@@ -47,7 +40,7 @@ export const haste = async (
   // Play skill SFX
   void sound.play('sfx', { sprite: 'haste' });
 
-  skillUse(app, brute, SkillId.haste, speed);
+  skillUse(app, spritesheets, brute, SkillId.haste, speed);
 
   const windUpEnded = brute.animation.waitForEvent('strengthen:end');
 
@@ -71,7 +64,7 @@ export const haste = async (
   for (const filter of hasteFilters) brute.animation.container.filters.push(filter);
 
   // Dust cloud on sprint start
-  playDustEffect(app, brute, speed);
+  playDustEffect(app, spritesheets, brute, speed);
 
   // Move brute to target position
   await tween(brute.animation.container,
@@ -99,15 +92,8 @@ export const haste = async (
   const sprite = new Sprite(originalTexture);
   const { width, height } = sprite.texture;
 
-  // Create array to work with pixels
-  let pixels: Uint8Array = new Uint8Array();
-
-  // Is extract not excluded by a custom build
-  if ('extract' in app.renderer.plugins) {
-    // Extract pixels
-    const extract = app.renderer.plugins.extract as Extract;
-    pixels = extract.pixels(sprite);
-  }
+  // Extract pixels
+  const pixels = app.renderer.extract.pixels(sprite);
 
   // Create the ghost image, a gradient starting on fighter's outline
   // Alpha gradient state for current row
@@ -189,13 +175,13 @@ export const haste = async (
   for (const filter of hasteFilters) brute.animation.container.filters.push(filter);
 
   // Play hit effect
-  playHitEffect(app, brute, target, speed);
+  playHitEffect(app, spritesheets, brute, target, speed);
 
   // Wake up target
   target.stunned = false;
 
   // Untrap target
-  untrap(app, target);
+  untrap(app, spritesheets, target);
 
   // Get target hit animation (random for male brute)
   const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
@@ -210,7 +196,7 @@ export const haste = async (
   displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
   // Play the resist animation now
-  playResistAnimation(app, target, speed);
+  playResistAnimation(app, spritesheets, target, speed);
 
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);

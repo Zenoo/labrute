@@ -10,21 +10,16 @@ import { untrap } from './untrap';
 import { insideXBounds } from './utils/insideXBounds';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const treat = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: TreatStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -43,7 +38,7 @@ export const treat = async (
   // Play eat SFX
   void sound.play('sfx', { sprite: `tamer${randomBetween(1, 2)}` });
 
-  skillUse(app, brute, SkillId.treat, speed);
+  skillUse(app, spritesheets, brute, SkillId.treat, speed);
 
   displayHeal(app, pet, step.h, speed);
 
@@ -73,7 +68,7 @@ export const treat = async (
   await animationEnded;
 
   // Untrap pet
-  untrap(app, pet);
+  untrap(app, spritesheets, pet);
 
   // Set animation to `idle`
   brute.animation.setAnimation('idle');

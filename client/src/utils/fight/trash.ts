@@ -9,21 +9,16 @@ import { sound } from '@pixi/sound';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { itemDrop } from './itemDrop';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const trash = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: TrashStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.thrownWeapons;
 
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -49,6 +44,7 @@ export const trash = async (
       // Over head trash
       itemDrop({
         app,
+        spritesheets,
         fighter: brute,
         speed,
         item: WeaponByName[weaponName],

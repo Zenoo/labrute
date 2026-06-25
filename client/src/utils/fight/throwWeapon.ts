@@ -7,21 +7,16 @@ import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { knockBack } from './utils/knockBack';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const throwWeapon = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: ThrowStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/thrown-weapons.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.thrownWeapons;
 
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {

@@ -6,21 +6,16 @@ import { sound } from '@pixi/sound';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const trap = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: TrapStep,
   speed: React.MutableRefObject<number>,
 ) => {
-  if (!app.loader) {
-    return;
-  }
-  const spritesheet = app.loader.resources['/images/game/misc.json']?.spritesheet;
-
-  if (!spritesheet) {
-    throw new Error('Spritesheet not found');
-  }
+  const spritesheet = spritesheets.misc;
 
   const brute = findFighter(fighters, step.b);
   if (!brute) {
@@ -36,7 +31,7 @@ export const trap = async (
   // Play trap SFX
   void sound.play('sfx', { sprite: 'net' });
 
-  skillUse(app, brute, SkillId.net, speed);
+  skillUse(app, spritesheets, brute, SkillId.net, speed);
 
   // Create net sprite
   const net = new Sprite(spritesheet.textures['thrown-net.png']);

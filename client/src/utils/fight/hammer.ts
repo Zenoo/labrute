@@ -15,9 +15,11 @@ import {
 } from './utils/updateShadow';
 import { gsap } from 'gsap';
 import { tween } from './utils/tween';
+import { Spritesheets } from './utils/spritesheet';
 
 export const hammer = async (
   app: Application,
+  spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HitStep,
   speed: React.MutableRefObject<number>,
@@ -40,7 +42,7 @@ export const hammer = async (
   target.stunned = false;
 
   // Untrap target
-  untrap(app, target);
+  untrap(app, spritesheets, target);
 
   fighter.animation.container.zIndex = target.animation.container.zIndex + 1;
 
@@ -58,7 +60,7 @@ export const hammer = async (
   }));
 
   // Dust cloud
-  playDustEffect(app, target, speed, 22);
+  playDustEffect(app, spritesheets, target, speed, 22);
 
   // Wait for both animations to finish
   await Promise.all(pushAnimations);
@@ -191,13 +193,13 @@ export const hammer = async (
   target.animation.setAirborn(false);
 
   // Dust cloud on landing
-  playDustEffect(app, target, speed);
+  playDustEffect(app, spritesheets, target, speed);
 
   // Display damage
   displayDamage({ app, target, damage: step.d, speed, criticalHit: step.c });
 
   // Play the resist animation now
-  playResistAnimation(app, target, speed);
+  playResistAnimation(app, spritesheets, target, speed);
 
   // Update HP bar
   updateHp(fighters, target, -step.d, speed, isClanWar);
@@ -211,7 +213,7 @@ export const hammer = async (
   target.animation.setAnimation(hitAnimation);
 
   // Play hit effect on target
-  playHitEffect(app, fighter, target, speed);
+  playHitEffect(app, spritesheets, fighter, target, speed);
 
   // Stagger target
   stagger(target, speed, step.c ? 12 : 0).then(() => {
