@@ -75,6 +75,7 @@ export const UserAdminView = () => {
         otherUsersSharingFingerprints: u.otherUsersSharingFingerprints,
         otherUsersSharingBrowserIds: u.otherUsersSharingBrowserIds,
         sharedBrowserId: u.sharedBrowserId,
+        termsAccepted: u.termsAccepted,
       });
       setAchievements(u.achievements);
       // Map to new array to avoid reference

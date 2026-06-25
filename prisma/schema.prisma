@@ -43,6 +43,7 @@ model User {
   displayVersusPage      Boolean          @default(true)
   displayOpponentDetails Boolean          @default(false)
   transferedBrutesCount  Int              @default(0)
+  termsAccepted          Boolean          @default(false)
   lastSeen               DateTime         @default(now()) @db.Date
   brutes                 Brute[]
   achievements           Achievement[]

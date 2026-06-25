@@ -1474,5 +1474,27 @@ export const Users = {
     } catch (error) {
       sendError(res, error);
     }
+  },
+  acceptTerms: (prisma: PrismaClient) => async (
+    req: Request,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req);
+
+      await traced('users.acceptTerms.updateUser', () => prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          termsAccepted: true,
+        },
+        select: { id: true },
+      }));
+
+      res.send({ message: 'Terms accepted' });
+    } catch (error) {
+      sendError(res, error);
+    }
   }
 };

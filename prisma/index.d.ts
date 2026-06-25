@@ -5216,6 +5216,7 @@ export namespace Prisma {
     displayVersusPage: boolean | null
     displayOpponentDetails: boolean | null
     transferedBrutesCount: number | null
+    termsAccepted: boolean | null
     lastSeen: Date | null
     sharedBrowserId: string | null
   }
@@ -5238,6 +5239,7 @@ export namespace Prisma {
     displayVersusPage: boolean | null
     displayOpponentDetails: boolean | null
     transferedBrutesCount: number | null
+    termsAccepted: boolean | null
     lastSeen: Date | null
     sharedBrowserId: string | null
   }
@@ -5263,6 +5265,7 @@ export namespace Prisma {
     displayVersusPage: number
     displayOpponentDetails: number
     transferedBrutesCount: number
+    termsAccepted: number
     lastSeen: number
     sharedBrowserId: number
     _all: number
@@ -5301,6 +5304,7 @@ export namespace Prisma {
     displayVersusPage?: true
     displayOpponentDetails?: true
     transferedBrutesCount?: true
+    termsAccepted?: true
     lastSeen?: true
     sharedBrowserId?: true
   }
@@ -5323,6 +5327,7 @@ export namespace Prisma {
     displayVersusPage?: true
     displayOpponentDetails?: true
     transferedBrutesCount?: true
+    termsAccepted?: true
     lastSeen?: true
     sharedBrowserId?: true
   }
@@ -5348,6 +5353,7 @@ export namespace Prisma {
     displayVersusPage?: true
     displayOpponentDetails?: true
     transferedBrutesCount?: true
+    termsAccepted?: true
     lastSeen?: true
     sharedBrowserId?: true
     _all?: true
@@ -5460,6 +5466,7 @@ export namespace Prisma {
     displayVersusPage: boolean
     displayOpponentDetails: boolean
     transferedBrutesCount: number
+    termsAccepted: boolean
     lastSeen: Date
     sharedBrowserId: string | null
     _count: UserCountAggregateOutputType | null
@@ -5504,6 +5511,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
+    termsAccepted?: boolean
     lastSeen?: boolean
     sharedBrowserId?: boolean
     brutes?: boolean | User$brutesArgs<ExtArgs>
@@ -5541,6 +5549,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
+    termsAccepted?: boolean
     lastSeen?: boolean
     sharedBrowserId?: boolean
     sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
@@ -5567,6 +5576,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
+    termsAccepted?: boolean
     lastSeen?: boolean
     sharedBrowserId?: boolean
     sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
@@ -5593,11 +5603,12 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
+    termsAccepted?: boolean
     lastSeen?: boolean
     sharedBrowserId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -5655,6 +5666,7 @@ export namespace Prisma {
       displayVersusPage: boolean
       displayOpponentDetails: boolean
       transferedBrutesCount: number
+      termsAccepted: boolean
       lastSeen: Date
       sharedBrowserId: string | null
     }, ExtArgs["result"]["user"]>
@@ -6111,6 +6123,7 @@ export namespace Prisma {
     readonly displayVersusPage: FieldRef<"User", 'Boolean'>
     readonly displayOpponentDetails: FieldRef<"User", 'Boolean'>
     readonly transferedBrutesCount: FieldRef<"User", 'Int'>
+    readonly termsAccepted: FieldRef<"User", 'Boolean'>
     readonly lastSeen: FieldRef<"User", 'DateTime'>
     readonly sharedBrowserId: FieldRef<"User", 'String'>
   }
@@ -45281,6 +45294,7 @@ export namespace Prisma {
     displayVersusPage: 'displayVersusPage',
     displayOpponentDetails: 'displayOpponentDetails',
     transferedBrutesCount: 'transferedBrutesCount',
+    termsAccepted: 'termsAccepted',
     lastSeen: 'lastSeen',
     sharedBrowserId: 'sharedBrowserId'
   };
@@ -46176,6 +46190,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
+    termsAccepted?: BoolFilter<"User"> | boolean
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
@@ -46212,6 +46227,7 @@ export namespace Prisma {
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
+    termsAccepted?: SortOrder
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrderInput | SortOrder
     brutes?: BruteOrderByRelationAggregateInput
@@ -46251,6 +46267,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
+    termsAccepted?: BoolFilter<"User"> | boolean
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
     brutes?: BruteListRelationFilter
@@ -46287,6 +46304,7 @@ export namespace Prisma {
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
+    termsAccepted?: SortOrder
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -46320,6 +46338,7 @@ export namespace Prisma {
     displayVersusPage?: BoolWithAggregatesFilter<"User"> | boolean
     displayOpponentDetails?: BoolWithAggregatesFilter<"User"> | boolean
     transferedBrutesCount?: IntWithAggregatesFilter<"User"> | number
+    termsAccepted?: BoolWithAggregatesFilter<"User"> | boolean
     lastSeen?: DateTimeWithAggregatesFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
@@ -48762,6 +48781,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -48797,6 +48817,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -48832,6 +48853,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -48867,6 +48889,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -48902,6 +48925,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
   }
@@ -48927,6 +48951,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -48951,6 +48976,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -51690,6 +51716,7 @@ export namespace Prisma {
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
+    termsAccepted?: SortOrder
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrder
   }
@@ -51719,6 +51746,7 @@ export namespace Prisma {
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
+    termsAccepted?: SortOrder
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrder
   }
@@ -51741,6 +51769,7 @@ export namespace Prisma {
     displayVersusPage?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
+    termsAccepted?: SortOrder
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrder
   }
@@ -58677,6 +58706,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -58711,6 +58741,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -58934,6 +58965,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -58968,6 +59000,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -59181,6 +59214,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -59215,6 +59249,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -60518,6 +60553,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -60552,6 +60588,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -60793,6 +60830,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -60827,6 +60865,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -61600,6 +61639,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
+    termsAccepted?: BoolFilter<"User"> | boolean
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
   }
@@ -62932,6 +62972,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -62966,6 +63007,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -65115,6 +65157,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -65149,6 +65192,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -65199,6 +65243,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -65233,6 +65278,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -66144,6 +66190,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -66178,6 +66225,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -66407,6 +66455,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -66441,6 +66490,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -66648,6 +66698,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -66682,6 +66733,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -66721,6 +66773,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -66755,6 +66808,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -67000,6 +67054,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -67034,6 +67089,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -67068,6 +67124,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -67102,6 +67159,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -70612,6 +70670,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -70646,6 +70705,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -70875,6 +70935,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -70909,6 +70970,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -71541,6 +71603,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -71575,6 +71638,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
@@ -71625,6 +71689,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -71659,6 +71724,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -74110,6 +74176,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -74144,6 +74211,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -74178,6 +74246,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -74377,6 +74446,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -74411,6 +74481,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -74445,6 +74516,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -74826,6 +74898,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -74860,6 +74933,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
@@ -74894,6 +74968,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -74919,6 +74994,7 @@ export namespace Prisma {
     displayVersusPage?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
+    termsAccepted?: boolean
     lastSeen?: Date | string
   }
 
@@ -74943,6 +75019,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -74977,6 +75054,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -75011,6 +75089,7 @@ export namespace Prisma {
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

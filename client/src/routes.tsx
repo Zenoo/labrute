@@ -59,6 +59,7 @@ import { FingerprintAdminView } from './views/admin/FingerprintAdminView';
 import { BrowserIdAdminView } from './views/admin/BrowserIdAdminView';
 import { BannedWordsAdminView } from './views/admin/BannedWordsAdminView';
 import { DojoView } from './views/DojoView';
+import { TermsView } from './views/TermsView';
 
 export const routes: RouteObject[] = [
   {
@@ -73,6 +74,7 @@ export const routes: RouteObject[] = [
       { path: 'hall', element: <HallView /> },
       { path: 'patch-notes', element: <PatchNotesView /> },
       { path: 'wiki', element: <WikiView /> },
+      { path: 'terms', element: <TermsView /> },
       { path: 'fight/:fightId', element: <FightView /> },
       {
         path: 'user/:userId',

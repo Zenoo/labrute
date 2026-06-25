@@ -142,6 +142,7 @@ exports.Prisma.UserScalarFieldEnum = {
   displayVersusPage: 'displayVersusPage',
   displayOpponentDetails: 'displayOpponentDetails',
   transferedBrutesCount: 'transferedBrutesCount',
+  termsAccepted: 'termsAccepted',
   lastSeen: 'lastSeen',
   sharedBrowserId: 'sharedBrowserId'
 };

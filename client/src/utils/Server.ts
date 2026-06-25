@@ -89,6 +89,7 @@ export const Server = {
     banFingerprint: (data: BanFingerprintRequest) => Fetch<never>('/api/user/fingerprint/ban', data, 'PATCH'),
     unbanBrowser: (data: UnbanBrowserRequest) => Fetch<never>('/api/user/browser/unban', data, 'PATCH'),
     banBrowser: (data: BanBrowserRequest) => Fetch<never>('/api/user/browser/ban', data, 'PATCH'),
+    acceptTerms: () => Fetch<never>('/api/user/accept-terms', {}, 'PATCH'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),

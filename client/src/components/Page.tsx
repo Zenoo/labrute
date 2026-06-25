@@ -14,6 +14,7 @@ import { SEO } from './SEO';
 import { Text } from './Text';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { isError } from '../utils/catchError';
+import { useNavigate } from 'react-router-dom';
 
 interface Props extends BoxProps {
   title: string,
@@ -35,6 +36,7 @@ export const Page = ({
   const { authing, signin, user } = useAuth();
   const signinInitiated = useRef(false);
   const fingerprint = useFingerprint();
+  const navigate = useNavigate();
 
   // Auth on page load
   useEffect(() => {
@@ -43,6 +45,13 @@ export const Page = ({
       signin();
     }
   }, [authing, signin, user, fingerprint.loading]);
+
+  // Redirect to terms page if user hasn't accepted terms
+  useEffect(() => {
+    if (user && !user.termsAccepted && window.location.pathname !== '/terms') {
+      navigate('/terms');
+    }
+  }, [navigate, user]);
 
   return (
     <Box
