@@ -457,7 +457,7 @@
   "weaponsMaster.desc": "Благодаря вашему мастерству, ваши острые клинки стали для ваших противников намного опаснее.",
   "weaponsMaster.effect": "Шпион не может забрать себе ваше острое оружие",
   "winrate": "Доля побед",
-  "wins-losses": "{{wins}}Пб. / {{losses}} Пр.",
+  "wins-losses": "{{wins}} Пбд. / {{losses}} Прж.",
   "youCanRegisterYourBrute": "Вы можете записать вашего Брутала на следующий турнир.",
   "MyBruteIllustration": "Иллюстрация «МойБрутал»",
   "background": "Задний фон",
