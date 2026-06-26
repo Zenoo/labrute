@@ -3,9 +3,10 @@ import {
   SkillActivateStep, SkillById, SkillId
 } from '@labrute/core';
 import {
-  AnimatedSprite, Application, Sprite
+  AnimatedSprite, Application, Sprite,
+  Ticker
 } from 'pixi.js';
-import { AdjustmentFilter } from '@pixi/filter-adjustment';
+import { AdjustmentFilter } from 'pixi-filters/adjustment';
 
 import { sound } from '@pixi/sound';
 import { stagger } from './stagger';
@@ -26,7 +27,7 @@ export const skillUse = (
   speed: React.MutableRefObject<number>,
 ) => {
   const skillSprite = brute.teamSkillsIllustrations.find(
-    (illustration) => illustration.name === skillId.toString()
+    (illustration) => illustration.label === skillId.toString()
   );
   if (!skillSprite) {
     console.error('Skill sprite not found for skill', skillId);
@@ -37,7 +38,6 @@ export const skillUse = (
   const skillCopy = new Sprite(skillSprite.texture);
   skillCopy.scale.x = skillSprite.scale.x * 3;
   skillCopy.scale.y = skillSprite.scale.y * 3;
-  skillCopy.filters = skillSprite.filters;
   skillCopy.zIndex = 1000;
 
   // Center it on the original skill sprite
@@ -118,8 +118,8 @@ export const skillActivate = async (
       let currentIndex = maxGhosts;
       let timeSinceLastGhost = ghostInterval;
       // Ticker update function
-      const update = (delta: number) => {
-        timeSinceLastGhost += delta * speed.current;
+      const update = (ticker: Ticker) => {
+        timeSinceLastGhost += ticker.deltaTime * speed.current;
         // No ghost creation
         if (timeSinceLastGhost < ghostInterval) return;
         timeSinceLastGhost -= ghostInterval;
@@ -160,7 +160,7 @@ export const skillActivate = async (
             // Get brute's current texture
             ghost.texture = app.renderer.generateTexture(brute.animation.container);
             // Position ghost behind brute
-            const fighterBounds = brute.animation.container.getBounds();
+            const fighterBounds = brute.animation.container.getBounds().rectangle;
             ghost.position.set(fighterBounds.x, fighterBounds.y);
             ghost.anchor.set(brute.animation.container.scale.x === 1 ? 0 : 1, 0);
             ghost.scale = brute.animation.container.scale;

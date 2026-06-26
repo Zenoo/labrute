@@ -1,7 +1,6 @@
 import {
   entries, SkillById, SkillId
 } from '@labrute/core';
-import * as PIXI from 'pixi.js';
 import { Application, Sprite } from 'pixi.js';
 import {
   SKILL_SIZE, SKILL_SPACING, SKILLS_PER_ROW, WEAPON_SIZE, WEAPON_SPACING, WEAPONS_PER_ROW
@@ -17,7 +16,7 @@ const addSkill = (
   speed: React.MutableRefObject<number>
 ) => {
   const skillSprite = brute.teamSkillsIllustrations.find(
-    (illustration) => illustration.name === skillId.toString()
+    (illustration) => illustration.label === skillId.toString()
   );
   if (!skillSprite) {
     return;
@@ -27,7 +26,6 @@ const addSkill = (
   const skillCopy = new Sprite(skillSprite.texture);
   skillCopy.scale.x = skillSprite.scale.x * 3;
   skillCopy.scale.y = skillSprite.scale.y * 3;
-  skillCopy.filters = skillSprite.filters;
   skillCopy.zIndex = 1000;
 
   // Center it on the target skill sprite position
@@ -123,11 +121,9 @@ export const updateSkills = (
           throw new Error(`Skill texture not found: tier-${currentSkill.tier}/${skillName}.png`);
         }
 
-        texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
-
         const sprite = new Sprite(texture);
 
-        sprite.name = s.toString();
+        sprite.label = s.toString();
         sprite.zIndex = 99;
         sprite.width = SKILL_SIZE;
         sprite.height = SKILL_SIZE;

@@ -19,6 +19,8 @@ export const arrive = async (
   step: ArriveStep,
   speed: React.MutableRefObject<number>,
 ) => {
+  const shouldAbort = () => !app.stage || app.stage.destroyed;
+
   const spritesheet = spritesheets.misc;
 
   if (!spritesheet) {
@@ -29,6 +31,12 @@ export const arrive = async (
 
   if (!fighter) {
     throw new Error('Fighter not found');
+  }
+
+  if (shouldAbort()
+    || fighter.animation.container.destroyed
+    || fighter.animation.shadow.destroyed) {
+    return;
   }
 
   // Equip weapon if needed
@@ -50,6 +58,9 @@ export const arrive = async (
 
   // Wait 0.25s before playing arrive SFX
   setTimeout(() => {
+    if (shouldAbort() || fighter.animation.container.destroyed) {
+      return;
+    }
     void sound.play('sfx', { sprite: 'arrive' });
   }, 250 / speed.current);
 
@@ -73,6 +84,12 @@ export const arrive = async (
     endPosition: { x, y, zIndex: y },
   });
 
+  if (shouldAbort()
+    || fighter.animation.container.destroyed
+    || fighter.animation.shadow.destroyed) {
+    return;
+  }
+
   // Stop airborn phase
   fighter.animation.setAirborn(false);
 
@@ -93,6 +110,10 @@ export const arrive = async (
 
   // Wait for animation to end
   await Promise.all(animations);
+
+  if (shouldAbort() || fighter.animation.container.destroyed) {
+    return;
+  }
 
   // Set animation to `idle`
   fighter.animation.setAnimation('idle');

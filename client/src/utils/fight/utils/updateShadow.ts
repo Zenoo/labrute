@@ -15,6 +15,10 @@ const updateShadow = (
   forceAltitude?: number,
   forceFadeFactor?: number,
 ) => {
+  if (fighter.animation.container.destroyed || fighter.animation.shadow.destroyed) {
+    return;
+  }
+
   const altitude = forceAltitude
     ?? fighter.animation.container.zIndex - fighter.animation.container.y;
   fighter.animation.shadow.y = altitude;
@@ -37,6 +41,10 @@ const tweenShadow = async ({
   ease: gsap.EaseString | gsap.EaseFunction,
   endAltitude: number,
 }) => {
+  if (fighter.animation.container.destroyed || fighter.animation.shadow.destroyed) {
+    return;
+  }
+
   const targetFadeFactor = getFadeFactor(fighter, endAltitude);
 
   const shadowAnimations: Promise<unknown>[] = [];
@@ -76,6 +84,10 @@ const airbornMove = async ({
   ease: gsap.EaseString | gsap.EaseFunction,
   endPosition: { y: number, x?: number, zIndex?: number },
 }) => {
+  if (fighter.animation.container.destroyed || fighter.animation.shadow.destroyed) {
+    return;
+  }
+
   const animations = [];
 
   // Add movement tweener

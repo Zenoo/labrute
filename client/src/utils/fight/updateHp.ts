@@ -55,14 +55,7 @@ export const updateHp = (
   }
 
   const percent = (currentHP / maxHp) * 236;
-
-  let newWidth = (fighter.team === 'L') ? percent : -percent;
-
-  if (fighter.team === 'L' && newWidth < 0) {
-    newWidth = 0;
-  } else if (fighter.team === 'R' && newWidth > 0) {
-    newWidth = 0;
-  }
+  const newWidth = Math.max(0, Math.min(236, percent));
 
   hpBar.width = newWidth;
 

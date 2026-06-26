@@ -17,14 +17,16 @@ import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 import { Link } from '../components/Link';
 import {
-  Application, Graphics, Sprite, utils, RenderTexture, Container,
+  Application, Graphics, Sprite, RenderTexture, Container,
   Spritesheet,
-  Assets
+  Assets,
+  Color
 } from 'pixi.js';
 import { AnimationFighter } from '../utils/fight/utils/findFighter';
 import { FighterHolder } from '../utils/fight/FighterHolder';
 import { updateShadow } from '../utils/fight/utils/updateShadow';
 import { useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 export const DojoView = () => {
   const { t } = useTranslation('dojo');
@@ -52,27 +54,126 @@ export const DojoView = () => {
 
   // Renderer setup
   useEffect(() => {
+    const app = new Application();
+    let disposed = false;
+    let initialized = false;
+    let appDestroyed = false;
+    let mountedCanvas: HTMLCanvasElement | null = null;
+    let rafId: number | null = null;
+
+    const shouldAbort = () => disposed || !app.stage || app.stage.destroyed;
+
+    const waitNextFrame = async () => new Promise<void>((resolve) => {
+      rafId = requestAnimationFrame(() => {
+        resolve();
+      });
+    });
+
+    // Wait until frame pacing is healthy before scheduling more heavy work.
+    // This keeps dojo responsive while pupils are progressively generated.
+    const waitForFrameHeadroom = async (
+      targetMs = 17,
+      requiredSmoothFrames = 2,
+      maxFrames = 30,
+    ) => {
+      let smoothFrames = 0;
+      let frames = 0;
+      let previous = performance.now();
+
+      while (!shouldAbort() && frames < maxFrames) {
+        await waitNextFrame();
+        const now = performance.now();
+        const frameMs = now - previous;
+        previous = now;
+        frames += 1;
+
+        if (frameMs <= targetMs) {
+          smoothFrames += 1;
+          if (smoothFrames >= requiredSmoothFrames) {
+            return;
+          }
+        } else {
+          smoothFrames = 0;
+        }
+      }
+    };
+
+    const waitForHolderLoaded = async (holder: FighterHolder) => {
+      while (!shouldAbort() && !holder.loaded && !holder.container.destroyed) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 16);
+        });
+      }
+
+      return !shouldAbort() && holder.loaded && !holder.container.destroyed;
+    };
+
+    const destroyApp = () => {
+      if (appDestroyed) {
+        return;
+      }
+      appDestroyed = true;
+
+      gsap.killTweensOf('*');
+      gsap.globalTimeline.clear();
+
+      if (initialized) {
+        app.stage?.removeAllListeners();
+        app.ticker?.stop();
+
+        try {
+          app.destroy(
+            { removeView: false },
+            {
+              children: true,
+              texture: false,
+              textureSource: false,
+              context: true,
+            }
+          );
+        } catch (error) {
+          console.error('Error destroying dojo app', error);
+        }
+      }
+
+      appRef.current = null;
+
+      if (mountedCanvas && container.current?.contains(mountedCanvas)) {
+        container.current.removeChild(mountedCanvas);
+      }
+      mountedCanvas = null;
+    };
+
     const setup = async () => {
       if (!container.current || !pupils || !brute) {
         return undefined;
       }
 
-      const app = new Application({
+      await app.init({
         backgroundColor: 0xfbf7c0,
         width: 505,
         height: 295,
         resolution: window.devicePixelRatio,
       });
+      initialized = true;
+
+      if (shouldAbort()) {
+        destroyApp();
+        return undefined;
+      }
+
       appRef.current = app;
-      container.current.appendChild(app.view as HTMLCanvasElement);
+      mountedCanvas = app.canvas;
+      container.current.appendChild(mountedCanvas);
 
       app.ticker.speed = 0.5;
 
       const spritesheet = await Assets.load('/images/game/dojo.json') as Spritesheet
 
-      utils.clearTextureCache();
-
-      let rafId: number | null = null;
+      if (shouldAbort()) {
+        destroyApp();
+        return undefined;
+      }
 
       // Load dojo scene
 
@@ -89,9 +190,9 @@ export const DojoView = () => {
       app.stage.addChild(background);
 
       // Add 2px border
-      const border = new Graphics();
-      border.lineStyle(2, utils.string2hex(theme.palette.secondary.main));
-      border.drawRect(0, 0, app.screen.width, app.screen.height);
+      const border = new Graphics()
+        .rect(0, 0, app.screen.width, app.screen.height)
+        .stroke({ color: new Color(theme.palette.secondary.main), width: 2 });
       border.zIndex = 10002;
       app.stage?.addChild(border);
 
@@ -211,6 +312,12 @@ export const DojoView = () => {
         updateShadow(animationFighter);
 
         // Animation (train > train2)
+        const ready = await waitForHolderLoaded(animationFighter.animation);
+        if (!ready) {
+          animationFighter.animation.destroy();
+          continue;
+        }
+
         animationFighter.animation.on('train:end', () => {
           animationFighter.animation.setAnimation('train2');
         });
@@ -220,26 +327,23 @@ export const DojoView = () => {
         animationFighter.animation.setAnimation('train');
 
         // Name on hover
-        animationFighter.animation.container.interactive = true;
-        animationFighter.animation.container.on('mouseover', () => {
+        animationFighter.animation.container.eventMode = 'static';
+        animationFighter.animation.container.cursor = 'pointer';
+        animationFighter.animation.container.on('pointerover', () => {
           setTooltipName(currentBrute.name);
-          if (app.renderer.view.style) {
-            app.renderer.view.style.cursor = 'pointer';
+          if (app.canvas.style) {
+            app.canvas.style.cursor = 'pointer';
           }
         });
-        animationFighter.animation.container.on('mouseout', () => {
+        animationFighter.animation.container.on('pointerout', () => {
           setTooltipName(null);
-          if (app.renderer.view.style) {
-            app.renderer.view.style.cursor = 'default';
+          if (app.canvas.style) {
+            app.canvas.style.cursor = 'default';
           }
         });
-        animationFighter.animation.container.on('tap', (e) => {
+        animationFighter.animation.container.on('pointertap', (e) => {
           e.stopPropagation();
           setTooltipName(currentBrute.name);
-        });
-
-        // Navigate to pupil cell on click
-        animationFighter.animation.container.on('click', () => {
           navigate(`/${currentBrute.name}/cell`);
         });
 
@@ -249,12 +353,14 @@ export const DojoView = () => {
 
       // Add remaining pupils one by one to avoid blocking the main thread / causing renderer crashes.
       const remainingPupils = pupils.slice(10);
+      for (const pupil of remainingPupils) {
+        if (shouldAbort()) {
+          break;
+        }
 
-      const addPupil = () => {
-        const pupil = remainingPupils.shift();
-
-        if (!pupil) {
-          return;
+        await waitForFrameHeadroom();
+        if (shouldAbort()) {
+          break;
         }
 
         // Create a temporary FighterHolder, render it to a texture and destroy
@@ -282,7 +388,13 @@ export const DojoView = () => {
 
         const tempFH = new FighterHolder(app, fighter, speedRef);
 
-        // Set pose and pause
+        const tempReady = await waitForHolderLoaded(tempFH);
+        if (!tempReady) {
+          tempFH.destroy();
+          continue;
+        }
+
+        // Set pose and pause once assets are ready
         tempFH.setAnimation('win', fighter.gender === 'female' ? 20 : 24);
         tempFH.pause();
 
@@ -303,70 +415,70 @@ export const DojoView = () => {
         app.stage.addChild(tempFH.container);
 
         // Wait one frame to ensure resources are ready, then capture texture
-        requestAnimationFrame(() => {
-          try {
-            // Render into a dedicated RenderTexture so the resulting texture
-            // isn't invalidated by shared caches or later texture clearing.
-            const bounds = tempFH.container.getLocalBounds();
-            const rt = RenderTexture.create({
-              width: Math.max(1, Math.ceil(bounds.width)),
-              height: Math.max(1, Math.ceil(bounds.height)),
-              resolution: app.renderer.resolution,
-            });
-
-            // Wrap the container so we can render its local bounds into the RT
-            const wrapper = new Container();
-            wrapper.addChild(tempFH.container);
-            // Offset so content aligns to RT origin
-            tempFH.container.x = -bounds.x;
-            tempFH.container.y = -bounds.y;
-
-            app.renderer.render(wrapper, { renderTexture: rt, clear: true });
-
-            const sprite = new Sprite(rt);
-            sprite.x = px;
-            sprite.y = py;
-            sprite.zIndex = sprite.y;
-            sprite.scale.set(fighter.team === 'R' ? -scaleX : scaleX, scaleY);
-            sprite.anchor.set(0.5, 1);
-
-            // Add the sprite BEFORE destroying the FighterHolder so the renderer
-            // keeps the generated texture alive.
-            app.stage.addChild(sprite);
-
-            // Remove temporary wrapper and restore positions
-            wrapper.removeChild(tempFH.container);
-            tempFH.container.x = px;
-            tempFH.container.y = py;
-
-            // Destroy the heavy FighterHolder
-            tempFH.destroy();
-          } catch (e) {
-            console.error('Error generating pupil texture', e);
-          }
-
-          if (remainingPupils.length > 0) {
-            // Wait a bit before adding the next pupil to avoid blocking the main thread.
-            setTimeout(() => {
-              rafId = requestAnimationFrame(addPupil);
-            }, 50);
-          }
-        });
-      };
-
-      rafId = requestAnimationFrame(addPupil);
-
-
-      return () => {
-        if (rafId) {
-          cancelAnimationFrame(rafId);
+        await waitNextFrame();
+        if (shouldAbort()) {
+          tempFH.destroy();
+          break;
         }
-        app.destroy(true, true);
-      };
+
+        try {
+          // Render into a dedicated RenderTexture so the resulting texture
+          // isn't invalidated by shared caches or later texture clearing.
+          const bounds = tempFH.container.getLocalBounds();
+          const rt = RenderTexture.create({
+            width: Math.max(1, Math.ceil(bounds.width)),
+            height: Math.max(1, Math.ceil(bounds.height)),
+            resolution: app.renderer.resolution,
+          });
+
+          // Wrap the container so we can render its local bounds into the RT
+          const wrapper = new Container();
+          wrapper.addChild(tempFH.container);
+          // Offset so content aligns to RT origin
+          tempFH.container.x = -bounds.x;
+          tempFH.container.y = -bounds.y;
+
+          app.renderer.render({
+            container: wrapper,
+            target: rt,
+          });
+
+          const sprite = new Sprite(rt);
+          sprite.x = px;
+          sprite.y = py;
+          sprite.zIndex = sprite.y;
+          sprite.scale.set(fighter.team === 'R' ? -scaleX : scaleX, scaleY);
+          sprite.anchor.set(0.5, 1);
+
+          // Add the sprite BEFORE destroying the FighterHolder so the renderer
+          // keeps the generated texture alive.
+          app.stage.addChild(sprite);
+
+          // Remove temporary wrapper and restore positions
+          wrapper.removeChild(tempFH.container);
+          tempFH.container.x = px;
+          tempFH.container.y = py;
+        } catch (e) {
+          console.error('Error generating pupil texture', e);
+        }
+
+        // Destroy the heavy FighterHolder
+        tempFH.destroy();
+      }
     };
     setup().catch((err) => {
-      console.error('Error setting up dojo view', err);
+      if (!disposed) {
+        console.error('Error setting up dojo view', err);
+      }
     });
+
+    return () => {
+      disposed = true;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      destroyApp();
+    };
   }, [t, theme, pupils, brute, navigate]);
 
   return brute && (

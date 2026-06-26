@@ -81,6 +81,6 @@ export const stagger = async (
 
   if (fighter.bust && fighter.HUDFocused) {
     // Reposition bust because it can move in case of unawaited multiple staggers (flashflood)
-    fighter.bust.x = fighter.team === 'L' ? 52 : 450;
+    fighter.bust.x = 0;
   }
 };

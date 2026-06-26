@@ -2,9 +2,11 @@
 import { HypnotiseStep, SkillId } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { sound } from '@pixi/sound';
-import { GlowFilter } from '@pixi/filter-glow';
+import { GlowFilter } from 'pixi-filters/glow';
 import {
-  Application, Sprite, RenderTexture, Graphics, filters, Container
+  Application, Sprite, RenderTexture, Graphics, Container,
+  Ticker,
+  ColorMatrixFilter
 } from 'pixi.js';
 import { getMultipleRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
@@ -49,21 +51,21 @@ export const hypnotise = async (
   // Container for the color inversion fadeIn
   const invertedContainer = new Container();
   // Color matrix filter
-  const hypnosisFilter = new filters.ColorMatrixFilter();
+  const hypnosisFilter = new ColorMatrixFilter();
   // Invert
   hypnosisFilter.negative(true);
   // Slight rosiness
   hypnosisFilter.hue(73, true);
 
   // Regular hue filter for the containers
-  const invertFilter = new filters.ColorMatrixFilter();
+  const invertFilter = new ColorMatrixFilter();
   invertFilter.hue(-146, false);
 
   // If stage has no filter array, create one
 
   if (!app.stage.filters) app.stage.filters = [];
   // Add filter to stage
-  app.stage.filters.push(hypnosisFilter);
+  app.stage.filters = app.stage.filters.concat(hypnosisFilter);
   // Add filters to containers
   spiralContainer.filters = [invertFilter];
   invertedContainer.filters = [invertFilter];
@@ -81,7 +83,10 @@ export const hypnotise = async (
 
   // Copy the stage texture
   const stageTexture = RenderTexture.create({ width: app.screen.width, height: app.screen.height });
-  app.renderer.render(app.stage, { renderTexture: stageTexture });
+  app.renderer.render({
+    container: app.stage,
+    target: stageTexture,
+  });
   // Create a sprite from it
   const stageSprite = new Sprite(stageTexture);
   const spiralStageSprite = new Sprite(stageTexture);
@@ -102,7 +107,7 @@ export const hypnotise = async (
   let thicknessDelta = 0.04;
   let stopDraw = false;
   // Update spiral graphics
-  const update = (delta: number) => {
+  const update = (ticker: Ticker) => {
     // Reset graphics
     spiral.clear();
 
@@ -117,7 +122,7 @@ export const hypnotise = async (
     // Draw the spiral
     for (let i = 0; i < turns * Math.PI * 2; i += 0.1) {
       thickness += thicknessDelta;
-      spiral.lineStyle(thickness, 0xffffff);
+      spiral.stroke({ color: 0xffffff, width: thickness });
       const radius = i * radiusIncrement;
       const x = centerX + radius * Math.cos(i + angle);
       const y = centerY + radius * Math.sin(i + angle);
@@ -132,9 +137,9 @@ export const hypnotise = async (
       }
     }
     // Update params
-    angle -= 0.25 * speed.current * delta;
-    radiusIncrement += 0.015 * speed.current * delta;
-    thicknessDelta -= 0.00048 * speed.current * delta;
+    angle -= 0.25 * speed.current * ticker.deltaTime;
+    radiusIncrement += 0.015 * speed.current * ticker.deltaTime;
+    thicknessDelta -= 0.00048 * speed.current * ticker.deltaTime;
     // Stop
     if (stopDraw) app.ticker.remove(update);
   };
@@ -178,10 +183,7 @@ export const hypnotise = async (
       // Flash animation end
       app.ticker.remove(flash);
       // Remove hypnosis filter
-      const index = app.stage.filters?.findIndex((f) => f === hypnosisFilter);
-      if (index !== undefined && index !== -1) {
-        app.stage.filters?.splice(index, 1);
-      }
+      app.stage.filters = app.stage.filters?.filter((filter) => filter !== hypnosisFilter);
     }
   };
 
@@ -211,13 +213,14 @@ export const hypnotise = async (
       fighter.animation.container.filters = [];
     }
 
-    fighter.animation.container.filters.push(new GlowFilter({
-      distance: 10,
-      outerStrength: 1,
-      innerStrength: 0.5,
-      color: 0xAD3C8F,
-      quality: 0.05,
-    }));
+    fighter.animation.container.filters = fighter.animation.container.filters
+      .concat(new GlowFilter({
+        distance: 10,
+        outerStrength: 1,
+        innerStrength: 0.5,
+        color: 0xAD3C8F,
+        quality: 0.05,
+      }));
   }
 
   const pets = step.p.map((petIndex) => {

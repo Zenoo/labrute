@@ -5,7 +5,7 @@ import {
 import {
   BossName, Gender, PetName, WeaponName
 } from '@labrute/prisma';
-import { AdjustmentFilter } from '@pixi/filter-adjustment';
+import { AdjustmentFilter } from 'pixi-filters/adjustment';
 import dayjs from 'dayjs';
 import {
   FramePart, Symbol as LaBruteSymbol, Svg, Symbol475,
@@ -29,9 +29,11 @@ import {
   Symbol939, Symbol940, Symbol941, Symbol942,
   Symbol943, Symbol944
 } from 'labrute-fla-parser';
-import * as PIXI from 'pixi.js';
 import {
-  Filter, Matrix, Texture
+  Application,
+  Assets,
+  BlurFilter, ColorMatrixFilter, Container, Graphics, Matrix, Sprite, Texture,
+  Ticker
 } from 'pixi.js';
 import { MutableRefObject } from 'react';
 
@@ -444,20 +446,11 @@ type SvgsToLoad = {
 
 const matrixFromObject = (obj: FramePart['transform'], scale = 1) => new Matrix(obj?.a ?? 1, obj?.b ?? 0, obj?.c ?? 0, obj?.d ?? 1, (obj?.tx ?? 0) * scale, (obj?.ty ?? 0) * scale);
 
-const ColorOffsetShader = `
-varying vec2 vTextureCoord;
-
-uniform sampler2D uSampler;
-uniform vec3 offset;
-uniform vec3 mult;
-
-void main(void){
-  vec4 color = texture2D(uSampler, vTextureCoord);
-  gl_FragColor = vec4(vec3((color.r / color.a) * mult.r + offset.r / 255.0, (color.g / color.a) * mult.g + offset.g / 255.0, (color.b / color.a) * mult.b + offset.b / 255.0) * color.a, color.a);
-}
-`;
-
 export class FighterHolder {
+  // Shared across all FighterHolder instances to avoid reloading/reparsing the same SVG
+  // textures for each dojo pupil.
+  static readonly #sharedSvgTextureCache = new Map<string, Promise<Texture | null>>();
+
   // Setup data
   readonly type: Fighter['type'];
 
@@ -483,13 +476,13 @@ export class FighterHolder {
   readonly baseHeight: number;
 
   // PIXI
-  readonly container: PIXI.Container;
+  readonly container: Container;
 
-  #animationContainer: PIXI.Container | null = null;
+  #animationContainer: Container | null = null;
 
   #animationSymbol: LaBruteSymbol | null = null;
 
-  shadow: PIXI.Container = new PIXI.Container();
+  shadow: Container = new Container();
 
   #isAirborn = false;
 
@@ -505,7 +498,7 @@ export class FighterHolder {
 
   #baseAnimationSpeed = 1;
 
-  svgs: PIXI.Sprite[] = [];
+  svgs: Sprite[] = [];
 
   speed: MutableRefObject<number>;
 
@@ -513,11 +506,15 @@ export class FighterHolder {
 
   #usedSvgs: Record<string, number> = {};
 
-  #tickerHandler: ((delta?: number) => void) | null = null;
+  #colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
 
-  #appTicker: PIXI.Ticker | null = null;
+  #tickerHandler: ((ticker: Ticker) => void) | null = null;
 
-  readonly loaded: boolean = false;
+  #appTicker: Ticker | null = null;
+
+  #isDestroyed = false;
+
+  loaded = false;
 
   // Events
   events: Record<string, ((event: string) => void)[]> = {};
@@ -525,7 +522,7 @@ export class FighterHolder {
   onceEvents: Record<string, ((event: string) => void)[]> = {};
 
   constructor(
-    app: PIXI.Application,
+    app: Application,
     fighter: Fighter,
     speed: MutableRefObject<number>,
     scale = 1,
@@ -555,7 +552,7 @@ export class FighterHolder {
     // Get all animations
     const animationsByType = Object.values(ANIMATIONS[this.#animationType]);
 
-    const symbolContainer = new PIXI.Container();
+    const symbolContainer = new Container();
     symbolContainer.sortableChildren = true;
     symbolContainer.x = 0;
     symbolContainer.y = 0;
@@ -601,13 +598,12 @@ export class FighterHolder {
     this.baseHeight = FIGHTER_HEIGHT[fighterModelType] * SCALE * this.#scale;
 
     // Create Shadow Graphics
-    const shadowGraphics = new PIXI.Graphics();
-    shadowGraphics.beginFill(0x000000, 0.4);
-    shadowGraphics.drawEllipse(0, 0, 30, 10);
-    shadowGraphics.endFill();
+    const shadowGraphics = new Graphics()
+      .ellipse(0, 0, 30, 10)
+      .fill({ color: 0x000000, alpha: 0.4 });
 
     // Create Shadow Sprite
-    const shadowSprite = new PIXI.Sprite();
+    const shadowSprite = new Sprite();
     shadowSprite.texture = app.renderer.generateTexture(shadowGraphics);
     shadowSprite.anchor.set(0.5, 0.5);
     shadowSprite.width = this.baseWidth;
@@ -627,7 +623,7 @@ export class FighterHolder {
     }
 
     // Blur shadow depending on it's size
-    shadowSprite.filters = [new PIXI.filters.BlurFilter(this.baseWidth * 0.065)];
+    shadowSprite.filters = [new BlurFilter({ strength: this.baseWidth * 0.065 })];
     // Add shadowSprite to shadow container
     this.shadow.addChild(shadowSprite);
     this.shadow.alpha = 0;
@@ -640,8 +636,8 @@ export class FighterHolder {
     for (const animation of animationsByType) {
       if (!animation) continue;
 
-      const animationContainer = new PIXI.Container();
-      animationContainer.name = animation.name;
+      const animationContainer = new Container();
+      animationContainer.label = animation.name;
       animationContainer.sortableChildren = true;
       animationContainer.visible = false;
       this.container.addChild(animationContainer);
@@ -707,104 +703,108 @@ export class FighterHolder {
     }
 
     // Load SVGs
-    this.#loadSvgs(maxSvgs);
-
-    // Loaded event
-    this.loaded = true;
-
-    // Play animation (loop on frames with PIXI ticker)
-    this.#appTicker = app.ticker ?? null;
-    this.#tickerHandler = () => {
-      if (this.container.destroyed) return;
-
-      // Update zIndex if not airborn
-      if (!this.#isAirborn) {
-        this.container.zIndex = this.container.y;
-      }
-
-      // Do nothing if not playing
-      if (!this.#playing) {
+    this.#loadSvgs(maxSvgs).then(() => {
+      if (this.#isDestroyed || this.container.destroyed) {
         return;
       }
 
-      const tickRate = 1000 / (30 * this.speed.current);
+      // Loaded event
+      this.loaded = true;
 
-      this.#timer += (this.#appTicker?.elapsedMS) ?? 0;
-      if (this.#timer === 0 || this.#timer >= tickRate) {
-        this.#timer %= tickRate;
+      // Play animation (loop on frames with PIXI ticker)
+      this.#appTicker = app.ticker ?? null;
+      this.#tickerHandler = () => {
+        if (this.container.destroyed) return;
 
-        const loopStart = LOOP_START[this.#animationType][this.animation];
-        if (this.#frame >= this.#frameCount && loopStart !== null) {
-          this.#frame = loopStart;
+        // Update zIndex if not airborn
+        if (!this.#isAirborn) {
+          this.container.zIndex = this.container.y;
         }
 
-        // Hide all svgs
-        for (const svg of this.svgs) {
-          svg.visible = false;
+        // Do nothing if not playing
+        if (!this.#playing) {
+          return;
         }
 
-        // Display frame
-        this.#usedSvgs = {};
-        this.#displayFrame(this.#animationContainer, this.#animationSymbol);
+        const tickRate = 1000 / (30 * this.speed.current);
 
-        const currentFrame = Math.floor(this.#frame);
-        const frameChanged = currentFrame !== this.#previousFrame;
+        this.#timer += (this.#appTicker?.elapsedMS) ?? 0;
+        if (this.#timer === 0 || this.#timer >= tickRate) {
+          this.#timer %= tickRate;
 
-        // Only trigger events when we've moved to a new frame
-        if (frameChanged) {
-          // :start event
-          if (currentFrame === 0) {
-            this.#triggerEvents(`${this.animation}:start`);
+          const loopStart = LOOP_START[this.#animationType][this.animation];
+          if (this.#frame >= this.#frameCount && loopStart !== null) {
+            this.#frame = loopStart;
           }
 
-          // :trashed event
-          if (this.animation === 'trash' && currentFrame === 3) {
-            this.#triggerEvents(`${this.animation}:trashed`);
+          // Hide all svgs
+          for (const svg of this.svgs) {
+            svg.visible = false;
           }
 
-          // :hand-raised event (win animation is faster for female)
-          if (this.animation === 'win'
-            && currentFrame === (this.#animationType === Gender.male ? 52 : 27)) {
-            this.#triggerEvents(`${this.animation}:hand-raised`);
+          // Display frame
+          this.#usedSvgs = {};
+          this.#displayFrame(this.#animationContainer, this.#animationSymbol);
+
+          const currentFrame = Math.floor(this.#frame);
+          const frameChanged = currentFrame !== this.#previousFrame;
+
+          // Only trigger events when we've moved to a new frame
+          if (frameChanged) {
+            // :start event
+            if (currentFrame === 0) {
+              this.#triggerEvents(`${this.animation}:start`);
+            }
+
+            // :trashed event
+            if (this.animation === 'trash' && currentFrame === 3) {
+              this.#triggerEvents(`${this.animation}:trashed`);
+            }
+
+            // :hand-raised event (win animation is faster for female)
+            if (this.animation === 'win'
+              && currentFrame === (this.#animationType === Gender.male ? 52 : 27)) {
+              this.#triggerEvents(`${this.animation}:hand-raised`);
+            }
+
+            // :hit event
+            if (this.animation === 'fist' && currentFrame === 2) {
+              this.#triggerEvents(`${this.animation}:hit`);
+            } else if (this.animation === 'estoc' && currentFrame === 4) {
+              this.#triggerEvents(`${this.animation}:hit`);
+            } else if (this.animation === 'slash' && currentFrame === 5) {
+              this.#triggerEvents(`${this.animation}:hit`);
+            } else if (this.animation === 'whip' && currentFrame === 4) {
+              this.#triggerEvents(`${this.animation}:hit`);
+            } else if (this.animation === 'attack' && this.#animationType === 'dog' && currentFrame === 2) {
+              this.#triggerEvents(`${this.animation}:hit`);
+            } else if (this.animation === 'attack' && this.#animationType === 'bear' && currentFrame === 4) {
+              this.#triggerEvents(`${this.animation}:hit`);
+            }
+
+            // :drop event
+            if (this.animation === 'death' && currentFrame === LOOP_START[this.#animationType].death) {
+              this.#triggerEvents(`${this.animation}:drop`);
+            }
+
+            this.#previousFrame = currentFrame;
           }
 
-          // :hit event
-          if (this.animation === 'fist' && currentFrame === 2) {
-            this.#triggerEvents(`${this.animation}:hit`);
-          } else if (this.animation === 'estoc' && currentFrame === 4) {
-            this.#triggerEvents(`${this.animation}:hit`);
-          } else if (this.animation === 'slash' && currentFrame === 5) {
-            this.#triggerEvents(`${this.animation}:hit`);
-          } else if (this.animation === 'whip' && currentFrame === 4) {
-            this.#triggerEvents(`${this.animation}:hit`);
-          } else if (this.animation === 'attack' && this.#animationType === 'dog' && currentFrame === 2) {
-            this.#triggerEvents(`${this.animation}:hit`);
-          } else if (this.animation === 'attack' && this.#animationType === 'bear' && currentFrame === 4) {
-            this.#triggerEvents(`${this.animation}:hit`);
-          }
+          this.#frame += this.animationSpeed;
 
-          // :drop event
-          if (this.animation === 'death' && currentFrame === LOOP_START[this.#animationType].death) {
-            this.#triggerEvents(`${this.animation}:drop`);
+          // :end event
+          if ((this.#frame >= this.#frameCount || this.#frame < 0)
+            && LOOP_START[this.#animationType]?.[this.animation] === null) {
+            this.#playing = false;
+            this.#triggerEvents(`${this.animation}:${this.#frame < 0 ? 'start' : 'end'}`);
           }
-
-          this.#previousFrame = currentFrame;
         }
+      };
 
-        this.#frame += this.animationSpeed;
-
-        // :end event
-        if ((this.#frame >= this.#frameCount || this.#frame < 0)
-          && LOOP_START[this.#animationType]?.[this.animation] === null) {
-          this.#playing = false;
-          this.#triggerEvents(`${this.animation}:${this.#frame < 0 ? 'start' : 'end'}`);
-        }
+      if (this.#appTicker) {
+        this.#appTicker.add(this.#tickerHandler);
       }
-    };
-
-    if (this.#appTicker) {
-      this.#appTicker.add(this.#tickerHandler);
-    }
+    });
   }
 
   // Getter and setter for animationSpeed that accounts for scale
@@ -861,7 +861,7 @@ export class FighterHolder {
 
     // Hide all animations
     for (const child of this.container.children) {
-      if (child !== this.shadow && child instanceof PIXI.Container) {
+      if (child !== this.shadow && child instanceof Container) {
         child.visible = false;
       }
     }
@@ -869,8 +869,8 @@ export class FighterHolder {
     // Update current animation
     this.#animationContainer = this.container.children
       .find(
-        (child) => child.name === ANIMATIONS[this.#animationType][this.animation]?.name
-      ) as PIXI.Container;
+        (child) => child.label === ANIMATIONS[this.#animationType][this.animation]?.name
+      ) as Container;
     this.#animationSymbol = ANIMATIONS[this.#animationType][this.animation];
 
     // Show current animation
@@ -890,7 +890,7 @@ export class FighterHolder {
 
   #initializeContainersAndGetSvgsToLoad = (
     svgsToLoad: SvgsToLoad,
-    symbolContainer: PIXI.Container,
+    symbolContainer: Container,
     parts: LaBruteSymbol['parts'],
     frame: FramePart[] = [],
   ) => {
@@ -898,7 +898,7 @@ export class FighterHolder {
       const symbol = parts?.find((p) => p.name === framePart.name);
 
       if (!symbol) {
-        throw new Error(`Part ${framePart.name} not found in symbol ${symbolContainer.name}`);
+        throw new Error(`Part ${framePart.name} not found in symbol ${symbolContainer.label}`);
       }
 
       // SVG
@@ -915,9 +915,9 @@ export class FighterHolder {
       } else {
         // Symbol
 
-        const container = new PIXI.Container();
+        const container = new Container();
         container.sortableChildren = true;
-        container.name = symbol.name;
+        container.label = symbol.name;
         container.visible = false;
         container.zIndex = frame.length - i;
 
@@ -964,42 +964,113 @@ export class FighterHolder {
     });
   };
 
-  #loadSvgs = (svgsToLoad: SvgsToLoad) => {
+  #loadSvgs = async (svgsToLoad: SvgsToLoad) => {
+    const loadingSvgs: Promise<void>[] = [];
+
+    const getTexture = (
+      svgDataUrl: string,
+      renderScale: number,
+      cacheKey: string,
+      svgName: string,
+    ) => {
+      const cached = FighterHolder.#sharedSvgTextureCache.get(cacheKey);
+      if (cached) {
+        return cached;
+      }
+
+      const loadPromise = Assets.load<Texture>({
+        src: svgDataUrl,
+        data: {
+          parseAsGraphicsContext: false,
+          resolution: renderScale,
+        },
+      }).catch((error) => {
+        console.error('Error creating SVG texture via Assets.load', error, svgName);
+        try {
+          return Texture.from(svgDataUrl);
+        } catch (fallbackError) {
+          console.error('Error creating fallback SVG texture', fallbackError, svgName);
+          return null;
+        }
+      });
+
+      FighterHolder.#sharedSvgTextureCache.set(cacheKey, loadPromise);
+      return loadPromise;
+    };
+
     for (const svgToLoad of svgsToLoad) {
       const { svg } = svgToLoad;
 
       for (let i = 0; i < svgToLoad.count; i++) {
-        // Custom scale
-        let customScale = svg.scale ?? 1;
-        const size = SCALE * this.#scale;
+        loadingSvgs.push(new Promise((resolve) => {
+          // Custom scale
+          let customScale = svg.scale ?? 1;
+          const size = SCALE * this.#scale;
 
-        // Increase loading scale for better resolution in some cases
-        if (this.type === 'boss') {
-          customScale = 2;
-        }
+          // Increase loading scale for better resolution in some cases
+          if (this.type === 'boss') {
+            customScale = 2;
+          }
 
-        const svgSprite = new PIXI.Sprite(Texture.from(
-          `${svg.svg}<!-- ${size * customScale} -->`,
-          { resourceOptions: { scale: size * customScale } },
-        ));
-        svgSprite.name = svg.name;
-        svgSprite.scale.set(1 / customScale);
-        svgSprite.visible = false;
+          const renderScale = Math.max(1, size * customScale);
+          const svgSource = `${svg.svg}<!-- ${renderScale} -->`;
+          const svgDataUrl = `data:image/svg+xml,${encodeURIComponent(svgSource)}`;
+          const addSprite = (texture: Texture) => {
+            const svgSprite = new Sprite(texture);
+            svgSprite.label = svg.name;
+            svgSprite.scale.set(size);
+            svgSprite.visible = false;
 
-        // Apply offset
-        if (svg.offset) {
-          svgSprite.x = -(svg.offset.x ?? 0) * size;
-          svgSprite.y = -(svg.offset.y ?? 0) * size;
-        }
+            // Apply offset
+            if (svg.offset) {
+              svgSprite.x = -(svg.offset.x ?? 0) * size;
+              svgSprite.y = -(svg.offset.y ?? 0) * size;
+            }
 
-        this.container.addChild(svgSprite);
-        this.svgs.push(svgSprite);
+            this.container.addChild(svgSprite);
+            this.svgs.push(svgSprite);
+          };
+
+          const cacheKey = `${svg.name}|${renderScale}`;
+          getTexture(svgDataUrl, renderScale, cacheKey, svg.name)
+            .then((texture) => {
+              if (texture) {
+                addSprite(texture);
+              }
+            })
+            .finally(() => {
+              resolve();
+            });
+        }));
       }
     }
+
+    await Promise.all(loadingSvgs);
+  };
+
+  #getColorOffsetFilter = (container: Container, r: number, g: number, b: number) => {
+    const key = `${r},${g},${b}`;
+    const existingFilter = this.#colorOffsetFilters.get(container);
+
+    if (existingFilter?.key === key) {
+      return existingFilter.filter;
+    }
+
+    const filter = new ColorMatrixFilter();
+    filter.matrix = [
+      1, 0, 0, 0, r / 255,
+      0, 1, 0, 0, g / 255,
+      0, 0, 1, 0, b / 255,
+      0, 0, 0, 1, 0,
+    ];
+
+    this.#colorOffsetFilters.set(container, { key, filter });
+
+    return filter;
   };
 
   #displayFrame = (
-    symbolContainer: PIXI.Container | null,
+    symbolContainer: Container | null,
     symbol: LaBruteSymbol | Svg | null,
     colorIdx?: string,
     zIndex?: number,
@@ -1009,18 +1080,18 @@ export class FighterHolder {
 
     if (symbol.type === 'svg') {
       const sprite = this.svgs
-        .filter((s) => s.name === symbol.name)[this.#usedSvgs[symbol.name] ?? 0];
+        .filter((s) => s.label === symbol.name)[this.#usedSvgs[symbol.name] ?? 0];
 
       if (!sprite) {
         throw new Error(`Sprite ${symbol.name} not found`);
       }
 
       // Hide shield if needed
-      if (sprite.name === SHIELD_SYMBOL[this.#animationType]) {
+      if (sprite.label === SHIELD_SYMBOL[this.#animationType]) {
         sprite.visible = this.shield;
       } else if (!this.weapon) {
         // Hide 39 if no weapon
-        sprite.visible = sprite.name !== 'Symbol39';
+        sprite.visible = sprite.label !== 'Symbol39';
       } else {
         sprite.visible = true;
       }
@@ -1028,10 +1099,17 @@ export class FighterHolder {
       // Apply masking
       if (svgMaskedBy) {
         // Get mask sprite
-        const maskSprite = this.svgs.find((svg) => svg.name === `Symbol${svgMaskedBy}`);
+        const maskSprite = this.svgs.find((svg) => svg.label === `Symbol${svgMaskedBy}`);
         if (!maskSprite) {
           throw new Error(`Mask sprite Symbol${svgMaskedBy} not found`);
         }
+
+        if (maskSprite.parent !== symbolContainer) {
+          symbolContainer.addChild(maskSprite);
+        }
+
+        // Keep mask sprites visible for Pixi v8 masking.
+        maskSprite.visible = true;
 
         sprite.mask = maskSprite;
       }
@@ -1128,13 +1206,13 @@ export class FighterHolder {
 
         // Get corresponding container
         const sameParts = symbolContainer.children.filter(
-          (child) => child instanceof PIXI.Container
-            && child.name === framePart.name
+          (child) => child instanceof Container
+            && child.label === framePart.name
         ).length;
         const framePartContainer = symbolContainer.children
           .filter(
-            (child) => child instanceof PIXI.Container && child.name === framePart.name
-          )[sameParts - (usedContainers[framePart.name] ?? 0) - 1] as PIXI.Container | undefined;
+            (child) => child instanceof Container && child.label === framePart.name
+          )[sameParts - (usedContainers[framePart.name] ?? 0) - 1] as Container | undefined;
 
         if (!framePartContainer) {
           throw new Error(`Container ${framePart.name} not found`);
@@ -1143,26 +1221,21 @@ export class FighterHolder {
         // Apply transform
         if (framePart.transform) {
           const size = SCALE * this.#scale;
-          framePartContainer.transform.setFromMatrix(matrixFromObject(framePart.transform, size));
+          framePartContainer.setFromMatrix(matrixFromObject(framePart.transform, size));
         }
 
         // Apply color offset
         if (framePart.colorOffset) {
-          if (this.type === 'pet' && this.name === 'panther') {
-            framePartContainer.filters = [new Filter(undefined, ColorOffsetShader, {
-              offset: new Float32Array([-82, -97, -82]),
-              mult: new Float32Array([1, 1, 1])
-            })];
-          } else {
-            framePartContainer.filters = [new Filter(undefined, ColorOffsetShader, {
-              offset: new Float32Array([
-                framePart.colorOffset.r ?? 0,
-                framePart.colorOffset.g ?? 0,
-                framePart.colorOffset.b ?? 0
-              ]),
-              mult: new Float32Array([1, 1, 1])
-            })];
-          }
+          const colorFilter = this.type === 'pet' && this.name === 'panther'
+            ? this.#getColorOffsetFilter(framePartContainer, -82, -97, -82)
+            : this.#getColorOffsetFilter(
+              framePartContainer,
+              framePart.colorOffset.r ?? 0,
+              framePart.colorOffset.g ?? 0,
+              framePart.colorOffset.b ?? 0,
+            );
+
+          framePartContainer.filters = [colorFilter];
         }
 
         // Apply alpha
@@ -1173,10 +1246,17 @@ export class FighterHolder {
         // Apply masking
         if (framePart.maskedBy) {
           // Get mask sprite
-          const maskSprite = this.svgs.find((svg) => svg.name === `Symbol${framePart.maskedBy}`);
+          const maskSprite = this.svgs.find((svg) => svg.label === `Symbol${framePart.maskedBy}`);
           if (!maskSprite) {
             throw new Error(`Mask sprite Symbol${framePart.maskedBy} not found`);
           }
+
+          if (maskSprite.parent !== framePartContainer) {
+            framePartContainer.addChild(maskSprite);
+          }
+
+          // Keep mask sprites visible for Pixi v8 masking.
+          maskSprite.visible = true;
 
           framePartContainer.mask = maskSprite;
         }
@@ -1245,6 +1325,11 @@ export class FighterHolder {
   };
 
   destroy = () => {
+    if (this.#isDestroyed) {
+      return;
+    }
+    this.#isDestroyed = true;
+
     this.pause();
 
     // Remove ticker handler to avoid leaked callbacks
@@ -1258,15 +1343,16 @@ export class FighterHolder {
       this.#appTicker = null;
     }
 
-    // Destroy container and its children, but DO NOT destroy shared textures
-    // (textures created via Texture.from are cached and may be shared).
+    // Destroy container and its children
     try {
-      this.container.destroy({ children: true, texture: false, baseTexture: false });
+      this.container.destroy({ children: true, texture: false });
     } catch (e) {
       console.error('Error destroying container', e);
     }
 
     // Clear svg sprite references to allow GC; do not destroy their textures here.
     this.svgs = [];
+
+    this.#colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
   };
 }

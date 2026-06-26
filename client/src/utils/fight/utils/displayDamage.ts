@@ -1,5 +1,5 @@
 import { BossName } from '@labrute/prisma';
-import { OutlineFilter } from '@pixi/filter-outline';
+import { OutlineFilter } from 'pixi-filters/outline';
 import { Application, Text } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import { insideXBounds } from './insideXBounds';
@@ -19,10 +19,13 @@ export const displayDamage = ({
   speed: React.MutableRefObject<number>;
 }) => {
   // Display floating and fading damage text
-  const damageText = new Text(`-${damage}`, {
-    fontFamily: 'GameFont',
-    fontSize: criticalHit ? 30 : 20,
-    fill: criticalHit ? 0xff0000 : 0xffffff,
+  const damageText = new Text({
+    text: `-${damage}`,
+    style: {
+      fontFamily: 'GameFont',
+      fontSize: criticalHit ? 30 : 20,
+      fill: criticalHit ? 0xff0000 : 0xffffff,
+    }
   });
   damageText.anchor.set(0.5);
   damageText.zIndex = 1000;

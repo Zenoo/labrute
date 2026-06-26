@@ -1,7 +1,7 @@
 import { SkillExpireStep, SkillId } from '@labrute/core';
 import { Application } from 'pixi.js';
 
-import { GlowFilter } from '@pixi/filter-glow';
+import { GlowFilter } from 'pixi-filters/glow';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { untrap } from './untrap';

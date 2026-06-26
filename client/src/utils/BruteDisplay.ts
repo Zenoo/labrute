@@ -5,10 +5,14 @@ import { Gender } from '@labrute/prisma';
 import {
   FramePart, Symbol as LaBruteSymbol, Svg, Symbol460, Symbol752
 } from 'labrute-static-fla-parser';
-import { OutlineFilter } from '@pixi/filter-outline';
-import * as PIXI from 'pixi.js';
+import { OutlineFilter } from 'pixi-filters/outline';
 import {
-  Filter, Matrix, Texture
+  Assets,
+  ColorMatrixFilter,
+  Container,
+  Matrix,
+  Sprite,
+  Texture
 } from 'pixi.js';
 
 const FEMALE_SYMBOL = Symbol752;
@@ -20,19 +24,6 @@ type SvgsToLoad = {
 }[];
 
 const matrixFromObject = (obj: FramePart['transform'], scale = 1) => new Matrix(obj?.a ?? 1, obj?.b ?? 0, obj?.c ?? 0, obj?.d ?? 1, (obj?.tx ?? 0) * scale, (obj?.ty ?? 0) * scale);
-
-const ColorOffsetShader = `
-varying vec2 vTextureCoord;
-
-uniform sampler2D uSampler;
-uniform vec3 offset;
-uniform vec3 mult;
-
-void main(void){
-  vec4 color = texture2D(uSampler, vTextureCoord);
-  gl_FragColor = vec4(vec3((color.r / color.a) * mult.r + offset.r / 255.0, (color.g / color.a) * mult.g + offset.g / 255.0, (color.b / color.a) * mult.b + offset.b / 255.0) * color.a, color.a);
-}
-`;
 
 type Colors = {
   col0: string;
@@ -64,17 +55,19 @@ export class BruteDisplay {
   readonly #looking: 'left' | 'right';
 
   // PIXI
-  container: PIXI.Container;
+  container: Container;
 
-  svgs: PIXI.Sprite[] = [];
-
-  #pendingSvgs: number = 0;
+  svgs: Sprite[] = [];
 
   #usedSvgs: Record<string, number> = {};
 
   #scale: number;
 
   #highlightTint?: BruteColor;
+
+  #colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
+
+  #isReady = false;
 
   #onLoad: (() => void) | undefined;
 
@@ -92,7 +85,7 @@ export class BruteDisplay {
     this.gender = gender;
     this.#scale = scale;
     this.#highlightTint = highlightTint;
-    this.container = new PIXI.Container();
+    this.container = new Container();
     this.container.sortableChildren = true;
 
     this.#initialize();
@@ -100,14 +93,14 @@ export class BruteDisplay {
 
   #initialize() {
     // Create male and female container inside
-    const maleContainer = new PIXI.Container();
+    const maleContainer = new Container();
     maleContainer.sortableChildren = true;
-    maleContainer.name = Gender.male;
+    maleContainer.label = Gender.male;
     this.container.addChild(maleContainer);
 
-    const femaleContainer = new PIXI.Container();
+    const femaleContainer = new Container();
     femaleContainer.sortableChildren = true;
-    femaleContainer.name = Gender.female;
+    femaleContainer.label = Gender.female;
     this.container.addChild(femaleContainer);
 
     // Initialize male
@@ -134,25 +127,31 @@ export class BruteDisplay {
     }
 
     // Load SVGs
-    this.#loadSvgs(svgsToLoad);
+    this.#loadSvgs(svgsToLoad).then(() => {
+      // Set X scale
+      if (this.#looking === 'right') {
+        this.container.scale.x = -1;
+      }
 
-    // Set X scale
-    if (this.#looking === 'right') {
-      this.container.scale.x = -1;
-    }
+      // Apply black outline and subtle outer glow for Flash-era look
+      this.container.filters = [
+        new OutlineFilter({
+          thickness: 2,
+          color: 0x000000,
+        }),
+      ];
 
-    // Apply black outline and subtle outer glow for Flash-era look
-    this.container.filters = [
-      new OutlineFilter(2, 0x000000),
-    ];
+      // Display frame
+      this.#usedSvgs = {};
+      if (this.gender === Gender.male) {
+        this.#displayFrame(maleContainer, MALE_SYMBOL);
+      } else {
+        this.#displayFrame(femaleContainer, FEMALE_SYMBOL);
+      }
 
-    // Display frame
-    this.#usedSvgs = {};
-    if (this.gender === Gender.male) {
-      this.#displayFrame(maleContainer, MALE_SYMBOL);
-    } else {
-      this.#displayFrame(femaleContainer, FEMALE_SYMBOL);
-    }
+      this.#isReady = true;
+      this.#onLoad?.();
+    });
   }
 
   updateBrute(
@@ -167,13 +166,13 @@ export class BruteDisplay {
     // Reset everything
     this.svgs.forEach((svg) => {
       if (!svg.destroyed) {
-        svg.destroy();
+        svg.destroy({ texture: false, textureSource: false });
       }
     });
     this.svgs = [];
     this.container.children.forEach((child) => {
       if (!child.destroyed) {
-        child.destroy({ children: true });
+        child.destroy({ children: true, texture: false, textureSource: false });
       }
     });
 
@@ -182,7 +181,7 @@ export class BruteDisplay {
 
   #initializeContainersAndGetSvgsToLoad = (
     svgsToLoad: SvgsToLoad,
-    symbolContainer: PIXI.Container,
+    symbolContainer: Container,
     parts: LaBruteSymbol['parts'],
     frame: FramePart[] = [],
   ) => {
@@ -190,7 +189,7 @@ export class BruteDisplay {
       const symbol = parts?.find((p) => p.name === framePart.name);
 
       if (!symbol) {
-        throw new Error(`Part ${framePart.name} not found in symbol ${symbolContainer.name}`);
+        throw new Error(`Part ${framePart.name} not found in symbol ${symbolContainer.label}`);
       }
 
       // SVG
@@ -207,9 +206,9 @@ export class BruteDisplay {
       } else {
         // Symbol
 
-        const container = new PIXI.Container();
+        const container = new Container();
         container.sortableChildren = true;
-        container.name = symbol.name;
+        container.label = symbol.name;
         container.visible = false;
         container.zIndex = frame.length - i;
 
@@ -251,61 +250,115 @@ export class BruteDisplay {
     });
   };
 
-  #loadSvgs = (svgsToLoad: SvgsToLoad) => {
+  #loadSvgs = async (svgsToLoad: SvgsToLoad) => {
+    const loadingSvgs: Promise<void>[] = [];
+    const textureCache = new Map<string, Promise<Texture | null>>();
+
+    const getTexture = (
+      svgDataUrl: string,
+      renderScale: number,
+      cacheKey: string,
+      svgName: string,
+    ) => {
+      const cached = textureCache.get(cacheKey);
+      if (cached) {
+        return cached;
+      }
+
+      const loadPromise = Assets.load<Texture>({
+        src: svgDataUrl,
+        data: {
+          parseAsGraphicsContext: false,
+          resolution: renderScale,
+        },
+      }).catch((error) => {
+        console.error('Error creating SVG texture via Assets.load', error, svgName);
+        try {
+          return Texture.from(svgDataUrl);
+        } catch (fallbackError) {
+          console.error('Error creating fallback SVG texture', fallbackError, svgName);
+          return null;
+        }
+      });
+
+      textureCache.set(cacheKey, loadPromise);
+      return loadPromise;
+    };
+
     for (const svgToLoad of svgsToLoad) {
       const { svg } = svgToLoad;
 
       for (let i = 0; i < svgToLoad.count; i++) {
-        // Custom scale
-        const customScale = svg.scale ?? 1;
+        loadingSvgs.push(new Promise((resolve) => {
+          const size = this.#scale;
+          const customScale = svg.scale ?? 1;
+          const renderScale = Math.max(1, size * customScale);
+          const svgSource = `${svg.svg}<!-- ${renderScale} -->`;
+          const svgDataUrl = `data:image/svg+xml,${encodeURIComponent(svgSource)}`;
 
-        const svgSprite = new PIXI.Sprite(Texture.from(svg.svg, {
-          resourceOptions: { scale: this.#scale * customScale }
-        }));
-        svgSprite.name = svg.name;
-        svgSprite.scale.set(1 / customScale);
-        svgSprite.visible = false;
+          const addSprite = (texture: Texture) => {
+            const svgSprite = new Sprite(texture);
+            svgSprite.label = svg.name;
+            svgSprite.scale.set(size);
+            svgSprite.visible = false;
 
-        // Apply offset
-        if (svg.offset) {
-          svgSprite.x = -(svg.offset.x ?? 0) * this.#scale;
-          svgSprite.y = -(svg.offset.y ?? 0) * this.#scale;
-        }
-
-        if (!svgSprite.texture.valid) {
-          this.#pendingSvgs++;
-          svgSprite.texture.baseTexture.once('loaded', () => {
-            this.#pendingSvgs--;
-
-            if (this.#pendingSvgs <= 0) {
-              if (this.#onLoad) {
-                this.#onLoad();
-              }
+            // Apply offset
+            if (svg.offset) {
+              svgSprite.x = -(svg.offset.x ?? 0) * size;
+              svgSprite.y = -(svg.offset.y ?? 0) * size;
             }
-          });
-        }
 
-        this.container.addChild(svgSprite);
-        this.svgs.push(svgSprite);
+            this.container.addChild(svgSprite);
+            this.svgs.push(svgSprite);
+          };
+
+          const cacheKey = `${svg.name}|${renderScale}`;
+          getTexture(svgDataUrl, renderScale, cacheKey, svg.name)
+            .then((texture) => {
+              if (texture) {
+                addSprite(texture);
+              }
+            })
+            .finally(() => {
+              resolve();
+            });
+        }));
       }
     }
 
-    if (this.#pendingSvgs === 0) {
-      if (this.#onLoad) {
-        this.#onLoad();
-      }
+    await Promise.all(loadingSvgs);
+  };
+
+  #getColorOffsetFilter = (container: Container, r: number, g: number, b: number) => {
+    const key = `${r},${g},${b}`;
+    const existingFilter = this.#colorOffsetFilters.get(container);
+
+    if (existingFilter?.key === key) {
+      return existingFilter.filter;
     }
+
+    const filter = new ColorMatrixFilter();
+    filter.matrix = [
+      1, 0, 0, 0, r / 255,
+      0, 1, 0, 0, g / 255,
+      0, 0, 1, 0, b / 255,
+      0, 0, 0, 1, 0,
+    ];
+
+    this.#colorOffsetFilters.set(container, { key, filter });
+
+    return filter;
   };
 
   #displayFrame = (
-    symbolContainer: PIXI.Container,
+    symbolContainer: Container,
     symbol: LaBruteSymbol | Svg,
     colorIdx?: string,
     zIndex?: number,
   ) => {
     if (symbol.type === 'svg') {
       const sprite = this.svgs.filter(
-        (s) => s.name === symbol.name,
+        (s) => s.label === symbol.name,
       )[this.#usedSvgs[symbol.name] ?? 0];
 
       if (!sprite) {
@@ -335,7 +388,10 @@ export class BruteDisplay {
           // Apply highlight effect
           sprite.filters = [
             ...(sprite.filters ?? []),
-            new OutlineFilter(4, 0xFFFFFF)
+            new OutlineFilter({
+              thickness: 4,
+              color: 0xFFFFFF,
+            })
           ];
         }
       }
@@ -401,8 +457,8 @@ export class BruteDisplay {
         // Get corresponding container
         const framePartContainer = symbolContainer.children
           .filter(
-            (child) => child instanceof PIXI.Container && child.name === framePart.name
-          )[usedContainers[framePart.name] ?? 0] as PIXI.Container | undefined;
+            (child) => child instanceof Container && child.label === framePart.name
+          )[usedContainers[framePart.name] ?? 0] as Container | undefined;
 
         if (!framePartContainer) {
           throw new Error(`Container ${framePart.name} not found`);
@@ -410,21 +466,19 @@ export class BruteDisplay {
 
         // Apply transform
         if (framePart.transform) {
-          framePartContainer.transform.setFromMatrix(
+          framePartContainer.setFromMatrix(
             matrixFromObject(framePart.transform, this.#scale)
           );
         }
 
         // Apply color offset
         if (framePart.colorOffset) {
-          framePartContainer.filters = [new Filter(undefined, ColorOffsetShader, {
-            offset: new Float32Array([
-              framePart.colorOffset.r ?? 0,
-              framePart.colorOffset.g ?? 0,
-              framePart.colorOffset.b ?? 0
-            ]),
-            mult: new Float32Array([1, 1, 1])
-          })];
+          framePartContainer.filters = [this.#getColorOffsetFilter(
+            framePartContainer,
+            framePart.colorOffset.r ?? 0,
+            framePart.colorOffset.g ?? 0,
+            framePart.colorOffset.b ?? 0,
+          )];
         }
 
         // Apply alpha
@@ -435,12 +489,18 @@ export class BruteDisplay {
         // Apply masking
         if (framePart.maskedBy) {
           // Get mask sprite
-          const maskSprite = this.svgs.find((svg) => svg.name === `Symbol${framePart.maskedBy}`);
+          const maskSprite = this.svgs.find((svg) => svg.label === `Symbol${framePart.maskedBy}`);
           if (!maskSprite) {
             throw new Error(`Mask sprite Symbol${framePart.maskedBy} not found`);
           }
 
-          framePartContainer.addChild(maskSprite);
+          if (maskSprite.parent !== framePartContainer) {
+            framePartContainer.addChild(maskSprite);
+          }
+
+          // Keep mask sprites visible for Pixi v8 masking.
+          maskSprite.visible = true;
+
           framePartContainer.mask = maskSprite;
         }
 
@@ -459,22 +519,20 @@ export class BruteDisplay {
   };
 
   onLoad = (callback: () => void) => {
-    // Check if already loaded
-    if (this.#pendingSvgs === 0) {
-      callback();
-      return;
-    }
-
     this.#onLoad = callback;
+
+    if (this.#isReady) {
+      callback();
+    }
   };
 
   destroy = () => {
     this.svgs.forEach((svg) => {
       if (!svg.destroyed) {
-        svg.destroy();
+        svg.destroy({ texture: false, textureSource: false });
       }
     });
     this.svgs = [];
-    this.container.destroy({ children: true });
+    this.container.destroy({ children: true, texture: false, textureSource: false });
   };
 }

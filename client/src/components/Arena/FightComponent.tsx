@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { sound } from '@pixi/sound';
 import {
-  Application, Assets, Spritesheet, utils
+  Application, Assets, Spritesheet
 } from 'pixi.js';
 import React, {
   useCallback, useEffect, useMemo, useRef, useState
@@ -30,6 +30,8 @@ import { catchError } from '../../utils/catchError';
 import { BruteName } from '../Brute/BruteName';
 import { setupFight } from '../../utils/fight/setupFight';
 import { Spritesheets } from '../../utils/fight/utils/spritesheet';
+import { setFightDisposing } from '../../utils/fight/utils/lifecycle';
+import { gsap } from 'gsap';
 
 const sounds = [
   'arrive',
@@ -64,13 +66,11 @@ const sounds = [
   'noodleBowl1',
   'noodleBowl2',
   'racquet',
-  'sharp9',
   'panther',
   'haste',
   'chaining',
   'win',
   'equip',
-  'block',
   'evade',
   'poison',
   'blunt1',
@@ -84,7 +84,6 @@ const sounds = [
   'fist1',
   'fist2',
   'fist3',
-  'fryingPan',
   'lance1',
   'lance2',
   'piopio',
@@ -156,8 +155,9 @@ export const FightComponent = ({
 
   // Brute tooltip
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  const tooltipBruteRef = useRef<Fighter | null>(null);
   const [tooltipBrute, setTooltipBrute] = useState<Fighter | null>(null);
+  const tooltipOpenRef = useRef(false);
+  const tooltipBruteRef = useRef<Fighter | null>(null);
 
   // Favorite
   const [isFavorite, setFavorite] = useState(false);
@@ -186,11 +186,18 @@ export const FightComponent = ({
   }, [Alert, fight, Server.Fight, t, user]);
 
   // Tooltip
-  const toggleTooltip = useCallback((brute: Fighter, forceValue?: boolean) => {
+  const toggleTooltip = useCallback((brute: Fighter, open: boolean) => {
     const previousBruteId = tooltipBruteRef.current?.id;
-    tooltipBruteRef.current = brute;
-    setTooltipBrute(brute);
-    setTooltipOpen((open) => forceValue ?? (previousBruteId !== brute.id ? true : !open));
+
+    if (brute.id !== previousBruteId) {
+      tooltipBruteRef.current = brute;
+      setTooltipBrute(brute);
+    } else if (open === tooltipOpenRef.current) {
+      return;
+    }
+
+    tooltipOpenRef.current = open;
+    setTooltipOpen(open);
   }, []);
 
   const fighters = useMemo(() => (fight
@@ -217,19 +224,72 @@ export const FightComponent = ({
 
   // Renderer setup
   useEffect(() => {
+    const app = new Application();
+    let disposed = false;
+    let initialized = false;
+    let appDestroyed = false;
+    let mountedCanvas: HTMLCanvasElement | null = null;
+
+    const destroyApp = () => {
+      if (appDestroyed) {
+        return;
+      }
+      appDestroyed = true;
+
+      // Stop all active animation callbacks before touching PIXI objects.
+      gsap.killTweensOf('*');
+      gsap.globalTimeline.clear();
+
+      if (initialized) {
+        app.stage?.removeAllListeners();
+        app.ticker?.stop();
+
+        try {
+          app.destroy(
+            { removeView: false },
+            {
+              children: true,
+              texture: false,
+              textureSource: false,
+              context: true,
+            }
+          );
+        } catch (error) {
+          console.error('Error destroying fight app', error);
+        }
+      }
+
+      appRef.current = null;
+
+      if (mountedCanvas && ref.current?.contains(mountedCanvas)) {
+        ref.current.removeChild(mountedCanvas);
+      }
+      mountedCanvas = null;
+    };
+
     const setup = async () => {
-      if (!ref.current || !fight) {
+      if (!ref.current || !fight || disposed) {
         return undefined;
       }
 
-      const app = new Application({
+      setFightDisposing(false);
+
+      await app.init({
         backgroundColor: 0xfbf7c0,
         width: 500,
         height: 300,
         resolution: window.devicePixelRatio,
       });
+      initialized = true;
+
+      if (disposed) {
+        destroyApp();
+        return undefined;
+      }
+
       appRef.current = app;
-      ref.current.appendChild(app.view as HTMLCanvasElement);
+      mountedCanvas = app.canvas;
+      ref.current.appendChild(mountedCanvas);
 
       app.ticker.speed = 0.5;
 
@@ -244,8 +304,15 @@ export const FightComponent = ({
         throw new Error('Spritesheets not found');
       }
 
-      // Add background music, no sprites
-      sound.add('background', '/sfx/background.mp3');
+      if (disposed) {
+        destroyApp();
+        return undefined;
+      }
+
+      // Register shared sounds once; reuse across remount/HMR.
+      if (!sound.exists('background')) {
+        sound.add('background', '/sfx/background.mp3');
+      }
 
       // build sounds from sprites
       const spritesNew: { [key: string]: { start: number; end: number; loop: boolean } } = {};
@@ -257,16 +324,21 @@ export const FightComponent = ({
         };
       });
 
-      sound.add('sfx', { url: sfx.resources[0], sprites: spritesNew, preload: true });
+      if (!sound.exists('sfx')) {
+        sound.add('sfx', { url: sfx.resources[0], sprites: spritesNew, preload: true });
+      }
 
       // Mute all sounds
       sound.volumeAll = 0;
       // Background music
       sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
-      utils.clearTextureCache();
+      if (disposed) {
+        destroyApp();
+        return undefined;
+      }
 
-      setupFight(
+      await setupFight(
         theme,
         fight,
         app,
@@ -275,18 +347,25 @@ export const FightComponent = ({
         toggleTooltip,
         renderer,
         spritesheets,
+        () => disposed,
       );
 
-      return () => {
-        app.destroy(true, true);
-
-        // Stop all sounds
-        sound.stopAll();
-      };
+      return undefined;
     };
     setup().catch((error) => {
-      console.error('Error setting up fight:', error);
+      if (!disposed) {
+        console.error('Error setting up fight:', error);
+      }
     });
+
+    return () => {
+      disposed = true;
+      setFightDisposing(true);
+      destroyApp();
+
+      // Stop all sounds
+      sound.stopAll();
+    };
   }, [fight, toggleTooltip, t, theme, renderer]);
 
   // Play/pause

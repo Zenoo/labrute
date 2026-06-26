@@ -2,7 +2,7 @@
 import {
   HitStep, StepType, WEAPONS_SFX, WeaponById, randomBetween
 } from '@labrute/core';
-import { OutlineFilter } from '@pixi/filter-outline';
+import { OutlineFilter } from 'pixi-filters/outline';
 
 import { Application } from 'pixi.js';
 import { sound } from '@pixi/sound';
@@ -80,7 +80,10 @@ export const hit = async (
   // Add poison filter if damage is poison
   let poisonFilter: OutlineFilter | null = null;
   if (step.a === StepType.Poison) {
-    poisonFilter = new OutlineFilter(1, 0x006400);
+    poisonFilter = new OutlineFilter({
+      thickness: 1,
+      color: 0x006400,
+    });
     target.animation.container.filters = [
       ...target.animation.container.filters || [],
       poisonFilter,

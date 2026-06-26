@@ -43,7 +43,7 @@ export const spy = async (
     delete brute.weapons[weaponToSwap];
 
     const illustrationIndex = brute.teamWeaponsIllustrations
-      .findIndex((w) => (+(w.name ?? 0) as WeaponId) === weaponToSwap);
+      .findIndex((w) => (+w.label as WeaponId) === weaponToSwap);
 
     if (illustrationIndex === -1) {
       throw new Error('Weapon illustration not found');
@@ -72,7 +72,7 @@ export const spy = async (
     delete opponent.weapons[weaponToSwap];
 
     const illustrationIndex = opponent.teamWeaponsIllustrations
-      .findIndex((w) => (+(w.name ?? 0) as WeaponId) === weaponToSwap);
+      .findIndex((w) => (+w.label as WeaponId) === weaponToSwap);
 
     if (illustrationIndex === -1) {
       throw new Error('Weapon illustration not found');
@@ -96,8 +96,8 @@ export const spy = async (
   });
 
   // Sort weapons
-  brute.teamWeaponsIllustrations.sort((a, b) => +(a.name ?? 0) - +(b.name ?? 0));
-  opponent.teamWeaponsIllustrations.sort((a, b) => +(a.name ?? 0) - +(b.name ?? 0));
+  brute.teamWeaponsIllustrations.sort((a, b) => +a.label - +b.label);
+  opponent.teamWeaponsIllustrations.sort((a, b) => +a.label - +b.label);
 
   // Swap weapon illustrations
   [brute.teamWeaponsIllustrations, opponent.teamWeaponsIllustrations]

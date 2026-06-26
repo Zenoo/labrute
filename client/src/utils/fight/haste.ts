@@ -3,11 +3,11 @@ import {
   HasteStep, randomBetween, SkillId
 } from '@labrute/core';
 import {
-  Application, Sprite, Texture, BaseTexture, BufferResource, Filter
+  Application, Sprite, Texture, Filter
 } from 'pixi.js';
 import { sound } from '@pixi/sound';
-import { MotionBlurFilter } from '@pixi/filter-motion-blur';
-import { AdjustmentFilter } from '@pixi/filter-adjustment';
+import { MotionBlurFilter } from 'pixi-filters/motion-blur';
+import { AdjustmentFilter } from 'pixi-filters/adjustment';
 import { displayDamage } from './utils/displayDamage';
 import { getRandomPosition } from './utils/fightPositions';
 import { AnimationFighter, findFighter } from './utils/findFighter';
@@ -58,10 +58,13 @@ export const haste = async (
     // Yellowish color adjustment filter
     new AdjustmentFilter({ red: 2, green: 2 }),
     // Motion blur filter
-    new MotionBlurFilter([50, 0], 9)
+    new MotionBlurFilter({
+      velocity: [50, 0],
+      kernelSize: 9,
+    })
   ];
   // Add filters
-  for (const filter of hasteFilters) brute.animation.container.filters.push(filter);
+  brute.animation.container.filters = brute.animation.container.filters.concat(hasteFilters);
 
   // Dust cloud on sprint start
   playDustEffect(app, spritesheets, brute, speed);
@@ -93,7 +96,7 @@ export const haste = async (
   const { width, height } = sprite.texture;
 
   // Extract pixels
-  const pixels = app.renderer.extract.pixels(sprite);
+  const { pixels } = app.renderer.extract.pixels(sprite);
 
   // Create the ghost image, a gradient starting on fighter's outline
   // Alpha gradient state for current row
@@ -135,15 +138,9 @@ export const haste = async (
     else pixels[i + 3] = Math.min(pixels[i + 3] ?? 0, gradient);
   }
 
-  // Create ghost texture
-  const ghostTexture = new BaseTexture(new BufferResource(pixels, { width, height }), {
-    width,
-    height,
-  });
-
-  // Create ghost
-  const ghost = new Sprite();
-  ghost.texture = new Texture(ghostTexture);
+  // Create ghost texture directly from the pixel buffer using Pixi's BufferImageSource
+  const ghostTexture = Texture.from({ resource: pixels, width, height });
+  const ghost = new Sprite(ghostTexture);
   // Place ghost behind target
   ghost.position.set(
     brute.team === 'L'
@@ -172,7 +169,7 @@ export const haste = async (
   });
 
   // Re-apply haste filters
-  for (const filter of hasteFilters) brute.animation.container.filters.push(filter);
+  brute.animation.container.filters = brute.animation.container.filters.concat(hasteFilters);
 
   // Play hit effect
   playHitEffect(app, spritesheets, brute, target, speed);

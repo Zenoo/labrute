@@ -6,16 +6,18 @@ import { AnimationFighter } from './findFighter';
 export async function createBustImage(
   brute: AnimationFighter | Fighter,
   renderer: RendererContextInterface,
-): Promise<HTMLImageElement | null> {
-  return new Promise<HTMLImageElement | null>((resolve) => {
+) {
+  return new Promise<HTMLImageElement>((resolve) => {
     // Since non-main brutes have negative ids, we need to make them unique
     // To avoid different backup brutes loading the same cache
     const bruteUniqueId = `${brute.id}-${brute.name}`;
 
     renderer.onRender(bruteUniqueId, (content: string) => {
-      const img = document.createElement('img');
+      const img = new Image();
+      img.onload = () => {
+        resolve(img);
+      };
       img.src = content;
-      resolve(img);
     });
 
     renderer.render({

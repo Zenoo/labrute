@@ -2,9 +2,10 @@ import {
   WeaponById, WeaponId, weapons
 } from '@labrute/core';
 import {
-  Application, Sprite, Container, filters
+  Application, Sprite, Container, Ticker,
+  BlurFilter
 } from 'pixi.js';
-import { DropShadowFilter } from '@pixi/filter-drop-shadow';
+import { DropShadowFilter } from 'pixi-filters/drop-shadow';
 
 import { AnimationFighter } from './utils/findFighter';
 import { tween } from './utils/tween';
@@ -74,7 +75,7 @@ export const itemDrop = ({
 
   itemContainer.zIndex = baseZIndex;
   // Add a transparent shadow filter to item sprite that will be faded in at the end
-  const shadowFilter = new DropShadowFilter({ alpha: 0, quality: 1, distance: 0 });
+  const shadowFilter = new DropShadowFilter({ alpha: 0, quality: 1 });
   itemSprite.filters = [shadowFilter];
   itemSprite.anchor.set(0.5, 0.5);
   // Set sprite angle
@@ -90,7 +91,12 @@ export const itemDrop = ({
   shadowSprite.tint = 0x000000;
   shadowSprite.alpha = 0.4;
   // Add a blur filter to the shadow
-  shadowContainer.filters = [new filters.BlurFilter(4, 4, 4, 5)];
+  shadowContainer.filters = [new BlurFilter({
+    strength: 4,
+    quality: 4,
+    resolution: 4,
+    kernelSize: 5
+  })];
   shadowContainer.scale.y = 0.4;
 
   // Add to stage
@@ -143,8 +149,8 @@ export const itemDrop = ({
   let endShadowAlpha = 0;
 
   // Update function
-  const update = (delta: number) => {
-    const deltaTime = delta * speed.current * itemSpeed;
+  const update = (ticker: Ticker) => {
+    const deltaTime = ticker.deltaTime * speed.current * itemSpeed;
 
     // Update item position
     itemContainer.x += velocity.x * deltaTime;
@@ -160,12 +166,12 @@ export const itemDrop = ({
     // Update shadow if not end phase
     if (!endPhase) {
       shadowSprite.angle = -itemSprite.angle;
-      shadowContainer.y -= shadowContainer.getBounds().y - shadowContainer.zIndex;
+      shadowContainer.y -= shadowContainer.getBounds().rectangle.y - shadowContainer.zIndex;
       shadowContainer.alpha = (10 - numBounces) * 0.1
         * Math.max(0.6, Math.abs(itemContainer.y - shadowContainer.y) / 200);
     }
     // Check if item is in contact with the ground
-    const itemBounds = itemSprite.getBounds();
+    const itemBounds = itemSprite.getBounds().rectangle;
     if (itemBounds.y + itemBounds.height > baseZIndex && velocity.y > 0) {
       // Increment number of bounces
       numBounces++;

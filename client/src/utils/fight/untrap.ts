@@ -1,6 +1,6 @@
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
-import { BevelFilter } from '@pixi/filter-bevel';
+import { BevelFilter } from 'pixi-filters/bevel';
 import { tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 

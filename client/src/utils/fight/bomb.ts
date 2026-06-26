@@ -3,7 +3,7 @@ import {
   BombStep, randomBetween, SkillId
 } from '@labrute/core';
 import {
-  AnimatedSprite, Application, filters
+  AnimatedSprite, Application, BlurFilter
 } from 'pixi.js';
 import { sound } from '@pixi/sound';
 import { stagger } from './stagger';
@@ -110,7 +110,7 @@ export const bomb = async (
   const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion || []);
   explosionSprite.animationSpeed = speed.current;
   explosionSprite.loop = false;
-  explosionSprite.filters = [new filters.BlurFilter(3)];
+  explosionSprite.filters = [new BlurFilter({ strength: 3 })];
   explosionSprite.width *= 2;
   explosionSprite.height *= 2;
 

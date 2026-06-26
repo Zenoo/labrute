@@ -102,30 +102,9 @@ importers:
       '@mui/x-date-pickers':
         specifier: ^6.18.3
         version: 6.20.2(@emotion/react@11.14.0(@types/react@18.3.28)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.28)(react@18.3.1))(@types/react@18.3.28)(react@18.3.1))(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.28)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.28)(react@18.3.1))(@types/react@18.3.28)(react@18.3.1))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@5.18.0(@emotion/react@11.14.0(@types/react@18.3.28)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.28)(react@18.3.1))(@types/react@18.3.28)(react@18.3.1))(@types/react@18.3.28)(react@18.3.1))(@types/react@18.3.28)(date-fns@2.30.0)(dayjs@1.11.20)(luxon@3.7.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@pixi/filter-adjustment':
-        specifier: ^5.1.1
-        version: 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-bevel':
-        specifier: ^5.1.1
-        version: 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-color-overlay':
-        specifier: ^5.1.1
-        version: 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-drop-shadow':
-        specifier: ^5.2.0
-        version: 5.2.0(@pixi/core@7.4.3)
-      '@pixi/filter-glow':
-        specifier: ^5.2.1
-        version: 5.2.1(@pixi/core@7.4.3)
-      '@pixi/filter-motion-blur':
-        specifier: ^5.1.1
-        version: 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-outline':
-        specifier: ^5.2.0
-        version: 5.2.0(@pixi/core@7.4.3)
       '@pixi/sound':
-        specifier: ^5
-        version: 5.2.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)
+        specifier: ^6.0.1
+        version: 6.0.1(pixi.js@8.19.0)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.20
@@ -142,11 +121,11 @@ importers:
         specifier: ^1.0.6
         version: 1.0.6
       pixi-filters:
-        specifier: ^5
-        version: 5.3.0(@pixi/core@7.4.3)(@pixi/filter-alpha@7.4.3(@pixi/core@7.4.3))(@pixi/filter-blur@7.4.3(@pixi/core@7.4.3))
+        specifier: ^6.1.5
+        version: 6.1.5(pixi.js@8.19.0)
       pixi.js:
-        specifier: ^7
-        version: 7.4.3
+        specifier: ^8.19.0
+        version: 8.19.0
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -2079,388 +2058,13 @@ packages:
   '@paralleldrive/cuid2@2.3.1':
     resolution: {integrity: sha512-XO7cAxhnTZl0Yggq6jOgjiOHhbgcO4NqFqwSmQpjK3b6TEE6Uj/jfSk6wzYyemh3+I0sHirKSetjQwn5cZktFw==}
 
-  '@pixi/accessibility@7.4.3':
-    resolution: {integrity: sha512-tCr0yeWpMe0yucFvEPidy5a7gVJGpTjqGrDpSEBYT/kbScfUwcoX49RrckCCCiXDlyO4WRh9lVVuHXTvqRLIMg==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/events': 7.4.3
-
-  '@pixi/app@7.4.3':
-    resolution: {integrity: sha512-opyWMuO0Ir8pf1DYUR++wAA6ZfNU+nIX2z95R2OD172HbcdhB4/HD7leLIIAny/LciEdMqlWEBhXK7N93YWbdg==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-
-  '@pixi/assets@7.4.3':
-    resolution: {integrity: sha512-StvjiJBSp/j9hHkGu8AFHNvwYUazXq64WhyhytztyDMRkg/l/cL7EcttY5T0qZNWlIpccdr60LUKrWDOuMpkiw==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/color@7.4.3':
-    resolution: {integrity: sha512-a6R+bXKeXMDcRmjYQoBIK+v2EYqxSX49wcjAY579EYM/WrFKS98nSees6lqVUcLKrcQh2DT9srJHX7XMny3voQ==}
-
   '@pixi/colord@2.9.6':
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
 
-  '@pixi/compressed-textures@7.4.3':
-    resolution: {integrity: sha512-uJ3CC+lNX4HIxs6IxEESO50/0A1KxSVm6CO9UlkXzTsNj9ynmdy5BkJ1dzii7LCdqGcHIXHO01yvKuUbJBBQtw==}
+  '@pixi/sound@6.0.1':
+    resolution: {integrity: sha512-hpFlQSScAR2L/CsEoIvDi7s1oGsu8y9Zd742Vd3982N+q3IF2vFuIfV9HN4ryjlGnhCT8yBlEgs1gp4G9Rt9TA==}
     peerDependencies:
-      '@pixi/assets': 7.4.3
-      '@pixi/core': 7.4.3
-
-  '@pixi/constants@7.4.3':
-    resolution: {integrity: sha512-QGmwJUNQy/vVEHzL6VGQvnwawLZ1wceZMI8HwJAT4/I2uAzbBeFDdmCS8WsTpSWLZjF/DszDc1D8BFp4pVJ5UQ==}
-
-  '@pixi/core@7.4.3':
-    resolution: {integrity: sha512-5YDs11faWgVVTL8VZtLU05/Fl47vaP5Tnsbf+y/WRR0VSW3KhRRGTBU1J3Gdc2xEWbJhUK07KGP7eSZpvtPVgA==}
-
-  '@pixi/display@7.4.3':
-    resolution: {integrity: sha512-b5m2dAaoNAVdxz1oDaxl3XZ059NEOcNtGkxTOZ4EYCw/jcp9sZXkgSROHRzsGn4k+NugH7+9MP4Id2Z0kkdUhw==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/events@7.4.3':
-    resolution: {integrity: sha512-o3j/5Dxq6WDVS6eHfURB/cf/MP+NcsF/eC5PnbSHjXxJmDE7PoTVwLvxexm5uuvNRpFh/6/Fn0V8Vl4gV8sc8w==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-
-  '@pixi/extensions@7.4.3':
-    resolution: {integrity: sha512-FhoiYkHQEDYHUE7wXhqfsTRz6KxLXjuMbSiAwnLb9uG1vAgp6q6qd6HEsf4X30YaZbLFY8a4KY6hFZWjF+4Fdw==}
-
-  '@pixi/extract@7.4.3':
-    resolution: {integrity: sha512-HNvGNrEVaeVsbcnIO1MsHpjZbTwo9nIlaOEBzDGcL6JWwzuB1RnzUke7WUCndCUt91sGUdvPnvgCvy9/NNFg3w==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-adjustment@5.1.1':
-    resolution: {integrity: sha512-AUHe03rmqXwV1ylAHq62t19AolPWOOYomCcL+Qycb1tf+LbM8FWpGXC6wmU1PkUrhgNc958uM9TrA9nRpplViA==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-advanced-bloom@5.1.1':
-    resolution: {integrity: sha512-C5AWmkWKvoYvJ+600qS7rC81E1X1clvrQLw4QE4IiFec5j1b07KhKE78w/BSRYMrBVa0cQ/ju0J1f7XoQYJfdQ==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-alpha@7.4.3':
-    resolution: {integrity: sha512-YFdUB1I53USQb+9TEhS849dV2KZhbnNGIoBbOSThUJfXQc4pDguIFWMagVToAQYgmZ4C4AtYfVjaSEELrMcCdA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-ascii@5.1.1':
-    resolution: {integrity: sha512-uGfpd7aYZuiEzkBH8asL/2j7L/7k/jCZRURjAU9c0unWlkagwIjvUwoPMsdzPNMh2DNQzCG1FPWseSbRFjUNow==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-bevel@5.1.1':
-    resolution: {integrity: sha512-UGik6YEW+fnzVu1DV8ctbxS7eClJQzqaM2sPYI0MopaEE2mW35yjAcg9py9Kwx27BX8FniVRqtJOyKEw1A3mBA==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-bloom@5.1.1':
-    resolution: {integrity: sha512-4/i+tMxAQdgezahxsVCqzkAyBAH4TxtuY/zo1wuCJybEqkKFIzOJ76Y4R/lJevEHS9CGpCTrvjRpup0Hze8k0Q==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-      '@pixi/filter-alpha': ^7.0.0-X
-      '@pixi/filter-blur': ^7.0.0-X
-
-  '@pixi/filter-blur@7.4.3':
-    resolution: {integrity: sha512-ZFzS9L/whdRbs5A/EUgF3yQaBcxNarmbuwaMgrfnpQ84mRczkGByqDLGToadiufyals07ufTrXBGRle9lbtEDA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-bulge-pinch@5.1.1':
-    resolution: {integrity: sha512-80I3g813td7Fnzi7IJSiR3z8gZlKblk6WN+5z6WnscQROcNEpck6lgWS/Lf/IdeHB/FtUKJCbx7RzxkUhiRTvA==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-color-gradient@5.3.0':
-    resolution: {integrity: sha512-dMgBVkSsHOcmTs7HCmlO2hURsk7sT5sOUfnDw46iGqzGgQ+10gCZNaa/oybrDiyEkj+ijyVQVHwapHS3KUgAUQ==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-color-map@5.1.1':
-    resolution: {integrity: sha512-WvDKvweXkg/t9t40thFlN1d/kUrWXGsxpRpFPNmkrZF6hNxdRjqgfg4wxUOev7uZwHIjcZtTfoLRKhJjF+1uqw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-color-matrix@7.4.3':
-    resolution: {integrity: sha512-TNu0h20SrzjUWIb5v19dAp1vPpqtG0w2XF9kIHN91bMNaf3R1jzhpWG6TtaVO9eo1IolWcEJLw38jIohyC+KNw==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-color-overlay@5.1.1':
-    resolution: {integrity: sha512-u8xuWsUePQ1NFBqpxDAFEujW4kImFIIvlp4D2xbRZqJ0RRbeeKEW31Sk4cxl1yFJKWIq0XLyT/TAepT9iIlEXg==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-color-replace@5.1.1':
-    resolution: {integrity: sha512-t+FEEnuqvlU1cKMSe8939tIGCNJsqpyc7o5BzIunMxsZsHjMQWzZtWQKls+FSdSlFyk2TWYSXWAxtj2VBzBZBg==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-convolution@5.1.1':
-    resolution: {integrity: sha512-68NNa7lXBFlRgP/ac/L/0bKk/9QvU8urh7CEeOnR9WJxjymglbAa0nM69TBlhg++Fus3t7Mz/jc/GIfPJ/VL6Q==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-cross-hatch@5.1.1':
-    resolution: {integrity: sha512-g1hPHZYmGBpZtGojOtUOBWH6tqhtQGDo5xAp3o3gwmn2QnY087ZiYWFHF5ml+nTL62fEJ78uIpODscz4Y04e8w==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-crt@5.1.1':
-    resolution: {integrity: sha512-w+rRbR7eTsPf18QPB68Wiyx8laC+v7fYb3hRVhnq/j6yRUJKQgg4HK5KLP9jfUJ9FJvxy4bzLSDQulvxbOMJZg==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-displacement@7.4.3':
-    resolution: {integrity: sha512-ax+cFA2mEnKgqf9F8qInpv09GNWzjwnASLETpwPXzWBtlAlNCeHV2tCv3+SlMdEKUkwG9sA7AmjjjC2JBUyt+Q==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-dot@5.1.1':
-    resolution: {integrity: sha512-w3g6bumHzZgv9ktzegEWQS7OWuHH0QG76sbg/hZBy5K01dyuGAe1uUUnzVN5hZuFTD6q77T2UPlifhNI5j4ixg==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-drop-shadow@5.2.0':
-    resolution: {integrity: sha512-cYS2KDER7cwCu0V4VNSxTHGvzmNcEXdC9j3031YBOkUAE3+p17LMS/TAt6XeMfJV7KaPuusvXy2NFgGkv3RDbw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-emboss@5.1.1':
-    resolution: {integrity: sha512-AoAFVzrMcCXldU+27hvJ95tcKNOVLnanlq1z838l2SzYGgso+ICbLauUz+o2PL/znudUJE6oky+I6WJzeavDsQ==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-fxaa@7.4.3':
-    resolution: {integrity: sha512-y9jhho5cCflhEsPtNqqsd+XJHsb+/ysht4rG/VHQ8Z6pScHYpbgiEpowryGq8uSMQQwx6zKNS2DPiXdiOHPZsg==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-glitch@5.1.1':
-    resolution: {integrity: sha512-pl6jOQlzQGg6NwqCwlgioYhlwue2OSRBGByDzh6Y6Y/qxMBuzQi7W56GunhQW79Kpvj9ynDLAGxomvZsrX88qg==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-glow@5.2.1':
-    resolution: {integrity: sha512-94I4XePDF9yqqA6KQuhPSphEHPJ2lXfqJLn0Bes8VVdwft0Ianj1wALqjoSUeBWqiJbhjBEXGDNkRZhPHvY3Xg==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-godray@5.1.1':
-    resolution: {integrity: sha512-JCvNiKBF/01VyaBYzeusULg+h6kmBaYg0NruHwe/FaJMWCRIPOUBHMQIUavJR0JGE5s6bEIR8kRtdpf3RHiwqw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-grayscale@5.1.1':
-    resolution: {integrity: sha512-tRyggOhTdAQlQpgH/IzjCbORICua/Gm0JkKGOcdDQOHqt4bTVvAehQ59e2+A6A1yA8pevu2L/C25qQhsPgNW9w==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-hsl-adjustment@5.3.0':
-    resolution: {integrity: sha512-F7gNLrPADGHkToX5toAp0yYs7FenVtHvbC6oC8fydu7/cuDmH0noobI6ShqTcdWJpJbBk1i9LMS93ifiz/13Aw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-kawase-blur@5.1.1':
-    resolution: {integrity: sha512-nPnJ1ChBFP+4pgFCwC0RJgHAJCetiHcQU3INH7zCdq88cFABmVmhN+wCKRNg4H7lF1EJjaXgFDkTrTreOD/bnw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-motion-blur@5.1.1':
-    resolution: {integrity: sha512-I94s3pW2GutjCyXiKQ/dI4Vl9JKne+Q8QgGRn1mrk0Uwg6DDO/OQI3jqv01S+SCTU3LZqhR/p8AQyxeDmOhr2w==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-multi-color-replace@5.1.1':
-    resolution: {integrity: sha512-P1shsJXEOpJGe9FdCUgCMi/nius86lBfb6cDIFM4oXdZfzuBUfWjZfUm7uofOvK7IWSrlXYrYoqp75H0XrLZ8A==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-noise@7.4.3':
-    resolution: {integrity: sha512-rwgSO3BKe1jW/P5CaOcfLKjfpl674aBEo/igi/3QLxA3ORhILNqWRsKkOwP8xF/ejI5NE4rMEkdv0LScbdGFhA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-old-film@5.1.1':
-    resolution: {integrity: sha512-Jgq3eLbcQW48o+YxLe8+T4vsQrvBnKrZAHS3cu3yc2aBLaiVIj8EfYP3vpOPjkQlZ7JVRZNdELpYA6KCR+abXw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-outline@5.2.0':
-    resolution: {integrity: sha512-xKfAouhZNKl6A0RvxT5i+2/ean7r16dE/QswwIkbWvr2hhHlp4p9U6XsqdgUERCDxK+IZibMAumbWs4DGxOUeQ==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-pixelate@5.1.1':
-    resolution: {integrity: sha512-qTs0Sv10aIbMFW//BPlhcFh1ByyKiVmvXfytYTTXNLrlK5DU3H3x8Pgy5Vy4lacS9VtOO69/CQ1QObBFCHnEBQ==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-radial-blur@5.1.1':
-    resolution: {integrity: sha512-q6RreUM+RO25HZaxc6ceEOSi6chadv8vrCOvupNLSY+1lvXue0KyFK6vxMcMInNdqRGYWSyJ+ql3RyHMTr93aw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-reflection@5.1.1':
-    resolution: {integrity: sha512-ksmfrRfBqXZ+rEFuA0l2tf4k+yzTU8VcNMuhW7U+ggkWOP2OEHga+oOlJg6TnHjOEbxudCpag5Us6e9aCeKpEw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-rgb-split@5.1.1':
-    resolution: {integrity: sha512-DEeAYoPU2lbUTeNYK8e6q89jqtLeUYSkEdFK/a9IyxYkvJP2CPk+nVXIe48v3wORUf5DdP20k6yQzqoPZyP3ww==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-shockwave@5.1.1':
-    resolution: {integrity: sha512-ovzOdAC2LCyWdxJC5PW97wSzHTNfjmKq4c/61cIO4sZp+9DB6n3b/6Rrad2jU346UATtM6K2XkmPY5p7SrRRXA==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-simple-lightmap@5.1.1':
-    resolution: {integrity: sha512-S3cHUgbVvUgeef93f3trdL50+162Nyqa7DBYufkGw0dPjPecXyjTH47GJzxDqQPooRwHWWUG9W5EYC+XEwlV9w==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-tilt-shift@5.2.0':
-    resolution: {integrity: sha512-bCQE/BTGsqu8EhRMyiGg+9/FXsPBYxjfODbGTWWQNsXtbFVqZXvg1vEjUZQXvuso1v/Fh/BtZ3u+t2kFfWpBXA==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-twist@5.1.1':
-    resolution: {integrity: sha512-ZUxLmSHu7ZcP1OYmO9EsKgWDV/Ophf622N7YVei4opBrj/gBMuQZNvFIfnsm4l8yhqAwwzndSTVLNehq1A2ONw==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/filter-zoom-blur@5.1.1':
-    resolution: {integrity: sha512-0n10xOqACC2vm9Lpsq37Y/edDvp/B7xsBdkuWxeCI7Ta7J22fsJ8IHG1iUyxgdZGa+SCPcKiFoTrYEUu5PLCpA==}
-    peerDependencies:
-      '@pixi/core': ^7.0.0-X
-
-  '@pixi/graphics@7.4.3':
-    resolution: {integrity: sha512-wWLivD8/URb8A7X4TqCZGG39C91IE+aOuWY/z9NCz5Z6WvA/VWnsc5fLTlO+ggjGHgKF0cSucCXZfUe1wm0AOQ==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/sprite': 7.4.3
-
-  '@pixi/math@7.4.3':
-    resolution: {integrity: sha512-/uJOVhR2DOZ+zgdI6Bs/CwcXT4bNRKsS+TqX3ekRIxPCwaLra+Qdm7aDxT5cTToDzdxbKL5+rwiLu3Y1egILDw==}
-
-  '@pixi/mesh-extras@7.4.3':
-    resolution: {integrity: sha512-EqpxpVZoTObyupxMSzuUsCGmWPQioW84n9EO9Ajawkk/HYA+qKFZ5viKiEThIUBYgv4Apn/7c0U3Feg7Ez4uQQ==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/mesh': 7.4.3
-
-  '@pixi/mesh@7.4.3':
-    resolution: {integrity: sha512-CikqFPtKvU3Zj986/MSoC8X39CWv5CEpiEW/tYp47p4tgQNDSkNWYnDiNYgb+4VX6pNsBrgX4DALLdTR17SlSA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-
-  '@pixi/mixin-cache-as-bitmap@7.4.3':
-    resolution: {integrity: sha512-NgvDdgSgd2tfcTSc+SWF12JJjVVz5ZrkSlhX0idSp/LSako82AiFJlD2xqH9GUsEcA6sqBBlnu7nrGkPTHQdhA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/sprite': 7.4.3
-
-  '@pixi/mixin-get-child-by-name@7.4.3':
-    resolution: {integrity: sha512-HLhDxHwafQT+CxbqQx9w9ivJIyAOg9JJ/6m4fNymVuDWeuMGcxDxBD7DukdUYIieT+RD/RlxdPEmq8YoromlFA==}
-    peerDependencies:
-      '@pixi/display': 7.4.3
-
-  '@pixi/mixin-get-global-position@7.4.3':
-    resolution: {integrity: sha512-k09kvkS379EypCIWgXMY7uiXtWk1BsaJyTYlV16Co0AsmNPdFd+wUozMx1xV6rxcGiWXsxr/1k9fbETuYkcXCQ==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-
-  '@pixi/particle-container@7.4.3':
-    resolution: {integrity: sha512-0DfJF5C0XTfuI2FsLYvMKCOtqWjXWGOWfA6m4l0W/Ke/qw5zKIOEhgjPLw4qNRtOhmEfkVKJUGp66Ap/ya2YzA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/sprite': 7.4.3
-
-  '@pixi/prepare@7.4.3':
-    resolution: {integrity: sha512-OjJHGKXPzwP5OLKxBnTBnKMOktHynLvO0TQPqTYgNtmGQzY109mypCqM4M+s/V+uYmBo/T+sXvBahj98q/f1tA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/graphics': 7.4.3
-      '@pixi/text': 7.4.3
-
-  '@pixi/runner@7.4.3':
-    resolution: {integrity: sha512-TJyfp7y23u5vvRAyYhVSa7ytq0PdKSvPLXu4G3meoFh1oxTLHH6g/RIzLuxUAThPG2z7ftthuW3qWq6dRV+dhw==}
-
-  '@pixi/settings@7.4.3':
-    resolution: {integrity: sha512-SmGK8smc0PxRB9nr0UJioEtE9hl4gvj9OedCvZx3bxBwA3omA5BmP3CyhQfN8XJ29+o2OUL01r3zAPVol4l4lA==}
-
-  '@pixi/sound@5.2.3':
-    resolution: {integrity: sha512-PMWZv3su6ykBUA6roN5OYMOCdl03eunK4iCB4rBbhxCM2qt6h0MFQNymr/DLBOa6AjV3ilOseHLu/9s/YKxYZw==}
-    peerDependencies:
-      '@pixi/assets': ^7.0.0
-      '@pixi/core': ^7.0.0
-
-  '@pixi/sprite-animated@7.4.3':
-    resolution: {integrity: sha512-mw5YIec8KfO1Jv9qrDNvGoD7Dlmcgww5YlMtd+ARi7Zzo+6ziNw899LXtoaKX1+3BXdZbYNyJAx3C5r30NtwXA==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/sprite': 7.4.3
-
-  '@pixi/sprite-tiling@7.4.3':
-    resolution: {integrity: sha512-kUa9cEcMsGXSIZoXA7LhW4oo0eWa30w0KYd7mZ0bqalBMfOcvsGZMN701Lc5lpE8URw+8yu5bnyGLbrxhWBTuw==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/sprite': 7.4.3
-
-  '@pixi/sprite@7.4.3':
-    resolution: {integrity: sha512-iNBrpOFF9nXDT6m2jcyYy6l/sRzklLDDck1eFHprHZwvNquY2nzRfh+RGBCecxhBcijiLJ3fsZN33fP0LDXkvw==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-
-  '@pixi/spritesheet@7.4.3':
-    resolution: {integrity: sha512-Ce4xZzUxUSKfiROUjjVCBYNLuCcDEWKJ822bSV9rkgVHItu3q04VnEww0DXO+9K0hKv4Ukjjk8aP6Pz0LgPm7A==}
-    peerDependencies:
-      '@pixi/assets': 7.4.3
-      '@pixi/core': 7.4.3
-
-  '@pixi/text-bitmap@7.4.3':
-    resolution: {integrity: sha512-TnBocJm7f5nMAYwYcsojc62uCrOYauAGH26o3pNrlqmHDRDQ7FzPOGvkYZGYFREbUycloLSRlYpSy0FB9ZdV4Q==}
-    peerDependencies:
-      '@pixi/assets': 7.4.3
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/mesh': 7.4.3
-      '@pixi/text': 7.4.3
-
-  '@pixi/text-html@7.4.3':
-    resolution: {integrity: sha512-nm9K9gjSZAU8ETwQZBE3kMGNdO1IzyghxoRTcJCWKhekiGDpUQhopfNhqieNZ7reVJpvhpFQWjbyaHDehndUaQ==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3
-      '@pixi/sprite': 7.4.3
-      '@pixi/text': 7.4.3
-
-  '@pixi/text@7.4.3':
-    resolution: {integrity: sha512-IAF0iu04rPg3oiL0HZsEZI44fpJxq3UZ4xTmx8l1RyhhSXiElLvvSlSH57vt/BKMQZtCs+AqEit7yn8heK2+nQ==}
-    peerDependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/sprite': 7.4.3
-
-  '@pixi/ticker@7.4.3':
-    resolution: {integrity: sha512-tHsAD0iOUb6QSGGw+c8cyRBvxsq/NlfzIFBZLEHhWZ+Bx4a0MmXup6I/yJDGmyPCYE+ctCcAfY13wKAzdiVFgQ==}
-
-  '@pixi/utils@7.4.3':
-    resolution: {integrity: sha512-NO3Y9HAn2UKS1YdxffqsPp+kDpVm8XWvkZcS/E+rBzY9VTLnNOI7cawSRm+dacdET3a8Jad3aDKEDZ0HmAqAFA==}
+      pixi.js: ^8.0.0
 
   '@pmmmwh/react-refresh-webpack-plugin@0.5.17':
     resolution: {integrity: sha512-tXDyE1/jzFsHXjhRZQ3hMl0IVhYe5qula43LDWIhVfjp9G/nT5OQY5AORVOrkEGAUltBJOfOWeETbmhm6kHhuQ==}
@@ -2738,11 +2342,8 @@ packages:
   '@types/cors@2.8.19':
     resolution: {integrity: sha512-mFNylyeyqN93lfe/9CSxOGREz8cpzAhH+E93xJ4xWQf62V8sQ/24reV2nyzUWM6H6Xji+GGHpkbLe7pVoUEskg==}
 
-  '@types/css-font-loading-module@0.0.12':
-    resolution: {integrity: sha512-x2tZZYkSxXqWvTDgveSynfjq/T2HyiZHXb00j/+gy19yp70PHCizM48XFdjBCWH7eHBD0R5i/pw9yMBP/BH5uA==}
-
-  '@types/earcut@2.1.4':
-    resolution: {integrity: sha512-qp3m9PPz4gULB9MhjGID7wpo3gJ4bTGXm7ltNDsmOvsPduTeHp8wSW9YckBj3mljeOh4F0m2z/0JKAALRKbmLQ==}
+  '@types/earcut@3.0.0':
+    resolution: {integrity: sha512-k/9fOUGO39yd2sCjrbAJvGDEQvRwRnQIZlBz43roGwUZo5SHAmyVvSFyaVVZkicRVCaDXPKlbxrUcBuJoSWunQ==}
 
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
@@ -2770,6 +2371,9 @@ packages:
 
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
+
+  '@types/gradient-parser@0.1.5':
+    resolution: {integrity: sha512-r7K3NkJz3A95WkVVmjs0NcchhHstC2C/VIYNX4JC6tieviUNo774FFeOHjThr3Vw/WCeMP9kAT77MKbIRlO/4w==}
 
   '@types/html-minifier-terser@6.1.0':
     resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
@@ -3209,6 +2813,13 @@ packages:
 
   '@webassemblyjs/wast-printer@1.14.1':
     resolution: {integrity: sha512-kPSSXE6De1XOR820C90RIo2ogvZG+c3KiHzqUoO/F34Y2shGzesfqv7o57xrxovZJH/MetF5UjroJ/R/3isoiw==}
+
+  '@webgpu/types@0.1.71':
+    resolution: {integrity: sha512-mMy8/ODcKhab808co15eW+yN+HgXoQxRQHTiBV9Mrvl1r0ufnid7YOcI+gi4eUWSWl9ezD6TW2KXccrL8HCh2A==}
+
+  '@xmldom/xmldom@0.8.13':
+    resolution: {integrity: sha512-KRYzxepc14G/CEpEGc3Yn+JKaAeT63smlDr+vjB8jRfgTBBI9wRj/nkQEO+ucV8p8I9bfKLWp37uHgFrbntPvw==}
+    engines: {node: '>=10.0.0'}
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -4233,8 +3844,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  earcut@2.2.4:
-    resolution: {integrity: sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==}
+  earcut@3.0.2:
+    resolution: {integrity: sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==}
 
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
@@ -4592,6 +4203,9 @@ packages:
   eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
 
+  eventemitter3@5.0.4:
+    resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
+
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -4849,6 +4463,9 @@ packages:
 
   get-tsconfig@4.14.0:
     resolution: {integrity: sha512-yTb+8DXzDREzgvYmh6s9vHsSVCHeC0G3PI5bEXNBHtmshPnO+S5O7qgLEOn0I5QvMy6kpZN8K1NKGyilLb93wA==}
+
+  gifuct-js@2.1.2:
+    resolution: {integrity: sha512-rI2asw77u0mGgwhV3qA+OEgYqaDn5UNqgs+Bx0FGwSpuqfYn+Ir6RQY5ENNQ8SbIiG/m5gVa7CD5RriO4f4Lsg==}
 
   giget@2.0.0:
     resolution: {integrity: sha512-L5bGsVkxJbJgdnwyuheIunkGatUF/zssUoxxjACCseZYAVbaqdh9Tsmmlkl8vYan09H7sbvKt4pS8GqKLBrEzA==}
@@ -5513,6 +5130,9 @@ packages:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
+  js-binary-schema-parser@2.0.3:
+    resolution: {integrity: sha512-xezGJmOb4lk/M1ZZLTR/jaBHQ4gG/lqQnJqdIv4721DMggsa1bDVlHXNeHYogaIEHD9vCRv0fcL4hMA+Coarkg==}
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -6091,6 +5711,9 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
 
+  parse-svg-path@0.2.0:
+    resolution: {integrity: sha512-Tf7FFIrguPKQwzD4pWnYkR2VOv3raoHeKED80Bm+BYHI3KxC8KsgsGC5+fSMzAGDA6UEk4bHvmi+RsjmL3khpg==}
+
   parse5@6.0.1:
     resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==}
 
@@ -6168,11 +5791,13 @@ packages:
     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
     engines: {node: '>= 6'}
 
-  pixi-filters@5.3.0:
-    resolution: {integrity: sha512-Dyop7gqgHl5Jc/Bm0QH0CQIDogdICp3hf2CihvgI4AvQebIotPY3yX2MZ/YUcE/7b2aIQQQ2CCt/uc2bBnLRAg==}
+  pixi-filters@6.1.5:
+    resolution: {integrity: sha512-Ewb/J+kxAbaNN+0/ATJbglAJG+skGJfh7BIDP3ILIDdD6wWk1p0pGa25pVf1T8hGBOQSUNVAmwwJBwkj+cyLLA==}
+    peerDependencies:
+      pixi.js: '>=8.0.0-0'
 
-  pixi.js@7.4.3:
-    resolution: {integrity: sha512-uIWdH0EI2dVgNoqN9aFaHCmR0V65OEhMkXs2sek3c/QP2ItV6UoM+ouX9esSv3ibo20F+J5D1XwnQhUZI6wqeQ==}
+  pixi.js@8.19.0:
+    resolution: {integrity: sha512-pq1O6emA/GFjjeF+8d3Pb5t7knD8FsnfWGqQcRjYjsqFZ7QdzG1XgjLDUu0DFJRbafjV5+g8iNLFBx0b9649lg==}
 
   pkg-dir@4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
@@ -6690,9 +6315,6 @@ packages:
 
   psl@1.15.0:
     resolution: {integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==}
-
-  punycode@1.4.1:
-    resolution: {integrity: sha512-jmYNElW7yvO7TV33CjSmvSiE2yco3bV2czu/OzDKdMNVZQWfxCblURLhf+47syQRBntjfLdd/H0egrzIG+oaFQ==}
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -7528,6 +7150,10 @@ packages:
   thunky@1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
 
+  tiny-lru@11.4.7:
+    resolution: {integrity: sha512-w/Te7uMUVeH0CR8vZIjr+XiN41V+30lkDdK+NRIDCUYKKuL9VcmaUEmaPISuwGhLlrTGh5yu18lENtR9axSxYw==}
+    engines: {node: '>=12'}
+
   tinyexec@1.1.2:
     resolution: {integrity: sha512-dAqSqE/RabpBKI8+h26GfLq6Vb3JVXs30XYQjdMjaj/c2tS8IYYMbIzP599KtRj7c57/wYApb3QjgRgXmrCukA==}
     engines: {node: '>=18'}
@@ -7755,10 +7381,6 @@ packages:
 
   url-parse@1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
-
-  url@0.11.4:
-    resolution: {integrity: sha512-oCwdVC7mTuWiPyjLUz/COz5TLk6wgp0RCsN+wHZ2Ekneac9w8uuV0njcbbie2ME+Vs+d6duwmYuR3HgQXs1fOg==}
-    engines: {node: '>= 0.4'}
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -10539,344 +10161,11 @@ snapshots:
     dependencies:
       '@noble/hashes': 1.8.0
 
-  '@pixi/accessibility@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/events@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/events': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/app@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/assets@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@types/css-font-loading-module': 0.0.12
-
-  '@pixi/color@7.4.3':
-    dependencies:
-      '@pixi/colord': 2.9.6
-
   '@pixi/colord@2.9.6': {}
 
-  '@pixi/compressed-textures@7.4.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)':
+  '@pixi/sound@6.0.1(pixi.js@8.19.0)':
     dependencies:
-      '@pixi/assets': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/core': 7.4.3
-
-  '@pixi/constants@7.4.3': {}
-
-  '@pixi/core@7.4.3':
-    dependencies:
-      '@pixi/color': 7.4.3
-      '@pixi/constants': 7.4.3
-      '@pixi/extensions': 7.4.3
-      '@pixi/math': 7.4.3
-      '@pixi/runner': 7.4.3
-      '@pixi/settings': 7.4.3
-      '@pixi/ticker': 7.4.3
-      '@pixi/utils': 7.4.3
-
-  '@pixi/display@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/events@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/extensions@7.4.3': {}
-
-  '@pixi/extract@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-adjustment@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-advanced-bloom@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/filter-kawase-blur': 5.1.1(@pixi/core@7.4.3)
-
-  '@pixi/filter-alpha@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-ascii@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-bevel@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-bloom@5.1.1(@pixi/core@7.4.3)(@pixi/filter-alpha@7.4.3(@pixi/core@7.4.3))(@pixi/filter-blur@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/filter-alpha': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-blur': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/filter-blur@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-bulge-pinch@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-color-gradient@5.3.0(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-color-map@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-color-matrix@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-color-overlay@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-color-replace@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-convolution@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-cross-hatch@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-crt@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-displacement@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-dot@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-drop-shadow@5.2.0(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/filter-kawase-blur': 5.1.1(@pixi/core@7.4.3)
-
-  '@pixi/filter-emboss@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-fxaa@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-glitch@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-glow@5.2.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-godray@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-grayscale@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-hsl-adjustment@5.3.0(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-kawase-blur@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-motion-blur@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-multi-color-replace@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-noise@7.4.3(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-old-film@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-outline@5.2.0(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-pixelate@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-radial-blur@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-reflection@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-rgb-split@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-shockwave@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-simple-lightmap@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-tilt-shift@5.2.0(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-twist@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/filter-zoom-blur@5.1.1(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/core': 7.4.3
-
-  '@pixi/graphics@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/math@7.4.3': {}
-
-  '@pixi/mesh-extras@7.4.3(@pixi/core@7.4.3)(@pixi/mesh@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/mesh': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/mesh@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/mixin-cache-as-bitmap@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/mixin-get-child-by-name@7.4.3(@pixi/display@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/mixin-get-global-position@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/particle-container@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/prepare@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/graphics@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))(@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/graphics': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/text': 7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-
-  '@pixi/runner@7.4.3': {}
-
-  '@pixi/settings@7.4.3':
-    dependencies:
-      '@pixi/constants': 7.4.3
-      '@types/css-font-loading-module': 0.0.12
-      ismobilejs: 1.1.1
-
-  '@pixi/sound@5.2.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/assets': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/core': 7.4.3
-
-  '@pixi/sprite-animated@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/sprite-tiling@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-
-  '@pixi/spritesheet@7.4.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)':
-    dependencies:
-      '@pixi/assets': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/core': 7.4.3
-
-  '@pixi/text-bitmap@7.4.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/mesh@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))(@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))':
-    dependencies:
-      '@pixi/assets': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/mesh': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/text': 7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-
-  '@pixi/text-html@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))(@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/text': 7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-
-  '@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))':
-    dependencies:
-      '@pixi/core': 7.4.3
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-
-  '@pixi/ticker@7.4.3':
-    dependencies:
-      '@pixi/extensions': 7.4.3
-      '@pixi/settings': 7.4.3
-      '@pixi/utils': 7.4.3
-
-  '@pixi/utils@7.4.3':
-    dependencies:
-      '@pixi/color': 7.4.3
-      '@pixi/constants': 7.4.3
-      '@pixi/settings': 7.4.3
-      '@types/earcut': 2.1.4
-      earcut: 2.2.4
-      eventemitter3: 4.0.7
-      url: 0.11.4
+      pixi.js: 8.19.0
 
   '@pmmmwh/react-refresh-webpack-plugin@0.5.17(react-refresh@0.11.0)(type-fest@0.21.3)(webpack-dev-server@4.15.2(webpack@5.106.2(postcss@8.5.14)))(webpack@5.106.2(postcss@8.5.14))':
     dependencies:
@@ -11163,9 +10452,7 @@ snapshots:
     dependencies:
       '@types/node': 18.19.127
 
-  '@types/css-font-loading-module@0.0.12': {}
-
-  '@types/earcut@2.1.4': {}
+  '@types/earcut@3.0.0': {}
 
   '@types/eslint-scope@3.7.7':
     dependencies:
@@ -11210,6 +10497,8 @@ snapshots:
   '@types/graceful-fs@4.1.9':
     dependencies:
       '@types/node': 18.19.127
+
+  '@types/gradient-parser@0.1.5': {}
 
   '@types/html-minifier-terser@6.1.0': {}
 
@@ -11717,6 +11006,10 @@ snapshots:
     dependencies:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
+
+  '@webgpu/types@0.1.71': {}
+
+  '@xmldom/xmldom@0.8.13': {}
 
   '@xtuc/ieee754@1.2.0': {}
 
@@ -12877,7 +12170,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  earcut@2.2.4: {}
+  earcut@3.0.2: {}
 
   ecdsa-sig-formatter@1.0.11:
     dependencies:
@@ -13455,6 +12748,8 @@ snapshots:
 
   eventemitter3@4.0.7: {}
 
+  eventemitter3@5.0.4: {}
+
   events@3.3.0: {}
 
   execa@5.1.1:
@@ -13764,6 +13059,10 @@ snapshots:
   get-tsconfig@4.14.0:
     dependencies:
       resolve-pkg-maps: 1.0.0
+
+  gifuct-js@2.1.2:
+    dependencies:
+      js-binary-schema-parser: 2.0.3
 
   giget@2.0.0:
     dependencies:
@@ -14691,6 +13990,8 @@ snapshots:
 
   jiti@2.7.0: {}
 
+  js-binary-schema-parser@2.0.3: {}
+
   js-tokens@4.0.0: {}
 
   js-yaml@3.14.2:
@@ -15250,6 +14551,8 @@ snapshots:
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
 
+  parse-svg-path@0.2.0: {}
+
   parse5@6.0.1: {}
 
   parseurl@1.3.3: {}
@@ -15302,80 +14605,23 @@ snapshots:
 
   pirates@4.0.7: {}
 
-  pixi-filters@5.3.0(@pixi/core@7.4.3)(@pixi/filter-alpha@7.4.3(@pixi/core@7.4.3))(@pixi/filter-blur@7.4.3(@pixi/core@7.4.3)):
+  pixi-filters@6.1.5(pixi.js@8.19.0):
     dependencies:
-      '@pixi/filter-adjustment': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-advanced-bloom': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-ascii': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-bevel': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-bloom': 5.1.1(@pixi/core@7.4.3)(@pixi/filter-alpha@7.4.3(@pixi/core@7.4.3))(@pixi/filter-blur@7.4.3(@pixi/core@7.4.3))
-      '@pixi/filter-bulge-pinch': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-color-gradient': 5.3.0(@pixi/core@7.4.3)
-      '@pixi/filter-color-map': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-color-overlay': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-color-replace': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-convolution': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-cross-hatch': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-crt': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-dot': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-drop-shadow': 5.2.0(@pixi/core@7.4.3)
-      '@pixi/filter-emboss': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-glitch': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-glow': 5.2.1(@pixi/core@7.4.3)
-      '@pixi/filter-godray': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-grayscale': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-hsl-adjustment': 5.3.0(@pixi/core@7.4.3)
-      '@pixi/filter-kawase-blur': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-motion-blur': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-multi-color-replace': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-old-film': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-outline': 5.2.0(@pixi/core@7.4.3)
-      '@pixi/filter-pixelate': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-radial-blur': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-reflection': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-rgb-split': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-shockwave': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-simple-lightmap': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-tilt-shift': 5.2.0(@pixi/core@7.4.3)
-      '@pixi/filter-twist': 5.1.1(@pixi/core@7.4.3)
-      '@pixi/filter-zoom-blur': 5.1.1(@pixi/core@7.4.3)
-    transitivePeerDependencies:
-      - '@pixi/core'
-      - '@pixi/filter-alpha'
-      - '@pixi/filter-blur'
+      '@types/gradient-parser': 0.1.5
+      pixi.js: 8.19.0
 
-  pixi.js@7.4.3:
+  pixi.js@8.19.0:
     dependencies:
-      '@pixi/accessibility': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/events@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/app': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/assets': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/compressed-textures': 7.4.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)
-      '@pixi/core': 7.4.3
-      '@pixi/display': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/events': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/extensions': 7.4.3
-      '@pixi/extract': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-alpha': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-blur': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-color-matrix': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-displacement': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-fxaa': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/filter-noise': 7.4.3(@pixi/core@7.4.3)
-      '@pixi/graphics': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/mesh': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/mesh-extras': 7.4.3(@pixi/core@7.4.3)(@pixi/mesh@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/mixin-cache-as-bitmap': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/mixin-get-child-by-name': 7.4.3(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/mixin-get-global-position': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/particle-container': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/prepare': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/graphics@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))(@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))
-      '@pixi/sprite': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))
-      '@pixi/sprite-animated': 7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/sprite-tiling': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/spritesheet': 7.4.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)
-      '@pixi/text': 7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))
-      '@pixi/text-bitmap': 7.4.3(@pixi/assets@7.4.3(@pixi/core@7.4.3))(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/mesh@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))(@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))
-      '@pixi/text-html': 7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3)))(@pixi/text@7.4.3(@pixi/core@7.4.3)(@pixi/sprite@7.4.3(@pixi/core@7.4.3)(@pixi/display@7.4.3(@pixi/core@7.4.3))))
+      '@pixi/colord': 2.9.6
+      '@types/earcut': 3.0.0
+      '@webgpu/types': 0.1.71
+      '@xmldom/xmldom': 0.8.13
+      earcut: 3.0.2
+      eventemitter3: 5.0.4
+      gifuct-js: 2.1.2
+      ismobilejs: 1.1.1
+      parse-svg-path: 0.2.0
+      tiny-lru: 11.4.7
 
   pkg-dir@4.2.0:
     dependencies:
@@ -15901,8 +15147,6 @@ snapshots:
   psl@1.15.0:
     dependencies:
       punycode: 2.3.1
-
-  punycode@1.4.1: {}
 
   punycode@2.3.1: {}
 
@@ -16913,6 +16157,8 @@ snapshots:
 
   thunky@1.1.0: {}
 
+  tiny-lru@11.4.7: {}
+
   tinyexec@1.1.2: {}
 
   tinyglobby@0.2.16:
@@ -17154,11 +16400,6 @@ snapshots:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
-
-  url@0.11.4:
-    dependencies:
-      punycode: 1.4.1
-      qs: 6.15.1
 
   util-deprecate@1.0.2: {}
 

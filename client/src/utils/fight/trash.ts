@@ -4,7 +4,7 @@ import {
 } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 
-import { DropShadowFilter } from '@pixi/filter-drop-shadow';
+import { DropShadowFilter } from 'pixi-filters/drop-shadow';
 import { sound } from '@pixi/sound';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { itemDrop } from './itemDrop';

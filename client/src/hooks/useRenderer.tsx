@@ -1,5 +1,5 @@
 import { Brute } from '@labrute/prisma';
-import { Renderer } from 'pixi.js';
+import { autoDetectRenderer, Renderer } from 'pixi.js';
 import React, {
   useCallback, useContext, useEffect, useMemo, useRef, useState
 } from 'react';
@@ -7,6 +7,15 @@ import { BruteDisplay } from '../utils/BruteDisplay';
 import { BruteColor } from '@labrute/core';
 
 const MAX_RENDERERS = 3;
+const EMPTY_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9s8w6f4AAAAASUVORK5CYII=';
+
+const isRendererUsable = (renderer: Renderer) => {
+  try {
+    return !!renderer.canvas;
+  } catch {
+    return false;
+  }
+};
 
 type Options = {
   skipCache?: boolean;
@@ -65,15 +74,43 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     Record<string, RenderCallback[]>
   >({});
   const isProcessingRef = useRef(false);
+  const callbacksRef = useRef<Record<string, RenderCallback[]>>({});
+  const cacheRef = useRef<Cache>([]);
+
+  useEffect(() => {
+    callbacksRef.current = callbacks;
+  }, [callbacks]);
+
+  useEffect(() => {
+    cacheRef.current = cache;
+  }, [cache]);
+
+  const resolveCallbacks = useCallback((id: string, content: string) => {
+    const idCallbacks = callbacksRef.current[id] ?? [];
+
+    for (const callback of idCallbacks) {
+      callback(content);
+    }
+
+    if (idCallbacks.length > 0) {
+      setCallbacks((prev) => ({ ...prev, [id]: [] }));
+    }
+  }, []);
 
   const render: RenderMethod = useCallback((brute) => {
     setQueue((prev) => [...prev, brute]);
   }, []);
 
   const onRender: OnRenderMethod = useCallback((id, callback) => {
+    const cached = cacheRef.current.find((c) => c.id === id);
+    if (cached) {
+      callback(cached.content);
+      return;
+    }
+
     setCallbacks((prev) => ({
       ...prev,
-      [id]: [...(prev[id] || []), callback],
+      [id]: [...(prev[id] ?? []), callback],
     }));
   }, []);
 
@@ -90,101 +127,112 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
     const { body, colors } = request;
     if (!body || !colors) {
-      throw new Error('BruteRenderer: missing body or colors');
+      console.error('BruteRenderer: missing body or colors');
+      setQueue((prev) => prev.slice(1));
+      return;
     }
 
     const cached = cache.find((c) => c.id === request.id);
     if (cached && !request.skipCache) {
-      // Remove from queue
       setQueue((prev) => prev.slice(1));
-
-      // Callback
-      if (callbacks[request.id]) {
-        for (const callback of callbacks[request.id] ?? []) {
-          callback(cached.content);
-        }
-
-        // Remove callbacks
-        setCallbacks((prev) => ({ ...prev, [request.id]: [] }));
-      }
-
+      resolveCallbacks(request.id, cached.content);
       return;
     }
 
-    // Find a free renderer
-    let freeRenderer = renderers.find((r) => !r.busy);
+    const existingRenderer = renderers.find((r) => !r.busy);
+    const shouldCreateRenderer = !existingRenderer && renderers.length < MAX_RENDERERS;
 
-    if (!freeRenderer) {
-      // Create a new renderer if possible
-      if (renderers.length < MAX_RENDERERS) {
-        const renderer = new Renderer({
-          backgroundAlpha: 0,
-          width: 800,
-          height: 1000,
-          antialias: true,
-          autoDensity: true,
-          resolution: 1,
-        });
-
-        freeRenderer = { renderer, busy: false };
-        setRenderers((prev) => [...prev, freeRenderer as RendererInstance]);
-      } else {
-        // No free renderer, wait
-        return;
-      }
+    if (!existingRenderer && !shouldCreateRenderer) {
+      return;
     }
 
-    // Mark as processing
     isProcessingRef.current = true;
-
-    // Remove from queue
     setQueue((prev) => prev.slice(1));
 
-    // Mark renderer as busy
-    freeRenderer.busy = true;
+    const acquireRenderer = existingRenderer
+      ? Promise.resolve(existingRenderer)
+      : autoDetectRenderer({
+        backgroundAlpha: 0,
+        width: 800,
+        height: 1000,
+        antialias: true,
+        autoDensity: true,
+        resolution: 1,
+      }).then((renderer) => {
+        const rendererInstance: RendererInstance = { renderer, busy: false };
+        setRenderers((prev) => [...prev, rendererInstance]);
+        return rendererInstance;
+      });
 
-    // Render with higher scale for better quality
-    const renderScale = 3; // Adjust this for quality vs file size (textures loaded at this scale)
-    const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale, request.highlightColorName);
-
-    display.onLoad(async () => {
-      if (!freeRenderer) {
+    acquireRenderer.then((freeRenderer) => {
+      if (!isRendererUsable(freeRenderer.renderer)) {
         isProcessingRef.current = false;
+        setQueue((prev) => [...prev]);
         return;
       }
 
-      const content = await freeRenderer.renderer.extract.image(
-        display.container,
-        'image/png',
-        1
-      );
+      freeRenderer.busy = true;
 
-      // Destroy display
-      display.destroy();
+      // Render with higher scale for better quality
+      const renderScale = 3; // Adjust this for quality vs file size (textures loaded at this scale)
+      const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale, request.highlightColorName);
 
-      // Don't cache id 0 or requests with skipCache
-      if (request.id && !request.skipCache) {
-        setCache((prev) => [...prev, { id: request.id, content: content.src }]);
-      }
+      display.onLoad(async () => {
+        try {
+          if (!isRendererUsable(freeRenderer.renderer) || display.container.destroyed) {
+            resolveCallbacks(request.id, EMPTY_PNG);
+            return;
+          }
 
-      // Callback
-      if (callbacks[request.id]) {
-        for (const callback of callbacks[request.id] ?? []) {
-          callback(content.src);
+          const content = await freeRenderer.renderer.extract.image({
+            target: display.container,
+            format: 'png',
+            quality: 1,
+          });
+
+          if (!content?.src) {
+            resolveCallbacks(request.id, EMPTY_PNG);
+            return;
+          }
+
+          // Don't cache id 0 or requests with skipCache
+          if (request.id && !request.skipCache) {
+            setCache((prev) => [...prev, { id: request.id, content: content.src }]);
+          }
+
+          resolveCallbacks(request.id, content.src);
+        } catch (error) {
+          console.error('Error extracting rendered brute image:', error);
+
+          // If a renderer gets into an invalid state during teardown/reload, drop it.
+          try {
+            freeRenderer.renderer.destroy();
+          } catch {
+            // Ignore renderer destroy errors during recovery.
+          }
+          setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
+          resolveCallbacks(request.id, EMPTY_PNG);
+        } finally {
+          // Destroy display
+          if (!display.container.destroyed) {
+            display.destroy();
+          }
+
+          // Mark renderer as free
+          if (isRendererUsable(freeRenderer.renderer)) {
+            freeRenderer.busy = false;
+          }
+          isProcessingRef.current = false;
+
+          // Trigger next processing cycle
+          setQueue((prev) => [...prev]);
         }
-
-        // Remove callbacks
-        setCallbacks((prev) => ({ ...prev, [request.id]: [] }));
-      }
-
-      // Mark renderer as free
-      freeRenderer.busy = false;
+      });
+    }).catch((error) => {
+      console.error('Error acquiring renderer:', error);
       isProcessingRef.current = false;
-
-      // Trigger next processing cycle
-      setQueue((prev) => [...prev]);
     });
-  }, [queue, renderers, cache, callbacks]);
+  }, [queue, renderers, cache, resolveCallbacks]);
 
   const methods = useMemo(
     () => ({

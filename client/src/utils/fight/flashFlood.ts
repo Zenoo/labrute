@@ -41,10 +41,9 @@ export const flashFlood = async (
   const startedWithAWeapon = fighter.animation.weapon !== null;
 
   // Create mask weapon and vfx
-  const mask = new Graphics();
-  mask.beginFill(0x000000);
-  mask.drawRect(0, 0, app.stage.width, target.animation.container.y + 2);
-  mask.endFill();
+  const mask = new Graphics()
+    .rect(0, 0, app.stage.width, target.animation.container.y + 2)
+    .fill(0x000000);
 
   // Create a masked container
   const flashFloodContainer = new Container();

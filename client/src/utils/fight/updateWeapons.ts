@@ -2,8 +2,7 @@
 import {
   entries, WeaponById, WeaponId
 } from '@labrute/core';
-import { OutlineFilter } from '@pixi/filter-outline';
-import * as PIXI from 'pixi.js';
+import { OutlineFilter } from 'pixi-filters/outline';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter } from './utils/findFighter';
 import { TieredPerkColor } from '../StatColor';
@@ -50,10 +49,8 @@ export const updateWeapons = (
         throw new Error('Texture not found');
       }
 
-      texture.baseTexture.scaleMode = PIXI.SCALE_MODES.LINEAR;
-
       const sprite = new Sprite(texture);
-      sprite.name = w.toString();
+      sprite.label = w.toString();
       sprite.zIndex = 99;
       sprite.width = WEAPON_SIZE;
       sprite.height = WEAPON_SIZE;
@@ -67,9 +64,12 @@ export const updateWeapons = (
       sprite.filters = [];
 
       if (tier > 1) {
-        sprite.filters.push(new OutlineFilter(undefined, parseInt(TieredPerkColor[tier]?.slice(1) ?? '0', 16)));
+        sprite.filters = [new OutlineFilter({
+          thickness: undefined,
+          color: parseInt(TieredPerkColor[tier]?.slice(1) ?? '0', 16),
+        })];
       }
-      sprite.filters.push(new OutlineFilter());
+      sprite.filters = sprite.filters.concat(new OutlineFilter());
       app.stage.addChild(sprite);
       brute.teamWeaponsIllustrations.push(sprite);
     });
