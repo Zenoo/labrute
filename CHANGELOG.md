@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.1](https://github.com/Zenoo/labrute/compare/labrute-v2.97.0...labrute-v2.97.1) (2026-06-27)
+
+
+### Bug Fixes
+
+* Allow /fpe for browserId generation ([bd9aa7a](https://github.com/Zenoo/labrute/commit/bd9aa7a2c634831c617b709f70c9c056d9ee7e2c))
+
 ## [2.97.0](https://github.com/Zenoo/labrute/compare/labrute-v2.96.9...labrute-v2.97.0) (2026-06-27)
 
 
