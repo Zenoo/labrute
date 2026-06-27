@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.2](https://github.com/Zenoo/labrute/compare/labrute-v2.97.1...labrute-v2.97.2) (2026-06-27)
+
+
+### Bug Fixes
+
+* Allow /done route before checking version ([9f8ea54](https://github.com/Zenoo/labrute/commit/9f8ea545d90b45ea480b31350880eec9891e6981))
+
 ## [2.97.1](https://github.com/Zenoo/labrute/compare/labrute-v2.97.0...labrute-v2.97.1) (2026-06-27)
 
 
