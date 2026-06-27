@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "Un po' come un gavettone ma più pirotecnico!",
   "bomb.effect": "Azione x<uses /> Infligge tra i 15 e i 25 danni ai tuoi avversari.",
-  "bruteCell": "{{name}}'s cell",
+  "bruteCell": "<name />'s cell",
   "bruteIsResting": "{{brute}} is resting.",
   "bruteNotRegistered": "Brute not registered.",
   "callToFight": "If you want to discharge your energy on someone, do it here! There are a lot of Brutes in the Arena who can't wait to swap punches!",
@@ -297,7 +297,7 @@
   "follow": "Follow",
   "followed": "Followed",
   "hammer.desc": "Una tecnica di lotta libera che consiste nel lanciarsi in aria con l'avversario per poi cadergli addosso.",
-  "hammer.effect": "Azione x<uses /> Il tuo Bruto infligge danni pesanti che dipendono della forza del tuo avversario.",
+  "hammer.effect": "Action x<uses /> Your Brute inflicts heavy damage depending on the strength of your opponent. Drops your shield if you have one.",
   "haste.desc": "Have you always dreamed of moving as fast as a ninja? That's good, it's time!",
   "haste.effect": "Action x<uses /> Your brute will rush through your opponent, dealing additional damage that scales with your speed.",
   "heavy": "heavy",
@@ -560,5 +560,6 @@
   "regenerationStat": "Regeneration",
   "usageRate": "Usage Rate",
   "damage": "Damage",
-  "authing": "Authenticating..."
+  "authing": "Authenticating...",
+  "dojoRank": "Dojo rank {{rank}}"
 }

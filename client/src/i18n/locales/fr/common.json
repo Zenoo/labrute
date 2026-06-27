@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "Un peu comme une bombe à eau, mais en plus méchant !",
   "bomb.effect": "Action x<uses /> Entre 15 et 25 dégâts sur tous les adversaires.",
-  "bruteCell": "Cellule de {{name}}",
+  "bruteCell": "Cellule de <name />",
   "bruteIsResting": "{{brute}} se repose.",
   "bruteNotRegistered": "Brute non inscrite.",
   "callToFight": "Si tu as envie de te défouler sur quelqu'un, fait le ici ! Il y a plein d'autres Brutes dans l'arène qui ne demandent qu'à échanger quelques gnons !",
@@ -297,7 +297,7 @@
   "follow": "Suivre",
   "followed": "Suivi",
   "hammer.desc": "Une technique de catch qui consiste à sauter avec l'adversaire et retomber dessus.",
-  "hammer.effect": "Action x<uses /> Ta brute inflige de gros dégâts qui dépendent de la force de ton adversaire.",
+  "hammer.effect": "Action x<uses /> Ta brute inflige de gros dégâts qui dépendent de la force de ton adversaire. Lâche votre bouclier si vous en avez un.",
   "haste.desc": "Tu as toujours rêvé de te déplacer aussi vite qu’un ninja ? Ça tombe bien, c’est le moment !",
   "haste.effect": "Action x<uses /> Ta brute se précipite à travers son adversaire, infligeant des dégâts supplémentaires qui augmentent avec sa vitesse.",
   "heavy": "lourd",
@@ -560,5 +560,6 @@
   "regenerationStat": "Régénération",
   "usageRate": "Taux d'utilisation",
   "damage": "Dégâts",
-  "authing": "Authentification en cours..."
+  "authing": "Authentification en cours...",
+  "dojoRank": "Dojo rang {{rank}}"
 }

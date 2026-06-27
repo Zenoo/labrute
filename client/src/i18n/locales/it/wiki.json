@@ -36,6 +36,6 @@
   "resetExample2": "It will cost you 100 gold and your brute will restart at level 1 with the same rank.",
   "pupils": "Pupils",
   "whatPupilBenefits": "What are their benefits?",
-  "pupilBenefits": "None (for now)",
-  "pupilExplanation": "Pupils don't give XP as they used to in previous game versions. But you can still get pupils by sharing the link in the top right corner of your cell."
+  "pupilBenefits": "Dojo rank",
+  "pupilExplanation": "Pupils don't give XP as they used to in previous game versions. Instead, they increase your dojo rank. You can get pupils by sharing the link in the top right corner of your cell."
 }

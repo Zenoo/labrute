@@ -36,6 +36,6 @@
   "resetExample2": "Es wird dich 100 Gold kosten und dein Brutalo wird auf dem gleichen Rang wieder von Stufe 1 an anfangen.",
   "pupils": "Schüler",
   "whatPupilBenefits": "Was sind ihre Vorteile?",
-  "pupilBenefits": "Keine (momentan)",
-  "pupilExplanation": "Schüler geben keine EP wie in vorherigen Versionen des Spiels. Aber es ist immer noch möglich, Schüler zu rekrutieren, indem du den Link in der rechten oberen Ecke deiner Zelle teilst."
+  "pupilBenefits": "Dojo-Rang",
+  "pupilExplanation": "Schüler gewähren keine EP wie in ehemaligen Versionen des Spiels. Stattdessen erhöhen sie den Dojo-Rang. Mehr Schüler bekommst du, indem du den Link in der rechten oberen Ecke deiner Zelle teilst."
 }

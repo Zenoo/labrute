@@ -1,0 +1,9 @@
+{
+  "title": "Conditions d'utilisation",
+  "description": "En jouant à ce jeu, vous acceptez les conditions générales suivantes. Veuillez les lire attentivement.",
+  "multipleAccounts": "Seul un seul compte par utilisateur est autorisé. La création de plusieurs comptes entraînera un bannissement permanent de tous les comptes.",
+  "bots": "Il est strictement interdit d'utiliser des robots ou des moyens automatisés pour jouer au jeu. N'importe quel joueur trouvé utilisant des robots aura tous les comptes associés définitivement bannis.",
+  "bugAbuse": "Exploiter des bugs dans le jeu pour un gain personnel n'est pas autorisé. Si vous découvrez un bug, merci de le signaler aux développeurs. Abuser des bugs entraînera la suspension ou le bannissement de compte.",
+  "accept": "Accepter",
+  "termsAccepted": "Vous avez accepté les conditions d'utilisation. Merci de jouer de manière responsable."
+}

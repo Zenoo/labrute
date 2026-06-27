@@ -226,7 +226,7 @@
   "bodybuilder.effect": "",
   "bomb.desc": "Es como un globito de agua, pero con más mala idea.",
   "bomb.effect": "Acción x<uses /> Inflige entre 15 y 25 de daño a todos tus oponentes.",
-  "bruteCell": "Celda de {{name}}",
+  "bruteCell": "<name />'s cell",
   "bruteIsResting": "{{brute}} está descansando.",
   "bruteNotRegistered": "Inscripción no registrada.",
   "callToFight": "Si tienes ganas de descargar tu energía sobre alguien, ¡hazlo aquí! Hay muchos Brutos en la arena deseando intercambiar puñetazos...",
@@ -297,7 +297,7 @@
   "follow": "Seguir",
   "followed": "Seguido",
   "hammer.desc": "Una técnica de agarre que consiste en levantar por los aires a tu oponente y luego aplastarlo.",
-  "hammer.effect": "Acción x<uses /> Tu bruto inflige un gran daño dependiendo de la fuerza del oponente.",
+  "hammer.effect": "Action x<uses /> Your Brute inflicts heavy damage depending on the strength of your opponent. Drops your shield if you have one.",
   "haste.desc": "¿Siempre has soñado con moverte tan rápido como un ninja? ¡Es el momento!",
   "haste.effect": "Acción x<uses /> Tu Bruto arrollará a su oponente, infligiendo daño adicional que aumenta con tu velocidad.",
   "heavy": "pesado",
@@ -560,5 +560,6 @@
   "regenerationStat": "Regeneración",
   "usageRate": "Tasa de uso",
   "damage": "Daño",
-  "authing": "Autenticando..."
+  "authing": "Autenticando...",
+  "dojoRank": "Dojo rank {{rank}}"
 }
