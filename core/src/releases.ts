@@ -7,26 +7,45 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.95.9',
-  date: '2026-05-24',
+  version: '2.97.0',
+  date: '2026-06-27',
   features: [
-    'A new item called Customization Token has been added to the inventory. It can be used to unlock new colors for your brute in the customization page. Every brute gets one per rank up.',
-    'Skill modifiers (+XX% Stat) are now additive instead of multiplicative. +50% +50% now equals +100% instead of +125%.',
+    'The dojo is back ! Sharing the link you can find in your cell with other people will allow them to join your dojo after creating a brute. Multiple accounts are still not allowed, so if you are found to create accounts to abuse this feature, all your accounts will be banned. Your dojo will evolve the more pupils you have, and you will unlock medals at certain milestones.',
+    'Users are now required to accept the terms of service before being able to play the game.',
+    'The game engine was updated to its latest version. This might introduce some visual bugs, please report them on Discord if you find any.',
   ],
   fixes: [
-    'Skills displayed as correct tier in fights',
-    'Most of the wrong translations should be fixed',
-    'The new high res brutes prevented people from selecting the correct opponent in the arena, not anymore',
-    'The skills row in fights gets now bumped up when you have no weapons left to preserve space',
-    'Multiple account players are now banned automatically daily',
-    'Negative speeds are now handled correctly, instead of giving near infinite speed',
-    'Brutes with equal level and XP are now ranked by their name, instead of randomly',
-    'Perk unlocks/upgrades are now correctly displayed in the destiny view'
+    'Nearby brutes displayed in event brute rankings',
+    'Rankings (brutes/achievements) are now calculated daily',
+    'Unlimited global tournament links fixed in the tournament history',
+    'All inventory items now have their own custom icons',
+    'A lot of fixes/tweaks regarding multiple account detection/handling',
+    'Banned/deleted users are now permanently deleted 30 days after',
+    'Achievement conditions now ignore tiered perks'
   ],
-  attachments: ['customizationToken.png', 'unlockColor.png'],
+  attachments: ['dojo.png', 'tos.png'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.95.9',
+    date: '2026-05-24',
+    features: [
+      'A new item called Customization Token has been added to the inventory. It can be used to unlock new colors for your brute in the customization page. Every brute gets one per rank up.',
+      'Skill modifiers (+XX% Stat) are now additive instead of multiplicative. +50% +50% now equals +100% instead of +125%.',
+    ],
+    fixes: [
+      'Skills displayed as correct tier in fights',
+      'Most of the wrong translations should be fixed',
+      'The new high res brutes prevented people from selecting the correct opponent in the arena, not anymore',
+      'The skills row in fights gets now bumped up when you have no weapons left to preserve space',
+      'Multiple account players are now banned automatically daily',
+      'Negative speeds are now handled correctly, instead of giving near infinite speed',
+      'Brutes with equal level and XP are now ranked by their name, instead of randomly',
+      'Perk unlocks/upgrades are now correctly displayed in the destiny view'
+    ],
+    attachments: ['customizationToken.png', 'unlockColor.png'],
+  },
   {
     version: '2.93.0',
     date: '2026-05-14',
