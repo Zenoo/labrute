@@ -2,7 +2,7 @@
 
 "background.jpg":
 {
-	"frame": {"x":1,"y":138,"w":505,"h":295},
+	"frame": {"x":1,"y":1,"w":505,"h":295},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":505,"h":295},
@@ -10,47 +10,47 @@
 },
 "beam-left.png":
 {
-	"frame": {"x":1,"y":22,"w":114,"h":207},
+	"frame": {"x":1,"y":409,"w":104,"h":211},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":46,"y":0,"w":114,"h":207},
+	"spriteSourceSize": {"x":55,"y":0,"w":104,"h":211},
 	"sourceSize": {"w":505,"h":295}
 },
 "beam-right.png":
 {
-	"frame": {"x":210,"y":22,"w":114,"h":222},
+	"frame": {"x":298,"y":298,"w":104,"h":208},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":375,"y":0,"w":114,"h":222},
+	"spriteSourceSize": {"x":340,"y":0,"w":104,"h":208},
 	"sourceSize": {"w":505,"h":295}
 },
 "temple-1.png":
 {
-	"frame": {"x":1,"y":1,"w":103,"h":19},
+	"frame": {"x":298,"y":404,"w":196,"h":83},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":312,"y":61,"w":103,"h":19},
+	"spriteSourceSize": {"x":309,"y":0,"w":196,"h":83},
 	"sourceSize": {"w":505,"h":295}
 },
 "temple-2.png":
 {
-	"frame": {"x":106,"y":1,"w":106,"h":19},
+	"frame": {"x":214,"y":489,"w":215,"h":88},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":115,"y":57,"w":106,"h":19},
+	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":88},
 	"sourceSize": {"w":505,"h":295}
 },
 "temple-3.png":
 {
-	"frame": {"x":214,"y":1,"w":106,"h":19},
+	"frame": {"x":1,"y":515,"w":96,"h":77},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":289,"y":28,"w":106,"h":19},
+	"spriteSourceSize": {"x":274,"y":1,"w":96,"h":77},
 	"sourceSize": {"w":505,"h":295}
 },
 "temple-4.png":
 {
-	"frame": {"x":322,"y":1,"w":107,"h":19},
+	"frame": {"x":99,"y":515,"w":107,"h":19},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":132,"y":23,"w":107,"h":19},
@@ -58,10 +58,10 @@
 },
 "tent.png":
 {
-	"frame": {"x":431,"y":1,"w":58,"h":19},
-	"rotated": false,
+	"frame": {"x":1,"y":298,"w":109,"h":295},
+	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":10,"y":161,"w":58,"h":19},
+	"spriteSourceSize": {"x":0,"y":0,"w":109,"h":295},
 	"sourceSize": {"w":505,"h":295}
 }},
 "animations": {
@@ -72,8 +72,8 @@
 	"version": "1.1",
 	"image": "dojo.png",
 	"format": "RGBA8888",
-	"size": {"w":507,"h":434},
+	"size": {"w":507,"h":593},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:94312bc204fe616506737d465f600d93:295cf3467145e989bc47463f12a15489:9d3173ac93dd98e15300512168fafc12$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0652a53fe5968db4fa68106fc5a7d9d4:123310ff3b68322f037ca668bddfa267:9d3173ac93dd98e15300512168fafc12$"
 }
 }

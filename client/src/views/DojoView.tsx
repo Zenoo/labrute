@@ -234,11 +234,12 @@ export const DojoView = () => {
       }
 
       // Temple 4
-      if (pupils.length > DOJO_UNLOCKS[5] - 1) {
-        const temple4 = new Sprite(spritesheet.textures[`temple-4.png`]);
-        temple4.zIndex = 5;
-        app.stage.addChild(temple4);
-      }
+      // TODO: Reenable this when the assets are ready
+      // if (pupils.length > DOJO_UNLOCKS[5] - 1) {
+      //   const temple4 = new Sprite(spritesheet.textures[`temple-4.png`]);
+      //   temple4.zIndex = 5;
+      //   app.stage.addChild(temple4);
+      // }
 
       // Tent
       if (pupils.length > DOJO_UNLOCKS[6] - 1) {
