@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.0](https://github.com/Zenoo/labrute/compare/labrute-v2.96.9...labrute-v2.97.0) (2026-06-27)
+
+
+### Features
+
+* Display dojo master + 9 first pupils ([d056279](https://github.com/Zenoo/labrute/commit/d05627955a6a348a5ae756c3fb544a83e07a2ef5))
+* Dojo ([ccf2815](https://github.com/Zenoo/labrute/commit/ccf28158749d7d29032bf693401865afaf02690a))
+* Dojo rank icon ([23aea73](https://github.com/Zenoo/labrute/commit/23aea7301cb977d359c5772fcb9efec770c5f0e1))
+* Pixi v7 ([b70cad8](https://github.com/Zenoo/labrute/commit/b70cad8a0874098a01b5242423f1f13c2779976f))
+* Pixi v8 ([69bb62f](https://github.com/Zenoo/labrute/commit/69bb62f956b57049f366966da40c51d0714d6e9d))
+* Terms of service page. Fixes [#1384](https://github.com/Zenoo/labrute/issues/1384) ([64df264](https://github.com/Zenoo/labrute/commit/64df264c07d3430b007cf370f5a0b405a6396aef))
+
+
+### Bug Fixes
+
+* Add credit MDs ([8548b17](https://github.com/Zenoo/labrute/commit/8548b1797f5dab261e946bac0ab6d5f25a0eec01))
+* Add GH links to contributors ([95734eb](https://github.com/Zenoo/labrute/commit/95734eb3cf65f3cb2ec011e0f55815fc83195292))
+* Add graphic designers to contributors ([7740b25](https://github.com/Zenoo/labrute/commit/7740b25b248da13f7434286a63af3370cd337660))
+* Add Piledriver shield note ([ab01fc9](https://github.com/Zenoo/labrute/commit/ab01fc9c2af1f469b5d890bef27fb43a794974a0))
+* Dojo assets (mostly) ([3ce81df](https://github.com/Zenoo/labrute/commit/3ce81df189313aee80f81904c82245e39537dbd0))
+* Dojo wiki explanation ([85d6198](https://github.com/Zenoo/labrute/commit/85d619835bcd0f4ec6989b7b6fcf79b7e95b86b3))
+* Increase public API security ([47827ac](https://github.com/Zenoo/labrute/commit/47827ac6401540e8d9a83c293d917ecb857952bd))
+* Mention contributors path in readme ([140aa82](https://github.com/Zenoo/labrute/commit/140aa82d2c3ee581b36b3ca33f96790338527e91))
+* Move credits to base dir ([a3c2c1e](https://github.com/Zenoo/labrute/commit/a3c2c1e9210c15196c2fb9c48e6591b6f74bc299))
+* Release notes ([1d88b08](https://github.com/Zenoo/labrute/commit/1d88b08967f78ef7e746fa4138fee06d60377707))
+* Remove pixi-tweener dep ([5711d09](https://github.com/Zenoo/labrute/commit/5711d096ca4141e1972b32e9d6dfcc3b6076c869))
+
 ## [2.96.9](https://github.com/Zenoo/labrute/compare/labrute-v2.96.8...labrute-v2.96.9) (2026-06-18)
 
 
