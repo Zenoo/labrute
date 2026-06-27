@@ -35,16 +35,6 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
     return sendError(res, error);
   }
 
-  const browserId = req.cookies?.browserId;
-
-  if (typeof browserId !== 'string' || !browserId.length) {
-    if (!hasAuthorization) {
-      return sendError(res, new ForbiddenError('Missing browser ID'));
-    }
-  } else {
-    req.security.browserId = browserId;
-  }
-
   try {
     checkPredictableHeaders(req.headers);
     req.security.validHeaders = true;
@@ -56,9 +46,19 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
     }
   }
 
-  // Don't check fingerprint for /fpe
+  // Don't check fingerprint or browserId for /fpe
   if (req.path === '/api/fpe') {
     return next();
+  }
+
+  const browserId = req.cookies?.browserId;
+
+  if (typeof browserId !== 'string' || !browserId.length) {
+    if (!hasAuthorization) {
+      return sendError(res, new ForbiddenError('Missing browser ID'));
+    }
+  } else {
+    req.security.browserId = browserId;
   }
 
   const fingerprint = req.headers[FINGERPRINT_HEADER];
