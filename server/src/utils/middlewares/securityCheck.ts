@@ -28,6 +28,11 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
     return next();
   }
 
+  // Allow /api/user/:userId/done since it's called from external apps
+  if (req.path.startsWith('/api/user/') && req.path.endsWith('/done')) {
+    return next();
+  }
+
   if (req.headers[VERSION_HEADER] !== Version) {
     const lang = req.headers[LANGUAGE_HEADER];
     const error = new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
