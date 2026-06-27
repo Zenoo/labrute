@@ -1,20 +1,11 @@
 import {
-  checkPredictableHeaders,
-  ExpectedError,
-  FINGERPRINT_HEADER,
-  ForbiddenError,
+  ExpectedError, ForbiddenError,
   FORWARDED_FOR_HEADER,
-  isUuid,
-  LANGUAGE_HEADER,
-  NotFoundError,
+  isUuid, NotFoundError,
   PREDICTABLE_HEADERS_PREFIX,
-  REAL_IP_HEADER,
-  VERSION_HEADER,
-  Version,
+  REAL_IP_HEADER
 } from '@labrute/core';
-import {
-  Lang, Prisma, PrismaClient
-} from '@labrute/prisma';
+import { Prisma, PrismaClient } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request } from 'express';
 import { ServerState } from './ServerState.js';
@@ -28,27 +19,17 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   moderator?: boolean;
   skipFingerprintCheck?: boolean;
 }) => {
-  if (request.headers[VERSION_HEADER] !== Version) {
-    const lang = request.headers[LANGUAGE_HEADER];
-    throw new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
-  }
-
   const {
     authorization,
-    [FINGERPRINT_HEADER]: fingerprint,
   } = request.headers;
+
+  const fingerprint = request.security?.fingerprint;
 
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');
   }
   if (typeof authorization !== 'string') {
     throw new ExpectedError('Invalid authorization header');
-  }
-  if (typeof fingerprint !== 'string') {
-    throw new ExpectedError('Invalid fingerprint header');
-  }
-  if (!fingerprint.length) {
-    throw new ExpectedError('Invalid fingerprint header length');
   }
 
   const [id, token] = Buffer.from(authorization.split(' ')[1] || '', 'base64')
@@ -137,7 +118,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // (if the user doesn't have this fingerprint in database,
   // it means it was tampered with, as fingerprints can only
   // be added by the server after verification)
-  if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint)) {
+  if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint ?? '')) {
     // Ban fingerprints for tampering/cheating attempts
     await banUser(prisma, user.id, 'unrecognized_fingerprint', undefined, { banFingerprints: true });
     DISCORD().logObject({
@@ -151,9 +132,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
   // Check expected headers
-  try {
-    checkPredictableHeaders(request.headers);
-  } catch (_error) {
+  if (!request.security?.validHeaders) {
     // Ban fingerprints for tampering attempts
     await banUser(prisma, user.id, 'headers_tampering', undefined, { banFingerprints: true });
     DISCORD().logObject(
@@ -177,7 +156,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     }));
   }
 
-  const browserId = request.cookies?.browserId as string | undefined;
+  const browserId = request.security?.browserId;
 
   // Ban users without browser ID (most likely scripts/bots)
   if (!browserId) {

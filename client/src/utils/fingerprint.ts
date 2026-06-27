@@ -1,5 +1,7 @@
 import { GetResult } from '@fingerprintjs/fingerprintjs';
-import { BASE64_ALPHABET, FINGERPRINT_PRNG, OBFUSCATED_ALPHABET } from '@labrute/core';
+import {
+  BASE64_ALPHABET, FINGERPRINT_PRNG, OBFUSCATED_ALPHABET
+} from '@labrute/core';
 
 // A simple store for the fingerprint
 let fingerprint: string | undefined;
@@ -20,7 +22,7 @@ export const formatFP = (obj: GetResult): string => {
     // Simple LCG for pseudo-random
     const prng = FINGERPRINT_PRNG(seed, i);
     const xor = prng % 256;
-    // eslint-disable-next-line no-bitwise
+
     return String.fromCharCode(ch.charCodeAt(0) ^ xor);
   }).join('');
 

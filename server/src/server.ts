@@ -14,6 +14,7 @@ import { initRoutes } from './routes.js';
 import { lockMiddleware } from './utils/middlewares/locks.js';
 import { readyCheck } from './utils/middlewares/readyCheck.js';
 import { ServerState } from './utils/ServerState.js';
+import { securityCheck } from './utils/middlewares/securityCheck.js';
 
 export function main(cx: ServerContext) {
   cx.logger.info(`Server started (v${Version})`);
@@ -79,6 +80,7 @@ export function main(cx: ServerContext) {
   );
   app.use(lockMiddleware);
   app.use(readyCheck);
+  app.use(securityCheck);
 
   app.listen(port, () => {
     // Update server state to hold traffic
