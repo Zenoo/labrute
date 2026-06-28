@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.7](https://github.com/Zenoo/labrute/compare/labrute-v2.97.6...labrute-v2.97.7) (2026-06-28)
+
+
+### Bug Fixes
+
+* Allow fpe without version check ([9062b1f](https://github.com/Zenoo/labrute/commit/9062b1fef00a2188ffbcb3fcfbcaf021062f564d))
+
 ## [2.97.6](https://github.com/Zenoo/labrute/compare/labrute-v2.97.5...labrute-v2.97.6) (2026-06-28)
 
 
