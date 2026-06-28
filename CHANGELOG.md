@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.3](https://github.com/Zenoo/labrute/compare/labrute-v2.97.2...labrute-v2.97.3) (2026-06-28)
+
+
+### Bug Fixes
+
+* Optimize fight render perfs ([93a3d69](https://github.com/Zenoo/labrute/commit/93a3d699ca0cb0778a6d0f184269ed6742efd8b4))
+
 ## [2.97.2](https://github.com/Zenoo/labrute/compare/labrute-v2.97.1...labrute-v2.97.2) (2026-06-27)
 
 
