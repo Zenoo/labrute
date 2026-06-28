@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.4](https://github.com/Zenoo/labrute/compare/labrute-v2.97.3...labrute-v2.97.4) (2026-06-28)
+
+
+### Bug Fixes
+
+* Misaligned fierce brute ghosts ([70df659](https://github.com/Zenoo/labrute/commit/70df659bbe23708a8eded6cc47203e61209ced7e))
+
 ## [2.97.3](https://github.com/Zenoo/labrute/compare/labrute-v2.97.2...labrute-v2.97.3) (2026-06-28)
 
 
