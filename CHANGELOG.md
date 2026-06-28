@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.5](https://github.com/Zenoo/labrute/compare/labrute-v2.97.4...labrute-v2.97.5) (2026-06-28)
+
+
+### Bug Fixes
+
+* Color unlock preview after Pixi migration ([2f65a0d](https://github.com/Zenoo/labrute/commit/2f65a0dee73e50badce5fb345ff12ccf372e577d))
+
 ## [2.97.4](https://github.com/Zenoo/labrute/compare/labrute-v2.97.3...labrute-v2.97.4) (2026-06-28)
 
 
