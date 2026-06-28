@@ -1,9 +1,9 @@
 {
-  "title": "Terms of Service",
-  "description": "By playing this game, you agree to the following terms and conditions. Please read them carefully.",
-  "multipleAccounts": "Only a single account per user is allowed. Creating multiple accounts will result in all accounts being permanently banned.",
-  "bots": "Using bots or any automated means to play the game is strictly prohibited. Any player found to be using bots will have all related accounts permanently banned.",
-  "bugAbuse": "Exploiting bugs or glitches in the game for personal gain is not allowed. If you discover a bug, please report it to the developers. Abusing bugs will result in account suspension or banning.",
-  "accept": "Accept",
-  "termsAccepted": "You have accepted the terms of service. Thank you for playing responsibly."
+  "title": "Términos del servicio",
+  "description": "Al jugar este juego, estás de acuerdo con los siguientes términos y condiciones. Por favor, lee cuidadosamente.",
+  "multipleAccounts": "Sólo se permite una sola cuenta por usuario. La creación de múltiples cuentas resultará en que todas las cuentas sean permanentemente prohibidas.",
+  "bots": "El uso de bots o cualquier medio automatizado para jugar el juego está estrictamente prohibido. Cualquier jugador que se encuentre usando bots tendrá todas las cuentas relacionadas permanentemente prohibidas.",
+  "bugAbuse": "No está permitido explotar bugs o errores en el juego para obtener ganancias personales. Si descubres un error, por favor infórmanos a los desarrolladores. Abusar errores provocará la suspensión de la cuenta o la prohibición.",
+  "accept": "Aceptar",
+  "termsAccepted": "Has aceptado los términos del servicio. Gracias por jugar de forma responsable."
 }
