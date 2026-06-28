@@ -18,8 +18,13 @@ export const isRangedStep = (stepType: StepType) => rangedSteps.includes(stepTyp
 export const repositionFighters = async (
   fighters: AnimationFighter[],
   speed: React.MutableRefObject<number>,
+  excludedFighterId?: string,
 ) => {
+  const repositioning: Promise<void>[] = [];
+
   for (const fighter of fighters) {
+    if (excludedFighterId && fighter.id === excludedFighterId) continue;
+
     // Can't reposition if dead or stunned or trapped
     if (fighter.dead || fighter.stunned || fighter.trapped) continue;
 
@@ -29,11 +34,15 @@ export const repositionFighters = async (
     if ((fighter.animation.container.x > 225 && fighter.team === 'L')
       || (fighter.animation.container.x < 275 && fighter.team === 'R')) {
       // Move back to the right half of the map
-      await moveBack(
-        fighters,
-        { a: StepType.MoveBack, f: fighter.index },
-        speed,
+      repositioning.push(
+        moveBack(
+          fighters,
+          { a: StepType.MoveBack, f: fighter.index },
+          speed,
+        )
       );
     }
   }
+
+  await Promise.all(repositioning);
 };

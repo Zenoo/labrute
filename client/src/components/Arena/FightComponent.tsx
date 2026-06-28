@@ -116,6 +116,17 @@ const sounds = [
   'vampirism'
 ];
 
+const SHOW_FIGHT_PERFORMANCE_STATS = localStorage.getItem('showFightPerformanceStats') === 'true';
+
+const loadFightSpritesheet = async (path: string, cachePrefix: string): Promise<Spritesheet> => {
+  const spritesheet = await Assets.load({
+    src: path,
+    data: { cachePrefix },
+  }) as Spritesheet;
+
+  return spritesheet;
+};
+
 export type FightComponentProps = {
   fight: FightGetResponse | null;
 }
@@ -294,9 +305,9 @@ export const FightComponent = ({
       app.ticker.speed = 0.5;
 
       const spritesheets: Spritesheets = {
-        thrownWeapons: await Assets.load('/images/game/thrown-weapons.json') as Spritesheet,
-        misc: await Assets.load('/images/game/misc.json') as Spritesheet,
-        skills: await Assets.load('/images/game/skills.json') as Spritesheet,
+        thrownWeapons: await loadFightSpritesheet('/images/game/thrown-weapons.json', 'fight/thrownWeapons/'),
+        misc: await loadFightSpritesheet('/images/game/misc.json', 'fight/misc/'),
+        skills: await loadFightSpritesheet('/images/game/skills.json', 'fight/skills/'),
       };
 
       if (!spritesheets.thrownWeapons || !spritesheets.misc || !spritesheets.skills) {
@@ -347,6 +358,7 @@ export const FightComponent = ({
         toggleTooltip,
         renderer,
         spritesheets,
+        SHOW_FIGHT_PERFORMANCE_STATS,
         () => disposed,
       );
 

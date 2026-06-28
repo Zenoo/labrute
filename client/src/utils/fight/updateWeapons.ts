@@ -65,7 +65,7 @@ export const updateWeapons = (
 
       if (tier > 1) {
         sprite.filters = [new OutlineFilter({
-          thickness: undefined,
+          thickness: 1,
           color: parseInt(TieredPerkColor[tier]?.slice(1) ?? '0', 16),
         })];
       }

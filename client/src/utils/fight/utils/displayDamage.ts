@@ -5,6 +5,8 @@ import { AnimationFighter } from './findFighter';
 import { insideXBounds } from './insideXBounds';
 import { tween } from './tween';
 
+const DAMAGE_TEXT_OUTLINE_FILTER = new OutlineFilter();
+
 export const displayDamage = ({
   app,
   target,
@@ -29,7 +31,7 @@ export const displayDamage = ({
   });
   damageText.anchor.set(0.5);
   damageText.zIndex = 1000;
-  damageText.filters = [new OutlineFilter()];
+  damageText.filters = [DAMAGE_TEXT_OUTLINE_FILTER];
 
   damageText.x = insideXBounds(target.animation.container.x);
 

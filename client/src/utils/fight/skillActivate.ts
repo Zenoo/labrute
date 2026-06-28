@@ -4,7 +4,7 @@ import {
 } from '@labrute/core';
 import {
   AnimatedSprite, Application, Sprite,
-  Ticker
+  Texture, Ticker
 } from 'pixi.js';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
 
@@ -109,48 +109,57 @@ export const skillActivate = async (
     if (step.s === SkillId.fierceBrute) {
       brute.fierceBrute = true;
 
-      // Ghost creation interval
-      const ghostInterval = 2;
       // Number of ghosts
       const maxGhosts = 6;
       // Ghost array
       const ghosts: Sprite[] = [];
+      const ghostFilters: AdjustmentFilter[] = [];
       let currentIndex = maxGhosts;
-      let timeSinceLastGhost = ghostInterval;
+      let timeSinceLastGhostMs = 0;
       // Ticker update function
       const update = (ticker: Ticker) => {
-        timeSinceLastGhost += ticker.deltaTime * speed.current;
+        const targetIntervalMs = Math.max(
+          18,
+          Math.min(33, 1000 / (35 * speed.current)),
+        );
+
+        timeSinceLastGhostMs += ticker.deltaMS;
         // No ghost creation
-        if (timeSinceLastGhost < ghostInterval) return;
-        timeSinceLastGhost -= ghostInterval;
+        if (timeSinceLastGhostMs < targetIntervalMs) return;
+        timeSinceLastGhostMs -= targetIntervalMs;
         // FierceBrute end
         if (!brute?.fierceBrute) {
-          // Remove ghosts from stage
-          for (const ghost of ghosts) app.stage.removeChild(ghost);
+          // Remove ghosts from stage and release generated textures.
+          for (const ghost of ghosts) {
+            app.stage.removeChild(ghost);
+            const texture = ghost.texture;
+            if (texture && texture !== Texture.EMPTY) {
+              texture.destroy(true);
+            }
+            ghost.destroy();
+          }
           // Remove update from ticker
           app.ticker.remove(update);
           return;
         }
         // Update ghosts color filter
-        for (const ghost of ghosts) {
-          if (ghost) {
-            const filter = ghost.filters?.find(
-              (f) => f instanceof AdjustmentFilter
-            ) as AdjustmentFilter | null;
-            if (filter) {
-              filter.blue += 0.16;
-              filter.red -= 0.28;
-            }
+        for (const filter of ghostFilters) {
+          if (filter) {
+            filter.blue += 0.16;
+            filter.red -= 0.28;
           }
         }
         // Add ghost
         currentIndex = (currentIndex + 1) % maxGhosts;
         let ghost = ghosts[currentIndex];
+        let filter = ghostFilters[currentIndex];
         if (!ghost) {
           ghost = new Sprite();
+          filter = new AdjustmentFilter();
           ghosts[currentIndex] = ghost;
+          ghostFilters[currentIndex] = filter;
           app.stage.addChild(ghost);
-          ghost.filters = [new AdjustmentFilter()];
+          ghost.filters = [filter];
         }
         // Reposition last ghost
         if (ghost) {
@@ -158,17 +167,20 @@ export const skillActivate = async (
             // Hide shadow before texture copy
             brute.animation.shadow.visible = false;
             // Get brute's current texture
+            const previousTexture = ghost.texture;
             ghost.texture = app.renderer.generateTexture(brute.animation.container);
-            // Position ghost behind brute
-            const fighterBounds = brute.animation.container.getBounds().rectangle;
-            ghost.position.set(fighterBounds.x, fighterBounds.y);
+            if (previousTexture && previousTexture !== Texture.EMPTY) {
+              previousTexture.destroy(true);
+            }
+            // Position ghost behind brute (avoids costly bounds computation each update).
+            ghost.position.set(
+              brute.animation.container.x,
+              brute.animation.container.y - brute.animation.baseHeight,
+            );
             ghost.anchor.set(brute.animation.container.scale.x === 1 ? 0 : 1, 0);
             ghost.scale = brute.animation.container.scale;
             ghost.zIndex = brute.animation.container.zIndex - 1;
             // Reset color filter
-            const filter = ghost.filters?.find(
-              (f) => f instanceof AdjustmentFilter
-            ) as AdjustmentFilter | null;
             if (filter) {
               filter.blue = 0.9;
               filter.red = 2.4;

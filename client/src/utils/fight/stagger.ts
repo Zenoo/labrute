@@ -5,7 +5,7 @@ import { tween } from './utils/tween';
 
 const staggerObject = async (
   object: Container | Sprite,
-  team: 'L' | 'R',
+  _team: 'L' | 'R',
   speed: React.MutableRefObject<number>,
   // StaggerObject has an intergrated knockBack fonctionnality
   // It doesn't use the knockBack module as the two are x translations
@@ -13,46 +13,34 @@ const staggerObject = async (
   knockBack: number = 0,
   duration: number = 0.5,
 ) => {
-  await tween(object, {
-    duration: (duration * 0.1) / speed.current,
-    ease: 'none',
-    x: object.x + knockBack * 0.1 + (team === 'L' ? -8 : 8)
-  });
+  const deltas = [
+    knockBack * 0.1 + 8,
+    knockBack * 0.1 + -4,
+    knockBack * 0.1 + 4,
+    knockBack * 0.1 + -4,
+    knockBack * 0.2 + 4,
+    knockBack * 0.2 + -8,
+    knockBack * 0.2,
+  ];
+  const segments = [0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2];
+
+  const baseX = object.x;
+  const keyframes: { x: number; duration: number }[] = [];
+  let currentX = baseX;
+
+  for (let i = 0; i < deltas.length; i++) {
+    const delta = deltas[i] ?? 0;
+    const segment = segments[i] ?? 0;
+    currentX += delta;
+    keyframes.push({
+      x: currentX,
+      duration: (duration * segment) / speed.current,
+    });
+  }
 
   await tween(object, {
-    duration: (duration * 0.1) / speed.current,
     ease: 'none',
-    x: object.x + knockBack * 0.1 + (team === 'L' ? 4 : -4)
-  });
-
-  await tween(object, {
-    duration: (duration * 0.1) / speed.current,
-    ease: 'none',
-    x: object.x + knockBack * 0.1 + (team === 'L' ? -4 : 4)
-  });
-
-  await tween(object, {
-    duration: (duration * 0.1) / speed.current,
-    ease: 'none',
-    x: object.x + knockBack * 0.1 + (team === 'L' ? 4 : -4)
-  });
-
-  await tween(object, {
-    duration: (duration * 0.2) / speed.current,
-    ease: 'none',
-    x: object.x + knockBack * 0.2 + (team === 'L' ? -4 : 4)
-  });
-
-  await tween(object, {
-    duration: (duration * 0.2) / speed.current,
-    ease: 'none',
-    x: object.x + knockBack * 0.2 + (team === 'L' ? 8 : -8)
-  });
-
-  await tween(object, {
-    duration: (duration * 0.2) / speed.current,
-    ease: 'none',
-    x: object.x + knockBack * 0.2
+    keyframes,
   });
 };
 

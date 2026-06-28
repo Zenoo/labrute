@@ -23,7 +23,7 @@ export const moveTo = async (
   // Filter the only moveTo case outside of neutral (melee repositioning)
   if (!step.r) {
     // Reposition mispositionned other fighters before moveTo
-    await repositionFighters(fighters.filter((f) => f.id !== fighter.id), speed);
+    await repositionFighters(fighters, speed, fighter.id);
   }
 
   // Set animation to `run`

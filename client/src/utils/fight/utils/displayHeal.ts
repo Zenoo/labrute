@@ -4,6 +4,8 @@ import { AnimationFighter } from './findFighter';
 import { OutlineFilter } from 'pixi-filters/outline';
 import { tween } from './tween';
 
+const HEAL_TEXT_OUTLINE_FILTER = new OutlineFilter();
+
 export const displayHeal = (
   app: Application,
   fighter: AnimationFighter,
@@ -21,7 +23,7 @@ export const displayHeal = (
   healText.x = insideXBounds(fighter.animation.container.x);
   healText.y = fighter.animation.container.y - fighter.animation.container.height;
   healText.zIndex = 1000;
-  healText.filters = [new OutlineFilter()];
+  healText.filters = [HEAL_TEXT_OUTLINE_FILTER];
   app.stage.addChild(healText);
 
   tween(healText, {

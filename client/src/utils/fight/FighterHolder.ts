@@ -500,6 +500,8 @@ export class FighterHolder {
 
   svgs: Sprite[] = [];
 
+  #svgsByLabel = new Map<string, Sprite[]>();
+
   speed: MutableRefObject<number>;
 
   #frameCount = 0;
@@ -1029,6 +1031,13 @@ export class FighterHolder {
 
             this.container.addChild(svgSprite);
             this.svgs.push(svgSprite);
+
+            const sprites = this.#svgsByLabel.get(svg.name);
+            if (sprites) {
+              sprites.push(svgSprite);
+            } else {
+              this.#svgsByLabel.set(svg.name, [svgSprite]);
+            }
           };
 
           const cacheKey = `${svg.name}|${renderScale}`;
@@ -1079,8 +1088,7 @@ export class FighterHolder {
     if (!symbolContainer || !symbol) return;
 
     if (symbol.type === 'svg') {
-      const sprite = this.svgs
-        .filter((s) => s.label === symbol.name)[this.#usedSvgs[symbol.name] ?? 0];
+      const sprite = this.#svgsByLabel.get(symbol.name)?.[this.#usedSvgs[symbol.name] ?? 0];
 
       if (!sprite) {
         throw new Error(`Sprite ${symbol.name} not found`);
@@ -1099,7 +1107,7 @@ export class FighterHolder {
       // Apply masking
       if (svgMaskedBy) {
         // Get mask sprite
-        const maskSprite = this.svgs.find((svg) => svg.label === `Symbol${svgMaskedBy}`);
+        const maskSprite = this.#svgsByLabel.get(`Symbol${svgMaskedBy}`)?.[0];
         if (!maskSprite) {
           throw new Error(`Mask sprite Symbol${svgMaskedBy} not found`);
         }
@@ -1235,7 +1243,12 @@ export class FighterHolder {
               framePart.colorOffset.b ?? 0,
             );
 
-          framePartContainer.filters = [colorFilter];
+          if (framePartContainer.filters?.[0] !== colorFilter
+            || framePartContainer.filters?.length !== 1) {
+            framePartContainer.filters = [colorFilter];
+          }
+        } else if (framePartContainer.filters) {
+          framePartContainer.filters = null;
         }
 
         // Apply alpha
@@ -1246,7 +1259,7 @@ export class FighterHolder {
         // Apply masking
         if (framePart.maskedBy) {
           // Get mask sprite
-          const maskSprite = this.svgs.find((svg) => svg.label === `Symbol${framePart.maskedBy}`);
+          const maskSprite = this.#svgsByLabel.get(`Symbol${framePart.maskedBy}`)?.[0];
           if (!maskSprite) {
             throw new Error(`Mask sprite Symbol${framePart.maskedBy} not found`);
           }
@@ -1352,6 +1365,7 @@ export class FighterHolder {
 
     // Clear svg sprite references to allow GC; do not destroy their textures here.
     this.svgs = [];
+    this.#svgsByLabel.clear();
 
     this.#colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
   };

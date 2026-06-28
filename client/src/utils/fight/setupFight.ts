@@ -69,8 +69,9 @@ export const setupFight: (
   toggleTooltip: (brute: Fighter, open: boolean) => void,
   renderer: RendererContextInterface,
   spritesheets: Spritesheets,
+  showPerformanceStats?: boolean,
   isDisposed?: () => boolean,
-) => void = async (
+) => Promise<void> = async (
   theme,
   fight,
   app,
@@ -79,15 +80,189 @@ export const setupFight: (
   toggleTooltip,
   renderer,
   spritesheets,
+  showPerformanceStats = false,
   isDisposed
 ) => {
     const shouldAbort = () => (isDisposed?.() ?? false) || !app.stage || app.stage.destroyed;
 
-    // Spritesheet
-    const miscSheet = spritesheets.misc;
+    type StepPerf = {
+      stepName: string;
+      index: number;
+      samples: number;
+      minFps: number;
+      sumFrameMs: number;
+      maxFrameMs: number;
+      frameMsSamples: number[];
+    };
+
+    let perfContainer: Container | null = null;
+    let perfText: Text | null = null;
+    let perfBackground: Graphics | null = null;
+    let perfLiveActive = false;
+    let perfSummaryPrinted = false;
+    let currentStepName = 'setup';
+    let currentStepIndex = -1;
+    const fpsSamples: number[] = [];
+    const frameMsSamples: number[] = [];
+    const stepPerf = new Map<string, StepPerf>();
+
+    const getPercentile = (values: number[], percentile: number): number => {
+      if (!values.length) {
+        return 0;
+      }
+
+      const sorted = [...values].sort((a, b) => a - b);
+      const index = Math.min(
+        sorted.length - 1,
+        Math.max(0, Math.ceil((percentile / 100) * sorted.length) - 1),
+      );
+
+      return sorted[index] ?? 0;
+    };
 
     // AnimationFighters
     let fighters: AnimationFighter[] = [];
+
+    if (showPerformanceStats && app.stage) {
+      const countDisplayObjects = (container: Container): number => container.children
+        .reduce(
+          (count, child) => count + 1 + (
+            child instanceof Container ? countDisplayObjects(child) : 0
+          ),
+          0,
+        );
+
+      perfContainer = new Container();
+      perfContainer.zIndex = 3999;
+      app.stage.addChild(perfContainer);
+
+      // Background to make the text readable
+      perfBackground = new Graphics()
+        .rect(0, 0, 140, 40)
+        .fill(new Color(0x000000));
+      perfBackground.alpha = 0.7;
+      perfBackground.zIndex = 3999;
+      perfBackground.eventMode = 'none';
+      perfContainer.addChild(perfBackground);
+
+      perfText = new Text({
+        text: '',
+        style: {
+          fontFamily: 'Courier New',
+          fontSize: 10,
+          fill: 0x7CFF9B,
+          align: 'left',
+        },
+      });
+      perfText.x = 6;
+      perfText.y = 0;
+      perfText.zIndex = 4000;
+      perfText.eventMode = 'none';
+      perfContainer.addChild(perfText);
+      perfLiveActive = true;
+
+      let elapsed = 0;
+      app.ticker.add(() => {
+        if (!perfLiveActive) {
+          return;
+        }
+        if (!perfText) {
+          return;
+        }
+
+        const elapsedMs = app.ticker.elapsedMS;
+        const instantFps = elapsedMs > 0 ? 1000 / elapsedMs : 0;
+        const stepKey = `${currentStepName}#${currentStepIndex}`;
+        const existingStepPerf = stepPerf.get(stepKey);
+
+        if (existingStepPerf) {
+          existingStepPerf.samples += 1;
+          existingStepPerf.minFps = Math.min(existingStepPerf.minFps, instantFps);
+          existingStepPerf.sumFrameMs += elapsedMs;
+          existingStepPerf.maxFrameMs = Math.max(existingStepPerf.maxFrameMs, elapsedMs);
+          existingStepPerf.frameMsSamples.push(elapsedMs);
+        } else {
+          stepPerf.set(stepKey, {
+            stepName: currentStepName,
+            index: currentStepIndex,
+            samples: 1,
+            minFps: instantFps,
+            sumFrameMs: elapsedMs,
+            maxFrameMs: elapsedMs,
+            frameMsSamples: [elapsedMs],
+          });
+        }
+
+        fpsSamples.push(instantFps);
+        frameMsSamples.push(elapsedMs);
+
+        elapsed += app.ticker.elapsedMS;
+
+        // Refresh at 10Hz to keep overlay readable with very low overhead.
+        if (elapsed < 100) {
+          return;
+        }
+        elapsed = 0;
+
+        const fps = app.ticker.FPS;
+        const frameMs = fps > 0 ? 1000 / fps : 0;
+        const displayObjects = app.stage ? countDisplayObjects(app.stage) : 0;
+
+        perfText.text = [
+          `FPS ${fps.toFixed(1)}`,
+          `Frame ${frameMs.toFixed(1)} ms`,
+          `DisplayObjects ${displayObjects}`,
+        ].join('\n');
+      });
+    }
+
+    const updatePerformanceSummary = () => {
+      if (perfSummaryPrinted || !showPerformanceStats) {
+        return;
+      }
+      perfSummaryPrinted = true;
+
+      perfLiveActive = false;
+
+      const fpsMedian = getPercentile(fpsSamples, 50);
+      const frameP95 = getPercentile(frameMsSamples, 95);
+
+      const worstSteps = [...stepPerf.values()]
+        .filter((s) => s.samples > 0)
+        .sort((a, b) => a.minFps - b.minFps)
+        .slice(0, 10)
+        .map((s) => ({
+          index: s.index,
+          step: s.stepName,
+          minFps: Number(s.minFps.toFixed(1)),
+          avgFps: Number((1000 / (s.sumFrameMs / s.samples)).toFixed(1)),
+          p95FrameMs: Number(getPercentile(s.frameMsSamples, 95).toFixed(1)),
+          worstFrameMs: Number(s.maxFrameMs.toFixed(1)),
+          samples: s.samples,
+        }));
+
+      if (worstSteps.length) {
+        console.warn('[Fight perf] Lowest FPS steps', worstSteps);
+      }
+
+      if (perfText && perfBackground) {
+        const currentLines = perfText.text.split('\n').filter(Boolean);
+        const topLines = currentLines.slice(0, 3);
+        perfText.text = [
+          ...topLines,
+          `FPS p50 ${fpsMedian.toFixed(1)}`,
+          `Frame p95 ${frameP95.toFixed(1)} ms`,
+        ].join('\n');
+
+        perfBackground.clear()
+          .rect(0, 0, 140, 65)
+          .fill(new Color(0x000000));
+        perfBackground.alpha = 0.7;
+      }
+    };
+
+    // Spritesheet
+    const miscSheet = spritesheets.misc;
 
     if (!miscSheet) {
       throw new Error('Misc spritesheet not found');
@@ -535,6 +710,9 @@ export const setupFight: (
         throw new Error('Step not found');
       }
 
+      currentStepIndex = i;
+      currentStepName = StepType[step.a] ?? String(step.a);
+
       // Reposition mispositionned fighters during neutral
       if (isRangedStep(step.a)) await repositionFighters(fighters, speed);
 
@@ -762,6 +940,9 @@ export const setupFight: (
     });
 
     // Make 50 petals fall on the winner
+    currentStepName = 'postFight';
+    currentStepIndex = steps.length;
+    let completedPetals = 0;
     for (let i = 0; i < 50; i++) {
       const petal = new AnimatedSprite(miscSheet.animations.petals ?? []);
       petal.filters = [new ColorOverlayFilter({
@@ -791,13 +972,18 @@ export const setupFight: (
       }).then(() => {
         // Stop animation
         petal.stop();
-      }).catch(console.error);
 
-      // Freeze app after 10 seconds to save GPU
-      setTimeout(() => {
-        if (app?.ticker) {
-          app.ticker.stop();
+        completedPetals += 1;
+        if (completedPetals >= 50) {
+          updatePerformanceSummary();
         }
-      }, 10000);
+      }).catch(console.error);
     }
+
+    // Freeze app after 10 seconds to save GPU.
+    setTimeout(() => {
+      if (app?.ticker) {
+        app.ticker.stop();
+      }
+    }, 10000);
   };
