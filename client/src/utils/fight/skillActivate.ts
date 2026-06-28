@@ -3,7 +3,7 @@ import {
   SkillActivateStep, SkillById, SkillId
 } from '@labrute/core';
 import {
-  AnimatedSprite, Application, Sprite,
+  AnimatedSprite, Application, Bounds, Sprite,
   Texture, Ticker
 } from 'pixi.js';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
@@ -116,6 +116,10 @@ export const skillActivate = async (
       const ghostFilters: AdjustmentFilter[] = [];
       let currentIndex = maxGhosts;
       let timeSinceLastGhostMs = 0;
+
+      // Reuse bounds object to avoid creating new ones every frame
+      const bounds = new Bounds();
+
       // Ticker update function
       const update = (ticker: Ticker) => {
         const targetIntervalMs = Math.max(
@@ -172,11 +176,11 @@ export const skillActivate = async (
             if (previousTexture && previousTexture !== Texture.EMPTY) {
               previousTexture.destroy(true);
             }
-            // Position ghost behind brute (avoids costly bounds computation each update).
-            ghost.position.set(
-              brute.animation.container.x,
-              brute.animation.container.y - brute.animation.baseHeight,
-            );
+
+            // Position ghost using rendered bounds to keep alignment in Pixi v8.
+            const fighterBounds = brute.animation.container.getBounds(false, bounds).rectangle;
+            ghost.position.set(fighterBounds.x, fighterBounds.y);
+
             ghost.anchor.set(brute.animation.container.scale.x === 1 ? 0 : 1, 0);
             ghost.scale = brute.animation.container.scale;
             ghost.zIndex = brute.animation.container.zIndex - 1;
