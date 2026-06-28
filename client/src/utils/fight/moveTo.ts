@@ -26,15 +26,6 @@ export const moveTo = async (
     await repositionFighters(fighters, speed, fighter.id);
   }
 
-  // Set animation to `run`
-  fighter.animation.setAnimation('run');
-
-  // Play running SFX
-  if (fighter.type === 'pet') {
-    // Remove numbers from pet name
-    void sound.play('sfx', { sprite: `${fighter.name.replace(/\d/g, '')}` });
-  }
-
   const distance = getHitDistance(fighter, target, !!step.c, !!step.s);
 
   // Get travel position
@@ -44,10 +35,23 @@ export const moveTo = async (
   const targetY = target.animation.container.y;
 
   // Get travel distance
-  const travelDistance = Math.sqrt(
-    (targetX - fighter.animation.container.x) ** 2
-    + (targetY - fighter.animation.container.y) ** 2
+  const travelDistance = Math.hypot(
+    targetX - fighter.animation.container.x,
+    targetY - fighter.animation.container.y,
   );
+
+  if (travelDistance < 1) {
+    return;
+  }
+
+  // Set animation to `run`
+  fighter.animation.setAnimation('run');
+
+  // Play running SFX
+  if (fighter.type === 'pet') {
+    // Remove numbers from pet name
+    void sound.play('sfx', { sprite: `${fighter.name.replace(/\d/g, '')}` });
+  }
 
   // Travel duration depends on distance
   const duration = Math.max(0.16, travelDistance / 430);

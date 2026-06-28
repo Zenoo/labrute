@@ -15,6 +15,11 @@ import { playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 import { Spritesheets } from './utils/spritesheet';
 
+const POISON_OUTLINE_FILTER_CONFIG = {
+  thickness: 1,
+  color: 0x006400,
+};
+
 export const hit = async (
   app: Application,
   spritesheets: Spritesheets,
@@ -80,10 +85,7 @@ export const hit = async (
   // Add poison filter if damage is poison
   let poisonFilter: OutlineFilter | null = null;
   if (step.a === StepType.Poison) {
-    poisonFilter = new OutlineFilter({
-      thickness: 1,
-      color: 0x006400,
-    });
+    poisonFilter = new OutlineFilter(POISON_OUTLINE_FILTER_CONFIG);
     target.animation.container.filters = [
       ...target.animation.container.filters || [],
       poisonFilter,

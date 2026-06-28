@@ -9,6 +9,7 @@ export const moveBack = async (
   fighters: AnimationFighter[],
   step: MoveBackStep,
   speed: React.MutableRefObject<number>,
+  targetPosition?: { x: number; y: number },
 ) => {
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {
@@ -16,7 +17,17 @@ export const moveBack = async (
   }
 
   // Get positions
-  const { x, y } = getRandomPosition(fighters, fighter);
+  const { x, y } = targetPosition ?? getRandomPosition(fighters, fighter);
+
+  const travelDistance = Math.hypot(
+    x - fighter.animation.container.x,
+    y - fighter.animation.container.y,
+  );
+
+  // No-op movement: skip animation/tween overhead.
+  if (travelDistance < 1) {
+    return;
+  }
 
   // Set animation to `run`
   fighter.animation.setAnimation('run');
@@ -28,11 +39,6 @@ export const moveBack = async (
 
   // Invert fighter if needed
   if (invertFighter) fighter.animation.container.scale.x *= -1;
-
-  const travelDistance = Math.sqrt(
-    (x - fighter.animation.container.x) ** 2
-    + (y - fighter.animation.container.y) ** 2
-  );
 
   // Travel duration depends on distance
   const duration = Math.max(0.15, travelDistance / 480);
