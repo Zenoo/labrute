@@ -134,11 +134,13 @@ export class BruteDisplay {
       }
 
       // Apply black outline and subtle outer glow for Flash-era look
+      const containerOutline = new OutlineFilter({
+        thickness: 2,
+        color: 0x000000,
+      });
+      containerOutline.padding = 4;
       this.container.filters = [
-        new OutlineFilter({
-          thickness: 2,
-          color: 0x000000,
-        }),
+        containerOutline,
       ];
 
       // Display frame
@@ -386,13 +388,16 @@ export class BruteDisplay {
 
         if (this.#highlightTint === colorName) {
           // Apply highlight effect
+          const highlightOutline = new OutlineFilter({
+            thickness: 4,
+            color: 0xFFFFFF,
+          });
+          highlightOutline.padding = 8;
           sprite.filters = [
-            ...(sprite.filters ?? []),
-            new OutlineFilter({
-              thickness: 4,
-              color: 0xFFFFFF,
-            })
+            highlightOutline,
           ];
+        } else {
+          sprite.filters = null;
         }
       }
 

@@ -28,7 +28,11 @@ type RenderMethod = (brute: BruteData) => void;
 
 type RenderCallback = (content: string) => void;
 
-type OnRenderMethod = (id: string, callback: RenderCallback) => void;
+type OnRenderMethod = (
+  id: string,
+  callback: RenderCallback,
+  options?: { skipCache?: boolean }
+) => void;
 
 export type RendererContextInterface = {
   render: RenderMethod;
@@ -88,20 +92,39 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
   const resolveCallbacks = useCallback((id: string, content: string) => {
     const idCallbacks = callbacksRef.current[id] ?? [];
 
-    for (const callback of idCallbacks) {
-      callback(content);
-    }
+    const callback = idCallbacks[0];
+    if (!callback) return;
 
-    if (idCallbacks.length > 0) {
-      setCallbacks((prev) => ({ ...prev, [id]: [] }));
-    }
+    callback(content);
+
+    setCallbacks((prev) => {
+      const prevCallbacks = prev[id] ?? [];
+      if (prevCallbacks.length <= 1) {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      }
+
+      return {
+        ...prev,
+        [id]: prevCallbacks.slice(1),
+      };
+    });
   }, []);
 
   const render: RenderMethod = useCallback((brute) => {
     setQueue((prev) => [...prev, brute]);
   }, []);
 
-  const onRender: OnRenderMethod = useCallback((id, callback) => {
+  const onRender: OnRenderMethod = useCallback((id, callback, options) => {
+    if (options?.skipCache) {
+      setCallbacks((prev) => ({
+        ...prev,
+        [id]: [...(prev[id] ?? []), callback],
+      }));
+      return;
+    }
+
     const cached = cacheRef.current.find((c) => c.id === id);
     if (cached) {
       callback(cached.content);

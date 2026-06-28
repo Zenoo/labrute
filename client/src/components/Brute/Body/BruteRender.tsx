@@ -37,7 +37,7 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
 
     renderer.onRender(brute.id, (content) => {
       setSrc(content);
-    });
+    }, { skipCache });
 
     renderer.render({
       id: brute.id,
