@@ -33,13 +33,6 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
     return next();
   }
 
-  if (req.headers[VERSION_HEADER] !== Version) {
-    const lang = req.headers[LANGUAGE_HEADER];
-    const error = new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
-
-    return sendError(res, error);
-  }
-
   try {
     checkPredictableHeaders(req.headers);
     req.security.validHeaders = true;
@@ -54,6 +47,13 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
   // Don't check fingerprint or browserId for /fpe
   if (req.path === '/api/fpe') {
     return next();
+  }
+
+  if (req.headers[VERSION_HEADER] !== Version) {
+    const lang = req.headers[LANGUAGE_HEADER];
+    const error = new ForbiddenError(translate('outdatedVersion', { lang: lang?.toString() as Lang || Lang.en }));
+
+    return sendError(res, error);
   }
 
   const browserId = req.cookies?.browserId;
