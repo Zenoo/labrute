@@ -36,6 +36,6 @@
   "resetExample2": "Te costará 100 de oro y tu Bruto volverá al nivel 1 con el mismo rango.",
   "pupils": "Alumnos",
   "whatPupilBenefits": "¿Qué beneficios tiene?",
-  "pupilBenefits": "Dojo rank",
-  "pupilExplanation": "Pupils don't give XP as they used to in previous game versions. Instead, they increase your dojo rank. You can get pupils by sharing the link in the top right corner of your cell."
+  "pupilBenefits": "Rango del Dojo",
+  "pupilExplanation": "Los alumnos no dan XP como solían en versiones anteriores del juego. En su lugar, incrementan su rango de dojo. Puedes obtener alumnos compartiendo el enlace en la esquina superior derecha de tu celda."
 }

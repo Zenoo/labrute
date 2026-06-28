@@ -15,7 +15,7 @@
   "banReason.multipleAccounts": "Múltiples cuentas",
   "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
   "banReason.headers_tampering": "Headers tampering detected",
-  "banReason.apiAbuse": "API abuse detected",
-  "banReason.automation": "Automation detected",
-  "banReason.unwelcomeBehavior": "Unwelcome behavior"
+  "banReason.apiAbuse": "Abuso de la API detectado",
+  "banReason.automation": "Automatización detectada",
+  "banReason.unwelcomeBehavior": "Comportamiento no bienvenido"
 }
