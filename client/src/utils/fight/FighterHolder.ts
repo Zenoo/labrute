@@ -32,10 +32,11 @@ import {
 import {
   Application,
   Assets,
-  BlurFilter, ColorMatrixFilter, Container, Graphics, Matrix, Sprite, Texture,
+  BlurFilter, Container, Filter, Graphics, Matrix, Sprite, Texture,
   Ticker
 } from 'pixi.js';
 import { MutableRefObject } from 'react';
+import { createColorOffsetFilter } from '../pixi/createColorOffsetFilter';
 
 const ANIMATIONS: Record<
   Gender | 'dog' | 'bear' | 'panther',
@@ -508,7 +509,7 @@ export class FighterHolder {
 
   #usedSvgs: Record<string, number> = {};
 
-  #colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
+  #colorOffsetFilters = new WeakMap<Container, { key: string; filter: Filter }>();
 
   #tickerHandler: ((ticker: Ticker) => void) | null = null;
 
@@ -1065,13 +1066,7 @@ export class FighterHolder {
       return existingFilter.filter;
     }
 
-    const filter = new ColorMatrixFilter();
-    filter.matrix = [
-      1, 0, 0, 0, r / 255,
-      0, 1, 0, 0, g / 255,
-      0, 0, 1, 0, b / 255,
-      0, 0, 0, 1, 0,
-    ];
+    const filter = createColorOffsetFilter(r, g, b, 'fight-color-offset-filter');
 
     this.#colorOffsetFilters.set(container, { key, filter });
 
@@ -1367,6 +1362,6 @@ export class FighterHolder {
     this.svgs = [];
     this.#svgsByLabel.clear();
 
-    this.#colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
+    this.#colorOffsetFilters = new WeakMap<Container, { key: string; filter: Filter }>();
   };
 }

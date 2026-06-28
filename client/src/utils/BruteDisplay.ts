@@ -8,12 +8,13 @@ import {
 import { OutlineFilter } from 'pixi-filters/outline';
 import {
   Assets,
-  ColorMatrixFilter,
   Container,
+  Filter,
   Matrix,
   Sprite,
   Texture
 } from 'pixi.js';
+import { createColorOffsetFilter } from './pixi/createColorOffsetFilter';
 
 const FEMALE_SYMBOL = Symbol752;
 const MALE_SYMBOL = Symbol460;
@@ -65,7 +66,7 @@ export class BruteDisplay {
 
   #highlightTint?: BruteColor;
 
-  #colorOffsetFilters = new WeakMap<Container, { key: string; filter: ColorMatrixFilter }>();
+  #colorOffsetFilters = new WeakMap<Container, { key: string; filter: Filter }>();
 
   #isReady = false;
 
@@ -339,13 +340,7 @@ export class BruteDisplay {
       return existingFilter.filter;
     }
 
-    const filter = new ColorMatrixFilter();
-    filter.matrix = [
-      1, 0, 0, 0, r / 255,
-      0, 1, 0, 0, g / 255,
-      0, 0, 1, 0, b / 255,
-      0, 0, 0, 1, 0,
-    ];
+    const filter = createColorOffsetFilter(r, g, b, 'brute-color-offset-filter');
 
     this.#colorOffsetFilters.set(container, { key, filter });
 
