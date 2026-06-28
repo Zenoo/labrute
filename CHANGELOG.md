@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.6](https://github.com/Zenoo/labrute/compare/labrute-v2.97.5...labrute-v2.97.6) (2026-06-28)
+
+
+### Bug Fixes
+
+* Go back to old shader for color tints ([1eae46d](https://github.com/Zenoo/labrute/commit/1eae46d009912c913b8e4037b3b5a4a01314c1a6))
+* Small optimizations ([3010a88](https://github.com/Zenoo/labrute/commit/3010a88438e0bff1818ce4162221182501d7c720))
+
 ## [2.97.5](https://github.com/Zenoo/labrute/compare/labrute-v2.97.4...labrute-v2.97.5) (2026-06-28)
 
 
