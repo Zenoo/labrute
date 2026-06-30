@@ -3,9 +3,9 @@ import React, {
 } from 'react';
 import FingerprintJS, { GetResult } from '@fingerprintjs/fingerprintjs';
 import { LS_KEY_FINGERPRINT_LOG } from '../utils/constants';
-import { Server } from '../utils/Server';
 import { setFingerprint } from '../utils/fingerprint';
 import { useCsrf } from './useCsrf';
+import { useServer } from './useServer';
 
 type FingerprintContext = {
   loading: boolean;
@@ -36,6 +36,7 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
   const [data, setData] = useState<GetResult | null>(null);
   const [error, setError] = useState<unknown>(null);
   const { csrfToken } = useCsrf();
+  const Server = useServer();
 
   useEffect(() => {
     let isMounted = true;
@@ -81,7 +82,7 @@ export const FingerprintProvider = ({ children }: FingerprintProviderProps) => {
     return () => {
       isMounted = false;
     };
-  }, [csrfToken]);
+  }, [Server, csrfToken]);
 
   const contextValue = useMemo(() => ({
     loading,

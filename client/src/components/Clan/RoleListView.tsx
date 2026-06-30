@@ -14,10 +14,10 @@ import { FantasyButton } from '../FantasyButton';
 import { Text } from '../Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useConfirm } from '../../hooks/useConfirm';
-import { Server } from '../../utils/Server';
 import { catchError } from '../../utils/catchError';
 import { Clan, ClanPermission } from '@labrute/prisma';
 import { useBrute } from '../../hooks/useBrute';
+import { useServer } from '../../hooks/useServer';
 
 type Role = ClanGetRolesResponse[number];
 
@@ -42,6 +42,7 @@ export const RoleListView: React.FC<RoleListViewProps> = ({
   const Alert = useAlert();
   const Confirm = useConfirm();
   const { brute } = useBrute();
+  const Server = useServer();
 
   const [roles, setRoles] = useState<Role[]>([]);
   const [loading, setLoading] = useState(false);
@@ -54,7 +55,7 @@ export const RoleListView: React.FC<RoleListViewProps> = ({
       })
       .catch(catchError(Alert))
       .finally(() => setLoading(false));
-  }, [clanId, Alert]);
+  }, [Server.Clan, clanId, Alert]);
 
   useEffect(() => {
     if (open) {

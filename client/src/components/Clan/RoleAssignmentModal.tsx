@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../FantasyButton';
 import { Text } from '../Text';
 import { useAlert } from '../../hooks/useAlert';
-import { Server } from '../../utils/Server';
 import { catchError } from '../../utils/catchError';
+import { useServer } from '../../hooks/useServer';
 
 type Member = {
   id: string;
@@ -38,6 +38,7 @@ export const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
 }) => {
   const { t } = useTranslation('clan');
   const Alert = useAlert();
+  const Server = useServer();
 
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
 
