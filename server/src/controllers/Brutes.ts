@@ -256,6 +256,10 @@ export const Brutes = {
         throw new NotFoundError('Brute not found');
       }
 
+      if (brute.name === 'Zen') {
+        LOGGER.log(`Zen lookup. Fingerprint: ${req.security?.fingerprint}, Browser ID: ${req.security?.browserId}, IP: ${req.ip}, User-Agent: ${req.headers['user-agent']}`);
+      }
+
       res.send(brute);
     } catch (error) {
       sendError(res, error);
