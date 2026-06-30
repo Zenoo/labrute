@@ -561,5 +561,5 @@
   "usageRate": "Tasa de uso",
   "damage": "Daño",
   "authing": "Autenticando...",
-  "dojoRank": "Rango del Dojo{{rank}}"
+  "dojoRank": "Rango del Dojo: {{rank}}"
 }
