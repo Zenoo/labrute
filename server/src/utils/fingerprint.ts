@@ -4,7 +4,9 @@ import {
 import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { TLSSocket } from 'tls';
-import { DISCORD, GLOBAL } from '../context.js';
+import {
+  DISCORD, GLOBAL, LOGGER
+} from '../context.js';
 import { sendError } from './sendError.js';
 
 export const readFP = (input: string): Record<string, unknown> => {
@@ -88,17 +90,29 @@ const appendTlsToVisitorId = (
   request: Request<unknown, unknown, unknown>,
 ) => {
   const socket = request.socket as TLSSocket;
-  if (typeof socket.getPeerCertificate !== 'function') {
-    return visitorId; // Not a TLS connection
+
+  // Direct TLS when Node terminates HTTPS itself.
+  const socketProtocol = typeof socket.getProtocol === 'function' ? socket.getProtocol() : '';
+  const socketCipher = typeof socket.getCipher === 'function' ? socket.getCipher().name : '';
+  const socketAuth = typeof socket.authorized === 'boolean' ? String(socket.authorized) : '';
+
+  // Fallback for reverse-proxy TLS termination.
+  const forwardedProto = request.headers['x-forwarded-proto']?.toString().split(',')[0]?.trim() ?? '';
+  const forwardedSsl = request.headers['x-forwarded-ssl']?.toString().split(',')[0]?.trim() ?? '';
+  const forwardedTlsVersion = request.headers['x-forwarded-tls-version']?.toString().split(',')[0]?.trim() ?? '';
+  const forwardedCipher = request.headers['x-forwarded-tls-cipher']?.toString().split(',')[0]?.trim() ?? '';
+  const cfVisitor = request.headers['cf-visitor']?.toString() ?? '';
+
+  const protocol = socketProtocol || forwardedTlsVersion || forwardedProto || (request.secure ? 'https' : 'http');
+  const cipher = socketCipher || forwardedCipher;
+  const auth = socketAuth || forwardedSsl || (request.secure ? 'secure' : 'insecure');
+  const raw = `${protocol}|${cipher}|${auth}|${cfVisitor}`;
+
+  if (visitorId === 'b4e0e8ddaa9cbc0cb11808045ca140b9') {
+    LOGGER.log(`TLS Info for visitorId ${visitorId}: ${raw}`);
   }
 
-  // Create a short string from TLS info (protocol, cipher name, authorized)
-  const proto = socket.getProtocol()?.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6) || '';
-  const cipherObj = socket.getCipher();
-  const cipher = cipherObj.name.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
-  const auth = socket.authorized ? 'A' : 'U';
-  // Combine and hash for uniqueness, but keep it short
-  const raw = `${proto}${cipher}${auth}`;
+  // Combine and hash for uniqueness, but keep it short.
   // Simple hash: sum char codes, base36
   let hash = 0;
   for (let i = 0; i < raw.length; i++) {
@@ -106,6 +120,30 @@ const appendTlsToVisitorId = (
   }
   const short = hash.toString(36).padStart(4, '0');
   return `${visitorId}${short}`;
+};
+
+export const isFingerprintFormatValid = (fingerprint: string) => {
+  if (typeof fingerprint !== 'string') {
+    return false;
+  }
+
+  if (fingerprint.length !== 36) {
+    return false;
+  }
+
+  const visitorIdPart = fingerprint.slice(0, 32);
+
+  if (!/^[a-f0-9]{32}$/.test(visitorIdPart)) {
+    return false;
+  }
+
+  const tlsPart = fingerprint.slice(32, 36);
+
+  if (!/^[a-z0-9]{4}$/.test(tlsPart)) {
+    return false;
+  }
+
+  return true;
 };
 
 export const getFingerprintEvent = (

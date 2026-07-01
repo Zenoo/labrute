@@ -22,6 +22,9 @@ export function main(cx: ServerContext) {
   const app = express();
   const { port } = cx.config;
 
+  // Trust the reverse proxy so req.secure/protocol reflect the external TLS connection.
+  app.set('trust proxy', cx.config.isProduction);
+
   // Cookie parser
   app.use(cookieParser(cx.config.cookieSecret));
 

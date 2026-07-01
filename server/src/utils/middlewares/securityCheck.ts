@@ -13,6 +13,7 @@ import type {
 import { sendError } from '../sendError.js';
 import { translate } from '../translate.js';
 import { Lang } from '@labrute/prisma';
+import { isFingerprintFormatValid } from '../fingerprint.js';
 
 /**
  * Check version, fingerprint, headers and browser ID to prevent unauthrized API calls
@@ -74,6 +75,10 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
 
   if (!fingerprint.length) {
     return sendError(res, new ExpectedError('Invalid fingerprint header length'));
+  }
+
+  if (!isFingerprintFormatValid(fingerprint)) {
+    return sendError(res, new ExpectedError('Invalid fingerprint format'));
   }
 
   req.security.fingerprint = fingerprint;
