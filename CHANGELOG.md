@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.9](https://github.com/Zenoo/labrute/compare/labrute-v2.97.8...labrute-v2.97.9) (2026-07-01)
+
+
+### Bug Fixes
+
+* Debug TLS ([c538465](https://github.com/Zenoo/labrute/commit/c538465e6fbab68f6859670cb43d4872ae9d53d0))
+* Use useServer everywhere ([d4a3338](https://github.com/Zenoo/labrute/commit/d4a333800f30792bcc5ad869cba827f1ca22aa8d))
+
 ## [2.97.8](https://github.com/Zenoo/labrute/compare/labrute-v2.97.7...labrute-v2.97.8) (2026-06-30)
 
 
