@@ -188,7 +188,7 @@ export const BruteButton = ({
             {/* Skills */}
             <BruteSmallSkillList skills={brute.skills} />
             {/* Pets */}
-            <BruteSmallPetList pets={brute.pets} />
+            <BruteSmallPetList brute={brute} pets={brute.pets} />
           </>
         )}
         <Box sx={{
