@@ -7,7 +7,7 @@ import { Brute, PetName } from '@labrute/prisma';
 
 interface BruteSmallPetListProps extends BoxProps {
   pets: Partial<Record<PetName, number>>;
-  brute: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
+  brute?: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
 }
 
 export const BruteSmallPetList = ({
