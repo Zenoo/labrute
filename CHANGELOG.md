@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.10](https://github.com/Zenoo/labrute/compare/labrute-v2.97.9...labrute-v2.97.10) (2026-07-04)
+
+
+### Bug Fixes
+
+* Correctly apply chaos values for mid-fight skills ([50422fc](https://github.com/Zenoo/labrute/commit/50422fcc33ce1f8a0bc21d9ed61f070800f9078f))
+* Display pets real stats in arena view ([cb7c22d](https://github.com/Zenoo/labrute/commit/cb7c22dadf53709071c559313eb7506d50ce1256))
+* HP bar overflow ([1479959](https://github.com/Zenoo/labrute/commit/1479959f78728ca4a4783e531bce254deed525b9))
+* Typo ([4aabbaf](https://github.com/Zenoo/labrute/commit/4aabbafc9b7e3cce34479ee343d963445f992dd8))
+* User admin panel brute unique key ([52feea8](https://github.com/Zenoo/labrute/commit/52feea86cd5eb87ecff86551321a8c07623628b8))
+* Weapon stats wrongly set to 100% during chaos ([9e5301a](https://github.com/Zenoo/labrute/commit/9e5301a55ccd31bb4a4860e449cb0e593050cd16))
+
 ## [2.97.9](https://github.com/Zenoo/labrute/compare/labrute-v2.97.8...labrute-v2.97.9) (2026-07-01)
 
 
