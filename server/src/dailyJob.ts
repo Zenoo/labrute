@@ -51,12 +51,15 @@ const IN_DEV = {
   HANDLE_CLAN_WARS: false,
   CALCULATE_RANKINGS: false,
   SEND_RELEASE_NOTIFICATION: false,
+  TRIGGER_CHAOS: false,
 };
 
 const shouldGenerateTournaments = () => process.env.NODE_ENV === 'production' || IN_DEV.GENERATE_TOURNAMENTS;
 const shouldHandleClanWars = () => process.env.NODE_ENV === 'production' || IN_DEV.HANDLE_CLAN_WARS;
 const shouldCalculateRankings = () => process.env.NODE_ENV === 'production' || IN_DEV.CALCULATE_RANKINGS;
 const shouldSendReleaseNotification = () => process.env.NODE_ENV === 'production' || IN_DEV.SEND_RELEASE_NOTIFICATION;
+// Chaos every 1st day of the month
+const shouldTriggerChaos = () => dayjs().utc().date() === 1 || (IN_DEV.TRIGGER_CHAOS && process.env.NODE_ENV !== 'production');
 
 const triggerGC = () => {
   if (global.gc) {
@@ -1350,8 +1353,7 @@ const handleModifiers = async (prisma: PrismaClient) => {
 
   const rolledModifiers: Modifiers = {};
 
-  // Chaos every 1st day of the month
-  if (dayjs().utc().date() === 1) {
+  if (shouldTriggerChaos()) {
     rolledModifiers[FightModifier.chaos] = true;
   }
 

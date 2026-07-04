@@ -43,7 +43,7 @@ export const getFighterStat = (
 
   if (onlyStat !== 'fighter') {
     if (fighter.activeWeapon) {
-      total += getWeaponScaledStat(chaos, fighter.activeWeapon, stat);
+      total += getWeaponScaledStat(chaos, fighter.activeWeapon, stat, 2);
     } else if (stat !== FightStat.CRITICAL_DAMAGE && stat !== FightStat.CRITICAL_CHANCE) {
       // Ignore crit stats are they are already handled in getFighters
       total += fighter.type === 'brute'
