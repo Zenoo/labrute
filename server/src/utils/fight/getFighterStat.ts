@@ -1,6 +1,6 @@
 import {
   BASE_FIGHTER_STATS, FighterStat,
-  FightStat, getWeaponScaledStat, SkillModifiers, WeaponType,
+  FightStat, getSkillScaledStat, getWeaponScaledStat, WeaponType
 } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import { DetailedFighter } from './generateFight.js';
@@ -21,8 +21,7 @@ export const getFighterStat = (
       // BODYBUILDER
       if (fighter.bodybuilder && fighter.activeWeapon.types.includes(WeaponType.HEAVY)) {
         return weaponStat
-          + (SkillModifiers[SkillName.bodybuilder][FightStat.DEXTERITY]
-            ?.percent?.[(fighter.skills[SkillName.bodybuilder]?.tier ?? 1) - 1] ?? 0);
+          + getSkillScaledStat(chaos, fighter.skills[SkillName.bodybuilder], FightStat.DEXTERITY, 'percent');
       }
 
       return weaponStat;

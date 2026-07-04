@@ -1,7 +1,13 @@
-import { Brute, PetName, SkillName } from '@labrute/prisma';
-import { CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed } from './chaos.js';
+import {
+  Brute, PetName, SkillName
+} from '@labrute/prisma';
+import {
+  CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed
+} from './chaos.js';
 import { Pet } from './pets.js';
-import { FightStat } from './skills.js';
+import {
+  FightStat, Skill, SkillModifiers
+} from './skills.js';
 import { Weapon } from './weapons.js';
 import { Tiered } from '../types.js';
 
@@ -167,5 +173,29 @@ export const getWeaponScaledStat = (
     stat,
     value: weapon[stat][weapon.tier - 1] ?? 0,
     precision,
+  });
+};
+
+export const getSkillScaledStat = (
+  chaos: boolean,
+  skill: Tiered<Skill> | undefined,
+  stat: keyof typeof SkillModifiers[SkillName],
+  type: 'flat' | 'percent',
+) => {
+  if (!skill) {
+    return 0;
+  }
+
+  const value = SkillModifiers[skill.name][stat]?.[type]?.[skill.tier - 1] ?? 0;
+
+  if (!chaos) {
+    return value;
+  }
+
+  return getScaledStat({
+    chaos,
+    skill: skill.name,
+    stat,
+    value,
   });
 };
