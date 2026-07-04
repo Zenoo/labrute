@@ -113,7 +113,6 @@
   "banReason.innapropriateName": "Nome inappropriato",
   "banReason.innapropriateBruteName": "Nome del bruto inappropriato",
   "banReason.multipleAccounts": "Account multipli",
-  "banReason.unrecognized_fingerprint": "Unrecognized fingerprint",
   "banReason.headers_tampering": "Headers tampering detected",
   "banReason.apiAbuse": "API abuse detected",
   "banReason.automation": "Automation detected",
