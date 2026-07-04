@@ -250,7 +250,7 @@ export const UserAdminView = () => {
                     <TableBody>
                       {user.brutes.map((brute) => (
                         <TableRow
-                          key={brute.name}
+                          key={brute.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell component="th" scope="row">

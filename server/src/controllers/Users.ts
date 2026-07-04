@@ -727,7 +727,6 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
-      // Manual admin bans should ban fingerprints to prevent this specific abuser from returning
       await banUser(
         prisma,
         req.body.userId,
