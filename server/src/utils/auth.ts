@@ -119,8 +119,6 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   // it means it was tampered with, as fingerprints can only
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint ?? '')) {
-    // Ban fingerprints for tampering/cheating attempts
-    await banUser(prisma, user.id, 'unrecognized_fingerprint', undefined, { banFingerprints: true });
     DISCORD().logObject({
       userId: user.id,
       knowns: user.fingerprints,
@@ -128,7 +126,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
       endpoint: `${request.method} ${request.path}`,
       url: request.url,
     }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
-    throw new ForbiddenError(translate('banReason.unrecognized_fingerprint', user));
+    throw new ForbiddenError('Unrecognized fingerprint');
   }
 
   // Check expected headers

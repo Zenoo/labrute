@@ -55,7 +55,8 @@ export const updateHp = (
   }
 
   const percent = (currentHP / maxHp) * 236;
-  const newWidth = Math.max(0, Math.min(236, percent));
+  // For some reason, allowing the width to be 0 causes to right team HP bar to overflow right instead of left ...
+  const newWidth = Math.max(1, Math.min(236, percent));
 
   hpBar.width = newWidth;
 

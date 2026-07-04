@@ -21,5 +21,5 @@ export const survive = (
   }
 
   // Set brute HP to 1
-  updateHp(fighters, brute, 1, speed, true);
+  updateHp(fighters, brute, 1, speed, false, true);
 };

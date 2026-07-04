@@ -50,11 +50,13 @@ const IN_DEV = {
   GENERATE_TOURNAMENTS: false,
   HANDLE_CLAN_WARS: false,
   CALCULATE_RANKINGS: false,
+  SEND_RELEASE_NOTIFICATION: false,
 };
 
 const shouldGenerateTournaments = () => process.env.NODE_ENV === 'production' || IN_DEV.GENERATE_TOURNAMENTS;
 const shouldHandleClanWars = () => process.env.NODE_ENV === 'production' || IN_DEV.HANDLE_CLAN_WARS;
 const shouldCalculateRankings = () => process.env.NODE_ENV === 'production' || IN_DEV.CALCULATE_RANKINGS;
+const shouldSendReleaseNotification = () => process.env.NODE_ENV === 'production' || IN_DEV.SEND_RELEASE_NOTIFICATION;
 
 const triggerGC = () => {
   if (global.gc) {
@@ -1404,30 +1406,32 @@ const handleReleases = async (prisma: PrismaClient) => {
   }
 
   // Send release notifications
-  try {
-    // Discord notification
-    await DISCORD().sendRelease(LAST_RELEASE);
+  if (shouldSendReleaseNotification()) {
+    try {
+      // Discord notification
+      await DISCORD().sendRelease(LAST_RELEASE);
 
-    // User notifications
-    const notifCount = await prisma.$executeRaw`
+      // User notifications
+      const notifCount = await prisma.$executeRaw`
       INSERT INTO "Notification" ("userId", "message", "link", "severity")
       SELECT id, 'newPatchNotesAvailable', '/patch-notes', 'warning'
       FROM "User" WHERE "bannedAt" IS NULL;
     `;
 
-    LOGGER.log(`Sent ${notifCount} release notifications`);
+      LOGGER.log(`Sent ${notifCount} release notifications`);
 
-    // Store latest release
-    await prisma.release.create({
-      data: {
-        version: LAST_RELEASE.version,
-      },
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      DISCORD().sendError(error);
-    } else {
-      console.error(error);
+      // Store latest release
+      await prisma.release.create({
+        data: {
+          version: LAST_RELEASE.version,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        DISCORD().sendError(error);
+      } else {
+        console.error(error);
+      }
     }
   }
 };
