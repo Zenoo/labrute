@@ -262,7 +262,7 @@ export const DestinyView = () => {
       }}
       >
         {tree && (
-          <TransformWrapper initialScale={0.1} minScale={0.1} centerOnInit>
+          <TransformWrapper initialScale={0.1} minScale={0.1} centerOnInit wheel={{ step: 0.001 }}>
             <TransformComponent>
               <Box
                 component="ul"
