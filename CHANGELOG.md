@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.13](https://github.com/Zenoo/labrute/compare/labrute-v2.97.12...labrute-v2.97.13) (2026-07-05)
+
+
+### Bug Fixes
+
+* Reduce destiny zoom step ([b58f161](https://github.com/Zenoo/labrute/commit/b58f1614be56baab893c42b22be657645e54a274))
+
 ## [2.97.12](https://github.com/Zenoo/labrute/compare/labrute-v2.97.11...labrute-v2.97.12) (2026-07-05)
 
 
