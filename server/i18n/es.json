@@ -113,7 +113,6 @@
   "banReason.innapropriateName": "Nombre inapropiado",
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
-  "banReason.unrecognized_fingerprint": "Huella digital no reconocida",
   "banReason.headers_tampering": "Alteración de cabeceras detectada",
   "banReason.apiAbuse": "Abuso de la API detectado",
   "banReason.automation": "Automatización detectada",
