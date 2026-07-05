@@ -42,7 +42,7 @@
     "react-ga4": "^2.1.0",
     "react-i18next": "^11.18.3",
     "react-router": "^8.1.0",
-    "react-zoom-pan-pinch": "3.6.1"
+    "react-zoom-pan-pinch": "4.0.3"
   },
   "browserslist": {
     "production": [
