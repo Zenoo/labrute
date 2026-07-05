@@ -93,10 +93,30 @@ export const haste = async (
   const originalTexture = app.renderer.generateTexture(brute.animation.container);
   // Create sprite from it
   const sprite = new Sprite(originalTexture);
-  const { width, height } = sprite.texture;
+  const displayWidth = sprite.texture.width;
 
-  // Extract pixels
-  const { pixels } = app.renderer.extract.pixels(sprite);
+  // Extract pixels from the generated fighter texture.
+  const {
+    pixels,
+    width: extractedWidth,
+    height: extractedHeight,
+  } = app.renderer.extract.pixels(sprite);
+
+  const pixelCount = Math.floor(pixels.length / 4);
+  let pixelWidth = Math.round(extractedWidth ?? 0);
+  let pixelHeight = Math.round(extractedHeight ?? 0);
+
+  if (pixelWidth <= 0 || pixelHeight <= 0 || pixelWidth * pixelHeight !== pixelCount) {
+    const sourceWidth = Math.round(originalTexture.source.width);
+    pixelWidth = Math.max(1, sourceWidth);
+    pixelHeight = Math.max(1, Math.floor(pixelCount / pixelWidth));
+  }
+
+  if (pixelWidth * pixelHeight !== pixelCount) {
+    pixelWidth = Math.max(1, Math.floor(Math.sqrt(pixelCount)));
+    while (pixelWidth > 1 && pixelCount % pixelWidth !== 0) pixelWidth -= 1;
+    pixelHeight = Math.max(1, Math.floor(pixelCount / pixelWidth));
+  }
 
   // Create the ghost image, a gradient starting on fighter's outline
   // Alpha gradient state for current row
@@ -113,14 +133,14 @@ export const haste = async (
   // Loop throught pixels
   for (let i = pixels.length - 4; i > 0; i -= 4) {
     // Current column
-    const column = (i % (4 * width)) / 4;
+    const column = (i % (4 * pixelWidth)) / 4;
     // Current row's gradient delta per pixel
     const gradientDelta = Math.max(
       1,
-      (ghostColor.alpha - Math.random() * 4) / (width * gradientPart)
+      (ghostColor.alpha - Math.random() * 4) / (pixelWidth * gradientPart)
     );
     // Alpha gradient
-    const gradient = ghostColor.alpha - gradientDelta * (width * gradientPart - column);
+    const gradient = ghostColor.alpha - gradientDelta * (pixelWidth * gradientPart - column);
     // New row
     if (column === 0) gradientStart = false;
     // Colors
@@ -128,7 +148,7 @@ export const haste = async (
     pixels[i + 1] = ghostColor.green + Math.random() * 30;
     pixels[i + 2] = ghostColor.blue + Math.random() * 30;
     // Start gradient on first opaque pixel
-    if (!gradientStart && pixels[i + 3] === 255 && column < width * gradientPart) {
+    if (!gradientStart && pixels[i + 3] === 255 && column < pixelWidth * gradientPart) {
       gradientStart = true;
     }
 
@@ -138,14 +158,24 @@ export const haste = async (
     else pixels[i + 3] = Math.min(pixels[i + 3] ?? 0, gradient);
   }
 
-  // Create ghost texture directly from the pixel buffer using Pixi's BufferImageSource
-  const ghostTexture = Texture.from({ resource: pixels, width, height });
+  // Build a canvas-backed texture source for Pixi v8 compatibility.
+  const ghostCanvas = document.createElement('canvas');
+  ghostCanvas.width = pixelWidth;
+  ghostCanvas.height = pixelHeight;
+  const ghostContext = ghostCanvas.getContext('2d');
+  if (!ghostContext) {
+    throw new Error('Could not create ghost canvas context');
+  }
+  const imageDataPixels = new Uint8ClampedArray(pixels.length);
+  imageDataPixels.set(pixels);
+  ghostContext.putImageData(new ImageData(imageDataPixels, pixelWidth, pixelHeight), 0, 0);
+  const ghostTexture = Texture.from(ghostCanvas);
   const ghost = new Sprite(ghostTexture);
   // Place ghost behind target
   ghost.position.set(
     brute.team === 'L'
-      ? target.animation.container.x + 0.5 * brute.animation.baseWidth + width * 0.33
-      : target.animation.container.x - 0.5 * brute.animation.baseWidth - width * 0.33,
+      ? target.animation.container.x + 0.5 * brute.animation.baseWidth + displayWidth * 0.33
+      : target.animation.container.x - 0.5 * brute.animation.baseWidth - displayWidth * 0.33,
     target.animation.container.y,
   );
   ghost.anchor.set(0.5, 1);
@@ -166,6 +196,9 @@ export const haste = async (
   }).then(() => {
     // Remove from stage
     app.stage.removeChild(ghost);
+    ghost.destroy();
+    ghostTexture.destroy(true);
+    originalTexture.destroy(true);
   });
 
   // Re-apply haste filters

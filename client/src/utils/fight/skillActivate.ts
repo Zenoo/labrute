@@ -7,6 +7,7 @@ import {
   Texture, Ticker
 } from 'pixi.js';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
+import { MotionBlurFilter } from 'pixi-filters/motion-blur';
 
 import { sound } from '@pixi/sound';
 import { stagger } from './stagger';
@@ -172,7 +173,24 @@ export const skillActivate = async (
             brute.animation.shadow.visible = false;
             // Get brute's current texture
             const previousTexture = ghost.texture;
-            ghost.texture = app.renderer.generateTexture(brute.animation.container);
+            const currentFilters = Array.from(brute.animation.container.filters ?? []);
+            const filtersWithoutMotionBlur = currentFilters.filter(
+              (activeFilter) => !(activeFilter instanceof MotionBlurFilter)
+            );
+            const hadMotionBlur = filtersWithoutMotionBlur.length !== currentFilters.length;
+
+            if (hadMotionBlur) {
+              brute.animation.container.filters = filtersWithoutMotionBlur;
+            }
+
+            try {
+              ghost.texture = app.renderer.generateTexture(brute.animation.container);
+            } finally {
+              if (hadMotionBlur) {
+                brute.animation.container.filters = currentFilters;
+              }
+            }
+
             if (previousTexture && previousTexture !== Texture.EMPTY) {
               previousTexture.destroy(true);
             }

@@ -4,7 +4,7 @@ import {
 } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import {
-  Application, Sprite, Container, Graphics, AnimatedSprite
+  Application, Sprite, Container, AnimatedSprite
 } from 'pixi.js';
 import { displayDamage } from './utils/displayDamage';
 import { AnimationFighter, findFighter } from './utils/findFighter';
@@ -40,14 +40,10 @@ export const flashFlood = async (
 
   const startedWithAWeapon = fighter.animation.weapon !== null;
 
-  // Create mask weapon and vfx
-  const mask = new Graphics()
-    .rect(0, 0, app.stage.width, target.animation.container.y + 2)
-    .fill(0x000000);
+  // Create weapon and vfx
 
-  // Create a masked container
+  // Create a container
   const flashFloodContainer = new Container();
-  flashFloodContainer.mask = mask;
   flashFloodContainer.zIndex = target.animation.container.y - 1;
   flashFloodContainer.sortableChildren = true;
 
