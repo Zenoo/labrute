@@ -9,7 +9,7 @@ export const regenerate = async (
   app: Application,
   fighters: AnimationFighter[],
   step: RegenerationStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const fighter = findFighter(fighters, step.f);

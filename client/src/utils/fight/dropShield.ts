@@ -10,7 +10,7 @@ export const dropShield = (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: DropShieldStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const target = findFighter(fighters, step.b);
   if (!target) {

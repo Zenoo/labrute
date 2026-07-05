@@ -7,7 +7,7 @@ import { tween } from './utils/tween';
 export const death = (
   fighters: AnimationFighter[],
   step: DeathStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const fighter = findFighter(fighters, step.f);

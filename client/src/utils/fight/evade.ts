@@ -8,7 +8,7 @@ import { Easing, tween } from './utils/tween';
 
 export const jumpBack = async (
   fighter: AnimationFighter,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   distance: number = 30,
   duration: number = 0.5,
 ) => {
@@ -77,7 +77,7 @@ export const jumpBack = async (
 export const evade = async (
   fighters: AnimationFighter[],
   step: EvadeStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {

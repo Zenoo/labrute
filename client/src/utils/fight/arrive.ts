@@ -17,7 +17,7 @@ export const arrive = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: ArriveStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const shouldAbort = () => !app.stage || app.stage.destroyed;
 

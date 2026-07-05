@@ -10,7 +10,7 @@ export const disarm = (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: DisarmStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const waveSpritesheet = spritesheets.misc;
 

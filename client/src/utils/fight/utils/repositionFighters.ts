@@ -18,7 +18,7 @@ export const isRangedStep = (stepType: StepType) => rangedSteps.includes(stepTyp
 
 export const repositionFighters = async (
   fighters: AnimationFighter[],
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   excludedFighterId?: AnimationFighter['id'],
 ) => {
   const misplacedFighters: AnimationFighter[] = [];

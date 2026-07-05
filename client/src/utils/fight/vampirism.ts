@@ -20,7 +20,7 @@ export const vampirism = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: VampirismStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const brute = findFighter(fighters, step.b);

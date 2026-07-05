@@ -23,7 +23,7 @@ export const flashFlood = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HitStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const weaponSpritesheet = spritesheets.thrownWeapons;

@@ -8,7 +8,7 @@ export const survive = (
   fight: Fight,
   fighters: AnimationFighter[],
   step: SurviveStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {

@@ -19,7 +19,7 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) and [AUTHORS.md](AUTHORS.md) for a list o
 
 ## Frontend
 
-> Made with [MUI's](https://mui.com/) components, [React](https://reactjs.org/) and [create-react-app](https://facebook.github.io/create-react-app/).
+> Made with [MUI's](https://mui.com/) components, [React](https://reactjs.org/) and [Vite](https://vitejs.dev/), written in [Typescript](https://www.typescriptlang.org/).
 
 ## Contributing
 

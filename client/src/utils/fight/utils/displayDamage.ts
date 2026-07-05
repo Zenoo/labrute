@@ -18,7 +18,7 @@ export const displayDamage = ({
   target: AnimationFighter;
   damage: number;
   criticalHit?: 1 | 0;
-  speed: React.MutableRefObject<number>;
+  speed: React.RefObject<number>;
 }) => {
   // Display floating and fading damage text
   const damageText = new Text({

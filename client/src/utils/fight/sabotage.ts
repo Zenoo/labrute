@@ -11,7 +11,7 @@ export const sabotage = (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SabotageStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const target = findFighter(fighters, step.t);
   if (!target) {

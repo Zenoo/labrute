@@ -10,7 +10,7 @@ export const displayHeal = (
   app: Application,
   fighter: AnimationFighter,
   amount: number,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   // Display floating and fading green heal text
   const healText = new Text({

@@ -15,7 +15,7 @@ export const heal = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HealStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const spritesheet = spritesheets.misc;

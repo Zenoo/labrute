@@ -13,7 +13,7 @@ export const block = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: BlockStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {

@@ -64,7 +64,7 @@ export const setupFight: (
   theme: Theme,
   fight: Fight,
   app: Application,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   t: TFunction,
   toggleTooltip: (brute: Fighter, open: boolean) => void,
   renderer: RendererContextInterface,

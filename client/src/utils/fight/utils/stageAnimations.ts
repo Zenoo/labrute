@@ -3,7 +3,7 @@ import { Application } from 'pixi.js';
 // Shake the stage along the Y-axis with decreasing intensity over a duration
 export const shakeStage = async (
   app: Application,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   intensity: number,
   duration: number,
 ): Promise<void> => {

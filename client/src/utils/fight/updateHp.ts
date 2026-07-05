@@ -6,7 +6,7 @@ export const updateHp = (
   fighters: AnimationFighter[],
   fighter: AnimationFighter,
   hp: number,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
   fix?: boolean
 ) => {

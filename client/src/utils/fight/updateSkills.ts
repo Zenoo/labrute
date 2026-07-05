@@ -13,7 +13,7 @@ const addSkill = (
   app: Application,
   brute: AnimationFighter,
   skillId: SkillId,
-  speed: React.MutableRefObject<number>
+  speed: React.RefObject<number>
 ) => {
   const skillSprite = brute.teamSkillsIllustrations.find(
     (illustration) => illustration.label === skillId.toString()
@@ -62,7 +62,7 @@ export const updateSkills = (
   skillId?: SkillId,
   action?: 'remove' | 'add',
   skillTier?: number,
-  speed?: React.MutableRefObject<number>
+  speed?: React.RefObject<number>
 ) => {
   const spritesheet = spritesheets.skills;
 

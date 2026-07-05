@@ -6,7 +6,7 @@ import { tween } from './utils/tween';
 const staggerObject = async (
   object: Container | Sprite,
   _team: 'L' | 'R',
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   // StaggerObject has an intergrated knockBack fonctionnality
   // It doesn't use the knockBack module as the two are x translations
   // and can't be played simultaneously
@@ -46,7 +46,7 @@ const staggerObject = async (
 
 export const stagger = async (
   fighter: AnimationFighter,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   unsignedKnockBack: number = 0,
   duration: number = 0.5,
 ) => {

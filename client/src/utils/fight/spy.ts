@@ -12,7 +12,7 @@ import { tween } from './utils/tween';
 export const spy = async (
   fighters: AnimationFighter[],
   step: SpyStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
 

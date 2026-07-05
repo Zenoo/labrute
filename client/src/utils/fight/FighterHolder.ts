@@ -35,7 +35,7 @@ import {
   BlurFilter, Container, Filter, Graphics, Matrix, Sprite, Texture,
   Ticker
 } from 'pixi.js';
-import { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 import { createColorOffsetFilter } from '../pixi/createColorOffsetFilter';
 
 const ANIMATIONS: Record<
@@ -440,12 +440,21 @@ const WEAPON_FRAMES: (WeaponName | null)[] = [
 
 const SCALE = 1;
 
-type SvgsToLoad = {
+type SvgLoadEntry = {
   svg: Svg;
-  count: number;
-}[];
+  renderScale: number;
+};
 
 const matrixFromObject = (obj: FramePart['transform'], scale = 1) => new Matrix(obj?.a ?? 1, obj?.b ?? 0, obj?.c ?? 0, obj?.d ?? 1, (obj?.tx ?? 0) * scale, (obj?.ty ?? 0) * scale);
+
+const multiplyMatrices = (left: Matrix, right: Matrix) => new Matrix(
+  left.a * right.a + left.c * right.b,
+  left.b * right.a + left.d * right.b,
+  left.a * right.c + left.c * right.d,
+  left.b * right.c + left.d * right.d,
+  left.a * right.tx + left.c * right.ty + left.tx,
+  left.b * right.tx + left.d * right.ty + left.ty,
+);
 
 export class FighterHolder {
   // Shared across all FighterHolder instances to avoid reloading/reparsing the same SVG
@@ -479,7 +488,7 @@ export class FighterHolder {
   // PIXI
   readonly container: Container;
 
-  #animationContainer: Container | null = null;
+  #renderContainer = new Container();
 
   #animationSymbol: LaBruteSymbol | null = null;
 
@@ -501,13 +510,25 @@ export class FighterHolder {
 
   svgs: Sprite[] = [];
 
+  #svgTexturesByLabel = new Map<string, Texture>();
+
+  #svgDataByLabel = new Map<string, Svg>();
+
   #svgsByLabel = new Map<string, Sprite[]>();
 
-  speed: MutableRefObject<number>;
+  #maskSvgsByLabel = new Map<string, Sprite[]>();
+
+  #containerPoolByParent = new WeakMap<Container, Map<string, Container[]>>();
+
+  #allPooledContainers: Container[] = [];
+
+  speed: RefObject<number>;
 
   #frameCount = 0;
 
   #usedSvgs: Record<string, number> = {};
+
+  #usedMaskSvgs: Record<string, number> = {};
 
   #colorOffsetFilters = new WeakMap<Container, { key: string; filter: Filter }>();
 
@@ -527,7 +548,7 @@ export class FighterHolder {
   constructor(
     app: Application,
     fighter: Fighter,
-    speed: MutableRefObject<number>,
+    speed: RefObject<number>,
     scale = 1,
   ) {
     this.type = fighter.type;
@@ -569,6 +590,10 @@ export class FighterHolder {
     }
 
     this.container = symbolContainer;
+
+    this.#renderContainer.sortableChildren = true;
+    this.#renderContainer.visible = true;
+    this.container.addChild(this.#renderContainer);
 
     // Custom scale for panther
     if (this.type === 'pet' && this.name === 'panther') {
@@ -633,44 +658,18 @@ export class FighterHolder {
     // Add shadow Container to fightHolder
     this.container.addChild(this.shadow);
 
-    const maxSvgs: SvgsToLoad = [];
+    const svgsToLoadByName = new Map<string, SvgLoadEntry>();
+
+    this.#animationSymbol = ANIMATIONS[this.#animationType][this.animation];
+    this.#frameCount = this.#animationSymbol?.frames?.length ?? 0;
 
     // For each animation
     for (const animation of animationsByType) {
       if (!animation) continue;
 
-      const animationContainer = new Container();
-      animationContainer.label = animation.name;
-      animationContainer.sortableChildren = true;
-      animationContainer.visible = false;
-      this.container.addChild(animationContainer);
-
-      if (animation.name === ANIMATIONS[this.#animationType][this.animation]?.name) {
-        animationContainer.visible = true;
-        this.#animationContainer = animationContainer;
-        this.#animationSymbol = animation;
-        this.#frameCount = animation.frames?.length ?? 0;
-      }
-
       // For each frame
       for (const frame of animation.frames ?? []) {
-        const svgsToLoad: SvgsToLoad = [];
-        this.#initializeContainersAndGetSvgsToLoad(
-          svgsToLoad,
-          animationContainer,
-          animation.parts,
-          frame,
-        );
-
-        // Merge svgs
-        for (const svg of svgsToLoad) {
-          const existingSvg = maxSvgs.find((s) => s.svg.name === svg.svg.name);
-          if (!existingSvg) {
-            maxSvgs.push(svg);
-          } else {
-            existingSvg.count = Math.max(existingSvg.count, svg.count);
-          }
-        }
+        this.#collectSvgsToLoad(svgsToLoadByName, animation.parts, frame);
       }
 
       // Change color on bosses
@@ -705,8 +704,8 @@ export class FighterHolder {
       }
     }
 
-    // Load SVGs
-    this.#loadSvgs(maxSvgs).then(() => {
+    // Load SVG textures
+    this.#loadSvgs([...svgsToLoadByName.values()]).then(() => {
       if (this.#isDestroyed || this.container.destroyed) {
         return;
       }
@@ -740,14 +739,12 @@ export class FighterHolder {
             this.#frame = loopStart;
           }
 
-          // Hide all svgs
-          for (const svg of this.svgs) {
-            svg.visible = false;
-          }
+          this.#prepareFrameRender();
 
           // Display frame
           this.#usedSvgs = {};
-          this.#displayFrame(this.#animationContainer, this.#animationSymbol);
+          this.#usedMaskSvgs = {};
+          this.#displayFrame(this.#renderContainer, this.#animationSymbol);
 
           const currentFrame = Math.floor(this.#frame);
           const frameChanged = currentFrame !== this.#previousFrame;
@@ -862,22 +859,7 @@ export class FighterHolder {
       this.animation = animation;
     }
 
-    // Hide all animations
-    for (const child of this.container.children) {
-      if (child !== this.shadow && child instanceof Container) {
-        child.visible = false;
-      }
-    }
-
-    // Update current animation
-    this.#animationContainer = this.container.children
-      .find(
-        (child) => child.label === ANIMATIONS[this.#animationType][this.animation]?.name
-      ) as Container;
     this.#animationSymbol = ANIMATIONS[this.#animationType][this.animation];
-
-    // Show current animation
-    this.#animationContainer.visible = true;
 
     // Reset frame
     this.#frame = frame;
@@ -888,44 +870,42 @@ export class FighterHolder {
 
     // Display frame
     this.#usedSvgs = {};
-    this.#displayFrame(this.#animationContainer, this.#animationSymbol);
+    this.#usedMaskSvgs = {};
+    this.#prepareFrameRender();
+    this.#displayFrame(this.#renderContainer, this.#animationSymbol);
   }
 
-  #initializeContainersAndGetSvgsToLoad = (
-    svgsToLoad: SvgsToLoad,
-    symbolContainer: Container,
+  #collectSvgsToLoad = (
+    svgsToLoadByName: Map<string, SvgLoadEntry>,
     parts: LaBruteSymbol['parts'],
     frame: FramePart[] = [],
   ) => {
-    frame.forEach((framePart, i) => {
+    frame.forEach((framePart) => {
       const symbol = parts?.find((p) => p.name === framePart.name);
 
       if (!symbol) {
-        throw new Error(`Part ${framePart.name} not found in symbol ${symbolContainer.label}`);
+        throw new Error(`Part ${framePart.name} not found in symbol parts`);
       }
 
       // SVG
       if (symbol.type === 'svg') {
-        const existingSvg = svgsToLoad.find((s) => s.svg.name === symbol.name);
-        if (existingSvg) {
-          existingSvg.count++;
-        } else {
-          svgsToLoad.push({
+        let customScale = symbol.scale ?? 1;
+        const size = SCALE * this.#scale;
+
+        // Increase loading scale for better resolution in some cases
+        if (this.type === 'boss') {
+          customScale = 2;
+        }
+
+        const renderScale = Math.max(1, size * customScale);
+        const existing = svgsToLoadByName.get(symbol.name);
+        if (!existing || renderScale > existing.renderScale) {
+          svgsToLoadByName.set(symbol.name, {
             svg: symbol,
-            count: 1,
+            renderScale,
           });
         }
       } else {
-        // Symbol
-
-        const container = new Container();
-        container.sortableChildren = true;
-        container.label = symbol.name;
-        container.visible = false;
-        container.zIndex = frame.length - i;
-
-        symbolContainer.addChild(container);
-
         // Get frames to load
         let framesToLoad: number[] = [];
 
@@ -956,9 +936,8 @@ export class FighterHolder {
             continue;
           }
 
-          this.#initializeContainersAndGetSvgsToLoad(
-            svgsToLoad,
-            container,
+          this.#collectSvgsToLoad(
+            svgsToLoadByName,
             symbol.parts,
             currentFrame,
           );
@@ -967,7 +946,7 @@ export class FighterHolder {
     });
   };
 
-  #loadSvgs = async (svgsToLoad: SvgsToLoad) => {
+  #loadSvgs = async (svgsToLoad: SvgLoadEntry[]) => {
     const loadingSvgs: Promise<void>[] = [];
 
     const getTexture = (
@@ -1002,60 +981,160 @@ export class FighterHolder {
     };
 
     for (const svgToLoad of svgsToLoad) {
-      const { svg } = svgToLoad;
+      const { svg, renderScale } = svgToLoad;
 
-      for (let i = 0; i < svgToLoad.count; i++) {
-        loadingSvgs.push(new Promise((resolve) => {
-          // Custom scale
-          let customScale = svg.scale ?? 1;
-          const size = SCALE * this.#scale;
+      loadingSvgs.push(new Promise((resolve) => {
+        const svgSource = `${svg.svg}<!-- ${renderScale} -->`;
+        const svgDataUrl = `data:image/svg+xml,${encodeURIComponent(svgSource)}`;
+        const cacheKey = `${svg.name}|${renderScale}`;
 
-          // Increase loading scale for better resolution in some cases
-          if (this.type === 'boss') {
-            customScale = 2;
-          }
-
-          const renderScale = Math.max(1, size * customScale);
-          const svgSource = `${svg.svg}<!-- ${renderScale} -->`;
-          const svgDataUrl = `data:image/svg+xml,${encodeURIComponent(svgSource)}`;
-          const addSprite = (texture: Texture) => {
-            const svgSprite = new Sprite(texture);
-            svgSprite.label = svg.name;
-            svgSprite.scale.set(size);
-            svgSprite.visible = false;
-
-            // Apply offset
-            if (svg.offset) {
-              svgSprite.x = -(svg.offset.x ?? 0) * size;
-              svgSprite.y = -(svg.offset.y ?? 0) * size;
+        getTexture(svgDataUrl, renderScale, cacheKey, svg.name)
+          .then((texture) => {
+            if (texture) {
+              this.#svgTexturesByLabel.set(svg.name, texture);
+              this.#svgDataByLabel.set(svg.name, svg);
             }
-
-            this.container.addChild(svgSprite);
-            this.svgs.push(svgSprite);
-
-            const sprites = this.#svgsByLabel.get(svg.name);
-            if (sprites) {
-              sprites.push(svgSprite);
-            } else {
-              this.#svgsByLabel.set(svg.name, [svgSprite]);
-            }
-          };
-
-          const cacheKey = `${svg.name}|${renderScale}`;
-          getTexture(svgDataUrl, renderScale, cacheKey, svg.name)
-            .then((texture) => {
-              if (texture) {
-                addSprite(texture);
-              }
-            })
-            .finally(() => {
-              resolve();
-            });
-        }));
-      }
+          })
+          .finally(() => {
+            resolve();
+          });
+      }));
     }
 
     await Promise.all(loadingSvgs);
+  };
+
+  #prepareFrameRender = () => {
+    for (const svg of this.svgs) {
+      svg.visible = false;
+      svg.renderable = true;
+      svg.mask = null;
+    }
+
+    for (const maskGroup of this.#maskSvgsByLabel.values()) {
+      for (const maskSvg of maskGroup) {
+        maskSvg.visible = false;
+        maskSvg.renderable = false;
+        maskSvg.mask = null;
+      }
+    }
+
+    for (const container of this.#allPooledContainers) {
+      container.visible = false;
+      container.mask = null;
+    }
+  };
+
+  #acquireContainer = (label: string, parent: Container, index: number) => {
+    let poolsByLabel = this.#containerPoolByParent.get(parent);
+    if (!poolsByLabel) {
+      poolsByLabel = new Map<string, Container[]>();
+      this.#containerPoolByParent.set(parent, poolsByLabel);
+    }
+
+    let containers = poolsByLabel.get(label);
+    if (!containers) {
+      containers = [];
+      poolsByLabel.set(label, containers);
+    }
+
+    let container = containers[index];
+    if (!container) {
+      container = new Container();
+      container.sortableChildren = true;
+      container.label = label;
+      container.visible = false;
+      containers.push(container);
+      this.#allPooledContainers.push(container);
+    }
+
+    if (container.parent !== parent) {
+      parent.addChild(container);
+    }
+
+    return container;
+  };
+
+  #acquireSvgSprite = (svgName: string, parent: Container) => {
+    const usedCount = this.#usedSvgs[svgName] ?? 0;
+    let sprites = this.#svgsByLabel.get(svgName);
+
+    if (!sprites) {
+      sprites = [];
+      this.#svgsByLabel.set(svgName, sprites);
+    }
+
+    let sprite = sprites[usedCount];
+    if (!sprite) {
+      const texture = this.#svgTexturesByLabel.get(svgName);
+      const svgData = this.#svgDataByLabel.get(svgName);
+
+      if (!texture || !svgData) {
+        throw new Error(`Sprite ${svgName} texture not found`);
+      }
+
+      const size = SCALE * this.#scale;
+      sprite = new Sprite(texture);
+      sprite.label = svgName;
+      sprite.scale.set(size);
+      sprite.visible = false;
+
+      if (svgData.offset) {
+        sprite.x = -(svgData.offset.x ?? 0) * size;
+        sprite.y = -(svgData.offset.y ?? 0) * size;
+      }
+
+      sprites.push(sprite);
+      this.svgs.push(sprite);
+    }
+
+    if (sprite.parent !== parent) {
+      parent.addChild(sprite);
+    }
+
+    this.#usedSvgs[svgName] = usedCount + 1;
+    return sprite;
+  };
+
+  #acquireMaskSvgSprite = (svgName: string, parent: Container) => {
+    const usedCount = this.#usedMaskSvgs[svgName] ?? 0;
+    let sprites = this.#maskSvgsByLabel.get(svgName);
+
+    if (!sprites) {
+      sprites = [];
+      this.#maskSvgsByLabel.set(svgName, sprites);
+    }
+
+    let sprite = sprites[usedCount];
+    if (!sprite) {
+      const texture = this.#svgTexturesByLabel.get(svgName);
+      const svgData = this.#svgDataByLabel.get(svgName);
+
+      if (!texture || !svgData) {
+        throw new Error(`Mask sprite ${svgName} texture not found`);
+      }
+
+      const size = SCALE * this.#scale;
+      sprite = new Sprite(texture);
+      sprite.label = svgName;
+      sprite.scale.set(size);
+      sprite.visible = false;
+      sprite.renderable = false;
+
+      if (svgData.offset) {
+        sprite.x = -(svgData.offset.x ?? 0) * size;
+        sprite.y = -(svgData.offset.y ?? 0) * size;
+      }
+
+      sprites.push(sprite);
+    }
+
+    if (sprite.parent !== parent) {
+      parent.addChild(sprite);
+    }
+
+    this.#usedMaskSvgs[svgName] = usedCount + 1;
+    return sprite;
   };
 
   #getColorOffsetFilter = (container: Container, r: number, g: number, b: number) => {
@@ -1079,14 +1158,37 @@ export class FighterHolder {
     colorIdx?: string,
     zIndex?: number,
     svgMaskedBy?: number,
+    frameTransform?: FramePart['transform'],
+    frameAlpha?: number,
+    framePartsByName?: Map<string, FramePart>,
   ) => {
     if (!symbolContainer || !symbol) return;
 
     if (symbol.type === 'svg') {
-      const sprite = this.#svgsByLabel.get(symbol.name)?.[this.#usedSvgs[symbol.name] ?? 0];
+      const sprite = this.#acquireSvgSprite(symbol.name, symbolContainer);
+      const svgData = this.#svgDataByLabel.get(symbol.name);
 
-      if (!sprite) {
-        throw new Error(`Sprite ${symbol.name} not found`);
+      if (!svgData) {
+        throw new Error(`SVG data ${symbol.name} not found`);
+      }
+
+      // Apply transform from timeline placement.
+      if (frameTransform) {
+        const size = SCALE * this.#scale;
+        const frameMatrix = matrixFromObject(frameTransform, size);
+        const baseMatrix = new Matrix(
+          size,
+          0,
+          0,
+          size,
+          -((svgData.offset?.x ?? 0) * size),
+          -((svgData.offset?.y ?? 0) * size),
+        );
+        sprite.setFromMatrix(multiplyMatrices(frameMatrix, baseMatrix));
+      }
+
+      if (frameAlpha !== undefined) {
+        sprite.alpha = frameAlpha;
       }
 
       // Hide shield if needed
@@ -1101,18 +1203,28 @@ export class FighterHolder {
 
       // Apply masking
       if (svgMaskedBy) {
-        // Get mask sprite
-        const maskSprite = this.#svgsByLabel.get(`Symbol${svgMaskedBy}`)?.[0];
-        if (!maskSprite) {
-          throw new Error(`Mask sprite Symbol${svgMaskedBy} not found`);
+        const maskName = `Symbol${svgMaskedBy}`;
+        const maskSprite = this.#acquireMaskSvgSprite(maskName, symbolContainer);
+        const maskFramePart = framePartsByName?.get(maskName);
+
+        if (maskFramePart?.transform) {
+          const size = SCALE * this.#scale;
+          const maskMatrix = matrixFromObject(maskFramePart.transform, size);
+          const maskSvgData = this.#svgDataByLabel.get(maskName);
+          const maskBaseMatrix = new Matrix(
+            size,
+            0,
+            0,
+            size,
+            -((maskSvgData?.offset?.x ?? 0) * size),
+            -((maskSvgData?.offset?.y ?? 0) * size),
+          );
+          maskSprite.setFromMatrix(multiplyMatrices(maskMatrix, maskBaseMatrix));
         }
 
-        if (maskSprite.parent !== symbolContainer) {
-          symbolContainer.addChild(maskSprite);
-        }
-
-        // Keep mask sprites visible for Pixi v8 masking.
+        // Keep mask sprites in the graph for masking, but do not draw them.
         maskSprite.visible = true;
+        maskSprite.renderable = false;
 
         sprite.mask = maskSprite;
       }
@@ -1129,24 +1241,18 @@ export class FighterHolder {
 
       // Add to current container
       sprite.zIndex = zIndex ?? 0;
-      symbolContainer.addChild(sprite);
-
-      // Increment used count
-      const usedCount = this.#usedSvgs[symbol.name];
-      if (usedCount) {
-        this.#usedSvgs[symbol.name] = usedCount + 1;
-      } else {
-        this.#usedSvgs[symbol.name] = 1;
-      }
     } else {
-      const usedSymbols: string[] = [];
+      const usedContainers: Record<string, number> = {};
 
       // Check if symbol has an offset
       if (symbol.offset) {
-
         symbolContainer.x = this.#scale * SCALE * (symbol.offset.x ?? 0);
-
         symbolContainer.y = this.#scale * SCALE * (symbol.offset.y ?? 0);
+      } else if (symbolContainer === this.#renderContainer) {
+        // Top-level container is reused across animations; clear stale offset
+        // when the current animation symbol has no explicit offset.
+        symbolContainer.x = 0;
+        symbolContainer.y = 0;
       }
 
       // Get frame to load
@@ -1176,7 +1282,12 @@ export class FighterHolder {
       }
 
       const frameParts = symbol.frames?.[frameToLoad] ?? [];
-      const usedContainers: Record<string, number> = {};
+      const maskSymbolNames = new Set(
+        frameParts
+          .filter((part) => !!part.maskedBy)
+          .map((part) => `Symbol${part.maskedBy}`),
+      );
+      const framePartByName = new Map(frameParts.map((part) => [part.name, part]));
 
       for (let i = 0; i < frameParts.length; i++) {
         const framePart = frameParts[i];
@@ -1185,15 +1296,16 @@ export class FighterHolder {
           throw new Error(`Part ${i} not found in frame ${frameToLoad}`);
         }
 
-        // Count identic symbols already used
-        const identicSymbolsCount = usedSymbols.filter((s) => s === framePart.name).length;
-
-        // Get corresponding symbol
-        const framePartSymbol = symbol.parts
-          ?.filter((p) => p.name === framePart.name)[identicSymbolsCount];
+        // Match previous behavior: always resolve the first matching part by name.
+        const framePartSymbol = symbol.parts?.find((p) => p.name === framePart.name);
 
         if (!framePartSymbol) {
           throw new Error(`Part ${framePart.name} not found in symbol ${symbol.name}`);
+        }
+
+        // Mask helper symbols should not be rendered as standalone visual parts.
+        if (maskSymbolNames.has(framePart.name)) {
+          continue;
         }
 
         if (framePartSymbol.type === 'svg') {
@@ -1203,23 +1315,20 @@ export class FighterHolder {
             colorIdx,
             frameParts.length - i,
             framePart.maskedBy,
+            framePart.transform,
+            framePart.alpha,
+            framePartByName,
           );
           continue;
         }
 
-        // Get corresponding container
-        const sameParts = symbolContainer.children.filter(
-          (child) => child instanceof Container
-            && child.label === framePart.name
-        ).length;
-        const framePartContainer = symbolContainer.children
-          .filter(
-            (child) => child instanceof Container && child.label === framePart.name
-          )[sameParts - (usedContainers[framePart.name] ?? 0) - 1] as Container | undefined;
-
-        if (!framePartContainer) {
-          throw new Error(`Container ${framePart.name} not found`);
-        }
+        const usedContainerCount = usedContainers[framePart.name] ?? 0;
+        const framePartContainer = this.#acquireContainer(
+          framePart.name,
+          symbolContainer,
+          usedContainerCount,
+        );
+        usedContainers[framePart.name] = usedContainerCount + 1;
 
         // Apply transform
         if (framePart.transform) {
@@ -1247,26 +1356,21 @@ export class FighterHolder {
         }
 
         // Apply alpha
-        if (framePart.alpha) {
+        if (framePart.alpha !== undefined) {
           framePartContainer.alpha = framePart.alpha;
         }
 
         // Apply masking
         if (framePart.maskedBy) {
-          // Get mask sprite
-          const maskSprite = this.#svgsByLabel.get(`Symbol${framePart.maskedBy}`)?.[0];
-          if (!maskSprite) {
-            throw new Error(`Mask sprite Symbol${framePart.maskedBy} not found`);
-          }
+          const maskSprite = this.#acquireMaskSvgSprite(`Symbol${framePart.maskedBy}`, framePartContainer);
 
-          if (maskSprite.parent !== framePartContainer) {
-            framePartContainer.addChild(maskSprite);
-          }
-
-          // Keep mask sprites visible for Pixi v8 masking.
+          // Keep mask sprites in the graph for masking, but do not draw them.
           maskSprite.visible = true;
+          maskSprite.renderable = false;
 
           framePartContainer.mask = maskSprite;
+        } else {
+          framePartContainer.mask = null;
         }
 
         // Apply zIndex
@@ -1274,18 +1378,17 @@ export class FighterHolder {
 
         // Apply visibility
         framePartContainer.visible = true;
-        const usedCount = usedContainers[framePart.name];
-        if (usedCount) {
-          usedContainers[framePart.name] = usedCount + 1;
-        } else {
-          usedContainers[framePart.name] = 1;
-        }
 
         // Handle children
         this.#displayFrame(
           framePartContainer,
           framePartSymbol,
           framePartSymbol.colorIdx ?? colorIdx,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          framePartByName,
         );
       }
     }
@@ -1360,7 +1463,12 @@ export class FighterHolder {
 
     // Clear svg sprite references to allow GC; do not destroy their textures here.
     this.svgs = [];
+    this.#svgTexturesByLabel.clear();
+    this.#svgDataByLabel.clear();
     this.#svgsByLabel.clear();
+    this.#maskSvgsByLabel.clear();
+    this.#allPooledContainers = [];
+    this.#containerPoolByParent = new WeakMap<Container, Map<string, Container[]>>();
 
     this.#colorOffsetFilters = new WeakMap<Container, { key: string; filter: Filter }>();
   };

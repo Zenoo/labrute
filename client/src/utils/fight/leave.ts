@@ -7,7 +7,7 @@ import { tween } from './utils/tween';
 export const leave = async (
   fighters: AnimationFighter[],
   step: LeaveStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.f);
   if (!fighter) {

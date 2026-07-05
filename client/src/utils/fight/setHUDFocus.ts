@@ -14,7 +14,7 @@ export const setHUDFocus = async (
   renderer: RendererContextInterface,
   fighters: AnimationFighter[],
   fighterIndex: number | undefined,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const fighter = findFighter(fighters, fighterIndex);

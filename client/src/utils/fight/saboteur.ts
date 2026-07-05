@@ -13,7 +13,7 @@ export const saboteur = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SaboteurStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {

@@ -25,7 +25,7 @@ export const skillUse = (
   spritesheets: Spritesheets,
   brute: AnimationFighter,
   skillId: SkillId,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const skillSprite = brute.teamSkillsIllustrations.find(
     (illustration) => illustration.label === skillId.toString()
@@ -79,7 +79,7 @@ export const skillActivate = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SkillActivateStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const spritesheet = spritesheets.misc;
 

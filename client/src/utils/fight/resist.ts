@@ -19,7 +19,7 @@ export const playResistAnimation = (
   app: Application,
   spritesheets: Spritesheets,
   brute: AnimationFighter,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   // Abort if brute doesn't resist
   if (!brute.resist) return;

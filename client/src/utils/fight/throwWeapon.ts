@@ -14,7 +14,7 @@ export const throwWeapon = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: ThrowStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const spritesheet = spritesheets.thrownWeapons;
 

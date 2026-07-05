@@ -36,7 +36,7 @@ const tweenShadow = async ({
   endAltitude,
 }: {
   fighter: AnimationFighter;
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   duration: number,
   ease: gsap.EaseString | gsap.EaseFunction,
   endAltitude: number,
@@ -79,7 +79,7 @@ const airbornMove = async ({
   endPosition,
 }: {
   fighter: AnimationFighter;
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   duration: number,
   ease: gsap.EaseString | gsap.EaseFunction,
   endPosition: { y: number, x?: number, zIndex?: number },

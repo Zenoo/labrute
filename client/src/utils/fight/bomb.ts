@@ -32,7 +32,7 @@ export const bomb = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: BombStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const spritesheet = spritesheets.misc;

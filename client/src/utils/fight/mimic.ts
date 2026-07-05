@@ -12,7 +12,7 @@ export const mimic = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: MimicStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const opponents = step.f.map((fighterId) => {
     const fighter = findFighter(fighters, fighterId);

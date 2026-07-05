@@ -13,7 +13,7 @@ export const trap = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: TrapStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const spritesheet = spritesheets.misc;
 

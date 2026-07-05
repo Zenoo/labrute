@@ -22,7 +22,7 @@ export const hammer = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HitStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const fighter = findFighter(fighters, step.f);

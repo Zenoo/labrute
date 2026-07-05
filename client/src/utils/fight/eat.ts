@@ -16,7 +16,7 @@ export const eat = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: EatStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   isClanWar: boolean,
 ) => {
   const brute = findFighter(fighters, step.b);

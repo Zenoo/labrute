@@ -21,7 +21,7 @@ const getRealKnockBack = (
 
 const knockBack = async (
   fighter: AnimationFighter,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   unsignedKnockBack: number,
   duration: number = 0.5,
 ) => {

@@ -14,7 +14,7 @@ export const attemptHit = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: AttemptHitStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const spritesheet = spritesheets.misc;
 

@@ -19,7 +19,7 @@ export const hypnotise = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: HypnotiseStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {

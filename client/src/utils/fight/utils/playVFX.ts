@@ -8,7 +8,7 @@ const playDustEffect = (
   app: Application,
   spritesheets: Spritesheets,
   fighter: AnimationFighter,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   offset: number = 0,
 ) => {
   const spritesheet = spritesheets.misc;
@@ -40,7 +40,7 @@ const playHitEffect = (
   spritesheets: Spritesheets,
   fighter: AnimationFighter,
   target: AnimationFighter,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   VFX?: string,
 ) => {
   const spritesheet = spritesheets.misc;

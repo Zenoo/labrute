@@ -17,7 +17,7 @@ export const treat = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: TreatStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const spritesheet = spritesheets.misc;
 

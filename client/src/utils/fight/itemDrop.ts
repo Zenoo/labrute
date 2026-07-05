@@ -26,7 +26,7 @@ export const itemDrop = ({
   app: Application;
   spritesheets: Spritesheets,
   fighter: AnimationFighter;
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
   item: WeaponId | 'shield';
   initialPosition?: { x?: number; y?: number; r?: number },
   initialVelocity?: { x?: number; y?: number; r?: number },

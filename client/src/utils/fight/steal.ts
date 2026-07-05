@@ -17,7 +17,7 @@ export const steal = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: StealStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const brute = findFighter(fighters, step.b);
   if (!brute) {

@@ -16,7 +16,7 @@ export const skillExpire = async (
   spritesheets: Spritesheets,
   fighters: AnimationFighter[],
   step: SkillExpireStep,
-  speed: React.MutableRefObject<number>,
+  speed: React.RefObject<number>,
 ) => {
   const fighter = findFighter(fighters, step.b || step.f || 0);
   if (!fighter) {
