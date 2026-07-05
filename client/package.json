@@ -17,6 +17,7 @@
     "@ckeditor/ckeditor5-react": "^8.0.0",
     "@ckeditor/ckeditor5-utils": "^42.0.2",
     "@ckeditor/ckeditor5-watchdog": "^42.0.2",
+    "@dr.pogodin/react-helmet": "^3.2.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fingerprintjs/fingerprintjs": "^5.2.0",
@@ -39,7 +40,6 @@
     "react-dom": "^19.2.7",
     "react-fast-marquee": "^1.6.4",
     "react-ga4": "^2.1.0",
-    "react-helmet-async": "^2.0.5",
     "react-i18next": "^11.18.3",
     "react-router": "^8.1.0",
     "react-zoom-pan-pinch": "3.6.1"

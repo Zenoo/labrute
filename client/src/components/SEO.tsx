@@ -1,6 +1,6 @@
 // react-seo types are not up to date, so we redeclare them here
 
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from '@dr.pogodin/react-helmet';
 import { useLocation } from 'react-router';
 import { Host } from '../utils/host';
 import React from 'react';
@@ -28,7 +28,7 @@ export const SEO = ({
   const canonical = `${DOMAIN}${location.pathname}`;
 
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags>
       <title>{title}</title>
       <link rel="canonical" href={canonical} />
       {/* OPEN GRAPH */}

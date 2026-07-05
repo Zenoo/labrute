@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, {
   Suspense, useMemo, useState
 } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import { useRoutes } from 'react-router';
 import { Loader } from './components/Loader';
 import { LS_KEY_THEME } from './utils/constants';
