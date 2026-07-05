@@ -928,7 +928,7 @@ export const Users = {
 
       const { modifiers } = req.body;
 
-      if (!modifiers || !Array.isArray(modifiers)) {
+      if (!modifiers) {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 

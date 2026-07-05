@@ -6,13 +6,16 @@ import dayjs from 'dayjs';
 import React, {
   useEffect, useMemo, useState
 } from 'react';
-import Marquee from 'react-fast-marquee';
+import _Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
 import { LS_KEY_MARQUEE_PAUSED } from '../utils/constants';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { Text } from './Text';
+import { importModule } from '../utils/import';
+
+const Marquee = importModule(_Marquee);
 
 export interface HeaderProps extends BoxProps {
   url?: string;
