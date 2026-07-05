@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.11](https://github.com/Zenoo/labrute/compare/labrute-v2.97.10...labrute-v2.97.11) (2026-07-05)
+
+
+### Bug Fixes
+
+* HUGE FighterHolder optimization to reduce display objects used in fights (500 vs 300k) ([8ff3581](https://github.com/Zenoo/labrute/commit/8ff35815724cc58673b73845bc1f8447f82299a6))
+* Marquee not working after migrating to Vite ([3f4101e](https://github.com/Zenoo/labrute/commit/3f4101e15c9215fe4e08fc738e678809e7010fed))
+* Migrate to Vite ([b93dcb6](https://github.com/Zenoo/labrute/commit/b93dcb60770e8129158144a2d3723c3243d0a61b))
+* Update deps ([d84ec00](https://github.com/Zenoo/labrute/commit/d84ec005c5e3f4d482f91e8336db5c63a771b30f))
+* Update React dep to v19 ([6602489](https://github.com/Zenoo/labrute/commit/660248914139e5aa35fb9d11db581f17b67397ea))
+* Update react-helmet ([048e894](https://github.com/Zenoo/labrute/commit/048e894cb3d48dcf2920f00dbe0c5fdf12a24dcd))
+* Update react-router to v8 ([065d5e5](https://github.com/Zenoo/labrute/commit/065d5e57060449c393bef070e47176e09b7595ad))
+* Update react-zoom-pan-pinch ([cfee23c](https://github.com/Zenoo/labrute/commit/cfee23cce3d7668d3d958abfe559cb68eeb79219))
+* Update to react-router v7 ([70f816e](https://github.com/Zenoo/labrute/commit/70f816ecd49c861d76518aabf67b6652039c3fdb))
+* Visual issues with haste and fierce brute ([2f20d5e](https://github.com/Zenoo/labrute/commit/2f20d5ef1dc038a382f6d37118b120df3e675a5b))
+
 ## [2.97.10](https://github.com/Zenoo/labrute/compare/labrute-v2.97.9...labrute-v2.97.10) (2026-07-04)
 
 
