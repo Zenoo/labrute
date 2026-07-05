@@ -16,6 +16,8 @@
     "eternaltwin:start": "eternaltwin start",
     "start": "pnpm --filter server start",
     "dev": "concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"pnpm studio\" \"pnpm back\" \"pnpm front\" \"pnpm eternaltwin:start\"",
+    "dev:preview": "pnpm --filter client build && concurrently --prefix \"[{name}]\" --names \"DB,SERVER,CLIENT,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold,bgYellow.bold\" \"pnpm studio\" \"pnpm back\" \"pnpm --filter client preview\" \"pnpm eternaltwin:start\"",
+    "front:preview": "pnpm --filter client build && pnpm --filter client exec vite preview --port 3000",
     "build": "pnpm compile && pnpm build:client",
     "build:client": "pnpm --filter client build",
     "db:migrate:manual": "pnpm --filter server db:migrate:manual",

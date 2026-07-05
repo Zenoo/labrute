@@ -1,8 +1,8 @@
 import { getBruteGoldValue, getResetCost } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
-import { History, Policy } from '@mui/icons-material';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import {
+  History, NavigateBefore, NavigateNext, Policy
+} from '@mui/icons-material';
 import {
   Box, Fab, IconButton, Paper, Tooltip, useMediaQuery, useTheme
 } from '@mui/material';
@@ -196,7 +196,7 @@ export const CellView = () => {
           zIndex: 100,
         }}
       >
-        <NavigateBeforeIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
+        <NavigateBefore sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
       </Fab>
     </Tooltip>
   );
@@ -214,7 +214,7 @@ export const CellView = () => {
           zIndex: 100,
         }}
       >
-        <NavigateNextIcon sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
+        <NavigateNext sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
       </Fab>
     </Tooltip>
   );
