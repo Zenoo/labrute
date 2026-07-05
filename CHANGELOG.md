@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.12](https://github.com/Zenoo/labrute/compare/labrute-v2.97.11...labrute-v2.97.12) (2026-07-05)
+
+
+### Bug Fixes
+
+* react-ga4 import issue ([8d72c3c](https://github.com/Zenoo/labrute/commit/8d72c3c2a08d1571838b3a6b7e041035975673ed))
+
 ## [2.97.11](https://github.com/Zenoo/labrute/compare/labrute-v2.97.10...labrute-v2.97.11) (2026-07-05)
 
 
