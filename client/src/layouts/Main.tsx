@@ -19,7 +19,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import {
   Outlet, Link as RouterLink, useNavigate
-} from 'react-router-dom';
+} from 'react-router';
 import { ActionButton } from '../components/ActionButton';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
 import { BruteSearch } from '../components/BruteSearch';

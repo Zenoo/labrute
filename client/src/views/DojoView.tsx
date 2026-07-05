@@ -25,7 +25,7 @@ import {
 import { AnimationFighter } from '../utils/fight/utils/findFighter';
 import { FighterHolder } from '../utils/fight/FighterHolder';
 import { updateShadow } from '../utils/fight/utils/updateShadow';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { gsap } from 'gsap';
 
 export const DojoView = () => {

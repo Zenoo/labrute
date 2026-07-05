@@ -7,7 +7,7 @@ import React, {
   Suspense, useMemo, useState
 } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 import { Loader } from './components/Loader';
 import { LS_KEY_THEME } from './utils/constants';
 import { AlertProvider } from './hooks/useAlert';

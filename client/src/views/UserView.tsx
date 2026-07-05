@@ -15,8 +15,9 @@ import React, {
   useCallback, useEffect, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import {
+  useNavigate, useParams, Link as RouterLink
+} from 'react-router';
 import { AchievementHeader } from '../components/AchievementHeader';
 import { AchievementTooltip } from '../components/AchievementTooltip';
 import { ActivityStatus } from '../components/ActivityStatus';

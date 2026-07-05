@@ -10,8 +10,9 @@ import React, {
   useCallback, useEffect, useMemo
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import {
+  useNavigate, useParams, Link as RouterLink
+} from 'react-router';
 import { BoxBg } from '../components/BoxBg';
 import { CellClan } from '../components/Cell/CellClan';
 import { CellLog } from '../components/Cell/CellLog';

@@ -3,7 +3,7 @@ import {
   Box, BoxProps, useTheme
 } from '@mui/material';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 interface FantasyButtonProps extends BoxProps {
   color: 'primary'

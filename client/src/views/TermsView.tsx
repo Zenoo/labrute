@@ -7,7 +7,7 @@ import { Page } from '../components/Page';
 import { Text } from '../components/Text';
 import { useServer } from '../hooks/useServer';
 import { FantasyButton } from '../components/FantasyButton';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { catchError } from '../utils/catchError';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';

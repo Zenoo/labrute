@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import ReactGA from 'react-ga4';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { App } from './App';
 import { Loader } from './components/Loader';
 import { LanguageProvider } from './hooks/useLanguage';
@@ -41,10 +41,6 @@ root.render(
   <Suspense fallback={<Loader />}>
     <LanguageProvider>
       <BrowserRouter
-        future={{
-          v7_relativeSplatPath: true,
-          v7_startTransition: true,
-        }}
       >
         <App />
       </BrowserRouter>

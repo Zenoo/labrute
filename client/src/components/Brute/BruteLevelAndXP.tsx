@@ -6,7 +6,7 @@ import {
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextProps, Text } from '../Text';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 interface BruteLevelAndXPProps extends BoxProps {
   brute: Pick<Brute, 'level' | 'xp' | 'eventId' | 'name'>;

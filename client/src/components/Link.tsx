@@ -1,6 +1,6 @@
 import React, { forwardRef, PropsWithChildren } from 'react';
 import { Link as MUILink, LinkBaseProps } from '@mui/material';
-import { Link as LinkComponent } from 'react-router-dom';
+import { Link as LinkComponent } from 'react-router';
 
 export interface LinkProps extends LinkBaseProps {
   to?: string;

@@ -1,7 +1,7 @@
 import { Box, Paper } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { Page } from '../components/Page';
 import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';

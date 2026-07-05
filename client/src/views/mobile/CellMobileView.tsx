@@ -6,7 +6,7 @@ import {
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router';
 import { CellClan } from '../../components/Cell/CellClan';
 import { CellGlobalTournament } from '../../components/Cell/CellGlobalTournament';
 import { CellLog } from '../../components/Cell/CellLog';

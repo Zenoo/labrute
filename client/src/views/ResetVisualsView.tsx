@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
 import { FantasyButton } from '../components/FantasyButton';
 import { Page } from '../components/Page';

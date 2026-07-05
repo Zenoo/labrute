@@ -9,8 +9,7 @@ import React, {
   useEffect, useMemo, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
 import { Link } from '../components/Link';
 import { Page } from '../components/Page';

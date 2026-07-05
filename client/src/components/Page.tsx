@@ -14,7 +14,7 @@ import { SEO } from './SEO';
 import { Text } from './Text';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { isError } from '../utils/catchError';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 interface Props extends BoxProps {
   title: string,

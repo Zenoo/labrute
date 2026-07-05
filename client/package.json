@@ -45,8 +45,7 @@
     "react-helmet-async": "^2.0.5",
     "react-i18next": "^11.18.3",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-router": "^6.30.4",
-    "react-router-dom": "^6.30.4",
+    "react-router": "^7.18.1",
     "react-zoom-pan-pinch": "3.6.1"
   },
   "browserslist": {

@@ -8,7 +8,7 @@ import {
 import { BoxProps } from '@mui/system';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { ActivityStatus } from '../ActivityStatus';
 import { ArenaStat } from '../Arena/ArenaStat';
 import { StyledButton } from '../StyledButton';
