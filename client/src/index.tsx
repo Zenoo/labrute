@@ -40,8 +40,7 @@ const root = createRoot(container);
 root.render(
   <Suspense fallback={<Loader />}>
     <LanguageProvider>
-      <BrowserRouter
-      >
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </LanguageProvider>
