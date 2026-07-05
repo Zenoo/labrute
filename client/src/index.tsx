@@ -3,7 +3,7 @@ import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import ReactGA from 'react-ga4';
+import _ReactGA from 'react-ga4';
 import { BrowserRouter } from 'react-router';
 import { App } from './App';
 import { Loader } from './components/Loader';
@@ -12,6 +12,9 @@ import './i18n';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { HOST } from './utils/host';
+import { importModule } from './utils/import';
+
+const ReactGA = importModule(_ReactGA);
 
 const container = document.getElementById('root');
 
