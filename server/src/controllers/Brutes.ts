@@ -481,7 +481,7 @@ export const Brutes = {
       const masterName = req.body.master;
       const master = masterName ? await traced('brutes.create.findMaster', () => prisma.brute.findFirst({
         where: {
-          name: masterName,
+          name: ilike(masterName),
           deletedAt: null,
           userId: {
             not: user.id,
