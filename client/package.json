@@ -1,6 +1,6 @@
 {
   "name": "@labrute/client",
-  "version": "2.97.13",
+  "version": "2.97.14",
   "private": true,
   "type": "module",
   "scripts": {

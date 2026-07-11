@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.14](https://github.com/Zenoo/labrute/compare/labrute-v2.97.13...labrute-v2.97.14) (2026-07-11)
+
+
+### Bug Fixes
+
+* Pupil master name check ([b972f00](https://github.com/Zenoo/labrute/commit/b972f00b0e880ee530a010d3c7b2dc3e75250383))
+
 ## [2.97.13](https://github.com/Zenoo/labrute/compare/labrute-v2.97.12...labrute-v2.97.13) (2026-07-05)
 
 
