@@ -20,7 +20,7 @@ export const DojoRankIcon = ({ pupilsCount, sx, ...rest }: DojoRankIconProps) =>
 
   return (
     <Tooltip title={t('dojoRank', { rank: dojoRank })}>
-      <Box component="img" src={`/images/dojo/${dojoRank}.gif`} sx={{ width: 11, height: 11, ...sx }} {...rest} />
+      <Box component="img" src={`/images/dojo/${dojoRank}.png`} sx={{ width: 11, height: 11, ...sx }} {...rest} />
     </Tooltip>
   );
 };
