@@ -76,6 +76,20 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+    case UserLogType.TRANSFER_BRUTE: {
+      return (
+        <>
+          <Link to={`/user/${log.userId}`} target="_blank">{log.user.name}</Link> transferred the brute {log.brute?.name} to <Link to={`/user/${log.targetUserId}`} target="_blank">{log.targetUserId}</Link>.
+        </>
+      );
+    }
+    case UserLogType.RECEIVE_BRUTE: {
+      return (
+        <>
+          <Link to={`/user/${log.userId}`} target="_blank">{log.user.name}</Link> received the brute {log.brute?.name} from <Link to={`/user/${log.targetUserId}`} target="_blank">{log.targetUserId}</Link>.
+        </>
+      );
+    }
     default: {
       console.error('Unknown log type', log);
       return null;
