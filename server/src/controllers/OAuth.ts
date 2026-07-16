@@ -195,17 +195,8 @@ export class OAuth {
 
       // Check if user is banned
       if (user.bannedAt) {
-        // Revert deletion if the user logs in after deleting their account
         if (user.banReason === 'account_deleted') {
-          await traced('oauth.token.revertUserBan', () => this.#prisma.user.update({
-            where: { id: user.id },
-            data: {
-              bannedAt: null,
-              banReason: null,
-            },
-          }));
-          user.bannedAt = null;
-          user.banReason = null;
+          throw new ForbiddenError(translate('deletedAccount', user));
         } else {
           throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
         }
