@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.15](https://github.com/Zenoo/labrute/compare/labrute-v2.97.14...labrute-v2.97.15) (2026-07-16)
+
+
+### Bug Fixes
+
+* Add transfer log ([43af3e7](https://github.com/Zenoo/labrute/commit/43af3e70bdb4945f3232e45b89e6bb4bf8250169))
+* Display user brute transfer logs ([bdca4cd](https://github.com/Zenoo/labrute/commit/bdca4cdc51a240c1ad4a88635efb0152903090a9))
+* New dojo icons ([b60179e](https://github.com/Zenoo/labrute/commit/b60179eeb54d19a089d3909f5e0153076b763078))
+
 ## [2.97.14](https://github.com/Zenoo/labrute/compare/labrute-v2.97.13...labrute-v2.97.14) (2026-07-11)
 
 
