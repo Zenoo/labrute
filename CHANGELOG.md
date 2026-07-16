@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.16](https://github.com/Zenoo/labrute/compare/labrute-v2.97.15...labrute-v2.97.16) (2026-07-16)
+
+
+### Bug Fixes
+
+* Remove unused file ([54e6ce9](https://github.com/Zenoo/labrute/commit/54e6ce92894362b14a615d2e8005c21766d857f5))
+* Stop restoring deleted accounts ([4aedd59](https://github.com/Zenoo/labrute/commit/4aedd598bc72e797d0ba92b6390e2a821ef5377e))
+
 ## [2.97.15](https://github.com/Zenoo/labrute/compare/labrute-v2.97.14...labrute-v2.97.15) (2026-07-16)
 
 
