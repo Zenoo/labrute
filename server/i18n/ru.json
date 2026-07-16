@@ -108,6 +108,7 @@
   "modifier.chaos": "Управляемый Хаос",
   "modifier.chaos.desc": "Сегодня всё странновато. Все параметры перемешаны случайным образом.",
   "bannedAccount": "Ваша учётная запись была забанена по следующей причине: {{reason}}",
+  "deletedAccount": "Your account has been deleted",
   "userNotBanned": "Пользователь не забанен",
   "userAlreadyBanned": "Пользователь уже забанен",
   "banReason.innapropriateName": "Неуместное имя",
