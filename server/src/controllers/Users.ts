@@ -1251,6 +1251,13 @@ export const Users = {
         targetUserId: targetUser.id,
       });
 
+      createUserLog(prisma, {
+        type: UserLogType.RECEIVE_BRUTE,
+        userId: targetUser.id,
+        bruteId: brute.id,
+        targetUserId: authed.id,
+      });
+
       res.send({
         success: true,
       });

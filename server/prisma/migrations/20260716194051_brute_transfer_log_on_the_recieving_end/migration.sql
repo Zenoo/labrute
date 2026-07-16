@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "UserLogType" ADD VALUE 'RECEIVE_BRUTE';
