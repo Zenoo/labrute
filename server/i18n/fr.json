@@ -108,6 +108,7 @@
   "modifier.chaos": "Chaos Contrôlé",
   "modifier.chaos.desc": "Tout semble étrange aujourd'hui. Toutes les statistiques sont aléatoires.",
   "bannedAccount": "Votre compte a été banni pour la raison suivante : {{reason}}",
+  "deletedAccount": "Your account has been deleted",
   "userNotBanned": "Utilisateur non banni",
   "userAlreadyBanned": "Utilisateur déjà banni",
   "banReason.innapropriateName": "Nom inapproprié",
