@@ -971,6 +971,7 @@ export const Brutes = {
       const isClanMaster = await traced('brutes.sacrifice.isClanMaster', () => prisma.clan.count({
         where: {
           masterId: brute.id,
+          deletedAt: null,
         },
       }));
 
