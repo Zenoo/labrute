@@ -1530,6 +1530,25 @@ const cleanup = async (prisma: PrismaClient) => {
       LOGGER.log(`${dayjs.utc().valueOf() - now}ms to delete ${deleted} users banned older than 40 days`);
     }
   }
+
+  // Delete deletedAt clans older than 30 days
+  deleted = null;
+  while (deleted !== 0) {
+    now = dayjs.utc().valueOf();
+
+    deleted = await prisma.$executeRaw`
+        DELETE FROM "Clan"
+        WHERE ctid = ANY(ARRAY(
+          SELECT ctid FROM "Clan"
+          WHERE "deletedAt" < ${thirtyDaysAgo}
+          LIMIT 1000
+        ));
+      `;
+
+    if (deleted) {
+      LOGGER.log(`${dayjs.utc().valueOf() - now}ms to delete ${deleted} clans older than 30 days`);
+    }
+  }
 };
 
 const handleClanWars = async (
