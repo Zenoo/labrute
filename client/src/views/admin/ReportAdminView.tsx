@@ -6,7 +6,9 @@ import {
   IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip
 } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  Fragment, useCallback, useEffect
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
 import { Link } from '../../components/Link';
@@ -158,7 +160,12 @@ export const ReportAdminView = () => {
                     secondary={(
                       <>
                         <Text body2 component="span" display="block">
-                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map<React.ReactNode>((u) => (<Link key={u.id} to={`/user/${u.id}`} target="_blank">{u.name}</Link>)).reduce((prev, curr) => [prev, ', ', curr])}
+                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map((u, index) => (
+                            <Fragment key={u.id}>
+                              {index > 0 && ', '}
+                              <Link to={`/user/${u.id}`} target="_blank">{u.name}</Link>
+                            </Fragment>
+                          ))}
                         </Text>
                         {status !== BruteReportStatus.pending && (
                           <Text body2 component="span" display="block">
