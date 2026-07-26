@@ -38,7 +38,7 @@
     "@opentelemetry/semantic-conventions": "^1.37.0",
     "@prisma/client": "^6.19.2",
     "@prisma/instrumentation": "^6.19.2",
-    "body-parser": "^1.20.3",
+    "body-parser": "^1.20.6",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "cryptr": "^6.3.0",
