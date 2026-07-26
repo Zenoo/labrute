@@ -41,7 +41,7 @@
     "react-fast-marquee": "^1.6.4",
     "react-ga4": "^2.1.0",
     "react-i18next": "^11.18.3",
-    "react-router": "^8.1.0",
+    "react-router": "^8.3.0",
     "react-zoom-pan-pinch": "4.0.3"
   },
   "browserslist": {
