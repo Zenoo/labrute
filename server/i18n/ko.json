@@ -108,6 +108,7 @@
   "modifier.chaos": "Controlled Chaos",
   "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
   "bannedAccount": "Your account has been banned for the following reason: {{reason}}",
+  "deletedAccount": "Your account has been deleted",
   "userNotBanned": "User not banned",
   "userAlreadyBanned": "User already banned",
   "banReason.innapropriateName": "Inappropriate name",
