@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.97.17](https://github.com/Zenoo/labrute/compare/labrute-v2.97.16...labrute-v2.97.17) (2026-07-26)
+
+
+### Bug Fixes
+
+* Clean up deleted clans daily ([d6573f5](https://github.com/Zenoo/labrute/commit/d6573f591f6f42223006f195a4529001458fe29b))
+* Error while loading brute reports with deleted reporters ([090da24](https://github.com/Zenoo/labrute/commit/090da24a95b6ebc549ac32cd31ede088862b0023))
+* Ignore deleted clans in sacrifice check ([6730ff9](https://github.com/Zenoo/labrute/commit/6730ff9487dcc4905d45fca0338c7052b5b99022))
+
 ## [2.97.16](https://github.com/Zenoo/labrute/compare/labrute-v2.97.15...labrute-v2.97.16) (2026-07-16)
 
 
