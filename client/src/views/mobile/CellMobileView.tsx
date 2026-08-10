@@ -159,12 +159,14 @@ export const CellMobileView = ({
             </Tooltip>
           )}
         </Grid>
-        <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 5 : 0}>
-          {/* TOURNAMENT */}
-          <CellTournament
-            language={language}
-          />
-        </Grid>
+        {!brute.eventId && (
+          <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 5 : 0}>
+            {/* TOURNAMENT */}
+            <CellTournament
+              language={language}
+            />
+          </Grid>
+        )}
         <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }} order={isXs ? 6 : 0}>
           {/* GLOBAL TOURNAMENT */}
           <CellGlobalTournament />
