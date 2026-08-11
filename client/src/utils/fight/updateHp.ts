@@ -55,19 +55,34 @@ export const updateHp = (
   }
 
   const percent = (currentHP / maxHp) * 236;
-  // For some reason, allowing the width to be 0 causes to right team HP bar to overflow right instead of left ...
-  const newWidth = Math.max(1, Math.min(236, percent));
+  const newWidth = Math.max(0, Math.min(236, percent));
 
   hpBar.width = newWidth;
+  if (newWidth === 0) {
+    hpBar.visible = false;
+  } else {
+    hpBar.visible = true;
+  }
 
   if (fix) {
     hpBarPhantom.width = newWidth;
+    if (newWidth === 0) {
+      hpBarPhantom.visible = false;
+    } else {
+      hpBarPhantom.visible = true;
+    }
   } else {
     tween(hpBarPhantom, {
       duration: 0.25 / speed.current,
       delay: 0.25 / speed.current,
       ease: 'none',
       width: newWidth,
+    }).then(() => {
+      if (hpBarPhantom.width === 0) {
+        hpBarPhantom.visible = false;
+      } else {
+        hpBarPhantom.visible = true;
+      }
     }).catch((error) => {
       console.error(error);
     });
