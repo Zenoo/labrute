@@ -45,6 +45,12 @@ import { generateFight } from './utils/fight/generateFight.js';
 import { logMemory } from './utils/memory.js';
 import { shuffle } from './utils/shuffle.js';
 import { banUser } from './utils/user/banUser.js';
+import { traced } from './utils/trace.js';
+import { ilike } from './utils/ilike.js';
+import {
+  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator
+} from 'unique-names-generator';
+import { generateBot } from './utils/brute/generateBot.js';
 
 const IN_DEV = {
   GENERATE_TOURNAMENTS: false,
@@ -2411,6 +2417,61 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   }
 };
 
+const generateBots = async (prisma: PrismaClient) => {
+  // Get highest level brute
+  const brute = await prisma.brute.findFirst({
+    where: {
+      deletedAt: null,
+      userId: { not: null }
+    },
+    orderBy: {
+      level: 'desc',
+    },
+    select: {
+      level: true,
+      name: true,
+      opponents: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
+  if (!brute) {
+    LOGGER.log('No brutes found, skipping bot generation');
+    return;
+  }
+
+  // Generate bots if missing opponents
+  if (brute.opponents.length === 0) {
+    LOGGER.log(`No opponents found for brute ${brute.name} (level ${brute.level}). Generating bots...`);
+
+    for (const levelOffset of [-2, -1, 0, 1, 2]) {
+      let generatedName: string | undefined;
+
+      // Reroll if name already exists
+      while (!generatedName || await traced('dailyJob.checkBotNameExists', () => prisma.brute.count({
+        where: {
+          name: ilike(generatedName),
+          deletedAt: null,
+        },
+      })) > 0) {
+        generatedName = uniqueNamesGenerator({
+          dictionaries: [colors, adjectives, animals, names, languages, starWars],
+          style: 'capital',
+          separator: '',
+          length: 2,
+        }).replace(/\s/g, '').substring(0, 16);
+      }
+
+      await traced('dailyJob.createBot', () => prisma.brute.create({
+        data: generateBot(brute.level + levelOffset, generatedName),
+      }));
+    }
+  }
+};
+
 export const dailyJob = (prisma: PrismaClient) => async () => {
   try {
     logMemory('START');
@@ -2526,6 +2587,10 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Ban multiple accounts
     await banMultipleAccounts(prisma);
     logMemory('After banning multiple accounts');
+
+    // Generate bots
+    await generateBots(prisma);
+    logMemory('After generating bots');
 
     // Clean up DB
     await cleanup(prisma);
