@@ -1079,6 +1079,7 @@ export const Users = {
               clanId: true,
               level: true,
               ranking: true,
+              ascensions: true,
               masterOfClan: { select: { id: true } },
             },
           },

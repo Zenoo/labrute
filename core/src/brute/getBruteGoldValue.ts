@@ -11,13 +11,14 @@ export const getBruteGoldValueFromLevel = (level: number) => {
 };
 
 export const getBruteGoldValueFromRanking = (
-  ranking: number
-) => (BruteRankings[0] - ranking) * NEW_BRUTE_BASE_COST;
+  ranking: number,
+  ascensions = 0
+) => ((BruteRankings[0] - ranking) + ascensions) * NEW_BRUTE_BASE_COST;
 
-export const getBruteGoldValue = (brute: Pick<Brute, 'level' | 'ranking' | 'eventId'>) => {
+export const getBruteGoldValue = (brute: Pick<Brute, 'level' | 'ranking' | 'ascensions' | 'eventId'>) => {
   if (brute.eventId) return 0;
 
-  const rankPoints = getBruteGoldValueFromRanking(brute.ranking);
+  const rankPoints = getBruteGoldValueFromRanking(brute.ranking, brute.ascensions);
   const levelPoints = getBruteGoldValueFromLevel(brute.level);
 
   return rankPoints + levelPoints;

@@ -1,6 +1,8 @@
 import { DiscordClient, SEND_MESSAGE_SAFE_LENGTH } from '../utils/DiscordUtils.js';
 import { ASYNC_DISPOSE } from '../utils/dispose.js';
-import { formatLogRecord, LogHandler, LogRecord } from './index.js';
+import {
+  formatLogRecord, LogHandler, LogRecord
+} from './index.js';
 
 /**
  * Duration during which logs should be batched before being sent.

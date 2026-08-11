@@ -106,21 +106,19 @@ export const CellPets = ({
         <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="210px" width="290px" xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, -24.0, 218.15)">
             {brute.pets[PetName.dog3] && (
-              <use onMouseEnter={hoverPet(PetName.dog3, brute.pets[PetName.dog3])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog3)} height="103.35" id="{K-3" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 83.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0-3" style={{ filter: getFilter(PetName.dog3, brute.pets[PetName.dog3]) }} />
+              <use onMouseEnter={hoverPet(PetName.dog3, brute.pets[PetName.dog3])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog3)} height="103.35" id="{K-3" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 83.9865, -122.7795)" width="72.5" xlinkHref="#pets-sprite0-3" style={{ filter: getFilter(PetName.dog3, brute.pets[PetName.dog3]) }} cursor="pointer" />
             )}
             {brute.pets[PetName.dog2] && (
-              <use onMouseEnter={hoverPet(PetName.dog2, brute.pets[PetName.dog2])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog2)} height="103.35" id="{K-2" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 28.9865, -142.7795)" width="72.5" xlinkHref="#pets-sprite0-2" style={{ filter: getFilter(PetName.dog2, brute.pets[PetName.dog2]) }} />
+              <use onMouseEnter={hoverPet(PetName.dog2, brute.pets[PetName.dog2])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog2)} height="103.35" id="{K-2" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 28.9865, -142.7795)" width="72.5" xlinkHref="#pets-sprite0-2" style={{ filter: getFilter(PetName.dog2, brute.pets[PetName.dog2]) }} cursor="pointer" />
             )}
             {brute.pets[PetName.dog1] && (
-              <use onMouseEnter={hoverPet(PetName.dog1, brute.pets[PetName.dog1])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 53.9865, -102.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1, brute.pets[PetName.dog1]) }} />
+              <use onMouseEnter={hoverPet(PetName.dog1, brute.pets[PetName.dog1])} onMouseLeave={leavePet} onClick={onPetClick(PetName.dog1)} height="103.35" id="{K-" transform="matrix(0.6576, 0.0, 0.0, 0.6576, 53.9865, -102.7795)" width="72.5" xlinkHref="#pets-sprite0" style={{ filter: getFilter(PetName.dog1, brute.pets[PetName.dog1]) }} cursor="pointer" />
             )}
-            {(
-              // {brute.pets[PetName.panther] && (
-              <use onMouseEnter={hoverPet(PetName.panther, brute.pets[PetName.panther])} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" style={{ filter: getFilter(PetName.panther, brute.pets[PetName.panther]) }} />
+            {brute.pets[PetName.panther] && (
+              <use onMouseEnter={hoverPet(PetName.panther, brute.pets[PetName.panther])} onMouseLeave={leavePet} onClick={onPetClick(PetName.panther)} height="201.15" id="3=*" transform="matrix(1.0, 0.0, 0.0, 1.0, 124.9, -208.15)" width="170.65" xlinkHref="#pets-sprite3" style={{ filter: getFilter(PetName.panther, brute.pets[PetName.panther]) }} cursor="pointer" />
             )}
-            {(
-              // {brute.pets[PetName.bear] && (
-              <use onMouseEnter={hoverPet(PetName.bear, brute.pets[PetName.bear])} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" style={{ filter: getFilter(PetName.bear, brute.pets[PetName.bear]) }} />
+            {brute.pets[PetName.bear] && (
+              <use onMouseEnter={hoverPet(PetName.bear, brute.pets[PetName.bear])} onMouseLeave={leavePet} onClick={onPetClick(PetName.bear)} height="179.55" id="0A0)" transform="matrix(-1.1204, 0, 0, 1, 300, -208.15)" width="152.35" xlinkHref="#bear-sprite0" style={{ filter: getFilter(PetName.bear, brute.pets[PetName.bear]) }} cursor="pointer" />
             )}
           </g>
           <defs>

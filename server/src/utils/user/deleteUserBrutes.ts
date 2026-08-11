@@ -7,7 +7,7 @@ import { traced } from '../trace.js';
 
 export const deleteBrutes = async (
   prisma: PrismaClient,
-  brutes: (Pick<Brute, 'id' | 'clanId' | 'level' | 'ranking'> & { masterOfClan: Pick<Clan, 'id'> | null })[],
+  brutes: (Pick<Brute, 'id' | 'clanId' | 'level' | 'ranking' | 'ascensions'> & { masterOfClan: Pick<Clan, 'id'> | null })[],
   /** If not set to null, will default to BANNED_USER */
   _reason?: BruteDeletionReason | null,
 ) => {

@@ -134,6 +134,7 @@ export const Clans = {
           clanId: true,
           level: true,
           ranking: true,
+          ascensions: true,
         },
       }));
 
@@ -532,6 +533,7 @@ export const Clans = {
           clanId: true,
           level: true,
           ranking: true,
+          ascensions: true,
         },
       }));
       if (!brute) {
@@ -699,7 +701,7 @@ export const Clans = {
           deletedAt: null,
         },
         select: {
-          id: true, level: true, ranking: true, clanId: true,
+          id: true, level: true, ranking: true, ascensions: true, clanId: true,
         },
       }));
       if (!brute) {
@@ -823,7 +825,7 @@ export const Clans = {
           deletedAt: null,
         },
         select: {
-          id: true, level: true, ranking: true, clanRoleId: true,
+          id: true, level: true, ranking: true, ascensions: true, clanRoleId: true,
         },
       }));
 

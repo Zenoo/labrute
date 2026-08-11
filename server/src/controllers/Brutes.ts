@@ -80,6 +80,10 @@ import { translate } from '../utils/translate.js';
 import { increaseAchievement } from './Achievements.js';
 import { traced } from '../utils/trace.js';
 import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
+import {
+  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator
+} from 'unique-names-generator';
+import { generateBot } from '../utils/brute/generateBot.js';
 
 // In-memory cache for top 15 brutes per rank (calculated daily)
 type RankCache = {
@@ -691,6 +695,7 @@ export const Brutes = {
           weapons: true,
           clanId: true,
           ranking: true,
+          ascensions: true,
           lastFight: true,
           fightsLeft: true,
           eventId: true,
@@ -791,8 +796,39 @@ export const Brutes = {
         LOGGER.log(`Error while checking level up achievements for brute ${updatedBrute.name} with destiny choice ${JSON.stringify(destinyChoice)}`);
         LOGGER.error(error);
       }
+
       // Get new opponents
-      const opponents = await getOpponents(prisma, updatedBrute);
+      let opponents = await getOpponents(prisma, updatedBrute);
+
+      // Generate bots if no opponents found
+      if (opponents.length === 0) {
+        LOGGER.log(`No opponents found for brute ${updatedBrute.name} (level ${updatedBrute.level}). Generating bots...`);
+
+        for (const levelOffset of [-2, -1, 0, 1, 2]) {
+          let generatedName: string | undefined;
+
+          // Reroll if name already exists
+          while (!generatedName || await traced('brutes.levelUp.checkBotNameExists', () => prisma.brute.count({
+            where: {
+              name: ilike(generatedName),
+              deletedAt: null,
+            },
+          })) > 0) {
+            generatedName = uniqueNamesGenerator({
+              dictionaries: [colors, adjectives, animals, names, languages, starWars],
+              style: 'capital',
+              separator: '',
+              length: 2,
+            }).replace(/\s/g, '').substring(0, 16);
+          }
+
+          await traced('brutes.levelUp.createBot', () => prisma.brute.create({
+            data: generateBot(updatedBrute.level + levelOffset, generatedName),
+          }));
+        }
+
+        opponents = await getOpponents(prisma, updatedBrute);
+      }
 
       // Save opponents
       await traced('brutes.levelUp.updateOpponents', () => prisma.brute.update({
@@ -954,6 +990,7 @@ export const Brutes = {
           clanId: true,
           level: true,
           ranking: true,
+          ascensions: true,
           eventId: true,
         },
       }));
@@ -2413,6 +2450,7 @@ export const Brutes = {
           clanId: true,
           level: true,
           ranking: true,
+          ascensions: true,
           masterOfClan: {
             select: {
               id: true,

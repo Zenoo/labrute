@@ -1225,6 +1225,7 @@ const deleteBrutes = async (prisma: PrismaClient) => {
       clanId: true,
       level: true,
       ranking: true,
+      ascensions: true,
       masterId: true,
     },
   });

@@ -6,16 +6,16 @@ export const updateClanPoints = async (
   prisma: PrismaClient,
   clanId: string,
   operation: 'add' | 'remove',
-  brute: Pick<Brute, 'level' | 'ranking'>,
-  previousBrute?: Pick<Brute, 'level' | 'ranking'>,
+  brute: Pick<Brute, 'level' | 'ranking' | 'ascensions'>,
+  previousBrute?: Pick<Brute, 'level' | 'ranking' | 'ascensions'>,
 ) => {
   if (operation === 'add') {
     const previousPoints = (previousBrute
       ? getBruteGoldValueFromLevel(previousBrute.level)
-      + getBruteGoldValueFromRanking(previousBrute.ranking) * 2
+      + getBruteGoldValueFromRanking(previousBrute.ranking, previousBrute.ascensions) * 2
       : 0);
     const newPoints = getBruteGoldValueFromLevel(brute.level)
-      + getBruteGoldValueFromRanking(brute.ranking) * 2;
+      + getBruteGoldValueFromRanking(brute.ranking, brute.ascensions) * 2;
 
     if (previousPoints === newPoints) return;
 
@@ -31,7 +31,7 @@ export const updateClanPoints = async (
     }));
   } else {
     const points = getBruteGoldValueFromLevel(brute.level)
-      + getBruteGoldValueFromRanking(brute.ranking) * 2;
+      + getBruteGoldValueFromRanking(brute.ranking, brute.ascensions) * 2;
 
     await traced('updateClanPoints.remove.updateClan', () => prisma.clan.update({
       where: {
