@@ -741,14 +741,14 @@ export type ClanGetResponse = Clan & {
     brute: Pick<Brute, 'id' | 'name'> | null,
   })[],
   attacks: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
-    defender: Pick<Clan, 'id' | 'name'> & {
+    defender: (Pick<Clan, 'id' | 'name'> & {
       master: BruteForRender | null;
-    },
+    }) | null,
   })[],
   defenses: (Pick<ClanWar, 'id' | 'status' | 'type'> & {
-    attacker: Pick<Clan, 'id' | 'name'> & {
+    attacker: (Pick<Clan, 'id' | 'name'> & {
       master: BruteForRender | null;
-    },
+    }) | null,
   })[],
 };
 export type ClanGetThreadsResponse = {
@@ -895,8 +895,8 @@ export type LogGetForUserFeedResponse = {
 
 export type ClanWarCreateResponse = Pick<ClanWar, 'id'>;
 export type ClanWarGetResponse = ClanWar & {
-  attacker: Pick<Clan, 'id' | 'name'>,
-  defender: Pick<Clan, 'id' | 'name'>,
+  attacker: Pick<Clan, 'id' | 'name'> | null,
+  defender: Pick<Clan, 'id' | 'name'> | null,
   fights?: (Pick<Fight, 'id' | 'date' | 'winner' | 'winnerId'> & {
     brute1?: Pick<Brute, 'id' | 'name'> | null,
   })[],
@@ -906,8 +906,8 @@ export type ClanWarGetResponse = ClanWar & {
   })[],
 };
 export type ClanWarGetHistoryResponse = (ClanWar & {
-  attacker: Pick<Clan, 'id' | 'name'>,
-  defender: Pick<Clan, 'id' | 'name'>,
+  attacker: Pick<Clan, 'id' | 'name'> | null,
+  defender: Pick<Clan, 'id' | 'name'> | null,
 })[];
 export type ClanWarGetAvailableFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];
 export type ClanWarGetUsedFightersResponse = (BruteForRender & Pick<Brute, 'ranking' | 'level'>)[];

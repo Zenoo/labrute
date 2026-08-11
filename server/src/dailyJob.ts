@@ -1588,8 +1588,8 @@ const handleClanWars = async (
     let attackerEloChange = 0;
     let defenderEloChange = 0;
 
-    // No elo for friendly wars
-    if (clanWar.type === ClanWarType.official) {
+    // No elo for friendly wars or missing clans (deleted)
+    if (clanWar.type === ClanWarType.official && clanWar.attacker && clanWar.defender) {
       const attackerElo = getNewElo(
         clanWar.attacker.elo,
         clanWar.defender.elo,

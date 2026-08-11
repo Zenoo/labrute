@@ -821,7 +821,7 @@ model Clan {
 
 model ClanThread {
   id        String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  clan      Clan       @relation(fields: [clanId], references: [id])
+  clan      Clan       @relation(fields: [clanId], references: [id], onDelete: Cascade)
   clanId    String     @db.Uuid
   creator   Brute?     @relation(fields: [creatorId], references: [id])
   creatorId String?    @db.Uuid
@@ -839,7 +839,7 @@ model ClanThread {
 
 model ClanPost {
   id       String     @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  thread   ClanThread @relation(fields: [threadId], references: [id])
+  thread   ClanThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
   threadId String     @db.Uuid
   author   Brute?     @relation(fields: [authorId], references: [id])
   authorId String?    @db.Uuid
@@ -854,7 +854,7 @@ model BossDamage {
   id      String  @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   brute   Brute?  @relation(fields: [bruteId], references: [id], onDelete: Cascade)
   bruteId String? @db.Uuid
-  clan    Clan    @relation(fields: [clanId], references: [id])
+  clan    Clan    @relation(fields: [clanId], references: [id], onDelete: Cascade)
   clanId  String  @db.Uuid
   damage  Int
 
@@ -881,12 +881,12 @@ model ClanWar {
   type              ClanWarType       @default(official)
   date              DateTime          @default(now()) @db.Date
   status            ClanWarStatus     @default(ongoing)
-  attacker          Clan              @relation("ClanWarAttacker", fields: [attackerId], references: [id])
-  attackerId        String            @db.Uuid
+  attacker          Clan?             @relation("ClanWarAttacker", fields: [attackerId], references: [id])
+  attackerId        String?           @db.Uuid
   attackerEloChange Int               @default(0)
   attackerWins      Int               @default(0)
-  defender          Clan              @relation("ClanWarDefender", fields: [defenderId], references: [id])
-  defenderId        String            @db.Uuid
+  defender          Clan?             @relation("ClanWarDefender", fields: [defenderId], references: [id])
+  defenderId        String?           @db.Uuid
   defenderEloChange Int               @default(0)
   defenderWins      Int               @default(0)
   winner            Clan?             @relation("ClanWarWinner", fields: [winnerId], references: [id])
