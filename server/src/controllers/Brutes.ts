@@ -53,6 +53,7 @@ import {
   BrutesRemoveBannedWordRequest,
   BrutesAddBannedWordRequest,
   BrutesGetPupilsResponse,
+  BruteResetResponse,
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
@@ -1858,7 +1859,7 @@ export const Brutes = {
   },
   reset: (prisma: PrismaClient) => async (
     req: Request<ParamsWithBruteName>,
-    res: Response<Brute>,
+    res: Response<BruteResetResponse>,
   ) => {
     try {
       const authed = await auth(prisma, req);

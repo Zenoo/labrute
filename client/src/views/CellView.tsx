@@ -1,4 +1,6 @@
-import { getBruteGoldValue, getResetCost } from '@labrute/core';
+import {
+  getBruteGoldValue, getCalculatedBrute, getResetCost
+} from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import {
   History, NavigateBefore, NavigateNext, Policy
@@ -49,7 +51,7 @@ export const CellView = () => {
   const { brute, updateBrute, owner } = useBrute();
   const Confirm = useConfirm();
   const Alert = useAlert();
-  const { user, updateData } = useAuth();
+  const { modifiers, user, updateData } = useAuth();
   const { palette: { mode } } = useTheme();
   const Server = useServer();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
@@ -98,18 +100,26 @@ export const CellView = () => {
       Server.Brute.reset(brute.name).then((newBrute) => {
         Alert.open('success', t('resetSuccess'));
 
+        const calculatedBrute = getCalculatedBrute(newBrute, modifiers);
+
         // Update user data
-        updateData((data) => (data ? ({
-          ...data,
-          gold: data.gold - getResetCost(brute),
-          brutes: data.brutes.map((b) => (b.name === brute.name ? newBrute : b)),
-        }) : null));
+        updateData((data) => {
+          if (!data) return null;
+
+          return {
+            ...data,
+            gold: data.gold - getResetCost(brute),
+            brutes: data.brutes.map((b) => (b.name === brute.name
+              ? calculatedBrute
+              : b)),
+          };
+        });
 
         // Update brute data
-        updateBrute(newBrute);
+        updateBrute(calculatedBrute);
       }).catch(catchError(Alert));
     });
-  }, [Alert, Confirm, Server.Brute, brute, t, updateBrute, updateData]);
+  }, [Alert, Confirm, Server.Brute, brute, modifiers, t, updateBrute, updateData]);
 
   // Randomized advertising
   const ad = useMemo(() => getRandomAd(language), [language]);

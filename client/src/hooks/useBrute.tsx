@@ -1,5 +1,7 @@
 import { HookBrute } from '@labrute/core';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, {
+  useCallback, useContext, useMemo, useState
+} from 'react';
 import { useAuth } from './useAuth';
 
 type BruteContextInterface = {

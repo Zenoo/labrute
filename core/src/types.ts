@@ -703,6 +703,7 @@ export type BruteUnlockColorResponse = {
 export type BruteDeleteRequest = {
   id: string;
 };
+export type BruteResetResponse = ServerHookBrute;
 
 export type GetSharedBrowserResponse = SharedBrowser & {
   users: Pick<User, 'id' | 'name'>[],
