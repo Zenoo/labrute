@@ -495,14 +495,25 @@ export const Clans = {
           masterId: true,
           joinRequests: { select: { id: true } },
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: { deletedAt: null },
             select: {
               id: true,
-              clanId: true,
-              clanRole: {
-                select: { id: true, name: true, permissions: true },
-              },
             },
+          },
+        },
+      }));
+
+      const userClanBrutes = await traced('clans.accept.findUserClanBrutes', () => prisma.brute.findMany({
+        where: {
+          userId: user.id,
+          deletedAt: null,
+          clanId: id,
+        },
+        select: {
+          id: true,
+          clanId: true,
+          clanRole: {
+            select: { id: true, name: true, permissions: true },
           },
         },
       }));
@@ -510,12 +521,12 @@ export const Clans = {
       if (!clan) {
         throw new NotFoundError(translate('clanNotFound', user));
       }
-      if (clan.brutes.length === 0) {
+      if (userClanBrutes.length === 0) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
 
       // Check if brute has permission to accept join requests
-      const hasPerm = clan.brutes.some(
+      const hasPerm = userClanBrutes.some(
         (b) => hasPermission(b, clan, ClanPermission.canAcceptJoinRequests),
       );
 
