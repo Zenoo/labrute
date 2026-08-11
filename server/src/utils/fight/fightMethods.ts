@@ -60,13 +60,13 @@ const resetOthersStats = (stats: Stats, excludedFighter: string, stat: keyof Omi
   }
 };
 
-const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string) => {
+const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[number], 'userId'>, value: number, masterId?: string, replace?: boolean) => {
   // Special case for hits, add to otherTeamMembersHits if not master
   if (stat === 'hits' && masterId) {
     const master = stats[masterId];
 
     if (master) {
-      master.otherTeamMembersHits = (master.otherTeamMembersHits || 0) + value;
+      master.otherTeamMembersHits = replace ? value : (master.otherTeamMembersHits || 0) + value;
     }
 
     return;
@@ -79,7 +79,7 @@ const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[numbe
   if (value === 0) {
     current[stat] = 0;
   } else {
-    current[stat] = (current[stat] || 0) + value;
+    current[stat] = replace ? value : (current[stat] || 0) + value;
   }
 };
 
@@ -689,8 +689,8 @@ const registerHit = ({
 
   // Max damage achievement
   const maxDamage = Math.max(...Object.values(actualDamage));
-  if ((stats[fighter.id]?.maxDamage || 0) < maxDamage) {
-    updateStats(stats, fighter.id, 'maxDamage', maxDamage - (stats[fighter.id]?.maxDamage || 0));
+  if ((stats[fighter.id]?.maxDamage ?? 0) < maxDamage) {
+    updateStats(stats, fighter.id, 'maxDamage', maxDamage, undefined, true);
   }
 
   opponents.forEach((opponent) => {
