@@ -77,54 +77,11 @@ export const AscendView = () => {
     setSelectedPerkType('skill');
   };
 
-  const getNextAvailableDogAscendLevel = () => {
-    if (!brute) return -1;
-
-    if (brute.ascendedPets.includes('dog3')) {
-      return -1; // Already ascended all dog levels
-    }
-
-    let maxAscendedDogLevel = 0;
-    if (brute.ascendedPets.includes('dog2')) {
-      maxAscendedDogLevel = 2;
-    } else if (brute.ascendedPets.includes('dog1')) {
-      maxAscendedDogLevel = 1;
-    }
-    let maxOwnedDogLevel = 0;
-    if (brute.pets[PetName.dog3]) {
-      maxOwnedDogLevel = 3;
-    } else if (brute.pets[PetName.dog2]) {
-      maxOwnedDogLevel = 2;
-    } else if (brute.pets[PetName.dog1]) {
-      maxOwnedDogLevel = 1;
-    }
-
-    if (maxAscendedDogLevel < maxOwnedDogLevel) {
-      return maxAscendedDogLevel + 1;
-    }
-    return -1;
-  };
-
   const onPetClick = (pet: PetName) => {
-    if (pet === 'dog1' || pet === 'dog2' || pet === 'dog3') {
-      const nextAvailableDogAscendLevel = getNextAvailableDogAscendLevel();
-      if (nextAvailableDogAscendLevel === -1) {
-        return;
-      }
-
-      if (nextAvailableDogAscendLevel === 1) {
-        setSelectedPerk('dog1');
-      } else if (nextAvailableDogAscendLevel === 2) {
-        setSelectedPerk('dog2');
-      } else if (nextAvailableDogAscendLevel === 3) {
-        setSelectedPerk('dog3');
-      }
-    } else {
-      if (brute?.ascendedPets.includes(pet)) {
-        return;
-      }
-      setSelectedPerk(pet);
+    if (brute?.ascendedPets.includes(pet)) {
+      return;
     }
+    setSelectedPerk(pet);
     setSelectedPerkType('pet');
   };
 

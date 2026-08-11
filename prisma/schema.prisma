@@ -723,6 +723,7 @@ model BruteReport {
 
   @@index([status, count])
   @@index([status, handledAt])
+  @@index([status, date])
   @@index([bruteId])
   @@index([handlerId])
 }

@@ -702,6 +702,22 @@ export class FighterHolder {
           })];
         }
       }
+
+      // Change color for dog2 and dog3
+      if (this.type === 'pet') {
+        if (fighter.name === PetName.dog2) {
+          this.container.filters = [new AdjustmentFilter({
+            gamma: 1,
+            brightness: 1.1,
+            red: 1.3,
+          })];
+        } else if (fighter.name === PetName.dog3) {
+          this.container.filters = [new AdjustmentFilter({
+            brightness: 2.5,
+            red: 0.7,
+          })];
+        }
+      }
     }
 
     // Load SVG textures
