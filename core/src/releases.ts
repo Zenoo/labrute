@@ -7,26 +7,49 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.97.0',
-  date: '2026-06-27',
+  version: '2.98.0',
+  date: '2026-08-11',
   features: [
-    'The dojo is back ! Sharing the link you can find in your cell with other people will allow them to join your dojo after creating a brute. Multiple accounts are still not allowed, so if you are found to create accounts to abuse this feature, all your accounts will be banned. Your dojo will evolve the more pupils you have, and you will unlock medals at certain milestones.',
-    'Users are now required to accept the terms of service before being able to play the game.',
-    'The game engine was updated to its latest version. This might introduce some visual bugs, please report them on Discord if you find any.',
+    'The 3 dogs now have their own visuals and stats. You still need to unlock them one after the other',
+    'Perk icons are displayed in level up choices',
+    'Ascensions count toward clan points'
   ],
   fixes: [
-    'Nearby brutes displayed in event brute rankings',
-    'Rankings (brutes/achievements) are now calculated daily',
-    'Unlimited global tournament links fixed in the tournament history',
-    'All inventory items now have their own custom icons',
-    'A lot of fixes/tweaks regarding multiple account detection/handling',
-    'Banned/deleted users are now permanently deleted 30 days after',
-    'Achievement conditions now ignore tiered perks'
+    'Huge performance improvements for the fight engine, fights should be much faster now',
+    'Chaos modified skills (like shield) now remove the correct values instead of the non chaos ones after ending',
+    'Chaos modified weapon stats were often set to 100% instead of the correct random value (flat vs percent issue)',
+    'A new bundler is now used for the client, which should improve performance and reduce download wait times',
+    'New dojo level icons',
+    'Weapons should now display correctly in fights after the fight engine update',
+    'The HP bar now depletes completely when a fighter dies, instead of stopping at 1px',
+    'Bot brute will be generated when a brute doesn\'t have any opponents available',
+    'Tweaked the arena/tournament display to avoid spoiling fight results in some edge cases',
+    'Resetting a brute doesn\'t trigger a blank page anymore',
+    'Max damage achievement calculation shouldn\'t give extreme values anymore (old values still remain)'
   ],
-  attachments: ['dojo.png', 'tos.png'],
+  attachments: ['dogs.png'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.97.0',
+    date: '2026-06-27',
+    features: [
+      'The dojo is back ! Sharing the link you can find in your cell with other people will allow them to join your dojo after creating a brute. Multiple accounts are still not allowed, so if you are found to create accounts to abuse this feature, all your accounts will be banned. Your dojo will evolve the more pupils you have, and you will unlock medals at certain milestones.',
+      'Users are now required to accept the terms of service before being able to play the game.',
+      'The game engine was updated to its latest version. This might introduce some visual bugs, please report them on Discord if you find any.',
+    ],
+    fixes: [
+      'Nearby brutes displayed in event brute rankings',
+      'Rankings (brutes/achievements) are now calculated daily',
+      'Unlimited global tournament links fixed in the tournament history',
+      'All inventory items now have their own custom icons',
+      'A lot of fixes/tweaks regarding multiple account detection/handling',
+      'Banned/deleted users are now permanently deleted 30 days after',
+      'Achievement conditions now ignore tiered perks'
+    ],
+    attachments: ['dojo.png', 'tos.png'],
+  },
   {
     version: '2.95.9',
     date: '2026-05-24',
