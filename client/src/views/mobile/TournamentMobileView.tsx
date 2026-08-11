@@ -89,7 +89,7 @@ export const TournamentMobileView = ({
           const shouldDisplay = ownsBrute
             ? stepWatched >= index
             : true;
-          const shouldResultDisplay = ownsBrute
+          const shouldDisplayResult = ownsBrute
             ? stepWatched - 1 >= index
             : true;
 
@@ -123,7 +123,8 @@ export const TournamentMobileView = ({
                     <StyledButton
                       key={fight.id}
                       onClick={goToFight(fight, index + 1)}
-                      shadowColor={fighters.some((fighter) => fighter.name === bruteName)
+                      shadowColor={shouldDisplayResult
+                        && fighters.some((fighter) => fighter.name === bruteName)
                         ? '#006CD1'
                         : undefined}
                       sx={{
@@ -161,7 +162,7 @@ export const TournamentMobileView = ({
                               />
                             )}
                             {/* Lost indicator */}
-                            {shouldResultDisplay
+                            {shouldDisplayResult
                               && isWinner(brute2, fight)
                               && (
                                 <Close
@@ -217,7 +218,7 @@ export const TournamentMobileView = ({
                               small
                             />
                             {/* Lost indicator */}
-                            {shouldResultDisplay
+                            {shouldDisplayResult
                               && isWinner(brute1, fight)
                               && (
                                 <Close

@@ -64,8 +64,9 @@ export const TournamentView = () => {
 
   const stepWatched = useMemo(() => {
     if (!tournament?.date) return 0;
-    if (!brute?.currentTournamentDate) return 0;
     if (!dayjs.utc(tournament.date).isSame(dayjs.utc(), 'day')) return 6;
+    if (!brute?.currentTournamentDate) return 0;
+    if (!dayjs.utc(brute.currentTournamentDate).isSame(dayjs.utc(), 'day')) return 0;
 
     return brute?.currentTournamentStepWatched || 0;
   }, [brute, tournament]);
@@ -214,7 +215,7 @@ export const TournamentView = () => {
               const shouldDisplay = ownsBrute
                 ? stepWatched >= roundNumber
                 : true;
-              const shouldResultDisplay = ownsBrute
+              const shouldDisplayResult = ownsBrute
                 ? stepWatched - 1 >= roundNumber
                 : true;
 
@@ -284,7 +285,8 @@ export const TournamentView = () => {
                       <StyledButton
                         key={fight.id}
                         onClick={goToFight(fight, index < 6 ? index + 1 : 10 - index + 1)}
-                        shadowColor={fighters.some((fighter) => fighter.name === bruteName)
+                        shadowColor={shouldDisplayResult
+                          && fighters.some((fighter) => fighter.name === bruteName)
                           ? '#006CD1'
                           : undefined}
                         sx={{
@@ -310,7 +312,7 @@ export const TournamentView = () => {
                           >
                             {brute1 && <BruteRender brute={fighterToBrute(brute1)} small />}
                             {/* Lost indicator */}
-                            {shouldResultDisplay
+                            {shouldDisplayResult
                               && isWinner(brute2, fight)
                               && (
                                 <Close
@@ -365,7 +367,7 @@ export const TournamentView = () => {
                                 small
                               />
                               {/* Lost indicator */}
-                              {shouldResultDisplay
+                              {shouldDisplayResult
                                 && isWinner(brute1, fight)
                                 && (
                                   <Close

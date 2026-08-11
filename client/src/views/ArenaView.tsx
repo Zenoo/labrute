@@ -144,30 +144,31 @@ export const ArenaView = () => {
         const fight = await Server.Fight.create(brute.name, opponent.name);
         navigate(`/${brute.name}/fight/${fight.id}`);
 
-        // Update brute data
-        updateData((data) => (data ? ({
-          ...data,
-          brutes: data.brutes.map((b) => (b.name === brute.name ? {
-            ...b,
-            fightsLeft: fight.fightsLeft,
-            xp: b.xp + fight.xpWon,
-            victories: b.victories + fight.victories,
-            losses: b.losses + fight.losses,
-            lastFight: new Date(),
-          } : b)),
-        }) : null));
+        // Defer local stats updates to avoid showing the result in Arena before route transition.
+        setTimeout(() => {
+          updateData((data) => (data ? ({
+            ...data,
+            brutes: data.brutes.map((b) => (b.name === brute.name ? {
+              ...b,
+              fightsLeft: fight.fightsLeft,
+              xp: b.xp + fight.xpWon,
+              victories: b.victories + fight.victories,
+              losses: b.losses + fight.losses,
+              lastFight: new Date(),
+            } : b)),
+          }) : null));
 
-        updateBrute((data) => (data ? ({
-          ...data,
-          fightsLeft: fight.fightsLeft,
-          xp: data.xp + fight.xpWon,
-          victories: data.victories + fight.victories,
-          losses: data.losses + fight.losses,
-          lastFight: new Date(),
-        }) : null));
+          updateBrute((data) => (data ? ({
+            ...data,
+            fightsLeft: fight.fightsLeft,
+            xp: data.xp + fight.xpWon,
+            victories: data.victories + fight.victories,
+            losses: data.losses + fight.losses,
+            lastFight: new Date(),
+          }) : null));
+        }, 0);
       } catch (error) {
         catchError(Alert, error);
-      } finally {
         setLoading(false);
       }
     } else {
@@ -191,66 +192,70 @@ export const ArenaView = () => {
         <Text bold color="secondary">{fightsLeft > 1 ? t('youHaveXFightsLeft', { value: getFightsLeft(brute) }) : t('youHaveOneFightLeft')}</Text>
       </Paper>
       <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
-        {/* No XP won for event brutes at max level */}
-        {brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999) && (
-          <MuiAlert severity="info" sx={{ borderRadius: 0 }}>
-            {t('noXP')}
-          </MuiAlert>
-        )}
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <Text h4 bold color="secondary" center>{brute.name}</Text>
-            <BruteLevelAndXP
-              brute={brute}
-              textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
-              sx={{ mb: 1, width: 120, mx: 'auto' }}
-            />
-            <BruteBodyAndStats brute={brute} isMd={isMd} />
-            <Box sx={{ textAlign: 'center', mt: 1 }}>
-              <Link to={`/${brute.name}/cell`}>
-                <Text bold>{t('backToCell')}</Text>
-              </Link>
-              {!isMd && (
-                <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
-              )}
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={5.6}>
-            {loading ? <Loader height={346} /> : (
-              <Grid container spacing={1} mb={3}>
-                {opponents.map((opponent) => (
-                  <Grid item key={opponent.name} xs={12} sm={6}>
-                    <BruteButton
-                      brute={opponent}
-                      onClick={goToVersus(opponent)}
-                      displayDetails={user?.displayOpponentDetails}
-                      shiftMargin
-                      sx={{
-                        width: 185,
-                        height: 1,
-                        mx: 'auto',
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+        {brute && loading ? <Loader height={420} /> : (
+          <>
+            {/* No XP won for event brutes at max level */}
+            {brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999) && (
+              <MuiAlert severity="info" sx={{ borderRadius: 0 }}>
+                {t('noXP')}
+              </MuiAlert>
             )}
-            <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
-              <StyledInput
-                onChange={changeSearch}
-                value={search}
-                sx={{ mr: 2 }}
-              />
-              <Button onClick={searchOpponent} variant="mybrute">{t('search')}</Button>
-            </Box>
-          </Grid>
-          {!isMd && (
-            <Grid item xs={12} md={2.4}>
-              <Text bold>{t('selectedOpponents')}</Text>
-              <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
+            <Grid container spacing={1}>
+              <Grid item xs={12} md={4}>
+                <Text h4 bold color="secondary" center>{brute.name}</Text>
+                <BruteLevelAndXP
+                  brute={brute}
+                  textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
+                  sx={{ mb: 1, width: 120, mx: 'auto' }}
+                />
+                <BruteBodyAndStats brute={brute} isMd={isMd} />
+                <Box sx={{ textAlign: 'center', mt: 1 }}>
+                  <Link to={`/${brute.name}/cell`}>
+                    <Text bold>{t('backToCell')}</Text>
+                  </Link>
+                  {!isMd && (
+                    <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
+                  )}
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={5.6}>
+                {loading ? <Loader height={346} /> : (
+                  <Grid container spacing={1} mb={3}>
+                    {opponents.map((opponent) => (
+                      <Grid item key={opponent.name} xs={12} sm={6}>
+                        <BruteButton
+                          brute={opponent}
+                          onClick={goToVersus(opponent)}
+                          displayDetails={user?.displayOpponentDetails}
+                          shiftMargin
+                          sx={{
+                            width: 185,
+                            height: 1,
+                            mx: 'auto',
+                          }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
+                <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
+                  <StyledInput
+                    onChange={changeSearch}
+                    value={search}
+                    sx={{ mr: 2 }}
+                  />
+                  <Button onClick={searchOpponent} variant="mybrute">{t('search')}</Button>
+                </Box>
+              </Grid>
+              {!isMd && (
+                <Grid item xs={12} md={2.4}>
+                  <Text bold>{t('selectedOpponents')}</Text>
+                  <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
+                </Grid>
+              )}
             </Grid>
-          )}
-        </Grid>
+          </>
+        )}
       </Paper>
     </Page>
   );
