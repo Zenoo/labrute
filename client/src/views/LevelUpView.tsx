@@ -27,12 +27,13 @@ import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import { StatColor } from '../utils/StatColor';
+import { StatColor, TieredPerkColor } from '../utils/StatColor';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 import { BruteSmallWeaponList } from '../components/Brute/BruteSmallWeaponList';
 import { BruteSmallSkillList } from '../components/Brute/BruteSmallSkillList';
 import { BruteSmallPetList } from '../components/Brute/BruteSmallPetList';
+import { SkillIcon } from '../components/SkillIcon';
 
 export const LevelUpView = () => {
   const { t } = useTranslation('levelUp');
@@ -258,26 +259,27 @@ export const LevelUpView = () => {
                   >
                     {/* CHOICE HEADER */}
                     {!loading && (
-                      <><Text caption>
-                        {/* +3 Stat */}
-                        {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value} ${t('in')}`}
-                        {/* +2/+1 Stat */}
-                        {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
-                        {/* Weapon */}
-                        {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
-                        {/* Skill */}
-                        {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
-                        {/* Pet */}
-                        {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : t('newPet'))}
-                        {/* Display pet HP malus */}
-                        {destinyChoice.pet
-                          && !brute.pets[destinyChoice.pet]
-                          && pets[destinyChoice.pet] && (
-                            <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
-                              {' '}(-{pets[destinyChoice.pet].hpMalus[0] * 100}% {t('hp')})
-                            </Box>
-                          )}
-                      </Text>
+                      <>
+                        <Text caption>
+                          {/* +3 Stat */}
+                          {destinyChoice.type === 'stats' && !destinyChoice.stat2 && `+${destinyChoice.stat1Value} ${t('in')}`}
+                          {/* +2/+1 Stat */}
+                          {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
+                          {/* Weapon */}
+                          {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
+                          {/* Skill */}
+                          {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
+                          {/* Pet */}
+                          {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : t('newPet'))}
+                          {/* Display pet HP malus */}
+                          {destinyChoice.pet
+                            && !brute.pets[destinyChoice.pet]
+                            && pets[destinyChoice.pet] && (
+                              <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
+                                {' '}(-{pets[destinyChoice.pet].hpMalus[0] * 100}% {t('hp')})
+                              </Box>
+                            )}
+                        </Text>
 
                         {/* CHOICE CONTENT */}
                         {/* Single value */}
@@ -286,21 +288,43 @@ export const LevelUpView = () => {
                             skill={destinyChoice.skill && skills[destinyChoice.skill]}
                             tier={tier}
                           >
-                            <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+                              {destinyChoice.skill && (
+                                <SkillIcon
+                                  skill={destinyChoice.skill}
+                                  tier={tier}
+                                  sx={{
+                                    width: 16,
+                                    mx: 0.25,
+                                    my: 0,
+                                    filter: 'drop-shadow(1px 1px 1px black)',
+                                  }}
+                                />
+                              )}
+                              <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                            </Box>
                           </SkillTooltip>
                         ) : destinyChoice.type === 'weapon' ? (
                           <WeaponTooltip
                             weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}
                             tier={tier}
                           >
-                            <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+                              <Box component="img" src={`/images/game/resources/misc/weapons/${destinyChoice.weapon}.png`} sx={{ filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
+                              <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                            </Box>
                           </WeaponTooltip>
                         ) : destinyChoice.type === 'pet' ? (
                           <PetTooltip
                             pet={destinyChoice.pet && pets[destinyChoice.pet]}
                             tier={tier}
                           >
-                            <Text h6 bold smallCaps>{t(destinyChoice.pet as PetName)}</Text>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+                              <Box component="img" src={`/images/pets/${destinyChoice.pet}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
+                              <Text h6 bold smallCaps>
+                                {t(destinyChoice.pet as PetName)}
+                              </Text>
+                            </Box>
                           </PetTooltip>
                         ) : !destinyChoice.stat2 ? (
                           <Text h6 bold smallCaps>
