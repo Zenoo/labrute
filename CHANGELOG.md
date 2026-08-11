@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.98.0](https://github.com/Zenoo/labrute/compare/labrute-v2.97.17...labrute-v2.98.0) (2026-08-11)
+
+
+### Features
+
+* Separate entities/stats for the 3 different dogs ([9149144](https://github.com/Zenoo/labrute/commit/914914443edc14a5b0a10f7cf04537ff88edf2cf))
+
+
+### Bug Fixes
+
+* Avoid spoiling fight results in arena + tournament ([c5623ad](https://github.com/Zenoo/labrute/commit/c5623ad34dc777b8b8af22aa7e3fb5cedf44fb11))
+* Delete old clans ([c8d6388](https://github.com/Zenoo/labrute/commit/c8d638808e168811af462e6a71cbe46c65f1843a))
+* Display perk icons in level up view ([a0a5fd4](https://github.com/Zenoo/labrute/commit/a0a5fd43c63ab258d60b0800cf35c1060d83d786))
+* Error on brute reset ([f41784f](https://github.com/Zenoo/labrute/commit/f41784fd87108eaef8010bad5b5c4dd47be9415e))
+* Generate bots on daily reset if needed ([0fb9f30](https://github.com/Zenoo/labrute/commit/0fb9f30ae85544afaf8ab104da6bad2dc03edcad))
+* hide daily tournament for event brutes ([#1410](https://github.com/Zenoo/labrute/issues/1410)) ([5c8c644](https://github.com/Zenoo/labrute/commit/5c8c6447f8f9dce57679374eea0704c4a3048aec))
+* Include ascensions in clan points + generate bots on level up ([d221b92](https://github.com/Zenoo/labrute/commit/d221b929a727bec5dd7e83839c07390a40e4f870))
+* Missing optional clan handling in views ([4af9964](https://github.com/Zenoo/labrute/commit/4af996449e4e186cfbebc243c25712cfaf7cfb70))
+* Missing weapons in some fights ([ed6de10](https://github.com/Zenoo/labrute/commit/ed6de106edddbd28ec9c0e4c49fa6210419848a8))
+* Possible wrong max damage achievement calculation ([6483fad](https://github.com/Zenoo/labrute/commit/6483fad83107ddfccb03de43bf2fb62d516a7e24))
+* Release notes ([77016a8](https://github.com/Zenoo/labrute/commit/77016a85d621c66033a9551e07bb01e9aac7cb56))
+* Remove remaining sliver of HP bar ([a039911](https://github.com/Zenoo/labrute/commit/a03991189410552b42980c77700813f20ae4cf34))
+* Update dogs in small pet list ([317057e](https://github.com/Zenoo/labrute/commit/317057eefef29bd375d949f672d5f342836b6ea2))
+* Update pnpm ([1ff6c86](https://github.com/Zenoo/labrute/commit/1ff6c86fd674a02022321ee00d20a36ef9cb1a28))
+
 ## [2.97.17](https://github.com/Zenoo/labrute/compare/labrute-v2.97.16...labrute-v2.97.17) (2026-07-26)
 
 
