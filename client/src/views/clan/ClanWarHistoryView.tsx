@@ -1,6 +1,8 @@
 import { ClanWarGetHistoryResponse } from '@labrute/core';
 import { ClanWarType } from '@labrute/prisma';
-import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material';
+import {
+  Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -101,7 +103,7 @@ export const ClanWarHistoryView = () => {
                             : undefined,
                         }}
                       >
-                        {war.attacker.name}
+                        {war.attacker?.name}
                       </Text>
                     </Link>
                   </TableCell>
@@ -117,7 +119,7 @@ export const ClanWarHistoryView = () => {
                             : undefined,
                         }}
                       >
-                        {war.defender.name}
+                        {war.defender?.name}
                       </Text>
                     </Link>
                   </TableCell>

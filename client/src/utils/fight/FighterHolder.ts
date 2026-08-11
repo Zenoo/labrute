@@ -1025,6 +1025,8 @@ export class FighterHolder {
       svg.visible = false;
       svg.renderable = true;
       svg.mask = null;
+      svg.alpha = 1;
+      svg.tint = 0xFFFFFF;
     }
 
     for (const maskGroup of this.#maskSvgsByLabel.values()) {
@@ -1038,6 +1040,7 @@ export class FighterHolder {
     for (const container of this.#allPooledContainers) {
       container.visible = false;
       container.mask = null;
+      container.alpha = 1;
     }
   };
 
