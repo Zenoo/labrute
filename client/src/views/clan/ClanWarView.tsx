@@ -93,12 +93,12 @@ export const ClanWarView = () => {
     <Page title={`${t('clanWar')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/clan/${id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-          <Link to={`/${bruteName || ''}/clan/${war?.attacker.id}`} sx={{ display: 'inline' }}>
-            {war?.attacker.name}
+          <Link to={`/${bruteName || ''}/clan/${war?.attacker?.id}`} sx={{ display: 'inline' }}>
+            {war?.attacker?.name}
           </Link>
           {' '}{t('vs')}{' '}
-          <Link to={`/${bruteName || ''}/clan/${war?.defender.id}`} sx={{ display: 'inline' }}>
-            {war?.defender.name}
+          <Link to={`/${bruteName || ''}/clan/${war?.defender?.id}`} sx={{ display: 'inline' }}>
+            {war?.defender?.name}
           </Link>
         </Text>
       </Paper>
@@ -159,7 +159,7 @@ export const ClanWarView = () => {
                               : undefined,
                           }}
                         >
-                          {war.attacker.name}
+                          {war.attacker?.name}
                         </Link>
                       </TableCell>
                       <TableCell align="right">
@@ -173,7 +173,7 @@ export const ClanWarView = () => {
                               : undefined,
                           }}
                         >
-                          {war.defender.name}
+                          {war.defender?.name}
                         </Link>
                       </TableCell>
                     </TableRow>

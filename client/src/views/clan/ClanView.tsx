@@ -601,7 +601,7 @@ export const ClanView = () => {
                 contrast={false}
                 shadow={false}
                 onClick={goToClanWar(
-                  clan.attacks.length ? clan.id : clan.defenses[0]?.attacker.id,
+                  clan.attacks.length ? clan.id : clan.defenses[0]?.attacker?.id,
                   clanWar.id,
                 )}
                 sx={{
@@ -624,7 +624,7 @@ export const ClanView = () => {
                 }}
                 >
                   <Text bold>
-                    {clan.attacks.length ? clan.name : clan.defenses[0]?.attacker.name}
+                    {clan.attacks.length ? clan.name : clan.defenses[0]?.attacker?.name}
                   </Text>
                   <Box sx={{
                     position: 'absolute',
@@ -637,7 +637,7 @@ export const ClanView = () => {
                     <BruteRender
                       brute={(clan.attacks.length
                         ? clan.master
-                        : clan.defenses[0]?.attacker.master) ?? undefined}
+                        : clan.defenses[0]?.attacker?.master) ?? undefined}
                       looking="right"
                     />
                   </Box>
@@ -652,7 +652,7 @@ export const ClanView = () => {
                 contrast={false}
                 shadow={false}
                 onClick={goToClanWar(
-                  clan.defenses.length ? clan.id : clan.attacks[0]?.defender.id,
+                  clan.defenses.length ? clan.id : clan.attacks[0]?.defender?.id,
                   clanWar.id,
                 )}
                 sx={{
@@ -676,7 +676,7 @@ export const ClanView = () => {
                 }}
                 >
                   <Text bold>
-                    {clan.defenses.length ? clan.name : clan.attacks[0]?.defender.name}
+                    {clan.defenses.length ? clan.name : clan.attacks[0]?.defender?.name}
                   </Text>
                   <Box sx={{
                     position: 'absolute',
@@ -689,7 +689,7 @@ export const ClanView = () => {
                     <BruteRender
                       brute={(clan.defenses.length
                         ? clan.master
-                        : clan.attacks[0]?.defender.master) ?? undefined}
+                        : clan.attacks[0]?.defender?.master) ?? undefined}
                       looking="left"
                     />
                   </Box>
