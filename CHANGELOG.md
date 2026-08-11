@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.98.1](https://github.com/Zenoo/labrute/compare/labrute-v2.98.0...labrute-v2.98.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* Prevent clan size overflow ([6e6cb85](https://github.com/Zenoo/labrute/commit/6e6cb859b704b0440e59a250c2c9520121d03cc5))
+
 ## [2.98.0](https://github.com/Zenoo/labrute/compare/labrute-v2.97.17...labrute-v2.98.0) (2026-08-11)
 
 
