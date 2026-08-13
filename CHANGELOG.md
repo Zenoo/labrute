@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.98.2](https://github.com/Zenoo/labrute/compare/labrute-v2.98.1...labrute-v2.98.2) (2026-08-13)
+
+
+### Bug Fixes
+
+* Restore tournament fights highlights on current fights ([6245f14](https://github.com/Zenoo/labrute/commit/6245f14234ffc1694ee5cf1dc329ddd941e9b627))
+
 ## [2.98.1](https://github.com/Zenoo/labrute/compare/labrute-v2.98.0...labrute-v2.98.1) (2026-08-11)
 
 
