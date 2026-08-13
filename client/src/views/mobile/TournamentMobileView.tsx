@@ -123,8 +123,7 @@ export const TournamentMobileView = ({
                     <StyledButton
                       key={fight.id}
                       onClick={goToFight(fight, index + 1)}
-                      shadowColor={shouldDisplayResult
-                        && fighters.some((fighter) => fighter.name === bruteName)
+                      shadowColor={fighters.some((fighter) => fighter.name === bruteName)
                         ? '#006CD1'
                         : undefined}
                       sx={{

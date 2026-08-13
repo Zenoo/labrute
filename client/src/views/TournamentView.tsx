@@ -285,8 +285,7 @@ export const TournamentView = () => {
                       <StyledButton
                         key={fight.id}
                         onClick={goToFight(fight, index < 6 ? index + 1 : 10 - index + 1)}
-                        shadowColor={shouldDisplayResult
-                          && fighters.some((fighter) => fighter.name === bruteName)
+                        shadowColor={fighters.some((fighter) => fighter.name === bruteName)
                           ? '#006CD1'
                           : undefined}
                         sx={{
