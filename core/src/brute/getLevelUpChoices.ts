@@ -1,4 +1,6 @@
-import { Brute, BruteStat, PetName, Prisma, SkillName, WeaponName } from '@labrute/prisma';
+import {
+  Brute, BruteStat, PetName, Prisma, SkillName, WeaponName
+} from '@labrute/prisma';
 import { randomBetween } from '../utils/index.js';
 import { getRandomBonus } from './getRandomBonus.js';
 

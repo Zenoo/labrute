@@ -33,6 +33,11 @@ export const HallView = () => {
   const fightsLeft = useMemo(() => user && user.brutes
     .reduce((acc, brute) => acc + getFightsLeft(brute), 0), [user]);
 
+  const missingRegistrations = useMemo(() => user && user.brutes
+    .reduce((acc, brute) => acc + (!brute.registeredForTournament
+      && !brute.eventId
+      && !brute.canRankUpSince ? 1 : 0), 0), [user]);
+
   // Go to cell page
   const goToCell = useCallback((bruteName: string) => () => {
     navigate(`/${bruteName}/cell`);
@@ -76,11 +81,11 @@ export const HallView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall')}</Text>
-        {!!fightsLeft && (
+        {(fightsLeft || missingRegistrations) && (
           <Text bold color="secondary">
-            {fightsLeft > 1
-              ? t('youHaveXFightsLeft', { value: fightsLeft })
-              : t('youHaveOneFightLeft')}
+            {!!fightsLeft && t('fightsLeft', { count: fightsLeft })}
+            {fightsLeft && missingRegistrations && ' '}
+            {!!missingRegistrations && t('missingRegistrations', { count: missingRegistrations })}
           </Text>
         )}
       </Paper>
