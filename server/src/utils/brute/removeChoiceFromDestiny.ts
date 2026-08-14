@@ -98,6 +98,12 @@ export const removeChoiceFromDestiny = async (
     secondStat = bruteStats[randomBetween(0, bruteStats.length - 1)];
   }
 
+  // Adapt for HP
+  const firstStatValue = firstStat === BruteStat.hp ? statValue * 6 : statValue;
+  const secondStatValue = secondStat === BruteStat.hp && statValue === 1
+    ? 6
+    : statValue === 1 ? 1 : null;
+
   await traced('removeChoiceFromDestiny.updateDestinyChoice', () => prisma.destinyChoice.update({
     where: { id: choiceToReplace.id },
     data: {
@@ -108,9 +114,9 @@ export const removeChoiceFromDestiny = async (
       pet: null,
       weapon: null,
       stat1: firstStat as BruteStat,
-      stat1Value: statValue,
+      stat1Value: firstStatValue,
       stat2: statValue === 1 ? secondStat as BruteStat : null,
-      stat2Value: statValue === 1 ? 1 : null,
+      stat2Value: secondStatValue,
     },
   }));
 };
