@@ -1026,15 +1026,14 @@ const storeGains = async (
 
 const handleXpGains = async (prisma: PrismaClient) => {
   const now = dayjs.utc().valueOf();
-  const today = dayjs.utc().startOf('day');
+  const today = dayjs.utc().format('YYYY-MM-DD');
 
-  const count = await prisma.tournamentXp.count({
-    where: {
-      date: {
-        lt: today.toDate(),
-      },
-    },
-  });
+  const xpCountResult = await prisma.$queryRaw<{ count: bigint }[]>`
+    SELECT COUNT(*)::bigint AS count
+    FROM "TournamentXp"
+    WHERE date < ${today}::date;
+  `;
+  const count = Number(xpCountResult[0]?.count ?? 0);
 
   if (!count) {
     return;
@@ -1048,19 +1047,16 @@ const handleXpGains = async (prisma: PrismaClient) => {
       FROM (
           SELECT SUM(xp) xp, "bruteId"
           FROM "TournamentXp"
-          WHERE date < ${today.toDate()}
+          WHERE date < ${today}::date
           GROUP BY "bruteId"
       ) txp
       WHERE b.id = txp."bruteId"
     `,
     // Delete tournament XP
-    prisma.tournamentXp.deleteMany({
-      where: {
-        date: {
-          lt: today.toDate(),
-        },
-      },
-    }),
+    prisma.$executeRaw`
+      DELETE FROM "TournamentXp"
+      WHERE date < ${today}::date;
+    `,
   ]);
 
   LOGGER.log(`${dayjs.utc().valueOf() - now}ms to handle ${count} xp gains`);
@@ -1068,22 +1064,21 @@ const handleXpGains = async (prisma: PrismaClient) => {
 
 const handleTournamentEarnings = async (prisma: PrismaClient) => {
   const now = dayjs.utc().valueOf();
-  const today = dayjs.utc().startOf('day').toDate();
+  const today = dayjs.utc().format('YYYY-MM-DD');
 
-  const achievementCount = await prisma.tournamentAchievement.count({
-    where: {
-      date: {
-        lt: today,
-      },
-    },
-  });
-  const goldCount = await prisma.tournamentGold.count({
-    where: {
-      date: {
-        lt: today,
-      },
-    },
-  });
+  const achievementCountResult = await prisma.$queryRaw<{ count: bigint }[]>`
+    SELECT COUNT(*)::bigint AS count
+    FROM "TournamentAchievement"
+    WHERE date < ${today}::date;
+  `;
+  const goldCountResult = await prisma.$queryRaw<{ count: bigint }[]>`
+    SELECT COUNT(*)::bigint AS count
+    FROM "TournamentGold"
+    WHERE date < ${today}::date;
+  `;
+
+  const achievementCount = Number(achievementCountResult[0]?.count ?? 0);
+  const goldCount = Number(goldCountResult[0]?.count ?? 0);
 
   if (!achievementCount && !goldCount) {
     return;
@@ -1097,7 +1092,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       FROM (
           SELECT SUM("achievementCount") "achievementCount", "achievement", "bruteId"
           FROM "TournamentAchievement"
-          WHERE date < ${today}
+          WHERE date < ${today}::date
           GROUP BY "bruteId", "achievement"
       ) ta
       LEFT JOIN "Brute" b
@@ -1106,13 +1101,10 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       SET "count" = "Achievement"."count" + EXCLUDED."count";
     `,
     // Delete tournament achievements
-    prisma.tournamentAchievement.deleteMany({
-      where: {
-        date: {
-          lt: today,
-        },
-      },
-    }),
+    prisma.$executeRaw`
+      DELETE FROM "TournamentAchievement"
+      WHERE date < ${today}::date;
+    `,
     // Add Gold to users
     prisma.$executeRaw`
       UPDATE "User" u
@@ -1120,7 +1112,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       FROM (
           SELECT SUM(gold) gold, "userId"
           FROM "TournamentGold"
-          WHERE date < ${today}
+          WHERE date < ${today}::date
           GROUP BY "userId"
       ) tg
       WHERE u.id = tg."userId";
@@ -1130,13 +1122,13 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
       INSERT INTO "UserLog" ("type", "userId", "gold")
       (SELECT 'GOLD_WIN', "userId", SUM(gold)
       FROM "TournamentGold"
-      WHERE date < ${today}
+      WHERE date < ${today}::date
       GROUP BY "userId");
     `,
     // Delete tournament gold
     prisma.$executeRaw`
       DELETE FROM "TournamentGold"
-      WHERE date < ${today};
+      WHERE date < ${today}::date;
     `,
   ]);
 
@@ -2480,6 +2472,14 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     await handleReleases(prisma);
     logMemory('After releases');
 
+    // Handle XP won the previous day
+    await handleXpGains(prisma);
+    logMemory('After handling XP gains');
+
+    // Handle tournament earnings from the previous day
+    await handleTournamentEarnings(prisma);
+    logMemory('After handling tournament earnings');
+
     // Roll daily modifiers
     const modifiers = await handleModifiers(prisma);
     logMemory('After modifiers');
@@ -2563,14 +2563,6 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Grant bug achievements to all admins who don't have it yet
     await grantBugAchievement(prisma);
     logMemory('After granting bug achievement');
-
-    // Handle XP won the previous day
-    await handleXpGains(prisma);
-    logMemory('After handling XP gains');
-
-    // Handle tournament earnings from the previous day
-    await handleTournamentEarnings(prisma);
-    logMemory('After handling tournament earnings');
 
     // Check name duplicates
     await checkNameDuplicates(prisma);
