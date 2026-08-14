@@ -8,7 +8,7 @@ import {
   MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi
 } from '@mui/icons-material';
 import {
-  Badge, Box, Button, Divider, Drawer, GlobalStyles,
+  Badge, Box, Button, Drawer, GlobalStyles,
   IconButton, List, ListItem, ListItemIcon,
   ListItemText, ListSubheader, Alert as MuiAlert,
   Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme
@@ -250,35 +250,28 @@ export const Main = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {!smallScreen && (
-            <>
-              <BruteSearch />
-              <Divider
-                orientation="vertical"
-                flexItem
-                sx={{
-                  my: 0.5,
-                  borderColor: theme.palette.topbar.divider
-                }}
-              />
-            </>
+            <BruteSearch />
           )}
           {user && (
-            <>
-              <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
-                <Text color={theme.palette.topbar.contrast} whiteSpace="nowrap">
-                  {user.gold}
-                  <Box component="img" src="/images/gold.png" sx={{ ml: 0.5, width: 8 }} />
-                </Text>
-              </Tooltip>
-              <Divider
-                orientation="vertical"
-                flexItem
+            <Tooltip title={t('goldNeededForNewBrute', { gold: getGoldNeededForNewBrute(user) })}>
+              <Button
+                onClick={goTo('/')}
+                endIcon={<Box component="img" src="/images/gold.png" />}
+                variant="outlined"
+                size="small"
+                color="primary"
                 sx={{
-                  my: 0.5,
-                  borderColor: theme.palette.topbar.divider
+                  px: 0.5,
+                  py: 0.125,
+                  minWidth: 'auto',
+                  '& .MuiButton-endIcon': {
+                    ml: 0.5,
+                  }
                 }}
-              />
-            </>
+              >
+                {user.gold}
+              </Button>
+            </Tooltip>
           )}
           {user ? (
             <Badge

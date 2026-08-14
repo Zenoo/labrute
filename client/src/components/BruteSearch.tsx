@@ -1,6 +1,8 @@
 import { isNameValid } from '@labrute/core';
 import { Search } from '@mui/icons-material';
-import { IconButton, InputAdornment, OutlinedInput, Tooltip, useTheme } from '@mui/material';
+import {
+  IconButton, InputAdornment, OutlinedInput, Tooltip, useTheme
+} from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
