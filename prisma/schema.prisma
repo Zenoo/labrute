@@ -622,6 +622,8 @@ enum AchievementName {
   tamer_net
   untouchable_balletShoes
   survival_resistant
+  shuriken_sai
+  cry_flail_shield
   hideaway_spy
   weaponsFast3
   weaponsSharp3

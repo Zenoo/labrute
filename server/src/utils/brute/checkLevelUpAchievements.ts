@@ -140,7 +140,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Panther + Bear
-  const pantherBearConditions = [PetName.panther, PetName.bear] as PetName[];
+  const pantherBearConditions: PetName[] = [
+    PetName.panther,
+    PetName.bear,
+  ];
   if (destinyChoice.pet
     && pantherBearConditions.includes(destinyChoice.pet)
     && pantherBearConditions.every((pet) => brute.pets[pet])) {
@@ -148,7 +151,7 @@ export const checkLevelUpAchievements = async (
   }
 
   // Feline Agility + Fists of Fury
-  const felAg_fistsOfFConditions = [SkillName.felineAgility, SkillName.fistsOfFury] as SkillName[];
+  const felAg_fistsOfFConditions: SkillName[] = [SkillName.felineAgility, SkillName.fistsOfFury];
   if (destinyChoice.skill
     && felAg_fistsOfFConditions.includes(destinyChoice.skill)
     && felAg_fistsOfFConditions.every((skill) => brute.skills[skill])) {
@@ -156,12 +159,12 @@ export const checkLevelUpAchievements = async (
   }
 
   // Feline Agility + Fists of Fury + Untouchable + Relentless
-  const felAg_fistsOfF_untouch_relentlessConditions = [
+  const felAg_fistsOfF_untouch_relentlessConditions: SkillName[] = [
     SkillName.felineAgility,
     SkillName.fistsOfFury,
     SkillName.untouchable,
     SkillName.relentless,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && felAg_fistsOfF_untouch_relentlessConditions.includes(destinyChoice.skill)
     && felAg_fistsOfF_untouch_relentlessConditions.every((skill) => brute.skills[skill])) {
@@ -174,11 +177,11 @@ export const checkLevelUpAchievements = async (
   }
 
   // Vitality + Armor + Toughened Skin
-  const vitArmToughConditions = [
+  const vitArmToughConditions: SkillName[] = [
     SkillName.vitality,
     SkillName.armor,
     SkillName.toughenedSkin,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && vitArmToughConditions.includes(destinyChoice.skill)
     && vitArmToughConditions.every((skill) => brute.skills[skill])) {
@@ -186,11 +189,11 @@ export const checkLevelUpAchievements = async (
   }
 
   // Herculean Strength + Hammer + Fierce Brute
-  const hercHamFierceConditions = [
+  const hercHamFierceConditions: SkillName[] = [
     SkillName.herculeanStrength,
     SkillName.hammer,
     SkillName.fierceBrute,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && hercHamFierceConditions.includes(destinyChoice.skill)
     && hercHamFierceConditions.every((skill) => brute.skills[skill])) {
@@ -208,10 +211,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Ballet Shoes + Survival
-  const balletShoesSurvivalConditions = [
+  const balletShoesSurvivalConditions: SkillName[] = [
     SkillName.balletShoes,
     SkillName.survival,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && balletShoesSurvivalConditions.includes(destinyChoice.skill)
     && balletShoesSurvivalConditions.every((skill) => brute.skills[skill])) {
@@ -219,10 +222,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Cry of the Damned + Hypnosis
-  const cryOfTheDamnedHypnosisConditions = [
+  const cryOfTheDamnedHypnosisConditions: SkillName[] = [
     SkillName.cryOfTheDamned,
     SkillName.hypnosis,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && cryOfTheDamnedHypnosisConditions.includes(destinyChoice.skill)
     && cryOfTheDamnedHypnosisConditions.every((skill) => brute.skills[skill])) {
@@ -235,10 +238,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Shield + Counter Attack
-  const shieldCounterAttackConditions = [
+  const shieldCounterAttackConditions: SkillName[] = [
     SkillName.shield,
     SkillName.counterAttack,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && shieldCounterAttackConditions.includes(destinyChoice.skill)
     && shieldCounterAttackConditions.every((skill) => brute.skills[skill])) {
@@ -246,10 +249,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Reconnaissance + Monk
-  const reconnaissanceMonkConditions = [
+  const reconnaissanceMonkConditions: SkillName[] = [
     SkillName.reconnaissance,
     SkillName.monk,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && reconnaissanceMonkConditions.includes(destinyChoice.skill)
     && reconnaissanceMonkConditions.every((skill) => brute.skills[skill])) {
@@ -286,10 +289,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Bandage + Tragic Potion
-  const bandageTragicPotionConditions = [
+  const bandageTragicPotionConditions: SkillName[] = [
     SkillName.regeneration,
     SkillName.tragicPotion,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && bandageTragicPotionConditions.includes(destinyChoice.skill)
     && bandageTragicPotionConditions.every((skill) => brute.skills[skill])) {
@@ -396,10 +399,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Lightning Bolt + First Strike
-  const lightningBoltFirstStrikeConditions = [
+  const lightningBoltFirstStrikeConditions: SkillName[] = [
     SkillName.lightningBolt,
     SkillName.firstStrike,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && lightningBoltFirstStrikeConditions.includes(destinyChoice.skill)
     && lightningBoltFirstStrikeConditions.every((skill) => brute.skills[skill])) {
@@ -432,10 +435,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Tragic Potion + Chef
-  const tragicPotionChefConditions = [
+  const tragicPotionChefConditions: SkillName[] = [
     SkillName.tragicPotion,
     SkillName.chef,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && tragicPotionChefConditions.includes(destinyChoice.skill)
     && tragicPotionChefConditions.every((skill) => brute.skills[skill])) {
@@ -443,10 +446,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Tamer + Net
-  const tamerNetConditions = [
+  const tamerNetConditions: SkillName[] = [
     SkillName.tamer,
     SkillName.net,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && tamerNetConditions.includes(destinyChoice.skill)
     && tamerNetConditions.every((skill) => brute.skills[skill])) {
@@ -454,10 +457,10 @@ export const checkLevelUpAchievements = async (
   }
 
   // Untouchable + ballet Shoes
-  const untouchableBalletShoesConditions = [
+  const untouchableBalletShoesConditions: SkillName[] = [
     SkillName.untouchable,
     SkillName.balletShoes,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && untouchableBalletShoesConditions.includes(destinyChoice.skill)
     && untouchableBalletShoesConditions.every((skill) => brute.skills[skill])) {
@@ -470,21 +473,48 @@ export const checkLevelUpAchievements = async (
   }
 
   // Survival + Resistant
-  const survivalResistantConditions = [
+  const survivalResistantConditions: SkillName[] = [
     SkillName.survival,
     SkillName.resistant,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && survivalResistantConditions.includes(destinyChoice.skill)
     && survivalResistantConditions.every((skill) => brute.skills[skill])) {
     await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.survival_resistant);
   }
 
+  // Shuriken + Sai
+  const shurikenSaiConditions: WeaponName[] = [
+    WeaponName.shuriken,
+    WeaponName.sai,
+  ];
+  if (destinyChoice.weapon
+    && shurikenSaiConditions.includes(destinyChoice.weapon)
+    && shurikenSaiConditions.every((weapon) => brute.weapons[weapon])) {
+    await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.shuriken_sai);
+  }
+
+  // Cry of the Damned + Flail + Shield
+  const cryFlailShieldSkillConditions: SkillName[] = [
+    SkillName.cryOfTheDamned,
+    SkillName.shield,
+  ];
+  const cryFlailShieldWeaponConditions: WeaponName[] = [
+    WeaponName.flail,
+  ];
+  if ((destinyChoice.skill && cryFlailShieldSkillConditions.includes(destinyChoice.skill))
+    || (destinyChoice.weapon && cryFlailShieldWeaponConditions.includes(destinyChoice.weapon))) {
+    if (cryFlailShieldSkillConditions.every((skill) => brute.skills[skill])
+      && cryFlailShieldWeaponConditions.every((weapon) => brute.weapons[weapon])) {
+      await increaseAchievement(prisma, brute.userId, brute.id, AchievementName.cry_flail_shield);
+    }
+  }
+
   // Hideaway + Spy
-  const hideawaySpyConditions = [
+  const hideawaySpyConditions: SkillName[] = [
     SkillName.hideaway,
     SkillName.spy,
-  ] as SkillName[];
+  ];
   if (destinyChoice.skill
     && hideawaySpyConditions.includes(destinyChoice.skill)
     && hideawaySpyConditions.every((skill) => brute.skills[skill])) {

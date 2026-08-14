@@ -747,6 +747,8 @@ exports.AchievementName = exports.$Enums.AchievementName = {
   tamer_net: 'tamer_net',
   untouchable_balletShoes: 'untouchable_balletShoes',
   survival_resistant: 'survival_resistant',
+  shuriken_sai: 'shuriken_sai',
+  cry_flail_shield: 'cry_flail_shield',
   hideaway_spy: 'hideaway_spy',
   weaponsFast3: 'weaponsFast3',
   weaponsSharp3: 'weaponsSharp3',

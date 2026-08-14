@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+
 import { AchievementName } from '@labrute/prisma';
 
 export const AchievementRarety = {
@@ -355,6 +355,14 @@ export const AchievementData: Record<
   },
   survival_resistant: {
     rarety: AchievementRarety.uncommon,
+    perBrute: 1,
+  },
+  shuriken_sai: {
+    rarety: AchievementRarety.uncommon,
+    perBrute: 1,
+  },
+  cry_flail_shield: {
+    rarety: AchievementRarety.rare,
     perBrute: 1,
   },
   hideaway_spy: {

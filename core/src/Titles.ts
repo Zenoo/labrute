@@ -78,6 +78,8 @@ export const TitleRequirements: Record<AchievementName, number[]> = {
   tamer_net: BruteUniqueTitleRequirements,
   untouchable_balletShoes: BruteUniqueTitleRequirements,
   survival_resistant: BruteUniqueTitleRequirements,
+  shuriken_sai: BruteUniqueTitleRequirements,
+  cry_flail_shield: BruteUniqueTitleRequirements,
   hideaway_spy: BruteUniqueTitleRequirements,
   weaponsFast3: BruteUniqueTitleRequirements,
   weaponsSharp3: BruteUniqueTitleRequirements,
