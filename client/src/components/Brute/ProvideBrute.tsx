@@ -4,6 +4,7 @@ import { useBrute } from '../../hooks/useBrute';
 import { getCalculatedBrute, ServerHookBrute } from '@labrute/core';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
+import { Loader } from '../Loader';
 
 /**
  * ProvideBrute component
@@ -14,10 +15,13 @@ export const ProvideBrute = () => {
   const { modifiers } = useAuth();
   const Server = useServer();
   const [rawBrute, setRawBrute] = useState<ServerHookBrute | null>(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch brute data (only when bruteName changes)
   useEffect(() => {
     if (!bruteName) return;
+
+    setLoading(true);
 
     Server.Brute.getForHook(bruteName).then((data) => {
       setRawBrute(data);
@@ -31,8 +35,11 @@ export const ProvideBrute = () => {
     if (!rawBrute) return;
 
     updateBrute(getCalculatedBrute(rawBrute, modifiers));
+    setTimeout(() => {
+      setLoading(false);
+    }, 0);
   }, [rawBrute, modifiers, updateBrute]);
   return (
-    <Outlet />
+    loading ? <Loader height="calc(100vh - 32px)" color="secondary" /> : <Outlet />
   );
 };
