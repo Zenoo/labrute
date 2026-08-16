@@ -33,7 +33,7 @@ export const getFighterStat = (
   // Special case for tempo as it's either weapon or base
   if (stat === 'tempo') {
     if (fighter.activeWeapon) {
-      return getWeaponScaledStat(chaos, fighter.activeWeapon, stat);
+      return getWeaponScaledStat(chaos, fighter.activeWeapon, stat, 2);
     }
 
     return BASE_FIGHTER_STATS[stat];

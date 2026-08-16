@@ -11,6 +11,17 @@ import {
 import { Weapon } from './weapons.js';
 import { Tiered } from '../types.js';
 
+const FLAT_STATS = new Set([
+  'hpMalus',
+  'initiative',
+  'strength',
+  'agility',
+  'speed',
+  'hp',
+  'damage',
+  'toss'
+]);
+
 const scalingByPet = {
   [PetName.bear]: {
     strength: 0.4,
@@ -62,7 +73,7 @@ export const getScaledStat = ({
 }: {
   chaos: boolean,
   skill?: SkillName,
-  type?: 'flat' | 'percent',
+  type: 'flat' | 'percent',
   pet?: Pet,
   weapon?: Weapon,
   stat: string,
@@ -139,6 +150,7 @@ export const getPetScaledStat = (
       pet,
       stat,
       value: result,
+      type: FLAT_STATS.has(stat) ? 'flat' : 'percent',
       precision,
     });
   }
@@ -153,6 +165,7 @@ export const getPetScaledStat = (
     pet,
     stat,
     value: pet[stat][pet.tier - 1] ?? 0,
+    type: FLAT_STATS.has(stat) ? 'flat' : 'percent',
     precision,
   });
 };
@@ -172,6 +185,7 @@ export const getWeaponScaledStat = (
     weapon,
     stat,
     value: weapon[stat][weapon.tier - 1] ?? 0,
+    type: FLAT_STATS.has(stat) ? 'flat' : 'percent',
     precision,
   });
 };
@@ -195,7 +209,9 @@ export const getSkillScaledStat = (
   return getScaledStat({
     chaos,
     skill: skill.name,
+    type,
     stat,
     value,
+    precision: type === 'percent' ? 2 : 0
   });
 };
