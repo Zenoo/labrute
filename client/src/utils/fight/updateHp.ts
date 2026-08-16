@@ -55,10 +55,10 @@ export const updateHp = (
   }
 
   const percent = (currentHP / maxHp) * 236;
-  const newWidth = Math.max(0, Math.min(236, percent));
+  const newWidth = Math.max(1, Math.min(236, percent));
 
   hpBar.width = newWidth;
-  if (newWidth === 0) {
+  if (currentHP === 0) {
     hpBar.visible = false;
   } else {
     hpBar.visible = true;
@@ -66,7 +66,7 @@ export const updateHp = (
 
   if (fix) {
     hpBarPhantom.width = newWidth;
-    if (newWidth === 0) {
+    if (currentHP === 0) {
       hpBarPhantom.visible = false;
     } else {
       hpBarPhantom.visible = true;
@@ -78,7 +78,7 @@ export const updateHp = (
       ease: 'none',
       width: newWidth,
     }).then(() => {
-      if (hpBarPhantom.width === 0) {
+      if (currentHP === 0) {
         hpBarPhantom.visible = false;
       } else {
         hpBarPhantom.visible = true;
