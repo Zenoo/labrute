@@ -6,9 +6,7 @@ import {
   DailyModifierOdds,
   DailyModifierSpawnChance,
   DailyTournamentGoldReward,
-  DailyTournamentXpReward,
-  entries,
-  EventPauseDuration,
+  DailyTournamentXpReward, EventPauseDuration,
   Fighter,
   getCalculatedBrute,
   getNewElo,
@@ -22,7 +20,7 @@ import {
   Modifiers,
   randomBetween,
   refreshChaosSeeds,
-  weightedRandom,
+  weightedRandom
 } from '@labrute/core';
 import {
   AchievementName,
@@ -2333,33 +2331,7 @@ const handleEventTournament = async (
 };
 
 const banMultipleAccounts = async (prisma: PrismaClient) => {
-  // Get users who logged in within the last 7 days
-  const users = await prisma.user.findMany({
-    where: {
-      lastSeen: {
-        gte: dayjs.utc().subtract(7, 'day').toDate(),
-      },
-      bannedAt: null,
-    },
-    select: {
-      id: true,
-      fingerprints: true,
-      ips: true,
-      browserIds: true,
-      createdAt: true,
-    },
-  });
-
-  const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
-
-  const sharedBrowsers = await prisma.sharedBrowser.findMany({
-    select: {
-      id: true,
-      users: {
-        select: { id: true },
-      }
-    },
-  });
+  const sevenDaysAgo = dayjs.utc().subtract(7, 'day').toDate();
 
   // TWO-TIER SIGNAL APPROACH:
   //
@@ -2373,65 +2345,66 @@ const banMultipleAccounts = async (prisma: PrismaClient) => {
   //   - Allows: schools, public wifi
   //   - Catches: Extreme abuse cases only
 
-  const usersToBan = new Set<string>();
+  // Tier 1 candidates, excluding users explicitly allowed via sharedBrowserId.
+  const tier1Candidates = await prisma.$queryRaw<{ id: string }[]>`
+    WITH recent_users AS (
+      SELECT id, "browserIds", "sharedBrowserId"
+      FROM "User"
+      WHERE "lastSeen" >= ${sevenDaysAgo}
+        AND "bannedAt" IS NULL
+    ),
+    suspicious_browser_ids AS (
+      SELECT browser.browser_id
+      FROM recent_users ru
+      CROSS JOIN LATERAL UNNEST(ru."browserIds") AS browser(browser_id)
+      WHERE browser.browser_id IS NOT NULL
+        AND browser.browser_id <> ''
+      GROUP BY browser.browser_id
+      HAVING COUNT(DISTINCT ru.id) > 3
+    )
+    SELECT DISTINCT ru.id
+    FROM recent_users ru
+    CROSS JOIN LATERAL UNNEST(ru."browserIds") AS browser(browser_id)
+    INNER JOIN suspicious_browser_ids sbi
+      ON sbi.browser_id = browser.browser_id
+    WHERE ru."sharedBrowserId" IS DISTINCT FROM browser.browser_id;
+  `;
 
-  // Track signal combinations
-  const browserIdGroups: Record<string, string[]> = {};
-  const fingerprintIpGroups: Record<string, string[]> = {};
+  // Tier 2 candidates using DB-side grouping to avoid in-memory cartesian products.
+  const tier2Candidates = await prisma.$queryRaw<{ id: string }[]>`
+    WITH recent_users AS (
+      SELECT id, fingerprints, ips
+      FROM "User"
+      WHERE "lastSeen" >= ${sevenDaysAgo}
+        AND "bannedAt" IS NULL
+    ),
+    suspicious_fp_ip AS (
+      SELECT fp.fingerprint, ip.ip
+      FROM recent_users ru
+      CROSS JOIN LATERAL UNNEST(ru.fingerprints) AS fp(fingerprint)
+      CROSS JOIN LATERAL UNNEST(ru.ips) AS ip(ip)
+      LEFT JOIN "KnownFingerprint" kf ON kf.id = fp.fingerprint
+      WHERE fp.fingerprint IS NOT NULL
+        AND fp.fingerprint <> ''
+        AND kf.id IS NULL
+        AND ip.ip IS NOT NULL
+        AND ip.ip <> ''
+      GROUP BY fp.fingerprint, ip.ip
+      HAVING COUNT(DISTINCT ru.id) > 30
+    )
+    SELECT DISTINCT ru.id
+    FROM recent_users ru
+    CROSS JOIN LATERAL UNNEST(ru.fingerprints) AS fp(fingerprint)
+    CROSS JOIN LATERAL UNNEST(ru.ips) AS ip(ip)
+    INNER JOIN suspicious_fp_ip sfp
+      ON sfp.fingerprint = fp.fingerprint
+      AND sfp.ip = ip.ip;
+  `;
 
-  for (const user of users) {
-    // Tier 1: Group by browser ID
-    for (const browserId of user.browserIds) {
-      if (!browserIdGroups[browserId]) {
-        browserIdGroups[browserId] = [];
-      }
-      if (!browserIdGroups[browserId].includes(user.id)) {
-        browserIdGroups[browserId].push(user.id);
-      }
-    }
-
-    // Tier 2: Group by fingerprint + IP
-    for (const fingerprint of user.fingerprints) {
-      if (knownFingerprints.includes(fingerprint)) continue;
-
-      for (const ip of user.ips) {
-        const fpIpKey = `${fingerprint}:${ip}`;
-        if (!fingerprintIpGroups[fpIpKey]) {
-          fingerprintIpGroups[fpIpKey] = [];
-        }
-        if (!fingerprintIpGroups[fpIpKey].includes(user.id)) {
-          fingerprintIpGroups[fpIpKey].push(user.id);
-        }
-      }
-    }
-  }
-
-  // Tier 1: Same browser ID (STRONG - same browser session)
-  // Ban if >3 users share the same browser ID
-  for (const [browserId, userIds] of entries(browserIdGroups)) {
-    if (userIds.length > 3) {
-      for (const userId of userIds) {
-        // Check if the shared browser is verified (families)
-        const sharedBrowserUsers = sharedBrowsers.find((sb) => sb.id === browserId)?.users ?? [];
-        const isAllowed = sharedBrowserUsers.findIndex((u) => u.id === userId) !== -1;
-
-        if (isAllowed) {
-          continue;
-        }
-
-        usersToBan.add(userId)
-      }
-    }
-  }
-
-  // Tier 2: Fingerprint + IP (WEAK - public spaces)
-  // Very high threshold to avoid false positives in schools/malls/families
-  // Ban only if >30 users share fingerprint and IP
-  for (const userIds of Object.values(fingerprintIpGroups)) {
-    if (userIds.length > 30) {
-      userIds.forEach((id) => usersToBan.add(id));
-    }
-  }
+  const usersToBan = new Set<string>([
+    ...tier1Candidates.map((user) => user.id),
+    ...tier2Candidates.map((user) => user.id),
+  ]);
 
   let bannedCount = 0;
 
