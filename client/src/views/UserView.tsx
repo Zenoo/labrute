@@ -3,7 +3,7 @@ import {
   TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft
 } from '@labrute/core';
 import {
-  Check, ManageSearch, Policy, QuestionMark
+  Check, ManageSearch, Policy, QueryStats, QuestionMark
 } from '@mui/icons-material';
 import {
   Box, Grid, IconButton, List, ListItem,
@@ -139,6 +139,12 @@ export const UserView = () => {
                 </>
               )}
             </Text>
+            <Box sx={{ textAlign: 'center', pb: 1 }}>
+              <FantasyButton color="secondary" to={`/user/${user.id}/stats`}>
+                <QueryStats sx={{ verticalAlign: 'middle', mr: 1 }} />
+                Stats
+              </FantasyButton>
+            </Box>
           </Paper>
           <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
             {authedUser?.admin && user.id !== authedUser.id && (

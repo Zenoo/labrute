@@ -183,6 +183,26 @@ export type Config = $Result.DefaultSelection<Prisma.$ConfigPayload>
  * 
  */
 export type ClanRole = $Result.DefaultSelection<Prisma.$ClanRolePayload>
+/**
+ * Model UserStats
+ * 
+ */
+export type UserStats = $Result.DefaultSelection<Prisma.$UserStatsPayload>
+/**
+ * Model BruteStats
+ * 
+ */
+export type BruteStats = $Result.DefaultSelection<Prisma.$BruteStatsPayload>
+/**
+ * Model UserLevelUpStat
+ * 
+ */
+export type UserLevelUpStat = $Result.DefaultSelection<Prisma.$UserLevelUpStatPayload>
+/**
+ * Model BruteLevelUpStat
+ * 
+ */
+export type BruteLevelUpStat = $Result.DefaultSelection<Prisma.$BruteLevelUpStatPayload>
 
 /**
  * Enums
@@ -626,6 +646,16 @@ export const NotificationSeverity: {
 
 export type NotificationSeverity = (typeof NotificationSeverity)[keyof typeof NotificationSeverity]
 
+
+export const StatsGranularity: {
+  daily: 'daily',
+  monthly: 'monthly',
+  yearly: 'yearly',
+  allTime: 'allTime'
+};
+
+export type StatsGranularity = (typeof StatsGranularity)[keyof typeof StatsGranularity]
+
 }
 
 export type Lang = $Enums.Lang
@@ -723,6 +753,10 @@ export const EventStatus: typeof $Enums.EventStatus
 export type NotificationSeverity = $Enums.NotificationSeverity
 
 export const NotificationSeverity: typeof $Enums.NotificationSeverity
+
+export type StatsGranularity = $Enums.StatsGranularity
+
+export const StatsGranularity: typeof $Enums.StatsGranularity
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1181,6 +1215,46 @@ export class PrismaClient<
     * ```
     */
   get clanRole(): Prisma.ClanRoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userStats`: Exposes CRUD operations for the **UserStats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserStats
+    * const userStats = await prisma.userStats.findMany()
+    * ```
+    */
+  get userStats(): Prisma.UserStatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bruteStats`: Exposes CRUD operations for the **BruteStats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BruteStats
+    * const bruteStats = await prisma.bruteStats.findMany()
+    * ```
+    */
+  get bruteStats(): Prisma.BruteStatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userLevelUpStat`: Exposes CRUD operations for the **UserLevelUpStat** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserLevelUpStats
+    * const userLevelUpStats = await prisma.userLevelUpStat.findMany()
+    * ```
+    */
+  get userLevelUpStat(): Prisma.UserLevelUpStatDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bruteLevelUpStat`: Exposes CRUD operations for the **BruteLevelUpStat** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BruteLevelUpStats
+    * const bruteLevelUpStats = await prisma.bruteLevelUpStat.findMany()
+    * ```
+    */
+  get bruteLevelUpStat(): Prisma.BruteLevelUpStatDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1655,7 +1729,11 @@ export namespace Prisma {
     Event: 'Event',
     Notification: 'Notification',
     Config: 'Config',
-    ClanRole: 'ClanRole'
+    ClanRole: 'ClanRole',
+    UserStats: 'UserStats',
+    BruteStats: 'BruteStats',
+    UserLevelUpStat: 'UserLevelUpStat',
+    BruteLevelUpStat: 'BruteLevelUpStat'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1674,7 +1752,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole"
+      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4194,6 +4272,302 @@ export namespace Prisma {
           }
         }
       }
+      UserStats: {
+        payload: Prisma.$UserStatsPayload<ExtArgs>
+        fields: Prisma.UserStatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserStatsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserStatsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          findFirst: {
+            args: Prisma.UserStatsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserStatsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          findMany: {
+            args: Prisma.UserStatsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>[]
+          }
+          create: {
+            args: Prisma.UserStatsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          createMany: {
+            args: Prisma.UserStatsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserStatsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>[]
+          }
+          delete: {
+            args: Prisma.UserStatsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          update: {
+            args: Prisma.UserStatsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserStatsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserStatsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserStatsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserStatsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          aggregate: {
+            args: Prisma.UserStatsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserStats>
+          }
+          groupBy: {
+            args: Prisma.UserStatsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserStatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserStatsCountArgs<ExtArgs>
+            result: $Utils.Optional<UserStatsCountAggregateOutputType> | number
+          }
+        }
+      }
+      BruteStats: {
+        payload: Prisma.$BruteStatsPayload<ExtArgs>
+        fields: Prisma.BruteStatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteStatsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteStatsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteStatsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteStatsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>
+          }
+          findMany: {
+            args: Prisma.BruteStatsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>[]
+          }
+          create: {
+            args: Prisma.BruteStatsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>
+          }
+          createMany: {
+            args: Prisma.BruteStatsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BruteStatsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>[]
+          }
+          delete: {
+            args: Prisma.BruteStatsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>
+          }
+          update: {
+            args: Prisma.BruteStatsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteStatsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteStatsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BruteStatsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>[]
+          }
+          upsert: {
+            args: Prisma.BruteStatsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteStatsPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteStatsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBruteStats>
+          }
+          groupBy: {
+            args: Prisma.BruteStatsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BruteStatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteStatsCountArgs<ExtArgs>
+            result: $Utils.Optional<BruteStatsCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserLevelUpStat: {
+        payload: Prisma.$UserLevelUpStatPayload<ExtArgs>
+        fields: Prisma.UserLevelUpStatFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserLevelUpStatFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserLevelUpStatFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>
+          }
+          findFirst: {
+            args: Prisma.UserLevelUpStatFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserLevelUpStatFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>
+          }
+          findMany: {
+            args: Prisma.UserLevelUpStatFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>[]
+          }
+          create: {
+            args: Prisma.UserLevelUpStatCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>
+          }
+          createMany: {
+            args: Prisma.UserLevelUpStatCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserLevelUpStatCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>[]
+          }
+          delete: {
+            args: Prisma.UserLevelUpStatDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>
+          }
+          update: {
+            args: Prisma.UserLevelUpStatUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserLevelUpStatDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserLevelUpStatUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserLevelUpStatUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserLevelUpStatUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserLevelUpStatPayload>
+          }
+          aggregate: {
+            args: Prisma.UserLevelUpStatAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserLevelUpStat>
+          }
+          groupBy: {
+            args: Prisma.UserLevelUpStatGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserLevelUpStatGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserLevelUpStatCountArgs<ExtArgs>
+            result: $Utils.Optional<UserLevelUpStatCountAggregateOutputType> | number
+          }
+        }
+      }
+      BruteLevelUpStat: {
+        payload: Prisma.$BruteLevelUpStatPayload<ExtArgs>
+        fields: Prisma.BruteLevelUpStatFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BruteLevelUpStatFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BruteLevelUpStatFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>
+          }
+          findFirst: {
+            args: Prisma.BruteLevelUpStatFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BruteLevelUpStatFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>
+          }
+          findMany: {
+            args: Prisma.BruteLevelUpStatFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>[]
+          }
+          create: {
+            args: Prisma.BruteLevelUpStatCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>
+          }
+          createMany: {
+            args: Prisma.BruteLevelUpStatCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BruteLevelUpStatCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>[]
+          }
+          delete: {
+            args: Prisma.BruteLevelUpStatDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>
+          }
+          update: {
+            args: Prisma.BruteLevelUpStatUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>
+          }
+          deleteMany: {
+            args: Prisma.BruteLevelUpStatDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BruteLevelUpStatUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BruteLevelUpStatUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>[]
+          }
+          upsert: {
+            args: Prisma.BruteLevelUpStatUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BruteLevelUpStatPayload>
+          }
+          aggregate: {
+            args: Prisma.BruteLevelUpStatAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBruteLevelUpStat>
+          }
+          groupBy: {
+            args: Prisma.BruteLevelUpStatGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BruteLevelUpStatGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BruteLevelUpStatCountArgs<ExtArgs>
+            result: $Utils.Optional<BruteLevelUpStatCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4324,6 +4698,10 @@ export namespace Prisma {
     notification?: NotificationOmit
     config?: ConfigOmit
     clanRole?: ClanRoleOmit
+    userStats?: UserStatsOmit
+    bruteStats?: BruteStatsOmit
+    userLevelUpStat?: UserLevelUpStatOmit
+    bruteLevelUpStat?: BruteLevelUpStatOmit
   }
 
   /* Types for Logging */
@@ -4414,6 +4792,8 @@ export namespace Prisma {
     notifications: number
     reportsHandled: number
     logs: number
+    stats: number
+    levelUpStats: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4427,6 +4807,8 @@ export namespace Prisma {
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     reportsHandled?: boolean | UserCountOutputTypeCountReportsHandledArgs
     logs?: boolean | UserCountOutputTypeCountLogsArgs
+    stats?: boolean | UserCountOutputTypeCountStatsArgs
+    levelUpStats?: boolean | UserCountOutputTypeCountLevelUpStatsArgs
   }
 
   // Custom InputTypes
@@ -4510,6 +4892,20 @@ export namespace Prisma {
     where?: UserLogWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStatsWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLevelUpStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserLevelUpStatWhereInput
+  }
+
 
   /**
    * Count Type BruteCountOutputType
@@ -4538,6 +4934,8 @@ export namespace Prisma {
     wonEvents: number
     userlogs: number
     unlockedColors: number
+    stats: number
+    levelUpStats: number
   }
 
   export type BruteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4563,6 +4961,8 @@ export namespace Prisma {
     wonEvents?: boolean | BruteCountOutputTypeCountWonEventsArgs
     userlogs?: boolean | BruteCountOutputTypeCountUserlogsArgs
     unlockedColors?: boolean | BruteCountOutputTypeCountUnlockedColorsArgs
+    stats?: boolean | BruteCountOutputTypeCountStatsArgs
+    levelUpStats?: boolean | BruteCountOutputTypeCountLevelUpStatsArgs
   }
 
   // Custom InputTypes
@@ -4728,6 +5128,20 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountUnlockedColorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UnlockedColorsWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteStatsWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountLevelUpStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteLevelUpStatWhereInput
   }
 
 
@@ -5527,6 +5941,8 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     reportsHandled?: boolean | User$reportsHandledArgs<ExtArgs>
     logs?: boolean | User$logsArgs<ExtArgs>
+    stats?: boolean | User$statsArgs<ExtArgs>
+    levelUpStats?: boolean | User$levelUpStatsArgs<ExtArgs>
     sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -5623,6 +6039,8 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     reportsHandled?: boolean | User$reportsHandledArgs<ExtArgs>
     logs?: boolean | User$logsArgs<ExtArgs>
+    stats?: boolean | User$statsArgs<ExtArgs>
+    levelUpStats?: boolean | User$levelUpStatsArgs<ExtArgs>
     sharedBrowser?: boolean | User$sharedBrowserArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5646,6 +6064,8 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       reportsHandled: Prisma.$BruteReportPayload<ExtArgs>[]
       logs: Prisma.$UserLogPayload<ExtArgs>[]
+      stats: Prisma.$UserStatsPayload<ExtArgs>[]
+      levelUpStats: Prisma.$UserLevelUpStatPayload<ExtArgs>[]
       sharedBrowser: Prisma.$SharedBrowserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6076,6 +6496,8 @@ export namespace Prisma {
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reportsHandled<T extends User$reportsHandledArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsHandledArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     logs<T extends User$logsArgs<ExtArgs> = {}>(args?: Subset<T, User$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stats<T extends User$statsArgs<ExtArgs> = {}>(args?: Subset<T, User$statsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    levelUpStats<T extends User$levelUpStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$levelUpStatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sharedBrowser<T extends User$sharedBrowserArgs<ExtArgs> = {}>(args?: Subset<T, User$sharedBrowserArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6771,6 +7193,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserLogScalarFieldEnum | UserLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.stats
+   */
+  export type User$statsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    where?: UserStatsWhereInput
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    cursor?: UserStatsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+  }
+
+  /**
+   * User.levelUpStats
+   */
+  export type User$levelUpStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    where?: UserLevelUpStatWhereInput
+    orderBy?: UserLevelUpStatOrderByWithRelationInput | UserLevelUpStatOrderByWithRelationInput[]
+    cursor?: UserLevelUpStatWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserLevelUpStatScalarFieldEnum | UserLevelUpStatScalarFieldEnum[]
   }
 
   /**
@@ -8687,6 +9157,8 @@ export namespace Prisma {
     clanRole?: boolean | Brute$clanRoleArgs<ExtArgs>
     unlockedColors?: boolean | Brute$unlockedColorsArgs<ExtArgs>
     bruteRanking?: boolean | Brute$bruteRankingArgs<ExtArgs>
+    stats?: boolean | Brute$statsArgs<ExtArgs>
+    levelUpStats?: boolean | Brute$levelUpStatsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brute"]>
 
@@ -8915,6 +9387,8 @@ export namespace Prisma {
     clanRole?: boolean | Brute$clanRoleArgs<ExtArgs>
     unlockedColors?: boolean | Brute$unlockedColorsArgs<ExtArgs>
     bruteRanking?: boolean | Brute$bruteRankingArgs<ExtArgs>
+    stats?: boolean | Brute$statsArgs<ExtArgs>
+    levelUpStats?: boolean | Brute$levelUpStatsArgs<ExtArgs>
     _count?: boolean | BruteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BruteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8968,6 +9442,8 @@ export namespace Prisma {
       clanRole: Prisma.$ClanRolePayload<ExtArgs> | null
       unlockedColors: Prisma.$UnlockedColorsPayload<ExtArgs>[]
       bruteRanking: Prisma.$BruteRankingPayload<ExtArgs> | null
+      stats: Prisma.$BruteStatsPayload<ExtArgs>[]
+      levelUpStats: Prisma.$BruteLevelUpStatPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9452,6 +9928,8 @@ export namespace Prisma {
     clanRole<T extends Brute$clanRoleArgs<ExtArgs> = {}>(args?: Subset<T, Brute$clanRoleArgs<ExtArgs>>): Prisma__ClanRoleClient<$Result.GetResult<Prisma.$ClanRolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     unlockedColors<T extends Brute$unlockedColorsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$unlockedColorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnlockedColorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bruteRanking<T extends Brute$bruteRankingArgs<ExtArgs> = {}>(args?: Subset<T, Brute$bruteRankingArgs<ExtArgs>>): Prisma__BruteRankingClient<$Result.GetResult<Prisma.$BruteRankingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    stats<T extends Brute$statsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$statsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    levelUpStats<T extends Brute$levelUpStatsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$levelUpStatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10639,6 +11117,54 @@ export namespace Prisma {
      */
     include?: BruteRankingInclude<ExtArgs> | null
     where?: BruteRankingWhereInput
+  }
+
+  /**
+   * Brute.stats
+   */
+  export type Brute$statsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    where?: BruteStatsWhereInput
+    orderBy?: BruteStatsOrderByWithRelationInput | BruteStatsOrderByWithRelationInput[]
+    cursor?: BruteStatsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteStatsScalarFieldEnum | BruteStatsScalarFieldEnum[]
+  }
+
+  /**
+   * Brute.levelUpStats
+   */
+  export type Brute$levelUpStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    where?: BruteLevelUpStatWhereInput
+    orderBy?: BruteLevelUpStatOrderByWithRelationInput | BruteLevelUpStatOrderByWithRelationInput[]
+    cursor?: BruteLevelUpStatWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BruteLevelUpStatScalarFieldEnum | BruteLevelUpStatScalarFieldEnum[]
   }
 
   /**
@@ -45301,6 +45827,4922 @@ export namespace Prisma {
 
 
   /**
+   * Model UserStats
+   */
+
+  export type AggregateUserStats = {
+    _count: UserStatsCountAggregateOutputType | null
+    _avg: UserStatsAvgAggregateOutputType | null
+    _sum: UserStatsSumAggregateOutputType | null
+    _min: UserStatsMinAggregateOutputType | null
+    _max: UserStatsMaxAggregateOutputType | null
+  }
+
+  export type UserStatsAvgAggregateOutputType = {
+    day: number | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+    goldWon: number | null
+    goldLost: number | null
+    connectedDays: number | null
+    createdBrutes: number | null
+  }
+
+  export type UserStatsSumAggregateOutputType = {
+    day: number | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+    goldWon: number | null
+    goldLost: number | null
+    connectedDays: number | null
+    createdBrutes: number | null
+  }
+
+  export type UserStatsMinAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    userId: string | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+    goldWon: number | null
+    goldLost: number | null
+    connectedDays: number | null
+    createdBrutes: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserStatsMaxAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    userId: string | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+    goldWon: number | null
+    goldLost: number | null
+    connectedDays: number | null
+    createdBrutes: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserStatsCountAggregateOutputType = {
+    date: number
+    day: number
+    granularity: number
+    userId: number
+    fights: number
+    wins: number
+    losses: number
+    xpGained: number
+    tournamentFights: number
+    clanWarFights: number
+    clanBossDamage: number
+    clanBossFights: number
+    goldWon: number
+    goldLost: number
+    connectedDays: number
+    createdBrutes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserStatsAvgAggregateInputType = {
+    day?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    goldWon?: true
+    goldLost?: true
+    connectedDays?: true
+    createdBrutes?: true
+  }
+
+  export type UserStatsSumAggregateInputType = {
+    day?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    goldWon?: true
+    goldLost?: true
+    connectedDays?: true
+    createdBrutes?: true
+  }
+
+  export type UserStatsMinAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    userId?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    goldWon?: true
+    goldLost?: true
+    connectedDays?: true
+    createdBrutes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserStatsMaxAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    userId?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    goldWon?: true
+    goldLost?: true
+    connectedDays?: true
+    createdBrutes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserStatsCountAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    userId?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    goldWon?: true
+    goldLost?: true
+    connectedDays?: true
+    createdBrutes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserStats to aggregate.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserStats
+    **/
+    _count?: true | UserStatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserStatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserStatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserStatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserStatsMaxAggregateInputType
+  }
+
+  export type GetUserStatsAggregateType<T extends UserStatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserStats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserStats[P]>
+      : GetScalarType<T[P], AggregateUserStats[P]>
+  }
+
+
+
+
+  export type UserStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStatsWhereInput
+    orderBy?: UserStatsOrderByWithAggregationInput | UserStatsOrderByWithAggregationInput[]
+    by: UserStatsScalarFieldEnum[] | UserStatsScalarFieldEnum
+    having?: UserStatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserStatsCountAggregateInputType | true
+    _avg?: UserStatsAvgAggregateInputType
+    _sum?: UserStatsSumAggregateInputType
+    _min?: UserStatsMinAggregateInputType
+    _max?: UserStatsMaxAggregateInputType
+  }
+
+  export type UserStatsGroupByOutputType = {
+    date: Date
+    day: number
+    granularity: $Enums.StatsGranularity
+    userId: string
+    fights: number
+    wins: number
+    losses: number
+    xpGained: number
+    tournamentFights: number
+    clanWarFights: number
+    clanBossDamage: number
+    clanBossFights: number
+    goldWon: number
+    goldLost: number
+    connectedDays: number
+    createdBrutes: number
+    createdAt: Date
+    updatedAt: Date
+    _count: UserStatsCountAggregateOutputType | null
+    _avg: UserStatsAvgAggregateOutputType | null
+    _sum: UserStatsSumAggregateOutputType | null
+    _min: UserStatsMinAggregateOutputType | null
+    _max: UserStatsMaxAggregateOutputType | null
+  }
+
+  type GetUserStatsGroupByPayload<T extends UserStatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserStatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserStatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserStatsGroupByOutputType[P]>
+            : GetScalarType<T[P], UserStatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    goldWon?: boolean
+    goldLost?: boolean
+    connectedDays?: boolean
+    createdBrutes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStats"]>
+
+  export type UserStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    goldWon?: boolean
+    goldLost?: boolean
+    connectedDays?: boolean
+    createdBrutes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStats"]>
+
+  export type UserStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    goldWon?: boolean
+    goldLost?: boolean
+    connectedDays?: boolean
+    createdBrutes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStats"]>
+
+  export type UserStatsSelectScalar = {
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    goldWon?: boolean
+    goldLost?: boolean
+    connectedDays?: boolean
+    createdBrutes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"date" | "day" | "granularity" | "userId" | "fights" | "wins" | "losses" | "xpGained" | "tournamentFights" | "clanWarFights" | "clanBossDamage" | "clanBossFights" | "goldWon" | "goldLost" | "connectedDays" | "createdBrutes" | "createdAt" | "updatedAt", ExtArgs["result"]["userStats"]>
+  export type UserStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserStatsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserStatsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserStats"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      date: Date
+      day: number
+      granularity: $Enums.StatsGranularity
+      userId: string
+      fights: number
+      wins: number
+      losses: number
+      xpGained: number
+      tournamentFights: number
+      clanWarFights: number
+      clanBossDamage: number
+      clanBossFights: number
+      goldWon: number
+      goldLost: number
+      connectedDays: number
+      createdBrutes: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userStats"]>
+    composites: {}
+  }
+
+  type UserStatsGetPayload<S extends boolean | null | undefined | UserStatsDefaultArgs> = $Result.GetResult<Prisma.$UserStatsPayload, S>
+
+  type UserStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: UserStatsCountAggregateInputType | true
+    }
+
+  export interface UserStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserStats'], meta: { name: 'UserStats' } }
+    /**
+     * Find zero or one UserStats that matches the filter.
+     * @param {UserStatsFindUniqueArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserStatsFindUniqueArgs>(args: SelectSubset<T, UserStatsFindUniqueArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserStats that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserStatsFindUniqueOrThrowArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsFindFirstArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserStatsFindFirstArgs>(args?: SelectSubset<T, UserStatsFindFirstArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserStats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsFindFirstOrThrowArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserStats
+     * const userStats = await prisma.userStats.findMany()
+     * 
+     * // Get first 10 UserStats
+     * const userStats = await prisma.userStats.findMany({ take: 10 })
+     * 
+     * // Only select the `date`
+     * const userStatsWithDateOnly = await prisma.userStats.findMany({ select: { date: true } })
+     * 
+     */
+    findMany<T extends UserStatsFindManyArgs>(args?: SelectSubset<T, UserStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserStats.
+     * @param {UserStatsCreateArgs} args - Arguments to create a UserStats.
+     * @example
+     * // Create one UserStats
+     * const UserStats = await prisma.userStats.create({
+     *   data: {
+     *     // ... data to create a UserStats
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserStatsCreateArgs>(args: SelectSubset<T, UserStatsCreateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserStats.
+     * @param {UserStatsCreateManyArgs} args - Arguments to create many UserStats.
+     * @example
+     * // Create many UserStats
+     * const userStats = await prisma.userStats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserStatsCreateManyArgs>(args?: SelectSubset<T, UserStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserStats and returns the data saved in the database.
+     * @param {UserStatsCreateManyAndReturnArgs} args - Arguments to create many UserStats.
+     * @example
+     * // Create many UserStats
+     * const userStats = await prisma.userStats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserStats and only return the `date`
+     * const userStatsWithDateOnly = await prisma.userStats.createManyAndReturn({
+     *   select: { date: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserStats.
+     * @param {UserStatsDeleteArgs} args - Arguments to delete one UserStats.
+     * @example
+     * // Delete one UserStats
+     * const UserStats = await prisma.userStats.delete({
+     *   where: {
+     *     // ... filter to delete one UserStats
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserStatsDeleteArgs>(args: SelectSubset<T, UserStatsDeleteArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserStats.
+     * @param {UserStatsUpdateArgs} args - Arguments to update one UserStats.
+     * @example
+     * // Update one UserStats
+     * const userStats = await prisma.userStats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserStatsUpdateArgs>(args: SelectSubset<T, UserStatsUpdateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserStats.
+     * @param {UserStatsDeleteManyArgs} args - Arguments to filter UserStats to delete.
+     * @example
+     * // Delete a few UserStats
+     * const { count } = await prisma.userStats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserStatsDeleteManyArgs>(args?: SelectSubset<T, UserStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserStats
+     * const userStats = await prisma.userStats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserStatsUpdateManyArgs>(args: SelectSubset<T, UserStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserStats and returns the data updated in the database.
+     * @param {UserStatsUpdateManyAndReturnArgs} args - Arguments to update many UserStats.
+     * @example
+     * // Update many UserStats
+     * const userStats = await prisma.userStats.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserStats and only return the `date`
+     * const userStatsWithDateOnly = await prisma.userStats.updateManyAndReturn({
+     *   select: { date: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserStats.
+     * @param {UserStatsUpsertArgs} args - Arguments to update or create a UserStats.
+     * @example
+     * // Update or create a UserStats
+     * const userStats = await prisma.userStats.upsert({
+     *   create: {
+     *     // ... data to create a UserStats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserStats we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserStatsUpsertArgs>(args: SelectSubset<T, UserStatsUpsertArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsCountArgs} args - Arguments to filter UserStats to count.
+     * @example
+     * // Count the number of UserStats
+     * const count = await prisma.userStats.count({
+     *   where: {
+     *     // ... the filter for the UserStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserStatsCountArgs>(
+      args?: Subset<T, UserStatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserStatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserStatsAggregateArgs>(args: Subset<T, UserStatsAggregateArgs>): Prisma.PrismaPromise<GetUserStatsAggregateType<T>>
+
+    /**
+     * Group by UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserStatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserStatsGroupByArgs['orderBy'] }
+        : { orderBy?: UserStatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserStats model
+   */
+  readonly fields: UserStatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserStats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserStats model
+   */
+  interface UserStatsFieldRefs {
+    readonly date: FieldRef<"UserStats", 'DateTime'>
+    readonly day: FieldRef<"UserStats", 'Int'>
+    readonly granularity: FieldRef<"UserStats", 'StatsGranularity'>
+    readonly userId: FieldRef<"UserStats", 'String'>
+    readonly fights: FieldRef<"UserStats", 'Int'>
+    readonly wins: FieldRef<"UserStats", 'Int'>
+    readonly losses: FieldRef<"UserStats", 'Int'>
+    readonly xpGained: FieldRef<"UserStats", 'Int'>
+    readonly tournamentFights: FieldRef<"UserStats", 'Int'>
+    readonly clanWarFights: FieldRef<"UserStats", 'Int'>
+    readonly clanBossDamage: FieldRef<"UserStats", 'Int'>
+    readonly clanBossFights: FieldRef<"UserStats", 'Int'>
+    readonly goldWon: FieldRef<"UserStats", 'Int'>
+    readonly goldLost: FieldRef<"UserStats", 'Int'>
+    readonly connectedDays: FieldRef<"UserStats", 'Int'>
+    readonly createdBrutes: FieldRef<"UserStats", 'Int'>
+    readonly createdAt: FieldRef<"UserStats", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserStats", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserStats findUnique
+   */
+  export type UserStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where: UserStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats findUniqueOrThrow
+   */
+  export type UserStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where: UserStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats findFirst
+   */
+  export type UserStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserStats.
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserStats.
+     */
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats findFirstOrThrow
+   */
+  export type UserStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserStats.
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserStats.
+     */
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats findMany
+   */
+  export type UserStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserStats.
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats create
+   */
+  export type UserStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserStats.
+     */
+    data: XOR<UserStatsCreateInput, UserStatsUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats createMany
+   */
+  export type UserStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserStats.
+     */
+    data: UserStatsCreateManyInput | UserStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserStats createManyAndReturn
+   */
+  export type UserStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserStats.
+     */
+    data: UserStatsCreateManyInput | UserStatsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserStats update
+   */
+  export type UserStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserStats.
+     */
+    data: XOR<UserStatsUpdateInput, UserStatsUncheckedUpdateInput>
+    /**
+     * Choose, which UserStats to update.
+     */
+    where: UserStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats updateMany
+   */
+  export type UserStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserStats.
+     */
+    data: XOR<UserStatsUpdateManyMutationInput, UserStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserStats to update
+     */
+    where?: UserStatsWhereInput
+    /**
+     * Limit how many UserStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserStats updateManyAndReturn
+   */
+  export type UserStatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * The data used to update UserStats.
+     */
+    data: XOR<UserStatsUpdateManyMutationInput, UserStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserStats to update
+     */
+    where?: UserStatsWhereInput
+    /**
+     * Limit how many UserStats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserStats upsert
+   */
+  export type UserStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserStats to update in case it exists.
+     */
+    where: UserStatsWhereUniqueInput
+    /**
+     * In case the UserStats found by the `where` argument doesn't exist, create a new UserStats with this data.
+     */
+    create: XOR<UserStatsCreateInput, UserStatsUncheckedCreateInput>
+    /**
+     * In case the UserStats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserStatsUpdateInput, UserStatsUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats delete
+   */
+  export type UserStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter which UserStats to delete.
+     */
+    where: UserStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserStats deleteMany
+   */
+  export type UserStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserStats to delete
+     */
+    where?: UserStatsWhereInput
+    /**
+     * Limit how many UserStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserStats without action
+   */
+  export type UserStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BruteStats
+   */
+
+  export type AggregateBruteStats = {
+    _count: BruteStatsCountAggregateOutputType | null
+    _avg: BruteStatsAvgAggregateOutputType | null
+    _sum: BruteStatsSumAggregateOutputType | null
+    _min: BruteStatsMinAggregateOutputType | null
+    _max: BruteStatsMaxAggregateOutputType | null
+  }
+
+  export type BruteStatsAvgAggregateOutputType = {
+    day: number | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+  }
+
+  export type BruteStatsSumAggregateOutputType = {
+    day: number | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+  }
+
+  export type BruteStatsMinAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    bruteId: string | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BruteStatsMaxAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    bruteId: string | null
+    fights: number | null
+    wins: number | null
+    losses: number | null
+    xpGained: number | null
+    tournamentFights: number | null
+    clanWarFights: number | null
+    clanBossDamage: number | null
+    clanBossFights: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BruteStatsCountAggregateOutputType = {
+    date: number
+    day: number
+    granularity: number
+    bruteId: number
+    fights: number
+    wins: number
+    losses: number
+    xpGained: number
+    tournamentFights: number
+    clanWarFights: number
+    clanBossDamage: number
+    clanBossFights: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BruteStatsAvgAggregateInputType = {
+    day?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+  }
+
+  export type BruteStatsSumAggregateInputType = {
+    day?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+  }
+
+  export type BruteStatsMinAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    bruteId?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BruteStatsMaxAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    bruteId?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BruteStatsCountAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    bruteId?: true
+    fights?: true
+    wins?: true
+    losses?: true
+    xpGained?: true
+    tournamentFights?: true
+    clanWarFights?: true
+    clanBossDamage?: true
+    clanBossFights?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BruteStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteStats to aggregate.
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStats to fetch.
+     */
+    orderBy?: BruteStatsOrderByWithRelationInput | BruteStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BruteStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BruteStats
+    **/
+    _count?: true | BruteStatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BruteStatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BruteStatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BruteStatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BruteStatsMaxAggregateInputType
+  }
+
+  export type GetBruteStatsAggregateType<T extends BruteStatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateBruteStats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBruteStats[P]>
+      : GetScalarType<T[P], AggregateBruteStats[P]>
+  }
+
+
+
+
+  export type BruteStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteStatsWhereInput
+    orderBy?: BruteStatsOrderByWithAggregationInput | BruteStatsOrderByWithAggregationInput[]
+    by: BruteStatsScalarFieldEnum[] | BruteStatsScalarFieldEnum
+    having?: BruteStatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BruteStatsCountAggregateInputType | true
+    _avg?: BruteStatsAvgAggregateInputType
+    _sum?: BruteStatsSumAggregateInputType
+    _min?: BruteStatsMinAggregateInputType
+    _max?: BruteStatsMaxAggregateInputType
+  }
+
+  export type BruteStatsGroupByOutputType = {
+    date: Date
+    day: number
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    fights: number
+    wins: number
+    losses: number
+    xpGained: number
+    tournamentFights: number
+    clanWarFights: number
+    clanBossDamage: number
+    clanBossFights: number
+    createdAt: Date
+    updatedAt: Date
+    _count: BruteStatsCountAggregateOutputType | null
+    _avg: BruteStatsAvgAggregateOutputType | null
+    _sum: BruteStatsSumAggregateOutputType | null
+    _min: BruteStatsMinAggregateOutputType | null
+    _max: BruteStatsMaxAggregateOutputType | null
+  }
+
+  type GetBruteStatsGroupByPayload<T extends BruteStatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BruteStatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BruteStatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BruteStatsGroupByOutputType[P]>
+            : GetScalarType<T[P], BruteStatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BruteStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteStats"]>
+
+  export type BruteStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteStats"]>
+
+  export type BruteStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteStats"]>
+
+  export type BruteStatsSelectScalar = {
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    fights?: boolean
+    wins?: boolean
+    losses?: boolean
+    xpGained?: boolean
+    tournamentFights?: boolean
+    clanWarFights?: boolean
+    clanBossDamage?: boolean
+    clanBossFights?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BruteStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"date" | "day" | "granularity" | "bruteId" | "fights" | "wins" | "losses" | "xpGained" | "tournamentFights" | "clanWarFights" | "clanBossDamage" | "clanBossFights" | "createdAt" | "updatedAt", ExtArgs["result"]["bruteStats"]>
+  export type BruteStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type BruteStatsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type BruteStatsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+
+  export type $BruteStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BruteStats"
+    objects: {
+      brute: Prisma.$BrutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      date: Date
+      day: number
+      granularity: $Enums.StatsGranularity
+      bruteId: string
+      fights: number
+      wins: number
+      losses: number
+      xpGained: number
+      tournamentFights: number
+      clanWarFights: number
+      clanBossDamage: number
+      clanBossFights: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["bruteStats"]>
+    composites: {}
+  }
+
+  type BruteStatsGetPayload<S extends boolean | null | undefined | BruteStatsDefaultArgs> = $Result.GetResult<Prisma.$BruteStatsPayload, S>
+
+  type BruteStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BruteStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BruteStatsCountAggregateInputType | true
+    }
+
+  export interface BruteStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteStats'], meta: { name: 'BruteStats' } }
+    /**
+     * Find zero or one BruteStats that matches the filter.
+     * @param {BruteStatsFindUniqueArgs} args - Arguments to find a BruteStats
+     * @example
+     * // Get one BruteStats
+     * const bruteStats = await prisma.bruteStats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BruteStatsFindUniqueArgs>(args: SelectSubset<T, BruteStatsFindUniqueArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BruteStats that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BruteStatsFindUniqueOrThrowArgs} args - Arguments to find a BruteStats
+     * @example
+     * // Get one BruteStats
+     * const bruteStats = await prisma.bruteStats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BruteStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, BruteStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BruteStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsFindFirstArgs} args - Arguments to find a BruteStats
+     * @example
+     * // Get one BruteStats
+     * const bruteStats = await prisma.bruteStats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BruteStatsFindFirstArgs>(args?: SelectSubset<T, BruteStatsFindFirstArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BruteStats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsFindFirstOrThrowArgs} args - Arguments to find a BruteStats
+     * @example
+     * // Get one BruteStats
+     * const bruteStats = await prisma.bruteStats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BruteStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, BruteStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BruteStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BruteStats
+     * const bruteStats = await prisma.bruteStats.findMany()
+     * 
+     * // Get first 10 BruteStats
+     * const bruteStats = await prisma.bruteStats.findMany({ take: 10 })
+     * 
+     * // Only select the `date`
+     * const bruteStatsWithDateOnly = await prisma.bruteStats.findMany({ select: { date: true } })
+     * 
+     */
+    findMany<T extends BruteStatsFindManyArgs>(args?: SelectSubset<T, BruteStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BruteStats.
+     * @param {BruteStatsCreateArgs} args - Arguments to create a BruteStats.
+     * @example
+     * // Create one BruteStats
+     * const BruteStats = await prisma.bruteStats.create({
+     *   data: {
+     *     // ... data to create a BruteStats
+     *   }
+     * })
+     * 
+     */
+    create<T extends BruteStatsCreateArgs>(args: SelectSubset<T, BruteStatsCreateArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BruteStats.
+     * @param {BruteStatsCreateManyArgs} args - Arguments to create many BruteStats.
+     * @example
+     * // Create many BruteStats
+     * const bruteStats = await prisma.bruteStats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BruteStatsCreateManyArgs>(args?: SelectSubset<T, BruteStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BruteStats and returns the data saved in the database.
+     * @param {BruteStatsCreateManyAndReturnArgs} args - Arguments to create many BruteStats.
+     * @example
+     * // Create many BruteStats
+     * const bruteStats = await prisma.bruteStats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BruteStats and only return the `date`
+     * const bruteStatsWithDateOnly = await prisma.bruteStats.createManyAndReturn({
+     *   select: { date: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BruteStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, BruteStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BruteStats.
+     * @param {BruteStatsDeleteArgs} args - Arguments to delete one BruteStats.
+     * @example
+     * // Delete one BruteStats
+     * const BruteStats = await prisma.bruteStats.delete({
+     *   where: {
+     *     // ... filter to delete one BruteStats
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BruteStatsDeleteArgs>(args: SelectSubset<T, BruteStatsDeleteArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BruteStats.
+     * @param {BruteStatsUpdateArgs} args - Arguments to update one BruteStats.
+     * @example
+     * // Update one BruteStats
+     * const bruteStats = await prisma.bruteStats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BruteStatsUpdateArgs>(args: SelectSubset<T, BruteStatsUpdateArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BruteStats.
+     * @param {BruteStatsDeleteManyArgs} args - Arguments to filter BruteStats to delete.
+     * @example
+     * // Delete a few BruteStats
+     * const { count } = await prisma.bruteStats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BruteStatsDeleteManyArgs>(args?: SelectSubset<T, BruteStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BruteStats
+     * const bruteStats = await prisma.bruteStats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BruteStatsUpdateManyArgs>(args: SelectSubset<T, BruteStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteStats and returns the data updated in the database.
+     * @param {BruteStatsUpdateManyAndReturnArgs} args - Arguments to update many BruteStats.
+     * @example
+     * // Update many BruteStats
+     * const bruteStats = await prisma.bruteStats.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BruteStats and only return the `date`
+     * const bruteStatsWithDateOnly = await prisma.bruteStats.updateManyAndReturn({
+     *   select: { date: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BruteStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, BruteStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BruteStats.
+     * @param {BruteStatsUpsertArgs} args - Arguments to update or create a BruteStats.
+     * @example
+     * // Update or create a BruteStats
+     * const bruteStats = await prisma.bruteStats.upsert({
+     *   create: {
+     *     // ... data to create a BruteStats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BruteStats we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BruteStatsUpsertArgs>(args: SelectSubset<T, BruteStatsUpsertArgs<ExtArgs>>): Prisma__BruteStatsClient<$Result.GetResult<Prisma.$BruteStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BruteStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsCountArgs} args - Arguments to filter BruteStats to count.
+     * @example
+     * // Count the number of BruteStats
+     * const count = await prisma.bruteStats.count({
+     *   where: {
+     *     // ... the filter for the BruteStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends BruteStatsCountArgs>(
+      args?: Subset<T, BruteStatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BruteStatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BruteStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BruteStatsAggregateArgs>(args: Subset<T, BruteStatsAggregateArgs>): Prisma.PrismaPromise<GetBruteStatsAggregateType<T>>
+
+    /**
+     * Group by BruteStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteStatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BruteStatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BruteStatsGroupByArgs['orderBy'] }
+        : { orderBy?: BruteStatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BruteStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BruteStats model
+   */
+  readonly fields: BruteStatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BruteStats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BruteStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BruteStats model
+   */
+  interface BruteStatsFieldRefs {
+    readonly date: FieldRef<"BruteStats", 'DateTime'>
+    readonly day: FieldRef<"BruteStats", 'Int'>
+    readonly granularity: FieldRef<"BruteStats", 'StatsGranularity'>
+    readonly bruteId: FieldRef<"BruteStats", 'String'>
+    readonly fights: FieldRef<"BruteStats", 'Int'>
+    readonly wins: FieldRef<"BruteStats", 'Int'>
+    readonly losses: FieldRef<"BruteStats", 'Int'>
+    readonly xpGained: FieldRef<"BruteStats", 'Int'>
+    readonly tournamentFights: FieldRef<"BruteStats", 'Int'>
+    readonly clanWarFights: FieldRef<"BruteStats", 'Int'>
+    readonly clanBossDamage: FieldRef<"BruteStats", 'Int'>
+    readonly clanBossFights: FieldRef<"BruteStats", 'Int'>
+    readonly createdAt: FieldRef<"BruteStats", 'DateTime'>
+    readonly updatedAt: FieldRef<"BruteStats", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BruteStats findUnique
+   */
+  export type BruteStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStats to fetch.
+     */
+    where: BruteStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats findUniqueOrThrow
+   */
+  export type BruteStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStats to fetch.
+     */
+    where: BruteStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats findFirst
+   */
+  export type BruteStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStats to fetch.
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStats to fetch.
+     */
+    orderBy?: BruteStatsOrderByWithRelationInput | BruteStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteStats.
+     */
+    cursor?: BruteStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteStats.
+     */
+    distinct?: BruteStatsScalarFieldEnum | BruteStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats findFirstOrThrow
+   */
+  export type BruteStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStats to fetch.
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStats to fetch.
+     */
+    orderBy?: BruteStatsOrderByWithRelationInput | BruteStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteStats.
+     */
+    cursor?: BruteStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteStats.
+     */
+    distinct?: BruteStatsScalarFieldEnum | BruteStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats findMany
+   */
+  export type BruteStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteStats to fetch.
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteStats to fetch.
+     */
+    orderBy?: BruteStatsOrderByWithRelationInput | BruteStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BruteStats.
+     */
+    cursor?: BruteStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteStats.
+     */
+    skip?: number
+    distinct?: BruteStatsScalarFieldEnum | BruteStatsScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats create
+   */
+  export type BruteStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BruteStats.
+     */
+    data: XOR<BruteStatsCreateInput, BruteStatsUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats createMany
+   */
+  export type BruteStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BruteStats.
+     */
+    data: BruteStatsCreateManyInput | BruteStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BruteStats createManyAndReturn
+   */
+  export type BruteStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * The data used to create many BruteStats.
+     */
+    data: BruteStatsCreateManyInput | BruteStatsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BruteStats update
+   */
+  export type BruteStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BruteStats.
+     */
+    data: XOR<BruteStatsUpdateInput, BruteStatsUncheckedUpdateInput>
+    /**
+     * Choose, which BruteStats to update.
+     */
+    where: BruteStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats updateMany
+   */
+  export type BruteStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BruteStats.
+     */
+    data: XOR<BruteStatsUpdateManyMutationInput, BruteStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteStats to update
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * Limit how many BruteStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BruteStats updateManyAndReturn
+   */
+  export type BruteStatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * The data used to update BruteStats.
+     */
+    data: XOR<BruteStatsUpdateManyMutationInput, BruteStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteStats to update
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * Limit how many BruteStats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BruteStats upsert
+   */
+  export type BruteStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BruteStats to update in case it exists.
+     */
+    where: BruteStatsWhereUniqueInput
+    /**
+     * In case the BruteStats found by the `where` argument doesn't exist, create a new BruteStats with this data.
+     */
+    create: XOR<BruteStatsCreateInput, BruteStatsUncheckedCreateInput>
+    /**
+     * In case the BruteStats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BruteStatsUpdateInput, BruteStatsUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats delete
+   */
+  export type BruteStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+    /**
+     * Filter which BruteStats to delete.
+     */
+    where: BruteStatsWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteStats deleteMany
+   */
+  export type BruteStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteStats to delete
+     */
+    where?: BruteStatsWhereInput
+    /**
+     * Limit how many BruteStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BruteStats without action
+   */
+  export type BruteStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteStats
+     */
+    select?: BruteStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteStats
+     */
+    omit?: BruteStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteStatsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserLevelUpStat
+   */
+
+  export type AggregateUserLevelUpStat = {
+    _count: UserLevelUpStatCountAggregateOutputType | null
+    _avg: UserLevelUpStatAvgAggregateOutputType | null
+    _sum: UserLevelUpStatSumAggregateOutputType | null
+    _min: UserLevelUpStatMinAggregateOutputType | null
+    _max: UserLevelUpStatMaxAggregateOutputType | null
+  }
+
+  export type UserLevelUpStatAvgAggregateOutputType = {
+    day: number | null
+    offered: number | null
+    picked: number | null
+  }
+
+  export type UserLevelUpStatSumAggregateOutputType = {
+    day: number | null
+    offered: number | null
+    picked: number | null
+  }
+
+  export type UserLevelUpStatMinAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    userId: string | null
+    choiceType: $Enums.DestinyChoiceType | null
+    choice: string | null
+    offered: number | null
+    picked: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserLevelUpStatMaxAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    userId: string | null
+    choiceType: $Enums.DestinyChoiceType | null
+    choice: string | null
+    offered: number | null
+    picked: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserLevelUpStatCountAggregateOutputType = {
+    date: number
+    day: number
+    granularity: number
+    userId: number
+    choiceType: number
+    choice: number
+    offered: number
+    picked: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserLevelUpStatAvgAggregateInputType = {
+    day?: true
+    offered?: true
+    picked?: true
+  }
+
+  export type UserLevelUpStatSumAggregateInputType = {
+    day?: true
+    offered?: true
+    picked?: true
+  }
+
+  export type UserLevelUpStatMinAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    userId?: true
+    choiceType?: true
+    choice?: true
+    offered?: true
+    picked?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserLevelUpStatMaxAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    userId?: true
+    choiceType?: true
+    choice?: true
+    offered?: true
+    picked?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserLevelUpStatCountAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    userId?: true
+    choiceType?: true
+    choice?: true
+    offered?: true
+    picked?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserLevelUpStatAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserLevelUpStat to aggregate.
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLevelUpStats to fetch.
+     */
+    orderBy?: UserLevelUpStatOrderByWithRelationInput | UserLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLevelUpStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserLevelUpStats
+    **/
+    _count?: true | UserLevelUpStatCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserLevelUpStatAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserLevelUpStatSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserLevelUpStatMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserLevelUpStatMaxAggregateInputType
+  }
+
+  export type GetUserLevelUpStatAggregateType<T extends UserLevelUpStatAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserLevelUpStat]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserLevelUpStat[P]>
+      : GetScalarType<T[P], AggregateUserLevelUpStat[P]>
+  }
+
+
+
+
+  export type UserLevelUpStatGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserLevelUpStatWhereInput
+    orderBy?: UserLevelUpStatOrderByWithAggregationInput | UserLevelUpStatOrderByWithAggregationInput[]
+    by: UserLevelUpStatScalarFieldEnum[] | UserLevelUpStatScalarFieldEnum
+    having?: UserLevelUpStatScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserLevelUpStatCountAggregateInputType | true
+    _avg?: UserLevelUpStatAvgAggregateInputType
+    _sum?: UserLevelUpStatSumAggregateInputType
+    _min?: UserLevelUpStatMinAggregateInputType
+    _max?: UserLevelUpStatMaxAggregateInputType
+  }
+
+  export type UserLevelUpStatGroupByOutputType = {
+    date: Date
+    day: number
+    granularity: $Enums.StatsGranularity
+    userId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered: number
+    picked: number
+    createdAt: Date
+    updatedAt: Date
+    _count: UserLevelUpStatCountAggregateOutputType | null
+    _avg: UserLevelUpStatAvgAggregateOutputType | null
+    _sum: UserLevelUpStatSumAggregateOutputType | null
+    _min: UserLevelUpStatMinAggregateOutputType | null
+    _max: UserLevelUpStatMaxAggregateOutputType | null
+  }
+
+  type GetUserLevelUpStatGroupByPayload<T extends UserLevelUpStatGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserLevelUpStatGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserLevelUpStatGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserLevelUpStatGroupByOutputType[P]>
+            : GetScalarType<T[P], UserLevelUpStatGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserLevelUpStatSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userLevelUpStat"]>
+
+  export type UserLevelUpStatSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userLevelUpStat"]>
+
+  export type UserLevelUpStatSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userLevelUpStat"]>
+
+  export type UserLevelUpStatSelectScalar = {
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    userId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserLevelUpStatOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"date" | "day" | "granularity" | "userId" | "choiceType" | "choice" | "offered" | "picked" | "createdAt" | "updatedAt", ExtArgs["result"]["userLevelUpStat"]>
+  export type UserLevelUpStatInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserLevelUpStatIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserLevelUpStatIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserLevelUpStatPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserLevelUpStat"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      date: Date
+      day: number
+      granularity: $Enums.StatsGranularity
+      userId: string
+      choiceType: $Enums.DestinyChoiceType
+      choice: string
+      offered: number
+      picked: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userLevelUpStat"]>
+    composites: {}
+  }
+
+  type UserLevelUpStatGetPayload<S extends boolean | null | undefined | UserLevelUpStatDefaultArgs> = $Result.GetResult<Prisma.$UserLevelUpStatPayload, S>
+
+  type UserLevelUpStatCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserLevelUpStatFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: UserLevelUpStatCountAggregateInputType | true
+    }
+
+  export interface UserLevelUpStatDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserLevelUpStat'], meta: { name: 'UserLevelUpStat' } }
+    /**
+     * Find zero or one UserLevelUpStat that matches the filter.
+     * @param {UserLevelUpStatFindUniqueArgs} args - Arguments to find a UserLevelUpStat
+     * @example
+     * // Get one UserLevelUpStat
+     * const userLevelUpStat = await prisma.userLevelUpStat.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserLevelUpStatFindUniqueArgs>(args: SelectSubset<T, UserLevelUpStatFindUniqueArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserLevelUpStat that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserLevelUpStatFindUniqueOrThrowArgs} args - Arguments to find a UserLevelUpStat
+     * @example
+     * // Get one UserLevelUpStat
+     * const userLevelUpStat = await prisma.userLevelUpStat.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserLevelUpStatFindUniqueOrThrowArgs>(args: SelectSubset<T, UserLevelUpStatFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserLevelUpStat that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatFindFirstArgs} args - Arguments to find a UserLevelUpStat
+     * @example
+     * // Get one UserLevelUpStat
+     * const userLevelUpStat = await prisma.userLevelUpStat.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserLevelUpStatFindFirstArgs>(args?: SelectSubset<T, UserLevelUpStatFindFirstArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserLevelUpStat that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatFindFirstOrThrowArgs} args - Arguments to find a UserLevelUpStat
+     * @example
+     * // Get one UserLevelUpStat
+     * const userLevelUpStat = await prisma.userLevelUpStat.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserLevelUpStatFindFirstOrThrowArgs>(args?: SelectSubset<T, UserLevelUpStatFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserLevelUpStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserLevelUpStats
+     * const userLevelUpStats = await prisma.userLevelUpStat.findMany()
+     * 
+     * // Get first 10 UserLevelUpStats
+     * const userLevelUpStats = await prisma.userLevelUpStat.findMany({ take: 10 })
+     * 
+     * // Only select the `date`
+     * const userLevelUpStatWithDateOnly = await prisma.userLevelUpStat.findMany({ select: { date: true } })
+     * 
+     */
+    findMany<T extends UserLevelUpStatFindManyArgs>(args?: SelectSubset<T, UserLevelUpStatFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserLevelUpStat.
+     * @param {UserLevelUpStatCreateArgs} args - Arguments to create a UserLevelUpStat.
+     * @example
+     * // Create one UserLevelUpStat
+     * const UserLevelUpStat = await prisma.userLevelUpStat.create({
+     *   data: {
+     *     // ... data to create a UserLevelUpStat
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserLevelUpStatCreateArgs>(args: SelectSubset<T, UserLevelUpStatCreateArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserLevelUpStats.
+     * @param {UserLevelUpStatCreateManyArgs} args - Arguments to create many UserLevelUpStats.
+     * @example
+     * // Create many UserLevelUpStats
+     * const userLevelUpStat = await prisma.userLevelUpStat.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserLevelUpStatCreateManyArgs>(args?: SelectSubset<T, UserLevelUpStatCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserLevelUpStats and returns the data saved in the database.
+     * @param {UserLevelUpStatCreateManyAndReturnArgs} args - Arguments to create many UserLevelUpStats.
+     * @example
+     * // Create many UserLevelUpStats
+     * const userLevelUpStat = await prisma.userLevelUpStat.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserLevelUpStats and only return the `date`
+     * const userLevelUpStatWithDateOnly = await prisma.userLevelUpStat.createManyAndReturn({
+     *   select: { date: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserLevelUpStatCreateManyAndReturnArgs>(args?: SelectSubset<T, UserLevelUpStatCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserLevelUpStat.
+     * @param {UserLevelUpStatDeleteArgs} args - Arguments to delete one UserLevelUpStat.
+     * @example
+     * // Delete one UserLevelUpStat
+     * const UserLevelUpStat = await prisma.userLevelUpStat.delete({
+     *   where: {
+     *     // ... filter to delete one UserLevelUpStat
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserLevelUpStatDeleteArgs>(args: SelectSubset<T, UserLevelUpStatDeleteArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserLevelUpStat.
+     * @param {UserLevelUpStatUpdateArgs} args - Arguments to update one UserLevelUpStat.
+     * @example
+     * // Update one UserLevelUpStat
+     * const userLevelUpStat = await prisma.userLevelUpStat.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserLevelUpStatUpdateArgs>(args: SelectSubset<T, UserLevelUpStatUpdateArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserLevelUpStats.
+     * @param {UserLevelUpStatDeleteManyArgs} args - Arguments to filter UserLevelUpStats to delete.
+     * @example
+     * // Delete a few UserLevelUpStats
+     * const { count } = await prisma.userLevelUpStat.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserLevelUpStatDeleteManyArgs>(args?: SelectSubset<T, UserLevelUpStatDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserLevelUpStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserLevelUpStats
+     * const userLevelUpStat = await prisma.userLevelUpStat.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserLevelUpStatUpdateManyArgs>(args: SelectSubset<T, UserLevelUpStatUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserLevelUpStats and returns the data updated in the database.
+     * @param {UserLevelUpStatUpdateManyAndReturnArgs} args - Arguments to update many UserLevelUpStats.
+     * @example
+     * // Update many UserLevelUpStats
+     * const userLevelUpStat = await prisma.userLevelUpStat.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserLevelUpStats and only return the `date`
+     * const userLevelUpStatWithDateOnly = await prisma.userLevelUpStat.updateManyAndReturn({
+     *   select: { date: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserLevelUpStatUpdateManyAndReturnArgs>(args: SelectSubset<T, UserLevelUpStatUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserLevelUpStat.
+     * @param {UserLevelUpStatUpsertArgs} args - Arguments to update or create a UserLevelUpStat.
+     * @example
+     * // Update or create a UserLevelUpStat
+     * const userLevelUpStat = await prisma.userLevelUpStat.upsert({
+     *   create: {
+     *     // ... data to create a UserLevelUpStat
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserLevelUpStat we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserLevelUpStatUpsertArgs>(args: SelectSubset<T, UserLevelUpStatUpsertArgs<ExtArgs>>): Prisma__UserLevelUpStatClient<$Result.GetResult<Prisma.$UserLevelUpStatPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserLevelUpStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatCountArgs} args - Arguments to filter UserLevelUpStats to count.
+     * @example
+     * // Count the number of UserLevelUpStats
+     * const count = await prisma.userLevelUpStat.count({
+     *   where: {
+     *     // ... the filter for the UserLevelUpStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserLevelUpStatCountArgs>(
+      args?: Subset<T, UserLevelUpStatCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserLevelUpStatCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserLevelUpStat.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserLevelUpStatAggregateArgs>(args: Subset<T, UserLevelUpStatAggregateArgs>): Prisma.PrismaPromise<GetUserLevelUpStatAggregateType<T>>
+
+    /**
+     * Group by UserLevelUpStat.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserLevelUpStatGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserLevelUpStatGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserLevelUpStatGroupByArgs['orderBy'] }
+        : { orderBy?: UserLevelUpStatGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserLevelUpStatGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserLevelUpStatGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserLevelUpStat model
+   */
+  readonly fields: UserLevelUpStatFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserLevelUpStat.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserLevelUpStatClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserLevelUpStat model
+   */
+  interface UserLevelUpStatFieldRefs {
+    readonly date: FieldRef<"UserLevelUpStat", 'DateTime'>
+    readonly day: FieldRef<"UserLevelUpStat", 'Int'>
+    readonly granularity: FieldRef<"UserLevelUpStat", 'StatsGranularity'>
+    readonly userId: FieldRef<"UserLevelUpStat", 'String'>
+    readonly choiceType: FieldRef<"UserLevelUpStat", 'DestinyChoiceType'>
+    readonly choice: FieldRef<"UserLevelUpStat", 'String'>
+    readonly offered: FieldRef<"UserLevelUpStat", 'Int'>
+    readonly picked: FieldRef<"UserLevelUpStat", 'Int'>
+    readonly createdAt: FieldRef<"UserLevelUpStat", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserLevelUpStat", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserLevelUpStat findUnique
+   */
+  export type UserLevelUpStatFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLevelUpStat to fetch.
+     */
+    where: UserLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat findUniqueOrThrow
+   */
+  export type UserLevelUpStatFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLevelUpStat to fetch.
+     */
+    where: UserLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat findFirst
+   */
+  export type UserLevelUpStatFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLevelUpStat to fetch.
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLevelUpStats to fetch.
+     */
+    orderBy?: UserLevelUpStatOrderByWithRelationInput | UserLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserLevelUpStats.
+     */
+    cursor?: UserLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLevelUpStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserLevelUpStats.
+     */
+    distinct?: UserLevelUpStatScalarFieldEnum | UserLevelUpStatScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat findFirstOrThrow
+   */
+  export type UserLevelUpStatFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLevelUpStat to fetch.
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLevelUpStats to fetch.
+     */
+    orderBy?: UserLevelUpStatOrderByWithRelationInput | UserLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserLevelUpStats.
+     */
+    cursor?: UserLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLevelUpStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserLevelUpStats.
+     */
+    distinct?: UserLevelUpStatScalarFieldEnum | UserLevelUpStatScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat findMany
+   */
+  export type UserLevelUpStatFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which UserLevelUpStats to fetch.
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserLevelUpStats to fetch.
+     */
+    orderBy?: UserLevelUpStatOrderByWithRelationInput | UserLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserLevelUpStats.
+     */
+    cursor?: UserLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserLevelUpStats.
+     */
+    skip?: number
+    distinct?: UserLevelUpStatScalarFieldEnum | UserLevelUpStatScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat create
+   */
+  export type UserLevelUpStatCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserLevelUpStat.
+     */
+    data: XOR<UserLevelUpStatCreateInput, UserLevelUpStatUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat createMany
+   */
+  export type UserLevelUpStatCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserLevelUpStats.
+     */
+    data: UserLevelUpStatCreateManyInput | UserLevelUpStatCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserLevelUpStat createManyAndReturn
+   */
+  export type UserLevelUpStatCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserLevelUpStats.
+     */
+    data: UserLevelUpStatCreateManyInput | UserLevelUpStatCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserLevelUpStat update
+   */
+  export type UserLevelUpStatUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserLevelUpStat.
+     */
+    data: XOR<UserLevelUpStatUpdateInput, UserLevelUpStatUncheckedUpdateInput>
+    /**
+     * Choose, which UserLevelUpStat to update.
+     */
+    where: UserLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat updateMany
+   */
+  export type UserLevelUpStatUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserLevelUpStats.
+     */
+    data: XOR<UserLevelUpStatUpdateManyMutationInput, UserLevelUpStatUncheckedUpdateManyInput>
+    /**
+     * Filter which UserLevelUpStats to update
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * Limit how many UserLevelUpStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserLevelUpStat updateManyAndReturn
+   */
+  export type UserLevelUpStatUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * The data used to update UserLevelUpStats.
+     */
+    data: XOR<UserLevelUpStatUpdateManyMutationInput, UserLevelUpStatUncheckedUpdateManyInput>
+    /**
+     * Filter which UserLevelUpStats to update
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * Limit how many UserLevelUpStats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserLevelUpStat upsert
+   */
+  export type UserLevelUpStatUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserLevelUpStat to update in case it exists.
+     */
+    where: UserLevelUpStatWhereUniqueInput
+    /**
+     * In case the UserLevelUpStat found by the `where` argument doesn't exist, create a new UserLevelUpStat with this data.
+     */
+    create: XOR<UserLevelUpStatCreateInput, UserLevelUpStatUncheckedCreateInput>
+    /**
+     * In case the UserLevelUpStat was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserLevelUpStatUpdateInput, UserLevelUpStatUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat delete
+   */
+  export type UserLevelUpStatDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter which UserLevelUpStat to delete.
+     */
+    where: UserLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * UserLevelUpStat deleteMany
+   */
+  export type UserLevelUpStatDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserLevelUpStats to delete
+     */
+    where?: UserLevelUpStatWhereInput
+    /**
+     * Limit how many UserLevelUpStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserLevelUpStat without action
+   */
+  export type UserLevelUpStatDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserLevelUpStat
+     */
+    select?: UserLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserLevelUpStat
+     */
+    omit?: UserLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserLevelUpStatInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BruteLevelUpStat
+   */
+
+  export type AggregateBruteLevelUpStat = {
+    _count: BruteLevelUpStatCountAggregateOutputType | null
+    _avg: BruteLevelUpStatAvgAggregateOutputType | null
+    _sum: BruteLevelUpStatSumAggregateOutputType | null
+    _min: BruteLevelUpStatMinAggregateOutputType | null
+    _max: BruteLevelUpStatMaxAggregateOutputType | null
+  }
+
+  export type BruteLevelUpStatAvgAggregateOutputType = {
+    day: number | null
+    offered: number | null
+    picked: number | null
+  }
+
+  export type BruteLevelUpStatSumAggregateOutputType = {
+    day: number | null
+    offered: number | null
+    picked: number | null
+  }
+
+  export type BruteLevelUpStatMinAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    bruteId: string | null
+    choiceType: $Enums.DestinyChoiceType | null
+    choice: string | null
+    offered: number | null
+    picked: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BruteLevelUpStatMaxAggregateOutputType = {
+    date: Date | null
+    day: number | null
+    granularity: $Enums.StatsGranularity | null
+    bruteId: string | null
+    choiceType: $Enums.DestinyChoiceType | null
+    choice: string | null
+    offered: number | null
+    picked: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BruteLevelUpStatCountAggregateOutputType = {
+    date: number
+    day: number
+    granularity: number
+    bruteId: number
+    choiceType: number
+    choice: number
+    offered: number
+    picked: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BruteLevelUpStatAvgAggregateInputType = {
+    day?: true
+    offered?: true
+    picked?: true
+  }
+
+  export type BruteLevelUpStatSumAggregateInputType = {
+    day?: true
+    offered?: true
+    picked?: true
+  }
+
+  export type BruteLevelUpStatMinAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    bruteId?: true
+    choiceType?: true
+    choice?: true
+    offered?: true
+    picked?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BruteLevelUpStatMaxAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    bruteId?: true
+    choiceType?: true
+    choice?: true
+    offered?: true
+    picked?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BruteLevelUpStatCountAggregateInputType = {
+    date?: true
+    day?: true
+    granularity?: true
+    bruteId?: true
+    choiceType?: true
+    choice?: true
+    offered?: true
+    picked?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BruteLevelUpStatAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteLevelUpStat to aggregate.
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteLevelUpStats to fetch.
+     */
+    orderBy?: BruteLevelUpStatOrderByWithRelationInput | BruteLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BruteLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteLevelUpStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BruteLevelUpStats
+    **/
+    _count?: true | BruteLevelUpStatCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BruteLevelUpStatAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BruteLevelUpStatSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BruteLevelUpStatMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BruteLevelUpStatMaxAggregateInputType
+  }
+
+  export type GetBruteLevelUpStatAggregateType<T extends BruteLevelUpStatAggregateArgs> = {
+        [P in keyof T & keyof AggregateBruteLevelUpStat]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBruteLevelUpStat[P]>
+      : GetScalarType<T[P], AggregateBruteLevelUpStat[P]>
+  }
+
+
+
+
+  export type BruteLevelUpStatGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BruteLevelUpStatWhereInput
+    orderBy?: BruteLevelUpStatOrderByWithAggregationInput | BruteLevelUpStatOrderByWithAggregationInput[]
+    by: BruteLevelUpStatScalarFieldEnum[] | BruteLevelUpStatScalarFieldEnum
+    having?: BruteLevelUpStatScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BruteLevelUpStatCountAggregateInputType | true
+    _avg?: BruteLevelUpStatAvgAggregateInputType
+    _sum?: BruteLevelUpStatSumAggregateInputType
+    _min?: BruteLevelUpStatMinAggregateInputType
+    _max?: BruteLevelUpStatMaxAggregateInputType
+  }
+
+  export type BruteLevelUpStatGroupByOutputType = {
+    date: Date
+    day: number
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered: number
+    picked: number
+    createdAt: Date
+    updatedAt: Date
+    _count: BruteLevelUpStatCountAggregateOutputType | null
+    _avg: BruteLevelUpStatAvgAggregateOutputType | null
+    _sum: BruteLevelUpStatSumAggregateOutputType | null
+    _min: BruteLevelUpStatMinAggregateOutputType | null
+    _max: BruteLevelUpStatMaxAggregateOutputType | null
+  }
+
+  type GetBruteLevelUpStatGroupByPayload<T extends BruteLevelUpStatGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BruteLevelUpStatGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BruteLevelUpStatGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BruteLevelUpStatGroupByOutputType[P]>
+            : GetScalarType<T[P], BruteLevelUpStatGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BruteLevelUpStatSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteLevelUpStat"]>
+
+  export type BruteLevelUpStatSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteLevelUpStat"]>
+
+  export type BruteLevelUpStatSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bruteLevelUpStat"]>
+
+  export type BruteLevelUpStatSelectScalar = {
+    date?: boolean
+    day?: boolean
+    granularity?: boolean
+    bruteId?: boolean
+    choiceType?: boolean
+    choice?: boolean
+    offered?: boolean
+    picked?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BruteLevelUpStatOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"date" | "day" | "granularity" | "bruteId" | "choiceType" | "choice" | "offered" | "picked" | "createdAt" | "updatedAt", ExtArgs["result"]["bruteLevelUpStat"]>
+  export type BruteLevelUpStatInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type BruteLevelUpStatIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type BruteLevelUpStatIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+
+  export type $BruteLevelUpStatPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BruteLevelUpStat"
+    objects: {
+      brute: Prisma.$BrutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      date: Date
+      day: number
+      granularity: $Enums.StatsGranularity
+      bruteId: string
+      choiceType: $Enums.DestinyChoiceType
+      choice: string
+      offered: number
+      picked: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["bruteLevelUpStat"]>
+    composites: {}
+  }
+
+  type BruteLevelUpStatGetPayload<S extends boolean | null | undefined | BruteLevelUpStatDefaultArgs> = $Result.GetResult<Prisma.$BruteLevelUpStatPayload, S>
+
+  type BruteLevelUpStatCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BruteLevelUpStatFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BruteLevelUpStatCountAggregateInputType | true
+    }
+
+  export interface BruteLevelUpStatDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BruteLevelUpStat'], meta: { name: 'BruteLevelUpStat' } }
+    /**
+     * Find zero or one BruteLevelUpStat that matches the filter.
+     * @param {BruteLevelUpStatFindUniqueArgs} args - Arguments to find a BruteLevelUpStat
+     * @example
+     * // Get one BruteLevelUpStat
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BruteLevelUpStatFindUniqueArgs>(args: SelectSubset<T, BruteLevelUpStatFindUniqueArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BruteLevelUpStat that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BruteLevelUpStatFindUniqueOrThrowArgs} args - Arguments to find a BruteLevelUpStat
+     * @example
+     * // Get one BruteLevelUpStat
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BruteLevelUpStatFindUniqueOrThrowArgs>(args: SelectSubset<T, BruteLevelUpStatFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BruteLevelUpStat that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatFindFirstArgs} args - Arguments to find a BruteLevelUpStat
+     * @example
+     * // Get one BruteLevelUpStat
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BruteLevelUpStatFindFirstArgs>(args?: SelectSubset<T, BruteLevelUpStatFindFirstArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BruteLevelUpStat that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatFindFirstOrThrowArgs} args - Arguments to find a BruteLevelUpStat
+     * @example
+     * // Get one BruteLevelUpStat
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BruteLevelUpStatFindFirstOrThrowArgs>(args?: SelectSubset<T, BruteLevelUpStatFindFirstOrThrowArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BruteLevelUpStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BruteLevelUpStats
+     * const bruteLevelUpStats = await prisma.bruteLevelUpStat.findMany()
+     * 
+     * // Get first 10 BruteLevelUpStats
+     * const bruteLevelUpStats = await prisma.bruteLevelUpStat.findMany({ take: 10 })
+     * 
+     * // Only select the `date`
+     * const bruteLevelUpStatWithDateOnly = await prisma.bruteLevelUpStat.findMany({ select: { date: true } })
+     * 
+     */
+    findMany<T extends BruteLevelUpStatFindManyArgs>(args?: SelectSubset<T, BruteLevelUpStatFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BruteLevelUpStat.
+     * @param {BruteLevelUpStatCreateArgs} args - Arguments to create a BruteLevelUpStat.
+     * @example
+     * // Create one BruteLevelUpStat
+     * const BruteLevelUpStat = await prisma.bruteLevelUpStat.create({
+     *   data: {
+     *     // ... data to create a BruteLevelUpStat
+     *   }
+     * })
+     * 
+     */
+    create<T extends BruteLevelUpStatCreateArgs>(args: SelectSubset<T, BruteLevelUpStatCreateArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BruteLevelUpStats.
+     * @param {BruteLevelUpStatCreateManyArgs} args - Arguments to create many BruteLevelUpStats.
+     * @example
+     * // Create many BruteLevelUpStats
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BruteLevelUpStatCreateManyArgs>(args?: SelectSubset<T, BruteLevelUpStatCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BruteLevelUpStats and returns the data saved in the database.
+     * @param {BruteLevelUpStatCreateManyAndReturnArgs} args - Arguments to create many BruteLevelUpStats.
+     * @example
+     * // Create many BruteLevelUpStats
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BruteLevelUpStats and only return the `date`
+     * const bruteLevelUpStatWithDateOnly = await prisma.bruteLevelUpStat.createManyAndReturn({
+     *   select: { date: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BruteLevelUpStatCreateManyAndReturnArgs>(args?: SelectSubset<T, BruteLevelUpStatCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BruteLevelUpStat.
+     * @param {BruteLevelUpStatDeleteArgs} args - Arguments to delete one BruteLevelUpStat.
+     * @example
+     * // Delete one BruteLevelUpStat
+     * const BruteLevelUpStat = await prisma.bruteLevelUpStat.delete({
+     *   where: {
+     *     // ... filter to delete one BruteLevelUpStat
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BruteLevelUpStatDeleteArgs>(args: SelectSubset<T, BruteLevelUpStatDeleteArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BruteLevelUpStat.
+     * @param {BruteLevelUpStatUpdateArgs} args - Arguments to update one BruteLevelUpStat.
+     * @example
+     * // Update one BruteLevelUpStat
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BruteLevelUpStatUpdateArgs>(args: SelectSubset<T, BruteLevelUpStatUpdateArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BruteLevelUpStats.
+     * @param {BruteLevelUpStatDeleteManyArgs} args - Arguments to filter BruteLevelUpStats to delete.
+     * @example
+     * // Delete a few BruteLevelUpStats
+     * const { count } = await prisma.bruteLevelUpStat.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BruteLevelUpStatDeleteManyArgs>(args?: SelectSubset<T, BruteLevelUpStatDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteLevelUpStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BruteLevelUpStats
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BruteLevelUpStatUpdateManyArgs>(args: SelectSubset<T, BruteLevelUpStatUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BruteLevelUpStats and returns the data updated in the database.
+     * @param {BruteLevelUpStatUpdateManyAndReturnArgs} args - Arguments to update many BruteLevelUpStats.
+     * @example
+     * // Update many BruteLevelUpStats
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BruteLevelUpStats and only return the `date`
+     * const bruteLevelUpStatWithDateOnly = await prisma.bruteLevelUpStat.updateManyAndReturn({
+     *   select: { date: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BruteLevelUpStatUpdateManyAndReturnArgs>(args: SelectSubset<T, BruteLevelUpStatUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BruteLevelUpStat.
+     * @param {BruteLevelUpStatUpsertArgs} args - Arguments to update or create a BruteLevelUpStat.
+     * @example
+     * // Update or create a BruteLevelUpStat
+     * const bruteLevelUpStat = await prisma.bruteLevelUpStat.upsert({
+     *   create: {
+     *     // ... data to create a BruteLevelUpStat
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BruteLevelUpStat we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BruteLevelUpStatUpsertArgs>(args: SelectSubset<T, BruteLevelUpStatUpsertArgs<ExtArgs>>): Prisma__BruteLevelUpStatClient<$Result.GetResult<Prisma.$BruteLevelUpStatPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BruteLevelUpStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatCountArgs} args - Arguments to filter BruteLevelUpStats to count.
+     * @example
+     * // Count the number of BruteLevelUpStats
+     * const count = await prisma.bruteLevelUpStat.count({
+     *   where: {
+     *     // ... the filter for the BruteLevelUpStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends BruteLevelUpStatCountArgs>(
+      args?: Subset<T, BruteLevelUpStatCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BruteLevelUpStatCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BruteLevelUpStat.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BruteLevelUpStatAggregateArgs>(args: Subset<T, BruteLevelUpStatAggregateArgs>): Prisma.PrismaPromise<GetBruteLevelUpStatAggregateType<T>>
+
+    /**
+     * Group by BruteLevelUpStat.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BruteLevelUpStatGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BruteLevelUpStatGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BruteLevelUpStatGroupByArgs['orderBy'] }
+        : { orderBy?: BruteLevelUpStatGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BruteLevelUpStatGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBruteLevelUpStatGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BruteLevelUpStat model
+   */
+  readonly fields: BruteLevelUpStatFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BruteLevelUpStat.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BruteLevelUpStatClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BruteLevelUpStat model
+   */
+  interface BruteLevelUpStatFieldRefs {
+    readonly date: FieldRef<"BruteLevelUpStat", 'DateTime'>
+    readonly day: FieldRef<"BruteLevelUpStat", 'Int'>
+    readonly granularity: FieldRef<"BruteLevelUpStat", 'StatsGranularity'>
+    readonly bruteId: FieldRef<"BruteLevelUpStat", 'String'>
+    readonly choiceType: FieldRef<"BruteLevelUpStat", 'DestinyChoiceType'>
+    readonly choice: FieldRef<"BruteLevelUpStat", 'String'>
+    readonly offered: FieldRef<"BruteLevelUpStat", 'Int'>
+    readonly picked: FieldRef<"BruteLevelUpStat", 'Int'>
+    readonly createdAt: FieldRef<"BruteLevelUpStat", 'DateTime'>
+    readonly updatedAt: FieldRef<"BruteLevelUpStat", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BruteLevelUpStat findUnique
+   */
+  export type BruteLevelUpStatFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteLevelUpStat to fetch.
+     */
+    where: BruteLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat findUniqueOrThrow
+   */
+  export type BruteLevelUpStatFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteLevelUpStat to fetch.
+     */
+    where: BruteLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat findFirst
+   */
+  export type BruteLevelUpStatFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteLevelUpStat to fetch.
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteLevelUpStats to fetch.
+     */
+    orderBy?: BruteLevelUpStatOrderByWithRelationInput | BruteLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteLevelUpStats.
+     */
+    cursor?: BruteLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteLevelUpStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteLevelUpStats.
+     */
+    distinct?: BruteLevelUpStatScalarFieldEnum | BruteLevelUpStatScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat findFirstOrThrow
+   */
+  export type BruteLevelUpStatFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteLevelUpStat to fetch.
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteLevelUpStats to fetch.
+     */
+    orderBy?: BruteLevelUpStatOrderByWithRelationInput | BruteLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BruteLevelUpStats.
+     */
+    cursor?: BruteLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteLevelUpStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BruteLevelUpStats.
+     */
+    distinct?: BruteLevelUpStatScalarFieldEnum | BruteLevelUpStatScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat findMany
+   */
+  export type BruteLevelUpStatFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter, which BruteLevelUpStats to fetch.
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BruteLevelUpStats to fetch.
+     */
+    orderBy?: BruteLevelUpStatOrderByWithRelationInput | BruteLevelUpStatOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BruteLevelUpStats.
+     */
+    cursor?: BruteLevelUpStatWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BruteLevelUpStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BruteLevelUpStats.
+     */
+    skip?: number
+    distinct?: BruteLevelUpStatScalarFieldEnum | BruteLevelUpStatScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat create
+   */
+  export type BruteLevelUpStatCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BruteLevelUpStat.
+     */
+    data: XOR<BruteLevelUpStatCreateInput, BruteLevelUpStatUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat createMany
+   */
+  export type BruteLevelUpStatCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BruteLevelUpStats.
+     */
+    data: BruteLevelUpStatCreateManyInput | BruteLevelUpStatCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BruteLevelUpStat createManyAndReturn
+   */
+  export type BruteLevelUpStatCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * The data used to create many BruteLevelUpStats.
+     */
+    data: BruteLevelUpStatCreateManyInput | BruteLevelUpStatCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BruteLevelUpStat update
+   */
+  export type BruteLevelUpStatUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BruteLevelUpStat.
+     */
+    data: XOR<BruteLevelUpStatUpdateInput, BruteLevelUpStatUncheckedUpdateInput>
+    /**
+     * Choose, which BruteLevelUpStat to update.
+     */
+    where: BruteLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat updateMany
+   */
+  export type BruteLevelUpStatUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BruteLevelUpStats.
+     */
+    data: XOR<BruteLevelUpStatUpdateManyMutationInput, BruteLevelUpStatUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteLevelUpStats to update
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * Limit how many BruteLevelUpStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BruteLevelUpStat updateManyAndReturn
+   */
+  export type BruteLevelUpStatUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * The data used to update BruteLevelUpStats.
+     */
+    data: XOR<BruteLevelUpStatUpdateManyMutationInput, BruteLevelUpStatUncheckedUpdateManyInput>
+    /**
+     * Filter which BruteLevelUpStats to update
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * Limit how many BruteLevelUpStats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BruteLevelUpStat upsert
+   */
+  export type BruteLevelUpStatUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BruteLevelUpStat to update in case it exists.
+     */
+    where: BruteLevelUpStatWhereUniqueInput
+    /**
+     * In case the BruteLevelUpStat found by the `where` argument doesn't exist, create a new BruteLevelUpStat with this data.
+     */
+    create: XOR<BruteLevelUpStatCreateInput, BruteLevelUpStatUncheckedCreateInput>
+    /**
+     * In case the BruteLevelUpStat was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BruteLevelUpStatUpdateInput, BruteLevelUpStatUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat delete
+   */
+  export type BruteLevelUpStatDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+    /**
+     * Filter which BruteLevelUpStat to delete.
+     */
+    where: BruteLevelUpStatWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BruteLevelUpStat deleteMany
+   */
+  export type BruteLevelUpStatDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BruteLevelUpStats to delete
+     */
+    where?: BruteLevelUpStatWhereInput
+    /**
+     * Limit how many BruteLevelUpStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BruteLevelUpStat without action
+   */
+  export type BruteLevelUpStatDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BruteLevelUpStat
+     */
+    select?: BruteLevelUpStatSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BruteLevelUpStat
+     */
+    omit?: BruteLevelUpStatOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BruteLevelUpStatInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -45790,6 +51232,82 @@ export namespace Prisma {
   export type ClanRoleScalarFieldEnum = (typeof ClanRoleScalarFieldEnum)[keyof typeof ClanRoleScalarFieldEnum]
 
 
+  export const UserStatsScalarFieldEnum: {
+    date: 'date',
+    day: 'day',
+    granularity: 'granularity',
+    userId: 'userId',
+    fights: 'fights',
+    wins: 'wins',
+    losses: 'losses',
+    xpGained: 'xpGained',
+    tournamentFights: 'tournamentFights',
+    clanWarFights: 'clanWarFights',
+    clanBossDamage: 'clanBossDamage',
+    clanBossFights: 'clanBossFights',
+    goldWon: 'goldWon',
+    goldLost: 'goldLost',
+    connectedDays: 'connectedDays',
+    createdBrutes: 'createdBrutes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserStatsScalarFieldEnum = (typeof UserStatsScalarFieldEnum)[keyof typeof UserStatsScalarFieldEnum]
+
+
+  export const BruteStatsScalarFieldEnum: {
+    date: 'date',
+    day: 'day',
+    granularity: 'granularity',
+    bruteId: 'bruteId',
+    fights: 'fights',
+    wins: 'wins',
+    losses: 'losses',
+    xpGained: 'xpGained',
+    tournamentFights: 'tournamentFights',
+    clanWarFights: 'clanWarFights',
+    clanBossDamage: 'clanBossDamage',
+    clanBossFights: 'clanBossFights',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BruteStatsScalarFieldEnum = (typeof BruteStatsScalarFieldEnum)[keyof typeof BruteStatsScalarFieldEnum]
+
+
+  export const UserLevelUpStatScalarFieldEnum: {
+    date: 'date',
+    day: 'day',
+    granularity: 'granularity',
+    userId: 'userId',
+    choiceType: 'choiceType',
+    choice: 'choice',
+    offered: 'offered',
+    picked: 'picked',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserLevelUpStatScalarFieldEnum = (typeof UserLevelUpStatScalarFieldEnum)[keyof typeof UserLevelUpStatScalarFieldEnum]
+
+
+  export const BruteLevelUpStatScalarFieldEnum: {
+    date: 'date',
+    day: 'day',
+    granularity: 'granularity',
+    bruteId: 'bruteId',
+    choiceType: 'choiceType',
+    choice: 'choice',
+    offered: 'offered',
+    picked: 'picked',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BruteLevelUpStatScalarFieldEnum = (typeof BruteLevelUpStatScalarFieldEnum)[keyof typeof BruteLevelUpStatScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -46202,6 +51720,20 @@ export namespace Prisma {
    */
   export type EnumClanPermissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClanPermission'>
     
+
+
+  /**
+   * Reference to a field of type 'StatsGranularity'
+   */
+  export type EnumStatsGranularityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatsGranularity'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatsGranularity[]'
+   */
+  export type ListEnumStatsGranularityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatsGranularity[]'>
+    
   /**
    * Deep Input Types
    */
@@ -46244,6 +51776,8 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     reportsHandled?: BruteReportListRelationFilter
     logs?: UserLogListRelationFilter
+    stats?: UserStatsListRelationFilter
+    levelUpStats?: UserLevelUpStatListRelationFilter
     sharedBrowser?: XOR<SharedBrowserNullableScalarRelationFilter, SharedBrowserWhereInput> | null
   }
 
@@ -46281,6 +51815,8 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     reportsHandled?: BruteReportOrderByRelationAggregateInput
     logs?: UserLogOrderByRelationAggregateInput
+    stats?: UserStatsOrderByRelationAggregateInput
+    levelUpStats?: UserLevelUpStatOrderByRelationAggregateInput
     sharedBrowser?: SharedBrowserOrderByWithRelationInput
   }
 
@@ -46321,6 +51857,8 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     reportsHandled?: BruteReportListRelationFilter
     logs?: UserLogListRelationFilter
+    stats?: UserStatsListRelationFilter
+    levelUpStats?: UserLevelUpStatListRelationFilter
     sharedBrowser?: XOR<SharedBrowserNullableScalarRelationFilter, SharedBrowserWhereInput> | null
   }, "id" | "id">
 
@@ -46551,6 +52089,8 @@ export namespace Prisma {
     clanRole?: XOR<ClanRoleNullableScalarRelationFilter, ClanRoleWhereInput> | null
     unlockedColors?: UnlockedColorsListRelationFilter
     bruteRanking?: XOR<BruteRankingNullableScalarRelationFilter, BruteRankingWhereInput> | null
+    stats?: BruteStatsListRelationFilter
+    levelUpStats?: BruteLevelUpStatListRelationFilter
   }
 
   export type BruteOrderByWithRelationInput = {
@@ -46642,6 +52182,8 @@ export namespace Prisma {
     clanRole?: ClanRoleOrderByWithRelationInput
     unlockedColors?: UnlockedColorsOrderByRelationAggregateInput
     bruteRanking?: BruteRankingOrderByWithRelationInput
+    stats?: BruteStatsOrderByRelationAggregateInput
+    levelUpStats?: BruteLevelUpStatOrderByRelationAggregateInput
   }
 
   export type BruteWhereUniqueInput = Prisma.AtLeast<{
@@ -46736,6 +52278,8 @@ export namespace Prisma {
     clanRole?: XOR<ClanRoleNullableScalarRelationFilter, ClanRoleWhereInput> | null
     unlockedColors?: UnlockedColorsListRelationFilter
     bruteRanking?: XOR<BruteRankingNullableScalarRelationFilter, BruteRankingWhereInput> | null
+    stats?: BruteStatsListRelationFilter
+    levelUpStats?: BruteLevelUpStatListRelationFilter
   }, "id" | "id">
 
   export type BruteOrderByWithAggregationInput = {
@@ -48801,6 +54345,398 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ClanRole"> | Date | string
   }
 
+  export type UserStatsWhereInput = {
+    AND?: UserStatsWhereInput | UserStatsWhereInput[]
+    OR?: UserStatsWhereInput[]
+    NOT?: UserStatsWhereInput | UserStatsWhereInput[]
+    date?: DateTimeFilter<"UserStats"> | Date | string
+    day?: IntFilter<"UserStats"> | number
+    granularity?: EnumStatsGranularityFilter<"UserStats"> | $Enums.StatsGranularity
+    userId?: UuidFilter<"UserStats"> | string
+    fights?: IntFilter<"UserStats"> | number
+    wins?: IntFilter<"UserStats"> | number
+    losses?: IntFilter<"UserStats"> | number
+    xpGained?: IntFilter<"UserStats"> | number
+    tournamentFights?: IntFilter<"UserStats"> | number
+    clanWarFights?: IntFilter<"UserStats"> | number
+    clanBossDamage?: IntFilter<"UserStats"> | number
+    clanBossFights?: IntFilter<"UserStats"> | number
+    goldWon?: IntFilter<"UserStats"> | number
+    goldLost?: IntFilter<"UserStats"> | number
+    connectedDays?: IntFilter<"UserStats"> | number
+    createdBrutes?: IntFilter<"UserStats"> | number
+    createdAt?: DateTimeFilter<"UserStats"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStats"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserStatsOrderByWithRelationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserStatsWhereUniqueInput = Prisma.AtLeast<{
+    date_granularity_userId?: UserStatsDateGranularityUserIdCompoundUniqueInput
+    AND?: UserStatsWhereInput | UserStatsWhereInput[]
+    OR?: UserStatsWhereInput[]
+    NOT?: UserStatsWhereInput | UserStatsWhereInput[]
+    date?: DateTimeFilter<"UserStats"> | Date | string
+    day?: IntFilter<"UserStats"> | number
+    granularity?: EnumStatsGranularityFilter<"UserStats"> | $Enums.StatsGranularity
+    userId?: UuidFilter<"UserStats"> | string
+    fights?: IntFilter<"UserStats"> | number
+    wins?: IntFilter<"UserStats"> | number
+    losses?: IntFilter<"UserStats"> | number
+    xpGained?: IntFilter<"UserStats"> | number
+    tournamentFights?: IntFilter<"UserStats"> | number
+    clanWarFights?: IntFilter<"UserStats"> | number
+    clanBossDamage?: IntFilter<"UserStats"> | number
+    clanBossFights?: IntFilter<"UserStats"> | number
+    goldWon?: IntFilter<"UserStats"> | number
+    goldLost?: IntFilter<"UserStats"> | number
+    connectedDays?: IntFilter<"UserStats"> | number
+    createdBrutes?: IntFilter<"UserStats"> | number
+    createdAt?: DateTimeFilter<"UserStats"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStats"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "date_granularity_userId">
+
+  export type UserStatsOrderByWithAggregationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserStatsCountOrderByAggregateInput
+    _avg?: UserStatsAvgOrderByAggregateInput
+    _max?: UserStatsMaxOrderByAggregateInput
+    _min?: UserStatsMinOrderByAggregateInput
+    _sum?: UserStatsSumOrderByAggregateInput
+  }
+
+  export type UserStatsScalarWhereWithAggregatesInput = {
+    AND?: UserStatsScalarWhereWithAggregatesInput | UserStatsScalarWhereWithAggregatesInput[]
+    OR?: UserStatsScalarWhereWithAggregatesInput[]
+    NOT?: UserStatsScalarWhereWithAggregatesInput | UserStatsScalarWhereWithAggregatesInput[]
+    date?: DateTimeWithAggregatesFilter<"UserStats"> | Date | string
+    day?: IntWithAggregatesFilter<"UserStats"> | number
+    granularity?: EnumStatsGranularityWithAggregatesFilter<"UserStats"> | $Enums.StatsGranularity
+    userId?: UuidWithAggregatesFilter<"UserStats"> | string
+    fights?: IntWithAggregatesFilter<"UserStats"> | number
+    wins?: IntWithAggregatesFilter<"UserStats"> | number
+    losses?: IntWithAggregatesFilter<"UserStats"> | number
+    xpGained?: IntWithAggregatesFilter<"UserStats"> | number
+    tournamentFights?: IntWithAggregatesFilter<"UserStats"> | number
+    clanWarFights?: IntWithAggregatesFilter<"UserStats"> | number
+    clanBossDamage?: IntWithAggregatesFilter<"UserStats"> | number
+    clanBossFights?: IntWithAggregatesFilter<"UserStats"> | number
+    goldWon?: IntWithAggregatesFilter<"UserStats"> | number
+    goldLost?: IntWithAggregatesFilter<"UserStats"> | number
+    connectedDays?: IntWithAggregatesFilter<"UserStats"> | number
+    createdBrutes?: IntWithAggregatesFilter<"UserStats"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UserStats"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserStats"> | Date | string
+  }
+
+  export type BruteStatsWhereInput = {
+    AND?: BruteStatsWhereInput | BruteStatsWhereInput[]
+    OR?: BruteStatsWhereInput[]
+    NOT?: BruteStatsWhereInput | BruteStatsWhereInput[]
+    date?: DateTimeFilter<"BruteStats"> | Date | string
+    day?: IntFilter<"BruteStats"> | number
+    granularity?: EnumStatsGranularityFilter<"BruteStats"> | $Enums.StatsGranularity
+    bruteId?: UuidFilter<"BruteStats"> | string
+    fights?: IntFilter<"BruteStats"> | number
+    wins?: IntFilter<"BruteStats"> | number
+    losses?: IntFilter<"BruteStats"> | number
+    xpGained?: IntFilter<"BruteStats"> | number
+    tournamentFights?: IntFilter<"BruteStats"> | number
+    clanWarFights?: IntFilter<"BruteStats"> | number
+    clanBossDamage?: IntFilter<"BruteStats"> | number
+    clanBossFights?: IntFilter<"BruteStats"> | number
+    createdAt?: DateTimeFilter<"BruteStats"> | Date | string
+    updatedAt?: DateTimeFilter<"BruteStats"> | Date | string
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }
+
+  export type BruteStatsOrderByWithRelationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+  }
+
+  export type BruteStatsWhereUniqueInput = Prisma.AtLeast<{
+    date_granularity_bruteId?: BruteStatsDateGranularityBruteIdCompoundUniqueInput
+    AND?: BruteStatsWhereInput | BruteStatsWhereInput[]
+    OR?: BruteStatsWhereInput[]
+    NOT?: BruteStatsWhereInput | BruteStatsWhereInput[]
+    date?: DateTimeFilter<"BruteStats"> | Date | string
+    day?: IntFilter<"BruteStats"> | number
+    granularity?: EnumStatsGranularityFilter<"BruteStats"> | $Enums.StatsGranularity
+    bruteId?: UuidFilter<"BruteStats"> | string
+    fights?: IntFilter<"BruteStats"> | number
+    wins?: IntFilter<"BruteStats"> | number
+    losses?: IntFilter<"BruteStats"> | number
+    xpGained?: IntFilter<"BruteStats"> | number
+    tournamentFights?: IntFilter<"BruteStats"> | number
+    clanWarFights?: IntFilter<"BruteStats"> | number
+    clanBossDamage?: IntFilter<"BruteStats"> | number
+    clanBossFights?: IntFilter<"BruteStats"> | number
+    createdAt?: DateTimeFilter<"BruteStats"> | Date | string
+    updatedAt?: DateTimeFilter<"BruteStats"> | Date | string
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }, "date_granularity_bruteId">
+
+  export type BruteStatsOrderByWithAggregationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BruteStatsCountOrderByAggregateInput
+    _avg?: BruteStatsAvgOrderByAggregateInput
+    _max?: BruteStatsMaxOrderByAggregateInput
+    _min?: BruteStatsMinOrderByAggregateInput
+    _sum?: BruteStatsSumOrderByAggregateInput
+  }
+
+  export type BruteStatsScalarWhereWithAggregatesInput = {
+    AND?: BruteStatsScalarWhereWithAggregatesInput | BruteStatsScalarWhereWithAggregatesInput[]
+    OR?: BruteStatsScalarWhereWithAggregatesInput[]
+    NOT?: BruteStatsScalarWhereWithAggregatesInput | BruteStatsScalarWhereWithAggregatesInput[]
+    date?: DateTimeWithAggregatesFilter<"BruteStats"> | Date | string
+    day?: IntWithAggregatesFilter<"BruteStats"> | number
+    granularity?: EnumStatsGranularityWithAggregatesFilter<"BruteStats"> | $Enums.StatsGranularity
+    bruteId?: UuidWithAggregatesFilter<"BruteStats"> | string
+    fights?: IntWithAggregatesFilter<"BruteStats"> | number
+    wins?: IntWithAggregatesFilter<"BruteStats"> | number
+    losses?: IntWithAggregatesFilter<"BruteStats"> | number
+    xpGained?: IntWithAggregatesFilter<"BruteStats"> | number
+    tournamentFights?: IntWithAggregatesFilter<"BruteStats"> | number
+    clanWarFights?: IntWithAggregatesFilter<"BruteStats"> | number
+    clanBossDamage?: IntWithAggregatesFilter<"BruteStats"> | number
+    clanBossFights?: IntWithAggregatesFilter<"BruteStats"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"BruteStats"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BruteStats"> | Date | string
+  }
+
+  export type UserLevelUpStatWhereInput = {
+    AND?: UserLevelUpStatWhereInput | UserLevelUpStatWhereInput[]
+    OR?: UserLevelUpStatWhereInput[]
+    NOT?: UserLevelUpStatWhereInput | UserLevelUpStatWhereInput[]
+    date?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    day?: IntFilter<"UserLevelUpStat"> | number
+    granularity?: EnumStatsGranularityFilter<"UserLevelUpStat"> | $Enums.StatsGranularity
+    userId?: UuidFilter<"UserLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeFilter<"UserLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringFilter<"UserLevelUpStat"> | string
+    offered?: IntFilter<"UserLevelUpStat"> | number
+    picked?: IntFilter<"UserLevelUpStat"> | number
+    createdAt?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    updatedAt?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserLevelUpStatOrderByWithRelationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserLevelUpStatWhereUniqueInput = Prisma.AtLeast<{
+    date_granularity_userId_choiceType_choice?: UserLevelUpStatDateGranularityUserIdChoiceTypeChoiceCompoundUniqueInput
+    AND?: UserLevelUpStatWhereInput | UserLevelUpStatWhereInput[]
+    OR?: UserLevelUpStatWhereInput[]
+    NOT?: UserLevelUpStatWhereInput | UserLevelUpStatWhereInput[]
+    date?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    day?: IntFilter<"UserLevelUpStat"> | number
+    granularity?: EnumStatsGranularityFilter<"UserLevelUpStat"> | $Enums.StatsGranularity
+    userId?: UuidFilter<"UserLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeFilter<"UserLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringFilter<"UserLevelUpStat"> | string
+    offered?: IntFilter<"UserLevelUpStat"> | number
+    picked?: IntFilter<"UserLevelUpStat"> | number
+    createdAt?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    updatedAt?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "date_granularity_userId_choiceType_choice">
+
+  export type UserLevelUpStatOrderByWithAggregationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserLevelUpStatCountOrderByAggregateInput
+    _avg?: UserLevelUpStatAvgOrderByAggregateInput
+    _max?: UserLevelUpStatMaxOrderByAggregateInput
+    _min?: UserLevelUpStatMinOrderByAggregateInput
+    _sum?: UserLevelUpStatSumOrderByAggregateInput
+  }
+
+  export type UserLevelUpStatScalarWhereWithAggregatesInput = {
+    AND?: UserLevelUpStatScalarWhereWithAggregatesInput | UserLevelUpStatScalarWhereWithAggregatesInput[]
+    OR?: UserLevelUpStatScalarWhereWithAggregatesInput[]
+    NOT?: UserLevelUpStatScalarWhereWithAggregatesInput | UserLevelUpStatScalarWhereWithAggregatesInput[]
+    date?: DateTimeWithAggregatesFilter<"UserLevelUpStat"> | Date | string
+    day?: IntWithAggregatesFilter<"UserLevelUpStat"> | number
+    granularity?: EnumStatsGranularityWithAggregatesFilter<"UserLevelUpStat"> | $Enums.StatsGranularity
+    userId?: UuidWithAggregatesFilter<"UserLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeWithAggregatesFilter<"UserLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringWithAggregatesFilter<"UserLevelUpStat"> | string
+    offered?: IntWithAggregatesFilter<"UserLevelUpStat"> | number
+    picked?: IntWithAggregatesFilter<"UserLevelUpStat"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UserLevelUpStat"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserLevelUpStat"> | Date | string
+  }
+
+  export type BruteLevelUpStatWhereInput = {
+    AND?: BruteLevelUpStatWhereInput | BruteLevelUpStatWhereInput[]
+    OR?: BruteLevelUpStatWhereInput[]
+    NOT?: BruteLevelUpStatWhereInput | BruteLevelUpStatWhereInput[]
+    date?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    day?: IntFilter<"BruteLevelUpStat"> | number
+    granularity?: EnumStatsGranularityFilter<"BruteLevelUpStat"> | $Enums.StatsGranularity
+    bruteId?: UuidFilter<"BruteLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeFilter<"BruteLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringFilter<"BruteLevelUpStat"> | string
+    offered?: IntFilter<"BruteLevelUpStat"> | number
+    picked?: IntFilter<"BruteLevelUpStat"> | number
+    createdAt?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    updatedAt?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }
+
+  export type BruteLevelUpStatOrderByWithRelationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    brute?: BruteOrderByWithRelationInput
+  }
+
+  export type BruteLevelUpStatWhereUniqueInput = Prisma.AtLeast<{
+    date_granularity_bruteId_choiceType_choice?: BruteLevelUpStatDateGranularityBruteIdChoiceTypeChoiceCompoundUniqueInput
+    AND?: BruteLevelUpStatWhereInput | BruteLevelUpStatWhereInput[]
+    OR?: BruteLevelUpStatWhereInput[]
+    NOT?: BruteLevelUpStatWhereInput | BruteLevelUpStatWhereInput[]
+    date?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    day?: IntFilter<"BruteLevelUpStat"> | number
+    granularity?: EnumStatsGranularityFilter<"BruteLevelUpStat"> | $Enums.StatsGranularity
+    bruteId?: UuidFilter<"BruteLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeFilter<"BruteLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringFilter<"BruteLevelUpStat"> | string
+    offered?: IntFilter<"BruteLevelUpStat"> | number
+    picked?: IntFilter<"BruteLevelUpStat"> | number
+    createdAt?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    updatedAt?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }, "date_granularity_bruteId_choiceType_choice">
+
+  export type BruteLevelUpStatOrderByWithAggregationInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BruteLevelUpStatCountOrderByAggregateInput
+    _avg?: BruteLevelUpStatAvgOrderByAggregateInput
+    _max?: BruteLevelUpStatMaxOrderByAggregateInput
+    _min?: BruteLevelUpStatMinOrderByAggregateInput
+    _sum?: BruteLevelUpStatSumOrderByAggregateInput
+  }
+
+  export type BruteLevelUpStatScalarWhereWithAggregatesInput = {
+    AND?: BruteLevelUpStatScalarWhereWithAggregatesInput | BruteLevelUpStatScalarWhereWithAggregatesInput[]
+    OR?: BruteLevelUpStatScalarWhereWithAggregatesInput[]
+    NOT?: BruteLevelUpStatScalarWhereWithAggregatesInput | BruteLevelUpStatScalarWhereWithAggregatesInput[]
+    date?: DateTimeWithAggregatesFilter<"BruteLevelUpStat"> | Date | string
+    day?: IntWithAggregatesFilter<"BruteLevelUpStat"> | number
+    granularity?: EnumStatsGranularityWithAggregatesFilter<"BruteLevelUpStat"> | $Enums.StatsGranularity
+    bruteId?: UuidWithAggregatesFilter<"BruteLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeWithAggregatesFilter<"BruteLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringWithAggregatesFilter<"BruteLevelUpStat"> | string
+    offered?: IntWithAggregatesFilter<"BruteLevelUpStat"> | number
+    picked?: IntWithAggregatesFilter<"BruteLevelUpStat"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"BruteLevelUpStat"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BruteLevelUpStat"> | Date | string
+  }
+
   export type UserCreateInput = {
     id: string
     lang?: $Enums.Lang
@@ -48834,6 +54770,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -48871,6 +54809,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -48906,6 +54846,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -48943,6 +54885,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -49180,6 +55124,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateInput = {
@@ -49265,6 +55211,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUpdateInput = {
@@ -49350,6 +55298,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateInput = {
@@ -49435,6 +55385,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateManyInput = {
@@ -51551,6 +57503,450 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserStatsCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    goldWon?: number
+    goldLost?: number
+    connectedDays?: number
+    createdBrutes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStatsInput
+  }
+
+  export type UserStatsUncheckedCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    userId: string
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    goldWon?: number
+    goldLost?: number
+    connectedDays?: number
+    createdBrutes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserStatsUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStatsNestedInput
+  }
+
+  export type UserStatsUncheckedUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    userId?: StringFieldUpdateOperationsInput | string
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStatsCreateManyInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    userId: string
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    goldWon?: number
+    goldLost?: number
+    connectedDays?: number
+    createdBrutes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserStatsUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStatsUncheckedUpdateManyInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    userId?: StringFieldUpdateOperationsInput | string
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteStatsCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    brute: BruteCreateNestedOneWithoutStatsInput
+  }
+
+  export type BruteStatsUncheckedCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteStatsUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brute?: BruteUpdateOneRequiredWithoutStatsNestedInput
+  }
+
+  export type BruteStatsUncheckedUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    bruteId?: StringFieldUpdateOperationsInput | string
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteStatsCreateManyInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteStatsUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteStatsUncheckedUpdateManyInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    bruteId?: StringFieldUpdateOperationsInput | string
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLevelUpStatCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutLevelUpStatsInput
+  }
+
+  export type UserLevelUpStatUncheckedCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    userId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserLevelUpStatUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLevelUpStatsNestedInput
+  }
+
+  export type UserLevelUpStatUncheckedUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    userId?: StringFieldUpdateOperationsInput | string
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLevelUpStatCreateManyInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    userId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserLevelUpStatUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLevelUpStatUncheckedUpdateManyInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    userId?: StringFieldUpdateOperationsInput | string
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteLevelUpStatCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    brute: BruteCreateNestedOneWithoutLevelUpStatsInput
+  }
+
+  export type BruteLevelUpStatUncheckedCreateInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteLevelUpStatUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brute?: BruteUpdateOneRequiredWithoutLevelUpStatsNestedInput
+  }
+
+  export type BruteLevelUpStatUncheckedUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    bruteId?: StringFieldUpdateOperationsInput | string
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteLevelUpStatCreateManyInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteLevelUpStatUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteLevelUpStatUncheckedUpdateManyInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    bruteId?: StringFieldUpdateOperationsInput | string
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -51694,6 +58090,18 @@ export namespace Prisma {
     none?: UserLogWhereInput
   }
 
+  export type UserStatsListRelationFilter = {
+    every?: UserStatsWhereInput
+    some?: UserStatsWhereInput
+    none?: UserStatsWhereInput
+  }
+
+  export type UserLevelUpStatListRelationFilter = {
+    every?: UserLevelUpStatWhereInput
+    some?: UserLevelUpStatWhereInput
+    none?: UserLevelUpStatWhereInput
+  }
+
   export type SharedBrowserNullableScalarRelationFilter = {
     is?: SharedBrowserWhereInput | null
     isNot?: SharedBrowserWhereInput | null
@@ -51733,6 +58141,14 @@ export namespace Prisma {
   }
 
   export type UserLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserStatsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserLevelUpStatOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -52209,6 +58625,18 @@ export namespace Prisma {
     isNot?: BruteRankingWhereInput | null
   }
 
+  export type BruteStatsListRelationFilter = {
+    every?: BruteStatsWhereInput
+    some?: BruteStatsWhereInput
+    none?: BruteStatsWhereInput
+  }
+
+  export type BruteLevelUpStatListRelationFilter = {
+    every?: BruteLevelUpStatWhereInput
+    some?: BruteLevelUpStatWhereInput
+    none?: BruteLevelUpStatWhereInput
+  }
+
   export type LogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -52254,6 +58682,14 @@ export namespace Prisma {
   }
 
   export type UnlockedColorsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BruteStatsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BruteLevelUpStatOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -53877,6 +60313,323 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumStatsGranularityFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatsGranularity | EnumStatsGranularityFieldRefInput<$PrismaModel>
+    in?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatsGranularityFilter<$PrismaModel> | $Enums.StatsGranularity
+  }
+
+  export type UserStatsDateGranularityUserIdCompoundUniqueInput = {
+    date: Date | string
+    granularity: $Enums.StatsGranularity
+    userId: string
+  }
+
+  export type UserStatsCountOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserStatsAvgOrderByAggregateInput = {
+    day?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+  }
+
+  export type UserStatsMaxOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserStatsMinOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserStatsSumOrderByAggregateInput = {
+    day?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    goldWon?: SortOrder
+    goldLost?: SortOrder
+    connectedDays?: SortOrder
+    createdBrutes?: SortOrder
+  }
+
+  export type EnumStatsGranularityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatsGranularity | EnumStatsGranularityFieldRefInput<$PrismaModel>
+    in?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatsGranularityWithAggregatesFilter<$PrismaModel> | $Enums.StatsGranularity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatsGranularityFilter<$PrismaModel>
+    _max?: NestedEnumStatsGranularityFilter<$PrismaModel>
+  }
+
+  export type BruteStatsDateGranularityBruteIdCompoundUniqueInput = {
+    date: Date | string
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+  }
+
+  export type BruteStatsCountOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BruteStatsAvgOrderByAggregateInput = {
+    day?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+  }
+
+  export type BruteStatsMaxOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BruteStatsMinOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BruteStatsSumOrderByAggregateInput = {
+    day?: SortOrder
+    fights?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    xpGained?: SortOrder
+    tournamentFights?: SortOrder
+    clanWarFights?: SortOrder
+    clanBossDamage?: SortOrder
+    clanBossFights?: SortOrder
+  }
+
+  export type UserLevelUpStatDateGranularityUserIdChoiceTypeChoiceCompoundUniqueInput = {
+    date: Date | string
+    granularity: $Enums.StatsGranularity
+    userId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+  }
+
+  export type UserLevelUpStatCountOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserLevelUpStatAvgOrderByAggregateInput = {
+    day?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+  }
+
+  export type UserLevelUpStatMaxOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserLevelUpStatMinOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    userId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserLevelUpStatSumOrderByAggregateInput = {
+    day?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+  }
+
+  export type BruteLevelUpStatDateGranularityBruteIdChoiceTypeChoiceCompoundUniqueInput = {
+    date: Date | string
+    granularity: $Enums.StatsGranularity
+    bruteId: string
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+  }
+
+  export type BruteLevelUpStatCountOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BruteLevelUpStatAvgOrderByAggregateInput = {
+    day?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+  }
+
+  export type BruteLevelUpStatMaxOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BruteLevelUpStatMinOrderByAggregateInput = {
+    date?: SortOrder
+    day?: SortOrder
+    granularity?: SortOrder
+    bruteId?: SortOrder
+    choiceType?: SortOrder
+    choice?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BruteLevelUpStatSumOrderByAggregateInput = {
+    day?: SortOrder
+    offered?: SortOrder
+    picked?: SortOrder
+  }
+
   export type UserCreateipsInput = {
     set: string[]
   }
@@ -53956,6 +60709,20 @@ export namespace Prisma {
     connect?: UserLogWhereUniqueInput | UserLogWhereUniqueInput[]
   }
 
+  export type UserStatsCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput> | UserStatsCreateWithoutUserInput[] | UserStatsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput | UserStatsCreateOrConnectWithoutUserInput[]
+    createMany?: UserStatsCreateManyUserInputEnvelope
+    connect?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+  }
+
+  export type UserLevelUpStatCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserLevelUpStatCreateWithoutUserInput, UserLevelUpStatUncheckedCreateWithoutUserInput> | UserLevelUpStatCreateWithoutUserInput[] | UserLevelUpStatUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLevelUpStatCreateOrConnectWithoutUserInput | UserLevelUpStatCreateOrConnectWithoutUserInput[]
+    createMany?: UserLevelUpStatCreateManyUserInputEnvelope
+    connect?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+  }
+
   export type SharedBrowserCreateNestedOneWithoutUsersInput = {
     create?: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
     connectOrCreate?: SharedBrowserCreateOrConnectWithoutUsersInput
@@ -54027,6 +60794,20 @@ export namespace Prisma {
     connectOrCreate?: UserLogCreateOrConnectWithoutUserInput | UserLogCreateOrConnectWithoutUserInput[]
     createMany?: UserLogCreateManyUserInputEnvelope
     connect?: UserLogWhereUniqueInput | UserLogWhereUniqueInput[]
+  }
+
+  export type UserStatsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput> | UserStatsCreateWithoutUserInput[] | UserStatsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput | UserStatsCreateOrConnectWithoutUserInput[]
+    createMany?: UserStatsCreateManyUserInputEnvelope
+    connect?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+  }
+
+  export type UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserLevelUpStatCreateWithoutUserInput, UserLevelUpStatUncheckedCreateWithoutUserInput> | UserLevelUpStatCreateWithoutUserInput[] | UserLevelUpStatUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLevelUpStatCreateOrConnectWithoutUserInput | UserLevelUpStatCreateOrConnectWithoutUserInput[]
+    createMany?: UserLevelUpStatCreateManyUserInputEnvelope
+    connect?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -54213,6 +60994,34 @@ export namespace Prisma {
     deleteMany?: UserLogScalarWhereInput | UserLogScalarWhereInput[]
   }
 
+  export type UserStatsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput> | UserStatsCreateWithoutUserInput[] | UserStatsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput | UserStatsCreateOrConnectWithoutUserInput[]
+    upsert?: UserStatsUpsertWithWhereUniqueWithoutUserInput | UserStatsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserStatsCreateManyUserInputEnvelope
+    set?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    disconnect?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    delete?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    connect?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    update?: UserStatsUpdateWithWhereUniqueWithoutUserInput | UserStatsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserStatsUpdateManyWithWhereWithoutUserInput | UserStatsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserStatsScalarWhereInput | UserStatsScalarWhereInput[]
+  }
+
+  export type UserLevelUpStatUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserLevelUpStatCreateWithoutUserInput, UserLevelUpStatUncheckedCreateWithoutUserInput> | UserLevelUpStatCreateWithoutUserInput[] | UserLevelUpStatUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLevelUpStatCreateOrConnectWithoutUserInput | UserLevelUpStatCreateOrConnectWithoutUserInput[]
+    upsert?: UserLevelUpStatUpsertWithWhereUniqueWithoutUserInput | UserLevelUpStatUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserLevelUpStatCreateManyUserInputEnvelope
+    set?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    disconnect?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    delete?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    connect?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    update?: UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput | UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserLevelUpStatUpdateManyWithWhereWithoutUserInput | UserLevelUpStatUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserLevelUpStatScalarWhereInput | UserLevelUpStatScalarWhereInput[]
+  }
+
   export type SharedBrowserUpdateOneWithoutUsersNestedInput = {
     create?: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
     connectOrCreate?: SharedBrowserCreateOrConnectWithoutUsersInput
@@ -54358,6 +61167,34 @@ export namespace Prisma {
     update?: UserLogUpdateWithWhereUniqueWithoutUserInput | UserLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserLogUpdateManyWithWhereWithoutUserInput | UserLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserLogScalarWhereInput | UserLogScalarWhereInput[]
+  }
+
+  export type UserStatsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput> | UserStatsCreateWithoutUserInput[] | UserStatsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput | UserStatsCreateOrConnectWithoutUserInput[]
+    upsert?: UserStatsUpsertWithWhereUniqueWithoutUserInput | UserStatsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserStatsCreateManyUserInputEnvelope
+    set?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    disconnect?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    delete?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    connect?: UserStatsWhereUniqueInput | UserStatsWhereUniqueInput[]
+    update?: UserStatsUpdateWithWhereUniqueWithoutUserInput | UserStatsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserStatsUpdateManyWithWhereWithoutUserInput | UserStatsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserStatsScalarWhereInput | UserStatsScalarWhereInput[]
+  }
+
+  export type UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserLevelUpStatCreateWithoutUserInput, UserLevelUpStatUncheckedCreateWithoutUserInput> | UserLevelUpStatCreateWithoutUserInput[] | UserLevelUpStatUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserLevelUpStatCreateOrConnectWithoutUserInput | UserLevelUpStatCreateOrConnectWithoutUserInput[]
+    upsert?: UserLevelUpStatUpsertWithWhereUniqueWithoutUserInput | UserLevelUpStatUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserLevelUpStatCreateManyUserInputEnvelope
+    set?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    disconnect?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    delete?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    connect?: UserLevelUpStatWhereUniqueInput | UserLevelUpStatWhereUniqueInput[]
+    update?: UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput | UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserLevelUpStatUpdateManyWithWhereWithoutUserInput | UserLevelUpStatUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserLevelUpStatScalarWhereInput | UserLevelUpStatScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutLogsInput = {
@@ -54636,6 +61473,20 @@ export namespace Prisma {
     connect?: BruteRankingWhereUniqueInput
   }
 
+  export type BruteStatsCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BruteStatsCreateWithoutBruteInput, BruteStatsUncheckedCreateWithoutBruteInput> | BruteStatsCreateWithoutBruteInput[] | BruteStatsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteStatsCreateOrConnectWithoutBruteInput | BruteStatsCreateOrConnectWithoutBruteInput[]
+    createMany?: BruteStatsCreateManyBruteInputEnvelope
+    connect?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+  }
+
+  export type BruteLevelUpStatCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BruteLevelUpStatCreateWithoutBruteInput, BruteLevelUpStatUncheckedCreateWithoutBruteInput> | BruteLevelUpStatCreateWithoutBruteInput[] | BruteLevelUpStatUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteLevelUpStatCreateOrConnectWithoutBruteInput | BruteLevelUpStatCreateOrConnectWithoutBruteInput[]
+    createMany?: BruteLevelUpStatCreateManyBruteInputEnvelope
+    connect?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutMasterInput = {
     create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
@@ -54800,6 +61651,20 @@ export namespace Prisma {
     create?: XOR<BruteRankingCreateWithoutBruteInput, BruteRankingUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteRankingCreateOrConnectWithoutBruteInput
     connect?: BruteRankingWhereUniqueInput
+  }
+
+  export type BruteStatsUncheckedCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BruteStatsCreateWithoutBruteInput, BruteStatsUncheckedCreateWithoutBruteInput> | BruteStatsCreateWithoutBruteInput[] | BruteStatsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteStatsCreateOrConnectWithoutBruteInput | BruteStatsCreateOrConnectWithoutBruteInput[]
+    createMany?: BruteStatsCreateManyBruteInputEnvelope
+    connect?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+  }
+
+  export type BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BruteLevelUpStatCreateWithoutBruteInput, BruteLevelUpStatUncheckedCreateWithoutBruteInput> | BruteLevelUpStatCreateWithoutBruteInput[] | BruteLevelUpStatUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteLevelUpStatCreateOrConnectWithoutBruteInput | BruteLevelUpStatCreateOrConnectWithoutBruteInput[]
+    createMany?: BruteLevelUpStatCreateManyBruteInputEnvelope
+    connect?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
   }
 
   export type BruteUpdatedestinyPathInput = {
@@ -55246,6 +62111,34 @@ export namespace Prisma {
     update?: XOR<XOR<BruteRankingUpdateToOneWithWhereWithoutBruteInput, BruteRankingUpdateWithoutBruteInput>, BruteRankingUncheckedUpdateWithoutBruteInput>
   }
 
+  export type BruteStatsUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BruteStatsCreateWithoutBruteInput, BruteStatsUncheckedCreateWithoutBruteInput> | BruteStatsCreateWithoutBruteInput[] | BruteStatsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteStatsCreateOrConnectWithoutBruteInput | BruteStatsCreateOrConnectWithoutBruteInput[]
+    upsert?: BruteStatsUpsertWithWhereUniqueWithoutBruteInput | BruteStatsUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BruteStatsCreateManyBruteInputEnvelope
+    set?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    disconnect?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    delete?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    connect?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    update?: BruteStatsUpdateWithWhereUniqueWithoutBruteInput | BruteStatsUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BruteStatsUpdateManyWithWhereWithoutBruteInput | BruteStatsUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BruteStatsScalarWhereInput | BruteStatsScalarWhereInput[]
+  }
+
+  export type BruteLevelUpStatUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BruteLevelUpStatCreateWithoutBruteInput, BruteLevelUpStatUncheckedCreateWithoutBruteInput> | BruteLevelUpStatCreateWithoutBruteInput[] | BruteLevelUpStatUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteLevelUpStatCreateOrConnectWithoutBruteInput | BruteLevelUpStatCreateOrConnectWithoutBruteInput[]
+    upsert?: BruteLevelUpStatUpsertWithWhereUniqueWithoutBruteInput | BruteLevelUpStatUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BruteLevelUpStatCreateManyBruteInputEnvelope
+    set?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    disconnect?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    delete?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    connect?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    update?: BruteLevelUpStatUpdateWithWhereUniqueWithoutBruteInput | BruteLevelUpStatUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BruteLevelUpStatUpdateManyWithWhereWithoutBruteInput | BruteLevelUpStatUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BruteLevelUpStatScalarWhereInput | BruteLevelUpStatScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutMasterNestedInput = {
     create?: XOR<BruteCreateWithoutMasterInput, BruteUncheckedCreateWithoutMasterInput> | BruteCreateWithoutMasterInput[] | BruteUncheckedCreateWithoutMasterInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutMasterInput | BruteCreateOrConnectWithoutMasterInput[]
@@ -55576,6 +62469,34 @@ export namespace Prisma {
     delete?: BruteRankingWhereInput | boolean
     connect?: BruteRankingWhereUniqueInput
     update?: XOR<XOR<BruteRankingUpdateToOneWithWhereWithoutBruteInput, BruteRankingUpdateWithoutBruteInput>, BruteRankingUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteStatsUncheckedUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BruteStatsCreateWithoutBruteInput, BruteStatsUncheckedCreateWithoutBruteInput> | BruteStatsCreateWithoutBruteInput[] | BruteStatsUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteStatsCreateOrConnectWithoutBruteInput | BruteStatsCreateOrConnectWithoutBruteInput[]
+    upsert?: BruteStatsUpsertWithWhereUniqueWithoutBruteInput | BruteStatsUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BruteStatsCreateManyBruteInputEnvelope
+    set?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    disconnect?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    delete?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    connect?: BruteStatsWhereUniqueInput | BruteStatsWhereUniqueInput[]
+    update?: BruteStatsUpdateWithWhereUniqueWithoutBruteInput | BruteStatsUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BruteStatsUpdateManyWithWhereWithoutBruteInput | BruteStatsUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BruteStatsScalarWhereInput | BruteStatsScalarWhereInput[]
+  }
+
+  export type BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BruteLevelUpStatCreateWithoutBruteInput, BruteLevelUpStatUncheckedCreateWithoutBruteInput> | BruteLevelUpStatCreateWithoutBruteInput[] | BruteLevelUpStatUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BruteLevelUpStatCreateOrConnectWithoutBruteInput | BruteLevelUpStatCreateOrConnectWithoutBruteInput[]
+    upsert?: BruteLevelUpStatUpsertWithWhereUniqueWithoutBruteInput | BruteLevelUpStatUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BruteLevelUpStatCreateManyBruteInputEnvelope
+    set?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    disconnect?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    delete?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    connect?: BruteLevelUpStatWhereUniqueInput | BruteLevelUpStatWhereUniqueInput[]
+    update?: BruteLevelUpStatUpdateWithWhereUniqueWithoutBruteInput | BruteLevelUpStatUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BruteLevelUpStatUpdateManyWithWhereWithoutBruteInput | BruteLevelUpStatUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BruteLevelUpStatScalarWhereInput | BruteLevelUpStatScalarWhereInput[]
   }
 
   export type BruteCreateNestedOneWithoutStartingStatsInput = {
@@ -57177,6 +64098,66 @@ export namespace Prisma {
     deleteMany?: BruteScalarWhereInput | BruteScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutStatsInput = {
+    create?: XOR<UserCreateWithoutStatsInput, UserUncheckedCreateWithoutStatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStatsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumStatsGranularityFieldUpdateOperationsInput = {
+    set?: $Enums.StatsGranularity
+  }
+
+  export type UserUpdateOneRequiredWithoutStatsNestedInput = {
+    create?: XOR<UserCreateWithoutStatsInput, UserUncheckedCreateWithoutStatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutStatsInput
+    upsert?: UserUpsertWithoutStatsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStatsInput, UserUpdateWithoutStatsInput>, UserUncheckedUpdateWithoutStatsInput>
+  }
+
+  export type BruteCreateNestedOneWithoutStatsInput = {
+    create?: XOR<BruteCreateWithoutStatsInput, BruteUncheckedCreateWithoutStatsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutStatsInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteUpdateOneRequiredWithoutStatsNestedInput = {
+    create?: XOR<BruteCreateWithoutStatsInput, BruteUncheckedCreateWithoutStatsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutStatsInput
+    upsert?: BruteUpsertWithoutStatsInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutStatsInput, BruteUpdateWithoutStatsInput>, BruteUncheckedUpdateWithoutStatsInput>
+  }
+
+  export type UserCreateNestedOneWithoutLevelUpStatsInput = {
+    create?: XOR<UserCreateWithoutLevelUpStatsInput, UserUncheckedCreateWithoutLevelUpStatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLevelUpStatsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLevelUpStatsNestedInput = {
+    create?: XOR<UserCreateWithoutLevelUpStatsInput, UserUncheckedCreateWithoutLevelUpStatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLevelUpStatsInput
+    upsert?: UserUpsertWithoutLevelUpStatsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLevelUpStatsInput, UserUpdateWithoutLevelUpStatsInput>, UserUncheckedUpdateWithoutLevelUpStatsInput>
+  }
+
+  export type BruteCreateNestedOneWithoutLevelUpStatsInput = {
+    create?: XOR<BruteCreateWithoutLevelUpStatsInput, BruteUncheckedCreateWithoutLevelUpStatsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutLevelUpStatsInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type BruteUpdateOneRequiredWithoutLevelUpStatsNestedInput = {
+    create?: XOR<BruteCreateWithoutLevelUpStatsInput, BruteUncheckedCreateWithoutLevelUpStatsInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutLevelUpStatsInput
+    upsert?: BruteUpsertWithoutLevelUpStatsInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutLevelUpStatsInput, BruteUpdateWithoutLevelUpStatsInput>, BruteUncheckedUpdateWithoutLevelUpStatsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -57784,6 +64765,23 @@ export namespace Prisma {
     _max?: NestedEnumNotificationSeverityFilter<$PrismaModel>
   }
 
+  export type NestedEnumStatsGranularityFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatsGranularity | EnumStatsGranularityFieldRefInput<$PrismaModel>
+    in?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatsGranularityFilter<$PrismaModel> | $Enums.StatsGranularity
+  }
+
+  export type NestedEnumStatsGranularityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatsGranularity | EnumStatsGranularityFieldRefInput<$PrismaModel>
+    in?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatsGranularity[] | ListEnumStatsGranularityFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatsGranularityWithAggregatesFilter<$PrismaModel> | $Enums.StatsGranularity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatsGranularityFilter<$PrismaModel>
+    _max?: NestedEnumStatsGranularityFilter<$PrismaModel>
+  }
+
   export type BruteCreateWithoutUserInput = {
     id?: string
     name: string
@@ -57866,6 +64864,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserInput = {
@@ -57950,6 +64950,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserInput = {
@@ -58188,6 +65190,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFollowersInput = {
@@ -58272,6 +65276,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFollowersInput = {
@@ -58368,6 +65374,90 @@ export namespace Prisma {
 
   export type UserLogCreateManyUserInputEnvelope = {
     data: UserLogCreateManyUserInput | UserLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserStatsCreateWithoutUserInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    goldWon?: number
+    goldLost?: number
+    connectedDays?: number
+    createdBrutes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserStatsUncheckedCreateWithoutUserInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    goldWon?: number
+    goldLost?: number
+    connectedDays?: number
+    createdBrutes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserStatsCreateOrConnectWithoutUserInput = {
+    where: UserStatsWhereUniqueInput
+    create: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserStatsCreateManyUserInputEnvelope = {
+    data: UserStatsCreateManyUserInput | UserStatsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserLevelUpStatCreateWithoutUserInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserLevelUpStatUncheckedCreateWithoutUserInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserLevelUpStatCreateOrConnectWithoutUserInput = {
+    where: UserLevelUpStatWhereUniqueInput
+    create: XOR<UserLevelUpStatCreateWithoutUserInput, UserLevelUpStatUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserLevelUpStatCreateManyUserInputEnvelope = {
+    data: UserLevelUpStatCreateManyUserInput | UserLevelUpStatCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -58707,6 +65797,78 @@ export namespace Prisma {
     targetUserId?: UuidNullableFilter<"UserLog"> | string | null
   }
 
+  export type UserStatsUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserStatsWhereUniqueInput
+    update: XOR<UserStatsUpdateWithoutUserInput, UserStatsUncheckedUpdateWithoutUserInput>
+    create: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserStatsUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserStatsWhereUniqueInput
+    data: XOR<UserStatsUpdateWithoutUserInput, UserStatsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserStatsUpdateManyWithWhereWithoutUserInput = {
+    where: UserStatsScalarWhereInput
+    data: XOR<UserStatsUpdateManyMutationInput, UserStatsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserStatsScalarWhereInput = {
+    AND?: UserStatsScalarWhereInput | UserStatsScalarWhereInput[]
+    OR?: UserStatsScalarWhereInput[]
+    NOT?: UserStatsScalarWhereInput | UserStatsScalarWhereInput[]
+    date?: DateTimeFilter<"UserStats"> | Date | string
+    day?: IntFilter<"UserStats"> | number
+    granularity?: EnumStatsGranularityFilter<"UserStats"> | $Enums.StatsGranularity
+    userId?: UuidFilter<"UserStats"> | string
+    fights?: IntFilter<"UserStats"> | number
+    wins?: IntFilter<"UserStats"> | number
+    losses?: IntFilter<"UserStats"> | number
+    xpGained?: IntFilter<"UserStats"> | number
+    tournamentFights?: IntFilter<"UserStats"> | number
+    clanWarFights?: IntFilter<"UserStats"> | number
+    clanBossDamage?: IntFilter<"UserStats"> | number
+    clanBossFights?: IntFilter<"UserStats"> | number
+    goldWon?: IntFilter<"UserStats"> | number
+    goldLost?: IntFilter<"UserStats"> | number
+    connectedDays?: IntFilter<"UserStats"> | number
+    createdBrutes?: IntFilter<"UserStats"> | number
+    createdAt?: DateTimeFilter<"UserStats"> | Date | string
+    updatedAt?: DateTimeFilter<"UserStats"> | Date | string
+  }
+
+  export type UserLevelUpStatUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserLevelUpStatWhereUniqueInput
+    update: XOR<UserLevelUpStatUpdateWithoutUserInput, UserLevelUpStatUncheckedUpdateWithoutUserInput>
+    create: XOR<UserLevelUpStatCreateWithoutUserInput, UserLevelUpStatUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserLevelUpStatWhereUniqueInput
+    data: XOR<UserLevelUpStatUpdateWithoutUserInput, UserLevelUpStatUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserLevelUpStatUpdateManyWithWhereWithoutUserInput = {
+    where: UserLevelUpStatScalarWhereInput
+    data: XOR<UserLevelUpStatUpdateManyMutationInput, UserLevelUpStatUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserLevelUpStatScalarWhereInput = {
+    AND?: UserLevelUpStatScalarWhereInput | UserLevelUpStatScalarWhereInput[]
+    OR?: UserLevelUpStatScalarWhereInput[]
+    NOT?: UserLevelUpStatScalarWhereInput | UserLevelUpStatScalarWhereInput[]
+    date?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    day?: IntFilter<"UserLevelUpStat"> | number
+    granularity?: EnumStatsGranularityFilter<"UserLevelUpStat"> | $Enums.StatsGranularity
+    userId?: UuidFilter<"UserLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeFilter<"UserLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringFilter<"UserLevelUpStat"> | string
+    offered?: IntFilter<"UserLevelUpStat"> | number
+    picked?: IntFilter<"UserLevelUpStat"> | number
+    createdAt?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+    updatedAt?: DateTimeFilter<"UserLevelUpStat"> | Date | string
+  }
+
   export type SharedBrowserUpsertWithoutUsersInput = {
     update: XOR<SharedBrowserUpdateWithoutUsersInput, SharedBrowserUncheckedUpdateWithoutUsersInput>
     create: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
@@ -58762,6 +65924,8 @@ export namespace Prisma {
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -58798,6 +65962,8 @@ export namespace Prisma {
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLogsInput = {
@@ -58887,6 +66053,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUserlogsInput = {
@@ -58971,6 +66139,8 @@ export namespace Prisma {
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUserlogsInput = {
@@ -59021,6 +66191,8 @@ export namespace Prisma {
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -59057,6 +66229,8 @@ export namespace Prisma {
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteUpsertWithoutUserlogsInput = {
@@ -59152,6 +66326,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserlogsInput = {
@@ -59236,6 +66412,8 @@ export namespace Prisma {
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutBrutesInput = {
@@ -59270,6 +66448,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -59306,6 +66486,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBrutesInput = {
@@ -59395,6 +66577,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutPupilsInput = {
@@ -59479,6 +66663,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutPupilsInput = {
@@ -59568,6 +66754,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterInput = {
@@ -59652,6 +66840,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterInput = {
@@ -59994,6 +67184,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentOfInput = {
@@ -60078,6 +67270,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentOfInput = {
@@ -60167,6 +67361,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutOpponentsInput = {
@@ -60251,6 +67447,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutOpponentsInput = {
@@ -60609,6 +67807,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -60645,6 +67845,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -60843,6 +68045,82 @@ export namespace Prisma {
     create: XOR<BruteRankingCreateWithoutBruteInput, BruteRankingUncheckedCreateWithoutBruteInput>
   }
 
+  export type BruteStatsCreateWithoutBruteInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteStatsUncheckedCreateWithoutBruteInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteStatsCreateOrConnectWithoutBruteInput = {
+    where: BruteStatsWhereUniqueInput
+    create: XOR<BruteStatsCreateWithoutBruteInput, BruteStatsUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteStatsCreateManyBruteInputEnvelope = {
+    data: BruteStatsCreateManyBruteInput | BruteStatsCreateManyBruteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BruteLevelUpStatCreateWithoutBruteInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteLevelUpStatUncheckedCreateWithoutBruteInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteLevelUpStatCreateOrConnectWithoutBruteInput = {
+    where: BruteLevelUpStatWhereUniqueInput
+    create: XOR<BruteLevelUpStatCreateWithoutBruteInput, BruteLevelUpStatUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteLevelUpStatCreateManyBruteInputEnvelope = {
+    data: BruteLevelUpStatCreateManyBruteInput | BruteLevelUpStatCreateManyBruteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutBrutesInput = {
     update: XOR<UserUpdateWithoutBrutesInput, UserUncheckedUpdateWithoutBrutesInput>
     create: XOR<UserCreateWithoutBrutesInput, UserUncheckedCreateWithoutBrutesInput>
@@ -60886,6 +68164,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -60922,6 +68202,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteUpsertWithoutPupilsInput = {
@@ -61017,6 +68299,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutPupilsInput = {
@@ -61101,6 +68385,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutMasterInput = {
@@ -61887,6 +69173,74 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
   }
 
+  export type BruteStatsUpsertWithWhereUniqueWithoutBruteInput = {
+    where: BruteStatsWhereUniqueInput
+    update: XOR<BruteStatsUpdateWithoutBruteInput, BruteStatsUncheckedUpdateWithoutBruteInput>
+    create: XOR<BruteStatsCreateWithoutBruteInput, BruteStatsUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteStatsUpdateWithWhereUniqueWithoutBruteInput = {
+    where: BruteStatsWhereUniqueInput
+    data: XOR<BruteStatsUpdateWithoutBruteInput, BruteStatsUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteStatsUpdateManyWithWhereWithoutBruteInput = {
+    where: BruteStatsScalarWhereInput
+    data: XOR<BruteStatsUpdateManyMutationInput, BruteStatsUncheckedUpdateManyWithoutBruteInput>
+  }
+
+  export type BruteStatsScalarWhereInput = {
+    AND?: BruteStatsScalarWhereInput | BruteStatsScalarWhereInput[]
+    OR?: BruteStatsScalarWhereInput[]
+    NOT?: BruteStatsScalarWhereInput | BruteStatsScalarWhereInput[]
+    date?: DateTimeFilter<"BruteStats"> | Date | string
+    day?: IntFilter<"BruteStats"> | number
+    granularity?: EnumStatsGranularityFilter<"BruteStats"> | $Enums.StatsGranularity
+    bruteId?: UuidFilter<"BruteStats"> | string
+    fights?: IntFilter<"BruteStats"> | number
+    wins?: IntFilter<"BruteStats"> | number
+    losses?: IntFilter<"BruteStats"> | number
+    xpGained?: IntFilter<"BruteStats"> | number
+    tournamentFights?: IntFilter<"BruteStats"> | number
+    clanWarFights?: IntFilter<"BruteStats"> | number
+    clanBossDamage?: IntFilter<"BruteStats"> | number
+    clanBossFights?: IntFilter<"BruteStats"> | number
+    createdAt?: DateTimeFilter<"BruteStats"> | Date | string
+    updatedAt?: DateTimeFilter<"BruteStats"> | Date | string
+  }
+
+  export type BruteLevelUpStatUpsertWithWhereUniqueWithoutBruteInput = {
+    where: BruteLevelUpStatWhereUniqueInput
+    update: XOR<BruteLevelUpStatUpdateWithoutBruteInput, BruteLevelUpStatUncheckedUpdateWithoutBruteInput>
+    create: XOR<BruteLevelUpStatCreateWithoutBruteInput, BruteLevelUpStatUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BruteLevelUpStatUpdateWithWhereUniqueWithoutBruteInput = {
+    where: BruteLevelUpStatWhereUniqueInput
+    data: XOR<BruteLevelUpStatUpdateWithoutBruteInput, BruteLevelUpStatUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BruteLevelUpStatUpdateManyWithWhereWithoutBruteInput = {
+    where: BruteLevelUpStatScalarWhereInput
+    data: XOR<BruteLevelUpStatUpdateManyMutationInput, BruteLevelUpStatUncheckedUpdateManyWithoutBruteInput>
+  }
+
+  export type BruteLevelUpStatScalarWhereInput = {
+    AND?: BruteLevelUpStatScalarWhereInput | BruteLevelUpStatScalarWhereInput[]
+    OR?: BruteLevelUpStatScalarWhereInput[]
+    NOT?: BruteLevelUpStatScalarWhereInput | BruteLevelUpStatScalarWhereInput[]
+    date?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    day?: IntFilter<"BruteLevelUpStat"> | number
+    granularity?: EnumStatsGranularityFilter<"BruteLevelUpStat"> | $Enums.StatsGranularity
+    bruteId?: UuidFilter<"BruteLevelUpStat"> | string
+    choiceType?: EnumDestinyChoiceTypeFilter<"BruteLevelUpStat"> | $Enums.DestinyChoiceType
+    choice?: StringFilter<"BruteLevelUpStat"> | string
+    offered?: IntFilter<"BruteLevelUpStat"> | number
+    picked?: IntFilter<"BruteLevelUpStat"> | number
+    createdAt?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+    updatedAt?: DateTimeFilter<"BruteLevelUpStat"> | Date | string
+  }
+
   export type BruteCreateWithoutStartingStatsInput = {
     id?: string
     name: string
@@ -61969,6 +69323,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutStartingStatsInput = {
@@ -62053,6 +69409,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutStartingStatsInput = {
@@ -62153,6 +69511,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutStartingStatsInput = {
@@ -62237,6 +69597,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutUnlockedColorsInput = {
@@ -62321,6 +69683,8 @@ export namespace Prisma {
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutUnlockedColorsInput = {
@@ -62405,6 +69769,8 @@ export namespace Prisma {
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutUnlockedColorsInput = {
@@ -62505,6 +69871,8 @@ export namespace Prisma {
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUnlockedColorsInput = {
@@ -62589,6 +69957,8 @@ export namespace Prisma {
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutFightsInput = {
@@ -62673,6 +70043,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsInput = {
@@ -62757,6 +70129,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsInput = {
@@ -62846,6 +70220,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutFightsAsAdversaryInput = {
@@ -62930,6 +70306,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutFightsAsAdversaryInput = {
@@ -63028,6 +70406,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -63064,6 +70444,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteFightsInput = {
@@ -63201,6 +70583,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsInput = {
@@ -63285,6 +70669,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithoutFightsAsAdversaryInput = {
@@ -63380,6 +70766,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFightsAsAdversaryInput = {
@@ -63464,6 +70852,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutFightInput = {
@@ -63652,6 +71042,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutLogsInput = {
@@ -63736,6 +71128,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutLogsInput = {
@@ -63920,6 +71314,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutLogsInput = {
@@ -64004,6 +71400,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type FightUpsertWithoutLogsInput = {
@@ -64184,6 +71582,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDestinyChoicesInput = {
@@ -64268,6 +71668,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDestinyChoicesInput = {
@@ -64404,6 +71806,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDestinyChoicesInput = {
@@ -64488,6 +71892,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type LogUpsertWithWhereUniqueWithoutDestinyChoiceInput = {
@@ -64588,6 +71994,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentsInput = {
@@ -64672,6 +72080,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentsInput = {
@@ -64911,6 +72321,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentAchievementsInput = {
@@ -64995,6 +72407,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentAchievementsInput = {
@@ -65095,6 +72509,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentAchievementsInput = {
@@ -65179,6 +72595,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutTournamentGoldsInput = {
@@ -65213,6 +72631,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -65249,6 +72669,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTournamentGoldsInput = {
@@ -65299,6 +72721,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -65335,6 +72759,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteCreateWithoutTournamentXpsInput = {
@@ -65419,6 +72845,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutTournamentXpsInput = {
@@ -65503,6 +72931,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutTournamentXpsInput = {
@@ -65603,6 +73033,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentXpsInput = {
@@ -65687,6 +73119,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutBruteRankingInput = {
@@ -65771,6 +73205,8 @@ export namespace Prisma {
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutBruteRankingInput = {
@@ -65855,6 +73291,8 @@ export namespace Prisma {
     wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutBruteRankingInput = {
@@ -65955,6 +73393,8 @@ export namespace Prisma {
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutBruteRankingInput = {
@@ -66039,6 +73479,8 @@ export namespace Prisma {
     wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutAchievementsInput = {
@@ -66123,6 +73565,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutAchievementsInput = {
@@ -66207,6 +73651,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutAchievementsInput = {
@@ -66246,6 +73692,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -66282,6 +73730,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAchievementsInput = {
@@ -66382,6 +73832,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutAchievementsInput = {
@@ -66466,6 +73918,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutAchievementsInput = {
@@ -66511,6 +73965,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -66547,6 +74003,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteCreateWithoutReportsInput = {
@@ -66631,6 +74089,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutReportsInput = {
@@ -66715,6 +74175,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutReportsInput = {
@@ -66754,6 +74216,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -66790,6 +74254,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportsInput = {
@@ -66829,6 +74295,8 @@ export namespace Prisma {
     following?: BruteCreateNestedManyWithoutFollowersInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -66865,6 +74333,8 @@ export namespace Prisma {
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportsHandledInput = {
@@ -66965,6 +74435,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutReportsInput = {
@@ -67049,6 +74521,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutReportsInput = {
@@ -67110,6 +74584,8 @@ export namespace Prisma {
     following?: BruteUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -67146,6 +74622,8 @@ export namespace Prisma {
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSharedBrowserInput = {
@@ -67181,6 +74659,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSharedBrowserInput = {
@@ -67216,6 +74696,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSharedBrowserInput = {
@@ -67326,6 +74808,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutMasterOfClanInput = {
@@ -67410,6 +74894,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutMasterOfClanInput = {
@@ -67499,6 +74985,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanInput = {
@@ -67583,6 +75071,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanInput = {
@@ -67677,6 +75167,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWantToJoinClanInput = {
@@ -67761,6 +75253,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWantToJoinClanInput = {
@@ -68074,6 +75568,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterOfClanInput = {
@@ -68158,6 +75654,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUpsertWithWhereUniqueWithoutClanInput = {
@@ -68444,6 +75942,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutThreadsInput = {
@@ -68528,6 +76028,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutThreadsInput = {
@@ -68703,6 +76205,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutThreadsInput = {
@@ -68787,6 +76291,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type ClanPostUpsertWithWhereUniqueWithoutThreadInput = {
@@ -68916,6 +76422,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanPostsInput = {
@@ -69000,6 +76508,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanPostsInput = {
@@ -69135,6 +76645,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanPostsInput = {
@@ -69219,6 +76731,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateWithoutDamageOnBossesInput = {
@@ -69303,6 +76817,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutDamageOnBossesInput = {
@@ -69387,6 +76903,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutDamageOnBossesInput = {
@@ -69532,6 +77050,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutDamageOnBossesInput = {
@@ -69616,6 +77136,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type ClanUpsertWithoutBossDamagesInput = {
@@ -70182,6 +77704,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInClanWarAttackerFightersInput = {
@@ -70266,6 +77790,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInClanWarAttackerFightersInput = {
@@ -70355,6 +77881,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInClanWarDefenderFightersInput = {
@@ -70439,6 +77967,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInClanWarDefenderFightersInput = {
@@ -70603,6 +78133,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutInventoryInput = {
@@ -70687,6 +78219,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutInventoryInput = {
@@ -70726,6 +78260,8 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -70762,6 +78298,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInventoryInput = {
@@ -70862,6 +78400,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInventoryInput = {
@@ -70946,6 +78486,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserUpsertWithoutInventoryInput = {
@@ -70991,6 +78533,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -71027,6 +78571,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteCreateWithoutEventInput = {
@@ -71111,6 +78657,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutEventInput = {
@@ -71195,6 +78743,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutEventInput = {
@@ -71312,6 +78862,8 @@ export namespace Prisma {
     clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutWonEventsInput = {
@@ -71396,6 +78948,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutWonEventsInput = {
@@ -71541,6 +79095,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWonEventsInput = {
@@ -71625,6 +79181,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -71659,6 +79217,8 @@ export namespace Prisma {
     following?: BruteCreateNestedManyWithoutFollowersInput
     reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
     logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
     sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
   }
 
@@ -71695,6 +79255,8 @@ export namespace Prisma {
     following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
     reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
     logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -71745,6 +79307,8 @@ export namespace Prisma {
     following?: BruteUpdateManyWithoutFollowersNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -71781,6 +79345,8 @@ export namespace Prisma {
     following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClanCreateWithoutRolesInput = {
@@ -71910,6 +79476,8 @@ export namespace Prisma {
     userlogs?: UserLogCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
   }
 
   export type BruteUncheckedCreateWithoutClanRoleInput = {
@@ -71994,6 +79562,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
     unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
     bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
   }
 
   export type BruteCreateOrConnectWithoutClanRoleInput = {
@@ -72071,6 +79641,1054 @@ export namespace Prisma {
   export type BruteUpdateManyWithWhereWithoutClanRoleInput = {
     where: BruteScalarWhereInput
     data: XOR<BruteUpdateManyMutationInput, BruteUncheckedUpdateManyWithoutClanRoleInput>
+  }
+
+  export type UserCreateWithoutStatsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    logs?: UserLogCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutStatsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    sharedBrowserId?: string | null
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutStatsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStatsInput, UserUncheckedCreateWithoutStatsInput>
+  }
+
+  export type UserUpsertWithoutStatsInput = {
+    update: XOR<UserUpdateWithoutStatsInput, UserUncheckedUpdateWithoutStatsInput>
+    create: XOR<UserCreateWithoutStatsInput, UserUncheckedCreateWithoutStatsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStatsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStatsInput, UserUncheckedUpdateWithoutStatsInput>
+  }
+
+  export type UserUpdateWithoutStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type BruteCreateWithoutStatsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+    clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
+    bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutStatsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    clanRoleId?: string | null
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
+    bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutStatsInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutStatsInput, BruteUncheckedCreateWithoutStatsInput>
+  }
+
+  export type BruteUpsertWithoutStatsInput = {
+    update: XOR<BruteUpdateWithoutStatsInput, BruteUncheckedUpdateWithoutStatsInput>
+    create: XOR<BruteCreateWithoutStatsInput, BruteUncheckedCreateWithoutStatsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutStatsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutStatsInput, BruteUncheckedUpdateWithoutStatsInput>
+  }
+
+  export type BruteUpdateWithoutStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+    clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
+    bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    clanRoleId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
+    bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type UserCreateWithoutLevelUpStatsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutLevelUpStatsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    sharedBrowserId?: string | null
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLevelUpStatsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLevelUpStatsInput, UserUncheckedCreateWithoutLevelUpStatsInput>
+  }
+
+  export type UserUpsertWithoutLevelUpStatsInput = {
+    update: XOR<UserUpdateWithoutLevelUpStatsInput, UserUncheckedUpdateWithoutLevelUpStatsInput>
+    create: XOR<UserCreateWithoutLevelUpStatsInput, UserUncheckedCreateWithoutLevelUpStatsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLevelUpStatsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLevelUpStatsInput, UserUncheckedUpdateWithoutLevelUpStatsInput>
+  }
+
+  export type UserUpdateWithoutLevelUpStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLevelUpStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type BruteCreateWithoutLevelUpStatsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+    clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
+    bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutLevelUpStatsInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    clanRoleId?: string | null
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
+    bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutLevelUpStatsInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutLevelUpStatsInput, BruteUncheckedCreateWithoutLevelUpStatsInput>
+  }
+
+  export type BruteUpsertWithoutLevelUpStatsInput = {
+    update: XOR<BruteUpdateWithoutLevelUpStatsInput, BruteUncheckedUpdateWithoutLevelUpStatsInput>
+    create: XOR<BruteCreateWithoutLevelUpStatsInput, BruteUncheckedCreateWithoutLevelUpStatsInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutLevelUpStatsInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutLevelUpStatsInput, BruteUncheckedUpdateWithoutLevelUpStatsInput>
+  }
+
+  export type BruteUpdateWithoutLevelUpStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+    clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
+    bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutLevelUpStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    clanRoleId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
+    bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteCreateManyUserInput = {
@@ -72182,6 +80800,38 @@ export namespace Prisma {
     targetUserId?: string | null
   }
 
+  export type UserStatsCreateManyUserInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    goldWon?: number
+    goldLost?: number
+    connectedDays?: number
+    createdBrutes?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserLevelUpStatCreateManyUserInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type BruteUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -72264,6 +80914,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutUserInput = {
@@ -72348,6 +81000,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutUserInput = {
@@ -72646,6 +81300,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutFollowersInput = {
@@ -72730,6 +81386,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutFollowersInput = {
@@ -72882,6 +81540,102 @@ export namespace Prisma {
     gold?: NullableIntFieldUpdateOperationsInput | number | null
     oldName?: NullableStringFieldUpdateOperationsInput | string | null
     targetUserId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserStatsUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStatsUncheckedUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserStatsUncheckedUpdateManyWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    goldWon?: IntFieldUpdateOperationsInput | number
+    goldLost?: IntFieldUpdateOperationsInput | number
+    connectedDays?: IntFieldUpdateOperationsInput | number
+    createdBrutes?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLevelUpStatUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLevelUpStatUncheckedUpdateWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserLevelUpStatUncheckedUpdateManyWithoutUserInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BruteCreateManyMasterInput = {
@@ -73096,6 +81850,34 @@ export namespace Prisma {
     colors?: UnlockedColorsCreatecolorsInput | string[]
   }
 
+  export type BruteStatsCreateManyBruteInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    fights?: number
+    wins?: number
+    losses?: number
+    xpGained?: number
+    tournamentFights?: number
+    clanWarFights?: number
+    clanBossDamage?: number
+    clanBossFights?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BruteLevelUpStatCreateManyBruteInput = {
+    date: Date | string
+    day?: number
+    granularity: $Enums.StatsGranularity
+    choiceType: $Enums.DestinyChoiceType
+    choice: string
+    offered?: number
+    picked?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type BruteUpdateWithoutMasterInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -73178,6 +81960,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutMasterInput = {
@@ -73262,6 +82046,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutMasterInput = {
@@ -73636,6 +82422,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentOfInput = {
@@ -73720,6 +82508,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentOfInput = {
@@ -73864,6 +82654,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutOpponentsInput = {
@@ -73948,6 +82740,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutOpponentsInput = {
@@ -74232,6 +83026,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -74268,6 +83064,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFollowingInput = {
@@ -74418,6 +83216,90 @@ export namespace Prisma {
     colors?: UnlockedColorsUpdatecolorsInput | string[]
   }
 
+  export type BruteStatsUpdateWithoutBruteInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteStatsUncheckedUpdateWithoutBruteInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteStatsUncheckedUpdateManyWithoutBruteInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    fights?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    xpGained?: IntFieldUpdateOperationsInput | number
+    tournamentFights?: IntFieldUpdateOperationsInput | number
+    clanWarFights?: IntFieldUpdateOperationsInput | number
+    clanBossDamage?: IntFieldUpdateOperationsInput | number
+    clanBossFights?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteLevelUpStatUpdateWithoutBruteInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteLevelUpStatUncheckedUpdateWithoutBruteInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BruteLevelUpStatUncheckedUpdateManyWithoutBruteInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    day?: IntFieldUpdateOperationsInput | number
+    granularity?: EnumStatsGranularityFieldUpdateOperationsInput | $Enums.StatsGranularity
+    choiceType?: EnumDestinyChoiceTypeFieldUpdateOperationsInput | $Enums.DestinyChoiceType
+    choice?: StringFieldUpdateOperationsInput | string
+    offered?: IntFieldUpdateOperationsInput | number
+    picked?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LogCreateManyFightInput = {
     id?: string
     date?: Date | string
@@ -74502,6 +83384,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -74538,6 +83422,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFavoriteFightsInput = {
@@ -74718,6 +83604,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutTournamentsInput = {
@@ -74802,6 +83690,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutTournamentsInput = {
@@ -74954,6 +83844,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
     sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
   }
 
@@ -74990,6 +83882,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutReportsInput = {
@@ -75076,6 +83970,8 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSharedBrowserInput = {
@@ -75111,6 +84007,8 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
     logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSharedBrowserInput = {
@@ -75404,6 +84302,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanInput = {
@@ -75488,6 +84388,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanInput = {
@@ -75631,6 +84533,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutWantToJoinClanInput = {
@@ -75715,6 +84619,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutWantToJoinClanInput = {
@@ -76200,6 +85106,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInClanWarAttackerFightersInput = {
@@ -76284,6 +85192,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutInClanWarAttackerFightersInput = {
@@ -76428,6 +85338,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutInClanWarDefenderFightersInput = {
@@ -76512,6 +85424,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutInClanWarDefenderFightersInput = {
@@ -76715,6 +85629,8 @@ export namespace Prisma {
     clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutEventInput = {
@@ -76799,6 +85715,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutEventInput = {
@@ -77001,6 +85919,8 @@ export namespace Prisma {
     userlogs?: UserLogUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateWithoutClanRoleInput = {
@@ -77085,6 +86005,8 @@ export namespace Prisma {
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
   }
 
   export type BruteUncheckedUpdateManyWithoutClanRoleInput = {

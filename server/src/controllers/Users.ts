@@ -18,6 +18,7 @@ import {
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
+  UserStatsGetResponse,
   UserMultipleAccountsListResponse,
   UserTransferBruteRequest,
   UserUpdateSettingsRequest,
@@ -30,11 +31,12 @@ import {
   getFightsLeft,
   getTieredSkills,
   isUuid,
+  UserStatsGetRequest,
 } from '@labrute/core';
 import {
   Achievement,
   InventoryItemType, Lang, PrismaClient,
-  UserLogType,
+  StatsGranularity, UserLogType
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
@@ -559,6 +561,115 @@ export const Users = {
       res.send({
         ...user,
         achievements: mergedAchievements,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  getStats: (prisma: PrismaClient) => async (
+    req: Request<never, unknown, UserStatsGetRequest>,
+    res: Response<UserStatsGetResponse<UserStatsGetRequest>>,
+  ) => {
+    try {
+      const { userId, granularity, date, bruteId } = req.body;
+
+      if (!userId || !granularity) {
+        throw new MissingElementError(translate('missingParameters'));
+      }
+
+      if (!isUuid(userId)) {
+        throw new ExpectedError(translate('invalidParameters'));
+      }
+
+      const user = await traced('users.getStats.getUser', () => prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          lang: true,
+          brutes: {
+            where: {
+              deletedAt: null,
+            },
+            select: {
+              id: true,
+              name: true,
+              gender: true,
+              body: true,
+              colors: true,
+            },
+          },
+        },
+      }));
+
+      if (!user) {
+        throw new NotFoundError(translate('userNotFound'));
+      }
+
+      const start = granularity === StatsGranularity.daily ? dayjs.utc(date).toDate() : granularity === StatsGranularity.monthly ? dayjs.utc(date).startOf('month').toDate() : granularity === StatsGranularity.yearly ? dayjs.utc(date).startOf('year').toDate() : undefined;
+      const end = granularity === StatsGranularity.daily ? start : granularity === StatsGranularity.monthly ? dayjs.utc(start).endOf('month').toDate() : granularity === StatsGranularity.yearly ? dayjs.utc(start).endOf('year').toDate() : undefined;
+      const dateWhere = start && end
+        ? { date: { gte: start, lte: end } }
+        : {};
+      const statsGranularityFilter = granularity === StatsGranularity.daily
+        ? granularity
+        : { in: [granularity, StatsGranularity.daily] };
+
+      if (bruteId) {
+        const stats = await traced('users.getStats.getStats', () => prisma.bruteStats.findMany({
+          where: {
+            bruteId,
+            ...dateWhere,
+            granularity: statsGranularityFilter,
+          },
+          orderBy: { date: 'desc' },
+        }));
+
+        const levelupStats = await traced('users.getStats.getLevelUpStats', () => prisma.bruteLevelUpStat.findMany({
+          where: {
+            bruteId,
+            date: granularity === StatsGranularity.allTime ? { gte: dayjs.utc().subtract(365, 'days').toDate() } : dateWhere.date,
+            granularity,
+          },
+        }));
+
+        const daily = stats.filter((s) => s.granularity === 'daily');
+        const current = stats.find((s) => s.granularity === granularity);
+
+        res.send({
+          user,
+          daily,
+          current: current ? { ...current, levelUp: levelupStats } : undefined,
+        });
+        return;
+      }
+
+      const stats = await traced('users.getStats.getStats', () => prisma.userStats.findMany({
+        where: {
+          userId,
+          ...dateWhere,
+          granularity: statsGranularityFilter,
+        },
+        orderBy: { date: 'desc' },
+      }));
+
+      const levelupStats = await traced('users.getStats.getLevelUpStats', () => prisma.userLevelUpStat.findMany({
+        where: {
+          userId,
+          date: granularity === StatsGranularity.allTime ? { gte: dayjs.utc().subtract(365, 'days').toDate() } : dateWhere.date,
+          granularity,
+        },
+      }));
+
+      const daily = stats.filter((s) => s.granularity === 'daily');
+      const current = stats.find((s) => s.granularity === granularity);
+
+      res.send({
+        user,
+        daily,
+        current: current ? { ...current, levelUp: levelupStats } : undefined,
       });
     } catch (error) {
       sendError(res, error);

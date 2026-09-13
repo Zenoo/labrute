@@ -48,6 +48,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/run-daily-job', Users.runDailyJob(prisma));
 
   // User
+  app.post('/api/user/stats', Users.getStats(prisma));
   app.patch('/api/user/fingerprint/unban', Users.unbanFingerprint(prisma));
   app.patch('/api/user/fingerprint/ban', Users.banFingerprint(prisma));
   app.patch('/api/user/browser/unban', Users.unbanBrowser(prisma));

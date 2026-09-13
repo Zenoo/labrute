@@ -14,8 +14,7 @@ import {
   BrutesListBannedWordsResponse,
   BrutesRemoveBannedWordRequest,
   BruteUnlockColorRequest,
-  BruteUnlockColorResponse,
-  BruteUpdateEventRoundWatchedResponse,
+  BruteUnlockColorResponse, BruteUpdateEventRoundWatchedResponse,
   ClanAssignRoleResponse, ClanChallengeBossResponse,
   ClanCreateResponse, ClanCreateRoleResponse, ClanDeleteRoleResponse,
   ClanGetForAdminResponse, ClanGetResponse, ClanGetRolesResponse,
@@ -37,11 +36,13 @@ import {
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
+  UserStatsGetResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
   UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse,
   UsersBanRequest,
   UsersUnbanRequest,
-  UserTransferBruteRequest, UserUpdateSettingsRequest
+  UserTransferBruteRequest, UserUpdateSettingsRequest,
+  UserStatsGetRequest
 } from '@labrute/core';
 import {
   Brute, BruteReportReason, BruteReportStatus, Clan,
@@ -67,6 +68,7 @@ export const Server = {
     toggleBackgroundMusic: (backgroundMusic: boolean) => Fetch<never>('/api/user/toggle-background-music', { backgroundMusic }, 'PUT'),
     adminUpdate: (id: string, data: UsersAdminUpdateRequest) => Fetch<never>(`/api/user/${id}/admin-update`, data, 'PUT'),
     getProfile: (id: string) => Fetch<UserGetProfileResponse>(`/api/user/${id}/profile`),
+    getStats: <TRequest extends UserStatsGetRequest>(params: TRequest) => Fetch<UserStatsGetResponse<TRequest>>('/api/user/stats', params, 'POST'),
     getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward', {}, 'PATCH'),
     ban: (data: UsersBanRequest) => Fetch<never>(`/api/user/ban`, data, 'PATCH'),
     unban: (data: UsersUnbanRequest) => Fetch<never>(`/api/user/unban`, data, 'PATCH'),

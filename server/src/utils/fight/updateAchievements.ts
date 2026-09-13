@@ -1,5 +1,7 @@
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
-import { AchievementName, Prisma, PrismaClient } from '@labrute/prisma';
+import {
+  AchievementName, Prisma, PrismaClient
+} from '@labrute/prisma';
 import { traced } from '../trace.js';
 import { DISCORD, LOGGER } from '../../context.js';
 

@@ -248,8 +248,10 @@ All analytics are produced by scheduled daily jobs. No per-request heavy aggrega
 
 1. Phase 1 (quick wins)
    - Build read-only derived stats from existing tables (`Fight`, `Log`, `Achievement`, `UserLog`).
-  - Add one daily batch job for `user_stats_daily` and `brute_stats_daily`.
-   - Expose profile trend endpoints.
+
+- Add one daily batch job for `user_stats_daily` and `brute_stats_daily`.
+- Expose profile trend endpoints.
+
 2. Phase 2 (deep combat analytics)
    - Persist `fight_participation_event` and `fight_metric_event`.
    - Add weapon/skill/per-modifier performance views.

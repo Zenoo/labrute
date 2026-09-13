@@ -1,7 +1,9 @@
 import 'dotenv/config';
 import { PrismaClient } from '@labrute/prisma';
 import { isMainThread } from 'node:worker_threads';
-import { Config, emptyConfig, loadConfig } from './config.js';
+import {
+  Config, emptyConfig, loadConfig
+} from './config.js';
 import { CONSOLE } from './logger/console.js';
 import { DiscordLogHandler } from './logger/discord.js';
 import { Logger } from './logger/index.js';

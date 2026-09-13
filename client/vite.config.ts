@@ -29,6 +29,7 @@ export default defineConfig(() => {
               if (id.includes('@labrute/core') || id.includes('@labrute/prisma')) return 'vendor-labrute';
               if (id.includes('-fla-parser')) return 'vendor-fla-parser';
               if (id.includes('ckeditor') || id.includes('@ckeditor')) return 'vendor-ckeditor';
+              if (id.includes('@visx')) return 'vendor-visx';
               return 'vendor';
             }
             return undefined;

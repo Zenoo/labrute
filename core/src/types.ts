@@ -1,9 +1,12 @@
 import {
-  Achievement, AchievementName, BannedWord, BossDamage, Brute, BruteReport, BruteReportReason,
-  BruteReportStatus, Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
+  Achievement, AchievementName, BannedWord, BossDamage, Brute,
+  BruteLevelUpStat, BruteReport, BruteReportReason,
+  BruteReportStatus, BruteStats,
+  Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender,
   InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SharedBrowser, SkillName,
-  Tournament, User, UserLog, WeaponName
+  StatsGranularity,
+  Tournament, User, UserLevelUpStat, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
 import {
@@ -632,6 +635,39 @@ export type BrutesAddBannedWordRequest = {
   word: string;
 };
 export type BrutesGetPupilsResponse = BruteForRender[];
+
+type UserStatsGetRequestBase = {
+  userId: string;
+  granularity: StatsGranularity;
+  date?: string;
+};
+export type UserStatsGetRequest =
+  | (UserStatsGetRequestBase & { bruteId: string })
+  | (UserStatsGetRequestBase & { bruteId?: undefined });
+export type UserStatsWithLevelUp = UserStats & {
+  levelUp: UserLevelUpStat[];
+};
+export type BruteStatsWithLevelUp = BruteStats & {
+  levelUp: BruteLevelUpStat[];
+};
+type UserStatsGetResponseBase = {
+  user: Pick<User, 'name' | 'id' | 'lang'> & {
+    brutes: BruteForRender[],
+  };
+};
+export type UserStatsGetResponse<TRequest extends UserStatsGetRequest = UserStatsGetRequest> =
+  UserStatsGetResponseBase
+  & (
+    TRequest extends { bruteId: string }
+    ? {
+      daily: BruteStats[];
+      current?: BruteStatsWithLevelUp;
+    }
+    : {
+      daily: UserStats[];
+      current?: UserStatsWithLevelUp;
+    }
+  );
 
 export type ServerReadyResponse = {
   ready: boolean,

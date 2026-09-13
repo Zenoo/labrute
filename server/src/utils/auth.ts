@@ -13,6 +13,7 @@ import { translate } from './translate.js';
 import { banUser } from './user/banUser.js';
 import { DISCORD } from '../context.js';
 import { traced } from './trace.js';
+import { increaseStats } from './stats/updateStats.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -188,6 +189,8 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
         lastSeen: new Date(),
       },
     }));
+
+    increaseStats({ prisma, user, stats: ['connectedDays'] });
   }
 
   return {

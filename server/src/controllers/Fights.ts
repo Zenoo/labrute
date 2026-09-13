@@ -22,6 +22,7 @@ import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { traced } from '../utils/trace.js';
+import { increaseStats } from '../utils/stats/updateStats.js';
 
 export const Fights = {
   get: (prisma: PrismaClient) => async (
@@ -227,6 +228,13 @@ export const Fights = {
           },
           select: { id: true },
         }));
+
+        increaseStats({
+          prisma,
+          user,
+          brute: brute1,
+          stats: brute1Won ? { fights: 1, wins: 1, xpGained } : { fights: 1, losses: 1, xpGained },
+        });
       }
 
       // Add fighter log

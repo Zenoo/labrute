@@ -492,6 +492,70 @@ exports.Prisma.ClanRoleScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserStatsScalarFieldEnum = {
+  date: 'date',
+  day: 'day',
+  granularity: 'granularity',
+  userId: 'userId',
+  fights: 'fights',
+  wins: 'wins',
+  losses: 'losses',
+  xpGained: 'xpGained',
+  tournamentFights: 'tournamentFights',
+  clanWarFights: 'clanWarFights',
+  clanBossDamage: 'clanBossDamage',
+  clanBossFights: 'clanBossFights',
+  goldWon: 'goldWon',
+  goldLost: 'goldLost',
+  connectedDays: 'connectedDays',
+  createdBrutes: 'createdBrutes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BruteStatsScalarFieldEnum = {
+  date: 'date',
+  day: 'day',
+  granularity: 'granularity',
+  bruteId: 'bruteId',
+  fights: 'fights',
+  wins: 'wins',
+  losses: 'losses',
+  xpGained: 'xpGained',
+  tournamentFights: 'tournamentFights',
+  clanWarFights: 'clanWarFights',
+  clanBossDamage: 'clanBossDamage',
+  clanBossFights: 'clanBossFights',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserLevelUpStatScalarFieldEnum = {
+  date: 'date',
+  day: 'day',
+  granularity: 'granularity',
+  userId: 'userId',
+  choiceType: 'choiceType',
+  choice: 'choice',
+  offered: 'offered',
+  picked: 'picked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BruteLevelUpStatScalarFieldEnum = {
+  date: 'date',
+  day: 'day',
+  granularity: 'granularity',
+  bruteId: 'bruteId',
+  choiceType: 'choiceType',
+  choice: 'choice',
+  offered: 'offered',
+  picked: 'picked',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -868,6 +932,13 @@ exports.ClanPermission = exports.$Enums.ClanPermission = {
   canChangeRoles: 'canChangeRoles'
 };
 
+exports.StatsGranularity = exports.$Enums.StatsGranularity = {
+  daily: 'daily',
+  monthly: 'monthly',
+  yearly: 'yearly',
+  allTime: 'allTime'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserLog: 'UserLog',
@@ -902,7 +973,11 @@ exports.Prisma.ModelName = {
   Event: 'Event',
   Notification: 'Notification',
   Config: 'Config',
-  ClanRole: 'ClanRole'
+  ClanRole: 'ClanRole',
+  UserStats: 'UserStats',
+  BruteStats: 'BruteStats',
+  UserLevelUpStat: 'UserLevelUpStat',
+  BruteLevelUpStat: 'BruteLevelUpStat'
 };
 
 /**

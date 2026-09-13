@@ -42,6 +42,7 @@ import { TournamentHistoryView } from './views/TournamentHistoryView';
 import { TournamentView } from './views/TournamentView';
 import { UserAdminView } from './views/admin/UserAdminView';
 import { UserView } from './views/UserView';
+import { StatsView } from './views/StatsView';
 import { VersusView } from './views/VersusView';
 import { WikiView } from './views/WikiView';
 import { ConfigAdminView } from './views/admin/ConfigAdminView';
@@ -80,6 +81,7 @@ export const routes: RouteObject[] = [
         path: 'user/:userId',
         children: [
           { path: '', element: <UserView /> },
+          { path: 'stats', element: <StatsView /> },
           { path: 'feed', element: <FollowingFeedView /> },
           { path: 'transfer-brute', element: <TransferBruteView /> },
         ]

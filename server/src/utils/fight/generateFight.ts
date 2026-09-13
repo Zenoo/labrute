@@ -36,6 +36,7 @@ import { getFighters } from './getFighters.js';
 import { handleStats } from './handleStats.js';
 import { updateAchievements } from './updateAchievements.js';
 import { traced } from '../trace.js';
+import { increaseStats } from '../stats/updateStats.js';
 
 
 export type DetailedFighter = {
@@ -439,6 +440,15 @@ export const generateFight = async ({
     const bossFighter = fightData.fighters.find((fighter) => fighter.type === 'boss');
     const anyBossStillAlive = fightData.fighters
       .some((fighter) => fighter.type === 'boss' && fighter.hp > 0);
+
+    const initialBossesHp = fightData.initialFighters
+      .filter((fighter) => fighter.type === 'boss')
+      .reduce((sum, boss) => (boss.hp > 0 ? sum + boss.hp : sum), 0);
+    const finalBossesHp = fightData.fighters
+      .filter((fighter) => fighter.type === 'boss')
+      .reduce((sum, boss) => (boss.hp > 0 ? sum + boss.hp : sum), 0);
+    const damage = initialBossesHp - finalBossesHp;
+
     if (bossFighter && !anyBossStillAlive) {
       const boss = bosses.find((b) => b.name === bossFighter.name);
       const clan = await traced('generateFight.findClan', () => prisma.clan.findUnique({
@@ -473,9 +483,9 @@ export const generateFight = async ({
 
       // Combine all bruteIds
       const bruteIds = new Set(clan.brutes.map((brute) => brute.id));
-      clan.bossDamages.forEach((damage) => {
-        if (damage.brute) {
-          bruteIds.add(damage.brute.id);
+      clan.bossDamages.forEach((d) => {
+        if (d.brute) {
+          bruteIds.add(d.brute.id);
         }
       });
 
@@ -534,8 +544,8 @@ export const generateFight = async ({
 
       // Give gold to users
       const userIds = new Set(clan.brutes.map((brute) => brute.userId || ''));
-      clan.bossDamages.forEach((damage) => {
-        userIds.add(damage.brute?.userId || '');
+      clan.bossDamages.forEach((d) => {
+        userIds.add(d.brute?.userId || '');
       });
 
       // Filter out empty userIds
@@ -577,20 +587,11 @@ export const generateFight = async ({
         gold: 0,
       };
 
-      // Update damage on boss + store it
-      const initialBossesHp = fightData.initialFighters
-        .filter((fighter) => fighter.type === 'boss')
-        .reduce((sum, boss) => (boss.hp > 0 ? sum + boss.hp : sum), 0);
-      const finalBossesHp = fightData.fighters
-        .filter((fighter) => fighter.type === 'boss')
-        .reduce((sum, boss) => (boss.hp > 0 ? sum + boss.hp : sum), 0);
-
       if (!clanId) {
         throw new Error('Clan ID not found');
       }
 
-      const damage = initialBossesHp - finalBossesHp;
-
+      // Update damage on boss + store it
       await traced('generateFight.updateClanDamage', () => prisma.clan.update({
         where: { id: clanId },
         data: {
@@ -613,6 +614,16 @@ export const generateFight = async ({
         },
       }));
     }
+
+    increaseStats({
+      prisma,
+      user: { id: brute1.userId },
+      brute: brute1,
+      stats: {
+        clanBossFights: 1,
+        clanBossDamage: damage,
+      },
+    })
   }
 
   // Add achievements from stats

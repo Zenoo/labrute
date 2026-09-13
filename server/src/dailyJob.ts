@@ -47,10 +47,13 @@ import { shuffle } from './utils/shuffle.js';
 import { banUser } from './utils/user/banUser.js';
 import { traced } from './utils/trace.js';
 import { ilike } from './utils/ilike.js';
+import { computeDailyStats } from './utils/stats/computeDailyStats.js';
 import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator
 } from 'unique-names-generator';
 import { generateBot } from './utils/brute/generateBot.js';
+import { getOpponents } from './utils/brute/getOpponents.js';
+import { increaseStats } from './utils/stats/updateStats.js';
 
 const IN_DEV = {
   GENERATE_TOURNAMENTS: false,
@@ -393,6 +396,9 @@ const handleDailyTournaments = async (
           select: { id: true },
         });
 
+        increaseStats({ prisma, user: { id: brute1.userId }, brute: brute1, stats: ['tournamentFights'] });
+        increaseStats({ prisma, user: { id: brute2.userId }, brute: brute2, stats: ['tournamentFights'] });
+
         // Get fight winner
         const winner = isWinner(roundBrute1, lastFight) ? roundBrute1 : roundBrute2;
         const winnerId = winner.id;
@@ -673,6 +679,9 @@ const handleGlobalTournament = async (
         select: { id: true },
       });
 
+      increaseStats({ prisma, user: { id: brute1.userId }, brute: brute1, stats: ['tournamentFights'] });
+      increaseStats({ prisma, user: { id: brute2.userId }, brute: brute2, stats: ['tournamentFights'] });
+
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
 
@@ -908,6 +917,9 @@ const handleUnlimitedGlobalTournament = async (
         select: { id: true },
       });
 
+      increaseStats({ prisma, user: { id: brute1.userId }, brute: brute1, stats: ['tournamentFights'] });
+      increaseStats({ prisma, user: { id: brute2.userId }, brute: brute2, stats: ['tournamentFights'] });
+
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
 
@@ -1052,6 +1064,16 @@ const handleXpGains = async (prisma: PrismaClient) => {
       ) txp
       WHERE b.id = txp."bruteId"
     `,
+    // Update xpGained in brute stats
+    prisma.$executeRaw`
+      INSERT INTO "BruteStats" (date, day, granularity, "bruteId", "xpGained")
+      (SELECT CURRENT_DATE AS "date", EXTRACT(DOW FROM CURRENT_DATE)::int AS day, 'daily' AS "granularity", "bruteId", SUM(xp) AS "xpGained"
+      FROM "TournamentXp" txp
+      WHERE date < ${today}::date
+      GROUP BY "bruteId")
+      ON CONFLICT ("bruteId", date, granularity) DO UPDATE
+      SET "xpGained" = "BruteStats"."xpGained" + EXCLUDED."xpGained";
+    `,
     // Delete tournament XP
     prisma.$executeRaw`
       DELETE FROM "TournamentXp"
@@ -1116,6 +1138,16 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
           GROUP BY "userId"
       ) tg
       WHERE u.id = tg."userId";
+    `,
+    // Update goldWon in user stats
+    prisma.$executeRaw`
+      INSERT INTO "UserStats" (date, day, granularity, "userId", "goldWon")
+      (SELECT CURRENT_DATE AS "date", EXTRACT(DOW FROM CURRENT_DATE)::int AS day, 'daily' AS "granularity", "userId", SUM(gold) AS "goldWon"
+      FROM "TournamentGold"
+      WHERE date < ${today}::date
+      GROUP BY "userId")
+      ON CONFLICT ("userId", date, granularity) DO UPDATE
+      SET "goldWon" = "UserStats"."goldWon" + EXCLUDED."goldWon";
     `,
     // User log
     prisma.$executeRaw`
@@ -1841,6 +1873,15 @@ const handleClanWars = async (
       select: { id: true },
     });
 
+    for (const brute of [...attackers, ...defenders]) {
+      increaseStats({
+        prisma,
+        user: { id: brute.userId },
+        brute,
+        stats: ['clanWarFights']
+      });
+    }
+
     const winner = attackers.some((brute) => generatedFight && isWinner(brute, generatedFight))
       ? 'attacker'
       : 'defender';
@@ -2420,6 +2461,7 @@ const generateBots = async (prisma: PrismaClient) => {
       level: 'desc',
     },
     select: {
+      id: true,
       level: true,
       name: true,
       opponents: {
@@ -2459,6 +2501,24 @@ const generateBots = async (prisma: PrismaClient) => {
 
       await traced('dailyJob.createBot', () => prisma.brute.create({
         data: generateBot(brute.level + levelOffset, generatedName),
+      }));
+
+      const opponents = await getOpponents(prisma, brute);
+
+      if (!opponents.length) {
+        throw new Error(`No opponents found for brute ${brute.name} (level ${brute.level}) after generating bots`);
+      }
+
+      // Save new opponents
+      await traced('dailyJob.saveBotOpponents', () => prisma.brute.update({
+        where: { id: brute.id },
+        data: {
+          opponents: {
+            set: opponents.map((opponent) => ({ id: opponent.id })),
+          },
+          opponentsGeneratedAt: new Date(),
+        },
+        select: { id: true },
       }));
     }
   }
@@ -2583,6 +2643,10 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     // Generate bots
     await generateBots(prisma);
     logMemory('After generating bots');
+
+    // Roll up daily stats into monthly/yearly/allTime
+    await computeDailyStats(prisma);
+    logMemory('After computing daily stats');
 
     // Clean up DB
     await cleanup(prisma);

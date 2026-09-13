@@ -53,7 +53,7 @@ import {
   BrutesRemoveBannedWordRequest,
   BrutesAddBannedWordRequest,
   BrutesGetPupilsResponse,
-  BruteResetResponse,
+  BruteResetResponse
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
@@ -85,6 +85,7 @@ import {
   adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator
 } from 'unique-names-generator';
 import { generateBot } from '../utils/brute/generateBot.js';
+import { increaseLevelUpStats } from '../utils/stats/updateStats.js';
 
 // In-memory cache for top 15 brutes per rank (calculated daily)
 type RankCache = {
@@ -732,12 +733,19 @@ export const Brutes = {
       }
 
       // Get destiny choice
-      const destinyChoice = await traced('brutes.levelUp.findDestinyChoice', () => prisma.destinyChoice.findFirst({
+      const destinyChoices = await traced('brutes.levelUp.findDestinyChoice', () => prisma.destinyChoice.findMany({
         where: {
           bruteId: brute.id,
-          path: { equals: [...brute.destinyPath, req.body.choice] },
+          OR: [
+            { path: { equals: [...brute.destinyPath, DestinyChoiceSide.LEFT] } },
+            { path: { equals: [...brute.destinyPath, DestinyChoiceSide.RIGHT] } },
+          ],
         },
       }));
+
+      const destinyChoice = destinyChoices.find(
+        (dc) => dc.path[dc.path.length - 1] === req.body.choice
+      );
 
       if (!destinyChoice) {
         throw new NotFoundError(translate('destinyChoiceNotFound', authed));
@@ -789,6 +797,14 @@ export const Brutes = {
           xp: freshBrute.xp - xpNeeded,
         },
       }));
+
+      increaseLevelUpStats({
+        prisma,
+        user: authed,
+        brute,
+        choices: destinyChoices,
+        chosenId: destinyChoice.id,
+      });
 
       try {
         // Check level up achievements

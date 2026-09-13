@@ -130,7 +130,12 @@ export const WikiView = () => {
                     src={`/images/rankings/lvl_${rank}.webp`}
                     sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
                   />
-                  {t('level', { count: level })} = {getBruteGoldValue({ level, ranking: rank, eventId: null })}
+                  {t('level', { count: level })} = {getBruteGoldValue({
+                    level,
+                    ranking: rank,
+                    eventId: null,
+                    ascensions: 0,
+                  })}
                   <Box
                     component="img"
                     src="/images/gold.png"

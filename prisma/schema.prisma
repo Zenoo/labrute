@@ -23,41 +23,43 @@ enum Lang {
 }
 
 model User {
-  id                     String           @id @unique @db.Uuid
-  lang                   Lang             @default(en)
-  name                   String           @db.VarChar(255)
-  admin                  Boolean          @default(false)
-  moderator              Boolean          @default(false)
-  connexionToken         String           @db.Uuid
-  bruteLimit             Int              @default(3)
-  gold                   Int              @default(0)
-  fightSpeed             Int              @default(2)
-  backgroundMusic        Boolean          @default(true)
-  dinorpgDone            DateTime?        @db.Date
-  ips                    String[]         @default([])
-  fingerprints           String[]         @default([])
-  browserIds             String[]         @default([])
-  createdAt              DateTime         @default(now()) @db.Timestamp()
-  bannedAt               DateTime?        @db.Timestamp()
+  id                     String            @id @unique @db.Uuid
+  lang                   Lang              @default(en)
+  name                   String            @db.VarChar(255)
+  admin                  Boolean           @default(false)
+  moderator              Boolean           @default(false)
+  connexionToken         String            @db.Uuid
+  bruteLimit             Int               @default(3)
+  gold                   Int               @default(0)
+  fightSpeed             Int               @default(2)
+  backgroundMusic        Boolean           @default(true)
+  dinorpgDone            DateTime?         @db.Date
+  ips                    String[]          @default([])
+  fingerprints           String[]          @default([])
+  browserIds             String[]          @default([])
+  createdAt              DateTime          @default(now()) @db.Timestamp()
+  bannedAt               DateTime?         @db.Timestamp()
   banReason              String?
-  displayVersusPage      Boolean          @default(true)
-  displayOpponentDetails Boolean          @default(false)
-  transferedBrutesCount  Int              @default(0)
-  termsAccepted          Boolean          @default(false)
-  lastSeen               DateTime         @default(now()) @db.Date
+  displayVersusPage      Boolean           @default(true)
+  displayOpponentDetails Boolean           @default(false)
+  transferedBrutesCount  Int               @default(0)
+  termsAccepted          Boolean           @default(false)
+  lastSeen               DateTime          @default(now()) @db.Date
   brutes                 Brute[]
   achievements           Achievement[]
   reports                BruteReport[]
   tournamentGolds        TournamentGold[]
   inventory              InventoryItem[]
-  favoriteFights         Fight[]          @relation("FavoriteFights")
-  following              Brute[]          @relation("Followers")
+  favoriteFights         Fight[]           @relation("FavoriteFights")
+  following              Brute[]           @relation("Followers")
   notifications          Notification[]
-  reportsHandled         BruteReport[]    @relation("BruteReportHandler")
+  reportsHandled         BruteReport[]     @relation("BruteReportHandler")
   logs                   UserLog[]
+  stats                  UserStats[]
+  levelUpStats           UserLevelUpStat[]
   // Users sharing the same browser (big families) (manually updated)
-  sharedBrowser          SharedBrowser?   @relation(fields: [sharedBrowserId], references: [id])
-  sharedBrowserId        String?          @db.VarChar(255)
+  sharedBrowser          SharedBrowser?    @relation(fields: [sharedBrowserId], references: [id])
+  sharedBrowserId        String?           @db.VarChar(255)
 
   @@index([lastSeen])
   @@index([bannedAt])
@@ -319,6 +321,8 @@ model Brute {
   clanRoleId                   String?                 @db.Uuid
   unlockedColors               UnlockedColors[]
   bruteRanking                 BruteRanking?
+  stats                        BruteStats[]
+  levelUpStats                 BruteLevelUpStat[]
   // Note: Optimized partial indexes for ranking queries and GIN indexes are maintained
   // via manual migrations and are not defined in this schema to prevent Prisma from
   // trying to recreate them
@@ -1018,4 +1022,102 @@ model ClanRole {
   @@index([clanId])
   @@index([id, clanId])
   @@index([clanId, name])
+}
+
+enum StatsGranularity {
+  daily
+  monthly
+  yearly
+  allTime
+}
+
+model UserStats {
+  date             DateTime         @db.Date
+  day              Int              @default(0) // Sunday: 0, Monday: 1, ..., Saturday: 6
+  granularity      StatsGranularity
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String           @db.Uuid
+  // -- Stats shared with brutes
+  fights           Int              @default(0)
+  wins             Int              @default(0)
+  losses           Int              @default(0)
+  xpGained         Int              @default(0)
+  tournamentFights Int              @default(0)
+  clanWarFights    Int              @default(0)
+  clanBossDamage   Int              @default(0)
+  clanBossFights   Int              @default(0)
+  // -- User specific stats
+  goldWon          Int              @default(0)
+  goldLost         Int              @default(0)
+  connectedDays    Int              @default(0)
+  createdBrutes    Int              @default(0)
+  // --
+  createdAt        DateTime         @default(now()) @db.Timestamp()
+  updatedAt        DateTime         @default(now()) @updatedAt @db.Timestamp()
+
+  @@id([date, granularity, userId])
+  @@index([granularity, date(sort: Desc), userId])
+  @@index([userId, granularity, date(sort: Desc)])
+}
+
+model BruteStats {
+  date             DateTime         @db.Date
+  day              Int              @default(0) // Sunday: 0, Monday: 1, ..., Saturday: 6
+  granularity      StatsGranularity
+  brute            Brute            @relation(fields: [bruteId], references: [id], onDelete: Cascade)
+  bruteId          String           @db.Uuid
+  fights           Int              @default(0)
+  wins             Int              @default(0)
+  losses           Int              @default(0)
+  xpGained         Int              @default(0)
+  tournamentFights Int              @default(0)
+  clanWarFights    Int              @default(0)
+  clanBossDamage   Int              @default(0)
+  clanBossFights   Int              @default(0)
+  createdAt        DateTime         @default(now()) @db.Timestamp()
+  updatedAt        DateTime         @default(now()) @updatedAt @db.Timestamp()
+
+  @@id([date, granularity, bruteId])
+  @@index([granularity, date(sort: Desc), bruteId])
+  @@index([bruteId, granularity, date(sort: Desc)])
+}
+
+// TODO
+model UserLevelUpStat {
+  date        DateTime          @db.Date
+  day         Int               @default(0) // Sunday: 0, Monday: 1, ..., Saturday: 6
+  granularity StatsGranularity
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String            @db.Uuid
+  choiceType  DestinyChoiceType
+  choice      String            @db.VarChar(50)
+  offered     Int               @default(0)
+  picked      Int               @default(0)
+  createdAt   DateTime          @default(now()) @db.Timestamp()
+  updatedAt   DateTime          @default(now()) @updatedAt @db.Timestamp()
+
+  @@id([date, granularity, userId, choiceType, choice])
+  @@index([userId, granularity, date(sort: Desc)])
+  @@index([granularity, date(sort: Desc), userId])
+  @@index([choiceType, choice, granularity, date(sort: Desc)])
+}
+
+// TODO
+model BruteLevelUpStat {
+  date        DateTime          @db.Date
+  day         Int               @default(0) // Sunday: 0, Monday: 1, ..., Saturday: 6
+  granularity StatsGranularity
+  brute       Brute             @relation(fields: [bruteId], references: [id], onDelete: Cascade)
+  bruteId     String            @db.Uuid
+  choiceType  DestinyChoiceType
+  choice      String            @db.VarChar(50)
+  offered     Int               @default(0)
+  picked      Int               @default(0)
+  createdAt   DateTime          @default(now()) @db.Timestamp()
+  updatedAt   DateTime          @default(now()) @updatedAt @db.Timestamp()
+
+  @@id([date, granularity, bruteId, choiceType, choice])
+  @@index([bruteId, granularity, date(sort: Desc)])
+  @@index([granularity, date(sort: Desc), bruteId])
+  @@index([choiceType, choice, granularity, date(sort: Desc)])
 }
