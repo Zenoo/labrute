@@ -889,15 +889,6 @@ export const Users = {
         throw new ForbiddenError(translate('userNotBanned', authed));
       }
 
-      // Unban user
-      await traced('users.unban.updateUser', () => prisma.user.update({
-        where: { id: req.body.userId },
-        data: {
-          bannedAt: null,
-          banReason: null,
-        },
-      }));
-
       // IP unban
       await ServerState.removeBannedIps(prisma, user.ips);
 
@@ -913,6 +904,15 @@ export const Users = {
 
       // Browser unban
       await ServerState.removeBannedBrowsers(prisma, user.browserIds);
+
+      // Unban user after removing related ban artifacts to avoid concurrent auth re-bans.
+      await traced('users.unban.updateUser', () => prisma.user.update({
+        where: { id: req.body.userId },
+        data: {
+          bannedAt: null,
+          banReason: null,
+        },
+      }));
 
       // Restore all brutes
       for (const brute of user.brutes) {

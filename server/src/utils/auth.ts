@@ -25,6 +25,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   } = request.headers;
 
   const fingerprint = request.security?.fingerprint;
+  const browserId = request.security?.browserId;
 
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');
@@ -106,13 +107,11 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     }
   }
 
-  // Check if any of the user browser IDs are banned
-  for (const userBrowserId of user.browserIds) {
-    if (await ServerState.isBrowserBanned(prisma, userBrowserId)) {
-      await banUser(prisma, user.id, 'banned');
+  // Only check current request browser ID
+  if (browserId && await ServerState.isBrowserBanned(prisma, browserId)) {
+    await banUser(prisma, user.id, 'banned');
 
-      throw new ForbiddenError(translate('banned', user));
-    }
+    throw new ForbiddenError(translate('banned', user));
   }
 
   // Check if the sent fingerprint is valid
@@ -154,8 +153,6 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
       },
     }));
   }
-
-  const browserId = request.security?.browserId;
 
   // Ban users without browser ID (most likely scripts/bots)
   if (!browserId) {
