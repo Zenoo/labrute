@@ -1,5 +1,9 @@
 {
   "hall": "Salón",
   "chooseAsFavorite": "Elige como favorito (máx. {{amount}})",
-  "removeFromFavorites": "Eliminar de favoritos"
+  "removeFromFavorites": "Eliminar de favoritos",
+  "fightsLeft_one": "You have one fight left today !",
+  "fightsLeft_other": "You have {{count}} fights left today !",
+  "missingRegistrations_one": "One brute still needs to be registered for a tournament.",
+  "missingRegistrations_other": "{{count}} brutes still need to be registered for a tournament."
 }
