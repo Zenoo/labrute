@@ -8,6 +8,7 @@
   "accountDeleted": "Votre compte a été supprimé",
   "userProfile": "Profil de {{user}}",
   "userProfile.desc": "Profil de {{user}}, avec tous ses succès et ses brutes.",
+  "stats": "Stats",
   "externalRewards": "Récompenses externes",
   "favoriteFights": "Combats favoris",
   "banReason.innapropriateName": "Nom inapproprié",
