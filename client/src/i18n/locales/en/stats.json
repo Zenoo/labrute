@@ -1,5 +1,5 @@
 {
-  "stats": "{{name}}'s {{granularity}} Stats ",
+  "title": "{{name}}'s {{granularity}} Stats ",
   "xpGained": "XP",
   "wins": "Wins",
   "losses": "Defeats",
@@ -10,5 +10,24 @@
   "year": "Year",
   "month": "Month",
   "filter": "Filter",
-  "none": "None"
+  "none": "None",
+  "tournamentFights": "Tournament Fights",
+  "connectedDays": "Connected Days",
+  "createdBrutes": "Created Brutes",
+  "winRatio": "Win Ratio",
+  "levelUp": "Level-Up Choices",
+  "levelUp.noData": "No data.",
+  "economy": "Economy",
+  "goldWon": "Gold won",
+  "goldLost": "Gold lost",
+  "net": "Net",
+  "clanContribution": "Clan Contribution",
+  "clanWarFights": "Clan war fights",
+  "clanBossFights": "Clan boss fights",
+  "clanBossDamage": "Clan boss damage",
+  "pets": "Pets",
+  "weapons": "Weapons",
+  "skills": "Skills",
+  "stats": "Stats",
+  "levelUp.pickRate": "Picked <picked>{{percent}}</picked> of the time"
 }
