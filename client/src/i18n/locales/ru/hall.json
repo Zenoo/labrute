@@ -1,5 +1,9 @@
 {
   "hall": "Холл",
   "chooseAsFavorite": "Сделать избранным (макс. {{amount}})",
-  "removeFromFavorites": "Удалить из избранных"
+  "removeFromFavorites": "Удалить из избранных",
+  "fightsLeft_one": "You have one fight left today !",
+  "fightsLeft_other": "You have {{count}} fights left today !",
+  "missingRegistrations_one": "One brute still needs to be registered for a tournament.",
+  "missingRegistrations_other": "{{count}} brutes still need to be registered for a tournament."
 }
