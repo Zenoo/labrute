@@ -29,6 +29,8 @@
     "@mui/x-date-pickers": "^6.18.3",
     "@pixi/sound": "^6.0.1",
     "@visx/heatmap": "^4.0.0",
+    "@visx/scale": "^4.0.0",
+    "@visx/shape": "^4.0.0",
     "dayjs": "^1.11.13",
     "gsap": "^3.15.0",
     "i18next": "26.0.7",

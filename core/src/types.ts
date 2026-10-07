@@ -1,12 +1,11 @@
 import {
-  Achievement, AchievementName, BannedWord, BossDamage, Brute,
-  BruteLevelUpStat, BruteReport, BruteReportReason,
+  Achievement, AchievementName, BannedWord, BossDamage, Brute, BruteReport, BruteReportReason,
   BruteReportStatus, BruteStats,
   Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
-  Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender,
+  Config, DestinyChoice, DestinyChoiceSide, DestinyChoiceType, Event, Fight, FightModifier, Gender,
   InventoryItem, KnownFingerprint, Log, Notification,
   PetName, Prisma, SharedBrowser, SkillName, Tournament,
-  User, UserLevelUpStat, UserLog, UserStats, WeaponName
+  User, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
 import {
@@ -644,11 +643,15 @@ type UserStatsGetRequestBase = {
 export type UserStatsGetRequest =
   | (UserStatsGetRequestBase & { bruteId: string })
   | (UserStatsGetRequestBase & { bruteId?: undefined });
+export type CalculatedLevelUpStats = Record<DestinyChoiceType, Partial<Record<string, {
+  offered: number;
+  picked: number;
+}>>>;
 export type UserStatsWithLevelUp = UserStats & {
-  levelUp: UserLevelUpStat[];
+  levelUp: CalculatedLevelUpStats;
 };
 export type BruteStatsWithLevelUp = BruteStats & {
-  levelUp: BruteLevelUpStat[];
+  levelUp: CalculatedLevelUpStats;
 };
 type UserStatsGetResponseBase = {
   user: Pick<User, 'name' | 'id' | 'lang'> & {

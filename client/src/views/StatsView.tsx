@@ -20,6 +20,8 @@ import {
   useTheme
 } from '@mui/material';
 import { HeatmapRect } from '@visx/heatmap';
+import { scaleBand, scaleLinear } from '@visx/scale';
+import { Bar } from '@visx/shape';
 import dayjs from 'dayjs';
 import React, {
   useCallback, useEffect, useMemo, useState
@@ -34,11 +36,17 @@ import { useTranslation } from 'react-i18next';
 import { Loader } from '../components/Loader.js';
 import { Settings } from '@mui/icons-material';
 
-// TODO
-
 type ActivityBin = {
   count: number;
   date: string;
+  isCurrentDay: boolean;
+};
+
+type MonthlyDay = {
+  date: string;
+  label: string;
+  count: number;
+  isCurrentDay: boolean;
 };
 
 type ActivityColumn = {
@@ -53,6 +61,23 @@ const WEEKDAY_LABEL_ROWS = [1, 3, 5];
 const LEFT_LABEL_SPACE = 30;
 const TOP_LABEL_SPACE = 20;
 const METRIC_OPTIONS: HeatmapMetric[] = ['xpGained', 'fights', 'wins', 'losses'];
+const MONTHLY_BAR_AREA_HEIGHT = 140;
+const MONTHLY_BAR_MIN_STEP = 16;
+const MONTHLY_BAR_CHART_MARGIN = {
+  top: 8,
+  right: 8,
+  bottom: 22,
+  left: 8,
+};
+
+type ComputedHeatmap = {
+  activityColumns: ActivityColumn[];
+  maxCount: number;
+  heatmapWidth: number;
+  heatmapHeight: number;
+  monthLabels: { x: number; label: string }[];
+  weekdayLabels: { y: number; label: string }[];
+};
 
 export const StatsView = () => {
   const { userId } = useParams();
@@ -72,108 +97,303 @@ export const StatsView = () => {
   const [dialogMonth, setDialogMonth] = useState<number | null>(null);
   const [dialogYear, setDialogYear] = useState<number | null>(null);
 
-  const {
-    activityColumns,
-    maxCount,
-    heatmapWidth,
-    heatmapHeight,
-    monthLabels,
-    weekdayLabels,
-  } = useMemo(() => {
-    const today = dayjs.utc().startOf('day');
-    const activityStart = today.subtract(364, 'day');
-    const gridStart = activityStart.subtract(activityStart.day(), 'day');
-    const totalDays = today.diff(gridStart, 'day') + 1;
-    const computedWeekCount = Math.ceil(totalDays / 7);
-
-    const dailyCountsByDate = new Map<string, number>((stats?.daily ?? []).map((entry) => [
+  const dailyCountsByDate = useMemo(
+    () => new Map<string, number>((stats?.daily ?? []).map((entry) => [
       dayjs.utc(entry.date).format('YYYY-MM-DD'),
       entry[metric],
-    ]));
+    ])),
+    [metric, stats?.daily],
+  );
 
-    const computedColumns: ActivityColumn[] = Array.from({
-      length: computedWeekCount
-    }, (_, weekIndex) => {
-      const weekStart = gridStart.add(weekIndex * 7, 'day');
+  const buildHeatmap = useCallback(
+    (activityStart: dayjs.Dayjs, activityEnd: dayjs.Dayjs): ComputedHeatmap => {
+      const today = dayjs.utc().startOf('day');
+      const normalizedStart = activityStart.startOf('day');
+      const normalizedEnd = activityEnd.startOf('day');
+      const gridStart = normalizedStart.subtract(normalizedStart.day(), 'day');
+      const totalDays = normalizedEnd.diff(gridStart, 'day') + 1;
+      const computedWeekCount = Math.ceil(totalDays / 7);
 
-      return {
-        bins: Array.from({ length: 7 }, (__, dayIndex) => {
-          const newDate = weekStart.add(dayIndex, 'day');
-          const dateKey = newDate.format('YYYY-MM-DD');
-          const inRange = !newDate.isBefore(activityStart) && !newDate.isAfter(today);
+      const computedColumns: ActivityColumn[] = Array.from(
+        { length: computedWeekCount },
+        (_, weekIndex) => {
+          const weekStart = gridStart.add(weekIndex * 7, 'day');
 
           return {
-            date: dateKey,
-            count: inRange ? (dailyCountsByDate.get(dateKey) ?? 0) : 0,
+            bins: Array.from({ length: 7 }, (__, dayIndex) => {
+              const newDate = weekStart.add(dayIndex, 'day');
+              const dateKey = newDate.format('YYYY-MM-DD');
+              const inRange = !newDate.isBefore(normalizedStart) && !newDate.isAfter(normalizedEnd);
+
+              return {
+                date: dateKey,
+                count: inRange ? (dailyCountsByDate.get(dateKey) ?? 0) : 0,
+                isCurrentDay: newDate.isSame(today, 'day'),
+              };
+            }),
           };
-        }),
+        },
+      );
+
+      const computedMaxCount = Math.max(
+        ...computedColumns.flatMap((column) => column.bins.map((bin) => bin.count)),
+        0,
+      );
+
+      const labels: { x: number; label: string }[] = [];
+      for (
+        let monthStart = normalizedStart.startOf('month');
+        monthStart.isBefore(normalizedEnd) || monthStart.isSame(normalizedEnd, 'month');
+        monthStart = monthStart.add(1, 'month')
+      ) {
+        const labelDate = monthStart.isBefore(normalizedStart) ? normalizedStart : monthStart;
+        const weekIndex = Math.floor(labelDate.diff(gridStart, 'day') / 7);
+        const x = LEFT_LABEL_SPACE + (weekIndex * CELL_SIZE);
+
+        if (labels[labels.length - 1]?.x === x) {
+          continue;
+        }
+
+        labels.push({
+          x,
+          label: monthStart.format('MMM'),
+        });
+      }
+
+      const computedWeekdayLabels = WEEKDAY_LABEL_ROWS.map((row) => ({
+        y: TOP_LABEL_SPACE + (row * CELL_SIZE) + (CELL_SIZE / 2) + 1,
+        label: dayjs.utc().day(row).format('dd'),
+      }));
+
+      return {
+        activityColumns: computedColumns,
+        maxCount: computedMaxCount,
+        heatmapWidth: LEFT_LABEL_SPACE + (computedWeekCount * CELL_SIZE),
+        heatmapHeight: TOP_LABEL_SPACE + (7 * CELL_SIZE),
+        monthLabels: labels,
+        weekdayLabels: computedWeekdayLabels,
+      };
+    },
+    [dailyCountsByDate],
+  );
+
+  const selectedYear = year ?? dayjs.utc().year();
+  const yearlyRangeStart = year
+    ? dayjs.utc().year(year).startOf('year')
+    : dayjs.utc().startOf('day').subtract(364, 'day');
+  const yearlyRangeEnd = year
+    ? dayjs.utc().year(year).endOf('year').startOf('day')
+    : dayjs.utc().startOf('day');
+
+  const yearlyHeatmap = useMemo(
+    () => buildHeatmap(yearlyRangeStart, yearlyRangeEnd),
+    [buildHeatmap, yearlyRangeEnd, yearlyRangeStart],
+  );
+
+  const monthlyData = useMemo(() => {
+    if (month === null) {
+      return null;
+    }
+
+    const monthStart = dayjs.utc().year(selectedYear).month(month).startOf('month');
+    const monthEnd = monthStart.endOf('month').startOf('day');
+    const daysInMonth = monthEnd.date();
+    const today = dayjs.utc().startOf('day');
+
+    const days: MonthlyDay[] = Array.from({ length: daysInMonth }, (_, index) => {
+      const date = monthStart.add(index, 'day');
+      const dateKey = date.format('YYYY-MM-DD');
+
+      return {
+        date: dateKey,
+        label: date.format('D'),
+        count: dailyCountsByDate.get(dateKey) ?? 0,
+        isCurrentDay: date.isSame(today, 'day'),
       };
     });
 
-    const computedMaxCount = Math.max(
-      ...computedColumns.flatMap((column) => column.bins.map((bin) => bin.count)),
-      0,
-    );
-
-    const labels: { x: number; label: string }[] = [];
-    for (
-      let monthStart = activityStart.startOf('month');
-      monthStart.isBefore(today) || monthStart.isSame(today, 'month');
-      monthStart = monthStart.add(1, 'month')
-    ) {
-      const labelDate = monthStart.isBefore(activityStart) ? activityStart : monthStart;
-      const weekIndex = Math.floor(labelDate.diff(gridStart, 'day') / 7);
-      const x = LEFT_LABEL_SPACE + (weekIndex * CELL_SIZE);
-
-      // Avoid duplicate labels when consecutive month starts map to the same week column.
-      if (labels[labels.length - 1]?.x === x) {
-        continue;
-      }
-
-      labels.push({
-        x,
-        label: monthStart.format('MMM'),
-      });
-    }
-
-    const computedWeekdayLabels = WEEKDAY_LABEL_ROWS.map((row) => ({
-      y: TOP_LABEL_SPACE + (row * CELL_SIZE) + (CELL_SIZE / 2) + 1,
-      label: dayjs.utc().day(row).format('dd'),
-    }));
+    const max = Math.max(...days.map((day) => day.count), 0);
 
     return {
-      activityColumns: computedColumns,
-      maxCount: computedMaxCount,
-      heatmapWidth: LEFT_LABEL_SPACE + (computedWeekCount * CELL_SIZE),
-      heatmapHeight: TOP_LABEL_SPACE + (7 * CELL_SIZE),
-      monthLabels: labels,
-      weekdayLabels: computedWeekdayLabels,
+      days,
+      max,
     };
-  }, [metric, stats?.daily]);
+  }, [dailyCountsByDate, month, selectedYear]);
 
   const activityColors = useMemo(() => (theme.palette.mode === 'dark'
     ? ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
     : ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']), [theme.palette.mode]);
 
-  const colorScale = useCallback((countValue: number | { valueOf(): number }) => {
-    const count = Number(countValue?.valueOf?.() ?? countValue);
+  const getColorScale = useCallback(
+    (max: number) => (countValue: number | { valueOf(): number }) => {
+      const count = Number(countValue?.valueOf?.() ?? countValue);
 
-    if (count <= 0) {
-      return activityColors[0];
-    }
+      if (count <= 0) {
+        return activityColors[0];
+      }
 
-    if (maxCount <= 1) {
+      if (max <= 1) {
+        return activityColors[4];
+      }
+
+      const ratio = count / max;
+
+      if (ratio <= 0.25) return activityColors[1];
+      if (ratio <= 0.5) return activityColors[2];
+      if (ratio <= 0.75) return activityColors[3];
+
       return activityColors[4];
-    }
+    },
+    [activityColors],
+  );
 
-    const ratio = count / maxCount;
+  const renderHeatmap = useCallback((computedHeatmap: ComputedHeatmap) => {
+    const colorScale = getColorScale(computedHeatmap.maxCount);
 
-    if (ratio <= 0.25) return activityColors[1];
-    if (ratio <= 0.5) return activityColors[2];
-    if (ratio <= 0.75) return activityColors[3];
+    return (
+      <Box sx={{ overflowX: 'auto' }}>
+        <svg width={computedHeatmap.heatmapWidth} height={computedHeatmap.heatmapHeight} role="img" aria-label="Activity heatmap">
+          {computedHeatmap.monthLabels.map((m) => (
+            <text
+              key={`month-${m.label}-${m.x}`}
+              x={m.x}
+              y={12}
+              fill={theme.palette.text.secondary}
+              fontSize={10}
+            >
+              {m.label}
+            </text>
+          ))}
+          {computedHeatmap.weekdayLabels.map((day) => (
+            <text
+              key={`weekday-${day.label}-${day.y}`}
+              x={0}
+              y={day.y}
+              fill={theme.palette.text.secondary}
+              fontSize={10}
+              dominantBaseline="middle"
+            >
+              {day.label}
+            </text>
+          ))}
+          <HeatmapRect<ActivityColumn, ActivityBin>
+            data={computedHeatmap.activityColumns}
+            xScale={(columnIndex) => LEFT_LABEL_SPACE + (columnIndex * CELL_SIZE)}
+            yScale={(rowIndex) => TOP_LABEL_SPACE + (rowIndex * CELL_SIZE)}
+            bins={(column) => column.bins}
+            count={(bin) => bin.count}
+            colorScale={colorScale}
+            binWidth={CELL_SIZE}
+            binHeight={CELL_SIZE}
+            gap={CELL_GAP}
+          >
+            {(heatmap) => heatmap.map((week) => week.map((cell) => (
+              <Tooltip
+                key={`activity-${cell.column}-${cell.row}`}
+                title={`${cell.bin.count} ${t(metric)} - ${dayjs.utc(cell.bin.date).format('LL')}`}
+                arrow
+              >
+                <rect
+                  x={cell.x}
+                  y={cell.y}
+                  width={cell.width}
+                  height={cell.height}
+                  fill={cell.color}
+                  rx={2}
+                  stroke={cell.bin.isCurrentDay ? theme.palette.warning.main : undefined}
+                  strokeWidth={cell.bin.isCurrentDay ? 2 : 0}
+                />
+              </Tooltip>
+            )))}
+          </HeatmapRect>
+        </svg>
+      </Box>
+    );
+  }, [getColorScale, metric, t, theme.palette.text.secondary, theme.palette.warning.main]);
 
-    return activityColors[4];
-  }, [activityColors, maxCount]);
+  const renderMonthlyBars = useCallback((days: MonthlyDay[], max: number) => {
+    const innerWidth = Math.max(days.length * MONTHLY_BAR_MIN_STEP, 520);
+    const chartWidth = innerWidth
+      + MONTHLY_BAR_CHART_MARGIN.left
+      + MONTHLY_BAR_CHART_MARGIN.right;
+    const chartHeight = MONTHLY_BAR_AREA_HEIGHT
+      + MONTHLY_BAR_CHART_MARGIN.top
+      + MONTHLY_BAR_CHART_MARGIN.bottom;
+
+    const xScale = scaleBand<string>({
+      domain: days.map((day) => day.date),
+      range: [MONTHLY_BAR_CHART_MARGIN.left, MONTHLY_BAR_CHART_MARGIN.left + innerWidth],
+      padding: 0.25,
+    });
+
+    const yScale = scaleLinear<number>({
+      domain: [0, Math.max(max, 1)],
+      range: [MONTHLY_BAR_CHART_MARGIN.top + MONTHLY_BAR_AREA_HEIGHT, MONTHLY_BAR_CHART_MARGIN.top],
+      nice: true,
+    });
+
+    const baselineY = MONTHLY_BAR_CHART_MARGIN.top + MONTHLY_BAR_AREA_HEIGHT;
+    const colorScale = getColorScale(max);
+
+    return (
+      <Box sx={{ width: 1, overflowX: 'auto', pb: 1, textAlign: 'center' }}>
+        <svg width={chartWidth} height={chartHeight} role="img" aria-label="Monthly activity bars">
+          {days.map((day, index) => {
+            const x = xScale(day.date);
+            if (x === undefined) {
+              return null;
+            }
+
+            const y = yScale(day.count);
+            const barHeight = Math.max(2, baselineY - y);
+
+            return (
+              <g key={day.date}>
+                <Tooltip
+                  title={`${day.count} ${t(metric)} - ${dayjs.utc(day.date).format('LL')}`}
+                  arrow
+                >
+                  <g>
+                    <Bar
+                      x={x}
+                      y={y}
+                      width={xScale.bandwidth()}
+                      height={barHeight}
+                      fill={colorScale(day.count)}
+                      rx={3}
+                    />
+                    {day.isCurrentDay && (
+                      <Bar
+                        x={x - 1}
+                        y={Math.max(MONTHLY_BAR_CHART_MARGIN.top, y - 1)}
+                        width={xScale.bandwidth() + 2}
+                        height={Math.max(2, barHeight + 2)}
+                        fill="transparent"
+                        stroke={theme.palette.warning.main}
+                        strokeWidth={2}
+                        rx={4}
+                      />
+                    )}
+                  </g>
+                </Tooltip>
+                {(index === 0 || (index + 1) % 5 === 0 || index === days.length - 1) && (
+                  <text
+                    x={x + (xScale.bandwidth() / 2)}
+                    y={chartHeight - 6}
+                    textAnchor="middle"
+                    fill={theme.palette.text.secondary}
+                    fontSize={10}
+                  >
+                    {day.label}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+        </svg>
+      </Box>
+    );
+  }, [getColorScale, metric, t, theme.palette.text.secondary, theme.palette.warning.main]);
 
   const title = t('stats', {
     name: brute?.name ?? stats?.user.name,
@@ -237,7 +457,11 @@ export const StatsView = () => {
       return;
     }
     setDialogMonth(+event.target.value);
-  }, []);
+
+    if (!dialogYear) {
+      setDialogYear(dayjs().year());
+    }
+  }, [dialogYear]);
 
   const changeDialogBrute = useCallback((event: SelectChangeEvent<string>) => {
     if (!event.target.value) {
@@ -248,7 +472,7 @@ export const StatsView = () => {
     setDialogBrute(selectedBrute ?? null);
   }, [stats?.user.brutes]);
 
-  console.log('stats', stats);
+  console.log(stats);
 
   return (
     <Page
@@ -369,62 +593,10 @@ export const StatsView = () => {
                   </Button>
                 ))}
               </ButtonGroup>
-              {/* TODO display another graph for monthly stats */}
-              <Box sx={{ overflowX: 'auto' }}>
-                <svg width={heatmapWidth} height={heatmapHeight} role="img" aria-label="Activity heatmap">
-                  {monthLabels.map((m) => (
-                    <text
-                      key={`month-${m.label}-${m.x}`}
-                      x={m.x}
-                      y={12}
-                      fill={theme.palette.text.secondary}
-                      fontSize={10}
-                    >
-                      {m.label}
-                    </text>
-                  ))}
-                  {weekdayLabels.map((day) => (
-                    <text
-                      key={`weekday-${day.label}-${day.y}`}
-                      x={0}
-                      y={day.y}
-                      fill={theme.palette.text.secondary}
-                      fontSize={10}
-                      dominantBaseline="middle"
-                    >
-                      {day.label}
-                    </text>
-                  ))}
-                  <HeatmapRect<ActivityColumn, ActivityBin>
-                    data={activityColumns}
-                    xScale={(columnIndex) => LEFT_LABEL_SPACE + (columnIndex * CELL_SIZE)}
-                    yScale={(rowIndex) => TOP_LABEL_SPACE + (rowIndex * CELL_SIZE)}
-                    bins={(column) => column.bins}
-                    count={(bin) => bin.count}
-                    colorScale={colorScale}
-                    binWidth={CELL_SIZE}
-                    binHeight={CELL_SIZE}
-                    gap={CELL_GAP}
-                  >
-                    {(heatmap) => heatmap.map((week) => week.map((cell) => (
-                      <Tooltip
-                        key={`activity-${cell.column}-${cell.row}`}
-                        title={`${cell.bin.count} ${t(metric)} - ${dayjs.utc(cell.bin.date).format('LL')}`}
-                        arrow
-                      >
-                        <rect
-                          x={cell.x}
-                          y={cell.y}
-                          width={cell.width}
-                          height={cell.height}
-                          fill={cell.color}
-                          rx={2}
-                        />
-                      </Tooltip>
-                    )))}
-                  </HeatmapRect>
-                </svg>
-              </Box>
+              {!monthlyData && renderHeatmap(yearlyHeatmap)}
+              {monthlyData && (
+                renderMonthlyBars(monthlyData.days, monthlyData.max)
+              )}
             </Box>
           </Paper>
         </>

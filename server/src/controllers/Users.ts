@@ -1,6 +1,6 @@
 import {
   AchievementData, BanBrowserRequest, BanFingerprintRequest,
-  BruteDeletionReason, EditSharedBrowserRequest, ExpectedError,
+  BruteDeletionReason, CalculatedLevelUpStats, EditSharedBrowserRequest, ExpectedError,
   ForbiddenError,
   GetSharedBrowserResponse,
   InvalidAPIUseError,
@@ -654,10 +654,14 @@ export const Users = {
           orderBy: { date: 'desc' },
         }));
 
+        // We don't need daily stats for level up, only the relevant granularity
         const levelupStats = await traced('users.getStats.getLevelUpStats', () => prisma.bruteLevelUpStat.findMany({
           where: {
             bruteId,
-            ...where,
+            granularity: granularity,
+            date: granularity === StatsGranularity.allTime
+              ? undefined
+              : { gte: start.toDate(), lte: end.toDate() }
           },
           orderBy: { date: 'desc' },
         }));
@@ -665,10 +669,32 @@ export const Users = {
         const daily = stats.filter((s) => s.granularity === StatsGranularity.daily);
         const current = stats.find((s) => s.granularity === granularity);
 
+        const parsedLevelUpStats: CalculatedLevelUpStats = {
+          pet: {},
+          weapon: {},
+          skill: {},
+          stats: {},
+        };
+
+        for (const stat of levelupStats) {
+          if (!parsedLevelUpStats[stat.choiceType]) {
+            parsedLevelUpStats[stat.choiceType] = {};
+          }
+          if (!parsedLevelUpStats[stat.choiceType][stat.choice]) {
+            parsedLevelUpStats[stat.choiceType][stat.choice] = { offered: 0, picked: 0 };
+          }
+
+          const choice = parsedLevelUpStats[stat.choiceType][stat.choice];
+          if (choice) {
+            choice.offered += stat.offered;
+            choice.picked += stat.picked;
+          }
+        }
+
         res.send({
           user,
           daily,
-          current: current ? { ...current, levelUp: levelupStats } : undefined,
+          current: current ? { ...current, levelUp: parsedLevelUpStats } : undefined,
         });
         return;
       }
@@ -684,17 +710,43 @@ export const Users = {
       const levelupStats = await traced('users.getStats.getLevelUpStats', () => prisma.userLevelUpStat.findMany({
         where: {
           userId,
-          ...where,
+          granularity: granularity,
+          date: granularity === StatsGranularity.allTime
+            ? undefined
+            : { gte: start.toDate(), lte: end.toDate() }
         },
       }));
 
       const daily = stats.filter((s) => s.granularity === StatsGranularity.daily);
       const current = stats.find((s) => s.granularity === granularity);
 
+      // Parse level up stats into the desired format
+      const parsedLevelUpStats: CalculatedLevelUpStats = {
+        pet: {},
+        weapon: {},
+        skill: {},
+        stats: {},
+      };
+
+      for (const stat of levelupStats) {
+        if (!parsedLevelUpStats[stat.choiceType]) {
+          parsedLevelUpStats[stat.choiceType] = {};
+        }
+        if (!parsedLevelUpStats[stat.choiceType][stat.choice]) {
+          parsedLevelUpStats[stat.choiceType][stat.choice] = { offered: 0, picked: 0 };
+        }
+
+        const choice = parsedLevelUpStats[stat.choiceType][stat.choice];
+        if (choice) {
+          choice.offered += stat.offered;
+          choice.picked += stat.picked;
+        }
+      }
+
       res.send({
         user,
         daily,
-        current: current ? { ...current, levelUp: levelupStats } : undefined,
+        current: current ? { ...current, levelUp: parsedLevelUpStats } : undefined,
       });
     } catch (error) {
       sendError(res, error);
