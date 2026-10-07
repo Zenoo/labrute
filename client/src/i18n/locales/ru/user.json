@@ -8,6 +8,7 @@
   "accountDeleted": "Ваша учётная запись была удалена",
   "userProfile": "Профиль {{user}}",
   "userProfile.desc": "Профиль {{user}}, где отображены все его достижения и Бруталы.",
+  "stats": "Stats",
   "externalRewards": "Внешние вознаграждения",
   "favoriteFights": "Избранные битвы",
   "banReason.innapropriateName": "Неуместное имя",
