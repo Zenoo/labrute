@@ -115,6 +115,16 @@ export const UserView = () => {
             <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
               <ActivityStatus user={user} sx={{ verticalAlign: 'middle', mr: 1 }} />
               {t('userProfile', { user: user.name })}
+              <Tooltip title={t('stats')}>
+                <IconButton
+                  color="error"
+                  component={RouterLink}
+                  to={`/user/${user.id}/stats`}
+                  sx={{ ml: 1 }}
+                >
+                  <QueryStats />
+                </IconButton>
+              </Tooltip>
               {authedUser?.admin && (
                 <>
                   <Tooltip title="User logs">
@@ -139,12 +149,6 @@ export const UserView = () => {
                 </>
               )}
             </Text>
-            <Box sx={{ textAlign: 'center', pb: 1 }}>
-              <FantasyButton color="secondary" to={`/user/${user.id}/stats`}>
-                <QueryStats sx={{ verticalAlign: 'middle', mr: 1 }} />
-                Stats
-              </FantasyButton>
-            </Box>
           </Paper>
           <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
             {authedUser?.admin && user.id !== authedUser.id && (

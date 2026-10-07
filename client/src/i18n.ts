@@ -37,6 +37,7 @@ export const namespaces = [
   'patchNotes',
   'ranking',
   'resetVisuals',
+  'stats',
   'tournament',
   'tournamentHistory',
   'transferBrute',

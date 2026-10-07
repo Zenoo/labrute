@@ -18,8 +18,9 @@ import {
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
-  UserStatsGetResponse,
   UserMultipleAccountsListResponse,
+  UserStatsGetRequest,
+  UserStatsGetResponse,
   UserTransferBruteRequest,
   UserUpdateSettingsRequest,
   UsersAdminUpdateRequest,
@@ -31,7 +32,6 @@ import {
   getFightsLeft,
   getTieredSkills,
   isUuid,
-  UserStatsGetRequest,
 } from '@labrute/core';
 import {
   Achievement,
@@ -46,13 +46,13 @@ import { dailyJob } from '../dailyJob.js';
 import { ServerState } from '../utils/ServerState.js';
 import { auth } from '../utils/auth.js';
 import { createUserLog } from '../utils/createUserLog.js';
+import { decryptFPEvent } from '../utils/fingerprint.js';
+import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
+import { traced } from '../utils/trace.js';
 import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
-import { decryptFPEvent } from '../utils/fingerprint.js';
 import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
-import { ilike } from '../utils/ilike.js';
-import { traced } from '../utils/trace.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
@@ -571,9 +571,9 @@ export const Users = {
     res: Response<UserStatsGetResponse<UserStatsGetRequest>>,
   ) => {
     try {
-      const { userId, granularity, date, bruteId } = req.body;
+      const { userId, month, year, bruteId } = req.body;
 
-      if (!userId || !granularity) {
+      if (!userId) {
         throw new MissingElementError(translate('missingParameters'));
       }
 
@@ -608,21 +608,48 @@ export const Users = {
         throw new NotFoundError(translate('userNotFound'));
       }
 
-      const start = granularity === StatsGranularity.daily ? dayjs.utc(date).toDate() : granularity === StatsGranularity.monthly ? dayjs.utc(date).startOf('month').toDate() : granularity === StatsGranularity.yearly ? dayjs.utc(date).startOf('year').toDate() : undefined;
-      const end = granularity === StatsGranularity.daily ? start : granularity === StatsGranularity.monthly ? dayjs.utc(start).endOf('month').toDate() : granularity === StatsGranularity.yearly ? dayjs.utc(start).endOf('year').toDate() : undefined;
-      const dateWhere = start && end
-        ? { date: { gte: start, lte: end } }
-        : {};
-      const statsGranularityFilter = granularity === StatsGranularity.daily
-        ? granularity
-        : { in: [granularity, StatsGranularity.daily] };
+      const granularity = year
+        ? month
+          ? StatsGranularity.monthly
+          : StatsGranularity.yearly
+        : StatsGranularity.allTime;
+
+      let start = dayjs.utc();
+      let end = dayjs.utc();
+
+      if (year && granularity === StatsGranularity.yearly) {
+        start = start.set('year', year).startOf('year');
+        end = start.endOf('year');
+      }
+
+      if (month && granularity === StatsGranularity.monthly) {
+        start = start.set('month', month).startOf('month');
+        end = start.endOf('month');
+      }
+
+      // Alltime: We fetch the last 365 days of daily + alltime
+      // Otherwise, we fetch stats within the specified date range based on the granularity.
+
+      const where = granularity !== StatsGranularity.allTime
+        ? {
+          date: { gte: start.toDate(), lte: end.toDate() },
+          granularity: { in: [granularity, StatsGranularity.daily] },
+        }
+        : {
+          OR: [
+            {
+              granularity: StatsGranularity.daily,
+              date: { gte: dayjs.utc().subtract(365, 'days').toDate() },
+            },
+            { granularity: StatsGranularity.allTime },
+          ],
+        };
 
       if (bruteId) {
         const stats = await traced('users.getStats.getStats', () => prisma.bruteStats.findMany({
           where: {
             bruteId,
-            ...dateWhere,
-            granularity: statsGranularityFilter,
+            ...where,
           },
           orderBy: { date: 'desc' },
         }));
@@ -630,12 +657,12 @@ export const Users = {
         const levelupStats = await traced('users.getStats.getLevelUpStats', () => prisma.bruteLevelUpStat.findMany({
           where: {
             bruteId,
-            date: granularity === StatsGranularity.allTime ? { gte: dayjs.utc().subtract(365, 'days').toDate() } : dateWhere.date,
-            granularity,
+            ...where,
           },
+          orderBy: { date: 'desc' },
         }));
 
-        const daily = stats.filter((s) => s.granularity === 'daily');
+        const daily = stats.filter((s) => s.granularity === StatsGranularity.daily);
         const current = stats.find((s) => s.granularity === granularity);
 
         res.send({
@@ -649,8 +676,7 @@ export const Users = {
       const stats = await traced('users.getStats.getStats', () => prisma.userStats.findMany({
         where: {
           userId,
-          ...dateWhere,
-          granularity: statsGranularityFilter,
+          ...where,
         },
         orderBy: { date: 'desc' },
       }));
@@ -658,12 +684,11 @@ export const Users = {
       const levelupStats = await traced('users.getStats.getLevelUpStats', () => prisma.userLevelUpStat.findMany({
         where: {
           userId,
-          date: granularity === StatsGranularity.allTime ? { gte: dayjs.utc().subtract(365, 'days').toDate() } : dateWhere.date,
-          granularity,
+          ...where,
         },
       }));
 
-      const daily = stats.filter((s) => s.granularity === 'daily');
+      const daily = stats.filter((s) => s.granularity === StatsGranularity.daily);
       const current = stats.find((s) => s.granularity === granularity);
 
       res.send({

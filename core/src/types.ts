@@ -4,9 +4,9 @@ import {
   BruteReportStatus, BruteStats,
   Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, Event, Fight, FightModifier, Gender,
-  InventoryItem, KnownFingerprint, Log, Notification, PetName, Prisma, SharedBrowser, SkillName,
-  StatsGranularity,
-  Tournament, User, UserLevelUpStat, UserLog, UserStats, WeaponName
+  InventoryItem, KnownFingerprint, Log, Notification,
+  PetName, Prisma, SharedBrowser, SkillName, Tournament,
+  User, UserLevelUpStat, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
 import {
@@ -638,8 +638,8 @@ export type BrutesGetPupilsResponse = BruteForRender[];
 
 type UserStatsGetRequestBase = {
   userId: string;
-  granularity: StatsGranularity;
-  date?: string;
+  month?: number;
+  year?: number;
 };
 export type UserStatsGetRequest =
   | (UserStatsGetRequestBase & { bruteId: string })

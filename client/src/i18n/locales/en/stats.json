@@ -1,0 +1,14 @@
+{
+  "stats": "{{name}}'s {{granularity}} Stats ",
+  "xpGained": "XP",
+  "wins": "Wins",
+  "losses": "Defeats",
+  "fights": "Fights",
+  "allTime": "All Time",
+  "settings": "Settings",
+  "settings.desc": "You can choose a specific year, month and brute for the stats displayed",
+  "year": "Year",
+  "month": "Month",
+  "filter": "Filter",
+  "none": "None"
+}

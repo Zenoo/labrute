@@ -1,11 +1,23 @@
-import { UserStatsGetResponse } from '@labrute/core';
+import { BruteForRender, UserStatsGetResponse } from '@labrute/core';
 import {
   Box,
   Button,
   ButtonGroup,
-  Stack,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
-  useTheme,
+  Select,
+  SelectChangeEvent,
+  Tooltip,
+  useTheme
 } from '@mui/material';
 import { HeatmapRect } from '@visx/heatmap';
 import dayjs from 'dayjs';
@@ -20,8 +32,7 @@ import { useServer } from '../hooks/useServer.js';
 import { catchError } from '../utils/catchError.js';
 import { useTranslation } from 'react-i18next';
 import { Loader } from '../components/Loader.js';
-import { BruteRender } from '../components/Brute/Body/BruteRender.js';
-import { StatsGranularity } from '@labrute/prisma';
+import { Settings } from '@mui/icons-material';
 
 // TODO
 
@@ -50,40 +61,16 @@ export const StatsView = () => {
   const { t } = useTranslation('stats');
   const theme = useTheme();
 
-  const [granularity, setGranularity] = useState<StatsGranularity>(StatsGranularity.allTime);
-  const [date, setDate] = useState<string>();
+  const [month, setMonth] = useState<number | null>(null);
+  const [year, setYear] = useState<number | null>(null);
   const [stats, setStats] = useState<UserStatsGetResponse | null>(null);
-  const [brute, setBrute] = useState<string | null>(null);
+  const [brute, setBrute] = useState<BruteForRender | null>(null);
   const [loading, setLoading] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [metric, setMetric] = useState<HeatmapMetric>('xpGained');
-
-  const getMetricValue = useCallback((entry: NonNullable<UserStatsGetResponse['daily']>[number]) => {
-    switch (metric) {
-      case 'wins':
-        return entry.wins;
-      case 'losses':
-        return entry.losses;
-      case 'xpGained':
-        return entry.xpGained;
-      case 'fights':
-      default:
-        return entry.fights;
-    }
-  }, [metric]);
-
-  const metricLabel = useMemo(() => {
-    switch (metric) {
-      case 'wins':
-        return t('wins');
-      case 'losses':
-        return t('defeats');
-      case 'xpGained':
-        return t('experience');
-      case 'fights':
-      default:
-        return t('fights');
-    }
-  }, [metric, t]);
+  const [dialogBrute, setDialogBrute] = useState<BruteForRender | null>(null);
+  const [dialogMonth, setDialogMonth] = useState<number | null>(null);
+  const [dialogYear, setDialogYear] = useState<number | null>(null);
 
   const {
     activityColumns,
@@ -101,7 +88,7 @@ export const StatsView = () => {
 
     const dailyCountsByDate = new Map<string, number>((stats?.daily ?? []).map((entry) => [
       dayjs.utc(entry.date).format('YYYY-MM-DD'),
-      getMetricValue(entry),
+      entry[metric],
     ]));
 
     const computedColumns: ActivityColumn[] = Array.from({
@@ -111,9 +98,9 @@ export const StatsView = () => {
 
       return {
         bins: Array.from({ length: 7 }, (__, dayIndex) => {
-          const date = weekStart.add(dayIndex, 'day');
-          const dateKey = date.format('YYYY-MM-DD');
-          const inRange = !date.isBefore(activityStart) && !date.isAfter(today);
+          const newDate = weekStart.add(dayIndex, 'day');
+          const dateKey = newDate.format('YYYY-MM-DD');
+          const inRange = !newDate.isBefore(activityStart) && !newDate.isAfter(today);
 
           return {
             date: dateKey,
@@ -129,15 +116,22 @@ export const StatsView = () => {
     );
 
     const labels: { x: number; label: string }[] = [];
-    for (let i = 0; i < 12; i += 1) {
-      const monthStart = today.startOf('year').add(i, 'month').startOf('month');
-      if (monthStart.isBefore(activityStart) || monthStart.isAfter(today)) {
+    for (
+      let monthStart = activityStart.startOf('month');
+      monthStart.isBefore(today) || monthStart.isSame(today, 'month');
+      monthStart = monthStart.add(1, 'month')
+    ) {
+      const labelDate = monthStart.isBefore(activityStart) ? activityStart : monthStart;
+      const weekIndex = Math.floor(labelDate.diff(gridStart, 'day') / 7);
+      const x = LEFT_LABEL_SPACE + (weekIndex * CELL_SIZE);
+
+      // Avoid duplicate labels when consecutive month starts map to the same week column.
+      if (labels[labels.length - 1]?.x === x) {
         continue;
       }
 
-      const weekIndex = Math.floor(monthStart.diff(gridStart, 'day') / 7);
       labels.push({
-        x: LEFT_LABEL_SPACE + (weekIndex * CELL_SIZE),
+        x,
         label: monthStart.format('MMM'),
       });
     }
@@ -155,7 +149,7 @@ export const StatsView = () => {
       monthLabels: labels,
       weekdayLabels: computedWeekdayLabels,
     };
-  }, [getMetricValue, stats?.daily]);
+  }, [metric, stats?.daily]);
 
   const activityColors = useMemo(() => (theme.palette.mode === 'dark'
     ? ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
@@ -181,24 +175,14 @@ export const StatsView = () => {
     return activityColors[4];
   }, [activityColors, maxCount]);
 
-  const setTarget = useCallback((target?: string) => () => {
-    setBrute(target ?? null);
-  }, []);
-
-  const setMetricTarget = useCallback((target: HeatmapMetric) => () => {
-    setMetric(target);
-  }, []);
-
-  const metricButtons = useMemo(() => METRIC_OPTIONS.map((m) => ({
-    metric: m,
-    label: m === 'fights'
-      ? t('fights')
-      : m === 'wins'
-        ? t('wins', { ns: 'achievement' })
-        : m === 'losses'
-          ? t('defeats', { ns: 'achievement' })
-          : t('experience', { ns: 'ranking' }),
-  })), [t]);
+  const title = t('stats', {
+    name: brute?.name ?? stats?.user.name,
+    granularity: typeof month === 'number'
+      ? dayjs().month(month).year(year ?? 0).format('MMMM YYYY')
+      : year
+        ? dayjs().year(year).format('YYYY')
+        : t('allTime'),
+  });
 
   useEffect(() => {
     if (!userId) {
@@ -206,46 +190,157 @@ export const StatsView = () => {
     }
 
     setLoading(true);
+
     Server.User.getStats({
       userId,
-      granularity,
-      date,
-      bruteId: brute ?? undefined,
+      month: month ?? undefined,
+      year: year ?? undefined,
+      bruteId: brute?.id,
     })
       .then(setStats)
       .catch(catchError(Alert))
       .finally(() => {
         setLoading(false);
       });
-  }, [Alert, Server.User, brute, date, granularity, userId]);
+  }, [Alert, Server.User, brute?.id, month, userId, year]);
+
+  const setMetricTarget = useCallback((target: HeatmapMetric) => () => {
+    setMetric(target);
+  }, []);
+
+  const openSettings = useCallback(() => {
+    setSettingsOpen(true);
+  }, []);
+  const closeSettings = useCallback(() => {
+    setSettingsOpen(false);
+  }, []);
+
+  const filterStats = useCallback(() => {
+    setMonth(dialogMonth);
+    setYear(dialogYear);
+    setBrute(dialogBrute);
+    closeSettings();
+  }, [closeSettings, dialogBrute, dialogMonth, dialogYear]);
+
+  const changeDialogYear = useCallback((event: SelectChangeEvent<number>) => {
+    if (!event.target.value) {
+      setDialogMonth(null);
+      setDialogYear(null);
+      return;
+    }
+    setDialogYear(+event.target.value);
+  }, []);
+
+  const changeDialogMonth = useCallback((event: SelectChangeEvent<string>) => {
+    if (!event.target.value) {
+      setDialogMonth(null);
+      return;
+    }
+    setDialogMonth(+event.target.value);
+  }, []);
+
+  const changeDialogBrute = useCallback((event: SelectChangeEvent<string>) => {
+    if (!event.target.value) {
+      setDialogBrute(null);
+      return;
+    }
+    const selectedBrute = stats?.user.brutes.find(b => b.id === event.target.value);
+    setDialogBrute(selectedBrute ?? null);
+  }, [stats?.user.brutes]);
+
   console.log('stats', stats);
 
   return (
     <Page
-      title={t('stats', { name: stats?.user.name })}
+      title={title}
       description="Statistics"
       headerUrl={`/user/${userId}`}
     >
+      <Dialog
+        open={settingsOpen}
+        onClose={closeSettings}
+      >
+        <DialogTitle>{t('settings')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{t('settings.desc')}</DialogContentText>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <InputLabel id="stats-year-label">{t('year')}</InputLabel>
+                <Select
+                  labelId="stats-year-label"
+                  id="stats-year-select"
+                  value={dialogYear ?? ''}
+                  label={t('year')}
+                  onChange={changeDialogYear}
+                >
+                  <MenuItem value=""><em>{t('none')}</em></MenuItem>
+                  {Array.from({ length: 20 }, (_, i) => {
+                    const y = dayjs().year() - i;
+                    return (
+                      <MenuItem key={y} value={y}>{y}</MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <InputLabel id="stats-month-label">{t('month')}</InputLabel>
+                <Select
+                  labelId="stats-month-label"
+                  id="stats-month-select"
+                  value={dialogMonth?.toString() ?? ''}
+                  label={t('month')}
+                  onChange={changeDialogMonth}
+                >
+                  <MenuItem value=""><em>{t('none')}</em></MenuItem>
+                  {Array.from({ length: 12 }, (_, i) => {
+                    return (
+                      <MenuItem key={i} value={i.toString()}>{dayjs().month(i).format('MMMM')}</MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <FormControl fullWidth>
+                <InputLabel id="stats-brute-label">{t('brute')}</InputLabel>
+                <Select
+                  labelId="stats-brute-label"
+                  value={dialogBrute?.id ?? ''}
+                  label={t('brute')}
+                  onChange={changeDialogBrute}
+                >
+                  <MenuItem value=""><em>{t('none')}</em></MenuItem>
+                  {stats?.user.brutes.map((b) => (
+                    <MenuItem key={b.id} value={b.id}>{t(b.name)}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={closeSettings}
+            variant="mybrute"
+            sx={{ color: 'text.secondary' }}
+          >
+            {t('cancel')}
+          </Button>
+          <Button
+            onClick={filterStats}
+            autoFocus
+            variant="mybrute"
+            sx={{ color: 'error.main' }}
+          >
+            {t('filter')}
+          </Button>
+        </DialogActions>
+      </Dialog>
       {(loading || !stats) ? <Loader /> : (
         <>
-          <ButtonGroup size="small">
-            <Button
-              sx={{ color: !brute ? 'orange' : 'secondary.main' }}
-              onClick={setTarget()}
-            >
-              {t('user')}
-            </Button>
-            {stats.user.brutes.map((b) => (
-              <Button
-                key={b.id}
-                sx={{ color: brute === b.id ? 'orange' : 'secondary.main' }}
-                onClick={setTarget(b.id)}
-              >
-                <BruteRender brute={b} small sx={{ mr: 1 }} />
-                <span>{t(b.name)}</span>
-              </Button>
-            ))}
-          </ButtonGroup>
           <Paper sx={{
             mx: 4,
             display: 'flex',
@@ -254,76 +349,82 @@ export const StatsView = () => {
             flexWrap: 'wrap',
           }}
           >
-            <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('stats', { name: stats?.user.name })}</Text>
+            <Text h3 bold upperCase typo="handwritten" sx={{ mr: 1 }}>{title}</Text>
+            <Tooltip title={t('settings')}>
+              <IconButton onClick={openSettings}>
+                <Settings />
+              </IconButton>
+            </Tooltip>
           </Paper>
           <Paper sx={{ bgcolor: 'background.paperLight', mt: -2, p: 2 }}>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mb: 1.5 }}>
-              <Text bold>{metricLabel}</Text>
+            <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: 1 }}>
               <ButtonGroup size="small">
-                {metricButtons.map(({ metric: optionMetric, label }) => (
+                {METRIC_OPTIONS.map((option) => (
                   <Button
-                    key={optionMetric}
-                    onClick={setMetricTarget(optionMetric)}
-                    sx={{ color: metric === optionMetric ? 'orange' : 'secondary.main' }}
+                    key={option}
+                    onClick={setMetricTarget(option)}
+                    sx={{ color: metric === option ? 'orange' : 'secondary.main' }}
                   >
-                    {label}
+                    {t(option)}
                   </Button>
                 ))}
               </ButtonGroup>
-            </Stack>
-            <Box sx={{ overflowX: 'auto' }}>
-              <svg width={heatmapWidth} height={heatmapHeight} role="img" aria-label="Activity heatmap">
-                {monthLabels.map((month) => (
-                  <text
-                    key={`month-${month.label}-${month.x}`}
-                    x={month.x}
-                    y={12}
-                    fill={theme.palette.text.secondary}
-                    fontSize={10}
-                  >
-                    {month.label}
-                  </text>
-                ))}
-                {weekdayLabels.map((day) => (
-                  <text
-                    key={`weekday-${day.label}-${day.y}`}
-                    x={0}
-                    y={day.y}
-                    fill={theme.palette.text.secondary}
-                    fontSize={10}
-                    dominantBaseline="middle"
-                  >
-                    {day.label}
-                  </text>
-                ))}
-                <HeatmapRect<ActivityColumn, ActivityBin>
-                  data={activityColumns}
-                  xScale={(columnIndex) => LEFT_LABEL_SPACE + (columnIndex * CELL_SIZE)}
-                  yScale={(rowIndex) => TOP_LABEL_SPACE + (rowIndex * CELL_SIZE)}
-                  bins={(column) => column.bins}
-                  count={(bin) => bin.count}
-                  colorScale={colorScale}
-                  binWidth={CELL_SIZE}
-                  binHeight={CELL_SIZE}
-                  gap={CELL_GAP}
-                >
-                  {(heatmap) => heatmap.map((week) => week.map((cell) => (
-                    <rect
-                      key={`activity-${cell.column}-${cell.row}`}
-                      x={cell.x}
-                      y={cell.y}
-                      width={cell.width}
-                      height={cell.height}
-                      fill={cell.color}
-                      rx={2}
+              {/* TODO display another graph for monthly stats */}
+              <Box sx={{ overflowX: 'auto' }}>
+                <svg width={heatmapWidth} height={heatmapHeight} role="img" aria-label="Activity heatmap">
+                  {monthLabels.map((m) => (
+                    <text
+                      key={`month-${m.label}-${m.x}`}
+                      x={m.x}
+                      y={12}
+                      fill={theme.palette.text.secondary}
+                      fontSize={10}
                     >
-                      <title>
-                        {`${cell.bin.count} ${metricLabel} - ${dayjs.utc(cell.bin.date).format('YYYY-MM-DD')}`}
-                      </title>
-                    </rect>
-                  )))}
-                </HeatmapRect>
-              </svg>
+                      {m.label}
+                    </text>
+                  ))}
+                  {weekdayLabels.map((day) => (
+                    <text
+                      key={`weekday-${day.label}-${day.y}`}
+                      x={0}
+                      y={day.y}
+                      fill={theme.palette.text.secondary}
+                      fontSize={10}
+                      dominantBaseline="middle"
+                    >
+                      {day.label}
+                    </text>
+                  ))}
+                  <HeatmapRect<ActivityColumn, ActivityBin>
+                    data={activityColumns}
+                    xScale={(columnIndex) => LEFT_LABEL_SPACE + (columnIndex * CELL_SIZE)}
+                    yScale={(rowIndex) => TOP_LABEL_SPACE + (rowIndex * CELL_SIZE)}
+                    bins={(column) => column.bins}
+                    count={(bin) => bin.count}
+                    colorScale={colorScale}
+                    binWidth={CELL_SIZE}
+                    binHeight={CELL_SIZE}
+                    gap={CELL_GAP}
+                  >
+                    {(heatmap) => heatmap.map((week) => week.map((cell) => (
+                      <Tooltip
+                        key={`activity-${cell.column}-${cell.row}`}
+                        title={`${cell.bin.count} ${t(metric)} - ${dayjs.utc(cell.bin.date).format('LL')}`}
+                        arrow
+                      >
+                        <rect
+                          x={cell.x}
+                          y={cell.y}
+                          width={cell.width}
+                          height={cell.height}
+                          fill={cell.color}
+                          rx={2}
+                        />
+                      </Tooltip>
+                    )))}
+                  </HeatmapRect>
+                </svg>
+              </Box>
             </Box>
           </Paper>
         </>
