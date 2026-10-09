@@ -7,7 +7,6 @@
   "deleteAccountConfirm": "¿Está seguro que desea eliminar su cuenta? Se perderán todos sus brutos y progresos. Esta acción es irreversible.",
   "accountDeleted": "Tu cuenta ha sido eliminada",
   "userProfile": "Perfil de {{user}}",
-  "userProfile.desc": "El perfil de {{user}} muestra todos sus logros y brutos.",
   "stats": "Stats",
   "externalRewards": "Recompensas externas",
   "favoriteFights": "Combates favoritos",
