@@ -7,7 +7,6 @@
   "deleteAccountConfirm": "Bist du sicher, dass du dein Konto löschen möchtest? All deine Brutalos und Fortschritt gehen dabei verloren. Diese Aktion kann nicht rückgängig gemacht werden.",
   "accountDeleted": "Dein Konto wurde gelöscht",
   "userProfile": "Profil von {{user}}",
-  "userProfile.desc": "Profil von {{user}}, mit all den Erfolgen und Brutalos dargestellt.",
   "stats": "Statistiken",
   "externalRewards": "Externe Belohnungen",
   "favoriteFights": "Kampf-Favoriten",
