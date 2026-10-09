@@ -1,5 +1,4 @@
 {
-  "cell.desc": "Zelle von {{name}}. Ein {{rank}} der Stufe {{level}} mit einer Gewinnquote von {{winrate}}.",
   "sacrifice": "Opfern",
   "sacrificeConfirm": "Bist du sicher, dass du diesen Brutalo für {{gold}} Gold opfern möchtest? Der Vorgang kann nicht rückgängig gemacht werden.",
   "sacrificeSuccess": "Opferung erfolgreich: {{gold}} Gold erhalten",
