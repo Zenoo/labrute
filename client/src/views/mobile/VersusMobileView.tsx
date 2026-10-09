@@ -25,7 +25,6 @@ export const VersusMobileView = ({
 
   return (
     <Page
-      title={`${brute.name} ${t('vs')} ${opponent.name}`}
       headerUrl={`/${brute.name}/cell`}
       sx={{ textAlign: 'center' }}
     >

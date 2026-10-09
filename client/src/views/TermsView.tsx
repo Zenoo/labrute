@@ -40,7 +40,6 @@ export const TermsView = () => {
 
   return (
     <Page
-      title={t('title')}
       headerUrl="/"
     >
       <Paper sx={{

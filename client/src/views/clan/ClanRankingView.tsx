@@ -77,8 +77,6 @@ export const ClanRankingView = () => {
 
   return (
     <Page
-      title={t('clansRanking')}
-      description={t('clansRanking.desc')}
       headerUrl={`/${bruteName || ''}/cell`}
     >
       <Paper sx={{ mx: 4 }}>

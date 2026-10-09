@@ -95,7 +95,7 @@ export const ResetVisualsView = () => {
   };
 
   return brute && (
-    <Page title={t('resetVisuals')} headerUrl={`/${brute.name}/cell`}>
+    <Page headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

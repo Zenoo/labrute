@@ -71,7 +71,7 @@ export const KnownFingerprintsView = () => {
   }, [Alert, Server.User, newFingerprint, newDescription]);
 
   return (
-    <Page title="Known Fingerprints" headerUrl="/">
+    <Page headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Known Fingerprints</Text>
       </Paper>

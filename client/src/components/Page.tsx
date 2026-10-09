@@ -10,23 +10,18 @@ import { useAuth } from '../hooks/useAuth';
 import { AdName, ads } from '../utils/ads';
 import { Header } from './Header';
 import { Link } from './Link';
-import { SEO } from './SEO';
 import { Text } from './Text';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { isError } from '../utils/catchError';
 import { useNavigate } from 'react-router';
 
 interface Props extends BoxProps {
-  title: string,
-  description?: string,
   headerUrl?: string,
   children: React.ReactNode;
   sx?: BoxProps['sx'];
 }
 
 export const Page = ({
-  title,
-  description,
   headerUrl,
   children,
   sx,
@@ -61,10 +56,6 @@ export const Page = ({
       }}
       {...rest}
     >
-      <SEO
-        title={title}
-        description={description}
-      />
       {/* HEADER */}
       <Header url={headerUrl} />
       {fingerprint.loading ? (

@@ -52,7 +52,7 @@ export const FollowingFeedView = () => {
   }, [user, Alert, page, Server.Log]);
 
   return (
-    <Page title={`${t('followingFeed')} ${t('MyBrute')}`} headerUrl={`/user/${user?.id}`}>
+    <Page headerUrl={`/user/${user?.id}`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('followingFeed')}</Text>
       </Paper>

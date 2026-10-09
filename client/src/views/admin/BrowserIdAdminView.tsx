@@ -40,7 +40,7 @@ export const BrowserIdAdminView = () => {
   }, [Alert, Server.User, browserId]);
 
   return (
-    <Page title={t('adminPanel')} headerUrl="/">
+    <Page headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>

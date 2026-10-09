@@ -286,7 +286,7 @@ export const EventView = () => {
   );
 
   return (
-    <Page title={`${t('event')} ${t('MyBrute')}`} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {t('event')}

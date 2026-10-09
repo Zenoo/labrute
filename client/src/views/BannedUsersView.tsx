@@ -43,7 +43,7 @@ export const BannedUsersView = () => {
   }, [Alert, Confirm, Server.User, t]);
 
   return (
-    <Page title="Banned users" headerUrl="/">
+    <Page headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Banned users</Text>
       </Paper>

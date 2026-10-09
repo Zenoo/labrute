@@ -68,7 +68,7 @@ export const AdminView = () => {
   }, [Alert, Server.User, nextModifiers]);
 
   return (
-    <Page title={t('adminPanel')} headerUrl="/">
+    <Page headerUrl="/">
       {!globalTournamentValid && (
         <MuiAlert severity="warning" variant="filled">
           <Text h5>Global tournament malformed</Text>

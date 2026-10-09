@@ -11,8 +11,6 @@ export const BruteNotFoundView = () => {
 
   return (
     <Page
-      title={t('title')}
-      description={t('desc')}
       headerUrl="/"
     >
       <Paper sx={{ mx: 4 }}>

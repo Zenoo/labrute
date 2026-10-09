@@ -19,7 +19,7 @@ export const AdminLayout = () => {
   return user?.admin ? (
     <Outlet />
   ) : (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page headerUrl="/">
       <Paper sx={{
         mx: 4,
         display: 'flex',

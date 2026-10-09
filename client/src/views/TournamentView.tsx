@@ -189,11 +189,6 @@ export const TournamentView = () => {
       />
     ) : (
       <Page
-        title={`${t('tournamentOf')} ${dayjs.utc(tournament.date).format('DD MMMM YYYY')}`}
-        description={t('tournamentOf.desc', {
-          brute: bruteName,
-          date: dayjs.utc(tournament.date).format('DD MMMM YYYY'),
-        })}
         headerUrl={`/${bruteName || ''}/cell`}
       >
         <Paper sx={{

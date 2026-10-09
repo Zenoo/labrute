@@ -179,7 +179,7 @@ export const ArenaView = () => {
   }, [Alert, Server.Fight, brute, bruteName, loading, navigate, updateBrute, updateData, user]);
 
   return brute && (
-    <Page title={t('title')} headerUrl={`/${brute.name}/cell`}>
+    <Page headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

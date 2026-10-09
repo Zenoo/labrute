@@ -1,5 +1,4 @@
 {
-  "cell.desc": "{{name}}'s cell. A level {{level}} {{rank}} with a {{winrate}} winrate.",
   "sacrifice": "Sacrifice",
   "sacrificeConfirm": "Are you sure you want to sacrifice your brute for {{gold}} Gold ? This action cannot be undone.",
   "sacrificeSuccess": "Sacrifice success, you gained {{gold}} Gold",

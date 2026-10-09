@@ -33,7 +33,7 @@ export const NameChangeView = () => {
   };
 
   return brute && (
-    <Page title={t('title')} headerUrl={`/${brute.name}/cell`}>
+    <Page headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

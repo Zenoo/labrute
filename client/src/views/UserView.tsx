@@ -105,8 +105,6 @@ export const UserView = () => {
 
   return (
     <Page
-      title={t('userProfile', { user: user?.name })}
-      description={t('userProfile.desc', { user: user?.name })}
       headerUrl="/"
     >
       {user && (

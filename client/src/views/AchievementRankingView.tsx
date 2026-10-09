@@ -53,8 +53,6 @@ export const AchievementRankingView = () => {
 
   return (
     <Page
-      title={t('achievementRankings')}
-      description={t('achievementRankings.desc')}
       headerUrl="/"
     >
       <Paper sx={{ mx: 4 }}>

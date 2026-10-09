@@ -17,11 +17,6 @@ export const GlobalTournamentView = () => {
 
   return (
     <Page
-      title={`${t('of')} ${dayjs.utc(date).format('DD/MM/YYYY')}`}
-      description={t('desc', {
-        brute: bruteName,
-        date: dayjs.utc(date).format('DD/MM/YYYY'),
-      })}
       headerUrl={`/${bruteName || ''}/cell`}
     >
       <Paper sx={{ mx: 4 }}>

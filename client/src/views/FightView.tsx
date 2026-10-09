@@ -69,7 +69,7 @@ export const FightView = () => {
   }
 
   return fightId ? (
-    <Page title={bruteName ? `${bruteName} ${t('fight')}` : t('fight')} headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
+    <Page headerUrl={bruteName ? `/${bruteName}/cell` : '/'}>
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{

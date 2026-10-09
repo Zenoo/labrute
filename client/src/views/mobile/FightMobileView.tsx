@@ -31,7 +31,6 @@ export const FightMobileView = ({
 
   return (
     <Page
-      title={`${pageTitle ?? ''} ${t('MyBrute')}`}
       headerUrl={headerUrl}
     >
       <Paper sx={{ textAlign: 'center' }}>

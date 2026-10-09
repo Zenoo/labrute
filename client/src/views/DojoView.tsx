@@ -483,7 +483,7 @@ export const DojoView = () => {
   }, [t, theme, pupils, brute, navigate]);
 
   return brute && (
-    <Page title={t('dojo', { name: brute.name })} headerUrl={`/${brute.name}/cell`}>
+    <Page headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

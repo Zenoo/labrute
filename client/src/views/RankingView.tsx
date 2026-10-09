@@ -133,13 +133,6 @@ export const RankingView = () => {
 
   return rankings && brute && (
     <Page
-      title={t('ranking')}
-      description={t('ranking.desc', {
-        name: brute.name,
-        level: brute.level,
-        rank: t(`lvl_${brute.ranking}`),
-        winrate: getBruteWinrate(brute),
-      })}
       headerUrl={`/${bruteName || ''}/cell`}
     >
       <Paper sx={{ mx: 4 }}>

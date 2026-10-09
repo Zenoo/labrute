@@ -24,8 +24,6 @@ export const TournamentHistoryView = () => {
 
   return (
     <Page
-      title={t('tournamentHistory')}
-      description={t('tournamentHistory.desc')}
       headerUrl={`/${bruteName || ''}/cell`}
     >
       <Paper sx={{ mx: 4 }}>

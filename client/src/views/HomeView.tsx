@@ -295,8 +295,6 @@ export const HomeView = () => {
     )
     : (
       <Page
-        title={t('MyBrute')}
-        description={t('description')}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
           {/* CHARACTER CREATION */}

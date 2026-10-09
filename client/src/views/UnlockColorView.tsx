@@ -141,7 +141,7 @@ export const UnlockColorView = () => {
   };
 
   return brute && (
-    <Page title={t('unlockColor')} headerUrl={`/${brute.name}/cell`}>
+    <Page headerUrl={`/${brute.name}/cell`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

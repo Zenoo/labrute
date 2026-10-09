@@ -146,7 +146,7 @@ export const LevelUpView = () => {
   );
 
   return brute && (
-    <Page title={`${t('MyBrute')}. ${t('newLevelFor')} ${brute.name || ''}`} headerUrl={`/${brute.name}/cell`}>
+    <Page headerUrl={`/${brute.name}/cell`}>
       <MuiAlert severity="success" variant="filled">
         <Text h5>{t('newLevelFor')} {brute.name} !</Text>
       </MuiAlert>

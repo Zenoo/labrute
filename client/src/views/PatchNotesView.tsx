@@ -22,8 +22,6 @@ export const PatchNotesView = () => {
 
   return (
     <Page
-      title={`${t('MyBrute')} - ${t('patchNotes')}`}
-      description={t('desc', { version: LAST_RELEASE.version })}
     >
       <Paper sx={{
         mx: 4,

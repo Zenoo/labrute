@@ -23,7 +23,6 @@ export const namespaces = [
   'cell',
   'clan',
   'common',
-  'destiny',
   'event',
   'followingFeed',
   'generating',
@@ -37,6 +36,7 @@ export const namespaces = [
   'patchNotes',
   'ranking',
   'resetVisuals',
+  'seo',
   'stats',
   'tournament',
   'tournamentHistory',
@@ -142,6 +142,10 @@ const languageBackend: BackendModule = {
 };
 
 const initialLanguage = getInitialLanguage();
+
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = initialLanguage;
+}
 
 i18next
   .use(languageBackend)

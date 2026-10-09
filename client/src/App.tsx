@@ -9,6 +9,7 @@ import React, {
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import { useRoutes } from 'react-router';
 import { Loader } from './components/Loader';
+import { RouteSEO } from './components/RouteSEO';
 import { LS_KEY_THEME } from './utils/constants';
 import { AlertProvider } from './hooks/useAlert';
 import { useAnalytics } from './hooks/useAnalytics';
@@ -66,6 +67,7 @@ export const App = () => {
                           <ThemeProvider theme={theme}>
                             <ConfirmProvider>
                               <Suspense fallback={<Loader />}>
+                                <RouteSEO />
                                 {routing}
                               </Suspense>
                             </ConfirmProvider>

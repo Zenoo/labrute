@@ -26,8 +26,6 @@ export const WikiView = () => {
 
   return (
     <Page
-      title={`${t('wiki')} ${t('MyBrute')}`}
-      description={t('desc')}
       headerUrl=""
     >
       <Paper sx={{

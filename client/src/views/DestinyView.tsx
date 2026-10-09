@@ -19,7 +19,6 @@ import { Page } from '../components/Page';
 import { Text } from '../components/Text';
 import { useBrute } from '../hooks/useBrute';
 import { useStateAsync } from '../hooks/useStateAsync';
-import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 import { PetTooltip } from '../components/Brute/PetTooltip';
 
@@ -92,7 +91,7 @@ const styles: Record<string, SxProps> = {
 };
 
 export const DestinyView = () => {
-  const { t } = useTranslation('destiny');
+  const { t } = useTranslation();
   const { bruteName } = useParams();
   const { brute } = useBrute();
   const { palette: { mode } } = useTheme();
@@ -242,13 +241,6 @@ export const DestinyView = () => {
 
   return brute && (
     <Page
-      title={`${t('MyBrute')}. ${t('destinyOf')} ${brute.name || ''}`}
-      description={t('destiny.desc', {
-        name: brute.name,
-        level: brute.level,
-        rank: t(`lvl_${brute.ranking}`),
-        winrate: getBruteWinrate(brute),
-      })}
       headerUrl={`/${brute.name}/cell`}
     >
       <Paper sx={{

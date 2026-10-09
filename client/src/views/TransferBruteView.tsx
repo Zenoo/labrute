@@ -53,7 +53,7 @@ export const TransferBruteView = () => {
   }, [user, targetUserId, selectedBrute, Confirm, t, Server.User, Alert, updateData, navigate]);
 
   return (
-    <Page title={t('bruteTransfer')} headerUrl={`/user/${targetUserId}`}>
+    <Page headerUrl={`/user/${targetUserId}`}>
       <Paper sx={{
         mx: 4,
         display: 'flex',

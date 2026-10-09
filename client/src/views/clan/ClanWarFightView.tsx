@@ -76,7 +76,7 @@ export const ClanWarFightView = () => {
   }
 
   return (id && fightId) ? (
-    <Page title={t('fight')} headerUrl="..">
+    <Page headerUrl="..">
       <BoxBg
         src={`/images${mode === 'dark' ? '/dark' : ''}/fight/background.webp`}
         sx={{

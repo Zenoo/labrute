@@ -26,7 +26,7 @@ export const MultipleAccountsView = () => {
   }, [admin, Server.User, Alert]);
 
   return (
-    <Page title="Multiple accounts" headerUrl="/">
+    <Page headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Multiple accounts</Text>
       </Paper>

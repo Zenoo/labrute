@@ -43,8 +43,6 @@ export const AchievementsView = () => {
 
   return (
     <Page
-      title={t('achievements')}
-      description={t('desc')}
       headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
     >
       <Paper sx={{ mx: 4 }}>

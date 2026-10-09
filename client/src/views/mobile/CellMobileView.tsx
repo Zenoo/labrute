@@ -51,13 +51,6 @@ export const CellMobileView = ({
 
   return brute && (
     <Page
-      title={`${brute.name || ''} ${t('MyBrute')}`}
-      description={t('cell.desc', {
-        name: brute.name,
-        level: brute.level,
-        rank: t(`lvl_${brute.ranking}`),
-        winrate: getBruteWinrate(brute),
-      })}
       headerUrl={`/${brute.name}/cell`}
     >
       <Grid container spacing={1} alignItems="center">

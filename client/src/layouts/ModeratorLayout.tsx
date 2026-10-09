@@ -19,7 +19,7 @@ export const ModeratorLayout = () => {
   return moderator ? (
     <Outlet />
   ) : authing ? null : (
-    <Page title={t('MyBrute')} headerUrl="/">
+    <Page headerUrl="/">
       <Paper sx={{
         mx: 4,
         display: 'flex',

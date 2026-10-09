@@ -11,8 +11,6 @@ export const NotFoundView = () => {
 
   return (
     <Page
-      title={t('title')}
-      description={t('subtitle')}
       headerUrl="/"
     >
       <Paper sx={{ mx: 4 }}>

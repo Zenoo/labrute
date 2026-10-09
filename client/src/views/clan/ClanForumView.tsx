@@ -31,7 +31,7 @@ export const ClanForumView = () => {
   }, [Alert, Server.Clan, bruteName, id]);
 
   return (
-    <Page title={t('forum')} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('forum')}</Text>
       </Paper>

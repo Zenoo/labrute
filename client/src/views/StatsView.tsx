@@ -656,8 +656,6 @@ export const StatsView = () => {
 
   return (
     <Page
-      title={title}
-      description="Statistics"
       headerUrl={`/user/${userId}`}
     >
       <Dialog

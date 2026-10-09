@@ -35,8 +35,6 @@ export const GeneratingView = () => {
 
   return (
     <Page
-      title={t('pleaseWait')}
-      description={t('generatingTournaments')}
       headerUrl="/"
     >
       <Paper sx={{

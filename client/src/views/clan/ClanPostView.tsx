@@ -105,7 +105,7 @@ export const ClanPostView = () => {
     }
   }, [Alert, Server.Clan, bruteName, editing, id, tid]);
   return (
-    <Page title={tid === '0' ? t('startThread') : t('reply')} headerUrl={`/${bruteName || ''}/cell`}>
+    <Page headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {tid === '0' ? t('startThread') : t('reply')}

@@ -35,7 +35,6 @@ import { useLanguage } from '../hooks/useLanguage';
 import { useStateAsync } from '../hooks/useStateAsync';
 import { getRandomAd } from '../utils/ads';
 import { CellMobileView } from './mobile/CellMobileView';
-import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
 
@@ -246,13 +245,6 @@ export const CellView = () => {
     )
     : (
       <Page
-        title={`${brute.name} ${t('MyBrute')}`}
-        description={t('cell.desc', {
-          name: brute.name,
-          level: brute.level,
-          rank: t(`lvl_${brute.ranking}`),
-          winrate: getBruteWinrate(brute),
-        })}
         headerUrl={`/${brute.name}/cell`}
       >
         {previousBruteArrow}
