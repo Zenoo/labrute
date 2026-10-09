@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.0](https://github.com/Zenoo/labrute/compare/labrute-v2.98.2...labrute-v2.99.0) (2026-10-09)
+
+
+### Features
+
+* Add user/brute stats for display later ([cfd064d](https://github.com/Zenoo/labrute/commit/cfd064d11af216468339c587ce814777dad611c6))
+* General stats + level up stats ([4c9ecde](https://github.com/Zenoo/labrute/commit/4c9ecde5bf95ccfb680ce0c83f7ae652047f639c))
+
+
+### Bug Fixes
+
+* 2 new achievements ([9840902](https://github.com/Zenoo/labrute/commit/9840902c9d7c2a831d94d5bd84fa4722c184fb16))
+* Calculate level up choice stats on the server ([080fea3](https://github.com/Zenoo/labrute/commit/080fea30c9515ca33cc66df018124a9be44b1e37))
+* Clickable gold button to create a brute ([201474f](https://github.com/Zenoo/labrute/commit/201474fc709bc93ec403daf0d39d01682d1c7355))
+* Display loader when fetching a hook brute ([94f7970](https://github.com/Zenoo/labrute/commit/94f79701888bd7636caea9f11c691a57badbf3ea))
+* Display missing registrations in hall ([f7eb93b](https://github.com/Zenoo/labrute/commit/f7eb93b2aa76b580a808d14bec3a5901d8053708))
+* Filter stats by year/month ([b764251](https://github.com/Zenoo/labrute/commit/b76425178f3cdb0b240baac031367e6ce571c3f7))
+* Give the correct amount of HP when replacing an ascended perk ([2fa45fd](https://github.com/Zenoo/labrute/commit/2fa45fdc863bd6253bef483f653baf00a969607a))
+* Handle flat/percent chaos calculation depending on stat type ([c317c90](https://github.com/Zenoo/labrute/commit/c317c900227ae8156e4233ebfedf00a0bf9abad0))
+* HP overflow when using potion at 1HP ([83ef39b](https://github.com/Zenoo/labrute/commit/83ef39b3410c1f972383417ffdc79eff1ed42e7b))
+* Improve date gating in tournament rewards ([e4c9e56](https://github.com/Zenoo/labrute/commit/e4c9e56d06254e3bdbd4c1c5a9592a4ad6e2dbd5))
+* New achievement titles ([af87c3e](https://github.com/Zenoo/labrute/commit/af87c3ed6776073057240202e8ea7e81afaa38af))
+* Optimize multiple account detection to prevent server hang ([e2974e8](https://github.com/Zenoo/labrute/commit/e2974e879e537e023c530f6de2652a10a95a7085))
+* Prevent users from getting banned again after an unban ([edd0308](https://github.com/Zenoo/labrute/commit/edd03087f616ea2e9f1b602e80d0276c4bc6eea9))
+* SEO optimizations ([15a4c52](https://github.com/Zenoo/labrute/commit/15a4c5293bf4d9809c592d2cb670d2d088fe613f))
+
 ## [2.98.2](https://github.com/Zenoo/labrute/compare/labrute-v2.98.1...labrute-v2.98.2) (2026-08-13)
 
 
