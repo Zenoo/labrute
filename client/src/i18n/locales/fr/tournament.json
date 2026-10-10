@@ -1,5 +1,4 @@
 {
-  "tournamentOf.desc": "Voir la participation de {{brute}} au tournoi du {{date}}.",
   "tournamentOf": "Tournoi du",
   "setAsWatched": "Marquer comme vu",
   "round": "Tour {{value}}",

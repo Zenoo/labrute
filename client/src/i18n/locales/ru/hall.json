@@ -1,5 +1,9 @@
 {
   "hall": "Холл",
   "chooseAsFavorite": "Сделать избранным (макс. {{amount}})",
-  "removeFromFavorites": "Удалить из избранных"
+  "removeFromFavorites": "Удалить из избранных",
+  "fightsLeft_one": "У вас на сегодня осталась одна битва!",
+  "fightsLeft_other": "У вас на сегодня осталось {{count}} битв!",
+  "missingRegistrations_one": "Один Брутал ещё не записан на турнир.",
+  "missingRegistrations_other": "{{count}} Бруталов ещё не записаны на турнир."
 }

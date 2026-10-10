@@ -1,5 +1,4 @@
 {
-  "cell.desc": "Celda de {{name}}. Nivel {{level}} {{rank}} con un ratio de victoria de {{winrate}}.",
   "sacrifice": "Sacrificar",
   "sacrificeConfirm": "¿Estás seguro de que quieres sacrificar tu Bruto por {{gold}} Oro? Esta acción no se puede deshacer.",
   "sacrificeSuccess": "Sacrificio exitoso, has conseguido {{gold}} Oro.",
