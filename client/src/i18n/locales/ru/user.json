@@ -7,7 +7,7 @@
   "deleteAccountConfirm": "Вы уверены, что хотите удалить свою учетную запись? Все ваши Бруталы и прогресс будут утеряны. Это действие необратимо.",
   "accountDeleted": "Ваша учётная запись была удалена",
   "userProfile": "Профиль {{user}}",
-  "stats": "Stats",
+  "stats": "Статистики",
   "externalRewards": "Внешние вознаграждения",
   "favoriteFights": "Избранные битвы",
   "banReason.innapropriateName": "Неуместное имя",
