@@ -148,7 +148,7 @@ export const Clans = {
       }
 
       if (typeof req.body.name !== 'string') {
-        throw new ExpectedError(translate('invalidClanName', user));
+        throw new ExpectedError(translate('invalidParameters', user));
       }
 
       const clanName = req.body.name.trim();
@@ -721,7 +721,7 @@ export const Clans = {
 
       // Check if brute is in clan
       if (brute.clanId !== clan.id) {
-        throw new NotFoundError(translate('bruteNotInClan', user));
+        throw new NotFoundError(translate('unauthorized', user));
       }
 
       // Update clan
@@ -846,7 +846,7 @@ export const Clans = {
 
       // Check if brute is in clan
       if (!clan.brutes.some((b) => b.id === brute.id)) {
-        throw new NotFoundError(translate('bruteNotInClan', user));
+        throw new NotFoundError(translate('unauthorized', user));
       }
 
       // Check if brute is the clan master
@@ -1829,7 +1829,7 @@ export const Clans = {
 
       // Check if brute is in clan
       if (brute.clanId !== clan.id) {
-        throw new NotFoundError(translate('bruteNotInClan', user));
+        throw new NotFoundError(translate('unauthorized', user));
       }
 
       // Update clan
@@ -2232,7 +2232,7 @@ export const Clans = {
       });
 
       if (!role) {
-        throw new NotFoundError(translate('roleNotFound', user));
+        throw new NotFoundError(translate('unauthorized', user));
       }
 
       // Filter valid brutes
@@ -2354,7 +2354,7 @@ export const Clans = {
 
       // Disallow if the brute is in a clan
       if (brute.clanId) {
-        throw new ExpectedError(translate('bruteInClan', user));
+        throw new ExpectedError(translate('unauthorized', user));
       }
 
       const clan = await traced('clans.transferOwnership.findClan', () => prisma.clan.findFirst({

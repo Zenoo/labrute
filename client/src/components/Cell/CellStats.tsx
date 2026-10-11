@@ -25,7 +25,7 @@ export const CellStats = ({
         <Box component="img" src={`/images/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
         <Text bold component="span" sx={{ color: StatColor[stat] }}>{t(stat)} : {value}</Text>
       </Box>
-      <Tooltip title={`${t(stat)} : ${value}`}>
+      <Tooltip title={t(`${stat}.desc`)}>
         <Box>
           {excesses.map((excess) => (
             <Box

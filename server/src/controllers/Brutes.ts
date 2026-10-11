@@ -369,7 +369,7 @@ export const Brutes = {
       }
 
       if (typeof req.body.colors !== 'string' || typeof req.body.body !== 'string') {
-        throw new InvalidAPIUseError(authed, translate('invalidBodyOrColors', authed));
+        throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
       if (req.body.gender !== Gender.male && req.body.gender !== Gender.female) {

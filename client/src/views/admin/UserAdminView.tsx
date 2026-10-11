@@ -232,7 +232,7 @@ export const UserAdminView = () => {
                       color="error"
                       sx={{ m: 1 }}
                     >
-                      {t('ban')}
+                      {t('user:ban')}
                     </FantasyButton>
                   </Box>
                 )}
@@ -292,7 +292,7 @@ export const UserAdminView = () => {
                           <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                          <TableCell align="right">{otherUser.banReason ? t(`banReason.${otherUser.banReason}`) : ''}</TableCell>
+                          <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -326,7 +326,7 @@ export const UserAdminView = () => {
                           <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                          <TableCell align="right">{otherUser.banReason ? t(`banReason.${otherUser.banReason}`) : ''}</TableCell>
+                          <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

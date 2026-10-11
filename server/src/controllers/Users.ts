@@ -1376,7 +1376,7 @@ export const Users = {
       }));
 
       if (!targetUser) {
-        throw new NotFoundError(translate('targetUserNotFound', authed));
+        throw new NotFoundError(translate('userNotFound', authed));
       }
 
       if (!targetUser.fingerprints.some((fp) => user.fingerprints.includes(fp))) {
