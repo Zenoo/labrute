@@ -1,50 +1,50 @@
 {
   "home": {
     "title": "{{brand}}",
-    "description": "Create your Brute, customize its appearance, and fight other Brutes in the arena."
+    "description": "Создавайте вашего Брутала, выбирайте его внешность и сражайтесь с другими Бруталами в арене."
   },
   "achievements/rankings": {
-    "title": "Achievements Ranking | {{brand}}",
-    "description": "Compare top players and their achievements."
+    "title": "Рейтинг достижений | {{brand}}",
+    "description": "Сравнивайте лучших игроков и их достижения."
   },
   "patch-notes": {
-    "title": "Patch Notes | {{brand}}",
-    "description": "Read the latest updates and balance changes."
+    "title": "Список изменений | {{brand}}",
+    "description": "Читайте последние обновления и изменения баланса."
   },
   "wiki": {
-    "title": "Wiki | {{brand}}",
-    "description": "Learn mechanics, skills, and strategies."
+    "title": "Вики | {{brand}}",
+    "description": "Изучайте механики, умения и стратегии."
   },
   "terms": {
-    "title": "Terms of Service | {{brand}}",
-    "description": "Review terms and conditions for the game."
+    "title": "Условия использования | {{brand}}",
+    "description": "Ознакомьтесь с условиями пользования игры."
   },
   "fight": {
-    "title": "Fight | {{brand}}",
-    "description": "Watch and analyze a fight."
+    "title": "Сражайтесь | {{brand}}",
+    "description": "Смотрите и анализируйте битву."
   },
   "user": {
-    "title": "User Profile | {{brand}}",
-    "description": "View profile, brutes, and achievements."
+    "title": "Профиль пользователя | {{brand}}",
+    "description": "Взгляните на профиль, Бруталов и достижения."
   },
   "user-stats": {
-    "title": "User Stats | {{brand}}",
-    "description": "Detailed user statistics and performance trends."
+    "title": "Статистики пользователя | {{brand}}",
+    "description": "Подробные статистики пользователя и тенденции производительности."
   },
   "cell": {
-    "title": "{{name}}'s Cell | {{brand}}",
-    "description": "View {{name}}'s cell and manage progression."
+    "title": "Клетка {{name}} | {{brand}}",
+    "description": "Посетите клетку {{name}} и руководите его прогрессом."
   },
   "tournament": {
-    "title": "{{name}}'s Tournament | {{brand}}",
-    "description": "Track tournament participation and results for {{name}}."
+    "title": "Турнир {{name}} | {{brand}}",
+    "description": "Отслеживайте участие и результаты турнира {{name}}."
   },
   "ranking/rank": {
-    "title": "{{rank}} Ranking | {{brand}}",
-    "description": "Browse rankings and compare competitors."
+    "title": "Рейтинг {{rank}} | {{brand}}",
+    "description": "Просматривайте рейтинги и сравнивайте конкурентов."
   },
   "destiny": {
-    "title": "{{name}}'s Destiny | {{brand}}",
+    "title": "Судьба {{name}} | {{brand}}",
     "description": "See destiny choices and progression options for {{name}}."
   },
   "tournaments": {
