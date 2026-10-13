@@ -45,62 +45,62 @@
   },
   "destiny": {
     "title": "Судьба {{name}} | {{brand}}",
-    "description": "See destiny choices and progression options for {{name}}."
+    "description": "Исследуйте судьбу и варианты развития {{name}}."
   },
   "tournaments": {
-    "title": "{{name}}'s Tournament History | {{brand}}",
-    "description": "Review past tournaments for {{name}}."
+    "title": "Хроника турниров {{name}} | {{brand}}",
+    "description": "Пересматривайте минувшие турниры {{name}}."
   },
   "achievements": {
-    "title": "{{name}} Achievements | {{brand}}",
-    "description": "Explore achievements unlocked by {{name}}."
+    "title": "Достижения {{name}} | {{brand}}",
+    "description": "Исследуйте достижения, разблокированные {{name}}."
   },
   "dojo": {
-    "title": "{{name}} Dojo | {{brand}}",
-    "description": "See {{name}}'s pupils."
+    "title": "Додзё {{name}} | {{brand}}",
+    "description": "Осматривайте учеников {{name}}."
   },
   "clan-ranking": {
-    "title": "Clan Ranking | {{brand}}",
-    "description": "Browse top clans and compare their progress."
+    "title": "Клановый рейтинг | {{brand}}",
+    "description": "Рассматривайте лучшие кланы и сравнивайте их успехи."
   },
   "clan": {
-    "title": "Clan | {{brand}}",
-    "description": "View clan information, members, and activity."
+    "title": "Клан | {{brand}}",
+    "description": "Изучайте информацию о клане, его членах и их активность."
   },
   "forum": {
-    "title": "Clan Forum | {{brand}}",
-    "description": "Read and discuss in the clan forum."
+    "title": "Форум клана | {{brand}}",
+    "description": "Читайте и принимайте участие в беседах на форуме клана."
   },
   "clan-war-history": {
-    "title": "Clan War History | {{brand}}",
-    "description": "Browse past clan wars."
+    "title": "Хроника клановых войн | {{brand}}",
+    "description": "Копайся в прошедших войнах клана."
   },
   "clan-war": {
-    "title": "Clan War | {{brand}}",
-    "description": "Track a clan war and its results."
+    "title": "Клановая война | {{brand}}",
+    "description": "Отслеживайте клановую войну и её результаты."
   },
   "clan-war-fight": {
-    "title": "Clan War Fight | {{brand}}",
-    "description": "View a fight from a clan war."
+    "title": "Битва клановой войны | {{brand}}",
+    "description": "Смотрите одну из битв клановой войны."
   },
   "current-events": {
-    "title": "Current Events | {{brand}}",
-    "description": "Discover currently active events."
+    "title": "Текущие мероприятия | {{brand}}",
+    "description": "Разузнайте об идущих мероприятиях."
   },
   "history": {
-    "title": "Event History | {{brand}}",
-    "description": "Browse previous game events."
+    "title": "Хроника мероприятий | {{brand}}",
+    "description": "Просматривайте прошедшие мероприятия игры."
   },
   "event": {
-    "title": "Event | {{brand}}",
-    "description": "Explore event details and rankings."
+    "title": "Мероприятие | {{brand}}",
+    "description": "Исследуйте подробности мероприятия и рейтинг."
   },
   "event-round": {
-    "title": "Event Round | {{brand}}",
-    "description": "View details for a specific event round."
+    "title": "Этап мероприятия | {{brand}}",
+    "description": "Узнайте подробности об определённом этапе мероприятия."
   },
   "fallback": {
-    "title": "Page Not Found | {{brand}}",
-    "description": "The requested page does not exist."
+    "title": "Страница не найдена | {{brand}}",
+    "description": "Запрошенная страница не существует."
   }
 }
