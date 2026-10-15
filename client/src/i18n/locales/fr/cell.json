@@ -1,5 +1,4 @@
 {
-  "cell.desc": "Cellule de {{name}}. Une brute {{rank}} de niveau {{level}} avec un taux de victoire de {{winrate}}.",
   "sacrifice": "Sacrifier",
   "sacrificeConfirm": "Voulez-vous vraiment sacrifier votre brute pour {{gold}} Or ? Cette action est irréversible.",
   "sacrificeSuccess": "Sacrifice réussi, vous avez gagné {{gold}} Or",

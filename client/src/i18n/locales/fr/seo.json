@@ -1,0 +1,106 @@
+{
+  "home": {
+    "title": "{{brand}}",
+    "description": "Create your Brute, customize its appearance, and fight other Brutes in the arena."
+  },
+  "achievements/rankings": {
+    "title": "Achievements Ranking | {{brand}}",
+    "description": "Compare top players and their achievements."
+  },
+  "patch-notes": {
+    "title": "Patch Notes | {{brand}}",
+    "description": "Read the latest updates and balance changes."
+  },
+  "wiki": {
+    "title": "Wiki | {{brand}}",
+    "description": "Learn mechanics, skills, and strategies."
+  },
+  "terms": {
+    "title": "Terms of Service | {{brand}}",
+    "description": "Review terms and conditions for the game."
+  },
+  "fight": {
+    "title": "Fight | {{brand}}",
+    "description": "Watch and analyze a fight."
+  },
+  "user": {
+    "title": "User Profile | {{brand}}",
+    "description": "View profile, brutes, and achievements."
+  },
+  "user-stats": {
+    "title": "User Stats | {{brand}}",
+    "description": "Detailed user statistics and performance trends."
+  },
+  "cell": {
+    "title": "{{name}}'s Cell | {{brand}}",
+    "description": "View {{name}}'s cell and manage progression."
+  },
+  "tournament": {
+    "title": "{{name}}'s Tournament | {{brand}}",
+    "description": "Track tournament participation and results for {{name}}."
+  },
+  "ranking/rank": {
+    "title": "{{rank}} Ranking | {{brand}}",
+    "description": "Browse rankings and compare competitors."
+  },
+  "destiny": {
+    "title": "{{name}}'s Destiny | {{brand}}",
+    "description": "See destiny choices and progression options for {{name}}."
+  },
+  "tournaments": {
+    "title": "{{name}}'s Tournament History | {{brand}}",
+    "description": "Review past tournaments for {{name}}."
+  },
+  "achievements": {
+    "title": "{{name}} Achievements | {{brand}}",
+    "description": "Explore achievements unlocked by {{name}}."
+  },
+  "dojo": {
+    "title": "{{name}} Dojo | {{brand}}",
+    "description": "See {{name}}'s pupils."
+  },
+  "clan-ranking": {
+    "title": "Clan Ranking | {{brand}}",
+    "description": "Browse top clans and compare their progress."
+  },
+  "clan": {
+    "title": "Clan | {{brand}}",
+    "description": "View clan information, members, and activity."
+  },
+  "forum": {
+    "title": "Clan Forum | {{brand}}",
+    "description": "Read and discuss in the clan forum."
+  },
+  "clan-war-history": {
+    "title": "Clan War History | {{brand}}",
+    "description": "Browse past clan wars."
+  },
+  "clan-war": {
+    "title": "Clan War | {{brand}}",
+    "description": "Track a clan war and its results."
+  },
+  "clan-war-fight": {
+    "title": "Clan War Fight | {{brand}}",
+    "description": "View a fight from a clan war."
+  },
+  "current-events": {
+    "title": "Current Events | {{brand}}",
+    "description": "Discover currently active events."
+  },
+  "history": {
+    "title": "Event History | {{brand}}",
+    "description": "Browse previous game events."
+  },
+  "event": {
+    "title": "Event | {{brand}}",
+    "description": "Explore event details and rankings."
+  },
+  "event-round": {
+    "title": "Event Round | {{brand}}",
+    "description": "View details for a specific event round."
+  },
+  "fallback": {
+    "title": "Page Not Found | {{brand}}",
+    "description": "The requested page does not exist."
+  }
+}
