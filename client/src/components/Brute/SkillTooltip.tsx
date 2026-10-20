@@ -27,12 +27,14 @@ export type SkillTooltipProps = Omit<TooltipProps, 'title'> & {
   skill?: Skill | null;
   tier?: number;
   ascended?: boolean;
+  random?: boolean;
 }
 
 export const SkillTooltip = ({
   skill,
   tier = 1,
   ascended = false,
+  random = false,
   children,
   ...rest
 }: SkillTooltipProps) => {
@@ -135,6 +137,12 @@ export const SkillTooltip = ({
               </Box>
             )}
           </Box>
+          {ascended && (
+            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.skill') })}</Text>
+          )}
+          {random && (
+            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.skill') })}</Text>
+          )}
         </>
       ) : ''}
       componentsProps={{

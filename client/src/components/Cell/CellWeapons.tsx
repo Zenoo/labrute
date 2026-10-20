@@ -153,6 +153,8 @@ export const CellWeapons = (
       tier={hoveredWeaponTier}
       open={hoveredWeapon !== null}
       bareHands={hoveredWeapon === 'bare-hands'}
+      ascended={(hoveredWeapon !== 'bare-hands' && hoveredWeapon) ? brute.ascendedWeapons.includes(hoveredWeapon) : false}
+      random={randomWeapon === hoveredWeapon}
       placement="bottom"
       onClick={onWeaponClick(hoveredWeapon)}
     >

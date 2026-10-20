@@ -79,6 +79,7 @@ export const CellSkills = ({
               skill={skill}
               tier={brute.skills[skill.name]}
               ascended={brute.ascendedSkills.includes(skill.name)}
+              random={randomSkill === skill.name}
             >
               <SkillIcon
                 skill={skill.name}

@@ -24,12 +24,16 @@ export interface PetTooltipProps extends Omit<TooltipProps, 'title'> {
   pet?: Pet | null;
   tier?: number;
   brute?: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>;
+  ascended?: boolean;
+  random?: boolean;
 }
 
 export const PetTooltip = ({
   pet,
   brute: specificBrute,
   tier = 1,
+  ascended = false,
+  random = false,
   children,
   ...rest
 }: PetTooltipProps) => {
@@ -111,9 +115,10 @@ export const PetTooltip = ({
               ))}
             </Box>
           )}
-          <Box sx={{ textAlign: 'center', my: 0.5 }}>
-            {/* NAME */}
+          {/* NAME */}
+          <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', justifyContent: 'center' }}>
             <Text bold h5>{t(tieredPet.name)}</Text>
+            {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
           </Box>
           {/* ODDS */}
           <Text {...textProps}>
@@ -134,6 +139,12 @@ export const PetTooltip = ({
           {statLine('accuracy', true, 2)}
           {statLine('disarm', true, 2)}
           {statLine('block', true, 2)}
+          {ascended && (
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.pet') })}</Text>
+          )}
+          {random && (
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.pet') })}</Text>
+          )}
           {statLine('combo', true, 2)}
         </>
       ) : ''}

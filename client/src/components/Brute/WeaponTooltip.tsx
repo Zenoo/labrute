@@ -25,6 +25,7 @@ export type WeaponTooltipProps = Omit<TooltipProps, 'title'> & {
   bareHands?: boolean;
   tier?: number;
   ascended?: boolean;
+  random?: boolean;
 }
 
 export const WeaponTooltip = ({
@@ -32,6 +33,7 @@ export const WeaponTooltip = ({
   tier = 1,
   bareHands,
   ascended = false,
+  random = false,
   children,
   ...rest
 }: WeaponTooltipProps) => {
@@ -128,7 +130,7 @@ export const WeaponTooltip = ({
               </Box>
             )}
             {/* NAME */}
-            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', justifyContent: 'center' }}>
               <Text bold h5>{weapon ? t(weapon.name) : t('bareHands')}</Text>
               {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
             </Box>
@@ -204,6 +206,12 @@ export const WeaponTooltip = ({
           {statLine('disarm', true, false)}
           {statLine('combo', true, false)}
           {statLine('deflect', true, false)}
+          {ascended && (
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.weapon') })}</Text>
+          )}
+          {random && (
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.weapon') })}</Text>
+          )}
         </>
       ) : ''}
       componentsProps={{
