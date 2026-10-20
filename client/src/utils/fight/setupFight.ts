@@ -1,7 +1,7 @@
 
 
 import {
-  Fighter, FightStep, isLoser, isWinner, SkillById, SkillId, skills, StepType
+  FightStep, isLoser, isWinner, SkillById, SkillId, skills, StepType
 } from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
@@ -59,6 +59,7 @@ import { getFighters } from './utils/getFighters';
 import { mimic } from './mimic';
 import { tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
+import { bindFightTooltip, ToggleFightTooltip } from './utils/fightTooltip';
 
 export const setupFight: (
   theme: Theme,
@@ -66,7 +67,7 @@ export const setupFight: (
   app: Application,
   speed: React.RefObject<number>,
   t: TFunction,
-  toggleTooltip: (brute: Fighter, open: boolean) => void,
+  toggleTooltip: ToggleFightTooltip,
   renderer: RendererContextInterface,
   spritesheets: Spritesheets,
   showPerformanceStats?: boolean,
@@ -311,20 +312,6 @@ export const setupFight: (
     team1Header.y = 10;
     team1Header.zIndex = 101;
 
-    // Tooltip on hover/tap
-    team1Header.eventMode = 'static';
-    team1Header.cursor = 'pointer';
-    team1Header.on('pointerover', () => {
-      toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1, true);
-    });
-    team1Header.on('pointerout', () => {
-      toggleTooltip(brute1, false);
-    });
-    team1Header.on('pointertap', (e) => {
-      e.stopPropagation();
-      toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1, true);
-    });
-
     app.stage?.addChild(team1Header);
 
     // First team name
@@ -375,7 +362,7 @@ export const setupFight: (
       app.stage.eventMode = 'static';
     }
     app.stage?.on('pointertap', () => {
-      toggleTooltip(brute1, false);
+      toggleTooltip(null, false);
     });
 
     // First team bust
@@ -395,6 +382,12 @@ export const setupFight: (
     team1BustContainer.eventMode = 'none';
     app.stage.addChild(team1BustContainer);
     team1BustContainer.addChild(team1Bust);
+
+    // Tooltip on hover/tap
+    bindFightTooltip(team1BustContainer, () => ({
+      type: 'brute',
+      fighter: findHUDFocusedFighter(fightFighters, fighters, brute1.team) || brute1,
+    }), toggleTooltip);
 
     // Clip bust to fit in the header
     const team1BustMask = new Graphics()
@@ -423,20 +416,6 @@ export const setupFight: (
       team2Header.x = app.screen.width - 4;
       team2Header.y = 10;
       team2Header.zIndex = 101;
-
-      // Tooltip on hover/tap
-      team2Header.eventMode = 'static';
-      team2Header.cursor = 'pointer';
-      team2Header.on('pointerover', () => {
-        toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2, true);
-      });
-      team2Header.on('pointerout', () => {
-        toggleTooltip(brute2, false);
-      });
-      team2Header.on('pointertap', (e) => {
-        e.stopPropagation();
-        toggleTooltip(findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2, true);
-      });
 
       app.stage?.addChild(team2Header);
 
@@ -502,6 +481,12 @@ export const setupFight: (
       team2BustContainer.eventMode = 'none';
       app.stage?.addChild(team2BustContainer);
       team2BustContainer.addChild(team2Bust);
+
+      // Tooltip on hover/tap
+      bindFightTooltip(team2BustContainer, () => ({
+        type: 'brute',
+        fighter: findHUDFocusedFighter(fightFighters, fighters, brute2.team) || brute2,
+      }), toggleTooltip);
 
       // Clip bust to fit in the header
       const team2BustMask = new Graphics()
@@ -649,6 +634,7 @@ export const setupFight: (
         teamWeaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
         teamSkillsIllustrations: fighter.team === brute1.team ? team1Skills : team2Skills,
         HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
+        toggleTooltip,
         skills: Object.fromEntries(Object.entries(fighter.skills).map(([skillId, tier]) => {
           let skillUses = skills[SkillById[+skillId as SkillId]].uses?.[tier - 1] ?? 0;
 

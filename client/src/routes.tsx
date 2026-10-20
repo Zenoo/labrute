@@ -110,7 +110,7 @@ export const routes: RouteObject[] = [
           { path: 'level-up', element: <LevelUpView />, handle: { shouldIndex: false } },
           { path: 'arena', element: <ArenaView />, handle: { shouldIndex: false } },
           { path: 'inventory', element: <InventoryView />, handle: { shouldIndex: false } },
-          { path: 'versus/:opponentName', element: <VersusView />, handle: { shouldIndex: false } },
+          { path: 'versus/:opponentName', element: <VersusView />, handle: { shouldIndex: false }, id: 'versus' },
           { path: 'fight/:fightId', element: <FightView />, id: 'fight' },
           { path: 'tournament/global/:date', element: <GlobalTournamentView />, id: 'tournament' },
           { path: 'tournament/:date', element: <TournamentView />, id: 'tournament' },
@@ -127,15 +127,15 @@ export const routes: RouteObject[] = [
             path: 'clan',
             children: [
               { path: 'ranking', element: <ClanRankingView />, id: 'clan-ranking' },
-              { path: 'create', element: <ClanCreateView />, handle: { shouldIndex: false } },
+              { path: 'create', element: <ClanCreateView />, handle: { shouldIndex: false }, id: 'clan-create' },
               {
                 path: ':id',
                 children: [
                   { path: '', element: <ClanView />, id: 'clan' },
-                  { path: 'forum', element: <ClanForumView />, handle: { shouldIndex: false } },
-                  { path: 'thread/:tid', element: <ClanThreadView />, handle: { shouldIndex: false } },
-                  { path: 'post/:tid', element: <ClanPostView />, handle: { shouldIndex: false } },
-                  { path: 'post/:tid/edit', element: <ClanPostView />, handle: { shouldIndex: false } },
+                  { path: 'forum', element: <ClanForumView />, handle: { shouldIndex: false }, id: 'clan-forum' },
+                  { path: 'thread/:tid', element: <ClanThreadView />, handle: { shouldIndex: false }, id: 'clan-thread' },
+                  { path: 'post/:tid', element: <ClanPostView />, handle: { shouldIndex: false }, id: 'clan-post' },
+                  { path: 'post/:tid/edit', element: <ClanPostView />, handle: { shouldIndex: false }, id: 'clan-post-edit' },
                   {
                     path: 'war',
                     children: [
@@ -195,7 +195,7 @@ export const routes: RouteObject[] = [
         path: 'moderator-panel',
         element: <ModeratorLayout />,
         children: [
-          { path: 'report', element: <ReportAdminView />, handle: { shouldIndex: false } },
+          { path: 'report', element: <ReportAdminView />, handle: { shouldIndex: false }, id: 'report' },
         ],
       },
       // 404

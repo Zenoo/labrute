@@ -1,6 +1,7 @@
 import { Fighter, SkillId } from '@labrute/core';
 import * as PIXI from 'pixi.js';
 import { FighterHolder } from '../FighterHolder';
+import { ToggleFightTooltip } from './fightTooltip';
 
 export interface AnimationFighter extends Omit<Fighter, 'shield' | 'skills'> {
   type: 'brute' | 'pet' | 'boss';
@@ -9,6 +10,7 @@ export interface AnimationFighter extends Omit<Fighter, 'shield' | 'skills'> {
   teamWeaponsIllustrations: PIXI.Sprite[];
   teamSkillsIllustrations: PIXI.Sprite[];
   HUDFocused: boolean;
+  toggleTooltip?: ToggleFightTooltip;
   animation: FighterHolder;
   bustImage: HTMLImageElement | null;
   bust: PIXI.Sprite | undefined;

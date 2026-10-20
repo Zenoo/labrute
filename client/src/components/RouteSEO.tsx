@@ -58,6 +58,15 @@ export const RouteSEO = () => {
     const robots = shouldNoIndex ? 'noindex,nofollow' : 'index,follow';
 
     const routeId = match.route.id ?? match.route.path;
+
+    if (shouldNoIndex) {
+      return {
+        title: t(`title.${routeId}`, { brand }),
+        robots,
+        brand,
+      };
+    }
+
     const titleKey = `${routeId}.title`;
     const descriptionKey = `${routeId}.description`;
 
@@ -100,7 +109,7 @@ export const RouteSEO = () => {
 
   const resolvedSiteName = seo?.brand || 'MyBrute';
 
-  return seo ? (
+  return (seo) ? (
     <Helmet prioritizeSeoTags>
       <title>{seo.title}</title>
       <link rel="canonical" href={canonical} />

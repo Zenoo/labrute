@@ -1,5 +1,5 @@
 import {
-  entries, SkillById, SkillId
+  entries, SkillById, SkillId, skills
 } from '@labrute/core';
 import { Application, Sprite } from 'pixi.js';
 import {
@@ -8,6 +8,7 @@ import {
 import { AnimationFighter } from './utils/findFighter';
 import { Easing, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
+import { bindFightTooltip } from './utils/fightTooltip';
 
 const addSkill = (
   app: Application,
@@ -124,7 +125,7 @@ export const updateSkills = (
         const sprite = new Sprite(texture);
 
         sprite.label = s.toString();
-        sprite.zIndex = 99;
+        sprite.zIndex = 104;
         sprite.width = SKILL_SIZE;
         sprite.height = SKILL_SIZE;
 
@@ -135,6 +136,13 @@ export const updateSkills = (
         }
         sprite.y = Math.floor(index / SKILLS_PER_ROW) * (SKILL_SIZE + SKILL_SPACING) + skillsStartY;
 
+        if (brute.toggleTooltip) {
+          bindFightTooltip(sprite, () => ({
+            type: 'skill',
+            skill: skills[skillName],
+            tier: currentSkill.tier,
+          }), brute.toggleTooltip);
+        }
         app.stage.addChild(sprite);
         brute.teamSkillsIllustrations.push(sprite);
       });

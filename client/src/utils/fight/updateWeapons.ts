@@ -1,6 +1,6 @@
 
 import {
-  entries, WeaponById, WeaponId
+  entries, WeaponById, WeaponId, weapons
 } from '@labrute/core';
 import { OutlineFilter } from 'pixi-filters/outline';
 import { Application, Sprite } from 'pixi.js';
@@ -11,6 +11,7 @@ import {
 } from './utils/fightPositions';
 import { updateSkills } from './updateSkills';
 import { Spritesheets } from './utils/spritesheet';
+import { bindFightTooltip } from './utils/fightTooltip';
 
 export const updateWeapons = (
   app: Application,
@@ -51,7 +52,7 @@ export const updateWeapons = (
 
       const sprite = new Sprite(texture);
       sprite.label = w.toString();
-      sprite.zIndex = 99;
+      sprite.zIndex = 104;
       sprite.width = WEAPON_SIZE;
       sprite.height = WEAPON_SIZE;
 
@@ -70,6 +71,13 @@ export const updateWeapons = (
         })];
       }
       sprite.filters = sprite.filters.concat(new OutlineFilter());
+      if (brute.toggleTooltip) {
+        bindFightTooltip(sprite, () => ({
+          type: 'weapon',
+          weapon: weapons[WeaponById[+w as WeaponId]],
+          tier,
+        }), brute.toggleTooltip);
+      }
       app.stage.addChild(sprite);
       brute.teamWeaponsIllustrations.push(sprite);
     });
