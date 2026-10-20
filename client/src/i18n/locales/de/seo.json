@@ -68,8 +68,8 @@
     "description": "Betrachte Informationen zum Klan, seine Mitglieder und Aktivität."
   },
   "forum": {
-    "title": "Klan-Forum | {{brand}}",
-    "description": "Lies und nimm an Diskussionen im Klan-Forum teil."
+    "title": "Klanforum | {{brand}}",
+    "description": "Lies und nimm an Diskussionen im Klanforum teil."
   },
   "clan-war-history": {
     "title": "Kriegsverlauf des Klans | {{brand}}",
