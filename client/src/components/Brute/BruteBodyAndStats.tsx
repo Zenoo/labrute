@@ -44,7 +44,9 @@ export const BruteBodyAndStats = ({
           <>
             <code>{readableHPFormula(t('level'), t('stat'), t('modifier'))}</code>
             <Divider />
-            <code>{readableHPFormula(brute.level, brute.hpStat, brute.hpModifier)}</code>
+            <code>
+              {readableHPFormula(brute.level, brute.hpStat, +brute.hpModifier.toPrecision(2))}
+            </code>
           </>
         )}
         >

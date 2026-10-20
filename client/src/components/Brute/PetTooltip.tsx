@@ -139,13 +139,13 @@ export const PetTooltip = ({
           {statLine('accuracy', true, 2)}
           {statLine('disarm', true, 2)}
           {statLine('block', true, 2)}
+          {statLine('combo', true, 2)}
           {ascended && (
             <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.pet') })}</Text>
           )}
           {random && (
             <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.pet') })}</Text>
           )}
-          {statLine('combo', true, 2)}
         </>
       ) : ''}
       componentsProps={{
