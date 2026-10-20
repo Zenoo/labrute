@@ -1,7 +1,6 @@
 import {
   getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest
 } from '@labrute/core';
-import { Lang } from '@labrute/prisma';
 import {
   Add, AdminPanelSettings, DarkMode, Event,
   Info, LightMode, Logout, Menu, MilitaryTech,
@@ -28,13 +27,13 @@ import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import { useLanguage } from '../hooks/useLanguage';
 import { ColorModeContext } from '../theme/ColorModeContext';
 import { dark } from '../theme/dark';
 import { Fetch } from '../utils/Fetch';
 import { useFingerprint } from '../hooks/useFingerprint';
 import { useServer } from '../hooks/useServer';
 import { catchError } from '../utils/catchError';
+import { LanguageSwitch } from '../components/LanguageSwitch';
 
 export const Main = () => {
   const theme = useTheme();
@@ -42,7 +41,6 @@ export const Main = () => {
   const Alert = useAlert();
   const { t } = useTranslation();
   const colorMode = useContext(ColorModeContext);
-  const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
   const { brute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
@@ -97,24 +95,6 @@ export const Main = () => {
     signout();
     toggleDrawer(false)();
   }, [Alert, Server.User, signout, t]);
-
-  // Change language
-  const changeLanguage = useCallback((lang: Lang) => async () => {
-    setLanguage(lang);
-
-    // Update user language if logged in
-    if (user && user.lang !== lang) {
-      try {
-        await Server.User.changeLanguage(lang);
-        updateData(({
-          ...user,
-          lang,
-        }));
-      } catch (error) {
-        catchError(Alert, error);
-      }
-    }
-  }, [Alert, Server.User, setLanguage, updateData, user]);
 
   // Redirect to page
   const goTo = (path: string) => () => {
@@ -436,35 +416,7 @@ export const Main = () => {
                   title={t('logout')}
                 />
               </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                  gap: 1,
-                  pt: 1,
-                }}
-              >
-                {/* LANGUAGE */}
-                {Object.values(Lang).map((lang) => (
-                  <Box
-                    key={lang}
-                    component="img"
-                    src={`/images/${lang}/flag.svg`}
-                    alt={lang}
-                    onClick={changeLanguage(lang)}
-                    sx={{
-                      cursor: 'pointer',
-                      width: 15,
-                      boxShadow: language === lang ? `0 0 8px ${theme.palette.topbar.contrastShadow}` : 'none',
-                      border: `1px solid ${theme.palette.topbar.colorDark}`,
-                      '&:hover': {
-                        boxShadow: `0 0 8px ${theme.palette.topbar.contrastShadow}`,
-                      }
-                    }}
-                  />
-                ))}
-              </Box>
+              <LanguageSwitch sx={{ pt: 1 }} />
             </Box>
             {/* Mobile search */}
             {smallScreen && (

@@ -100,7 +100,10 @@ export const Page = ({
               sx={{ verticalAlign: 'text-top' }}
             />
           </Link>
-          {' '}| v{Version} | Developed with 💖
+          {' '}| v{Version} |{' '}
+          <Link to="/terms">
+            {t('terms')}
+          </Link> | Developed with 💖
         </Text>
       </Box>
       <MuiAlert

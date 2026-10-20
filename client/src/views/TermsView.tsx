@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import { catchError } from '../utils/catchError';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
+import { LanguageSwitch } from '../components/LanguageSwitch';
 
 export const TermsView = () => {
   const { t } = useTranslation('terms');
@@ -58,6 +59,7 @@ export const TermsView = () => {
             <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
           </Grid>
           <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <LanguageSwitch sx={{ mb: 1 }} />
             <Text>{t('description')}</Text>
             <List dense>
               <ListItem>
@@ -70,7 +72,9 @@ export const TermsView = () => {
                 <ListItemText primary={t('bugAbuse')} />
               </ListItem>
             </List>
-            <FantasyButton color="success" onClick={acceptTerms}>{t('accept')}</FantasyButton>
+            {!user?.termsAccepted && (
+              <FantasyButton color="success" onClick={acceptTerms}>{t('accept')}</FantasyButton>
+            )}
           </Grid>
           <Grid item xs={6} md={3} order={3}>
             <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
