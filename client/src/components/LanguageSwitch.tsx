@@ -51,9 +51,8 @@ export const LanguageSwitch = ({ sx, ...rest }: BoxProps) => {
     >
       {/* LANGUAGE */}
       {Object.values(Lang).map((lang) => (
-        <Tooltip title={t(`${lang}-version`)}>
+        <Tooltip key={lang} title={t(`${lang}-version`)}>
           <Box
-            key={lang}
             component="img"
             src={`/images/${lang}/flag.svg`}
             alt={lang}
