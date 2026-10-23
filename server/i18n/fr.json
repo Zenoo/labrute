@@ -119,5 +119,5 @@
   "userCreatedAfterTransferImplementation": "Cette fonctionnalité n'est pas disponible pour les comptes créés après le 20 avril 2026. Elle n'a été implémentée que pour les utilisateurs précédents de comptes multiples afin de pouvoir transférer leurs brutes vers un seul compte.",
   "rankingsNotReady": "Les classements ne sont pas encore prêts. Veuillez réessayer plus tard.",
   "colorAlreadyUnlocked": "Cette couleur est déjà débloquée pour cette partie du corps",
-  "sharedBrowserNotFound": "Shared browser not found"
+  "sharedBrowserNotFound": "Navigateur partagé introuvable"
 }
