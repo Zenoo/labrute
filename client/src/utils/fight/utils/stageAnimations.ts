@@ -7,12 +7,12 @@ export const shakeStage = async (
   intensity: number,
   duration: number,
 ): Promise<void> => {
-  const startTime = Date.now();
+  let elapsed = 0;
   const originalY = app.stage.y;
 
   return new Promise((resolve) => {
     const update = () => {
-      const elapsed = Date.now() - startTime;
+      elapsed += app.ticker.elapsedMS;
       if (elapsed < duration / speed.current) {
         // Calculate the current intensity, which decreases over time.
         const currentIntensity = intensity * (1 - (elapsed * speed.current) / duration);

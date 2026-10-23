@@ -4,6 +4,7 @@ import { Application } from 'pixi.js';
 import { updateHp } from './updateHp';
 import { displayHeal } from './utils/displayHeal';
 import { AnimationFighter, findFighter } from './utils/findFighter';
+import { fightDelay } from './utils/tween';
 
 export const regenerate = async (
   app: Application,
@@ -24,10 +25,6 @@ export const regenerate = async (
 
   // Delay
   if (step.d) {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(null);
-      }, 500 / speed.current);
-    });
+    await fightDelay(0.5 / speed.current);
   }
 };

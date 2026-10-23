@@ -8,7 +8,7 @@ import { DropShadowFilter } from 'pixi-filters/drop-shadow';
 import { sound } from '@pixi/sound';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { itemDrop } from './itemDrop';
-import { tween } from './utils/tween';
+import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 
 export const trash = async (
@@ -86,7 +86,7 @@ export const trash = async (
         angle: brute.team === 'L' ? -180 : 0,
       }).then(() => {
         // Wait a bit
-        setTimeout(() => {
+        return fightDelay(0.5 / speed.current).then(() => {
           // Decrease opacity
           tween(trashedWeapon, {
             duration: 0.5 / speed.current,
@@ -96,7 +96,7 @@ export const trash = async (
             // Remove from stage
             app.stage.removeChild(trashedWeapon);
           }).catch(console.error);
-        }, 500 / speed.current);
+        });
       }).catch(console.error);
     }
   });

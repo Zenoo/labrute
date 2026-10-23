@@ -14,6 +14,7 @@ import { untrap } from './untrap';
 import { playHitEffect } from './utils/playVFX';
 import { playResistAnimation } from './resist';
 import { Spritesheets } from './utils/spritesheet';
+import { fightDelay } from './utils/tween';
 
 const POISON_OUTLINE_FILTER_CONFIG = {
   thickness: 1,
@@ -147,7 +148,7 @@ export const hit = async (
     target.animation.setAnimation('death');
     // Wait for 0.45s if this is a counter attack stun so it gets readable for the player
     if (ownSideHit) {
-      await new Promise((resolve) => { setTimeout(resolve, 450 / speed.current); });
+      await fightDelay(0.45 / speed.current);
     }
   } else {
     // Set animation to `idle`

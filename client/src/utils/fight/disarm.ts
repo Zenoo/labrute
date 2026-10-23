@@ -1,9 +1,10 @@
 import { DisarmStep } from '@labrute/core';
-import { Application, AnimatedSprite } from 'pixi.js';
+import { Application } from 'pixi.js';
 
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { itemDrop } from './itemDrop';
 import { Spritesheets } from './utils/spritesheet';
+import { fightSprite } from './utils/FightClock';
 
 export const disarm = (
   app: Application,
@@ -20,7 +21,7 @@ export const disarm = (
   }
 
   // Create wave sprite
-  const waveSprite = new AnimatedSprite(waveSpritesheet.animations.wave || []);
+  const waveSprite = fightSprite(waveSpritesheet.animations.wave);
   waveSprite.animationSpeed = speed.current;
   waveSprite.loop = false;
 

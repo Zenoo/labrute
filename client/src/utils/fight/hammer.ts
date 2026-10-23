@@ -13,7 +13,6 @@ import { playResistAnimation } from './resist';
 import {
   updateShadow, airbornMove, tweenShadow
 } from './utils/updateShadow';
-import { gsap } from 'gsap';
 import { tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 
@@ -50,13 +49,10 @@ export const hammer = async (
   const knockBack = getRealKnockBack(target, 30);
 
   // Push both
-  const pushAnimations = [fighter, target].map((f) => new Promise((resolve) => {
-    gsap.to(f.animation.container, {
-      duration: 0.16 / speed.current,
-      ease: 'none',
-      x: f.animation.container.x + knockBack,
-      onComplete: resolve,
-    });
+  const pushAnimations = [fighter, target].map((f) => tween(f.animation.container, {
+    duration: 0.16 / speed.current,
+    ease: 'none',
+    x: f.animation.container.x + knockBack,
   }));
 
   // Dust cloud

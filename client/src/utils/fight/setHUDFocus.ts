@@ -40,6 +40,8 @@ export const setHUDFocus = async (
     fighter.bustImage = await createBustImage(fighter, renderer);
   }
 
+  if (!app.stage || app.stage.destroyed || fighter.animation.container.destroyed) return;
+
   if (fighter.bust && fighter.bustImage) {
     fighter.bust.texture = Texture.from(fighter.bustImage);
   }

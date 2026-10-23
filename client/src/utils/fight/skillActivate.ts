@@ -3,7 +3,7 @@ import {
   SkillActivateStep, SkillById, SkillId
 } from '@labrute/core';
 import {
-  AnimatedSprite, Application, Bounds, Sprite,
+  Application, Bounds, Sprite,
   Texture, Ticker
 } from 'pixi.js';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
@@ -18,6 +18,7 @@ import { airbornMove } from './utils/updateShadow';
 import { updateSkills } from './updateSkills';
 import { Easing, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
+import { fightSprite } from './utils/FightClock';
 
 
 export const skillUse = (
@@ -239,7 +240,7 @@ export const skillActivate = async (
     if (step.s === SkillId.cryOfTheDamned) {
       // Create 3 cries
       for (let i = 0; i < 3; i++) {
-        const cry = new AnimatedSprite(spritesheet.animations.cry || []);
+        const cry = fightSprite(spritesheet.animations.cry);
         cry.animationSpeed = speed.current;
         cry.zIndex = 1000;
         cry.alpha = 0;

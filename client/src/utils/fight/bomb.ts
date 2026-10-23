@@ -2,9 +2,7 @@
 import {
   BombStep, randomBetween, SkillId
 } from '@labrute/core';
-import {
-  AnimatedSprite, Application, BlurFilter
-} from 'pixi.js';
+import { Application, BlurFilter } from 'pixi.js';
 import { sound } from '@pixi/sound';
 import { stagger } from './stagger';
 import { updateHp } from './updateHp';
@@ -16,6 +14,7 @@ import { playResistAnimation } from './resist';
 import { skillUse } from './skillActivate';
 import { tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
+import { fightSprite } from './utils/FightClock';
 
 const getBombDamage = (damage: BombStep['d'], target: AnimationFighter) => {
   const targetDamage = damage[target.index];
@@ -50,7 +49,7 @@ export const bomb = async (
   skillUse(app, spritesheets, fighter, SkillId.bomb, speed);
 
   // Create bomb sprite
-  const bombSprite = new AnimatedSprite(spritesheet.animations.bomb || []);
+  const bombSprite = fightSprite(spritesheet.animations.bomb);
   bombSprite.animationSpeed = speed.current / 2;
   bombSprite.loop = true;
 
@@ -107,7 +106,7 @@ export const bomb = async (
   bombSprite.destroy();
 
   // Create explosion sprite
-  const explosionSprite = new AnimatedSprite(spritesheet.animations.explosion || []);
+  const explosionSprite = fightSprite(spritesheet.animations.explosion);
   explosionSprite.animationSpeed = speed.current;
   explosionSprite.loop = false;
   explosionSprite.filters = [new BlurFilter({ strength: 3 })];

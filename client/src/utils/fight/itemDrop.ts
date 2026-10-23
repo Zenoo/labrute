@@ -8,7 +8,7 @@ import {
 import { DropShadowFilter } from 'pixi-filters/drop-shadow';
 
 import { AnimationFighter } from './utils/findFighter';
-import { tween } from './utils/tween';
+import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 
 // Light and realistic item bouncing module
@@ -235,7 +235,7 @@ export const itemDrop = ({
           alpha: 0,
         }).then(() => {
           // Wait a bit
-          setTimeout(() => {
+          return fightDelay(0.25 / speed.current).then(() => {
             // Fade out the item
             tween(itemContainer, {
               duration: 1.2 / speed.current,
@@ -247,7 +247,7 @@ export const itemDrop = ({
               // Remove containers from stage
               app.stage.removeChild(shadowContainer, itemContainer);
             }).catch(console.error);
-          }, 250 / speed.current);
+          });
         }).catch(console.error);
       }
     }

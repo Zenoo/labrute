@@ -11,6 +11,7 @@ import { updateWeapons } from './updateWeapons';
 import { playDustEffect } from './utils/playVFX';
 import { updateShadow, airbornMove } from './utils/updateShadow';
 import { Spritesheets } from './utils/spritesheet';
+import { fightDelay } from './utils/tween';
 
 export const arrive = async (
   app: Application,
@@ -57,12 +58,12 @@ export const arrive = async (
   fighter.animation.setAnimation('arrive');
 
   // Wait 0.25s before playing arrive SFX
-  setTimeout(() => {
+  fightDelay(0.25 / speed.current).then(() => {
     if (shouldAbort() || fighter.animation.container.destroyed) {
       return;
     }
     void sound.play('sfx', { sprite: 'arrive' });
-  }, 250 / speed.current);
+  }).catch(console.error);
 
   // Set airborn phase
   fighter.animation.setAirborn(true);

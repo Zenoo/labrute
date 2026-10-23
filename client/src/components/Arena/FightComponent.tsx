@@ -3,10 +3,10 @@ import {
 } from '@labrute/core';
 import {
   FastForward, FastRewind, Favorite, FavoriteBorder,
-  MusicNote, MusicOff, Pause, PlayArrow, Rtt, VolumeOff, VolumeUp
+  MusicNote, MusicOff, Pause, PlayArrow, Replay, Rtt, VolumeOff, VolumeUp
 } from '@mui/icons-material';
 import {
-  Box, IconButton, Stack, Tooltip, useMediaQuery, useTheme
+  Box, CircularProgress, IconButton, Slider, Stack, Tooltip, useMediaQuery, useTheme
 } from '@mui/material';
 import { sound } from '@pixi/sound';
 import {
@@ -33,8 +33,8 @@ import { BruteName } from '../Brute/BruteName';
 import { setupFight } from '../../utils/fight/setupFight';
 import { Spritesheets } from '../../utils/fight/utils/spritesheet';
 import { setFightDisposing } from '../../utils/fight/utils/lifecycle';
-import { gsap } from 'gsap';
 import { FightTooltipTarget, ToggleFightTooltip } from '../../utils/fight/utils/fightTooltip';
+import { FightClock } from '../../utils/fight/utils/FightClock';
 
 const sounds = [
   'arrive',
@@ -153,6 +153,13 @@ export const FightComponent = ({
   // Fight status
   const appRef = useRef<Application | null>(null);
   const [playing, setPlaying] = useState(true);
+  const [ready, setReady] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [scrubPosition, setScrubPosition] = useState<number | null>(null);
+  const [playbackRequest, setPlaybackRequest] = useState<{
+    fightId: string; step: number;
+  } | null>(null);
 
   // Fight speed
   const speedRef = useRef(localStorage.getItem(LS_KEY_FIGHT_SPEED) === '1' ? 1 : 2);
@@ -232,16 +239,25 @@ export const FightComponent = ({
     let initialized = false;
     let appDestroyed = false;
     let mountedCanvas: HTMLCanvasElement | null = null;
+    let clock: FightClock | null = null;
+    const targetStep = playbackRequest && playbackRequest.fightId === fight?.id
+      ? playbackRequest.step : 0;
+    let seeking = targetStep > 0;
+
+    setReady(false);
+    setEnded(false);
+    setPlaying(true);
+    setProgress(targetStep);
+    setScrubPosition(null);
+    setTooltipTarget(null);
 
     const destroyApp = () => {
-      if (appDestroyed) {
+      if (appDestroyed || !initialized) {
         return;
       }
       appDestroyed = true;
 
-      // Stop all active animation callbacks before touching PIXI objects.
-      gsap.killTweensOf('*');
-      gsap.globalTimeline.clear();
+      clock?.destroy();
 
       if (initialized) {
         app.stage?.removeAllListeners();
@@ -262,7 +278,7 @@ export const FightComponent = ({
         }
       }
 
-      appRef.current = null;
+      if (appRef.current === app) appRef.current = null;
 
       if (mountedCanvas && ref.current?.contains(mountedCanvas)) {
         ref.current.removeChild(mountedCanvas);
@@ -291,6 +307,7 @@ export const FightComponent = ({
       }
 
       appRef.current = app;
+      clock = new FightClock(app);
       mountedCanvas = app.canvas;
       ref.current.appendChild(mountedCanvas);
 
@@ -332,7 +349,7 @@ export const FightComponent = ({
       }
 
       // Mute all sounds
-      sound.volumeAll = 0;
+      sound.volumeAll = seeking ? 0 : (soundRef.current ? 1 : 0);
       // Background music
       sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
@@ -352,13 +369,46 @@ export const FightComponent = ({
         spritesheets,
         SHOW_FIGHT_PERFORMANCE_STATS,
         () => disposed,
+        {
+          onReady: () => {
+            if (disposed) return;
+            if (seeking) {
+              clock?.seek(() => seeking && !disposed).catch((error: unknown) => {
+                if (!disposed) {
+                  seeking = false;
+                  console.error('Error seeking fight:', error);
+                  catchError(Alert, error);
+                }
+              });
+            } else {
+              setReady(true);
+            }
+          },
+          onStep: (index) => {
+            if (disposed) return;
+            if (seeking && index >= targetStep) {
+              seeking = false;
+              sound.stop('sfx');
+              sound.volumeAll = soundRef.current ? 1 : 0;
+              setReady(true);
+            }
+            if (!seeking) setProgress(index);
+          },
+          onComplete: () => {
+            if (disposed) return;
+            setEnded(true);
+            setPlaying(false);
+          },
+        },
       );
 
       return undefined;
     };
     setup().catch((error) => {
       if (!disposed) {
+        seeking = false;
         console.error('Error setting up fight:', error);
+        catchError(Alert, error);
       }
     });
 
@@ -370,10 +420,19 @@ export const FightComponent = ({
       // Stop all sounds
       sound.stopAll();
     };
-  }, [fight, toggleTooltip, t, theme, renderer]);
+  }, [Alert, fight, playbackRequest, toggleTooltip, t, theme, renderer]);
+
+  const seek = useCallback((step: number) => {
+    if (!fight) return;
+    setPlaybackRequest({ fightId: fight.id, step });
+  }, [fight]);
 
   // Play/pause
   const toggleAnimation = useCallback(() => {
+    if (ended) {
+      seek(0);
+      return;
+    }
     setPlaying((prev) => {
       if (prev) {
         appRef.current?.ticker.stop();
@@ -382,7 +441,7 @@ export const FightComponent = ({
       }
       return !prev;
     });
-  }, []);
+  }, [ended, seek]);
 
   // Speed
   const toggleSpeed = useCallback(async () => {
@@ -410,8 +469,8 @@ export const FightComponent = ({
     const newSound = !soundRef.current;
     soundRef.current = newSound;
     setSoundOn(newSound);
-    sound.volumeAll = newSound ? 1 : 0;
-  }, []);
+    sound.volumeAll = ready && newSound ? 1 : 0;
+  }, [ready]);
 
   const toggleBackgroundMusic = useCallback(async () => {
     const newBackgroundMusic = !backgroundMusicRef.current;
@@ -438,6 +497,23 @@ export const FightComponent = ({
   const toggleLogs = useCallback(() => {
     setDisplayLogs((prev) => !prev);
   }, []);
+
+  // Scrubber methods
+  const getScrubberAriaLabel = useCallback((value: number) => `${Math.round(value / (fightSteps?.length || 1) * 100)}%`, [fightSteps?.length]);
+
+  const onScrubberChange = useCallback((_event: Event, value: number | number[]) => {
+    if (typeof value === 'number') setScrubPosition(value);
+  }, []);
+
+  const onScrubberCommit = useCallback((
+    _event: Event | React.SyntheticEvent<Element, Event>,
+    value: number | number[]
+  ) => {
+    if (typeof value === 'number') {
+      setScrubPosition(null);
+      seek(value);
+    }
+  }, [seek]);
 
   return (fight) ? (
     <>
@@ -471,9 +547,16 @@ export const FightComponent = ({
                 mx: smallScreen ? 'auto' : undefined,
                 '& canvas': {
                   maxWidth: '100%',
+                  visibility: ready ? 'visible' : 'hidden',
                 }
               }}
             >
+              {!ready && (
+                <CircularProgress
+                  size={24}
+                  sx={{ position: 'absolute', top: '50%', left: '50%', ml: '-12px', mt: '-12px' }}
+                />
+              )}
               {/* LOGS */}
               {displayLogs && (
                 <Box sx={{
@@ -500,7 +583,7 @@ export const FightComponent = ({
                 direction="row"
                 sx={{
                   position: 'absolute',
-                  bottom: 0,
+                  bottom: 12,
                   left: 0,
                   zIndex: 501,
                   bgcolor: 'rgba(255, 255, 255, 0.3)',
@@ -509,10 +592,17 @@ export const FightComponent = ({
                 }}
               >
                 {/* Play/Pause */}
-                <Tooltip title={playing ? t('fight.pause') : t('fight.play')}>
-                  <IconButton onClick={toggleAnimation} size="small">
-                    {playing ? <Pause /> : <PlayArrow />}
-                  </IconButton>
+                <Tooltip title={ended ? t('fight.replay') : playing ? t('fight.pause') : t('fight.play')}>
+                  <span>
+                    <IconButton
+                      onClick={toggleAnimation}
+                      size="small"
+                      disabled={!ready}
+                      aria-label={ended ? t('fight.replay') : playing ? t('fight.pause') : t('fight.play')}
+                    >
+                      {ended ? <Replay /> : playing ? <Pause /> : <PlayArrow />}
+                    </IconButton>
+                  </span>
                 </Tooltip>
                 {/* x2 */}
                 <Tooltip title={speed === 1 ? 'x2' : 'x1'}>
@@ -546,7 +636,7 @@ export const FightComponent = ({
                 direction="row"
                 sx={{
                   position: 'absolute',
-                  bottom: 0,
+                  bottom: 12,
                   right: 0,
                   zIndex: 501,
                   bgcolor: 'rgba(255, 255, 255, 0.3)',
@@ -563,6 +653,33 @@ export const FightComponent = ({
                   </IconButton>
                 </Tooltip>
               </Stack>
+              <Slider
+                aria-label={t('fight.seek')}
+                getAriaValueText={getScrubberAriaLabel}
+                min={0}
+                max={fightSteps?.length ?? 1}
+                step={1}
+                value={scrubPosition ?? progress}
+                disabled={!ready || !fightSteps?.length}
+                onChange={onScrubberChange}
+                onChangeCommitted={onScrubberCommit}
+                size="small"
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 10,
+                  width: 'calc(100% - 20px)',
+                  height: 3,
+                  py: '6px',
+                  zIndex: 502,
+                  '& .MuiSlider-thumb': {
+                    width: 8,
+                    height: 8,
+                    '&::after': { width: 28, height: 28 },
+                  },
+                  '& .MuiSlider-rail': { opacity: 0.5 },
+                }}
+              />
             </Box>
           </WeaponTooltip>
         </SkillTooltip>

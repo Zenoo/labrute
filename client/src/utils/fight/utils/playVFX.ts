@@ -1,8 +1,9 @@
 import { randomBetween } from '@labrute/core';
-import { Application, AnimatedSprite } from 'pixi.js';
+import { Application } from 'pixi.js';
 import { AnimationFighter } from './findFighter';
 import { getHitDistance } from './getHitDistance';
 import { Spritesheets } from './spritesheet';
+import { fightSprite } from './FightClock';
 
 const playDustEffect = (
   app: Application,
@@ -14,7 +15,7 @@ const playDustEffect = (
   const spritesheet = spritesheets.misc;
 
   // Create dust sprite
-  const dustSprite = new AnimatedSprite(spritesheet.animations.dust || []);
+  const dustSprite = fightSprite(spritesheet.animations.dust);
   dustSprite.animationSpeed = speed.current / 2;
   dustSprite.loop = false;
 
@@ -56,7 +57,7 @@ const playHitEffect = (
     : VFX ?? HIT_VFX[randomBetween(0, HIT_VFX.length - 1)] ?? 'blood';
 
   // Create hit VFX
-  const hitVfx = new AnimatedSprite(spritesheet.animations[vfx] || []);
+  const hitVfx = fightSprite(spritesheet.animations[vfx]);
   hitVfx.zIndex = 1000;
   hitVfx.animationSpeed = speed.current / 4;
   hitVfx.loop = false;

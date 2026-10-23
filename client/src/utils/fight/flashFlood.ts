@@ -4,7 +4,7 @@ import {
 } from '@labrute/core';
 import { sound } from '@pixi/sound';
 import {
-  Application, Sprite, Container, AnimatedSprite
+  Application, Sprite, Container
 } from 'pixi.js';
 import { displayDamage } from './utils/displayDamage';
 import { AnimationFighter, findFighter } from './utils/findFighter';
@@ -15,8 +15,9 @@ import { WeaponName } from '@labrute/prisma';
 import { untrap } from './untrap';
 import { itemDrop } from './itemDrop';
 import { playResistAnimation } from './resist';
-import { tween } from './utils/tween';
+import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
+import { fightSprite } from './utils/FightClock';
 
 export const flashFlood = async (
   app: Application,
@@ -122,7 +123,7 @@ export const flashFlood = async (
   void sound.play('sfx', { sprite: 'flashFlood' });
   if (!step.s) {
     // Create flashFlood sprite
-    const flashFloodSprite = new AnimatedSprite(miscSpritesheet.animations.flashFlood || []);
+    const flashFloodSprite = fightSprite(miscSpritesheet.animations.flashFlood);
     flashFloodSprite.animationSpeed = speed.current * 0.35;
     flashFloodSprite.loop = false;
     flashFloodSprite.anchor.set(1, 0.5);
@@ -206,7 +207,7 @@ export const flashFlood = async (
         target.animation.setAnimation('death');
       }
       // Wait for 1s
-      await new Promise((resolve) => { setTimeout(resolve, 1000 / speed.current); });
+      await fightDelay(1 / speed.current);
       // Fade out item
       await tween(flashFloodContainer, {
         duration: 1.5 / speed.current,
@@ -217,5 +218,5 @@ export const flashFlood = async (
   }).catch(console.error);
 
   // Wait 0.3s
-  await new Promise((resolve) => { setTimeout(resolve, 300 / speed.current); });
+  await fightDelay(0.3 / speed.current);
 };

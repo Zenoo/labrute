@@ -12,7 +12,7 @@ import { sound } from '@pixi/sound';
 import dayjs from 'dayjs';
 import { TFunction } from 'react-i18next';
 import {
-  AnimatedSprite, Application, Color, Container, Graphics, Sprite, Text, Texture
+  Application, Color, Container, Graphics, Sprite, Text, Texture
 } from 'pixi.js';
 import { RendererContextInterface } from '../../hooks/useRenderer';
 import { arrive } from './arrive';
@@ -57,9 +57,16 @@ import { isRangedStep, repositionFighters } from './utils/repositionFighters';
 import { vampirism } from './vampirism';
 import { getFighters } from './utils/getFighters';
 import { mimic } from './mimic';
-import { tween } from './utils/tween';
+import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 import { bindFightTooltip, ToggleFightTooltip } from './utils/fightTooltip';
+import { fightSprite } from './utils/FightClock';
+
+type FightPlayback = {
+  onReady: () => void;
+  onStep: (index: number) => void;
+  onComplete: () => void;
+};
 
 export const setupFight: (
   theme: Theme,
@@ -72,6 +79,7 @@ export const setupFight: (
   spritesheets: Spritesheets,
   showPerformanceStats?: boolean,
   isDisposed?: () => boolean,
+  playback?: FightPlayback,
 ) => Promise<void> = async (
   theme,
   fight,
@@ -82,7 +90,8 @@ export const setupFight: (
   renderer,
   spritesheets,
   showPerformanceStats = false,
-  isDisposed
+  isDisposed,
+  playback,
 ) => {
     const shouldAbort = () => (isDisposed?.() ?? false) || !app.stage || app.stage.destroyed;
 
@@ -687,8 +696,10 @@ export const setupFight: (
 
     // Loop on steps
     const steps = JSON.parse(fight.steps) as FightStep[];
+    playback?.onReady();
     for (let i = 0; i < steps.length; i++) {
       if (shouldAbort()) return;
+      playback?.onStep(i);
 
       const { [i]: step } = steps;
 
@@ -704,17 +715,18 @@ export const setupFight: (
 
       // Display step's brute in HUD
       if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
-        void setHUDFocus(app, spritesheets, renderer, fighters, step.b, speed, isClanWar);
+        await setHUDFocus(app, spritesheets, renderer, fighters, step.b, speed, isClanWar);
       }
       // Display step's fighter in HUD
       if ('f' in step && Object.hasOwn(step, 'f') && typeof step.f === 'number') {
-        void setHUDFocus(app, spritesheets, renderer, fighters, step.f, speed, isClanWar);
+        await setHUDFocus(app, spritesheets, renderer, fighters, step.f, speed, isClanWar);
       }
       // Display step's target in HUD
       if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise) {
-        void setHUDFocus(app, spritesheets, renderer, fighters, step.t, speed, isClanWar);
+        await setHUDFocus(app, spritesheets, renderer, fighters, step.t, speed, isClanWar);
       }
 
+      if (shouldAbort()) return;
       switch (step.a) {
         case StepType.Move: {
           await moveTo(fighters, step, speed);
@@ -869,6 +881,8 @@ export const setupFight: (
       if (shouldAbort()) return;
     }
 
+    playback?.onStep(steps.length);
+    playback?.onComplete();
     void sound.play('sfx', { sprite: 'win' });
 
     // Get winner fighter
@@ -878,7 +892,7 @@ export const setupFight: (
     const loser = fighters.find((fighter) => !fighter.master && isLoser(fighter, fight));
 
     // Display dead icon animation on the UI
-    const deadIcon = new AnimatedSprite(miscSheet.animations.dead ?? []);
+    const deadIcon = fightSprite(miscSheet.animations.dead);
     deadIcon.filters = [new OutlineFilter()];
     deadIcon.loop = false;
     deadIcon.animationSpeed = 0.5;
@@ -930,7 +944,7 @@ export const setupFight: (
     currentStepIndex = steps.length;
     let completedPetals = 0;
     for (let i = 0; i < 50; i++) {
-      const petal = new AnimatedSprite(miscSheet.animations.petals ?? []);
+      const petal = fightSprite(miscSheet.animations.petals);
       petal.filters = [new ColorOverlayFilter({
         // Random color
         color: Math.random() * 0xffffff,
@@ -967,9 +981,9 @@ export const setupFight: (
     }
 
     // Freeze app after 10 seconds to save GPU.
-    setTimeout(() => {
-      if (app?.ticker) {
+    fightDelay(10).then(() => {
+      if (!shouldAbort()) {
         app.ticker.stop();
       }
-    }, 10000);
+    }).catch(console.error);
   };

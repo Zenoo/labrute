@@ -6,7 +6,7 @@ import { BevelFilter } from 'pixi-filters/bevel';
 import { Application, Sprite } from 'pixi.js';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { getHitDistance } from './utils/getHitDistance';
-import { tween } from './utils/tween';
+import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 
 export const attemptHit = async (
@@ -103,7 +103,7 @@ export const attemptHit = async (
       angle: target.team === 'L' ? -180 : 0,
     }).then(() => {
       // Wait a bit
-      setTimeout(() => {
+      return fightDelay(0.5 / speed.current).then(() => {
         // Decrease opacity
         tween(trashedShield, {
           duration: 0.5 / speed.current,
@@ -113,7 +113,7 @@ export const attemptHit = async (
           // Remove from stage
           app.stage.removeChild(trashedShield);
         }).catch(console.error);
-      }, 500 / speed.current);
+      });
     }).catch(console.error);
   }
 };

@@ -41,7 +41,8 @@
     "sitemap:generate": "pnx ts-node ./scripts/generateSitemap.ts",
     "core:export": "pnx ts-node ./scripts/generateCoreExports.ts",
     "skills:generate": "pnx ts-node ./scripts/generateSkillComponents.ts",
-    "i18n:check": "pnx ts-node ./scripts/checkI18n.ts"
+    "i18n:check": "pnx ts-node ./scripts/checkI18n.ts",
+    "test:fight-clock": "pnpm --filter @labrute/client exec node --experimental-transform-types --test tests/fight-clock.test.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

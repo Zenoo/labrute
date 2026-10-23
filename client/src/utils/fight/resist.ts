@@ -1,8 +1,9 @@
 import { ResistStep } from '@labrute/core';
-import { Application, AnimatedSprite } from 'pixi.js';
+import { Application } from 'pixi.js';
 
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { Spritesheets } from './utils/spritesheet';
+import { fightSprite } from './utils/FightClock';
 
 export const resist = (
   fighters: AnimationFighter[],
@@ -27,7 +28,7 @@ export const playResistAnimation = (
   const spritesheet = spritesheets.misc;
 
   // Create resist sprite
-  const resistSprite = new AnimatedSprite(spritesheet.animations.resist || []);
+  const resistSprite = fightSprite(spritesheet.animations.resist);
   resistSprite.animationSpeed = speed.current * 0.4;
   resistSprite.loop = false;
 

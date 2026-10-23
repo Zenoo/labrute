@@ -279,6 +279,8 @@
   "fight.favoriteRemoved": "Favorite removed",
   "fight.pause": "Pause",
   "fight.play": "Play",
+  "fight.replay": "Replay",
+  "fight.seek": "Seek in fight",
   "fight.toggleLogs": "Toggle logs",
   "fight.unfavorite": "Unfavorite",
   "fightLeft": "You have one fight left today.",
