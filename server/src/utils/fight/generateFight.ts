@@ -108,6 +108,12 @@ export type DetailedFighter = {
   skills: Partial<Record<SkillName, Tiered<Skill>>>;
   // Available weapons
   weapons: Partial<Record<WeaponName, FightWeapon>>;
+  // Initial skills (used when reloading)
+  initialSkills: Partial<Record<SkillName, Tiered<Skill>>>;
+  // Initial weapons (used when reloading)
+  initialWeapons: Partial<Record<WeaponName, FightWeapon>>;
+  // Can the fighter reload ?
+  canReload?: boolean;
   // Shield state
   shield: boolean;
   // Active skills

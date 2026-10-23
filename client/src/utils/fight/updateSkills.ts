@@ -6,55 +6,9 @@ import {
   SKILL_SIZE, SKILL_SPACING, SKILLS_PER_ROW, WEAPON_SIZE, WEAPON_SPACING, WEAPONS_PER_ROW
 } from './utils/fightPositions';
 import { AnimationFighter } from './utils/findFighter';
-import { Easing, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 import { bindFightTooltip } from './utils/fightTooltip';
-
-const addSkill = (
-  app: Application,
-  brute: AnimationFighter,
-  skillId: SkillId,
-  speed: React.RefObject<number>
-) => {
-  const skillSprite = brute.teamSkillsIllustrations.find(
-    (illustration) => illustration.label === skillId.toString()
-  );
-  if (!skillSprite) {
-    return;
-  }
-
-  // Create a 3x copy of the skill sprite
-  const skillCopy = new Sprite(skillSprite.texture);
-  skillCopy.scale.x = skillSprite.scale.x * 3;
-  skillCopy.scale.y = skillSprite.scale.y * 3;
-  skillCopy.zIndex = 1000;
-
-  // Center it on the target skill sprite position
-  const originalWidth = skillSprite.width;
-  const originalHeight = skillSprite.height;
-  const copyWidth = originalWidth * 3;
-  const copyHeight = originalHeight * 3;
-
-  skillCopy.x = skillSprite.x - (copyWidth - originalWidth) / 2;
-  skillCopy.y = skillSprite.y - (copyHeight - originalHeight) / 2;
-
-  // Add to stage
-  app.stage.addChild(skillCopy);
-
-  // Animate: scale down to normal size and fade in
-  tween(skillCopy, {
-    duration: 2 / speed.current,
-    ease: Easing.easeOutQuad,
-    width: skillSprite.width,
-    height: skillSprite.height,
-    x: skillSprite.x,
-    y: skillSprite.y,
-    alpha: 1,
-  }).then(() => {
-    // Remove the copy after animation
-    skillCopy.destroy();
-  }).catch(console.error);
-};
+import { animatePerkGain } from './utils/animatePerkGain';
 
 export const updateSkills = (
   app: Application,
@@ -145,11 +99,11 @@ export const updateSkills = (
         }
         app.stage.addChild(sprite);
         brute.teamSkillsIllustrations.push(sprite);
-      });
 
-    if (action === 'add' && typeof skillId !== 'undefined' && typeof skillTier !== 'undefined' && speed) {
-      addSkill(app, brute, skillId, speed);
-    }
+        if (action === 'add' && +s === skillId && speed) {
+          animatePerkGain(app, sprite, speed);
+        }
+      });
   }
 
 };

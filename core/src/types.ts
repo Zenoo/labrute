@@ -104,6 +104,7 @@ export enum StepType {
   DropShield,
   Regeneration,
   Mimic,
+  Reload,
 }
 
 export type SaboteurStep = {
@@ -462,13 +463,25 @@ export type MimicStep = {
   t: number;
 }
 
+export type ReloadStep = {
+  /** Action */
+  a: StepType.Reload;
+  /** Fighter ID */
+  f: number;
+  /** Tiered weapons reloaded */
+  w: { i: WeaponId; t: number; }[];
+  /** Tiered skills reloaded */
+  s: { i: SkillId; t: number; }[];
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
   | MoveBackStep | EquipStep | AttemptHitStep | BlockStep | EvadeStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
-  | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep | MimicStep;
+  | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep
+  | MimicStep | ReloadStep;
 
 export type AnimationModel =
   | 'bear'

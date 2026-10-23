@@ -2299,6 +2299,29 @@ export const playFighterTurn = (
     }
   }
 
+  // Trigger reload if every perk was used
+  if (
+    fighter.canReload
+    && !fighter.activeSkills.length
+    && !fighter.activeWeapon
+    && Object.values(fighter.weapons).length === 0
+    && Object.values(fighter.skills)
+      .filter((skill) => (skill.uses?.[skill.tier - 1] ?? 0) > 0).length === 0
+
+  ) {
+    // Reload fighter's skills and weapons
+    fighter.skills = structuredClone(fighter.initialSkills);
+    fighter.weapons = structuredClone(fighter.initialWeapons);
+
+    // Add reload step
+    fightData.steps.push({
+      a: StepType.Reload,
+      f: fighter.index,
+      w: Object.values(fighter.weapons).map((w) => ({ i: WeaponByName[w.name], t: w.tier })),
+      s: Object.values(fighter.skills).map((s) => ({ i: SkillByName[s.name], t: s.tier })),
+    });
+  }
+
   // Super activation
   const possibleSuper = randomlyGetSuper(fightData, fighter);
   if (possibleSuper) {

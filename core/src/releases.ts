@@ -10,7 +10,8 @@ export const LAST_RELEASE: Release = {
   version: '2.99.0',
   date: '2026-10-23',
   features: [
-    'A new stats page has been added to user profiles. You can filter them by periods/brute. Some details won\'t be available straight away, as they require data to be collected over time.'
+    'A new stats page has been added to user profiles. You can filter them by periods/brute. Some details won\'t be available straight away, as they require data to be collected over time.',
+    'A new mechanic has been added: Reload. Whenever your brute runs out of usable perks, they will get them all back. This should prevent long stale fights. Be careful which skill you unlock now, they could slow down your reloads !'
   ],
   fixes: [
     'Hovering over weapons/skills in fights now shows their proper tooltip',
@@ -30,7 +31,7 @@ export const LAST_RELEASE: Release = {
     'Added an icon to bot brutes and an explanation tooltip for them',
     'Optimized SEO'
   ],
-  attachments: ['stats.png', 'scrubber.gif'],
+  attachments: ['stats.png', 'scrubber.gif', 'reload.gif'],
 };
 
 export const releases: Release[] = [

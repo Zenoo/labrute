@@ -135,6 +135,13 @@ const handleSkills = (
 
 const getTempo = (speed: number) => 0.10 + (20 / Math.max(1, 10 + (speed * 1.5))) * 0.90;
 
+const canReload = (
+  s: Partial<Record<SkillName, Tiered<Skill>>>,
+  w: Partial<Record<WeaponName, Tiered<Weapon>>>
+) =>
+  Object.keys(w).length > 0
+  || Object.entries(s).filter(([_, skill]) => (skill.uses?.[skill.tier - 1] ?? 0) > 0).length > 0;
+
 type GetFightersParams = {
   team1: Team,
   team2: Team,
@@ -238,6 +245,9 @@ export const getFighters = ({
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
+        initialSkills: structuredClone(tieredSkills),
+        initialWeapons: structuredClone(tieredWeapons),
+        canReload: canReload(tieredSkills, tieredWeapons),
         shield: false,
         activeSkills: [],
         activeWeapon: null,
@@ -309,6 +319,8 @@ export const getFighters = ({
           fastMetabolism: null,
           skills: {},
           weapons: {},
+          initialSkills: {},
+          initialWeapons: {},
           shield: false,
           activeSkills: [],
           activeWeapon: null,
@@ -401,6 +413,9 @@ export const getFighters = ({
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
+        initialSkills: structuredClone(tieredSkills),
+        initialWeapons: structuredClone(tieredWeapons),
+        canReload: canReload(tieredSkills, tieredWeapons),
         shield: false,
         activeSkills: [],
         activeWeapon: null,
@@ -466,6 +481,8 @@ export const getFighters = ({
         fastMetabolism: null,
         skills: {},
         weapons: {},
+        initialSkills: {},
+        initialWeapons: {},
         shield: false,
         activeSkills: [],
         activeWeapon: null,

@@ -523,6 +523,7 @@
   "fight.step.dropShield": "{{brute}} dropped their shield.",
   "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
   "fight.wonTheFight": "{{brute}} won the fight",
+  "fight.reload": "Reload",
   "moderation": "Moderation",
   "achievement": "Achievement",
   "newPatchNotesAvailable": "A new version has been released.",

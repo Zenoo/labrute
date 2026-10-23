@@ -12,13 +12,16 @@ import {
 import { updateSkills } from './updateSkills';
 import { Spritesheets } from './utils/spritesheet';
 import { bindFightTooltip } from './utils/fightTooltip';
+import { animatePerkGain } from './utils/animatePerkGain';
 
 export const updateWeapons = (
   app: Application,
   spritesheets: Spritesheets,
   brute: AnimationFighter,
   weapon?: WeaponId,
-  action?: 'remove',
+  action?: 'remove' | 'add',
+  weaponTier?: number,
+  speed?: React.RefObject<number>,
 ) => {
   const spritesheet = spritesheets.misc;
 
@@ -38,6 +41,15 @@ export const updateWeapons = (
     }
 
     delete brute.weapons[weapon];
+  } else if (action === 'add') {
+    if (typeof weapon === 'undefined') {
+      throw new Error('Weapon not found');
+    }
+    if (typeof weaponTier === 'undefined') {
+      throw new Error('Weapon tier not found');
+    }
+
+    brute.weapons[weapon] = weaponTier;
   }
 
   // Only affect the HUD for the focused brutes
@@ -80,6 +92,10 @@ export const updateWeapons = (
       }
       app.stage.addChild(sprite);
       brute.teamWeaponsIllustrations.push(sprite);
+
+      if (action === 'add' && +w === weapon && speed) {
+        animatePerkGain(app, sprite, speed);
+      }
     });
   }
 

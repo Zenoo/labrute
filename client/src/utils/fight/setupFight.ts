@@ -61,6 +61,7 @@ import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 import { bindFightTooltip, ToggleFightTooltip } from './utils/fightTooltip';
 import { fightSprite } from './utils/FightClock';
+import { reload } from './reload';
 
 type FightPlayback = {
   onReady: () => void;
@@ -871,6 +872,10 @@ export const setupFight: (
         }
         case StepType.Mimic: {
           await mimic(app, spritesheets, fighters, step, speed);
+          break;
+        }
+        case StepType.Reload: {
+          await reload(app, spritesheets, fighters, step, speed, t);
           break;
         }
         default:
