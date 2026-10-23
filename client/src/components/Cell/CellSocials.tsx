@@ -1,5 +1,5 @@
 import {
-  AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, Today
+  AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, SmartToy, Today
 } from '@mui/icons-material';
 import {
   Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip
@@ -104,7 +104,7 @@ export const CellSocials = ({
             </Tooltip>
           )}
           {/* No destiny for bots */}
-          {brute.userId && (
+          {brute.userId ? (
             <Tooltip title={`${t('destinyOf')} ${brute.name}`}>
               <Link
                 to={`/${brute.name}/destiny`}
@@ -112,6 +112,10 @@ export const CellSocials = ({
               >
                 <AccountTree color="success" />
               </Link>
+            </Tooltip>
+          ) : (
+            <Tooltip title={t('bot')}>
+              <SmartToy sx={{ mr: 1 }} color="warning" />
             </Tooltip>
           )}
           <Text h2 smallCaps sx={{ display: 'inline-block' }}>{brute.name}</Text>

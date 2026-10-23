@@ -544,6 +544,7 @@
   "damage": "Damage",
   "authing": "Authenticating...",
   "dojoRank": "Dojo rank {{rank}}",
+  "bot": "This brute is a bot. It was generated to prevent users from not having anyone to fight against.",
   "title.unknown-brute": "Unknown brute | {{brand}}",
   "title.generating-tournaments": "Generating tournaments... | {{brand}}",
   "title.hall": "Hall | {{brand}}",
