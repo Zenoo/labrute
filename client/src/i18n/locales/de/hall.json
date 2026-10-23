@@ -1,5 +1,9 @@
 {
   "hall": "Halle",
   "chooseAsFavorite": "Zum Favorit ernennen (maximal {{amount}})",
-  "removeFromFavorites": "Nicht mehr favorisieren"
+  "removeFromFavorites": "Nicht mehr favorisieren",
+  "fightsLeft_one": "Du hast heute noch einen Kampf übrig!",
+  "fightsLeft_other": "Du hast heute noch {{count}} Kämpfe übrig!",
+  "missingRegistrations_one": "Ein Brutalo muss noch für einen Wettkampf angemeldet werden.",
+  "missingRegistrations_other": "{{count}} Brutalos müssen noch für einen Wettkampf angemeldet werden."
 }

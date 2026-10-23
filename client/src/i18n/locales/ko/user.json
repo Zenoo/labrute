@@ -7,7 +7,7 @@
   "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
   "accountDeleted": "Your account has been deleted",
   "userProfile": "{{user}}'s profile",
-  "userProfile.desc": "{{user}}'s profile, showing all their achievements and brutes.",
+  "stats": "Stats",
   "externalRewards": "External rewards",
   "favoriteFights": "Favorite fights",
   "banReason.innapropriateName": "Inappropriate name",

@@ -1,0 +1,106 @@
+{
+  "home": {
+    "title": "{{brand}}",
+    "description": "Erstelle deinen Brutalo, passe sein Aussehen an und kämpfe gegen andere Brutalos in der Arena."
+  },
+  "achievements/rankings": {
+    "title": "Rangliste der Erfolge | {{brand}}",
+    "description": "Vergleiche die Spitzenreiter und ihre Erfolge."
+  },
+  "patch-notes": {
+    "title": "Patch-Notizen | {{brand}}",
+    "description": "Lies die neuesten Updates und Balance-Änderungen."
+  },
+  "wiki": {
+    "title": "Wiki | {{brand}}",
+    "description": "Informiere dich über Spielmechaniken, Fähigkeiten und Strategien."
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen | {{brand}}",
+    "description": "Betrachte die Nutzungsbedingungen des Spiels."
+  },
+  "fight": {
+    "title": "Kämpfe | {{brand}}",
+    "description": "Sieh dir einen Kampf an, um ihn zu analysieren."
+  },
+  "user": {
+    "title": "Nutzerprofil | {{brand}}",
+    "description": "Betrachte das Profil, die Brutalos und Erfolge."
+  },
+  "user-stats": {
+    "title": "Nutzerstatistiken | {{brand}}",
+    "description": "Detaillierte Benutzerstatistiken und Performanz-Trends."
+  },
+  "cell": {
+    "title": "Zelle von {{name}} | {{brand}}",
+    "description": "Sieh dir die Zelle von {{name}} an und verwalte den Fortschritt."
+  },
+  "tournament": {
+    "title": "Wettkampf von {{name}} | {{brand}}",
+    "description": "Verfolge die Turnierteilnahmen und Resultate von {{name}}."
+  },
+  "ranking/rank": {
+    "title": "{{rank}}-Rangliste | {{brand}}",
+    "description": "Sieh die Ranglisten durch und vergleiche die Kontrahenten."
+  },
+  "destiny": {
+    "title": "Schicksal von {{name}} | {{brand}}",
+    "description": "Betrachte das Schicksal und den Fortschritt von {{name}}."
+  },
+  "tournaments": {
+    "title": "Turnierverlauf von {{name}} | {{brand}}",
+    "description": "Hier kannst du die Turniere von {{name}} Revue passieren."
+  },
+  "achievements": {
+    "title": "Erfolge von {{name}} | {{brand}}",
+    "description": "Erkunde die von {{name}} freigeschalteten Erfolge."
+  },
+  "dojo": {
+    "title": "Dojo von {{name}} | {{brand}}",
+    "description": "Sieh dir die Schüler von {{name}} an."
+  },
+  "clan-ranking": {
+    "title": "Rangliste der Klane | {{brand}}",
+    "description": "Betrachte die Spitzenklane und vergleiche ihre Fortschritte."
+  },
+  "clan": {
+    "title": "Klan | {{brand}}",
+    "description": "Betrachte Informationen zum Klan, seine Mitglieder und Aktivität."
+  },
+  "forum": {
+    "title": "Klanforum | {{brand}}",
+    "description": "Lies und nimm an Diskussionen im Klanforum teil."
+  },
+  "clan-war-history": {
+    "title": "Kriegsverlauf des Klans | {{brand}}",
+    "description": "Sieh vergangene Klanenkriege durch."
+  },
+  "clan-war": {
+    "title": "Klanenkrieg | {{brand}}",
+    "description": "Verfolge einen Klanenkrieg und seinen Ausgang."
+  },
+  "clan-war-fight": {
+    "title": "Schlacht des Klanenkriegs | {{brand}}",
+    "description": "Schau dir eine Schlacht eines Klanenkriegs an."
+  },
+  "current-events": {
+    "title": "Aktuelle Ereignisse | {{brand}}",
+    "description": "Entdecke laufende Ereignisse."
+  },
+  "history": {
+    "title": "Ereignisverlauf | {{brand}}",
+    "description": "Verfolge bisherige Spielereignisse."
+  },
+  "event": {
+    "title": "Ereignis | {{brand}}",
+    "description": "Erkunde Details zum Ereignis und seine Rangliste."
+  },
+  "event-round": {
+    "title": "Ereignisrunde | {{brand}}",
+    "description": "Betrachte Details einer bestimmten Runde im Ereignis."
+  },
+  "fallback": {
+    "title": "Seite nicht gefunden | {{brand}}",
+    "description": "Die angeforderte Seite existiert nicht."
+  }
+}

@@ -1,5 +1,9 @@
 {
   "hall": "Hall",
   "chooseAsFavorite": "Choisir comme favori (max {{amount}})",
-  "removeFromFavorites": "Retirer des favoris"
+  "removeFromFavorites": "Retirer des favoris",
+  "fightsLeft_one": "Il te reste un combat aujourd'hui !",
+  "fightsLeft_other": "Il te reste {{count}} combats aujourd'hui !",
+  "missingRegistrations_one": "Une brute doit encore être inscrite à un tournoi.",
+  "missingRegistrations_other": "{{count}} brutes doivent encore être inscrites à un tournoi."
 }

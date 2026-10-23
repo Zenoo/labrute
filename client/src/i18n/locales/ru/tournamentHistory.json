@@ -1,6 +1,5 @@
 {
   "tournamentHistory": "Хроника турниров",
-  "tournamentHistory.desc": "Каждый турнир, в котором {{brute}} когда-либо принимал участие. Сколько же битв!",
   "result": "Результат",
   "tournament.result.finishingWith.1": "-й",
   "tournament.result.finishingWith.2": "-й",
