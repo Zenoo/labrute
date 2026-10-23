@@ -27,6 +27,7 @@ export const LAST_RELEASE: Release = {
     'Give the correct amount of HP when replacing an ascended perk',
     'Missing tourmanement registrations are now displayed in the hall',
     'A loader is now displayed when switching brute pages, to prevent stale data from being shown while loading',
+    'Added an icon to bot brutes and an explanation tooltip for them',
     'Optimized SEO'
   ],
   attachments: ['stats.png', 'scrubber.gif'],
