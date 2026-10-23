@@ -7,30 +7,55 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.98.0',
-  date: '2026-08-11',
+  version: '2.99.0',
+  date: '2026-10-23',
   features: [
-    'The 3 dogs now have their own visuals and stats. You still need to unlock them one after the other',
-    'Perk icons are displayed in level up choices',
-    'Ascensions count toward clan points'
+    'A new stats page has been added to user profiles. You can filter them by periods/brute. Some details won\'t be available straight away, as they require data to be collected over time.'
   ],
   fixes: [
-    'Huge performance improvements for the fight engine, fights should be much faster now',
-    'Chaos modified skills (like shield) now remove the correct values instead of the non chaos ones after ending',
-    'Chaos modified weapon stats were often set to 100% instead of the correct random value (flat vs percent issue)',
-    'A new bundler is now used for the client, which should improve performance and reduce download wait times',
-    'New dojo level icons',
-    'Weapons should now display correctly in fights after the fight engine update',
-    'The HP bar now depletes completely when a fighter dies, instead of stopping at 1px',
-    'Bot brute will be generated when a brute doesn\'t have any opponents available',
-    'Tweaked the arena/tournament display to avoid spoiling fight results in some edge cases',
-    'Resetting a brute doesn\'t trigger a blank page anymore',
-    'Max damage achievement calculation shouldn\'t give extreme values anymore (old values still remain)'
+    'Hovering over weapons/skills in fights now shows their proper tooltip',
+    'New tooltips explaining the effects of each stat (strength, agility, speed)',
+    'Terms are now accessible from the footer. You can switch language directly from the Terms page.',
+    'Ascended/random perks display an explanation in their tooltips',
+    'You can click the gold button top right to create a new brute',
+    'HP has been capped to 1, to prevent negative HP values',
+    '2 new achievements have been added',
+    'New achievement titles',
+    'Prevent users getting auto banned after getting unbanned',
+    'Prevent HP negative overflow when using a potion at 1HP',
+    'Some chaos stats should not be stuck at 100% anymore',
+    'Give the correct amount of HP when replacing an ascended perk',
+    'Missing tourmanement registrations are now displayed in the hall',
+    'A loader is now displayed when switching brute pages, to prevent stale data from being shown while loading',
+    'Optimized SEO'
   ],
-  attachments: ['dogs.png'],
+  attachments: ['stats.png', 'scrubber.gif'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.98.0',
+    date: '2026-08-11',
+    features: [
+      'The 3 dogs now have their own visuals and stats. You still need to unlock them one after the other',
+      'Perk icons are displayed in level up choices',
+      'Ascensions count toward clan points'
+    ],
+    fixes: [
+      'Huge performance improvements for the fight engine, fights should be much faster now',
+      'Chaos modified skills (like shield) now remove the correct values instead of the non chaos ones after ending',
+      'Chaos modified weapon stats were often set to 100% instead of the correct random value (flat vs percent issue)',
+      'A new bundler is now used for the client, which should improve performance and reduce download wait times',
+      'New dojo level icons',
+      'Weapons should now display correctly in fights after the fight engine update',
+      'The HP bar now depletes completely when a fighter dies, instead of stopping at 1px',
+      'Bot brute will be generated when a brute doesn\'t have any opponents available',
+      'Tweaked the arena/tournament display to avoid spoiling fight results in some edge cases',
+      'Resetting a brute doesn\'t trigger a blank page anymore',
+      'Max damage achievement calculation shouldn\'t give extreme values anymore (old values still remain)'
+    ],
+    attachments: ['dogs.png'],
+  },
   {
     version: '2.97.0',
     date: '2026-06-27',
