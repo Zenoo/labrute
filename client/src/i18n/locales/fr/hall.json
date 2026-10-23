@@ -2,8 +2,8 @@
   "hall": "Hall",
   "chooseAsFavorite": "Choisir comme favori (max {{amount}})",
   "removeFromFavorites": "Retirer des favoris",
-  "fightsLeft_one": "You have one fight left today !",
-  "fightsLeft_other": "You have {{count}} fights left today !",
-  "missingRegistrations_one": "One brute still needs to be registered for a tournament.",
-  "missingRegistrations_other": "{{count}} brutes still need to be registered for a tournament."
+  "fightsLeft_one": "Il te reste un combat aujourd'hui !",
+  "fightsLeft_other": "Il te reste {{count}} combats aujourd'hui !",
+  "missingRegistrations_one": "Une brute doit encore être inscrite à un tournoi.",
+  "missingRegistrations_other": "{{count}} brutes doivent encore être inscrites à un tournoi."
 }
