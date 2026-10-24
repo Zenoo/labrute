@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.1](https://github.com/Zenoo/labrute/compare/labrute-v2.99.0...labrute-v2.99.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* Filter reloadable skills + filter destroyed weapons on reload ([f2a8443](https://github.com/Zenoo/labrute/commit/f2a8443db77f5668988277035b6422962ad6470a))
+* Hide scrubber on first watch ([c5c9a6e](https://github.com/Zenoo/labrute/commit/c5c9a6e19e166c627560e9576bef4580903eec1e))
+
 ## [2.99.0](https://github.com/Zenoo/labrute/compare/labrute-v2.98.2...labrute-v2.99.0) (2026-10-23)
 
 
