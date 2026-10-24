@@ -2300,7 +2300,7 @@ export const playFighterTurn = (
     && !fighter.activeWeapon
     && Object.values(fighter.weapons).length === 0
     && Object.values(fighter.skills)
-      .filter((skill) => (skill.uses?.[skill.tier - 1] ?? 0) > 0).length === 0
+      .filter((skill) => skill.canReload && (skill.uses?.[skill.tier - 1] ?? 0) > 0).length === 0
 
   ) {
     // Reload fighter's skills and weapons
