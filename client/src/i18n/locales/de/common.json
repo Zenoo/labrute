@@ -523,7 +523,7 @@
   "fight.step.dropShield": "{{brute}} hat sein Schild fallen lassen.",
   "fight.step.regeneration": "{{fighter}} hat sich um {{heal}}HP regeneriert.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
-  "fight.reload": "Neu laden",
+  "fight.reload": "Nachladen",
   "moderation": "Moderation",
   "achievement": "Erfolg",
   "newPatchNotesAvailable": "Eine neue Version wurde veröffentlicht.",
