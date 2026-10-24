@@ -2293,15 +2293,38 @@ export const playFighterTurn = (
     }
   }
 
-  // Trigger reload if every perk was used
+  const canReloadSkill = (skill: Tiered<Skill>): boolean => {
+    if (!skill.canReload || (skill.uses?.[skill.tier - 1] ?? 0) <= 0) {
+      return false;
+    }
+
+    switch (skill.name) {
+      case SkillName.mimic:
+        return getOpponents({ fightData, fighter }).some((opponent) => (
+          Object.values(opponent.skills).some((superSkill) => superSkill.name !== SkillName.mimic
+            && canReloadSkill(superSkill))
+        ));
+      case SkillName.flashFlood:
+        return keys(fighter.weapons).length + (fighter.activeWeapon ? 1 : 0) >= 3;
+      case SkillName.thief:
+        return getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+          .some((opponent) => opponent.activeWeapon || Object.values(opponent.weapons).length > 0);
+      case SkillName.cryOfTheDamned:
+      case SkillName.hypnosis:
+        return getOpponents({ fightData, fighter, petOnly: true })
+          .some((opponent) => !opponent.trapped);
+      default:
+        return true;
+    }
+  };
+
+  // Trigger reload if every usable perk was used
   if (
     fighter.canReload
     && !fighter.activeSkills.length
     && !fighter.activeWeapon
     && Object.values(fighter.weapons).length === 0
-    && Object.values(fighter.skills)
-      .filter((skill) => skill.canReload && (skill.uses?.[skill.tier - 1] ?? 0) > 0).length === 0
-
+    && Object.values(fighter.skills).filter(canReloadSkill).length === 0
   ) {
     // Reload fighter's skills and weapons
     fighter.skills = structuredClone(fighter.reloadableSkills);

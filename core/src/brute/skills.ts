@@ -436,7 +436,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [8, 10, 12],
     uses: [2, 3, 4],
-    canReload: false,
+    canReload: true,
   },
   [SkillName.hypnosis]: {
     name: 'hypnosis',
