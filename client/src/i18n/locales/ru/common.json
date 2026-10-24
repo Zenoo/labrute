@@ -523,7 +523,7 @@
   "fight.step.dropShield": "{{brute}} роняет свой щит.",
   "fight.step.regeneration": "{{fighter}} восстанавливает {{heal}} ОЗ.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
-  "fight.reload": "Перезагрузка",
+  "fight.reload": "Перезарядка",
   "moderation": "Модерация",
   "achievement": "Достижение",
   "newPatchNotesAvailable": "Вышла новая версия.",
