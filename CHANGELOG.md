@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.4](https://github.com/Zenoo/labrute/compare/labrute-v2.99.3...labrute-v2.99.4) (2026-10-24)
+
+
+### Bug Fixes
+
+* Restore passive skills after reload ([cb4d442](https://github.com/Zenoo/labrute/commit/cb4d442acdfff1c25524a7a96179c21e373c4b39))
+
 ## [2.99.3](https://github.com/Zenoo/labrute/compare/labrute-v2.99.2...labrute-v2.99.3) (2026-10-24)
 
 
