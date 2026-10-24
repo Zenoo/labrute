@@ -82,6 +82,8 @@ export const applySpy = (
     delete opponent.weapons[opponentWeapon.name];
 
     opponent.weapons[bruteWeapon.name] = bruteWeapon;
+    opponent.reloadableWeapons[bruteWeapon.name] = structuredClone(bruteWeapon);
     brute.weapons[opponentWeapon.name] = opponentWeapon;
+    brute.reloadableWeapons[opponentWeapon.name] = structuredClone(opponentWeapon);
   }
 };
