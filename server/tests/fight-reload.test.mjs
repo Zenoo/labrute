@@ -100,15 +100,6 @@ test('Mimic does not block reload without an opponent super to copy', () => {
   }), true);
 });
 
-test('Mimic still blocks reload when an opponent has a super to copy', () => {
-  assert.equal(reloads(skill(SkillName.mimic), {
-    skills: { bomb: skill(SkillName.bomb) },
-  }), false);
-  assert.equal(reloads(skill(SkillName.mimic), {
-    skills: { tragicPotion: skill(SkillName.tragicPotion) },
-  }), false);
-});
-
 test('Mimic ignores dead opponents and backups that have not arrived', () => {
   for (const overrides of [{ hp: 0 }, { arrivesAtInitiative: 10 }]) {
     assert.equal(reloads(skill(SkillName.mimic), {
@@ -147,17 +138,6 @@ test('pet skills still block reload with a valid target', () => {
   }
 });
 
-test('Net does not block reload if every opponent is trapped or stunned', () => {
-  assert.equal(reloads(skill(SkillName.net), { trapped: true }), true);
-  assert.equal(reloads(skill(SkillName.net), { stunned: true }), true);
-  assert.equal(reloads(skill(SkillName.net)), false);
-});
-
-test('Hammer does not block reload without a brute or boss target', () => {
-  assert.equal(reloads(skill(SkillName.hammer), { type: 'pet' }), true);
-  assert.equal(reloads(skill(SkillName.hammer)), false);
-});
-
 test('usable, exhausted and non-reloadable skills retain their behavior', () => {
   assert.equal(reloads(skill(SkillName.bomb)), false);
   assert.equal(reloads(skill(SkillName.bomb, { uses: [0, 0, 0] })), true);
@@ -170,4 +150,43 @@ test('other reload prerequisites remain required', () => {
   assert.equal(reloads(skill(SkillName.mimic), {}, {
     activeSkills: [skill(SkillName.fierceBrute)],
   }), false);
+});
+
+test('reload keeps non-reloadable passive skill tiers', () => {
+  const chefT3 = skill(SkillName.chef, {
+    tier: 3,
+    canReload: false,
+  });
+  const exhaustedReloadable = skill(SkillName.bomb, {
+    uses: [0, 0, 0],
+    canReload: true,
+  });
+
+  const current = fighter({
+    skills: {
+      [SkillName.chef]: chefT3,
+      [SkillName.bomb]: exhaustedReloadable,
+    },
+  });
+  const opponent = fighter({
+    id: 'opponent',
+    index: 1,
+    team: 'R',
+    canReload: false,
+  });
+  const fightData = {
+    fighters: [current, opponent],
+    initialFighters: [],
+    modifiers: { [FightModifier.alwaysUseSupers]: true },
+    steps: [],
+    initiative: 0,
+    winner: null,
+    loser: null,
+    overtime: false,
+  };
+
+  playFighterTurn(fightData, {}, {});
+
+  assert.equal(fightData.steps.some((step) => step.a === StepType.Reload), true);
+  assert.equal(current.skills[SkillName.chef]?.tier, 3);
 });

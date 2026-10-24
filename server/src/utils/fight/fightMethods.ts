@@ -2326,8 +2326,11 @@ export const playFighterTurn = (
     && Object.values(fighter.weapons).length === 0
     && Object.values(fighter.skills).filter(canReloadSkill).length === 0
   ) {
-    // Reload fighter's skills and weapons
-    fighter.skills = structuredClone(fighter.reloadableSkills);
+    // Restore only reloadable skills to avoid dropping passive/non-reloadable skills.
+    fighter.skills = {
+      ...fighter.skills,
+      ...structuredClone(fighter.reloadableSkills),
+    };
     fighter.weapons = structuredClone(fighter.reloadableWeapons);
 
     // Add reload step
