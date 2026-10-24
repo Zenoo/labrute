@@ -542,6 +542,7 @@
   "sabotageStat": "De probabilidad de destruir un arma cada vez que conectas un golpe",
   "regenerationStat": "Regeneración",
   "usageRate": "Tasa de uso",
+  "skill.notReloadable": "This skill cannot be reloaded.",
   "damage": "Daño",
   "authing": "Autenticando...",
   "dojoRank": "Rango del Dojo: {{rank}}",
