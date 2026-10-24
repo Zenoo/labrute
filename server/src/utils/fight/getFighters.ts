@@ -142,6 +142,12 @@ const canReload = (
   Object.keys(w).length > 0
   || Object.entries(s).filter(([_, skill]) => (skill.uses?.[skill.tier - 1] ?? 0) > 0).length > 0;
 
+const getReloadableSkills = (s: Partial<Record<SkillName, Tiered<Skill>>>) => {
+  return Object.fromEntries(
+    Object.entries(s).filter(([_, skill]) => skill.canReload)
+  );
+}
+
 type GetFightersParams = {
   team1: Team,
   team2: Team,
@@ -245,8 +251,8 @@ export const getFighters = ({
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
-        initialSkills: structuredClone(tieredSkills),
-        initialWeapons: structuredClone(tieredWeapons),
+        reloadableSkills: getReloadableSkills(structuredClone(tieredSkills)),
+        reloadableWeapons: structuredClone(tieredWeapons),
         canReload: canReload(tieredSkills, tieredWeapons),
         shield: false,
         activeSkills: [],
@@ -319,8 +325,8 @@ export const getFighters = ({
           fastMetabolism: null,
           skills: {},
           weapons: {},
-          initialSkills: {},
-          initialWeapons: {},
+          reloadableSkills: {},
+          reloadableWeapons: {},
           shield: false,
           activeSkills: [],
           activeWeapon: null,
@@ -413,8 +419,8 @@ export const getFighters = ({
         fastMetabolism: null,
         skills: tieredSkills,
         weapons: tieredWeapons,
-        initialSkills: structuredClone(tieredSkills),
-        initialWeapons: structuredClone(tieredWeapons),
+        reloadableSkills: getReloadableSkills(structuredClone(tieredSkills)),
+        reloadableWeapons: structuredClone(tieredWeapons),
         canReload: canReload(tieredSkills, tieredWeapons),
         shield: false,
         activeSkills: [],
@@ -481,8 +487,8 @@ export const getFighters = ({
         fastMetabolism: null,
         skills: {},
         weapons: {},
-        initialSkills: {},
-        initialWeapons: {},
+        reloadableSkills: {},
+        reloadableWeapons: {},
         shield: false,
         activeSkills: [],
         activeWeapon: null,

@@ -117,6 +117,10 @@ export const SkillTooltip = ({
               />
             </Text>
           )}
+          {/* NOT RELOADABLE */}
+          {skill.uses && !skill.canReload && (
+            <Text bold sx={{ fontSize: 12, color: 'warning.main' }}>{t('skill.notReloadable')}</Text>
+          )}
           {/* USAGE RATE */}
           {skill.toss && (
             <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12, lineHeight: 1 }}>{t('usageRate')}: {Math.round(((skill.toss[tier - 1] ?? 0) / (NO_SKILL_TOSS + (skill.toss[tier - 1] ?? 0))) * 100)}%</Text>

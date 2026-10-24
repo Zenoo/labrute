@@ -749,6 +749,32 @@ const dropShield = ({
   }
 };
 
+const disarm = (
+  stats: Stats,
+  fightData: DetailedFight,
+  fighter: DetailedFighter,
+  opponent: DetailedFighter
+) => {
+  if (!opponent.activeWeapon) return;
+
+  // Add disarm step
+  fightData.steps.push({
+    a: StepType.Disarm,
+    f: fighter.index,
+    t: opponent.index,
+    w: WeaponByName[opponent.activeWeapon.name],
+  });
+
+  // Remove weapon from reloadable weapons
+  delete opponent.reloadableWeapons[opponent.activeWeapon.name];
+
+  // Remove weapon from opponent
+  opponent.activeWeapon = null;
+
+  // Update disarm stat
+  updateStats(stats, fighter.id, 'disarms', 1);
+};
+
 // Returns true if weapon was sabotaged
 const drawWeapon = (
   fightData: DetailedFight,
@@ -912,6 +938,7 @@ const mimicSkill = (
         type: skillToMimic.type,
         toss: skillToMimic.toss,
         uses: [1, 1, 1],
+        canReload: skillToMimic.canReload
       };
     }
 
@@ -993,6 +1020,9 @@ const activateSuper = (
         w: WeaponByName[opponent.activeWeapon.name],
         t: opponent.index,
       });
+
+      // Remove weapon from reloadable weapons
+      delete opponent.reloadableWeapons[opponent.activeWeapon.name];
 
       // Set own weapon
       fighter.activeWeapon = opponent.activeWeapon;
@@ -1185,20 +1215,8 @@ const activateSuper = (
         updateStats(stats, fighter.id, 'disarms', 1);
       }
 
-      // Add disarm step
-      if (opponent.activeWeapon) {
-        fightData.steps.push({
-          a: StepType.Disarm,
-          f: fighter.index,
-          t: opponent.index,
-          w: WeaponByName[opponent.activeWeapon.name],
-        });
-
-        opponent.activeWeapon = null;
-
-        // Update disarm stat
-        updateStats(stats, fighter.id, 'disarms', 1);
-      }
+      // Disarm opponent
+      disarm(stats, fightData, fighter, opponent);
 
       // Add skill expire step
       fightData.steps.push({
@@ -1739,7 +1757,7 @@ const breakShield = (chaos: boolean, fighter: DetailedFighter, opponent: Detaile
   return getFighterStat(chaos, fighter, 'disarm') * 100 >= randomBetween(1, 300);
 };
 
-const disarm = (
+const shouldDisarm = (
   chaos: boolean,
   fighter: DetailedFighter,
   opponent: DetailedFighter,
@@ -1748,10 +1766,10 @@ const disarm = (
   // Can't disarm someone if they are not holding a weapon >.>
   if (!opponent.activeWeapon) return false;
 
-  const shouldDisarm = getFighterStat(chaos, fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
+  const shouldTriggerDisarm = getFighterStat(chaos, fighter, 'disarm', thrown ? 'weapon' : undefined) * 100 >= randomBetween(1, 100);
 
   // If the opponent has grip, they have a chance to prevent the disarm
-  if (shouldDisarm && opponent.weaponGrip) {
+  if (shouldTriggerDisarm && opponent.weaponGrip) {
     const preventedDisarm = opponent.weaponGrip * 100 >= randomBetween(1, 100);
 
     if (preventedDisarm) {
@@ -1759,20 +1777,20 @@ const disarm = (
     }
   }
 
-  return shouldDisarm;
+  return shouldTriggerDisarm;
 };
 
-const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
+const shouldDisarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => {
   // Can't disarm someone if they are not holding a weapon >.>
   if (!fighter.activeWeapon) return false;
 
   // Only disarm if opponent has `ironHead`
   if (!opponent.ironHead) return false;
 
-  const shouldDisarm = Math.random() < opponent.ironHead;
+  const shouldTriggerDisarm = Math.random() < opponent.ironHead;
 
   // If the attacker has grip, they have a chance to prevent the disarm
-  if (shouldDisarm && fighter.weaponGrip) {
+  if (shouldTriggerDisarm && fighter.weaponGrip) {
     const preventedDisarm = fighter.weaponGrip * 100 >= randomBetween(1, 100);
 
     if (preventedDisarm) {
@@ -1781,7 +1799,7 @@ const disarmAttacker = (fighter: DetailedFighter, opponent: DetailedFighter) => 
   }
 
   // Chance to disarm the attacker
-  return shouldDisarm;
+  return shouldTriggerDisarm;
 };
 
 const reversal = (chaos: boolean, opponent: DetailedFighter, blocked: boolean) => {
@@ -1925,6 +1943,7 @@ const attack = (
       // Remove a random weapon
       const weapon = randomItem(opponentWeapons);
       delete opponent.weapons[weapon];
+      delete opponent.reloadableWeapons[weapon];
 
       // Add sabotage step
       fightData.steps.push({
@@ -1937,22 +1956,8 @@ const attack = (
   }
 
   // Check if the fighter disarms the opponent
-  if (damage && disarm(chaos, fighter, opponent)) {
-    if (opponent.activeWeapon) {
-      // Add disarm step
-      fightData.steps.push({
-        a: StepType.Disarm,
-        f: fighter.index,
-        t: opponent.index,
-        w: WeaponByName[opponent.activeWeapon.name],
-      });
-
-      // Remove weapon from opponent
-      opponent.activeWeapon = null;
-
-      // Update disarm stat
-      updateStats(stats, fighter.id, 'disarms', 1);
-    }
+  if (damage && shouldDisarm(chaos, fighter, opponent)) {
+    disarm(stats, fightData, fighter, opponent);
   }
 
   let lostReach = 0;
@@ -1963,23 +1968,12 @@ const attack = (
       fighter.bareHandHit = true;
     }
     // Check if the fighter gets disarmed
-    if (fighter.activeWeapon && disarmAttacker(fighter, opponent)) {
-      // Add disarm step
-      fightData.steps.push({
-        a: StepType.Disarm,
-        f: opponent.index,
-        t: fighter.index,
-        w: WeaponByName[fighter.activeWeapon.name],
-      });
-
+    if (fighter.activeWeapon && shouldDisarmAttacker(fighter, opponent)) {
       // Store the lost reach
       lostReach = fighter.activeWeapon.reach;
 
-      // Remove weapon from fighter
-      fighter.activeWeapon = null;
-
-      // Update disarm stat
-      updateStats(stats, opponent.id, 'disarms', 1);
+      // Disarm fighter
+      disarm(stats, fightData, opponent, fighter);
     }
 
     registerHit({
@@ -2310,8 +2304,8 @@ export const playFighterTurn = (
 
   ) {
     // Reload fighter's skills and weapons
-    fighter.skills = structuredClone(fighter.initialSkills);
-    fighter.weapons = structuredClone(fighter.initialWeapons);
+    fighter.skills = structuredClone(fighter.reloadableSkills);
+    fighter.weapons = structuredClone(fighter.reloadableWeapons);
 
     // Add reload step
     fightData.steps.push({
@@ -2574,23 +2568,10 @@ export const playFighterTurn = (
         // If damage was done
         if (damage) {
           // Disarm
-          if (disarm(chaos, currentFighter, currentOpponent, true)) {
-            if (currentOpponent.activeWeapon) {
-              // Add disarm step
-              fightData.steps.push({
-                a: StepType.Disarm,
-                f: currentFighter.index,
-                t: currentOpponent.index,
-                w: WeaponByName[currentOpponent.activeWeapon.name],
-              });
-
-              // Remove weapon from opponent
-              currentOpponent.activeWeapon = null;
-
-              // Update disarm stat
-              updateStats(stats, currentFighter.id, 'disarms', 1);
-            }
+          if (shouldDisarm(chaos, currentFighter, currentOpponent, true)) {
+            disarm(stats, fightData, currentFighter, currentOpponent);
           }
+
           // Register hit
           registerHit({
             fightData,

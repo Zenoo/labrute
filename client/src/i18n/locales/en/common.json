@@ -542,6 +542,7 @@
   "sabotageStat": "Chance to destroy a weapon each time you land a blow",
   "regenerationStat": "Regeneration",
   "usageRate": "Usage Rate",
+  "skill.notReloadable": "This skill cannot be reloaded.",
   "damage": "Damage",
   "authing": "Authenticating...",
   "dojoRank": "Dojo rank {{rank}}",

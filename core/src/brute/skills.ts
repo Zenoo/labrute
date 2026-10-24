@@ -208,6 +208,8 @@ export type Skill = {
   toss?: [number, number, number];
   /** The number of uses of the skill, per tier */
   uses?: [number, number, number];
+  /** Whether the skill can be reloaded */
+  canReload: boolean;
 }
 export type SkillType = 'passive' | 'booster' | 'super' | 'talent';
 
@@ -216,141 +218,169 @@ export const skills: Record<SkillName, Skill> = {
     name: 'herculeanStrength',
     odds: 60,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.felineAgility]: {
     name: 'felineAgility',
     odds: 60,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.lightningBolt]: {
     name: 'lightningBolt',
     odds: 60,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.vitality]: {
     name: 'vitality',
     odds: 60,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.immortality]: {
     name: 'immortality',
     odds: 0.14,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.reconnaissance]: {
     name: 'reconnaissance',
     odds: 1,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.deity]: {
     name: 'deity',
     odds: 2,
     type: 'booster',
+    canReload: false,
   },
   [SkillName.weaponsMaster]: {
     name: 'weaponsMaster',
     odds: 10,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.martialArts]: {
     name: 'martialArts',
     odds: 10,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.sixthSense]: {
     name: 'sixthSense',
     odds: 20,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.hostility]: {
     name: 'hostility',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.fistsOfFury]: {
     name: 'fistsOfFury',
     odds: 10,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.shield]: {
     name: 'shield',
     odds: 10,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.armor]: {
     name: 'armor',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.toughenedSkin]: {
     name: 'toughenedSkin',
     odds: 30,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.untouchable]: {
     name: 'untouchable',
     odds: 1,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.sabotage]: {
     name: 'sabotage',
     odds: 3,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.shock]: {
     name: 'shock',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.bodybuilder]: {
     name: 'bodybuilder',
     odds: 5,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.relentless]: {
     name: 'relentless',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.survival]: {
     name: 'survival',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.leadSkeleton]: {
     name: 'leadSkeleton',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.balletShoes]: {
     name: 'balletShoes',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.determination]: {
     name: 'determination',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.firstStrike]: {
     name: 'firstStrike',
     odds: 8,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.resistant]: {
     name: 'resistant',
     odds: 3,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.counterAttack]: {
     name: 'counterAttack',
     odds: 10,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.ironHead]: {
     name: 'ironHead',
     odds: 4,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.thief]: {
     name: 'thief',
@@ -358,6 +388,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [8, 10, 12],
     uses: [2, 3, 4],
+    canReload: true,
   },
   [SkillName.fierceBrute]: {
     name: 'fierceBrute',
@@ -365,6 +396,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [5, 8, 11],
     uses: [1, 2, 3],
+    canReload: true,
   },
   [SkillName.tragicPotion]: {
     name: 'tragicPotion',
@@ -372,6 +404,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [10, 12, 14],
     uses: [1, 2, 3],
+    canReload: false,
   },
   [SkillName.net]: {
     name: 'net',
@@ -379,6 +412,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [10, 12, 14],
     uses: [1, 2, 3],
+    canReload: true,
   },
   [SkillName.bomb]: {
     name: 'bomb',
@@ -386,6 +420,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [2, 4, 6],
     uses: [2, 3, 4],
+    canReload: true,
   },
   [SkillName.hammer]: {
     name: 'hammer',
@@ -393,6 +428,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [2, 4, 6],
     uses: [1, 2, 3],
+    canReload: true,
   },
   [SkillName.cryOfTheDamned]: {
     name: 'cryOfTheDamned',
@@ -400,6 +436,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [8, 10, 12],
     uses: [2, 3, 4],
+    canReload: true,
   },
   [SkillName.hypnosis]: {
     name: 'hypnosis',
@@ -407,6 +444,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [6, 8, 10],
     uses: [1, 2, 3],
+    canReload: true,
   },
   [SkillName.flashFlood]: {
     name: 'flashFlood',
@@ -414,6 +452,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [2, 4, 6],
     uses: [3, 4, 5],
+    canReload: true,
   },
   [SkillName.tamer]: {
     name: 'tamer',
@@ -421,41 +460,49 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [20, 22, 24],
     uses: [4, 5, 6],
+    canReload: false,
   },
   [SkillName.regeneration]: {
     name: 'regeneration',
     odds: 3,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.chef]: {
     name: 'chef',
     odds: 1,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.spy]: {
     name: 'spy',
     odds: 3,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.saboteur]: {
     name: 'saboteur',
     odds: 3,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.backup]: {
     name: 'backup',
     odds: 5,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.hideaway]: {
     name: 'hideaway',
     odds: 5,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.monk]: {
     name: 'monk',
     odds: 5,
     type: 'talent',
+    canReload: false,
   },
   [SkillName.vampirism]: {
     name: 'vampirism',
@@ -463,11 +510,13 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [5, 8, 11],
     uses: [1, 2, 3],
+    canReload: false,
   },
   [SkillName.chaining]: {
     name: 'chaining',
     odds: 5,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.haste]: {
     name: 'haste',
@@ -475,6 +524,7 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [3, 5, 7],
     uses: [1, 2, 3],
+    canReload: true,
   },
   [SkillName.treat]: {
     name: 'treat',
@@ -482,27 +532,32 @@ export const skills: Record<SkillName, Skill> = {
     type: 'super',
     toss: [5, 8, 11],
     uses: [4, 5, 6],
+    canReload: false,
   },
   [SkillName.repulse]: {
     name: 'repulse',
     odds: 10,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.fastMetabolism]: {
     name: 'fastMetabolism',
     odds: 5,
     type: 'passive',
+    canReload: false,
   },
   [SkillName.mimic]: {
     name: 'mimic',
     odds: 5,
     type: 'super',
     uses: [1, 2, 3],
+    canReload: true,
   },
   [SkillName.stickyHands]: {
     name: 'stickyHands',
     odds: 5,
     type: 'passive',
+    canReload: false,
   },
 };
 
