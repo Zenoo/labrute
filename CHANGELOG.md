@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.3](https://github.com/Zenoo/labrute/compare/labrute-v2.99.2...labrute-v2.99.3) (2026-10-24)
+
+
+### Bug Fixes
+
+* Spy reload typo ([7d60fb1](https://github.com/Zenoo/labrute/commit/7d60fb151f3e88f44c2204052c744dc514486429))
+
 ## [2.99.2](https://github.com/Zenoo/labrute/compare/labrute-v2.99.1...labrute-v2.99.2) (2026-10-24)
 
 
