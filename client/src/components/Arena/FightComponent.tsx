@@ -155,6 +155,7 @@ export const FightComponent = ({
   const [playing, setPlaying] = useState(true);
   const [ready, setReady] = useState(false);
   const [ended, setEnded] = useState(false);
+  const [firstWatch, setFirstWatch] = useState(true);
   const [progress, setProgress] = useState(0);
   const [scrubPosition, setScrubPosition] = useState<number | null>(null);
   const [playbackRequest, setPlaybackRequest] = useState<{
@@ -397,6 +398,7 @@ export const FightComponent = ({
           onComplete: () => {
             if (disposed) return;
             setEnded(true);
+            setFirstWatch(false);
             setPlaying(false);
           },
         },
@@ -583,7 +585,7 @@ export const FightComponent = ({
                 direction="row"
                 sx={{
                   position: 'absolute',
-                  bottom: 12,
+                  bottom: firstWatch ? 0 : 12,
                   left: 0,
                   zIndex: 501,
                   bgcolor: 'rgba(255, 255, 255, 0.3)',
@@ -636,7 +638,7 @@ export const FightComponent = ({
                 direction="row"
                 sx={{
                   position: 'absolute',
-                  bottom: 12,
+                  bottom: firstWatch ? 0 : 12,
                   right: 0,
                   zIndex: 501,
                   bgcolor: 'rgba(255, 255, 255, 0.3)',
@@ -653,33 +655,35 @@ export const FightComponent = ({
                   </IconButton>
                 </Tooltip>
               </Stack>
-              <Slider
-                aria-label={t('fight.seek')}
-                getAriaValueText={getScrubberAriaLabel}
-                min={0}
-                max={fightSteps?.length ?? 1}
-                step={1}
-                value={scrubPosition ?? progress}
-                disabled={!ready || !fightSteps?.length}
-                onChange={onScrubberChange}
-                onChangeCommitted={onScrubberCommit}
-                size="small"
-                sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 10,
-                  width: 'calc(100% - 20px)',
-                  height: 3,
-                  py: '6px',
-                  zIndex: 502,
-                  '& .MuiSlider-thumb': {
-                    width: 8,
-                    height: 8,
-                    '&::after': { width: 28, height: 28 },
-                  },
-                  '& .MuiSlider-rail': { opacity: 0.5 },
-                }}
-              />
+              {!firstWatch && (
+                <Slider
+                  aria-label={t('fight.seek')}
+                  getAriaValueText={getScrubberAriaLabel}
+                  min={0}
+                  max={fightSteps?.length ?? 1}
+                  step={1}
+                  value={scrubPosition ?? progress}
+                  disabled={!ready || !fightSteps?.length}
+                  onChange={onScrubberChange}
+                  onChangeCommitted={onScrubberCommit}
+                  size="small"
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 10,
+                    width: 'calc(100% - 20px)',
+                    height: 3,
+                    py: '6px',
+                    zIndex: 502,
+                    '& .MuiSlider-thumb': {
+                      width: 8,
+                      height: 8,
+                      '&::after': { width: 28, height: 28 },
+                    },
+                    '& .MuiSlider-rail': { opacity: 0.5 },
+                  }}
+                />
+              )}
             </Box>
           </WeaponTooltip>
         </SkillTooltip>
