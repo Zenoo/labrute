@@ -1677,7 +1677,12 @@ const handleClanWars = async (
     where: {
       status: ClanWarStatus.ongoing,
       date: {
-        not: new Date(),
+        not: today.toDate(),
+      },
+      fights: {
+        none: {
+          date: today.toDate(),
+        },
       },
     },
     include: {
@@ -1697,7 +1702,7 @@ const handleClanWars = async (
     const day = clanWar.fights.length + 1;
 
     // Check if a fight was already generated for the day
-    if (clanWar.fights.some((fight) => dayjs.utc(fight.date).isSame(today))) {
+    if (clanWar.fights.some((fight) => dayjs.utc(fight.date).isSame(today, 'day'))) {
       skipped++;
       continue;
     }
