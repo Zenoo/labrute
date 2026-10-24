@@ -542,6 +542,7 @@
   "sabotageStat": "De chances de détruire une arme en réserve à chaque coup qui blesse",
   "regenerationStat": "Régénération",
   "usageRate": "Taux d'utilisation",
+  "skill.notReloadable": "This skill cannot be reloaded.",
   "damage": "Dégâts",
   "authing": "Authentification en cours...",
   "dojoRank": "Dojo rang {{rank}}",
