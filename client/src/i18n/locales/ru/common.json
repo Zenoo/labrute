@@ -542,7 +542,7 @@
   "sabotageStat": "шанс, что при попадании сломается одно оружие",
   "regenerationStat": "Регенерация",
   "usageRate": "Частота использования",
-  "skill.notReloadable": "This skill cannot be reloaded.",
+  "skill.notReloadable": "Этот навык не может быть перезаряжен.",
   "damage": "Урон",
   "authing": "Проверка подлинности...",
   "dojoRank": "Ранг додзё: {{rank}}",
