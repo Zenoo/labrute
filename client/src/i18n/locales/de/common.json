@@ -542,6 +542,7 @@
   "sabotageStat": "Wahrscheinlichkeit, bei einem Treffer eine Waffe zu vernichten",
   "regenerationStat": "Regeneration",
   "usageRate": "Benutzungsrate",
+  "skill.notReloadable": "This skill cannot be reloaded.",
   "damage": "Schaden",
   "authing": "Authentifizierung...",
   "dojoRank": "Dojo-Rang: {{rank}}",
