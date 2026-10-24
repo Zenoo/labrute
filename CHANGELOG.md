@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.2](https://github.com/Zenoo/labrute/compare/labrute-v2.99.1...labrute-v2.99.2) (2026-10-24)
+
+
+### Bug Fixes
+
+* Add cryOfTheDamned back to reloadable skills + Ignore unusable skills when reloading ([f5a30d0](https://github.com/Zenoo/labrute/commit/f5a30d08603993282d6d0e825fe49435ab523b4d))
+* Add cryOfTheDamned to the reload ignore list + ignore non reloadable skills when checking if a brute can reload ([7c745ae](https://github.com/Zenoo/labrute/commit/7c745ae370e5f847f07c7071be8e705a1a3b8dfd))
+* Apply spy weapons to reload ([8db97a2](https://github.com/Zenoo/labrute/commit/8db97a2cd33a6745a22c442108eda96bbe0dfcfb))
+* Prevent clan wars from triggering after releases ([03059b1](https://github.com/Zenoo/labrute/commit/03059b1933047d42f6e8b27a1b9ec09fb8db4e31))
+
 ## [2.99.1](https://github.com/Zenoo/labrute/compare/labrute-v2.99.0...labrute-v2.99.1) (2026-10-24)
 
 
