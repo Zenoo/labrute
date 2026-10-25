@@ -3,7 +3,7 @@ import {
   BruteReportStatus, BruteStats,
   Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, DestinyChoiceType, Event, Fight, FightModifier, Gender,
-  InventoryItem, KnownFingerprint, Log, Notification,
+  InventoryItem, InventoryItemType, KnownFingerprint, Log, Notification,
   PetName, Prisma, SharedBrowser, SkillName, Tournament,
   User, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
@@ -1018,6 +1018,10 @@ export type UserLogsListResponse = (UserLog & {
   user: Pick<User, 'name'>,
   brute: Pick<Brute, 'name'> | null,
 })[];
+export type UserGiveItemRequest = {
+  id: string,
+  item: InventoryItemType,
+};
 
 export type GetFingerprintResponse = {
   eventId: string;

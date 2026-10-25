@@ -42,7 +42,8 @@ import {
   UsersBanRequest,
   UsersUnbanRequest,
   UserTransferBruteRequest, UserUpdateSettingsRequest,
-  UserStatsGetRequest
+  UserStatsGetRequest,
+  UserGiveItemRequest
 } from '@labrute/core';
 import {
   Brute, BruteReportReason, BruteReportStatus, Clan,
@@ -92,6 +93,7 @@ export const Server = {
     unbanBrowser: (data: UnbanBrowserRequest) => Fetch<never>('/api/user/browser/unban', data, 'PATCH'),
     banBrowser: (data: BanBrowserRequest) => Fetch<never>('/api/user/browser/ban', data, 'PATCH'),
     acceptTerms: () => Fetch<never>('/api/user/accept-terms', {}, 'PATCH'),
+    giveItem: (data: UserGiveItemRequest) => Fetch<never>('/api/user/give-item', data, 'POST'),
   },
   Brute: {
     getForHook: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/for-hook`),

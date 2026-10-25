@@ -1,9 +1,13 @@
 import { BanReason, UserGetAdminResponse } from '@labrute/core';
-import { AchievementName, Lang } from '@labrute/prisma';
-import { Block } from '@mui/icons-material';
+import {
+  AchievementName, InventoryItemType, Lang
+} from '@labrute/prisma';
+import {
+  Block, ExpandLess, ExpandMore
+} from '@mui/icons-material';
 import {
   Box,
-  Checkbox, FormControl, FormControlLabel, Grid,
+  Checkbox, Collapse, FormControl, FormControlLabel, Grid,
   InputLabel, MenuItem, Paper, Select, Stack, Table,
   TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip
 } from '@mui/material';
@@ -39,6 +43,10 @@ export const UserAdminView = () => {
   const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [banReason, setBanReason] = useState('');
   const [includeFingerprints, setIncludeFingerprints] = useState(true);
+  const [brutesOpen, setBrutesOpen] = useState(false);
+  const [fingerprintsOpen, setFingerprintsOpen] = useState(false);
+  const [browserIdsOpen, setBrowserIdsOpen] = useState(false);
+  const [item, setItem] = useState<InventoryItemType | ''>('');
 
   // Change user id or name
   const changeUserIdOrName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,6 +170,34 @@ export const UserAdminView = () => {
     });
   };
 
+  // Give item
+  const giveItem = useCallback(() => {
+    if (!user || !item) return;
+
+    Server.User.giveItem({
+      id: user?.id,
+      item
+    }).then(() => {
+      Alert.open('success', 'Item given');
+    }).catch(catchError(Alert));
+  }, [Alert, Server.User, user, item]);
+
+  const renderExpandButton = (
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  ) => (
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {open ? (
+        <ExpandMore
+          onClick={() => setOpen((prev) => !prev)}
+        />
+      ) : (
+        <ExpandLess
+          onClick={() => setOpen((prev) => !prev)}
+        />
+      )}
+    </Box>
+  );
 
   return (
     <Page headerUrl="/">
@@ -237,100 +273,115 @@ export const UserAdminView = () => {
                   </Box>
                 )}
                 <TableContainer component={Paper}>
-                  <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Brutes</Text>
-                  <Table sx={{ minWidth: 650 }} size="small">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">ID</TableCell>
-                        <TableCell align="right">Deleted At</TableCell>
-                        <TableCell align="right">Deletion Reason</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {user.brutes.map((brute) => (
-                        <TableRow
-                          key={brute.id}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {brute.name}
-                          </TableCell>
-                          <TableCell align="right"><Link to={`/admin-panel/brute/${brute.id}`}>{brute.id}</Link></TableCell>
-                          <TableCell align="right">{brute.deletedAt ? dayjs(brute.deletedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                          <TableCell align="right">{brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : ''}</TableCell>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Brutes ({user.brutes.filter(brute => !brute.deletedAt).length}/{user.brutes.length})</Text>
+                    {renderExpandButton(brutesOpen, setBrutesOpen)}
+                  </Box>
+                  <Collapse in={brutesOpen}>
+                    <Table sx={{ minWidth: 650 }} size="small">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell align="right">ID</TableCell>
+                          <TableCell align="right">Deleted At</TableCell>
+                          <TableCell align="right">Deletion Reason</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHead>
+                      <TableBody>
+                        {user.brutes.map((brute) => (
+                          <TableRow
+                            key={brute.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {brute.name}
+                            </TableCell>
+                            <TableCell align="right"><Link to={`/admin-panel/brute/${brute.id}`}>{brute.id}</Link></TableCell>
+                            <TableCell align="right">{brute.deletedAt ? dayjs(brute.deletedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
+                            <TableCell align="right">{brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : ''}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </Collapse>
                 </TableContainer>
                 <TableContainer component={Paper}>
-                  <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing fingerprints ({user.otherUsersSharingFingerprints.length + 1})</Text>
-                  <Table sx={{ minWidth: 650 }} size="small">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">ID</TableCell>
-                        <TableCell align="right">Fingerprints</TableCell>
-                        <TableCell align="right">Created At</TableCell>
-                        <TableCell align="right">Last seen</TableCell>
-                        <TableCell align="right">Banned At</TableCell>
-                        <TableCell align="right">Ban Reason</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {[user, ...user.otherUsersSharingFingerprints].map((otherUser) => (
-                        <TableRow
-                          key={otherUser.id}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {otherUser.name}
-                          </TableCell>
-                          <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
-                          <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
-                          <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                          <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                          <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                          <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing fingerprints ({user.otherUsersSharingFingerprints.length + 1})</Text>
+                    {renderExpandButton(fingerprintsOpen, setFingerprintsOpen)}
+                  </Box>
+                  <Collapse in={fingerprintsOpen}>
+                    <Table sx={{ minWidth: 650 }} size="small">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell align="right">ID</TableCell>
+                          <TableCell align="right">Fingerprints</TableCell>
+                          <TableCell align="right">Created At</TableCell>
+                          <TableCell align="right">Last seen</TableCell>
+                          <TableCell align="right">Banned At</TableCell>
+                          <TableCell align="right">Ban Reason</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHead>
+                      <TableBody>
+                        {[user, ...user.otherUsersSharingFingerprints].map((otherUser) => (
+                          <TableRow
+                            key={otherUser.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {otherUser.name}
+                            </TableCell>
+                            <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
+                            <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
+                            <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                            <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                            <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
+                            <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </Collapse>
                 </TableContainer>
                 <TableContainer component={Paper} sx={{ mb: 2 }}>
-                  <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing browser IDs ({user.otherUsersSharingBrowserIds.length + 1})</Text>
-                  <Table sx={{ minWidth: 650 }} size="small">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">ID</TableCell>
-                        <TableCell align="right">Browser IDs</TableCell>
-                        <TableCell align="right">Created At</TableCell>
-                        <TableCell align="right">Last seen</TableCell>
-                        <TableCell align="right">Banned At</TableCell>
-                        <TableCell align="right">Ban Reason</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {[user, ...user.otherUsersSharingBrowserIds].map((otherUser) => (
-                        <TableRow
-                          key={otherUser.id}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {otherUser.name}
-                          </TableCell>
-                          <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
-                          <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.browserIds.map((b) => (user.browserIds.includes(b) ? `<b>${b}</b>` : b)).join('<br>') }} />
-                          <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                          <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                          <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                          <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing browser IDs ({user.otherUsersSharingBrowserIds.length + 1})</Text>
+                    {renderExpandButton(browserIdsOpen, setBrowserIdsOpen)}
+                  </Box>
+                  <Collapse in={browserIdsOpen}>
+                    <Table sx={{ minWidth: 650 }} size="small">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Name</TableCell>
+                          <TableCell align="right">ID</TableCell>
+                          <TableCell align="right">Browser IDs</TableCell>
+                          <TableCell align="right">Created At</TableCell>
+                          <TableCell align="right">Last seen</TableCell>
+                          <TableCell align="right">Banned At</TableCell>
+                          <TableCell align="right">Ban Reason</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHead>
+                      <TableBody>
+                        {[user, ...user.otherUsersSharingBrowserIds].map((otherUser) => (
+                          <TableRow
+                            key={otherUser.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {otherUser.name}
+                            </TableCell>
+                            <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
+                            <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.browserIds.map((b) => (user.browserIds.includes(b) ? `<b>${b}</b>` : b)).join('<br>') }} />
+                            <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                            <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                            <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
+                            <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </Collapse>
                 </TableContainer>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
@@ -484,6 +535,17 @@ export const UserAdminView = () => {
                   ))}
                 </Grid>
                 <FantasyButton color="success" onClick={saveUser}>Save</FantasyButton>
+                <Select
+                  variant="filled"
+                  value={item}
+                  onChange={({ target: { value } }) => setItem(value as InventoryItemType)}
+                  sx={{ m: 1 }}
+                >
+                  {Object.values(InventoryItemType).map((it) => (
+                    <MenuItem key={it} value={it}>{t(`inventory:item.${it}`)}</MenuItem>
+                  ))}
+                </Select>
+                <FantasyButton color="success" onClick={giveItem}>Add item</FantasyButton>
               </>
             )}
           </Stack>

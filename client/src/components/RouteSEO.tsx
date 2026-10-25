@@ -30,6 +30,7 @@ const langCodes: { url: string, langCode: string }[] = [
 
 type RouteHandle = {
   shouldIndex?: boolean;
+  title?: string;
 };
 
 export const RouteSEO = () => {
@@ -38,7 +39,8 @@ export const RouteSEO = () => {
 
   const matches = matchRoutes(routes, location.pathname) ?? [];
   const match = matches[matches.length - 1];
-  const shouldNoIndex = (match?.route.handle as RouteHandle | undefined)?.shouldIndex === false;
+  const routeHandle = match?.route.handle as RouteHandle | undefined;
+  const shouldNoIndex = routeHandle?.shouldIndex === false;
 
   const locale = (i18n.resolvedLanguage || document.documentElement.lang || 'en').split('-')[0];
   const canonical = `${domainByHost[Host.MyBrute]}${location.pathname}`;
@@ -61,7 +63,7 @@ export const RouteSEO = () => {
 
     if (shouldNoIndex) {
       return {
-        title: t(`title.${routeId}`, { brand }),
+        title: i18n.exists(`title.${routeId}`, { ns: 'seo' }) ? t(`title.${routeId}`, { brand }) : routeHandle?.title,
         robots,
         brand,
       };
@@ -105,7 +107,7 @@ export const RouteSEO = () => {
       robots,
       brand,
     };
-  }, [i18n, location.pathname, match, shouldNoIndex, t]);
+  }, [i18n, location.pathname, match, routeHandle?.title, shouldNoIndex, t]);
 
   const resolvedSiteName = seo?.brand || 'MyBrute';
 

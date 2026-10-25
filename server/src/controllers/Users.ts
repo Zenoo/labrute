@@ -18,6 +18,7 @@ import {
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
+  UserGiveItemRequest,
   UserMultipleAccountsListResponse,
   UserStatsGetRequest,
   UserStatsGetResponse,
@@ -1691,5 +1692,47 @@ export const Users = {
     } catch (error) {
       sendError(res, error);
     }
-  }
+  },
+  giveItem: (prisma: PrismaClient) => async (
+    req: Request<UserGiveItemRequest>,
+    res: Response,
+  ) => {
+    try {
+      const admin = await auth(prisma, req, { admin: true });
+
+      const user = await prisma.user.findUnique({
+        where: {
+          id: req.body.id,
+        },
+        select: { id: true }
+      });
+
+      if (!user) {
+        throw new InvalidAPIUseError(admin, translate('userNotFound', admin));
+      }
+
+      await traced('users.giveItem.upsertInventoryItem', () => prisma.inventoryItem.upsert({
+        where: {
+          type_userId: {
+            type: req.body.item,
+            userId: user.id
+          },
+        },
+        create: {
+          type: req.body.item,
+          count: 1,
+          userId: user.id,
+        },
+        update: {
+          count: {
+            increment: 1,
+          },
+        },
+      }));
+
+      res.send({ success: true });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
 };

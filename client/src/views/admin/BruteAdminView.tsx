@@ -789,7 +789,7 @@ export const BruteAdminView = () => {
               sx={{ m: 1 }}
             >
               {Object.values(InventoryItemType).map((it) => (
-                <MenuItem key={it} value={it}>{it}</MenuItem>
+                <MenuItem key={it} value={it}>{t(`inventory:item.${it}`)}</MenuItem>
               ))}
             </Select>
             <FantasyButton color="success" onClick={giveItem}>Add item</FantasyButton>
