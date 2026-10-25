@@ -216,6 +216,9 @@ export const saboteur = (fightData: DetailedFight, achievements: AchievementsSto
           SkillName.saboteur
         ]?.[saboteurSkill.tier - 1] ?? 0;
 
+        // Remove weapon from reloadable weapons
+        delete opponent.reloadableWeapons[sabotagedWeapon.name];
+
         updateAchievement(achievements, 'saboteur', 1, fighter.id);
       }
     }
