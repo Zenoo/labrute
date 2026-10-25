@@ -723,7 +723,7 @@ export const setupFight: (
         await setHUDFocus(app, spritesheets, renderer, fighters, step.f, speed, isClanWar);
       }
       // Display step's target in HUD
-      if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise) {
+      if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise && step.a !== StepType.Mimic) {
         await setHUDFocus(app, spritesheets, renderer, fighters, step.t, speed, isClanWar);
       }
 

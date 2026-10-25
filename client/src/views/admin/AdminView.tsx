@@ -95,6 +95,7 @@ export const AdminView = () => {
             <FantasyButton color="warning" to="/admin-panel/fingerprint">FINGERPRINTS</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/browser-id">BROWSER IDS</FantasyButton>
             <FantasyButton color="warning" to="/admin-panel/banned-words">BANNED WORDS</FantasyButton>
+            <FantasyButton color="info" to="/admin-panel/fight-replay">FIGHT REPLAY</FantasyButton>
           </Stack>
           <Divider />
           <Text bold h3 smallCaps color="secondary">Next modifiers</Text>

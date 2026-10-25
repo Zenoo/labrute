@@ -61,6 +61,7 @@ import { BrowserIdAdminView } from './views/admin/BrowserIdAdminView';
 import { BannedWordsAdminView } from './views/admin/BannedWordsAdminView';
 import { DojoView } from './views/DojoView';
 import { TermsView } from './views/TermsView';
+import { FightReplayAdminView } from './views/admin/FightReplayAdminView';
 
 export const routes: RouteObject[] = [
   {
@@ -188,7 +189,8 @@ export const routes: RouteObject[] = [
           { path: 'shared-browser', element: <SharedBrowserView />, handle: { shouldIndex: false } },
           { path: 'fingerprint', element: <FingerprintAdminView />, handle: { shouldIndex: false } },
           { path: 'browser-id', element: <BrowserIdAdminView />, handle: { shouldIndex: false } },
-          { path: 'banned-words', element: <BannedWordsAdminView />, handle: { shouldIndex: false } }
+          { path: 'banned-words', element: <BannedWordsAdminView />, handle: { shouldIndex: false } },
+          { path: 'fight-replay', element: <FightReplayAdminView />, handle: { shouldIndex: false } }
         ],
       },
       {
