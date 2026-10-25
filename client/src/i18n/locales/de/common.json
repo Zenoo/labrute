@@ -522,7 +522,7 @@
   "fight.step.treat": "{{brute}} hat dem Tierbegleiter {{target}} ein Leckerli gegeben und ihn um {{heal}}LP geheilt.",
   "fight.step.dropShield": "{{brute}} hat sein Schild fallen lassen.",
   "fight.step.regeneration": "{{fighter}} hat sich um {{heal}}HP regeneriert.",
-  "fight.step.reload": "{{fighter}} reloaded the weapons: {{weapons}} and skills: {{skills}}.",
+  "fight.step.reload": "{{fighter}} hat die Waffen nachgeladen: {{weapons}} und die Fähigkeiten: {{skills}}.",
   "fight.wonTheFight": "{{brute}} hat den Kampf gewonnen",
   "fight.reload": "Nachladen",
   "moderation": "Moderation",
