@@ -522,6 +522,7 @@
   "fight.step.treat": "{{brute}} кормит своего питомца {{target}}, исцеляя ему {{heal}} ОЗ.",
   "fight.step.dropShield": "{{brute}} роняет свой щит.",
   "fight.step.regeneration": "{{fighter}} восстанавливает {{heal}} ОЗ.",
+  "fight.step.reload": "{{fighter}} reloaded the weapons: {{weapons}} and skills: {{skills}}.",
   "fight.wonTheFight": "{{brute}} выигрывает бой",
   "fight.reload": "Перезарядка",
   "moderation": "Модерация",
