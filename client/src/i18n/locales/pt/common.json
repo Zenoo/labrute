@@ -522,6 +522,7 @@
   "fight.step.treat": "{{brute}} gave their pet {{target}} a treat and healed them for {{heal}}HP.",
   "fight.step.dropShield": "{{brute}} dropped their shield.",
   "fight.step.regeneration": "{{fighter}} regenerated {{heal}}HP.",
+  "fight.step.reload": "{{fighter}} reloaded the weapons: {{weapons}} and skills: {{skills}}.",
   "fight.wonTheFight": "{{brute}} venceu a luta",
   "fight.reload": "Reload",
   "moderation": "Moderation",
