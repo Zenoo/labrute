@@ -338,6 +338,9 @@ export const Fights = {
             favoritedBy: {
               disconnect: { id: user.id },
             },
+            favoriteCount: {
+              decrement: 1,
+            }
           },
           select: { id: true },
         }));
@@ -381,6 +384,9 @@ export const Fights = {
           data: {
             favoritedBy: {
               connect: { id: user.id },
+            },
+            favoriteCount: {
+              increment: 1,
             },
           },
           select: { id: true },
