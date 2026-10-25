@@ -522,6 +522,7 @@
   "fight.step.treat": "{{brute}} le dio una golosina a su {{target}} mascota y le curó {{heal}} PV.",
   "fight.step.dropShield": "{{brute}} soltó su escudo.",
   "fight.step.regeneration": "{{fighter}} regeneró {{heal}} PV.",
+  "fight.step.reload": "{{fighter}} reloaded the weapons: {{weapons}} and skills: {{skills}}.",
   "fight.wonTheFight": "{{brute}} ha ganado el combate",
   "fight.reload": "Reload",
   "moderation": "Moderación",
