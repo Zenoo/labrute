@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.5](https://github.com/Zenoo/labrute/compare/labrute-v2.99.4...labrute-v2.99.5) (2026-10-25)
+
+
+### Bug Fixes
+
+* Add admin replay tool + fix crash on mimic use with high tier ([c3a0feb](https://github.com/Zenoo/labrute/commit/c3a0feb3b3b381d9f8ecd2160e109ddda4d9aed6))
+* Don't delete favorite fights ([796627f](https://github.com/Zenoo/labrute/commit/796627fd58ca7be850affd21f7390193243f6ec2))
+* Prevent reloading when nothing left to reload + Decrease net usage rate + Display usage rate tiers ([dcd8852](https://github.com/Zenoo/labrute/commit/dcd885229de83ea9c0ca5d78a3976f14ec0b5a93))
+* Remvoe saboteur affected weapon from reloadables ([5c9c4df](https://github.com/Zenoo/labrute/commit/5c9c4df0412eb939b6b91b1e3b5cc162a260aef0))
+
 ## [2.99.4](https://github.com/Zenoo/labrute/compare/labrute-v2.99.3...labrute-v2.99.4) (2026-10-24)
 
 
