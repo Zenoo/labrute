@@ -522,7 +522,7 @@
   "fight.step.treat": "{{brute}} a donné une friandise à son familier {{target}} et l'a soigné de {{heal}}PV.",
   "fight.step.dropShield": "{{brute}} a lâché son bouclier.",
   "fight.step.regeneration": "{{fighter}} a régénéré {{heal}}PV.",
-  "fight.step.reload": "{{fighter}} reloaded the weapons: {{weapons}} and skills: {{skills}}.",
+  "fight.step.reload": "{{fighter}} a rechargé les armes : {{weapons}} et les compétences : {{skills}}.",
   "fight.wonTheFight": "{{brute}} a gagné le match",
   "fight.reload": "Reload",
   "moderation": "Modération",
