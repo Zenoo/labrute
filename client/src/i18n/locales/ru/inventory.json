@@ -2,6 +2,7 @@
   "desc": "Здесь вы видите все предметы, которые вы собрали. Пользуйтесь с умом!",
   "item.visualReset": "Сброс внешности",
   "item.bossTicket": "Боссовый билет",
+  "item.nameChange": "Name change",
   "item.favoriteFight": "Избранная битва",
   "item.favoriteFight.desc": "Вы можете добавить битву к избранным на странице битв. Она не будет удалена через 30 дней.",
   "item.customizationToken": "Жетон для персонализации",
