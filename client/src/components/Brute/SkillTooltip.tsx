@@ -123,7 +123,16 @@ export const SkillTooltip = ({
           )}
           {/* USAGE RATE */}
           {skill.toss && (
-            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12, lineHeight: 1 }}>{t('usageRate')}: {Math.round(((skill.toss[tier - 1] ?? 0) / (NO_SKILL_TOSS + (skill.toss[tier - 1] ?? 0))) * 100)}%</Text>
+            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12, lineHeight: 1 }}>
+              {t('usageRate')}:
+              {' '}
+              <TieredStat
+                values={skill.toss}
+                tier={tier}
+                formatter={(value) => Math.round((value / (NO_SKILL_TOSS + value)) * 100)}
+                percent
+              />
+            </Text>
           )}
           <Box sx={{
             display: 'flex',

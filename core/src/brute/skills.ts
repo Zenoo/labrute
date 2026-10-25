@@ -410,7 +410,7 @@ export const skills: Record<SkillName, Skill> = {
     name: 'net',
     odds: 16,
     type: 'super',
-    toss: [10, 12, 14],
+    toss: [5, 7, 9],
     uses: [1, 2, 3],
     canReload: true,
   },

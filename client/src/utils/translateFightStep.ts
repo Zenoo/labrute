@@ -245,6 +245,12 @@ export const translateFightStep = (
         fighter: getFighterName(fighters, step.f, t),
         heal: step.h,
       });
+    case StepType.Reload:
+      return t('fight.step.reload', {
+        fighter: getFighterName(fighters, step.f, t),
+        weapons: step.w.map((w) => t(WeaponById[w.i])).join(', '),
+        skills: step.s.map((s) => t(SkillById[s.i])).join(', '),
+      });
     default:
       return '';
   }

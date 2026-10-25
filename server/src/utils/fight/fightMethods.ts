@@ -2325,11 +2325,15 @@ export const playFighterTurn = (
     && !fighter.activeWeapon
     && Object.values(fighter.weapons).length === 0
     && Object.values(fighter.skills).filter(canReloadSkill).length === 0
+    && (Object.values(fighter.reloadableSkills).length > 0
+      || Object.values(fighter.reloadableWeapons).length > 0)
   ) {
+    const reloadableSkills = structuredClone(fighter.reloadableSkills);
+
     // Restore only reloadable skills to avoid dropping passive/non-reloadable skills.
     fighter.skills = {
       ...fighter.skills,
-      ...structuredClone(fighter.reloadableSkills),
+      ...reloadableSkills,
     };
     fighter.weapons = structuredClone(fighter.reloadableWeapons);
 
@@ -2338,7 +2342,7 @@ export const playFighterTurn = (
       a: StepType.Reload,
       f: fighter.index,
       w: Object.values(fighter.weapons).map((w) => ({ i: WeaponByName[w.name], t: w.tier })),
-      s: Object.values(fighter.skills).map((s) => ({ i: SkillByName[s.name], t: s.tier })),
+      s: Object.values(reloadableSkills).map((s) => ({ i: SkillByName[s.name], t: s.tier })),
     });
   }
 
