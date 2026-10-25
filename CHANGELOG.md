@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.99.6](https://github.com/Zenoo/labrute/compare/labrute-v2.99.5...labrute-v2.99.6) (2026-10-25)
+
+
+### Bug Fixes
+
+* Add items to users in admin panel ([816df2e](https://github.com/Zenoo/labrute/commit/816df2ef33f193df78ed170c8fe3f1bd31c5359b))
+
 ## [2.99.5](https://github.com/Zenoo/labrute/compare/labrute-v2.99.4...labrute-v2.99.5) (2026-10-25)
 
 
