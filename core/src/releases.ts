@@ -8,7 +8,7 @@ export type Release = {
 
 export const LAST_RELEASE: Release = {
   version: '2.100.0',
-  date: '2026-10-30',
+  date: '2026-11-01',
   features: [
     'Two new skills have dropped: Reload and Rewind. Go ahead and try them out, let me know what you think! This means only one spot remains for new skills, let\'s make it count!',
     'You read it right, reload is now a skill instead of a passive mechanic. I heard your feedback and since I was unable to find a correct balance for it as a passive, it has been moved to an active skill.',

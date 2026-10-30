@@ -23,6 +23,10 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) and [AUTHORS.md](AUTHORS.md) for a list o
 
 ## Contributing
 
+For architecture, code conventions, task-to-code navigation, and focused verification commands, see the
+[engineering reference](docs/engineering/README.md). Repository instructions for coding agents are in
+[AGENTS.md](AGENTS.md).
+
 - Fork this project
 
 - Make sure your NodeJS and pnpm versions are up to date
