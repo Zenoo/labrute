@@ -105,6 +105,7 @@ export enum StepType {
   Regeneration,
   Mimic,
   Reload,
+  Rewind,
 }
 
 export type SaboteurStep = {
@@ -474,6 +475,16 @@ export type ReloadStep = {
   s: { i: SkillId; t: number; }[];
 }
 
+export type RewindStep = {
+  a: StepType.Rewind;
+  /** Caster index */
+  f: number;
+  /** Number of previous playback steps to undo */
+  n: number;
+  /** Number of fighter turns restored */
+  t: number;
+}
+
 export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | TrashStep | StealStep | TrapStep | HealStep | ResistStep
   | SurviveStep | HitStep | BombStep | HypnotiseStep | MoveStep | EatStep
@@ -481,7 +492,7 @@ export type FightStep = SaboteurStep | LeaveStep | ArriveStep
   | SabotageStep | DisarmStep | DeathStep | ThrowStep | EndStep
   | CounterStep | SkillActivateStep | SkillExpireStep | SpyStep
   | VampirismStep | HasteStep | TreatStep | DropShieldStep | RegenerationStep
-  | MimicStep | ReloadStep;
+  | MimicStep | ReloadStep | RewindStep;
 
 export type AnimationModel =
   | 'bear'

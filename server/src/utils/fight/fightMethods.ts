@@ -18,6 +18,7 @@ import {
 import { DetailedFight, DetailedFighter } from './generateFight.js';
 import { getDamage } from './getDamage.js';
 import { getFighterStat } from './getFighterStat.js';
+import { requestFightRewind, withFightRewind } from './fightRewind.js';
 
 export type Stats = Record<string, {
   userId: string | null;
@@ -86,43 +87,39 @@ const updateStats = (stats: Stats, bruteId: string, stat: keyof Omit<Stats[numbe
 const checkAchievements = (
   stats: Stats,
   achievements: AchievementsStore,
+  bruteId: string,
 ) => {
-  for (const [bruteId, stat] of Object.entries(stats)) {
-    const achievement = achievements[bruteId];
+  const stat = stats[bruteId];
+  if (!stat || !achievements[bruteId]) return;
 
-    if (!achievement) {
-      continue;
-    }
+  // Consecutive counters
+  if (stat.consecutiveCounters && stat.consecutiveCounters >= 4) {
+    updateAchievement(achievements, 'counter4b2b', 1, bruteId);
+    stat.consecutiveCounters = 0;
+  }
 
-    // Consecutive counters
-    if (stat.consecutiveCounters && stat.consecutiveCounters >= 4) {
-      updateAchievement(achievements, 'counter4b2b', 1, bruteId);
-      stat.consecutiveCounters = 0;
-    }
+  // Consecutive reversals
+  if (stat.consecutiveReversals && stat.consecutiveReversals >= 4) {
+    updateAchievement(achievements, 'reversal4b2b', 1, bruteId);
+    stat.consecutiveReversals = 0;
+  }
 
-    // Consecutive reversals
-    if (stat.consecutiveReversals && stat.consecutiveReversals >= 4) {
-      updateAchievement(achievements, 'reversal4b2b', 1, bruteId);
-      stat.consecutiveReversals = 0;
-    }
+  // Consecutive blocks
+  if (stat.consecutiveBlocks && stat.consecutiveBlocks >= 4) {
+    updateAchievement(achievements, 'block4b2b', 1, bruteId);
+    stat.consecutiveBlocks = 0;
+  }
 
-    // Consecutive blocks
-    if (stat.consecutiveBlocks && stat.consecutiveBlocks >= 4) {
-      updateAchievement(achievements, 'block4b2b', 1, bruteId);
-      stat.consecutiveBlocks = 0;
-    }
+  // Consecutive evades
+  if (stat.consecutiveEvades && stat.consecutiveEvades >= 4) {
+    updateAchievement(achievements, 'evade4b2b', 1, bruteId);
+    stat.consecutiveEvades = 0;
+  }
 
-    // Consecutive evades
-    if (stat.consecutiveEvades && stat.consecutiveEvades >= 4) {
-      updateAchievement(achievements, 'evade4b2b', 1, bruteId);
-      stat.consecutiveEvades = 0;
-    }
-
-    // Consecutive throws
-    if (stat.consecutiveThrows && stat.consecutiveThrows >= 10) {
-      updateAchievement(achievements, 'throw10b2b', 1, bruteId);
-      stat.consecutiveThrows = 0;
-    }
+  // Consecutive throws
+  if (stat.consecutiveThrows && stat.consecutiveThrows >= 10) {
+    updateAchievement(achievements, 'throw10b2b', 1, bruteId);
+    stat.consecutiveThrows = 0;
   }
 };
 
@@ -137,22 +134,12 @@ const getOpponents = ({
   bruteAndBossOnly?: boolean;
   petOnly?: boolean;
 }) => {
-  let opponents = [];
-
   // Remove backups not arrived yet and dead fighters
-  opponents = fightData.fighters.filter((f) => !f.arrivesAtInitiative
+  return fightData.fighters.filter((f) => !f.arrivesAtInitiative
     && f.hp > 0
-    && f.team !== fighter.team);
-
-  if (bruteAndBossOnly) {
-    opponents = opponents.filter((f) => f.type === 'brute' || f.type === 'boss');
-  }
-
-  if (petOnly) {
-    opponents = opponents.filter((f) => f.type === 'pet');
-  }
-
-  return opponents;
+    && f.team !== fighter.team
+    && (!bruteAndBossOnly || f.type === 'brute' || f.type === 'boss')
+    && (!petOnly || f.type === 'pet'));
 };
 
 const getRandomOpponent = ({
@@ -172,25 +159,18 @@ const getRandomOpponent = ({
   const focusOpponent = fightData.modifiers[FightModifier.focusOpponent]
     || !!fighter.skills[SkillName.hypnosis];
 
-  let opponents = getOpponents({
+  const opponents = getOpponents({
     fightData,
     fighter,
     bruteAndBossOnly: bruteAndBossOnly || focusOpponent,
     petOnly,
-  });
-
-  // Filter out trapped pets
-  opponents = opponents.filter((f) => f.type !== 'pet' || !f.trapped);
-
-  if (nonTrappedOrStunnedOnly) {
-    // Filter out trapped brutes and stunned brutes
-    opponents = opponents.filter((f) => !f.trapped && !f.stunned);
-  }
-
-  // Filter out backups and pets if `focusOpponent` modifier
-  if (focusOpponent) {
-    opponents = opponents.filter((f) => !f.master);
-  }
+  })
+    // Filter out trapped pets
+    .filter((f) => (f.type !== 'pet' || !f.trapped)
+      // Filter out trapped brutes and stunned brutes
+      && (!nonTrappedOrStunnedOnly || (!f.trapped && !f.stunned))
+      // Filter out backups and pets if `focusOpponent` modifier
+      && (!focusOpponent || !f.master));
 
   if (!opponents.length) {
     return null;
@@ -252,6 +232,9 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   if (!supers.length) return null;
 
+  const opponents = getOpponents({ fightData, fighter });
+  const hasUntrappedPet = opponents.some((f) => f.type === 'pet' && !f.trapped);
+
   // Filter out defensive skills and fierceBrute if fierceBrute is active
   if (fighter.activeSkills.some((sk) => sk.name === SkillName.fierceBrute)) {
     supers = supers.filter((skill) => (
@@ -263,14 +246,14 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out tamer if no valid target or lost less than 20% HP
-  if (fightData.fighters.filter(skillTargetsFilter(SkillName.tamer)).length === 0
+  if (!fightData.fighters.some(skillTargetsFilter(SkillName.tamer))
     || fighter.hp > fighter.maxHp * 0.8) {
     supers = supers.filter((skill) => skill.name !== SkillName.tamer);
   }
 
   // Filter out thief if non trapped opponents have no weapons in hand
-  if (getOpponents({ fightData, fighter, bruteAndBossOnly: true })
-    .filter((f) => !f.trapped && f.activeWeapon).length === 0) {
+  if (!opponents.some((f) => (f.type === 'brute' || f.type === 'boss')
+    && !f.trapped && f.activeWeapon)) {
     supers = supers.filter((skill) => skill.name !== SkillName.thief);
   }
 
@@ -280,8 +263,7 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out cryOfTheDamned and hypnosis if opponent has no non-trapped pets
-  if (getOpponents({ fightData, fighter, petOnly: true })
-    .filter((f) => !f.trapped).length === 0) {
+  if (!hasUntrappedPet) {
     supers = supers.filter((skill) => skill.name !== SkillName.cryOfTheDamned
       && skill.name !== SkillName.hypnosis);
   }
@@ -302,10 +284,10 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
   }
 
   // Filter out net if no non-trapped / non-stunned fighters
-  if (!getOpponents({ fightData, fighter }).some((f) => !f.trapped && !f.stunned)
+  if (!opponents.some((f) => !f.trapped && !f.stunned)
     // or ennemy non-trapped pet alive and other anti-pet skills avalaible
     || (!fightData.modifiers[FightModifier.focusOpponent]
-      && getOpponents({ fightData, fighter, petOnly: true }).some((p) => !p.trapped)
+      && hasUntrappedPet
       && supers.some((skill) => skill.name === SkillName.hypnosis
         || skill.name === SkillName.cryOfTheDamned
         || skill.name === SkillName.bomb)
@@ -315,12 +297,12 @@ const randomlyGetSuper = (fightData: DetailedFight, fighter: DetailedFighter) =>
 
   // Filter out vampirism if more than 50% hp or no brute opponent
   if (fighter.hp > fighter.maxHp / 2
-    || getOpponents({ fightData, fighter, bruteAndBossOnly: true }).length === 0) {
+    || !opponents.some((f) => f.type === 'brute' || f.type === 'boss')) {
     supers = supers.filter((skill) => skill.name !== SkillName.vampirism);
   }
 
   // Filter out treat if no pets lost hp or no pet trapped
-  if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && ((f.hp < f.maxHp) || f.trapped)).length === 0) {
+  if (!fightData.fighters.some((f) => f.type === 'pet' && f.team === fighter.team && ((f.hp < f.maxHp) || f.trapped))) {
     supers = supers.filter((skill) => skill.name !== SkillName.treat);
   }
 
@@ -348,11 +330,11 @@ export const randomlyDrawWeapon = (
   fighterWeapons: Partial<Record<WeaponName, FightWeapon>>,
   forceDraw?: boolean,
 ) => {
-  const weapons = entries(fighterWeapons);
+  const weapons = Object.values(fighterWeapons);
   if (!weapons.length) return null;
 
   let totalToss = -1;
-  for (const [, weapon] of weapons) {
+  for (const weapon of weapons) {
     totalToss += weapon.toss[weapon.tier - 1] ?? 0;
   }
 
@@ -364,7 +346,7 @@ export const randomlyDrawWeapon = (
 
   // Find weapon by accumulated toss
   let toss = 0;
-  for (const [, weapon] of weapons) {
+  for (const weapon of weapons) {
     toss += weapon.toss[weapon.tier - 1] ?? 0;
     if (randomWeapon < toss) {
       return weapon;
@@ -476,6 +458,14 @@ const consumeActiveSkill = (
   fighter.activeSkills = fighter.activeSkills.filter((sk) => sk.name !== skillName);
 };
 
+const bombDamageRangeOnPets: Record<PetName, [number, number]> = {
+  [PetName.dog1]: [90, 150],
+  [PetName.dog2]: [90, 150],
+  [PetName.dog3]: [90, 150],
+  [PetName.panther]: [40, 80],
+  [PetName.bear]: [15, 30],
+};
+
 const registerHit = ({
   fightData,
   stats,
@@ -499,24 +489,16 @@ const registerHit = ({
   source?: 'hammer' | 'flashFlood' | 'poison' | 'bomb' | 'vampirism' | 'haste';
   flashFloodWeapon?: FightWeapon;
 }) => {
-  const bombDamageRangeOnPets: Record<PetName, [number, number]> = {
-    [PetName.dog1]: [90, 150],
-    [PetName.dog2]: [90, 150],
-    [PetName.dog3]: [90, 150],
-    [PetName.panther]: [40, 80],
-    [PetName.bear]: [15, 30],
-  };
-
-  const actualDamage: Record<number, number> = opponents.reduce((acc, opponent) => ({
-    ...acc,
-    [opponent.index]: (source === 'bomb' && opponent.type === 'pet')
+  const actualDamage: Record<number, number> = {};
+  for (const opponent of opponents) {
+    actualDamage[opponent.index] = (source === 'bomb' && opponent.type === 'pet')
       ? Math.round(
         ((randomBetween(
           ...bombDamageRangeOnPets[opponent.name as PetName],
         ) / 100) * opponent.maxHp),
       )
-      : damage,
-  }), {});
+      : damage;
+  }
 
   opponents.forEach((opponent) => {
     // Reset consecutive hits for any damage source other than poison
@@ -587,10 +569,7 @@ const registerHit = ({
       a: StepType.Bomb,
       f: fighter.index,
       t: opponents.map((opponent) => opponent.index),
-      d: opponents.reduce((acc, curr) => {
-        acc[curr.index] = actualDamage[curr.index] ?? damage;
-        return acc;
-      }, {} as Record<number, number>),
+      d: actualDamage,
     });
   } else if (source === 'vampirism') {
     const opponent = opponents[0];
@@ -679,19 +658,24 @@ const registerHit = ({
   }
 
   // 50 Damage achievement
-  const moreThan50 = Object.values(actualDamage).filter((d) => d >= 50).length;
+  let moreThan50 = 0;
+  let moreThan100 = 0;
+  let maxDamage = -Infinity;
+  for (const dealt of Object.values(actualDamage)) {
+    if (dealt >= 50) moreThan50++;
+    if (dealt >= 100) moreThan100++;
+    if (dealt > maxDamage) maxDamage = dealt;
+  }
   if (moreThan50) {
     updateAchievement(achievements, 'damage50once', moreThan50, fighter.id);
   }
 
   // 100 Damage achievement
-  const moreThan100 = Object.values(actualDamage).filter((d) => d >= 100).length;
   if (moreThan100) {
     updateAchievement(achievements, 'damage100once', moreThan100, fighter.id);
   }
 
   // Max damage achievement
-  const maxDamage = Math.max(...Object.values(actualDamage));
   if ((stats[fighter.id]?.maxDamage ?? 0) < maxDamage) {
     updateStats(stats, fighter.id, 'maxDamage', maxDamage, undefined, true);
   }
@@ -726,6 +710,8 @@ const registerHit = ({
 
   // Update stats
   updateStats(stats, fighter.id, 'hits', 1, fighter.master);
+
+  requestFightRewind(fightData);
 };
 
 const dropShield = ({
@@ -897,14 +883,14 @@ const mimicSkill = (
       }
       case SkillName.tamer: {
         // Ignore tamer if no pets (dead or alive)
-        if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === opponent.team).length === 0) {
+        if (!fightData.fighters.some((f) => f.type === 'pet' && f.team === opponent.team)) {
           continue;
         }
         break;
       }
       case SkillName.treat: {
         // Ignore treat if no alive pets
-        if (fightData.fighters.filter((f) => f.type === 'pet' && f.team === opponent.team && f.hp > 0).length === 0) {
+        if (!fightData.fighters.some((f) => f.type === 'pet' && f.team === opponent.team && f.hp > 0)) {
           continue;
         }
         break;
@@ -1276,7 +1262,7 @@ const activateSuper = (
         });
 
       // Add fear steps
-      fightData.steps = fightData.steps.concat(fearSteps);
+      fightData.steps.push(...fearSteps);
 
       // Prepare skill activation step
       const cryStep: SkillActivateStep = {
@@ -1552,8 +1538,8 @@ const activateSuper = (
     }
     case SkillName.treat: {
       // Choose random ally pet
-      const pets = fightData.fighters.filter((f) => f.type === 'pet' && f.team === fighter.team && f.hp > 0);
-      const pet = pets.find((p) => (p.hp < p.maxHp) || p.trapped);
+      const pet = fightData.fighters.find((f) => f.type === 'pet' && f.team === fighter.team
+        && f.hp > 0 && ((f.hp < f.maxHp) || f.trapped));
 
       if (!pet) {
         return false;
@@ -1903,7 +1889,7 @@ const attack = (
     // Update evasion stat
     updateStats(stats, opponent.id, 'evades', 1);
     updateStats(stats, opponent.id, 'consecutiveEvades', 1);
-    checkAchievements(stats, achievements);
+    checkAchievements(stats, achievements, opponent.id);
   } else {
     // Reset evasion stat
     updateStats(stats, opponent.id, 'consecutiveEvades', 0);
@@ -1930,7 +1916,7 @@ const attack = (
       // Update block stat
       updateStats(stats, opponent.id, 'blocks', 1);
       updateStats(stats, opponent.id, 'consecutiveBlocks', 1);
-      checkAchievements(stats, achievements);
+      checkAchievements(stats, achievements, opponent.id);
     } else {
       // Reset block stat
       updateStats(stats, opponent.id, 'consecutiveBlocks', 0);
@@ -2012,10 +1998,12 @@ export const checkDeaths = (
   fightData: DetailedFight,
   stats: Stats,
 ) => {
+  requestFightRewind(fightData);
+
   for (const fighter of fightData.fighters) {
     // Only add death step if fighter is dead and hasn't died yet
-    if (fighter.hp <= 0 && fightData.steps.filter((step) => step.a === StepType.Death
-      && step.f === fighter.index).length === 0) {
+    if (fighter.hp <= 0 && !fighter.dead) {
+      fighter.dead = true;
       // Add death step
       fightData.steps.push({
         a: StepType.Death,
@@ -2036,9 +2024,9 @@ export const checkDeaths = (
           updateStats(stats, opponent.id, 'petsKilled', 1);
         });
         // Else, set loser to fighter if team has no brutes or bosses alive
-      } else if (!fightData.loser && fightData.fighters.filter((f) => f.team === fighter.team
+      } else if (!fightData.loser && !fightData.fighters.some((f) => f.team === fighter.team
         && !f.master
-        && f.hp > 0).length === 0) {
+        && f.hp > 0)) {
         fightData.loser = fighter.id;
       }
     }
@@ -2135,7 +2123,7 @@ const startAttack = (
     if (!opponentWasTrapped && attackResult.reversed && opponent.hp > 0) {
       // Update reversal stat
       updateStats(stats, opponent.id, 'consecutiveReversals', 1);
-      checkAchievements(stats, achievements);
+      checkAchievements(stats, achievements, opponent.id);
 
       // Check if the opponent has less reach than the fighter, and move them closer
       const opponentReach = opponent.activeWeapon?.reach ?? 0;
@@ -2174,7 +2162,84 @@ const startAttack = (
   checkDeaths(fightData, stats);
 };
 
-export const playFighterTurn = (
+const canReloadSkill = (
+  fightData: DetailedFight,
+  fighter: DetailedFighter,
+  skill: Tiered<Skill>,
+): boolean => {
+  if (!skill.canReload || (skill.uses?.[skill.tier - 1] ?? 0) <= 0) {
+    return false;
+  }
+
+  switch (skill.name) {
+    case SkillName.mimic:
+      return getOpponents({ fightData, fighter }).some((opponent) => (
+        Object.values(opponent.skills).some((superSkill) => superSkill.name !== SkillName.mimic
+          && canReloadSkill(fightData, fighter, superSkill))
+      ));
+    case SkillName.flashFlood:
+      return keys(fighter.weapons).length + (fighter.activeWeapon ? 1 : 0) >= 3;
+    case SkillName.thief:
+      return getOpponents({ fightData, fighter, bruteAndBossOnly: true })
+        .some((opponent) => opponent.activeWeapon || Object.values(opponent.weapons).length > 0);
+    case SkillName.cryOfTheDamned:
+    case SkillName.hypnosis:
+      return getOpponents({ fightData, fighter, petOnly: true })
+        .some((opponent) => !opponent.trapped);
+    default:
+      return true;
+  }
+};
+
+const reload = (
+  fightData: DetailedFight,
+  fighter: DetailedFighter,
+  stats: Stats,
+) => {
+  const reloadSkill = fighter.skills[SkillName.reload];
+  const remainingUses = reloadSkill?.uses?.[reloadSkill.tier - 1] ?? 0;
+
+  // Only reload when every usable perk was used
+  if (
+    !reloadSkill?.uses
+    || remainingUses <= 0
+    || fighter.activeSkills.length
+    || fighter.activeWeapon
+    || Object.values(fighter.weapons).length > 0
+    || Object.values(fighter.skills).some((skill) => canReloadSkill(fightData, fighter, skill))
+    || (Object.values(fighter.reloadableSkills).length === 0
+      && Object.values(fighter.reloadableWeapons).length === 0)
+  ) {
+    return;
+  }
+
+  const reloadableSkills = structuredClone(fighter.reloadableSkills);
+
+  // Restore only reloadable skills to avoid dropping passive/non-reloadable skills.
+  fighter.skills = {
+    ...fighter.skills,
+    ...reloadableSkills,
+  };
+  fighter.weapons = structuredClone(fighter.reloadableWeapons);
+
+  // Spend one reload
+  reloadSkill.uses[reloadSkill.tier - 1] = remainingUses - 1;
+  if (remainingUses <= 1) {
+    delete fighter.skills[SkillName.reload];
+  }
+
+  updateStats(stats, fighter.id, 'skillsUsed', 1);
+
+  // Add reload step
+  fightData.steps.push({
+    a: StepType.Reload,
+    f: fighter.index,
+    w: Object.values(fighter.weapons).map((w) => ({ i: WeaponByName[w.name], t: w.tier })),
+    s: Object.values(reloadableSkills).map((s) => ({ i: SkillByName[s.name], t: s.tier })),
+  });
+};
+
+const executeFighterTurn = (
   fightData: DetailedFight,
   stats: Stats,
   achievements: AchievementsStore,
@@ -2296,58 +2361,8 @@ export const playFighterTurn = (
     }
   }
 
-  const canReloadSkill = (skill: Tiered<Skill>): boolean => {
-    if (!skill.canReload || (skill.uses?.[skill.tier - 1] ?? 0) <= 0) {
-      return false;
-    }
-
-    switch (skill.name) {
-      case SkillName.mimic:
-        return getOpponents({ fightData, fighter }).some((opponent) => (
-          Object.values(opponent.skills).some((superSkill) => superSkill.name !== SkillName.mimic
-            && canReloadSkill(superSkill))
-        ));
-      case SkillName.flashFlood:
-        return keys(fighter.weapons).length + (fighter.activeWeapon ? 1 : 0) >= 3;
-      case SkillName.thief:
-        return getOpponents({ fightData, fighter, bruteAndBossOnly: true })
-          .some((opponent) => opponent.activeWeapon || Object.values(opponent.weapons).length > 0);
-      case SkillName.cryOfTheDamned:
-      case SkillName.hypnosis:
-        return getOpponents({ fightData, fighter, petOnly: true })
-          .some((opponent) => !opponent.trapped);
-      default:
-        return true;
-    }
-  };
-
-  // Trigger reload if every usable perk was used
-  if (
-    fighter.canReload
-    && !fighter.activeSkills.length
-    && !fighter.activeWeapon
-    && Object.values(fighter.weapons).length === 0
-    && Object.values(fighter.skills).filter(canReloadSkill).length === 0
-    && (Object.values(fighter.reloadableSkills).length > 0
-      || Object.values(fighter.reloadableWeapons).length > 0)
-  ) {
-    const reloadableSkills = structuredClone(fighter.reloadableSkills);
-
-    // Restore only reloadable skills to avoid dropping passive/non-reloadable skills.
-    fighter.skills = {
-      ...fighter.skills,
-      ...reloadableSkills,
-    };
-    fighter.weapons = structuredClone(fighter.reloadableWeapons);
-
-    // Add reload step
-    fightData.steps.push({
-      a: StepType.Reload,
-      f: fighter.index,
-      w: Object.values(fighter.weapons).map((w) => ({ i: WeaponByName[w.name], t: w.tier })),
-      s: Object.values(reloadableSkills).map((s) => ({ i: SkillByName[s.name], t: s.tier })),
-    });
-  }
+  // Reload skill: get every reloadable perk back once all usable perks were used
+  reload(fightData, fighter, stats);
 
   // Super activation
   const possibleSuper = randomlyGetSuper(fightData, fighter);
@@ -2434,7 +2449,8 @@ export const playFighterTurn = (
       updateStats(stats, opponent.id, 'counters', 1);
       updateStats(stats, fighter.id, 'countersTriggered', 1);
       updateStats(stats, opponent.id, 'consecutiveCounters', 1);
-      checkAchievements(stats, achievements);
+      checkAchievements(stats, achievements, opponent.id);
+      checkAchievements(stats, achievements, fighter.id);
 
       // Add counter step
       fightData.steps.push({
@@ -2555,7 +2571,7 @@ export const playFighterTurn = (
 
         // Update consecutive throw stat
         updateStats(stats, currentFighter.id, 'consecutiveThrows', 1);
-        checkAchievements(stats, achievements);
+        checkAchievements(stats, achievements, currentFighter.id);
 
         // Check if opponent blocked (harder than melee)
         if (!deflected && block({
@@ -2575,7 +2591,7 @@ export const playFighterTurn = (
           // Update block stat
           updateStats(stats, currentOpponent.id, 'blocks', 1);
           updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 1);
-          checkAchievements(stats, achievements);
+          checkAchievements(stats, achievements, currentOpponent.id);
         } else {
           // Reset block stat
           updateStats(stats, currentOpponent.id, 'consecutiveBlocks', 0);
@@ -2592,7 +2608,7 @@ export const playFighterTurn = (
 
           // Update evade stat
           updateStats(stats, currentOpponent.id, 'consecutiveEvades', 1);
-          checkAchievements(stats, achievements);
+          checkAchievements(stats, achievements, currentOpponent.id);
         } else {
           // Reset evade stat
           updateStats(stats, currentOpponent.id, 'consecutiveEvades', 0);
@@ -2710,3 +2726,19 @@ export const playFighterTurn = (
 
   increaseInitiative(chaos, fighter);
 };
+
+const advanceRewindInitiative = (fighter: DetailedFighter, fightData: DetailedFight) => {
+  increaseInitiative(!!fightData.modifiers[FightModifier.chaos], fighter, -3);
+};
+
+export const playFighterTurn = (
+  fightData: DetailedFight,
+  stats: Stats,
+  achievements: AchievementsStore,
+) => withFightRewind(
+  fightData,
+  stats,
+  achievements,
+  executeFighterTurn,
+  advanceRewindInitiative,
+);

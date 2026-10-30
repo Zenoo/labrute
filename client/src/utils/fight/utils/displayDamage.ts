@@ -1,3 +1,4 @@
+import { getFightClock } from './FightClock';
 import { BossName } from '@labrute/prisma';
 import { OutlineFilter } from 'pixi-filters/outline';
 import { Application, Text } from 'pixi.js';
@@ -46,7 +47,7 @@ export const displayDamage = ({
     damageText.y = target.animation.container.y - target.animation.container.height;
   }
 
-  app.stage.addChild(damageText);
+  app.stage.addChild(getFightClock().transient(damageText));
 
   tween(damageText, {
     duration: 2 / speed.current,

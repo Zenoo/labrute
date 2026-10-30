@@ -1,3 +1,4 @@
+import { getFightClock } from './FightClock';
 import { Application, Text } from 'pixi.js';
 import { insideXBounds } from './insideXBounds';
 import { AnimationFighter } from './findFighter';
@@ -24,7 +25,7 @@ export const displayHeal = (
   healText.y = fighter.animation.container.y - fighter.animation.container.height;
   healText.zIndex = 1000;
   healText.filters = [HEAL_TEXT_OUTLINE_FILTER];
-  app.stage.addChild(healText);
+  app.stage.addChild(getFightClock().transient(healText));
 
   tween(healText, {
     duration: 2 / speed.current,

@@ -6,6 +6,9 @@ import { SkillName, WeaponName } from '@labrute/prisma';
 import { getFighterStat } from './getFighterStat.js';
 import { DetailedFighter } from './generateFight.js';
 
+const fighterDamageModifiers = SkillDamageModifiers.filter((modifier) => !modifier.opponent);
+const opponentDamageModifiers = SkillDamageModifiers.filter((modifier) => modifier.opponent);
+
 export const getDamage = (
   chaos: boolean,
   fighter: DetailedFighter,
@@ -18,17 +21,12 @@ export const getDamage = (
   let skillsMultiplier = 1;
 
   // Using Piledriver ?
-  const piledriver = fighter.activeSkills.find((sk) => sk.name === SkillName.hammer);
+  const piledriver = fighter.activeSkills.some((sk) => sk.name === SkillName.hammer);
 
   // Fighter skill damage modifiers
-  for (const modifier of SkillDamageModifiers) {
+  for (const modifier of fighterDamageModifiers) {
     // Ignore if fighter doesn't have the skill
     if (!fighter.skills[modifier.skill]) {
-      continue;
-    }
-
-    // Ignore if the modifier is for the opponent
-    if (modifier.opponent) {
       continue;
     }
 
@@ -83,14 +81,9 @@ export const getDamage = (
   }
 
   // Opponent skill damage modifiers
-  for (const modifier of SkillDamageModifiers) {
+  for (const modifier of opponentDamageModifiers) {
     // Ignore if opponent doesn't have the skill
     if (!opponent.skills[modifier.skill]) {
-      continue;
-    }
-
-    // Ignore if the modifier is not for the opponent
-    if (!modifier.opponent) {
       continue;
     }
 
@@ -140,7 +133,7 @@ export const getDamage = (
   }
 
   // x2 damage for if skill `fierceBrute` is active
-  if (fighter.activeSkills.find((sk) => sk.name === 'fierceBrute')) {
+  if (fighter.activeSkills.some((sk) => sk.name === SkillName.fierceBrute)) {
     skillsMultiplier *= 2;
   }
 

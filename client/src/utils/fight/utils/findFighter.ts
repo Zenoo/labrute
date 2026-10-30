@@ -28,8 +28,16 @@ export interface AnimationFighter extends Omit<Fighter, 'shield' | 'skills'> {
 
 export const findFighter = (
   fighters: AnimationFighter[],
-  stepFighter?: number,
-) => (typeof stepFighter === 'undefined' ? undefined : fighters.find((f) => f.index === stepFighter));
+  stepFighter: number | undefined,
+) => {
+  const fighter = fighters.find((f) => f.index === stepFighter);
+
+  if (!fighter) {
+    throw new Error(`Fighter with index ${stepFighter} not found`);
+  }
+
+  return fighter;
+}
 
 export const findHUDFocusedFighter = (
   fightFighters: Fighter[],

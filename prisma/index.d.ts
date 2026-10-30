@@ -338,7 +338,9 @@ export const SkillName: {
   fastMetabolism: 'fastMetabolism',
   mimic: 'mimic',
   stickyHands: 'stickyHands',
-  deity: 'deity'
+  deity: 'deity',
+  rewind: 'rewind',
+  reload: 'reload'
 };
 
 export type SkillName = (typeof SkillName)[keyof typeof SkillName]

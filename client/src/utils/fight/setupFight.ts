@@ -15,55 +15,18 @@ import {
   Application, Color, Container, Graphics, Sprite, Text, Texture
 } from 'pixi.js';
 import { RendererContextInterface } from '../../hooks/useRenderer';
-import { arrive } from './arrive';
-import { attemptHit } from './attemptHit';
-import { block } from './block';
-import { bomb } from './bomb';
-import { death } from './death';
-import { disarm } from './disarm';
-import { dropShield } from './dropShield';
-import { eat } from './eat';
-import { end } from './end';
-import { equip } from './equip';
-import { evade } from './evade';
 import { FighterHolder } from './FighterHolder';
-import { flashFlood } from './flashFlood';
-import { hammer } from './hammer';
-import { haste } from './haste';
-import { heal } from './heal';
-import { hit } from './hit';
-import { hypnotise } from './hypnotise';
-import { leave } from './leave';
-import { moveBack } from './moveBack';
-import { moveTo } from './moveTo';
-import { regenerate } from './regenerate';
-import { resist } from './resist';
-import { sabotage } from './sabotage';
-import { saboteur } from './saboteur';
-import { setHUDFocus } from './setHUDFocus';
-import { skillActivate } from './skillActivate';
-import { skillExpire } from './skillExpire';
-import { spy } from './spy';
-import { steal } from './steal';
-import { survive } from './survive';
-import { throwWeapon } from './throwWeapon';
-import { trap } from './trap';
-import { trash } from './trash';
-import { treat } from './treat';
-import { updateWeapons } from './updateWeapons';
 import { createBustImage } from './utils/createBustImage';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
-import { isRangedStep, repositionFighters } from './utils/repositionFighters';
-import { vampirism } from './vampirism';
 import { getFighters } from './utils/getFighters';
-import { mimic } from './mimic';
 import { fightDelay, tween } from './utils/tween';
 import { Spritesheets } from './utils/spritesheet';
 import { bindFightTooltip, ToggleFightTooltip } from './utils/fightTooltip';
 import { fightSprite } from './utils/FightClock';
-import { reload } from './reload';
+import { Fight as FightPlaybackController } from './Fight';
 
 type FightPlayback = {
+  startStep: number;
   onReady: () => void;
   onStep: (index: number) => void;
   onComplete: () => void;
@@ -676,9 +639,6 @@ export const setupFight: (
       // Add to stage
       app.stage?.addChild(animationFighter.animation.container);
 
-      // Update brute weapons
-      updateWeapons(app, spritesheets, animationFighter);
-
       nextFighters.push(animationFighter);
     }
 
@@ -693,14 +653,38 @@ export const setupFight: (
 
     if (shouldAbort()) return;
 
-    const isClanWar = !!fight.clanWarId;
-
     // Loop on steps
     const steps = JSON.parse(fight.steps) as FightStep[];
-    playback?.onReady();
+    const startStep = playback?.startStep ?? 0;
+
+    if (!Number.isInteger(startStep) || startStep < 0 || startStep > steps.length) {
+      throw new Error(`Invalid fight seek position: ${startStep}`);
+    }
+
+    const controller = new FightPlaybackController({
+      app, fight, fighters, speed, spritesheets, renderer, t, shouldAbort, steps,
+    });
+
+    let seekFinalized = startStep === 0;
+
+    const finalizeSeek = async () => {
+      await controller.renderState();
+      if (shouldAbort()) return;
+      seekFinalized = true;
+      playback?.onReady();
+    };
+
+    if (seekFinalized) playback?.onReady();
+
     for (let i = 0; i < steps.length; i++) {
       if (shouldAbort()) return;
-      playback?.onStep(i);
+
+      if (i === startStep && !seekFinalized) {
+        await finalizeSeek();
+        if (shouldAbort()) return;
+      }
+
+      if (i >= startStep) playback?.onStep(i);
 
       const { [i]: step } = steps;
 
@@ -711,181 +695,13 @@ export const setupFight: (
       currentStepIndex = i;
       currentStepName = StepType[step.a] ?? String(step.a);
 
-      // Reposition mispositionned fighters during neutral
-      if (isRangedStep(step.a)) await repositionFighters(fighters, speed);
-
-      // Display step's brute in HUD
-      if ('b' in step && Object.hasOwn(step, 'b') && step.a !== StepType.AttemptHit) {
-        await setHUDFocus(app, spritesheets, renderer, fighters, step.b, speed, isClanWar);
-      }
-      // Display step's fighter in HUD
-      if ('f' in step && Object.hasOwn(step, 'f') && typeof step.f === 'number') {
-        await setHUDFocus(app, spritesheets, renderer, fighters, step.f, speed, isClanWar);
-      }
-      // Display step's target in HUD
-      if ('t' in step && Object.hasOwn(step, 't') && step.a !== StepType.Bomb && step.a !== StepType.Hypnotise && step.a !== StepType.Mimic) {
-        await setHUDFocus(app, spritesheets, renderer, fighters, step.t, speed, isClanWar);
-      }
-
-      if (shouldAbort()) return;
-      switch (step.a) {
-        case StepType.Move: {
-          await moveTo(fighters, step, speed);
-          break;
-        }
-        case StepType.MoveBack: {
-          await moveBack(fighters, step, speed);
-          break;
-        }
-        case StepType.Arrive: {
-          await arrive(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Leave: {
-          await leave(fighters, step, speed);
-          break;
-        }
-        case StepType.AttemptHit: {
-          await attemptHit(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Hit:
-        case StepType.Poison: {
-          await hit(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.FlashFlood: {
-          await flashFlood(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Hammer: {
-          await hammer(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Death: {
-          death(fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Evade: {
-          await evade(fighters, step, speed);
-          break;
-        }
-        case StepType.Saboteur: {
-          await saboteur(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Disarm: {
-          disarm(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Steal: {
-          await steal(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Throw: {
-          await throwWeapon(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Trash: {
-          await trash(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Eat: {
-          await eat(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Heal: {
-          await heal(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Survive: {
-          survive(fight, fighters, step, speed);
-          break;
-        }
-        case StepType.Trap: {
-          await trap(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Block: {
-          await block(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.SkillActivate: {
-          await skillActivate(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.SkillExpire: {
-          await skillExpire(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.End: {
-          end(app, spritesheets, fighters, step);
-          break;
-        }
-        case StepType.Hypnotise: {
-          await hypnotise(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Equip: {
-          await equip(app, spritesheets, fighters, step);
-          break;
-        }
-        case StepType.Sabotage: {
-          sabotage(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Resist: {
-          resist(fighters, step);
-          break;
-        }
-        case StepType.Bomb: {
-          await bomb(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Spy: {
-          await spy(fighters, step, speed);
-          break;
-        }
-        case StepType.Vampirism: {
-          await vampirism(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Haste: {
-          await haste(app, spritesheets, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Treat: {
-          await treat(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.DropShield: {
-          dropShield(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Regeneration: {
-          await regenerate(app, fighters, step, speed, isClanWar);
-          break;
-        }
-        case StepType.Counter: {
-          // Do nothing for now
-          break;
-        }
-        case StepType.Mimic: {
-          await mimic(app, spritesheets, fighters, step, speed);
-          break;
-        }
-        case StepType.Reload: {
-          await reload(app, spritesheets, fighters, step, speed, t);
-          break;
-        }
-        default:
-          console.error('Unknown step', step);
-          break;
-      }
+      await controller.runStep(step, i < startStep);
 
       if (shouldAbort()) return;
     }
 
+    if (!seekFinalized) await finalizeSeek();
+    if (shouldAbort()) return;
     playback?.onStep(steps.length);
     playback?.onComplete();
     void sound.play('sfx', { sprite: 'win' });

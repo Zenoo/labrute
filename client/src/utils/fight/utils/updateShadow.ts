@@ -77,13 +77,19 @@ const airbornMove = async ({
   duration,
   ease,
   endPosition,
+  seeking = false,
 }: {
   fighter: AnimationFighter;
   speed: React.RefObject<number>,
   duration: number,
   ease: gsap.EaseString | gsap.EaseFunction,
   endPosition: { y: number, x?: number, zIndex?: number },
+  seeking?: boolean,
 }) => {
+  if (seeking) {
+    Object.assign(fighter.animation.container, endPosition);
+    return;
+  }
   if (fighter.animation.container.destroyed || fighter.animation.shadow.destroyed) {
     return;
   }

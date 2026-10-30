@@ -476,6 +476,12 @@ export class FighterHolder {
 
   // Those can change mid-fight
   animation: Animation = 'arrive';
+  seekPose = {
+    animation: 'idle' as Animation,
+    visible: true,
+    airborne: false,
+    hypnotised: false,
+  };
 
   shield = false;
 
@@ -501,6 +507,12 @@ export class FighterHolder {
   #playing = true;
 
   #frame = 0;
+
+  #displayedFrame = 0;
+
+  #displayedWeapon: WeaponName | null = null;
+
+  #displayedShield = false;
 
   #previousFrame = -1;
 
@@ -761,6 +773,9 @@ export class FighterHolder {
           this.#usedSvgs = {};
           this.#usedMaskSvgs = {};
           this.#displayFrame(this.#renderContainer, this.#animationSymbol);
+          this.#displayedFrame = this.#frame;
+          this.#displayedWeapon = this.weapon;
+          this.#displayedShield = this.shield;
 
           const currentFrame = Math.floor(this.#frame);
           const frameChanged = currentFrame !== this.#previousFrame;
@@ -832,6 +847,10 @@ export class FighterHolder {
     this.#baseAnimationSpeed = value;
   }
 
+  get baseAnimationSpeed(): number {
+    return this.#baseAnimationSpeed;
+  }
+
   #triggerEvents = (event: string) => {
     // Trigger events
     if (this.events[event]) {
@@ -864,16 +883,14 @@ export class FighterHolder {
     }
   };
 
-  setAnimation(animation: Animation, frame = 0) {
+  setAnimation(animation: Animation, frame = 0, seeking = false) {
+    // Skip win animation for pets and bosses
+    if (animation === 'win' && this.type !== 'brute') return;
     // Handle idle differently for monks
-    if (animation === 'idle' && this.skills[SkillId.monk]) {
-      this.animation = 'monk';
-    } else if (animation === 'win' && this.type !== 'brute') {
-      // Skip win animation for pets and bosses
-      return;
-    } else {
-      this.animation = animation;
-    }
+    const nextAnimation = animation === 'idle' && this.skills[SkillId.monk] ? 'monk' : animation;
+    this.seekPose.animation = nextAnimation;
+    if (seeking) return;
+    this.animation = nextAnimation;
 
     this.#animationSymbol = ANIMATIONS[this.#animationType][this.animation];
 
@@ -889,6 +906,28 @@ export class FighterHolder {
     this.#usedMaskSvgs = {};
     this.#prepareFrameRender();
     this.#displayFrame(this.#renderContainer, this.#animationSymbol);
+    this.#displayedFrame = frame;
+    this.#displayedWeapon = this.weapon;
+    this.#displayedShield = this.shield;
+  }
+
+  capturePlaybackFrame() {
+    return {
+      animation: this.animation,
+      frame: this.#displayedFrame,
+      airborne: this.#isAirborn,
+    };
+  }
+
+  renderPlaybackFrame(playback: ReturnType<FighterHolder['capturePlaybackFrame']>) {
+    this.#isAirborn = playback.airborne;
+
+    if (this.animation !== playback.animation || this.#displayedFrame !== playback.frame
+      || this.#displayedWeapon !== this.weapon || this.#displayedShield !== this.shield) {
+      this.setAnimation(playback.animation, playback.frame);
+    }
+
+    this.pause();
   }
 
   #collectSvgsToLoad = (
@@ -1444,7 +1483,9 @@ export class FighterHolder {
   });
 
   // Stop / restart actualizing zIndex
-  setAirborn = (airborn: boolean) => {
+  setAirborn = (airborn: boolean, seeking = false) => {
+    this.seekPose.airborne = airborn;
+    if (seeking) return;
     if (!airborn) {
       this.shadow.alpha = 1;
       this.shadow.y = 0;

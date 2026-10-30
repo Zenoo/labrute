@@ -99,6 +99,9 @@ const handleSkills = (
         case SkillName.backup:
           // Nothing to do, the intitiative is handled when creating the backup fighter
           break;
+        case SkillName.rewind:
+          // Nothing to do, the rewind is handled in fightRewind
+          break;
         default:
           throw new Error(`No extra handling defined for skill ${skill.name}`);
       }
@@ -134,13 +137,6 @@ const handleSkills = (
 };
 
 const getTempo = (speed: number) => 0.10 + (20 / Math.max(1, 10 + (speed * 1.5))) * 0.90;
-
-const canReload = (
-  s: Partial<Record<SkillName, Tiered<Skill>>>,
-  w: Partial<Record<WeaponName, Tiered<Weapon>>>
-) =>
-  Object.keys(w).length > 0
-  || Object.entries(s).filter(([_, skill]) => (skill.uses?.[skill.tier - 1] ?? 0) > 0).length > 0;
 
 const getReloadableSkills = (s: Partial<Record<SkillName, Tiered<Skill>>>) => {
   return Object.fromEntries(
@@ -253,7 +249,6 @@ export const getFighters = ({
         weapons: tieredWeapons,
         reloadableSkills: getReloadableSkills(structuredClone(tieredSkills)),
         reloadableWeapons: structuredClone(tieredWeapons),
-        canReload: canReload(tieredSkills, tieredWeapons),
         shield: false,
         activeSkills: [],
         activeWeapon: null,
@@ -421,7 +416,6 @@ export const getFighters = ({
         weapons: tieredWeapons,
         reloadableSkills: getReloadableSkills(structuredClone(tieredSkills)),
         reloadableWeapons: structuredClone(tieredWeapons),
-        canReload: canReload(tieredSkills, tieredWeapons),
         shield: false,
         activeSkills: [],
         activeWeapon: null,

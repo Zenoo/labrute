@@ -192,6 +192,8 @@ enum SkillName {
   mimic
   stickyHands
   deity
+  rewind
+  reload
 }
 
 enum PetName {

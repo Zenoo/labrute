@@ -26,6 +26,7 @@ import {
 } from '@labrute/prisma';
 import { createManyUserLogs } from '../createUserLog.js';
 import { applySpy } from './applySpy.js';
+import { createFightRewind, FightRewind } from './fightRewind.js';
 import {
   Stats,
   checkDeaths, fighterArrives,
@@ -112,8 +113,6 @@ export type DetailedFighter = {
   reloadableSkills: Partial<Record<SkillName, Tiered<Skill>>>;
   // Reloadable weapons
   reloadableWeapons: Partial<Record<WeaponName, FightWeapon>>;
-  // Can the fighter reload ?
-  canReload?: boolean;
   // Shield state
   shield: boolean;
   // Active skills
@@ -122,6 +121,7 @@ export type DetailedFighter = {
   activeWeapon: FightWeapon | null;
   keepWeaponChance: number;
   // Status effects
+  dead?: boolean;
   poisonedBy: number | null; // Fighter index
   trapped: boolean;
   // Keep track of consecutive hits for stun status
@@ -143,6 +143,8 @@ export type DetailedFight = {
   winner: string | null;
   loser: string | null;
   overtime: boolean;
+  // Only set when a fighter starts with Rewind; null skips all snapshot work.
+  rewind?: FightRewind | null;
 }
 
 export type GenerateFightResult = {
@@ -280,6 +282,7 @@ export const generateFight = async ({
     winner: null,
     loser: null,
     overtime: false,
+    rewind: createFightRewind(fightDataFighters),
   };
 
   // Add arrive step for all fighters

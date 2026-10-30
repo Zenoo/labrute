@@ -154,6 +154,7 @@ export const FightComponent = ({
   const appRef = useRef<Application | null>(null);
   const [playing, setPlaying] = useState(true);
   const [ready, setReady] = useState(false);
+  const [playbackFailed, setPlaybackFailed] = useState(false);
   const [ended, setEnded] = useState(false);
   const [firstWatch, setFirstWatch] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -243,9 +244,9 @@ export const FightComponent = ({
     let clock: FightClock | null = null;
     const targetStep = playbackRequest && playbackRequest.fightId === fight?.id
       ? playbackRequest.step : 0;
-    let seeking = targetStep > 0;
 
     setReady(false);
+    setPlaybackFailed(false);
     setEnded(false);
     setPlaying(true);
     setProgress(targetStep);
@@ -350,7 +351,7 @@ export const FightComponent = ({
       }
 
       // Mute all sounds
-      sound.volumeAll = seeking ? 0 : (soundRef.current ? 1 : 0);
+      sound.volumeAll = targetStep > 0 ? 0 : (soundRef.current ? 1 : 0);
       // Background music
       sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
@@ -371,29 +372,15 @@ export const FightComponent = ({
         SHOW_FIGHT_PERFORMANCE_STATS,
         () => disposed,
         {
+          startStep: targetStep,
           onReady: () => {
             if (disposed) return;
-            if (seeking) {
-              clock?.seek(() => seeking && !disposed).catch((error: unknown) => {
-                if (!disposed) {
-                  seeking = false;
-                  console.error('Error seeking fight:', error);
-                  catchError(Alert, error);
-                }
-              });
-            } else {
-              setReady(true);
-            }
+            sound.volumeAll = soundRef.current ? 1 : 0;
+            setReady(true);
           },
           onStep: (index) => {
             if (disposed) return;
-            if (seeking && index >= targetStep) {
-              seeking = false;
-              sound.stop('sfx');
-              sound.volumeAll = soundRef.current ? 1 : 0;
-              setReady(true);
-            }
-            if (!seeking) setProgress(index);
+            setProgress(index);
           },
           onComplete: () => {
             if (disposed) return;
@@ -408,9 +395,11 @@ export const FightComponent = ({
     };
     setup().catch((error) => {
       if (!disposed) {
-        seeking = false;
         console.error('Error setting up fight:', error);
         catchError(Alert, error);
+        setPlaybackFailed(true);
+        setEnded(true);
+        setPlaying(false);
       }
     });
 
@@ -553,7 +542,7 @@ export const FightComponent = ({
                 }
               }}
             >
-              {!ready && (
+              {!ready && !playbackFailed && (
                 <CircularProgress
                   size={24}
                   sx={{ position: 'absolute', top: '50%', left: '50%', ml: '-12px', mt: '-12px' }}
@@ -599,7 +588,7 @@ export const FightComponent = ({
                     <IconButton
                       onClick={toggleAnimation}
                       size="small"
-                      disabled={!ready}
+                      disabled={!ready && !playbackFailed}
                       aria-label={ended ? t('fight.replay') : playing ? t('fight.pause') : t('fight.play')}
                     >
                       {ended ? <Replay /> : playing ? <Pause /> : <PlayArrow />}

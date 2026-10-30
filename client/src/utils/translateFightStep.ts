@@ -1,8 +1,9 @@
-import { TFunction } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
+import type { FightStep, Fighter } from '@labrute/core';
 import {
-  FightStep, Fighter, SkillById, StepType, WeaponById
+  SkillById, StepType, WeaponById
 } from '@labrute/core';
-import { BossName, PetName } from '@labrute/prisma';
+import type { BossName, PetName } from '@labrute/prisma';
 
 const getFighterName = (
   fighters: Fighter[],
@@ -211,6 +212,11 @@ export const translateFightStep = (
       return t('fight.step.skillActivate', {
         brute: getFighterName(fighters, step.b, t),
         skill: t(SkillById[step.s]),
+      });
+    case StepType.Rewind:
+      return t('fight.step.rewind', {
+        brute: getFighterName(fighters, step.f, t),
+        turns: step.t,
       });
     case StepType.Spy:
       return t('fight.step.spy', {

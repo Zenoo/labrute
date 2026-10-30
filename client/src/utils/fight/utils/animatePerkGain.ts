@@ -1,3 +1,4 @@
+import { getFightClock } from './FightClock';
 import { Application, Sprite } from 'pixi.js';
 import { Easing, tween } from './tween';
 
@@ -15,7 +16,7 @@ export const animatePerkGain = (
   }
   copy.x = sprite.x - sprite.width;
   copy.y = sprite.y - sprite.height;
-  app.stage.addChild(copy);
+  app.stage.addChild(getFightClock().transient(copy));
 
   // Animate: scale down to normal size and fade in
   tween(copy, {

@@ -54,7 +54,9 @@ export enum SkillId {
   fastMetabolism,
   mimic,
   stickyHands,
-  deity
+  deity,
+  rewind,
+  reload,
 }
 
 export const SkillByName: Record<SkillName, SkillId> = {
@@ -111,6 +113,8 @@ export const SkillByName: Record<SkillName, SkillId> = {
   [SkillName.mimic]: SkillId.mimic,
   [SkillName.stickyHands]: SkillId.stickyHands,
   [SkillName.deity]: SkillId.deity,
+  [SkillName.rewind]: SkillId.rewind,
+  [SkillName.reload]: SkillId.reload,
 };
 
 export const SkillById: Record<SkillId, SkillName> = {
@@ -167,6 +171,8 @@ export const SkillById: Record<SkillId, SkillName> = {
   [SkillId.mimic]: SkillName.mimic,
   [SkillId.stickyHands]: SkillName.stickyHands,
   [SkillId.deity]: SkillName.deity,
+  [SkillId.rewind]: SkillName.rewind,
+  [SkillId.reload]: SkillName.reload,
 };
 
 export const FightStat = {
@@ -559,6 +565,20 @@ export const skills: Record<SkillName, Skill> = {
     type: 'passive',
     canReload: false,
   },
+  [SkillName.rewind]: {
+    name: 'rewind',
+    odds: 5,
+    type: 'passive',
+    uses: [1, 1, 1],
+    canReload: false,
+  },
+  [SkillName.reload]: {
+    name: 'reload',
+    odds: 5,
+    type: 'passive',
+    uses: [1, 2, 3],
+    canReload: false,
+  },
 };
 
 export const skillList = Object.values(skills);
@@ -727,6 +747,8 @@ export const SkillModifiers: Record<
   [SkillName.stickyHands]: {
     [FightStat.WEAPON_GRIP]: { percent: [0.5, 0.6, 0.7] },
   },
+  [SkillName.rewind]: {},
+  [SkillName.reload]: {},
 };
 
 export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, number]>> = {
@@ -737,6 +759,7 @@ export const ExtraTieredSkillData: Partial<Record<SkillName, [number, number, nu
   [SkillName.spy]: [0.2, 0.25, 0.3],
   [SkillName.saboteur]: [100, 150, 200],
   [SkillName.backup]: [2.8, 3.3, 3.8],
+  [SkillName.rewind]: [3, 4, 5],
 };
 
 export const SkillDamageModifiers = Object.entries(SkillModifiers)

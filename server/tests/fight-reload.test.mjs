@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { skills, StepType } from '@labrute/core';
+import { SkillByName, skills, StepType, weapons } from '@labrute/core';
 import { FightModifier, SkillName } from '@labrute/prisma';
 import { playFighterTurn } from '../lib/utils/fight/fightMethods.js';
 
@@ -53,7 +53,6 @@ const fighter = (overrides = {}) => ({
   weapons: {},
   reloadableSkills: { fierceBrute: skill(SkillName.fierceBrute) },
   reloadableWeapons: {},
-  canReload: true,
   shield: false,
   activeSkills: [],
   activeWeapon: null,
@@ -66,14 +65,13 @@ const fighter = (overrides = {}) => ({
 
 const reloads = (remainingSkill, opponentOverrides = {}, fighterOverrides = {}) => {
   const current = fighter({
-    skills: { [remainingSkill.name]: remainingSkill },
+    skills: { reload: skill(SkillName.reload), [remainingSkill.name]: remainingSkill },
     ...fighterOverrides,
   });
   const opponent = fighter({
     id: 'opponent',
     index: 1,
     team: 'R',
-    canReload: false,
     ...opponentOverrides,
   });
   const fightData = {
@@ -146,7 +144,9 @@ test('usable, exhausted and non-reloadable skills retain their behavior', () => 
 });
 
 test('other reload prerequisites remain required', () => {
-  assert.equal(reloads(skill(SkillName.mimic), {}, { canReload: false }), false);
+  assert.equal(reloads(skill(SkillName.mimic), {}, {
+    skills: { mimic: skill(SkillName.mimic) },
+  }), false, 'Reload requires the Reload skill');
   assert.equal(reloads(skill(SkillName.mimic), {}, {
     activeSkills: [skill(SkillName.fierceBrute)],
   }), false);
@@ -164,6 +164,7 @@ test('reload keeps non-reloadable passive skill tiers', () => {
 
   const current = fighter({
     skills: {
+      [SkillName.reload]: skill(SkillName.reload),
       [SkillName.chef]: chefT3,
       [SkillName.bomb]: exhaustedReloadable,
     },
@@ -172,7 +173,6 @@ test('reload keeps non-reloadable passive skill tiers', () => {
     id: 'opponent',
     index: 1,
     team: 'R',
-    canReload: false,
   });
   const fightData = {
     fighters: [current, opponent],
@@ -189,4 +189,60 @@ test('reload keeps non-reloadable passive skill tiers', () => {
 
   assert.equal(fightData.steps.some((step) => step.a === StepType.Reload), true);
   assert.equal(current.skills[SkillName.chef]?.tier, 3);
+});
+
+const reloadFight = (tier) => {
+  const current = fighter({
+    skills: { [SkillName.reload]: skill(SkillName.reload, { tier }) },
+  });
+  const opponent = fighter({ id: 'opponent', index: 1, team: 'R' });
+  const fightData = {
+    fighters: [current, opponent],
+    initialFighters: [],
+    modifiers: {},
+    steps: [],
+    initiative: 0,
+    winner: null,
+    loser: null,
+    overtime: false,
+  };
+  return { current, fightData };
+};
+
+test('Reload triggers 1/2/3 times per fight depending on its tier', () => {
+  for (const tier of [1, 2, 3]) {
+    const { current, fightData } = reloadFight(tier);
+    for (let turn = 0; turn < 6; turn++) {
+      // Spend the restored perk so that the next turn can reload again
+      delete current.skills[SkillName.fierceBrute];
+      current.activeSkills = [];
+      fightData.fighters = [current, ...fightData.fighters.filter((f) => f !== current)];
+      playFighterTurn(fightData, {}, {});
+    }
+    const reloadSteps = fightData.steps.filter((step) => step.a === StepType.Reload);
+    assert.equal(reloadSteps.length, tier, `tier ${tier}`);
+    assert.equal(current.skills[SkillName.reload], undefined, 'Exhausted Reload is removed');
+  }
+});
+
+test('Reload spends one use per trigger, counts as a used skill and never reloads itself', () => {
+  const { current, fightData } = reloadFight(3);
+  // Reload a weapon only, so that no other skill use is counted
+  current.reloadableSkills = {};
+  current.reloadableWeapons = { fan: { ...weapons.fan, tier: 1 } };
+  const stats = { fighter: { userId: 'fighter' } };
+  playFighterTurn(fightData, stats, {});
+  assert.equal(stats.fighter.skillsUsed, 1);
+  const reloadSkill = current.skills[SkillName.reload];
+  assert.equal(reloadSkill.uses[2], 2);
+  const step = fightData.steps.find((s) => s.a === StepType.Reload);
+  assert.ok(step);
+  assert.equal(step.s.some((s) => s.i === SkillByName.reload), false);
+});
+
+test('Reload is a non-reloadable passive with 1/2/3 uses', () => {
+  assert.equal(skills.reload.type, 'passive');
+  assert.deepEqual(skills.reload.uses, [1, 2, 3]);
+  assert.equal(skills.reload.canReload, false);
+  assert.ok(skills.reload.odds > 0);
 });

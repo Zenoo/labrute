@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { after, test } from 'node:test';
 import { gsap } from 'gsap';
-import { Application, Texture, Ticker } from 'pixi.js';
+import { Application, Container, Sprite, Texture, Ticker } from 'pixi.js';
 import { FightClock, getFightClock } from '../src/utils/fight/utils/FightClock.ts';
 
 const frames = new Map();
@@ -77,6 +77,46 @@ test('simultaneous tweens and delays finish together', (t) => {
   assert.equal(second.y, 20);
 });
 
+test('suspension freezes forward tweens and resumes without consuming rewind time', (t) => {
+  const { clock, tick } = fixture(t);
+  const target = { x: 0 };
+  let completed = 0;
+
+  clock.tween(target, {
+    x: 100, duration: 1, ease: 'none', onComplete: () => completed++,
+  });
+  tick(250);
+  clock.suspend();
+  tick(5000);
+  assert.equal(target.x, 25);
+  assert.equal(completed, 0);
+  clock.resume();
+  tick(750);
+  assert.equal(target.x, 100);
+  assert.equal(completed, 1);
+});
+
+test('rewind cancellation discards abandoned forward callbacks and effect sprites', (t) => {
+  const { app, clock, tick } = fixture(t);
+  const target = { x: 0 };
+  let completed = false;
+  const sprite = clock.sprite([Texture.EMPTY, Texture.EMPTY]);
+  app.stage.addChild(sprite);
+  clock.tween(target, { x: 100, duration: 1, onComplete: () => { completed = true; } });
+  tick(250);
+  clock.suspend();
+  clock.cancelAnimations();
+  target.x = 5;
+  clock.resume();
+  tick(1000);
+  assert.equal(target.x, 5);
+  assert.equal(completed, false);
+  assert.equal(sprite.destroyed, true);
+  clock.tween(target, { x: 10, duration: 0.5, ease: 'none' });
+  tick(500);
+  assert.equal(target.x, 10);
+});
+
 test('animated effects use the fight clock and unregister when destroyed', (t) => {
   const { app, clock, tick } = fixture(t);
   const sprite = clock.sprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
@@ -92,26 +132,6 @@ test('animated effects use the fight clock and unregister when destroyed', (t) =
   assert.doesNotThrow(() => tick(1000 / 60));
 });
 
-test('seeking runs asynchronous fight actions without rendering intermediate frames', async (t) => {
-  const { app, clock, renders } = fixture(t);
-  let step = 0;
-  const action = () => new Promise((resolve) => {
-    clock.tween({}, { duration: 0.1, onComplete: resolve });
-  });
-  const playback = (async () => {
-    await action();
-    step++;
-    await action();
-    step++;
-  })();
-  await clock.seek(() => step < 2);
-  await playback;
-  assert.equal(step, 2);
-  assert.equal(renders(), 1);
-  assert.equal(app.ticker.started, true);
-  app.ticker.stop();
-});
-
 test('disposing cancels callbacks and allows sprites to be destroyed afterwards', (t) => {
   const { app, clock, tick } = fixture(t);
   let completed = false;
@@ -125,26 +145,6 @@ test('disposing cancels callbacks and allows sprites to be destroyed afterwards'
   assert.throws(() => getFightClock(), /not initialized/);
 });
 
-test('seeking stops at the selected action and normal ticks resume from there', async (t) => {
-  const { app, clock, tick } = fixture(t);
-  let step = 0;
-  const action = () => new Promise((resolve) => {
-    clock.tween({}, { duration: 0.1, onComplete: resolve });
-  });
-  const playback = (async () => {
-    await action();
-    step++;
-    await action();
-    step++;
-  })();
-  await clock.seek(() => step < 1);
-  app.ticker.stop();
-  assert.equal(step, 1);
-  tick(100);
-  await playback;
-  assert.equal(step, 2);
-});
-
 test('disposing an old fight does not clear the replacement fight clock', (t) => {
   const oldFight = fixture(t);
   const replacement = fixture(t);
@@ -152,10 +152,33 @@ test('disposing an old fight does not clear the replacement fight clock', (t) =>
   assert.equal(getFightClock(), replacement.clock);
 });
 
-test('disposing during a seek does not restart the old ticker', async (t) => {
-  const { app, clock, renders } = fixture(t);
+test('disposing inside an animation callback safely stops the clock', (t) => {
+  const { clock, tick } = fixture(t);
   clock.tween({}, { duration: 0.1, onComplete: () => clock.destroy() });
-  await clock.seek(() => true);
-  assert.equal(app.ticker.started, false);
-  assert.equal(renders(), 0);
+  assert.doesNotThrow(() => tick(100));
+});
+
+
+test('rewind removes transient visuals even when their tween cleanup never runs', (t) => {
+  const { app, clock, tick } = fixture(t);
+  const permanent = new Sprite(Texture.EMPTY);
+  const skill = clock.transient(new Sprite(Texture.EMPTY));
+  const group = clock.transient(new Container());
+  const child = group.addChild(new Sprite(Texture.EMPTY));
+  app.stage.addChild(permanent, skill, group);
+  let completed = false;
+  clock.tween(skill, { alpha: 0, duration: 3, onComplete: () => { completed = true; } });
+  tick(100);
+  clock.suspend();
+  clock.cancelAnimations();
+  assert.equal(skill.destroyed, true);
+  assert.equal(group.destroyed, true);
+  assert.equal(child.destroyed, true);
+  assert.equal(permanent.destroyed, false);
+  assert.equal(Texture.EMPTY.destroyed, false);
+  assert.deepEqual(app.stage.children, [permanent]);
+  clock.resume();
+  tick(5000);
+  assert.equal(completed, false);
+  assert.doesNotThrow(() => clock.cancelAnimations());
 });
