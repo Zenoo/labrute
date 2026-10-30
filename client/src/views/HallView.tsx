@@ -81,10 +81,10 @@ export const HallView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('hall')}</Text>
-        {(fightsLeft || missingRegistrations) && (
+        {!!(fightsLeft || missingRegistrations) && (
           <Text bold color="secondary">
             {!!fightsLeft && t('fightsLeft', { count: fightsLeft })}
-            {fightsLeft && missingRegistrations && ' '}
+            {!!fightsLeft && !!missingRegistrations && ' '}
             {!!missingRegistrations && t('missingRegistrations', { count: missingRegistrations })}
           </Text>
         )}

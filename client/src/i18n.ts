@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import { HOST, Host } from './utils/host';
+import { withPluralFallbacks } from './i18n/withPluralFallbacks';
 
 export const defaultLangByHost: Record<string, Lang> = {
   [Host.LaBrute]: Lang.fr,
@@ -128,7 +129,7 @@ const languageBackend: BackendModule = {
     }
 
     const loadPromise = loadNamespace(language, namespace)
-      .then((module) => (module as { default: unknown }).default);
+      .then((module) => withPluralFallbacks((module as { default: unknown }).default, language));
 
     namespaceCache.set(cacheKey, loadPromise);
 
