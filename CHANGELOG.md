@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.100.0](https://github.com/Zenoo/labrute/compare/labrute-v2.99.6...labrute-v2.100.0) (2026-10-30)
+
+
+### Features
+
+* New reload/rewind skills ([bd8167d](https://github.com/Zenoo/labrute/commit/bd8167db81d715560b35f357d22294d01642db50))
+
+
+### Bug Fixes
+
+* Adapt fight asset scale loading to prevent blurred assets ([d83351a](https://github.com/Zenoo/labrute/commit/d83351a62a405057c87dec300e9833a29c120f5d))
+* Add an option to always display the fight scrubber ([d487cb1](https://github.com/Zenoo/labrute/commit/d487cb1778fdff14b53cc1d3faf81abaccf0dcb5))
+* Extract FighterHolder logic to its own package ([e577733](https://github.com/Zenoo/labrute/commit/e577733ffd8ec277655818ea5edf88f82a92d891))
+* Fight replay stop after Hammer+Heal steps ([76d9ea2](https://github.com/Zenoo/labrute/commit/76d9ea2402cc04d33dc714b03474297f36534004))
+* Piopio not being displayed properly after earlier optimizations ([5b98885](https://github.com/Zenoo/labrute/commit/5b988850bca5532306e7dbf2398cdc2424481a97))
+* Pluralized strings untranslated in RU ([64c3d22](https://github.com/Zenoo/labrute/commit/64c3d227457655d8f2c8765655d131dfcc303c71))
+* Reload/Rewind icons ([4cba40a](https://github.com/Zenoo/labrute/commit/4cba40ac1907f496601ece23cff45ccebae20cb0))
+* Stop reloading when nothing usable can be reloaded ([9685eb7](https://github.com/Zenoo/labrute/commit/9685eb73cdda5872d6ae6e756321742fc986b37e))
+
 ## [2.99.6](https://github.com/Zenoo/labrute/compare/labrute-v2.99.5...labrute-v2.99.6) (2026-10-25)
 
 
