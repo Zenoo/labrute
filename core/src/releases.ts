@@ -16,6 +16,7 @@ export const LAST_RELEASE: Release = {
   fixes: [
     'Fight assets are now loaded at the correct scale, which should remove any blurriness there was before (Hello again dogs, I couldn\'t recognize you properly before)',
     'Fight scrubber hidden on first watch to prevent spoils',
+    'An option to always display the fight scrubber has been added',
     'Destroyed weapons are ignored when reloading',
     'A lot of reload fixes',
     'Favorite fights are now kept forever instead of being deleted after 30 days',

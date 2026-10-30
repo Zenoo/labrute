@@ -5633,6 +5633,7 @@ export namespace Prisma {
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean | null
+    alwaysDisplayScrubber: boolean | null
     displayOpponentDetails: boolean | null
     transferedBrutesCount: number | null
     termsAccepted: boolean | null
@@ -5656,6 +5657,7 @@ export namespace Prisma {
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean | null
+    alwaysDisplayScrubber: boolean | null
     displayOpponentDetails: boolean | null
     transferedBrutesCount: number | null
     termsAccepted: boolean | null
@@ -5682,6 +5684,7 @@ export namespace Prisma {
     bannedAt: number
     banReason: number
     displayVersusPage: number
+    alwaysDisplayScrubber: number
     displayOpponentDetails: number
     transferedBrutesCount: number
     termsAccepted: number
@@ -5721,6 +5724,7 @@ export namespace Prisma {
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
+    alwaysDisplayScrubber?: true
     displayOpponentDetails?: true
     transferedBrutesCount?: true
     termsAccepted?: true
@@ -5744,6 +5748,7 @@ export namespace Prisma {
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
+    alwaysDisplayScrubber?: true
     displayOpponentDetails?: true
     transferedBrutesCount?: true
     termsAccepted?: true
@@ -5770,6 +5775,7 @@ export namespace Prisma {
     bannedAt?: true
     banReason?: true
     displayVersusPage?: true
+    alwaysDisplayScrubber?: true
     displayOpponentDetails?: true
     transferedBrutesCount?: true
     termsAccepted?: true
@@ -5883,6 +5889,7 @@ export namespace Prisma {
     bannedAt: Date | null
     banReason: string | null
     displayVersusPage: boolean
+    alwaysDisplayScrubber: boolean
     displayOpponentDetails: boolean
     transferedBrutesCount: number
     termsAccepted: boolean
@@ -5928,6 +5935,7 @@ export namespace Prisma {
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     termsAccepted?: boolean
@@ -5968,6 +5976,7 @@ export namespace Prisma {
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     termsAccepted?: boolean
@@ -5995,6 +6004,7 @@ export namespace Prisma {
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     termsAccepted?: boolean
@@ -6022,6 +6032,7 @@ export namespace Prisma {
     bannedAt?: boolean
     banReason?: boolean
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: boolean
     termsAccepted?: boolean
@@ -6029,7 +6040,7 @@ export namespace Prisma {
     sharedBrowserId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -6089,6 +6100,7 @@ export namespace Prisma {
       bannedAt: Date | null
       banReason: string | null
       displayVersusPage: boolean
+      alwaysDisplayScrubber: boolean
       displayOpponentDetails: boolean
       transferedBrutesCount: number
       termsAccepted: boolean
@@ -6548,6 +6560,7 @@ export namespace Prisma {
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
     readonly displayVersusPage: FieldRef<"User", 'Boolean'>
+    readonly alwaysDisplayScrubber: FieldRef<"User", 'Boolean'>
     readonly displayOpponentDetails: FieldRef<"User", 'Boolean'>
     readonly transferedBrutesCount: FieldRef<"User", 'Int'>
     readonly termsAccepted: FieldRef<"User", 'Boolean'>
@@ -50777,6 +50790,7 @@ export namespace Prisma {
     bannedAt: 'bannedAt',
     banReason: 'banReason',
     displayVersusPage: 'displayVersusPage',
+    alwaysDisplayScrubber: 'alwaysDisplayScrubber',
     displayOpponentDetails: 'displayOpponentDetails',
     transferedBrutesCount: 'transferedBrutesCount',
     termsAccepted: 'termsAccepted',
@@ -51763,6 +51777,7 @@ export namespace Prisma {
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
+    alwaysDisplayScrubber?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
     termsAccepted?: BoolFilter<"User"> | boolean
@@ -51802,6 +51817,7 @@ export namespace Prisma {
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
+    alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     termsAccepted?: SortOrder
@@ -51844,6 +51860,7 @@ export namespace Prisma {
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
+    alwaysDisplayScrubber?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
     termsAccepted?: BoolFilter<"User"> | boolean
@@ -51883,6 +51900,7 @@ export namespace Prisma {
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
+    alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     termsAccepted?: SortOrder
@@ -51917,6 +51935,7 @@ export namespace Prisma {
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
     displayVersusPage?: BoolWithAggregatesFilter<"User"> | boolean
+    alwaysDisplayScrubber?: BoolWithAggregatesFilter<"User"> | boolean
     displayOpponentDetails?: BoolWithAggregatesFilter<"User"> | boolean
     transferedBrutesCount?: IntWithAggregatesFilter<"User"> | number
     termsAccepted?: BoolWithAggregatesFilter<"User"> | boolean
@@ -54758,6 +54777,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -54796,6 +54816,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -54834,6 +54855,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -54872,6 +54894,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -54910,6 +54933,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -54936,6 +54960,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -54961,6 +54986,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -58173,6 +58199,7 @@ export namespace Prisma {
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
+    alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     termsAccepted?: SortOrder
@@ -58203,6 +58230,7 @@ export namespace Prisma {
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
+    alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     termsAccepted?: SortOrder
@@ -58226,6 +58254,7 @@ export namespace Prisma {
     bannedAt?: SortOrder
     banReason?: SortOrder
     displayVersusPage?: SortOrder
+    alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
     transferedBrutesCount?: SortOrder
     termsAccepted?: SortOrder
@@ -65913,6 +65942,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -65950,6 +65980,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -66180,6 +66211,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -66217,6 +66249,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -66437,6 +66470,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -66474,6 +66508,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -67796,6 +67831,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -67833,6 +67869,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -68153,6 +68190,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -68190,6 +68228,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -68970,6 +69009,7 @@ export namespace Prisma {
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
+    alwaysDisplayScrubber?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
     transferedBrutesCount?: IntFilter<"User"> | number
     termsAccepted?: BoolFilter<"User"> | boolean
@@ -70395,6 +70435,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -70432,6 +70473,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -72620,6 +72662,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -72657,6 +72700,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -72710,6 +72754,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -72747,6 +72792,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -73681,6 +73727,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -73718,6 +73765,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -73954,6 +74002,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -73991,6 +74040,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -74205,6 +74255,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -74242,6 +74293,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -74284,6 +74336,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -74321,6 +74374,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -74573,6 +74627,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -74610,6 +74665,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -74647,6 +74703,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -74684,6 +74741,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -78249,6 +78307,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -78286,6 +78345,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -78522,6 +78582,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -78559,6 +78620,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -79206,6 +79268,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -79243,6 +79306,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -79296,6 +79360,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -79333,6 +79398,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -79664,6 +79730,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -79701,6 +79768,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -79754,6 +79822,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -79791,6 +79860,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -80188,6 +80258,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -80225,6 +80296,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -80278,6 +80350,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -80315,6 +80388,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83015,6 +83089,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83052,6 +83127,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83089,6 +83165,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83373,6 +83450,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83410,6 +83488,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83447,6 +83526,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83833,6 +83913,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83870,6 +83951,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83907,6 +83989,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83933,6 +84016,7 @@ export namespace Prisma {
     bannedAt?: Date | string | null
     banReason?: string | null
     displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
     transferedBrutesCount?: number
     termsAccepted?: boolean
@@ -83958,6 +84042,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -83995,6 +84080,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
@@ -84032,6 +84118,7 @@ export namespace Prisma {
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean

@@ -540,6 +540,7 @@
   "event.started": "A new event just started, come participate before it's too late!",
   "fasterFights": "Faster fights",
   "displayVersusPage": "Display versus page",
+  "alwaysDisplayScrubber": "Always display fight scrubber",
   "displayOpponentDetails": "Display opponent details",
   "bruteSetForDeletion": "One of your brutes has been set for deletion.",
   "unauthorized": "Unauthorized",

@@ -900,7 +900,7 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
 };
 export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
 export type UserMultipleAccountsListResponse = { ip: string, users: string[] }[];
-export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMusic' | 'displayVersusPage' | 'displayOpponentDetails'>;
+export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMusic' | 'displayVersusPage' | 'displayOpponentDetails' | 'alwaysDisplayScrubber'>;
 export type UserTransferBruteRequest = {
   bruteId: string;
   targetUserId: string;

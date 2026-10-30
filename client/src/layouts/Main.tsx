@@ -4,7 +4,8 @@ import {
 import {
   Add, AdminPanelSettings, DarkMode, Event,
   Info, LightMode, Logout, Menu, MilitaryTech,
-  MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed, Speed, SportsKabaddi
+  MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed,
+  Speed, SportsKabaddi, Tune
 } from '@mui/icons-material';
 import {
   Badge, Box, Button, Drawer, GlobalStyles,
@@ -53,6 +54,7 @@ export const Main = () => {
     fightSpeed: 2,
     backgroundMusic: true,
     displayVersusPage: true,
+    alwaysDisplayScrubber: false,
     displayOpponentDetails: false,
   });
 
@@ -66,6 +68,7 @@ export const Main = () => {
       fightSpeed: user.fightSpeed,
       backgroundMusic: user.backgroundMusic,
       displayVersusPage: user.displayVersusPage,
+      alwaysDisplayScrubber: user.alwaysDisplayScrubber,
       displayOpponentDetails: user.displayOpponentDetails,
     });
   }, [user]);
@@ -115,6 +118,7 @@ export const Main = () => {
       fightSpeed: settings.fightSpeed,
       backgroundMusic: settings.backgroundMusic,
       displayVersusPage: settings.displayVersusPage,
+      alwaysDisplayScrubber: settings.alwaysDisplayScrubber,
       displayOpponentDetails: settings.displayOpponentDetails,
     };
 
@@ -133,6 +137,7 @@ export const Main = () => {
         fightSpeed: newSettings.fightSpeed,
         backgroundMusic: newSettings.backgroundMusic,
         displayVersusPage: newSettings.displayVersusPage,
+        alwaysDisplayScrubber: newSettings.alwaysDisplayScrubber,
         displayOpponentDetails: newSettings.displayOpponentDetails,
       } : null));
     } catch (error) {
@@ -520,6 +525,21 @@ export const Main = () => {
                     checked={settings.displayVersusPage}
                     inputProps={{
                       'aria-labelledby': 'switch-displayVersusPage',
+                    }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Tune />
+                  </ListItemIcon>
+                  <ListItemText id="switch-alwaysDisplayScrubber" primary={t('alwaysDisplayScrubber')} />
+                  <Switch
+                    edge="end"
+                    size="small"
+                    onChange={toggle('alwaysDisplayScrubber')}
+                    checked={settings.alwaysDisplayScrubber}
+                    inputProps={{
+                      'aria-labelledby': 'switch-alwaysDisplayScrubber',
                     }}
                   />
                 </ListItem>

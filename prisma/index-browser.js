@@ -140,6 +140,7 @@ exports.Prisma.UserScalarFieldEnum = {
   bannedAt: 'bannedAt',
   banReason: 'banReason',
   displayVersusPage: 'displayVersusPage',
+  alwaysDisplayScrubber: 'alwaysDisplayScrubber',
   displayOpponentDetails: 'displayOpponentDetails',
   transferedBrutesCount: 'transferedBrutesCount',
   termsAccepted: 'termsAccepted',

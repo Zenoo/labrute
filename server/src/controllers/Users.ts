@@ -1194,10 +1194,11 @@ export const Users = {
         fightSpeed,
         backgroundMusic,
         displayVersusPage,
+        alwaysDisplayScrubber,
         displayOpponentDetails,
       } = req.body;
 
-      if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean' || typeof displayOpponentDetails !== 'boolean') {
+      if (![1, 2].includes(fightSpeed) || typeof backgroundMusic !== 'boolean' || typeof displayVersusPage !== 'boolean' || typeof displayOpponentDetails !== 'boolean' || typeof alwaysDisplayScrubber !== 'boolean') {
         throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
 
@@ -1209,6 +1210,7 @@ export const Users = {
           fightSpeed,
           backgroundMusic,
           displayVersusPage,
+          alwaysDisplayScrubber,
           displayOpponentDetails,
         },
         select: { id: true },

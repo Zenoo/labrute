@@ -76,6 +76,7 @@ export const UserAdminView = () => {
         fingerprints: u.fingerprints,
         browserIds: u.browserIds,
         displayVersusPage: u.displayVersusPage,
+        alwaysDisplayScrubber: u.alwaysDisplayScrubber,
         displayOpponentDetails: u.displayOpponentDetails,
         lastSeen: u.lastSeen,
         transferedBrutesCount: u.transferedBrutesCount,

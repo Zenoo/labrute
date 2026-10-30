@@ -157,6 +157,7 @@ export const FightComponent = ({
   const [playbackFailed, setPlaybackFailed] = useState(false);
   const [ended, setEnded] = useState(false);
   const [firstWatch, setFirstWatch] = useState(true);
+  const displayScrubber = !firstWatch || !!user?.alwaysDisplayScrubber;
   const [progress, setProgress] = useState(0);
   const [scrubPosition, setScrubPosition] = useState<number | null>(null);
   const [playbackRequest, setPlaybackRequest] = useState<{
@@ -574,7 +575,7 @@ export const FightComponent = ({
                 direction="row"
                 sx={{
                   position: 'absolute',
-                  bottom: firstWatch ? 0 : 12,
+                  bottom: displayScrubber ? 12 : 0,
                   left: 0,
                   zIndex: 501,
                   bgcolor: 'rgba(255, 255, 255, 0.3)',
@@ -627,7 +628,7 @@ export const FightComponent = ({
                 direction="row"
                 sx={{
                   position: 'absolute',
-                  bottom: firstWatch ? 0 : 12,
+                  bottom: displayScrubber ? 12 : 0,
                   right: 0,
                   zIndex: 501,
                   bgcolor: 'rgba(255, 255, 255, 0.3)',
@@ -644,7 +645,7 @@ export const FightComponent = ({
                   </IconButton>
                 </Tooltip>
               </Stack>
-              {!firstWatch && (
+              {displayScrubber && (
                 <Slider
                   aria-label={t('fight.seek')}
                   getAriaValueText={getScrubberAriaLabel}

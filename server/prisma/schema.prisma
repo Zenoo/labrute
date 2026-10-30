@@ -41,6 +41,7 @@ model User {
   bannedAt               DateTime?         @db.Timestamp()
   banReason              String?
   displayVersusPage      Boolean           @default(true)
+  alwaysDisplayScrubber  Boolean           @default(false)
   displayOpponentDetails Boolean           @default(false)
   transferedBrutesCount  Int               @default(0)
   termsAccepted          Boolean           @default(false)
