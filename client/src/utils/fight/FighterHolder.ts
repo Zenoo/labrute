@@ -828,7 +828,6 @@ export class FighterHolder {
             && LOOP_START[this.#animationType]?.[this.animation] === null) {
             this.#playing = false;
             this.#triggerEvents(`${this.animation}:${this.#frame < 0 ? 'start' : 'end'}`);
-            console.log(`Animation ended: ${this.animation}`);
           }
         }
       };

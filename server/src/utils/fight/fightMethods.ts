@@ -2207,7 +2207,8 @@ const reload = (
     || fighter.activeWeapon
     || Object.values(fighter.weapons).length > 0
     || Object.values(fighter.skills).some((skill) => canReloadSkill(fightData, fighter, skill))
-    || (Object.values(fighter.reloadableSkills).length === 0
+    || (Object.values(fighter.reloadableSkills)
+      .filter((s) => canReloadSkill(fightData, fighter, s)).length === 0
       && Object.values(fighter.reloadableWeapons).length === 0)
   ) {
     return;
