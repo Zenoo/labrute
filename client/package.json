@@ -34,7 +34,7 @@
     "dayjs": "^1.11.13",
     "gsap": "^3.15.0",
     "i18next": "26.0.7",
-    "labrute-fla-parser": "^1.0.13",
+    "labrute-pixi-fighter": "^1.0.15",
     "labrute-static-fla-parser": "^1.0.6",
     "pixi-filters": "^6.1.5",
     "pixi.js": "^8.19.0",

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { after, before, test } from 'node:test';
 import { setImmediate } from 'node:timers/promises';
 import { Assets, DOMAdapter, Point, Texture } from 'pixi.js';
-import { Symbol68 } from 'labrute-fla-parser';
+import { Symbol68 } from 'labrute-pixi-fighter';
 import { createServer } from 'vite';
 
 let server;

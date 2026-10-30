@@ -11,3 +11,5 @@ allowBuilds:
   prisma: true
   protobufjs: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - labrute-pixi-fighter@1.0.15
