@@ -1533,6 +1533,10 @@ export class Fight {
     const staggerEnded = this.stagger(
       target, step.c ? 12 : 0,
     ).then(() => {
+      // The next step can already be playing (for example, a healing drink).
+      // Only reset the landing hit while it is still the current animation.
+      if (!this.seeking && target.animation.animation !== hitAnimation) return;
+
       target.animation.setAnimation(
         target.stunned ? 'death' : 'idle',
         0,
