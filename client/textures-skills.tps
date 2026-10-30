@@ -207,8 +207,10 @@
             <key type="filename">public/images/game/resources/skills/tier-1/reconnaissance.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/regeneration.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/relentless.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/reload.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/repulse.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/resistant.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-1/rewind.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/sabotage.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/saboteur.png</key>
             <key type="filename">public/images/game/resources/skills/tier-1/shield.png</key>
@@ -260,8 +262,10 @@
             <key type="filename">public/images/game/resources/skills/tier-2/reconnaissance.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/regeneration.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/relentless.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/reload.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/repulse.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/resistant.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-2/rewind.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/sabotage.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/saboteur.png</key>
             <key type="filename">public/images/game/resources/skills/tier-2/shield.png</key>
@@ -313,8 +317,10 @@
             <key type="filename">public/images/game/resources/skills/tier-3/reconnaissance.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/regeneration.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/relentless.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/reload.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/repulse.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/resistant.png</key>
+            <key type="filename">public/images/game/resources/skills/tier-3/rewind.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/sabotage.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/saboteur.png</key>
             <key type="filename">public/images/game/resources/skills/tier-3/shield.png</key>

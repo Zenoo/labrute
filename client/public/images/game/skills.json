@@ -58,7 +58,7 @@
 },
 "tier-1/counterAttack.png":
 {
-	"frame": {"x":1,"y":37,"w":34,"h":34},
+	"frame": {"x":253,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -66,7 +66,7 @@
 },
 "tier-1/cryOfTheDamned.png":
 {
-	"frame": {"x":37,"y":37,"w":34,"h":34},
+	"frame": {"x":289,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -74,7 +74,7 @@
 },
 "tier-1/deity.png":
 {
-	"frame": {"x":73,"y":37,"w":34,"h":34},
+	"frame": {"x":325,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -82,7 +82,7 @@
 },
 "tier-1/determination.png":
 {
-	"frame": {"x":109,"y":37,"w":34,"h":34},
+	"frame": {"x":361,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -90,7 +90,7 @@
 },
 "tier-1/fastMetabolism.png":
 {
-	"frame": {"x":145,"y":37,"w":34,"h":34},
+	"frame": {"x":397,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -98,7 +98,7 @@
 },
 "tier-1/felineAgility.png":
 {
-	"frame": {"x":181,"y":37,"w":34,"h":34},
+	"frame": {"x":433,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -106,7 +106,7 @@
 },
 "tier-1/fierceBrute.png":
 {
-	"frame": {"x":217,"y":37,"w":34,"h":34},
+	"frame": {"x":469,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -114,7 +114,7 @@
 },
 "tier-1/firstStrike.png":
 {
-	"frame": {"x":1,"y":73,"w":34,"h":34},
+	"frame": {"x":505,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -122,7 +122,7 @@
 },
 "tier-1/fistsOfFury.png":
 {
-	"frame": {"x":37,"y":73,"w":34,"h":34},
+	"frame": {"x":541,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -130,7 +130,7 @@
 },
 "tier-1/flashFlood.png":
 {
-	"frame": {"x":73,"y":73,"w":34,"h":34},
+	"frame": {"x":577,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -138,7 +138,7 @@
 },
 "tier-1/hammer.png":
 {
-	"frame": {"x":109,"y":73,"w":34,"h":34},
+	"frame": {"x":613,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -146,7 +146,7 @@
 },
 "tier-1/haste.png":
 {
-	"frame": {"x":145,"y":73,"w":34,"h":34},
+	"frame": {"x":649,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -154,7 +154,7 @@
 },
 "tier-1/herculeanStrength.png":
 {
-	"frame": {"x":181,"y":73,"w":34,"h":34},
+	"frame": {"x":685,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -162,7 +162,7 @@
 },
 "tier-1/hideaway.png":
 {
-	"frame": {"x":217,"y":73,"w":34,"h":34},
+	"frame": {"x":721,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -170,7 +170,7 @@
 },
 "tier-1/hostility.png":
 {
-	"frame": {"x":1,"y":109,"w":34,"h":34},
+	"frame": {"x":757,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -178,7 +178,7 @@
 },
 "tier-1/hypnosis.png":
 {
-	"frame": {"x":37,"y":109,"w":34,"h":34},
+	"frame": {"x":793,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -186,7 +186,7 @@
 },
 "tier-1/immortality.png":
 {
-	"frame": {"x":73,"y":109,"w":34,"h":34},
+	"frame": {"x":829,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -194,7 +194,7 @@
 },
 "tier-1/ironHead.png":
 {
-	"frame": {"x":109,"y":109,"w":34,"h":34},
+	"frame": {"x":865,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -202,7 +202,7 @@
 },
 "tier-1/leadSkeleton.png":
 {
-	"frame": {"x":145,"y":109,"w":34,"h":34},
+	"frame": {"x":901,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -210,7 +210,7 @@
 },
 "tier-1/lightningBolt.png":
 {
-	"frame": {"x":181,"y":109,"w":34,"h":34},
+	"frame": {"x":937,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -218,7 +218,7 @@
 },
 "tier-1/martialArts.png":
 {
-	"frame": {"x":217,"y":109,"w":34,"h":34},
+	"frame": {"x":973,"y":1,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -226,7 +226,7 @@
 },
 "tier-1/mimic.png":
 {
-	"frame": {"x":1,"y":145,"w":34,"h":34},
+	"frame": {"x":1,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -234,7 +234,7 @@
 },
 "tier-1/monk.png":
 {
-	"frame": {"x":37,"y":145,"w":34,"h":34},
+	"frame": {"x":37,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -242,7 +242,7 @@
 },
 "tier-1/net.png":
 {
-	"frame": {"x":73,"y":145,"w":34,"h":34},
+	"frame": {"x":73,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -250,7 +250,7 @@
 },
 "tier-1/reconnaissance.png":
 {
-	"frame": {"x":109,"y":145,"w":34,"h":34},
+	"frame": {"x":109,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -258,7 +258,7 @@
 },
 "tier-1/regeneration.png":
 {
-	"frame": {"x":145,"y":145,"w":34,"h":34},
+	"frame": {"x":145,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -266,7 +266,15 @@
 },
 "tier-1/relentless.png":
 {
-	"frame": {"x":181,"y":145,"w":34,"h":34},
+	"frame": {"x":181,"y":37,"w":34,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
+	"sourceSize": {"w":34,"h":34}
+},
+"tier-1/reload.png":
+{
+	"frame": {"x":217,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -274,7 +282,7 @@
 },
 "tier-1/repulse.png":
 {
-	"frame": {"x":217,"y":145,"w":34,"h":34},
+	"frame": {"x":253,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -282,7 +290,15 @@
 },
 "tier-1/resistant.png":
 {
-	"frame": {"x":1,"y":181,"w":34,"h":34},
+	"frame": {"x":289,"y":37,"w":34,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
+	"sourceSize": {"w":34,"h":34}
+},
+"tier-1/rewind.png":
+{
+	"frame": {"x":325,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -290,7 +306,7 @@
 },
 "tier-1/sabotage.png":
 {
-	"frame": {"x":37,"y":181,"w":34,"h":34},
+	"frame": {"x":361,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -298,7 +314,7 @@
 },
 "tier-1/saboteur.png":
 {
-	"frame": {"x":73,"y":181,"w":34,"h":34},
+	"frame": {"x":397,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -306,7 +322,7 @@
 },
 "tier-1/shield.png":
 {
-	"frame": {"x":109,"y":181,"w":34,"h":34},
+	"frame": {"x":433,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -314,7 +330,7 @@
 },
 "tier-1/shock.png":
 {
-	"frame": {"x":145,"y":181,"w":34,"h":34},
+	"frame": {"x":469,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -322,7 +338,7 @@
 },
 "tier-1/sixthSense.png":
 {
-	"frame": {"x":181,"y":181,"w":34,"h":34},
+	"frame": {"x":505,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -330,7 +346,7 @@
 },
 "tier-1/spy.png":
 {
-	"frame": {"x":217,"y":181,"w":34,"h":34},
+	"frame": {"x":541,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -338,7 +354,7 @@
 },
 "tier-1/stickyHands.png":
 {
-	"frame": {"x":1,"y":217,"w":34,"h":34},
+	"frame": {"x":577,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -346,7 +362,7 @@
 },
 "tier-1/survival.png":
 {
-	"frame": {"x":37,"y":217,"w":34,"h":34},
+	"frame": {"x":613,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -354,7 +370,7 @@
 },
 "tier-1/tamer.png":
 {
-	"frame": {"x":73,"y":217,"w":34,"h":34},
+	"frame": {"x":649,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -362,7 +378,7 @@
 },
 "tier-1/thief.png":
 {
-	"frame": {"x":109,"y":217,"w":34,"h":34},
+	"frame": {"x":685,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -370,7 +386,7 @@
 },
 "tier-1/toughenedSkin.png":
 {
-	"frame": {"x":145,"y":217,"w":34,"h":34},
+	"frame": {"x":721,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -378,7 +394,7 @@
 },
 "tier-1/tragicPotion.png":
 {
-	"frame": {"x":181,"y":217,"w":34,"h":34},
+	"frame": {"x":757,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -386,7 +402,7 @@
 },
 "tier-1/treat.png":
 {
-	"frame": {"x":217,"y":217,"w":34,"h":34},
+	"frame": {"x":793,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -394,7 +410,7 @@
 },
 "tier-1/untouchable.png":
 {
-	"frame": {"x":1,"y":253,"w":34,"h":34},
+	"frame": {"x":829,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -402,7 +418,7 @@
 },
 "tier-1/vampirism.png":
 {
-	"frame": {"x":37,"y":253,"w":34,"h":34},
+	"frame": {"x":865,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -410,7 +426,7 @@
 },
 "tier-1/vitality.png":
 {
-	"frame": {"x":73,"y":253,"w":34,"h":34},
+	"frame": {"x":901,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -418,7 +434,7 @@
 },
 "tier-1/weaponsMaster.png":
 {
-	"frame": {"x":109,"y":253,"w":34,"h":34},
+	"frame": {"x":937,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -426,7 +442,7 @@
 },
 "tier-2/armor.png":
 {
-	"frame": {"x":145,"y":253,"w":34,"h":34},
+	"frame": {"x":973,"y":37,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -434,7 +450,7 @@
 },
 "tier-2/backup.png":
 {
-	"frame": {"x":181,"y":253,"w":34,"h":34},
+	"frame": {"x":1,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -442,7 +458,7 @@
 },
 "tier-2/balletShoes.png":
 {
-	"frame": {"x":217,"y":253,"w":34,"h":34},
+	"frame": {"x":37,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -450,7 +466,7 @@
 },
 "tier-2/bodybuilder.png":
 {
-	"frame": {"x":1,"y":289,"w":34,"h":34},
+	"frame": {"x":73,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -458,7 +474,7 @@
 },
 "tier-2/bomb.png":
 {
-	"frame": {"x":37,"y":289,"w":34,"h":34},
+	"frame": {"x":109,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -466,7 +482,7 @@
 },
 "tier-2/chaining.png":
 {
-	"frame": {"x":73,"y":289,"w":34,"h":34},
+	"frame": {"x":145,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -474,7 +490,7 @@
 },
 "tier-2/chef.png":
 {
-	"frame": {"x":109,"y":289,"w":34,"h":34},
+	"frame": {"x":181,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -482,7 +498,7 @@
 },
 "tier-2/counterAttack.png":
 {
-	"frame": {"x":145,"y":289,"w":34,"h":34},
+	"frame": {"x":217,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -490,7 +506,7 @@
 },
 "tier-2/cryOfTheDamned.png":
 {
-	"frame": {"x":181,"y":289,"w":34,"h":34},
+	"frame": {"x":253,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -498,7 +514,7 @@
 },
 "tier-2/deity.png":
 {
-	"frame": {"x":217,"y":289,"w":34,"h":34},
+	"frame": {"x":289,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -506,7 +522,7 @@
 },
 "tier-2/determination.png":
 {
-	"frame": {"x":1,"y":325,"w":34,"h":34},
+	"frame": {"x":325,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -514,7 +530,7 @@
 },
 "tier-2/fastMetabolism.png":
 {
-	"frame": {"x":37,"y":325,"w":34,"h":34},
+	"frame": {"x":361,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -522,7 +538,7 @@
 },
 "tier-2/felineAgility.png":
 {
-	"frame": {"x":73,"y":325,"w":34,"h":34},
+	"frame": {"x":397,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -530,7 +546,7 @@
 },
 "tier-2/fierceBrute.png":
 {
-	"frame": {"x":109,"y":325,"w":34,"h":34},
+	"frame": {"x":433,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -538,7 +554,7 @@
 },
 "tier-2/firstStrike.png":
 {
-	"frame": {"x":145,"y":325,"w":34,"h":34},
+	"frame": {"x":469,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -546,7 +562,7 @@
 },
 "tier-2/fistsOfFury.png":
 {
-	"frame": {"x":181,"y":325,"w":34,"h":34},
+	"frame": {"x":505,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -554,7 +570,7 @@
 },
 "tier-2/flashFlood.png":
 {
-	"frame": {"x":217,"y":325,"w":34,"h":34},
+	"frame": {"x":541,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -562,7 +578,7 @@
 },
 "tier-2/hammer.png":
 {
-	"frame": {"x":1,"y":361,"w":34,"h":34},
+	"frame": {"x":577,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -570,7 +586,7 @@
 },
 "tier-2/haste.png":
 {
-	"frame": {"x":37,"y":361,"w":34,"h":34},
+	"frame": {"x":613,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -578,7 +594,7 @@
 },
 "tier-2/herculeanStrength.png":
 {
-	"frame": {"x":73,"y":361,"w":34,"h":34},
+	"frame": {"x":649,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -586,7 +602,7 @@
 },
 "tier-2/hideaway.png":
 {
-	"frame": {"x":109,"y":361,"w":34,"h":34},
+	"frame": {"x":685,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -594,7 +610,7 @@
 },
 "tier-2/hostility.png":
 {
-	"frame": {"x":145,"y":361,"w":34,"h":34},
+	"frame": {"x":721,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -602,7 +618,7 @@
 },
 "tier-2/hypnosis.png":
 {
-	"frame": {"x":181,"y":361,"w":34,"h":34},
+	"frame": {"x":757,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -610,7 +626,7 @@
 },
 "tier-2/immortality.png":
 {
-	"frame": {"x":217,"y":361,"w":34,"h":34},
+	"frame": {"x":793,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -618,7 +634,7 @@
 },
 "tier-2/ironHead.png":
 {
-	"frame": {"x":1,"y":397,"w":34,"h":34},
+	"frame": {"x":829,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -626,7 +642,7 @@
 },
 "tier-2/leadSkeleton.png":
 {
-	"frame": {"x":37,"y":397,"w":34,"h":34},
+	"frame": {"x":865,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -634,7 +650,7 @@
 },
 "tier-2/lightningBolt.png":
 {
-	"frame": {"x":73,"y":397,"w":34,"h":34},
+	"frame": {"x":901,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -642,7 +658,7 @@
 },
 "tier-2/martialArts.png":
 {
-	"frame": {"x":109,"y":397,"w":34,"h":34},
+	"frame": {"x":937,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -650,7 +666,7 @@
 },
 "tier-2/mimic.png":
 {
-	"frame": {"x":145,"y":397,"w":34,"h":34},
+	"frame": {"x":973,"y":73,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -658,7 +674,7 @@
 },
 "tier-2/monk.png":
 {
-	"frame": {"x":181,"y":397,"w":34,"h":34},
+	"frame": {"x":1,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -666,7 +682,7 @@
 },
 "tier-2/net.png":
 {
-	"frame": {"x":217,"y":397,"w":34,"h":34},
+	"frame": {"x":37,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -674,7 +690,7 @@
 },
 "tier-2/reconnaissance.png":
 {
-	"frame": {"x":1,"y":433,"w":34,"h":34},
+	"frame": {"x":73,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -682,7 +698,7 @@
 },
 "tier-2/regeneration.png":
 {
-	"frame": {"x":37,"y":433,"w":34,"h":34},
+	"frame": {"x":109,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -690,7 +706,15 @@
 },
 "tier-2/relentless.png":
 {
-	"frame": {"x":73,"y":433,"w":34,"h":34},
+	"frame": {"x":145,"y":109,"w":34,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
+	"sourceSize": {"w":34,"h":34}
+},
+"tier-2/reload.png":
+{
+	"frame": {"x":181,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -698,7 +722,7 @@
 },
 "tier-2/repulse.png":
 {
-	"frame": {"x":109,"y":433,"w":34,"h":34},
+	"frame": {"x":217,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -706,7 +730,15 @@
 },
 "tier-2/resistant.png":
 {
-	"frame": {"x":145,"y":433,"w":34,"h":34},
+	"frame": {"x":253,"y":109,"w":34,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
+	"sourceSize": {"w":34,"h":34}
+},
+"tier-2/rewind.png":
+{
+	"frame": {"x":289,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -714,7 +746,7 @@
 },
 "tier-2/sabotage.png":
 {
-	"frame": {"x":181,"y":433,"w":34,"h":34},
+	"frame": {"x":325,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -722,7 +754,7 @@
 },
 "tier-2/saboteur.png":
 {
-	"frame": {"x":217,"y":433,"w":34,"h":34},
+	"frame": {"x":361,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -730,7 +762,7 @@
 },
 "tier-2/shield.png":
 {
-	"frame": {"x":1,"y":469,"w":34,"h":34},
+	"frame": {"x":397,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -738,7 +770,7 @@
 },
 "tier-2/shock.png":
 {
-	"frame": {"x":37,"y":469,"w":34,"h":34},
+	"frame": {"x":433,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -746,7 +778,7 @@
 },
 "tier-2/sixthSense.png":
 {
-	"frame": {"x":73,"y":469,"w":34,"h":34},
+	"frame": {"x":469,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -754,7 +786,7 @@
 },
 "tier-2/spy.png":
 {
-	"frame": {"x":109,"y":469,"w":34,"h":34},
+	"frame": {"x":505,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -762,7 +794,7 @@
 },
 "tier-2/stickyHands.png":
 {
-	"frame": {"x":145,"y":469,"w":34,"h":34},
+	"frame": {"x":541,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -770,7 +802,7 @@
 },
 "tier-2/survival.png":
 {
-	"frame": {"x":181,"y":469,"w":34,"h":34},
+	"frame": {"x":577,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -778,7 +810,7 @@
 },
 "tier-2/tamer.png":
 {
-	"frame": {"x":217,"y":469,"w":34,"h":34},
+	"frame": {"x":613,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -786,7 +818,7 @@
 },
 "tier-2/thief.png":
 {
-	"frame": {"x":1,"y":505,"w":34,"h":34},
+	"frame": {"x":649,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -794,7 +826,7 @@
 },
 "tier-2/toughenedSkin.png":
 {
-	"frame": {"x":37,"y":505,"w":34,"h":34},
+	"frame": {"x":685,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -802,7 +834,7 @@
 },
 "tier-2/tragicPotion.png":
 {
-	"frame": {"x":73,"y":505,"w":34,"h":34},
+	"frame": {"x":721,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -810,7 +842,7 @@
 },
 "tier-2/treat.png":
 {
-	"frame": {"x":109,"y":505,"w":34,"h":34},
+	"frame": {"x":757,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -818,7 +850,7 @@
 },
 "tier-2/untouchable.png":
 {
-	"frame": {"x":145,"y":505,"w":34,"h":34},
+	"frame": {"x":793,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -826,7 +858,7 @@
 },
 "tier-2/vampirism.png":
 {
-	"frame": {"x":181,"y":505,"w":34,"h":34},
+	"frame": {"x":829,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -834,7 +866,7 @@
 },
 "tier-2/vitality.png":
 {
-	"frame": {"x":217,"y":505,"w":34,"h":34},
+	"frame": {"x":865,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -842,7 +874,7 @@
 },
 "tier-2/weaponsMaster.png":
 {
-	"frame": {"x":1,"y":541,"w":34,"h":34},
+	"frame": {"x":901,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -850,7 +882,7 @@
 },
 "tier-3/armor.png":
 {
-	"frame": {"x":37,"y":541,"w":34,"h":34},
+	"frame": {"x":937,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -858,7 +890,7 @@
 },
 "tier-3/backup.png":
 {
-	"frame": {"x":73,"y":541,"w":34,"h":34},
+	"frame": {"x":973,"y":109,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -866,7 +898,7 @@
 },
 "tier-3/balletShoes.png":
 {
-	"frame": {"x":109,"y":541,"w":34,"h":34},
+	"frame": {"x":1,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -874,7 +906,7 @@
 },
 "tier-3/bodybuilder.png":
 {
-	"frame": {"x":145,"y":541,"w":34,"h":34},
+	"frame": {"x":37,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -882,7 +914,7 @@
 },
 "tier-3/bomb.png":
 {
-	"frame": {"x":181,"y":541,"w":34,"h":34},
+	"frame": {"x":73,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -890,7 +922,7 @@
 },
 "tier-3/chaining.png":
 {
-	"frame": {"x":217,"y":541,"w":34,"h":34},
+	"frame": {"x":109,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -898,7 +930,7 @@
 },
 "tier-3/chef.png":
 {
-	"frame": {"x":1,"y":577,"w":34,"h":34},
+	"frame": {"x":145,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -906,7 +938,7 @@
 },
 "tier-3/counterAttack.png":
 {
-	"frame": {"x":37,"y":577,"w":34,"h":34},
+	"frame": {"x":181,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -914,7 +946,7 @@
 },
 "tier-3/cryOfTheDamned.png":
 {
-	"frame": {"x":73,"y":577,"w":34,"h":34},
+	"frame": {"x":217,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -922,7 +954,7 @@
 },
 "tier-3/deity.png":
 {
-	"frame": {"x":109,"y":577,"w":34,"h":34},
+	"frame": {"x":253,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -930,7 +962,7 @@
 },
 "tier-3/determination.png":
 {
-	"frame": {"x":145,"y":577,"w":34,"h":34},
+	"frame": {"x":289,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -938,7 +970,7 @@
 },
 "tier-3/fastMetabolism.png":
 {
-	"frame": {"x":181,"y":577,"w":34,"h":34},
+	"frame": {"x":325,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -946,7 +978,7 @@
 },
 "tier-3/felineAgility.png":
 {
-	"frame": {"x":217,"y":577,"w":34,"h":34},
+	"frame": {"x":361,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -954,7 +986,7 @@
 },
 "tier-3/fierceBrute.png":
 {
-	"frame": {"x":1,"y":613,"w":34,"h":34},
+	"frame": {"x":397,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -962,7 +994,7 @@
 },
 "tier-3/firstStrike.png":
 {
-	"frame": {"x":37,"y":613,"w":34,"h":34},
+	"frame": {"x":433,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -970,7 +1002,7 @@
 },
 "tier-3/fistsOfFury.png":
 {
-	"frame": {"x":73,"y":613,"w":34,"h":34},
+	"frame": {"x":469,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -978,7 +1010,7 @@
 },
 "tier-3/flashFlood.png":
 {
-	"frame": {"x":109,"y":613,"w":34,"h":34},
+	"frame": {"x":505,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -986,7 +1018,7 @@
 },
 "tier-3/hammer.png":
 {
-	"frame": {"x":145,"y":613,"w":34,"h":34},
+	"frame": {"x":541,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -994,7 +1026,7 @@
 },
 "tier-3/haste.png":
 {
-	"frame": {"x":181,"y":613,"w":34,"h":34},
+	"frame": {"x":577,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1002,7 +1034,7 @@
 },
 "tier-3/herculeanStrength.png":
 {
-	"frame": {"x":217,"y":613,"w":34,"h":34},
+	"frame": {"x":613,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1010,7 +1042,7 @@
 },
 "tier-3/hideaway.png":
 {
-	"frame": {"x":1,"y":649,"w":34,"h":34},
+	"frame": {"x":649,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1018,7 +1050,7 @@
 },
 "tier-3/hostility.png":
 {
-	"frame": {"x":37,"y":649,"w":34,"h":34},
+	"frame": {"x":685,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1026,7 +1058,7 @@
 },
 "tier-3/hypnosis.png":
 {
-	"frame": {"x":73,"y":649,"w":34,"h":34},
+	"frame": {"x":721,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1034,7 +1066,7 @@
 },
 "tier-3/immortality.png":
 {
-	"frame": {"x":109,"y":649,"w":34,"h":34},
+	"frame": {"x":757,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1042,7 +1074,7 @@
 },
 "tier-3/ironHead.png":
 {
-	"frame": {"x":145,"y":649,"w":34,"h":34},
+	"frame": {"x":793,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1050,7 +1082,7 @@
 },
 "tier-3/leadSkeleton.png":
 {
-	"frame": {"x":181,"y":649,"w":34,"h":34},
+	"frame": {"x":829,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1058,7 +1090,7 @@
 },
 "tier-3/lightningBolt.png":
 {
-	"frame": {"x":217,"y":649,"w":34,"h":34},
+	"frame": {"x":865,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1066,7 +1098,7 @@
 },
 "tier-3/martialArts.png":
 {
-	"frame": {"x":1,"y":685,"w":34,"h":34},
+	"frame": {"x":901,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1074,7 +1106,7 @@
 },
 "tier-3/mimic.png":
 {
-	"frame": {"x":37,"y":685,"w":34,"h":34},
+	"frame": {"x":937,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1082,7 +1114,7 @@
 },
 "tier-3/monk.png":
 {
-	"frame": {"x":73,"y":685,"w":34,"h":34},
+	"frame": {"x":973,"y":145,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1090,7 +1122,7 @@
 },
 "tier-3/net.png":
 {
-	"frame": {"x":109,"y":685,"w":34,"h":34},
+	"frame": {"x":1,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1098,7 +1130,7 @@
 },
 "tier-3/reconnaissance.png":
 {
-	"frame": {"x":145,"y":685,"w":34,"h":34},
+	"frame": {"x":37,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1106,7 +1138,7 @@
 },
 "tier-3/regeneration.png":
 {
-	"frame": {"x":181,"y":685,"w":34,"h":34},
+	"frame": {"x":73,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1114,7 +1146,15 @@
 },
 "tier-3/relentless.png":
 {
-	"frame": {"x":217,"y":685,"w":34,"h":34},
+	"frame": {"x":109,"y":181,"w":34,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
+	"sourceSize": {"w":34,"h":34}
+},
+"tier-3/reload.png":
+{
+	"frame": {"x":145,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1122,7 +1162,7 @@
 },
 "tier-3/repulse.png":
 {
-	"frame": {"x":1,"y":721,"w":34,"h":34},
+	"frame": {"x":181,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1130,7 +1170,15 @@
 },
 "tier-3/resistant.png":
 {
-	"frame": {"x":37,"y":721,"w":34,"h":34},
+	"frame": {"x":217,"y":181,"w":34,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
+	"sourceSize": {"w":34,"h":34}
+},
+"tier-3/rewind.png":
+{
+	"frame": {"x":253,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1138,7 +1186,7 @@
 },
 "tier-3/sabotage.png":
 {
-	"frame": {"x":73,"y":721,"w":34,"h":34},
+	"frame": {"x":289,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1146,7 +1194,7 @@
 },
 "tier-3/saboteur.png":
 {
-	"frame": {"x":109,"y":721,"w":34,"h":34},
+	"frame": {"x":325,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1154,7 +1202,7 @@
 },
 "tier-3/shield.png":
 {
-	"frame": {"x":145,"y":721,"w":34,"h":34},
+	"frame": {"x":361,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1162,7 +1210,7 @@
 },
 "tier-3/shock.png":
 {
-	"frame": {"x":181,"y":721,"w":34,"h":34},
+	"frame": {"x":397,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1170,7 +1218,7 @@
 },
 "tier-3/sixthSense.png":
 {
-	"frame": {"x":217,"y":721,"w":34,"h":34},
+	"frame": {"x":433,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1178,7 +1226,7 @@
 },
 "tier-3/spy.png":
 {
-	"frame": {"x":1,"y":757,"w":34,"h":34},
+	"frame": {"x":469,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1186,7 +1234,7 @@
 },
 "tier-3/stickyHands.png":
 {
-	"frame": {"x":37,"y":757,"w":34,"h":34},
+	"frame": {"x":505,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1194,7 +1242,7 @@
 },
 "tier-3/survival.png":
 {
-	"frame": {"x":73,"y":757,"w":34,"h":34},
+	"frame": {"x":541,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1202,7 +1250,7 @@
 },
 "tier-3/tamer.png":
 {
-	"frame": {"x":109,"y":757,"w":34,"h":34},
+	"frame": {"x":577,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1210,7 +1258,7 @@
 },
 "tier-3/thief.png":
 {
-	"frame": {"x":145,"y":757,"w":34,"h":34},
+	"frame": {"x":613,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1218,7 +1266,7 @@
 },
 "tier-3/toughenedSkin.png":
 {
-	"frame": {"x":181,"y":757,"w":34,"h":34},
+	"frame": {"x":649,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1226,7 +1274,7 @@
 },
 "tier-3/tragicPotion.png":
 {
-	"frame": {"x":217,"y":757,"w":34,"h":34},
+	"frame": {"x":685,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1234,7 +1282,7 @@
 },
 "tier-3/treat.png":
 {
-	"frame": {"x":1,"y":793,"w":34,"h":34},
+	"frame": {"x":721,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1242,7 +1290,7 @@
 },
 "tier-3/untouchable.png":
 {
-	"frame": {"x":37,"y":793,"w":34,"h":34},
+	"frame": {"x":757,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1250,7 +1298,7 @@
 },
 "tier-3/vampirism.png":
 {
-	"frame": {"x":73,"y":793,"w":34,"h":34},
+	"frame": {"x":793,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1258,7 +1306,7 @@
 },
 "tier-3/vitality.png":
 {
-	"frame": {"x":109,"y":793,"w":34,"h":34},
+	"frame": {"x":829,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1266,7 +1314,7 @@
 },
 "tier-3/weaponsMaster.png":
 {
-	"frame": {"x":145,"y":793,"w":34,"h":34},
+	"frame": {"x":865,"y":181,"w":34,"h":34},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":34,"h":34},
@@ -1277,8 +1325,8 @@
 	"version": "1.1",
 	"image": "skills.png",
 	"format": "RGBA8888",
-	"size": {"w":252,"h":828},
+	"size": {"w":1008,"h":216},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6646d5ad7a47bd23736fc5cf4531d4ed:bd52094912e33db5da65e828275e3747:20d7fbf18d411ac4799541425ba57c0a$"
+	"smartupdate": "$TexturePacker:SmartUpdate:7f9660414e647391d458276318560204:7af90b747f0ec2a3ccc6783663ffcaea:20d7fbf18d411ac4799541425ba57c0a$"
 }
 }
