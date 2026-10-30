@@ -456,10 +456,22 @@ const multiplyMatrices = (left: Matrix, right: Matrix) => new Matrix(
   left.b * right.tx + left.d * right.ty + left.ty,
 );
 
+// Largest stretch of a transform, including rotation, skew and reflection.
+const getMatrixScale = ({ a, b, c, d }: Matrix) => {
+  const xSquared = a * a + b * b;
+  const ySquared = c * c + d * d;
+  const cross = a * c + b * d;
+  return Math.sqrt((xSquared + ySquared + Math.hypot(xSquared - ySquared, 2 * cross)) / 2);
+};
+
 export class FighterHolder {
   // Shared across all FighterHolder instances to avoid reloading/reparsing the same SVG
   // textures for each dojo pupil.
   static readonly #sharedSvgTextureCache = new Map<string, Promise<Texture | null>>();
+
+  // Reuse animation traversal for matching models. Bound this independently of
+  // textures so browsing many different brute appearances cannot grow it forever.
+  static readonly #sharedSvgLoadEntries = new Map<string, SvgLoadEntry[]>();
 
   // Setup data
   readonly type: Fighter['type'];
@@ -671,6 +683,10 @@ export class FighterHolder {
     this.container.addChild(this.shadow);
 
     const svgsToLoadByName = new Map<string, SvgLoadEntry>();
+    const svgLoadKey = JSON.stringify([
+      this.#animationType, this.#parts, this.#scale, app.renderer.resolution ?? 1,
+    ]);
+    const cachedSvgLoadEntries = FighterHolder.#sharedSvgLoadEntries.get(svgLoadKey);
 
     this.#animationSymbol = ANIMATIONS[this.#animationType][this.animation];
     this.#frameCount = this.#animationSymbol?.frames?.length ?? 0;
@@ -679,9 +695,16 @@ export class FighterHolder {
     for (const animation of animationsByType) {
       if (!animation) continue;
 
-      // For each frame
-      for (const frame of animation.frames ?? []) {
-        this.#collectSvgsToLoad(svgsToLoadByName, animation.parts, frame);
+      if (!cachedSvgLoadEntries) {
+        for (const frame of animation.frames ?? []) {
+          this.#collectSvgsToLoad(
+            svgsToLoadByName,
+            animation.parts,
+            frame,
+            new Matrix(),
+            app.renderer.resolution ?? 1,
+          );
+        }
       }
 
       // Change color on bosses
@@ -732,8 +755,22 @@ export class FighterHolder {
       }
     }
 
+    // Color adjustment filters default to resolution 1, which would discard
+    // texture detail on high-density displays after rasterization.
+    for (const filter of this.container.filters ?? []) {
+      filter.resolution = 'inherit';
+    }
+
     // Load SVG textures
-    this.#loadSvgs([...svgsToLoadByName.values()]).then(() => {
+    const svgLoadEntries = cachedSvgLoadEntries ?? [...svgsToLoadByName.values()];
+    // Refresh insertion order to retain the 32 most recently used models.
+    FighterHolder.#sharedSvgLoadEntries.delete(svgLoadKey);
+    FighterHolder.#sharedSvgLoadEntries.set(svgLoadKey, svgLoadEntries);
+    if (FighterHolder.#sharedSvgLoadEntries.size > 32) {
+      const oldestKey = FighterHolder.#sharedSvgLoadEntries.keys().next().value;
+      if (oldestKey !== undefined) FighterHolder.#sharedSvgLoadEntries.delete(oldestKey);
+    }
+    this.#loadSvgs(svgLoadEntries).then(() => {
       if (this.#isDestroyed || this.container.destroyed) {
         return;
       }
@@ -934,6 +971,8 @@ export class FighterHolder {
     svgsToLoadByName: Map<string, SvgLoadEntry>,
     parts: LaBruteSymbol['parts'],
     frame: FramePart[] = [],
+    parentTransform = new Matrix(),
+    resolution = 1,
   ) => {
     frame.forEach((framePart) => {
       const symbol = parts?.find((p) => p.name === framePart.name);
@@ -942,17 +981,18 @@ export class FighterHolder {
         throw new Error(`Part ${framePart.name} not found in symbol parts`);
       }
 
+      // Compose the entire placement chain, just as #displayFrame does. Small
+      // source shapes can be enlarged several times by nested timeline symbols.
+      const transform = framePart.transform
+        ? multiplyMatrices(parentTransform, matrixFromObject(framePart.transform))
+        : parentTransform;
+
       // SVG
       if (symbol.type === 'svg') {
-        let customScale = symbol.scale ?? 1;
         const size = SCALE * this.#scale;
-
-        // Increase loading scale for better resolution in some cases
-        if (this.type === 'boss') {
-          customScale = 2;
-        }
-
-        const renderScale = Math.max(1, size * customScale);
+        // Integer resolution buckets share textures between similar placements.
+        // Texture resolution changes pixel density, preserving logical size/offsets.
+        const renderScale = Math.max(1, Math.ceil(size * getMatrixScale(transform) * resolution));
         const existing = svgsToLoadByName.get(symbol.name);
         if (!existing || renderScale > existing.renderScale) {
           svgsToLoadByName.set(symbol.name, {
@@ -995,6 +1035,8 @@ export class FighterHolder {
             svgsToLoadByName,
             symbol.parts,
             currentFrame,
+            transform,
+            resolution,
           );
         }
       }
@@ -1204,6 +1246,7 @@ export class FighterHolder {
     }
 
     const filter = createColorOffsetFilter(r, g, b, 'fight-color-offset-filter');
+    filter.resolution = 'inherit';
 
     this.#colorOffsetFilters.set(container, { key, filter });
 
