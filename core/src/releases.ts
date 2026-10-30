@@ -7,35 +7,53 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.99.0',
-  date: '2026-10-23',
+  version: '2.100.0',
+  date: '2026-10-30',
   features: [
-    'A new stats page has been added to user profiles. You can filter them by periods/brute. Some details won\'t be available straight away, as they require data to be collected over time.',
-    'A new mechanic has been added: Reload. Whenever your brute runs out of usable perks, they will get them all back. This should prevent long stale fights. Be careful which skill you unlock now, they could slow down your reloads !',
-    'You can now replay fights and use the scrubber to navigate through them',
+    'Two new skills have dropped: Reload and Rewind. Go ahead and try them out, let me know what you think! This means only one spot remains for new skills, let\'s make it count!',
+    'You read it right, reload is now a skill instead of a passive mechanic. I heard your feedback and since I was unable to find a correct balance for it as a passive, it has been moved to an active skill.',
   ],
   fixes: [
-    'Hovering over weapons/skills in fights now shows their proper tooltip',
-    'New tooltips explaining the effects of each stat (strength, agility, speed)',
-    'Terms are now accessible from the footer. You can switch language directly from the Terms page.',
-    'Ascended/random perks display an explanation in their tooltips',
-    'You can click the gold button top right to create a new brute',
-    'HP has been capped to 1, to prevent negative HP values',
-    '2 new achievements have been added',
-    'New achievement titles',
-    'Prevent users getting auto banned after getting unbanned',
-    'Prevent HP negative overflow when using a potion at 1HP',
-    'Some chaos stats should not be stuck at 100% anymore',
-    'Give the correct amount of HP when replacing an ascended perk',
-    'Missing tourmanement registrations are now displayed in the hall',
-    'A loader is now displayed when switching brute pages, to prevent stale data from being shown while loading',
-    'Added an icon to bot brutes and an explanation tooltip for them',
-    'Optimized SEO'
+    'Fight assets are now loaded at the correct scale, which should remove any blurriness there was before (Hello again dogs, I couldn\'t recognize you properly before)',
+    'Fight scrubber hidden on first watch to prevent spoils',
+    'Destroyed weapons are ignored when reloading',
+    'A lot of reload fixes',
+    'Favorite fights are now kept forever instead of being deleted after 30 days',
+    'Pluralized translations now work correctly for languages handling them differently (looking at you, Russian)',
+    'Pio pio was visually bugged after the last round of fight optimizations, this has now been fixed'
   ],
-  attachments: ['stats.png', 'scrubber.gif', 'reload.gif'],
+  attachments: ['improve-blurriness.png', 'dogs-blurriness.png'],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.99.0',
+    date: '2026-10-23',
+    features: [
+      'A new stats page has been added to user profiles. You can filter them by periods/brute. Some details won\'t be available straight away, as they require data to be collected over time.',
+      'A new mechanic has been added: Reload. Whenever your brute runs out of usable perks, they will get them all back. This should prevent long stale fights. Be careful which skill you unlock now, they could slow down your reloads !',
+      'You can now replay fights and use the scrubber to navigate through them',
+    ],
+    fixes: [
+      'Hovering over weapons/skills in fights now shows their proper tooltip',
+      'New tooltips explaining the effects of each stat (strength, agility, speed)',
+      'Terms are now accessible from the footer. You can switch language directly from the Terms page.',
+      'Ascended/random perks display an explanation in their tooltips',
+      'You can click the gold button top right to create a new brute',
+      'HP has been capped to 1, to prevent negative HP values',
+      '2 new achievements have been added',
+      'New achievement titles',
+      'Prevent users getting auto banned after getting unbanned',
+      'Prevent HP negative overflow when using a potion at 1HP',
+      'Some chaos stats should not be stuck at 100% anymore',
+      'Give the correct amount of HP when replacing an ascended perk',
+      'Missing tourmanement registrations are now displayed in the hall',
+      'A loader is now displayed when switching brute pages, to prevent stale data from being shown while loading',
+      'Added an icon to bot brutes and an explanation tooltip for them',
+      'Optimized SEO'
+    ],
+    attachments: ['stats.png', 'scrubber.gif', 'reload.gif'],
+  },
   {
     version: '2.98.0',
     date: '2026-08-11',
