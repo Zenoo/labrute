@@ -1420,7 +1420,8 @@ export class FighterHolder {
 
         // Apply masking
         if (framePart.maskedBy) {
-          const maskSprite = this.#acquireMaskSvgSprite(`Symbol${framePart.maskedBy}`, framePartContainer);
+          // Timeline masks share the part's parent, so they do not inherit its transform.
+          const maskSprite = this.#acquireMaskSvgSprite(`Symbol${framePart.maskedBy}`, symbolContainer);
 
           // Keep mask sprites in the graph for masking, but do not draw them.
           maskSprite.visible = true;
