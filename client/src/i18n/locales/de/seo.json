@@ -20,7 +20,7 @@
     "description": "Betrachte die Nutzungsbedingungen des Spiels."
   },
   "fight": {
-    "title": "Kämpfe | {{brand}}",
+    "title": "Kampf | {{brand}}",
     "description": "Sieh dir einen Kampf an, um ihn zu analysieren."
   },
   "user": {

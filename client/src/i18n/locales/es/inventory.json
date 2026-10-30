@@ -2,6 +2,7 @@
   "desc": "Aquí puedes ver todos los objetos conseguidos. ¡Úsalos sabiamente!",
   "item.visualReset": "Reinicio visual",
   "item.bossTicket": "Ticket de jefe",
+  "item.nameChange": "Name change",
   "item.favoriteFight": "Combate favorito",
   "item.favoriteFight.desc": "Puedes marca un combate como favorita en la página del combate. Esto hará que no se elimine pasados 30 días.",
   "item.customizationToken": "Ficha de personalización",
