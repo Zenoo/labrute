@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.100.1](https://github.com/Zenoo/labrute/compare/labrute-v2.100.0...labrute-v2.100.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* Move reload & rewind to supers ([d968ee8](https://github.com/Zenoo/labrute/commit/d968ee8436b1fa084e9645205e0ba4e862a671be))
+* Separate ascended/random perk desc for proper translations ([09c56a5](https://github.com/Zenoo/labrute/commit/09c56a5aaa397586a6eebe7c385e7db7c7d3b48d))
+* Update rewind/reload skill icons to remove extra background ([b790e63](https://github.com/Zenoo/labrute/commit/b790e63387e00164557b0c19f7f55d12b7241346))
+
 ## [2.100.0](https://github.com/Zenoo/labrute/compare/labrute-v2.99.6...labrute-v2.100.0) (2026-10-30)
 
 
