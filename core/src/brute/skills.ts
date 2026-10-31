@@ -568,14 +568,14 @@ export const skills: Record<SkillName, Skill> = {
   [SkillName.rewind]: {
     name: 'rewind',
     odds: 5,
-    type: 'passive',
+    type: 'super',
     uses: [1, 1, 1],
     canReload: false,
   },
   [SkillName.reload]: {
     name: 'reload',
     odds: 5,
-    type: 'passive',
+    type: 'super',
     uses: [1, 2, 3],
     canReload: false,
   },
