@@ -151,10 +151,10 @@ export const SkillTooltip = ({
             )}
           </Box>
           {ascended && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.skill') })}</Text>
+            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.ascended.skill')} {t('perk.ascended.desc')}</Text>
           )}
           {random && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.skill') })}</Text>
+            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.random.skill')} {t('perk.random.desc')}</Text>
           )}
         </>
       ) : ''}

@@ -207,10 +207,10 @@ export const WeaponTooltip = ({
           {statLine('combo', true, false)}
           {statLine('deflect', true, false)}
           {ascended && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.weapon') })}</Text>
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended.weapon')} {t('perk.ascended.desc')}</Text>
           )}
           {random && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.weapon') })}</Text>
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random.weapon')} {t('perk.random.desc')}</Text>
           )}
         </>
       ) : ''}

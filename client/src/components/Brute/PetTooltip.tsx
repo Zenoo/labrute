@@ -141,10 +141,10 @@ export const PetTooltip = ({
           {statLine('block', true, 2)}
           {statLine('combo', true, 2)}
           {ascended && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended', { perk: t('ascend:perkType.pet') })}</Text>
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended.pet')} {t('perk.ascended.desc')}</Text>
           )}
           {random && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random', { perk: t('ascend:perkType.pet') })}</Text>
+            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random.pet')} {t('perk.random.desc')}</Text>
           )}
         </>
       ) : ''}
