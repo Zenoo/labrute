@@ -13,3 +13,4 @@ allowBuilds:
   unrs-resolver: true
 minimumReleaseAgeExclude:
   - labrute-pixi-fighter@1.0.15
+  - labrute-pixi-static-portrait@1.1.0

@@ -290,9 +290,9 @@ importers:
       labrute-pixi-fighter:
         specifier: ^1.0.15
         version: 1.0.15(pixi.js@8.19.0)
-      labrute-static-fla-parser:
-        specifier: ^1.0.6
-        version: 1.0.6
+      labrute-pixi-static-portrait:
+        specifier: ^1.1.0
+        version: 1.1.0(pixi.js@8.19.0)
       pixi-filters:
         specifier: ^6.1.5
         version: 6.1.5(pixi.js@8.19.0)
@@ -3282,8 +3282,11 @@ packages:
     peerDependencies:
       pixi.js: ^8.19.0
 
-  labrute-static-fla-parser@1.0.6:
-    resolution: {integrity: sha512-X8CZy/S1k37piZE5MpJG+s2W6qdqFPv38qleXK0azn/1bQ2rMmRN3KgOP6C8sf04j4IQbGflZdMDPqOiCCoG8w==}
+  labrute-pixi-static-portrait@1.1.0:
+    resolution: {integrity: sha512-xEOc6A2vcxcl1CPpFvSCa4piRjTLl92U2J9/BjnEl5Hb4Fp07gh2+5xSbG2H2OV9zPefNd1XwatIlWb5SB/foA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      pixi.js: ^8.19.0
 
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
@@ -7929,7 +7932,10 @@ snapshots:
     dependencies:
       pixi.js: 8.19.0
 
-  labrute-static-fla-parser@1.0.6: {}
+  labrute-pixi-static-portrait@1.1.0(pixi.js@8.19.0):
+    dependencies:
+      pixi-filters: 6.1.5(pixi.js@8.19.0)
+      pixi.js: 8.19.0
 
   language-subtag-registry@0.3.23: {}
 

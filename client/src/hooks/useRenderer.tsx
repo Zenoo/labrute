@@ -3,8 +3,10 @@ import { autoDetectRenderer, Renderer } from 'pixi.js';
 import React, {
   useCallback, useContext, useEffect, useMemo, useRef, useState
 } from 'react';
-import { BruteDisplay } from '../utils/BruteDisplay';
-import { BruteColor } from '@labrute/core';
+import { BruteDisplay, clearPortraitCache } from 'labrute-pixi-static-portrait';
+import {
+  BruteColor, readBodyString, readColorString
+} from '@labrute/core';
 
 const MAX_RENDERERS = 3;
 const EMPTY_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9s8w6f4AAAAASUVORK5CYII=';
@@ -187,8 +189,10 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         return rendererInstance;
       });
 
-    acquireRenderer.then((freeRenderer) => {
+    acquireRenderer.then(async (freeRenderer) => {
       if (!isRendererUsable(freeRenderer.renderer)) {
+        resolveCallbacks(request.id, EMPTY_PNG);
+        setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
         isProcessingRef.current = false;
         setQueue((prev) => [...prev]);
         return;
@@ -196,64 +200,73 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
       freeRenderer.busy = true;
 
-      // Render with higher scale for better quality
-      const renderScale = 3; // Adjust this for quality vs file size (textures loaded at this scale)
-      const display = new BruteDisplay(request.gender, colors, body, 'left', renderScale, request.highlightColorName);
-
-      display.onLoad(async () => {
-        try {
-          if (!isRendererUsable(freeRenderer.renderer) || display.container.destroyed) {
-            resolveCallbacks(request.id, EMPTY_PNG);
-            return;
-          }
-
-          const content = await freeRenderer.renderer.extract.image({
-            target: display.container,
-            format: 'png',
-            quality: 1,
-          });
-
-          if (!content?.src) {
-            resolveCallbacks(request.id, EMPTY_PNG);
-            return;
-          }
-
-          // Don't cache id 0 or requests with skipCache
-          if (request.id && !request.skipCache) {
-            setCache((prev) => [...prev, { id: request.id, content: content.src }]);
-          }
-
-          resolveCallbacks(request.id, content.src);
-        } catch (error) {
-          console.error('Error extracting rendered brute image:', error);
-
-          // If a renderer gets into an invalid state during teardown/reload, drop it.
-          try {
-            freeRenderer.renderer.destroy();
-          } catch {
-            // Ignore renderer destroy errors during recovery.
-          }
-          setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
+      let display: BruteDisplay | undefined;
+      try {
+        display = new BruteDisplay({
+          renderer: freeRenderer.renderer,
+          gender: request.gender,
+          parts: readBodyString(body),
+          colors: readColorString(request.gender, colors),
+          facing: 'left',
+          scale: 3,
+          highlightColorName: request.highlightColorName,
+        });
+        await display.ready;
+        if (!isRendererUsable(freeRenderer.renderer) || display.container.destroyed) {
           resolveCallbacks(request.id, EMPTY_PNG);
-        } finally {
-          // Destroy display
-          if (!display.container.destroyed) {
-            display.destroy();
-          }
-
-          // Mark renderer as free
-          if (isRendererUsable(freeRenderer.renderer)) {
-            freeRenderer.busy = false;
-          }
-          isProcessingRef.current = false;
-
-          // Trigger next processing cycle
-          setQueue((prev) => [...prev]);
+          return;
         }
-      });
+
+        const content = await freeRenderer.renderer.extract.image({
+          target: display.container,
+          format: 'png',
+          quality: 1,
+        });
+
+        if (!content?.src) {
+          resolveCallbacks(request.id, EMPTY_PNG);
+          return;
+        }
+
+        // Don't cache id 0 or requests with skipCache
+        if (request.id && !request.skipCache) {
+          setCache((prev) => [...prev, { id: request.id, content: content.src }]);
+        }
+
+        resolveCallbacks(request.id, content.src);
+      } catch (error) {
+        console.error('Error extracting rendered brute image:', error);
+
+        // If a renderer gets into an invalid state during teardown/reload, drop it.
+        try {
+          display?.destroy();
+          clearPortraitCache(freeRenderer.renderer);
+          freeRenderer.renderer.destroy();
+        } catch {
+          // Ignore renderer destroy errors during recovery.
+        }
+        setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
+        resolveCallbacks(request.id, EMPTY_PNG);
+      } finally {
+        // Destroy display
+        display?.destroy();
+
+        // Mark renderer as free
+        if (isRendererUsable(freeRenderer.renderer)) {
+          freeRenderer.busy = false;
+        } else {
+          setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
+        }
+        isProcessingRef.current = false;
+
+        // Trigger next processing cycle
+        setQueue((prev) => [...prev]);
+      }
     }).catch((error) => {
       console.error('Error acquiring renderer:', error);
+      resolveCallbacks(request.id, EMPTY_PNG);
       isProcessingRef.current = false;
+      setQueue((prev) => [...prev]);
     });
   }, [queue, renderers, cache, resolveCallbacks]);
 
