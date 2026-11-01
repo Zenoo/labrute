@@ -7,26 +7,38 @@ export type Release = {
 };
 
 export const LAST_RELEASE: Release = {
-  version: '2.100.0',
+  version: '2.100.2',
   date: '2026-10-31',
   features: [
-    'Two new skills have dropped: Reload and Rewind. Go ahead and try them out, let me know what you think! This means only one spot remains for new skills, let\'s make it count!',
-    'You read it right, reload is now a skill instead of a passive mechanic. I heard your feedback and since I was unable to find a correct balance for it as a passive, it has been moved to an active skill.',
+    'I managed to match the brutes\' appearance with the old Flash version as closely as possible. You should be able to find armors that were previously unavailable, and have colors matching the original game.'
   ],
   fixes: [
-    'Fight assets are now loaded at the correct scale, which should remove any blurriness there was before (Hello again dogs, I couldn\'t recognize you properly before)',
-    'Fight scrubber hidden on first watch to prevent spoils',
-    'An option to always display the fight scrubber has been added',
-    'Destroyed weapons are ignored when reloading',
-    'A lot of reload fixes',
-    'Favorite fights are now kept forever instead of being deleted after 30 days',
-    'Pluralized translations now work correctly for languages handling them differently (looking at you, Russian)',
-    'Pio pio was visually bugged after the last round of fight optimizations, this has now been fixed'
+    'Brute portraits are now aligned and the same size as every other brute',
+    'Counter chances are now capped at 90%'
   ],
-  attachments: ['improve-blurriness.png', 'dogs-blurriness.png'],
+  attachments: [],
 };
 
 export const releases: Release[] = [
+  {
+    version: '2.100.0',
+    date: '2026-10-31',
+    features: [
+      'Two new skills have dropped: Reload and Rewind. Go ahead and try them out, let me know what you think! This means only one spot remains for new skills, let\'s make it count!',
+      'You read it right, reload is now a skill instead of a passive mechanic. I heard your feedback and since I was unable to find a correct balance for it as a passive, it has been moved to an active skill.',
+    ],
+    fixes: [
+      'Fight assets are now loaded at the correct scale, which should remove any blurriness there was before (Hello again dogs, I couldn\'t recognize you properly before)',
+      'Fight scrubber hidden on first watch to prevent spoils',
+      'An option to always display the fight scrubber has been added',
+      'Destroyed weapons are ignored when reloading',
+      'A lot of reload fixes',
+      'Favorite fights are now kept forever instead of being deleted after 30 days',
+      'Pluralized translations now work correctly for languages handling them differently (looking at you, Russian)',
+      'Pio pio was visually bugged after the last round of fight optimizations, this has now been fixed'
+    ],
+    attachments: ['improve-blurriness.png', 'dogs-blurriness.png'],
+  },
   {
     version: '2.99.0',
     date: '2026-10-23',
