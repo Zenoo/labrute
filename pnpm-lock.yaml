@@ -288,11 +288,11 @@ importers:
         specifier: 26.0.7
         version: 26.0.7(typescript@5.9.2)
       labrute-pixi-fighter:
-        specifier: ^1.0.17
-        version: 1.0.17(pixi.js@8.19.0)
+        specifier: ^1.0.18
+        version: 1.0.18(pixi.js@8.19.0)
       labrute-pixi-static-portrait:
-        specifier: ^1.1.0
-        version: 1.1.0(pixi.js@8.19.0)
+        specifier: ^1.1.1
+        version: 1.1.1(pixi.js@8.19.0)
       pixi-filters:
         specifier: ^6.1.5
         version: 6.1.5(pixi.js@8.19.0)
@@ -3277,13 +3277,13 @@ packages:
     resolution: {integrity: sha512-C7szw3MPeRdmlsjKthiQdO7t79zHmVOCNK7LMYjlH812Vef4Rdw1lKTvKm/F7RNZ0C84Sh6KKp9gKoasm6BKnw==}
     engines: {node: '>=18.13.0'}
 
-  labrute-pixi-fighter@1.0.17:
-    resolution: {integrity: sha512-PBQkfPp+hKR3IgJr483s9DL+xx1NaTq2tIxLt3nk1jmHYX88eMwUc4RKi5q3SHPqTRE63VJExi7DHp6p+wEryQ==}
+  labrute-pixi-fighter@1.0.18:
+    resolution: {integrity: sha512-pZvdPiErxWcfhYzrqAuT8Y5BCZZ+W2XAeZalC5l/DoMCM4ZkH2d/GICblI9gdMhDYmWU8SxaPMBE2DznS9a2lg==}
     peerDependencies:
       pixi.js: ^8.19.0
 
-  labrute-pixi-static-portrait@1.1.0:
-    resolution: {integrity: sha512-xEOc6A2vcxcl1CPpFvSCa4piRjTLl92U2J9/BjnEl5Hb4Fp07gh2+5xSbG2H2OV9zPefNd1XwatIlWb5SB/foA==}
+  labrute-pixi-static-portrait@1.1.1:
+    resolution: {integrity: sha512-8sqYQa1l2ULBHwRwxF/oEvFw2oU3AW02wByWJMJJvml3bNHR9x066CyLgGNT0y8YbyjwhET22ThjvfdRVAgJ4A==}
     engines: {node: '>=20'}
     peerDependencies:
       pixi.js: ^8.19.0
@@ -7928,11 +7928,11 @@ snapshots:
 
   kryo@0.15.3: {}
 
-  labrute-pixi-fighter@1.0.17(pixi.js@8.19.0):
+  labrute-pixi-fighter@1.0.18(pixi.js@8.19.0):
     dependencies:
       pixi.js: 8.19.0
 
-  labrute-pixi-static-portrait@1.1.0(pixi.js@8.19.0):
+  labrute-pixi-static-portrait@1.1.1(pixi.js@8.19.0):
     dependencies:
       pixi-filters: 6.1.5(pixi.js@8.19.0)
       pixi.js: 8.19.0

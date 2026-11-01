@@ -8,15 +8,16 @@ export type Release = {
 
 export const LAST_RELEASE: Release = {
   version: '2.100.2',
-  date: '2026-10-31',
+  date: '2026-11-02',
   features: [
-    'I managed to match the brutes\' appearance with the old Flash version as closely as possible. You should be able to find armors that were previously unavailable, and have colors matching the original game.'
+    'I managed to match the brutes\' appearance with the old Flash version as closely as possible. You should be able to find armors that were previously unavailable, and have colors matching the original game. Some of the existing brutes will also have updated visuals to match the original game.'
   ],
   fixes: [
+    'Female eyes are now properly colored',
     'Brute portraits are now aligned and the same size as every other brute',
     'Counter chances are now capped at 90%'
   ],
-  attachments: [],
+  attachments: ['brute-visual-fidelity.gif'],
 };
 
 export const releases: Release[] = [
