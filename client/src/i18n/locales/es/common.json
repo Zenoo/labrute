@@ -397,7 +397,7 @@
   "resistant.desc": "Tus oponentes necesitan una infinidad de golpes para noquearte. Se necesitan al menos 5 golpes antes de sentir algo.",
   "resistant.effect": "Cada golpe de tus oponentes reduce tu vida como máximo un <stats percent />",
   "reversal": "Reversión",
-  "rewind": "Rebobinar",
+  "rewind": "Retroceso",
   "rewind.desc": "Cuando tu Bruto está a punto de recibir un golpe letal, el tiempo retrocede para evitar la derrota.",
   "rewind.effect": "Acción x<uses /> Cuando un golpe eliminaría a tu Bruto, retrocede el combate en <stats /> turnos y dale 3 turnos de iniciativa normales.",
   "reload": "Recarga",
