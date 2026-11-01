@@ -36,7 +36,7 @@ export const availableBodyParts: {
     p1b: 1,
     p6: 1,
     p8: 4,
-    p7b: 2,
+    p7b: 6,
     p5: 1,
   },
   female: {
@@ -49,7 +49,7 @@ export const availableBodyParts: {
     p1b: 1,
     p6: 0,
     p8: 4,
-    p7b: 2,
+    p7b: 6,
     p5: 1,
   },
 };

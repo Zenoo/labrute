@@ -288,8 +288,8 @@ importers:
         specifier: 26.0.7
         version: 26.0.7(typescript@5.9.2)
       labrute-pixi-fighter:
-        specifier: ^1.0.15
-        version: 1.0.15(pixi.js@8.19.0)
+        specifier: ^1.0.17
+        version: 1.0.17(pixi.js@8.19.0)
       labrute-pixi-static-portrait:
         specifier: ^1.1.0
         version: 1.1.0(pixi.js@8.19.0)
@@ -3277,8 +3277,8 @@ packages:
     resolution: {integrity: sha512-C7szw3MPeRdmlsjKthiQdO7t79zHmVOCNK7LMYjlH812Vef4Rdw1lKTvKm/F7RNZ0C84Sh6KKp9gKoasm6BKnw==}
     engines: {node: '>=18.13.0'}
 
-  labrute-pixi-fighter@1.0.15:
-    resolution: {integrity: sha512-72xq5DFA0sgBJWwYRBuY4qGzSoS0hadrPpuEc33poAph0t1ambe6UXrIxWMBO6E6HGthUEzGFF85Sb60DrMVeg==}
+  labrute-pixi-fighter@1.0.17:
+    resolution: {integrity: sha512-PBQkfPp+hKR3IgJr483s9DL+xx1NaTq2tIxLt3nk1jmHYX88eMwUc4RKi5q3SHPqTRE63VJExi7DHp6p+wEryQ==}
     peerDependencies:
       pixi.js: ^8.19.0
 
@@ -7928,7 +7928,7 @@ snapshots:
 
   kryo@0.15.3: {}
 
-  labrute-pixi-fighter@1.0.15(pixi.js@8.19.0):
+  labrute-pixi-fighter@1.0.17(pixi.js@8.19.0):
     dependencies:
       pixi.js: 8.19.0
 
