@@ -7,6 +7,7 @@ import { BruteDisplay, clearPortraitCache } from 'labrute-pixi-static-portrait';
 import {
   BruteColor, readBodyString, readColorString
 } from '@labrute/core';
+import { PORTRAIT_SCALE, PortraitFrame } from '../utils/portraitLayout';
 
 const MAX_RENDERERS = 3;
 const EMPTY_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9s8w6f4AAAAASUVORK5CYII=';
@@ -28,7 +29,7 @@ type BruteData = Pick<Brute, 'id' | 'gender' | 'body' | 'colors'> & Options;
 
 type RenderMethod = (brute: BruteData) => void;
 
-type RenderCallback = (content: string) => void;
+type RenderCallback = (content: string, frame?: PortraitFrame) => void;
 
 type OnRenderMethod = (
   id: string,
@@ -70,6 +71,7 @@ type RendererInstance = {
 type Cache = {
   id: string;
   content: string;
+  frame: PortraitFrame;
 }[];
 
 export const RendererProvider = ({ children }: RendererProviderProps) => {
@@ -91,13 +93,13 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     cacheRef.current = cache;
   }, [cache]);
 
-  const resolveCallbacks = useCallback((id: string, content: string) => {
+  const resolveCallbacks = useCallback((id: string, content: string, frame?: PortraitFrame) => {
     const idCallbacks = callbacksRef.current[id] ?? [];
 
     const callback = idCallbacks[0];
     if (!callback) return;
 
-    callback(content);
+    callback(content, frame);
 
     setCallbacks((prev) => {
       const prevCallbacks = prev[id] ?? [];
@@ -129,7 +131,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
     const cached = cacheRef.current.find((c) => c.id === id);
     if (cached) {
-      callback(cached.content);
+      callback(cached.content, cached.frame);
       return;
     }
 
@@ -160,7 +162,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     const cached = cache.find((c) => c.id === request.id);
     if (cached && !request.skipCache) {
       setQueue((prev) => prev.slice(1));
-      resolveCallbacks(request.id, cached.content);
+      resolveCallbacks(request.id, cached.content, cached.frame);
       return;
     }
 
@@ -208,7 +210,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
           parts: readBodyString(body),
           colors: readColorString(request.gender, colors),
           facing: 'left',
-          scale: 3,
+          scale: PORTRAIT_SCALE,
           highlightColorName: request.highlightColorName,
         });
         await display.ready;
@@ -217,8 +219,18 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
           return;
         }
 
+        // Keep the crop's origin: fitting every tight PNG to the same CSS width
+        // would change the fighter's scale when hair or clothing changes its bounds.
+        const bounds = display.container.getLocalBounds().rectangle.clone();
+        const frame: PortraitFrame = {
+          x: bounds.x / PORTRAIT_SCALE,
+          y: bounds.y / PORTRAIT_SCALE,
+          width: bounds.width / PORTRAIT_SCALE,
+          height: bounds.height / PORTRAIT_SCALE,
+        };
         const content = await freeRenderer.renderer.extract.image({
           target: display.container,
+          frame: bounds,
           format: 'png',
           quality: 1,
         });
@@ -230,10 +242,10 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
         // Don't cache id 0 or requests with skipCache
         if (request.id && !request.skipCache) {
-          setCache((prev) => [...prev, { id: request.id, content: content.src }]);
+          setCache((prev) => [...prev, { id: request.id, content: content.src, frame }]);
         }
 
-        resolveCallbacks(request.id, content.src);
+        resolveCallbacks(request.id, content.src, frame);
       } catch (error) {
         console.error('Error extracting rendered brute image:', error);
 

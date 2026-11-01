@@ -89,6 +89,13 @@ Never destroy shared atlas textures as if they were uniquely created for one eff
 
 ## Regression coverage and visual checks
 
+Static portraits keep their tight PNG crop and cache its source-coordinate frame alongside the
+image in `useRenderer.tsx`. `BruteRender` places that crop in the shared viewport defined by
+`utils/portraitLayout.ts`, mirroring around the viewport rather than the individual crop. Keep
+the frame with the image on both fresh renders and cache hits; fitting each PNG to the same width
+would rescale bodies when hair or clothing changes. Use `portrait-layout.test.mjs` for registration
+checks and a browser for actual portraits. Avoid per-selector CSS scale/offset corrections.
+
 Server tests: `fight-determinism.test.mjs`, `fight-reload.test.mjs`, `fight-rewind.test.mjs`.
 The deterministic suite hashes full outcomes for seeded scenarios, including combat state and RNG
 usage. For an optimization, preserve these outcomes and random-call order. For an intentional balance

@@ -33,7 +33,7 @@ export const BruteBodyAndStats = ({
       {...rest}
     >
       {/* BRUTE */}
-      <Box flexGrow={centered ? 0 : 1} sx={{ width: centered ? 115 : 'fit-content' }}>
+      <Box flexGrow={centered ? 0 : 1} sx={{ width: centered ? 115 : 'fit-content', mt: 2 }}>
         <Box width={80} mx="auto">
           <BruteRender brute={brute} />
         </Box>
