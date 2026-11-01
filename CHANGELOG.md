@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.100.3](https://github.com/Zenoo/labrute/compare/labrute-v2.100.2...labrute-v2.100.3) (2026-11-01)
+
+
+### Bug Fixes
+
+* Missing weapons + misplaced hit animation ([c191536](https://github.com/Zenoo/labrute/commit/c1915362486e5ca4ef985eff769479b8c0be81f1))
+
 ## [2.100.2](https://github.com/Zenoo/labrute/compare/labrute-v2.100.1...labrute-v2.100.2) (2026-11-01)
 
 
