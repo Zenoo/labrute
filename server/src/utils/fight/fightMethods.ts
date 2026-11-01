@@ -1630,13 +1630,18 @@ const counterAttack = (fighter: DetailedFighter, opponent: DetailedFighter) => {
 
   const random = Math.random();
 
-  const valueToBeat = (
+  let valueToBeat = (
     opponent.counter * 10
     + (
       (opponent.reach + (opponent.activeWeapon?.reach || 0))
       - (fighter.reach + (fighter.activeWeapon?.reach || 0))
     )
   ) * 0.1;
+
+  // Cap counter chances at 90%
+  if (valueToBeat > 0.9) {
+    valueToBeat = 0.9;
+  }
 
   return random < valueToBeat;
 };
