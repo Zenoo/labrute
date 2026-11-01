@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.100.2](https://github.com/Zenoo/labrute/compare/labrute-v2.100.1...labrute-v2.100.2) (2026-11-01)
+
+
+### Bug Fixes
+
+* Brute portraits alignment ([9c40d8b](https://github.com/Zenoo/labrute/commit/9c40d8bb2162e6e4b6c2969e80081cbfda255f78))
+* Cap counter chance to 90% ([10ce50a](https://github.com/Zenoo/labrute/commit/10ce50ae2172b6379a64cd9e9d2775cd7a3067de))
+* Random brute generator update after patches ([64e051a](https://github.com/Zenoo/labrute/commit/64e051a8957c8beb4c44166c0f8d01ccae93a51d))
+* Use new portrait renderer (higher fidelity) ([d4ee117](https://github.com/Zenoo/labrute/commit/d4ee11749c64c75046008b994213a4a3276899dc))
+
 ## [2.100.1](https://github.com/Zenoo/labrute/compare/labrute-v2.100.0...labrute-v2.100.1) (2026-10-31)
 
 
