@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.100.4](https://github.com/Zenoo/labrute/compare/labrute-v2.100.3...labrute-v2.100.4) (2026-11-02)
+
+
+### Bug Fixes
+
+* Give a free visual reset to every brute ([6fe9eac](https://github.com/Zenoo/labrute/commit/6fe9eaccb6c24f06d939bbc56c05abf86a15d7ee))
+
 ## [2.100.3](https://github.com/Zenoo/labrute/compare/labrute-v2.100.2...labrute-v2.100.3) (2026-11-01)
 
 
