@@ -25,13 +25,13 @@ import { catchError } from '../utils/catchError';
 export const HallView = () => {
   const { t } = useTranslation('hall');
   const navigate = useNavigate();
-  const { user, updateData } = useAuth();
+  const { user, updateData, currentEvent } = useAuth();
   const Alert = useAlert();
   const { palette: { mode } } = useTheme();
   const Server = useServer();
 
   const fightsLeft = useMemo(() => user && user.brutes
-    .reduce((acc, brute) => acc + getFightsLeft(brute), 0), [user]);
+    .reduce((acc, brute) => acc + getFightsLeft(brute, currentEvent), 0), [user, currentEvent]);
 
   const missingRegistrations = useMemo(() => user && user.brutes
     .reduce((acc, brute) => acc + (!brute.registeredForTournament
@@ -112,7 +112,7 @@ export const HallView = () => {
       }}
       >
         {user && user.brutes.map((brute) => {
-          const bruteFightsLeft = getFightsLeft(brute);
+          const bruteFightsLeft = getFightsLeft(brute, currentEvent);
           const xpNeededForNextLevel = getXPNeeded(brute.level + 1);
 
           const limitedXP = Math.min(

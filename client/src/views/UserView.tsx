@@ -43,7 +43,7 @@ export const UserView = () => {
   const Alert = useAlert();
 
   const {
-    modifiers, user: authedUser, updateData, signout,
+    modifiers, user: authedUser, updateData, signout, currentEvent,
   } = useAuth();
 
   const Confirm = useConfirm();
@@ -81,12 +81,12 @@ export const UserView = () => {
         dinorpgDone: new Date(),
         brutes: data.brutes.map((brute) => ({
           ...brute,
-          fightsLeft: getFightsLeft(brute) + 1,
+          fightsLeft: getFightsLeft(brute, currentEvent) + 1,
           lastFight: new Date(),
         })),
       }) : null));
     }).catch(catchError(Alert));
-  }, [Alert, Server.User, authedUser, t, updateData]);
+  }, [Alert, Server.User, authedUser, t, updateData, currentEvent]);
 
   // Ban user
   const banUser = useCallback(() => {

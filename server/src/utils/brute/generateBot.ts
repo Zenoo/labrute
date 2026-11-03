@@ -55,6 +55,7 @@ export const generateBot = (
           eventId: null,
         },
         levelUpChoice,
+        null
       ),
       id: undefined,
     };

@@ -6,7 +6,10 @@ import React, {
   useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router';
+import {
+  useLocation, useNavigate, useParams
+} from 'react-router';
+import { FantasyButton } from '../components/FantasyButton';
 import { FightComponent } from '../components/Arena/FightComponent';
 import { BoxBg } from '../components/BoxBg';
 import { Page } from '../components/Page';
@@ -25,6 +28,7 @@ export const FightView = () => {
   const navigate = useNavigate();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { language } = useLanguage();
+  const location = useLocation();
   const { palette: { mode } } = useTheme();
   const Server = useServer();
 
@@ -62,13 +66,28 @@ export const FightView = () => {
     return [firstAd, secondAd];
   }, [language]);
 
+  const battleRoyaleEventId = (location.state as { battleRoyaleEventId?: string } | null)
+    ?.battleRoyaleEventId;
+
+  const backToMap = battleRoyaleEventId && bruteName ? (
+    <FantasyButton
+      color="secondary"
+      to={`/${bruteName}/event/${battleRoyaleEventId}`}
+      sx={{ mx: 'auto', mt: 1 }}
+    >
+      {t('event:br.backToMap')}
+    </FantasyButton>
+  ) : null;
+
   if (smallScreen) {
     return (
       <FightMobileView
         headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
         ads={ads}
         fight={fight}
-      />
+      >
+        {backToMap}
+      </FightMobileView>
     );
   }
 
@@ -120,6 +139,7 @@ export const FightView = () => {
           </Box>
         </Box>
       </BoxBg>
+      {backToMap}
     </Page>
   ) : null;
 };

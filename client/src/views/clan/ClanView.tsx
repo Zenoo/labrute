@@ -52,7 +52,7 @@ export const ClanView = () => {
   const Alert = useAlert();
 
   const {
-    user, updateData, modifiers,
+    user, updateData, modifiers, currentEvent,
   } = useAuth();
 
   const navigate = useNavigate();
@@ -423,7 +423,7 @@ export const ClanView = () => {
     }
 
     // Check if brute still has fights left
-    if (getFightsLeft(brute) <= 0) {
+    if (getFightsLeft(brute, currentEvent) <= 0) {
       Alert.open('error', t('noFightsLeft'));
 
       return;
@@ -435,7 +435,7 @@ export const ClanView = () => {
         ...data,
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
           ...b,
-          fightsLeft: getFightsLeft(b) - 1,
+          fightsLeft: getFightsLeft(b, currentEvent) - 1,
           lastFight: new Date(),
         } : b)),
       }) : null));
@@ -447,7 +447,7 @@ export const ClanView = () => {
 
         return {
           ...b,
-          fightsLeft: getFightsLeft(b) - 1,
+          fightsLeft: getFightsLeft(b, currentEvent) - 1,
           lastFight: new Date(),
         };
       });

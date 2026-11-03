@@ -3,7 +3,7 @@ import {
   pets,
 } from '@labrute/core';
 import {
-  Brute, BruteStat, DestinyChoice, SkillName, WeaponName,
+  Brute, BruteStat, DestinyChoice, Event, SkillName, WeaponName,
 } from '@labrute/prisma';
 
 type BruteData = Pick<Brute, 'id' | 'level' | 'skills' | 'hpStat' | 'strengthStat'
@@ -40,6 +40,7 @@ const updateStat = (brute: BruteData, stat: BruteStat, value: number) => {
 export const updateBruteData = (
   brute: BruteData,
   destinyChoice: DestinyChoice | LevelUpChoice,
+  currentEvent: Pick<Event, 'type'> | null
 ) => {
   let updatedBrute = {
     ...brute,
@@ -62,7 +63,7 @@ export const updateBruteData = (
 
     // Handle +2 fights for `bandage`
     if (skillName === SkillName.regeneration && !brute.eventId) {
-      updatedBrute.fightsLeft = getFightsLeft(calculatedBrute) + 2;
+      updatedBrute.fightsLeft = getFightsLeft(calculatedBrute, currentEvent) + 2;
     }
 
     calculatedBrute.skills[skillName] = calculatedBrute.skills[skillName]

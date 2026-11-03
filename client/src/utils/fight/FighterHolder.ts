@@ -105,11 +105,12 @@ export class FighterHolder extends PixiFighterHolder {
   declare readonly name: Fighter['name'];
   readonly skills: Fighter['skills'];
 
-  constructor(app: Application, fighter: Fighter, speed: SpeedRef, scale = 1) {
+  constructor(app: Pick<Application, 'renderer' | 'ticker'>, fighter: Fighter, speed: SpeedRef, scale = 1) {
     const boss = fighter.type === 'boss' ? bosses.find(({ name }) => name === fighter.name) : undefined;
     const modelScale = fighter.type === 'pet' && fighter.name === PetName.panther ? 1.5 : boss?.scale ?? 1;
 
-    super(app, appearance(fighter), speed, scale * modelScale);
+    // The package only uses renderer and ticker, but its declaration requires Application.
+    super(app as Application, appearance(fighter), speed, scale * modelScale);
     this.skills = fighter.skills;
   }
 

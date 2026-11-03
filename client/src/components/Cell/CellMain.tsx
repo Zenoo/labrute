@@ -1,7 +1,7 @@
 import {
   BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded,
 } from '@labrute/core';
-import { Lang } from '@labrute/prisma';
+import { EventType, Lang } from '@labrute/prisma';
 import {
   AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip,
 } from '@mui/material';
@@ -55,8 +55,8 @@ export const CellMain = ({
   );
 
   const fightsLeft = useMemo(
-    () => (brute ? getFightsLeft(brute) : 0),
-    [brute],
+    () => (brute ? getFightsLeft(brute, currentEvent) : 0),
+    [brute, currentEvent],
   );
 
   // Rank up
@@ -116,6 +116,10 @@ export const CellMain = ({
             <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
           </Stack>
         );
+      }
+
+      if (brute.eventId && currentEvent?.type === EventType.battleRoyale) {
+        return null;
       }
 
       return (
@@ -253,6 +257,15 @@ export const CellMain = ({
         </FantasyButton>
       )}
       {owner && (renderArenaAction())}
+      {/* BATTLE ROYALE MAP */}
+      {owner && brute.eventId && currentEvent?.type === EventType.battleRoyale && (
+        <FantasyButton color="primary" to={`/${brute.name}/event/${brute.eventId}`}
+          sx={{
+            mb: 2,
+          }}>
+          {t('battleRoyaleMap')}
+        </FantasyButton>
+      )}
       {/* TOURNAMENT */}
       {!smallScreen && !brute.eventId && (
         <CellTournament

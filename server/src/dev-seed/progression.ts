@@ -84,7 +84,7 @@ export const createPlayableBrute = (
     // Retained perks affect stats and future offers, without consuming a level or destiny branch.
     data = {
       ...data,
-      ...updateBruteData(data, choice),
+      ...updateBruteData(data, choice, null),
       level: 1,
     };
     data.hpValue = getBruteHP(data);
@@ -118,7 +118,7 @@ export const createPlayableBrute = (
 
       data = {
         ...data,
-        ...updateBruteData(data, offered[side]),
+        ...updateBruteData(data, offered[side], null),
       };
       path.push(side === 0 ? 'LEFT' : 'RIGHT');
     }

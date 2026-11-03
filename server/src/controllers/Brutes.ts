@@ -790,8 +790,10 @@ export const Brutes = {
         throw new LimitError(translate('maxTierReached', authed));
       }
 
+      const currentEvent = await ServerState.getCurrentEvent(prisma);
+
       // Update brute data
-      const updatedBruteData = updateBruteData(brute, destinyChoice);
+      const updatedBruteData = updateBruteData(brute, destinyChoice, currentEvent);
 
       const oldBrute = {
         ...brute,
@@ -1745,13 +1747,17 @@ export const Brutes = {
         throw new NotFoundError('Brute not found');
       }
 
-      // Get current modifiers
+      // Get current state
       const modifiers = await ServerState.getModifiers(prisma);
+      const currentEvent = await ServerState.getCurrentEvent(prisma);
 
-      const fightsLeft = getFightsLeft({
-        ...brute,
-        skills: getTieredSkills(brute, modifiers),
-      });
+      const fightsLeft = getFightsLeft(
+        {
+          ...brute,
+          skills: getTieredSkills(brute, modifiers),
+        },
+        currentEvent,
+      );
 
       res.send({
         fightsLeft,

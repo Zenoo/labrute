@@ -1,4 +1,5 @@
 import {
+  BATTLE_ROYALE_GROUP_SIZE, BATTLE_ROYALE_MOVES_PER_DAY,
   EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration,
   Fighter, formatLargeNumber, isWinner,
 } from '@labrute/core';
@@ -17,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { BruteRender } from '../../components/Brute/Body/BruteRender';
 import { BruteTooltip } from '../../components/Brute/BruteTooltip';
+import { BattleRoyaleMap } from '../../components/Event/BattleRoyaleMap';
 import { FantasyButton } from '../../components/FantasyButton';
 import { Link } from '../../components/Link';
 import { Loader } from '../../components/Loader';
@@ -43,7 +45,26 @@ const fighterToBrute = (fighter: Fighter) => ({
 });
 
 const eventRules = {
-  [EventType.battleRoyale]: 10,
+  [EventType.tourney]: 10,
+  [EventType.battleRoyale]: 12,
+};
+
+const getRuleCount = (type: EventType, rule: number, maxLevel: number) => {
+  const counts: Record<number, number> = type === EventType.tourney
+    ? {
+      3: EventFightsPerDay,
+      4: EventFreeResets,
+      8: EventPauseDuration,
+      9: maxLevel,
+    }
+    : {
+      3: BATTLE_ROYALE_MOVES_PER_DAY,
+      5: BATTLE_ROYALE_GROUP_SIZE,
+      10: EventPauseDuration,
+      11: maxLevel,
+    };
+
+  return counts[rule];
 };
 
 export const EventView = () => {
@@ -87,7 +108,7 @@ export const EventView = () => {
       })
       .catch(catchError(Alert))
       .finally(() => setLoading(false));
-  }, [Alert, Server.Event, brute, id]);
+  }, [Alert, Server.Event, brute?.id, id]);
 
   const watchingRound = useMemo(() => {
     if (!data) {
@@ -422,6 +443,15 @@ export const EventView = () => {
                 }}>
                   {t('createABrute')}
                 </FantasyButton>
+              )}
+            {/* BATTLE ROYALE MAP */}
+            {data.event.type === EventType.battleRoyale
+              && owner
+              && brute
+              && brute.eventId === data.event.id
+              && data.event.status !== EventStatus.starting
+              && (
+                <BattleRoyaleMap eventId={data.event.id} brute={brute} />
               )}
           {/* FIGHTS */}
           {!!data.event.tournament?.rounds && (
@@ -809,36 +839,12 @@ export const EventView = () => {
             }}
           >
             {Array.from({ length: eventRules[data.event.type] }).map((_, i) => {
-              const getRuleCount = () => {
-                if (data.event.type === EventType.battleRoyale) {
-                  if (i === 3) {
-                    return EventFightsPerDay;
-                  }
-
-                  if (i === 4) {
-                    return EventFreeResets;
-                  }
-
-                  if (i === 8) {
-                    return EventPauseDuration;
-                  }
-
-                  if (i === 9) {
-                    return data.event.maxLevel;
-                  }
-
-                  return undefined;
-                }
-
-                return undefined;
-              };
-
               return (
 
                 <ListItem disablePadding key={i}>
                   <ListItemButton>
                     <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {
-                      count: getRuleCount(),
+                      count: getRuleCount(data.event.type, i, data.event.maxLevel),
                     })}
                     />
                   </ListItemButton>

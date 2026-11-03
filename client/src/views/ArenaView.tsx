@@ -51,8 +51,8 @@ export const ArenaView = () => {
     && getXPNeeded(brute.level + 1), [brute]);
 
   const fightsLeft = useMemo(
-    () => (brute && getFightsLeft(brute)) ?? 0,
-    [brute],
+    () => (brute && getFightsLeft(brute, currentEvent)) ?? 0,
+    [brute, currentEvent],
   );
 
   // Fetch random opponents
@@ -213,7 +213,7 @@ export const ArenaView = () => {
       }}
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
-        <Text bold color="secondary">{fightsLeft > 1 ? t('fightsLeft', { value: getFightsLeft(brute) }) : t('fightLeft')}</Text>
+        <Text bold color="secondary">{fightsLeft > 1 ? t('fightsLeft', { value: getFightsLeft(brute, currentEvent) }) : t('fightLeft')}</Text>
       </Paper>
       <Paper sx={{
         bgcolor: 'background.paperLight',

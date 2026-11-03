@@ -1,4 +1,8 @@
 import {
+  BATTLE_ROYALE_BASE_VISION,
+  BATTLE_ROYALE_GROUP_SIZE,
+  BATTLE_ROYALE_MIN_RADIUS,
+  BATTLE_ROYALE_MOVES_PER_DAY,
   BruteDeletionReason,
   ClanWarMaxParticipants,
   ClanWarPointReward,
@@ -14,6 +18,7 @@ import {
   GlobalTournamentGoldReward,
   GlobalTournamentXpReward,
   isWinner,
+  isInsideBattleRoyaleMap,
   keys,
   knownIssues,
   LAST_RELEASE,
@@ -28,6 +33,7 @@ import {
   ClanWarStatus,
   ClanWarType,
   EventStatus,
+  EventType,
   FightModifier,
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
@@ -37,6 +43,7 @@ import { DISCORD, LOGGER } from './context.js';
 import { calculateAchievementRankings, increaseAchievement } from './controllers/Achievements.js';
 import { cacheAllTop15Rankings } from './controllers/Brutes.js';
 import { ServerState } from './utils/ServerState.js';
+import { checkMapResolved, createBattleRoyaleRound } from './utils/battleRoyale.js';
 import { resetBrute } from './utils/brute/resetBrute.js';
 import { updateClanPoints } from './utils/clan/updateClanPoints.js';
 import { generateFight } from './utils/fight/generateFight.js';
@@ -58,14 +65,14 @@ const IN_DEV = {
   GENERATE_TOURNAMENTS: false,
   HANDLE_CLAN_WARS: false,
   CALCULATE_RANKINGS: false,
-  SEND_RELEASE_NOTIFICATION: false,
+  SEND_NOTIFICATION: false,
   TRIGGER_CHAOS: false,
 };
 
 const shouldGenerateTournaments = () => process.env.NODE_ENV === 'production' || IN_DEV.GENERATE_TOURNAMENTS;
 const shouldHandleClanWars = () => process.env.NODE_ENV === 'production' || IN_DEV.HANDLE_CLAN_WARS;
 const shouldCalculateRankings = () => process.env.NODE_ENV === 'production' || IN_DEV.CALCULATE_RANKINGS;
-const shouldSendReleaseNotification = () => process.env.NODE_ENV === 'production' || IN_DEV.SEND_RELEASE_NOTIFICATION;
+const shouldSendNotification = () => process.env.NODE_ENV === 'production' || IN_DEV.SEND_NOTIFICATION;
 // Chaos every 1st day of the month
 const shouldTriggerChaos = () => dayjs().utc().date() === 1 || (IN_DEV.TRIGGER_CHAOS && process.env.NODE_ENV !== 'production');
 
@@ -1506,7 +1513,7 @@ const handleReleases = async (prisma: PrismaClient) => {
   }
 
   // Send release notifications
-  if (shouldSendReleaseNotification()) {
+  if (shouldSendNotification()) {
     try {
       // Discord notification
       await DISCORD().sendRelease(LAST_RELEASE);
@@ -2100,22 +2107,300 @@ const handleEventFinish = async (prisma: PrismaClient) => {
 
   // Create new event
   const maxLevel = randomBetween(20, 120);
+  // Random event type
+  const type = Math.random() < 0.5 ? EventType.tourney : EventType.battleRoyale;
 
   const newEvent = await prisma.event.create({
     data: {
       maxLevel,
+      type,
+      groupSize: BATTLE_ROYALE_GROUP_SIZE,
+      baseVision: BATTLE_ROYALE_BASE_VISION,
     },
     select: { id: true },
   });
 
   // Notify users
-  const notifications = await prisma.$executeRaw`
-    INSERT INTO "Notification" ("userId", "message", "link")
-    SELECT id, 'event.started', ${`{bruteName}/event/${newEvent.id}`}
-    FROM "User";
-  `;
+  if (shouldSendNotification()) {
+    const notifications = await prisma.$executeRaw`
+      INSERT INTO "Notification" ("userId", "message", "link")
+      SELECT id, 'event.started', ${`{bruteName}/event/${newEvent.id}`}
+      FROM "User";
+    `;
 
-  LOGGER.log(`New event created with max level ${maxLevel}. ${notifications} notifications sent`);
+    LOGGER.log(`${notifications} event notifications sent`);
+  }
+
+  LOGGER.log(`New event created with max level ${maxLevel}`);
+};
+
+const finishEvent = async (
+  prisma: PrismaClient,
+  eventId: string,
+  winner: string,
+  brutes: { id: string }[],
+) => {
+  // Update event
+  await prisma.event.update({
+    where: { id: eventId },
+    data: {
+      status: EventStatus.finished,
+      winnerId: winner,
+      finishedAt: new Date(),
+    },
+  });
+
+  // Delete all other brutes
+  const brutesToDelete = brutes.filter((brute) => brute.id !== winner);
+
+  // Separate brutes 1000 by 1000
+  const brutesChunks = Array(Math.ceil(brutesToDelete.length / 1000))
+    .fill([])
+    .map((_, index) => brutesToDelete.slice(index * 1000, index * 1000 + 1000));
+
+  for (const brutesChunk of brutesChunks) {
+    await prisma.brute.updateMany({
+      where: {
+        id: {
+          in: brutesChunk.map((brute) => brute.id),
+        },
+      },
+      data: {
+        willBeDeletedAt: dayjs.utc().add(3, 'day').toDate(),
+        deletionReason: BruteDeletionReason.EVENT_LOSS,
+      },
+    });
+  }
+
+  LOGGER.log(`Marked ${brutesToDelete.length} brutes for deletion from event ${eventId}`);
+
+  // Make winner an official brute
+  const winnerBrute = await prisma.brute.update({
+    where: { id: winner },
+    data: {
+      eventId: null,
+    },
+    select: {
+      id: true,
+      userId: true,
+      destinyPath: true,
+      level: true,
+      ranking: true,
+      eventId: true,
+      xp: true,
+      ascensions: true,
+      ascendedWeapons: true,
+      ascendedSkills: true,
+      ascendedPets: true,
+    },
+  });
+
+  // Reset brute
+  await resetBrute({
+    prisma,
+    brute: winnerBrute,
+    free: true,
+  });
+
+  if (!winnerBrute.userId) {
+    throw new Error('Winner user not found');
+  }
+
+  // Add achievement
+  await increaseAchievement(
+    prisma,
+    winnerBrute.userId,
+    winnerBrute.id,
+    AchievementName.battleRoyaleWin,
+  );
+
+  LOGGER.log(`Event ${eventId} finished with winner ${winnerBrute.id}`);
+};
+
+const handleBattleRoyaleEvent = async (
+  prisma: PrismaClient,
+) => {
+  const event = await prisma.event.findFirst({
+    where: {
+      type: EventType.battleRoyale,
+      status: { not: EventStatus.finished },
+    },
+    orderBy: { date: 'desc' },
+    include: { brutes: { select: { id: true } } },
+  });
+
+  if (!event) {
+    return;
+  }
+
+  if (event.status === EventStatus.starting) {
+    // No brutes, increase event date
+    if (!event.brutes.length) {
+      await prisma.event.update({
+        where: { id: event.id },
+        data: { date: dayjs.utc(event.date).add(1, 'day').toDate() },
+      });
+
+      return;
+    }
+
+    // Less than 2 days, skip
+    if (dayjs.utc().diff(dayjs.utc(event.date), 'days') < 2) {
+      return;
+    }
+
+    const groups = await createBattleRoyaleRound(
+      prisma,
+      event,
+      event.brutes.map((brute) => brute.id),
+      1,
+    );
+
+    await prisma.event.update({
+      where: { id: event.id },
+      data: { status: EventStatus.ongoing },
+    });
+    LOGGER.log(`Battle royale ${event.id} started with ${event.brutes.length} brutes in ${groups} maps`);
+
+    return;
+  }
+
+  // Daily update of the unresolved maps
+  const maps = await prisma.battleRoyaleMap.findMany({
+    where: {
+      eventId: event.id,
+      resolved: false,
+    },
+    select: {
+      id: true,
+      radius: true,
+      lastShrinkAt: true,
+    },
+  });
+
+  for (const map of maps) {
+    // The job can run several times a day (server restarts), only shrink once per day
+    if (dayjs.utc().isSame(dayjs.utc(map.lastShrinkAt), 'day')) {
+      continue;
+    }
+
+    const radius = Math.max(BATTLE_ROYALE_MIN_RADIUS, map.radius - 1);
+
+    await prisma.battleRoyaleMap.update({
+      where: { id: map.id },
+      data: {
+        radius,
+        lastShrinkAt: new Date(),
+      },
+      select: { id: true },
+    });
+
+    // The zone tightens, brutes outside of it are eliminated.
+    // If everyone is outside, the brute closest to the center survives (random on ties)
+    const alive = await prisma.battleRoyaleBrute.findMany({
+      where: {
+        mapId: map.id,
+        eliminated: false,
+      },
+      select: {
+        id: true,
+        bruteId: true,
+        x: true,
+        y: true,
+      },
+    });
+
+    const outside = alive.filter(({ x, y }) => !isInsideBattleRoyaleMap(x, y, radius));
+    let toEliminate = outside;
+
+    if (alive.length && outside.length === alive.length) {
+      const distance = (b: { x: number, y: number }) => b.x ** 2 + b.y ** 2;
+      const min = Math.min(...alive.map(distance));
+      const [survivor] = shuffle(alive.filter((b) => distance(b) === min));
+
+      toEliminate = alive.filter((b) => b.id !== survivor?.id);
+    }
+
+    if (toEliminate.length) {
+      await prisma.battleRoyaleBrute.updateMany({
+        where: { id: { in: toEliminate.map((b) => b.id) } },
+        data: {
+          eliminated: true,
+          eliminatedAt: new Date(),
+        },
+      });
+    }
+
+    // Moves reset
+    await prisma.battleRoyaleBrute.updateMany({
+      where: {
+        mapId: map.id,
+        eliminated: false,
+      },
+      data: { movesLeft: BATTLE_ROYALE_MOVES_PER_DAY },
+    });
+
+    // Resolves as soon as at most one brute is alive
+    await checkMapResolved(prisma, map.id);
+  }
+
+  // Next round once every map is resolved
+  const unresolved = await prisma.battleRoyaleMap.count({
+    where: {
+      eventId: event.id,
+      resolved: false,
+    },
+  });
+
+  if (unresolved) {
+    return;
+  }
+
+  const survivors = await prisma.battleRoyaleBrute.findMany({
+    where: {
+      eventId: event.id,
+      eliminated: false,
+    },
+    select: { bruteId: true },
+  });
+
+  if (survivors.length <= 1) {
+    let winner = survivors[0]?.bruteId;
+
+    if (!winner) {
+      // Everyone got eliminated, the last brute eliminated wins
+      const last = await prisma.battleRoyaleBrute.findFirst({
+        where: { eventId: event.id },
+        orderBy: { eliminatedAt: 'desc' },
+        select: { bruteId: true },
+      });
+
+      winner = last?.bruteId;
+    }
+
+    if (!winner) {
+      throw new Error('Battle royale winner not found');
+    }
+
+    await finishEvent(prisma, event.id, winner, event.brutes);
+
+    return;
+  }
+
+  const lastRound = await prisma.battleRoyaleMap.aggregate({
+    where: { eventId: event.id },
+    _max: { round: true },
+  });
+
+  const round = (lastRound._max.round ?? 0) + 1;
+
+  await createBattleRoyaleRound(
+    prisma,
+    event,
+    survivors.map((s) => s.bruteId),
+    round,
+  );
+  LOGGER.log(`Battle royale ${event.id} round ${round} started with ${survivors.length} brutes`);
 };
 
 const handleEventTournament = async (
@@ -2125,6 +2410,7 @@ const handleEventTournament = async (
   // Get last event
   const lastEvent = await prisma.event.findFirst({
     where: {
+      type: EventType.tourney,
       status: { not: EventStatus.finished },
     },
     orderBy: {
@@ -2328,81 +2614,7 @@ const handleEventTournament = async (
       throw new Error('Winner brute not found');
     }
 
-    // Update event
-    await prisma.event.update({
-      where: { id: lastEvent.id },
-      data: {
-        status: EventStatus.finished,
-        winnerId: winner,
-        finishedAt: new Date(),
-      },
-    });
-
-    // Delete all other brutes
-    const brutesToDelete = lastEvent.brutes.filter((brute) => brute.id !== winner) ?? [];
-
-    // Separate brutes 1000 by 1000
-    const brutesChunks = Array(Math.ceil(brutesToDelete.length / 1000))
-      .fill([])
-      .map((_, index) => brutesToDelete.slice(index * 1000, index * 1000 + 1000));
-
-    for (const brutesChunk of brutesChunks) {
-      await prisma.brute.updateMany({
-        where: {
-          id: {
-            in: brutesChunk.map((brute) => brute.id),
-          },
-        },
-        data: {
-          willBeDeletedAt: dayjs.utc().add(3, 'day').toDate(),
-          deletionReason: BruteDeletionReason.EVENT_LOSS,
-        },
-      });
-    }
-
-    LOGGER.log(`Marked ${brutesToDelete.length} brutes for deletion from event ${lastEvent.id}`);
-
-    // Make winner an official brute
-    const winnerBrute = await prisma.brute.update({
-      where: { id: winner },
-      data: {
-        eventId: null,
-      },
-      select: {
-        id: true,
-        userId: true,
-        destinyPath: true,
-        level: true,
-        ranking: true,
-        eventId: true,
-        xp: true,
-        ascensions: true,
-        ascendedWeapons: true,
-        ascendedSkills: true,
-        ascendedPets: true,
-      },
-    });
-
-    // Reset brute
-    await resetBrute({
-      prisma,
-      brute: winnerBrute,
-      free: true,
-    });
-
-    if (!winnerBrute.userId) {
-      throw new Error('Winner user not found');
-    }
-
-    // Add achievement
-    await increaseAchievement(
-      prisma,
-      winnerBrute.userId,
-      winnerBrute.id,
-      AchievementName.battleRoyaleWin,
-    );
-
-    LOGGER.log(`Event ${lastEvent.id} finished with winner ${winnerBrute.id}`);
+    await finishEvent(prisma, lastEvent.id, winner, lastEvent.brutes);
   }
 
   // Update event sorted brutes and tournament rounds
@@ -2589,6 +2801,7 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     await handleEventFinish(prisma);
     logMemory('After event finish');
     await handleEventTournament(prisma, modifiers);
+    await handleBattleRoyaleEvent(prisma);
     logMemory('After event tournament');
     ServerState.setCurrentEvent(undefined);
 

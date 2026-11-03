@@ -16,6 +16,7 @@ export type FightMobileViewProps = {
   fight: FightGetResponse | null;
   attackers?: Fighter[];
   defenders?: Fighter[];
+  children?: React.ReactNode;
 }
 
 export const FightMobileView = ({
@@ -24,6 +25,7 @@ export const FightMobileView = ({
   fight,
   attackers = [],
   defenders = [],
+  children,
 }: FightMobileViewProps) => {
   const { t } = useTranslation();
 
@@ -34,7 +36,7 @@ export const FightMobileView = ({
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}
         <FightComponent fight={fight} />
-
+        {children}
         {/* FIGHTERS */}
         {fight?.clanWarId && (
           <Box sx={{

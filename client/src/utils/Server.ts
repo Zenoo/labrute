@@ -2,6 +2,7 @@ import {
   AchievementGetRankingsResponse, AchievementsGetResponse,
   BanBrowserRequest,
   BanFingerprintRequest,
+  BattleRoyaleMoveRequest, BattleRoyaleMoveResponse, BattleRoyaleStateResponse,
   BruteDeleteRequest,
   BruteGetForAdminRequest, BruteGetForAdminResponse,
   BruteGetInventoryResponse, BruteReportsListResponse,
@@ -322,6 +323,9 @@ export const Server = {
     list: (page: number) => Fetch<EventListResponse>('/api/event/list', { page }),
     get: (bruteId: string, id: string) => Fetch<EventGetResponse>(`/api/event/${id}/brute/${bruteId}`),
     listCurrent: () => Fetch<EventListCurrentResponse>('/api/event/currents'),
+    getBattleRoyale: (eventId: string, bruteId: string) => Fetch<BattleRoyaleStateResponse>(`/api/event/${eventId}/battle-royale/brute/${bruteId}`),
+    moveBattleRoyale: (eventId: string, bruteId: string, data: BattleRoyaleMoveRequest) => Fetch<BattleRoyaleMoveResponse>(`/api/event/${eventId}/battle-royale/brute/${bruteId}/move`, data, 'POST'),
+    scoutBattleRoyale: (eventId: string, bruteId: string) => Fetch<BattleRoyaleStateResponse>(`/api/event/${eventId}/battle-royale/brute/${bruteId}/scout`, {}, 'POST'),
     getRound: (id: string, round: string) => Fetch<EventGetRoundResponse>(`/api/event/${id}/round/${round}`),
   },
   Notification: {

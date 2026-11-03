@@ -199,6 +199,16 @@ export type Release = $Result.DefaultSelection<Prisma.$ReleasePayload>
  */
 export type Event = $Result.DefaultSelection<Prisma.$EventPayload>
 /**
+ * Model BattleRoyaleMap
+ * 
+ */
+export type BattleRoyaleMap = $Result.DefaultSelection<Prisma.$BattleRoyaleMapPayload>
+/**
+ * Model BattleRoyaleBrute
+ * 
+ */
+export type BattleRoyaleBrute = $Result.DefaultSelection<Prisma.$BattleRoyaleBrutePayload>
+/**
  * Model Notification
  * 
  */
@@ -654,6 +664,7 @@ export type InventoryItemType = (typeof InventoryItemType)[keyof typeof Inventor
 
 
 export const EventType: {
+  tourney: 'tourney',
   battleRoyale: 'battleRoyale'
 };
 
@@ -1279,6 +1290,26 @@ export class PrismaClient<
   get event(): Prisma.EventDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.battleRoyaleMap`: Exposes CRUD operations for the **BattleRoyaleMap** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BattleRoyaleMaps
+    * const battleRoyaleMaps = await prisma.battleRoyaleMap.findMany()
+    * ```
+    */
+  get battleRoyaleMap(): Prisma.BattleRoyaleMapDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.battleRoyaleBrute`: Exposes CRUD operations for the **BattleRoyaleBrute** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BattleRoyaleBrutes
+    * const battleRoyaleBrutes = await prisma.battleRoyaleBrute.findMany()
+    * ```
+    */
+  get battleRoyaleBrute(): Prisma.BattleRoyaleBruteDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
     * Example usage:
     * ```ts
@@ -1825,6 +1856,8 @@ export namespace Prisma {
     InventoryItem: 'InventoryItem',
     Release: 'Release',
     Event: 'Event',
+    BattleRoyaleMap: 'BattleRoyaleMap',
+    BattleRoyaleBrute: 'BattleRoyaleBrute',
     Notification: 'Notification',
     Config: 'Config',
     ClanRole: 'ClanRole',
@@ -1850,7 +1883,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseAction" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
+      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseAction" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "battleRoyaleMap" | "battleRoyaleBrute" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4592,6 +4625,154 @@ export namespace Prisma {
           }
         }
       }
+      BattleRoyaleMap: {
+        payload: Prisma.$BattleRoyaleMapPayload<ExtArgs>
+        fields: Prisma.BattleRoyaleMapFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BattleRoyaleMapFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BattleRoyaleMapFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>
+          }
+          findFirst: {
+            args: Prisma.BattleRoyaleMapFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BattleRoyaleMapFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>
+          }
+          findMany: {
+            args: Prisma.BattleRoyaleMapFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>[]
+          }
+          create: {
+            args: Prisma.BattleRoyaleMapCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>
+          }
+          createMany: {
+            args: Prisma.BattleRoyaleMapCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BattleRoyaleMapCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>[]
+          }
+          delete: {
+            args: Prisma.BattleRoyaleMapDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>
+          }
+          update: {
+            args: Prisma.BattleRoyaleMapUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>
+          }
+          deleteMany: {
+            args: Prisma.BattleRoyaleMapDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BattleRoyaleMapUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BattleRoyaleMapUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>[]
+          }
+          upsert: {
+            args: Prisma.BattleRoyaleMapUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleMapPayload>
+          }
+          aggregate: {
+            args: Prisma.BattleRoyaleMapAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBattleRoyaleMap>
+          }
+          groupBy: {
+            args: Prisma.BattleRoyaleMapGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BattleRoyaleMapGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BattleRoyaleMapCountArgs<ExtArgs>
+            result: $Utils.Optional<BattleRoyaleMapCountAggregateOutputType> | number
+          }
+        }
+      }
+      BattleRoyaleBrute: {
+        payload: Prisma.$BattleRoyaleBrutePayload<ExtArgs>
+        fields: Prisma.BattleRoyaleBruteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BattleRoyaleBruteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BattleRoyaleBruteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>
+          }
+          findFirst: {
+            args: Prisma.BattleRoyaleBruteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BattleRoyaleBruteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>
+          }
+          findMany: {
+            args: Prisma.BattleRoyaleBruteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>[]
+          }
+          create: {
+            args: Prisma.BattleRoyaleBruteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>
+          }
+          createMany: {
+            args: Prisma.BattleRoyaleBruteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BattleRoyaleBruteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>[]
+          }
+          delete: {
+            args: Prisma.BattleRoyaleBruteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>
+          }
+          update: {
+            args: Prisma.BattleRoyaleBruteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>
+          }
+          deleteMany: {
+            args: Prisma.BattleRoyaleBruteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BattleRoyaleBruteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BattleRoyaleBruteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>[]
+          }
+          upsert: {
+            args: Prisma.BattleRoyaleBruteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BattleRoyaleBrutePayload>
+          }
+          aggregate: {
+            args: Prisma.BattleRoyaleBruteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBattleRoyaleBrute>
+          }
+          groupBy: {
+            args: Prisma.BattleRoyaleBruteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BattleRoyaleBruteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BattleRoyaleBruteCountArgs<ExtArgs>
+            result: $Utils.Optional<BattleRoyaleBruteCountAggregateOutputType> | number
+          }
+        }
+      }
       Notification: {
         payload: Prisma.$NotificationPayload<ExtArgs>
         fields: Prisma.NotificationFieldRefs
@@ -5243,6 +5424,8 @@ export namespace Prisma {
     inventoryItem?: InventoryItemOmit
     release?: ReleaseOmit
     event?: EventOmit
+    battleRoyaleMap?: BattleRoyaleMapOmit
+    battleRoyaleBrute?: BattleRoyaleBruteOmit
     notification?: NotificationOmit
     config?: ConfigOmit
     clanRole?: ClanRoleOmit
@@ -5493,6 +5676,7 @@ export namespace Prisma {
     inventory: number
     tournamentAchievements: number
     tournamentXps: number
+    battleRoyales: number
     damageOnBosses: number
     followers: number
     inClanWarAttackerFighters: number
@@ -5520,6 +5704,7 @@ export namespace Prisma {
     inventory?: boolean | BruteCountOutputTypeCountInventoryArgs
     tournamentAchievements?: boolean | BruteCountOutputTypeCountTournamentAchievementsArgs
     tournamentXps?: boolean | BruteCountOutputTypeCountTournamentXpsArgs
+    battleRoyales?: boolean | BruteCountOutputTypeCountBattleRoyalesArgs
     damageOnBosses?: boolean | BruteCountOutputTypeCountDamageOnBossesArgs
     followers?: boolean | BruteCountOutputTypeCountFollowersArgs
     inClanWarAttackerFighters?: boolean | BruteCountOutputTypeCountInClanWarAttackerFightersArgs
@@ -5645,6 +5830,13 @@ export namespace Prisma {
    */
   export type BruteCountOutputTypeCountTournamentXpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TournamentXpWhereInput
+  }
+
+  /**
+   * BruteCountOutputType without action
+   */
+  export type BruteCountOutputTypeCountBattleRoyalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleRoyaleBruteWhereInput
   }
 
   /**
@@ -6144,10 +6336,14 @@ export namespace Prisma {
 
   export type EventCountOutputType = {
     brutes: number
+    maps: number
+    battleRoyaleBrutes: number
   }
 
   export type EventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | EventCountOutputTypeCountBrutesArgs
+    maps?: boolean | EventCountOutputTypeCountMapsArgs
+    battleRoyaleBrutes?: boolean | EventCountOutputTypeCountBattleRoyaleBrutesArgs
   }
 
   // Custom InputTypes
@@ -6166,6 +6362,51 @@ export namespace Prisma {
    */
   export type EventCountOutputTypeCountBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BruteWhereInput
+  }
+
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeCountMapsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleRoyaleMapWhereInput
+  }
+
+  /**
+   * EventCountOutputType without action
+   */
+  export type EventCountOutputTypeCountBattleRoyaleBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleRoyaleBruteWhereInput
+  }
+
+
+  /**
+   * Count Type BattleRoyaleMapCountOutputType
+   */
+
+  export type BattleRoyaleMapCountOutputType = {
+    participants: number
+  }
+
+  export type BattleRoyaleMapCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | BattleRoyaleMapCountOutputTypeCountParticipantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BattleRoyaleMapCountOutputType without action
+   */
+  export type BattleRoyaleMapCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMapCountOutputType
+     */
+    select?: BattleRoyaleMapCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BattleRoyaleMapCountOutputType without action
+   */
+  export type BattleRoyaleMapCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleRoyaleBruteWhereInput
   }
 
 
@@ -11035,6 +11276,7 @@ export namespace Prisma {
     inventory?: boolean | Brute$inventoryArgs<ExtArgs>
     tournamentAchievements?: boolean | Brute$tournamentAchievementsArgs<ExtArgs>
     tournamentXps?: boolean | Brute$tournamentXpsArgs<ExtArgs>
+    battleRoyales?: boolean | Brute$battleRoyalesArgs<ExtArgs>
     startingStats?: boolean | Brute$startingStatsArgs<ExtArgs>
     damageOnBosses?: boolean | Brute$damageOnBossesArgs<ExtArgs>
     followers?: boolean | Brute$followersArgs<ExtArgs>
@@ -11265,6 +11507,7 @@ export namespace Prisma {
     inventory?: boolean | Brute$inventoryArgs<ExtArgs>
     tournamentAchievements?: boolean | Brute$tournamentAchievementsArgs<ExtArgs>
     tournamentXps?: boolean | Brute$tournamentXpsArgs<ExtArgs>
+    battleRoyales?: boolean | Brute$battleRoyalesArgs<ExtArgs>
     startingStats?: boolean | Brute$startingStatsArgs<ExtArgs>
     damageOnBosses?: boolean | Brute$damageOnBossesArgs<ExtArgs>
     followers?: boolean | Brute$followersArgs<ExtArgs>
@@ -11320,6 +11563,7 @@ export namespace Prisma {
       inventory: Prisma.$InventoryItemPayload<ExtArgs>[]
       tournamentAchievements: Prisma.$TournamentAchievementPayload<ExtArgs>[]
       tournamentXps: Prisma.$TournamentXpPayload<ExtArgs>[]
+      battleRoyales: Prisma.$BattleRoyaleBrutePayload<ExtArgs>[]
       startingStats: Prisma.$BruteStartingStatsPayload<ExtArgs> | null
       damageOnBosses: Prisma.$BossDamagePayload<ExtArgs>[]
       followers: Prisma.$UserPayload<ExtArgs>[]
@@ -11806,6 +12050,7 @@ export namespace Prisma {
     inventory<T extends Brute$inventoryArgs<ExtArgs> = {}>(args?: Subset<T, Brute$inventoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tournamentAchievements<T extends Brute$tournamentAchievementsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentAchievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentAchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tournamentXps<T extends Brute$tournamentXpsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$tournamentXpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TournamentXpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    battleRoyales<T extends Brute$battleRoyalesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$battleRoyalesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     startingStats<T extends Brute$startingStatsArgs<ExtArgs> = {}>(args?: Subset<T, Brute$startingStatsArgs<ExtArgs>>): Prisma__BruteStartingStatsClient<$Result.GetResult<Prisma.$BruteStartingStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     damageOnBosses<T extends Brute$damageOnBossesArgs<ExtArgs> = {}>(args?: Subset<T, Brute$damageOnBossesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BossDamagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     followers<T extends Brute$followersArgs<ExtArgs> = {}>(args?: Subset<T, Brute$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12762,6 +13007,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TournamentXpScalarFieldEnum | TournamentXpScalarFieldEnum[]
+  }
+
+  /**
+   * Brute.battleRoyales
+   */
+  export type Brute$battleRoyalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    where?: BattleRoyaleBruteWhereInput
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BattleRoyaleBruteScalarFieldEnum | BattleRoyaleBruteScalarFieldEnum[]
   }
 
   /**
@@ -49128,11 +49397,15 @@ export namespace Prisma {
   export type EventAvgAggregateOutputType = {
     maxLevel: number | null
     maxRound: number | null
+    groupSize: number | null
+    baseVision: number | null
   }
 
   export type EventSumAggregateOutputType = {
     maxLevel: number | null
     maxRound: number | null
+    groupSize: number | null
+    baseVision: number | null
   }
 
   export type EventMinAggregateOutputType = {
@@ -49144,6 +49417,8 @@ export namespace Prisma {
     status: $Enums.EventStatus | null
     winnerId: string | null
     finishedAt: Date | null
+    groupSize: number | null
+    baseVision: number | null
   }
 
   export type EventMaxAggregateOutputType = {
@@ -49155,6 +49430,8 @@ export namespace Prisma {
     status: $Enums.EventStatus | null
     winnerId: string | null
     finishedAt: Date | null
+    groupSize: number | null
+    baseVision: number | null
   }
 
   export type EventCountAggregateOutputType = {
@@ -49167,6 +49444,8 @@ export namespace Prisma {
     winnerId: number
     finishedAt: number
     sortedBrutes: number
+    groupSize: number
+    baseVision: number
     _all: number
   }
 
@@ -49174,11 +49453,15 @@ export namespace Prisma {
   export type EventAvgAggregateInputType = {
     maxLevel?: true
     maxRound?: true
+    groupSize?: true
+    baseVision?: true
   }
 
   export type EventSumAggregateInputType = {
     maxLevel?: true
     maxRound?: true
+    groupSize?: true
+    baseVision?: true
   }
 
   export type EventMinAggregateInputType = {
@@ -49190,6 +49473,8 @@ export namespace Prisma {
     status?: true
     winnerId?: true
     finishedAt?: true
+    groupSize?: true
+    baseVision?: true
   }
 
   export type EventMaxAggregateInputType = {
@@ -49201,6 +49486,8 @@ export namespace Prisma {
     status?: true
     winnerId?: true
     finishedAt?: true
+    groupSize?: true
+    baseVision?: true
   }
 
   export type EventCountAggregateInputType = {
@@ -49213,6 +49500,8 @@ export namespace Prisma {
     winnerId?: true
     finishedAt?: true
     sortedBrutes?: true
+    groupSize?: true
+    baseVision?: true
     _all?: true
   }
 
@@ -49312,6 +49601,8 @@ export namespace Prisma {
     winnerId: string | null
     finishedAt: Date | null
     sortedBrutes: string[]
+    groupSize: number
+    baseVision: number
     _count: EventCountAggregateOutputType | null
     _avg: EventAvgAggregateOutputType | null
     _sum: EventSumAggregateOutputType | null
@@ -49343,9 +49634,13 @@ export namespace Prisma {
     winnerId?: boolean
     finishedAt?: boolean
     sortedBrutes?: boolean
+    groupSize?: boolean
+    baseVision?: boolean
     brutes?: boolean | Event$brutesArgs<ExtArgs>
     tournament?: boolean | Event$tournamentArgs<ExtArgs>
     winner?: boolean | Event$winnerArgs<ExtArgs>
+    maps?: boolean | Event$mapsArgs<ExtArgs>
+    battleRoyaleBrutes?: boolean | Event$battleRoyaleBrutesArgs<ExtArgs>
     _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -49359,6 +49654,8 @@ export namespace Prisma {
     winnerId?: boolean
     finishedAt?: boolean
     sortedBrutes?: boolean
+    groupSize?: boolean
+    baseVision?: boolean
     winner?: boolean | Event$winnerArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -49372,6 +49669,8 @@ export namespace Prisma {
     winnerId?: boolean
     finishedAt?: boolean
     sortedBrutes?: boolean
+    groupSize?: boolean
+    baseVision?: boolean
     winner?: boolean | Event$winnerArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
@@ -49385,13 +49684,17 @@ export namespace Prisma {
     winnerId?: boolean
     finishedAt?: boolean
     sortedBrutes?: boolean
+    groupSize?: boolean
+    baseVision?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "type" | "maxLevel" | "maxRound" | "status" | "winnerId" | "finishedAt" | "sortedBrutes", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "type" | "maxLevel" | "maxRound" | "status" | "winnerId" | "finishedAt" | "sortedBrutes" | "groupSize" | "baseVision", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     brutes?: boolean | Event$brutesArgs<ExtArgs>
     tournament?: boolean | Event$tournamentArgs<ExtArgs>
     winner?: boolean | Event$winnerArgs<ExtArgs>
+    maps?: boolean | Event$mapsArgs<ExtArgs>
+    battleRoyaleBrutes?: boolean | Event$battleRoyaleBrutesArgs<ExtArgs>
     _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -49407,6 +49710,8 @@ export namespace Prisma {
       brutes: Prisma.$BrutePayload<ExtArgs>[]
       tournament: Prisma.$TournamentPayload<ExtArgs> | null
       winner: Prisma.$BrutePayload<ExtArgs> | null
+      maps: Prisma.$BattleRoyaleMapPayload<ExtArgs>[]
+      battleRoyaleBrutes: Prisma.$BattleRoyaleBrutePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -49418,6 +49723,8 @@ export namespace Prisma {
       winnerId: string | null
       finishedAt: Date | null
       sortedBrutes: string[]
+      groupSize: number
+      baseVision: number
     }, ExtArgs["result"]["event"]>
     composites: {}
   }
@@ -49815,6 +50122,8 @@ export namespace Prisma {
     brutes<T extends Event$brutesArgs<ExtArgs> = {}>(args?: Subset<T, Event$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tournament<T extends Event$tournamentArgs<ExtArgs> = {}>(args?: Subset<T, Event$tournamentArgs<ExtArgs>>): Prisma__TournamentClient<$Result.GetResult<Prisma.$TournamentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     winner<T extends Event$winnerArgs<ExtArgs> = {}>(args?: Subset<T, Event$winnerArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    maps<T extends Event$mapsArgs<ExtArgs> = {}>(args?: Subset<T, Event$mapsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    battleRoyaleBrutes<T extends Event$battleRoyaleBrutesArgs<ExtArgs> = {}>(args?: Subset<T, Event$battleRoyaleBrutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -49853,6 +50162,8 @@ export namespace Prisma {
     readonly winnerId: FieldRef<"Event", 'String'>
     readonly finishedAt: FieldRef<"Event", 'DateTime'>
     readonly sortedBrutes: FieldRef<"Event", 'String[]'>
+    readonly groupSize: FieldRef<"Event", 'Int'>
+    readonly baseVision: FieldRef<"Event", 'Int'>
   }
     
 
@@ -50320,6 +50631,54 @@ export namespace Prisma {
   }
 
   /**
+   * Event.maps
+   */
+  export type Event$mapsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    where?: BattleRoyaleMapWhereInput
+    orderBy?: BattleRoyaleMapOrderByWithRelationInput | BattleRoyaleMapOrderByWithRelationInput[]
+    cursor?: BattleRoyaleMapWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BattleRoyaleMapScalarFieldEnum | BattleRoyaleMapScalarFieldEnum[]
+  }
+
+  /**
+   * Event.battleRoyaleBrutes
+   */
+  export type Event$battleRoyaleBrutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    where?: BattleRoyaleBruteWhereInput
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BattleRoyaleBruteScalarFieldEnum | BattleRoyaleBruteScalarFieldEnum[]
+  }
+
+  /**
    * Event without action
    */
   export type EventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -50335,6 +50694,2422 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BattleRoyaleMap
+   */
+
+  export type AggregateBattleRoyaleMap = {
+    _count: BattleRoyaleMapCountAggregateOutputType | null
+    _avg: BattleRoyaleMapAvgAggregateOutputType | null
+    _sum: BattleRoyaleMapSumAggregateOutputType | null
+    _min: BattleRoyaleMapMinAggregateOutputType | null
+    _max: BattleRoyaleMapMaxAggregateOutputType | null
+  }
+
+  export type BattleRoyaleMapAvgAggregateOutputType = {
+    round: number | null
+    radius: number | null
+  }
+
+  export type BattleRoyaleMapSumAggregateOutputType = {
+    round: number | null
+    radius: number | null
+  }
+
+  export type BattleRoyaleMapMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    round: number | null
+    radius: number | null
+    lastShrinkAt: Date | null
+    resolved: boolean | null
+    resolvedAt: Date | null
+  }
+
+  export type BattleRoyaleMapMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    round: number | null
+    radius: number | null
+    lastShrinkAt: Date | null
+    resolved: boolean | null
+    resolvedAt: Date | null
+  }
+
+  export type BattleRoyaleMapCountAggregateOutputType = {
+    id: number
+    eventId: number
+    round: number
+    radius: number
+    lastShrinkAt: number
+    tiles: number
+    resolved: number
+    resolvedAt: number
+    _all: number
+  }
+
+
+  export type BattleRoyaleMapAvgAggregateInputType = {
+    round?: true
+    radius?: true
+  }
+
+  export type BattleRoyaleMapSumAggregateInputType = {
+    round?: true
+    radius?: true
+  }
+
+  export type BattleRoyaleMapMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    round?: true
+    radius?: true
+    lastShrinkAt?: true
+    resolved?: true
+    resolvedAt?: true
+  }
+
+  export type BattleRoyaleMapMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    round?: true
+    radius?: true
+    lastShrinkAt?: true
+    resolved?: true
+    resolvedAt?: true
+  }
+
+  export type BattleRoyaleMapCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    round?: true
+    radius?: true
+    lastShrinkAt?: true
+    tiles?: true
+    resolved?: true
+    resolvedAt?: true
+    _all?: true
+  }
+
+  export type BattleRoyaleMapAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BattleRoyaleMap to aggregate.
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleMaps to fetch.
+     */
+    orderBy?: BattleRoyaleMapOrderByWithRelationInput | BattleRoyaleMapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BattleRoyaleMapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleMaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleMaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BattleRoyaleMaps
+    **/
+    _count?: true | BattleRoyaleMapCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BattleRoyaleMapAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BattleRoyaleMapSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BattleRoyaleMapMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BattleRoyaleMapMaxAggregateInputType
+  }
+
+  export type GetBattleRoyaleMapAggregateType<T extends BattleRoyaleMapAggregateArgs> = {
+        [P in keyof T & keyof AggregateBattleRoyaleMap]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBattleRoyaleMap[P]>
+      : GetScalarType<T[P], AggregateBattleRoyaleMap[P]>
+  }
+
+
+
+
+  export type BattleRoyaleMapGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleRoyaleMapWhereInput
+    orderBy?: BattleRoyaleMapOrderByWithAggregationInput | BattleRoyaleMapOrderByWithAggregationInput[]
+    by: BattleRoyaleMapScalarFieldEnum[] | BattleRoyaleMapScalarFieldEnum
+    having?: BattleRoyaleMapScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BattleRoyaleMapCountAggregateInputType | true
+    _avg?: BattleRoyaleMapAvgAggregateInputType
+    _sum?: BattleRoyaleMapSumAggregateInputType
+    _min?: BattleRoyaleMapMinAggregateInputType
+    _max?: BattleRoyaleMapMaxAggregateInputType
+  }
+
+  export type BattleRoyaleMapGroupByOutputType = {
+    id: string
+    eventId: string
+    round: number
+    radius: number
+    lastShrinkAt: Date
+    tiles: JsonValue
+    resolved: boolean
+    resolvedAt: Date | null
+    _count: BattleRoyaleMapCountAggregateOutputType | null
+    _avg: BattleRoyaleMapAvgAggregateOutputType | null
+    _sum: BattleRoyaleMapSumAggregateOutputType | null
+    _min: BattleRoyaleMapMinAggregateOutputType | null
+    _max: BattleRoyaleMapMaxAggregateOutputType | null
+  }
+
+  type GetBattleRoyaleMapGroupByPayload<T extends BattleRoyaleMapGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BattleRoyaleMapGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BattleRoyaleMapGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BattleRoyaleMapGroupByOutputType[P]>
+            : GetScalarType<T[P], BattleRoyaleMapGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BattleRoyaleMapSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    round?: boolean
+    radius?: boolean
+    lastShrinkAt?: boolean
+    tiles?: boolean
+    resolved?: boolean
+    resolvedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    participants?: boolean | BattleRoyaleMap$participantsArgs<ExtArgs>
+    _count?: boolean | BattleRoyaleMapCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battleRoyaleMap"]>
+
+  export type BattleRoyaleMapSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    round?: boolean
+    radius?: boolean
+    lastShrinkAt?: boolean
+    tiles?: boolean
+    resolved?: boolean
+    resolvedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battleRoyaleMap"]>
+
+  export type BattleRoyaleMapSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    round?: boolean
+    radius?: boolean
+    lastShrinkAt?: boolean
+    tiles?: boolean
+    resolved?: boolean
+    resolvedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battleRoyaleMap"]>
+
+  export type BattleRoyaleMapSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    round?: boolean
+    radius?: boolean
+    lastShrinkAt?: boolean
+    tiles?: boolean
+    resolved?: boolean
+    resolvedAt?: boolean
+  }
+
+  export type BattleRoyaleMapOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "round" | "radius" | "lastShrinkAt" | "tiles" | "resolved" | "resolvedAt", ExtArgs["result"]["battleRoyaleMap"]>
+  export type BattleRoyaleMapInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    participants?: boolean | BattleRoyaleMap$participantsArgs<ExtArgs>
+    _count?: boolean | BattleRoyaleMapCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BattleRoyaleMapIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+  }
+  export type BattleRoyaleMapIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+  }
+
+  export type $BattleRoyaleMapPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BattleRoyaleMap"
+    objects: {
+      event: Prisma.$EventPayload<ExtArgs>
+      participants: Prisma.$BattleRoyaleBrutePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      round: number
+      radius: number
+      lastShrinkAt: Date
+      tiles: Prisma.JsonValue
+      resolved: boolean
+      resolvedAt: Date | null
+    }, ExtArgs["result"]["battleRoyaleMap"]>
+    composites: {}
+  }
+
+  type BattleRoyaleMapGetPayload<S extends boolean | null | undefined | BattleRoyaleMapDefaultArgs> = $Result.GetResult<Prisma.$BattleRoyaleMapPayload, S>
+
+  type BattleRoyaleMapCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BattleRoyaleMapFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BattleRoyaleMapCountAggregateInputType | true
+    }
+
+  export interface BattleRoyaleMapDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BattleRoyaleMap'], meta: { name: 'BattleRoyaleMap' } }
+    /**
+     * Find zero or one BattleRoyaleMap that matches the filter.
+     * @param {BattleRoyaleMapFindUniqueArgs} args - Arguments to find a BattleRoyaleMap
+     * @example
+     * // Get one BattleRoyaleMap
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BattleRoyaleMapFindUniqueArgs>(args: SelectSubset<T, BattleRoyaleMapFindUniqueArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BattleRoyaleMap that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BattleRoyaleMapFindUniqueOrThrowArgs} args - Arguments to find a BattleRoyaleMap
+     * @example
+     * // Get one BattleRoyaleMap
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BattleRoyaleMapFindUniqueOrThrowArgs>(args: SelectSubset<T, BattleRoyaleMapFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BattleRoyaleMap that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapFindFirstArgs} args - Arguments to find a BattleRoyaleMap
+     * @example
+     * // Get one BattleRoyaleMap
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BattleRoyaleMapFindFirstArgs>(args?: SelectSubset<T, BattleRoyaleMapFindFirstArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BattleRoyaleMap that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapFindFirstOrThrowArgs} args - Arguments to find a BattleRoyaleMap
+     * @example
+     * // Get one BattleRoyaleMap
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BattleRoyaleMapFindFirstOrThrowArgs>(args?: SelectSubset<T, BattleRoyaleMapFindFirstOrThrowArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BattleRoyaleMaps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BattleRoyaleMaps
+     * const battleRoyaleMaps = await prisma.battleRoyaleMap.findMany()
+     * 
+     * // Get first 10 BattleRoyaleMaps
+     * const battleRoyaleMaps = await prisma.battleRoyaleMap.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const battleRoyaleMapWithIdOnly = await prisma.battleRoyaleMap.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BattleRoyaleMapFindManyArgs>(args?: SelectSubset<T, BattleRoyaleMapFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BattleRoyaleMap.
+     * @param {BattleRoyaleMapCreateArgs} args - Arguments to create a BattleRoyaleMap.
+     * @example
+     * // Create one BattleRoyaleMap
+     * const BattleRoyaleMap = await prisma.battleRoyaleMap.create({
+     *   data: {
+     *     // ... data to create a BattleRoyaleMap
+     *   }
+     * })
+     * 
+     */
+    create<T extends BattleRoyaleMapCreateArgs>(args: SelectSubset<T, BattleRoyaleMapCreateArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BattleRoyaleMaps.
+     * @param {BattleRoyaleMapCreateManyArgs} args - Arguments to create many BattleRoyaleMaps.
+     * @example
+     * // Create many BattleRoyaleMaps
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BattleRoyaleMapCreateManyArgs>(args?: SelectSubset<T, BattleRoyaleMapCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BattleRoyaleMaps and returns the data saved in the database.
+     * @param {BattleRoyaleMapCreateManyAndReturnArgs} args - Arguments to create many BattleRoyaleMaps.
+     * @example
+     * // Create many BattleRoyaleMaps
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BattleRoyaleMaps and only return the `id`
+     * const battleRoyaleMapWithIdOnly = await prisma.battleRoyaleMap.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BattleRoyaleMapCreateManyAndReturnArgs>(args?: SelectSubset<T, BattleRoyaleMapCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BattleRoyaleMap.
+     * @param {BattleRoyaleMapDeleteArgs} args - Arguments to delete one BattleRoyaleMap.
+     * @example
+     * // Delete one BattleRoyaleMap
+     * const BattleRoyaleMap = await prisma.battleRoyaleMap.delete({
+     *   where: {
+     *     // ... filter to delete one BattleRoyaleMap
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BattleRoyaleMapDeleteArgs>(args: SelectSubset<T, BattleRoyaleMapDeleteArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BattleRoyaleMap.
+     * @param {BattleRoyaleMapUpdateArgs} args - Arguments to update one BattleRoyaleMap.
+     * @example
+     * // Update one BattleRoyaleMap
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BattleRoyaleMapUpdateArgs>(args: SelectSubset<T, BattleRoyaleMapUpdateArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BattleRoyaleMaps.
+     * @param {BattleRoyaleMapDeleteManyArgs} args - Arguments to filter BattleRoyaleMaps to delete.
+     * @example
+     * // Delete a few BattleRoyaleMaps
+     * const { count } = await prisma.battleRoyaleMap.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BattleRoyaleMapDeleteManyArgs>(args?: SelectSubset<T, BattleRoyaleMapDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BattleRoyaleMaps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BattleRoyaleMaps
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BattleRoyaleMapUpdateManyArgs>(args: SelectSubset<T, BattleRoyaleMapUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BattleRoyaleMaps and returns the data updated in the database.
+     * @param {BattleRoyaleMapUpdateManyAndReturnArgs} args - Arguments to update many BattleRoyaleMaps.
+     * @example
+     * // Update many BattleRoyaleMaps
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BattleRoyaleMaps and only return the `id`
+     * const battleRoyaleMapWithIdOnly = await prisma.battleRoyaleMap.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BattleRoyaleMapUpdateManyAndReturnArgs>(args: SelectSubset<T, BattleRoyaleMapUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BattleRoyaleMap.
+     * @param {BattleRoyaleMapUpsertArgs} args - Arguments to update or create a BattleRoyaleMap.
+     * @example
+     * // Update or create a BattleRoyaleMap
+     * const battleRoyaleMap = await prisma.battleRoyaleMap.upsert({
+     *   create: {
+     *     // ... data to create a BattleRoyaleMap
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BattleRoyaleMap we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BattleRoyaleMapUpsertArgs>(args: SelectSubset<T, BattleRoyaleMapUpsertArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BattleRoyaleMaps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapCountArgs} args - Arguments to filter BattleRoyaleMaps to count.
+     * @example
+     * // Count the number of BattleRoyaleMaps
+     * const count = await prisma.battleRoyaleMap.count({
+     *   where: {
+     *     // ... the filter for the BattleRoyaleMaps we want to count
+     *   }
+     * })
+    **/
+    count<T extends BattleRoyaleMapCountArgs>(
+      args?: Subset<T, BattleRoyaleMapCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BattleRoyaleMapCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BattleRoyaleMap.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BattleRoyaleMapAggregateArgs>(args: Subset<T, BattleRoyaleMapAggregateArgs>): Prisma.PrismaPromise<GetBattleRoyaleMapAggregateType<T>>
+
+    /**
+     * Group by BattleRoyaleMap.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleMapGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BattleRoyaleMapGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BattleRoyaleMapGroupByArgs['orderBy'] }
+        : { orderBy?: BattleRoyaleMapGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BattleRoyaleMapGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattleRoyaleMapGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BattleRoyaleMap model
+   */
+  readonly fields: BattleRoyaleMapFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BattleRoyaleMap.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BattleRoyaleMapClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends EventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EventDefaultArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    participants<T extends BattleRoyaleMap$participantsArgs<ExtArgs> = {}>(args?: Subset<T, BattleRoyaleMap$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BattleRoyaleMap model
+   */
+  interface BattleRoyaleMapFieldRefs {
+    readonly id: FieldRef<"BattleRoyaleMap", 'String'>
+    readonly eventId: FieldRef<"BattleRoyaleMap", 'String'>
+    readonly round: FieldRef<"BattleRoyaleMap", 'Int'>
+    readonly radius: FieldRef<"BattleRoyaleMap", 'Int'>
+    readonly lastShrinkAt: FieldRef<"BattleRoyaleMap", 'DateTime'>
+    readonly tiles: FieldRef<"BattleRoyaleMap", 'Json'>
+    readonly resolved: FieldRef<"BattleRoyaleMap", 'Boolean'>
+    readonly resolvedAt: FieldRef<"BattleRoyaleMap", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BattleRoyaleMap findUnique
+   */
+  export type BattleRoyaleMapFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleMap to fetch.
+     */
+    where: BattleRoyaleMapWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap findUniqueOrThrow
+   */
+  export type BattleRoyaleMapFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleMap to fetch.
+     */
+    where: BattleRoyaleMapWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap findFirst
+   */
+  export type BattleRoyaleMapFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleMap to fetch.
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleMaps to fetch.
+     */
+    orderBy?: BattleRoyaleMapOrderByWithRelationInput | BattleRoyaleMapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BattleRoyaleMaps.
+     */
+    cursor?: BattleRoyaleMapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleMaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleMaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleRoyaleMaps.
+     */
+    distinct?: BattleRoyaleMapScalarFieldEnum | BattleRoyaleMapScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap findFirstOrThrow
+   */
+  export type BattleRoyaleMapFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleMap to fetch.
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleMaps to fetch.
+     */
+    orderBy?: BattleRoyaleMapOrderByWithRelationInput | BattleRoyaleMapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BattleRoyaleMaps.
+     */
+    cursor?: BattleRoyaleMapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleMaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleMaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleRoyaleMaps.
+     */
+    distinct?: BattleRoyaleMapScalarFieldEnum | BattleRoyaleMapScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap findMany
+   */
+  export type BattleRoyaleMapFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleMaps to fetch.
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleMaps to fetch.
+     */
+    orderBy?: BattleRoyaleMapOrderByWithRelationInput | BattleRoyaleMapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BattleRoyaleMaps.
+     */
+    cursor?: BattleRoyaleMapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleMaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleMaps.
+     */
+    skip?: number
+    distinct?: BattleRoyaleMapScalarFieldEnum | BattleRoyaleMapScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap create
+   */
+  export type BattleRoyaleMapCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BattleRoyaleMap.
+     */
+    data: XOR<BattleRoyaleMapCreateInput, BattleRoyaleMapUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap createMany
+   */
+  export type BattleRoyaleMapCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BattleRoyaleMaps.
+     */
+    data: BattleRoyaleMapCreateManyInput | BattleRoyaleMapCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BattleRoyaleMap createManyAndReturn
+   */
+  export type BattleRoyaleMapCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * The data used to create many BattleRoyaleMaps.
+     */
+    data: BattleRoyaleMapCreateManyInput | BattleRoyaleMapCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BattleRoyaleMap update
+   */
+  export type BattleRoyaleMapUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BattleRoyaleMap.
+     */
+    data: XOR<BattleRoyaleMapUpdateInput, BattleRoyaleMapUncheckedUpdateInput>
+    /**
+     * Choose, which BattleRoyaleMap to update.
+     */
+    where: BattleRoyaleMapWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap updateMany
+   */
+  export type BattleRoyaleMapUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BattleRoyaleMaps.
+     */
+    data: XOR<BattleRoyaleMapUpdateManyMutationInput, BattleRoyaleMapUncheckedUpdateManyInput>
+    /**
+     * Filter which BattleRoyaleMaps to update
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * Limit how many BattleRoyaleMaps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleRoyaleMap updateManyAndReturn
+   */
+  export type BattleRoyaleMapUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * The data used to update BattleRoyaleMaps.
+     */
+    data: XOR<BattleRoyaleMapUpdateManyMutationInput, BattleRoyaleMapUncheckedUpdateManyInput>
+    /**
+     * Filter which BattleRoyaleMaps to update
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * Limit how many BattleRoyaleMaps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BattleRoyaleMap upsert
+   */
+  export type BattleRoyaleMapUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BattleRoyaleMap to update in case it exists.
+     */
+    where: BattleRoyaleMapWhereUniqueInput
+    /**
+     * In case the BattleRoyaleMap found by the `where` argument doesn't exist, create a new BattleRoyaleMap with this data.
+     */
+    create: XOR<BattleRoyaleMapCreateInput, BattleRoyaleMapUncheckedCreateInput>
+    /**
+     * In case the BattleRoyaleMap was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BattleRoyaleMapUpdateInput, BattleRoyaleMapUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap delete
+   */
+  export type BattleRoyaleMapDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+    /**
+     * Filter which BattleRoyaleMap to delete.
+     */
+    where: BattleRoyaleMapWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleMap deleteMany
+   */
+  export type BattleRoyaleMapDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BattleRoyaleMaps to delete
+     */
+    where?: BattleRoyaleMapWhereInput
+    /**
+     * Limit how many BattleRoyaleMaps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleRoyaleMap.participants
+   */
+  export type BattleRoyaleMap$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    where?: BattleRoyaleBruteWhereInput
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BattleRoyaleBruteScalarFieldEnum | BattleRoyaleBruteScalarFieldEnum[]
+  }
+
+  /**
+   * BattleRoyaleMap without action
+   */
+  export type BattleRoyaleMapDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleMap
+     */
+    select?: BattleRoyaleMapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleMap
+     */
+    omit?: BattleRoyaleMapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleMapInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BattleRoyaleBrute
+   */
+
+  export type AggregateBattleRoyaleBrute = {
+    _count: BattleRoyaleBruteCountAggregateOutputType | null
+    _avg: BattleRoyaleBruteAvgAggregateOutputType | null
+    _sum: BattleRoyaleBruteSumAggregateOutputType | null
+    _min: BattleRoyaleBruteMinAggregateOutputType | null
+    _max: BattleRoyaleBruteMaxAggregateOutputType | null
+  }
+
+  export type BattleRoyaleBruteAvgAggregateOutputType = {
+    x: number | null
+    y: number | null
+    level: number | null
+    vision: number | null
+    movesLeft: number | null
+  }
+
+  export type BattleRoyaleBruteSumAggregateOutputType = {
+    x: number | null
+    y: number | null
+    level: number | null
+    vision: number | null
+    movesLeft: number | null
+  }
+
+  export type BattleRoyaleBruteMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    mapId: string | null
+    bruteId: string | null
+    x: number | null
+    y: number | null
+    level: number | null
+    vision: number | null
+    movesLeft: number | null
+    lastMoveDate: Date | null
+    lastScoutAt: Date | null
+    eliminated: boolean | null
+    eliminatedAt: Date | null
+  }
+
+  export type BattleRoyaleBruteMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    mapId: string | null
+    bruteId: string | null
+    x: number | null
+    y: number | null
+    level: number | null
+    vision: number | null
+    movesLeft: number | null
+    lastMoveDate: Date | null
+    lastScoutAt: Date | null
+    eliminated: boolean | null
+    eliminatedAt: Date | null
+  }
+
+  export type BattleRoyaleBruteCountAggregateOutputType = {
+    id: number
+    eventId: number
+    mapId: number
+    bruteId: number
+    x: number
+    y: number
+    level: number
+    vision: number
+    movesLeft: number
+    lastMoveDate: number
+    lastScoutAt: number
+    knownTiles: number
+    eliminated: number
+    eliminatedAt: number
+    _all: number
+  }
+
+
+  export type BattleRoyaleBruteAvgAggregateInputType = {
+    x?: true
+    y?: true
+    level?: true
+    vision?: true
+    movesLeft?: true
+  }
+
+  export type BattleRoyaleBruteSumAggregateInputType = {
+    x?: true
+    y?: true
+    level?: true
+    vision?: true
+    movesLeft?: true
+  }
+
+  export type BattleRoyaleBruteMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    mapId?: true
+    bruteId?: true
+    x?: true
+    y?: true
+    level?: true
+    vision?: true
+    movesLeft?: true
+    lastMoveDate?: true
+    lastScoutAt?: true
+    eliminated?: true
+    eliminatedAt?: true
+  }
+
+  export type BattleRoyaleBruteMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    mapId?: true
+    bruteId?: true
+    x?: true
+    y?: true
+    level?: true
+    vision?: true
+    movesLeft?: true
+    lastMoveDate?: true
+    lastScoutAt?: true
+    eliminated?: true
+    eliminatedAt?: true
+  }
+
+  export type BattleRoyaleBruteCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    mapId?: true
+    bruteId?: true
+    x?: true
+    y?: true
+    level?: true
+    vision?: true
+    movesLeft?: true
+    lastMoveDate?: true
+    lastScoutAt?: true
+    knownTiles?: true
+    eliminated?: true
+    eliminatedAt?: true
+    _all?: true
+  }
+
+  export type BattleRoyaleBruteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BattleRoyaleBrute to aggregate.
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleBrutes to fetch.
+     */
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleBrutes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleBrutes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BattleRoyaleBrutes
+    **/
+    _count?: true | BattleRoyaleBruteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BattleRoyaleBruteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BattleRoyaleBruteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BattleRoyaleBruteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BattleRoyaleBruteMaxAggregateInputType
+  }
+
+  export type GetBattleRoyaleBruteAggregateType<T extends BattleRoyaleBruteAggregateArgs> = {
+        [P in keyof T & keyof AggregateBattleRoyaleBrute]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBattleRoyaleBrute[P]>
+      : GetScalarType<T[P], AggregateBattleRoyaleBrute[P]>
+  }
+
+
+
+
+  export type BattleRoyaleBruteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BattleRoyaleBruteWhereInput
+    orderBy?: BattleRoyaleBruteOrderByWithAggregationInput | BattleRoyaleBruteOrderByWithAggregationInput[]
+    by: BattleRoyaleBruteScalarFieldEnum[] | BattleRoyaleBruteScalarFieldEnum
+    having?: BattleRoyaleBruteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BattleRoyaleBruteCountAggregateInputType | true
+    _avg?: BattleRoyaleBruteAvgAggregateInputType
+    _sum?: BattleRoyaleBruteSumAggregateInputType
+    _min?: BattleRoyaleBruteMinAggregateInputType
+    _max?: BattleRoyaleBruteMaxAggregateInputType
+  }
+
+  export type BattleRoyaleBruteGroupByOutputType = {
+    id: string
+    eventId: string
+    mapId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision: number
+    movesLeft: number
+    lastMoveDate: Date | null
+    lastScoutAt: Date | null
+    knownTiles: JsonValue
+    eliminated: boolean
+    eliminatedAt: Date | null
+    _count: BattleRoyaleBruteCountAggregateOutputType | null
+    _avg: BattleRoyaleBruteAvgAggregateOutputType | null
+    _sum: BattleRoyaleBruteSumAggregateOutputType | null
+    _min: BattleRoyaleBruteMinAggregateOutputType | null
+    _max: BattleRoyaleBruteMaxAggregateOutputType | null
+  }
+
+  type GetBattleRoyaleBruteGroupByPayload<T extends BattleRoyaleBruteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BattleRoyaleBruteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BattleRoyaleBruteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BattleRoyaleBruteGroupByOutputType[P]>
+            : GetScalarType<T[P], BattleRoyaleBruteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BattleRoyaleBruteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    mapId?: boolean
+    bruteId?: boolean
+    x?: boolean
+    y?: boolean
+    level?: boolean
+    vision?: boolean
+    movesLeft?: boolean
+    lastMoveDate?: boolean
+    lastScoutAt?: boolean
+    knownTiles?: boolean
+    eliminated?: boolean
+    eliminatedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    map?: boolean | BattleRoyaleMapDefaultArgs<ExtArgs>
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battleRoyaleBrute"]>
+
+  export type BattleRoyaleBruteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    mapId?: boolean
+    bruteId?: boolean
+    x?: boolean
+    y?: boolean
+    level?: boolean
+    vision?: boolean
+    movesLeft?: boolean
+    lastMoveDate?: boolean
+    lastScoutAt?: boolean
+    knownTiles?: boolean
+    eliminated?: boolean
+    eliminatedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    map?: boolean | BattleRoyaleMapDefaultArgs<ExtArgs>
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battleRoyaleBrute"]>
+
+  export type BattleRoyaleBruteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    mapId?: boolean
+    bruteId?: boolean
+    x?: boolean
+    y?: boolean
+    level?: boolean
+    vision?: boolean
+    movesLeft?: boolean
+    lastMoveDate?: boolean
+    lastScoutAt?: boolean
+    knownTiles?: boolean
+    eliminated?: boolean
+    eliminatedAt?: boolean
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    map?: boolean | BattleRoyaleMapDefaultArgs<ExtArgs>
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battleRoyaleBrute"]>
+
+  export type BattleRoyaleBruteSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    mapId?: boolean
+    bruteId?: boolean
+    x?: boolean
+    y?: boolean
+    level?: boolean
+    vision?: boolean
+    movesLeft?: boolean
+    lastMoveDate?: boolean
+    lastScoutAt?: boolean
+    knownTiles?: boolean
+    eliminated?: boolean
+    eliminatedAt?: boolean
+  }
+
+  export type BattleRoyaleBruteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "mapId" | "bruteId" | "x" | "y" | "level" | "vision" | "movesLeft" | "lastMoveDate" | "lastScoutAt" | "knownTiles" | "eliminated" | "eliminatedAt", ExtArgs["result"]["battleRoyaleBrute"]>
+  export type BattleRoyaleBruteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    map?: boolean | BattleRoyaleMapDefaultArgs<ExtArgs>
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type BattleRoyaleBruteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    map?: boolean | BattleRoyaleMapDefaultArgs<ExtArgs>
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+  export type BattleRoyaleBruteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | EventDefaultArgs<ExtArgs>
+    map?: boolean | BattleRoyaleMapDefaultArgs<ExtArgs>
+    brute?: boolean | BruteDefaultArgs<ExtArgs>
+  }
+
+  export type $BattleRoyaleBrutePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BattleRoyaleBrute"
+    objects: {
+      event: Prisma.$EventPayload<ExtArgs>
+      map: Prisma.$BattleRoyaleMapPayload<ExtArgs>
+      brute: Prisma.$BrutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      mapId: string
+      bruteId: string
+      x: number
+      y: number
+      level: number
+      vision: number
+      movesLeft: number
+      lastMoveDate: Date | null
+      lastScoutAt: Date | null
+      knownTiles: Prisma.JsonValue
+      eliminated: boolean
+      eliminatedAt: Date | null
+    }, ExtArgs["result"]["battleRoyaleBrute"]>
+    composites: {}
+  }
+
+  type BattleRoyaleBruteGetPayload<S extends boolean | null | undefined | BattleRoyaleBruteDefaultArgs> = $Result.GetResult<Prisma.$BattleRoyaleBrutePayload, S>
+
+  type BattleRoyaleBruteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BattleRoyaleBruteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: BattleRoyaleBruteCountAggregateInputType | true
+    }
+
+  export interface BattleRoyaleBruteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BattleRoyaleBrute'], meta: { name: 'BattleRoyaleBrute' } }
+    /**
+     * Find zero or one BattleRoyaleBrute that matches the filter.
+     * @param {BattleRoyaleBruteFindUniqueArgs} args - Arguments to find a BattleRoyaleBrute
+     * @example
+     * // Get one BattleRoyaleBrute
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BattleRoyaleBruteFindUniqueArgs>(args: SelectSubset<T, BattleRoyaleBruteFindUniqueArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BattleRoyaleBrute that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BattleRoyaleBruteFindUniqueOrThrowArgs} args - Arguments to find a BattleRoyaleBrute
+     * @example
+     * // Get one BattleRoyaleBrute
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BattleRoyaleBruteFindUniqueOrThrowArgs>(args: SelectSubset<T, BattleRoyaleBruteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BattleRoyaleBrute that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteFindFirstArgs} args - Arguments to find a BattleRoyaleBrute
+     * @example
+     * // Get one BattleRoyaleBrute
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BattleRoyaleBruteFindFirstArgs>(args?: SelectSubset<T, BattleRoyaleBruteFindFirstArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BattleRoyaleBrute that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteFindFirstOrThrowArgs} args - Arguments to find a BattleRoyaleBrute
+     * @example
+     * // Get one BattleRoyaleBrute
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BattleRoyaleBruteFindFirstOrThrowArgs>(args?: SelectSubset<T, BattleRoyaleBruteFindFirstOrThrowArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BattleRoyaleBrutes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BattleRoyaleBrutes
+     * const battleRoyaleBrutes = await prisma.battleRoyaleBrute.findMany()
+     * 
+     * // Get first 10 BattleRoyaleBrutes
+     * const battleRoyaleBrutes = await prisma.battleRoyaleBrute.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const battleRoyaleBruteWithIdOnly = await prisma.battleRoyaleBrute.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BattleRoyaleBruteFindManyArgs>(args?: SelectSubset<T, BattleRoyaleBruteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BattleRoyaleBrute.
+     * @param {BattleRoyaleBruteCreateArgs} args - Arguments to create a BattleRoyaleBrute.
+     * @example
+     * // Create one BattleRoyaleBrute
+     * const BattleRoyaleBrute = await prisma.battleRoyaleBrute.create({
+     *   data: {
+     *     // ... data to create a BattleRoyaleBrute
+     *   }
+     * })
+     * 
+     */
+    create<T extends BattleRoyaleBruteCreateArgs>(args: SelectSubset<T, BattleRoyaleBruteCreateArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BattleRoyaleBrutes.
+     * @param {BattleRoyaleBruteCreateManyArgs} args - Arguments to create many BattleRoyaleBrutes.
+     * @example
+     * // Create many BattleRoyaleBrutes
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BattleRoyaleBruteCreateManyArgs>(args?: SelectSubset<T, BattleRoyaleBruteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BattleRoyaleBrutes and returns the data saved in the database.
+     * @param {BattleRoyaleBruteCreateManyAndReturnArgs} args - Arguments to create many BattleRoyaleBrutes.
+     * @example
+     * // Create many BattleRoyaleBrutes
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BattleRoyaleBrutes and only return the `id`
+     * const battleRoyaleBruteWithIdOnly = await prisma.battleRoyaleBrute.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BattleRoyaleBruteCreateManyAndReturnArgs>(args?: SelectSubset<T, BattleRoyaleBruteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BattleRoyaleBrute.
+     * @param {BattleRoyaleBruteDeleteArgs} args - Arguments to delete one BattleRoyaleBrute.
+     * @example
+     * // Delete one BattleRoyaleBrute
+     * const BattleRoyaleBrute = await prisma.battleRoyaleBrute.delete({
+     *   where: {
+     *     // ... filter to delete one BattleRoyaleBrute
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BattleRoyaleBruteDeleteArgs>(args: SelectSubset<T, BattleRoyaleBruteDeleteArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BattleRoyaleBrute.
+     * @param {BattleRoyaleBruteUpdateArgs} args - Arguments to update one BattleRoyaleBrute.
+     * @example
+     * // Update one BattleRoyaleBrute
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BattleRoyaleBruteUpdateArgs>(args: SelectSubset<T, BattleRoyaleBruteUpdateArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BattleRoyaleBrutes.
+     * @param {BattleRoyaleBruteDeleteManyArgs} args - Arguments to filter BattleRoyaleBrutes to delete.
+     * @example
+     * // Delete a few BattleRoyaleBrutes
+     * const { count } = await prisma.battleRoyaleBrute.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BattleRoyaleBruteDeleteManyArgs>(args?: SelectSubset<T, BattleRoyaleBruteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BattleRoyaleBrutes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BattleRoyaleBrutes
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BattleRoyaleBruteUpdateManyArgs>(args: SelectSubset<T, BattleRoyaleBruteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BattleRoyaleBrutes and returns the data updated in the database.
+     * @param {BattleRoyaleBruteUpdateManyAndReturnArgs} args - Arguments to update many BattleRoyaleBrutes.
+     * @example
+     * // Update many BattleRoyaleBrutes
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BattleRoyaleBrutes and only return the `id`
+     * const battleRoyaleBruteWithIdOnly = await prisma.battleRoyaleBrute.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BattleRoyaleBruteUpdateManyAndReturnArgs>(args: SelectSubset<T, BattleRoyaleBruteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BattleRoyaleBrute.
+     * @param {BattleRoyaleBruteUpsertArgs} args - Arguments to update or create a BattleRoyaleBrute.
+     * @example
+     * // Update or create a BattleRoyaleBrute
+     * const battleRoyaleBrute = await prisma.battleRoyaleBrute.upsert({
+     *   create: {
+     *     // ... data to create a BattleRoyaleBrute
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BattleRoyaleBrute we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BattleRoyaleBruteUpsertArgs>(args: SelectSubset<T, BattleRoyaleBruteUpsertArgs<ExtArgs>>): Prisma__BattleRoyaleBruteClient<$Result.GetResult<Prisma.$BattleRoyaleBrutePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BattleRoyaleBrutes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteCountArgs} args - Arguments to filter BattleRoyaleBrutes to count.
+     * @example
+     * // Count the number of BattleRoyaleBrutes
+     * const count = await prisma.battleRoyaleBrute.count({
+     *   where: {
+     *     // ... the filter for the BattleRoyaleBrutes we want to count
+     *   }
+     * })
+    **/
+    count<T extends BattleRoyaleBruteCountArgs>(
+      args?: Subset<T, BattleRoyaleBruteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BattleRoyaleBruteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BattleRoyaleBrute.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BattleRoyaleBruteAggregateArgs>(args: Subset<T, BattleRoyaleBruteAggregateArgs>): Prisma.PrismaPromise<GetBattleRoyaleBruteAggregateType<T>>
+
+    /**
+     * Group by BattleRoyaleBrute.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattleRoyaleBruteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BattleRoyaleBruteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BattleRoyaleBruteGroupByArgs['orderBy'] }
+        : { orderBy?: BattleRoyaleBruteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BattleRoyaleBruteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattleRoyaleBruteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BattleRoyaleBrute model
+   */
+  readonly fields: BattleRoyaleBruteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BattleRoyaleBrute.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BattleRoyaleBruteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends EventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EventDefaultArgs<ExtArgs>>): Prisma__EventClient<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    map<T extends BattleRoyaleMapDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BattleRoyaleMapDefaultArgs<ExtArgs>>): Prisma__BattleRoyaleMapClient<$Result.GetResult<Prisma.$BattleRoyaleMapPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    brute<T extends BruteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BruteDefaultArgs<ExtArgs>>): Prisma__BruteClient<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BattleRoyaleBrute model
+   */
+  interface BattleRoyaleBruteFieldRefs {
+    readonly id: FieldRef<"BattleRoyaleBrute", 'String'>
+    readonly eventId: FieldRef<"BattleRoyaleBrute", 'String'>
+    readonly mapId: FieldRef<"BattleRoyaleBrute", 'String'>
+    readonly bruteId: FieldRef<"BattleRoyaleBrute", 'String'>
+    readonly x: FieldRef<"BattleRoyaleBrute", 'Int'>
+    readonly y: FieldRef<"BattleRoyaleBrute", 'Int'>
+    readonly level: FieldRef<"BattleRoyaleBrute", 'Int'>
+    readonly vision: FieldRef<"BattleRoyaleBrute", 'Int'>
+    readonly movesLeft: FieldRef<"BattleRoyaleBrute", 'Int'>
+    readonly lastMoveDate: FieldRef<"BattleRoyaleBrute", 'DateTime'>
+    readonly lastScoutAt: FieldRef<"BattleRoyaleBrute", 'DateTime'>
+    readonly knownTiles: FieldRef<"BattleRoyaleBrute", 'Json'>
+    readonly eliminated: FieldRef<"BattleRoyaleBrute", 'Boolean'>
+    readonly eliminatedAt: FieldRef<"BattleRoyaleBrute", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BattleRoyaleBrute findUnique
+   */
+  export type BattleRoyaleBruteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleBrute to fetch.
+     */
+    where: BattleRoyaleBruteWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute findUniqueOrThrow
+   */
+  export type BattleRoyaleBruteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleBrute to fetch.
+     */
+    where: BattleRoyaleBruteWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute findFirst
+   */
+  export type BattleRoyaleBruteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleBrute to fetch.
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleBrutes to fetch.
+     */
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BattleRoyaleBrutes.
+     */
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleBrutes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleBrutes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleRoyaleBrutes.
+     */
+    distinct?: BattleRoyaleBruteScalarFieldEnum | BattleRoyaleBruteScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute findFirstOrThrow
+   */
+  export type BattleRoyaleBruteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleBrute to fetch.
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleBrutes to fetch.
+     */
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BattleRoyaleBrutes.
+     */
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleBrutes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleBrutes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BattleRoyaleBrutes.
+     */
+    distinct?: BattleRoyaleBruteScalarFieldEnum | BattleRoyaleBruteScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute findMany
+   */
+  export type BattleRoyaleBruteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * Filter, which BattleRoyaleBrutes to fetch.
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BattleRoyaleBrutes to fetch.
+     */
+    orderBy?: BattleRoyaleBruteOrderByWithRelationInput | BattleRoyaleBruteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BattleRoyaleBrutes.
+     */
+    cursor?: BattleRoyaleBruteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BattleRoyaleBrutes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BattleRoyaleBrutes.
+     */
+    skip?: number
+    distinct?: BattleRoyaleBruteScalarFieldEnum | BattleRoyaleBruteScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute create
+   */
+  export type BattleRoyaleBruteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BattleRoyaleBrute.
+     */
+    data: XOR<BattleRoyaleBruteCreateInput, BattleRoyaleBruteUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute createMany
+   */
+  export type BattleRoyaleBruteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BattleRoyaleBrutes.
+     */
+    data: BattleRoyaleBruteCreateManyInput | BattleRoyaleBruteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BattleRoyaleBrute createManyAndReturn
+   */
+  export type BattleRoyaleBruteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * The data used to create many BattleRoyaleBrutes.
+     */
+    data: BattleRoyaleBruteCreateManyInput | BattleRoyaleBruteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BattleRoyaleBrute update
+   */
+  export type BattleRoyaleBruteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BattleRoyaleBrute.
+     */
+    data: XOR<BattleRoyaleBruteUpdateInput, BattleRoyaleBruteUncheckedUpdateInput>
+    /**
+     * Choose, which BattleRoyaleBrute to update.
+     */
+    where: BattleRoyaleBruteWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute updateMany
+   */
+  export type BattleRoyaleBruteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BattleRoyaleBrutes.
+     */
+    data: XOR<BattleRoyaleBruteUpdateManyMutationInput, BattleRoyaleBruteUncheckedUpdateManyInput>
+    /**
+     * Filter which BattleRoyaleBrutes to update
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * Limit how many BattleRoyaleBrutes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleRoyaleBrute updateManyAndReturn
+   */
+  export type BattleRoyaleBruteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * The data used to update BattleRoyaleBrutes.
+     */
+    data: XOR<BattleRoyaleBruteUpdateManyMutationInput, BattleRoyaleBruteUncheckedUpdateManyInput>
+    /**
+     * Filter which BattleRoyaleBrutes to update
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * Limit how many BattleRoyaleBrutes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BattleRoyaleBrute upsert
+   */
+  export type BattleRoyaleBruteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BattleRoyaleBrute to update in case it exists.
+     */
+    where: BattleRoyaleBruteWhereUniqueInput
+    /**
+     * In case the BattleRoyaleBrute found by the `where` argument doesn't exist, create a new BattleRoyaleBrute with this data.
+     */
+    create: XOR<BattleRoyaleBruteCreateInput, BattleRoyaleBruteUncheckedCreateInput>
+    /**
+     * In case the BattleRoyaleBrute was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BattleRoyaleBruteUpdateInput, BattleRoyaleBruteUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute delete
+   */
+  export type BattleRoyaleBruteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
+    /**
+     * Filter which BattleRoyaleBrute to delete.
+     */
+    where: BattleRoyaleBruteWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * BattleRoyaleBrute deleteMany
+   */
+  export type BattleRoyaleBruteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BattleRoyaleBrutes to delete
+     */
+    where?: BattleRoyaleBruteWhereInput
+    /**
+     * Limit how many BattleRoyaleBrutes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BattleRoyaleBrute without action
+   */
+  export type BattleRoyaleBruteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattleRoyaleBrute
+     */
+    select?: BattleRoyaleBruteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BattleRoyaleBrute
+     */
+    omit?: BattleRoyaleBruteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BattleRoyaleBruteInclude<ExtArgs> | null
   }
 
 
@@ -58969,10 +61744,46 @@ export namespace Prisma {
     status: 'status',
     winnerId: 'winnerId',
     finishedAt: 'finishedAt',
-    sortedBrutes: 'sortedBrutes'
+    sortedBrutes: 'sortedBrutes',
+    groupSize: 'groupSize',
+    baseVision: 'baseVision'
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+  export const BattleRoyaleMapScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    round: 'round',
+    radius: 'radius',
+    lastShrinkAt: 'lastShrinkAt',
+    tiles: 'tiles',
+    resolved: 'resolved',
+    resolvedAt: 'resolvedAt'
+  };
+
+  export type BattleRoyaleMapScalarFieldEnum = (typeof BattleRoyaleMapScalarFieldEnum)[keyof typeof BattleRoyaleMapScalarFieldEnum]
+
+
+  export const BattleRoyaleBruteScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    mapId: 'mapId',
+    bruteId: 'bruteId',
+    x: 'x',
+    y: 'y',
+    level: 'level',
+    vision: 'vision',
+    movesLeft: 'movesLeft',
+    lastMoveDate: 'lastMoveDate',
+    lastScoutAt: 'lastScoutAt',
+    knownTiles: 'knownTiles',
+    eliminated: 'eliminated',
+    eliminatedAt: 'eliminatedAt'
+  };
+
+  export type BattleRoyaleBruteScalarFieldEnum = (typeof BattleRoyaleBruteScalarFieldEnum)[keyof typeof BattleRoyaleBruteScalarFieldEnum]
 
 
   export const NotificationScalarFieldEnum: {
@@ -59992,6 +62803,7 @@ export namespace Prisma {
     inventory?: InventoryItemListRelationFilter
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
+    battleRoyales?: BattleRoyaleBruteListRelationFilter
     startingStats?: XOR<BruteStartingStatsNullableScalarRelationFilter, BruteStartingStatsWhereInput> | null
     damageOnBosses?: BossDamageListRelationFilter
     followers?: UserListRelationFilter
@@ -60085,6 +62897,7 @@ export namespace Prisma {
     inventory?: InventoryItemOrderByRelationAggregateInput
     tournamentAchievements?: TournamentAchievementOrderByRelationAggregateInput
     tournamentXps?: TournamentXpOrderByRelationAggregateInput
+    battleRoyales?: BattleRoyaleBruteOrderByRelationAggregateInput
     startingStats?: BruteStartingStatsOrderByWithRelationInput
     damageOnBosses?: BossDamageOrderByRelationAggregateInput
     followers?: UserOrderByRelationAggregateInput
@@ -60181,6 +62994,7 @@ export namespace Prisma {
     inventory?: InventoryItemListRelationFilter
     tournamentAchievements?: TournamentAchievementListRelationFilter
     tournamentXps?: TournamentXpListRelationFilter
+    battleRoyales?: BattleRoyaleBruteListRelationFilter
     startingStats?: XOR<BruteStartingStatsNullableScalarRelationFilter, BruteStartingStatsWhereInput> | null
     damageOnBosses?: BossDamageListRelationFilter
     followers?: UserListRelationFilter
@@ -62439,9 +65253,13 @@ export namespace Prisma {
     winnerId?: UuidNullableFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     sortedBrutes?: StringNullableListFilter<"Event">
+    groupSize?: IntFilter<"Event"> | number
+    baseVision?: IntFilter<"Event"> | number
     brutes?: BruteListRelationFilter
     tournament?: XOR<TournamentNullableScalarRelationFilter, TournamentWhereInput> | null
     winner?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    maps?: BattleRoyaleMapListRelationFilter
+    battleRoyaleBrutes?: BattleRoyaleBruteListRelationFilter
   }
 
   export type EventOrderByWithRelationInput = {
@@ -62454,9 +65272,13 @@ export namespace Prisma {
     winnerId?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
     sortedBrutes?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
     brutes?: BruteOrderByRelationAggregateInput
     tournament?: TournamentOrderByWithRelationInput
     winner?: BruteOrderByWithRelationInput
+    maps?: BattleRoyaleMapOrderByRelationAggregateInput
+    battleRoyaleBrutes?: BattleRoyaleBruteOrderByRelationAggregateInput
   }
 
   export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -62472,9 +65294,13 @@ export namespace Prisma {
     winnerId?: UuidNullableFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     sortedBrutes?: StringNullableListFilter<"Event">
+    groupSize?: IntFilter<"Event"> | number
+    baseVision?: IntFilter<"Event"> | number
     brutes?: BruteListRelationFilter
     tournament?: XOR<TournamentNullableScalarRelationFilter, TournamentWhereInput> | null
     winner?: XOR<BruteNullableScalarRelationFilter, BruteWhereInput> | null
+    maps?: BattleRoyaleMapListRelationFilter
+    battleRoyaleBrutes?: BattleRoyaleBruteListRelationFilter
   }, "id" | "id">
 
   export type EventOrderByWithAggregationInput = {
@@ -62487,6 +65313,8 @@ export namespace Prisma {
     winnerId?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
     sortedBrutes?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
     _count?: EventCountOrderByAggregateInput
     _avg?: EventAvgOrderByAggregateInput
     _max?: EventMaxOrderByAggregateInput
@@ -62507,6 +65335,192 @@ export namespace Prisma {
     winnerId?: UuidNullableWithAggregatesFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
     sortedBrutes?: StringNullableListFilter<"Event">
+    groupSize?: IntWithAggregatesFilter<"Event"> | number
+    baseVision?: IntWithAggregatesFilter<"Event"> | number
+  }
+
+  export type BattleRoyaleMapWhereInput = {
+    AND?: BattleRoyaleMapWhereInput | BattleRoyaleMapWhereInput[]
+    OR?: BattleRoyaleMapWhereInput[]
+    NOT?: BattleRoyaleMapWhereInput | BattleRoyaleMapWhereInput[]
+    id?: UuidFilter<"BattleRoyaleMap"> | string
+    eventId?: UuidFilter<"BattleRoyaleMap"> | string
+    round?: IntFilter<"BattleRoyaleMap"> | number
+    radius?: IntFilter<"BattleRoyaleMap"> | number
+    lastShrinkAt?: DateTimeFilter<"BattleRoyaleMap"> | Date | string
+    tiles?: JsonFilter<"BattleRoyaleMap">
+    resolved?: BoolFilter<"BattleRoyaleMap"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"BattleRoyaleMap"> | Date | string | null
+    event?: XOR<EventScalarRelationFilter, EventWhereInput>
+    participants?: BattleRoyaleBruteListRelationFilter
+  }
+
+  export type BattleRoyaleMapOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    round?: SortOrder
+    radius?: SortOrder
+    lastShrinkAt?: SortOrder
+    tiles?: SortOrder
+    resolved?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    event?: EventOrderByWithRelationInput
+    participants?: BattleRoyaleBruteOrderByRelationAggregateInput
+  }
+
+  export type BattleRoyaleMapWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BattleRoyaleMapWhereInput | BattleRoyaleMapWhereInput[]
+    OR?: BattleRoyaleMapWhereInput[]
+    NOT?: BattleRoyaleMapWhereInput | BattleRoyaleMapWhereInput[]
+    eventId?: UuidFilter<"BattleRoyaleMap"> | string
+    round?: IntFilter<"BattleRoyaleMap"> | number
+    radius?: IntFilter<"BattleRoyaleMap"> | number
+    lastShrinkAt?: DateTimeFilter<"BattleRoyaleMap"> | Date | string
+    tiles?: JsonFilter<"BattleRoyaleMap">
+    resolved?: BoolFilter<"BattleRoyaleMap"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"BattleRoyaleMap"> | Date | string | null
+    event?: XOR<EventScalarRelationFilter, EventWhereInput>
+    participants?: BattleRoyaleBruteListRelationFilter
+  }, "id" | "id">
+
+  export type BattleRoyaleMapOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    round?: SortOrder
+    radius?: SortOrder
+    lastShrinkAt?: SortOrder
+    tiles?: SortOrder
+    resolved?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    _count?: BattleRoyaleMapCountOrderByAggregateInput
+    _avg?: BattleRoyaleMapAvgOrderByAggregateInput
+    _max?: BattleRoyaleMapMaxOrderByAggregateInput
+    _min?: BattleRoyaleMapMinOrderByAggregateInput
+    _sum?: BattleRoyaleMapSumOrderByAggregateInput
+  }
+
+  export type BattleRoyaleMapScalarWhereWithAggregatesInput = {
+    AND?: BattleRoyaleMapScalarWhereWithAggregatesInput | BattleRoyaleMapScalarWhereWithAggregatesInput[]
+    OR?: BattleRoyaleMapScalarWhereWithAggregatesInput[]
+    NOT?: BattleRoyaleMapScalarWhereWithAggregatesInput | BattleRoyaleMapScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"BattleRoyaleMap"> | string
+    eventId?: UuidWithAggregatesFilter<"BattleRoyaleMap"> | string
+    round?: IntWithAggregatesFilter<"BattleRoyaleMap"> | number
+    radius?: IntWithAggregatesFilter<"BattleRoyaleMap"> | number
+    lastShrinkAt?: DateTimeWithAggregatesFilter<"BattleRoyaleMap"> | Date | string
+    tiles?: JsonWithAggregatesFilter<"BattleRoyaleMap">
+    resolved?: BoolWithAggregatesFilter<"BattleRoyaleMap"> | boolean
+    resolvedAt?: DateTimeNullableWithAggregatesFilter<"BattleRoyaleMap"> | Date | string | null
+  }
+
+  export type BattleRoyaleBruteWhereInput = {
+    AND?: BattleRoyaleBruteWhereInput | BattleRoyaleBruteWhereInput[]
+    OR?: BattleRoyaleBruteWhereInput[]
+    NOT?: BattleRoyaleBruteWhereInput | BattleRoyaleBruteWhereInput[]
+    id?: UuidFilter<"BattleRoyaleBrute"> | string
+    eventId?: UuidFilter<"BattleRoyaleBrute"> | string
+    mapId?: UuidFilter<"BattleRoyaleBrute"> | string
+    bruteId?: UuidFilter<"BattleRoyaleBrute"> | string
+    x?: IntFilter<"BattleRoyaleBrute"> | number
+    y?: IntFilter<"BattleRoyaleBrute"> | number
+    level?: IntFilter<"BattleRoyaleBrute"> | number
+    vision?: IntFilter<"BattleRoyaleBrute"> | number
+    movesLeft?: IntFilter<"BattleRoyaleBrute"> | number
+    lastMoveDate?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    lastScoutAt?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    knownTiles?: JsonFilter<"BattleRoyaleBrute">
+    eliminated?: BoolFilter<"BattleRoyaleBrute"> | boolean
+    eliminatedAt?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    event?: XOR<EventScalarRelationFilter, EventWhereInput>
+    map?: XOR<BattleRoyaleMapScalarRelationFilter, BattleRoyaleMapWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }
+
+  export type BattleRoyaleBruteOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    mapId?: SortOrder
+    bruteId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
+    lastMoveDate?: SortOrderInput | SortOrder
+    lastScoutAt?: SortOrderInput | SortOrder
+    knownTiles?: SortOrder
+    eliminated?: SortOrder
+    eliminatedAt?: SortOrderInput | SortOrder
+    event?: EventOrderByWithRelationInput
+    map?: BattleRoyaleMapOrderByWithRelationInput
+    brute?: BruteOrderByWithRelationInput
+  }
+
+  export type BattleRoyaleBruteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    eventId_bruteId?: BattleRoyaleBruteEventIdBruteIdCompoundUniqueInput
+    AND?: BattleRoyaleBruteWhereInput | BattleRoyaleBruteWhereInput[]
+    OR?: BattleRoyaleBruteWhereInput[]
+    NOT?: BattleRoyaleBruteWhereInput | BattleRoyaleBruteWhereInput[]
+    eventId?: UuidFilter<"BattleRoyaleBrute"> | string
+    mapId?: UuidFilter<"BattleRoyaleBrute"> | string
+    bruteId?: UuidFilter<"BattleRoyaleBrute"> | string
+    x?: IntFilter<"BattleRoyaleBrute"> | number
+    y?: IntFilter<"BattleRoyaleBrute"> | number
+    level?: IntFilter<"BattleRoyaleBrute"> | number
+    vision?: IntFilter<"BattleRoyaleBrute"> | number
+    movesLeft?: IntFilter<"BattleRoyaleBrute"> | number
+    lastMoveDate?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    lastScoutAt?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    knownTiles?: JsonFilter<"BattleRoyaleBrute">
+    eliminated?: BoolFilter<"BattleRoyaleBrute"> | boolean
+    eliminatedAt?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    event?: XOR<EventScalarRelationFilter, EventWhereInput>
+    map?: XOR<BattleRoyaleMapScalarRelationFilter, BattleRoyaleMapWhereInput>
+    brute?: XOR<BruteScalarRelationFilter, BruteWhereInput>
+  }, "id" | "id" | "eventId_bruteId">
+
+  export type BattleRoyaleBruteOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    mapId?: SortOrder
+    bruteId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
+    lastMoveDate?: SortOrderInput | SortOrder
+    lastScoutAt?: SortOrderInput | SortOrder
+    knownTiles?: SortOrder
+    eliminated?: SortOrder
+    eliminatedAt?: SortOrderInput | SortOrder
+    _count?: BattleRoyaleBruteCountOrderByAggregateInput
+    _avg?: BattleRoyaleBruteAvgOrderByAggregateInput
+    _max?: BattleRoyaleBruteMaxOrderByAggregateInput
+    _min?: BattleRoyaleBruteMinOrderByAggregateInput
+    _sum?: BattleRoyaleBruteSumOrderByAggregateInput
+  }
+
+  export type BattleRoyaleBruteScalarWhereWithAggregatesInput = {
+    AND?: BattleRoyaleBruteScalarWhereWithAggregatesInput | BattleRoyaleBruteScalarWhereWithAggregatesInput[]
+    OR?: BattleRoyaleBruteScalarWhereWithAggregatesInput[]
+    NOT?: BattleRoyaleBruteScalarWhereWithAggregatesInput | BattleRoyaleBruteScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"BattleRoyaleBrute"> | string
+    eventId?: UuidWithAggregatesFilter<"BattleRoyaleBrute"> | string
+    mapId?: UuidWithAggregatesFilter<"BattleRoyaleBrute"> | string
+    bruteId?: UuidWithAggregatesFilter<"BattleRoyaleBrute"> | string
+    x?: IntWithAggregatesFilter<"BattleRoyaleBrute"> | number
+    y?: IntWithAggregatesFilter<"BattleRoyaleBrute"> | number
+    level?: IntWithAggregatesFilter<"BattleRoyaleBrute"> | number
+    vision?: IntWithAggregatesFilter<"BattleRoyaleBrute"> | number
+    movesLeft?: IntWithAggregatesFilter<"BattleRoyaleBrute"> | number
+    lastMoveDate?: DateTimeNullableWithAggregatesFilter<"BattleRoyaleBrute"> | Date | string | null
+    lastScoutAt?: DateTimeNullableWithAggregatesFilter<"BattleRoyaleBrute"> | Date | string | null
+    knownTiles?: JsonWithAggregatesFilter<"BattleRoyaleBrute">
+    eliminated?: BoolWithAggregatesFilter<"BattleRoyaleBrute"> | boolean
+    eliminatedAt?: DateTimeNullableWithAggregatesFilter<"BattleRoyaleBrute"> | Date | string | null
   }
 
   export type NotificationWhereInput = {
@@ -63568,6 +66582,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -63657,6 +66672,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -63742,6 +66758,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -63831,6 +66848,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -66169,9 +69187,13 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     brutes?: BruteCreateNestedManyWithoutEventInput
     tournament?: TournamentCreateNestedOneWithoutEventInput
     winner?: BruteCreateNestedOneWithoutWonEventsInput
+    maps?: BattleRoyaleMapCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateInput = {
@@ -66184,8 +69206,12 @@ export namespace Prisma {
     winnerId?: string | null
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
     tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
+    maps?: BattleRoyaleMapUncheckedCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventUpdateInput = {
@@ -66197,9 +69223,13 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUpdateManyWithoutEventNestedInput
     tournament?: TournamentUpdateOneWithoutEventNestedInput
     winner?: BruteUpdateOneWithoutWonEventsNestedInput
+    maps?: BattleRoyaleMapUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateInput = {
@@ -66212,8 +69242,12 @@ export namespace Prisma {
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
     tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
+    maps?: BattleRoyaleMapUncheckedUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type EventCreateManyInput = {
@@ -66226,6 +69260,8 @@ export namespace Prisma {
     winnerId?: string | null
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
   }
 
   export type EventUpdateManyMutationInput = {
@@ -66237,6 +69273,8 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
   }
 
   export type EventUncheckedUpdateManyInput = {
@@ -66249,6 +69287,204 @@ export namespace Prisma {
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type BattleRoyaleMapCreateInput = {
+    id?: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+    event: EventCreateNestedOneWithoutMapsInput
+    participants?: BattleRoyaleBruteCreateNestedManyWithoutMapInput
+  }
+
+  export type BattleRoyaleMapUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+    participants?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutMapInput
+  }
+
+  export type BattleRoyaleMapUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    event?: EventUpdateOneRequiredWithoutMapsNestedInput
+    participants?: BattleRoyaleBruteUpdateManyWithoutMapNestedInput
+  }
+
+  export type BattleRoyaleMapUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants?: BattleRoyaleBruteUncheckedUpdateManyWithoutMapNestedInput
+  }
+
+  export type BattleRoyaleMapCreateManyInput = {
+    id?: string
+    eventId: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleMapUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleMapUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateInput = {
+    id?: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+    event: EventCreateNestedOneWithoutBattleRoyaleBrutesInput
+    map: BattleRoyaleMapCreateNestedOneWithoutParticipantsInput
+    brute: BruteCreateNestedOneWithoutBattleRoyalesInput
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    mapId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    event?: EventUpdateOneRequiredWithoutBattleRoyaleBrutesNestedInput
+    map?: BattleRoyaleMapUpdateOneRequiredWithoutParticipantsNestedInput
+    brute?: BruteUpdateOneRequiredWithoutBattleRoyalesNestedInput
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    mapId?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateManyInput = {
+    id?: string
+    eventId: string
+    mapId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    mapId?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type NotificationCreateInput = {
@@ -67572,6 +70808,12 @@ export namespace Prisma {
     none?: TournamentXpWhereInput
   }
 
+  export type BattleRoyaleBruteListRelationFilter = {
+    every?: BattleRoyaleBruteWhereInput
+    some?: BattleRoyaleBruteWhereInput
+    none?: BattleRoyaleBruteWhereInput
+  }
+
   export type BruteStartingStatsNullableScalarRelationFilter = {
     is?: BruteStartingStatsWhereInput | null
     isNot?: BruteStartingStatsWhereInput | null
@@ -67659,6 +70901,10 @@ export namespace Prisma {
   }
 
   export type TournamentXpOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BattleRoyaleBruteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -69470,6 +72716,16 @@ export namespace Prisma {
     not?: NestedEnumEventStatusFilter<$PrismaModel> | $Enums.EventStatus
   }
 
+  export type BattleRoyaleMapListRelationFilter = {
+    every?: BattleRoyaleMapWhereInput
+    some?: BattleRoyaleMapWhereInput
+    none?: BattleRoyaleMapWhereInput
+  }
+
+  export type BattleRoyaleMapOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type EventCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
@@ -69480,11 +72736,15 @@ export namespace Prisma {
     winnerId?: SortOrder
     finishedAt?: SortOrder
     sortedBrutes?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
     maxLevel?: SortOrder
     maxRound?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
@@ -69496,6 +72756,8 @@ export namespace Prisma {
     status?: SortOrder
     winnerId?: SortOrder
     finishedAt?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
   }
 
   export type EventMinOrderByAggregateInput = {
@@ -69507,11 +72769,15 @@ export namespace Prisma {
     status?: SortOrder
     winnerId?: SortOrder
     finishedAt?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
   }
 
   export type EventSumOrderByAggregateInput = {
     maxLevel?: SortOrder
     maxRound?: SortOrder
+    groupSize?: SortOrder
+    baseVision?: SortOrder
   }
 
   export type EnumEventTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -69532,6 +72798,127 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEventStatusFilter<$PrismaModel>
     _max?: NestedEnumEventStatusFilter<$PrismaModel>
+  }
+
+  export type EventScalarRelationFilter = {
+    is?: EventWhereInput
+    isNot?: EventWhereInput
+  }
+
+  export type BattleRoyaleMapCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    round?: SortOrder
+    radius?: SortOrder
+    lastShrinkAt?: SortOrder
+    tiles?: SortOrder
+    resolved?: SortOrder
+    resolvedAt?: SortOrder
+  }
+
+  export type BattleRoyaleMapAvgOrderByAggregateInput = {
+    round?: SortOrder
+    radius?: SortOrder
+  }
+
+  export type BattleRoyaleMapMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    round?: SortOrder
+    radius?: SortOrder
+    lastShrinkAt?: SortOrder
+    resolved?: SortOrder
+    resolvedAt?: SortOrder
+  }
+
+  export type BattleRoyaleMapMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    round?: SortOrder
+    radius?: SortOrder
+    lastShrinkAt?: SortOrder
+    resolved?: SortOrder
+    resolvedAt?: SortOrder
+  }
+
+  export type BattleRoyaleMapSumOrderByAggregateInput = {
+    round?: SortOrder
+    radius?: SortOrder
+  }
+
+  export type BattleRoyaleMapScalarRelationFilter = {
+    is?: BattleRoyaleMapWhereInput
+    isNot?: BattleRoyaleMapWhereInput
+  }
+
+  export type BattleRoyaleBruteEventIdBruteIdCompoundUniqueInput = {
+    eventId: string
+    bruteId: string
+  }
+
+  export type BattleRoyaleBruteCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    mapId?: SortOrder
+    bruteId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
+    lastMoveDate?: SortOrder
+    lastScoutAt?: SortOrder
+    knownTiles?: SortOrder
+    eliminated?: SortOrder
+    eliminatedAt?: SortOrder
+  }
+
+  export type BattleRoyaleBruteAvgOrderByAggregateInput = {
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
+  }
+
+  export type BattleRoyaleBruteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    mapId?: SortOrder
+    bruteId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
+    lastMoveDate?: SortOrder
+    lastScoutAt?: SortOrder
+    eliminated?: SortOrder
+    eliminatedAt?: SortOrder
+  }
+
+  export type BattleRoyaleBruteMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    mapId?: SortOrder
+    bruteId?: SortOrder
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
+    lastMoveDate?: SortOrder
+    lastScoutAt?: SortOrder
+    eliminated?: SortOrder
+    eliminatedAt?: SortOrder
+  }
+
+  export type BattleRoyaleBruteSumOrderByAggregateInput = {
+    x?: SortOrder
+    y?: SortOrder
+    level?: SortOrder
+    vision?: SortOrder
+    movesLeft?: SortOrder
   }
 
   export type EnumNotificationSeverityFilter<$PrismaModel = never> = {
@@ -70817,6 +74204,13 @@ export namespace Prisma {
     connect?: TournamentXpWhereUniqueInput | TournamentXpWhereUniqueInput[]
   }
 
+  export type BattleRoyaleBruteCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutBruteInput, BattleRoyaleBruteUncheckedCreateWithoutBruteInput> | BattleRoyaleBruteCreateWithoutBruteInput[] | BattleRoyaleBruteUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutBruteInput | BattleRoyaleBruteCreateOrConnectWithoutBruteInput[]
+    createMany?: BattleRoyaleBruteCreateManyBruteInputEnvelope
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+  }
+
   export type BruteStartingStatsCreateNestedOneWithoutBruteInput = {
     create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
@@ -71007,6 +74401,13 @@ export namespace Prisma {
     connectOrCreate?: TournamentXpCreateOrConnectWithoutBruteInput | TournamentXpCreateOrConnectWithoutBruteInput[]
     createMany?: TournamentXpCreateManyBruteInputEnvelope
     connect?: TournamentXpWhereUniqueInput | TournamentXpWhereUniqueInput[]
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutBruteInput, BattleRoyaleBruteUncheckedCreateWithoutBruteInput> | BattleRoyaleBruteCreateWithoutBruteInput[] | BattleRoyaleBruteUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutBruteInput | BattleRoyaleBruteCreateOrConnectWithoutBruteInput[]
+    createMany?: BattleRoyaleBruteCreateManyBruteInputEnvelope
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
   }
 
   export type BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput = {
@@ -71390,6 +74791,20 @@ export namespace Prisma {
     deleteMany?: TournamentXpScalarWhereInput | TournamentXpScalarWhereInput[]
   }
 
+  export type BattleRoyaleBruteUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutBruteInput, BattleRoyaleBruteUncheckedCreateWithoutBruteInput> | BattleRoyaleBruteCreateWithoutBruteInput[] | BattleRoyaleBruteUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutBruteInput | BattleRoyaleBruteCreateOrConnectWithoutBruteInput[]
+    upsert?: BattleRoyaleBruteUpsertWithWhereUniqueWithoutBruteInput | BattleRoyaleBruteUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BattleRoyaleBruteCreateManyBruteInputEnvelope
+    set?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    disconnect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    delete?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    update?: BattleRoyaleBruteUpdateWithWhereUniqueWithoutBruteInput | BattleRoyaleBruteUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BattleRoyaleBruteUpdateManyWithWhereWithoutBruteInput | BattleRoyaleBruteUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+  }
+
   export type BruteStartingStatsUpdateOneWithoutBruteNestedInput = {
     create?: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
     connectOrCreate?: BruteStartingStatsCreateOrConnectWithoutBruteInput
@@ -71768,6 +75183,20 @@ export namespace Prisma {
     update?: TournamentXpUpdateWithWhereUniqueWithoutBruteInput | TournamentXpUpdateWithWhereUniqueWithoutBruteInput[]
     updateMany?: TournamentXpUpdateManyWithWhereWithoutBruteInput | TournamentXpUpdateManyWithWhereWithoutBruteInput[]
     deleteMany?: TournamentXpScalarWhereInput | TournamentXpScalarWhereInput[]
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutBruteInput, BattleRoyaleBruteUncheckedCreateWithoutBruteInput> | BattleRoyaleBruteCreateWithoutBruteInput[] | BattleRoyaleBruteUncheckedCreateWithoutBruteInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutBruteInput | BattleRoyaleBruteCreateOrConnectWithoutBruteInput[]
+    upsert?: BattleRoyaleBruteUpsertWithWhereUniqueWithoutBruteInput | BattleRoyaleBruteUpsertWithWhereUniqueWithoutBruteInput[]
+    createMany?: BattleRoyaleBruteCreateManyBruteInputEnvelope
+    set?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    disconnect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    delete?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    update?: BattleRoyaleBruteUpdateWithWhereUniqueWithoutBruteInput | BattleRoyaleBruteUpdateWithWhereUniqueWithoutBruteInput[]
+    updateMany?: BattleRoyaleBruteUpdateManyWithWhereWithoutBruteInput | BattleRoyaleBruteUpdateManyWithWhereWithoutBruteInput[]
+    deleteMany?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
   }
 
   export type BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput = {
@@ -73536,6 +76965,20 @@ export namespace Prisma {
     connect?: BruteWhereUniqueInput
   }
 
+  export type BattleRoyaleMapCreateNestedManyWithoutEventInput = {
+    create?: XOR<BattleRoyaleMapCreateWithoutEventInput, BattleRoyaleMapUncheckedCreateWithoutEventInput> | BattleRoyaleMapCreateWithoutEventInput[] | BattleRoyaleMapUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleMapCreateOrConnectWithoutEventInput | BattleRoyaleMapCreateOrConnectWithoutEventInput[]
+    createMany?: BattleRoyaleMapCreateManyEventInputEnvelope
+    connect?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+  }
+
+  export type BattleRoyaleBruteCreateNestedManyWithoutEventInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutEventInput, BattleRoyaleBruteUncheckedCreateWithoutEventInput> | BattleRoyaleBruteCreateWithoutEventInput[] | BattleRoyaleBruteUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutEventInput | BattleRoyaleBruteCreateOrConnectWithoutEventInput[]
+    createMany?: BattleRoyaleBruteCreateManyEventInputEnvelope
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+  }
+
   export type BruteUncheckedCreateNestedManyWithoutEventInput = {
     create?: XOR<BruteCreateWithoutEventInput, BruteUncheckedCreateWithoutEventInput> | BruteCreateWithoutEventInput[] | BruteUncheckedCreateWithoutEventInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutEventInput | BruteCreateOrConnectWithoutEventInput[]
@@ -73547,6 +76990,20 @@ export namespace Prisma {
     create?: XOR<TournamentCreateWithoutEventInput, TournamentUncheckedCreateWithoutEventInput>
     connectOrCreate?: TournamentCreateOrConnectWithoutEventInput
     connect?: TournamentWhereUniqueInput
+  }
+
+  export type BattleRoyaleMapUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<BattleRoyaleMapCreateWithoutEventInput, BattleRoyaleMapUncheckedCreateWithoutEventInput> | BattleRoyaleMapCreateWithoutEventInput[] | BattleRoyaleMapUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleMapCreateOrConnectWithoutEventInput | BattleRoyaleMapCreateOrConnectWithoutEventInput[]
+    createMany?: BattleRoyaleMapCreateManyEventInputEnvelope
+    connect?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutEventInput, BattleRoyaleBruteUncheckedCreateWithoutEventInput> | BattleRoyaleBruteCreateWithoutEventInput[] | BattleRoyaleBruteUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutEventInput | BattleRoyaleBruteCreateOrConnectWithoutEventInput[]
+    createMany?: BattleRoyaleBruteCreateManyEventInputEnvelope
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
   }
 
   export type EnumEventTypeFieldUpdateOperationsInput = {
@@ -73596,6 +77053,34 @@ export namespace Prisma {
     update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutWonEventsInput, BruteUpdateWithoutWonEventsInput>, BruteUncheckedUpdateWithoutWonEventsInput>
   }
 
+  export type BattleRoyaleMapUpdateManyWithoutEventNestedInput = {
+    create?: XOR<BattleRoyaleMapCreateWithoutEventInput, BattleRoyaleMapUncheckedCreateWithoutEventInput> | BattleRoyaleMapCreateWithoutEventInput[] | BattleRoyaleMapUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleMapCreateOrConnectWithoutEventInput | BattleRoyaleMapCreateOrConnectWithoutEventInput[]
+    upsert?: BattleRoyaleMapUpsertWithWhereUniqueWithoutEventInput | BattleRoyaleMapUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: BattleRoyaleMapCreateManyEventInputEnvelope
+    set?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    disconnect?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    delete?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    connect?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    update?: BattleRoyaleMapUpdateWithWhereUniqueWithoutEventInput | BattleRoyaleMapUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: BattleRoyaleMapUpdateManyWithWhereWithoutEventInput | BattleRoyaleMapUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: BattleRoyaleMapScalarWhereInput | BattleRoyaleMapScalarWhereInput[]
+  }
+
+  export type BattleRoyaleBruteUpdateManyWithoutEventNestedInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutEventInput, BattleRoyaleBruteUncheckedCreateWithoutEventInput> | BattleRoyaleBruteCreateWithoutEventInput[] | BattleRoyaleBruteUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutEventInput | BattleRoyaleBruteCreateOrConnectWithoutEventInput[]
+    upsert?: BattleRoyaleBruteUpsertWithWhereUniqueWithoutEventInput | BattleRoyaleBruteUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: BattleRoyaleBruteCreateManyEventInputEnvelope
+    set?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    disconnect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    delete?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    update?: BattleRoyaleBruteUpdateWithWhereUniqueWithoutEventInput | BattleRoyaleBruteUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: BattleRoyaleBruteUpdateManyWithWhereWithoutEventInput | BattleRoyaleBruteUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutEventNestedInput = {
     create?: XOR<BruteCreateWithoutEventInput, BruteUncheckedCreateWithoutEventInput> | BruteCreateWithoutEventInput[] | BruteUncheckedCreateWithoutEventInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutEventInput | BruteCreateOrConnectWithoutEventInput[]
@@ -73618,6 +77103,132 @@ export namespace Prisma {
     delete?: TournamentWhereInput | boolean
     connect?: TournamentWhereUniqueInput
     update?: XOR<XOR<TournamentUpdateToOneWithWhereWithoutEventInput, TournamentUpdateWithoutEventInput>, TournamentUncheckedUpdateWithoutEventInput>
+  }
+
+  export type BattleRoyaleMapUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<BattleRoyaleMapCreateWithoutEventInput, BattleRoyaleMapUncheckedCreateWithoutEventInput> | BattleRoyaleMapCreateWithoutEventInput[] | BattleRoyaleMapUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleMapCreateOrConnectWithoutEventInput | BattleRoyaleMapCreateOrConnectWithoutEventInput[]
+    upsert?: BattleRoyaleMapUpsertWithWhereUniqueWithoutEventInput | BattleRoyaleMapUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: BattleRoyaleMapCreateManyEventInputEnvelope
+    set?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    disconnect?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    delete?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    connect?: BattleRoyaleMapWhereUniqueInput | BattleRoyaleMapWhereUniqueInput[]
+    update?: BattleRoyaleMapUpdateWithWhereUniqueWithoutEventInput | BattleRoyaleMapUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: BattleRoyaleMapUpdateManyWithWhereWithoutEventInput | BattleRoyaleMapUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: BattleRoyaleMapScalarWhereInput | BattleRoyaleMapScalarWhereInput[]
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutEventInput, BattleRoyaleBruteUncheckedCreateWithoutEventInput> | BattleRoyaleBruteCreateWithoutEventInput[] | BattleRoyaleBruteUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutEventInput | BattleRoyaleBruteCreateOrConnectWithoutEventInput[]
+    upsert?: BattleRoyaleBruteUpsertWithWhereUniqueWithoutEventInput | BattleRoyaleBruteUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: BattleRoyaleBruteCreateManyEventInputEnvelope
+    set?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    disconnect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    delete?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    update?: BattleRoyaleBruteUpdateWithWhereUniqueWithoutEventInput | BattleRoyaleBruteUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: BattleRoyaleBruteUpdateManyWithWhereWithoutEventInput | BattleRoyaleBruteUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+  }
+
+  export type EventCreateNestedOneWithoutMapsInput = {
+    create?: XOR<EventCreateWithoutMapsInput, EventUncheckedCreateWithoutMapsInput>
+    connectOrCreate?: EventCreateOrConnectWithoutMapsInput
+    connect?: EventWhereUniqueInput
+  }
+
+  export type BattleRoyaleBruteCreateNestedManyWithoutMapInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutMapInput, BattleRoyaleBruteUncheckedCreateWithoutMapInput> | BattleRoyaleBruteCreateWithoutMapInput[] | BattleRoyaleBruteUncheckedCreateWithoutMapInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutMapInput | BattleRoyaleBruteCreateOrConnectWithoutMapInput[]
+    createMany?: BattleRoyaleBruteCreateManyMapInputEnvelope
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateNestedManyWithoutMapInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutMapInput, BattleRoyaleBruteUncheckedCreateWithoutMapInput> | BattleRoyaleBruteCreateWithoutMapInput[] | BattleRoyaleBruteUncheckedCreateWithoutMapInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutMapInput | BattleRoyaleBruteCreateOrConnectWithoutMapInput[]
+    createMany?: BattleRoyaleBruteCreateManyMapInputEnvelope
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+  }
+
+  export type EventUpdateOneRequiredWithoutMapsNestedInput = {
+    create?: XOR<EventCreateWithoutMapsInput, EventUncheckedCreateWithoutMapsInput>
+    connectOrCreate?: EventCreateOrConnectWithoutMapsInput
+    upsert?: EventUpsertWithoutMapsInput
+    connect?: EventWhereUniqueInput
+    update?: XOR<XOR<EventUpdateToOneWithWhereWithoutMapsInput, EventUpdateWithoutMapsInput>, EventUncheckedUpdateWithoutMapsInput>
+  }
+
+  export type BattleRoyaleBruteUpdateManyWithoutMapNestedInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutMapInput, BattleRoyaleBruteUncheckedCreateWithoutMapInput> | BattleRoyaleBruteCreateWithoutMapInput[] | BattleRoyaleBruteUncheckedCreateWithoutMapInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutMapInput | BattleRoyaleBruteCreateOrConnectWithoutMapInput[]
+    upsert?: BattleRoyaleBruteUpsertWithWhereUniqueWithoutMapInput | BattleRoyaleBruteUpsertWithWhereUniqueWithoutMapInput[]
+    createMany?: BattleRoyaleBruteCreateManyMapInputEnvelope
+    set?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    disconnect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    delete?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    update?: BattleRoyaleBruteUpdateWithWhereUniqueWithoutMapInput | BattleRoyaleBruteUpdateWithWhereUniqueWithoutMapInput[]
+    updateMany?: BattleRoyaleBruteUpdateManyWithWhereWithoutMapInput | BattleRoyaleBruteUpdateManyWithWhereWithoutMapInput[]
+    deleteMany?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyWithoutMapNestedInput = {
+    create?: XOR<BattleRoyaleBruteCreateWithoutMapInput, BattleRoyaleBruteUncheckedCreateWithoutMapInput> | BattleRoyaleBruteCreateWithoutMapInput[] | BattleRoyaleBruteUncheckedCreateWithoutMapInput[]
+    connectOrCreate?: BattleRoyaleBruteCreateOrConnectWithoutMapInput | BattleRoyaleBruteCreateOrConnectWithoutMapInput[]
+    upsert?: BattleRoyaleBruteUpsertWithWhereUniqueWithoutMapInput | BattleRoyaleBruteUpsertWithWhereUniqueWithoutMapInput[]
+    createMany?: BattleRoyaleBruteCreateManyMapInputEnvelope
+    set?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    disconnect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    delete?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    connect?: BattleRoyaleBruteWhereUniqueInput | BattleRoyaleBruteWhereUniqueInput[]
+    update?: BattleRoyaleBruteUpdateWithWhereUniqueWithoutMapInput | BattleRoyaleBruteUpdateWithWhereUniqueWithoutMapInput[]
+    updateMany?: BattleRoyaleBruteUpdateManyWithWhereWithoutMapInput | BattleRoyaleBruteUpdateManyWithWhereWithoutMapInput[]
+    deleteMany?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+  }
+
+  export type EventCreateNestedOneWithoutBattleRoyaleBrutesInput = {
+    create?: XOR<EventCreateWithoutBattleRoyaleBrutesInput, EventUncheckedCreateWithoutBattleRoyaleBrutesInput>
+    connectOrCreate?: EventCreateOrConnectWithoutBattleRoyaleBrutesInput
+    connect?: EventWhereUniqueInput
+  }
+
+  export type BattleRoyaleMapCreateNestedOneWithoutParticipantsInput = {
+    create?: XOR<BattleRoyaleMapCreateWithoutParticipantsInput, BattleRoyaleMapUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: BattleRoyaleMapCreateOrConnectWithoutParticipantsInput
+    connect?: BattleRoyaleMapWhereUniqueInput
+  }
+
+  export type BruteCreateNestedOneWithoutBattleRoyalesInput = {
+    create?: XOR<BruteCreateWithoutBattleRoyalesInput, BruteUncheckedCreateWithoutBattleRoyalesInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutBattleRoyalesInput
+    connect?: BruteWhereUniqueInput
+  }
+
+  export type EventUpdateOneRequiredWithoutBattleRoyaleBrutesNestedInput = {
+    create?: XOR<EventCreateWithoutBattleRoyaleBrutesInput, EventUncheckedCreateWithoutBattleRoyaleBrutesInput>
+    connectOrCreate?: EventCreateOrConnectWithoutBattleRoyaleBrutesInput
+    upsert?: EventUpsertWithoutBattleRoyaleBrutesInput
+    connect?: EventWhereUniqueInput
+    update?: XOR<XOR<EventUpdateToOneWithWhereWithoutBattleRoyaleBrutesInput, EventUpdateWithoutBattleRoyaleBrutesInput>, EventUncheckedUpdateWithoutBattleRoyaleBrutesInput>
+  }
+
+  export type BattleRoyaleMapUpdateOneRequiredWithoutParticipantsNestedInput = {
+    create?: XOR<BattleRoyaleMapCreateWithoutParticipantsInput, BattleRoyaleMapUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: BattleRoyaleMapCreateOrConnectWithoutParticipantsInput
+    upsert?: BattleRoyaleMapUpsertWithoutParticipantsInput
+    connect?: BattleRoyaleMapWhereUniqueInput
+    update?: XOR<XOR<BattleRoyaleMapUpdateToOneWithWhereWithoutParticipantsInput, BattleRoyaleMapUpdateWithoutParticipantsInput>, BattleRoyaleMapUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type BruteUpdateOneRequiredWithoutBattleRoyalesNestedInput = {
+    create?: XOR<BruteCreateWithoutBattleRoyalesInput, BruteUncheckedCreateWithoutBattleRoyalesInput>
+    connectOrCreate?: BruteCreateOrConnectWithoutBattleRoyalesInput
+    upsert?: BruteUpsertWithoutBattleRoyalesInput
+    connect?: BruteWhereUniqueInput
+    update?: XOR<XOR<BruteUpdateToOneWithWhereWithoutBattleRoyalesInput, BruteUpdateWithoutBattleRoyalesInput>, BruteUncheckedUpdateWithoutBattleRoyalesInput>
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -74543,6 +78154,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -74631,6 +78243,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -74870,6 +78483,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
@@ -74958,6 +78572,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
@@ -75986,6 +79601,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -76074,6 +79690,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -76267,6 +79884,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -76355,6 +79973,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -76525,6 +80144,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -76613,6 +80233,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -76702,6 +80323,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -76790,6 +80412,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -77132,6 +80755,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -77220,6 +80844,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -77309,6 +80934,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -77397,6 +81023,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -77691,6 +81318,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BattleRoyaleBruteCreateWithoutBruteInput = {
+    id?: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+    event: EventCreateNestedOneWithoutBattleRoyaleBrutesInput
+    map: BattleRoyaleMapCreateNestedOneWithoutParticipantsInput
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateWithoutBruteInput = {
+    id?: string
+    eventId: string
+    mapId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateOrConnectWithoutBruteInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    create: XOR<BattleRoyaleBruteCreateWithoutBruteInput, BattleRoyaleBruteUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BattleRoyaleBruteCreateManyBruteInputEnvelope = {
+    data: BattleRoyaleBruteCreateManyBruteInput | BattleRoyaleBruteCreateManyBruteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BruteStartingStatsCreateWithoutBruteInput = {
     id?: string
     hp?: number
@@ -77868,8 +81537,12 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     tournament?: TournamentCreateNestedOneWithoutEventInput
     winner?: BruteCreateNestedOneWithoutWonEventsInput
+    maps?: BattleRoyaleMapCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutBrutesInput = {
@@ -77882,7 +81555,11 @@ export namespace Prisma {
     winnerId?: string | null
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
+    maps?: BattleRoyaleMapUncheckedCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutBrutesInput = {
@@ -77899,8 +81576,12 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     brutes?: BruteCreateNestedManyWithoutEventInput
     tournament?: TournamentCreateNestedOneWithoutEventInput
+    maps?: BattleRoyaleMapCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutWinnerInput = {
@@ -77912,8 +81593,12 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
     tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
+    maps?: BattleRoyaleMapUncheckedCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutWinnerInput = {
@@ -78263,6 +81948,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -78351,6 +82037,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -78852,6 +82539,42 @@ export namespace Prisma {
     xp?: IntFilter<"TournamentXp"> | number
   }
 
+  export type BattleRoyaleBruteUpsertWithWhereUniqueWithoutBruteInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    update: XOR<BattleRoyaleBruteUpdateWithoutBruteInput, BattleRoyaleBruteUncheckedUpdateWithoutBruteInput>
+    create: XOR<BattleRoyaleBruteCreateWithoutBruteInput, BattleRoyaleBruteUncheckedCreateWithoutBruteInput>
+  }
+
+  export type BattleRoyaleBruteUpdateWithWhereUniqueWithoutBruteInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    data: XOR<BattleRoyaleBruteUpdateWithoutBruteInput, BattleRoyaleBruteUncheckedUpdateWithoutBruteInput>
+  }
+
+  export type BattleRoyaleBruteUpdateManyWithWhereWithoutBruteInput = {
+    where: BattleRoyaleBruteScalarWhereInput
+    data: XOR<BattleRoyaleBruteUpdateManyMutationInput, BattleRoyaleBruteUncheckedUpdateManyWithoutBruteInput>
+  }
+
+  export type BattleRoyaleBruteScalarWhereInput = {
+    AND?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+    OR?: BattleRoyaleBruteScalarWhereInput[]
+    NOT?: BattleRoyaleBruteScalarWhereInput | BattleRoyaleBruteScalarWhereInput[]
+    id?: UuidFilter<"BattleRoyaleBrute"> | string
+    eventId?: UuidFilter<"BattleRoyaleBrute"> | string
+    mapId?: UuidFilter<"BattleRoyaleBrute"> | string
+    bruteId?: UuidFilter<"BattleRoyaleBrute"> | string
+    x?: IntFilter<"BattleRoyaleBrute"> | number
+    y?: IntFilter<"BattleRoyaleBrute"> | number
+    level?: IntFilter<"BattleRoyaleBrute"> | number
+    vision?: IntFilter<"BattleRoyaleBrute"> | number
+    movesLeft?: IntFilter<"BattleRoyaleBrute"> | number
+    lastMoveDate?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    lastScoutAt?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+    knownTiles?: JsonFilter<"BattleRoyaleBrute">
+    eliminated?: BoolFilter<"BattleRoyaleBrute"> | boolean
+    eliminatedAt?: DateTimeNullableFilter<"BattleRoyaleBrute"> | Date | string | null
+  }
+
   export type BruteStartingStatsUpsertWithoutBruteInput = {
     update: XOR<BruteStartingStatsUpdateWithoutBruteInput, BruteStartingStatsUncheckedUpdateWithoutBruteInput>
     create: XOR<BruteStartingStatsCreateWithoutBruteInput, BruteStartingStatsUncheckedCreateWithoutBruteInput>
@@ -79013,8 +82736,12 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     tournament?: TournamentUpdateOneWithoutEventNestedInput
     winner?: BruteUpdateOneWithoutWonEventsNestedInput
+    maps?: BattleRoyaleMapUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutBrutesInput = {
@@ -79027,7 +82754,11 @@ export namespace Prisma {
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
+    maps?: BattleRoyaleMapUncheckedUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type EventUpsertWithWhereUniqueWithoutWinnerInput = {
@@ -79059,6 +82790,8 @@ export namespace Prisma {
     winnerId?: UuidNullableFilter<"Event"> | string | null
     finishedAt?: DateTimeNullableFilter<"Event"> | Date | string | null
     sortedBrutes?: StringNullableListFilter<"Event">
+    groupSize?: IntFilter<"Event"> | number
+    baseVision?: IntFilter<"Event"> | number
   }
 
   export type UserLogUpsertWithWhereUniqueWithoutBruteInput = {
@@ -79290,6 +83023,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
@@ -79378,6 +83112,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
@@ -79478,6 +83213,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
@@ -79566,6 +83302,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
@@ -79650,6 +83387,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -79738,6 +83476,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -79838,6 +83577,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -79926,6 +83666,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -80009,6 +83750,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -80097,6 +83839,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -80186,6 +83929,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -80274,6 +84018,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -80557,6 +84302,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -80645,6 +84391,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -80740,6 +84487,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -80828,6 +84576,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -81016,6 +84765,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -81104,6 +84854,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -81288,6 +85039,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -81376,6 +85128,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -81556,6 +85309,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -81644,6 +85398,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -81780,6 +85535,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -81868,6 +85624,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -81968,6 +85725,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -82056,6 +85814,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -82133,8 +85892,12 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     brutes?: BruteCreateNestedManyWithoutEventInput
     winner?: BruteCreateNestedOneWithoutWonEventsInput
+    maps?: BattleRoyaleMapCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteCreateNestedManyWithoutEventInput
   }
 
   export type EventUncheckedCreateWithoutTournamentInput = {
@@ -82147,7 +85910,11 @@ export namespace Prisma {
     winnerId?: string | null
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
     brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
+    maps?: BattleRoyaleMapUncheckedCreateNestedManyWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type EventCreateOrConnectWithoutTournamentInput = {
@@ -82207,8 +85974,12 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUpdateManyWithoutEventNestedInput
     winner?: BruteUpdateOneWithoutWonEventsNestedInput
+    maps?: BattleRoyaleMapUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutTournamentInput = {
@@ -82221,7 +85992,11 @@ export namespace Prisma {
     winnerId?: NullableStringFieldUpdateOperationsInput | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
+    maps?: BattleRoyaleMapUncheckedUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type BruteCreateWithoutTournamentAchievementsInput = {
@@ -82295,6 +86070,7 @@ export namespace Prisma {
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -82383,6 +86159,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -82483,6 +86260,7 @@ export namespace Prisma {
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -82571,6 +86349,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -82835,6 +86614,7 @@ export namespace Prisma {
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -82923,6 +86703,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -83023,6 +86804,7 @@ export namespace Prisma {
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -83111,6 +86893,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -83196,6 +86979,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -83284,6 +87068,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -83384,6 +87169,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -83472,6 +87258,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -83555,6 +87342,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -83643,6 +87431,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -83830,6 +87619,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -83918,6 +87708,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -84095,6 +87886,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -84183,6 +87975,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -84457,6 +88250,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -84545,6 +88339,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -85467,6 +89262,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -85555,6 +89351,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -85644,6 +89441,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -85732,6 +89530,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -85826,6 +89625,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -85914,6 +89714,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -86227,6 +90028,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -86315,6 +90117,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -86601,6 +90404,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -86689,6 +90493,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -86864,6 +90669,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -86952,6 +90758,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -87081,6 +90888,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -87169,6 +90977,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -87304,6 +91113,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -87392,6 +91202,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -87477,6 +91288,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
@@ -87565,6 +91377,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
@@ -87710,6 +91523,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
@@ -87798,6 +91612,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
@@ -88364,6 +92179,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -88452,6 +92268,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -88541,6 +92358,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -88629,6 +92447,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -88792,6 +92611,7 @@ export namespace Prisma {
     threads?: ClanThreadCreateNestedManyWithoutCreatorInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -88880,6 +92700,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -89067,6 +92888,7 @@ export namespace Prisma {
     threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -89155,6 +92977,7 @@ export namespace Prisma {
     threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -89333,6 +93156,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -89420,6 +93244,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -89538,6 +93363,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -89626,6 +93452,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -89641,6 +93468,80 @@ export namespace Prisma {
   export type BruteCreateOrConnectWithoutWonEventsInput = {
     where: BruteWhereUniqueInput
     create: XOR<BruteCreateWithoutWonEventsInput, BruteUncheckedCreateWithoutWonEventsInput>
+  }
+
+  export type BattleRoyaleMapCreateWithoutEventInput = {
+    id?: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+    participants?: BattleRoyaleBruteCreateNestedManyWithoutMapInput
+  }
+
+  export type BattleRoyaleMapUncheckedCreateWithoutEventInput = {
+    id?: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+    participants?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutMapInput
+  }
+
+  export type BattleRoyaleMapCreateOrConnectWithoutEventInput = {
+    where: BattleRoyaleMapWhereUniqueInput
+    create: XOR<BattleRoyaleMapCreateWithoutEventInput, BattleRoyaleMapUncheckedCreateWithoutEventInput>
+  }
+
+  export type BattleRoyaleMapCreateManyEventInputEnvelope = {
+    data: BattleRoyaleMapCreateManyEventInput | BattleRoyaleMapCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BattleRoyaleBruteCreateWithoutEventInput = {
+    id?: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+    map: BattleRoyaleMapCreateNestedOneWithoutParticipantsInput
+    brute: BruteCreateNestedOneWithoutBattleRoyalesInput
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateWithoutEventInput = {
+    id?: string
+    mapId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateOrConnectWithoutEventInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    create: XOR<BattleRoyaleBruteCreateWithoutEventInput, BattleRoyaleBruteUncheckedCreateWithoutEventInput>
+  }
+
+  export type BattleRoyaleBruteCreateManyEventInputEnvelope = {
+    data: BattleRoyaleBruteCreateManyEventInput | BattleRoyaleBruteCreateManyEventInput[]
+    skipDuplicates?: boolean
   }
 
   export type BruteUpsertWithWhereUniqueWithoutEventInput = {
@@ -89771,6 +93672,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -89859,11 +93761,708 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
     inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
+    unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
+    bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUncheckedUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BattleRoyaleMapUpsertWithWhereUniqueWithoutEventInput = {
+    where: BattleRoyaleMapWhereUniqueInput
+    update: XOR<BattleRoyaleMapUpdateWithoutEventInput, BattleRoyaleMapUncheckedUpdateWithoutEventInput>
+    create: XOR<BattleRoyaleMapCreateWithoutEventInput, BattleRoyaleMapUncheckedCreateWithoutEventInput>
+  }
+
+  export type BattleRoyaleMapUpdateWithWhereUniqueWithoutEventInput = {
+    where: BattleRoyaleMapWhereUniqueInput
+    data: XOR<BattleRoyaleMapUpdateWithoutEventInput, BattleRoyaleMapUncheckedUpdateWithoutEventInput>
+  }
+
+  export type BattleRoyaleMapUpdateManyWithWhereWithoutEventInput = {
+    where: BattleRoyaleMapScalarWhereInput
+    data: XOR<BattleRoyaleMapUpdateManyMutationInput, BattleRoyaleMapUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type BattleRoyaleMapScalarWhereInput = {
+    AND?: BattleRoyaleMapScalarWhereInput | BattleRoyaleMapScalarWhereInput[]
+    OR?: BattleRoyaleMapScalarWhereInput[]
+    NOT?: BattleRoyaleMapScalarWhereInput | BattleRoyaleMapScalarWhereInput[]
+    id?: UuidFilter<"BattleRoyaleMap"> | string
+    eventId?: UuidFilter<"BattleRoyaleMap"> | string
+    round?: IntFilter<"BattleRoyaleMap"> | number
+    radius?: IntFilter<"BattleRoyaleMap"> | number
+    lastShrinkAt?: DateTimeFilter<"BattleRoyaleMap"> | Date | string
+    tiles?: JsonFilter<"BattleRoyaleMap">
+    resolved?: BoolFilter<"BattleRoyaleMap"> | boolean
+    resolvedAt?: DateTimeNullableFilter<"BattleRoyaleMap"> | Date | string | null
+  }
+
+  export type BattleRoyaleBruteUpsertWithWhereUniqueWithoutEventInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    update: XOR<BattleRoyaleBruteUpdateWithoutEventInput, BattleRoyaleBruteUncheckedUpdateWithoutEventInput>
+    create: XOR<BattleRoyaleBruteCreateWithoutEventInput, BattleRoyaleBruteUncheckedCreateWithoutEventInput>
+  }
+
+  export type BattleRoyaleBruteUpdateWithWhereUniqueWithoutEventInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    data: XOR<BattleRoyaleBruteUpdateWithoutEventInput, BattleRoyaleBruteUncheckedUpdateWithoutEventInput>
+  }
+
+  export type BattleRoyaleBruteUpdateManyWithWhereWithoutEventInput = {
+    where: BattleRoyaleBruteScalarWhereInput
+    data: XOR<BattleRoyaleBruteUpdateManyMutationInput, BattleRoyaleBruteUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type EventCreateWithoutMapsInput = {
+    id?: string
+    date?: Date | string
+    type?: $Enums.EventType
+    maxLevel: number
+    maxRound?: number
+    status?: $Enums.EventStatus
+    finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
+    brutes?: BruteCreateNestedManyWithoutEventInput
+    tournament?: TournamentCreateNestedOneWithoutEventInput
+    winner?: BruteCreateNestedOneWithoutWonEventsInput
+    battleRoyaleBrutes?: BattleRoyaleBruteCreateNestedManyWithoutEventInput
+  }
+
+  export type EventUncheckedCreateWithoutMapsInput = {
+    id?: string
+    date?: Date | string
+    type?: $Enums.EventType
+    maxLevel: number
+    maxRound?: number
+    status?: $Enums.EventStatus
+    winnerId?: string | null
+    finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
+    brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
+    tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type EventCreateOrConnectWithoutMapsInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutMapsInput, EventUncheckedCreateWithoutMapsInput>
+  }
+
+  export type BattleRoyaleBruteCreateWithoutMapInput = {
+    id?: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+    event: EventCreateNestedOneWithoutBattleRoyaleBrutesInput
+    brute: BruteCreateNestedOneWithoutBattleRoyalesInput
+  }
+
+  export type BattleRoyaleBruteUncheckedCreateWithoutMapInput = {
+    id?: string
+    eventId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateOrConnectWithoutMapInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    create: XOR<BattleRoyaleBruteCreateWithoutMapInput, BattleRoyaleBruteUncheckedCreateWithoutMapInput>
+  }
+
+  export type BattleRoyaleBruteCreateManyMapInputEnvelope = {
+    data: BattleRoyaleBruteCreateManyMapInput | BattleRoyaleBruteCreateManyMapInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventUpsertWithoutMapsInput = {
+    update: XOR<EventUpdateWithoutMapsInput, EventUncheckedUpdateWithoutMapsInput>
+    create: XOR<EventCreateWithoutMapsInput, EventUncheckedCreateWithoutMapsInput>
+    where?: EventWhereInput
+  }
+
+  export type EventUpdateToOneWithWhereWithoutMapsInput = {
+    where?: EventWhereInput
+    data: XOR<EventUpdateWithoutMapsInput, EventUncheckedUpdateWithoutMapsInput>
+  }
+
+  export type EventUpdateWithoutMapsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+    maxLevel?: IntFieldUpdateOperationsInput | number
+    maxRound?: IntFieldUpdateOperationsInput | number
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUpdateManyWithoutEventNestedInput
+    tournament?: TournamentUpdateOneWithoutEventNestedInput
+    winner?: BruteUpdateOneWithoutWonEventsNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutMapsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+    maxLevel?: IntFieldUpdateOperationsInput | number
+    maxRound?: IntFieldUpdateOperationsInput | number
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
+    tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type BattleRoyaleBruteUpsertWithWhereUniqueWithoutMapInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    update: XOR<BattleRoyaleBruteUpdateWithoutMapInput, BattleRoyaleBruteUncheckedUpdateWithoutMapInput>
+    create: XOR<BattleRoyaleBruteCreateWithoutMapInput, BattleRoyaleBruteUncheckedCreateWithoutMapInput>
+  }
+
+  export type BattleRoyaleBruteUpdateWithWhereUniqueWithoutMapInput = {
+    where: BattleRoyaleBruteWhereUniqueInput
+    data: XOR<BattleRoyaleBruteUpdateWithoutMapInput, BattleRoyaleBruteUncheckedUpdateWithoutMapInput>
+  }
+
+  export type BattleRoyaleBruteUpdateManyWithWhereWithoutMapInput = {
+    where: BattleRoyaleBruteScalarWhereInput
+    data: XOR<BattleRoyaleBruteUpdateManyMutationInput, BattleRoyaleBruteUncheckedUpdateManyWithoutMapInput>
+  }
+
+  export type EventCreateWithoutBattleRoyaleBrutesInput = {
+    id?: string
+    date?: Date | string
+    type?: $Enums.EventType
+    maxLevel: number
+    maxRound?: number
+    status?: $Enums.EventStatus
+    finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
+    brutes?: BruteCreateNestedManyWithoutEventInput
+    tournament?: TournamentCreateNestedOneWithoutEventInput
+    winner?: BruteCreateNestedOneWithoutWonEventsInput
+    maps?: BattleRoyaleMapCreateNestedManyWithoutEventInput
+  }
+
+  export type EventUncheckedCreateWithoutBattleRoyaleBrutesInput = {
+    id?: string
+    date?: Date | string
+    type?: $Enums.EventType
+    maxLevel: number
+    maxRound?: number
+    status?: $Enums.EventStatus
+    winnerId?: string | null
+    finishedAt?: Date | string | null
+    sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
+    brutes?: BruteUncheckedCreateNestedManyWithoutEventInput
+    tournament?: TournamentUncheckedCreateNestedOneWithoutEventInput
+    maps?: BattleRoyaleMapUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type EventCreateOrConnectWithoutBattleRoyaleBrutesInput = {
+    where: EventWhereUniqueInput
+    create: XOR<EventCreateWithoutBattleRoyaleBrutesInput, EventUncheckedCreateWithoutBattleRoyaleBrutesInput>
+  }
+
+  export type BattleRoyaleMapCreateWithoutParticipantsInput = {
+    id?: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+    event: EventCreateNestedOneWithoutMapsInput
+  }
+
+  export type BattleRoyaleMapUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    eventId: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleMapCreateOrConnectWithoutParticipantsInput = {
+    where: BattleRoyaleMapWhereUniqueInput
+    create: XOR<BattleRoyaleMapCreateWithoutParticipantsInput, BattleRoyaleMapUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type BruteCreateWithoutBattleRoyalesInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: number
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    tournamentWins?: number
+    resets?: number
+    user?: UserCreateNestedOneWithoutBrutesInput
+    master?: BruteCreateNestedOneWithoutPupilsInput
+    pupils?: BruteCreateNestedManyWithoutMasterInput
+    clan?: ClanCreateNestedOneWithoutBrutesInput
+    fights?: FightCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightCreateNestedManyWithoutBrute2Input
+    logs?: LogCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementCreateNestedManyWithoutBruteInput
+    reports?: BruteReportCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostCreateNestedManyWithoutAuthorInput
+    wantToJoinClan?: ClanCreateNestedOneWithoutJoinRequestsInput
+    threads?: ClanThreadCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersCreateNestedManyWithoutDefendersInput
+    event?: EventCreateNestedOneWithoutBrutesInput
+    wonEvents?: EventCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogCreateNestedManyWithoutBruteInput
+    clanRole?: ClanRoleCreateNestedOneWithoutBrutesInput
+    unlockedColors?: UnlockedColorsCreateNestedManyWithoutBruteInput
+    bruteRanking?: BruteRankingCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteUncheckedCreateWithoutBattleRoyalesInput = {
+    id?: string
+    name: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    willBeDeletedAt?: Date | string | null
+    deletionReason?: string | null
+    destinyPath?: BruteCreatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteCreatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: number
+    xp?: number
+    hpStat?: number
+    hpModifier?: number
+    hpValue?: number
+    strengthStat?: number
+    strengthModifier?: number
+    strengthValue?: number
+    agilityStat?: number
+    agilityModifier?: number
+    agilityValue?: number
+    speedStat?: number
+    speedModifier?: number
+    speedValue?: number
+    ranking?: number
+    gender: $Enums.Gender
+    userId?: string | null
+    body?: string
+    colors?: string
+    weapons?: BruteCreateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteCreateskillsInput | $Enums.SkillName[]
+    pets?: BruteCreatepetsInput | $Enums.PetName[]
+    ascensions?: number
+    ascendedWeapons?: BruteCreateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteCreateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteCreateascendedPetsInput | $Enums.PetName[]
+    masterId?: string | null
+    pupilsCount?: number
+    clanId?: string | null
+    registeredForTournament?: boolean
+    nextTournamentDate?: Date | string | null
+    currentTournamentDate?: Date | string | null
+    currentTournamentStepWatched?: number | null
+    globalTournamentWatchedDate?: Date | string | null
+    globalTournamentRoundWatched?: number | null
+    eventTournamentWatchedDate?: Date | string | null
+    eventTournamentRoundWatched?: number | null
+    lastFight?: Date | string | null
+    fightsLeft?: number
+    victories?: number
+    losses?: number
+    opponentsGeneratedAt?: Date | string | null
+    canRankUpSince?: Date | string | null
+    favorite?: boolean
+    wantToJoinClanId?: string | null
+    tournamentWins?: number
+    eventId?: string | null
+    resets?: number
+    clanRoleId?: string | null
+    pupils?: BruteUncheckedCreateNestedManyWithoutMasterInput
+    fights?: FightUncheckedCreateNestedManyWithoutBrute1Input
+    fightsAsAdversary?: FightUncheckedCreateNestedManyWithoutBrute2Input
+    logs?: LogUncheckedCreateNestedManyWithoutCurrentBruteInput
+    destinyChoices?: DestinyChoiceUncheckedCreateNestedManyWithoutBruteInput
+    tournaments?: TournamentUncheckedCreateNestedManyWithoutParticipantsInput
+    opponents?: BruteUncheckedCreateNestedManyWithoutOpponentOfInput
+    opponentOf?: BruteUncheckedCreateNestedManyWithoutOpponentsInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutBruteInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutBruteInput
+    masterOfClan?: ClanUncheckedCreateNestedOneWithoutMasterInput
+    clanPosts?: ClanPostUncheckedCreateNestedManyWithoutAuthorInput
+    threads?: ClanThreadUncheckedCreateNestedManyWithoutCreatorInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
+    tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
+    tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
+    damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutAttackersInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedCreateNestedManyWithoutDefendersInput
+    wonEvents?: EventUncheckedCreateNestedManyWithoutWinnerInput
+    userlogs?: UserLogUncheckedCreateNestedManyWithoutBruteInput
+    unlockedColors?: UnlockedColorsUncheckedCreateNestedManyWithoutBruteInput
+    bruteRanking?: BruteRankingUncheckedCreateNestedOneWithoutBruteInput
+    stats?: BruteStatsUncheckedCreateNestedManyWithoutBruteInput
+    levelUpStats?: BruteLevelUpStatUncheckedCreateNestedManyWithoutBruteInput
+  }
+
+  export type BruteCreateOrConnectWithoutBattleRoyalesInput = {
+    where: BruteWhereUniqueInput
+    create: XOR<BruteCreateWithoutBattleRoyalesInput, BruteUncheckedCreateWithoutBattleRoyalesInput>
+  }
+
+  export type EventUpsertWithoutBattleRoyaleBrutesInput = {
+    update: XOR<EventUpdateWithoutBattleRoyaleBrutesInput, EventUncheckedUpdateWithoutBattleRoyaleBrutesInput>
+    create: XOR<EventCreateWithoutBattleRoyaleBrutesInput, EventUncheckedCreateWithoutBattleRoyaleBrutesInput>
+    where?: EventWhereInput
+  }
+
+  export type EventUpdateToOneWithWhereWithoutBattleRoyaleBrutesInput = {
+    where?: EventWhereInput
+    data: XOR<EventUpdateWithoutBattleRoyaleBrutesInput, EventUncheckedUpdateWithoutBattleRoyaleBrutesInput>
+  }
+
+  export type EventUpdateWithoutBattleRoyaleBrutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+    maxLevel?: IntFieldUpdateOperationsInput | number
+    maxRound?: IntFieldUpdateOperationsInput | number
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUpdateManyWithoutEventNestedInput
+    tournament?: TournamentUpdateOneWithoutEventNestedInput
+    winner?: BruteUpdateOneWithoutWonEventsNestedInput
+    maps?: BattleRoyaleMapUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventUncheckedUpdateWithoutBattleRoyaleBrutesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: EnumEventTypeFieldUpdateOperationsInput | $Enums.EventType
+    maxLevel?: IntFieldUpdateOperationsInput | number
+    maxRound?: IntFieldUpdateOperationsInput | number
+    status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    winnerId?: NullableStringFieldUpdateOperationsInput | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
+    brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
+    tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
+    maps?: BattleRoyaleMapUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type BattleRoyaleMapUpsertWithoutParticipantsInput = {
+    update: XOR<BattleRoyaleMapUpdateWithoutParticipantsInput, BattleRoyaleMapUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<BattleRoyaleMapCreateWithoutParticipantsInput, BattleRoyaleMapUncheckedCreateWithoutParticipantsInput>
+    where?: BattleRoyaleMapWhereInput
+  }
+
+  export type BattleRoyaleMapUpdateToOneWithWhereWithoutParticipantsInput = {
+    where?: BattleRoyaleMapWhereInput
+    data: XOR<BattleRoyaleMapUpdateWithoutParticipantsInput, BattleRoyaleMapUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type BattleRoyaleMapUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    event?: EventUpdateOneRequiredWithoutMapsNestedInput
+  }
+
+  export type BattleRoyaleMapUncheckedUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BruteUpsertWithoutBattleRoyalesInput = {
+    update: XOR<BruteUpdateWithoutBattleRoyalesInput, BruteUncheckedUpdateWithoutBattleRoyalesInput>
+    create: XOR<BruteCreateWithoutBattleRoyalesInput, BruteUncheckedCreateWithoutBattleRoyalesInput>
+    where?: BruteWhereInput
+  }
+
+  export type BruteUpdateToOneWithWhereWithoutBattleRoyalesInput = {
+    where?: BruteWhereInput
+    data: XOR<BruteUpdateWithoutBattleRoyalesInput, BruteUncheckedUpdateWithoutBattleRoyalesInput>
+  }
+
+  export type BruteUpdateWithoutBattleRoyalesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    resets?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutBrutesNestedInput
+    master?: BruteUpdateOneWithoutPupilsNestedInput
+    pupils?: BruteUpdateManyWithoutMasterNestedInput
+    clan?: ClanUpdateOneWithoutBrutesNestedInput
+    fights?: FightUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUpdateManyWithoutBrute2NestedInput
+    logs?: LogUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUpdateManyWithoutAuthorNestedInput
+    wantToJoinClan?: ClanUpdateOneWithoutJoinRequestsNestedInput
+    threads?: ClanThreadUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUpdateManyWithoutDefendersNestedInput
+    event?: EventUpdateOneWithoutBrutesNestedInput
+    wonEvents?: EventUpdateManyWithoutWinnerNestedInput
+    userlogs?: UserLogUpdateManyWithoutBruteNestedInput
+    clanRole?: ClanRoleUpdateOneWithoutBrutesNestedInput
+    unlockedColors?: UnlockedColorsUpdateManyWithoutBruteNestedInput
+    bruteRanking?: BruteRankingUpdateOneWithoutBruteNestedInput
+    stats?: BruteStatsUpdateManyWithoutBruteNestedInput
+    levelUpStats?: BruteLevelUpStatUpdateManyWithoutBruteNestedInput
+  }
+
+  export type BruteUncheckedUpdateWithoutBattleRoyalesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    willBeDeletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    destinyPath?: BruteUpdatedestinyPathInput | $Enums.DestinyChoiceSide[]
+    previousDestinyPath?: BruteUpdatepreviousDestinyPathInput | $Enums.DestinyChoiceSide[]
+    level?: IntFieldUpdateOperationsInput | number
+    xp?: IntFieldUpdateOperationsInput | number
+    hpStat?: IntFieldUpdateOperationsInput | number
+    hpModifier?: FloatFieldUpdateOperationsInput | number
+    hpValue?: IntFieldUpdateOperationsInput | number
+    strengthStat?: IntFieldUpdateOperationsInput | number
+    strengthModifier?: FloatFieldUpdateOperationsInput | number
+    strengthValue?: IntFieldUpdateOperationsInput | number
+    agilityStat?: IntFieldUpdateOperationsInput | number
+    agilityModifier?: FloatFieldUpdateOperationsInput | number
+    agilityValue?: IntFieldUpdateOperationsInput | number
+    speedStat?: IntFieldUpdateOperationsInput | number
+    speedModifier?: FloatFieldUpdateOperationsInput | number
+    speedValue?: IntFieldUpdateOperationsInput | number
+    ranking?: IntFieldUpdateOperationsInput | number
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    body?: StringFieldUpdateOperationsInput | string
+    colors?: StringFieldUpdateOperationsInput | string
+    weapons?: BruteUpdateweaponsInput | $Enums.WeaponName[]
+    skills?: BruteUpdateskillsInput | $Enums.SkillName[]
+    pets?: BruteUpdatepetsInput | $Enums.PetName[]
+    ascensions?: IntFieldUpdateOperationsInput | number
+    ascendedWeapons?: BruteUpdateascendedWeaponsInput | $Enums.WeaponName[]
+    ascendedSkills?: BruteUpdateascendedSkillsInput | $Enums.SkillName[]
+    ascendedPets?: BruteUpdateascendedPetsInput | $Enums.PetName[]
+    masterId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupilsCount?: IntFieldUpdateOperationsInput | number
+    clanId?: NullableStringFieldUpdateOperationsInput | string | null
+    registeredForTournament?: BoolFieldUpdateOperationsInput | boolean
+    nextTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    currentTournamentStepWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    globalTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    globalTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    eventTournamentWatchedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    eventTournamentRoundWatched?: NullableIntFieldUpdateOperationsInput | number | null
+    lastFight?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fightsLeft?: IntFieldUpdateOperationsInput | number
+    victories?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    opponentsGeneratedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    canRankUpSince?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorite?: BoolFieldUpdateOperationsInput | boolean
+    wantToJoinClanId?: NullableStringFieldUpdateOperationsInput | string | null
+    tournamentWins?: IntFieldUpdateOperationsInput | number
+    eventId?: NullableStringFieldUpdateOperationsInput | string | null
+    resets?: IntFieldUpdateOperationsInput | number
+    clanRoleId?: NullableStringFieldUpdateOperationsInput | string | null
+    pupils?: BruteUncheckedUpdateManyWithoutMasterNestedInput
+    fights?: FightUncheckedUpdateManyWithoutBrute1NestedInput
+    fightsAsAdversary?: FightUncheckedUpdateManyWithoutBrute2NestedInput
+    logs?: LogUncheckedUpdateManyWithoutCurrentBruteNestedInput
+    destinyChoices?: DestinyChoiceUncheckedUpdateManyWithoutBruteNestedInput
+    tournaments?: TournamentUncheckedUpdateManyWithoutParticipantsNestedInput
+    opponents?: BruteUncheckedUpdateManyWithoutOpponentOfNestedInput
+    opponentOf?: BruteUncheckedUpdateManyWithoutOpponentsNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutBruteNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutBruteNestedInput
+    masterOfClan?: ClanUncheckedUpdateOneWithoutMasterNestedInput
+    clanPosts?: ClanPostUncheckedUpdateManyWithoutAuthorNestedInput
+    threads?: ClanThreadUncheckedUpdateManyWithoutCreatorNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
+    tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
+    damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
+    inClanWarDefenderFighters?: ClanWarFightersUncheckedUpdateManyWithoutDefendersNestedInput
+    wonEvents?: EventUncheckedUpdateManyWithoutWinnerNestedInput
     userlogs?: UserLogUncheckedUpdateManyWithoutBruteNestedInput
     unlockedColors?: UnlockedColorsUncheckedUpdateManyWithoutBruteNestedInput
     bruteRanking?: BruteRankingUncheckedUpdateOneWithoutBruteNestedInput
@@ -90168,6 +94767,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -90255,6 +94855,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -90597,6 +95198,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -90685,6 +95287,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -90785,6 +95388,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -90873,6 +95477,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -91137,6 +95742,7 @@ export namespace Prisma {
     inventory?: InventoryItemCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageCreateNestedManyWithoutBruteInput
     followers?: UserCreateNestedManyWithoutFollowingInput
@@ -91225,6 +95831,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedCreateNestedManyWithoutBruteInput
     tournamentAchievements?: TournamentAchievementUncheckedCreateNestedManyWithoutBruteInput
     tournamentXps?: TournamentXpUncheckedCreateNestedManyWithoutBruteInput
+    battleRoyales?: BattleRoyaleBruteUncheckedCreateNestedManyWithoutBruteInput
     startingStats?: BruteStartingStatsUncheckedCreateNestedOneWithoutBruteInput
     damageOnBosses?: BossDamageUncheckedCreateNestedManyWithoutBruteInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
@@ -91325,6 +95932,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -91413,6 +96021,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -91721,6 +96330,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -91809,6 +96419,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -92108,6 +96719,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUpdateManyWithoutAttackersNestedInput
@@ -92196,6 +96808,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     inClanWarAttackerFighters?: ClanWarFightersUncheckedUpdateManyWithoutAttackersNestedInput
@@ -92636,6 +97249,22 @@ export namespace Prisma {
     xp: number
   }
 
+  export type BattleRoyaleBruteCreateManyBruteInput = {
+    id?: string
+    eventId: string
+    mapId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
   export type BossDamageCreateManyBruteInput = {
     id?: string
     clanId: string
@@ -92651,6 +97280,8 @@ export namespace Prisma {
     status?: $Enums.EventStatus
     finishedAt?: Date | string | null
     sortedBrutes?: EventCreatesortedBrutesInput | string[]
+    groupSize?: number
+    baseVision?: number
   }
 
   export type UserLogCreateManyBruteInput = {
@@ -92767,6 +97398,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -92855,6 +97487,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -93229,6 +97862,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -93317,6 +97951,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -93461,6 +98096,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -93549,6 +98185,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -93794,6 +98431,54 @@ export namespace Prisma {
     xp?: IntFieldUpdateOperationsInput | number
   }
 
+  export type BattleRoyaleBruteUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    event?: EventUpdateOneRequiredWithoutBattleRoyaleBrutesNestedInput
+    map?: BattleRoyaleMapUpdateOneRequiredWithoutParticipantsNestedInput
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    mapId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyWithoutBruteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    mapId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type BossDamageUpdateWithoutBruteInput = {
     id?: StringFieldUpdateOperationsInput | string
     damage?: IntFieldUpdateOperationsInput | number
@@ -93971,8 +98656,12 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUpdateManyWithoutEventNestedInput
     tournament?: TournamentUpdateOneWithoutEventNestedInput
+    maps?: BattleRoyaleMapUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateWithoutWinnerInput = {
@@ -93984,8 +98673,12 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
     brutes?: BruteUncheckedUpdateManyWithoutEventNestedInput
     tournament?: TournamentUncheckedUpdateOneWithoutEventNestedInput
+    maps?: BattleRoyaleMapUncheckedUpdateManyWithoutEventNestedInput
+    battleRoyaleBrutes?: BattleRoyaleBruteUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type EventUncheckedUpdateManyWithoutWinnerInput = {
@@ -93997,6 +98690,8 @@ export namespace Prisma {
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sortedBrutes?: EventUpdatesortedBrutesInput | string[]
+    groupSize?: IntFieldUpdateOperationsInput | number
+    baseVision?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserLogUpdateWithoutBruteInput = {
@@ -94431,6 +99126,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -94519,6 +99215,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -95255,6 +99952,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -95343,6 +100041,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -95486,6 +100185,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -95574,6 +100274,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -96060,6 +100761,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -96148,6 +100850,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -96292,6 +100995,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -96380,6 +101084,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -96511,6 +101216,32 @@ export namespace Prisma {
     clanRoleId?: string | null
   }
 
+  export type BattleRoyaleMapCreateManyEventInput = {
+    id?: string
+    round: number
+    radius: number
+    lastShrinkAt?: Date | string
+    tiles: JsonNullValueInput | InputJsonValue
+    resolved?: boolean
+    resolvedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateManyEventInput = {
+    id?: string
+    mapId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
   export type BruteUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -96583,6 +101314,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -96670,6 +101402,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
@@ -96740,6 +101473,150 @@ export namespace Prisma {
     tournamentWins?: IntFieldUpdateOperationsInput | number
     resets?: IntFieldUpdateOperationsInput | number
     clanRoleId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BattleRoyaleMapUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants?: BattleRoyaleBruteUpdateManyWithoutMapNestedInput
+  }
+
+  export type BattleRoyaleMapUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants?: BattleRoyaleBruteUncheckedUpdateManyWithoutMapNestedInput
+  }
+
+  export type BattleRoyaleMapUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    round?: IntFieldUpdateOperationsInput | number
+    radius?: IntFieldUpdateOperationsInput | number
+    lastShrinkAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tiles?: JsonNullValueInput | InputJsonValue
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    map?: BattleRoyaleMapUpdateOneRequiredWithoutParticipantsNestedInput
+    brute?: BruteUpdateOneRequiredWithoutBattleRoyalesNestedInput
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mapId?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mapId?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteCreateManyMapInput = {
+    id?: string
+    eventId: string
+    bruteId: string
+    x: number
+    y: number
+    level: number
+    vision?: number
+    movesLeft?: number
+    lastMoveDate?: Date | string | null
+    lastScoutAt?: Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: boolean
+    eliminatedAt?: Date | string | null
+  }
+
+  export type BattleRoyaleBruteUpdateWithoutMapInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    event?: EventUpdateOneRequiredWithoutBattleRoyaleBrutesNestedInput
+    brute?: BruteUpdateOneRequiredWithoutBattleRoyalesNestedInput
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateWithoutMapInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BattleRoyaleBruteUncheckedUpdateManyWithoutMapInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    bruteId?: StringFieldUpdateOperationsInput | string
+    x?: IntFieldUpdateOperationsInput | number
+    y?: IntFieldUpdateOperationsInput | number
+    level?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    movesLeft?: IntFieldUpdateOperationsInput | number
+    lastMoveDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastScoutAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownTiles?: JsonNullValueInput | InputJsonValue
+    eliminated?: BoolFieldUpdateOperationsInput | boolean
+    eliminatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BruteCreateManyClanRoleInput = {
@@ -96873,6 +101750,7 @@ export namespace Prisma {
     inventory?: InventoryItemUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUpdateManyWithoutBruteNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
@@ -96960,6 +101838,7 @@ export namespace Prisma {
     inventory?: InventoryItemUncheckedUpdateManyWithoutBruteNestedInput
     tournamentAchievements?: TournamentAchievementUncheckedUpdateManyWithoutBruteNestedInput
     tournamentXps?: TournamentXpUncheckedUpdateManyWithoutBruteNestedInput
+    battleRoyales?: BattleRoyaleBruteUncheckedUpdateManyWithoutBruteNestedInput
     startingStats?: BruteStartingStatsUncheckedUpdateOneWithoutBruteNestedInput
     damageOnBosses?: BossDamageUncheckedUpdateManyWithoutBruteNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput

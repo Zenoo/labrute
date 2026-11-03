@@ -8,6 +8,7 @@ import {
   randomBetween,
 } from '@labrute/core';
 import {
+  EventType,
   InventoryItemType,
   LogType, Prisma, PrismaClient, TournamentType,
 } from '@labrute/prisma';
@@ -108,6 +109,17 @@ export const Fights = {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
+      // Map-based battle royale brutes don't fight in the arena
+      if (baseBrute1.eventId) {
+        const brute1Event = await traced('fights.create.findEvent', () => prisma.event.findFirst({
+          where: { id: baseBrute1.eventId ?? undefined },
+          select: { type: true },
+        }));
+        if (brute1Event?.type === EventType.battleRoyale) {
+          throw new LimitError(translate('battleRoyaleNoArenaFights', user));
+        }
+      }
+
       const baseBrute2 = await traced('fights.create.findBrute2', () => prisma.brute.findFirst({
         where: {
           name: ilike(req.body.brute2),
@@ -119,8 +131,9 @@ export const Fights = {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
-      // Get current modifiers
+      // Get current state
       const modifiers = await ServerState.getModifiers(prisma);
+      const currentEvent = await ServerState.getCurrentEvent(prisma);
 
       const brute1 = getCalculatedBrute(baseBrute1, modifiers);
       const brute2 = getCalculatedBrute(baseBrute2, modifiers);
@@ -128,7 +141,7 @@ export const Fights = {
       // Check if this is an arena fight
       const arenaFight = brute1.opponents.some((opponent) => opponent.name === brute2.name);
 
-      const brute1FightsLeft = getFightsLeft(brute1);
+      const brute1FightsLeft = getFightsLeft(brute1, currentEvent);
 
       // Cancel if brute1 has no fights left
       if (arenaFight && brute1FightsLeft <= 0) {
@@ -305,7 +318,7 @@ export const Fights = {
         }));
       }
 
-      const fightsLeft = getFightsLeft(brute1);
+      const fightsLeft = getFightsLeft(brute1, currentEvent);
 
       // Send fight id to client
       res.send({
