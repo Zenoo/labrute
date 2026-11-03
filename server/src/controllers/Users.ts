@@ -784,8 +784,12 @@ export const Users = {
       }
 
       const modifiers = await ServerState.getModifiers(prisma);
+      const currentEvent = await ServerState.getCurrentEvent(prisma);
       const isDoneForToday = brutes.every(
-        (brute) => getFightsLeft({ ...brute, skills: getTieredSkills(brute, modifiers) }) === 0,
+        (brute) => getFightsLeft(
+          { ...brute, skills: getTieredSkills(brute, modifiers) },
+          currentEvent,
+        ) === 0,
       );
 
       res.send(isDoneForToday);
@@ -881,10 +885,12 @@ export const Users = {
       }));
 
       const modifiers = await ServerState.getModifiers(prisma);
+      const currentEvent = await ServerState.getCurrentEvent(prisma);
 
       for (const brute of brutes) {
         const fightsLeft = getFightsLeft(
           { ...brute, skills: getTieredSkills(brute, modifiers) },
+          currentEvent,
         ) + 1;
 
         await traced('users.getDinoRpgRewards.updateBrute', () => prisma.brute.update({

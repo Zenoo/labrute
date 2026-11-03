@@ -1407,13 +1407,14 @@ export const Clans = {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
-      // Get current modifiers
+      // Get current state
       const modifiers = await ServerState.getModifiers(prisma);
+      const currentEvent = await ServerState.getCurrentEvent(prisma);
 
       const brute = getCalculatedBrute(baseBrute, modifiers);
 
       // Check if the brute has fights left
-      if (getFightsLeft(brute) <= 0) {
+      if (getFightsLeft(brute, currentEvent) <= 0) {
         throw new LimitError(translate('noFightsLeft', user));
       }
 
@@ -1446,7 +1447,7 @@ export const Clans = {
         where: { id: brute.id },
         data: {
           lastFight: new Date(),
-          fightsLeft: getFightsLeft(brute) - 1,
+          fightsLeft: getFightsLeft(brute, currentEvent) - 1,
         },
         select: { id: true },
       }));

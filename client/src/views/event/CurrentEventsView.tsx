@@ -61,6 +61,7 @@ export const CurrentEventsView = () => {
             </Box>
           ) : events.map((event) => {
             switch (event.type) {
+              case EventType.tourney:
               case EventType.battleRoyale: {
                 return (
                   <Grid item xs={12} md={6} key={event.id}>

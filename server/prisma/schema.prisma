@@ -310,6 +310,7 @@ model Brute {
   tournamentAchievements       TournamentAchievement[]
   tournamentXps                TournamentXp[]
   tournamentWins               Int                     @default(0)
+  battleRoyales                BattleRoyaleBrute[]
   startingStats                BruteStartingStats?
   damageOnBosses               BossDamage[]
   followers                    User[]                  @relation("Followers")
@@ -955,6 +956,7 @@ model Release {
 
 // Events
 enum EventType {
+  tourney
   battleRoyale
 }
 
@@ -965,21 +967,67 @@ enum EventStatus {
 }
 
 model Event {
-  id           String      @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  date         DateTime    @default(now()) @db.Date
-  type         EventType   @default(battleRoyale)
-  maxLevel     Int
-  maxRound     Int         @default(999)
-  status       EventStatus @default(starting)
-  brutes       Brute[]
-  tournament   Tournament?
-  winner       Brute?      @relation("EventBruteWinner", fields: [winnerId], references: [id])
-  winnerId     String?     @db.Uuid
-  finishedAt   DateTime?   @db.Date
-  sortedBrutes String[]    @default([])
+  id                 String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  date               DateTime            @default(now()) @db.Date
+  type               EventType           @default(tourney)
+  maxLevel           Int
+  maxRound           Int                 @default(999)
+  status             EventStatus         @default(starting)
+  brutes             Brute[]
+  tournament         Tournament?
+  winner             Brute?              @relation("EventBruteWinner", fields: [winnerId], references: [id])
+  winnerId           String?             @db.Uuid
+  finishedAt         DateTime?           @db.Date
+  sortedBrutes       String[]            @default([])
+  // Battle royale (map) settings
+  groupSize          Int                 @default(20)
+  baseVision         Int                 @default(2)
+  maps               BattleRoyaleMap[]
+  battleRoyaleBrutes BattleRoyaleBrute[]
 
   @@index([date, type, status])
   @@index([winnerId])
+}
+
+model BattleRoyaleMap {
+  id           String              @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event        Event               @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId      String              @db.Uuid
+  round        Int
+  radius       Int // Shrinks every day
+  lastShrinkAt DateTime            @default(now()) // Guards against shrinking twice a day
+  // Tiles (type, perks), generated once and stored as a blob
+  tiles        Json
+  resolved     Boolean             @default(false)
+  resolvedAt   DateTime?
+  participants BattleRoyaleBrute[]
+
+  @@index([eventId, round])
+}
+
+model BattleRoyaleBrute {
+  id           String          @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event        Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId      String          @db.Uuid
+  map          BattleRoyaleMap @relation(fields: [mapId], references: [id], onDelete: Cascade)
+  mapId        String          @db.Uuid
+  brute        Brute           @relation(fields: [bruteId], references: [id], onDelete: Cascade)
+  bruteId      String          @db.Uuid
+  x            Int
+  y            Int
+  level        Int
+  vision       Int             @default(2)
+  movesLeft    Int             @default(6)
+  lastMoveDate DateTime?       @db.Date
+  lastScoutAt  DateTime?
+  // Last known map state for this brute (tile data + scout date per tile)
+  knownTiles   Json            @default("{}")
+  eliminated   Boolean         @default(false)
+  eliminatedAt DateTime?
+
+  @@unique([eventId, bruteId])
+  @@index([mapId, eliminated])
+  @@index([bruteId])
 }
 
 // Notifications

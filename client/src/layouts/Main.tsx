@@ -199,7 +199,7 @@ export const Main = () => {
               mr={1}
             >
               <Badge
-                badgeContent={getFightsLeft(b)}
+                badgeContent={getFightsLeft(b, currentEvent)}
                 color="info"
                 componentsProps={{
                   badge: { style: { marginTop: 4 } },

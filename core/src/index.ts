@@ -11,3 +11,4 @@ export * from './clan/index.js';
 export * from './errors.js';
 export * from './fight/index.js';
 export * from './utils/index.js';
+export * from './battleRoyale.js';

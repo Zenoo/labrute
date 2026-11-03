@@ -570,7 +570,8 @@ export class FighterHolder {
   onceEvents: Record<string, ((event: string) => void)[]> = {};
 
   constructor(
-    app: Application,
+    // Only the renderer and ticker are needed, so a bare renderer can be used outside of a Pixi app
+    app: Pick<Application, 'renderer' | 'ticker'>,
     fighter: Fighter,
     speed: RefObject<number>,
     scale = 1,

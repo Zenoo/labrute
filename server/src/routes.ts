@@ -10,6 +10,7 @@ import { Brutes } from './controllers/Brutes.js';
 import { Clans } from './controllers/Clans.js';
 import { ClanWars } from './controllers/ClanWars.js';
 import { Events } from './controllers/Events.js';
+import { BattleRoyales } from './controllers/BattleRoyales.js';
 import { Fights } from './controllers/Fights.js';
 import { Logs } from './controllers/Logs.js';
 import { Notifications } from './controllers/Notifications.js';
@@ -203,6 +204,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.get('/api/event/:id/brute/:bruteId', Events.get(prisma));
   app.get('/api/event/:id/round/:round', Events.getRound(prisma));
   app.get('/api/event/currents', Events.listCurrent(prisma));
+  app.get('/api/event/:id/battle-royale/brute/:bruteId', BattleRoyales.get(prisma));
+  app.post('/api/event/:id/battle-royale/brute/:bruteId/move', BattleRoyales.move(prisma));
+  app.post('/api/event/:id/battle-royale/brute/:bruteId/scout', BattleRoyales.scout(prisma));
 
   // Notifications
   app.get('/api/notification/list', Notifications.list(prisma));

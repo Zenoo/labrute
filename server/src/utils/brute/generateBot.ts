@@ -51,6 +51,7 @@ export const generateBot = (
       ...updateBruteData(
         { ...bruteData, id: '', eventId: null },
         levelUpChoice,
+        null
       ),
       id: undefined,
     };

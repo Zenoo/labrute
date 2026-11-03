@@ -11,21 +11,21 @@ import { AdResult } from '../../utils/ads';
 import { BruteTooltip } from '../../components/Brute/BruteTooltip';
 
 export type FightMobileViewProps = {
-  pageTitle?: string;
   headerUrl?: string;
   ads: AdResult[];
   fight: FightGetResponse | null;
   attackers?: Fighter[];
   defenders?: Fighter[];
+  children?: React.ReactNode;
 }
 
 export const FightMobileView = ({
-  pageTitle,
   headerUrl,
   ads,
   fight,
   attackers = [],
   defenders = [],
+  children,
 }: FightMobileViewProps) => {
   const { t } = useTranslation();
 
@@ -36,7 +36,7 @@ export const FightMobileView = ({
       <Paper sx={{ textAlign: 'center' }}>
         {/* FIGHT */}
         <FightComponent fight={fight} />
-
+        {children}
         {/* FIGHTERS */}
         {fight?.clanWarId && (
           <Box sx={{

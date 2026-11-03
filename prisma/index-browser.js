@@ -466,7 +466,37 @@ exports.Prisma.EventScalarFieldEnum = {
   status: 'status',
   winnerId: 'winnerId',
   finishedAt: 'finishedAt',
-  sortedBrutes: 'sortedBrutes'
+  sortedBrutes: 'sortedBrutes',
+  groupSize: 'groupSize',
+  baseVision: 'baseVision'
+};
+
+exports.Prisma.BattleRoyaleMapScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  round: 'round',
+  radius: 'radius',
+  lastShrinkAt: 'lastShrinkAt',
+  tiles: 'tiles',
+  resolved: 'resolved',
+  resolvedAt: 'resolvedAt'
+};
+
+exports.Prisma.BattleRoyaleBruteScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  mapId: 'mapId',
+  bruteId: 'bruteId',
+  x: 'x',
+  y: 'y',
+  level: 'level',
+  vision: 'vision',
+  movesLeft: 'movesLeft',
+  lastMoveDate: 'lastMoveDate',
+  lastScoutAt: 'lastScoutAt',
+  knownTiles: 'knownTiles',
+  eliminated: 'eliminated',
+  eliminatedAt: 'eliminatedAt'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -562,6 +592,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -570,6 +604,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Lang = exports.$Enums.Lang = {
   en: 'en',
@@ -906,6 +946,7 @@ exports.InventoryItemType = exports.$Enums.InventoryItemType = {
 };
 
 exports.EventType = exports.$Enums.EventType = {
+  tourney: 'tourney',
   battleRoyale: 'battleRoyale'
 };
 
@@ -974,6 +1015,8 @@ exports.Prisma.ModelName = {
   InventoryItem: 'InventoryItem',
   Release: 'Release',
   Event: 'Event',
+  BattleRoyaleMap: 'BattleRoyaleMap',
+  BattleRoyaleBrute: 'BattleRoyaleBrute',
   Notification: 'Notification',
   Config: 'Config',
   ClanRole: 'ClanRole',
