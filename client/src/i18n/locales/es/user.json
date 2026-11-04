@@ -7,7 +7,7 @@
   "deleteAccountConfirm": "¿Está seguro que desea eliminar su cuenta? Se perderán todos sus brutos y progresos. Esta acción es irreversible.",
   "accountDeleted": "Tu cuenta ha sido eliminada",
   "userProfile": "Perfil de {{user}}",
-  "stats": "Stats",
+  "stats": "Estadísticas",
   "externalRewards": "Recompensas externas",
   "favoriteFights": "Combates favoritos",
   "banReason.innapropriateName": "Nombre inapropiado",
