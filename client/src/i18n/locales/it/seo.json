@@ -1,50 +1,50 @@
 {
   "home": {
     "title": "{{brand}}",
-    "description": "Create your Brute, customize its appearance, and fight other Brutes in the arena."
+    "description": "Crea il tuo Bruto, personalizza il suo aspetto, e combatti gli altri Bruti nell'arena."
   },
   "achievements/rankings": {
-    "title": "Achievements Ranking | {{brand}}",
-    "description": "Compare top players and their achievements."
+    "title": "Classifica Obiettivi | {{brand}}",
+    "description": "Compara i migliori giocatori e gli obiettivi che hanno raggiunto."
   },
   "patch-notes": {
-    "title": "Patch Notes | {{brand}}",
-    "description": "Read the latest updates and balance changes."
+    "title": "Note della patch | {{brand}}",
+    "description": "Leggi gli ultimi aggiornamenti e modifiche di bilanciamento."
   },
   "wiki": {
     "title": "Wiki | {{brand}}",
-    "description": "Learn mechanics, skills, and strategies."
+    "description": "Impara le meccaniche, le abilità e le strategie."
   },
   "terms": {
-    "title": "Terms of Service | {{brand}}",
-    "description": "Review terms and conditions for the game."
+    "title": "Termini e condizioni | {{brand}}",
+    "description": "Osserva termini e condizioni del gioco."
   },
   "fight": {
-    "title": "Fight | {{brand}}",
-    "description": "Watch and analyze a fight."
+    "title": "Combattimento | {{brand}}",
+    "description": "Guarda e analizza un combattimento."
   },
   "user": {
-    "title": "User Profile | {{brand}}",
-    "description": "View profile, brutes, and achievements."
+    "title": "Profilo utente | {{brand}}",
+    "description": "Vedi il profilo, i Bruti e gli obiettivi raggiunti."
   },
   "user-stats": {
-    "title": "User Stats | {{brand}}",
-    "description": "Detailed user statistics and performance trends."
+    "title": "Statistiche utente | {{brand}}",
+    "description": "Statistiche dettagliate e tendenze."
   },
   "cell": {
-    "title": "{{name}}'s Cell | {{brand}}",
-    "description": "View {{name}}'s cell and manage progression."
+    "title": "Cella di {{name}} | {{brand}}",
+    "description": "Vedi la cella di {{name}} e gestisci la sua progressione."
   },
   "tournament": {
-    "title": "{{name}}'s Tournament | {{brand}}",
-    "description": "Track tournament participation and results for {{name}}."
+    "title": "Torneo di {{name}} | {{brand}}",
+    "description": "Segui la partecipazione e i risultati di {{name}} al torneo."
   },
   "ranking/rank": {
-    "title": "{{rank}} Ranking | {{brand}}",
-    "description": "Browse rankings and compare competitors."
+    "title": "Classifica {{rank}} | {{brand}}",
+    "description": "Sfoglia le classifiche e compara i combattenti."
   },
   "destiny": {
-    "title": "{{name}}'s Destiny | {{brand}}",
+    "title": "Destino di {{name}}",
     "description": "See destiny choices and progression options for {{name}}."
   },
   "tournaments": {
@@ -60,8 +60,8 @@
     "description": "See {{name}}'s pupils."
   },
   "clan-ranking": {
-    "title": "Clan Ranking | {{brand}}",
-    "description": "Browse top clans and compare their progress."
+    "title": "Classifica dei clan | {{brand}}",
+    "description": "Sfoglia i clan migliori e compara i loro progressi."
   },
   "clan": {
     "title": "Clan | {{brand}}",
@@ -93,7 +93,7 @@
   },
   "event": {
     "title": "Event | {{brand}}",
-    "description": "Explore event details and rankings."
+    "description": "Esplora i dettagli dell'evento e le classifiche."
   },
   "event-round": {
     "title": "Event Round | {{brand}}",
