@@ -1,10 +1,10 @@
 {
   "desc": "Here you can see all the items you accumulated. Use them wisely!",
   "item.visualReset": "Visual reset",
-  "item.bossTicket": "Boss ticket",
+  "item.bossTicket": "Biglietto Boss",
   "item.nameChange": "Name change",
-  "item.favoriteFight": "Favorite fight",
+  "item.favoriteFight": "Combattimenti preferiti",
   "item.favoriteFight.desc": "You can set a fight as your favorite on the fight page. It will not be deleted after 30 days.",
-  "item.customizationToken": "Customization token",
+  "item.customizationToken": "Gettone di personalizzazione",
   "itemNotImplemented": "This item is not implemented yet."
 }
