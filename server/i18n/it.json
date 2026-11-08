@@ -86,7 +86,7 @@
   "modifier.chaos": "Controlled Chaos",
   "modifier.chaos.desc": "Everything seems weird today. All stats are randomized.",
   "bannedAccount": "Il tuo account è stato bannato per il seguente motivo: {{reason}}",
-  "deletedAccount": "Your account has been deleted",
+  "deletedAccount": "Il tuo conto è stato cancellato",
   "userNotBanned": "Utente non bannato",
   "userAlreadyBanned": "Utente già bannato",
   "banReason.innapropriateName": "Nome inappropriato",
@@ -119,5 +119,5 @@
   "userCreatedAfterTransferImplementation": "This feature is not available for accounts created after April 20th, 2026. It was only implemented for previous multiple account users to be able to transfer their brutes to a single account.",
   "rankingsNotReady": "The rankings are not ready yet. Please try again later.",
   "colorAlreadyUnlocked": "Questo colore è già stato sbloccato per questa parte del corpo",
-  "sharedBrowserNotFound": "Shared browser not found"
+  "sharedBrowserNotFound": "Impossibile trovare navigatore condiviso"
 }
