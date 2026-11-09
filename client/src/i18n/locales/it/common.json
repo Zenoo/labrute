@@ -578,7 +578,7 @@
   "title.clan-create": "Crea clan | {{brand}}",
   "title.clan-forum": "Forum del clan | {{brand}}",
   "title.clan-thread": "Filo del clan | {{brand}}",
-  "title.clan-post": "Clan Post | {{brand}}",
-  "title.clan-post-edit": "Edit Clan Post | {{brand}}",
-  "title.report": "Report | {{brand}}"
+  "title.clan-post": "Post del clan | {{brand}}",
+  "title.clan-post-edit": "Modifica un post del clan | {{brand}}",
+  "title.report": "Segnala | {{brand}}"
 }
