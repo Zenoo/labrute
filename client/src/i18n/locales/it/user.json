@@ -7,14 +7,14 @@
   "deleteAccountConfirm": "Are you sure you want to delete your account? All your brutes and progress will be lost. This action is irreversible.",
   "accountDeleted": "Your account has been deleted",
   "userProfile": "{{user}}'s profile",
-  "stats": "Stats",
+  "stats": "Statistiche",
   "externalRewards": "Ricompense esterne",
   "favoriteFights": "Favorite fights",
   "banReason.innapropriateName": "Inappropriate name",
   "banReason.innapropriateBruteName": "Inappropriate brute name",
   "banReason.multipleAccounts": "Multiple accounts",
   "banReason.headers_tampering": "Headers tampering detected",
-  "banReason.apiAbuse": "API abuse detected",
-  "banReason.automation": "Automation detected",
-  "banReason.unwelcomeBehavior": "Unwelcome behavior"
+  "banReason.apiAbuse": "Abuso dell API rilevato",
+  "banReason.automation": "Automazione rilevata",
+  "banReason.unwelcomeBehavior": "Comportamento indesiderato"
 }
