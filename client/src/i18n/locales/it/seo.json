@@ -45,19 +45,19 @@
   },
   "destiny": {
     "title": "Destino di {{name}}",
-    "description": "See destiny choices and progression options for {{name}}."
+    "description": "Vedi le scelte possibili nel destino e le opzioni di progressione di {{name}}."
   },
   "tournaments": {
-    "title": "{{name}}'s Tournament History | {{brand}}",
-    "description": "Review past tournaments for {{name}}."
+    "title": "Cronologia tornei di {{name}} | {{brand}}",
+    "description": "Guarda i tornei precedenti di {{name}}."
   },
   "achievements": {
-    "title": "{{name}} Achievements | {{brand}}",
-    "description": "Explore achievements unlocked by {{name}}."
+    "title": "Obiettivi raggiunti da {{name}} | {{brand}}",
+    "description": "Esplora gli obiettivi raggiunti da {{name}}."
   },
   "dojo": {
-    "title": "{{name}} Dojo | {{brand}}",
-    "description": "See {{name}}'s pupils."
+    "title": "Dojo di {{name}} | {{brand}}",
+    "description": "Guarda gli allievi di {{name}}."
   },
   "clan-ranking": {
     "title": "Classifica dei clan | {{brand}}",
@@ -65,42 +65,42 @@
   },
   "clan": {
     "title": "Clan | {{brand}}",
-    "description": "View clan information, members, and activity."
+    "description": "Guarda le informazioni de clan, i suoi membri e l'attività."
   },
   "forum": {
-    "title": "Clan Forum | {{brand}}",
-    "description": "Read and discuss in the clan forum."
+    "title": "Forum del clan | {{brand}}",
+    "description": "Leggi e discuti nel forum del clan."
   },
   "clan-war-history": {
-    "title": "Clan War History | {{brand}}",
-    "description": "Browse past clan wars."
+    "title": "Cronologia della Guerra del Clan | {{brand}}",
+    "description": "Percorri le Guerre del Clan passate."
   },
   "clan-war": {
-    "title": "Clan War | {{brand}}",
-    "description": "Track a clan war and its results."
+    "title": "Guerra del Clan | {{brand}}",
+    "description": "Segui una Guerra del Clan e i suoi risultati."
   },
   "clan-war-fight": {
-    "title": "Clan War Fight | {{brand}}",
-    "description": "View a fight from a clan war."
+    "title": "Combattimento della Guerra del Clan | {{brand}}",
+    "description": "Guarda un combattimento di una Guerra del Clan."
   },
   "current-events": {
-    "title": "Current Events | {{brand}}",
-    "description": "Discover currently active events."
+    "title": "Eventi in corso | {{brand}}",
+    "description": "Scopri gli eventi in corso adesso."
   },
   "history": {
-    "title": "Event History | {{brand}}",
-    "description": "Browse previous game events."
+    "title": "Cronologia degli eventi | {{brand}}",
+    "description": "Percorri gli eventi passati."
   },
   "event": {
-    "title": "Event | {{brand}}",
+    "title": "Evento | {{brand}}",
     "description": "Esplora i dettagli dell'evento e le classifiche."
   },
   "event-round": {
-    "title": "Event Round | {{brand}}",
-    "description": "View details for a specific event round."
+    "title": "Turno Evento | {{brand}}",
+    "description": "Vedi i dettagli di un turno specifico dell'evento."
   },
   "fallback": {
-    "title": "Page Not Found | {{brand}}",
-    "description": "The requested page does not exist."
+    "title": "Impossibile trovare la pagina | {{brand}}",
+    "description": "La pagina richiesta non esiste."
   }
 }
