@@ -442,8 +442,6 @@
   "vampirism.effect": "Action x<uses /> Deals 25% of your missing health as damage and heals you for up to twice that amount.",
   "vitality.desc": "Your life expectancy has increased! You'll now be able to fight for longer in the arena.",
   "weapons": "Weapons",
-  "weaponType": "{{type}} weapons",
-  "noWeaponType": "without weapons",
   "weaponsMaster.desc": "After having mastered all edged weapons, you're a much bigger threat to your opponents.",
   "weaponsMaster.effect": "The Spy can't swap your sharp weapons.",
   "perk.ascended.weapon": "This weapon was selected when the brute ascended.",
