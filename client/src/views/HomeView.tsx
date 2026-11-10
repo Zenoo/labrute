@@ -260,8 +260,9 @@ export const HomeView = () => {
   const character = (
     <Box sx={{
       mx: 'auto',
+      mt: 2,
       width: 70,
-      height: 210,
+      height: 194,
     }}
     >
       {creationStarted ? (
