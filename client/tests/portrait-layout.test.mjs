@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
-  PORTRAIT_HEIGHT, PORTRAIT_WIDTH, portraitLayout,
+  BUST_HEIGHT, PORTRAIT_HEIGHT, PORTRAIT_WIDTH, bustLayout, portraitLayout,
 } from '../src/utils/portraitLayout.ts';
 
 // Crops measured in Chromium for short, wide and tall hairstyles, plus a
@@ -12,6 +12,29 @@ const frames = [
   { x: -50 / 3, y: -20, width: 108, height: 692 / 3 },
   { x: -24, y: -28, width: 150, height: 252 },
 ];
+
+test('fight busts keep the face registered when hair or filter padding changes the crop', () => {
+  // The fixed bust viewport starts at source y=5. The face
+  // must stay in place both on initial render and when swapping HUD fighters.
+  for (const frame of frames) {
+    const layout = bustLayout(frame);
+    for (const point of [{ x: 40, y: 65 }, { x: 55, y: 80 }]) {
+      const x = layout.x + (point.x - frame.x) / frame.width * layout.width;
+      const y = layout.y + (point.y - frame.y) / frame.height * layout.height;
+      assert.ok(Math.abs(x - point.x * 3) < 1e-8);
+      assert.ok(Math.abs(y - (point.y - 5) * 3) < 1e-8);
+      // Both team containers use a 0.15 scale, with the left team mirrored.
+      for (const direction of [-1, 1]) {
+        assert.ok(Math.abs(x * 0.15 * direction - point.x * 0.45 * direction) < 1e-8);
+      }
+    }
+  }
+});
+
+test('bust height covers the header opening at the HUD scale', () => {
+  assert.ok(BUST_HEIGHT * 0.15 >= 40);
+  assert.ok(BUST_HEIGHT * 0.15 < 41);
+});
 
 for (const looking of ['left', 'right']) {
   for (const width of [30, 70, 80]) {

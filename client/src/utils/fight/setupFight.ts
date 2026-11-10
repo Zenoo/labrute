@@ -17,6 +17,7 @@ import {
 import { RendererContextInterface } from '../../hooks/useRenderer';
 import { FighterHolder } from './FighterHolder';
 import { createBustImage } from './utils/createBustImage';
+import { BUST_HEIGHT } from '../portraitLayout';
 import { AnimationFighter, findHUDFocusedFighter } from './utils/findFighter';
 import { getFighters } from './utils/getFighters';
 import { fightDelay, tween } from './utils/tween';
@@ -348,7 +349,7 @@ export const setupFight: (
     }));
     const team1BustContainer = new Container();
     team1BustContainer.x = 52;
-    team1BustContainer.y = 35;
+    team1BustContainer.y = 34;
     team1BustContainer.zIndex = 102;
     team1BustContainer.scale.y = 0.15;
     team1BustContainer.scale.x = -0.15;
@@ -364,7 +365,7 @@ export const setupFight: (
 
     // Clip bust to fit in the header
     const team1BustMask = new Graphics()
-      .rect(0, 0, 300, 264)
+      .rect(0, 0, 300, BUST_HEIGHT)
       .fill(0xFFFFFF);
     team1BustContainer.addChild(team1BustMask);
     team1Bust.mask = team1BustMask;
@@ -447,7 +448,7 @@ export const setupFight: (
       }));
       const team2BustContainer = new Container();
       team2BustContainer.x = 450;
-      team2BustContainer.y = 35;
+      team2BustContainer.y = 34;
       team2BustContainer.zIndex = 102;
       team2BustContainer.scale.y = 0.15;
       team2BustContainer.scale.x = 0.15;
@@ -463,7 +464,7 @@ export const setupFight: (
 
       // Clip bust to fit in the header
       const team2BustMask = new Graphics()
-        .rect(0, 0, 300, 264)
+        .rect(0, 0, 300, BUST_HEIGHT)
         .fill(0xFFFFFF);
       team2BustContainer.addChild(team2BustMask);
       team2Bust.mask = team2BustMask;
