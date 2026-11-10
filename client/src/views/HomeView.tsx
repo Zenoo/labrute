@@ -3,8 +3,10 @@ import {
   isNameValid, refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE,
   Version
 } from '@labrute/core';
-import { Gender } from '@labrute/prisma';
-import { Lock, LockOpen } from '@mui/icons-material';
+import { EventStatus, Gender } from '@labrute/prisma';
+import {
+  EmojiEvents, EmojiEventsOutlined, Lock, LockOpen
+} from '@mui/icons-material';
 import {
   Box, IconButton, Link, Tooltip, useMediaQuery, useTheme
 } from '@mui/material';
@@ -12,7 +14,7 @@ import React, {
   useCallback, useEffect, useMemo, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { BoxBg } from '../components/BoxBg';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
 import { EmptyBrute } from '../components/Brute/Body/EmptyBrute';
@@ -36,11 +38,12 @@ import { catchError } from '../utils/catchError';
  * HomeView component
  */
 export const HomeView = () => {
-  const { t } = useTranslation('home');
+  const { t } = useTranslation(['home', 'event']);
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
   const {
     authing,
+    currentEvent,
     modifiers,
     setAuthing,
     setModifiers,
@@ -49,6 +52,8 @@ export const HomeView = () => {
     user
   } = useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const eventId = searchParams.get('event');
   const { language, setLanguage } = useLanguage();
   const { palette: { mode } } = useTheme();
   const Server = useServer();
@@ -220,7 +225,6 @@ export const HomeView = () => {
       // Get referer
       const url = new URL(window.location.href);
       const referer = url.searchParams.get('ref');
-      const eventId = url.searchParams.get('event');
 
       const response = await Server.Brute.create(
         name,
@@ -248,7 +252,8 @@ export const HomeView = () => {
     } catch (error) {
       catchError(Alert, error);
     }
-  }, [user, name, Server.Brute, Alert, gender, body, colors, t, updateData, modifiers, navigate]);
+  }, [user, name, Server.Brute, Alert, gender, body, colors, t,
+    updateData, modifiers, navigate, eventId]);
 
   // Login
   const login = useCallback(() => {
@@ -256,6 +261,37 @@ export const HomeView = () => {
       window.location.href = url;
     }).catch(catchError(Alert));
   }, [Alert]);
+
+  // Event toggle button for creating a brute for the current event
+  const toggleEvent = () => {
+    if (!currentEvent) return;
+
+    setSearchParams((previous) => {
+      const next = new URLSearchParams(previous);
+      if (next.get('event') === currentEvent.id) {
+        next.delete('event');
+      } else {
+        next.set('event', currentEvent.id);
+      }
+      return next;
+    }, { replace: true });
+  };
+
+  const eventToggle = currentEvent?.status === EventStatus.starting
+    && !user?.brutes.some((brute) => brute.eventId === currentEvent.id) && (
+      <Tooltip title={t('createForEvent', { event: t(`event:event.${currentEvent.type}`) })}>
+        <IconButton
+          aria-label={t('createForEvent', { event: t(`event:event.${currentEvent.type}`) })}
+          aria-pressed={eventId === currentEvent.id}
+          color={eventId === currentEvent.id ? 'primary' : 'default'}
+          onClick={toggleEvent}
+          size="small"
+          sx={{ float: 'right', mt: 1 }}
+        >
+          {eventId === currentEvent.id ? <EmojiEvents /> : <EmojiEventsOutlined />}
+        </IconButton>
+      </Tooltip>
+    );
 
   const character = (
     <Box sx={{
@@ -292,6 +328,7 @@ export const HomeView = () => {
         character={character}
         fixBruteAppearance={fixBruteAppearance}
         setFixBruteAppearance={setFixBruteAppearance}
+        eventToggle={eventToggle}
       />
     )
     : (
@@ -338,6 +375,7 @@ export const HomeView = () => {
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
               </Tooltip>
+              {eventToggle}
               {/* CHARACTER */}
               {character}
               {/* CUSTOMIZATION BUTTONS */}

@@ -20,7 +20,8 @@ export type HomeMobileViewProps = {
   createBrute: () => void;
   character: React.JSX.Element;
   fixBruteAppearance: boolean;
-  setFixBruteAppearance: React.Dispatch<React.SetStateAction<boolean>>
+  setFixBruteAppearance: React.Dispatch<React.SetStateAction<boolean>>;
+  eventToggle: React.ReactNode;
 }
 
 export const HomeMobileView = ({
@@ -33,7 +34,8 @@ export const HomeMobileView = ({
   createBrute,
   character,
   fixBruteAppearance,
-  setFixBruteAppearance
+  setFixBruteAppearance,
+  eventToggle
 }: HomeMobileViewProps) => {
   const { t } = useTranslation('home');
   const theme = useTheme();
@@ -101,6 +103,7 @@ export const HomeMobileView = ({
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
               </Tooltip>
+              {eventToggle}
               {/* CHARACTER */}
               {character}
               {/* CUSTOMIZATION BUTTONS */}
