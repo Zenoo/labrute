@@ -1202,10 +1202,16 @@ export const Brutes = {
       const { brute } = bruteWithRanking;
       const position = bruteWithRanking.position ?? 0;
 
+      // The top 15 are displayed separately; never repeat them in nearby rows.
+      if (position <= 15) {
+        res.send({ nearbyBrutes: [], position });
+        return;
+      }
+
       // Get neighbors from BruteRanking
 
       const neighborPositions = [position - 2, position - 1, position + 1, position + 2]
-        .filter((p) => p > 0); // Remove invalid positions
+        .filter((p) => p > 15);
 
       const neighbors = await traced('brutes.getNeighborsForRank.findNeighbors', () => prisma.bruteRanking.findMany({
         where: {
