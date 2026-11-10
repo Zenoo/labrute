@@ -1,4 +1,5 @@
 {
+  "createForEvent": "Create a brute for {{event}}",
   "loginError": "Erreur de connexion",
   "loginSuccess": "Connexion réussie",
   "pleaseLogin": "Veuillez vous connecter pour créer une brute",
