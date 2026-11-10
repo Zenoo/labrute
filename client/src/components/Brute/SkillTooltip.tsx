@@ -75,9 +75,9 @@ export const SkillTooltip = ({
                     minus={modifier.flat[0] < 0}
                     plus={modifier.flat[0] > 0}
                   />
-                  {' '}
+                  <Box component="img" sx={{ width: 11, height: 11, mx: 0.5, verticalAlign: 'middle' }} src={`/images/stats/${stat}.webp`} />
                   {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${modifier.weaponType ? t('weaponType', { type: modifier.weaponType }) : t('noWeaponType')})`}
                   {modifier.details && ` ${t(modifier.details)}`}
                 </Text>
               )}
@@ -96,9 +96,9 @@ export const SkillTooltip = ({
                     plus={modifier.percent[0] > 0}
                   />
                   %
-                  {' '}
+                  <Box component="img" sx={{ width: 11, height: 11, mx: 0.5, verticalAlign: 'middle' }} src={`/images/stats/${stat}.webp`} />
                   {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
-                  {(typeof modifier.weaponType !== 'undefined') && ` (${t('weapons')}: ${t(modifier.weaponType || 'none')})`}
+                  {(typeof modifier.weaponType !== 'undefined') && ` (${modifier.weaponType ? t('weaponType', { type: modifier.weaponType }) : t('noWeaponType')})`}
                   {modifier.details && ` ${t(modifier.details)}`}
                 </Text>
               )}

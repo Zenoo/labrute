@@ -566,7 +566,7 @@ export const StatsView = () => {
       );
     }
 
-    const statIconPath = `/images/${row.choice}.webp`;
+    const statIconPath = `/images/stats/${row.choice}.webp`;
     return (
       <Box
         component="img"

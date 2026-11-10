@@ -74,20 +74,26 @@ export const WeaponTooltip = ({
 
     if (labelFirst) {
       return (
-        <Text {...textProps}>
-          {t(label)}:
-          {' '}
-          <Text component="span" bold sx={color} {...textProps}>
-            {tieredWeapon ? (
-              <TieredStat
-                values={tieredWeapon[stat]}
-                tier={tier}
-                formatter={(_, index) => formatter(index + 1)}
-              />
-            ) : formatter(tier)}
-            {percent ? '%' : ''}
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+        }}>
+          <Box component="img" sx={{ width: 11, height: 11, mr: 0.5 }} src={`/images/stats/${label}.webp`} />
+          <Text {...textProps}>
+            {t(label)}:
+            {' '}
+            <Text component="span" bold sx={color} {...textProps}>
+              {tieredWeapon ? (
+                <TieredStat
+                  values={tieredWeapon[stat]}
+                  tier={tier}
+                  formatter={(_, index) => formatter(index + 1)}
+                />
+              ) : formatter(tier)}
+              {percent ? '%' : ''}
+            </Text>
           </Text>
-        </Text>
+        </Box>
       );
     }
 
@@ -96,22 +102,26 @@ export const WeaponTooltip = ({
 
     return (
       <Text bold sx={{ color: StatColor[stat], textShadow }} {...textProps}>
-        {tieredWeapon ? (
-          <>
-            {(tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) > 0 ? '+' : '-'}
-            <TieredStat
-              values={tieredWeapon[stat]}
-              tier={tier}
-              formatter={(_, index) => Math.abs(formatter(index + 1))}
-            />
-          </>
-        ) : (
-          <>
-            {BASE_FIGHTER_STATS[stat] > 0 ? '+' : '-'}
-            {Math.abs(formatter(tier))}
-          </>
-        )}
-        {percent ? '%' : ''}{' '}{t(label)}
+        <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
+          {tieredWeapon ? (
+            <>
+              {(tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) > 0 ? '+' : '-'}
+              <TieredStat
+                values={tieredWeapon[stat]}
+                tier={tier}
+                formatter={(_, index) => Math.abs(formatter(index + 1))}
+              />
+            </>
+          ) : (
+            <>
+              {BASE_FIGHTER_STATS[stat] > 0 ? '+' : '-'}
+              {Math.abs(formatter(tier))}
+            </>
+          )}
+          {percent && <Box component="span">%</Box>}
+          <Box component="img" sx={{ width: 11, height: 11, mx: 0.5 }} src={`/images/stats/${label}.webp`} />
+          <Box component="span">{t(label)}</Box>
+        </Box>
       </Text>
     );
   };
@@ -169,13 +179,16 @@ export const WeaponTooltip = ({
           )}
           {/* ODDS */}
           {weapon && (
-            <Text {...textProps}>
-              {t('odds')}:
-              {' '}
-              <Text bold component="span" sx={{ opacity: 0.7 }} {...textProps}>
-                {((weapon.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component="img" sx={{ width: 11, height: 11, mr: 0.5 }} src="/images/stats/odds.webp" />
+              <Text {...textProps}>
+                {t('odds')}:
+                {' '}
+                <Text bold component="span" sx={{ opacity: 0.7 }} {...textProps}>
+                  {((weapon.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%
+                </Text>
               </Text>
-            </Text>
+            </Box>
           )}
           {/* HIT SPEED */}
           {statLine('tempo', true, true, (currentTier) => Math.round(
@@ -188,13 +201,16 @@ export const WeaponTooltip = ({
           {tieredWeapon && statLine('toss', true, true, (currentTier) => Math.round((getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, 'toss') / (NO_WEAPON_TOSS + getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, 'toss'))) * 100))}
           {/* REACH */}
           {tieredWeapon && (
-            <Text {...textProps}>
-              {t('reach')}:
-              {' '}
-              <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
-                {tieredWeapon.reach}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component="img" sx={{ width: 11, height: 11, mr: 0.5 }} src="/images/stats/reach.webp" />
+              <Text {...textProps}>
+                {t('reach')}:
+                {' '}
+                <Text component="span" bold sx={{ opacity: 0.7 }} {...textProps}>
+                  {tieredWeapon.reach}
+                </Text>
               </Text>
-            </Text>
+            </Box>
           )}
           {statLine('criticalChance', true, false)}
           {statLine('criticalDamage', true, false)}

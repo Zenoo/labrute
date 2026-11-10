@@ -22,7 +22,7 @@ export const CellStats = ({
   return (
     <Box>
       <Box>
-        <Box component="img" src={`/images/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
+        <Box component="img" src={`/images/stats/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
         <Text bold component="span" sx={{ color: StatColor[stat] }}>{t(stat)} : {value}</Text>
       </Box>
       <Tooltip title={t(`${stat}.desc`)}>

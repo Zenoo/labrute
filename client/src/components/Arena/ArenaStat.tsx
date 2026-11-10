@@ -27,7 +27,7 @@ export const ArenaStat = ({
       height: 14,
     }}
     >
-      <Box component="img" src={`/images/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
+      <Box component="img" src={`/images/stats/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
       <Tooltip title={value}>
         <Box sx={{
           height: 8,
