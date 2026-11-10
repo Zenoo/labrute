@@ -1,4 +1,5 @@
 {
+  "createForEvent": "Create a brute for {{event}}",
   "loginError": "Ошибка при входе",
   "loginSuccess": "Вход выполнен",
   "pleaseLogin": "Пожалуйста, войдите, прежде чем создавать Брутала",
