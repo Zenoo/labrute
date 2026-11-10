@@ -12,5 +12,5 @@ allowBuilds:
   protobufjs: true
   unrs-resolver: true
 minimumReleaseAgeExclude:
-  - labrute-pixi-fighter@1.0.15 || 1.0.17 || 1.0.18 || 1.0.19
+  - labrute-pixi-fighter@1.0.15 || 1.0.17 || 1.0.18 || 1.0.19 || 1.0.20
   - labrute-pixi-static-portrait@1.1.0 || 1.1.1
