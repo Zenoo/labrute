@@ -442,6 +442,8 @@
   "vampirism.effect": "Acción x<uses /> Inflige el 25% de la salud que te falte y te cura hasta el doble de la misma cantidad.",
   "vitality.desc": "¡Tu esperanza de vida ha aumentado! Ahora podrás resistir más tiempo en pie frente a tu adversario.",
   "weapons": "Armas",
+  "weaponType": "{{type}} weapons",
+  "noWeaponType": "without weapons",
   "weaponsMaster.desc": "Te has vuelto un individuo muy peligroso gracias a tu maestría en el arma blanca.",
   "weaponsMaster.effect": "La habilidad Espía no puede intercambiar tus armas afiladas.",
   "perk.ascended.weapon": "Esta arma ya fue seleccionada cuando el bruto ascendió.",
