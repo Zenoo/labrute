@@ -84,7 +84,8 @@ export const EventView = () => {
 
   const watchingRound = useMemo(() => {
     if (!data) return 0;
-    if (data.event.finishedAt || !owner) return 999;
+    // Only participants need to watch their own rounds before revealing the finals.
+    if (data.event.finishedAt || !owner || brute?.eventId !== data.event.id) return 999;
 
     const firstFoughtRound = ([...data.fights].sort(
       (a, b) => a.tournamentStep - b.tournamentStep,
