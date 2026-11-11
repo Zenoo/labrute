@@ -5,6 +5,11 @@ import crypto from 'crypto';
 import { Request, Response } from 'express';
 import { DISCORD, GLOBAL } from '../context.js';
 import { sendError } from './sendError.js';
+import { getBrowserId } from './browserId.js';
+
+export const isFingerprintFormatValid = (fingerprint: unknown): fingerprint is string => typeof fingerprint === 'string'
+  && fingerprint.length === 36
+  && /^[a-f0-9]{32}[a-z0-9]{4}$/.test(fingerprint);
 
 export const readFP = (input: string): Record<string, unknown> => {
   // Step 6: Reverse custom character mapping
@@ -59,6 +64,9 @@ export const decryptFPEvent = (encrypted: string) => {
   );
   let decrypted = decipher.update(encrypted, 'base64', 'utf8');
   decrypted += decipher.final('utf8');
+  if (!isFingerprintFormatValid(decrypted)) {
+    throw new ForbiddenError('Invalid fingerprint event');
+  }
   return decrypted;
 };
 
@@ -103,30 +111,6 @@ export const appendTlsToVisitorId = (
   return `${visitorId}${short}`;
 };
 
-export const isFingerprintFormatValid = (fingerprint: string) => {
-  if (typeof fingerprint !== 'string') {
-    return false;
-  }
-
-  if (fingerprint.length !== 36) {
-    return false;
-  }
-
-  const visitorIdPart = fingerprint.slice(0, 32);
-
-  if (!/^[a-f0-9]{32}$/.test(visitorIdPart)) {
-    return false;
-  }
-
-  const tlsPart = fingerprint.slice(32, 36);
-
-  if (!/^[a-z0-9]{4}$/.test(tlsPart)) {
-    return false;
-  }
-
-  return true;
-};
-
 export const getFingerprintEvent = (
   request: Request<unknown, unknown, { data: string }>,
   response: Response<GetFingerprintResponse>,
@@ -144,9 +128,9 @@ export const getFingerprintEvent = (
     }
     let visitorId = fpData.visitorId ?? '';
 
-    if (!visitorId) {
-      DISCORD().logObject(fpData, 'Fingerprint missing visitorId').catch(() => { /* ignore */ });
-      throw new ForbiddenError('Fingerprint missing visitorId');
+    if (typeof visitorId !== 'string' || visitorId.length !== 32 || !/^[a-f0-9]{32}$/.test(visitorId)) {
+      DISCORD().logObject(fpData, 'Invalid fingerprint visitorId').catch(() => { /* ignore */ });
+      throw new ForbiddenError('Invalid fingerprint visitorId');
     }
 
     // Include the TLS client fingerprints supplied by the provider.
@@ -154,13 +138,14 @@ export const getFingerprintEvent = (
 
     const encryptedVisitorId = encryptFPEvent(visitorId);
 
-    // Generate or retrieve browser ID from cookie
-    let browserId = request.cookies?.browserId as string | undefined;
+    // Only reuse authenticated UUIDs. Replace legacy unsigned or tampered cookies.
+    let browserId = getBrowserId(request);
     if (!browserId) {
       browserId = crypto.randomUUID();
-      // Set as HttpOnly cookie (persistent, not editable by client)
+      // Signing authenticates the value; HttpOnly prevents normal script access.
       response.cookie('browserId', browserId, {
         httpOnly: true,
+        signed: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         maxAge: 10 * 365 * 24 * 60 * 60 * 1000, // 10 years - persistent browser identifier

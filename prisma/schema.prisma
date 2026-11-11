@@ -23,48 +23,72 @@ enum Lang {
 }
 
 model User {
-  id                     String            @id @unique @db.Uuid
-  lang                   Lang              @default(en)
-  name                   String            @db.VarChar(255)
-  admin                  Boolean           @default(false)
-  moderator              Boolean           @default(false)
-  connexionToken         String            @db.Uuid
-  bruteLimit             Int               @default(3)
-  gold                   Int               @default(0)
-  fightSpeed             Int               @default(2)
-  backgroundMusic        Boolean           @default(true)
-  dinorpgDone            DateTime?         @db.Date
-  ips                    String[]          @default([])
-  fingerprints           String[]          @default([])
-  browserIds             String[]          @default([])
-  createdAt              DateTime          @default(now()) @db.Timestamp()
-  bannedAt               DateTime?         @db.Timestamp()
+  id                     String               @id @unique @db.Uuid
+  lang                   Lang                 @default(en)
+  name                   String               @db.VarChar(255)
+  admin                  Boolean              @default(false)
+  moderator              Boolean              @default(false)
+  connexionToken         String               @db.Uuid
+  bruteLimit             Int                  @default(3)
+  gold                   Int                  @default(0)
+  fightSpeed             Int                  @default(2)
+  backgroundMusic        Boolean              @default(true)
+  dinorpgDone            DateTime?            @db.Date
+  ips                    String[]             @default([])
+  fingerprints           String[]             @default([])
+  browserIds             String[]             @default([])
+  accountObservations    AccountObservation[]
+  createdAt              DateTime             @default(now()) @db.Timestamp()
+  bannedAt               DateTime?            @db.Timestamp()
   banReason              String?
-  displayVersusPage      Boolean           @default(true)
-  alwaysDisplayScrubber  Boolean           @default(false)
-  displayOpponentDetails Boolean           @default(false)
-  transferedBrutesCount  Int               @default(0)
-  termsAccepted          Boolean           @default(false)
-  lastSeen               DateTime          @default(now()) @db.Date
+  displayVersusPage      Boolean              @default(true)
+  alwaysDisplayScrubber  Boolean              @default(false)
+  displayOpponentDetails Boolean              @default(false)
+  transferedBrutesCount  Int                  @default(0)
+  termsAccepted          Boolean              @default(false)
+  lastSeen               DateTime             @default(now()) @db.Date
   brutes                 Brute[]
   achievements           Achievement[]
   reports                BruteReport[]
   tournamentGolds        TournamentGold[]
   inventory              InventoryItem[]
-  favoriteFights         Fight[]           @relation("FavoriteFights")
-  following              Brute[]           @relation("Followers")
+  favoriteFights         Fight[]              @relation("FavoriteFights")
+  following              Brute[]              @relation("Followers")
   notifications          Notification[]
-  reportsHandled         BruteReport[]     @relation("BruteReportHandler")
+  reportsHandled         BruteReport[]        @relation("BruteReportHandler")
   logs                   UserLog[]
   stats                  UserStats[]
   levelUpStats           UserLevelUpStat[]
   // Users sharing the same browser (big families) (manually updated)
-  sharedBrowser          SharedBrowser?    @relation(fields: [sharedBrowserId], references: [id])
-  sharedBrowserId        String?           @db.VarChar(255)
+  sharedBrowser          SharedBrowser?       @relation(fields: [sharedBrowserId], references: [id])
+  sharedBrowserId        String?              @db.VarChar(255)
 
   @@index([lastSeen])
   @@index([bannedAt])
   @@index([sharedBrowserId])
+}
+
+// One row per validated identifier tuple per UTC day; legacy arrays are not backfilled.
+model AccountObservation {
+  id            String   @id @db.Char(64)
+  userId        String   @db.Uuid
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  browserId     String   @db.Uuid
+  fingerprint   String   @db.VarChar(36)
+  visitorId     String   @db.Char(32)
+  // Null means that this request did not supply a nonempty provider fingerprint.
+  ja3Hash       String?  @db.Char(64)
+  ja4Hash       String?  @db.Char(64)
+  ip            String?  @db.VarChar(45)
+  formatVersion Int      @default(1)
+  observedDay   DateTime @db.Date
+  firstSeen     DateTime @db.Timestamp(3)
+  lastSeen      DateTime @db.Timestamp(3)
+
+  @@index([lastSeen])
+  @@index([browserId, lastSeen])
+  @@index([fingerprint, ip, lastSeen])
+  @@index([userId, lastSeen])
 }
 
 enum UserLogType {

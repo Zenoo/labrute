@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model AccountObservation
+ * 
+ */
+export type AccountObservation = $Result.DefaultSelection<Prisma.$AccountObservationPayload>
+/**
  * Model UserLog
  * 
  */
@@ -889,6 +894,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.accountObservation`: Exposes CRUD operations for the **AccountObservation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AccountObservations
+    * const accountObservations = await prisma.accountObservation.findMany()
+    * ```
+    */
+  get accountObservation(): Prisma.AccountObservationDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.userLog`: Exposes CRUD operations for the **UserLog** model.
     * Example usage:
     * ```ts
@@ -1699,6 +1714,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    AccountObservation: 'AccountObservation',
     UserLog: 'UserLog',
     Brute: 'Brute',
     BruteStartingStats: 'BruteStartingStats',
@@ -1754,7 +1770,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
+      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1829,6 +1845,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      AccountObservation: {
+        payload: Prisma.$AccountObservationPayload<ExtArgs>
+        fields: Prisma.AccountObservationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountObservationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountObservationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>
+          }
+          findFirst: {
+            args: Prisma.AccountObservationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountObservationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>
+          }
+          findMany: {
+            args: Prisma.AccountObservationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>[]
+          }
+          create: {
+            args: Prisma.AccountObservationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>
+          }
+          createMany: {
+            args: Prisma.AccountObservationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccountObservationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>[]
+          }
+          delete: {
+            args: Prisma.AccountObservationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>
+          }
+          update: {
+            args: Prisma.AccountObservationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountObservationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountObservationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AccountObservationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>[]
+          }
+          upsert: {
+            args: Prisma.AccountObservationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountObservationPayload>
+          }
+          aggregate: {
+            args: Prisma.AccountObservationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccountObservation>
+          }
+          groupBy: {
+            args: Prisma.AccountObservationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountObservationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccountObservationCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountObservationCountAggregateOutputType> | number
           }
         }
       }
@@ -4667,6 +4757,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    accountObservation?: AccountObservationOmit
     userLog?: UserLogOmit
     brute?: BruteOmit
     bruteStartingStats?: BruteStartingStatsOmit
@@ -4784,6 +4875,7 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    accountObservations: number
     brutes: number
     achievements: number
     reports: number
@@ -4799,6 +4891,7 @@ export namespace Prisma {
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accountObservations?: boolean | UserCountOutputTypeCountAccountObservationsArgs
     brutes?: boolean | UserCountOutputTypeCountBrutesArgs
     achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
     reports?: boolean | UserCountOutputTypeCountReportsArgs
@@ -4822,6 +4915,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAccountObservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountObservationWhereInput
   }
 
   /**
@@ -5941,6 +6041,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: boolean
     sharedBrowserId?: boolean
+    accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -6042,6 +6143,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -6067,6 +6169,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      accountObservations: Prisma.$AccountObservationPayload<ExtArgs>[]
       brutes: Prisma.$BrutePayload<ExtArgs>[]
       achievements: Prisma.$AchievementPayload<ExtArgs>[]
       reports: Prisma.$BruteReportPayload<ExtArgs>[]
@@ -6500,6 +6603,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    accountObservations<T extends User$accountObservationsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountObservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     brutes<T extends User$brutesArgs<ExtArgs> = {}>(args?: Subset<T, User$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reports<T extends User$reportsArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6971,6 +7075,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.accountObservations
+   */
+  export type User$accountObservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    where?: AccountObservationWhereInput
+    orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
+    cursor?: AccountObservationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountObservationScalarFieldEnum | AccountObservationScalarFieldEnum[]
+  }
+
+  /**
    * User.brutes
    */
   export type User$brutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7293,6 +7421,1198 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AccountObservation
+   */
+
+  export type AggregateAccountObservation = {
+    _count: AccountObservationCountAggregateOutputType | null
+    _avg: AccountObservationAvgAggregateOutputType | null
+    _sum: AccountObservationSumAggregateOutputType | null
+    _min: AccountObservationMinAggregateOutputType | null
+    _max: AccountObservationMaxAggregateOutputType | null
+  }
+
+  export type AccountObservationAvgAggregateOutputType = {
+    formatVersion: number | null
+  }
+
+  export type AccountObservationSumAggregateOutputType = {
+    formatVersion: number | null
+  }
+
+  export type AccountObservationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    browserId: string | null
+    fingerprint: string | null
+    visitorId: string | null
+    ja3Hash: string | null
+    ja4Hash: string | null
+    ip: string | null
+    formatVersion: number | null
+    observedDay: Date | null
+    firstSeen: Date | null
+    lastSeen: Date | null
+  }
+
+  export type AccountObservationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    browserId: string | null
+    fingerprint: string | null
+    visitorId: string | null
+    ja3Hash: string | null
+    ja4Hash: string | null
+    ip: string | null
+    formatVersion: number | null
+    observedDay: Date | null
+    firstSeen: Date | null
+    lastSeen: Date | null
+  }
+
+  export type AccountObservationCountAggregateOutputType = {
+    id: number
+    userId: number
+    browserId: number
+    fingerprint: number
+    visitorId: number
+    ja3Hash: number
+    ja4Hash: number
+    ip: number
+    formatVersion: number
+    observedDay: number
+    firstSeen: number
+    lastSeen: number
+    _all: number
+  }
+
+
+  export type AccountObservationAvgAggregateInputType = {
+    formatVersion?: true
+  }
+
+  export type AccountObservationSumAggregateInputType = {
+    formatVersion?: true
+  }
+
+  export type AccountObservationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    fingerprint?: true
+    visitorId?: true
+    ja3Hash?: true
+    ja4Hash?: true
+    ip?: true
+    formatVersion?: true
+    observedDay?: true
+    firstSeen?: true
+    lastSeen?: true
+  }
+
+  export type AccountObservationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    fingerprint?: true
+    visitorId?: true
+    ja3Hash?: true
+    ja4Hash?: true
+    ip?: true
+    formatVersion?: true
+    observedDay?: true
+    firstSeen?: true
+    lastSeen?: true
+  }
+
+  export type AccountObservationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    fingerprint?: true
+    visitorId?: true
+    ja3Hash?: true
+    ja4Hash?: true
+    ip?: true
+    formatVersion?: true
+    observedDay?: true
+    firstSeen?: true
+    lastSeen?: true
+    _all?: true
+  }
+
+  export type AccountObservationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountObservation to aggregate.
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountObservations to fetch.
+     */
+    orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountObservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountObservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountObservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AccountObservations
+    **/
+    _count?: true | AccountObservationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AccountObservationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AccountObservationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountObservationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountObservationMaxAggregateInputType
+  }
+
+  export type GetAccountObservationAggregateType<T extends AccountObservationAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccountObservation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccountObservation[P]>
+      : GetScalarType<T[P], AggregateAccountObservation[P]>
+  }
+
+
+
+
+  export type AccountObservationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountObservationWhereInput
+    orderBy?: AccountObservationOrderByWithAggregationInput | AccountObservationOrderByWithAggregationInput[]
+    by: AccountObservationScalarFieldEnum[] | AccountObservationScalarFieldEnum
+    having?: AccountObservationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountObservationCountAggregateInputType | true
+    _avg?: AccountObservationAvgAggregateInputType
+    _sum?: AccountObservationSumAggregateInputType
+    _min?: AccountObservationMinAggregateInputType
+    _max?: AccountObservationMaxAggregateInputType
+  }
+
+  export type AccountObservationGroupByOutputType = {
+    id: string
+    userId: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash: string | null
+    ja4Hash: string | null
+    ip: string | null
+    formatVersion: number
+    observedDay: Date
+    firstSeen: Date
+    lastSeen: Date
+    _count: AccountObservationCountAggregateOutputType | null
+    _avg: AccountObservationAvgAggregateOutputType | null
+    _sum: AccountObservationSumAggregateOutputType | null
+    _min: AccountObservationMinAggregateOutputType | null
+    _max: AccountObservationMaxAggregateOutputType | null
+  }
+
+  type GetAccountObservationGroupByPayload<T extends AccountObservationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountObservationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountObservationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountObservationGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountObservationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountObservationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    visitorId?: boolean
+    ja3Hash?: boolean
+    ja4Hash?: boolean
+    ip?: boolean
+    formatVersion?: boolean
+    observedDay?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountObservation"]>
+
+  export type AccountObservationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    visitorId?: boolean
+    ja3Hash?: boolean
+    ja4Hash?: boolean
+    ip?: boolean
+    formatVersion?: boolean
+    observedDay?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountObservation"]>
+
+  export type AccountObservationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    visitorId?: boolean
+    ja3Hash?: boolean
+    ja4Hash?: boolean
+    ip?: boolean
+    formatVersion?: boolean
+    observedDay?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountObservation"]>
+
+  export type AccountObservationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    visitorId?: boolean
+    ja3Hash?: boolean
+    ja4Hash?: boolean
+    ip?: boolean
+    formatVersion?: boolean
+    observedDay?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+  }
+
+  export type AccountObservationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "browserId" | "fingerprint" | "visitorId" | "ja3Hash" | "ja4Hash" | "ip" | "formatVersion" | "observedDay" | "firstSeen" | "lastSeen", ExtArgs["result"]["accountObservation"]>
+  export type AccountObservationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AccountObservationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AccountObservationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AccountObservationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AccountObservation"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      browserId: string
+      fingerprint: string
+      visitorId: string
+      ja3Hash: string | null
+      ja4Hash: string | null
+      ip: string | null
+      formatVersion: number
+      observedDay: Date
+      firstSeen: Date
+      lastSeen: Date
+    }, ExtArgs["result"]["accountObservation"]>
+    composites: {}
+  }
+
+  type AccountObservationGetPayload<S extends boolean | null | undefined | AccountObservationDefaultArgs> = $Result.GetResult<Prisma.$AccountObservationPayload, S>
+
+  type AccountObservationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AccountObservationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: AccountObservationCountAggregateInputType | true
+    }
+
+  export interface AccountObservationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountObservation'], meta: { name: 'AccountObservation' } }
+    /**
+     * Find zero or one AccountObservation that matches the filter.
+     * @param {AccountObservationFindUniqueArgs} args - Arguments to find a AccountObservation
+     * @example
+     * // Get one AccountObservation
+     * const accountObservation = await prisma.accountObservation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountObservationFindUniqueArgs>(args: SelectSubset<T, AccountObservationFindUniqueArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AccountObservation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AccountObservationFindUniqueOrThrowArgs} args - Arguments to find a AccountObservation
+     * @example
+     * // Get one AccountObservation
+     * const accountObservation = await prisma.accountObservation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountObservationFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountObservationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountObservation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationFindFirstArgs} args - Arguments to find a AccountObservation
+     * @example
+     * // Get one AccountObservation
+     * const accountObservation = await prisma.accountObservation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountObservationFindFirstArgs>(args?: SelectSubset<T, AccountObservationFindFirstArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountObservation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationFindFirstOrThrowArgs} args - Arguments to find a AccountObservation
+     * @example
+     * // Get one AccountObservation
+     * const accountObservation = await prisma.accountObservation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountObservationFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountObservationFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AccountObservations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AccountObservations
+     * const accountObservations = await prisma.accountObservation.findMany()
+     * 
+     * // Get first 10 AccountObservations
+     * const accountObservations = await prisma.accountObservation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountObservationWithIdOnly = await prisma.accountObservation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountObservationFindManyArgs>(args?: SelectSubset<T, AccountObservationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AccountObservation.
+     * @param {AccountObservationCreateArgs} args - Arguments to create a AccountObservation.
+     * @example
+     * // Create one AccountObservation
+     * const AccountObservation = await prisma.accountObservation.create({
+     *   data: {
+     *     // ... data to create a AccountObservation
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountObservationCreateArgs>(args: SelectSubset<T, AccountObservationCreateArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AccountObservations.
+     * @param {AccountObservationCreateManyArgs} args - Arguments to create many AccountObservations.
+     * @example
+     * // Create many AccountObservations
+     * const accountObservation = await prisma.accountObservation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountObservationCreateManyArgs>(args?: SelectSubset<T, AccountObservationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AccountObservations and returns the data saved in the database.
+     * @param {AccountObservationCreateManyAndReturnArgs} args - Arguments to create many AccountObservations.
+     * @example
+     * // Create many AccountObservations
+     * const accountObservation = await prisma.accountObservation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AccountObservations and only return the `id`
+     * const accountObservationWithIdOnly = await prisma.accountObservation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccountObservationCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountObservationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AccountObservation.
+     * @param {AccountObservationDeleteArgs} args - Arguments to delete one AccountObservation.
+     * @example
+     * // Delete one AccountObservation
+     * const AccountObservation = await prisma.accountObservation.delete({
+     *   where: {
+     *     // ... filter to delete one AccountObservation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountObservationDeleteArgs>(args: SelectSubset<T, AccountObservationDeleteArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AccountObservation.
+     * @param {AccountObservationUpdateArgs} args - Arguments to update one AccountObservation.
+     * @example
+     * // Update one AccountObservation
+     * const accountObservation = await prisma.accountObservation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountObservationUpdateArgs>(args: SelectSubset<T, AccountObservationUpdateArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AccountObservations.
+     * @param {AccountObservationDeleteManyArgs} args - Arguments to filter AccountObservations to delete.
+     * @example
+     * // Delete a few AccountObservations
+     * const { count } = await prisma.accountObservation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountObservationDeleteManyArgs>(args?: SelectSubset<T, AccountObservationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountObservations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AccountObservations
+     * const accountObservation = await prisma.accountObservation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountObservationUpdateManyArgs>(args: SelectSubset<T, AccountObservationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountObservations and returns the data updated in the database.
+     * @param {AccountObservationUpdateManyAndReturnArgs} args - Arguments to update many AccountObservations.
+     * @example
+     * // Update many AccountObservations
+     * const accountObservation = await prisma.accountObservation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AccountObservations and only return the `id`
+     * const accountObservationWithIdOnly = await prisma.accountObservation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AccountObservationUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountObservationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AccountObservation.
+     * @param {AccountObservationUpsertArgs} args - Arguments to update or create a AccountObservation.
+     * @example
+     * // Update or create a AccountObservation
+     * const accountObservation = await prisma.accountObservation.upsert({
+     *   create: {
+     *     // ... data to create a AccountObservation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AccountObservation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountObservationUpsertArgs>(args: SelectSubset<T, AccountObservationUpsertArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AccountObservations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationCountArgs} args - Arguments to filter AccountObservations to count.
+     * @example
+     * // Count the number of AccountObservations
+     * const count = await prisma.accountObservation.count({
+     *   where: {
+     *     // ... the filter for the AccountObservations we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountObservationCountArgs>(
+      args?: Subset<T, AccountObservationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountObservationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AccountObservation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountObservationAggregateArgs>(args: Subset<T, AccountObservationAggregateArgs>): Prisma.PrismaPromise<GetAccountObservationAggregateType<T>>
+
+    /**
+     * Group by AccountObservation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountObservationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountObservationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountObservationGroupByArgs['orderBy'] }
+        : { orderBy?: AccountObservationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountObservationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountObservationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AccountObservation model
+   */
+  readonly fields: AccountObservationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AccountObservation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountObservationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AccountObservation model
+   */
+  interface AccountObservationFieldRefs {
+    readonly id: FieldRef<"AccountObservation", 'String'>
+    readonly userId: FieldRef<"AccountObservation", 'String'>
+    readonly browserId: FieldRef<"AccountObservation", 'String'>
+    readonly fingerprint: FieldRef<"AccountObservation", 'String'>
+    readonly visitorId: FieldRef<"AccountObservation", 'String'>
+    readonly ja3Hash: FieldRef<"AccountObservation", 'String'>
+    readonly ja4Hash: FieldRef<"AccountObservation", 'String'>
+    readonly ip: FieldRef<"AccountObservation", 'String'>
+    readonly formatVersion: FieldRef<"AccountObservation", 'Int'>
+    readonly observedDay: FieldRef<"AccountObservation", 'DateTime'>
+    readonly firstSeen: FieldRef<"AccountObservation", 'DateTime'>
+    readonly lastSeen: FieldRef<"AccountObservation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AccountObservation findUnique
+   */
+  export type AccountObservationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountObservation to fetch.
+     */
+    where: AccountObservationWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation findUniqueOrThrow
+   */
+  export type AccountObservationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountObservation to fetch.
+     */
+    where: AccountObservationWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation findFirst
+   */
+  export type AccountObservationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountObservation to fetch.
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountObservations to fetch.
+     */
+    orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountObservations.
+     */
+    cursor?: AccountObservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountObservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountObservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountObservations.
+     */
+    distinct?: AccountObservationScalarFieldEnum | AccountObservationScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation findFirstOrThrow
+   */
+  export type AccountObservationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountObservation to fetch.
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountObservations to fetch.
+     */
+    orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountObservations.
+     */
+    cursor?: AccountObservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountObservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountObservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountObservations.
+     */
+    distinct?: AccountObservationScalarFieldEnum | AccountObservationScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation findMany
+   */
+  export type AccountObservationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountObservations to fetch.
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountObservations to fetch.
+     */
+    orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AccountObservations.
+     */
+    cursor?: AccountObservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountObservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountObservations.
+     */
+    skip?: number
+    distinct?: AccountObservationScalarFieldEnum | AccountObservationScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation create
+   */
+  export type AccountObservationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AccountObservation.
+     */
+    data: XOR<AccountObservationCreateInput, AccountObservationUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation createMany
+   */
+  export type AccountObservationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AccountObservations.
+     */
+    data: AccountObservationCreateManyInput | AccountObservationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountObservation createManyAndReturn
+   */
+  export type AccountObservationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * The data used to create many AccountObservations.
+     */
+    data: AccountObservationCreateManyInput | AccountObservationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountObservation update
+   */
+  export type AccountObservationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AccountObservation.
+     */
+    data: XOR<AccountObservationUpdateInput, AccountObservationUncheckedUpdateInput>
+    /**
+     * Choose, which AccountObservation to update.
+     */
+    where: AccountObservationWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation updateMany
+   */
+  export type AccountObservationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AccountObservations.
+     */
+    data: XOR<AccountObservationUpdateManyMutationInput, AccountObservationUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountObservations to update
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * Limit how many AccountObservations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountObservation updateManyAndReturn
+   */
+  export type AccountObservationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * The data used to update AccountObservations.
+     */
+    data: XOR<AccountObservationUpdateManyMutationInput, AccountObservationUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountObservations to update
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * Limit how many AccountObservations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountObservation upsert
+   */
+  export type AccountObservationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AccountObservation to update in case it exists.
+     */
+    where: AccountObservationWhereUniqueInput
+    /**
+     * In case the AccountObservation found by the `where` argument doesn't exist, create a new AccountObservation with this data.
+     */
+    create: XOR<AccountObservationCreateInput, AccountObservationUncheckedCreateInput>
+    /**
+     * In case the AccountObservation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountObservationUpdateInput, AccountObservationUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation delete
+   */
+  export type AccountObservationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
+    /**
+     * Filter which AccountObservation to delete.
+     */
+    where: AccountObservationWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountObservation deleteMany
+   */
+  export type AccountObservationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountObservations to delete
+     */
+    where?: AccountObservationWhereInput
+    /**
+     * Limit how many AccountObservations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountObservation without action
+   */
+  export type AccountObservationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountObservation
+     */
+    select?: AccountObservationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountObservation
+     */
+    omit?: AccountObservationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountObservationInclude<ExtArgs> | null
   }
 
 
@@ -50809,6 +52129,24 @@ export namespace Prisma {
   export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof RelationLoadStrategy]
 
 
+  export const AccountObservationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    browserId: 'browserId',
+    fingerprint: 'fingerprint',
+    visitorId: 'visitorId',
+    ja3Hash: 'ja3Hash',
+    ja4Hash: 'ja4Hash',
+    ip: 'ip',
+    formatVersion: 'formatVersion',
+    observedDay: 'observedDay',
+    firstSeen: 'firstSeen',
+    lastSeen: 'lastSeen'
+  };
+
+  export type AccountObservationScalarFieldEnum = (typeof AccountObservationScalarFieldEnum)[keyof typeof AccountObservationScalarFieldEnum]
+
+
   export const UserLogScalarFieldEnum: {
     id: 'id',
     date: 'date',
@@ -51783,6 +53121,7 @@ export namespace Prisma {
     termsAccepted?: BoolFilter<"User"> | boolean
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
+    accountObservations?: AccountObservationListRelationFilter
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -51823,6 +53162,7 @@ export namespace Prisma {
     termsAccepted?: SortOrder
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrderInput | SortOrder
+    accountObservations?: AccountObservationOrderByRelationAggregateInput
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -51866,6 +53206,7 @@ export namespace Prisma {
     termsAccepted?: BoolFilter<"User"> | boolean
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
+    accountObservations?: AccountObservationListRelationFilter
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -51941,6 +53282,98 @@ export namespace Prisma {
     termsAccepted?: BoolWithAggregatesFilter<"User"> | boolean
     lastSeen?: DateTimeWithAggregatesFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type AccountObservationWhereInput = {
+    AND?: AccountObservationWhereInput | AccountObservationWhereInput[]
+    OR?: AccountObservationWhereInput[]
+    NOT?: AccountObservationWhereInput | AccountObservationWhereInput[]
+    id?: StringFilter<"AccountObservation"> | string
+    userId?: UuidFilter<"AccountObservation"> | string
+    browserId?: UuidFilter<"AccountObservation"> | string
+    fingerprint?: StringFilter<"AccountObservation"> | string
+    visitorId?: StringFilter<"AccountObservation"> | string
+    ja3Hash?: StringNullableFilter<"AccountObservation"> | string | null
+    ja4Hash?: StringNullableFilter<"AccountObservation"> | string | null
+    ip?: StringNullableFilter<"AccountObservation"> | string | null
+    formatVersion?: IntFilter<"AccountObservation"> | number
+    observedDay?: DateTimeFilter<"AccountObservation"> | Date | string
+    firstSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+    lastSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AccountObservationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    visitorId?: SortOrder
+    ja3Hash?: SortOrderInput | SortOrder
+    ja4Hash?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    formatVersion?: SortOrder
+    observedDay?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AccountObservationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AccountObservationWhereInput | AccountObservationWhereInput[]
+    OR?: AccountObservationWhereInput[]
+    NOT?: AccountObservationWhereInput | AccountObservationWhereInput[]
+    userId?: UuidFilter<"AccountObservation"> | string
+    browserId?: UuidFilter<"AccountObservation"> | string
+    fingerprint?: StringFilter<"AccountObservation"> | string
+    visitorId?: StringFilter<"AccountObservation"> | string
+    ja3Hash?: StringNullableFilter<"AccountObservation"> | string | null
+    ja4Hash?: StringNullableFilter<"AccountObservation"> | string | null
+    ip?: StringNullableFilter<"AccountObservation"> | string | null
+    formatVersion?: IntFilter<"AccountObservation"> | number
+    observedDay?: DateTimeFilter<"AccountObservation"> | Date | string
+    firstSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+    lastSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AccountObservationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    visitorId?: SortOrder
+    ja3Hash?: SortOrderInput | SortOrder
+    ja4Hash?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    formatVersion?: SortOrder
+    observedDay?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    _count?: AccountObservationCountOrderByAggregateInput
+    _avg?: AccountObservationAvgOrderByAggregateInput
+    _max?: AccountObservationMaxOrderByAggregateInput
+    _min?: AccountObservationMinOrderByAggregateInput
+    _sum?: AccountObservationSumOrderByAggregateInput
+  }
+
+  export type AccountObservationScalarWhereWithAggregatesInput = {
+    AND?: AccountObservationScalarWhereWithAggregatesInput | AccountObservationScalarWhereWithAggregatesInput[]
+    OR?: AccountObservationScalarWhereWithAggregatesInput[]
+    NOT?: AccountObservationScalarWhereWithAggregatesInput | AccountObservationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AccountObservation"> | string
+    userId?: UuidWithAggregatesFilter<"AccountObservation"> | string
+    browserId?: UuidWithAggregatesFilter<"AccountObservation"> | string
+    fingerprint?: StringWithAggregatesFilter<"AccountObservation"> | string
+    visitorId?: StringWithAggregatesFilter<"AccountObservation"> | string
+    ja3Hash?: StringNullableWithAggregatesFilter<"AccountObservation"> | string | null
+    ja4Hash?: StringNullableWithAggregatesFilter<"AccountObservation"> | string | null
+    ip?: StringNullableWithAggregatesFilter<"AccountObservation"> | string | null
+    formatVersion?: IntWithAggregatesFilter<"AccountObservation"> | number
+    observedDay?: DateTimeWithAggregatesFilter<"AccountObservation"> | Date | string
+    firstSeen?: DateTimeWithAggregatesFilter<"AccountObservation"> | Date | string
+    lastSeen?: DateTimeWithAggregatesFilter<"AccountObservation"> | Date | string
   }
 
   export type UserLogWhereInput = {
@@ -54782,6 +56215,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -54822,6 +56256,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -54860,6 +56295,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -54900,6 +56336,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -54992,6 +56429,110 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AccountObservationCreateInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash?: string | null
+    ja4Hash?: string | null
+    ip?: string | null
+    formatVersion?: number
+    observedDay: Date | string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    user: UserCreateNestedOneWithoutAccountObservationsInput
+  }
+
+  export type AccountObservationUncheckedCreateInput = {
+    id: string
+    userId: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash?: string | null
+    ja4Hash?: string | null
+    ip?: string | null
+    formatVersion?: number
+    observedDay: Date | string
+    firstSeen: Date | string
+    lastSeen: Date | string
+  }
+
+  export type AccountObservationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAccountObservationsNestedInput
+  }
+
+  export type AccountObservationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountObservationCreateManyInput = {
+    id: string
+    userId: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash?: string | null
+    ja4Hash?: string | null
+    ip?: string | null
+    formatVersion?: number
+    observedDay: Date | string
+    firstSeen: Date | string
+    lastSeen: Date | string
+  }
+
+  export type AccountObservationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountObservationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserLogCreateInput = {
@@ -58070,6 +59611,12 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type AccountObservationListRelationFilter = {
+    every?: AccountObservationWhereInput
+    some?: AccountObservationWhereInput
+    none?: AccountObservationWhereInput
+  }
+
   export type BruteListRelationFilter = {
     every?: BruteWhereInput
     some?: BruteWhereInput
@@ -58138,6 +59685,10 @@ export namespace Prisma {
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type AccountObservationOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type BruteOrderByRelationAggregateInput = {
@@ -58382,6 +59933,64 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type AccountObservationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    visitorId?: SortOrder
+    ja3Hash?: SortOrder
+    ja4Hash?: SortOrder
+    ip?: SortOrder
+    formatVersion?: SortOrder
+    observedDay?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+  }
+
+  export type AccountObservationAvgOrderByAggregateInput = {
+    formatVersion?: SortOrder
+  }
+
+  export type AccountObservationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    visitorId?: SortOrder
+    ja3Hash?: SortOrder
+    ja4Hash?: SortOrder
+    ip?: SortOrder
+    formatVersion?: SortOrder
+    observedDay?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+  }
+
+  export type AccountObservationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    visitorId?: SortOrder
+    ja3Hash?: SortOrder
+    ja4Hash?: SortOrder
+    ip?: SortOrder
+    formatVersion?: SortOrder
+    observedDay?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+  }
+
+  export type AccountObservationSumOrderByAggregateInput = {
+    formatVersion?: SortOrder
+  }
+
   export type EnumUserLogTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.UserLogType | EnumUserLogTypeFieldRefInput<$PrismaModel>
     in?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
@@ -58410,11 +60019,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type BruteNullableScalarRelationFilter = {
@@ -60673,6 +62277,13 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type AccountObservationCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountObservationCreateWithoutUserInput, AccountObservationUncheckedCreateWithoutUserInput> | AccountObservationCreateWithoutUserInput[] | AccountObservationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountObservationCreateOrConnectWithoutUserInput | AccountObservationCreateOrConnectWithoutUserInput[]
+    createMany?: AccountObservationCreateManyUserInputEnvelope
+    connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -60758,6 +62369,13 @@ export namespace Prisma {
     create?: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
     connectOrCreate?: SharedBrowserCreateOrConnectWithoutUsersInput
     connect?: SharedBrowserWhereUniqueInput
+  }
+
+  export type AccountObservationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountObservationCreateWithoutUserInput, AccountObservationUncheckedCreateWithoutUserInput> | AccountObservationCreateWithoutUserInput[] | AccountObservationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountObservationCreateOrConnectWithoutUserInput | AccountObservationCreateOrConnectWithoutUserInput[]
+    createMany?: AccountObservationCreateManyUserInputEnvelope
+    connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutUserInput = {
@@ -60886,6 +62504,20 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type AccountObservationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountObservationCreateWithoutUserInput, AccountObservationUncheckedCreateWithoutUserInput> | AccountObservationCreateWithoutUserInput[] | AccountObservationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountObservationCreateOrConnectWithoutUserInput | AccountObservationCreateOrConnectWithoutUserInput[]
+    upsert?: AccountObservationUpsertWithWhereUniqueWithoutUserInput | AccountObservationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountObservationCreateManyUserInputEnvelope
+    set?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    disconnect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    delete?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    update?: AccountObservationUpdateWithWhereUniqueWithoutUserInput | AccountObservationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountObservationUpdateManyWithWhereWithoutUserInput | AccountObservationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
   }
 
   export type BruteUpdateManyWithoutUserNestedInput = {
@@ -61063,6 +62695,20 @@ export namespace Prisma {
     update?: XOR<XOR<SharedBrowserUpdateToOneWithWhereWithoutUsersInput, SharedBrowserUpdateWithoutUsersInput>, SharedBrowserUncheckedUpdateWithoutUsersInput>
   }
 
+  export type AccountObservationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountObservationCreateWithoutUserInput, AccountObservationUncheckedCreateWithoutUserInput> | AccountObservationCreateWithoutUserInput[] | AccountObservationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountObservationCreateOrConnectWithoutUserInput | AccountObservationCreateOrConnectWithoutUserInput[]
+    upsert?: AccountObservationUpsertWithWhereUniqueWithoutUserInput | AccountObservationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountObservationCreateManyUserInputEnvelope
+    set?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    disconnect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    delete?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+    update?: AccountObservationUpdateWithWhereUniqueWithoutUserInput | AccountObservationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountObservationUpdateManyWithWhereWithoutUserInput | AccountObservationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
+  }
+
   export type BruteUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -61226,6 +62872,20 @@ export namespace Prisma {
     update?: UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput | UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserLevelUpStatUpdateManyWithWhereWithoutUserInput | UserLevelUpStatUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserLevelUpStatScalarWhereInput | UserLevelUpStatScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAccountObservationsInput = {
+    create?: XOR<UserCreateWithoutAccountObservationsInput, UserUncheckedCreateWithoutAccountObservationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountObservationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAccountObservationsNestedInput = {
+    create?: XOR<UserCreateWithoutAccountObservationsInput, UserUncheckedCreateWithoutAccountObservationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountObservationsInput
+    upsert?: UserUpsertWithoutAccountObservationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountObservationsInput, UserUpdateWithoutAccountObservationsInput>, UserUncheckedUpdateWithoutAccountObservationsInput>
   }
 
   export type UserCreateNestedOneWithoutLogsInput = {
@@ -64813,6 +66473,44 @@ export namespace Prisma {
     _max?: NestedEnumStatsGranularityFilter<$PrismaModel>
   }
 
+  export type AccountObservationCreateWithoutUserInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash?: string | null
+    ja4Hash?: string | null
+    ip?: string | null
+    formatVersion?: number
+    observedDay: Date | string
+    firstSeen: Date | string
+    lastSeen: Date | string
+  }
+
+  export type AccountObservationUncheckedCreateWithoutUserInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash?: string | null
+    ja4Hash?: string | null
+    ip?: string | null
+    formatVersion?: number
+    observedDay: Date | string
+    firstSeen: Date | string
+    lastSeen: Date | string
+  }
+
+  export type AccountObservationCreateOrConnectWithoutUserInput = {
+    where: AccountObservationWhereUniqueInput
+    create: XOR<AccountObservationCreateWithoutUserInput, AccountObservationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountObservationCreateManyUserInputEnvelope = {
+    data: AccountObservationCreateManyUserInput | AccountObservationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BruteCreateWithoutUserInput = {
     id?: string
     name: string
@@ -65509,6 +67207,40 @@ export namespace Prisma {
     create: XOR<SharedBrowserCreateWithoutUsersInput, SharedBrowserUncheckedCreateWithoutUsersInput>
   }
 
+  export type AccountObservationUpsertWithWhereUniqueWithoutUserInput = {
+    where: AccountObservationWhereUniqueInput
+    update: XOR<AccountObservationUpdateWithoutUserInput, AccountObservationUncheckedUpdateWithoutUserInput>
+    create: XOR<AccountObservationCreateWithoutUserInput, AccountObservationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountObservationUpdateWithWhereUniqueWithoutUserInput = {
+    where: AccountObservationWhereUniqueInput
+    data: XOR<AccountObservationUpdateWithoutUserInput, AccountObservationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AccountObservationUpdateManyWithWhereWithoutUserInput = {
+    where: AccountObservationScalarWhereInput
+    data: XOR<AccountObservationUpdateManyMutationInput, AccountObservationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AccountObservationScalarWhereInput = {
+    AND?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
+    OR?: AccountObservationScalarWhereInput[]
+    NOT?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
+    id?: StringFilter<"AccountObservation"> | string
+    userId?: UuidFilter<"AccountObservation"> | string
+    browserId?: UuidFilter<"AccountObservation"> | string
+    fingerprint?: StringFilter<"AccountObservation"> | string
+    visitorId?: StringFilter<"AccountObservation"> | string
+    ja3Hash?: StringNullableFilter<"AccountObservation"> | string | null
+    ja4Hash?: StringNullableFilter<"AccountObservation"> | string | null
+    ip?: StringNullableFilter<"AccountObservation"> | string | null
+    formatVersion?: IntFilter<"AccountObservation"> | number
+    observedDay?: DateTimeFilter<"AccountObservation"> | Date | string
+    firstSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+    lastSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+  }
+
   export type BruteUpsertWithWhereUniqueWithoutUserInput = {
     where: BruteWhereUniqueInput
     update: XOR<BruteUpdateWithoutUserInput, BruteUncheckedUpdateWithoutUserInput>
@@ -65923,6 +67655,178 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutAccountObservationsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutAccountObservationsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    sharedBrowserId?: string | null
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAccountObservationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAccountObservationsInput, UserUncheckedCreateWithoutAccountObservationsInput>
+  }
+
+  export type UserUpsertWithoutAccountObservationsInput = {
+    update: XOR<UserUpdateWithoutAccountObservationsInput, UserUncheckedUpdateWithoutAccountObservationsInput>
+    create: XOR<UserCreateWithoutAccountObservationsInput, UserUncheckedCreateWithoutAccountObservationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAccountObservationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAccountObservationsInput, UserUncheckedUpdateWithoutAccountObservationsInput>
+  }
+
+  export type UserUpdateWithoutAccountObservationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAccountObservationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutLogsInput = {
     id: string
     lang?: $Enums.Lang
@@ -65947,6 +67851,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -65986,6 +67891,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -66216,6 +68122,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -66255,6 +68162,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -66475,6 +68383,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -66514,6 +68423,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -67836,6 +69746,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -67875,6 +69786,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -68195,6 +70107,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -68234,6 +70147,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -70440,6 +72354,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -70479,6 +72394,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -72667,6 +74583,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -72706,6 +74623,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -72759,6 +74677,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -72798,6 +74717,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -73732,6 +75652,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -73771,6 +75692,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -74007,6 +75929,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -74046,6 +75969,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -74260,6 +76184,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -74299,6 +76224,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -74341,6 +76267,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -74380,6 +76307,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -74632,6 +76560,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -74671,6 +76600,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -74708,6 +76638,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -74746,6 +76677,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -78312,6 +80244,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -78351,6 +80284,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -78587,6 +80521,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -78626,6 +80561,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -79273,6 +81209,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -79312,6 +81249,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -79365,6 +81303,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -79404,6 +81343,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -79735,6 +81675,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -79774,6 +81715,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -79827,6 +81769,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -79866,6 +81809,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -80263,6 +82207,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -80302,6 +82247,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -80355,6 +82301,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -80394,6 +82341,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -80767,6 +82715,20 @@ export namespace Prisma {
     stats?: BruteStatsUncheckedUpdateManyWithoutBruteNestedInput
   }
 
+  export type AccountObservationCreateManyUserInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    visitorId: string
+    ja3Hash?: string | null
+    ja4Hash?: string | null
+    ip?: string | null
+    formatVersion?: number
+    observedDay: Date | string
+    firstSeen: Date | string
+    lastSeen: Date | string
+  }
+
   export type BruteCreateManyUserInput = {
     id?: string
     name: string
@@ -80906,6 +82868,48 @@ export namespace Prisma {
     picked?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type AccountObservationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountObservationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountObservationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    ja3Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ja4Hash?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    formatVersion?: IntFieldUpdateOperationsInput | number
+    observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -83094,6 +85098,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -83133,6 +85138,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -83455,6 +85461,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -83494,6 +85501,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -83918,6 +85926,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -83957,6 +85966,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -84047,6 +86057,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -84085,6 +86096,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput

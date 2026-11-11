@@ -37,6 +37,7 @@ model User {
   ips                    String[]          @default([])
   fingerprints           String[]          @default([])
   browserIds             String[]          @default([])
+  accountObservations    AccountObservation[]
   createdAt              DateTime          @default(now()) @db.Timestamp()
   bannedAt               DateTime?         @db.Timestamp()
   banReason              String?
@@ -65,6 +66,29 @@ model User {
   @@index([lastSeen])
   @@index([bannedAt])
   @@index([sharedBrowserId])
+}
+
+// One row per validated identifier tuple per UTC day; legacy arrays are not backfilled.
+model AccountObservation {
+  id            String   @id @db.Char(64)
+  userId        String   @db.Uuid
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  browserId     String   @db.Uuid
+  fingerprint   String   @db.VarChar(36)
+  visitorId     String   @db.Char(32)
+  // Null means that this request did not supply a nonempty provider fingerprint.
+  ja3Hash       String?  @db.Char(64)
+  ja4Hash       String?  @db.Char(64)
+  ip            String?  @db.VarChar(45)
+  formatVersion Int      @default(1)
+  observedDay   DateTime @db.Date
+  firstSeen     DateTime @db.Timestamp(3)
+  lastSeen      DateTime @db.Timestamp(3)
+
+  @@index([lastSeen])
+  @@index([browserId, lastSeen])
+  @@index([fingerprint, ip, lastSeen])
+  @@index([userId, lastSeen])
 }
 
 enum UserLogType {

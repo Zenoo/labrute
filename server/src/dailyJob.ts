@@ -42,7 +42,7 @@ import { updateClanPoints } from './utils/clan/updateClanPoints.js';
 import { generateFight } from './utils/fight/generateFight.js';
 import { logMemory } from './utils/memory.js';
 import { shuffle } from './utils/shuffle.js';
-import { banUser } from './utils/user/banUser.js';
+import { cleanupAccountObservations, reportMultipleAccountObservations } from './utils/accountObservations.js';
 import { traced } from './utils/trace.js';
 import { ilike } from './utils/ilike.js';
 import { computeDailyStats } from './utils/stats/computeDailyStats.js';
@@ -1470,6 +1470,8 @@ const handleReleases = async (prisma: PrismaClient) => {
 const cleanup = async (prisma: PrismaClient) => {
   const thirtyDaysAgo = dayjs.utc().subtract(30, 'day').toDate();
 
+  await cleanupAccountObservations(prisma);
+
   let now = dayjs.utc().valueOf();
 
   // Delete logs older than 30 days
@@ -2335,99 +2337,6 @@ const handleEventTournament = async (
   LOGGER.log(`Round ${round} of event ${lastEvent.id} completed`);
 };
 
-const banMultipleAccounts = async (prisma: PrismaClient) => {
-  const sevenDaysAgo = dayjs.utc().subtract(7, 'day').toDate();
-
-  // TWO-TIER SIGNAL APPROACH:
-  //
-  // Tier 1 (STRONG): Same browser ID shared by multiple accounts
-  //   - Browser ID is server-set cookie, should be unique per browser session
-  //   - Threshold: >3 users (same browser session = very suspicious)
-  //   - Catches: Multi-accounting from the same browser
-  //
-  // Tier 2 (WEAK): Fingerprint + IP match (without browser ID evidence)
-  //   - Threshold: >30 users (very high to avoid false positives)
-  //   - Allows: schools, public wifi
-  //   - Catches: Extreme abuse cases only
-
-  // Tier 1 candidates, excluding users explicitly allowed via sharedBrowserId.
-  const tier1Candidates = await prisma.$queryRaw<{ id: string }[]>`
-    WITH recent_users AS (
-      SELECT id, "browserIds", "sharedBrowserId"
-      FROM "User"
-      WHERE "lastSeen" >= ${sevenDaysAgo}
-        AND "bannedAt" IS NULL
-    ),
-    suspicious_browser_ids AS (
-      SELECT browser.browser_id
-      FROM recent_users ru
-      CROSS JOIN LATERAL UNNEST(ru."browserIds") AS browser(browser_id)
-      WHERE browser.browser_id IS NOT NULL
-        AND browser.browser_id <> ''
-      GROUP BY browser.browser_id
-      HAVING COUNT(DISTINCT ru.id) > 3
-    )
-    SELECT DISTINCT ru.id
-    FROM recent_users ru
-    CROSS JOIN LATERAL UNNEST(ru."browserIds") AS browser(browser_id)
-    INNER JOIN suspicious_browser_ids sbi
-      ON sbi.browser_id = browser.browser_id
-    WHERE ru."sharedBrowserId" IS DISTINCT FROM browser.browser_id;
-  `;
-
-  // Tier 2 candidates using DB-side grouping to avoid in-memory cartesian products.
-  const tier2Candidates = await prisma.$queryRaw<{ id: string }[]>`
-    WITH recent_users AS (
-      SELECT id, fingerprints, ips
-      FROM "User"
-      WHERE "lastSeen" >= ${sevenDaysAgo}
-        AND "bannedAt" IS NULL
-    ),
-    suspicious_fp_ip AS (
-      SELECT fp.fingerprint, ip.ip
-      FROM recent_users ru
-      CROSS JOIN LATERAL UNNEST(ru.fingerprints) AS fp(fingerprint)
-      CROSS JOIN LATERAL UNNEST(ru.ips) AS ip(ip)
-      LEFT JOIN "KnownFingerprint" kf ON kf.id = fp.fingerprint
-      WHERE fp.fingerprint IS NOT NULL
-        AND fp.fingerprint <> ''
-        AND kf.id IS NULL
-        AND ip.ip IS NOT NULL
-        AND ip.ip <> ''
-      GROUP BY fp.fingerprint, ip.ip
-      HAVING COUNT(DISTINCT ru.id) > 30
-    )
-    SELECT DISTINCT ru.id
-    FROM recent_users ru
-    CROSS JOIN LATERAL UNNEST(ru.fingerprints) AS fp(fingerprint)
-    CROSS JOIN LATERAL UNNEST(ru.ips) AS ip(ip)
-    INNER JOIN suspicious_fp_ip sfp
-      ON sfp.fingerprint = fp.fingerprint
-      AND sfp.ip = ip.ip;
-  `;
-
-  const usersToBan = new Set<string>([
-    ...tier1Candidates.map((user) => user.id),
-    ...tier2Candidates.map((user) => user.id),
-  ]);
-
-  let bannedCount = 0;
-
-  // Ban detected users
-  for (const userId of usersToBan) {
-    try {
-      await banUser(prisma, userId, 'multipleAccounts');
-      bannedCount++;
-    } catch {
-      // It's possible that some of these users have already been banned, so we can ignore errors here
-    }
-  }
-
-  if (bannedCount) {
-    LOGGER.log(`Banned ${bannedCount} users for multiple accounts`);
-  }
-};
-
 const generateBots = async (prisma: PrismaClient) => {
   // Get highest level brute
   const brute = await prisma.brute.findFirst({
@@ -2614,9 +2523,9 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     await calculateAchievementRankings(prisma);
     logMemory('After calculating achievement rankings');
 
-    // Ban multiple accounts
-    await banMultipleAccounts(prisma);
-    logMemory('After banning multiple accounts');
+    // Calibrate new observations without issuing automatic sanctions.
+    await reportMultipleAccountObservations(prisma, LOGGER);
+    logMemory('After reporting multiple-account observations');
 
     // Generate bots
     await generateBots(prisma);

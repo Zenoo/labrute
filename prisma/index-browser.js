@@ -153,6 +153,21 @@ exports.Prisma.RelationLoadStrategy = {
   join: 'join'
 };
 
+exports.Prisma.AccountObservationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  browserId: 'browserId',
+  fingerprint: 'fingerprint',
+  visitorId: 'visitorId',
+  ja3Hash: 'ja3Hash',
+  ja4Hash: 'ja4Hash',
+  ip: 'ip',
+  formatVersion: 'formatVersion',
+  observedDay: 'observedDay',
+  firstSeen: 'firstSeen',
+  lastSeen: 'lastSeen'
+};
+
 exports.Prisma.UserLogScalarFieldEnum = {
   id: 'id',
   date: 'date',
@@ -944,6 +959,7 @@ exports.StatsGranularity = exports.$Enums.StatsGranularity = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  AccountObservation: 'AccountObservation',
   UserLog: 'UserLog',
   Brute: 'Brute',
   BruteStartingStats: 'BruteStartingStats',

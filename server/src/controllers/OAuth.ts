@@ -29,6 +29,7 @@ import { decryptFPEvent } from '../utils/fingerprint.js';
 import { banUser } from '../utils/user/banUser.js';
 import { DISCORD, LOGGER } from '../context.js';
 import { traced } from '../utils/trace.js';
+import { recordAccountObservation } from '../utils/accountObservations.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -179,6 +180,9 @@ export class OAuth {
       }
 
       const fingerprint = decryptFPEvent(req.body.eventId);
+      if (fingerprint !== req.security?.fingerprint) {
+        throw new ForbiddenError('Fingerprint event does not match request');
+      }
 
       // Handle new fingerprints
       if (!user.fingerprints.includes(fingerprint)) {
@@ -236,6 +240,8 @@ export class OAuth {
         ).catch(() => { /* ignore */ });
         throw new ForbiddenError(translate('banReason.headers_tampering', user));
       }
+
+      await recordAccountObservation(this.#prisma, user.id, req);
 
       // Connect log
       createUserLog(this.#prisma, {

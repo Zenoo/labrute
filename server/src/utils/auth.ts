@@ -14,6 +14,7 @@ import { banUser } from './user/banUser.js';
 import { DISCORD } from '../context.js';
 import { traced } from './trace.js';
 import { increaseStats } from './stats/updateStats.js';
+import { recordAccountObservation } from './accountObservations.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -108,15 +109,15 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
 
-  // Store browser ID from cookie
-  if (browserId && !user.browserIds.includes(browserId)) {
+  if (typeof browserId !== 'string' || browserId.length !== 36 || !isUuid(browserId)) {
+    throw new ForbiddenError('Missing or invalid browser ID. Reload the page to refresh it.');
+  }
+
+  // Persist identification data before banning the user to link the browser ID with the user.
+  if (!user.browserIds.includes(browserId)) {
     await traced('auth.updateUserBrowserIds', () => prisma.user.update({
       where: { id },
-      data: {
-        browserIds: {
-          push: browserId,
-        },
-      },
+      data: { browserIds: { push: browserId } },
     }));
   }
 
@@ -156,6 +157,11 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ForbiddenError(translate('banReason.headers_tampering', user));
   }
 
+  // Reauthentication records after the newly verified fingerprint has been registered.
+  if (!options?.skipFingerprintCheck) {
+    await recordAccountObservation(prisma, user.id, request);
+  }
+
   if (ip && !user.ips.includes(ip)) {
     await traced('auth.updateUserIps', () => prisma.user.update({
       where: { id },
@@ -165,18 +171,6 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
         },
       },
     }));
-  }
-
-  // Ban users without browser ID (most likely scripts/bots)
-  if (!browserId) {
-    await banUser(prisma, user.id, 'automation', undefined, { banFingerprints: true });
-    DISCORD().logObject({
-      userId: user.id,
-      fingerprint,
-      endpoint: `${request.method} ${request.path}`,
-      url: request.url,
-    }, 'No browser ID detected').catch(() => { /* ignore */ });
-    throw new ForbiddenError(translate('banReason.automation', user));
   }
 
   // Update last seen

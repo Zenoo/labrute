@@ -14,6 +14,7 @@ import { sendError } from '../sendError.js';
 import { translate } from '../translate.js';
 import { Lang } from '@labrute/prisma';
 import { isFingerprintFormatValid } from '../fingerprint.js';
+import { getBrowserId } from '../browserId.js';
 
 /**
  * Check version, fingerprint, headers and browser ID to prevent unauthrized API calls
@@ -57,15 +58,12 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
     return sendError(res, error);
   }
 
-  const browserId = req.cookies?.browserId;
+  const browserId = getBrowserId(req);
 
-  if (typeof browserId !== 'string' || !browserId.length) {
-    if (!hasAuthorization) {
-      return sendError(res, new ForbiddenError('Missing browser ID'));
-    }
-  } else {
-    req.security.browserId = browserId;
+  if (!browserId) {
+    return sendError(res, new ForbiddenError('Missing or invalid browser ID. Reload the page to refresh it.'));
   }
+  req.security.browserId = browserId;
 
   const fingerprint = req.headers[FINGERPRINT_HEADER];
 

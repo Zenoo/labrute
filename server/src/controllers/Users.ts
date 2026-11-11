@@ -48,6 +48,7 @@ import { ServerState } from '../utils/ServerState.js';
 import { auth } from '../utils/auth.js';
 import { createUserLog } from '../utils/createUserLog.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
+import { recordAccountObservation } from '../utils/accountObservations.js';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { traced } from '../utils/trace.js';
@@ -207,13 +208,16 @@ export const Users = {
     try {
       let authResult: Awaited<ReturnType<typeof auth>>;
       try {
-        authResult = await auth(prisma, req, { skipFingerprintCheck: true });
-
         if (typeof req.body.eventId !== 'string') {
           throw new ExpectedError('Invalid event ID');
         }
 
         const fingerprint = decryptFPEvent(req.body.eventId);
+        if (fingerprint !== req.security?.fingerprint) {
+          throw new ExpectedError('Fingerprint event does not match request');
+        }
+
+        authResult = await auth(prisma, req, { skipFingerprintCheck: true });
 
         if (!authResult.fingerprints.includes(fingerprint)) {
           await traced('users.authenticate.updateUserFingerprints', () => prisma.user.update({
@@ -226,6 +230,8 @@ export const Users = {
           }));
           authResult.fingerprints.push(fingerprint);
         }
+
+        await recordAccountObservation(prisma, authResult.id, req);
       } catch (_error) {
         res.send({
           modifiers: await ServerState.getModifiers(prisma),

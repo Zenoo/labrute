@@ -27,6 +27,7 @@ import dayjs from 'dayjs';
 import { useConfirm } from '../../hooks/useConfirm';
 import { useParams } from 'react-router';
 import { Link } from '../../components/Link';
+import { IdentifierList } from '../../components/IdentifierList';
 
 export const UserAdminView = () => {
   const { t } = useTranslation('admin');
@@ -334,7 +335,12 @@ export const UserAdminView = () => {
                               {otherUser.name}
                             </TableCell>
                             <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
-                            <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.fingerprints.map((f) => (user.fingerprints.includes(f) ? `<b>${f}</b>` : f)).join('<br>') }} />
+                            <TableCell align="right">
+                              <IdentifierList
+                                values={otherUser.fingerprints}
+                                highlightedValues={user.fingerprints}
+                              />
+                            </TableCell>
                             <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                             <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                             <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
@@ -373,7 +379,12 @@ export const UserAdminView = () => {
                               {otherUser.name}
                             </TableCell>
                             <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
-                            <TableCell align="right" dangerouslySetInnerHTML={{ __html: otherUser.browserIds.map((b) => (user.browserIds.includes(b) ? `<b>${b}</b>` : b)).join('<br>') }} />
+                            <TableCell align="right">
+                              <IdentifierList
+                                values={otherUser.browserIds}
+                                highlightedValues={user.browserIds}
+                              />
+                            </TableCell>
                             <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                             <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                             <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
