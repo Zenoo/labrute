@@ -2,19 +2,18 @@ import {
   ExpectedError, ForbiddenError,
   FORWARDED_FOR_HEADER,
   isUuid, NotFoundError,
-  PREDICTABLE_HEADERS_PREFIX,
   REAL_IP_HEADER
 } from '@labrute/core';
-import { Prisma, PrismaClient } from '@labrute/prisma';
+import { PrismaClient } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request } from 'express';
 import { ServerState } from './ServerState.js';
 import { translate } from './translate.js';
-import { banUser } from './user/banUser.js';
-import { DISCORD } from '../context.js';
+import { findUserForAuthentication } from './identifierSanctions.js';
 import { traced } from './trace.js';
 import { increaseStats } from './stats/updateStats.js';
 import { recordAccountObservation } from './accountObservations.js';
+import { logSecurityRejection } from './securityRejectionLog.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -46,26 +45,9 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ExpectedError('Invalid user ID');
   }
 
-  const toSelect: Prisma.UserSelect = {
-    id: true,
-    lang: true,
-    admin: true,
-    moderator: true,
-    bannedAt: true,
-    banReason: true,
-    ips: true,
-    fingerprints: true,
-    browserIds: true,
-    lastSeen: true,
-  };
-
-  const user = await traced('auth.findUser', () => prisma.user.findFirst({
-    where: {
-      id,
-      connexionToken: token,
-    },
-    select: toSelect,
-  }));
+  const user = await traced('auth.findUser', () => findUserForAuthentication(
+    prisma, id, token, browserId ?? '', fingerprint ?? '',
+  ));
 
   if (!user) {
     throw new NotFoundError('User not found');
@@ -101,19 +83,11 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ForbiddenError(translate('unauthorized', user));
   }
 
-  // Check if any of the user fingerprints are banned
-  for (const userFingerprint of user.fingerprints) {
-    if (await ServerState.isFingerprintBanned(prisma, userFingerprint)) {
-      throw new ForbiddenError(translate('fingerprintBanned', user));
-    }
-  }
-
-
   if (typeof browserId !== 'string' || browserId.length !== 36 || !isUuid(browserId)) {
     throw new ForbiddenError('Missing or invalid browser ID. Reload the page to refresh it.');
   }
 
-  // Persist identification data before banning the user to link the browser ID with the user.
+  // Retain browser history for investigations; identifier matches never ban this account.
   if (!user.browserIds.includes(browserId)) {
     await traced('auth.updateUserBrowserIds', () => prisma.user.update({
       where: { id },
@@ -121,39 +95,21 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     }));
   }
 
-  // Only check current request browser ID
-  if (browserId && await ServerState.isBrowserBanned(prisma, browserId)) {
-    await banUser(prisma, user.id, 'banned');
-
-    throw new ForbiddenError(translate('banned', user));
-  }
-
   // Check if the sent fingerprint is valid
   // (if the user doesn't have this fingerprint in database,
   // it means it was tampered with, as fingerprints can only
   // be added by the server after verification)
   if (!options?.skipFingerprintCheck && !user.fingerprints.includes(fingerprint ?? '')) {
-    DISCORD().logObject({
-      userId: user.id,
-      knowns: user.fingerprints,
-      fingerprint,
-      endpoint: `${request.method} ${request.path}`,
-      url: request.url,
-    }, 'Unrecognized fingerprint detected').catch(() => { /* ignore */ });
+    logSecurityRejection(user.id, 'unrecognized-fingerprint', request);
     throw new ForbiddenError('Unrecognized fingerprint');
   }
 
+  if (user.browserRestricted) throw new ForbiddenError(translate('banned', user));
+  if (user.fingerprintRestricted) throw new ForbiddenError(translate('fingerprintBanned', user));
+
   // Check expected headers
   if (!request.security?.validHeaders) {
-    // Ban fingerprints for tampering attempts
-    await banUser(prisma, user.id, 'headers_tampering', undefined, { banFingerprints: true });
-    DISCORD().logObject(
-      Object.fromEntries(
-        Object.entries(request.headers)
-          .filter(([k]) => k.startsWith(PREDICTABLE_HEADERS_PREFIX)),
-      ),
-      'Headers tampering detected',
-    ).catch(() => { /* ignore */ });
+    logSecurityRejection(user.id, 'headers-tampering', request);
     throw new ForbiddenError(translate('banReason.headers_tampering', user));
   }
 

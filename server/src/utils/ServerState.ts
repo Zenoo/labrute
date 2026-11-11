@@ -10,8 +10,6 @@ import { traced } from './trace.js';
 let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
-let BANNED_FINGERPRINTS: string[] | null = null;
-let BANNED_BROWSERS: string[] | null = null;
 let KNOWN_FINGERPRINTS: string[] | null = null;
 let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
@@ -202,98 +200,6 @@ const removeKnownFingerprint = async (prisma: PrismaClient, fingerprint: string)
   }
 };
 
-const getBannedFingerprints = async (prisma: PrismaClient) => {
-  if (BANNED_FINGERPRINTS) {
-    return BANNED_FINGERPRINTS;
-  }
-
-  const bannedFingerprints = await traced('serverState.getBannedFingerprints.getBannedFingerprints', () => prisma.bannedFingerprint.findMany({
-    select: { id: true },
-  }));
-
-  BANNED_FINGERPRINTS = bannedFingerprints.map((fp) => fp.id);
-
-  return BANNED_FINGERPRINTS;
-};
-
-const addBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[]) => {
-  const bannedFingerprints = await getBannedFingerprints(prisma);
-  const newFingerprints = fingerprints.filter((fp) => !bannedFingerprints.includes(fp));
-
-  await traced('serverState.addBannedFingerprints.createBannedFingerprints', () => prisma.bannedFingerprint.createMany({
-    data: newFingerprints.map((fp) => ({ id: fp })),
-  }));
-
-  if (BANNED_FINGERPRINTS) BANNED_FINGERPRINTS.push(...newFingerprints);
-};
-
-const isFingerprintBanned = async (prisma: PrismaClient, fingerprint: string) => {
-  const knownFingerprints = await getKnownFingerprints(prisma);
-
-  if (knownFingerprints.includes(fingerprint)) {
-    return false;
-  }
-
-  const bannedFingerprints = await getBannedFingerprints(prisma);
-
-  return bannedFingerprints.includes(fingerprint);
-};
-
-const removeBannedFingerprints = async (prisma: PrismaClient, fingerprints: string[]) => {
-  const bannedFingerprints = await getBannedFingerprints(prisma);
-
-  await traced('serverState.removeBannedFingerprints.deleteBannedFingerprints', () => prisma.bannedFingerprint.deleteMany({
-    where: { id: { in: fingerprints } },
-  }));
-
-  if (BANNED_FINGERPRINTS) {
-    BANNED_FINGERPRINTS = bannedFingerprints.filter((fp) => !fingerprints.includes(fp));
-  }
-};
-
-const getBannedBrowsers = async (prisma: PrismaClient) => {
-  if (BANNED_BROWSERS) {
-    return BANNED_BROWSERS;
-  }
-
-  const bannedBrowsers = await traced('serverState.getBannedBrowsers.getBannedBrowsers', () => prisma.bannedBrowser.findMany({
-    select: { id: true },
-  }));
-
-  BANNED_BROWSERS = bannedBrowsers.map((browser) => browser.id);
-
-  return BANNED_BROWSERS;
-};
-
-const addBannedBrowsers = async (prisma: PrismaClient, browsers: string[]) => {
-  const bannedBrowsers = await getBannedBrowsers(prisma);
-  const newBrowsers = browsers.filter((browser) => !bannedBrowsers.includes(browser));
-
-  await traced('serverState.addBannedBrowsers.createBannedBrowsers', () => prisma.bannedBrowser.createMany({
-    data: newBrowsers.map((browser) => ({ id: browser })),
-  }));
-
-  if (BANNED_BROWSERS) BANNED_BROWSERS.push(...newBrowsers);
-};
-
-const isBrowserBanned = async (prisma: PrismaClient, browser: string) => {
-  const bannedBrowsers = await getBannedBrowsers(prisma);
-
-  return bannedBrowsers.includes(browser);
-};
-
-const removeBannedBrowsers = async (prisma: PrismaClient, browsers: string[]) => {
-  const bannedBrowsers = await getBannedBrowsers(prisma);
-
-  await traced('serverState.removeBannedBrowsers.deleteBannedBrowsers', () => prisma.bannedBrowser.deleteMany({
-    where: { id: { in: browsers } },
-  }));
-
-  if (BANNED_BROWSERS) {
-    BANNED_BROWSERS = bannedBrowsers.filter((browser) => !browsers.includes(browser));
-  }
-};
-
 const setNextModifiers = async (prisma: PrismaClient, modifiers: Modifiers) => {
   const serverState = await traced('serverState.setNextModifiers.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
@@ -369,16 +275,8 @@ export const ServerState = {
   getNextModifiers,
   getCurrentEvent,
   setCurrentEvent,
-  getBannedFingerprints,
-  addBannedFingerprints,
-  isFingerprintBanned,
-  removeBannedFingerprints,
   getKnownFingerprints,
   addKnownFingerprint,
   isFingerprintKnown,
   removeKnownFingerprint,
-  getBannedBrowsers,
-  addBannedBrowsers,
-  isBrowserBanned,
-  removeBannedBrowsers,
 };

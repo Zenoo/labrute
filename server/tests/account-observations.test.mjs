@@ -11,6 +11,10 @@ const {
   recordAccountObservation, normalizeObservationIp, findMultipleAccountObservationGroups,
   reportMultipleAccountObservations, cleanupAccountObservations,
 } = await import('../lib/utils/accountObservations.js');
+const {
+  editSharedBrowserExemptions, setIdentifierRestriction, getIdentifierRestrictions,
+  findUserForAuthentication,
+} = await import('../lib/utils/identifierSanctions.js');
 
 test('observation IPs normalize chains, IPv6 spelling and mapped IPv4 without inventing missing IPs', () => {
   for (const [input, expected] of [
@@ -25,6 +29,7 @@ const databaseUrl = process.env.OBSERVATION_TEST_DATABASE_URL;
 const schema = `observation_test_${randomUUID().replaceAll('-', '')}`;
 let admin;
 let prisma;
+let migratedLegacy;
 const now = new Date('2026-11-11T12:00:00.000Z');
 const browser = randomUUID();
 const fingerprint = 'a'.repeat(32) + '0000';
@@ -49,20 +54,43 @@ before(async () => {
   prisma = new PrismaClient({ datasources: { db: { url: url.toString() } } });
   await prisma.$executeRawUnsafe(`CREATE TABLE "User" (
     id UUID PRIMARY KEY, "bannedAt" TIMESTAMP, "sharedBrowserId" TEXT,
+    "connexionToken" UUID DEFAULT '33333333-3333-4333-8333-333333333333',
+    lang TEXT DEFAULT 'en', admin BOOLEAN DEFAULT false, moderator BOOLEAN DEFAULT false, "banReason" TEXT,
     "lastSeen" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, fingerprints TEXT[] DEFAULT '{}',
     ips TEXT[] DEFAULT '{}', "browserIds" TEXT[] DEFAULT '{}'
   )`);
   await prisma.$executeRawUnsafe('CREATE TABLE "KnownFingerprint" (id VARCHAR(255) PRIMARY KEY)');
+  await prisma.$executeRawUnsafe(`CREATE TABLE "SharedBrowser" (
+    id VARCHAR(255) PRIMARY KEY, description VARCHAR(500), "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`);
+  await prisma.$executeRawUnsafe('CREATE TABLE "BannedBrowser" (id VARCHAR(255) PRIMARY KEY)');
+  await prisma.$executeRawUnsafe('CREATE TABLE "BannedFingerprint" (id VARCHAR(255) PRIMARY KEY)');
   const migration = readFileSync(new URL(
     '../prisma/migrations/20261111160000_account_observations/migration.sql', import.meta.url,
   ), 'utf8');
   for (const statement of migration.split(';').filter((sql) => sql.trim())) {
     await prisma.$executeRawUnsafe(statement);
   }
+  const legacyUser = randomUUID();
+  await prisma.$executeRaw`INSERT INTO "SharedBrowser" (id, description) VALUES (${browser}, 'Legacy family')`;
+  await prisma.$executeRaw`INSERT INTO "User" (id, "sharedBrowserId") VALUES (${legacyUser}::uuid, ${browser})`;
+  await prisma.$executeRaw`INSERT INTO "BannedBrowser" (id) VALUES (${browser})`;
+  await prisma.$executeRaw`INSERT INTO "BannedFingerprint" (id) VALUES (${fingerprint})`;
+  const sanctionsMigration = readFileSync(new URL(
+    '../prisma/migrations/20261111180000_separate_identifier_sanctions/migration.sql', import.meta.url,
+  ), 'utf8');
+  for (const statement of sanctionsMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
+  migratedLegacy = {
+    exemptions: await prisma.sharedBrowserExemption.findMany(),
+    history: await prisma.securityAction.findMany(),
+  };
 });
 
 beforeEach(async () => {
-  if (prisma) await prisma.$executeRawUnsafe('TRUNCATE "AccountObservation", "KnownFingerprint", "User" CASCADE');
+  if (prisma) await prisma.$executeRawUnsafe(`TRUNCATE "AccountObservation", "KnownFingerprint", "User",
+    "SharedBrowser", "SecurityAction", "BannedBrowser", "BannedFingerprint" CASCADE`);
 });
 
 after(async () => {
@@ -78,8 +106,136 @@ const user = async (sharedBrowserId = null, bannedAt = null) => {
   const id = randomUUID();
   await prisma.$executeRaw`INSERT INTO "User" (id, "sharedBrowserId", "bannedAt")
     VALUES (${id}::uuid, ${sharedBrowserId}, ${bannedAt})`;
+  if (sharedBrowserId) {
+    await prisma.sharedBrowser.upsert({ where: { id: sharedBrowserId },
+      create: { id: sharedBrowserId }, update: {} });
+    await prisma.sharedBrowserExemption.create({ data: {
+      userId: id, browserId: sharedBrowserId, reason: 'Approved fixture',
+    } });
+  }
   return id;
 };
+
+integration('authentication lookup combines credentials with fresh restrictions and approvals in one query', async () => {
+  const id = await user();
+  const token = '33333333-3333-4333-8333-333333333333';
+  const actorId = randomUUID();
+  let queries = 0;
+  const counted = { $queryRaw: (...args) => { queries++; return prisma.$queryRaw(...args); } };
+  let row = await findUserForAuthentication(counted, id, token, browser, fingerprint);
+  assert.equal(queries, 1);
+  assert.equal(row.id, id);
+  assert.equal(row.lang, 'en');
+  assert.equal(row.browserRestricted, false);
+  assert.equal(await findUserForAuthentication(prisma, id, randomUUID(), browser, fingerprint), null);
+  await setIdentifierRestriction(prisma, 'browser', browser, true, actorId, 'Reviewed restriction');
+  row = await findUserForAuthentication(prisma, id, token, browser, fingerprint);
+  assert.equal(row.browserRestricted, true, 'committed changes are visible on the next lookup');
+  await editSharedBrowserExemptions(prisma, browser, [id], actorId, 'Family approval');
+  row = await findUserForAuthentication(prisma, id, token, browser, fingerprint);
+  assert.equal(row.browserRestricted, false, 'no stale authorization cache');
+});
+
+integration('migration preserves legacy approvals and explicitly labels unknown restriction provenance', async () => {
+  assert.equal(migratedLegacy.exemptions.length, 1);
+  assert.equal(migratedLegacy.exemptions[0].reason, 'Legacy family');
+  assert.equal(migratedLegacy.exemptions[0].createdBy, null);
+  assert.equal(migratedLegacy.history.length, 3);
+  assert.equal(migratedLegacy.history.filter((event) => event.action === 'legacy-restrict').length, 2);
+  assert.ok(migratedLegacy.history.every((event) => event.actorId === null));
+});
+
+integration('reviewed restrictions are independent, idempotent, audited and do not spread through history', async () => {
+  const id = await user();
+  const actorId = randomUUID();
+  await Promise.all(Array.from({ length: 6 }, () => setIdentifierRestriction(
+    prisma, 'browser', browser, true, actorId, 'Reviewed device abuse',
+  )));
+  assert.equal(await prisma.bannedBrowser.count(), 1);
+  assert.equal(await prisma.securityAction.count(), 1);
+  assert.deepEqual(await getIdentifierRestrictions(prisma, id, browser, fingerprint), {
+    browserRestricted: true, fingerprintRestricted: false,
+  });
+  assert.deepEqual(await getIdentifierRestrictions(prisma, id, randomUUID(), fingerprint), {
+    browserRestricted: false, fingerprintRestricted: false,
+  });
+  await setIdentifierRestriction(prisma, 'fingerprint', fingerprint, true, actorId, 'Reviewed client abuse');
+  await setIdentifierRestriction(prisma, 'browser', browser, false, actorId, 'Device appeal accepted');
+  assert.equal(await prisma.bannedFingerprint.count(), 1, 'releasing a browser cannot release a fingerprint');
+  assert.equal(await prisma.securityAction.count(), 3);
+  assert.equal((await getIdentifierRestrictions(prisma, id, browser, otherFingerprint)).fingerprintRestricted, false,
+    'a historical restricted fingerprint does not restrict another current fingerprint');
+  await prisma.$executeRaw`INSERT INTO "KnownFingerprint" (id) VALUES (${fingerprint})`;
+  assert.equal((await getIdentifierRestrictions(prisma, id, browser, fingerprint)).fingerprintRestricted, false);
+});
+
+integration('multiple approved devices bypass identifier restrictions only for their approved account/browser pair', async () => {
+  const id = await user();
+  const unapproved = await user();
+  const actorId = randomUUID();
+  const secondBrowser = randomUUID();
+  for (const device of [browser, secondBrowser]) {
+    await editSharedBrowserExemptions(prisma, device, [id], actorId, 'Approved family devices');
+    await setIdentifierRestriction(prisma, 'browser', device, true, actorId, 'Unapproved account abuse');
+  }
+  await setIdentifierRestriction(prisma, 'fingerprint', fingerprint, true, actorId, 'Client restriction');
+  for (const device of [browser, secondBrowser]) {
+    assert.deepEqual(await getIdentifierRestrictions(prisma, id, device, fingerprint), {
+      browserRestricted: false, fingerprintRestricted: false,
+    });
+    assert.equal((await getIdentifierRestrictions(prisma, unapproved, device, fingerprint)).browserRestricted, true);
+  }
+  await editSharedBrowserExemptions(prisma, browser, [], actorId, 'Approval revoked after review');
+  assert.equal((await getIdentifierRestrictions(prisma, id, browser, fingerprint)).browserRestricted, true);
+  assert.equal((await getIdentifierRestrictions(prisma, id, secondBrowser, fingerprint)).browserRestricted, false);
+  await editSharedBrowserExemptions(prisma, secondBrowser, [], actorId, 'Shared browser deleted', true);
+  const history = await prisma.securityAction.findMany({ where: { subjectId: secondBrowser } });
+  assert.ok(history.some((event) => event.action === 'grant'));
+  assert.ok(history.some((event) => event.action === 'revoke'));
+  assert.equal(await prisma.bannedBrowser.count(), 2, 'deleting approvals cannot remove explicit restrictions');
+  await prisma.$executeRaw`DELETE FROM "User" WHERE id = ${id}::uuid`;
+  assert.equal(await prisma.securityAction.count({ where: { userId: id } }), 4,
+    'approval history remains after account deletion');
+});
+
+integration('approval updates and identifier transitions roll back if their audit write fails', async () => {
+  const id = await user();
+  const actorId = randomUUID();
+  // Invalid actor UUID is rejected before any state can change.
+  await assert.rejects(editSharedBrowserExemptions(prisma, browser, [id], 'not-a-uuid', 'Reason'));
+  await assert.rejects(setIdentifierRestriction(prisma, 'browser', browser, true, actorId, ''));
+  assert.equal(await prisma.sharedBrowserExemption.count(), 0);
+  assert.equal(await prisma.bannedBrowser.count(), 0);
+  // Force a database audit failure after mutation; the whole transaction must roll back.
+  await prisma.$executeRawUnsafe(`ALTER TABLE "SecurityAction" ADD CONSTRAINT "test_audit_failure"
+    CHECK (reason <> 'reject audit')`);
+  try {
+    await assert.rejects(setIdentifierRestriction(prisma, 'browser', browser, true, actorId, 'reject audit'));
+    await assert.rejects(editSharedBrowserExemptions(prisma, browser, [id], actorId, 'reject audit'));
+    assert.equal(await prisma.bannedBrowser.count(), 0);
+    assert.equal(await prisma.sharedBrowserExemption.count(), 0);
+  } finally {
+    await prisma.$executeRawUnsafe('ALTER TABLE "SecurityAction" DROP CONSTRAINT "test_audit_failure"');
+  }
+});
+
+integration('approved users are excluded from both observation thresholds', async () => {
+  const actorId = randomUUID();
+  const approved = [];
+  for (let i = 0; i < 31; i++) {
+    const id = await user();
+    approved.push(id);
+    await recordAccountObservation(prisma, id, request(), now);
+  }
+  await editSharedBrowserExemptions(prisma, browser, approved, actorId, 'Approved public shared device');
+  for (let i = 0; i < 3; i++) await recordAccountObservation(prisma, await user(), request(), now);
+  assert.deepEqual(await findMultipleAccountObservationGroups(prisma, now), []);
+  await recordAccountObservation(prisma, await user(), request(), now);
+  const groups = await findMultipleAccountObservationGroups(prisma, now);
+  assert.equal(groups.length, 1);
+  assert.equal(groups[0].signal, 'browser');
+  assert.equal(groups[0].userIds.length, 4);
+});
 
 integration('daily tuples deduplicate concurrent requests, throttle writes, preserve timestamps, and roll over in UTC', async () => {
   const id = await user();
@@ -96,6 +252,17 @@ integration('daily tuples deduplicate concurrent requests, throttle writes, pres
   assert.equal((await prisma.accountObservation.findFirst()).lastSeen.getTime(), now.getTime() + 300000);
   await recordAccountObservation(prisma, id, request(), new Date('2026-11-12T00:00:00.000Z'));
   assert.equal(await prisma.accountObservation.count(), 2);
+});
+
+integration('independent process caches share database deduplication and cannot move lastSeen backward', async () => {
+  const id = await user();
+  const secondWorker = { $executeRaw: (...args) => prisma.$executeRaw(...args) };
+  await recordAccountObservation(prisma, id, request(), now);
+  await recordAccountObservation(secondWorker, id, request(), new Date(now.getTime() + 60000));
+  assert.equal(await prisma.accountObservation.count(), 1);
+  assert.equal((await prisma.accountObservation.findFirst()).lastSeen.getTime(), now.getTime() + 60000);
+  await recordAccountObservation(prisma, id, request(), new Date(now.getTime() + 30000));
+  assert.equal((await prisma.accountObservation.findFirst()).lastSeen.getTime(), now.getTime() + 60000);
 });
 
 integration('TLS keys are separate SHA-256 values; missing signals and invalid IPs remain null', async () => {
@@ -226,5 +393,59 @@ integration('representative observation volume has a measured query plan', async
   await findMultipleAccountObservationGroups(explaining, now);
   const data = plan[0]['QUERY PLAN'][0];
   t.diagnostic(`240000 observations: planning ${data['Planning Time']}ms, execution ${data['Execution Time']}ms`);
+  const cte = data.Plan.Plans?.find((node) => node['Subplan Name'] === 'CTE recent');
+  if (cte) t.diagnostic(`recent observation projection width: ${cte['Plan Width']} bytes`);
   assert.ok(data.Plan);
+  let legacyPlan;
+  await findMultipleAccountObservationGroups({ $queryRaw: async (strings, ...values) => {
+    const statement = Array.from(strings);
+    statement[0] = `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON) ${statement[0].replace(
+      /SELECT o\."userId"[\s\S]*?FROM "AccountObservation" o/,
+      'SELECT o.* FROM "AccountObservation" o',
+    )}`;
+    statement.raw = [...statement];
+    legacyPlan = (await prisma.$queryRaw(statement, ...values))[0]['QUERY PLAN'][0];
+    return [];
+  } }, now);
+  const legacyCte = legacyPlan.Plan.Plans?.find((node) => node['Subplan Name'] === 'CTE recent');
+  if (cte && legacyCte) {
+    t.diagnostic(`legacy projection width: ${legacyCte['Plan Width']} bytes`);
+    assert.ok(cte['Plan Width'] <= legacyCte['Plan Width']);
+  }
+});
+
+integration('retention deletes in bounded transactions and skips rows currently locked by another worker', async () => {
+  const id = await user();
+  await prisma.$executeRaw`
+    INSERT INTO "AccountObservation"
+      (id, "userId", "browserId", fingerprint, "visitorId", "observedDay", "firstSeen", "lastSeen")
+    SELECT md5(n::text) || md5('expired-' || n::text), ${id}::uuid, ${browser}::uuid,
+      ${fingerprint}, ${'a'.repeat(32)}, '2026-09-01'::date, '2026-09-01'::timestamp, '2026-09-01'::timestamp
+    FROM generate_series(1, 5002) n
+  `;
+  let unlock;
+  let markLocked;
+  const locked = new Promise((resolve) => { markLocked = resolve; });
+  const release = new Promise((resolve) => { unlock = resolve; });
+  const transaction = prisma.$transaction(async (tx) => {
+    await tx.$queryRaw`SELECT id FROM "AccountObservation" ORDER BY id LIMIT 1 FOR UPDATE`;
+    markLocked();
+    await release;
+  });
+  const batches = [];
+  const counted = { $executeRaw: async (...args) => {
+    const count = await prisma.$executeRaw(...args);
+    batches.push(count);
+    return count;
+  } };
+  try {
+    await locked;
+    assert.equal(await cleanupAccountObservations(counted, now), 5001);
+    assert.deepEqual(batches, [5000, 1]);
+    assert.equal(await prisma.accountObservation.count(), 1);
+  } finally {
+    unlock();
+    await transaction;
+  }
+  assert.equal(await cleanupAccountObservations(prisma, now), 1);
 });

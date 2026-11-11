@@ -124,6 +124,16 @@ export type KnownFingerprint = $Result.DefaultSelection<Prisma.$KnownFingerprint
  */
 export type SharedBrowser = $Result.DefaultSelection<Prisma.$SharedBrowserPayload>
 /**
+ * Model SharedBrowserExemption
+ * 
+ */
+export type SharedBrowserExemption = $Result.DefaultSelection<Prisma.$SharedBrowserExemptionPayload>
+/**
+ * Model SecurityAction
+ * 
+ */
+export type SecurityAction = $Result.DefaultSelection<Prisma.$SecurityActionPayload>
+/**
  * Model BannedBrowser
  * 
  */
@@ -1104,6 +1114,26 @@ export class PrismaClient<
   get sharedBrowser(): Prisma.SharedBrowserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.sharedBrowserExemption`: Exposes CRUD operations for the **SharedBrowserExemption** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SharedBrowserExemptions
+    * const sharedBrowserExemptions = await prisma.sharedBrowserExemption.findMany()
+    * ```
+    */
+  get sharedBrowserExemption(): Prisma.SharedBrowserExemptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.securityAction`: Exposes CRUD operations for the **SecurityAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SecurityActions
+    * const securityActions = await prisma.securityAction.findMany()
+    * ```
+    */
+  get securityAction(): Prisma.SecurityActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.bannedBrowser`: Exposes CRUD operations for the **BannedBrowser** model.
     * Example usage:
     * ```ts
@@ -1735,6 +1765,8 @@ export namespace Prisma {
     BannedFingerprint: 'BannedFingerprint',
     KnownFingerprint: 'KnownFingerprint',
     SharedBrowser: 'SharedBrowser',
+    SharedBrowserExemption: 'SharedBrowserExemption',
+    SecurityAction: 'SecurityAction',
     BannedBrowser: 'BannedBrowser',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
@@ -1770,7 +1802,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
+      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3402,6 +3434,154 @@ export namespace Prisma {
           }
         }
       }
+      SharedBrowserExemption: {
+        payload: Prisma.$SharedBrowserExemptionPayload<ExtArgs>
+        fields: Prisma.SharedBrowserExemptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SharedBrowserExemptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SharedBrowserExemptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>
+          }
+          findFirst: {
+            args: Prisma.SharedBrowserExemptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SharedBrowserExemptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>
+          }
+          findMany: {
+            args: Prisma.SharedBrowserExemptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>[]
+          }
+          create: {
+            args: Prisma.SharedBrowserExemptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>
+          }
+          createMany: {
+            args: Prisma.SharedBrowserExemptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SharedBrowserExemptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>[]
+          }
+          delete: {
+            args: Prisma.SharedBrowserExemptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>
+          }
+          update: {
+            args: Prisma.SharedBrowserExemptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SharedBrowserExemptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SharedBrowserExemptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SharedBrowserExemptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SharedBrowserExemptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SharedBrowserExemptionPayload>
+          }
+          aggregate: {
+            args: Prisma.SharedBrowserExemptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSharedBrowserExemption>
+          }
+          groupBy: {
+            args: Prisma.SharedBrowserExemptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SharedBrowserExemptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SharedBrowserExemptionCountArgs<ExtArgs>
+            result: $Utils.Optional<SharedBrowserExemptionCountAggregateOutputType> | number
+          }
+        }
+      }
+      SecurityAction: {
+        payload: Prisma.$SecurityActionPayload<ExtArgs>
+        fields: Prisma.SecurityActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SecurityActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SecurityActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>
+          }
+          findFirst: {
+            args: Prisma.SecurityActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SecurityActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>
+          }
+          findMany: {
+            args: Prisma.SecurityActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>[]
+          }
+          create: {
+            args: Prisma.SecurityActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>
+          }
+          createMany: {
+            args: Prisma.SecurityActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SecurityActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>[]
+          }
+          delete: {
+            args: Prisma.SecurityActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>
+          }
+          update: {
+            args: Prisma.SecurityActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SecurityActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SecurityActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SecurityActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SecurityActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SecurityActionPayload>
+          }
+          aggregate: {
+            args: Prisma.SecurityActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSecurityAction>
+          }
+          groupBy: {
+            args: Prisma.SecurityActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SecurityActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SecurityActionCountArgs<ExtArgs>
+            result: $Utils.Optional<SecurityActionCountAggregateOutputType> | number
+          }
+        }
+      }
       BannedBrowser: {
         payload: Prisma.$BannedBrowserPayload<ExtArgs>
         fields: Prisma.BannedBrowserFieldRefs
@@ -4778,6 +4958,8 @@ export namespace Prisma {
     bannedFingerprint?: BannedFingerprintOmit
     knownFingerprint?: KnownFingerprintOmit
     sharedBrowser?: SharedBrowserOmit
+    sharedBrowserExemption?: SharedBrowserExemptionOmit
+    securityAction?: SecurityActionOmit
     bannedBrowser?: BannedBrowserOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
@@ -4876,6 +5058,7 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     accountObservations: number
+    sharedBrowserExemptions: number
     brutes: number
     achievements: number
     reports: number
@@ -4892,6 +5075,7 @@ export namespace Prisma {
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountObservations?: boolean | UserCountOutputTypeCountAccountObservationsArgs
+    sharedBrowserExemptions?: boolean | UserCountOutputTypeCountSharedBrowserExemptionsArgs
     brutes?: boolean | UserCountOutputTypeCountBrutesArgs
     achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
     reports?: boolean | UserCountOutputTypeCountReportsArgs
@@ -4922,6 +5106,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAccountObservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountObservationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSharedBrowserExemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedBrowserExemptionWhereInput
   }
 
   /**
@@ -5395,10 +5586,12 @@ export namespace Prisma {
 
   export type SharedBrowserCountOutputType = {
     users: number
+    exemptions: number
   }
 
   export type SharedBrowserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | SharedBrowserCountOutputTypeCountUsersArgs
+    exemptions?: boolean | SharedBrowserCountOutputTypeCountExemptionsArgs
   }
 
   // Custom InputTypes
@@ -5417,6 +5610,13 @@ export namespace Prisma {
    */
   export type SharedBrowserCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+  /**
+   * SharedBrowserCountOutputType without action
+   */
+  export type SharedBrowserCountOutputTypeCountExemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedBrowserExemptionWhereInput
   }
 
 
@@ -6042,6 +6242,7 @@ export namespace Prisma {
     lastSeen?: boolean
     sharedBrowserId?: boolean
     accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
+    sharedBrowserExemptions?: boolean | User$sharedBrowserExemptionsArgs<ExtArgs>
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -6144,6 +6345,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
+    sharedBrowserExemptions?: boolean | User$sharedBrowserExemptionsArgs<ExtArgs>
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -6170,6 +6372,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       accountObservations: Prisma.$AccountObservationPayload<ExtArgs>[]
+      sharedBrowserExemptions: Prisma.$SharedBrowserExemptionPayload<ExtArgs>[]
       brutes: Prisma.$BrutePayload<ExtArgs>[]
       achievements: Prisma.$AchievementPayload<ExtArgs>[]
       reports: Prisma.$BruteReportPayload<ExtArgs>[]
@@ -6604,6 +6807,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     accountObservations<T extends User$accountObservationsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountObservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sharedBrowserExemptions<T extends User$sharedBrowserExemptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sharedBrowserExemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     brutes<T extends User$brutesArgs<ExtArgs> = {}>(args?: Subset<T, User$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reports<T extends User$reportsArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BruteReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7096,6 +7300,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AccountObservationScalarFieldEnum | AccountObservationScalarFieldEnum[]
+  }
+
+  /**
+   * User.sharedBrowserExemptions
+   */
+  export type User$sharedBrowserExemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    where?: SharedBrowserExemptionWhereInput
+    orderBy?: SharedBrowserExemptionOrderByWithRelationInput | SharedBrowserExemptionOrderByWithRelationInput[]
+    cursor?: SharedBrowserExemptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedBrowserExemptionScalarFieldEnum | SharedBrowserExemptionScalarFieldEnum[]
   }
 
   /**
@@ -31490,6 +31718,7 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     users?: boolean | SharedBrowser$usersArgs<ExtArgs>
+    exemptions?: boolean | SharedBrowser$exemptionsArgs<ExtArgs>
     _count?: boolean | SharedBrowserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sharedBrowser"]>
 
@@ -31514,6 +31743,7 @@ export namespace Prisma {
   export type SharedBrowserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description" | "createdAt", ExtArgs["result"]["sharedBrowser"]>
   export type SharedBrowserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | SharedBrowser$usersArgs<ExtArgs>
+    exemptions?: boolean | SharedBrowser$exemptionsArgs<ExtArgs>
     _count?: boolean | SharedBrowserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SharedBrowserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -31523,6 +31753,7 @@ export namespace Prisma {
     name: "SharedBrowser"
     objects: {
       users: Prisma.$UserPayload<ExtArgs>[]
+      exemptions: Prisma.$SharedBrowserExemptionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -31923,6 +32154,7 @@ export namespace Prisma {
   export interface Prisma__SharedBrowserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends SharedBrowser$usersArgs<ExtArgs> = {}>(args?: Subset<T, SharedBrowser$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exemptions<T extends SharedBrowser$exemptionsArgs<ExtArgs> = {}>(args?: Subset<T, SharedBrowser$exemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32376,6 +32608,30 @@ export namespace Prisma {
   }
 
   /**
+   * SharedBrowser.exemptions
+   */
+  export type SharedBrowser$exemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    where?: SharedBrowserExemptionWhereInput
+    orderBy?: SharedBrowserExemptionOrderByWithRelationInput | SharedBrowserExemptionOrderByWithRelationInput[]
+    cursor?: SharedBrowserExemptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SharedBrowserExemptionScalarFieldEnum | SharedBrowserExemptionScalarFieldEnum[]
+  }
+
+  /**
    * SharedBrowser without action
    */
   export type SharedBrowserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -32391,6 +32647,2124 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SharedBrowserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SharedBrowserExemption
+   */
+
+  export type AggregateSharedBrowserExemption = {
+    _count: SharedBrowserExemptionCountAggregateOutputType | null
+    _min: SharedBrowserExemptionMinAggregateOutputType | null
+    _max: SharedBrowserExemptionMaxAggregateOutputType | null
+  }
+
+  export type SharedBrowserExemptionMinAggregateOutputType = {
+    browserId: string | null
+    userId: string | null
+    reason: string | null
+    createdAt: Date | null
+    createdBy: string | null
+  }
+
+  export type SharedBrowserExemptionMaxAggregateOutputType = {
+    browserId: string | null
+    userId: string | null
+    reason: string | null
+    createdAt: Date | null
+    createdBy: string | null
+  }
+
+  export type SharedBrowserExemptionCountAggregateOutputType = {
+    browserId: number
+    userId: number
+    reason: number
+    createdAt: number
+    createdBy: number
+    _all: number
+  }
+
+
+  export type SharedBrowserExemptionMinAggregateInputType = {
+    browserId?: true
+    userId?: true
+    reason?: true
+    createdAt?: true
+    createdBy?: true
+  }
+
+  export type SharedBrowserExemptionMaxAggregateInputType = {
+    browserId?: true
+    userId?: true
+    reason?: true
+    createdAt?: true
+    createdBy?: true
+  }
+
+  export type SharedBrowserExemptionCountAggregateInputType = {
+    browserId?: true
+    userId?: true
+    reason?: true
+    createdAt?: true
+    createdBy?: true
+    _all?: true
+  }
+
+  export type SharedBrowserExemptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SharedBrowserExemption to aggregate.
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowserExemptions to fetch.
+     */
+    orderBy?: SharedBrowserExemptionOrderByWithRelationInput | SharedBrowserExemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SharedBrowserExemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowserExemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowserExemptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SharedBrowserExemptions
+    **/
+    _count?: true | SharedBrowserExemptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SharedBrowserExemptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SharedBrowserExemptionMaxAggregateInputType
+  }
+
+  export type GetSharedBrowserExemptionAggregateType<T extends SharedBrowserExemptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSharedBrowserExemption]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSharedBrowserExemption[P]>
+      : GetScalarType<T[P], AggregateSharedBrowserExemption[P]>
+  }
+
+
+
+
+  export type SharedBrowserExemptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SharedBrowserExemptionWhereInput
+    orderBy?: SharedBrowserExemptionOrderByWithAggregationInput | SharedBrowserExemptionOrderByWithAggregationInput[]
+    by: SharedBrowserExemptionScalarFieldEnum[] | SharedBrowserExemptionScalarFieldEnum
+    having?: SharedBrowserExemptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SharedBrowserExemptionCountAggregateInputType | true
+    _min?: SharedBrowserExemptionMinAggregateInputType
+    _max?: SharedBrowserExemptionMaxAggregateInputType
+  }
+
+  export type SharedBrowserExemptionGroupByOutputType = {
+    browserId: string
+    userId: string
+    reason: string
+    createdAt: Date
+    createdBy: string | null
+    _count: SharedBrowserExemptionCountAggregateOutputType | null
+    _min: SharedBrowserExemptionMinAggregateOutputType | null
+    _max: SharedBrowserExemptionMaxAggregateOutputType | null
+  }
+
+  type GetSharedBrowserExemptionGroupByPayload<T extends SharedBrowserExemptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SharedBrowserExemptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SharedBrowserExemptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SharedBrowserExemptionGroupByOutputType[P]>
+            : GetScalarType<T[P], SharedBrowserExemptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SharedBrowserExemptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    browserId?: boolean
+    userId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    browser?: boolean | SharedBrowserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sharedBrowserExemption"]>
+
+  export type SharedBrowserExemptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    browserId?: boolean
+    userId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    browser?: boolean | SharedBrowserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sharedBrowserExemption"]>
+
+  export type SharedBrowserExemptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    browserId?: boolean
+    userId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    browser?: boolean | SharedBrowserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sharedBrowserExemption"]>
+
+  export type SharedBrowserExemptionSelectScalar = {
+    browserId?: boolean
+    userId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+  }
+
+  export type SharedBrowserExemptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"browserId" | "userId" | "reason" | "createdAt" | "createdBy", ExtArgs["result"]["sharedBrowserExemption"]>
+  export type SharedBrowserExemptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    browser?: boolean | SharedBrowserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SharedBrowserExemptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    browser?: boolean | SharedBrowserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SharedBrowserExemptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    browser?: boolean | SharedBrowserDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SharedBrowserExemptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SharedBrowserExemption"
+    objects: {
+      browser: Prisma.$SharedBrowserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      browserId: string
+      userId: string
+      reason: string
+      createdAt: Date
+      createdBy: string | null
+    }, ExtArgs["result"]["sharedBrowserExemption"]>
+    composites: {}
+  }
+
+  type SharedBrowserExemptionGetPayload<S extends boolean | null | undefined | SharedBrowserExemptionDefaultArgs> = $Result.GetResult<Prisma.$SharedBrowserExemptionPayload, S>
+
+  type SharedBrowserExemptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SharedBrowserExemptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: SharedBrowserExemptionCountAggregateInputType | true
+    }
+
+  export interface SharedBrowserExemptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SharedBrowserExemption'], meta: { name: 'SharedBrowserExemption' } }
+    /**
+     * Find zero or one SharedBrowserExemption that matches the filter.
+     * @param {SharedBrowserExemptionFindUniqueArgs} args - Arguments to find a SharedBrowserExemption
+     * @example
+     * // Get one SharedBrowserExemption
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SharedBrowserExemptionFindUniqueArgs>(args: SelectSubset<T, SharedBrowserExemptionFindUniqueArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SharedBrowserExemption that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SharedBrowserExemptionFindUniqueOrThrowArgs} args - Arguments to find a SharedBrowserExemption
+     * @example
+     * // Get one SharedBrowserExemption
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SharedBrowserExemptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SharedBrowserExemptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SharedBrowserExemption that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionFindFirstArgs} args - Arguments to find a SharedBrowserExemption
+     * @example
+     * // Get one SharedBrowserExemption
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SharedBrowserExemptionFindFirstArgs>(args?: SelectSubset<T, SharedBrowserExemptionFindFirstArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SharedBrowserExemption that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionFindFirstOrThrowArgs} args - Arguments to find a SharedBrowserExemption
+     * @example
+     * // Get one SharedBrowserExemption
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SharedBrowserExemptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SharedBrowserExemptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SharedBrowserExemptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SharedBrowserExemptions
+     * const sharedBrowserExemptions = await prisma.sharedBrowserExemption.findMany()
+     * 
+     * // Get first 10 SharedBrowserExemptions
+     * const sharedBrowserExemptions = await prisma.sharedBrowserExemption.findMany({ take: 10 })
+     * 
+     * // Only select the `browserId`
+     * const sharedBrowserExemptionWithBrowserIdOnly = await prisma.sharedBrowserExemption.findMany({ select: { browserId: true } })
+     * 
+     */
+    findMany<T extends SharedBrowserExemptionFindManyArgs>(args?: SelectSubset<T, SharedBrowserExemptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SharedBrowserExemption.
+     * @param {SharedBrowserExemptionCreateArgs} args - Arguments to create a SharedBrowserExemption.
+     * @example
+     * // Create one SharedBrowserExemption
+     * const SharedBrowserExemption = await prisma.sharedBrowserExemption.create({
+     *   data: {
+     *     // ... data to create a SharedBrowserExemption
+     *   }
+     * })
+     * 
+     */
+    create<T extends SharedBrowserExemptionCreateArgs>(args: SelectSubset<T, SharedBrowserExemptionCreateArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SharedBrowserExemptions.
+     * @param {SharedBrowserExemptionCreateManyArgs} args - Arguments to create many SharedBrowserExemptions.
+     * @example
+     * // Create many SharedBrowserExemptions
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SharedBrowserExemptionCreateManyArgs>(args?: SelectSubset<T, SharedBrowserExemptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SharedBrowserExemptions and returns the data saved in the database.
+     * @param {SharedBrowserExemptionCreateManyAndReturnArgs} args - Arguments to create many SharedBrowserExemptions.
+     * @example
+     * // Create many SharedBrowserExemptions
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SharedBrowserExemptions and only return the `browserId`
+     * const sharedBrowserExemptionWithBrowserIdOnly = await prisma.sharedBrowserExemption.createManyAndReturn({
+     *   select: { browserId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SharedBrowserExemptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SharedBrowserExemptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SharedBrowserExemption.
+     * @param {SharedBrowserExemptionDeleteArgs} args - Arguments to delete one SharedBrowserExemption.
+     * @example
+     * // Delete one SharedBrowserExemption
+     * const SharedBrowserExemption = await prisma.sharedBrowserExemption.delete({
+     *   where: {
+     *     // ... filter to delete one SharedBrowserExemption
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SharedBrowserExemptionDeleteArgs>(args: SelectSubset<T, SharedBrowserExemptionDeleteArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SharedBrowserExemption.
+     * @param {SharedBrowserExemptionUpdateArgs} args - Arguments to update one SharedBrowserExemption.
+     * @example
+     * // Update one SharedBrowserExemption
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SharedBrowserExemptionUpdateArgs>(args: SelectSubset<T, SharedBrowserExemptionUpdateArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SharedBrowserExemptions.
+     * @param {SharedBrowserExemptionDeleteManyArgs} args - Arguments to filter SharedBrowserExemptions to delete.
+     * @example
+     * // Delete a few SharedBrowserExemptions
+     * const { count } = await prisma.sharedBrowserExemption.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SharedBrowserExemptionDeleteManyArgs>(args?: SelectSubset<T, SharedBrowserExemptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SharedBrowserExemptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SharedBrowserExemptions
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SharedBrowserExemptionUpdateManyArgs>(args: SelectSubset<T, SharedBrowserExemptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SharedBrowserExemptions and returns the data updated in the database.
+     * @param {SharedBrowserExemptionUpdateManyAndReturnArgs} args - Arguments to update many SharedBrowserExemptions.
+     * @example
+     * // Update many SharedBrowserExemptions
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SharedBrowserExemptions and only return the `browserId`
+     * const sharedBrowserExemptionWithBrowserIdOnly = await prisma.sharedBrowserExemption.updateManyAndReturn({
+     *   select: { browserId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SharedBrowserExemptionUpdateManyAndReturnArgs>(args: SelectSubset<T, SharedBrowserExemptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SharedBrowserExemption.
+     * @param {SharedBrowserExemptionUpsertArgs} args - Arguments to update or create a SharedBrowserExemption.
+     * @example
+     * // Update or create a SharedBrowserExemption
+     * const sharedBrowserExemption = await prisma.sharedBrowserExemption.upsert({
+     *   create: {
+     *     // ... data to create a SharedBrowserExemption
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SharedBrowserExemption we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SharedBrowserExemptionUpsertArgs>(args: SelectSubset<T, SharedBrowserExemptionUpsertArgs<ExtArgs>>): Prisma__SharedBrowserExemptionClient<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SharedBrowserExemptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionCountArgs} args - Arguments to filter SharedBrowserExemptions to count.
+     * @example
+     * // Count the number of SharedBrowserExemptions
+     * const count = await prisma.sharedBrowserExemption.count({
+     *   where: {
+     *     // ... the filter for the SharedBrowserExemptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SharedBrowserExemptionCountArgs>(
+      args?: Subset<T, SharedBrowserExemptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SharedBrowserExemptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SharedBrowserExemption.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SharedBrowserExemptionAggregateArgs>(args: Subset<T, SharedBrowserExemptionAggregateArgs>): Prisma.PrismaPromise<GetSharedBrowserExemptionAggregateType<T>>
+
+    /**
+     * Group by SharedBrowserExemption.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SharedBrowserExemptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SharedBrowserExemptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SharedBrowserExemptionGroupByArgs['orderBy'] }
+        : { orderBy?: SharedBrowserExemptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SharedBrowserExemptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSharedBrowserExemptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SharedBrowserExemption model
+   */
+  readonly fields: SharedBrowserExemptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SharedBrowserExemption.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SharedBrowserExemptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    browser<T extends SharedBrowserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SharedBrowserDefaultArgs<ExtArgs>>): Prisma__SharedBrowserClient<$Result.GetResult<Prisma.$SharedBrowserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SharedBrowserExemption model
+   */
+  interface SharedBrowserExemptionFieldRefs {
+    readonly browserId: FieldRef<"SharedBrowserExemption", 'String'>
+    readonly userId: FieldRef<"SharedBrowserExemption", 'String'>
+    readonly reason: FieldRef<"SharedBrowserExemption", 'String'>
+    readonly createdAt: FieldRef<"SharedBrowserExemption", 'DateTime'>
+    readonly createdBy: FieldRef<"SharedBrowserExemption", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SharedBrowserExemption findUnique
+   */
+  export type SharedBrowserExemptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowserExemption to fetch.
+     */
+    where: SharedBrowserExemptionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption findUniqueOrThrow
+   */
+  export type SharedBrowserExemptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowserExemption to fetch.
+     */
+    where: SharedBrowserExemptionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption findFirst
+   */
+  export type SharedBrowserExemptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowserExemption to fetch.
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowserExemptions to fetch.
+     */
+    orderBy?: SharedBrowserExemptionOrderByWithRelationInput | SharedBrowserExemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SharedBrowserExemptions.
+     */
+    cursor?: SharedBrowserExemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowserExemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowserExemptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SharedBrowserExemptions.
+     */
+    distinct?: SharedBrowserExemptionScalarFieldEnum | SharedBrowserExemptionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption findFirstOrThrow
+   */
+  export type SharedBrowserExemptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowserExemption to fetch.
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowserExemptions to fetch.
+     */
+    orderBy?: SharedBrowserExemptionOrderByWithRelationInput | SharedBrowserExemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SharedBrowserExemptions.
+     */
+    cursor?: SharedBrowserExemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowserExemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowserExemptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SharedBrowserExemptions.
+     */
+    distinct?: SharedBrowserExemptionScalarFieldEnum | SharedBrowserExemptionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption findMany
+   */
+  export type SharedBrowserExemptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * Filter, which SharedBrowserExemptions to fetch.
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SharedBrowserExemptions to fetch.
+     */
+    orderBy?: SharedBrowserExemptionOrderByWithRelationInput | SharedBrowserExemptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SharedBrowserExemptions.
+     */
+    cursor?: SharedBrowserExemptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SharedBrowserExemptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SharedBrowserExemptions.
+     */
+    skip?: number
+    distinct?: SharedBrowserExemptionScalarFieldEnum | SharedBrowserExemptionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption create
+   */
+  export type SharedBrowserExemptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SharedBrowserExemption.
+     */
+    data: XOR<SharedBrowserExemptionCreateInput, SharedBrowserExemptionUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption createMany
+   */
+  export type SharedBrowserExemptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SharedBrowserExemptions.
+     */
+    data: SharedBrowserExemptionCreateManyInput | SharedBrowserExemptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SharedBrowserExemption createManyAndReturn
+   */
+  export type SharedBrowserExemptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many SharedBrowserExemptions.
+     */
+    data: SharedBrowserExemptionCreateManyInput | SharedBrowserExemptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SharedBrowserExemption update
+   */
+  export type SharedBrowserExemptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SharedBrowserExemption.
+     */
+    data: XOR<SharedBrowserExemptionUpdateInput, SharedBrowserExemptionUncheckedUpdateInput>
+    /**
+     * Choose, which SharedBrowserExemption to update.
+     */
+    where: SharedBrowserExemptionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption updateMany
+   */
+  export type SharedBrowserExemptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SharedBrowserExemptions.
+     */
+    data: XOR<SharedBrowserExemptionUpdateManyMutationInput, SharedBrowserExemptionUncheckedUpdateManyInput>
+    /**
+     * Filter which SharedBrowserExemptions to update
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * Limit how many SharedBrowserExemptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedBrowserExemption updateManyAndReturn
+   */
+  export type SharedBrowserExemptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * The data used to update SharedBrowserExemptions.
+     */
+    data: XOR<SharedBrowserExemptionUpdateManyMutationInput, SharedBrowserExemptionUncheckedUpdateManyInput>
+    /**
+     * Filter which SharedBrowserExemptions to update
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * Limit how many SharedBrowserExemptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SharedBrowserExemption upsert
+   */
+  export type SharedBrowserExemptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SharedBrowserExemption to update in case it exists.
+     */
+    where: SharedBrowserExemptionWhereUniqueInput
+    /**
+     * In case the SharedBrowserExemption found by the `where` argument doesn't exist, create a new SharedBrowserExemption with this data.
+     */
+    create: XOR<SharedBrowserExemptionCreateInput, SharedBrowserExemptionUncheckedCreateInput>
+    /**
+     * In case the SharedBrowserExemption was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SharedBrowserExemptionUpdateInput, SharedBrowserExemptionUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption delete
+   */
+  export type SharedBrowserExemptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+    /**
+     * Filter which SharedBrowserExemption to delete.
+     */
+    where: SharedBrowserExemptionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SharedBrowserExemption deleteMany
+   */
+  export type SharedBrowserExemptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SharedBrowserExemptions to delete
+     */
+    where?: SharedBrowserExemptionWhereInput
+    /**
+     * Limit how many SharedBrowserExemptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SharedBrowserExemption without action
+   */
+  export type SharedBrowserExemptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SharedBrowserExemption
+     */
+    select?: SharedBrowserExemptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SharedBrowserExemption
+     */
+    omit?: SharedBrowserExemptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SharedBrowserExemptionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SecurityAction
+   */
+
+  export type AggregateSecurityAction = {
+    _count: SecurityActionCountAggregateOutputType | null
+    _min: SecurityActionMinAggregateOutputType | null
+    _max: SecurityActionMaxAggregateOutputType | null
+  }
+
+  export type SecurityActionMinAggregateOutputType = {
+    id: string | null
+    subjectType: string | null
+    subjectId: string | null
+    userId: string | null
+    action: string | null
+    actorId: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type SecurityActionMaxAggregateOutputType = {
+    id: string | null
+    subjectType: string | null
+    subjectId: string | null
+    userId: string | null
+    action: string | null
+    actorId: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type SecurityActionCountAggregateOutputType = {
+    id: number
+    subjectType: number
+    subjectId: number
+    userId: number
+    action: number
+    actorId: number
+    reason: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SecurityActionMinAggregateInputType = {
+    id?: true
+    subjectType?: true
+    subjectId?: true
+    userId?: true
+    action?: true
+    actorId?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type SecurityActionMaxAggregateInputType = {
+    id?: true
+    subjectType?: true
+    subjectId?: true
+    userId?: true
+    action?: true
+    actorId?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type SecurityActionCountAggregateInputType = {
+    id?: true
+    subjectType?: true
+    subjectId?: true
+    userId?: true
+    action?: true
+    actorId?: true
+    reason?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SecurityActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SecurityAction to aggregate.
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SecurityActions to fetch.
+     */
+    orderBy?: SecurityActionOrderByWithRelationInput | SecurityActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SecurityActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SecurityActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SecurityActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SecurityActions
+    **/
+    _count?: true | SecurityActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SecurityActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SecurityActionMaxAggregateInputType
+  }
+
+  export type GetSecurityActionAggregateType<T extends SecurityActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSecurityAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSecurityAction[P]>
+      : GetScalarType<T[P], AggregateSecurityAction[P]>
+  }
+
+
+
+
+  export type SecurityActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SecurityActionWhereInput
+    orderBy?: SecurityActionOrderByWithAggregationInput | SecurityActionOrderByWithAggregationInput[]
+    by: SecurityActionScalarFieldEnum[] | SecurityActionScalarFieldEnum
+    having?: SecurityActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SecurityActionCountAggregateInputType | true
+    _min?: SecurityActionMinAggregateInputType
+    _max?: SecurityActionMaxAggregateInputType
+  }
+
+  export type SecurityActionGroupByOutputType = {
+    id: string
+    subjectType: string
+    subjectId: string
+    userId: string | null
+    action: string
+    actorId: string | null
+    reason: string
+    createdAt: Date
+    _count: SecurityActionCountAggregateOutputType | null
+    _min: SecurityActionMinAggregateOutputType | null
+    _max: SecurityActionMaxAggregateOutputType | null
+  }
+
+  type GetSecurityActionGroupByPayload<T extends SecurityActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SecurityActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SecurityActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SecurityActionGroupByOutputType[P]>
+            : GetScalarType<T[P], SecurityActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SecurityActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subjectType?: boolean
+    subjectId?: boolean
+    userId?: boolean
+    action?: boolean
+    actorId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["securityAction"]>
+
+  export type SecurityActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subjectType?: boolean
+    subjectId?: boolean
+    userId?: boolean
+    action?: boolean
+    actorId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["securityAction"]>
+
+  export type SecurityActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    subjectType?: boolean
+    subjectId?: boolean
+    userId?: boolean
+    action?: boolean
+    actorId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["securityAction"]>
+
+  export type SecurityActionSelectScalar = {
+    id?: boolean
+    subjectType?: boolean
+    subjectId?: boolean
+    userId?: boolean
+    action?: boolean
+    actorId?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }
+
+  export type SecurityActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "subjectType" | "subjectId" | "userId" | "action" | "actorId" | "reason" | "createdAt", ExtArgs["result"]["securityAction"]>
+
+  export type $SecurityActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SecurityAction"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      subjectType: string
+      subjectId: string
+      userId: string | null
+      action: string
+      actorId: string | null
+      reason: string
+      createdAt: Date
+    }, ExtArgs["result"]["securityAction"]>
+    composites: {}
+  }
+
+  type SecurityActionGetPayload<S extends boolean | null | undefined | SecurityActionDefaultArgs> = $Result.GetResult<Prisma.$SecurityActionPayload, S>
+
+  type SecurityActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SecurityActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: SecurityActionCountAggregateInputType | true
+    }
+
+  export interface SecurityActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SecurityAction'], meta: { name: 'SecurityAction' } }
+    /**
+     * Find zero or one SecurityAction that matches the filter.
+     * @param {SecurityActionFindUniqueArgs} args - Arguments to find a SecurityAction
+     * @example
+     * // Get one SecurityAction
+     * const securityAction = await prisma.securityAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SecurityActionFindUniqueArgs>(args: SelectSubset<T, SecurityActionFindUniqueArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SecurityAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SecurityActionFindUniqueOrThrowArgs} args - Arguments to find a SecurityAction
+     * @example
+     * // Get one SecurityAction
+     * const securityAction = await prisma.securityAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SecurityActionFindUniqueOrThrowArgs>(args: SelectSubset<T, SecurityActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SecurityAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionFindFirstArgs} args - Arguments to find a SecurityAction
+     * @example
+     * // Get one SecurityAction
+     * const securityAction = await prisma.securityAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SecurityActionFindFirstArgs>(args?: SelectSubset<T, SecurityActionFindFirstArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SecurityAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionFindFirstOrThrowArgs} args - Arguments to find a SecurityAction
+     * @example
+     * // Get one SecurityAction
+     * const securityAction = await prisma.securityAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SecurityActionFindFirstOrThrowArgs>(args?: SelectSubset<T, SecurityActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SecurityActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SecurityActions
+     * const securityActions = await prisma.securityAction.findMany()
+     * 
+     * // Get first 10 SecurityActions
+     * const securityActions = await prisma.securityAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const securityActionWithIdOnly = await prisma.securityAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SecurityActionFindManyArgs>(args?: SelectSubset<T, SecurityActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SecurityAction.
+     * @param {SecurityActionCreateArgs} args - Arguments to create a SecurityAction.
+     * @example
+     * // Create one SecurityAction
+     * const SecurityAction = await prisma.securityAction.create({
+     *   data: {
+     *     // ... data to create a SecurityAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends SecurityActionCreateArgs>(args: SelectSubset<T, SecurityActionCreateArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SecurityActions.
+     * @param {SecurityActionCreateManyArgs} args - Arguments to create many SecurityActions.
+     * @example
+     * // Create many SecurityActions
+     * const securityAction = await prisma.securityAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SecurityActionCreateManyArgs>(args?: SelectSubset<T, SecurityActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SecurityActions and returns the data saved in the database.
+     * @param {SecurityActionCreateManyAndReturnArgs} args - Arguments to create many SecurityActions.
+     * @example
+     * // Create many SecurityActions
+     * const securityAction = await prisma.securityAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SecurityActions and only return the `id`
+     * const securityActionWithIdOnly = await prisma.securityAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SecurityActionCreateManyAndReturnArgs>(args?: SelectSubset<T, SecurityActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SecurityAction.
+     * @param {SecurityActionDeleteArgs} args - Arguments to delete one SecurityAction.
+     * @example
+     * // Delete one SecurityAction
+     * const SecurityAction = await prisma.securityAction.delete({
+     *   where: {
+     *     // ... filter to delete one SecurityAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SecurityActionDeleteArgs>(args: SelectSubset<T, SecurityActionDeleteArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SecurityAction.
+     * @param {SecurityActionUpdateArgs} args - Arguments to update one SecurityAction.
+     * @example
+     * // Update one SecurityAction
+     * const securityAction = await prisma.securityAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SecurityActionUpdateArgs>(args: SelectSubset<T, SecurityActionUpdateArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SecurityActions.
+     * @param {SecurityActionDeleteManyArgs} args - Arguments to filter SecurityActions to delete.
+     * @example
+     * // Delete a few SecurityActions
+     * const { count } = await prisma.securityAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SecurityActionDeleteManyArgs>(args?: SelectSubset<T, SecurityActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SecurityActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SecurityActions
+     * const securityAction = await prisma.securityAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SecurityActionUpdateManyArgs>(args: SelectSubset<T, SecurityActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SecurityActions and returns the data updated in the database.
+     * @param {SecurityActionUpdateManyAndReturnArgs} args - Arguments to update many SecurityActions.
+     * @example
+     * // Update many SecurityActions
+     * const securityAction = await prisma.securityAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SecurityActions and only return the `id`
+     * const securityActionWithIdOnly = await prisma.securityAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SecurityActionUpdateManyAndReturnArgs>(args: SelectSubset<T, SecurityActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SecurityAction.
+     * @param {SecurityActionUpsertArgs} args - Arguments to update or create a SecurityAction.
+     * @example
+     * // Update or create a SecurityAction
+     * const securityAction = await prisma.securityAction.upsert({
+     *   create: {
+     *     // ... data to create a SecurityAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SecurityAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SecurityActionUpsertArgs>(args: SelectSubset<T, SecurityActionUpsertArgs<ExtArgs>>): Prisma__SecurityActionClient<$Result.GetResult<Prisma.$SecurityActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SecurityActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionCountArgs} args - Arguments to filter SecurityActions to count.
+     * @example
+     * // Count the number of SecurityActions
+     * const count = await prisma.securityAction.count({
+     *   where: {
+     *     // ... the filter for the SecurityActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SecurityActionCountArgs>(
+      args?: Subset<T, SecurityActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SecurityActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SecurityAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SecurityActionAggregateArgs>(args: Subset<T, SecurityActionAggregateArgs>): Prisma.PrismaPromise<GetSecurityActionAggregateType<T>>
+
+    /**
+     * Group by SecurityAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SecurityActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SecurityActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SecurityActionGroupByArgs['orderBy'] }
+        : { orderBy?: SecurityActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SecurityActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSecurityActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SecurityAction model
+   */
+  readonly fields: SecurityActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SecurityAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SecurityActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SecurityAction model
+   */
+  interface SecurityActionFieldRefs {
+    readonly id: FieldRef<"SecurityAction", 'String'>
+    readonly subjectType: FieldRef<"SecurityAction", 'String'>
+    readonly subjectId: FieldRef<"SecurityAction", 'String'>
+    readonly userId: FieldRef<"SecurityAction", 'String'>
+    readonly action: FieldRef<"SecurityAction", 'String'>
+    readonly actorId: FieldRef<"SecurityAction", 'String'>
+    readonly reason: FieldRef<"SecurityAction", 'String'>
+    readonly createdAt: FieldRef<"SecurityAction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SecurityAction findUnique
+   */
+  export type SecurityActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * Filter, which SecurityAction to fetch.
+     */
+    where: SecurityActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction findUniqueOrThrow
+   */
+  export type SecurityActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * Filter, which SecurityAction to fetch.
+     */
+    where: SecurityActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction findFirst
+   */
+  export type SecurityActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * Filter, which SecurityAction to fetch.
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SecurityActions to fetch.
+     */
+    orderBy?: SecurityActionOrderByWithRelationInput | SecurityActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SecurityActions.
+     */
+    cursor?: SecurityActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SecurityActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SecurityActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SecurityActions.
+     */
+    distinct?: SecurityActionScalarFieldEnum | SecurityActionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction findFirstOrThrow
+   */
+  export type SecurityActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * Filter, which SecurityAction to fetch.
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SecurityActions to fetch.
+     */
+    orderBy?: SecurityActionOrderByWithRelationInput | SecurityActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SecurityActions.
+     */
+    cursor?: SecurityActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SecurityActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SecurityActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SecurityActions.
+     */
+    distinct?: SecurityActionScalarFieldEnum | SecurityActionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction findMany
+   */
+  export type SecurityActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * Filter, which SecurityActions to fetch.
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SecurityActions to fetch.
+     */
+    orderBy?: SecurityActionOrderByWithRelationInput | SecurityActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SecurityActions.
+     */
+    cursor?: SecurityActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SecurityActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SecurityActions.
+     */
+    skip?: number
+    distinct?: SecurityActionScalarFieldEnum | SecurityActionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction create
+   */
+  export type SecurityActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SecurityAction.
+     */
+    data: XOR<SecurityActionCreateInput, SecurityActionUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction createMany
+   */
+  export type SecurityActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SecurityActions.
+     */
+    data: SecurityActionCreateManyInput | SecurityActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SecurityAction createManyAndReturn
+   */
+  export type SecurityActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many SecurityActions.
+     */
+    data: SecurityActionCreateManyInput | SecurityActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SecurityAction update
+   */
+  export type SecurityActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SecurityAction.
+     */
+    data: XOR<SecurityActionUpdateInput, SecurityActionUncheckedUpdateInput>
+    /**
+     * Choose, which SecurityAction to update.
+     */
+    where: SecurityActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction updateMany
+   */
+  export type SecurityActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SecurityActions.
+     */
+    data: XOR<SecurityActionUpdateManyMutationInput, SecurityActionUncheckedUpdateManyInput>
+    /**
+     * Filter which SecurityActions to update
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * Limit how many SecurityActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SecurityAction updateManyAndReturn
+   */
+  export type SecurityActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * The data used to update SecurityActions.
+     */
+    data: XOR<SecurityActionUpdateManyMutationInput, SecurityActionUncheckedUpdateManyInput>
+    /**
+     * Filter which SecurityActions to update
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * Limit how many SecurityActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SecurityAction upsert
+   */
+  export type SecurityActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SecurityAction to update in case it exists.
+     */
+    where: SecurityActionWhereUniqueInput
+    /**
+     * In case the SecurityAction found by the `where` argument doesn't exist, create a new SecurityAction with this data.
+     */
+    create: XOR<SecurityActionCreateInput, SecurityActionUncheckedCreateInput>
+    /**
+     * In case the SecurityAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SecurityActionUpdateInput, SecurityActionUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction delete
+   */
+  export type SecurityActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
+    /**
+     * Filter which SecurityAction to delete.
+     */
+    where: SecurityActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * SecurityAction deleteMany
+   */
+  export type SecurityActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SecurityActions to delete
+     */
+    where?: SecurityActionWhereInput
+    /**
+     * Limit how many SecurityActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SecurityAction without action
+   */
+  export type SecurityActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SecurityAction
+     */
+    select?: SecurityActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SecurityAction
+     */
+    omit?: SecurityActionOmit<ExtArgs> | null
   }
 
 
@@ -52433,6 +54807,31 @@ export namespace Prisma {
   export type SharedBrowserScalarFieldEnum = (typeof SharedBrowserScalarFieldEnum)[keyof typeof SharedBrowserScalarFieldEnum]
 
 
+  export const SharedBrowserExemptionScalarFieldEnum: {
+    browserId: 'browserId',
+    userId: 'userId',
+    reason: 'reason',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy'
+  };
+
+  export type SharedBrowserExemptionScalarFieldEnum = (typeof SharedBrowserExemptionScalarFieldEnum)[keyof typeof SharedBrowserExemptionScalarFieldEnum]
+
+
+  export const SecurityActionScalarFieldEnum: {
+    id: 'id',
+    subjectType: 'subjectType',
+    subjectId: 'subjectId',
+    userId: 'userId',
+    action: 'action',
+    actorId: 'actorId',
+    reason: 'reason',
+    createdAt: 'createdAt'
+  };
+
+  export type SecurityActionScalarFieldEnum = (typeof SecurityActionScalarFieldEnum)[keyof typeof SecurityActionScalarFieldEnum]
+
+
   export const BannedBrowserScalarFieldEnum: {
     id: 'id'
   };
@@ -53122,6 +55521,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
     accountObservations?: AccountObservationListRelationFilter
+    sharedBrowserExemptions?: SharedBrowserExemptionListRelationFilter
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -53163,6 +55563,7 @@ export namespace Prisma {
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrderInput | SortOrder
     accountObservations?: AccountObservationOrderByRelationAggregateInput
+    sharedBrowserExemptions?: SharedBrowserExemptionOrderByRelationAggregateInput
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
     reports?: BruteReportOrderByRelationAggregateInput
@@ -53207,6 +55608,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
     accountObservations?: AccountObservationListRelationFilter
+    sharedBrowserExemptions?: SharedBrowserExemptionListRelationFilter
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
     reports?: BruteReportListRelationFilter
@@ -54921,6 +57323,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"SharedBrowser"> | string | null
     createdAt?: DateTimeFilter<"SharedBrowser"> | Date | string
     users?: UserListRelationFilter
+    exemptions?: SharedBrowserExemptionListRelationFilter
   }
 
   export type SharedBrowserOrderByWithRelationInput = {
@@ -54928,6 +57331,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     users?: UserOrderByRelationAggregateInput
+    exemptions?: SharedBrowserExemptionOrderByRelationAggregateInput
   }
 
   export type SharedBrowserWhereUniqueInput = Prisma.AtLeast<{
@@ -54938,6 +57342,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"SharedBrowser"> | string | null
     createdAt?: DateTimeFilter<"SharedBrowser"> | Date | string
     users?: UserListRelationFilter
+    exemptions?: SharedBrowserExemptionListRelationFilter
   }, "id">
 
   export type SharedBrowserOrderByWithAggregationInput = {
@@ -54956,6 +57361,132 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"SharedBrowser"> | string
     description?: StringNullableWithAggregatesFilter<"SharedBrowser"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SharedBrowser"> | Date | string
+  }
+
+  export type SharedBrowserExemptionWhereInput = {
+    AND?: SharedBrowserExemptionWhereInput | SharedBrowserExemptionWhereInput[]
+    OR?: SharedBrowserExemptionWhereInput[]
+    NOT?: SharedBrowserExemptionWhereInput | SharedBrowserExemptionWhereInput[]
+    browserId?: StringFilter<"SharedBrowserExemption"> | string
+    userId?: UuidFilter<"SharedBrowserExemption"> | string
+    reason?: StringFilter<"SharedBrowserExemption"> | string
+    createdAt?: DateTimeFilter<"SharedBrowserExemption"> | Date | string
+    createdBy?: UuidNullableFilter<"SharedBrowserExemption"> | string | null
+    browser?: XOR<SharedBrowserScalarRelationFilter, SharedBrowserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SharedBrowserExemptionOrderByWithRelationInput = {
+    browserId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    browser?: SharedBrowserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SharedBrowserExemptionWhereUniqueInput = Prisma.AtLeast<{
+    userId_browserId?: SharedBrowserExemptionUserIdBrowserIdCompoundUniqueInput
+    AND?: SharedBrowserExemptionWhereInput | SharedBrowserExemptionWhereInput[]
+    OR?: SharedBrowserExemptionWhereInput[]
+    NOT?: SharedBrowserExemptionWhereInput | SharedBrowserExemptionWhereInput[]
+    browserId?: StringFilter<"SharedBrowserExemption"> | string
+    userId?: UuidFilter<"SharedBrowserExemption"> | string
+    reason?: StringFilter<"SharedBrowserExemption"> | string
+    createdAt?: DateTimeFilter<"SharedBrowserExemption"> | Date | string
+    createdBy?: UuidNullableFilter<"SharedBrowserExemption"> | string | null
+    browser?: XOR<SharedBrowserScalarRelationFilter, SharedBrowserWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId_browserId">
+
+  export type SharedBrowserExemptionOrderByWithAggregationInput = {
+    browserId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    _count?: SharedBrowserExemptionCountOrderByAggregateInput
+    _max?: SharedBrowserExemptionMaxOrderByAggregateInput
+    _min?: SharedBrowserExemptionMinOrderByAggregateInput
+  }
+
+  export type SharedBrowserExemptionScalarWhereWithAggregatesInput = {
+    AND?: SharedBrowserExemptionScalarWhereWithAggregatesInput | SharedBrowserExemptionScalarWhereWithAggregatesInput[]
+    OR?: SharedBrowserExemptionScalarWhereWithAggregatesInput[]
+    NOT?: SharedBrowserExemptionScalarWhereWithAggregatesInput | SharedBrowserExemptionScalarWhereWithAggregatesInput[]
+    browserId?: StringWithAggregatesFilter<"SharedBrowserExemption"> | string
+    userId?: UuidWithAggregatesFilter<"SharedBrowserExemption"> | string
+    reason?: StringWithAggregatesFilter<"SharedBrowserExemption"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SharedBrowserExemption"> | Date | string
+    createdBy?: UuidNullableWithAggregatesFilter<"SharedBrowserExemption"> | string | null
+  }
+
+  export type SecurityActionWhereInput = {
+    AND?: SecurityActionWhereInput | SecurityActionWhereInput[]
+    OR?: SecurityActionWhereInput[]
+    NOT?: SecurityActionWhereInput | SecurityActionWhereInput[]
+    id?: UuidFilter<"SecurityAction"> | string
+    subjectType?: StringFilter<"SecurityAction"> | string
+    subjectId?: StringFilter<"SecurityAction"> | string
+    userId?: UuidNullableFilter<"SecurityAction"> | string | null
+    action?: StringFilter<"SecurityAction"> | string
+    actorId?: UuidNullableFilter<"SecurityAction"> | string | null
+    reason?: StringFilter<"SecurityAction"> | string
+    createdAt?: DateTimeFilter<"SecurityAction"> | Date | string
+  }
+
+  export type SecurityActionOrderByWithRelationInput = {
+    id?: SortOrder
+    subjectType?: SortOrder
+    subjectId?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    action?: SortOrder
+    actorId?: SortOrderInput | SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SecurityActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SecurityActionWhereInput | SecurityActionWhereInput[]
+    OR?: SecurityActionWhereInput[]
+    NOT?: SecurityActionWhereInput | SecurityActionWhereInput[]
+    subjectType?: StringFilter<"SecurityAction"> | string
+    subjectId?: StringFilter<"SecurityAction"> | string
+    userId?: UuidNullableFilter<"SecurityAction"> | string | null
+    action?: StringFilter<"SecurityAction"> | string
+    actorId?: UuidNullableFilter<"SecurityAction"> | string | null
+    reason?: StringFilter<"SecurityAction"> | string
+    createdAt?: DateTimeFilter<"SecurityAction"> | Date | string
+  }, "id">
+
+  export type SecurityActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    subjectType?: SortOrder
+    subjectId?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    action?: SortOrder
+    actorId?: SortOrderInput | SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    _count?: SecurityActionCountOrderByAggregateInput
+    _max?: SecurityActionMaxOrderByAggregateInput
+    _min?: SecurityActionMinOrderByAggregateInput
+  }
+
+  export type SecurityActionScalarWhereWithAggregatesInput = {
+    AND?: SecurityActionScalarWhereWithAggregatesInput | SecurityActionScalarWhereWithAggregatesInput[]
+    OR?: SecurityActionScalarWhereWithAggregatesInput[]
+    NOT?: SecurityActionScalarWhereWithAggregatesInput | SecurityActionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SecurityAction"> | string
+    subjectType?: StringWithAggregatesFilter<"SecurityAction"> | string
+    subjectId?: StringWithAggregatesFilter<"SecurityAction"> | string
+    userId?: UuidNullableWithAggregatesFilter<"SecurityAction"> | string | null
+    action?: StringWithAggregatesFilter<"SecurityAction"> | string
+    actorId?: UuidNullableWithAggregatesFilter<"SecurityAction"> | string | null
+    reason?: StringWithAggregatesFilter<"SecurityAction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SecurityAction"> | Date | string
   }
 
   export type BannedBrowserWhereInput = {
@@ -56216,6 +58747,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -56257,6 +58789,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -56296,6 +58829,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -56337,6 +58871,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -58185,6 +60720,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     users?: UserCreateNestedManyWithoutSharedBrowserInput
+    exemptions?: SharedBrowserExemptionCreateNestedManyWithoutBrowserInput
   }
 
   export type SharedBrowserUncheckedCreateInput = {
@@ -58192,6 +60728,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     users?: UserUncheckedCreateNestedManyWithoutSharedBrowserInput
+    exemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutBrowserInput
   }
 
   export type SharedBrowserUpdateInput = {
@@ -58199,6 +60736,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUpdateManyWithoutSharedBrowserNestedInput
+    exemptions?: SharedBrowserExemptionUpdateManyWithoutBrowserNestedInput
   }
 
   export type SharedBrowserUncheckedUpdateInput = {
@@ -58206,6 +60744,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserUncheckedUpdateManyWithoutSharedBrowserNestedInput
+    exemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutBrowserNestedInput
   }
 
   export type SharedBrowserCreateManyInput = {
@@ -58223,6 +60762,137 @@ export namespace Prisma {
   export type SharedBrowserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedBrowserExemptionCreateInput = {
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    browser: SharedBrowserCreateNestedOneWithoutExemptionsInput
+    user: UserCreateNestedOneWithoutSharedBrowserExemptionsInput
+  }
+
+  export type SharedBrowserExemptionUncheckedCreateInput = {
+    browserId: string
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+  }
+
+  export type SharedBrowserExemptionUpdateInput = {
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    browser?: SharedBrowserUpdateOneRequiredWithoutExemptionsNestedInput
+    user?: UserUpdateOneRequiredWithoutSharedBrowserExemptionsNestedInput
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SharedBrowserExemptionCreateManyInput = {
+    browserId: string
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+  }
+
+  export type SharedBrowserExemptionUpdateManyMutationInput = {
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateManyInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SecurityActionCreateInput = {
+    id?: string
+    subjectType: string
+    subjectId: string
+    userId?: string | null
+    action: string
+    actorId?: string | null
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type SecurityActionUncheckedCreateInput = {
+    id?: string
+    subjectType: string
+    subjectId: string
+    userId?: string | null
+    action: string
+    actorId?: string | null
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type SecurityActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subjectType?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SecurityActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subjectType?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SecurityActionCreateManyInput = {
+    id?: string
+    subjectType: string
+    subjectId: string
+    userId?: string | null
+    action: string
+    actorId?: string | null
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type SecurityActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subjectType?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SecurityActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subjectType?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    actorId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -59617,6 +62287,12 @@ export namespace Prisma {
     none?: AccountObservationWhereInput
   }
 
+  export type SharedBrowserExemptionListRelationFilter = {
+    every?: SharedBrowserExemptionWhereInput
+    some?: SharedBrowserExemptionWhereInput
+    none?: SharedBrowserExemptionWhereInput
+  }
+
   export type BruteListRelationFilter = {
     every?: BruteWhereInput
     some?: BruteWhereInput
@@ -59688,6 +62364,10 @@ export namespace Prisma {
   }
 
   export type AccountObservationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SharedBrowserExemptionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -61351,6 +64031,73 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type SharedBrowserScalarRelationFilter = {
+    is?: SharedBrowserWhereInput
+    isNot?: SharedBrowserWhereInput
+  }
+
+  export type SharedBrowserExemptionUserIdBrowserIdCompoundUniqueInput = {
+    userId: string
+    browserId: string
+  }
+
+  export type SharedBrowserExemptionCountOrderByAggregateInput = {
+    browserId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type SharedBrowserExemptionMaxOrderByAggregateInput = {
+    browserId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type SharedBrowserExemptionMinOrderByAggregateInput = {
+    browserId?: SortOrder
+    userId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type SecurityActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    subjectType?: SortOrder
+    subjectId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    actorId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SecurityActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    subjectType?: SortOrder
+    subjectId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    actorId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SecurityActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    subjectType?: SortOrder
+    subjectId?: SortOrder
+    userId?: SortOrder
+    action?: SortOrder
+    actorId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type BannedBrowserCountOrderByAggregateInput = {
     id?: SortOrder
   }
@@ -62284,6 +65031,13 @@ export namespace Prisma {
     connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
   }
 
+  export type SharedBrowserExemptionCreateNestedManyWithoutUserInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput> | SharedBrowserExemptionCreateWithoutUserInput[] | SharedBrowserExemptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutUserInput | SharedBrowserExemptionCreateOrConnectWithoutUserInput[]
+    createMany?: SharedBrowserExemptionCreateManyUserInputEnvelope
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+  }
+
   export type BruteCreateNestedManyWithoutUserInput = {
     create?: XOR<BruteCreateWithoutUserInput, BruteUncheckedCreateWithoutUserInput> | BruteCreateWithoutUserInput[] | BruteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BruteCreateOrConnectWithoutUserInput | BruteCreateOrConnectWithoutUserInput[]
@@ -62376,6 +65130,13 @@ export namespace Prisma {
     connectOrCreate?: AccountObservationCreateOrConnectWithoutUserInput | AccountObservationCreateOrConnectWithoutUserInput[]
     createMany?: AccountObservationCreateManyUserInputEnvelope
     connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+  }
+
+  export type SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput> | SharedBrowserExemptionCreateWithoutUserInput[] | SharedBrowserExemptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutUserInput | SharedBrowserExemptionCreateOrConnectWithoutUserInput[]
+    createMany?: SharedBrowserExemptionCreateManyUserInputEnvelope
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
   }
 
   export type BruteUncheckedCreateNestedManyWithoutUserInput = {
@@ -62518,6 +65279,20 @@ export namespace Prisma {
     update?: AccountObservationUpdateWithWhereUniqueWithoutUserInput | AccountObservationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AccountObservationUpdateManyWithWhereWithoutUserInput | AccountObservationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
+  }
+
+  export type SharedBrowserExemptionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput> | SharedBrowserExemptionCreateWithoutUserInput[] | SharedBrowserExemptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutUserInput | SharedBrowserExemptionCreateOrConnectWithoutUserInput[]
+    upsert?: SharedBrowserExemptionUpsertWithWhereUniqueWithoutUserInput | SharedBrowserExemptionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SharedBrowserExemptionCreateManyUserInputEnvelope
+    set?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    disconnect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    delete?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    update?: SharedBrowserExemptionUpdateWithWhereUniqueWithoutUserInput | SharedBrowserExemptionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SharedBrowserExemptionUpdateManyWithWhereWithoutUserInput | SharedBrowserExemptionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SharedBrowserExemptionScalarWhereInput | SharedBrowserExemptionScalarWhereInput[]
   }
 
   export type BruteUpdateManyWithoutUserNestedInput = {
@@ -62707,6 +65482,20 @@ export namespace Prisma {
     update?: AccountObservationUpdateWithWhereUniqueWithoutUserInput | AccountObservationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AccountObservationUpdateManyWithWhereWithoutUserInput | AccountObservationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput> | SharedBrowserExemptionCreateWithoutUserInput[] | SharedBrowserExemptionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutUserInput | SharedBrowserExemptionCreateOrConnectWithoutUserInput[]
+    upsert?: SharedBrowserExemptionUpsertWithWhereUniqueWithoutUserInput | SharedBrowserExemptionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SharedBrowserExemptionCreateManyUserInputEnvelope
+    set?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    disconnect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    delete?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    update?: SharedBrowserExemptionUpdateWithWhereUniqueWithoutUserInput | SharedBrowserExemptionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SharedBrowserExemptionUpdateManyWithWhereWithoutUserInput | SharedBrowserExemptionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SharedBrowserExemptionScalarWhereInput | SharedBrowserExemptionScalarWhereInput[]
   }
 
   export type BruteUncheckedUpdateManyWithoutUserNestedInput = {
@@ -64810,11 +67599,25 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type SharedBrowserExemptionCreateNestedManyWithoutBrowserInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutBrowserInput, SharedBrowserExemptionUncheckedCreateWithoutBrowserInput> | SharedBrowserExemptionCreateWithoutBrowserInput[] | SharedBrowserExemptionUncheckedCreateWithoutBrowserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutBrowserInput | SharedBrowserExemptionCreateOrConnectWithoutBrowserInput[]
+    createMany?: SharedBrowserExemptionCreateManyBrowserInputEnvelope
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutSharedBrowserInput = {
     create?: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput> | UserCreateWithoutSharedBrowserInput[] | UserUncheckedCreateWithoutSharedBrowserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserInput | UserCreateOrConnectWithoutSharedBrowserInput[]
     createMany?: UserCreateManySharedBrowserInputEnvelope
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type SharedBrowserExemptionUncheckedCreateNestedManyWithoutBrowserInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutBrowserInput, SharedBrowserExemptionUncheckedCreateWithoutBrowserInput> | SharedBrowserExemptionCreateWithoutBrowserInput[] | SharedBrowserExemptionUncheckedCreateWithoutBrowserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutBrowserInput | SharedBrowserExemptionCreateOrConnectWithoutBrowserInput[]
+    createMany?: SharedBrowserExemptionCreateManyBrowserInputEnvelope
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
   }
 
   export type UserUpdateManyWithoutSharedBrowserNestedInput = {
@@ -64831,6 +67634,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type SharedBrowserExemptionUpdateManyWithoutBrowserNestedInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutBrowserInput, SharedBrowserExemptionUncheckedCreateWithoutBrowserInput> | SharedBrowserExemptionCreateWithoutBrowserInput[] | SharedBrowserExemptionUncheckedCreateWithoutBrowserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutBrowserInput | SharedBrowserExemptionCreateOrConnectWithoutBrowserInput[]
+    upsert?: SharedBrowserExemptionUpsertWithWhereUniqueWithoutBrowserInput | SharedBrowserExemptionUpsertWithWhereUniqueWithoutBrowserInput[]
+    createMany?: SharedBrowserExemptionCreateManyBrowserInputEnvelope
+    set?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    disconnect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    delete?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    update?: SharedBrowserExemptionUpdateWithWhereUniqueWithoutBrowserInput | SharedBrowserExemptionUpdateWithWhereUniqueWithoutBrowserInput[]
+    updateMany?: SharedBrowserExemptionUpdateManyWithWhereWithoutBrowserInput | SharedBrowserExemptionUpdateManyWithWhereWithoutBrowserInput[]
+    deleteMany?: SharedBrowserExemptionScalarWhereInput | SharedBrowserExemptionScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutSharedBrowserNestedInput = {
     create?: XOR<UserCreateWithoutSharedBrowserInput, UserUncheckedCreateWithoutSharedBrowserInput> | UserCreateWithoutSharedBrowserInput[] | UserUncheckedCreateWithoutSharedBrowserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserInput | UserCreateOrConnectWithoutSharedBrowserInput[]
@@ -64843,6 +67660,48 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutSharedBrowserInput | UserUpdateWithWhereUniqueWithoutSharedBrowserInput[]
     updateMany?: UserUpdateManyWithWhereWithoutSharedBrowserInput | UserUpdateManyWithWhereWithoutSharedBrowserInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateManyWithoutBrowserNestedInput = {
+    create?: XOR<SharedBrowserExemptionCreateWithoutBrowserInput, SharedBrowserExemptionUncheckedCreateWithoutBrowserInput> | SharedBrowserExemptionCreateWithoutBrowserInput[] | SharedBrowserExemptionUncheckedCreateWithoutBrowserInput[]
+    connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutBrowserInput | SharedBrowserExemptionCreateOrConnectWithoutBrowserInput[]
+    upsert?: SharedBrowserExemptionUpsertWithWhereUniqueWithoutBrowserInput | SharedBrowserExemptionUpsertWithWhereUniqueWithoutBrowserInput[]
+    createMany?: SharedBrowserExemptionCreateManyBrowserInputEnvelope
+    set?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    disconnect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    delete?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    connect?: SharedBrowserExemptionWhereUniqueInput | SharedBrowserExemptionWhereUniqueInput[]
+    update?: SharedBrowserExemptionUpdateWithWhereUniqueWithoutBrowserInput | SharedBrowserExemptionUpdateWithWhereUniqueWithoutBrowserInput[]
+    updateMany?: SharedBrowserExemptionUpdateManyWithWhereWithoutBrowserInput | SharedBrowserExemptionUpdateManyWithWhereWithoutBrowserInput[]
+    deleteMany?: SharedBrowserExemptionScalarWhereInput | SharedBrowserExemptionScalarWhereInput[]
+  }
+
+  export type SharedBrowserCreateNestedOneWithoutExemptionsInput = {
+    create?: XOR<SharedBrowserCreateWithoutExemptionsInput, SharedBrowserUncheckedCreateWithoutExemptionsInput>
+    connectOrCreate?: SharedBrowserCreateOrConnectWithoutExemptionsInput
+    connect?: SharedBrowserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutSharedBrowserExemptionsInput = {
+    create?: XOR<UserCreateWithoutSharedBrowserExemptionsInput, UserUncheckedCreateWithoutSharedBrowserExemptionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserExemptionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SharedBrowserUpdateOneRequiredWithoutExemptionsNestedInput = {
+    create?: XOR<SharedBrowserCreateWithoutExemptionsInput, SharedBrowserUncheckedCreateWithoutExemptionsInput>
+    connectOrCreate?: SharedBrowserCreateOrConnectWithoutExemptionsInput
+    upsert?: SharedBrowserUpsertWithoutExemptionsInput
+    connect?: SharedBrowserWhereUniqueInput
+    update?: XOR<XOR<SharedBrowserUpdateToOneWithWhereWithoutExemptionsInput, SharedBrowserUpdateWithoutExemptionsInput>, SharedBrowserUncheckedUpdateWithoutExemptionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutSharedBrowserExemptionsNestedInput = {
+    create?: XOR<UserCreateWithoutSharedBrowserExemptionsInput, UserUncheckedCreateWithoutSharedBrowserExemptionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSharedBrowserExemptionsInput
+    upsert?: UserUpsertWithoutSharedBrowserExemptionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSharedBrowserExemptionsInput, UserUpdateWithoutSharedBrowserExemptionsInput>, UserUncheckedUpdateWithoutSharedBrowserExemptionsInput>
   }
 
   export type BruteCreateNestedOneWithoutMasterOfClanInput = {
@@ -66511,6 +69370,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SharedBrowserExemptionCreateWithoutUserInput = {
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    browser: SharedBrowserCreateNestedOneWithoutExemptionsInput
+  }
+
+  export type SharedBrowserExemptionUncheckedCreateWithoutUserInput = {
+    browserId: string
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+  }
+
+  export type SharedBrowserExemptionCreateOrConnectWithoutUserInput = {
+    where: SharedBrowserExemptionWhereUniqueInput
+    create: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SharedBrowserExemptionCreateManyUserInputEnvelope = {
+    data: SharedBrowserExemptionCreateManyUserInput | SharedBrowserExemptionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BruteCreateWithoutUserInput = {
     id?: string
     name: string
@@ -67194,12 +70077,14 @@ export namespace Prisma {
     id: string
     description?: string | null
     createdAt?: Date | string
+    exemptions?: SharedBrowserExemptionCreateNestedManyWithoutBrowserInput
   }
 
   export type SharedBrowserUncheckedCreateWithoutUsersInput = {
     id: string
     description?: string | null
     createdAt?: Date | string
+    exemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutBrowserInput
   }
 
   export type SharedBrowserCreateOrConnectWithoutUsersInput = {
@@ -67239,6 +70124,33 @@ export namespace Prisma {
     observedDay?: DateTimeFilter<"AccountObservation"> | Date | string
     firstSeen?: DateTimeFilter<"AccountObservation"> | Date | string
     lastSeen?: DateTimeFilter<"AccountObservation"> | Date | string
+  }
+
+  export type SharedBrowserExemptionUpsertWithWhereUniqueWithoutUserInput = {
+    where: SharedBrowserExemptionWhereUniqueInput
+    update: XOR<SharedBrowserExemptionUpdateWithoutUserInput, SharedBrowserExemptionUncheckedUpdateWithoutUserInput>
+    create: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SharedBrowserExemptionUpdateWithWhereUniqueWithoutUserInput = {
+    where: SharedBrowserExemptionWhereUniqueInput
+    data: XOR<SharedBrowserExemptionUpdateWithoutUserInput, SharedBrowserExemptionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SharedBrowserExemptionUpdateManyWithWhereWithoutUserInput = {
+    where: SharedBrowserExemptionScalarWhereInput
+    data: XOR<SharedBrowserExemptionUpdateManyMutationInput, SharedBrowserExemptionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SharedBrowserExemptionScalarWhereInput = {
+    AND?: SharedBrowserExemptionScalarWhereInput | SharedBrowserExemptionScalarWhereInput[]
+    OR?: SharedBrowserExemptionScalarWhereInput[]
+    NOT?: SharedBrowserExemptionScalarWhereInput | SharedBrowserExemptionScalarWhereInput[]
+    browserId?: StringFilter<"SharedBrowserExemption"> | string
+    userId?: UuidFilter<"SharedBrowserExemption"> | string
+    reason?: StringFilter<"SharedBrowserExemption"> | string
+    createdAt?: DateTimeFilter<"SharedBrowserExemption"> | Date | string
+    createdBy?: UuidNullableFilter<"SharedBrowserExemption"> | string | null
   }
 
   export type BruteUpsertWithWhereUniqueWithoutUserInput = {
@@ -67647,12 +70559,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: SharedBrowserExemptionUpdateManyWithoutBrowserNestedInput
   }
 
   export type SharedBrowserUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutBrowserNestedInput
   }
 
   export type UserCreateWithoutAccountObservationsInput = {
@@ -67679,6 +70593,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -67719,6 +70634,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -67773,6 +70689,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -67813,6 +70730,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -67852,6 +70770,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -67892,6 +70811,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -68123,6 +71043,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -68163,6 +71084,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -68384,6 +71306,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -68424,6 +71347,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -69747,6 +72671,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -69787,6 +72712,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -70108,6 +73034,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -70148,6 +73075,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -72355,6 +75283,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -72395,6 +75324,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -74584,6 +77514,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -74624,6 +77555,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -74678,6 +77610,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -74718,6 +77651,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -75653,6 +78587,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -75693,6 +78628,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -75930,6 +78866,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -75970,6 +78907,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -76185,6 +79123,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
@@ -76225,6 +79164,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
@@ -76268,6 +79208,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -76308,6 +79249,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -76561,6 +79503,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -76601,6 +79544,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -76639,6 +79583,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -76678,6 +79623,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -76702,6 +79648,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SharedBrowserExemptionCreateWithoutBrowserInput = {
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    user: UserCreateNestedOneWithoutSharedBrowserExemptionsInput
+  }
+
+  export type SharedBrowserExemptionUncheckedCreateWithoutBrowserInput = {
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+  }
+
+  export type SharedBrowserExemptionCreateOrConnectWithoutBrowserInput = {
+    where: SharedBrowserExemptionWhereUniqueInput
+    create: XOR<SharedBrowserExemptionCreateWithoutBrowserInput, SharedBrowserExemptionUncheckedCreateWithoutBrowserInput>
+  }
+
+  export type SharedBrowserExemptionCreateManyBrowserInputEnvelope = {
+    data: SharedBrowserExemptionCreateManyBrowserInput | SharedBrowserExemptionCreateManyBrowserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutSharedBrowserInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutSharedBrowserInput, UserUncheckedUpdateWithoutSharedBrowserInput>
@@ -76716,6 +79686,242 @@ export namespace Prisma {
   export type UserUpdateManyWithWhereWithoutSharedBrowserInput = {
     where: UserScalarWhereInput
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutSharedBrowserInput>
+  }
+
+  export type SharedBrowserExemptionUpsertWithWhereUniqueWithoutBrowserInput = {
+    where: SharedBrowserExemptionWhereUniqueInput
+    update: XOR<SharedBrowserExemptionUpdateWithoutBrowserInput, SharedBrowserExemptionUncheckedUpdateWithoutBrowserInput>
+    create: XOR<SharedBrowserExemptionCreateWithoutBrowserInput, SharedBrowserExemptionUncheckedCreateWithoutBrowserInput>
+  }
+
+  export type SharedBrowserExemptionUpdateWithWhereUniqueWithoutBrowserInput = {
+    where: SharedBrowserExemptionWhereUniqueInput
+    data: XOR<SharedBrowserExemptionUpdateWithoutBrowserInput, SharedBrowserExemptionUncheckedUpdateWithoutBrowserInput>
+  }
+
+  export type SharedBrowserExemptionUpdateManyWithWhereWithoutBrowserInput = {
+    where: SharedBrowserExemptionScalarWhereInput
+    data: XOR<SharedBrowserExemptionUpdateManyMutationInput, SharedBrowserExemptionUncheckedUpdateManyWithoutBrowserInput>
+  }
+
+  export type SharedBrowserCreateWithoutExemptionsInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+    users?: UserCreateNestedManyWithoutSharedBrowserInput
+  }
+
+  export type SharedBrowserUncheckedCreateWithoutExemptionsInput = {
+    id: string
+    description?: string | null
+    createdAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutSharedBrowserInput
+  }
+
+  export type SharedBrowserCreateOrConnectWithoutExemptionsInput = {
+    where: SharedBrowserWhereUniqueInput
+    create: XOR<SharedBrowserCreateWithoutExemptionsInput, SharedBrowserUncheckedCreateWithoutExemptionsInput>
+  }
+
+  export type UserCreateWithoutSharedBrowserExemptionsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutSharedBrowserExemptionsInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSharedBrowserExemptionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSharedBrowserExemptionsInput, UserUncheckedCreateWithoutSharedBrowserExemptionsInput>
+  }
+
+  export type SharedBrowserUpsertWithoutExemptionsInput = {
+    update: XOR<SharedBrowserUpdateWithoutExemptionsInput, SharedBrowserUncheckedUpdateWithoutExemptionsInput>
+    create: XOR<SharedBrowserCreateWithoutExemptionsInput, SharedBrowserUncheckedCreateWithoutExemptionsInput>
+    where?: SharedBrowserWhereInput
+  }
+
+  export type SharedBrowserUpdateToOneWithWhereWithoutExemptionsInput = {
+    where?: SharedBrowserWhereInput
+    data: XOR<SharedBrowserUpdateWithoutExemptionsInput, SharedBrowserUncheckedUpdateWithoutExemptionsInput>
+  }
+
+  export type SharedBrowserUpdateWithoutExemptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutSharedBrowserNestedInput
+  }
+
+  export type SharedBrowserUncheckedUpdateWithoutExemptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutSharedBrowserNestedInput
+  }
+
+  export type UserUpsertWithoutSharedBrowserExemptionsInput = {
+    update: XOR<UserUpdateWithoutSharedBrowserExemptionsInput, UserUncheckedUpdateWithoutSharedBrowserExemptionsInput>
+    create: XOR<UserCreateWithoutSharedBrowserExemptionsInput, UserUncheckedCreateWithoutSharedBrowserExemptionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSharedBrowserExemptionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSharedBrowserExemptionsInput, UserUncheckedUpdateWithoutSharedBrowserExemptionsInput>
+  }
+
+  export type UserUpdateWithoutSharedBrowserExemptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSharedBrowserExemptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
@@ -80245,6 +83451,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -80285,6 +83492,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -80522,6 +83730,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -80562,6 +83771,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -81210,6 +84420,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -81250,6 +84461,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -81304,6 +84516,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -81344,6 +84557,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -81676,6 +84890,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -81716,6 +84931,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -81770,6 +84986,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -81810,6 +85027,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -82208,6 +85426,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -82248,6 +85467,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -82302,6 +85522,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -82342,6 +85563,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -82729,6 +85951,13 @@ export namespace Prisma {
     lastSeen: Date | string
   }
 
+  export type SharedBrowserExemptionCreateManyUserInput = {
+    browserId: string
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+  }
+
   export type BruteCreateManyUserInput = {
     id?: string
     name: string
@@ -82910,6 +86139,27 @@ export namespace Prisma {
     observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedBrowserExemptionUpdateWithoutUserInput = {
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    browser?: SharedBrowserUpdateOneRequiredWithoutExemptionsNestedInput
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateWithoutUserInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateManyWithoutUserInput = {
+    browserId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteUpdateWithoutUserInput = {
@@ -85099,6 +88349,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -85139,6 +88390,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -85462,6 +88714,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -85502,6 +88755,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -85927,6 +89181,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
@@ -85967,6 +89222,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
@@ -86033,6 +89289,13 @@ export namespace Prisma {
     lastSeen?: Date | string
   }
 
+  export type SharedBrowserExemptionCreateManyBrowserInput = {
+    userId: string
+    reason: string
+    createdAt?: Date | string
+    createdBy?: string | null
+  }
+
   export type UserUpdateWithoutSharedBrowserInput = {
     id?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
@@ -86058,6 +89321,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -86097,6 +89361,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -86135,6 +89400,27 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SharedBrowserExemptionUpdateWithoutBrowserInput = {
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutSharedBrowserExemptionsNestedInput
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateWithoutBrowserInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SharedBrowserExemptionUncheckedUpdateManyWithoutBrowserInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BruteCreateManyClanInput = {

@@ -3,6 +3,7 @@ import { after, before, test } from 'node:test';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { createServer } from 'vite';
+import { Collapse } from '@mui/material';
 
 let server;
 let IdentifierList;
@@ -38,4 +39,24 @@ test('identifiers remain on separate lines, matches are bold, and duplicates are
   assert.equal(renderToStaticMarkup(React.createElement(IdentifierList, {
     values: [], highlightedValues: [],
   })), '');
+});
+
+test('closed identifier panels do not render their contents before expansion', () => {
+  let renders = 0;
+  const Content = () => { renders++; return React.createElement('div', null, 'identifier data'); };
+  const render = (expanded) => renderToStaticMarkup(React.createElement(Collapse, {
+    in: expanded, mountOnEnter: true, unmountOnExit: true,
+  }, React.createElement(Content)));
+  assert.equal(render(false), '');
+  assert.equal(renders, 0);
+  assert.match(render(true), /identifier data/);
+  assert.equal(renders, 1);
+});
+
+test('large tables can reuse one highlight set across rows', () => {
+  const highlighted = new Set(['shared']);
+  assert.equal(renderToStaticMarkup(React.createElement(IdentifierList, {
+    values: ['shared', 'other'], highlightedValues: highlighted,
+  })), '<div><b>shared</b></div><div>other</div>');
+  assert.deepEqual([...highlighted], ['shared']);
 });

@@ -10,6 +10,8 @@ const fingerprint = 'a'.repeat(32) + '0000';
 const fpAesSecret = 'a'.repeat(32);
 const fpAesIv = 'b'.repeat(16);
 let fingerprintBanned = false;
+let browserBanned = false;
+const bans = [];
 mock.module('../lib/context.js', { namedExports: {
   GLOBAL: { config: { fpAesSecret, fpAesIv } },
   LOGGER: { log() {}, error() {} }, DISCORD: () => ({ logObject: async () => {} }),
@@ -32,7 +34,7 @@ mock.module('../lib/utils/ServerState.js', { namedExports: { ServerState: {
   getModifiers: async () => ({}), getCurrentEvent: async () => null,
 } } });
 mock.module('../lib/utils/createUserLog.js', { namedExports: { createUserLog() {} } });
-mock.module('../lib/utils/user/banUser.js', { namedExports: { banUser: async () => {} } });
+mock.module('../lib/utils/user/banUser.js', { namedExports: { banUser: async () => { bans.push(true); } } });
 const { OAuth } = await import('../lib/controllers/OAuth.js');
 
 const run = async ({ bannedAt = null, validHeaders = true, mismatchedEvent = false } = {}) => {
@@ -40,6 +42,7 @@ const run = async ({ bannedAt = null, validHeaders = true, mismatchedEvent = fal
   const user = { id, bannedAt, fingerprints: [fingerprint], lang: 'en' };
   const prisma = {
     user: { upsert: async () => user },
+    $queryRaw: async () => [{ browserRestricted: browserBanned, fingerprintRestricted: fingerprintBanned }],
     $executeRaw: async (...args) => { observations.push(args); return 1; },
   };
   const controller = new OAuth({
@@ -74,5 +77,12 @@ test('OAuth cannot record observations for banned users, invalid headers, or mis
     assert.equal((await run()).observations.length, 0);
   } finally {
     fingerprintBanned = false;
+  }
+  browserBanned = true;
+  try {
+    assert.equal((await run()).observations.length, 0);
+    assert.deepEqual(bans, [], 'identifier matches and header failures must not ban accounts');
+  } finally {
+    browserBanned = false;
   }
 });

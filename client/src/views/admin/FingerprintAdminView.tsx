@@ -18,26 +18,27 @@ export const FingerprintAdminView = () => {
   const Server = useServer();
 
   const [fingerprint, setFingerprint] = React.useState('');
+  const [reason, setReason] = React.useState('');
 
   const unbanFingerprint = useCallback(() => {
-    if (!fingerprint) return;
+    if (!fingerprint || !reason.trim()) return;
 
-    Server.User.unbanFingerprint({ fingerprint })
+    Server.User.unbanFingerprint({ fingerprint, reason })
       .then(() => {
         Alert.open('success', 'Fingerprint unbanned successfully');
       })
       .catch(catchError(Alert));
-  }, [Alert, Server.User, fingerprint]);
+  }, [Alert, Server.User, fingerprint, reason]);
 
   const banFingerprint = useCallback(() => {
-    if (!fingerprint) return;
+    if (!fingerprint || !reason.trim()) return;
 
-    Server.User.banFingerprint({ fingerprint })
+    Server.User.banFingerprint({ fingerprint, reason })
       .then(() => {
         Alert.open('success', 'Fingerprint banned successfully');
       })
       .catch(catchError(Alert));
-  }, [Alert, Server.User, fingerprint]);
+  }, [Alert, Server.User, fingerprint, reason]);
 
   return (
     <Page headerUrl="/">
@@ -52,10 +53,21 @@ export const FingerprintAdminView = () => {
               value={fingerprint}
               onChange={(e) => setFingerprint(e.target.value)}
             />
-            <FantasyButton color="success" onClick={unbanFingerprint}>
+            <TextField
+              label="Review reason"
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              required
+              inputProps={{ maxLength: 500 }}
+            />
+            <FantasyButton
+              color="success" onClick={unbanFingerprint} disabled={!reason.trim() || !fingerprint}
+            >
               Unban fingerprint
             </FantasyButton>
-            <FantasyButton color="error" onClick={banFingerprint}>
+            <FantasyButton
+              color="error" onClick={banFingerprint} disabled={!reason.trim() || !fingerprint}
+            >
               Ban fingerprint
             </FantasyButton>
           </Stack>

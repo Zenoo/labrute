@@ -49,6 +49,7 @@ import { auth } from '../utils/auth.js';
 import { createUserLog } from '../utils/createUserLog.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
+import { editSharedBrowserExemptions, setIdentifierRestriction } from '../utils/identifierSanctions.js';
 import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { traced } from '../utils/trace.js';
@@ -926,8 +927,7 @@ export const Users = {
         prisma,
         req.body.userId,
         req.body.reason,
-        authed,
-        { banFingerprints: req.body.banFingerprints ?? true }
+        authed
       );
 
       res.send({
@@ -952,9 +952,6 @@ export const Users = {
         where: { id: req.body.userId },
         select: {
           bannedAt: true,
-          ips: true,
-          fingerprints: true,
-          browserIds: true,
           brutes: {
             where: {
               deletedAt: { not: null },
@@ -973,23 +970,7 @@ export const Users = {
         throw new ForbiddenError(translate('userNotBanned', authed));
       }
 
-      // IP unban
-      await ServerState.removeBannedIps(prisma, user.ips);
-
-      // Fingerprint unban (exclude known fingerprints)
-      const fingerprintsToUnban: string[] = [];
-      for (const fingerprint of user.fingerprints) {
-        const isKnown = await ServerState.isFingerprintKnown(prisma, fingerprint);
-        if (!isKnown) {
-          fingerprintsToUnban.push(fingerprint);
-        }
-      }
-      await ServerState.removeBannedFingerprints(prisma, fingerprintsToUnban);
-
-      // Browser unban
-      await ServerState.removeBannedBrowsers(prisma, user.browserIds);
-
-      // Unban user after removing related ban artifacts to avoid concurrent auth re-bans.
+      // Unban only this account. Identifier/network restrictions require their own review.
       await traced('users.unban.updateUser', () => prisma.user.update({
         where: { id: req.body.userId },
         data: {
@@ -1534,20 +1515,32 @@ export const Users = {
 
       const sharedBrowser = await prisma.sharedBrowser.findFirst({
         where: {
-          id: req.params.id,
+          id: req.params.id.toLowerCase(),
         },
         include: {
-          users: {
-            select: { id: true, name: true },
+          exemptions: {
+            include: { user: { select: { id: true, name: true } } },
           },
         },
       });
 
-      if (!sharedBrowser) {
+      const history = await prisma.securityAction.findMany({
+        where: { subjectId: req.params.id.toLowerCase(), subjectType: { in: ['shared-browser', 'browser'] } },
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+        take: 100,
+      });
+      if (!sharedBrowser && !history.length) {
         throw new NotFoundError(translate('sharedBrowserNotFound', authed));
       }
 
-      res.send(sharedBrowser);
+      res.send({
+        id: req.params.id.toLowerCase(),
+        description: sharedBrowser?.description ?? null,
+        createdAt: sharedBrowser?.createdAt ?? history[history.length - 1]?.createdAt ?? new Date(),
+        users: sharedBrowser?.exemptions.map((member) => member.user) ?? [],
+        exemptions: sharedBrowser?.exemptions ?? [],
+        history,
+      });
     } catch (error) {
       sendError(res, error);
     }
@@ -1559,26 +1552,14 @@ export const Users = {
     try {
       const authed = await auth(prisma, req, { admin: true });
 
-      if (!isUuid(req.body.id) || !req.body.users.every((userId) => isUuid(userId))) {
+      if (!isUuid(req.body.id) || !Array.isArray(req.body.users)
+        || !req.body.users.every((userId) => typeof userId === 'string' && isUuid(userId))) {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
-      await prisma.sharedBrowser.upsert({
-        where: { id: req.body.id },
-        create: {
-          id: req.body.id,
-          description: req.body.description,
-          users: {
-            connect: req.body.users.map((userId) => ({ id: userId })),
-          },
-        },
-        update: {
-          users: {
-            set: req.body.users.map((userId) => ({ id: userId })),
-          },
-          description: req.body.description,
-        },
-      });
+      await editSharedBrowserExemptions(
+        prisma, req.body.id, req.body.users, authed.id, req.body.description,
+      );
 
       res.send({ success: true });
     } catch (error) {
@@ -1596,11 +1577,7 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
-      await prisma.sharedBrowser.delete({
-        where: {
-          id: req.params.id,
-        },
-      });
+      await editSharedBrowserExemptions(prisma, req.params.id, [], authed.id, 'Shared browser deleted', true);
 
       res.send({ success: true });
     } catch (error) {
@@ -1618,7 +1595,7 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      await ServerState.removeBannedFingerprints(prisma, [req.body.fingerprint]);
+      await setIdentifierRestriction(prisma, 'fingerprint', req.body.fingerprint, false, authed.id, req.body.reason);
 
       res.send({ success: true });
     } catch (error) {
@@ -1636,7 +1613,7 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      await ServerState.addBannedFingerprints(prisma, [req.body.fingerprint]);
+      await setIdentifierRestriction(prisma, 'fingerprint', req.body.fingerprint, true, authed.id, req.body.reason);
 
       res.send({ success: true });
     } catch (error) {
@@ -1654,7 +1631,7 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      await ServerState.removeBannedBrowsers(prisma, [req.body.browserId]);
+      await setIdentifierRestriction(prisma, 'browser', req.body.browserId, false, authed.id, req.body.reason);
 
       res.send({ success: true });
     } catch (error) {
@@ -1672,7 +1649,7 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      await ServerState.addBannedBrowsers(prisma, [req.body.browserId]);
+      await setIdentifierRestriction(prisma, 'browser', req.body.browserId, true, authed.id, req.body.reason);
 
       res.send({ success: true });
     } catch (error) {

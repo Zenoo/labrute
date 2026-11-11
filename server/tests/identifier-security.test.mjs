@@ -13,11 +13,13 @@ import {
 dayjs.extend(utc);
 const config = { fpAesSecret: 'a'.repeat(32), fpAesIv: 'b'.repeat(16) };
 const bans = [];
+let deviceRestrictions = { browserRestricted: false, fingerprintRestricted: false };
+let fingerprintLogs = 0;
 mock.module('../lib/context.js', {
   namedExports: {
     GLOBAL: { config },
     LOGGER: { log() {}, error() {} },
-    DISCORD: () => ({ logObject: async () => {} }),
+    DISCORD: () => ({ logObject: async () => { fingerprintLogs++; } }),
   },
 });
 mock.module('../lib/utils/ServerState.js', {
@@ -121,6 +123,7 @@ test('issuance preserves valid signed UUIDs and replaces invalid signed values',
 });
 
 test('malformed visitor IDs cannot obtain events, and malformed decrypted events are rejected', () => {
+  const previousLogs = fingerprintLogs;
   for (const value of ['<img src=x onerror=alert(1)>', 'a'.repeat(31), `${visitorId}\n`, 123, {}, null]) {
     const res = response();
     res.cookie = () => assert.fail('invalid input must not issue cookies');
@@ -131,6 +134,31 @@ test('malformed visitor IDs cannot obtain events, and malformed decrypted events
   }
   assert.equal(decryptFPEvent(encrypt(fingerprint)), fingerprint);
   assert.throws(() => decryptFPEvent(encrypt(`${fingerprint}\n`)), /Invalid fingerprint event/);
+  assert.equal(fingerprintLogs, previousLogs, 'invalid payloads must not enqueue external log work');
+});
+
+test('malformed decoded shapes and missing bodies are expected rejections without external logging', () => {
+  const previousLogs = fingerprintLogs;
+  for (const body of [null, undefined, {}, { data: encode(null) }, { data: encode([]) }, { data: encode(123) }]) {
+    const res = response();
+    res.cookie = () => assert.fail('invalid input must not issue a cookie');
+    getFingerprintEvent({ headers: {}, body }, res);
+    assert.match(res.body, /fingerprint data/);
+  }
+  assert.equal(fingerprintLogs, previousLogs);
+});
+
+test('older clients can still submit a full fingerprint result', () => {
+  const res = response();
+  res.cookie = () => assert.fail('verified cookie reissued');
+  getFingerprintEvent({
+    headers: {}, signedCookies: { browserId }, body: { data: encode({
+      visitorId, version: '5.2.0', confidence: { score: 0.9 },
+      components: { legacy: { value: 'x'.repeat(16384), duration: 1 } },
+    }) },
+  }, res);
+  assert.ok(res.body.visitorId.startsWith(visitorId));
+  assert.equal(decryptFPEvent(res.body.eventId), res.body.visitorId);
 });
 
 const request = (overrides = {}) => ({
@@ -151,11 +179,14 @@ const request = (overrides = {}) => ({
 const database = () => {
   const writes = [];
   const observations = [];
-  return { writes, observations, $executeRaw: async (...args) => { observations.push(args); return 1; }, user: {
-    findFirst: async () => ({
-      id: userId, bannedAt: null, ips: [], browserIds: [], fingerprints: [fingerprint],
-      lastSeen: new Date(), lang: 'en',
-    }),
+  const user = () => ({
+    id: userId, bannedAt: null, ips: [], browserIds: [], fingerprints: [fingerprint],
+    lastSeen: new Date(), lang: 'en',
+  });
+  return { writes, observations,
+    $queryRaw: async () => [{ ...user(), ...deviceRestrictions }],
+    $executeRaw: async (...args) => { observations.push(args); return 1; }, user: {
+    findFirst: async () => user(),
     update: async ({ data }) => { writes.push(data); return {}; },
   } };
 };
@@ -226,4 +257,27 @@ test('valid reauthentication can register a new fingerprint after event verifica
     { browserIds: { push: browserId } }, { ips: { push: '192.0.2.1' } },
     { fingerprints: { push: newFingerprint } },
   ]);
+});
+
+test('restricted current identifiers reject without banning accounts or recording observations', async () => {
+  for (const kind of ['browserRestricted', 'fingerprintRestricted']) {
+    deviceRestrictions = { browserRestricted: false, fingerprintRestricted: false, [kind]: true };
+    const prisma = database();
+    const previousBans = bans.length;
+    try {
+      await assert.rejects(auth(prisma, request()));
+      assert.deepEqual(prisma.observations, []);
+      assert.equal(bans.length, previousBans);
+    } finally {
+      deviceRestrictions = { browserRestricted: false, fingerprintRestricted: false };
+    }
+  }
+});
+
+test('predictable-header failures reject without creating account or identifier sanctions', async () => {
+  const prisma = database();
+  const previousBans = bans.length;
+  await assert.rejects(auth(prisma, request({ security: { browserId, fingerprint, validHeaders: false } })));
+  assert.deepEqual(prisma.observations, []);
+  assert.equal(bans.length, previousBans);
 });

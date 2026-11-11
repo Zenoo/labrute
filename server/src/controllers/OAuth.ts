@@ -8,7 +8,6 @@ import {
   ForbiddenError,
   FORWARDED_FOR_HEADER,
   OAuthTokenRequest,
-  PREDICTABLE_HEADERS_PREFIX,
   REAL_IP_HEADER,
   UsersAuthenticateResponse,
   UserWithBrutesBodyColor,
@@ -26,10 +25,11 @@ import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
 import { decryptFPEvent } from '../utils/fingerprint.js';
-import { banUser } from '../utils/user/banUser.js';
-import { DISCORD, LOGGER } from '../context.js';
+import { getIdentifierRestrictions } from '../utils/identifierSanctions.js';
+import { getBrowserId } from '../utils/browserId.js';
 import { traced } from '../utils/trace.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
+import { logSecurityRejection } from '../utils/securityRejectionLog.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -206,38 +206,22 @@ export class OAuth {
         }
       }
 
-      // Check if any of the user fingerprints are banned
-      for (const userFingerprint of user.fingerprints) {
-        if (await ServerState.isFingerprintBanned(this.#prisma, userFingerprint)) {
-          LOGGER.log(`User ${user.name} (${user.id}) attempted to log in. One of its fingerprints is banned (${userFingerprint})`);
-          throw new ForbiddenError(translate('fingerprintBanned', user));
-        }
-      }
+      const browserId = getBrowserId(req);
 
-      const browserId = req.security?.browserId;
+      if (!browserId) throw new ForbiddenError('Missing or invalid browser ID. Reload the page.');
 
-      // Only check current request browser ID; historical IDs can become stale/irrelevant.
-      if (browserId && await ServerState.isBrowserBanned(this.#prisma, browserId)) {
-        LOGGER.log(`User ${user.name} (${user.id}) attempted to log in with a banned browser ID (${browserId})`);
+      const restrictions = await getIdentifierRestrictions(
+        this.#prisma, user.id, browserId, fingerprint,
+      );
 
-        await banUser(this.#prisma, user.id, 'banned');
-
-        throw new ForbiddenError(translate('banned', user));
-      }
+      if (restrictions.browserRestricted) throw new ForbiddenError(translate('banned', user));
+      if (restrictions.fingerprintRestricted) throw new ForbiddenError(translate('fingerprintBanned', user));
 
       // Check expected headers
       try {
         checkPredictableHeaders(req.headers);
       } catch (_error) {
-        // Ban fingerprints for tampering attempts
-        await banUser(this.#prisma, user.id, 'headers_tampering', undefined, { banFingerprints: true });
-        DISCORD().logObject(
-          Object.fromEntries(
-            Object.entries(req.headers)
-              .filter(([k]) => k.startsWith(PREDICTABLE_HEADERS_PREFIX)),
-          ),
-          'Headers tampering detected',
-        ).catch(() => { /* ignore */ });
+        logSecurityRejection(user.id, 'headers-tampering', req);
         throw new ForbiddenError(translate('banReason.headers_tampering', user));
       }
 

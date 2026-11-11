@@ -3,7 +3,7 @@ import {
 } from '@labrute/core';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
-import { DISCORD, GLOBAL } from '../context.js';
+import { GLOBAL } from '../context.js';
 import { sendError } from './sendError.js';
 import { getBrowserId } from './browserId.js';
 
@@ -70,20 +70,6 @@ export const decryptFPEvent = (encrypted: string) => {
   return decrypted;
 };
 
-type FingerPrint = {
-  visitorId: string
-  confidence: {
-    score: number
-    comment?: string
-  }
-  components: {
-    [key: string]:
-    { value: unknown, duration: number } |
-    { error: unknown, duration: number }
-  }
-  version: string
-};
-
 /**
  * Appends a short hash of the provider's TLS client fingerprints to the visitorId.
  * The result is: {visitorId}{shortTlsString}
@@ -116,25 +102,27 @@ export const getFingerprintEvent = (
   response: Response<GetFingerprintResponse>,
 ) => {
   try {
-    if (typeof request.body.data !== 'string') {
+    if (typeof request.body?.data !== 'string') {
       throw new ForbiddenError('Invalid fingerprint data');
     }
 
-    let fpData: FingerPrint;
+    let fpData: Record<string, unknown>;
     try {
-      fpData = readFP(request.body.data) as FingerPrint;
+      fpData = readFP(request.body.data);
+      if (!fpData || typeof fpData !== 'object' || Array.isArray(fpData)) {
+        throw new ForbiddenError('Invalid fingerprint data');
+      }
     } catch {
       throw new ForbiddenError('Failed to decode fingerprint data');
     }
-    let visitorId = fpData.visitorId ?? '';
+    const baseVisitorId = fpData.visitorId;
 
-    if (typeof visitorId !== 'string' || visitorId.length !== 32 || !/^[a-f0-9]{32}$/.test(visitorId)) {
-      DISCORD().logObject(fpData, 'Invalid fingerprint visitorId').catch(() => { /* ignore */ });
+    if (typeof baseVisitorId !== 'string' || baseVisitorId.length !== 32 || !/^[a-f0-9]{32}$/.test(baseVisitorId)) {
       throw new ForbiddenError('Invalid fingerprint visitorId');
     }
 
     // Include the TLS client fingerprints supplied by the provider.
-    visitorId = appendTlsToVisitorId(visitorId, request);
+    const visitorId = appendTlsToVisitorId(baseVisitorId, request);
 
     const encryptedVisitorId = encryptFPEvent(visitorId);
 

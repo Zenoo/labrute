@@ -1,4 +1,4 @@
-import { GetResult } from '@fingerprintjs/fingerprintjs';
+import type { GetResult } from '@fingerprintjs/fingerprintjs';
 import {
   BASE64_ALPHABET, FINGERPRINT_PRNG, OBFUSCATED_ALPHABET
 } from '@labrute/core';
@@ -13,6 +13,7 @@ export const setFingerprint = (f: string) => {
 export const getFingerprint = () => fingerprint;
 
 export const formatFP = (obj: GetResult): string => {
+  // Preserve the full result for server-side bot detection, including future component fields.
   // Step 1: JSON stringify
   let str = JSON.stringify(obj);
 

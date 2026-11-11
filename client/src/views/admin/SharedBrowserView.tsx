@@ -2,7 +2,7 @@ import {
   Autocomplete, Chip, Paper, Stack, TextField
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useRef, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -12,6 +12,7 @@ import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 import { Loader } from '../../components/Loader';
+import { GetSharedBrowserResponse, isUuid } from '@labrute/core';
 
 export const SharedBrowserView = () => {
   const { t } = useTranslation('admin');
@@ -22,16 +23,26 @@ export const SharedBrowserView = () => {
   const [userIds, setUserIds] = useState<string[]>([]);
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState<GetSharedBrowserResponse['history']>([]);
+  const selectedBrowser = useRef('');
+  const requestVersion = useRef(0);
 
   const updateData = useCallback(() => {
+    if (selectedBrowser.current !== browserId) return;
+    const version = ++requestVersion.current;
     setLoading(true);
-    Server.User.getSharedBrowser(browserId).then(({ users, description: desc }) => {
+    Server.User.getSharedBrowser(browserId).then((data) => {
+      if (requestVersion.current !== version) return;
+      const { users, description: desc, history: actions } = data;
       setUserIds(users.map((user) => user.id));
       setDescription(desc ?? '');
+      setHistory(actions);
       setLoading(false);
     }).catch((error) => {
+      if (requestVersion.current !== version) return;
       setUserIds([]);
       setDescription('');
+      setHistory([]);
       catchError(Alert, error);
       setLoading(false);
     });
@@ -39,7 +50,7 @@ export const SharedBrowserView = () => {
 
   // Fetch data when browserId changes
   useEffect(() => {
-    if (!browserId) return undefined;
+    if (browserId.length !== 36 || !isUuid(browserId)) return undefined;
 
     const timeout = setTimeout(() => {
       updateData();
@@ -49,13 +60,20 @@ export const SharedBrowserView = () => {
   }, [Alert, Server.User, browserId, updateData]);
 
   const changeBrowserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setBrowserId(e.target.value.trim());
+    const value = e.target.value.trim().toLowerCase();
+    selectedBrowser.current = value;
+    requestVersion.current++;
+    setBrowserId(value);
+    setUserIds([]);
+    setDescription('');
+    setHistory([]);
+    setLoading(value.length === 36 && isUuid(value));
   }, []);
 
   // Save shared browser
   const saveSharedBrowser = useCallback(() => {
     if (!browserId) return;
-    if (userIds.length === 0) return;
+    if (!description.trim()) return;
 
     Server.User.editSharedBrowser({
       id: browserId,
@@ -63,8 +81,9 @@ export const SharedBrowserView = () => {
       description,
     }).then(() => {
       Alert.open('success', 'Shared browser saved');
+      updateData();
     }).catch(catchError(Alert));
-  }, [Alert, Server.User, browserId, userIds, description]);
+  }, [Alert, Server.User, browserId, userIds, description, updateData]);
 
   // Delete shared browser
   const deleteSharedBrowser = useCallback(() => {
@@ -117,7 +136,9 @@ export const SharedBrowserView = () => {
                 )}
               />
               <TextField
-                label="Description"
+                label="Approval / revocation reason"
+                required
+                inputProps={{ maxLength: 500 }}
                 value={description}
                 onChange={(event) => {
                   setDescription(event.target.value);
@@ -125,8 +146,32 @@ export const SharedBrowserView = () => {
                 fullWidth
               />
             </>)}
-          <FantasyButton color="success" onClick={saveSharedBrowser}>Save</FantasyButton>
-          <FantasyButton color="error" onClick={deleteSharedBrowser}>Delete</FantasyButton>
+          <FantasyButton
+            color="success"
+            onClick={saveSharedBrowser}
+            disabled={
+              loading || !description.trim() || browserId.length !== 36 || !isUuid(browserId)
+            }
+          >
+            Save
+          </FantasyButton>
+          <FantasyButton
+            color="error"
+            onClick={deleteSharedBrowser}
+            disabled={loading || browserId.length !== 36 || !isUuid(browserId)}
+          >
+            Delete
+          </FantasyButton>
+          <Text bold>Review history (latest 100 decisions)</Text>
+          {history.map((action) => (
+            <Paper key={action.id} sx={{ p: 1 }}>
+              <Text>{`${action.action}: ${action.userId ?? action.subjectId}`}</Text>
+              <Text>{action.reason}</Text>
+              <Text>
+                {`${new Date(action.createdAt).toLocaleString()} — ${action.actorId ?? 'Legacy / unknown reviewer'}`}
+              </Text>
+            </Paper>
+          ))}
         </Stack>
       </Paper>
     </Page>

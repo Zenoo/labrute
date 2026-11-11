@@ -394,6 +394,25 @@ exports.Prisma.SharedBrowserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.SharedBrowserExemptionScalarFieldEnum = {
+  browserId: 'browserId',
+  userId: 'userId',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy'
+};
+
+exports.Prisma.SecurityActionScalarFieldEnum = {
+  id: 'id',
+  subjectType: 'subjectType',
+  subjectId: 'subjectId',
+  userId: 'userId',
+  action: 'action',
+  actorId: 'actorId',
+  reason: 'reason',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.BannedBrowserScalarFieldEnum = {
   id: 'id'
 };
@@ -980,6 +999,8 @@ exports.Prisma.ModelName = {
   BannedFingerprint: 'BannedFingerprint',
   KnownFingerprint: 'KnownFingerprint',
   SharedBrowser: 'SharedBrowser',
+  SharedBrowserExemption: 'SharedBrowserExemption',
+  SecurityAction: 'SecurityAction',
   BannedBrowser: 'BannedBrowser',
   Clan: 'Clan',
   ClanThread: 'ClanThread',

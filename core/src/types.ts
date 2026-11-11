@@ -4,7 +4,7 @@ import {
   Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, DestinyChoiceType, Event, Fight, FightModifier, Gender,
   InventoryItem, InventoryItemType, KnownFingerprint, Log, Notification,
-  PetName, Prisma, SharedBrowser, SkillName, Tournament,
+  PetName, Prisma, SecurityAction, SharedBrowser, SharedBrowserExemption, SkillName, Tournament,
   User, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
@@ -721,20 +721,23 @@ export type UsersAuthenticateResponse = {
 };
 export type UnbanFingerprintRequest = {
   fingerprint: string;
+  reason: string;
 };
 export type BanFingerprintRequest = {
   fingerprint: string;
+  reason: string;
 };
 export type BanBrowserRequest = {
   browserId: string;
+  reason: string;
 };
 export type UnbanBrowserRequest = {
   browserId: string;
+  reason: string;
 };
 export type UsersBanRequest = {
   userId: string;
   reason: string;
-  banFingerprints?: boolean;
 }
 export type UsersUnbanRequest = {
   userId: string;
@@ -770,11 +773,13 @@ export type BruteResetResponse = ServerHookBrute;
 
 export type GetSharedBrowserResponse = SharedBrowser & {
   users: Pick<User, 'id' | 'name'>[],
+  exemptions: SharedBrowserExemption[],
+  history: SecurityAction[],
 }
 export type EditSharedBrowserRequest = {
   id: string;
   users: string[];
-  description?: string;
+  description: string;
 };
 
 export type TournamentHistoryResponse = (Pick<

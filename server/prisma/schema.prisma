@@ -38,6 +38,7 @@ model User {
   fingerprints           String[]          @default([])
   browserIds             String[]          @default([])
   accountObservations    AccountObservation[]
+  sharedBrowserExemptions SharedBrowserExemption[]
   createdAt              DateTime          @default(now()) @db.Timestamp()
   bannedAt               DateTime?         @db.Timestamp()
   banReason              String?
@@ -797,6 +798,35 @@ model SharedBrowser {
   description String?  @db.VarChar(500)
   createdAt   DateTime @default(now()) @db.Timestamp()
   users       User[]
+  exemptions  SharedBrowserExemption[]
+}
+
+model SharedBrowserExemption {
+  browserId String        @db.VarChar(255)
+  userId    String        @db.Uuid
+  browser   SharedBrowser @relation(fields: [browserId], references: [id], onDelete: Cascade)
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reason    String        @db.VarChar(500)
+  createdAt DateTime      @default(now()) @db.Timestamptz(3)
+  createdBy String?       @db.Uuid
+
+  @@id([userId, browserId])
+  @@index([browserId])
+}
+
+// Retain decisions even after an account, browser, approval, or restriction is deleted.
+model SecurityAction {
+  id          String   @id @default(uuid()) @db.Uuid
+  subjectType String   @db.VarChar(32)
+  subjectId   String   @db.VarChar(255)
+  userId      String?  @db.Uuid
+  action      String   @db.VarChar(32)
+  actorId     String?  @db.Uuid
+  reason      String   @db.VarChar(500)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([subjectType, subjectId, createdAt])
+  @@index([userId, createdAt])
 }
 
 model BannedBrowser {

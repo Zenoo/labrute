@@ -18,26 +18,27 @@ export const BrowserIdAdminView = () => {
   const Server = useServer();
 
   const [browserId, setBrowserId] = React.useState('');
+  const [reason, setReason] = React.useState('');
 
   const unbanBrowser = useCallback(() => {
-    if (!browserId) return;
+    if (!browserId || !reason.trim()) return;
 
-    Server.User.unbanBrowser({ browserId })
+    Server.User.unbanBrowser({ browserId, reason })
       .then(() => {
         Alert.open('success', 'Browser unbanned successfully');
       })
       .catch(catchError(Alert));
-  }, [Alert, Server.User, browserId]);
+  }, [Alert, Server.User, browserId, reason]);
 
   const banBrowser = useCallback(() => {
-    if (!browserId) return;
+    if (!browserId || !reason.trim()) return;
 
-    Server.User.banBrowser({ browserId })
+    Server.User.banBrowser({ browserId, reason })
       .then(() => {
         Alert.open('success', 'Browser banned successfully');
       })
       .catch(catchError(Alert));
-  }, [Alert, Server.User, browserId]);
+  }, [Alert, Server.User, browserId, reason]);
 
   return (
     <Page headerUrl="/">
@@ -52,10 +53,21 @@ export const BrowserIdAdminView = () => {
               value={browserId}
               onChange={(e) => setBrowserId(e.target.value)}
             />
-            <FantasyButton color="success" onClick={unbanBrowser}>
+            <TextField
+              label="Review reason"
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              required
+              inputProps={{ maxLength: 500 }}
+            />
+            <FantasyButton
+              color="success" onClick={unbanBrowser} disabled={!reason.trim() || !browserId}
+            >
               Unban browser
             </FantasyButton>
-            <FantasyButton color="error" onClick={banBrowser}>
+            <FantasyButton
+              color="error" onClick={banBrowser} disabled={!reason.trim() || !browserId}
+            >
               Ban browser
             </FantasyButton>
           </Stack>

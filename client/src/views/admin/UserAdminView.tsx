@@ -12,7 +12,7 @@ import {
   TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useMemo, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -43,11 +43,12 @@ export const UserAdminView = () => {
   const [achievements, setAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [banReason, setBanReason] = useState('');
-  const [includeFingerprints, setIncludeFingerprints] = useState(true);
   const [brutesOpen, setBrutesOpen] = useState(false);
   const [fingerprintsOpen, setFingerprintsOpen] = useState(false);
   const [browserIdsOpen, setBrowserIdsOpen] = useState(false);
   const [item, setItem] = useState<InventoryItemType | ''>('');
+  const highlightedFingerprints = useMemo(() => new Set(user?.fingerprints), [user?.fingerprints]);
+  const highlightedBrowsers = useMemo(() => new Set(user?.browserIds), [user?.browserIds]);
 
   // Change user id or name
   const changeUserIdOrName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,7 +152,7 @@ export const UserAdminView = () => {
     if (!user || !banReason) return;
 
     Confirm.open(t('user:ban'), t('user:banConfirm'), () => {
-      Server.User.ban({ userId: user.id, reason: banReason, banFingerprints: includeFingerprints })
+      Server.User.ban({ userId: user.id, reason: banReason })
         .then(() => {
           Alert.open('success', t('user:banSuccess'));
           updateUser();
@@ -242,17 +243,6 @@ export const UserAdminView = () => {
                 </Text>
                 <FantasyButton color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</FantasyButton>
                 <FantasyButton color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</FantasyButton>
-                <FormControlLabel
-                  control={(
-                    <Checkbox
-                      checked={includeFingerprints}
-                      onChange={(event) => {
-                        setIncludeFingerprints(event.target.checked);
-                      }}
-                    />
-                  )}
-                  label="Ban fingerprints"
-                />
                 {!user.bannedAt && (
                   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Select
@@ -312,7 +302,7 @@ export const UserAdminView = () => {
                     <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing fingerprints ({user.otherUsersSharingFingerprints.length + 1})</Text>
                     {renderExpandButton(fingerprintsOpen, setFingerprintsOpen)}
                   </Box>
-                  <Collapse in={fingerprintsOpen}>
+                  <Collapse in={fingerprintsOpen} mountOnEnter unmountOnExit>
                     <Table sx={{ minWidth: 650 }} size="small">
                       <TableHead>
                         <TableRow>
@@ -338,7 +328,7 @@ export const UserAdminView = () => {
                             <TableCell align="right">
                               <IdentifierList
                                 values={otherUser.fingerprints}
-                                highlightedValues={user.fingerprints}
+                                highlightedValues={highlightedFingerprints}
                               />
                             </TableCell>
                             <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
@@ -356,7 +346,7 @@ export const UserAdminView = () => {
                     <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing browser IDs ({user.otherUsersSharingBrowserIds.length + 1})</Text>
                     {renderExpandButton(browserIdsOpen, setBrowserIdsOpen)}
                   </Box>
-                  <Collapse in={browserIdsOpen}>
+                  <Collapse in={browserIdsOpen} mountOnEnter unmountOnExit>
                     <Table sx={{ minWidth: 650 }} size="small">
                       <TableHead>
                         <TableRow>
@@ -382,7 +372,7 @@ export const UserAdminView = () => {
                             <TableCell align="right">
                               <IdentifierList
                                 values={otherUser.browserIds}
-                                highlightedValues={user.browserIds}
+                                highlightedValues={highlightedBrowsers}
                               />
                             </TableCell>
                             <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
