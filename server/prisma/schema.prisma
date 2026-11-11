@@ -23,46 +23,46 @@ enum Lang {
 }
 
 model User {
-  id                     String            @id @unique @db.Uuid
-  lang                   Lang              @default(en)
-  name                   String            @db.VarChar(255)
-  admin                  Boolean           @default(false)
-  moderator              Boolean           @default(false)
-  connexionToken         String            @db.Uuid
-  bruteLimit             Int               @default(3)
-  gold                   Int               @default(0)
-  fightSpeed             Int               @default(2)
-  backgroundMusic        Boolean           @default(true)
-  dinorpgDone            DateTime?         @db.Date
-  ips                    String[]          @default([])
-  fingerprints           String[]          @default([])
-  browserIds             String[]          @default([])
-  accountObservations    AccountObservation[]
+  id                      String                   @id @unique @db.Uuid
+  lang                    Lang                     @default(en)
+  name                    String                   @db.VarChar(255)
+  admin                   Boolean                  @default(false)
+  moderator               Boolean                  @default(false)
+  connexionToken          String                   @db.Uuid
+  bruteLimit              Int                      @default(3)
+  gold                    Int                      @default(0)
+  fightSpeed              Int                      @default(2)
+  backgroundMusic         Boolean                  @default(true)
+  dinorpgDone             DateTime?                @db.Date
+  ips                     String[]                 @default([])
+  fingerprints            String[]                 @default([])
+  browserIds              String[]                 @default([])
+  accountObservations     AccountObservation[]
   sharedBrowserExemptions SharedBrowserExemption[]
-  createdAt              DateTime          @default(now()) @db.Timestamp()
-  bannedAt               DateTime?         @db.Timestamp()
-  banReason              String?
-  displayVersusPage      Boolean           @default(true)
-  alwaysDisplayScrubber  Boolean           @default(false)
-  displayOpponentDetails Boolean           @default(false)
-  transferedBrutesCount  Int               @default(0)
-  termsAccepted          Boolean           @default(false)
-  lastSeen               DateTime          @default(now()) @db.Date
-  brutes                 Brute[]
-  achievements           Achievement[]
-  reports                BruteReport[]
-  tournamentGolds        TournamentGold[]
-  inventory              InventoryItem[]
-  favoriteFights         Fight[]           @relation("FavoriteFights")
-  following              Brute[]           @relation("Followers")
-  notifications          Notification[]
-  reportsHandled         BruteReport[]     @relation("BruteReportHandler")
-  logs                   UserLog[]
-  stats                  UserStats[]
-  levelUpStats           UserLevelUpStat[]
+  createdAt               DateTime                 @default(now()) @db.Timestamp()
+  bannedAt                DateTime?                @db.Timestamp()
+  banReason               String?
+  displayVersusPage       Boolean                  @default(true)
+  alwaysDisplayScrubber   Boolean                  @default(false)
+  displayOpponentDetails  Boolean                  @default(false)
+  transferedBrutesCount   Int                      @default(0)
+  termsAccepted           Boolean                  @default(false)
+  lastSeen                DateTime                 @default(now()) @db.Date
+  brutes                  Brute[]
+  achievements            Achievement[]
+  reports                 BruteReport[]
+  tournamentGolds         TournamentGold[]
+  inventory               InventoryItem[]
+  favoriteFights          Fight[]                  @relation("FavoriteFights")
+  following               Brute[]                  @relation("Followers")
+  notifications           Notification[]
+  reportsHandled          BruteReport[]            @relation("BruteReportHandler")
+  logs                    UserLog[]
+  stats                   UserStats[]
+  levelUpStats            UserLevelUpStat[]
   // Users sharing the same browser (big families) (manually updated)
-  sharedBrowser          SharedBrowser?    @relation(fields: [sharedBrowserId], references: [id])
-  sharedBrowserId        String?           @db.VarChar(255)
+  sharedBrowser           SharedBrowser?           @relation(fields: [sharedBrowserId], references: [id])
+  sharedBrowserId         String?                  @db.VarChar(255)
 
   @@index([lastSeen])
   @@index([bannedAt])
@@ -794,9 +794,9 @@ model KnownFingerprint {
 }
 
 model SharedBrowser {
-  id          String   @id @db.VarChar(255)
-  description String?  @db.VarChar(500)
-  createdAt   DateTime @default(now()) @db.Timestamp()
+  id          String                   @id @db.VarChar(255)
+  description String?                  @db.VarChar(500)
+  createdAt   DateTime                 @default(now()) @db.Timestamp()
   users       User[]
   exemptions  SharedBrowserExemption[]
 }
@@ -831,6 +831,45 @@ model SecurityAction {
 
 model BannedBrowser {
   id String @id @db.VarChar(255)
+}
+
+// Immutable evidence snapshots from daily detection; IDs survive account deletion.
+model MultipleAccountCase {
+  id            String                      @id @db.Char(64)
+  ruleVersion   Int
+  signal        String                      @db.VarChar(32)
+  browserId     String?                     @db.Uuid
+  fingerprint   String?                     @db.VarChar(128)
+  ip            String?                     @db.VarChar(45)
+  userIds       String[]                    @db.Uuid
+  accountCount  Int
+  threshold     Int
+  confidence    String                      @db.VarChar(32)
+  firstSeen     DateTime                    @db.Timestamptz(3)
+  lastSeen      DateTime                    @db.Timestamptz(3)
+  windowStart   DateTime                    @db.Timestamptz(3)
+  windowEnd     DateTime                    @db.Timestamptz(3)
+  detectedAt    DateTime                    @db.Timestamptz(3)
+  exemptions    Json
+  excludedCount Int
+  status        String                      @default("open") @db.VarChar(16)
+  revision      Int                         @default(1)
+  reviews       MultipleAccountCaseReview[]
+
+  @@index([status, detectedAt, id])
+}
+
+model MultipleAccountCaseReview {
+  id         String              @id @default(uuid()) @db.Uuid
+  caseId     String              @db.Char(64)
+  case       MultipleAccountCase @relation(fields: [caseId], references: [id], onDelete: Restrict)
+  revision   Int
+  reviewerId String              @db.Uuid
+  decision   String              @db.VarChar(16)
+  reason     String              @db.VarChar(500)
+  createdAt  DateTime            @default(now()) @db.Timestamptz(3)
+
+  @@unique([caseId, revision])
 }
 
 enum BossName {

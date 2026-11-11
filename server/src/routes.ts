@@ -20,6 +20,7 @@ import { ServerState } from './utils/ServerState.js';
 import { Configs } from './controllers/Configs.js';
 import { UserLogs } from './controllers/UserLogs.js';
 import { getFingerprintEvent } from './utils/fingerprint.js';
+import { MultipleAccountCases } from './controllers/MultipleAccountCases.js';
 
 export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) => {
   app.get('/api', (_req: Request, res: Response) => res.status(200).send({
@@ -65,7 +66,9 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/user/ban', Users.ban(prisma));
   app.patch('/api/user/unban', Users.unban(prisma));
   app.get('/api/user/banlist', Users.bannedList(prisma));
-  app.get('/api/user/multiple-accounts', Users.multipleAccountsList(prisma));
+  app.get('/api/user/multiple-accounts', MultipleAccountCases.list(prisma));
+  app.get('/api/user/multiple-accounts/:id', MultipleAccountCases.get(prisma));
+  app.patch('/api/user/multiple-accounts/:id/review', MultipleAccountCases.review(prisma));
   app.get('/api/user/known-fingerprints', Users.knownFingerprintsList(prisma));
   app.post('/api/user/known-fingerprints', Users.addKnownFingerprint(prisma));
   app.delete('/api/user/known-fingerprints', Users.removeKnownFingerprint(prisma));

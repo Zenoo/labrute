@@ -18,6 +18,9 @@ const {
 const { registerFingerprintIdentity } = await import('../lib/utils/fingerprintEvent.js');
 const { createFingerprint } = await import('../lib/utils/fingerprintIdentity.js');
 const { normalizeIp } = await import('../lib/utils/clientIp.js');
+const {
+  createMultipleAccountCases, listMultipleAccountCases, getMultipleAccountCase, reviewMultipleAccountCase,
+} = await import('../lib/utils/multipleAccountCases.js');
 
 test('observation IPs normalize IPv6 spelling and mapped IPv4 without inventing missing IPs', () => {
   for (const [input, expected] of [
@@ -26,6 +29,20 @@ test('observation IPs normalize IPv6 spelling and mapped IPv4 without inventing 
     ['::ffff:192.0.2.1', '192.0.2.1'], ['::FFFF:c000:201', '192.0.2.1'],
     [undefined, null], ['', null], ['unknown', null], ['999.0.0.1', null], ['fe80::1%eth0', null],
   ]) assert.equal(normalizeIp(input), expected);
+});
+
+test('malformed case reviews are rejected before opening a transaction', async () => {
+  const db = { $transaction() { assert.fail('Invalid review reached the database'); } };
+  const actor = randomUUID();
+  const id = 'a'.repeat(64);
+  for (const input of [null, {}, { revision: 1, decision: 'ban', reason: 'Invalid' },
+    { revision: 0, decision: 'open', reason: 'Invalid' },
+    { revision: Number.MAX_SAFE_INTEGER, decision: 'open', reason: 'Invalid' },
+    { revision: 1, decision: ['open'], reason: 'Invalid' },
+    { revision: 1, decision: 'open', reason: ' ' },
+    { revision: 1, decision: 'open', reason: 'x'.repeat(501) }]) {
+    await assert.rejects(reviewMultipleAccountCase(db, id, actor, input));
+  }
 });
 
 const databaseUrl = process.env.OBSERVATION_TEST_DATABASE_URL;
@@ -57,7 +74,7 @@ before(async () => {
   url.searchParams.set('schema', schema);
   prisma = new PrismaClient({ datasources: { db: { url: url.toString() } } });
   await prisma.$executeRawUnsafe(`CREATE TABLE "User" (
-    id UUID PRIMARY KEY, "bannedAt" TIMESTAMP, "sharedBrowserId" TEXT,
+    id UUID PRIMARY KEY, name TEXT DEFAULT 'Fixture account', "bannedAt" TIMESTAMP, "sharedBrowserId" TEXT,
     "connexionToken" UUID DEFAULT '33333333-3333-4333-8333-333333333333',
     lang TEXT DEFAULT 'en', admin BOOLEAN DEFAULT false, moderator BOOLEAN DEFAULT false, "banReason" TEXT,
     "lastSeen" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, fingerprints TEXT[] DEFAULT '{}',
@@ -104,6 +121,12 @@ before(async () => {
   for (const statement of resetMigration.split(';').filter((sql) => sql.trim())) {
     await prisma.$executeRawUnsafe(statement);
   }
+  const casesMigration = readFileSync(new URL(
+    '../prisma/migrations/20261111200000_multiple_account_cases/migration.sql', import.meta.url,
+  ), 'utf8');
+  for (const statement of casesMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
   fingerprintReset = {
     users: await prisma.$queryRaw`SELECT fingerprints, "bannedAt", "browserIds", ips FROM "User"`,
     known: await prisma.knownFingerprint.count(), banned: await prisma.bannedFingerprint.count(),
@@ -116,7 +139,8 @@ before(async () => {
 
 beforeEach(async () => {
   if (prisma) await prisma.$executeRawUnsafe(`TRUNCATE "AccountObservation", "KnownFingerprint", "User",
-    "SharedBrowser", "SecurityAction", "BannedBrowser", "BannedFingerprint" CASCADE`);
+    "SharedBrowser", "SecurityAction", "BannedBrowser", "BannedFingerprint",
+    "MultipleAccountCaseReview", "MultipleAccountCase" CASCADE`);
 });
 
 after(async () => {
@@ -141,6 +165,142 @@ const user = async (sharedBrowserId = null, bannedAt = null) => {
   }
   return id;
 };
+
+const caseGroup = (overrides = {}) => ({ signal: 'browser', browserId: browser,
+  fingerprint: null, ip: null, userIds: Array.from({ length: 4 }, () => randomUUID()).sort(),
+  firstSeen: daysAgo(1), lastSeen: now, ...overrides });
+
+integration('daily cases preserve observed evidence and active exclusions without duplicate or rewritten snapshots', async () => {
+  const ids = [];
+  for (let i = 0; i < 4; i++) {
+    const id = await user();
+    ids.push(id);
+    await recordAccountObservation(prisma, id, request(), now);
+  }
+  const approved = await user(browser);
+  await recordAccountObservation(prisma, approved, request(), now);
+  const logs = [];
+  await Promise.all(Array.from({ length: 2 }, () => reportMultipleAccountObservations(
+    prisma, { log: (line) => logs.push(line) }, now,
+  )));
+  const original = await prisma.multipleAccountCase.findFirst();
+  assert.equal(original.ruleVersion, 1);
+  assert.equal(original.signal, 'browser');
+  assert.equal(original.threshold, 3);
+  assert.equal(original.confidence, 'uncalibrated');
+  assert.deepEqual(original.userIds, ids.sort());
+  assert.equal(original.accountCount, 4);
+  assert.equal(original.windowStart.getTime(), daysAgo(7).getTime());
+  assert.equal(original.windowEnd.getTime(), now.getTime());
+  assert.equal(original.excludedCount, 1);
+  assert.equal(original.exemptions[0].userId, approved);
+  assert.equal(original.exemptions[0].browserId, browser);
+  assert.equal(original.exemptions[0].reason, 'Approved fixture');
+  const actor = randomUUID();
+  await reviewMultipleAccountCase(prisma, original.id, actor,
+    { revision: 1, decision: 'dismissed', reason: 'Reviewed family' });
+  await reportMultipleAccountObservations(prisma, { log: (line) => logs.push(line) }, new Date(now.getTime() + 60000));
+  const saved = await prisma.multipleAccountCase.findFirst();
+  assert.equal(await prisma.multipleAccountCase.count(), 1);
+  assert.equal(saved.status, 'dismissed');
+  assert.equal(saved.revision, 2);
+  assert.equal(saved.windowEnd.getTime(), original.windowEnd.getTime());
+  assert.deepEqual(saved.exemptions, original.exemptions);
+  assert.ok(logs.every((line) => !line.includes(ids[0])), 'logs contain bounded counts, not complete evidence');
+  await reportMultipleAccountObservations(prisma, { log() {} }, new Date(now.getTime() + 86400000));
+  assert.equal(await prisma.multipleAccountCase.count(), 1, 'unchanged evidence does not reopen reviewed cases each day');
+});
+
+integration('case list uses bounded pages and does not return full account arrays or exemption payloads', async () => {
+  await createMultipleAccountCases(prisma, Array.from({ length: 26 }, () => caseGroup({ browserId: randomUUID() })), now);
+  const first = await listMultipleAccountCases(prisma);
+  assert.equal(first.cases.length, 25);
+  assert.ok(first.nextCursor);
+  assert.ok(first.cases.every((row) => !('userIds' in row) && !('exemptions' in row)));
+  const second = await listMultipleAccountCases(prisma, 'open', first.nextCursor);
+  assert.equal(second.cases.length, 1);
+  assert.equal(second.nextCursor, null);
+  assert.equal(new Set([...first.cases, ...second.cases].map((row) => row.id)).size, 26);
+  await assert.rejects(listMultipleAccountCases(prisma, ['open']));
+  await assert.rejects(listMultipleAccountCases(prisma, 'open', '<invalid>'));
+});
+
+integration('case detail paginates snapshot accounts and retains IDs after account deletion', async () => {
+  const live = await user();
+  const ids = [live, ...Array.from({ length: 30 }, () => randomUUID())].sort();
+  await createMultipleAccountCases(prisma, [caseGroup({ signal: 'fingerprint-ip', browserId: null,
+    fingerprint, ip: '192.0.2.1', userIds: ids })], now);
+  const row = await prisma.multipleAccountCase.findFirst();
+  const first = await getMultipleAccountCase(prisma, row.id);
+  const second = await getMultipleAccountCase(prisma, row.id, String(first.nextAccountOffset));
+  assert.equal(first.users.length, 25);
+  assert.equal(second.users.length, 6);
+  assert.equal(second.nextAccountOffset, null);
+  assert.deepEqual([...first.users, ...second.users].map((entry) => entry.id), ids);
+  assert.equal([...first.users, ...second.users].find((entry) => entry.id === live).name, 'Fixture account');
+  await prisma.$executeRaw`DELETE FROM "User" WHERE id = ${live}::uuid`;
+  const page = await getMultipleAccountCase(prisma, row.id, ids.indexOf(live) >= 25 ? '25' : '0');
+  assert.equal(page.users.find((entry) => entry.id === live).name, null);
+  assert.equal((await prisma.multipleAccountCase.findFirst()).accountCount, 31);
+  await assert.rejects(getMultipleAccountCase(prisma, row.id, '-1'));
+});
+
+integration('large cases keep list and detail responses bounded without expanding all members in a page query', async () => {
+  const ids = Array.from({ length: 40000 }, () => randomUUID()).sort();
+  await createMultipleAccountCases(prisma, [caseGroup({ userIds: ids })], now);
+  const list = await listMultipleAccountCases(prisma);
+  assert.equal(list.cases[0].accountCount, 40000);
+  assert.ok(JSON.stringify(list).length < 2000);
+  const first = await getMultipleAccountCase(prisma, list.cases[0].id);
+  assert.deepEqual(first.users.map((entry) => entry.id), ids.slice(0, 25));
+  const last = await getMultipleAccountCase(prisma, list.cases[0].id, '39975');
+  assert.deepEqual(last.users.map((entry) => entry.id), ids.slice(39975));
+  assert.equal(last.nextAccountOffset, null);
+});
+
+integration('concurrent case reviews cannot overwrite each other and exact retries do not duplicate audits', async () => {
+  await createMultipleAccountCases(prisma, [caseGroup()], now);
+  const original = await prisma.multipleAccountCase.findFirst();
+  const actor = randomUUID();
+  const decisions = [
+    { revision: 1, decision: 'dismissed', reason: 'Family evidence' },
+    { revision: 1, decision: 'needs-action', reason: 'Needs further investigation' },
+  ];
+  const outcomes = await Promise.allSettled(decisions.map((input) => reviewMultipleAccountCase(prisma, original.id, actor, input)));
+  assert.equal(outcomes.filter((result) => result.status === 'fulfilled').length, 1);
+  const winner = outcomes.findIndex((result) => result.status === 'fulfilled');
+  await reviewMultipleAccountCase(prisma, original.id, actor, decisions[winner]);
+  assert.equal(await prisma.multipleAccountCaseReview.count(), 1);
+  assert.equal((await prisma.multipleAccountCase.findFirst()).revision, 2);
+  await assert.rejects(reviewMultipleAccountCase(prisma, original.id, randomUUID(), decisions[winner]), /changed/);
+  await reviewMultipleAccountCase(prisma, original.id, actor,
+    { revision: 2, decision: 'open', reason: 'Reopen for additional evidence' });
+  const reviews = await prisma.multipleAccountCaseReview.findMany({ orderBy: { revision: 'asc' } });
+  assert.deepEqual(reviews.map((entry) => entry.revision), [2, 3]);
+  assert.equal(reviews[0].reviewerId, actor);
+  assert.deepEqual((await prisma.multipleAccountCase.findFirst()).userIds, original.userIds);
+  assert.equal(await prisma.bannedBrowser.count(), 0);
+  assert.equal(await prisma.bannedFingerprint.count(), 0);
+});
+
+integration('review audit failures roll back the status and revision together', async () => {
+  await createMultipleAccountCases(prisma, [caseGroup()], now);
+  const row = await prisma.multipleAccountCase.findFirst();
+  await prisma.$executeRawUnsafe(`CREATE FUNCTION fail_case_review() RETURNS trigger LANGUAGE plpgsql AS $$
+    BEGIN RAISE EXCEPTION 'Review audit unavailable'; END $$`);
+  await prisma.$executeRawUnsafe(`CREATE TRIGGER fail_case_review BEFORE INSERT ON "MultipleAccountCaseReview"
+    FOR EACH ROW EXECUTE FUNCTION fail_case_review()`);
+  try {
+    await assert.rejects(reviewMultipleAccountCase(prisma, row.id, randomUUID(),
+      { revision: 1, decision: 'dismissed', reason: 'Reviewed' }));
+    assert.equal((await prisma.multipleAccountCase.findFirst()).revision, 1);
+    assert.equal((await prisma.multipleAccountCase.findFirst()).status, 'open');
+    assert.equal(await prisma.multipleAccountCaseReview.count(), 0);
+  } finally {
+    await prisma.$executeRawUnsafe('DROP TRIGGER fail_case_review ON "MultipleAccountCaseReview"');
+    await prisma.$executeRawUnsafe('DROP FUNCTION fail_case_review()');
+  }
+});
 
 integration('authentication lookup combines credentials with fresh restrictions and approvals in one query', async () => {
   const id = await user();

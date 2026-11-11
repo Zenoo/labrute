@@ -1,11 +1,12 @@
 import { isUuid } from '@labrute/core';
-import type { PrismaClient } from '@labrute/prisma';
+import { Prisma, PrismaClient } from '@labrute/prisma';
 import { createHash } from 'node:crypto';
 import type { Request } from 'express';
 import { getBrowserId } from './browserId.js';
 import { getTlsFingerprints, parseFingerprint } from './fingerprintIdentity.js';
 import { traced } from './trace.js';
 import { getClientIp } from './clientIp.js';
+import { createMultipleAccountCases } from './multipleAccountCases.js';
 
 const sha256 = (value: string) => createHash('sha256').update(value).digest('hex');
 
@@ -106,7 +107,7 @@ export type MultipleAccountObservationGroup = {
 };
 
 export const findMultipleAccountObservationGroups = async (
-  prisma: PrismaClient,
+  prisma: Pick<PrismaClient, '$queryRaw'>,
   now = new Date(),
 ) => {
   const since = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -150,9 +151,25 @@ export const reportMultipleAccountObservations = async (
   logger: { log: (message: string) => void },
   now = new Date(),
 ) => {
-  const groups = await findMultipleAccountObservationGroups(prisma, now);
-  if (groups.length) logger.log(`Multiple-account observations (report only): ${JSON.stringify(groups)}`);
-  return groups;
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const { groups, created } = await prisma.$transaction(async (tx) => {
+        const candidates = await findMultipleAccountObservationGroups(tx, now);
+        const count = await createMultipleAccountCases(tx, candidates, now);
+        return { groups: candidates, created: count };
+      }, { isolationLevel: 'RepeatableRead', timeout: 30000 });
+
+      if (groups.length) {
+        logger.log(`Multiple-account observations (report only): ${groups.length} groups; ${created} new review cases`);
+      }
+
+      return groups;
+    } catch (error) {
+      // Only retry this idempotent snapshot operation, never the surrounding daily job.
+      if (attempt >= 2 || !(error instanceof Prisma.PrismaClientKnownRequestError)
+        || error.code !== 'P2034') throw error;
+    }
+  }
 };
 
 export const cleanupAccountObservations = async (prisma: PrismaClient, now = new Date()) => {

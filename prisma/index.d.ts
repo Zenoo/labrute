@@ -139,6 +139,16 @@ export type SecurityAction = $Result.DefaultSelection<Prisma.$SecurityActionPayl
  */
 export type BannedBrowser = $Result.DefaultSelection<Prisma.$BannedBrowserPayload>
 /**
+ * Model MultipleAccountCase
+ *
+ */
+export type MultipleAccountCase = $Result.DefaultSelection<Prisma.$MultipleAccountCasePayload>
+/**
+ * Model MultipleAccountCaseReview
+ *
+ */
+export type MultipleAccountCaseReview = $Result.DefaultSelection<Prisma.$MultipleAccountCaseReviewPayload>
+/**
  * Model Clan
  * 
  */
@@ -1144,6 +1154,26 @@ export class PrismaClient<
   get bannedBrowser(): Prisma.BannedBrowserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.multipleAccountCase`: Exposes CRUD operations for the **MultipleAccountCase** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MultipleAccountCases
+    * const multipleAccountCases = await prisma.multipleAccountCase.findMany()
+    * ```
+    */
+  get multipleAccountCase(): Prisma.MultipleAccountCaseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.multipleAccountCaseReview`: Exposes CRUD operations for the **MultipleAccountCaseReview** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MultipleAccountCaseReviews
+    * const multipleAccountCaseReviews = await prisma.multipleAccountCaseReview.findMany()
+    * ```
+    */
+  get multipleAccountCaseReview(): Prisma.MultipleAccountCaseReviewDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.clan`: Exposes CRUD operations for the **Clan** model.
     * Example usage:
     * ```ts
@@ -1768,6 +1798,8 @@ export namespace Prisma {
     SharedBrowserExemption: 'SharedBrowserExemption',
     SecurityAction: 'SecurityAction',
     BannedBrowser: 'BannedBrowser',
+    MultipleAccountCase: 'MultipleAccountCase',
+    MultipleAccountCaseReview: 'MultipleAccountCaseReview',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
     ClanPost: 'ClanPost',
@@ -1802,7 +1834,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
+      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3656,6 +3688,154 @@ export namespace Prisma {
           }
         }
       }
+      MultipleAccountCase: {
+        payload: Prisma.$MultipleAccountCasePayload<ExtArgs>
+        fields: Prisma.MultipleAccountCaseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MultipleAccountCaseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MultipleAccountCaseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>
+          }
+          findFirst: {
+            args: Prisma.MultipleAccountCaseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MultipleAccountCaseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>
+          }
+          findMany: {
+            args: Prisma.MultipleAccountCaseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>[]
+          }
+          create: {
+            args: Prisma.MultipleAccountCaseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>
+          }
+          createMany: {
+            args: Prisma.MultipleAccountCaseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MultipleAccountCaseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>[]
+          }
+          delete: {
+            args: Prisma.MultipleAccountCaseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>
+          }
+          update: {
+            args: Prisma.MultipleAccountCaseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>
+          }
+          deleteMany: {
+            args: Prisma.MultipleAccountCaseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MultipleAccountCaseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MultipleAccountCaseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>[]
+          }
+          upsert: {
+            args: Prisma.MultipleAccountCaseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCasePayload>
+          }
+          aggregate: {
+            args: Prisma.MultipleAccountCaseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMultipleAccountCase>
+          }
+          groupBy: {
+            args: Prisma.MultipleAccountCaseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MultipleAccountCaseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MultipleAccountCaseCountArgs<ExtArgs>
+            result: $Utils.Optional<MultipleAccountCaseCountAggregateOutputType> | number
+          }
+        }
+      }
+      MultipleAccountCaseReview: {
+        payload: Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>
+        fields: Prisma.MultipleAccountCaseReviewFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MultipleAccountCaseReviewFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MultipleAccountCaseReviewFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>
+          }
+          findFirst: {
+            args: Prisma.MultipleAccountCaseReviewFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MultipleAccountCaseReviewFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>
+          }
+          findMany: {
+            args: Prisma.MultipleAccountCaseReviewFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>[]
+          }
+          create: {
+            args: Prisma.MultipleAccountCaseReviewCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>
+          }
+          createMany: {
+            args: Prisma.MultipleAccountCaseReviewCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MultipleAccountCaseReviewCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>[]
+          }
+          delete: {
+            args: Prisma.MultipleAccountCaseReviewDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>
+          }
+          update: {
+            args: Prisma.MultipleAccountCaseReviewUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>
+          }
+          deleteMany: {
+            args: Prisma.MultipleAccountCaseReviewDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MultipleAccountCaseReviewUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MultipleAccountCaseReviewUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>[]
+          }
+          upsert: {
+            args: Prisma.MultipleAccountCaseReviewUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseReviewPayload>
+          }
+          aggregate: {
+            args: Prisma.MultipleAccountCaseReviewAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMultipleAccountCaseReview>
+          }
+          groupBy: {
+            args: Prisma.MultipleAccountCaseReviewGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MultipleAccountCaseReviewGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MultipleAccountCaseReviewCountArgs<ExtArgs>
+            result: $Utils.Optional<MultipleAccountCaseReviewCountAggregateOutputType> | number
+          }
+        }
+      }
       Clan: {
         payload: Prisma.$ClanPayload<ExtArgs>
         fields: Prisma.ClanFieldRefs
@@ -4961,6 +5141,8 @@ export namespace Prisma {
     sharedBrowserExemption?: SharedBrowserExemptionOmit
     securityAction?: SecurityActionOmit
     bannedBrowser?: BannedBrowserOmit
+    multipleAccountCase?: MultipleAccountCaseOmit
+    multipleAccountCaseReview?: MultipleAccountCaseReviewOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
     clanPost?: ClanPostOmit
@@ -5617,6 +5799,37 @@ export namespace Prisma {
    */
   export type SharedBrowserCountOutputTypeCountExemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SharedBrowserExemptionWhereInput
+  }
+
+
+  /**
+   * Count Type MultipleAccountCaseCountOutputType
+   */
+
+  export type MultipleAccountCaseCountOutputType = {
+    reviews: number
+  }
+
+  export type MultipleAccountCaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | MultipleAccountCaseCountOutputTypeCountReviewsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MultipleAccountCaseCountOutputType without action
+   */
+  export type MultipleAccountCaseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseCountOutputType
+     */
+    select?: MultipleAccountCaseCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MultipleAccountCaseCountOutputType without action
+   */
+  export type MultipleAccountCaseCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MultipleAccountCaseReviewWhereInput
   }
 
 
@@ -35721,6 +35934,2436 @@ export namespace Prisma {
 
 
   /**
+   * Model MultipleAccountCase
+   */
+
+  export type AggregateMultipleAccountCase = {
+    _count: MultipleAccountCaseCountAggregateOutputType | null
+    _avg: MultipleAccountCaseAvgAggregateOutputType | null
+    _sum: MultipleAccountCaseSumAggregateOutputType | null
+    _min: MultipleAccountCaseMinAggregateOutputType | null
+    _max: MultipleAccountCaseMaxAggregateOutputType | null
+  }
+
+  export type MultipleAccountCaseAvgAggregateOutputType = {
+    ruleVersion: number | null
+    accountCount: number | null
+    threshold: number | null
+    excludedCount: number | null
+    revision: number | null
+  }
+
+  export type MultipleAccountCaseSumAggregateOutputType = {
+    ruleVersion: number | null
+    accountCount: number | null
+    threshold: number | null
+    excludedCount: number | null
+    revision: number | null
+  }
+
+  export type MultipleAccountCaseMinAggregateOutputType = {
+    id: string | null
+    ruleVersion: number | null
+    signal: string | null
+    browserId: string | null
+    fingerprint: string | null
+    ip: string | null
+    accountCount: number | null
+    threshold: number | null
+    confidence: string | null
+    firstSeen: Date | null
+    lastSeen: Date | null
+    windowStart: Date | null
+    windowEnd: Date | null
+    detectedAt: Date | null
+    excludedCount: number | null
+    status: string | null
+    revision: number | null
+  }
+
+  export type MultipleAccountCaseMaxAggregateOutputType = {
+    id: string | null
+    ruleVersion: number | null
+    signal: string | null
+    browserId: string | null
+    fingerprint: string | null
+    ip: string | null
+    accountCount: number | null
+    threshold: number | null
+    confidence: string | null
+    firstSeen: Date | null
+    lastSeen: Date | null
+    windowStart: Date | null
+    windowEnd: Date | null
+    detectedAt: Date | null
+    excludedCount: number | null
+    status: string | null
+    revision: number | null
+  }
+
+  export type MultipleAccountCaseCountAggregateOutputType = {
+    id: number
+    ruleVersion: number
+    signal: number
+    browserId: number
+    fingerprint: number
+    ip: number
+    userIds: number
+    accountCount: number
+    threshold: number
+    confidence: number
+    firstSeen: number
+    lastSeen: number
+    windowStart: number
+    windowEnd: number
+    detectedAt: number
+    exemptions: number
+    excludedCount: number
+    status: number
+    revision: number
+    _all: number
+  }
+
+
+  export type MultipleAccountCaseAvgAggregateInputType = {
+    ruleVersion?: true
+    accountCount?: true
+    threshold?: true
+    excludedCount?: true
+    revision?: true
+  }
+
+  export type MultipleAccountCaseSumAggregateInputType = {
+    ruleVersion?: true
+    accountCount?: true
+    threshold?: true
+    excludedCount?: true
+    revision?: true
+  }
+
+  export type MultipleAccountCaseMinAggregateInputType = {
+    id?: true
+    ruleVersion?: true
+    signal?: true
+    browserId?: true
+    fingerprint?: true
+    ip?: true
+    accountCount?: true
+    threshold?: true
+    confidence?: true
+    firstSeen?: true
+    lastSeen?: true
+    windowStart?: true
+    windowEnd?: true
+    detectedAt?: true
+    excludedCount?: true
+    status?: true
+    revision?: true
+  }
+
+  export type MultipleAccountCaseMaxAggregateInputType = {
+    id?: true
+    ruleVersion?: true
+    signal?: true
+    browserId?: true
+    fingerprint?: true
+    ip?: true
+    accountCount?: true
+    threshold?: true
+    confidence?: true
+    firstSeen?: true
+    lastSeen?: true
+    windowStart?: true
+    windowEnd?: true
+    detectedAt?: true
+    excludedCount?: true
+    status?: true
+    revision?: true
+  }
+
+  export type MultipleAccountCaseCountAggregateInputType = {
+    id?: true
+    ruleVersion?: true
+    signal?: true
+    browserId?: true
+    fingerprint?: true
+    ip?: true
+    userIds?: true
+    accountCount?: true
+    threshold?: true
+    confidence?: true
+    firstSeen?: true
+    lastSeen?: true
+    windowStart?: true
+    windowEnd?: true
+    detectedAt?: true
+    exemptions?: true
+    excludedCount?: true
+    status?: true
+    revision?: true
+    _all?: true
+  }
+
+  export type MultipleAccountCaseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultipleAccountCase to aggregate.
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultipleAccountCases to fetch.
+     */
+    orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MultipleAccountCaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultipleAccountCases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultipleAccountCases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MultipleAccountCases
+    **/
+    _count?: true | MultipleAccountCaseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MultipleAccountCaseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MultipleAccountCaseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MultipleAccountCaseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MultipleAccountCaseMaxAggregateInputType
+  }
+
+  export type GetMultipleAccountCaseAggregateType<T extends MultipleAccountCaseAggregateArgs> = {
+        [P in keyof T & keyof AggregateMultipleAccountCase]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMultipleAccountCase[P]>
+      : GetScalarType<T[P], AggregateMultipleAccountCase[P]>
+  }
+
+
+
+
+  export type MultipleAccountCaseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MultipleAccountCaseWhereInput
+    orderBy?: MultipleAccountCaseOrderByWithAggregationInput | MultipleAccountCaseOrderByWithAggregationInput[]
+    by: MultipleAccountCaseScalarFieldEnum[] | MultipleAccountCaseScalarFieldEnum
+    having?: MultipleAccountCaseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MultipleAccountCaseCountAggregateInputType | true
+    _avg?: MultipleAccountCaseAvgAggregateInputType
+    _sum?: MultipleAccountCaseSumAggregateInputType
+    _min?: MultipleAccountCaseMinAggregateInputType
+    _max?: MultipleAccountCaseMaxAggregateInputType
+  }
+
+  export type MultipleAccountCaseGroupByOutputType = {
+    id: string
+    ruleVersion: number
+    signal: string
+    browserId: string | null
+    fingerprint: string | null
+    ip: string | null
+    userIds: string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date
+    lastSeen: Date
+    windowStart: Date
+    windowEnd: Date
+    detectedAt: Date
+    exemptions: JsonValue
+    excludedCount: number
+    status: string
+    revision: number
+    _count: MultipleAccountCaseCountAggregateOutputType | null
+    _avg: MultipleAccountCaseAvgAggregateOutputType | null
+    _sum: MultipleAccountCaseSumAggregateOutputType | null
+    _min: MultipleAccountCaseMinAggregateOutputType | null
+    _max: MultipleAccountCaseMaxAggregateOutputType | null
+  }
+
+  type GetMultipleAccountCaseGroupByPayload<T extends MultipleAccountCaseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MultipleAccountCaseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MultipleAccountCaseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MultipleAccountCaseGroupByOutputType[P]>
+            : GetScalarType<T[P], MultipleAccountCaseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MultipleAccountCaseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ruleVersion?: boolean
+    signal?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    userIds?: boolean
+    accountCount?: boolean
+    threshold?: boolean
+    confidence?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    detectedAt?: boolean
+    exemptions?: boolean
+    excludedCount?: boolean
+    status?: boolean
+    revision?: boolean
+    reviews?: boolean | MultipleAccountCase$reviewsArgs<ExtArgs>
+    _count?: boolean | MultipleAccountCaseCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCase"]>
+
+  export type MultipleAccountCaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ruleVersion?: boolean
+    signal?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    userIds?: boolean
+    accountCount?: boolean
+    threshold?: boolean
+    confidence?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    detectedAt?: boolean
+    exemptions?: boolean
+    excludedCount?: boolean
+    status?: boolean
+    revision?: boolean
+  }, ExtArgs["result"]["multipleAccountCase"]>
+
+  export type MultipleAccountCaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ruleVersion?: boolean
+    signal?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    userIds?: boolean
+    accountCount?: boolean
+    threshold?: boolean
+    confidence?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    detectedAt?: boolean
+    exemptions?: boolean
+    excludedCount?: boolean
+    status?: boolean
+    revision?: boolean
+  }, ExtArgs["result"]["multipleAccountCase"]>
+
+  export type MultipleAccountCaseSelectScalar = {
+    id?: boolean
+    ruleVersion?: boolean
+    signal?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    userIds?: boolean
+    accountCount?: boolean
+    threshold?: boolean
+    confidence?: boolean
+    firstSeen?: boolean
+    lastSeen?: boolean
+    windowStart?: boolean
+    windowEnd?: boolean
+    detectedAt?: boolean
+    exemptions?: boolean
+    excludedCount?: boolean
+    status?: boolean
+    revision?: boolean
+  }
+
+  export type MultipleAccountCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ruleVersion" | "signal" | "browserId" | "fingerprint" | "ip" | "userIds" | "accountCount" | "threshold" | "confidence" | "firstSeen" | "lastSeen" | "windowStart" | "windowEnd" | "detectedAt" | "exemptions" | "excludedCount" | "status" | "revision", ExtArgs["result"]["multipleAccountCase"]>
+  export type MultipleAccountCaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | MultipleAccountCase$reviewsArgs<ExtArgs>
+    _count?: boolean | MultipleAccountCaseCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MultipleAccountCaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MultipleAccountCaseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $MultipleAccountCasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MultipleAccountCase"
+    objects: {
+      reviews: Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ruleVersion: number
+      signal: string
+      browserId: string | null
+      fingerprint: string | null
+      ip: string | null
+      userIds: string[]
+      accountCount: number
+      threshold: number
+      confidence: string
+      firstSeen: Date
+      lastSeen: Date
+      windowStart: Date
+      windowEnd: Date
+      detectedAt: Date
+      exemptions: Prisma.JsonValue
+      excludedCount: number
+      status: string
+      revision: number
+    }, ExtArgs["result"]["multipleAccountCase"]>
+    composites: {}
+  }
+
+  type MultipleAccountCaseGetPayload<S extends boolean | null | undefined | MultipleAccountCaseDefaultArgs> = $Result.GetResult<Prisma.$MultipleAccountCasePayload, S>
+
+  type MultipleAccountCaseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MultipleAccountCaseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: MultipleAccountCaseCountAggregateInputType | true
+    }
+
+  export interface MultipleAccountCaseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MultipleAccountCase'], meta: { name: 'MultipleAccountCase' } }
+    /**
+     * Find zero or one MultipleAccountCase that matches the filter.
+     * @param {MultipleAccountCaseFindUniqueArgs} args - Arguments to find a MultipleAccountCase
+     * @example
+     * // Get one MultipleAccountCase
+     * const multipleAccountCase = await prisma.multipleAccountCase.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MultipleAccountCaseFindUniqueArgs>(args: SelectSubset<T, MultipleAccountCaseFindUniqueArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MultipleAccountCase that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MultipleAccountCaseFindUniqueOrThrowArgs} args - Arguments to find a MultipleAccountCase
+     * @example
+     * // Get one MultipleAccountCase
+     * const multipleAccountCase = await prisma.multipleAccountCase.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MultipleAccountCaseFindUniqueOrThrowArgs>(args: SelectSubset<T, MultipleAccountCaseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultipleAccountCase that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseFindFirstArgs} args - Arguments to find a MultipleAccountCase
+     * @example
+     * // Get one MultipleAccountCase
+     * const multipleAccountCase = await prisma.multipleAccountCase.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MultipleAccountCaseFindFirstArgs>(args?: SelectSubset<T, MultipleAccountCaseFindFirstArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultipleAccountCase that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseFindFirstOrThrowArgs} args - Arguments to find a MultipleAccountCase
+     * @example
+     * // Get one MultipleAccountCase
+     * const multipleAccountCase = await prisma.multipleAccountCase.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MultipleAccountCaseFindFirstOrThrowArgs>(args?: SelectSubset<T, MultipleAccountCaseFindFirstOrThrowArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MultipleAccountCases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MultipleAccountCases
+     * const multipleAccountCases = await prisma.multipleAccountCase.findMany()
+     * 
+     * // Get first 10 MultipleAccountCases
+     * const multipleAccountCases = await prisma.multipleAccountCase.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const multipleAccountCaseWithIdOnly = await prisma.multipleAccountCase.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MultipleAccountCaseFindManyArgs>(args?: SelectSubset<T, MultipleAccountCaseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MultipleAccountCase.
+     * @param {MultipleAccountCaseCreateArgs} args - Arguments to create a MultipleAccountCase.
+     * @example
+     * // Create one MultipleAccountCase
+     * const MultipleAccountCase = await prisma.multipleAccountCase.create({
+     *   data: {
+     *     // ... data to create a MultipleAccountCase
+     *   }
+     * })
+     * 
+     */
+    create<T extends MultipleAccountCaseCreateArgs>(args: SelectSubset<T, MultipleAccountCaseCreateArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MultipleAccountCases.
+     * @param {MultipleAccountCaseCreateManyArgs} args - Arguments to create many MultipleAccountCases.
+     * @example
+     * // Create many MultipleAccountCases
+     * const multipleAccountCase = await prisma.multipleAccountCase.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MultipleAccountCaseCreateManyArgs>(args?: SelectSubset<T, MultipleAccountCaseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MultipleAccountCases and returns the data saved in the database.
+     * @param {MultipleAccountCaseCreateManyAndReturnArgs} args - Arguments to create many MultipleAccountCases.
+     * @example
+     * // Create many MultipleAccountCases
+     * const multipleAccountCase = await prisma.multipleAccountCase.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MultipleAccountCases and only return the `id`
+     * const multipleAccountCaseWithIdOnly = await prisma.multipleAccountCase.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MultipleAccountCaseCreateManyAndReturnArgs>(args?: SelectSubset<T, MultipleAccountCaseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MultipleAccountCase.
+     * @param {MultipleAccountCaseDeleteArgs} args - Arguments to delete one MultipleAccountCase.
+     * @example
+     * // Delete one MultipleAccountCase
+     * const MultipleAccountCase = await prisma.multipleAccountCase.delete({
+     *   where: {
+     *     // ... filter to delete one MultipleAccountCase
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MultipleAccountCaseDeleteArgs>(args: SelectSubset<T, MultipleAccountCaseDeleteArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MultipleAccountCase.
+     * @param {MultipleAccountCaseUpdateArgs} args - Arguments to update one MultipleAccountCase.
+     * @example
+     * // Update one MultipleAccountCase
+     * const multipleAccountCase = await prisma.multipleAccountCase.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MultipleAccountCaseUpdateArgs>(args: SelectSubset<T, MultipleAccountCaseUpdateArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MultipleAccountCases.
+     * @param {MultipleAccountCaseDeleteManyArgs} args - Arguments to filter MultipleAccountCases to delete.
+     * @example
+     * // Delete a few MultipleAccountCases
+     * const { count } = await prisma.multipleAccountCase.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MultipleAccountCaseDeleteManyArgs>(args?: SelectSubset<T, MultipleAccountCaseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultipleAccountCases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MultipleAccountCases
+     * const multipleAccountCase = await prisma.multipleAccountCase.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MultipleAccountCaseUpdateManyArgs>(args: SelectSubset<T, MultipleAccountCaseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultipleAccountCases and returns the data updated in the database.
+     * @param {MultipleAccountCaseUpdateManyAndReturnArgs} args - Arguments to update many MultipleAccountCases.
+     * @example
+     * // Update many MultipleAccountCases
+     * const multipleAccountCase = await prisma.multipleAccountCase.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MultipleAccountCases and only return the `id`
+     * const multipleAccountCaseWithIdOnly = await prisma.multipleAccountCase.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MultipleAccountCaseUpdateManyAndReturnArgs>(args: SelectSubset<T, MultipleAccountCaseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MultipleAccountCase.
+     * @param {MultipleAccountCaseUpsertArgs} args - Arguments to update or create a MultipleAccountCase.
+     * @example
+     * // Update or create a MultipleAccountCase
+     * const multipleAccountCase = await prisma.multipleAccountCase.upsert({
+     *   create: {
+     *     // ... data to create a MultipleAccountCase
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MultipleAccountCase we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MultipleAccountCaseUpsertArgs>(args: SelectSubset<T, MultipleAccountCaseUpsertArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MultipleAccountCases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseCountArgs} args - Arguments to filter MultipleAccountCases to count.
+     * @example
+     * // Count the number of MultipleAccountCases
+     * const count = await prisma.multipleAccountCase.count({
+     *   where: {
+     *     // ... the filter for the MultipleAccountCases we want to count
+     *   }
+     * })
+    **/
+    count<T extends MultipleAccountCaseCountArgs>(
+      args?: Subset<T, MultipleAccountCaseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MultipleAccountCaseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MultipleAccountCase.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MultipleAccountCaseAggregateArgs>(args: Subset<T, MultipleAccountCaseAggregateArgs>): Prisma.PrismaPromise<GetMultipleAccountCaseAggregateType<T>>
+
+    /**
+     * Group by MultipleAccountCase.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<
+      T extends MultipleAccountCaseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MultipleAccountCaseGroupByArgs['orderBy'] }
+        : { orderBy?: MultipleAccountCaseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MultipleAccountCaseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMultipleAccountCaseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MultipleAccountCase model
+   */
+  readonly fields: MultipleAccountCaseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MultipleAccountCase.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MultipleAccountCaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reviews<T extends MultipleAccountCase$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, MultipleAccountCase$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MultipleAccountCase model
+   */
+  interface MultipleAccountCaseFieldRefs {
+    readonly id: FieldRef<"MultipleAccountCase", 'String'>
+    readonly ruleVersion: FieldRef<"MultipleAccountCase", 'Int'>
+    readonly signal: FieldRef<"MultipleAccountCase", 'String'>
+    readonly browserId: FieldRef<"MultipleAccountCase", 'String'>
+    readonly fingerprint: FieldRef<"MultipleAccountCase", 'String'>
+    readonly ip: FieldRef<"MultipleAccountCase", 'String'>
+    readonly userIds: FieldRef<"MultipleAccountCase", 'String[]'>
+    readonly accountCount: FieldRef<"MultipleAccountCase", 'Int'>
+    readonly threshold: FieldRef<"MultipleAccountCase", 'Int'>
+    readonly confidence: FieldRef<"MultipleAccountCase", 'String'>
+    readonly firstSeen: FieldRef<"MultipleAccountCase", 'DateTime'>
+    readonly lastSeen: FieldRef<"MultipleAccountCase", 'DateTime'>
+    readonly windowStart: FieldRef<"MultipleAccountCase", 'DateTime'>
+    readonly windowEnd: FieldRef<"MultipleAccountCase", 'DateTime'>
+    readonly detectedAt: FieldRef<"MultipleAccountCase", 'DateTime'>
+    readonly exemptions: FieldRef<"MultipleAccountCase", 'Json'>
+    readonly excludedCount: FieldRef<"MultipleAccountCase", 'Int'>
+    readonly status: FieldRef<"MultipleAccountCase", 'String'>
+    readonly revision: FieldRef<"MultipleAccountCase", 'Int'>
+  }
+
+
+  // Custom InputTypes
+  /**
+   * MultipleAccountCase findUnique
+   */
+  export type MultipleAccountCaseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCase to fetch.
+     */
+    where: MultipleAccountCaseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase findUniqueOrThrow
+   */
+  export type MultipleAccountCaseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCase to fetch.
+     */
+    where: MultipleAccountCaseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase findFirst
+   */
+  export type MultipleAccountCaseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCase to fetch.
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCases to fetch.
+     */
+    orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for MultipleAccountCases.
+     */
+    cursor?: MultipleAccountCaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MultipleAccountCases.
+     */
+    distinct?: MultipleAccountCaseScalarFieldEnum | MultipleAccountCaseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase findFirstOrThrow
+   */
+  export type MultipleAccountCaseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCase to fetch.
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCases to fetch.
+     */
+    orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for MultipleAccountCases.
+     */
+    cursor?: MultipleAccountCaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MultipleAccountCases.
+     */
+    distinct?: MultipleAccountCaseScalarFieldEnum | MultipleAccountCaseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase findMany
+   */
+  export type MultipleAccountCaseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCases to fetch.
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCases to fetch.
+     */
+    orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing MultipleAccountCases.
+     */
+    cursor?: MultipleAccountCaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCases.
+     */
+    skip?: number
+    distinct?: MultipleAccountCaseScalarFieldEnum | MultipleAccountCaseScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase create
+   */
+  export type MultipleAccountCaseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MultipleAccountCase.
+     */
+    data: XOR<MultipleAccountCaseCreateInput, MultipleAccountCaseUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase createMany
+   */
+  export type MultipleAccountCaseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MultipleAccountCases.
+     */
+    data: MultipleAccountCaseCreateManyInput | MultipleAccountCaseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MultipleAccountCase createManyAndReturn
+   */
+  export type MultipleAccountCaseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * The data used to create many MultipleAccountCases.
+     */
+    data: MultipleAccountCaseCreateManyInput | MultipleAccountCaseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MultipleAccountCase update
+   */
+  export type MultipleAccountCaseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MultipleAccountCase.
+     */
+    data: XOR<MultipleAccountCaseUpdateInput, MultipleAccountCaseUncheckedUpdateInput>
+    /**
+     * Choose, which MultipleAccountCase to update.
+     */
+    where: MultipleAccountCaseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase updateMany
+   */
+  export type MultipleAccountCaseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MultipleAccountCases.
+     */
+    data: XOR<MultipleAccountCaseUpdateManyMutationInput, MultipleAccountCaseUncheckedUpdateManyInput>
+    /**
+     * Filter which MultipleAccountCases to update
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * Limit how many MultipleAccountCases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCase updateManyAndReturn
+   */
+  export type MultipleAccountCaseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * The data used to update MultipleAccountCases.
+     */
+    data: XOR<MultipleAccountCaseUpdateManyMutationInput, MultipleAccountCaseUncheckedUpdateManyInput>
+    /**
+     * Filter which MultipleAccountCases to update
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * Limit how many MultipleAccountCases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCase upsert
+   */
+  export type MultipleAccountCaseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MultipleAccountCase to update in case it exists.
+     */
+    where: MultipleAccountCaseWhereUniqueInput
+    /**
+     * In case the MultipleAccountCase found by the `where` argument doesn't exist, create a new MultipleAccountCase with this data.
+     */
+    create: XOR<MultipleAccountCaseCreateInput, MultipleAccountCaseUncheckedCreateInput>
+    /**
+     * In case the MultipleAccountCase was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MultipleAccountCaseUpdateInput, MultipleAccountCaseUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase delete
+   */
+  export type MultipleAccountCaseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+    /**
+     * Filter which MultipleAccountCase to delete.
+     */
+    where: MultipleAccountCaseWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCase deleteMany
+   */
+  export type MultipleAccountCaseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultipleAccountCases to delete
+     */
+    where?: MultipleAccountCaseWhereInput
+    /**
+     * Limit how many MultipleAccountCases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCase.reviews
+   */
+  export type MultipleAccountCase$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    where?: MultipleAccountCaseReviewWhereInput
+    orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
+    cursor?: MultipleAccountCaseReviewWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MultipleAccountCaseReviewScalarFieldEnum | MultipleAccountCaseReviewScalarFieldEnum[]
+  }
+
+  /**
+   * MultipleAccountCase without action
+   */
+  export type MultipleAccountCaseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCase
+     */
+    select?: MultipleAccountCaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCase
+     */
+    omit?: MultipleAccountCaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MultipleAccountCaseReview
+   */
+
+  export type AggregateMultipleAccountCaseReview = {
+    _count: MultipleAccountCaseReviewCountAggregateOutputType | null
+    _avg: MultipleAccountCaseReviewAvgAggregateOutputType | null
+    _sum: MultipleAccountCaseReviewSumAggregateOutputType | null
+    _min: MultipleAccountCaseReviewMinAggregateOutputType | null
+    _max: MultipleAccountCaseReviewMaxAggregateOutputType | null
+  }
+
+  export type MultipleAccountCaseReviewAvgAggregateOutputType = {
+    revision: number | null
+  }
+
+  export type MultipleAccountCaseReviewSumAggregateOutputType = {
+    revision: number | null
+  }
+
+  export type MultipleAccountCaseReviewMinAggregateOutputType = {
+    id: string | null
+    caseId: string | null
+    revision: number | null
+    reviewerId: string | null
+    decision: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type MultipleAccountCaseReviewMaxAggregateOutputType = {
+    id: string | null
+    caseId: string | null
+    revision: number | null
+    reviewerId: string | null
+    decision: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type MultipleAccountCaseReviewCountAggregateOutputType = {
+    id: number
+    caseId: number
+    revision: number
+    reviewerId: number
+    decision: number
+    reason: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MultipleAccountCaseReviewAvgAggregateInputType = {
+    revision?: true
+  }
+
+  export type MultipleAccountCaseReviewSumAggregateInputType = {
+    revision?: true
+  }
+
+  export type MultipleAccountCaseReviewMinAggregateInputType = {
+    id?: true
+    caseId?: true
+    revision?: true
+    reviewerId?: true
+    decision?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type MultipleAccountCaseReviewMaxAggregateInputType = {
+    id?: true
+    caseId?: true
+    revision?: true
+    reviewerId?: true
+    decision?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type MultipleAccountCaseReviewCountAggregateInputType = {
+    id?: true
+    caseId?: true
+    revision?: true
+    reviewerId?: true
+    decision?: true
+    reason?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MultipleAccountCaseReviewAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultipleAccountCaseReview to aggregate.
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCaseReviews to fetch.
+     */
+    orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: MultipleAccountCaseReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCaseReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned MultipleAccountCaseReviews
+    **/
+    _count?: true | MultipleAccountCaseReviewCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: MultipleAccountCaseReviewAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: MultipleAccountCaseReviewSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: MultipleAccountCaseReviewMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: MultipleAccountCaseReviewMaxAggregateInputType
+  }
+
+  export type GetMultipleAccountCaseReviewAggregateType<T extends MultipleAccountCaseReviewAggregateArgs> = {
+        [P in keyof T & keyof AggregateMultipleAccountCaseReview]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMultipleAccountCaseReview[P]>
+      : GetScalarType<T[P], AggregateMultipleAccountCaseReview[P]>
+  }
+
+
+
+
+  export type MultipleAccountCaseReviewGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MultipleAccountCaseReviewWhereInput
+    orderBy?: MultipleAccountCaseReviewOrderByWithAggregationInput | MultipleAccountCaseReviewOrderByWithAggregationInput[]
+    by: MultipleAccountCaseReviewScalarFieldEnum[] | MultipleAccountCaseReviewScalarFieldEnum
+    having?: MultipleAccountCaseReviewScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MultipleAccountCaseReviewCountAggregateInputType | true
+    _avg?: MultipleAccountCaseReviewAvgAggregateInputType
+    _sum?: MultipleAccountCaseReviewSumAggregateInputType
+    _min?: MultipleAccountCaseReviewMinAggregateInputType
+    _max?: MultipleAccountCaseReviewMaxAggregateInputType
+  }
+
+  export type MultipleAccountCaseReviewGroupByOutputType = {
+    id: string
+    caseId: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt: Date
+    _count: MultipleAccountCaseReviewCountAggregateOutputType | null
+    _avg: MultipleAccountCaseReviewAvgAggregateOutputType | null
+    _sum: MultipleAccountCaseReviewSumAggregateOutputType | null
+    _min: MultipleAccountCaseReviewMinAggregateOutputType | null
+    _max: MultipleAccountCaseReviewMaxAggregateOutputType | null
+  }
+
+  type GetMultipleAccountCaseReviewGroupByPayload<T extends MultipleAccountCaseReviewGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MultipleAccountCaseReviewGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MultipleAccountCaseReviewGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MultipleAccountCaseReviewGroupByOutputType[P]>
+            : GetScalarType<T[P], MultipleAccountCaseReviewGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MultipleAccountCaseReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    caseId?: boolean
+    revision?: boolean
+    reviewerId?: boolean
+    decision?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCaseReview"]>
+
+  export type MultipleAccountCaseReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    caseId?: boolean
+    revision?: boolean
+    reviewerId?: boolean
+    decision?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCaseReview"]>
+
+  export type MultipleAccountCaseReviewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    caseId?: boolean
+    revision?: boolean
+    reviewerId?: boolean
+    decision?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCaseReview"]>
+
+  export type MultipleAccountCaseReviewSelectScalar = {
+    id?: boolean
+    caseId?: boolean
+    revision?: boolean
+    reviewerId?: boolean
+    decision?: boolean
+    reason?: boolean
+    createdAt?: boolean
+  }
+
+  export type MultipleAccountCaseReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "caseId" | "revision" | "reviewerId" | "decision" | "reason" | "createdAt", ExtArgs["result"]["multipleAccountCaseReview"]>
+  export type MultipleAccountCaseReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }
+  export type MultipleAccountCaseReviewIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }
+  export type MultipleAccountCaseReviewIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }
+
+  export type $MultipleAccountCaseReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MultipleAccountCaseReview"
+    objects: {
+      case: Prisma.$MultipleAccountCasePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      caseId: string
+      revision: number
+      reviewerId: string
+      decision: string
+      reason: string
+      createdAt: Date
+    }, ExtArgs["result"]["multipleAccountCaseReview"]>
+    composites: {}
+  }
+
+  type MultipleAccountCaseReviewGetPayload<S extends boolean | null | undefined | MultipleAccountCaseReviewDefaultArgs> = $Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload, S>
+
+  type MultipleAccountCaseReviewCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MultipleAccountCaseReviewFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: MultipleAccountCaseReviewCountAggregateInputType | true
+    }
+
+  export interface MultipleAccountCaseReviewDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MultipleAccountCaseReview'], meta: { name: 'MultipleAccountCaseReview' } }
+    /**
+     * Find zero or one MultipleAccountCaseReview that matches the filter.
+     * @param {MultipleAccountCaseReviewFindUniqueArgs} args - Arguments to find a MultipleAccountCaseReview
+     * @example
+     * // Get one MultipleAccountCaseReview
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MultipleAccountCaseReviewFindUniqueArgs>(args: SelectSubset<T, MultipleAccountCaseReviewFindUniqueArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MultipleAccountCaseReview that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MultipleAccountCaseReviewFindUniqueOrThrowArgs} args - Arguments to find a MultipleAccountCaseReview
+     * @example
+     * // Get one MultipleAccountCaseReview
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MultipleAccountCaseReviewFindUniqueOrThrowArgs>(args: SelectSubset<T, MultipleAccountCaseReviewFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultipleAccountCaseReview that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewFindFirstArgs} args - Arguments to find a MultipleAccountCaseReview
+     * @example
+     * // Get one MultipleAccountCaseReview
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MultipleAccountCaseReviewFindFirstArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewFindFirstArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultipleAccountCaseReview that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewFindFirstOrThrowArgs} args - Arguments to find a MultipleAccountCaseReview
+     * @example
+     * // Get one MultipleAccountCaseReview
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MultipleAccountCaseReviewFindFirstOrThrowArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewFindFirstOrThrowArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MultipleAccountCaseReviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MultipleAccountCaseReviews
+     * const multipleAccountCaseReviews = await prisma.multipleAccountCaseReview.findMany()
+     *
+     * // Get first 10 MultipleAccountCaseReviews
+     * const multipleAccountCaseReviews = await prisma.multipleAccountCaseReview.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const multipleAccountCaseReviewWithIdOnly = await prisma.multipleAccountCaseReview.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends MultipleAccountCaseReviewFindManyArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MultipleAccountCaseReview.
+     * @param {MultipleAccountCaseReviewCreateArgs} args - Arguments to create a MultipleAccountCaseReview.
+     * @example
+     * // Create one MultipleAccountCaseReview
+     * const MultipleAccountCaseReview = await prisma.multipleAccountCaseReview.create({
+     *   data: {
+     *     // ... data to create a MultipleAccountCaseReview
+     *   }
+     * })
+     *
+     */
+    create<T extends MultipleAccountCaseReviewCreateArgs>(args: SelectSubset<T, MultipleAccountCaseReviewCreateArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MultipleAccountCaseReviews.
+     * @param {MultipleAccountCaseReviewCreateManyArgs} args - Arguments to create many MultipleAccountCaseReviews.
+     * @example
+     * // Create many MultipleAccountCaseReviews
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends MultipleAccountCaseReviewCreateManyArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MultipleAccountCaseReviews and returns the data saved in the database.
+     * @param {MultipleAccountCaseReviewCreateManyAndReturnArgs} args - Arguments to create many MultipleAccountCaseReviews.
+     * @example
+     * // Create many MultipleAccountCaseReviews
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many MultipleAccountCaseReviews and only return the `id`
+     * const multipleAccountCaseReviewWithIdOnly = await prisma.multipleAccountCaseReview.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends MultipleAccountCaseReviewCreateManyAndReturnArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MultipleAccountCaseReview.
+     * @param {MultipleAccountCaseReviewDeleteArgs} args - Arguments to delete one MultipleAccountCaseReview.
+     * @example
+     * // Delete one MultipleAccountCaseReview
+     * const MultipleAccountCaseReview = await prisma.multipleAccountCaseReview.delete({
+     *   where: {
+     *     // ... filter to delete one MultipleAccountCaseReview
+     *   }
+     * })
+     *
+     */
+    delete<T extends MultipleAccountCaseReviewDeleteArgs>(args: SelectSubset<T, MultipleAccountCaseReviewDeleteArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MultipleAccountCaseReview.
+     * @param {MultipleAccountCaseReviewUpdateArgs} args - Arguments to update one MultipleAccountCaseReview.
+     * @example
+     * // Update one MultipleAccountCaseReview
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends MultipleAccountCaseReviewUpdateArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpdateArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MultipleAccountCaseReviews.
+     * @param {MultipleAccountCaseReviewDeleteManyArgs} args - Arguments to filter MultipleAccountCaseReviews to delete.
+     * @example
+     * // Delete a few MultipleAccountCaseReviews
+     * const { count } = await prisma.multipleAccountCaseReview.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends MultipleAccountCaseReviewDeleteManyArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultipleAccountCaseReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MultipleAccountCaseReviews
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends MultipleAccountCaseReviewUpdateManyArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultipleAccountCaseReviews and returns the data updated in the database.
+     * @param {MultipleAccountCaseReviewUpdateManyAndReturnArgs} args - Arguments to update many MultipleAccountCaseReviews.
+     * @example
+     * // Update many MultipleAccountCaseReviews
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more MultipleAccountCaseReviews and only return the `id`
+     * const multipleAccountCaseReviewWithIdOnly = await prisma.multipleAccountCaseReview.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends MultipleAccountCaseReviewUpdateManyAndReturnArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MultipleAccountCaseReview.
+     * @param {MultipleAccountCaseReviewUpsertArgs} args - Arguments to update or create a MultipleAccountCaseReview.
+     * @example
+     * // Update or create a MultipleAccountCaseReview
+     * const multipleAccountCaseReview = await prisma.multipleAccountCaseReview.upsert({
+     *   create: {
+     *     // ... data to create a MultipleAccountCaseReview
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MultipleAccountCaseReview we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MultipleAccountCaseReviewUpsertArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpsertArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MultipleAccountCaseReviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewCountArgs} args - Arguments to filter MultipleAccountCaseReviews to count.
+     * @example
+     * // Count the number of MultipleAccountCaseReviews
+     * const count = await prisma.multipleAccountCaseReview.count({
+     *   where: {
+     *     // ... the filter for the MultipleAccountCaseReviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends MultipleAccountCaseReviewCountArgs>(
+      args?: Subset<T, MultipleAccountCaseReviewCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MultipleAccountCaseReviewCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MultipleAccountCaseReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MultipleAccountCaseReviewAggregateArgs>(args: Subset<T, MultipleAccountCaseReviewAggregateArgs>): Prisma.PrismaPromise<GetMultipleAccountCaseReviewAggregateType<T>>
+
+    /**
+     * Group by MultipleAccountCaseReview.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseReviewGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<
+      T extends MultipleAccountCaseReviewGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MultipleAccountCaseReviewGroupByArgs['orderBy'] }
+        : { orderBy?: MultipleAccountCaseReviewGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MultipleAccountCaseReviewGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMultipleAccountCaseReviewGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MultipleAccountCaseReview model
+   */
+  readonly fields: MultipleAccountCaseReviewFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MultipleAccountCaseReview.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MultipleAccountCaseReviewClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    case<T extends MultipleAccountCaseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MultipleAccountCaseDefaultArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MultipleAccountCaseReview model
+   */
+  interface MultipleAccountCaseReviewFieldRefs {
+    readonly id: FieldRef<"MultipleAccountCaseReview", 'String'>
+    readonly caseId: FieldRef<"MultipleAccountCaseReview", 'String'>
+    readonly revision: FieldRef<"MultipleAccountCaseReview", 'Int'>
+    readonly reviewerId: FieldRef<"MultipleAccountCaseReview", 'String'>
+    readonly decision: FieldRef<"MultipleAccountCaseReview", 'String'>
+    readonly reason: FieldRef<"MultipleAccountCaseReview", 'String'>
+    readonly createdAt: FieldRef<"MultipleAccountCaseReview", 'DateTime'>
+  }
+
+
+  // Custom InputTypes
+  /**
+   * MultipleAccountCaseReview findUnique
+   */
+  export type MultipleAccountCaseReviewFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseReview to fetch.
+     */
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview findUniqueOrThrow
+   */
+  export type MultipleAccountCaseReviewFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseReview to fetch.
+     */
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview findFirst
+   */
+  export type MultipleAccountCaseReviewFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseReview to fetch.
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCaseReviews to fetch.
+     */
+    orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for MultipleAccountCaseReviews.
+     */
+    cursor?: MultipleAccountCaseReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCaseReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MultipleAccountCaseReviews.
+     */
+    distinct?: MultipleAccountCaseReviewScalarFieldEnum | MultipleAccountCaseReviewScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview findFirstOrThrow
+   */
+  export type MultipleAccountCaseReviewFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseReview to fetch.
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCaseReviews to fetch.
+     */
+    orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for MultipleAccountCaseReviews.
+     */
+    cursor?: MultipleAccountCaseReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCaseReviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MultipleAccountCaseReviews.
+     */
+    distinct?: MultipleAccountCaseReviewScalarFieldEnum | MultipleAccountCaseReviewScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview findMany
+   */
+  export type MultipleAccountCaseReviewFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseReviews to fetch.
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MultipleAccountCaseReviews to fetch.
+     */
+    orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing MultipleAccountCaseReviews.
+     */
+    cursor?: MultipleAccountCaseReviewWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MultipleAccountCaseReviews.
+     */
+    skip?: number
+    distinct?: MultipleAccountCaseReviewScalarFieldEnum | MultipleAccountCaseReviewScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview create
+   */
+  export type MultipleAccountCaseReviewCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MultipleAccountCaseReview.
+     */
+    data: XOR<MultipleAccountCaseReviewCreateInput, MultipleAccountCaseReviewUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview createMany
+   */
+  export type MultipleAccountCaseReviewCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MultipleAccountCaseReviews.
+     */
+    data: MultipleAccountCaseReviewCreateManyInput | MultipleAccountCaseReviewCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MultipleAccountCaseReview createManyAndReturn
+   */
+  export type MultipleAccountCaseReviewCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * The data used to create many MultipleAccountCaseReviews.
+     */
+    data: MultipleAccountCaseReviewCreateManyInput | MultipleAccountCaseReviewCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MultipleAccountCaseReview update
+   */
+  export type MultipleAccountCaseReviewUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MultipleAccountCaseReview.
+     */
+    data: XOR<MultipleAccountCaseReviewUpdateInput, MultipleAccountCaseReviewUncheckedUpdateInput>
+    /**
+     * Choose, which MultipleAccountCaseReview to update.
+     */
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview updateMany
+   */
+  export type MultipleAccountCaseReviewUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MultipleAccountCaseReviews.
+     */
+    data: XOR<MultipleAccountCaseReviewUpdateManyMutationInput, MultipleAccountCaseReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which MultipleAccountCaseReviews to update
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * Limit how many MultipleAccountCaseReviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCaseReview updateManyAndReturn
+   */
+  export type MultipleAccountCaseReviewUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * The data used to update MultipleAccountCaseReviews.
+     */
+    data: XOR<MultipleAccountCaseReviewUpdateManyMutationInput, MultipleAccountCaseReviewUncheckedUpdateManyInput>
+    /**
+     * Filter which MultipleAccountCaseReviews to update
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * Limit how many MultipleAccountCaseReviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MultipleAccountCaseReview upsert
+   */
+  export type MultipleAccountCaseReviewUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MultipleAccountCaseReview to update in case it exists.
+     */
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    /**
+     * In case the MultipleAccountCaseReview found by the `where` argument doesn't exist, create a new MultipleAccountCaseReview with this data.
+     */
+    create: XOR<MultipleAccountCaseReviewCreateInput, MultipleAccountCaseReviewUncheckedCreateInput>
+    /**
+     * In case the MultipleAccountCaseReview was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MultipleAccountCaseReviewUpdateInput, MultipleAccountCaseReviewUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview delete
+   */
+  export type MultipleAccountCaseReviewDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+    /**
+     * Filter which MultipleAccountCaseReview to delete.
+     */
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseReview deleteMany
+   */
+  export type MultipleAccountCaseReviewDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultipleAccountCaseReviews to delete
+     */
+    where?: MultipleAccountCaseReviewWhereInput
+    /**
+     * Limit how many MultipleAccountCaseReviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCaseReview without action
+   */
+  export type MultipleAccountCaseReviewDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseReview
+     */
+    select?: MultipleAccountCaseReviewSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseReview
+     */
+    omit?: MultipleAccountCaseReviewOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseReviewInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Clan
    */
 
@@ -35848,55 +38491,55 @@ export namespace Prisma {
     where?: ClanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Clans to fetch.
      */
     orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: ClanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Clans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Clans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Clans
     **/
     _count?: true | ClanCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
     **/
     _avg?: ClanAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
     **/
     _sum?: ClanSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: ClanMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: ClanMaxAggregateInputType
@@ -36146,13 +38789,13 @@ export namespace Prisma {
      * @example
      * // Get all Clans
      * const clans = await prisma.clan.findMany()
-     * 
+     *
      * // Get first 10 Clans
      * const clans = await prisma.clan.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const clanWithIdOnly = await prisma.clan.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends ClanFindManyArgs>(args?: SelectSubset<T, ClanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -36166,7 +38809,7 @@ export namespace Prisma {
      *     // ... data to create a Clan
      *   }
      * })
-     * 
+     *
      */
     create<T extends ClanCreateArgs>(args: SelectSubset<T, ClanCreateArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -36180,7 +38823,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ClanCreateManyArgs>(args?: SelectSubset<T, ClanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -36194,7 +38837,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Clans and only return the `id`
      * const clanWithIdOnly = await prisma.clan.createManyAndReturn({
      *   select: { id: true },
@@ -36204,7 +38847,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends ClanCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -36218,7 +38861,7 @@ export namespace Prisma {
      *     // ... filter to delete one Clan
      *   }
      * })
-     * 
+     *
      */
     delete<T extends ClanDeleteArgs>(args: SelectSubset<T, ClanDeleteArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -36235,7 +38878,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends ClanUpdateArgs>(args: SelectSubset<T, ClanUpdateArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -36249,7 +38892,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends ClanDeleteManyArgs>(args?: SelectSubset<T, ClanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -36268,7 +38911,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends ClanUpdateManyArgs>(args: SelectSubset<T, ClanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -36285,7 +38928,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Clans and only return the `id`
      * const clanWithIdOnly = await prisma.clan.updateManyAndReturn({
      *   select: { id: true },
@@ -36298,7 +38941,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends ClanUpdateManyAndReturnArgs>(args: SelectSubset<T, ClanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -54839,6 +57482,44 @@ export namespace Prisma {
   export type BannedBrowserScalarFieldEnum = (typeof BannedBrowserScalarFieldEnum)[keyof typeof BannedBrowserScalarFieldEnum]
 
 
+  export const MultipleAccountCaseScalarFieldEnum: {
+    id: 'id',
+    ruleVersion: 'ruleVersion',
+    signal: 'signal',
+    browserId: 'browserId',
+    fingerprint: 'fingerprint',
+    ip: 'ip',
+    userIds: 'userIds',
+    accountCount: 'accountCount',
+    threshold: 'threshold',
+    confidence: 'confidence',
+    firstSeen: 'firstSeen',
+    lastSeen: 'lastSeen',
+    windowStart: 'windowStart',
+    windowEnd: 'windowEnd',
+    detectedAt: 'detectedAt',
+    exemptions: 'exemptions',
+    excludedCount: 'excludedCount',
+    status: 'status',
+    revision: 'revision'
+  };
+
+  export type MultipleAccountCaseScalarFieldEnum = (typeof MultipleAccountCaseScalarFieldEnum)[keyof typeof MultipleAccountCaseScalarFieldEnum]
+
+
+  export const MultipleAccountCaseReviewScalarFieldEnum: {
+    id: 'id',
+    caseId: 'caseId',
+    revision: 'revision',
+    reviewerId: 'reviewerId',
+    decision: 'decision',
+    reason: 'reason',
+    createdAt: 'createdAt'
+  };
+
+  export type MultipleAccountCaseReviewScalarFieldEnum = (typeof MultipleAccountCaseReviewScalarFieldEnum)[keyof typeof MultipleAccountCaseReviewScalarFieldEnum]
+
+
   export const ClanScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -55069,6 +57750,13 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -55083,6 +57771,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -55361,6 +58058,20 @@ export namespace Prisma {
    */
   export type ListEnumBruteReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BruteReportStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+
 
 
   /**
@@ -57519,6 +60230,201 @@ export namespace Prisma {
     OR?: BannedBrowserScalarWhereWithAggregatesInput[]
     NOT?: BannedBrowserScalarWhereWithAggregatesInput | BannedBrowserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BannedBrowser"> | string
+  }
+
+  export type MultipleAccountCaseWhereInput = {
+    AND?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
+    OR?: MultipleAccountCaseWhereInput[]
+    NOT?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
+    id?: StringFilter<"MultipleAccountCase"> | string
+    ruleVersion?: IntFilter<"MultipleAccountCase"> | number
+    signal?: StringFilter<"MultipleAccountCase"> | string
+    browserId?: UuidNullableFilter<"MultipleAccountCase"> | string | null
+    fingerprint?: StringNullableFilter<"MultipleAccountCase"> | string | null
+    ip?: StringNullableFilter<"MultipleAccountCase"> | string | null
+    userIds?: StringNullableListFilter<"MultipleAccountCase">
+    accountCount?: IntFilter<"MultipleAccountCase"> | number
+    threshold?: IntFilter<"MultipleAccountCase"> | number
+    confidence?: StringFilter<"MultipleAccountCase"> | string
+    firstSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    lastSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    windowStart?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    windowEnd?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    detectedAt?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    exemptions?: JsonFilter<"MultipleAccountCase">
+    excludedCount?: IntFilter<"MultipleAccountCase"> | number
+    status?: StringFilter<"MultipleAccountCase"> | string
+    revision?: IntFilter<"MultipleAccountCase"> | number
+    reviews?: MultipleAccountCaseReviewListRelationFilter
+  }
+
+  export type MultipleAccountCaseOrderByWithRelationInput = {
+    id?: SortOrder
+    ruleVersion?: SortOrder
+    signal?: SortOrder
+    browserId?: SortOrderInput | SortOrder
+    fingerprint?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    userIds?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    confidence?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+    detectedAt?: SortOrder
+    exemptions?: SortOrder
+    excludedCount?: SortOrder
+    status?: SortOrder
+    revision?: SortOrder
+    reviews?: MultipleAccountCaseReviewOrderByRelationAggregateInput
+  }
+
+  export type MultipleAccountCaseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
+    OR?: MultipleAccountCaseWhereInput[]
+    NOT?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
+    ruleVersion?: IntFilter<"MultipleAccountCase"> | number
+    signal?: StringFilter<"MultipleAccountCase"> | string
+    browserId?: UuidNullableFilter<"MultipleAccountCase"> | string | null
+    fingerprint?: StringNullableFilter<"MultipleAccountCase"> | string | null
+    ip?: StringNullableFilter<"MultipleAccountCase"> | string | null
+    userIds?: StringNullableListFilter<"MultipleAccountCase">
+    accountCount?: IntFilter<"MultipleAccountCase"> | number
+    threshold?: IntFilter<"MultipleAccountCase"> | number
+    confidence?: StringFilter<"MultipleAccountCase"> | string
+    firstSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    lastSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    windowStart?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    windowEnd?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    detectedAt?: DateTimeFilter<"MultipleAccountCase"> | Date | string
+    exemptions?: JsonFilter<"MultipleAccountCase">
+    excludedCount?: IntFilter<"MultipleAccountCase"> | number
+    status?: StringFilter<"MultipleAccountCase"> | string
+    revision?: IntFilter<"MultipleAccountCase"> | number
+    reviews?: MultipleAccountCaseReviewListRelationFilter
+  }, "id">
+
+  export type MultipleAccountCaseOrderByWithAggregationInput = {
+    id?: SortOrder
+    ruleVersion?: SortOrder
+    signal?: SortOrder
+    browserId?: SortOrderInput | SortOrder
+    fingerprint?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    userIds?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    confidence?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+    detectedAt?: SortOrder
+    exemptions?: SortOrder
+    excludedCount?: SortOrder
+    status?: SortOrder
+    revision?: SortOrder
+    _count?: MultipleAccountCaseCountOrderByAggregateInput
+    _avg?: MultipleAccountCaseAvgOrderByAggregateInput
+    _max?: MultipleAccountCaseMaxOrderByAggregateInput
+    _min?: MultipleAccountCaseMinOrderByAggregateInput
+    _sum?: MultipleAccountCaseSumOrderByAggregateInput
+  }
+
+  export type MultipleAccountCaseScalarWhereWithAggregatesInput = {
+    AND?: MultipleAccountCaseScalarWhereWithAggregatesInput | MultipleAccountCaseScalarWhereWithAggregatesInput[]
+    OR?: MultipleAccountCaseScalarWhereWithAggregatesInput[]
+    NOT?: MultipleAccountCaseScalarWhereWithAggregatesInput | MultipleAccountCaseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
+    ruleVersion?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
+    signal?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
+    browserId?: UuidNullableWithAggregatesFilter<"MultipleAccountCase"> | string | null
+    fingerprint?: StringNullableWithAggregatesFilter<"MultipleAccountCase"> | string | null
+    ip?: StringNullableWithAggregatesFilter<"MultipleAccountCase"> | string | null
+    userIds?: StringNullableListFilter<"MultipleAccountCase">
+    accountCount?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
+    threshold?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
+    confidence?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
+    firstSeen?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
+    lastSeen?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
+    windowStart?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
+    windowEnd?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
+    detectedAt?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
+    exemptions?: JsonWithAggregatesFilter<"MultipleAccountCase">
+    excludedCount?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
+    status?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
+    revision?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
+  }
+
+  export type MultipleAccountCaseReviewWhereInput = {
+    AND?: MultipleAccountCaseReviewWhereInput | MultipleAccountCaseReviewWhereInput[]
+    OR?: MultipleAccountCaseReviewWhereInput[]
+    NOT?: MultipleAccountCaseReviewWhereInput | MultipleAccountCaseReviewWhereInput[]
+    id?: UuidFilter<"MultipleAccountCaseReview"> | string
+    caseId?: StringFilter<"MultipleAccountCaseReview"> | string
+    revision?: IntFilter<"MultipleAccountCaseReview"> | number
+    reviewerId?: UuidFilter<"MultipleAccountCaseReview"> | string
+    decision?: StringFilter<"MultipleAccountCaseReview"> | string
+    reason?: StringFilter<"MultipleAccountCaseReview"> | string
+    createdAt?: DateTimeFilter<"MultipleAccountCaseReview"> | Date | string
+    case?: XOR<MultipleAccountCaseScalarRelationFilter, MultipleAccountCaseWhereInput>
+  }
+
+  export type MultipleAccountCaseReviewOrderByWithRelationInput = {
+    id?: SortOrder
+    caseId?: SortOrder
+    revision?: SortOrder
+    reviewerId?: SortOrder
+    decision?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    case?: MultipleAccountCaseOrderByWithRelationInput
+  }
+
+  export type MultipleAccountCaseReviewWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    caseId_revision?: MultipleAccountCaseReviewCaseIdRevisionCompoundUniqueInput
+    AND?: MultipleAccountCaseReviewWhereInput | MultipleAccountCaseReviewWhereInput[]
+    OR?: MultipleAccountCaseReviewWhereInput[]
+    NOT?: MultipleAccountCaseReviewWhereInput | MultipleAccountCaseReviewWhereInput[]
+    caseId?: StringFilter<"MultipleAccountCaseReview"> | string
+    revision?: IntFilter<"MultipleAccountCaseReview"> | number
+    reviewerId?: UuidFilter<"MultipleAccountCaseReview"> | string
+    decision?: StringFilter<"MultipleAccountCaseReview"> | string
+    reason?: StringFilter<"MultipleAccountCaseReview"> | string
+    createdAt?: DateTimeFilter<"MultipleAccountCaseReview"> | Date | string
+    case?: XOR<MultipleAccountCaseScalarRelationFilter, MultipleAccountCaseWhereInput>
+  }, "id" | "caseId_revision">
+
+  export type MultipleAccountCaseReviewOrderByWithAggregationInput = {
+    id?: SortOrder
+    caseId?: SortOrder
+    revision?: SortOrder
+    reviewerId?: SortOrder
+    decision?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    _count?: MultipleAccountCaseReviewCountOrderByAggregateInput
+    _avg?: MultipleAccountCaseReviewAvgOrderByAggregateInput
+    _max?: MultipleAccountCaseReviewMaxOrderByAggregateInput
+    _min?: MultipleAccountCaseReviewMinOrderByAggregateInput
+    _sum?: MultipleAccountCaseReviewSumOrderByAggregateInput
+  }
+
+  export type MultipleAccountCaseReviewScalarWhereWithAggregatesInput = {
+    AND?: MultipleAccountCaseReviewScalarWhereWithAggregatesInput | MultipleAccountCaseReviewScalarWhereWithAggregatesInput[]
+    OR?: MultipleAccountCaseReviewScalarWhereWithAggregatesInput[]
+    NOT?: MultipleAccountCaseReviewScalarWhereWithAggregatesInput | MultipleAccountCaseReviewScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"MultipleAccountCaseReview"> | string
+    caseId?: StringWithAggregatesFilter<"MultipleAccountCaseReview"> | string
+    revision?: IntWithAggregatesFilter<"MultipleAccountCaseReview"> | number
+    reviewerId?: UuidWithAggregatesFilter<"MultipleAccountCaseReview"> | string
+    decision?: StringWithAggregatesFilter<"MultipleAccountCaseReview"> | string
+    reason?: StringWithAggregatesFilter<"MultipleAccountCaseReview"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MultipleAccountCaseReview"> | Date | string
   }
 
   export type ClanWhereInput = {
@@ -60924,6 +63830,233 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type MultipleAccountCaseCreateInput = {
+    id: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+    reviews?: MultipleAccountCaseReviewCreateNestedManyWithoutCaseInput
+  }
+
+  export type MultipleAccountCaseUncheckedCreateInput = {
+    id: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+    reviews?: MultipleAccountCaseReviewUncheckedCreateNestedManyWithoutCaseInput
+  }
+
+  export type MultipleAccountCaseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviews?: MultipleAccountCaseReviewUpdateManyWithoutCaseNestedInput
+  }
+
+  export type MultipleAccountCaseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviews?: MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseNestedInput
+  }
+
+  export type MultipleAccountCaseCreateManyInput = {
+    id: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+  }
+
+  export type MultipleAccountCaseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MultipleAccountCaseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MultipleAccountCaseReviewCreateInput = {
+    id?: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt?: Date | string
+    case: MultipleAccountCaseCreateNestedOneWithoutReviewsInput
+  }
+
+  export type MultipleAccountCaseReviewUncheckedCreateInput = {
+    id?: string
+    caseId: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type MultipleAccountCaseReviewUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    case?: MultipleAccountCaseUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type MultipleAccountCaseReviewUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    caseId?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseReviewCreateManyInput = {
+    id?: string
+    caseId: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type MultipleAccountCaseReviewUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseReviewUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    caseId?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ClanCreateInput = {
     id?: string
     name: string
@@ -64108,6 +67241,191 @@ export namespace Prisma {
 
   export type BannedBrowserMinOrderByAggregateInput = {
     id?: SortOrder
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type MultipleAccountCaseReviewListRelationFilter = {
+    every?: MultipleAccountCaseReviewWhereInput
+    some?: MultipleAccountCaseReviewWhereInput
+    none?: MultipleAccountCaseReviewWhereInput
+  }
+
+  export type MultipleAccountCaseReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MultipleAccountCaseCountOrderByAggregateInput = {
+    id?: SortOrder
+    ruleVersion?: SortOrder
+    signal?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrder
+    userIds?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    confidence?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+    detectedAt?: SortOrder
+    exemptions?: SortOrder
+    excludedCount?: SortOrder
+    status?: SortOrder
+    revision?: SortOrder
+  }
+
+  export type MultipleAccountCaseAvgOrderByAggregateInput = {
+    ruleVersion?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    excludedCount?: SortOrder
+    revision?: SortOrder
+  }
+
+  export type MultipleAccountCaseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ruleVersion?: SortOrder
+    signal?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    confidence?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+    detectedAt?: SortOrder
+    excludedCount?: SortOrder
+    status?: SortOrder
+    revision?: SortOrder
+  }
+
+  export type MultipleAccountCaseMinOrderByAggregateInput = {
+    id?: SortOrder
+    ruleVersion?: SortOrder
+    signal?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    confidence?: SortOrder
+    firstSeen?: SortOrder
+    lastSeen?: SortOrder
+    windowStart?: SortOrder
+    windowEnd?: SortOrder
+    detectedAt?: SortOrder
+    excludedCount?: SortOrder
+    status?: SortOrder
+    revision?: SortOrder
+  }
+
+  export type MultipleAccountCaseSumOrderByAggregateInput = {
+    ruleVersion?: SortOrder
+    accountCount?: SortOrder
+    threshold?: SortOrder
+    excludedCount?: SortOrder
+    revision?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type MultipleAccountCaseScalarRelationFilter = {
+    is?: MultipleAccountCaseWhereInput
+    isNot?: MultipleAccountCaseWhereInput
+  }
+
+  export type MultipleAccountCaseReviewCaseIdRevisionCompoundUniqueInput = {
+    caseId: string
+    revision: number
+  }
+
+  export type MultipleAccountCaseReviewCountOrderByAggregateInput = {
+    id?: SortOrder
+    caseId?: SortOrder
+    revision?: SortOrder
+    reviewerId?: SortOrder
+    decision?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MultipleAccountCaseReviewAvgOrderByAggregateInput = {
+    revision?: SortOrder
+  }
+
+  export type MultipleAccountCaseReviewMaxOrderByAggregateInput = {
+    id?: SortOrder
+    caseId?: SortOrder
+    revision?: SortOrder
+    reviewerId?: SortOrder
+    decision?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MultipleAccountCaseReviewMinOrderByAggregateInput = {
+    id?: SortOrder
+    caseId?: SortOrder
+    revision?: SortOrder
+    reviewerId?: SortOrder
+    decision?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MultipleAccountCaseReviewSumOrderByAggregateInput = {
+    revision?: SortOrder
   }
 
   export type EnumBossNameFilter<$PrismaModel = never> = {
@@ -67704,6 +71022,71 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSharedBrowserExemptionsInput, UserUpdateWithoutSharedBrowserExemptionsInput>, UserUncheckedUpdateWithoutSharedBrowserExemptionsInput>
   }
 
+  export type MultipleAccountCaseCreateuserIdsInput = {
+    set: string[]
+  }
+
+  export type MultipleAccountCaseReviewCreateNestedManyWithoutCaseInput = {
+    create?: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput> | MultipleAccountCaseReviewCreateWithoutCaseInput[] | MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput | MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput[]
+    createMany?: MultipleAccountCaseReviewCreateManyCaseInputEnvelope
+    connect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+  }
+
+  export type MultipleAccountCaseReviewUncheckedCreateNestedManyWithoutCaseInput = {
+    create?: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput> | MultipleAccountCaseReviewCreateWithoutCaseInput[] | MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput | MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput[]
+    createMany?: MultipleAccountCaseReviewCreateManyCaseInputEnvelope
+    connect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+  }
+
+  export type MultipleAccountCaseUpdateuserIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type MultipleAccountCaseReviewUpdateManyWithoutCaseNestedInput = {
+    create?: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput> | MultipleAccountCaseReviewCreateWithoutCaseInput[] | MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput | MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput[]
+    upsert?: MultipleAccountCaseReviewUpsertWithWhereUniqueWithoutCaseInput | MultipleAccountCaseReviewUpsertWithWhereUniqueWithoutCaseInput[]
+    createMany?: MultipleAccountCaseReviewCreateManyCaseInputEnvelope
+    set?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    disconnect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    delete?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    connect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    update?: MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput | MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput[]
+    updateMany?: MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput | MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput[]
+    deleteMany?: MultipleAccountCaseReviewScalarWhereInput | MultipleAccountCaseReviewScalarWhereInput[]
+  }
+
+  export type MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseNestedInput = {
+    create?: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput> | MultipleAccountCaseReviewCreateWithoutCaseInput[] | MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput | MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput[]
+    upsert?: MultipleAccountCaseReviewUpsertWithWhereUniqueWithoutCaseInput | MultipleAccountCaseReviewUpsertWithWhereUniqueWithoutCaseInput[]
+    createMany?: MultipleAccountCaseReviewCreateManyCaseInputEnvelope
+    set?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    disconnect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    delete?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    connect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+    update?: MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput | MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput[]
+    updateMany?: MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput | MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput[]
+    deleteMany?: MultipleAccountCaseReviewScalarWhereInput | MultipleAccountCaseReviewScalarWhereInput[]
+  }
+
+  export type MultipleAccountCaseCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<MultipleAccountCaseCreateWithoutReviewsInput, MultipleAccountCaseUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: MultipleAccountCaseCreateOrConnectWithoutReviewsInput
+    connect?: MultipleAccountCaseWhereUniqueInput
+  }
+
+  export type MultipleAccountCaseUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<MultipleAccountCaseCreateWithoutReviewsInput, MultipleAccountCaseUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: MultipleAccountCaseCreateOrConnectWithoutReviewsInput
+    upsert?: MultipleAccountCaseUpsertWithoutReviewsInput
+    connect?: MultipleAccountCaseWhereUniqueInput
+    update?: XOR<XOR<MultipleAccountCaseUpdateToOneWithWhereWithoutReviewsInput, MultipleAccountCaseUpdateWithoutReviewsInput>, MultipleAccountCaseUncheckedUpdateWithoutReviewsInput>
+  }
+
   export type BruteCreateNestedOneWithoutMasterOfClanInput = {
     create?: XOR<BruteCreateWithoutMasterOfClanInput, BruteUncheckedCreateWithoutMasterOfClanInput>
     connectOrCreate?: BruteCreateOrConnectWithoutMasterOfClanInput
@@ -69194,6 +72577,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBruteReportStatusFilter<$PrismaModel>
     _max?: NestedEnumBruteReportStatusFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumBossNameFilter<$PrismaModel = never> = {
@@ -79924,6 +83330,167 @@ export namespace Prisma {
     levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type MultipleAccountCaseReviewCreateWithoutCaseInput = {
+    id?: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput = {
+    id?: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput = {
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    create: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseReviewCreateManyCaseInputEnvelope = {
+    data: MultipleAccountCaseReviewCreateManyCaseInput | MultipleAccountCaseReviewCreateManyCaseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MultipleAccountCaseReviewUpsertWithWhereUniqueWithoutCaseInput = {
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    update: XOR<MultipleAccountCaseReviewUpdateWithoutCaseInput, MultipleAccountCaseReviewUncheckedUpdateWithoutCaseInput>
+    create: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput = {
+    where: MultipleAccountCaseReviewWhereUniqueInput
+    data: XOR<MultipleAccountCaseReviewUpdateWithoutCaseInput, MultipleAccountCaseReviewUncheckedUpdateWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput = {
+    where: MultipleAccountCaseReviewScalarWhereInput
+    data: XOR<MultipleAccountCaseReviewUpdateManyMutationInput, MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseReviewScalarWhereInput = {
+    AND?: MultipleAccountCaseReviewScalarWhereInput | MultipleAccountCaseReviewScalarWhereInput[]
+    OR?: MultipleAccountCaseReviewScalarWhereInput[]
+    NOT?: MultipleAccountCaseReviewScalarWhereInput | MultipleAccountCaseReviewScalarWhereInput[]
+    id?: UuidFilter<"MultipleAccountCaseReview"> | string
+    caseId?: StringFilter<"MultipleAccountCaseReview"> | string
+    revision?: IntFilter<"MultipleAccountCaseReview"> | number
+    reviewerId?: UuidFilter<"MultipleAccountCaseReview"> | string
+    decision?: StringFilter<"MultipleAccountCaseReview"> | string
+    reason?: StringFilter<"MultipleAccountCaseReview"> | string
+    createdAt?: DateTimeFilter<"MultipleAccountCaseReview"> | Date | string
+  }
+
+  export type MultipleAccountCaseCreateWithoutReviewsInput = {
+    id: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+  }
+
+  export type MultipleAccountCaseUncheckedCreateWithoutReviewsInput = {
+    id: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+  }
+
+  export type MultipleAccountCaseCreateOrConnectWithoutReviewsInput = {
+    where: MultipleAccountCaseWhereUniqueInput
+    create: XOR<MultipleAccountCaseCreateWithoutReviewsInput, MultipleAccountCaseUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type MultipleAccountCaseUpsertWithoutReviewsInput = {
+    update: XOR<MultipleAccountCaseUpdateWithoutReviewsInput, MultipleAccountCaseUncheckedUpdateWithoutReviewsInput>
+    create: XOR<MultipleAccountCaseCreateWithoutReviewsInput, MultipleAccountCaseUncheckedCreateWithoutReviewsInput>
+    where?: MultipleAccountCaseWhereInput
+  }
+
+  export type MultipleAccountCaseUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: MultipleAccountCaseWhereInput
+    data: XOR<MultipleAccountCaseUpdateWithoutReviewsInput, MultipleAccountCaseUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type MultipleAccountCaseUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MultipleAccountCaseUncheckedUpdateWithoutReviewsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+  }
+
   export type BruteCreateWithoutMasterOfClanInput = {
     id?: string
     name: string
@@ -89421,6 +92988,42 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MultipleAccountCaseReviewCreateManyCaseInput = {
+    id?: string
+    revision: number
+    reviewerId: string
+    decision: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type MultipleAccountCaseReviewUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseReviewUncheckedUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    reviewerId?: StringFieldUpdateOperationsInput | string
+    decision?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BruteCreateManyClanInput = {

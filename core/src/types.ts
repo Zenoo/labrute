@@ -3,7 +3,8 @@ import {
   BruteReportStatus, BruteStats,
   Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, DestinyChoiceType, Event, Fight, FightModifier, Gender,
-  InventoryItem, InventoryItemType, KnownFingerprint, Log, Notification,
+  InventoryItem, InventoryItemType, KnownFingerprint, Log, MultipleAccountCase,
+  MultipleAccountCaseReview, Notification,
   PetName, Prisma, SecurityAction, SharedBrowser, SharedBrowserExemption, SkillName, Tournament,
   User, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
@@ -904,7 +905,30 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   })[],
 };
 export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
-export type UserMultipleAccountsListResponse = { ip: string, users: string[] }[];
+export type MultipleAccountCaseStatus = 'open' | 'dismissed' | 'needs-action';
+export type MultipleAccountCaseSummary = Omit<MultipleAccountCase, 'userIds' | 'exemptions'>;
+export type UserMultipleAccountsListResponse = {
+  cases: MultipleAccountCaseSummary[];
+  nextCursor: string | null;
+};
+export type MultipleAccountCaseExemption = {
+  userId: string;
+  browserId: string;
+  reason: string;
+  createdAt: string;
+};
+export type MultipleAccountCaseDetailResponse = {
+  case: MultipleAccountCaseSummary;
+  users: { id: string; name: string | null; bannedAt: Date | null }[];
+  nextAccountOffset: number | null;
+  exemptions: MultipleAccountCaseExemption[];
+  reviews: MultipleAccountCaseReview[];
+};
+export type ReviewMultipleAccountCaseRequest = {
+  revision: number;
+  decision: MultipleAccountCaseStatus;
+  reason: string;
+};
 export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMusic' | 'displayVersusPage' | 'displayOpponentDetails' | 'alwaysDisplayScrubber'>;
 export type UserTransferBruteRequest = {
   bruteId: string;

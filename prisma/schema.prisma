@@ -833,6 +833,45 @@ model BannedBrowser {
   id String @id @db.VarChar(255)
 }
 
+// Immutable evidence snapshots from daily detection; IDs survive account deletion.
+model MultipleAccountCase {
+  id            String                      @id @db.Char(64)
+  ruleVersion   Int
+  signal        String                      @db.VarChar(32)
+  browserId     String?                     @db.Uuid
+  fingerprint   String?                     @db.VarChar(128)
+  ip            String?                     @db.VarChar(45)
+  userIds       String[]                    @db.Uuid
+  accountCount  Int
+  threshold     Int
+  confidence    String                      @db.VarChar(32)
+  firstSeen     DateTime                    @db.Timestamptz(3)
+  lastSeen      DateTime                    @db.Timestamptz(3)
+  windowStart   DateTime                    @db.Timestamptz(3)
+  windowEnd     DateTime                    @db.Timestamptz(3)
+  detectedAt    DateTime                    @db.Timestamptz(3)
+  exemptions    Json
+  excludedCount Int
+  status        String                      @default("open") @db.VarChar(16)
+  revision      Int                         @default(1)
+  reviews       MultipleAccountCaseReview[]
+
+  @@index([status, detectedAt, id])
+}
+
+model MultipleAccountCaseReview {
+  id         String              @id @default(uuid()) @db.Uuid
+  caseId     String              @db.Char(64)
+  case       MultipleAccountCase @relation(fields: [caseId], references: [id], onDelete: Restrict)
+  revision   Int
+  reviewerId String              @db.Uuid
+  decision   String              @db.VarChar(16)
+  reason     String              @db.VarChar(500)
+  createdAt  DateTime            @default(now()) @db.Timestamptz(3)
+
+  @@unique([caseId, revision])
+}
+
 enum BossName {
   GoldClaw
   EmberFang

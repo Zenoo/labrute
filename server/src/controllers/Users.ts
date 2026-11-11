@@ -19,7 +19,6 @@ import {
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserGiveItemRequest,
-  UserMultipleAccountsListResponse,
   UserStatsGetRequest,
   UserStatsGetResponse,
   UserTransferBruteRequest,
@@ -1048,29 +1047,6 @@ export const Users = {
       }));
 
       res.send(users);
-    } catch (error) {
-      sendError(res, error);
-    }
-  },
-  multipleAccountsList: (prisma: PrismaClient) => async (
-    req: Request,
-    res: Response<UserMultipleAccountsListResponse>,
-  ) => {
-    try {
-      await auth(prisma, req, { admin: true });
-
-      const ips = await traced('users.multipleAccountsList.getIps', () => prisma.$queryRaw<UserMultipleAccountsListResponse>`
-        SELECT ip, array_agg(id) AS users
-        FROM (
-          SELECT unnest(ips) AS ip, id
-          FROM "User"
-          WHERE "bannedAt" IS NULL
-        )
-        GROUP BY ip
-        HAVING COUNT(id) > 1;
-      `);
-
-      res.send(ips);
     } catch (error) {
       sendError(res, error);
     }

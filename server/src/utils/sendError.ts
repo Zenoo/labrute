@@ -17,16 +17,20 @@ export enum ErrorCodeStatus {
   AccessDenied = 401,
 }
 
+const expectedStatuses = [
+  [ExpectedError, ErrorCodeStatus.UnexpectedServerError],
+  [InvalidAPIUseError, ErrorCodeStatus.UnexpectedServerError],
+  [ForbiddenError, ErrorCodeStatus.Forbidden],
+  [MissingElementError, ErrorCodeStatus.NotImplemented],
+  [LimitError, ErrorCodeStatus.Conflict],
+  [NotFoundError, ErrorCodeStatus.NotFound],
+] as const;
+
 export const sendError = (res: Response, error: unknown) => {
   if (!(error instanceof Error)) {
     throw error;
   }
-  if (error instanceof ExpectedError) res.status(500);
-  if (error instanceof InvalidAPIUseError) res.status(500);
-  if (error instanceof ForbiddenError) res.status(403);
-  if (error instanceof MissingElementError) res.status(501);
-  if (error instanceof LimitError) res.status(409);
-  if (error instanceof NotFoundError) res.status(404);
+  const expectedStatus = expectedStatuses.find(([ErrorType]) => error instanceof ErrorType)?.[1];
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     switch (error.code) {
@@ -117,7 +121,7 @@ export const sendError = (res: Response, error: unknown) => {
   } else if (error instanceof Prisma.PrismaClientValidationError) {
     res.status(ErrorCodeStatus.UnexpectedServerError).send(error.message);
   } else if (error instanceof Error) {
-    res.status(ErrorCodeStatus.UnexpectedServerError).send(error.message);
+    res.status(expectedStatus ?? ErrorCodeStatus.UnexpectedServerError).send(error.message);
   } else {
     res.status(ErrorCodeStatus.NotImplemented).send(error);
   }
@@ -126,12 +130,7 @@ export const sendError = (res: Response, error: unknown) => {
     DISCORD().invalidAPIUse(res, error.userId);
   }
 
-  if (!(error instanceof ExpectedError)
-    && !(error instanceof InvalidAPIUseError)
-    && !(error instanceof ForbiddenError)
-    && !(error instanceof MissingElementError)
-    && !(error instanceof LimitError)
-    && !(error instanceof NotFoundError)) {
+  if (expectedStatus === undefined) {
     try {
       DISCORD().sendError(error, res);
     } catch (discordError) {

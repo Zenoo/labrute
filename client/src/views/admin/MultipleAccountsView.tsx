@@ -1,52 +1,173 @@
-import { UserMultipleAccountsListResponse } from '@labrute/core';
-import { List, ListItem, ListItemText, Paper, Stack } from '@mui/material';
-import React, { useEffect } from 'react';
-import { Link } from '../../components/Link';
+import type {
+  MultipleAccountCaseDetailResponse, MultipleAccountCaseStatus, UserMultipleAccountsListResponse,
+} from '@labrute/core';
+import {
+  Button, MenuItem, Paper, Stack, TextField, Typography,
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { MultipleAccountCaseEvidence } from '../../components/admin/MultipleAccountCaseEvidence';
 import { Page } from '../../components/Page';
-import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
+const decisions: { value: MultipleAccountCaseStatus; label: string }[] = [
+  { value: 'open', label: 'Open' },
+  { value: 'needs-action', label: 'Needs action' },
+  { value: 'dismissed', label: 'Dismissed' },
+];
+
 export const MultipleAccountsView = () => {
   const Alert = useAlert();
   const { user: admin } = useAuth();
   const Server = useServer();
+  const [status, setStatus] = useState<MultipleAccountCaseStatus>('open');
+  const [cursors, setCursors] = useState<(string | undefined)[]>([undefined]);
+  const [list, setList] = useState<UserMultipleAccountsListResponse>({
+    cases: [], nextCursor: null,
+  });
+  const [selected, setSelected] = useState<string | null>(null);
+  const [offsets, setOffsets] = useState([0]);
+  const [detail, setDetail] = useState<MultipleAccountCaseDetailResponse | null>(null);
+  const [decision, setDecision] = useState<MultipleAccountCaseStatus>('open');
+  const [reason, setReason] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [listFailed, setListFailed] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [refresh, setRefresh] = useState(0);
+  const cursor = cursors[cursors.length - 1];
+  const offset = offsets[offsets.length - 1] ?? 0;
 
-  const [instances, setInstances] = React.useState<UserMultipleAccountsListResponse>([]);
-
-  // Trigger reports fetch when status changes
   useEffect(() => {
-    if (!admin?.admin) return;
+    if (!admin?.admin) {
+      setList({ cases: [], nextCursor: null });
+      setSelected(null);
 
-    Server.User.multipleAccounts().then((data) => {
-      setInstances(data);
-    }).catch(catchError(Alert));
-  }, [admin, Server.User, Alert]);
+      return undefined;
+    }
+
+    let active = true;
+
+    setLoading(true);
+    setListFailed(false);
+    setList({ cases: [], nextCursor: null });
+
+    Server.User.multipleAccounts(status, cursor).then((data) => {
+      if (active) setList(data);
+    }).catch((error) => {
+      if (active) { setListFailed(true); catchError(Alert)(error); }
+    })
+      .finally(() => { if (active) setLoading(false); });
+
+    return () => { active = false; };
+  }, [admin?.admin, Server.User, Alert, status, cursor, refresh]);
+
+  useEffect(() => {
+    setDetail(null);
+
+    if (!admin?.admin || !selected) return undefined;
+
+    let active = true;
+    setDetailLoading(true);
+
+    Server.User.multipleAccountCase(selected, offset).then((data) => {
+      if (active) {
+        setDetail(data);
+        setDecision(data.case.status as MultipleAccountCaseStatus);
+      }
+    }).catch((error) => { if (active) catchError(Alert)(error); })
+      .finally(() => { if (active) setDetailLoading(false); });
+
+    return () => { active = false; };
+  }, [admin?.admin, selected, offset, refresh, Server.User, Alert]);
+
+  const review = async () => {
+    if (!admin?.admin || !selected || !detail || saving || !reason.trim()) return;
+
+    setSaving(true);
+
+    try {
+      await Server.User.reviewMultipleAccountCase(selected, {
+        revision: detail.case.revision, decision, reason,
+      });
+      setReason('');
+    } catch (error) {
+      catchError(Alert)(error);
+    } finally {
+      setSaving(false);
+      setRefresh((value) => value + 1);
+    }
+  };
 
   return (
     <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">Multiple accounts</Text>
-      </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{ mx: 4, p: 2 }}>
         <Stack spacing={2}>
-          {/* Report list */}
-          <List dense>
-            {instances.map((instance) => (
-              <ListItem
-                key={instance.ip}
-              >
-                <ListItemText
-                  primary={instance.ip}
-                  secondary={instance.users.map((u) => (
-                    <Link key={u} to={`/user/${u}`} target="_blank" sx={{ mr: 1 }}>{u}</Link>
-                  ))}
-                />
-              </ListItem>
+          <Typography variant="h4">Multiple-account review cases</Typography>
+          <Typography>
+            Daily observation snapshots. No cases are generated from historical IP arrays.
+          </Typography>
+          <TextField select label="Case status" value={status} disabled={saving} onChange={(event) => {
+            setStatus(event.target.value as MultipleAccountCaseStatus);
+            setCursors([undefined]);
+            setSelected(null);
+            setReason('');
+          }}>
+            {decisions.map((item) => (
+              <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
             ))}
-          </List>
+          </TextField>
+          {loading && <Typography>Loading cases...</Typography>}
+          {listFailed && <Button onClick={() => setRefresh((value) => value + 1)}>
+            Unable to load cases. Retry
+          </Button>}
+          {!loading && !listFailed && !list.cases.length && (
+            <Typography>No cases in this status.</Typography>
+          )}
+          {list.cases.map((item) => (
+            <Button key={item.id} variant={selected === item.id ? 'contained' : 'outlined'}
+              disabled={saving}
+              onClick={() => { setSelected(item.id); setOffsets([0]); setReason(''); }}>
+              {item.signal} - {item.accountCount} accounts
+              {' - '}{new Date(item.detectedAt).toLocaleString()}
+            </Button>
+          ))}
+          <Stack direction="row" spacing={1}>
+            <Button disabled={loading || saving || cursors.length === 1}
+              onClick={() => setCursors((values) => values.slice(0, -1))}>Previous cases</Button>
+            <Button disabled={loading || saving || !list.nextCursor} onClick={() => {
+              if (list.nextCursor) {
+                setCursors((values) => [...values, list.nextCursor ?? undefined]);
+              }
+            }}>Next cases</Button>
+          </Stack>
+          {selected && !detail && (detailLoading
+            ? <Typography>Loading evidence...</Typography>
+            : <Button onClick={() => setRefresh((value) => value + 1)}>Retry evidence</Button>)}
+          {detail && <>
+            <MultipleAccountCaseEvidence detail={detail} />
+            <Stack direction="row" spacing={1}>
+              <Button disabled={saving || offsets.length === 1}
+                onClick={() => setOffsets((values) => values.slice(0, -1))}>
+                Previous accounts
+              </Button>
+              <Button disabled={saving || detail.nextAccountOffset === null} onClick={() => {
+                const nextOffset = detail.nextAccountOffset;
+                if (nextOffset !== null) setOffsets((values) => [...values, nextOffset]);
+              }}>Next accounts</Button>
+            </Stack>
+            <TextField select label="Review decision" value={decision} disabled={saving}
+              onChange={(event) => setDecision(event.target.value as MultipleAccountCaseStatus)}>
+              {decisions.map((item) => (
+                <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+              ))}
+            </TextField>
+            <TextField label="Review reason" multiline value={reason} disabled={saving}
+              inputProps={{ maxLength: 500 }} onChange={(event) => setReason(event.target.value)} />
+            <Button variant="contained" disabled={saving || !reason.trim()} onClick={review}>Save review</Button>
+          </>}
         </Stack>
       </Paper>
     </Page>

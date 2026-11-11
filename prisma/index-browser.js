@@ -417,6 +417,38 @@ exports.Prisma.BannedBrowserScalarFieldEnum = {
   id: 'id'
 };
 
+exports.Prisma.MultipleAccountCaseScalarFieldEnum = {
+  id: 'id',
+  ruleVersion: 'ruleVersion',
+  signal: 'signal',
+  browserId: 'browserId',
+  fingerprint: 'fingerprint',
+  ip: 'ip',
+  userIds: 'userIds',
+  accountCount: 'accountCount',
+  threshold: 'threshold',
+  confidence: 'confidence',
+  firstSeen: 'firstSeen',
+  lastSeen: 'lastSeen',
+  windowStart: 'windowStart',
+  windowEnd: 'windowEnd',
+  detectedAt: 'detectedAt',
+  exemptions: 'exemptions',
+  excludedCount: 'excludedCount',
+  status: 'status',
+  revision: 'revision'
+};
+
+exports.Prisma.MultipleAccountCaseReviewScalarFieldEnum = {
+  id: 'id',
+  caseId: 'caseId',
+  revision: 'revision',
+  reviewerId: 'reviewerId',
+  decision: 'decision',
+  reason: 'reason',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ClanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -596,6 +628,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -604,6 +640,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Lang = exports.$Enums.Lang = {
   en: 'en',
@@ -1002,6 +1044,8 @@ exports.Prisma.ModelName = {
   SharedBrowserExemption: 'SharedBrowserExemption',
   SecurityAction: 'SecurityAction',
   BannedBrowser: 'BannedBrowser',
+  MultipleAccountCase: 'MultipleAccountCase',
+  MultipleAccountCaseReview: 'MultipleAccountCaseReview',
   Clan: 'Clan',
   ClanThread: 'ClanThread',
   ClanPost: 'ClanPost',

@@ -38,6 +38,7 @@ import {
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
   UserStatsGetResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
+  MultipleAccountCaseDetailResponse, MultipleAccountCaseStatus, ReviewMultipleAccountCaseRequest,
   UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse,
   UsersBanRequest,
   UsersUnbanRequest,
@@ -74,7 +75,19 @@ export const Server = {
     ban: (data: UsersBanRequest) => Fetch<never>(`/api/user/ban`, data, 'PATCH'),
     unban: (data: UsersUnbanRequest) => Fetch<never>(`/api/user/unban`, data, 'PATCH'),
     banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
-    multipleAccounts: () => Fetch<UserMultipleAccountsListResponse>('/api/user/multiple-accounts'),
+    multipleAccounts: (status: MultipleAccountCaseStatus, cursor?: string) => Fetch<
+      UserMultipleAccountsListResponse
+    >(
+      '/api/user/multiple-accounts', { status, ...(cursor ? { cursor } : {}) },
+    ),
+    multipleAccountCase: (id: string, offset = 0) => Fetch<MultipleAccountCaseDetailResponse>(
+      `/api/user/multiple-accounts/${id}`, { offset: String(offset) },
+    ),
+    reviewMultipleAccountCase: (id: string, data: ReviewMultipleAccountCaseRequest) => Fetch<{
+      revision: number
+    }>(
+      `/api/user/multiple-accounts/${id}/review`, data, 'PATCH',
+    ),
     knownFingerprintsList: () => Fetch<KnownFingerprintListResponse>('/api/user/known-fingerprints'),
     addKnownFingerprint: (data: KnownFingerprintAddRequest) => Fetch<{ success: boolean }>('/api/user/known-fingerprints', data, 'POST'),
     removeKnownFingerprint: (data: KnownFingerprintRemoveRequest) => Fetch<{ success: boolean }>('/api/user/known-fingerprints', data, 'DELETE'),
