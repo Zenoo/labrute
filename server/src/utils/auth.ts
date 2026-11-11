@@ -107,6 +107,19 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     }
   }
 
+
+  // Store browser ID from cookie
+  if (browserId && !user.browserIds.includes(browserId)) {
+    await traced('auth.updateUserBrowserIds', () => prisma.user.update({
+      where: { id },
+      data: {
+        browserIds: {
+          push: browserId,
+        },
+      },
+    }));
+  }
+
   // Only check current request browser ID
   if (browserId && await ServerState.isBrowserBanned(prisma, browserId)) {
     await banUser(prisma, user.id, 'banned');
@@ -164,18 +177,6 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
       url: request.url,
     }, 'No browser ID detected').catch(() => { /* ignore */ });
     throw new ForbiddenError(translate('banReason.automation', user));
-  }
-
-  // Store browser ID from cookie
-  if (!user.browserIds.includes(browserId)) {
-    await traced('auth.updateUserBrowserIds', () => prisma.user.update({
-      where: { id },
-      data: {
-        browserIds: {
-          push: browserId,
-        },
-      },
-    }));
   }
 
   // Update last seen

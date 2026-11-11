@@ -205,7 +205,7 @@ export class OAuth {
       // Check if any of the user fingerprints are banned
       for (const userFingerprint of user.fingerprints) {
         if (await ServerState.isFingerprintBanned(this.#prisma, userFingerprint)) {
-          LOGGER.log(`User ${user.name} (${user.id}) attempted to log in with a banned fingerprint (${userFingerprint})`);
+          LOGGER.log(`User ${user.name} (${user.id}) attempted to log in. One of its fingerprints is banned (${userFingerprint})`);
           throw new ForbiddenError(translate('fingerprintBanned', user));
         }
       }
